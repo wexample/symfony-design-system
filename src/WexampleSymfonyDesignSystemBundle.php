@@ -12,7 +12,7 @@ class WexampleSymfonyDesignSystemBundle extends Bundle
     {
         $container->addCompilerPass(
             new DesignSystemTemplatesCompilerPass(
-                __DIR__.'/../../../front',
+                __DIR__.'/../front',
                 'SymfonyDesignSystemBundle'
             )
         );

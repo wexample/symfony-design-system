@@ -1,0 +1,14 @@
+parameters:
+    design_system.enable_aggregation: true
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Wexample\SymfonyDesignSystem\Twig\AdaptiveResponseExtension:
+        tags: ['twig.extension']
+
+    Wexample\SymfonyDesignSystem\:
+      resource: '../../{Service,Twig}'
