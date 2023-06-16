@@ -1,6 +1,6 @@
-{%- extends '@WexBaseBundle/Resources/templates/bases/base.html.twig' -%}
+{%- extends '@SymfonyDesignSystemBundle/bases/base.html.twig' -%}
 
-{%- import '@WexBaseBundle/Resources/templates/macros/assets.html.twig' as macro_assets -%}
+{%- import '@SymfonyDesignSystemBundle/macros/assets.html.twig' as macro_assets -%}
 
 {%- block layout_base -%}
     {{- parent() -}}
@@ -10,7 +10,7 @@
         <meta charset="utf-8"/>
         <title>{{ document_head_title ? (document_head_title | trans(document_head_title_args)) ~ ' | ' : '' }}{{ 'common.app::name' | trans }}</title>
         {%- block preloads -%}
-            {{ constant('\\App\\Wex\\BaseBundle\\Helper\\RenderingHelper::PLACEHOLDER_PRELOAD_TAG') | raw }}
+            {{ constant('\\Wexample\\SymfonyDesignSystem\\Helper\\RenderingHelper::PLACEHOLDER_PRELOAD_TAG') | raw }}
         {%- endblock -%}
 
         {%- block styles -%}
