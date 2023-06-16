@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Wex\BaseBundle\Controller;
+namespace Wexample\SymfonyDesignSystem\Controller;
 
 
 abstract class AbstractPagesController extends AbstractController

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Wex\BaseBundle\Controller\Pages;
+namespace Wexample\SymfonyDesignSystem\Controller\Pages;
 
-use App\Wex\BaseBundle\Controller\AbstractPagesController;
-use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
 
 abstract class TestController extends AbstractPagesController
 {
@@ -13,7 +12,7 @@ abstract class TestController extends AbstractPagesController
     public function view(): Response
     {
         return $this->render(
-            '@WexBaseBundle/Resources/templates/pages/_core/test/view.html.twig'
+            '@SymfonyDesignSystemBundle/Resources/templates/pages/_core/test/view.html.twig'
         );
     }
 }
