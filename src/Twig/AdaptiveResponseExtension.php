@@ -2,8 +2,10 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig;
 
+use Symfony\Component\HttpFoundation\RequestStack;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Twig\TwigFunction;
+use Wexample\SymfonyDesignSystem\Service\JsService;
 
 class AdaptiveResponseExtension extends AbstractExtension
 {
@@ -12,6 +14,8 @@ class AdaptiveResponseExtension extends AbstractExtension
      */
     public function __construct(
         protected AdaptiveResponseService $adaptiveResponseService,
+        protected RequestStack $requestStack,
+        protected JsService $jsService
     ) {
     }
 
@@ -42,6 +46,20 @@ class AdaptiveResponseExtension extends AbstractExtension
                     self::FUNCTION_OPTION_NEEDS_CONTEXT => true,
                 ]
             ),
+            new TwigFunction(
+                'adaptive_rendering_base',
+                [
+                    $this,
+                    'adaptiveRenderingBase',
+                ]
+            ),
+            new TwigFunction(
+                'var_js',
+                [
+                    $this,
+                    'varJs',
+                ]
+            ),
         ];
     }
 
@@ -55,6 +73,14 @@ class AdaptiveResponseExtension extends AbstractExtension
             ->adaptiveResponseService
             ->getResponse()
             ->getRenderingBasePath($context);
+    }
+
+    public function adaptiveRenderingBase(): string
+    {
+        return $this
+            ->adaptiveResponseService
+            ->getResponse()
+            ->getRenderingBase();
     }
 
     public function adaptiveResponseSetContext(
@@ -76,5 +102,12 @@ class AdaptiveResponseExtension extends AbstractExtension
             ->adaptiveResponseService
             ->renderPass
             ->revertCurrentContextRenderNode();
+    }
+
+    public function varJs(
+        string $name,
+        mixed $value
+    ): void {
+        $this->jsService->varJs($name, $value);
     }
 }

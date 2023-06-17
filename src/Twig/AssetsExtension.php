@@ -3,9 +3,15 @@
 namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Twig\TwigFunction;
+use Wexample\SymfonyDesignSystem\Service\AssetsService;
 
 class AssetsExtension extends AbstractExtension
 {
+    public function __construct(
+        protected AssetsService $assetsService,
+    ) {
+    }
+
     public function getFunctions(): array
     {
         return [
@@ -35,18 +41,28 @@ class AssetsExtension extends AbstractExtension
 
     public function assetsRenderInitialAggregated(string $pageName, string $type): string
     {
-        return '';
+        return $this
+            ->assetsService
+            ->aggregateInitialAssets(
+                $pageName,
+                $type
+            );
     }
 
     public function assetsTypeFiltered(
         string $contextType,
         string $assetType = null
     ): array {
-        return [];
+        return $this
+            ->assetsService
+            ->assetsFiltered(
+                $contextType,
+                $assetType
+            );
     }
 
     public function assetsPreloadList(string $ext): array
     {
-        return [];
+        return $this->assetsService->assetsPreloadList($ext);
     }
 }

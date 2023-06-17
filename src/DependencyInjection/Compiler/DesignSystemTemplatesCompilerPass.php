@@ -5,7 +5,7 @@ namespace Wexample\SymfonyDesignSystem\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class DesignSystemTemplatesCompilerPass implements CompilerPassInterface
+readonly class DesignSystemTemplatesCompilerPass implements CompilerPassInterface
 {
     public function __construct(
         private string $frontPath,

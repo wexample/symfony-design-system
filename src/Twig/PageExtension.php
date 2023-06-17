@@ -3,9 +3,17 @@
 namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Twig\TwigFunction;
+use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
+use Wexample\SymfonyDesignSystem\Service\PageService;
 
 class PageExtension extends AbstractExtension
 {
+    public function __construct(
+        private readonly AdaptiveResponseService $adaptiveResponseService,
+        private readonly PageService $pageService,
+    ) {
+    }
+
     public function getFunctions(): array
     {
         return [
@@ -29,11 +37,19 @@ class PageExtension extends AbstractExtension
     public function pageInit(
         string $pageName
     ) {
-
+        $this->pageService->pageInit(
+            $this->adaptiveResponseService->renderPass->layoutRenderNode->page,
+            $pageName,
+            $this->adaptiveResponseService->renderPass->layoutRenderNode->useJs
+        );
     }
 
     public function pageNameFromRoute(string $route): string
     {
-        return '';
+        return $this->pageService->buildPageNameFromClassPath(
+            $this->pageService->getControllerClassPathFromRouteName(
+                $route
+            )
+        );
     }
 }

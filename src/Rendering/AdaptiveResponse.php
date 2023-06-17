@@ -2,15 +2,18 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
-use Symfony\Component\HttpFoundation\Request;
 use Wexample\SymfonyDesignSystem\Controller\AbstractController;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
+use Exception;
 use function in_array;
 use function is_null;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdaptiveResponse
 {
@@ -29,10 +32,18 @@ class AdaptiveResponse
     public const RENDER_PARAM_NAME_BASE = 'adaptive_base';
 
     public const RENDER_PARAM_NAME_OUTPUT_TYPE = 'adaptive_output_type';
+
+    private string $body;
+
     private string $outputType;
 
     private string $renderingBase;
 
+    private array $parameters = [];
+
+    private RenderPass $renderPass;
+
+    private ?string $view = null;
 
     protected array $allowedBases = [
         self::BASE_MODAL,
@@ -53,6 +64,23 @@ class AdaptiveResponse
         );
     }
 
+    public function setRenderPass(RenderPass $renderPass)
+    {
+        $this->renderPass = $renderPass;
+    }
+
+    public function setOutputType(string $type): self
+    {
+        $this->outputType = $type;
+
+        return $this;
+    }
+
+    public function getRenderingBase(): string
+    {
+        return $this->renderingBase;
+    }
+
     public function setRenderingBase(string $base): self
     {
         $this->renderingBase = $base;
@@ -60,10 +88,30 @@ class AdaptiveResponse
         return $this;
     }
 
-    public function detectOutputType(): string
+    public function getRenderingBasePath(array $twigContext): string
     {
-        return $this->request->isXmlHttpRequest() ?
-            self::OUTPUT_TYPE_RESPONSE_JSON : self::OUTPUT_TYPE_RESPONSE_HTML;
+        return self::BASES_MAIN_DIR
+            .$this->getOutputType($twigContext)
+            .FileHelper::FOLDER_SEPARATOR
+            .$this->getRenderingBase()
+            .TemplateHelper::TEMPLATE_FILE_EXTENSION;
+    }
+
+    /**
+     * Return detected output type if not overridden in twig.
+     */
+    public function getOutputType(array $twigContext = []): string
+    {
+        return $twigContext[self::RENDER_PARAM_NAME_OUTPUT_TYPE]
+            ?? $this->outputType;
+    }
+    public function isJsonRequest(): bool
+    {
+        return $this->getOutputType() === self::OUTPUT_TYPE_RESPONSE_JSON;
+    }
+    public function isHtmlRequest(): bool
+    {
+        return $this->getOutputType() === self::OUTPUT_TYPE_RESPONSE_HTML;
     }
 
     public function detectRenderingBase(): string
@@ -84,38 +132,112 @@ class AdaptiveResponse
         return self::BASE_DEFAULT;
     }
 
-    public function getRenderingBasePath(array $twigContext): string
+    public function getView(): ?string
     {
-        return self::BASES_MAIN_DIR
-            .$this->getOutputType($twigContext)
-            .FileHelper::FOLDER_SEPARATOR
-            .$this->getRenderingBase()
-            .TemplateHelper::TEMPLATE_FILE_EXTENSION;
+        return $this->view;
     }
 
-    /**
-     * Return detected output type if not overridden in twig.
-     */
-    public function getOutputType(array $twigContext = []): string
-    {
-        return $twigContext[self::RENDER_PARAM_NAME_OUTPUT_TYPE]
-            ?? $this->outputType;
-    }
+    public function setView(
+        string $view,
+        $parameters = null
+    ): self {
+        $this->view = $view;
 
-    public function isJsonRequest(): bool
-    {
-        return $this->getOutputType() === self::OUTPUT_TYPE_RESPONSE_JSON;
-    }
-
-    public function setOutputType(string $type): self
-    {
-        $this->outputType = $type;
+        if ($parameters)
+        {
+            $this->setParameters($parameters);
+        }
 
         return $this;
     }
 
-    public function getRenderingBase(): string
+    public function getParameters(): array
     {
-        return $this->renderingBase;
+        return $this->parameters;
+    }
+
+    public function setParameters(array $parameters): self
+    {
+        $this->parameters = $parameters;
+
+        return $this;
+    }
+
+    public function detectOutputType(): string
+    {
+        return $this->request->isXmlHttpRequest() ?
+            self::OUTPUT_TYPE_RESPONSE_JSON : self::OUTPUT_TYPE_RESPONSE_HTML;
+    }
+
+    public function getBody(): ?string
+    {
+        return $this->body;
+    }
+
+    public function setBody(?string $body = null): AdaptiveResponse
+    {
+        $this->body = $body;
+
+        return $this;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function render(): Response
+    {
+        if ($this->getOutputType() === self::OUTPUT_TYPE_RESPONSE_JSON)
+        {
+            return $this->renderJson();
+        }
+
+        return $this->renderHtml();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function renderHtml(): Response
+    {
+        return $this->renderResponse();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function renderJson(): JsonResponse
+    {
+        $this->renderPass->layoutRenderNode->page->body = $this->renderResponse()->getContent();
+
+        $response = new JsonResponse(
+            $this->renderPass->layoutRenderNode->toRenderData()
+        );
+
+        // Prevents browser to display json response when
+        // clicking on back button.
+        $response->headers->set('Vary', 'Accept');
+
+        return $response;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function renderResponse(): Response
+    {
+        $view = $this->getView();
+
+        if (!$view)
+        {
+            throw new Exception('View must be defined before adaptive rendering');
+        }
+
+        return $this->controller->adaptiveRender(
+            $view,
+            $this->getParameters() + [
+                AdaptiveResponse::RENDER_PARAM_NAME_OUTPUT_TYPE => $this->detectOutputType(),
+                AdaptiveResponse::RENDER_PARAM_NAME_BASE => $this->detectOutputType(),
+            ]
+        );
     }
 }

@@ -5,11 +5,20 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 use Exception;
 use Twig\Environment;
 use Twig\TwigFunction;
-use Wexample\SymfonyDesignSystem\Helper\VariableHelper;
+use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyDesignSystem\Service\LayoutService;
+use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class LayoutExtension extends AbstractExtension
 {
+    public const LAYOUT_NAME_DEFAULT = VariableHelper::DEFAULT;
+
+    public function __construct(
+        private readonly AdaptiveResponseService $adaptiveResponseService,
+        private readonly LayoutService $layoutService,
+    ) {
+    }
+
     public function getFunctions(): array
     {
         return [
@@ -45,11 +54,20 @@ class LayoutExtension extends AbstractExtension
         string $colorScheme,
         bool $useJs = true,
     ): void {
-
+        $this->layoutService->layoutInitInitial(
+            $twig,
+            $layoutName ?: VariableHelper::DEFAULT,
+            $colorScheme,
+            $useJs
+        );
     }
 
     public function layoutRenderInitialData(): array
     {
-        return [];
+        return $this
+            ->adaptiveResponseService
+            ->renderPass
+            ->layoutRenderNode
+            ->toRenderData();
     }
 }

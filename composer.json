@@ -19,7 +19,7 @@
         "php": ">=8.2",
         "wexample/symfony-api": ">=0.1.17",
         "wexample/symfony-helpers": ">=0.1.19",
-        "friendsofsymfony/jsrouting-bundle": "^2.7",
-        "symfony/webpack-encore-bundle": "^1.12"
+        "friendsofsymfony/jsrouting-bundle": "^3.2.1",
+        "symfony/webpack-encore-bundle": "^2.0.1"
     }
 }

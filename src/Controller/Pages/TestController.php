@@ -5,6 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Controller\Pages;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
+use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 
 abstract class TestController extends AbstractPagesController
 {
@@ -12,7 +13,7 @@ abstract class TestController extends AbstractPagesController
     public function view(): Response
     {
         return $this->render(
-            '@SymfonyDesignSystemBundle/Resources/templates/pages/_core/test/view.html.twig'
+            WexampleSymfonyDesignSystemBundle::getAlias() . '/Resources/templates/pages/_core/test/view.html.twig'
         );
     }
 }

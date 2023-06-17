@@ -15,6 +15,16 @@ class LocaleService
     public function transJs(
         string|array $keys,
     ): void {
+        $keys = is_string($keys) ? [$keys] : $keys;
 
+        $currentRenderNode = $this
+            ->adaptiveResponseService
+            ->renderPass
+            ->getCurrentContextRenderNode();
+
+        foreach ($keys as $key)
+        {
+            $currentRenderNode->translations += $this->translator->transFilter($key);
+        }
     }
 }

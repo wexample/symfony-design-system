@@ -2,8 +2,8 @@
 
 namespace Wexample\SymfonyDesignSystem\Translation;
 
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Finder\SplFileInfo;
+use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\SymfonyHelpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
@@ -85,7 +85,7 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
         private readonly array $parameters,
         KernelInterface $kernel,
         CacheInterface $cache,
-        ParameterBagInterface $parameterBag
+        Environment $twig
     ) {
         if ($cache->hasItem(self::CACHE_KEY_TRANSLATIONS_RESOLVED))
         {
@@ -107,11 +107,11 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
                 self::CACHE_KEY_TRANSLATIONS_RESOLVED,
                 function () use (
                     $pathProject,
-                    $parameterBag
+                    $twig
                 ): array {
                     // Search into "translation" folder for sub folders.
                     // Allow notation : path.to.folder::translation.key
-                    $pathTranslationsAll = $parameterBag->get(DesignSystemHelper::CONFIG_PARAMETER_FRONTS);
+                    $pathTranslationsAll = $twig->getLoader()->getPaths(DesignSystemHelper::TWIG_NAMESPACE_FRONT);
                     // Add root translations
                     $pathTranslationsAll[] = $pathProject . '/translations/';
                     $pathTranslationsAll[] = $pathProject . '/front/';
@@ -120,7 +120,6 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
                     {
                         if (file_exists($pathTranslations))
                         {
-                            dump($pathTranslations);
                             $this->addTranslationDirectory($pathTranslations);
                         }
                     }
@@ -221,8 +220,6 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
                 $domain
             );
         }
-
-        dd('..');
 
         return $resolved;
     }
@@ -333,7 +330,6 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
 
         foreach ($output as $outputKey => $outputValue)
         {
-            dump($domain . ' / ' . $outputKey . ' / ' . $outputValue);
             $catalogue->set(
                 $outputKey,
                 $outputValue,

@@ -10,10 +10,19 @@ use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 
 class AdaptiveResponseService
 {
+    public const EVENT_METHODS_PREFIX = 'renderEvent';
+
+    public const EVENT_NAME_POST_RENDER = 'PostRender';
+
     private ?AbstractController $controller = null;
+
     private ?AdaptiveResponse $currentResponse = null;
 
+    private array $renderEventListeners = [];
+
     public RenderPass $renderPass;
+
+    public bool $enableAggregation;
 
     public function __construct(
         private readonly RequestStack $requestStack,
@@ -73,5 +82,25 @@ class AdaptiveResponseService
     public function getController(): ?AbstractController
     {
         return $this->controller;
+    }
+
+    public function addRenderEventListener(object $service)
+    {
+        $this->renderEventListeners[] = $service;
+    }
+
+    public function triggerRenderEvent(string $eventName, array &$options = []): array
+    {
+        $eventName = AdaptiveResponseService::EVENT_METHODS_PREFIX.ucfirst($eventName);
+
+        foreach ($this->renderEventListeners as $service)
+        {
+            if (method_exists($service, $eventName))
+            {
+                $service->$eventName($options);
+            }
+        }
+
+        return $options;
     }
 }
