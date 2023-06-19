@@ -10,6 +10,10 @@ services:
     Wexample\SymfonyDesignSystem\Twig\AdaptiveResponseExtension:
         tags: ['twig.extension']
 
+    Wexample\SymfonyDesignSystem\Command\:
+        resource: '../../Command/*'
+        tags: ['console.command']
+
     Wexample\SymfonyDesignSystem\:
       resource: '../../{Service,Twig}'
 

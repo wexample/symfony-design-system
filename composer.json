@@ -24,7 +24,10 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "npm install --prefix ./vendor/wexample/symfony-design-system/"
+            "php bin/console design-system:check-node-dependencies"
+        ],
+        "post-update-cmd": [
+            "php bin/console design-system:check-node-dependencies"
         ]
     }
 }
