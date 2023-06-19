@@ -15,7 +15,6 @@ tools.logTitle('Vues global');
 
 tools.addAssetsCss(
   __dirname + '/../../css/',
-  __dirname + '/../../css/',
   'vue/',
   'scss'
 );
