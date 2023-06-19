@@ -7,7 +7,7 @@ let entries = {};
 module.exports = {
   jsFilesExtensions: ['js', 'ts'],
   tempPath: './var/tmp/build/',
-  wrapperTemplatePath: './src/Wex/BaseBundle/Resources/js/build/wrapper.js.tpl',
+  wrapperTemplatePath: __dirname + '/../build/wrapper.js.tpl',
   extToTypesMap: {
     css: 'css',
     js: 'js',
@@ -22,7 +22,7 @@ module.exports = {
       `./assets/${type}/`,
       './front/',
       // Core level.
-      `./src/Wex/BaseBundle/Resources/${type}/`,
+      __dirname + `/../../${type}/`,
     ];
   },
 

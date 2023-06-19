@@ -31,9 +31,10 @@ tools.forEachJsExtAndLocations((srcExt, location) => {
 
 tools.logTitle('JS Core level components');
 
+// TODO Get current
 tools.jsFilesExtensions.forEach((srcExt) => {
   tools.addAssetsJsWrapped(
-    './src/Wex/BaseBundle/Resources/js/',
+    __dirname + '/../',
     'components/',
     srcExt,
     'components'
