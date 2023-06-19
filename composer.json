@@ -1,6 +1,6 @@
 {
     "name": "wexample/symfony-design-system",
-    "description": "A simple syntax to expose API in Symfony",
+    "description": "A dynamic rendering system for Symfony",
     "type": "library",
     "license": "MIT",
     "version": "0.1.2",
@@ -21,5 +21,10 @@
         "wexample/symfony-helpers": ">=0.1.19",
         "friendsofsymfony/jsrouting-bundle": "^3.2.1",
         "symfony/webpack-encore-bundle": "^2.0.1"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "npm install --prefix ./vendor/wexample/symfony-design-system/"
+        ]
     }
 }
