@@ -6,6 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Wexample\SymfonyHelpers\Helper\JsonHelper;
 
 class CheckInstallCommand extends Command
 {
@@ -23,8 +24,6 @@ class CheckInstallCommand extends Command
     ): int {
         $io = new SymfonyStyle($input, $output);
 
-        // Spécifiez le chemin vers votre fichier package.json ici.
-        // Dans cet exemple, on suppose qu'il est à la racine du projet.
         $packageJsonPath = getcwd().'/package.json';
 
         if (!file_exists($packageJsonPath)) {
@@ -35,19 +34,23 @@ class CheckInstallCommand extends Command
 
         $packageJsonContent = file_get_contents($packageJsonPath);
         $packageJsonData = json_decode($packageJsonContent, true);
+        $neededDependencies = JsonHelper::read(
+            __DIR__.'/../../package.dependencies.json',
+        );
 
-        // Liste des dépendances Node.js nécessaires
-        $neededDependencies = [
-            'sass',
-            'sass-loader',
-        ];
+        $missingDependencies = [];
 
-        foreach ($neededDependencies as $dependency) {
+        foreach ($neededDependencies->dependencies as $dependency) {
             if (!isset($packageJsonData['dependencies'][$dependency]) && !isset($packageJsonData['devDependencies'][$dependency])) {
-                $io->error("Mission node module '{$dependency}'. Run `npm install {$dependency}, or yarn add {$dependency}`.");
-
-                return Command::FAILURE;
+                $missingDependencies[] = $dependency;
             }
+        }
+
+        if (!empty($missingDependencies)) {
+            $missingDependenciesString = implode(' ', $missingDependencies);
+            $io->error("Missing node modules: '{$missingDependenciesString}'. Run `npm install {$missingDependenciesString}` or `yarn add {$missingDependenciesString}`.");
+
+            return Command::FAILURE;
         }
 
         $io->success('All dependencies are installed.');

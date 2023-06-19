@@ -1,0 +1,10 @@
+{
+  "dependencies": [
+    "sass",
+    "sass-loader",
+    "ts-loader",
+    "typescript",
+    "vue",
+    "vue-loader"
+  ]
+}
