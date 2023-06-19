@@ -4,26 +4,39 @@ namespace Wexample\SymfonyDesignSystem\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Wexample\SymfonyDesignSystem\AbstractDesignSystemBundle;
+use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 
 readonly class DesignSystemTemplatesCompilerPass implements CompilerPassInterface
 {
-    public function __construct(
-        private string $frontPath,
-        private string $alias,
-    ) {
-
-    }
-
     public function process(ContainerBuilder $container)
     {
         $definition = $container->getDefinition('twig.loader.native_filesystem');
+        $bundlesPaths = $container->getParameter('design_system_packages_front_paths');
 
-        $definition->addMethodCall(
-            'addPath',
-            [
-                $this->frontPath,
-                $this->alias,
-            ]
-        );
+        /**
+         * @var AbstractDesignSystemBundle $bundleClass
+         * @var array                      $paths
+         */
+        foreach ($bundlesPaths as $bundleClass => $paths) {
+            foreach ($paths as $path) {
+                $definition->addMethodCall(
+                    'addPath',
+                    [
+                        $path,
+                        $bundleClass::getAlias(),
+                    ]
+                );
+
+                // Add also to allow find all "front" folder, as in translations extension.
+                $definition->addMethodCall(
+                    'addPath',
+                    [
+                        $path,
+                        DesignSystemHelper::TWIG_NAMESPACE_FRONT,
+                    ]
+                );
+            }
+        }
     }
 }
