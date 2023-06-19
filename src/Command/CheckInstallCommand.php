@@ -37,7 +37,10 @@ class CheckInstallCommand extends Command
         $packageJsonData = json_decode($packageJsonContent, true);
 
         // Liste des dépendances Node.js nécessaires
-        $neededDependencies = ['sass-loader'];
+        $neededDependencies = [
+            'sass',
+            'sass-loader',
+        ];
 
         foreach ($neededDependencies as $dependency) {
             if (!isset($packageJsonData['dependencies'][$dependency]) && !isset($packageJsonData['devDependencies'][$dependency])) {
