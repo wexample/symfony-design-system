@@ -4,8 +4,8 @@ namespace Wexample\SymfonyDesignSystem\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Wexample\SymfonyDesignSystem\AbstractDesignSystemBundle;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
+use Wexample\SymfonyHelpers\AbstractBundle;
 
 readonly class DesignSystemTemplatesCompilerPass implements CompilerPassInterface
 {
@@ -15,7 +15,7 @@ readonly class DesignSystemTemplatesCompilerPass implements CompilerPassInterfac
         $bundlesPaths = $container->getParameter('design_system_packages_front_paths');
 
         /**
-         * @var AbstractDesignSystemBundle $bundleClass
+         * @var AbstractBundle $bundleClass
          * @var array                      $paths
          */
         foreach ($bundlesPaths as $bundleClass => $paths) {
