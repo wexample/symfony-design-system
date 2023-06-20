@@ -3,7 +3,7 @@
     "description": "A dynamic rendering system for Symfony",
     "type": "library",
     "license": "MIT",
-    "version": "0.1.2",
+    "version": "0.1.4",
     "autoload": {
         "psr-4": {
             "Wexample\\SymfonyDesignSystem\\": "src/"
@@ -17,9 +17,8 @@
     ],
     "require": {
         "php": ">=8.2",
-        "wexample/symfony-api": ">=0.1.17",
         "wexample/symfony-helpers": ">=0.1.19",
-        "friendsofsymfony/jsrouting-bundle": "^3.2.1",
+        "friendsofsymfony/jsrouting-bundle": "^6.2.*",
         "symfony/webpack-encore-bundle": "^2.0.1"
     },
     "scripts": {
