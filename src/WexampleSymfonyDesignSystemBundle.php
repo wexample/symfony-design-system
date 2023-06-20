@@ -12,7 +12,7 @@ class WexampleSymfonyDesignSystemBundle extends AbstractBundle implements Design
     public static function getDesignSystemFrontPaths(): array
     {
         return [
-            __DIR__.'/../front',
+            __DIR__.'/../front/',
         ];
     }
 

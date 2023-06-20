@@ -24,7 +24,8 @@ readonly class DesignSystemTemplatesCompilerPass implements CompilerPassInterfac
                     'addPath',
                     [
                         $path,
-                        $bundleClass::getAlias(),
+                        class_exists($bundleClass) ?
+                        $bundleClass::getAlias() : $bundleClass,
                     ]
                 );
 

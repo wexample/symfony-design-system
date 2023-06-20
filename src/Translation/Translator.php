@@ -113,8 +113,7 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
                     // Allow notation : path.to.folder::translation.key
                     $pathTranslationsAll = $twig->getLoader()->getPaths(DesignSystemHelper::TWIG_NAMESPACE_FRONT);
                     // Add root translations
-                    $pathTranslationsAll[] = $pathProject . '/translations/';
-                    $pathTranslationsAll[] = $pathProject . '/front/';
+                    $pathTranslationsAll[] = $pathProject . '/translations';
 
                     foreach ($pathTranslationsAll as $pathTranslations)
                     {
@@ -156,7 +155,7 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
                 $exp = explode(FileHelper::EXTENSION_SEPARATOR, $info->filename);
                 $subDir = substr(
                     $info->dirname,
-                    strlen($pathTranslations)
+                    strlen($pathTranslations.FileHelper::FOLDER_SEPARATOR)
                 );
 
                 $domain = [];

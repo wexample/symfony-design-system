@@ -6,6 +6,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Wexample\SymfonyDesignSystem\Interface\DesignSystemBundleInterface;
 use Wexample\SymfonyHelpers\DependencyInjection\AbstractWexampleSymfonyExtension;
 use Wexample\SymfonyHelpers\Helper\ClassHelper;
+use Wexample\SymfonyHelpers\Helper\FileHelper;
+use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class WexampleSymfonyDesignSystemExtension extends AbstractWexampleSymfonyExtension
 {
@@ -18,10 +20,16 @@ class WexampleSymfonyDesignSystemExtension extends AbstractWexampleSymfonyExtens
             $container
         );
 
-        $bundles = $container->getParameter('kernel.bundles');
-        $projectDir = $container->getParameter('kernel.project_dir');
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
 
+        $bundles = $container->getParameter('kernel.bundles');
         $paths = [];
+
+        foreach ($config['front_paths'] as $frontPath) {
+            $paths[VariableHelper::APP][] = realpath($frontPath).FileHelper::FOLDER_SEPARATOR;
+        }
+
         foreach ($bundles as $class) {
             if (ClassHelper::classImplementsInterface(
                 $class,
@@ -31,8 +39,7 @@ class WexampleSymfonyDesignSystemExtension extends AbstractWexampleSymfonyExtens
 
                 $realpath = [];
                 foreach ($bundleFronts as $frontPath) {
-                    // On supprime le chemin du projet du chemin absolu du fichier
-                    $relativePath = '.' . str_replace($projectDir, '', realpath($frontPath)) . '/';
+                    $relativePath = realpath($frontPath).FileHelper::FOLDER_SEPARATOR;
                     $realpath[] = $relativePath;
                 }
 

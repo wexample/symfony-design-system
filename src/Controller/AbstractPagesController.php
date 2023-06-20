@@ -53,7 +53,7 @@ abstract class AbstractPagesController extends AbstractController
             $view = $exp[1];
         }
 
-        return $base.$this->viewPathPrefix.$view.TemplateHelper::TEMPLATE_FILE_EXTENSION;
+        return '@front/' . $base.$this->viewPathPrefix.$view.TemplateHelper::TEMPLATE_FILE_EXTENSION;
     }
 
     protected function renderPage(
