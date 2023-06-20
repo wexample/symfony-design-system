@@ -1,4 +1,4 @@
-import Routing from '../../../../../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
+import Routing from '../../../../../../../vendor/friendsofsymfony/jsrouting-bundle/Resources/public/js/router.min.js';
 import AppService from '../class/AppService';
 
 export default class RoutingService extends AppService {

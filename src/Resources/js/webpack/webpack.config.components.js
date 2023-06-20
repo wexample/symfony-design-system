@@ -1,4 +1,5 @@
 const tools = require('./webpack.tools');
+const path = require('path');
 
 // Project level
 
@@ -31,10 +32,9 @@ tools.forEachJsExtAndLocations((srcExt, location) => {
 
 tools.logTitle('JS Core level components');
 
-// TODO Get current
 tools.jsFilesExtensions.forEach((srcExt) => {
   tools.addAssetsJsWrapped(
-    __dirname + '/../',
+    tools.designSystemPackageRootDir + 'src/Resources/js/',
     'components/',
     srcExt,
     'components'

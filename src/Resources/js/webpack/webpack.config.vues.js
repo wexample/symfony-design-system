@@ -14,14 +14,14 @@ tools.buildAssetsLocationsList('js').forEach((location) => {
 tools.logTitle('Vues global');
 
 tools.addAssetsCss(
-  __dirname + '/../../css/',
+  tools.designSystemPackageRootDir + 'front/css/',
   'vue/',
   'scss'
 );
 
 // We have to define manually which css is for vue components.
 tools.addAssetsCss(
-  __dirname + '/../../css/',
+  tools.designSystemPackageRootDir + 'front/css/',
   'forms_themes/vue/',
   'scss'
 );

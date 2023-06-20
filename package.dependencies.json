@@ -1,8 +1,11 @@
 {
   "dependencies": [
+    "@material/ripple",
+    "@material/web",
     "sass",
     "sass-loader",
     "ts-loader",
+    "tsd",
     "typescript",
     "vue",
     "vue-loader"

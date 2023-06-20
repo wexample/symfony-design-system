@@ -1,14 +1,14 @@
 <script>
 import { ResponsiveServiceEvents } from '../services/ResponsiveService';
-import { Attribute, AttributeValue, TagName } from '../helpers/DomHelper';
-import { shallowCopy as ArrayShallowCopy } from '../helpers/ArrayHelper';
+import { Attribute, AttributeValue, TagName } from '../../src/Resources/js/helpers/DomHelper';
+import { shallowCopy as ArrayShallowCopy } from '../../src/Resources/js/helpers/ArrayHelper';
 import { AssetsServiceType } from '../services/AssetsService';
 import Explorer from './explorer';
 import ColorSchemeService, {
   ColorSchemeServiceEvents,
 } from '../services/ColorSchemeService';
 import { EventsServiceEvents } from '../services/EventsService';
-import { formatBytes } from '../helpers/Number';
+import { formatBytes } from '../../src/Resources/js/helpers/Number';
 import { ComponentsServiceEvents } from '../services/AbstractRenderNodeService';
 
 export default {

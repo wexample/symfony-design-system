@@ -19,6 +19,7 @@ class WexampleSymfonyDesignSystemExtension extends AbstractWexampleSymfonyExtens
         );
 
         $bundles = $container->getParameter('kernel.bundles');
+        $projectDir = $container->getParameter('kernel.project_dir');
 
         $paths = [];
         foreach ($bundles as $class) {
@@ -30,7 +31,9 @@ class WexampleSymfonyDesignSystemExtension extends AbstractWexampleSymfonyExtens
 
                 $realpath = [];
                 foreach ($bundleFronts as $frontPath) {
-                    $realpath[] = realpath($frontPath).'/';
+                    // On supprime le chemin du projet du chemin absolu du fichier
+                    $relativePath = '.' . str_replace($projectDir, '', realpath($frontPath)) . '/';
+                    $realpath[] = $relativePath;
                 }
 
                 $paths[$class] = $realpath;
@@ -38,6 +41,5 @@ class WexampleSymfonyDesignSystemExtension extends AbstractWexampleSymfonyExtens
         }
 
         $container->setParameter('design_system_packages_front_paths', $paths);
-
     }
 }
