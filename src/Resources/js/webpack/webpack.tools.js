@@ -1,12 +1,15 @@
 const Encore = require('@symfony/webpack-encore');
 const glob = require('glob');
 const fs = require('fs');
+const execSync = require('child_process').execSync;
+const path = require('path');
 
 let entries = {};
 
 module.exports = {
   jsFilesExtensions: ['js', 'ts'],
   tempPath: './var/tmp/build/',
+  frontCachePathsFile: path.join(process.cwd(), 'assets', 'front.json'),
   wrapperTemplatePath: __dirname + '/../build/wrapper.js.tpl',
   extToTypesMap: {
     css: 'css',
@@ -16,14 +19,24 @@ module.exports = {
     vue: 'js',
   },
 
+  getFrontPaths() {
+    execSync('php bin/console design-system:get-fronts', {encoding: 'utf-8'});
+
+    if (!fs.existsSync(this.frontCachePathsFile)) {
+      throw new Error('Missing file ' + this.frontCachePathsFile);
+    }
+
+    return JSON.parse(fs.readFileSync(this.frontCachePathsFile, 'utf-8'));
+  },
+
   buildAssetsLocationsList(type) {
     return [
       // Project level.
       `./assets/${type}/`,
       './front/',
-      // Core level.
-      __dirname + `/../../${type}/`,
-    ];
+    ].concat(
+      this.getFrontPaths()
+    );
   },
 
   getFileName(path) {
