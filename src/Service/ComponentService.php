@@ -5,9 +5,14 @@ namespace Wexample\SymfonyDesignSystem\Service;
 use Exception;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
+use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
+use Wexample\SymfonyDesignSystem\Rendering\ComponentRenderNodeManager;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
 use Wexample\SymfonyDesignSystem\Translation\Translator;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
+use Wexample\SymfonyHelpers\Helper\ClassHelper;
+use Wexample\SymfonyHelpers\Helper\FileHelper;
+use Wexample\SymfonyHelpers\Helper\TextHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class ComponentService extends RenderNodeService
@@ -50,7 +55,7 @@ class ComponentService extends RenderNodeService
 
         $locations = [
             // May be rewritten..
-            'vendor/wexample/symfony-design-system/src/' => '\\Wexample\\SymfonyDesignSystem',
+            'vendor/wexample/symfony-design-system/src/' => 'Wexample\\SymfonyDesignSystem\\',
             BundleHelper::DIR_SRC => BundleHelper::CLASS_PATH_PREFIX,
         ];
 

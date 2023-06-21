@@ -3,7 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
-use Wexample\SymfonyDesignSystem\Helper\VariableHelper;
+use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;

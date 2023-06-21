@@ -2,11 +2,23 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig;
 
+use Exception;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
+use Wexample\SymfonyDesignSystem\Service\VueService;
 
 class VueExtension extends AbstractExtension
 {
     public const TEMPLATE_FILE_EXTENSION = '.vue.twig';
+
+    public function __construct(
+        private readonly VueService $vueService
+    ) {
+    }
 
     public function getFilters(): array
     {
@@ -19,11 +31,6 @@ class VueExtension extends AbstractExtension
                 ]
             ),
         ];
-    }
-
-    public function __construct(
-        private VueService $vueService
-    ) {
     }
 
     public function getFunctions(): array

@@ -2,14 +2,14 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering\ComponentManager;
 
-use Wexample\SymfonyDesignSystem\Helper\BundleHelper;
-use Wexample\SymfonyDesignSystem\Helper\FileHelper;
-use Wexample\SymfonyDesignSystem\Helper\VariableHelper;
 use Wexample\SymfonyDesignSystem\Rendering\ComponentRenderNodeManager;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 use Exception;
 use SimpleXMLElement;
+use Wexample\SymfonyHelpers\Helper\BundleHelper;
+use Wexample\SymfonyHelpers\Helper\FileHelper;
+use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class IconRenderNodeManager extends ComponentRenderNodeManager
 {
@@ -20,9 +20,9 @@ class IconRenderNodeManager extends ComponentRenderNodeManager
     public const DIR_BUILD_ICONS = 'icons'.FileHelper::FOLDER_SEPARATOR;
 
     public const REL_PATH_LIB_FONTAWESOME_SVG = FileHelper::FOLDER_SEPARATOR
-    .BundleHelper::WEX_DIR_BASE
+    .'vendor/wexample/symfony-design-system/'
     .BundleHelper::BUNDLE_PATH_RESOURCES
-    .BundleHelper::DIR_RESOURCE_FONTS
+    .'fonts'
     .self::DIR_FONTAWESOME_SVG;
 
     private int $iconHeight = 512;

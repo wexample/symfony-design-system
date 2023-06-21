@@ -2,8 +2,8 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
-use Wexample\SymfonyDesignSystem\Helper\BundleHelper;
-use Wexample\SymfonyDesignSystem\Helper\FileHelper;
+use Wexample\SymfonyHelpers\Helper\BundleHelper;
+use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Twig\VueExtension;
 use function array_shift;
@@ -77,7 +77,7 @@ class Vue
             $templatePath = count(
                 explode(
                     FileHelper::FOLDER_SEPARATOR,
-                    BundleHelper::WEX_TEMPLATE_ALIAS_TEMPLATES
+                    '\\Wexample\\SymfonyDesignSystem\\Resources\\templates\\'
                 )
             ) - 1;
 

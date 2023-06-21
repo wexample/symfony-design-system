@@ -3,11 +3,11 @@
 namespace Wexample\SymfonyDesignSystem\Twig\Macros;
 
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
-use Wexample\SymfonyDesignSystem\Helper\FileHelper;
-use Wexample\SymfonyDesignSystem\Helper\VariableHelper;
+use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use Wexample\SymfonyDesignSystem\Twig\AbstractExtension;
 use Wexample\SymfonyDesignSystem\Twig\ComponentsExtension;
 use Exception;
+use Wexample\SymfonyHelpers\Helper\FileHelper;
 use function explode;
 use function file_get_contents;
 use function json_decode;
@@ -43,7 +43,7 @@ class IconExtension extends AbstractExtension
         protected ComponentsExtension $componentsExtension
     ) {
         $pathBundle = $kernel
-            ->getBundle('WexBaseBundle')
+            ->getBundle('WexampleSymfonyDesignSystemBundle')
             ->getPath();
 
         $this->pathSvgFa = $pathBundle.'/Resources/fonts/fontawesome/svgs/';
