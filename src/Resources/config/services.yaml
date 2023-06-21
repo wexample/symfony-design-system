@@ -1,5 +1,6 @@
 parameters:
-    design_system.enable_aggregation: true
+    # TODO Fix it
+    design_system.enable_aggregation: false
 
 services:
     _defaults:

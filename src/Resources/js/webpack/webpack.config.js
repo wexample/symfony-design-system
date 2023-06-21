@@ -35,7 +35,8 @@ Encore
   .enableBuildNotifications()
   .enableSourceMaps(!isProd)
   // enables hashed filenames (e.g. app.abc123.css)
-  .enableVersioning(isProd)
+  // TODO Fix it
+  // .enableVersioning(isProd)
 
   // Load VueJs.
   .enableVueLoader(() => {}, { runtimeCompilerBuild: true })
