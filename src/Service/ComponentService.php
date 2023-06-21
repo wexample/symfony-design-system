@@ -48,9 +48,9 @@ class ComponentService extends RenderNodeService
 
         $this->componentsClasses = [];
 
-        // TODO Locate components with config like translations
-
         $locations = [
+            // May be rewritten..
+            'vendor/wexample/symfony-design-system/src/' => '\\Wexample\\SymfonyDesignSystem',
             BundleHelper::DIR_SRC => BundleHelper::CLASS_PATH_PREFIX,
         ];
 
