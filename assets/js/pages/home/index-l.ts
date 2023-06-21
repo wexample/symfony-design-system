@@ -1,4 +1,4 @@
-import PageResponsiveDisplay from '../../../../src/Wex/BaseBundle/Resources/js/class/PageResponsiveDisplay';
+import PageResponsiveDisplay from '../../../../src/Resources/js/class/PageResponsiveDisplay';
 
 export default class extends PageResponsiveDisplay {
   async onResponsiveEnter() {

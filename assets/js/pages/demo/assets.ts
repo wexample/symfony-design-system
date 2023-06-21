@@ -1,5 +1,5 @@
-import Page from '../../../../src/Wex/BaseBundle/Resources/js/class/Page';
-import Events from '../../../../src/Wex/BaseBundle/Resources/js/helpers/Events';
+import Page from '../../../../src/Resources/js/class/Page';
+import Events from '../../../../src/Resources/js/helpers/Events';
 
 export default class extends Page {
   async pageReady() {

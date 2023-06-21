@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
+use Wexample\SymfonyHelpers\Helper\RequestHelper;
 
 abstract class TestController extends AbstractPagesController
 {
@@ -22,7 +23,7 @@ abstract class TestController extends AbstractPagesController
         ) ? false : $this->enableAggregation;
 
         return $this->renderPage(
-            WexampleSymfonyDesignSystemBundle::getAlias().'::_core/test/index'
+            '_core/test/index'
         );
     }
 

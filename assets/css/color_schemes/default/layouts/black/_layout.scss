@@ -5,9 +5,9 @@ $global-color-scheme-name: 'default';
 @use '../../../light/layouts/black/layout' as color-scheme-light-layout;
 
 // Allowed partials in all pages.
-@use '../../../../../../src/Wex/BaseBundle/Resources/css/color_schemes/dark/partials/blocks'
+@use '../../../../../../src/Resources/css/color_schemes/dark/partials/blocks'
   as color-scheme-dark-blocks;
-@use '../../../../../../src/Wex/BaseBundle/Resources/css/color_schemes/light/partials/blocks'
+@use '../../../../../../src/Resources/css/color_schemes/light/partials/blocks'
   as color-scheme-light-blocks;
 
 .color-scheme-default {

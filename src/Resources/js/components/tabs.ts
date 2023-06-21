@@ -11,9 +11,7 @@ export default class extends Component {
   protected elContentCurrent?: HTMLElement;
   protected group: string;
 
-  mergeRenderData(renderData: ComponentInterface) {
-    super.mergeRenderData(renderData);
-
+  protected async activateListeners(): Promise<void> {
     this.group = this.options.group;
 
     this.el.querySelectorAll('a.tab-internal').forEach((elTab) => {

@@ -1,7 +1,7 @@
-import Page from '../../../../src/Wex/BaseBundle/Resources/js/class/Page';
-import ModalsService from '../../../../src/Wex/BaseBundle/Resources/js/services/ModalsService';
-import AppService from '../../../../src/Wex/BaseBundle/Resources/js/class/AppService';
-import ServicesRegistryInterface from '../../../../src/Wex/BaseBundle/Resources/js/interfaces/ServicesRegistryInterface';
+import Page from '../../../../src/Resources/js/class/Page';
+import ModalsService from '../../../../src/Resources/js/services/ModalsService';
+import AppService from '../../../../src/Resources/js/class/AppService';
+import ServicesRegistryInterface from '../../../../src/Resources/js/interfaces/ServicesRegistryInterface';
 
 export default class extends Page {
   services: ServicesRegistryInterface;

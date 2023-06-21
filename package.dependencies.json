@@ -2,6 +2,7 @@
   "dependencies": [
     "@material/ripple",
     "@material/web",
+    "material-design-icons",
     "sass",
     "sass-loader",
     "ts-loader",

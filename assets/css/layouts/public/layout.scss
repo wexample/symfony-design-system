@@ -1,10 +1,10 @@
 // Layout.
 @use '../black/layout';
 // Base partials.
-@use '../../../../src/Wex/BaseBundle/Resources/css/shapes/container';
-@use '../../../../src/Wex/BaseBundle/Resources/css/partials/debug';
-@use '../../../../src/Wex/BaseBundle/Resources/css/shapes/pill';
-@use '../../../../src/Wex/BaseBundle/Resources/css/shapes/tab';
+@use '../../../../src/Resources/css/shapes/container';
+@use '../../../../src/Resources/css/partials/debug';
+@use '../../../../src/Resources/css/shapes/pill';
+@use '../../../../src/Resources/css/shapes/tab';
 // Local partials.
 @use 'partials/header';
 

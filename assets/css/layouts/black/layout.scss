@@ -1,8 +1,8 @@
 // Base extension.
-@use '../../../../src/Wex/BaseBundle/Resources/css/layouts/default/layout';
+@use '../../../../src/Resources/css/layouts/default/layout';
 
 // Base partials.
-@use '../../../../src/Wex/BaseBundle/Resources/css/layouts/wex/partials/default';
+@use '../../../../src/Resources/css/layouts/wex/partials/default';
 
 // Layout partials.
 @use '../../partials/fonts';
@@ -12,4 +12,4 @@
   color-scheme-default-layout;
 
 // Allowed partials in all pages.
-@use '../../../../src/Wex/BaseBundle/Resources/css/shapes/block';
+@use '../../../../src/Resources/css/shapes/block';

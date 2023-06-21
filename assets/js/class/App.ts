@@ -1,7 +1,7 @@
-import App from '../../../src/Wex/BaseBundle/Resources/js/class/App';
-import AppService from '../../../src/Wex/BaseBundle/Resources/js/class/AppService';
-import DebugService from '../../../src/Wex/BaseBundle/Resources/js/services/DebugService';
-import VueService from '../../../src/Wex/BaseBundle/Resources/js/services/VueService';
+import App from '../../../src/Resources/js/class/App';
+import AppService from '../../../src/Resources/js/class/AppService';
+import DebugService from '../../../src/Resources/js/services/DebugService';
+import VueService from '../../../src/Resources/js/services/VueService';
 
 export default class extends App {
   getServices(): typeof AppService[] {

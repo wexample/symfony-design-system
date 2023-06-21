@@ -27,7 +27,10 @@ class WexampleSymfonyDesignSystemExtension extends AbstractWexampleSymfonyExtens
         $paths = [];
 
         foreach ($config['front_paths'] as $frontPath) {
-            $paths[VariableHelper::APP][] = realpath($frontPath).FileHelper::FOLDER_SEPARATOR;
+            // Ignore invalid paths.
+            if ($realpath = realpath($frontPath)) {
+                $paths[VariableHelper::APP][] = $realpath.FileHelper::FOLDER_SEPARATOR;
+            }
         }
 
         foreach ($bundles as $class) {

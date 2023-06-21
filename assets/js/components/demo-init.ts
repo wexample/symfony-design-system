@@ -1,4 +1,4 @@
-import Component from '../../../src/Wex/BaseBundle/Resources/js/class/Component';
+import Component from '../../../src/Resources/js/class/Component';
 
 export default class extends Component {
   async mounted() {

@@ -1,2 +1,2 @@
 form_themes:
-  - '@WexBaseBundle/Resources/templates/forms_themes/form.html.twig'
+  - '@SymfonyDesignSystemBundle/forms_themes/form.html.twig'
