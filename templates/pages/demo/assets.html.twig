@@ -1,0 +1,75 @@
+{%- extends 'layouts/public.html.twig' -%}
+
+{%- block layout_config -%}
+    {{ parent() }}
+    {{ var_js('demoVariableLayout', 'demoVariableLayoutValue') }}
+{%- endblock -%}
+
+{%- block page_config -%}
+    {{ parent() }}
+    {{ var_js('demoVariable', 'demoVariableValueOverridden') }}
+    {{ var_js('demoVariable', 'demoVariableValue') }}
+    {{ var_js('demoVariableBoolean', true) }}
+    {{ var_js('demoVariableInteger', 123) }}
+    {{ var_js('demoVariableFloat', 123.456) }}
+    {{ var_js('demoVariableObject', {'key':{'key2':'value'}}) }}
+{%- endblock -%}
+
+{%- block page_body -%}
+    <div class="inline-infos">
+        <div class="info">
+            {{ '@page::infos.page_name' | trans }} : <b>{{ page_name }}</b>
+        </div>
+        <div class="info">
+            {{ '@page::infos.layout_name' | trans }} : <b>{{ layout_name }}</b>
+        </div>
+    </div>
+    <h2>{{ '@page::resources.title' | trans }}</h2>
+    <div class="block">
+        {{ ('@page::resources.body_' ~ (layout_use_js ? '' : 'no_') ~ 'js') | trans | raw }}
+    </div>
+    {% if layout_use_js %}
+        {{ vue('vue/debug-assets') }}
+    {% endif %}
+    <h2>{{ '@page::themes.title' | trans }}</h2>
+    <div class="blocks">
+        <div class="block blocks-col color-scheme-light">
+            {{ component('components/button', {
+                attr:{'data-color-scheme':'dark'},
+                class:'demo-button-switch-color-scheme',
+                text:'Thème sombre'
+            }) }}
+        </div>
+        <div class="block blocks-col color-scheme-light">
+            {{ component('components/button', {
+                attr:{'data-color-scheme':'light'},
+                class:'demo-button-switch-color-scheme',
+                text:'Thème clair'
+            }) }}
+        </div>
+        <div class="block blocks-col color-scheme-light">
+            {{ component('components/button', {
+                attr:{'data-color-scheme':'default'},
+                class:'demo-button-switch-color-scheme',
+                text:'Thème par défaut'
+            }) }}
+        </div>
+    </div>
+    <h2>{{ '@page::breakpoints.title' | trans }}</h2>
+    <div class="blocks blocks-no-stretch blocks-side-column-left">
+        <div class="blocks-col">
+            {% for name,sizeMin in displayBreakpoints %}
+                <div class="inline-infos display-breakpoint display-breakpoint-{{ name }}">
+                    <div class="pill size-name">{{ name }}</div>
+                    <div class="size-min">{{ sizeMin }}px</div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="block color-scheme-light">
+            {{ '@page::breakpoints.body' | trans | raw }}
+            <br>
+            <br>
+            {{ ('@page::breakpoints.body_' ~ (layout_use_js ? '' : 'no_') ~ 'js') | trans | raw }}
+        </div>
+    </div>
+{%- endblock -%}

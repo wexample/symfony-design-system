@@ -1,0 +1,14 @@
+@use '../../../../../src/Wex/BaseBundle/Resources/css/shapes/header';
+
+.layout-header {
+  padding: 1.6rem 2rem;
+
+  .logo {
+    margin: 0 auto 2rem;
+
+    svg {
+      width: 100%;
+      max-width: 6rem;
+    }
+  }
+}

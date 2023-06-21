@@ -1,0 +1,17 @@
+// Layout.
+@use '../black/layout';
+// Base partials.
+@use '../../../../src/Wex/BaseBundle/Resources/css/shapes/container';
+@use '../../../../src/Wex/BaseBundle/Resources/css/partials/debug';
+@use '../../../../src/Wex/BaseBundle/Resources/css/shapes/pill';
+@use '../../../../src/Wex/BaseBundle/Resources/css/shapes/tab';
+// Local partials.
+@use 'partials/header';
+
+#nav-secondary {
+  @extend .pill;
+
+  ul {
+    display: flex;
+  }
+}
