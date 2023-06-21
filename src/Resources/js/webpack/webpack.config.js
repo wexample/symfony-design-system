@@ -1,6 +1,7 @@
 const Encore = require('@symfony/webpack-encore');
 const isProd = Encore.isProduction();
 const webpack = require('webpack');
+const FosRouting = require('fos-router/webpack/FosRouting');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -57,7 +58,10 @@ Encore
 
   // uncomment to get integrity="..." attributes on your script & link tags
   // requires WebpackEncoreBundle 1.4 or higher
-  .enableIntegrityHashes(isProd);
+  .enableIntegrityHashes(isProd)
+
+  // Js routes
+  .addPlugin(new FosRouting());
 
 // uncomment if you use API Platform Admin (composer req api-admin)
 //.enableReactPreset()

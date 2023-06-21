@@ -15,7 +15,7 @@ class RenderingHelper
 
     public const CONTEXT_VUE = VariableHelper::VUE;
 
-    public const PLACEHOLDER_PRELOAD_TAG = '';
+    public const PLACEHOLDER_PRELOAD_TAG = '<-- {{ ADAPTIVE_PRELOAD_PLACEHOLDER }} -->';
 
     public static function buildRenderContextKey(
         string $renderContextType,

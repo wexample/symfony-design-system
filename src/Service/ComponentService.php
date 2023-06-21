@@ -5,6 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Service;
 use Exception;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
 use Wexample\SymfonyDesignSystem\Translation\Translator;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;

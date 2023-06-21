@@ -1,5 +1,4 @@
 const tools = require('./webpack.tools');
-const path = require('path');
 
 // Project level
 
