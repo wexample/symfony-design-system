@@ -5,6 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 use Exception;
 use Twig\Environment;
 use Twig\TwigFunction;
+use Wexample\SymfonyDesignSystem\Helper\PageHelper;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyDesignSystem\Service\LayoutService;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
@@ -50,13 +51,13 @@ class LayoutExtension extends AbstractExtension
      */
     public function layoutInit(
         Environment $twig,
-        ?string $layoutName,
+        ?string $layoutPath,
         string $colorScheme,
         bool $useJs = true,
     ): void {
         $this->layoutService->layoutInitInitial(
             $twig,
-            $layoutName ?: VariableHelper::DEFAULT,
+            PageHelper::pageNameFromPath($layoutPath),
             $colorScheme,
             $useJs
         );

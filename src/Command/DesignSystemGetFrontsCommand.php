@@ -71,11 +71,16 @@ class DesignSystemGetFrontsCommand extends Command
     private function getFrontPaths(): array
     {
         $pathsGroups = $this->parameterBag->get('design_system_packages_front_paths');
+        $rootLen = strlen($this->kernel->getProjectDir().FileHelper::FOLDER_SEPARATOR);
 
         $paths = [];
         foreach ($pathsGroups as $group) {
             foreach ($group as $path) {
-                $paths[] = $path;
+                // Return relative to project root.
+                $paths[] = './'.substr(
+                        $path,
+                        $rootLen
+                    );
             }
         }
 

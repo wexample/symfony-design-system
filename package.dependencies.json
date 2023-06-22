@@ -1,6 +1,10 @@
 {
   "dependencies": [
+    "@fortawesome/fontawesome-free",
+    "@fortawesome/free-brands-svg-icons",
+    "@fortawesome/free-solid-svg-icons",
     "@material/ripple",
+    "@material/button",
     "@material/web",
     "material-design-icons",
     "sass",

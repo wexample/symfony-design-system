@@ -34,11 +34,6 @@ class LayoutRenderNode extends RenderNode
         );
     }
 
-    public function getAssetsName(): string
-    {
-        return 'layouts/'.$this->name.'/layout';
-    }
-
     public function getContextType(): string
     {
         return RenderingHelper::CONTEXT_LAYOUT;

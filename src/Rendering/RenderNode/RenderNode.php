@@ -57,11 +57,6 @@ abstract class RenderNode extends RenderDataGenerator
         );
     }
 
-    public function getAssetsName(): string
-    {
-        return $this->name;
-    }
-
     protected function getRenderContextName(): string
     {
         return $this->name;

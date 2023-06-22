@@ -37,7 +37,7 @@ abstract class TestController extends AbstractPagesController
             ->adaptiveResponseService
             ->createResponse($this)
             ->setView(
-                WexampleSymfonyDesignSystemBundle::getAlias().'/Resources/templates/pages/_core/test/adaptive.html.twig'
+                $this->buildTemplatePath('_core/test/adaptive')
             )
             ->render();
     }
@@ -46,7 +46,7 @@ abstract class TestController extends AbstractPagesController
     public function view(): Response
     {
         return $this->render(
-            WexampleSymfonyDesignSystemBundle::getAlias().'/Resources/templates/pages/_core/test/view.html.twig'
+            '@' . WexampleSymfonyDesignSystemBundle::getAlias().'/pages/_core/test/view.html.twig'
         );
     }
 

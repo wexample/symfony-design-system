@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Helper;
 
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
+use Wexample\SymfonyHelpers\Helper\TextHelper;
 use function str_ends_with;
 use function strlen;
 use function substr;
@@ -13,6 +14,8 @@ class PageHelper
     {
         // Define template name.
         $ext = TemplateHelper::TEMPLATE_FILE_EXTENSION;
+        // Remove the leading @SomeThing.
+        $pagePath = TextHelper::trimFirstChunkIfMoreThanOne($pagePath, '/');
 
         // Path have extension.
         if (str_ends_with($pagePath, $ext))

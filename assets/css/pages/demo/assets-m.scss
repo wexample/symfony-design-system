@@ -1,9 +1,0 @@
-@use '../../../../src/Resources/css/shapes/inline-info-m';
-
-@import '../../mixins/wex';
-
-.display-breakpoint-m {
-  .size-name {
-    background: $wex-sub-color-orange;
-  }
-}
