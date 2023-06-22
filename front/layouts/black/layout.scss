@@ -1,0 +1,10 @@
+// Base extension.
+@use '../default/layout';
+
+// Base partials.
+@use '../wex/partials/default';
+
+// Themes.
+@use '../../css/color_schemes/default/layouts/black/layout' as
+  color-scheme-default-layout;
+

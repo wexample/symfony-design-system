@@ -8,7 +8,7 @@
     <html lang="{{ app.request.locale }}">
     <head>
         <meta charset="utf-8"/>
-        <title>{{ document_head_title ? (document_head_title | trans(document_head_title_args)) ~ ' | ' : '' }}{{ 'common.app::name' | trans }}</title>
+        <title>{{ document_head_title ? (document_head_title | trans(document_head_title_args)) ~ ' | ' : '' }}{{ 'app.global::name' | trans }}</title>
         {%- block preloads -%}
             {{ constant('\\Wexample\\SymfonyDesignSystem\\Helper\\RenderingHelper::PLACEHOLDER_PRELOAD_TAG') | raw }}
         {%- endblock -%}
