@@ -15,7 +15,6 @@ tools.buildAssetsLocationsList('css').forEach((location) => {
 // Take only js that is not in special folders.
 tools.logTitle('JS : mains');
 
-// Take only special folders.
 let allowed = ['layouts'];
 
 tools.forEachJsExtAndLocations((srcExt, location) => {
