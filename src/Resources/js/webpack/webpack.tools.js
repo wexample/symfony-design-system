@@ -21,7 +21,7 @@ module.exports = {
   },
 
   getFrontPaths() {
-    execSync('php bin/console design-system:get-fronts', {encoding: 'utf-8'});
+    execSync('php bin/console symfony-design-system:get-fronts', {encoding: 'utf-8'});
 
     if (!fs.existsSync(this.frontCachePathsFile)) {
       throw new Error('Missing file ' + this.frontCachePathsFile);

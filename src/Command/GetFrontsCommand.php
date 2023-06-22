@@ -20,11 +20,14 @@ class GetFrontsCommand extends AbstractBundleCommand
     use AbstractDesignSystemCommandTrait;
 
     public function __construct(
+        KernelInterface $kernel,
         private readonly ParameterBagInterface $parameterBag,
-        private readonly KernelInterface $kernel,
         string $name = null,
     ) {
-        parent::__construct($name);
+        parent::__construct(
+            $kernel,
+            $name
+        );
     }
 
     protected function execute(

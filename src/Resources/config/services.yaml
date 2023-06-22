@@ -16,7 +16,8 @@ services:
         tags: ['console.command']
 
     Wexample\SymfonyDesignSystem\:
-      resource: '../../{Service,Twig}'
+        resource: '../../{Service,Twig}'
+        tags: ['controller.service_arguments']
 
     # Override translation service.
     Wexample\SymfonyDesignSystem\Translation\Translator:
