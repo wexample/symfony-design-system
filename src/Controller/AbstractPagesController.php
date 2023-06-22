@@ -56,6 +56,23 @@ abstract class AbstractPagesController extends AbstractController
         return '@front/' . $base.$this->viewPathPrefix.$view.TemplateHelper::TEMPLATE_FILE_EXTENSION;
     }
 
+    protected function render(
+        string $view,
+        array $parameters = [],
+        Response $response = null
+    ): Response {
+        if (!is_null($this->requestStack->getMainRequest()->get('no-js')))
+        {
+            $this->enableJavascript = false;
+        }
+
+        return parent::render(
+            $view,
+            $parameters,
+            $response
+        );
+    }
+
     protected function renderPage(
         string $view,
         array $parameters = [],

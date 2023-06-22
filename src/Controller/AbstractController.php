@@ -66,12 +66,6 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
             $this->enableAggregation = $this->getParameter('design_system.enable_aggregation');
         }
 
-        // TODO Fix hos to deal with requestStack
-//        if (!is_null($this->requestStack->getMainRequest()->get('no-js')))
-//        {
-//            $this->enableJavascript = false;
-//        }
-
         $this->adaptiveResponseService->renderPrepare(
             $view,
             $parameters
