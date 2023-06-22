@@ -2,24 +2,23 @@
 
 namespace Wexample\SymfonyDesignSystem\Command;
 
-use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Wexample\SymfonyDesignSystem\Command\Traits\AbstractDesignSystemCommandTrait;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
+use Wexample\SymfonyHelpers\Command\AbstractBundleCommand;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\JsonHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
-#[AsCommand(
-    name: 'design-system:get-fronts',
-    description: 'Return the list of "front" folders.',
-)]
-class DesignSystemGetFrontsCommand extends Command
+class GetFrontsCommand extends AbstractBundleCommand
 {
+    use AbstractDesignSystemCommandTrait;
+
     public function __construct(
         private readonly ParameterBagInterface $parameterBag,
         private readonly KernelInterface $kernel,

@@ -6,11 +6,13 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Wexample\SymfonyDesignSystem\Command\Traits\AbstractDesignSystemCommandTrait;
+use Wexample\SymfonyHelpers\Command\AbstractBundleCommand;
 use Wexample\SymfonyHelpers\Helper\JsonHelper;
 
-class CheckInstallCommand extends Command
+class CheckInstallCommand extends AbstractBundleCommand
 {
-    protected static $defaultName = 'design-system:check-install';
+    use AbstractDesignSystemCommandTrait;
 
     protected function configure(): void
     {
