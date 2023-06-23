@@ -14,18 +14,20 @@ use Wexample\SymfonyHelpers\Command\AbstractBundleCommand;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\JsonHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
+use Wexample\SymfonyHelpers\Service\BundleService;
 
 class GetFrontsCommand extends AbstractBundleCommand
 {
     use AbstractDesignSystemCommandTrait;
 
     public function __construct(
-        KernelInterface $kernel,
+        BundleService $bundleService,
+        private readonly KernelInterface $kernel,
         private readonly ParameterBagInterface $parameterBag,
         string $name = null,
     ) {
         parent::__construct(
-            $kernel,
+            $bundleService,
             $name
         );
     }
