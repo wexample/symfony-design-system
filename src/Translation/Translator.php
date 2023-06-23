@@ -85,27 +85,26 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
         private readonly array $parameters,
         KernelInterface $kernel,
         CacheInterface $cache,
-        Environment $twig
+        Environment $twig,
     ) {
-        if ($cache->hasItem(self::CACHE_KEY_TRANSLATIONS_RESOLVED))
-        {
-            $catalogue = $this->getCatalogue();
+        if ($cache->hasItem(self::CACHE_KEY_TRANSLATIONS_RESOLVED)) {
             /** @var CacheItem $item */
             $item = $cache->getItem(self::CACHE_KEY_TRANSLATIONS_RESOLVED);
             $all = $item->get();
 
-            foreach ($all as $domain => $value)
-            {
-                $catalogue->add($value, $domain);
+            foreach ($all as $locale => $catalogueByLocale) {
+                $catalogue = $this->getCatalogue($locale);
+                foreach ($catalogueByLocale as $domain => $value) {
+                    $catalogue->add($value, $domain);
+                }
             }
-        }
-        else
-        {
+        } else {
             $pathProject = $kernel->getProjectDir();
 
             $cache->get(
                 self::CACHE_KEY_TRANSLATIONS_RESOLVED,
-                function () use (
+                function() use
+                (
                     $pathProject,
                     $twig
                 ): array {
@@ -113,19 +112,26 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
                     // Allow notation : path.to.folder::translation.key
                     $pathTranslationsAll = $twig->getLoader()->getPaths(DesignSystemHelper::TWIG_NAMESPACE_FRONT);
                     // Add root translations
-                    $pathTranslationsAll[] = $pathProject . '/translations';
+                    $pathTranslationsAll[] = $pathProject.'/translations';
 
-                    foreach ($pathTranslationsAll as $pathTranslations)
-                    {
-                        if (file_exists($pathTranslations))
-                        {
-                            $this->addTranslationDirectory($pathTranslations);
+                    foreach ($pathTranslationsAll as $pathTranslations) {
+                        if (file_exists($pathTranslations)) {
+                            $this->addTranslationDirectory(
+                                $pathTranslations,
+                            );
                         }
                     }
 
                     $this->resolveCatalog();
 
-                    return $this->getCatalogue()->all();
+                    $allLocales = $this->getAllLocales();
+                    $allCatalogues = [];
+
+                    foreach ($allLocales as $locale) {
+                        $allCatalogues[$locale] = $this->getCatalogue($locale)->all();
+                    }
+
+                    return $allCatalogues;
                 }
             );
         }
@@ -139,7 +145,9 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
         return $this->translator->getCatalogue($locale);
     }
 
-    public function addTranslationDirectory(string $pathTranslations)
+    public function addTranslationDirectory(
+        string $pathTranslations
+    )
     {
         $it = new RecursiveDirectoryIterator(
             $pathTranslations
@@ -192,13 +200,26 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
      */
     public function resolveCatalog()
     {
-        $catalogue = $this->translator->getCatalogue();
-        $all = $catalogue->all();
+        $locales = $this->getAllLocales();
 
-        foreach ($all as $domain => $translations)
-        {
-            $this->resolveCatalogTranslations($translations, $domain);
+        foreach ($locales as $locale) {
+            $catalogue = $this->translator->getCatalogue($locale);
+            $all = $catalogue->all();
+
+            foreach ($all as $domain => $translations) {
+                $this->resolveCatalogTranslations(
+                    $translations,
+                    $domain,
+                    $locale
+                );
+            }
         }
+    }
+
+    public function getAllLocales():array {
+            $locales = $this->translator->getFallbackLocales();
+            $locales[] = $this->translator->getLocale();
+            return array_unique($locales);
     }
 
     /**
@@ -206,7 +227,8 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
      */
     public function resolveCatalogTranslations(
         array $translations,
-        string $domain
+        string $domain,
+        string $locale
     ): array {
         $translations = $this->resolveExtend($translations);
         $resolved = [];
@@ -216,7 +238,8 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
             $resolved += $this->resolveCatalogItem(
                 $key,
                 $value,
-                $domain
+                $domain,
+                $locale
             );
         }
 
@@ -258,9 +281,10 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
     public function resolveCatalogItem(
         string $key,
         string $value,
-        string $domain
+        string $domain,
+        string $locale
     ): array {
-        $catalogue = $this->translator->getCatalogue();
+        $catalogue = $this->translator->getCatalogue($locale);
         $all = $catalogue->all();
         $output = [];
 
@@ -283,7 +307,8 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
                 $items = $this->resolveCatalogItem(
                     $refKey,
                     $all[$refDomain][$refKey],
-                    $refDomain
+                    $refDomain,
+                    $locale
                 );
             }
             else
@@ -300,7 +325,8 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
 
                 $items += $this->resolveCatalogTranslations(
                     $subTranslations,
-                    $refDomain
+                    $refDomain,
+                    $locale
                 );
             }
 
