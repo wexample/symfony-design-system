@@ -7,6 +7,7 @@ use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 use Exception;
 use SimpleXMLElement;
+use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
@@ -41,9 +42,17 @@ class IconRenderNodeManager extends ComponentRenderNodeManager
         // Avoid duplicates.
         if (!isset($this->icons[$key]))
         {
-            $svgPath = $this->kernel->getProjectDir()
-                .self::REL_PATH_LIB_FONTAWESOME_SVG
-                .$componentRenderNode->options['group'].FileHelper::FOLDER_SEPARATOR
+            $svgPath =
+                BundleHelper::getBundleRootPath(
+                    WexampleSymfonyDesignSystemBundle::class,
+                    $this->kernel
+                )
+                    .'src/'
+                .BundleHelper::BUNDLE_PATH_RESOURCES
+                .'fonts/'
+                .self::DIR_FONTAWESOME_SVG
+                .$componentRenderNode->options['group']
+                .FileHelper::FOLDER_SEPARATOR
                 .$componentRenderNode->options['name']
                 .'.'.FileHelper::FILE_EXTENSION_SVG;
 

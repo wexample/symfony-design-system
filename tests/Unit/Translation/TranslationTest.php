@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Tests\Unit\Translation;
+namespace App\Test\Unit\Translation;
 
-use App\Tests\NetworkTestCase;
-use App\Wex\BaseBundle\Translation\Translator;
+use Wexample\SymfonyDesignSystem\Translation\Translator;
+use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
+use Wexample\SymfonyHelpers\Helper\BundleHelper;
+use Wexample\SymfonyHelpers\Tests\Class\AbstractApplicationTestCase;
 
-class TranslationTest extends NetworkTestCase
+class TranslationTest extends AbstractApplicationTestCase
 {
     protected ?object $translator = null;
 
@@ -26,8 +28,11 @@ class TranslationTest extends NetworkTestCase
         $translator->setLocale('en');
 
         $translator->addTranslationDirectory(
-            self::getContainer()->get('kernel')->getProjectDir()
-            .'/tests/wex/Resources/translations/'
+            BundleHelper::getBundleRootPath(
+                WexampleSymfonyDesignSystemBundle::class,
+                self::$kernel
+            )
+            .'tests/Resources/translations/'
         );
 
         $translator->resolveCatalog();

@@ -1,9 +1,11 @@
 <?php
 
-use App\Tests\NetworkTestCase;
-use App\Wex\BaseBundle\Helper\ClassHelper;
+namespace App\Test\Unit\Helper;
 
-class ClassHelperTest extends NetworkTestCase
+use Wexample\SymfonyHelpers\Helper\ClassHelper;
+use Wexample\SymfonyHelpers\Tests\Class\AbstractApplicationTestCase;
+
+class ClassHelperTest extends AbstractApplicationTestCase
 {
     public function testHelper()
     {

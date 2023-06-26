@@ -1,18 +1,22 @@
 <?php
 
-namespace App\Tests\Integration\Assets;
+namespace Wexample\SymfonyDesignSystem\Tests\Application\Assets;
 
-use App\Tests\NetworkTestCase;
-use App\Wex\BaseBundle\Helper\VariableHelper;
+use App\Controller\Pages\DemoController;
+use Wexample\SymfonyApi\Api\Controller\Test\ResponseController;
+use Wexample\SymfonyDesignSystem\Tests\AbstractDesignSystemTestCase;
+use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use function count;
 
-class AssetsTest extends NetworkTestCase
+class AssetsTest extends AbstractDesignSystemTestCase
 {
     public function testAssetsLoading()
     {
-        $this->newClient();
+        $this->createGlobalClient();
 
         $this->goToRoute(VariableHelper::DEMO.'_'.VariableHelper::ASSETS);
+
+        ResponseController::buildRouteName(DemoController::ROUTE_ASSETS);
 
         $layoutRenderData = $this->getPageLayoutData();
 

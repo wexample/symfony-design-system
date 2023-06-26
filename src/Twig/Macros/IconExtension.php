@@ -3,6 +3,10 @@
 namespace Wexample\SymfonyDesignSystem\Twig\Macros;
 
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
+use Wexample\SymfonyDesignSystem\Tests\AbstractDesignSystemTestCase;
+use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
+use Wexample\SymfonyHelpers\Helper\BundleHelper;
+use Wexample\SymfonyHelpers\Helper\JsonHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use Wexample\SymfonyDesignSystem\Twig\AbstractExtension;
 use Wexample\SymfonyDesignSystem\Twig\ComponentsExtension;
@@ -42,19 +46,13 @@ class IconExtension extends AbstractExtension
         KernelInterface $kernel,
         protected ComponentsExtension $componentsExtension
     ) {
-        $pathBundle = $kernel
-            ->getBundle('WexampleSymfonyDesignSystemBundle')
-            ->getPath();
+        $pathBundle = BundleHelper::getBundleRootPath(WexampleSymfonyDesignSystemBundle::class, $kernel);
 
-        $this->pathSvgFa = $pathBundle.'/Resources/fonts/fontawesome/svgs/';
+        $this->pathSvgFa = $pathBundle.'src/Resources/fonts/fontawesome/svgs/';
 
         $this->icons = (object) [
             self::ICONS_LIBRARY_FA => $this->buildIconsListFa(),
-            self::ICONS_LIBRARY_MATERIAL => json_decode(
-                file_get_contents(
-                    $pathBundle.'/Resources/json/icons-material.json'
-                )
-            ),
+            self::ICONS_LIBRARY_MATERIAL => JsonHelper::read($pathBundle.'src/Resources/json/icons-material.json'),
         ];
     }
 
