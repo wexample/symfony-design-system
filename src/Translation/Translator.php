@@ -69,6 +69,8 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
 
     protected array $domainsStack = [];
 
+    private array $locales = [];
+
     /**
      * @throws InvalidArgumentException|Exception
      */
@@ -79,6 +81,11 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
         Environment $twig,
     ) {
         $pathProject = $kernel->getProjectDir();
+
+        // Merge all existing locales.
+        foreach (array_merge($this->translator->getFallbackLocales(), [$this->getLocale()]) as $locale) {
+            $this->addLocale($locale);
+        }
 
         // Search into "translation" folder for sub folders.
         // Allow notation : path.to.folder::translation.key
@@ -130,6 +137,8 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
                 $domain[] = $exp[0];
                 $domain = implode(self::KEYS_SEPARATOR, $domain);
 
+                $this->addLocale($exp[1]);
+
                 $this->translator->addResource(
                     $info->extension,
                     $file,
@@ -165,11 +174,14 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
         }
     }
 
+    public function addLocale(string $locale): void
+    {
+        $this->locales[$locale] = $locale;
+    }
+
     public function getAllLocales(): array
     {
-        $locales = $this->translator->getFallbackLocales();
-        $locales[] = $this->translator->getLocale();
-        return array_unique($locales);
+        return array_values($this->locales);
     }
 
     public function getLocale(): string

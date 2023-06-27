@@ -21,11 +21,10 @@ class TranslationTest extends AbstractApplicationTestCase
 
     public function testTranslation()
     {
+        /** @var Translator $translator */
         $translator = $this->translator;
 
         $this->assertNotNull($translator);
-
-        $translator->setLocale('en');
 
         $translator->addTranslationDirectory(
             BundleHelper::getBundleRootPath(
@@ -36,6 +35,8 @@ class TranslationTest extends AbstractApplicationTestCase
         );
 
         $translator->resolveCatalog();
+
+        $translator->setLocale('test');
 
         $this->_testOne();
 
@@ -126,8 +127,9 @@ class TranslationTest extends AbstractApplicationTestCase
             $this->translator->trans(
                 $key,
                 $args,
-                $domain
-            )
+                $domain,
+            ),
+            'Translation ' . $domain . '::' . $key . ' is translated as "' . $expectedValue . '"'
         );
     }
 }
