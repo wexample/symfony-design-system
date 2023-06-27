@@ -3,16 +3,13 @@
 namespace Wexample\SymfonyDesignSystem\Translation;
 
 use Exception;
-use JetBrains\PhpStorm\Pure;
 use Psr\Cache\InvalidArgumentException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
-use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Translation\MessageCatalogueInterface;
 use Symfony\Component\Translation\TranslatorBagInterface;
-use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -39,11 +36,6 @@ use function substr;
 
 class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleAwareInterface
 {
-    /**
-     * @var string
-     */
-    private const CACHE_KEY_TRANSLATIONS_RESOLVED = 'translations_resolved';
-
     public const DOMAIN_SEPARATOR = ClassHelper::METHOD_SEPARATOR;
 
     public const DOMAIN_PREFIX = '@';
@@ -78,71 +70,31 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
     protected array $domainsStack = [];
 
     /**
-     * @throws InvalidArgumentException
+     * @throws InvalidArgumentException|Exception
      */
     public function __construct(
-        protected \Symfony\Bundle\FrameworkBundle\Translation\Translator $translator,
+        public \Symfony\Bundle\FrameworkBundle\Translation\Translator $translator,
         private readonly array $parameters,
         KernelInterface $kernel,
-        CacheInterface $cache,
         Environment $twig,
     ) {
-        if ($cache->hasItem(self::CACHE_KEY_TRANSLATIONS_RESOLVED)) {
-            /** @var CacheItem $item */
-            $item = $cache->getItem(self::CACHE_KEY_TRANSLATIONS_RESOLVED);
-            $all = $item->get();
+        $pathProject = $kernel->getProjectDir();
 
-            foreach ($all as $locale => $catalogueByLocale) {
-                $catalogue = $this->getCatalogue($locale);
-                foreach ($catalogueByLocale as $domain => $value) {
-                    $catalogue->add($value, $domain);
-                }
+        // Search into "translation" folder for sub folders.
+        // Allow notation : path.to.folder::translation.key
+        $pathTranslationsAll = $twig->getLoader()->getPaths(DesignSystemHelper::TWIG_NAMESPACE_FRONT);
+        // Add root translations
+        $pathTranslationsAll[] = $pathProject.'/translations';
+
+        foreach ($pathTranslationsAll as $pathTranslations) {
+            if (file_exists($pathTranslations)) {
+                $this->addTranslationDirectory(
+                    $pathTranslations,
+                );
             }
-        } else {
-            $pathProject = $kernel->getProjectDir();
-
-            $cache->get(
-                self::CACHE_KEY_TRANSLATIONS_RESOLVED,
-                function() use
-                (
-                    $pathProject,
-                    $twig
-                ): array {
-                    // Search into "translation" folder for sub folders.
-                    // Allow notation : path.to.folder::translation.key
-                    $pathTranslationsAll = $twig->getLoader()->getPaths(DesignSystemHelper::TWIG_NAMESPACE_FRONT);
-                    // Add root translations
-                    $pathTranslationsAll[] = $pathProject.'/translations';
-
-                    foreach ($pathTranslationsAll as $pathTranslations) {
-                        if (file_exists($pathTranslations)) {
-                            $this->addTranslationDirectory(
-                                $pathTranslations,
-                            );
-                        }
-                    }
-
-                    $this->resolveCatalog();
-
-                    $allLocales = $this->getAllLocales();
-                    $allCatalogues = [];
-
-                    foreach ($allLocales as $locale) {
-                        $allCatalogues[$locale] = $this->getCatalogue($locale)->all();
-                    }
-
-                    return $allCatalogues;
-                }
-            );
         }
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getCatalogue($locale = null): MessageCatalogueInterface
-    {
-        return $this->translator->getCatalogue($locale);
+        $this->resolveCatalog();
     }
 
     public function addTranslationDirectory(
@@ -158,9 +110,10 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
 
             if (FileHelper::FILE_EXTENSION_YML === $info->extension) {
                 $exp = explode(FileHelper::EXTENSION_SEPARATOR, $info->filename);
-                $subDir = substr(
+
+                $subDir = FileHelper::buildRelativePath(
                     $info->dirname,
-                    strlen($pathTranslations.FileHelper::FOLDER_SEPARATOR)
+                    $pathTranslations
                 );
 
                 $domain = [];
@@ -225,6 +178,14 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getCatalogue($locale = null): MessageCatalogueInterface
+    {
+        return $this->translator->getCatalogue($locale);
+    }
+
+    /**
      * @throws Exception
      */
     public function resolveCatalogTranslations(
@@ -232,7 +193,10 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
         string $domain,
         string $locale
     ): array {
-        $translations = $this->resolveExtend($translations);
+        $translations = $this->resolveExtend(
+            $translations,
+            $locale
+        );
         $resolved = [];
 
         foreach ($translations as $key => $value) {
@@ -250,9 +214,11 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
     /**
      * @throws Exception
      */
-    public function resolveExtend(array $translations): array
-    {
-        $catalogue = $this->translator->getCatalogue();
+    public function resolveExtend(
+        array $translations,
+        string $locale
+    ): array {
+        $catalogue = $this->translator->getCatalogue($locale);
         $all = $catalogue->all();
 
         if (isset($translations[static::FILE_EXTENDS])) {
@@ -260,7 +226,7 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
             unset($translations[static::FILE_EXTENDS]);
 
             if (isset($all[$extendsDomain])) {
-                return $translations + $this->resolveExtend($all[$extendsDomain]);
+                return $translations + $this->resolveExtend($all[$extendsDomain], $locale);
             }
 
             throw new Exception('Unable to extend translations. Domain does not exists : '.$extendsDomain);
@@ -509,7 +475,6 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
         $this->translator->setLocale($locale);
     }
 
-    #[Pure]
     public function getCatalogues(): array
     {
         return $this->translator->getCatalogues();
