@@ -10,12 +10,12 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Wexample\SymfonyDesignSystem\Command\Traits\AbstractDesignSystemCommandTrait;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
-use Wexample\SymfonyHelpers\Command\AbstractBundleCommand;
+use Wexample\SymfonyHelpers\Command\AbstractCommand;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\JsonHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
-class GetFrontsCommand extends AbstractBundleCommand
+class GetFrontsCommand extends AbstractCommand
 {
     use AbstractDesignSystemCommandTrait;
 
