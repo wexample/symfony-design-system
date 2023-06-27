@@ -15,8 +15,6 @@ abstract class AbstractDesignSystemTestCase extends AbstractApplicationTestCase
             $matches,
         );
 
-        $this->debugWrite();
-
         return json_decode($matches[1], JSON_OBJECT_AS_ARRAY);
     }
 }
