@@ -34,9 +34,8 @@ module.exports = {
     return [
       // Project level.
       `./assets/${type}/`,
-      './front/',
     ].concat(
-      this.getFrontPaths()
+      Object.values(this.getFrontPaths())
     );
   },
 

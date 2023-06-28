@@ -72,5 +72,8 @@ require('./webpack.config.common');
 require('./webpack.config.pages');
 require('./webpack.config.components');
 require('./webpack.config.vues');
+const tools = require("./webpack.tools");
+
+tools.logTitle('Starting...');
 
 module.exports = Encore;
