@@ -3,8 +3,10 @@
     "description": "A dynamic rendering system for Symfony",
     "type": "library",
     "license": "MIT",
-    "version": "0.1.22",
-    "keywords": ["symfony-ux"],
+    "version": "0.1.23",
+    "keywords": [
+        "symfony-ux"
+    ],
     "autoload": {
         "psr-4": {
             "Wexample\\SymfonyDesignSystem\\": "src/"
@@ -18,8 +20,8 @@
     ],
     "require": {
         "php": ">=8.2",
-        "wexample/symfony-helpers": "^0.1.63",
-        "wexample/symfony-translations": "^0.1.2",
+        "wexample/symfony-helpers": "^0.1.64",
+        "wexample/symfony-translations": "^0.1.3",
         "friendsofsymfony/jsrouting-bundle": "^3.2.1",
         "symfony/webpack-encore-bundle": "^2.0.1"
     },
