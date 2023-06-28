@@ -6,13 +6,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Wexample\SymfonyDesignSystem\DependencyInjection\Compiler\DesignSystemTemplatesCompilerPass;
 use Wexample\SymfonyDesignSystem\Interface\DesignSystemBundleInterface;
 use Wexample\SymfonyHelpers\AbstractBundle;
+use Wexample\SymfonyHelpers\Helper\BundleHelper;
 
 class WexampleSymfonyDesignSystemBundle extends AbstractBundle implements DesignSystemBundleInterface
 {
     public static function getDesignSystemFrontPaths(): array
     {
         return [
-            __DIR__.'/../assets/',
+            BundleHelper::getBundleCssAlias(static::class) => __DIR__.'/../assets/',
         ];
     }
 

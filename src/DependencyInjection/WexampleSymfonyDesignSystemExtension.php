@@ -41,9 +41,14 @@ class WexampleSymfonyDesignSystemExtension extends AbstractWexampleSymfonyExtens
                 $bundleFronts = $class::getDesignSystemFrontPaths();
 
                 $realpath = [];
-                foreach ($bundleFronts as $frontPath) {
+                foreach ($bundleFronts as $alias => $frontPath) {
                     $relativePath = realpath($frontPath).FileHelper::FOLDER_SEPARATOR;
-                    $realpath[] = $relativePath;
+
+                    if (is_string($alias)) {
+                        $realpath[$alias] = $relativePath;
+                    } else {
+                        $realpath[] = $relativePath;
+                    }
                 }
 
                 $paths[$class] = $realpath;
