@@ -51,8 +51,6 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
 
     /**
      * Overrides default render, adding some magic.
-     *
-     * @param Response|null $response
      */
     protected function render(
         string $view,

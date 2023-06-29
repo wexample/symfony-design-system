@@ -36,8 +36,7 @@ class AdaptiveResponseService
     ): void {
         // Response may be explicitly created in controller,
         // but if not we need at least one to detect layout base name.
-        if (!$this->getResponse())
-        {
+        if (!$this->getResponse()) {
             $this->createResponse($this->controller);
         }
 
@@ -93,10 +92,8 @@ class AdaptiveResponseService
     {
         $eventName = AdaptiveResponseService::EVENT_METHODS_PREFIX.ucfirst($eventName);
 
-        foreach ($this->renderEventListeners as $service)
-        {
-            if (method_exists($service, $eventName))
-            {
+        foreach ($this->renderEventListeners as $service) {
+            if (method_exists($service, $eventName)) {
                 $service->$eventName($options);
             }
         }

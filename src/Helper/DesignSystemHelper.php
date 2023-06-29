@@ -7,7 +7,7 @@ use Wexample\SymfonyHelpers\Helper\FileHelper;
 
 class DesignSystemHelper
 {
-    public final const BUNDLE_NAME = 'SymfonyDesignSystemBundle';
-    public final const FOLDER_FRONT_ALIAS = BundleHelper::ALIAS_PREFIX.DesignSystemHelper::BUNDLE_NAME.FileHelper::FOLDER_SEPARATOR;
-    public final const TWIG_NAMESPACE_FRONT = 'front';
+    final public const BUNDLE_NAME = 'SymfonyDesignSystemBundle';
+    final public const FOLDER_FRONT_ALIAS = BundleHelper::ALIAS_PREFIX.DesignSystemHelper::BUNDLE_NAME.FileHelper::FOLDER_SEPARATOR;
+    final public const TWIG_NAMESPACE_FRONT = 'front';
 }

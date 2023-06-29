@@ -3,16 +3,14 @@
 namespace Wexample\SymfonyDesignSystem\Helper;
 
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
-use function implode;
-use function is_null;
 
 class DomHelper
 {
-    const TAG_DIV = 'div';
+    public const TAG_DIV = 'div';
 
-    const TAG_SPAN = 'span';
+    public const TAG_SPAN = 'span';
 
-    const TAG_LINK = 'link';
+    public const TAG_LINK = 'link';
 
     public const TAG_ALLOWS_AUTO_CLOSING = [
         'div' => false,
@@ -24,15 +22,13 @@ class DomHelper
         $output = [];
         $attributes = $attributes ?: [];
 
-        foreach ($attributes as $key => $value)
-        {
-            if ($value !== null)
-            {
+        foreach ($attributes as $key => $value) {
+            if (null !== $value) {
                 $output[] = $key.'="'.$value.'"';
             }
         }
 
-        return implode(VariableHelper::_SPACE, $output);
+        return \implode(VariableHelper::_SPACE, $output);
     }
 
     public static function buildTag(
@@ -46,17 +42,13 @@ class DomHelper
         $outputAttributes = static::buildTagAttributes($attributes);
         $output .= $outputAttributes ? ' '.$outputAttributes : '';
 
-        if (is_null($allowSingleTag))
-        {
+        if (\is_null($allowSingleTag)) {
             $allowSingleTag = static::TAG_ALLOWS_AUTO_CLOSING[$tagName] ?? false;
         }
 
-        if ($allowSingleTag && !$body)
-        {
+        if ($allowSingleTag && !$body) {
             $output .= '/>';
-        }
-        else
-        {
+        } else {
             $output .= '>'.$body.'</'.$tagName.'>';
         }
 

@@ -2,7 +2,11 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
-
+use JetBrains\PhpStorm\Pure;
+use Psr\Cache\InvalidArgumentException;
+use Symfony\Component\Cache\CacheItem;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 use Wexample\SymfonyDesignSystem\Helper\ColorSchemeHelper;
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
@@ -11,21 +15,6 @@ use Wexample\SymfonyDesignSystem\Rendering\RenderNode\RenderNode;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\JsonHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
-use function array_merge;
-use function array_reverse;
-use function basename;
-use function dirname;
-use Exception;
-use function file_get_contents;
-use function implode;
-use JetBrains\PhpStorm\Pure;
-use function json_decode;
-use Psr\Cache\InvalidArgumentException;
-use function realpath;
-use function str_replace;
-use Symfony\Component\Cache\CacheItem;
-use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Contracts\Cache\CacheInterface;
 
 class AssetsService
 {
@@ -84,14 +73,11 @@ class AssetsService
         $this->pathBuild = $this->pathPublic.self::DIR_BUILD;
 
         // Assets registry is cached as manifest file may be unstable.
-        if ($cache->hasItem(self::CACHE_KEY_ASSETS_REGISTRY))
-        {
+        if ($cache->hasItem(self::CACHE_KEY_ASSETS_REGISTRY)) {
             /** @var CacheItem $item */
             $item = $cache->getItem(self::CACHE_KEY_ASSETS_REGISTRY);
             $this->registry = $item->get();
-        }
-        else
-        {
+        } else {
             $cache->get(
                 self::CACHE_KEY_ASSETS_REGISTRY,
                 function (): array {
@@ -114,13 +100,11 @@ class AssetsService
     public function replacePreloadPlaceholder(
         string $rendered
     ): string {
-        if (str_contains($rendered, RenderingHelper::PLACEHOLDER_PRELOAD_TAG))
-        {
+        if (str_contains($rendered, RenderingHelper::PLACEHOLDER_PRELOAD_TAG)) {
             $renderPass = $this->adaptiveResponseService->renderPass;
             $html = '';
 
-            if ($renderPass->getEnableAggregation())
-            {
+            if ($renderPass->getEnableAggregation()) {
                 $pageName = $this->adaptiveResponseService->renderPass->pageName;
 
                 $html .= $this->buildPreloadTag(
@@ -132,9 +116,7 @@ class AssetsService
                     $this->buildAggregatedPublicPath($pageName, Asset::EXTENSION_JS),
                     Asset::EXTENSION_JS
                 );
-            }
-            else
-            {
+            } else {
                 $html .= $this->buildPreloadTagsForAssetsType(
                     Asset::EXTENSION_CSS
                 );
@@ -144,7 +126,7 @@ class AssetsService
                 );
             }
 
-            return str_replace(
+            return \str_replace(
                 RenderingHelper::PLACEHOLDER_PRELOAD_TAG,
                 $html,
                 $rendered
@@ -163,15 +145,14 @@ class AssetsService
             false
         );
 
-        foreach ($assets as $path)
-        {
+        foreach ($assets as $path) {
             $output[] = $this->buildPreloadTag(
                 $path,
                 $type
             );
         }
 
-        return implode(PHP_EOL, $output);
+        return \implode(PHP_EOL, $output);
     }
 
     protected function buildPreloadTag(
@@ -183,7 +164,7 @@ class AssetsService
             [
                 'rel' => VariableHelper::PRELOAD,
                 'href' => $path,
-                'as' => Asset::PRELOAD_BY_ASSET_TYPE[$type]
+                'as' => Asset::PRELOAD_BY_ASSET_TYPE[$type],
             ]
         );
     }
@@ -203,9 +184,9 @@ class AssetsService
         return FileHelper::FOLDER_SEPARATOR.
             $this->buildAggregatedPathFromPageName($pageName, $type)
             .(
-            isset($this->aggregationHash[$type.'-'.$pageName])
-                ? '?'.$this->aggregationHash[$type.'-'.$pageName]
-                : ''
+                isset($this->aggregationHash[$type.'-'.$pageName])
+                    ? '?'.$this->aggregationHash[$type.'-'.$pageName]
+                    : ''
             );
     }
 
@@ -215,8 +196,7 @@ class AssetsService
         bool $serverPath
     ): array {
         $basePath = '';
-        if ($serverPath)
-        {
+        if ($serverPath) {
             $basePath = rtrim(
                 $this->pathPublic,
                 FileHelper::FOLDER_SEPARATOR
@@ -226,8 +206,7 @@ class AssetsService
         $aggregatePaths = [];
 
         // Per type specific assets.
-        if ($type === Asset::EXTENSION_JS)
-        {
+        if (Asset::EXTENSION_JS === $type) {
             $runtimePath = $basePath.FileHelper::FOLDER_SEPARATOR.'build/runtime.js';
 
             if (is_file($runtimePath)) {
@@ -236,12 +215,9 @@ class AssetsService
         }
 
         /** @var Asset $asset */
-        foreach ($this->assets[$type] as $asset)
-        {
+        foreach ($this->assets[$type] as $asset) {
             if ($asset->isServerSideRendered()
-                && $asset->type === $type)
-            {
-
+                && $asset->type === $type) {
                 $aggregatePaths[] = $basePath.$asset->path;
             }
         }
@@ -262,14 +238,12 @@ class AssetsService
         );
 
         $aggregated = [];
-        foreach ($aggregatePaths as $path)
-        {
-            if (!isset($aggregated[$path]))
-            {
+        foreach ($aggregatePaths as $path) {
+            if (!isset($aggregated[$path])) {
                 $aggregated[$path] = true;
                 $output .=
                     PHP_EOL.'/* '.$path.' */ '.PHP_EOL
-                    .file_get_contents($path);
+                    .\file_get_contents($path);
             }
         }
 
@@ -289,9 +263,8 @@ class AssetsService
         RenderNode $context,
         array &$collection = []
     ): array {
-        foreach (Asset::ASSETS_EXTENSIONS as $ext)
-        {
-            $collection[$ext] = array_merge(
+        foreach (Asset::ASSETS_EXTENSIONS as $ext) {
+            $collection[$ext] = \array_merge(
                 $collection[$ext] ?? [],
                 $this->assetsDetectForType(
                     $path,
@@ -321,21 +294,19 @@ class AssetsService
             $assetPathFull,
             $renderNode,
             Asset::USAGE_INITIAL
-        ))
-        {
+        )) {
             $output[] = $asset;
         }
 
         // Add responsive assets.
 
-        $breakpointsReverted = array_reverse(
+        $breakpointsReverted = \array_reverse(
             self::DISPLAY_BREAKPOINTS
         );
         $maxWidth = null;
 
-        foreach ($breakpointsReverted as $breakpointName => $minWidth)
-        {
-            $assetPathFull = implode(
+        foreach ($breakpointsReverted as $breakpointName => $minWidth) {
+            $assetPathFull = \implode(
                 FileHelper::FOLDER_SEPARATOR,
                 [
                     $ext,
@@ -347,8 +318,7 @@ class AssetsService
                 $assetPathFull,
                 $renderNode,
                 Asset::USAGE_RESPONSIVE
-            ))
-            {
+            )) {
                 $asset->responsive = $breakpointName;
                 $asset->media = 'screen and (min-width:'.$minWidth.'px)'.
                     ($maxWidth ? ' and (max-width:'.$maxWidth.'px)' : '');
@@ -360,16 +330,14 @@ class AssetsService
         }
 
         // Prevent infinite loops.
-        if ($searchColorScheme)
-        {
+        if ($searchColorScheme) {
             // Add color scheme assets.
-            $basename = basename($renderNodeName);
-            $dirname = dirname($renderNodeName);
-            foreach (ColorSchemeHelper::SCHEMES as $colorSchemeName)
-            {
+            $basename = \basename($renderNodeName);
+            $dirname = \dirname($renderNodeName);
+            foreach (ColorSchemeHelper::SCHEMES as $colorSchemeName) {
                 // Color scheme's version should be place in :
                 // colors/[dark|light|...]/same/path
-                $colorSchemePageName = implode(
+                $colorSchemePageName = \implode(
                     FileHelper::FOLDER_SEPARATOR,
                     [
                         self::COLOR_SCHEME_DIR,
@@ -387,8 +355,7 @@ class AssetsService
                 );
 
                 /** @var Asset $asset */
-                foreach ($assets as $asset)
-                {
+                foreach ($assets as $asset) {
                     $asset->colorScheme = $colorSchemeName;
                     $output[] = $asset;
                 }
@@ -401,7 +368,7 @@ class AssetsService
     protected array $assetsLoaded = [];
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function addAsset(
         string $pathRelative,
@@ -409,18 +376,15 @@ class AssetsService
         string $usage
     ): ?Asset {
         $pathRelativeToPublic = self::DIR_BUILD.$pathRelative;
-        if (!isset($this->registry[$pathRelativeToPublic]))
-        {
+        if (!isset($this->registry[$pathRelativeToPublic])) {
             return null;
         }
 
-        if (!isset($this->assetsLoaded[$pathRelative]))
-        {
-            $pathReal = realpath($this->pathPublic.$this->registry[$pathRelativeToPublic]);
+        if (!isset($this->assetsLoaded[$pathRelative])) {
+            $pathReal = \realpath($this->pathPublic.$this->registry[$pathRelativeToPublic]);
 
-            if (!$pathReal)
-            {
-                throw new Exception('Unable to find asset "'.$this->registry[$pathRelativeToPublic].'" from manifest for render node '.$renderNode->name);
+            if (!$pathReal) {
+                throw new \Exception('Unable to find asset "'.$this->registry[$pathRelativeToPublic].'" from manifest for render node '.$renderNode->name);
             }
 
             $asset = new Asset(
@@ -431,9 +395,7 @@ class AssetsService
             );
 
             $this->assetsLoaded[$pathRelative] = $asset;
-        }
-        else
-        {
+        } else {
             $asset = $this->assetsLoaded[$pathRelative];
         }
 
@@ -448,10 +410,8 @@ class AssetsService
         bool $useJs
     ) {
         /** @var Asset $asset */
-        foreach ($assets as $asset)
-        {
-            if ($asset->getIsReadyForServerSideRendering($colorScheme, $useJs))
-            {
+        foreach ($assets as $asset) {
+            if ($asset->getIsReadyForServerSideRendering($colorScheme, $useJs)) {
                 $asset->preload = true;
             }
         }
@@ -463,10 +423,8 @@ class AssetsService
         $output = [];
 
         /** @var Asset $asset */
-        foreach ($assets as $asset)
-        {
-            if ($asset->preload)
-            {
+        foreach ($assets as $asset) {
+            if ($asset->preload) {
                 $output[] = $asset;
             }
         }
@@ -482,9 +440,8 @@ class AssetsService
         $assets = [];
 
         /** @var RenderNode $renderNode */
-        foreach ($registry[$contextType] as $renderNode)
-        {
-            $assets = array_merge(
+        foreach ($registry[$contextType] as $renderNode) {
+            $assets = \array_merge(
                 $assets,
                 $renderNode->assets[$assetType]
             );

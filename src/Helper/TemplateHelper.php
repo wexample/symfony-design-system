@@ -19,8 +19,7 @@ class TemplateHelper
     ): array {
         $output = [];
 
-        foreach (self::TEMPLATES_LOCATIONS as $location)
-        {
+        foreach (self::TEMPLATES_LOCATIONS as $location) {
             $output[] = $location.$relativePath.$pageExtension;
         }
 

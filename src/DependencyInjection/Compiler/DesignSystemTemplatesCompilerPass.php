@@ -16,7 +16,7 @@ readonly class DesignSystemTemplatesCompilerPass implements CompilerPassInterfac
 
         /**
          * @var AbstractBundle $bundleClass
-         * @var array                      $paths
+         * @var array          $paths
          */
         foreach ($bundlesPaths as $bundleClass => $paths) {
             foreach ($paths as $path) {

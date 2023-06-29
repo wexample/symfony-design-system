@@ -2,23 +2,11 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
-use Wexample\SymfonyHelpers\Helper\BundleHelper;
-use Wexample\SymfonyHelpers\Helper\FileHelper;
+use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Twig\VueExtension;
-use function array_shift;
-use function array_slice;
-use function count;
-use Exception;
-use function explode;
-use function implode;
-use function md5;
-use function microtime;
-use function mt_getrandmax;
-use function random_int;
-use function str_replace;
-use function strtolower;
-use Twig\Environment;
+use Wexample\SymfonyHelpers\Helper\BundleHelper;
+use Wexample\SymfonyHelpers\Helper\FileHelper;
 
 class Vue
 {
@@ -27,16 +15,16 @@ class Vue
     public string $name;
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function __construct(public string $path)
     {
         $this->name = $this->buildName($this->path);
-        $this->id = $this->name.'-'.md5(random_int(0, mt_getrandmax()).microtime());
+        $this->id = $this->name.'-'.\md5(\random_int(0, \mt_getrandmax()).\microtime());
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function findTemplate(Environment $twigEnvironment): string
     {
@@ -49,17 +37,14 @@ class Vue
             VueExtension::TEMPLATE_FILE_EXTENSION
         );
 
-        foreach ($locations as $fullPath)
-        {
-            if (!$pathTemplate && $loader->exists($fullPath))
-            {
+        foreach ($locations as $fullPath) {
+            if (!$pathTemplate && $loader->exists($fullPath)) {
                 $pathTemplate = $fullPath;
             }
         }
 
-        if (!$pathTemplate)
-        {
-            throw new Exception('Unable to find vue template, searched in '.implode(',', $locations));
+        if (!$pathTemplate) {
+            throw new \Exception('Unable to find vue template, searched in '.\implode(',', $locations));
         }
 
         return $pathTemplate;
@@ -67,33 +52,32 @@ class Vue
 
     public function buildName(string $path): string
     {
-        if (BundleHelper::ALIAS_PREFIX === $path[0])
-        {
-            $exp = explode(FileHelper::FOLDER_SEPARATOR, $path);
+        if (BundleHelper::ALIAS_PREFIX === $path[0]) {
+            $exp = \explode(FileHelper::FOLDER_SEPARATOR, $path);
             // Get relevant path.
-            array_shift($exp);
+            \array_shift($exp);
 
             // Use reference to identify sub folders length.
-            $templatePath = count(
-                explode(
+            $templatePath = \count(
+                \explode(
                     FileHelper::FOLDER_SEPARATOR,
                     '\\Wexample\\SymfonyDesignSystem\\Resources\\templates\\'
                 )
             ) - 1;
 
             // Remove sub folders.
-            $exp = array_slice($exp, $templatePath);
+            $exp = \array_slice($exp, $templatePath);
             // We have a new base path to find tag name.
-            $path = implode(FileHelper::FOLDER_SEPARATOR, $exp);
+            $path = \implode(FileHelper::FOLDER_SEPARATOR, $exp);
         }
 
-        return str_replace(
+        return \str_replace(
             BundleHelper::ALIAS_PREFIX,
             '',
-            strtolower(
-                implode(
+            \strtolower(
+                \implode(
                     '-',
-                    explode(
+                    \explode(
                         FileHelper::FOLDER_SEPARATOR,
                         $path
                     )

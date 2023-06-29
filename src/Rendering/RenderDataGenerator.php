@@ -2,9 +2,6 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
-use function is_a;
-use function is_object;
-
 abstract class RenderDataGenerator
 {
     public function arrayToRenderData(array $array): array
@@ -28,9 +25,9 @@ abstract class RenderDataGenerator
         foreach ($variables as $variable) {
             $value = $this->$variable;
 
-            if (!is_object($value)) {
+            if (!\is_object($value)) {
                 $output[$variable] = $value;
-            } elseif (is_a($value, RenderDataGenerator::class)) {
+            } elseif (\is_a($value, RenderDataGenerator::class)) {
                 $output[$variable] = $value->toRenderData();
             }
         }

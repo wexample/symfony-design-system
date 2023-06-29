@@ -67,8 +67,7 @@ abstract class RenderNode extends RenderDataGenerator
         $output = '';
 
         /** @var ComponentRenderNode $component */
-        foreach ($this->components as $component)
-        {
+        foreach ($this->components as $component) {
             $output .= $component->body;
         }
 

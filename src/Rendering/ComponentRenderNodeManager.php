@@ -2,9 +2,9 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
+use Symfony\Component\HttpKernel\KernelInterface;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 abstract class ComponentRenderNodeManager
 {

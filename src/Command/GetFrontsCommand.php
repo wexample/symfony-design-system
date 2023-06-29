@@ -79,9 +79,9 @@ class GetFrontsCommand extends AbstractCommand
             foreach ($group as $key => $path) {
                 // Return relative to project root.
                 $paths[$key] = './'.substr(
-                        $path,
-                        $rootLen
-                    );
+                    $path,
+                    $rootLen
+                );
             }
         }
 

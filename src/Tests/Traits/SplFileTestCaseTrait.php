@@ -4,12 +4,6 @@ namespace Wexample\SymfonyDesignSystem\Tests\Traits;
 
 use App\Wex\BaseBundle\Controller\AbstractEntityController;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
-use function implode;
-use function is_subclass_of;
-use SplFileInfo;
-use function str_ends_with;
-use function strlen;
-use function substr;
 
 /**
  * Trait LoggingTestCase
@@ -18,17 +12,17 @@ use function substr;
 trait SplFileTestCaseTrait
 {
     public function assertSplFileNameHasSuffix(
-        SplFileInfo $file,
+        \SplFileInfo $file,
         array $suffixes
     ) {
         $this->assertTrue(
             $this->splFileNameHasAnySuffix($file, $suffixes),
             $file->getRealPath()
-            .' has any suffix in : '.implode(', ', $suffixes)
+            .' has any suffix in : '.\implode(', ', $suffixes)
         );
     }
 
-    public function spfFilenameWithoutExt(SplFileInfo $file): string
+    public function spfFilenameWithoutExt(\SplFileInfo $file): string
     {
         return $file->getBasename(
             '.'.$file->getExtension()
@@ -36,15 +30,13 @@ trait SplFileTestCaseTrait
     }
 
     public function splFileNameHasAnySuffix(
-        SplFileInfo $file,
+        \SplFileInfo $file,
         array $suffixes
     ): bool {
         $baseNameWithoutExt = $this->spfFilenameWithoutExt($file);
 
-        foreach ($suffixes as $suffix)
-        {
-            if (str_ends_with($baseNameWithoutExt, $suffix))
-            {
+        foreach ($suffixes as $suffix) {
+            if (\str_ends_with($baseNameWithoutExt, $suffix)) {
                 return true;
             }
         }
@@ -53,7 +45,7 @@ trait SplFileTestCaseTrait
     }
 
     protected function assertSplSrcFileIsSubClassOf(
-        SplFileInfo $splFileInfo,
+        \SplFileInfo $splFileInfo,
         string $classToExtend
     ) {
         $this->assertTrue(
@@ -63,36 +55,36 @@ trait SplFileTestCaseTrait
     }
 
     protected function splFileIsSubClassOf(
-        SplFileInfo $splFileInfo,
+        \SplFileInfo $splFileInfo,
         string $classToExtend
     ): bool {
         $controllerClass = $this->buildClassNameFromSpl($splFileInfo);
 
-        return is_subclass_of(
+        return \is_subclass_of(
             $controllerClass,
             $classToExtend
         );
     }
 
     public function splFileTestCousin(
-        SplFileInfo $file,
+        \SplFileInfo $file,
         string $srcFileSubDir,
         string $testFileSubDir
     ): string {
         return $this->getProjectDir().BundleHelper::DIR_TESTS
-            .$testFileSubDir.substr(
+            .$testFileSubDir.\substr(
                 $file->getRealPath(),
-                strlen($this->getProjectDir().BundleHelper::DIR_SRC.$srcFileSubDir)
+                \strlen($this->getProjectDir().BundleHelper::DIR_SRC.$srcFileSubDir)
             );
     }
 
-    protected function buildClassNameFromSpl(SplFileInfo $file): string
+    protected function buildClassNameFromSpl(\SplFileInfo $file): string
     {
         $srcDir = $this->getSrcDir();
 
-        $controllerClass = substr(
+        $controllerClass = \substr(
             $file->getRealPath(),
-            strlen($srcDir),
+            \strlen($srcDir),
             -4
         );
 
@@ -105,20 +97,19 @@ trait SplFileTestCaseTrait
     }
 
     public function buildRelatedEntityClassNameFromSplFile(
-        SplFileInfo $fileInfo,
+        \SplFileInfo $fileInfo,
         string $fileSuffix = null
     ): string {
         $controllerClass = $this->buildClassNameFromSpl($fileInfo);
         $split = explode('\\', $controllerClass);
         $controllerName = end($split);
 
-        $entityName = $fileSuffix ? substr(
+        $entityName = $fileSuffix ? \substr(
             $controllerName,
             0,
-            -strlen($fileSuffix)
+            -\strlen($fileSuffix)
         ) : $controllerName;
 
         return '\\App\\Entity\\'.$entityName;
     }
 }
-

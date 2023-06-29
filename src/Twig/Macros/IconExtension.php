@@ -2,21 +2,17 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig\Macros;
 
-use Exception;
-use stdClass;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
+use Wexample\SymfonyDesignSystem\Twig\AbstractExtension;
 use Wexample\SymfonyDesignSystem\Twig\ComponentsExtension;
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\JsonHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
-use Wexample\SymfonyHelpers\Twig\AbstractExtension;
-use function explode;
-use function str_contains;
 
 class IconExtension extends AbstractExtension
 {
@@ -35,7 +31,7 @@ class IconExtension extends AbstractExtension
      */
     public const LIBRARY_SEPARATOR = ':';
 
-    protected stdClass $icons;
+    protected \stdClass $icons;
 
     private string $pathSvgFa;
 
@@ -58,15 +54,11 @@ class IconExtension extends AbstractExtension
         $groups = scandir($this->pathSvgFa);
         $output = [];
 
-        foreach ($groups as $group)
-        {
-            if ($group[0] !== '.')
-            {
+        foreach ($groups as $group) {
+            if ('.' !== $group[0]) {
                 $icons = scandir($this->pathSvgFa.FileHelper::FOLDER_SEPARATOR.$group);
-                foreach ($icons as $icon)
-                {
-                    if ($icon[0] !== '.')
-                    {
+                foreach ($icons as $icon) {
+                    if ('.' !== $icon[0]) {
                         $output[$group][FileHelper::removeExtension(basename($icon))] = true;
                     }
                 }
@@ -94,7 +86,7 @@ class IconExtension extends AbstractExtension
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function icon(
         Environment $twig,
@@ -104,9 +96,8 @@ class IconExtension extends AbstractExtension
     ): string {
         $type = null;
 
-        if (str_contains($name, self::LIBRARY_SEPARATOR))
-        {
-            [$type, $name] = explode(
+        if (\str_contains($name, self::LIBRARY_SEPARATOR)) {
+            [$type, $name] = \explode(
                 self::LIBRARY_SEPARATOR,
                 $name
             );
@@ -115,16 +106,14 @@ class IconExtension extends AbstractExtension
         $class .= ' icon ';
 
         // Materialize.
-        if (self::ICONS_LIBRARY_MATERIAL === $type || (null === $type && isset($this->icons->material->$name)))
-        {
+        if (self::ICONS_LIBRARY_MATERIAL === $type || (null === $type && isset($this->icons->material->$name))) {
             return DomHelper::buildTag($tagName, [
                 VariableHelper::CLASS_VAR => $class.'material-icons',
             ], $name);
         }
 
         // Font Awesome.
-        if (self::ICONS_LIBRARY_FA === $type || (null === $type && isset($this->icons->fa->$name)))
-        {
+        if (self::ICONS_LIBRARY_FA === $type || (null === $type && isset($this->icons->fa->$name))) {
             return $this->componentsExtension->component(
                 $twig,
                 VariableHelper::PLURAL_COMPONENT.'/'.VariableHelper::ICON,
@@ -143,10 +132,8 @@ class IconExtension extends AbstractExtension
 
     private function findFaIconGroup(string $name): ?string
     {
-        foreach ($this->icons->fa as $group => $icons)
-        {
-            if (isset($icons[$name]))
-            {
+        foreach ($this->icons->fa as $group => $icons) {
+            if (isset($icons[$name])) {
                 return $group;
             }
         }

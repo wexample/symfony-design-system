@@ -122,8 +122,7 @@ class Asset extends RenderDataGenerator
      */
     public function getPreloadAs(): ?string
     {
-        if ($this->preload)
-        {
+        if ($this->preload) {
             return self::PRELOAD_BY_ASSET_TYPE[$this->type];
         }
 
@@ -134,26 +133,21 @@ class Asset extends RenderDataGenerator
         string $colorScheme,
         bool $useJs
     ): bool {
-        if ($this->isServerSideRendered())
-        {
+        if ($this->isServerSideRendered()) {
             return false;
         }
 
-        if ($this->type === static::EXTENSION_JS)
-        {
+        if ($this->type === static::EXTENSION_JS) {
             return $useJs && !$this->responsive;
         }
 
-        if ($this->type === static::EXTENSION_CSS)
-        {
-            if ($this->responsive)
-            {
+        if ($this->type === static::EXTENSION_CSS) {
+            if ($this->responsive) {
                 // Responsive CSS are loaded in page when JS is disabled.
                 return !$useJs;
             }
 
-            if ($this->colorScheme !== null && $this->colorScheme !== $colorScheme)
-            {
+            if (null !== $this->colorScheme && $this->colorScheme !== $colorScheme) {
                 // Non-base color schemes CSS are loaded using JS.
                 return false;
             }
@@ -171,9 +165,9 @@ class Asset extends RenderDataGenerator
 
     public function isServerSideRendered(): bool
     {
-        return $this->active &&
-            $this->rendered &&
-            $this->initialLayout;
+        return $this->active
+            && $this->rendered
+            && $this->initialLayout;
     }
 
     public function toRenderData(): array

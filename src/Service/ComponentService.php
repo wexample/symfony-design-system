@@ -2,7 +2,6 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
-use Exception;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
@@ -59,8 +58,7 @@ class ComponentService extends RenderNodeService
             BundleHelper::DIR_SRC => BundleHelper::CLASS_PATH_PREFIX,
         ];
 
-        foreach ($locations as $location => $classPrefix)
-        {
+        foreach ($locations as $location => $classPrefix) {
             $locationAbsolute = $kernel->getProjectDir().'/'.$location;
 
             $this->componentsClasses = $this->findComponentClassesInDir(
@@ -76,8 +74,7 @@ class ComponentService extends RenderNodeService
                 'RenderNodeManager'
             );
 
-            foreach ($managers as $componentName => $managerClassName)
-            {
+            foreach ($managers as $componentName => $managerClassName) {
                 $this->componentsManagers[VariableHelper::PLURAL_COMPONENT.'/'.$componentName] = new $managerClassName(
                     $kernel,
                     $this->adaptiveResponseService
@@ -95,18 +92,14 @@ class ComponentService extends RenderNodeService
         $output = [];
         $componentDir = $location.$classesSubDir;
 
-        if (is_dir($componentDir))
-        {
+        if (is_dir($componentDir)) {
             $componentClasses = scandir($componentDir);
 
-            foreach ($componentClasses as $componentClass)
-            {
-                if ($componentClass[0] !== '.')
-                {
+            foreach ($componentClasses as $componentClass) {
+                if ('.' !== $componentClass[0]) {
                     $componentClassRealPath = $componentDir.FileHelper::FOLDER_SEPARATOR.$componentClass;
 
-                    if (is_file($componentClassRealPath))
-                    {
+                    if (is_file($componentClassRealPath)) {
                         $componentClass = FileHelper::removeExtension(
                             $componentClass,
                             FileHelper::FILE_EXTENSION_PHP
@@ -116,9 +109,7 @@ class ComponentService extends RenderNodeService
                             $classPrefix.ClassHelper::buildClassNameFromPath(
                                 $classesSubDir.'/'.$componentClass
                             );
-                    }
-                    else
-                    {
+                    } else {
                         $output += $this->findComponentClassesInDir(
                             $location,
                             $classPrefix,
@@ -133,7 +124,7 @@ class ComponentService extends RenderNodeService
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function componentRenderBody(
         Environment $env,
@@ -145,12 +136,9 @@ class ComponentService extends RenderNodeService
             $component->name
         );
 
-        try
-        {
-            foreach ($search as $templatePath)
-            {
-                if ($loader->exists($templatePath))
-                {
+        try {
+            foreach ($search as $templatePath) {
+                if ($loader->exists($templatePath)) {
                     $renderPass->setCurrentContextRenderNode(
                         $component
                     );
@@ -176,17 +164,15 @@ class ComponentService extends RenderNodeService
             }
 
             return null;
-        }
-        catch (Exception $exception)
-        {
-            throw new Exception('Error during rendering component '.$component->name.' : '.$exception->getMessage(), $exception->getCode(), $exception);
+        } catch (\Exception $exception) {
+            throw new \Exception('Error during rendering component '.$component->name.' : '.$exception->getMessage(), $exception->getCode(), $exception);
         }
     }
 
     /**
      * Init a components and provide a class name to retrieve dom element.
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function componentInitClass(
         Environment $twig,
@@ -202,7 +188,7 @@ class ComponentService extends RenderNodeService
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function componentInitLayout(
         Environment $twig,
@@ -225,7 +211,7 @@ class ComponentService extends RenderNodeService
      * Add component to the global page requirements.
      * It adds components assets to page assets.
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function componentInitParent(
         Environment $twig,
@@ -241,7 +227,7 @@ class ComponentService extends RenderNodeService
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function componentInitPrevious(
         Environment $twig,
@@ -267,7 +253,7 @@ class ComponentService extends RenderNodeService
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function registerComponent(
         Environment $twig,
@@ -305,8 +291,7 @@ class ComponentService extends RenderNodeService
     public function renderEventPostRender(array &$options)
     {
         /** @var ComponentRenderNodeManager $componentsManager */
-        foreach ($this->componentsManagers as $componentsManager)
-        {
+        foreach ($this->componentsManagers as $componentsManager) {
             $componentsManager->postRender();
         }
     }

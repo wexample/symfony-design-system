@@ -2,12 +2,11 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
-use Exception;
 use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\Vue;
-use Wexample\SymfonyTranslations\Translation\Translator;
+use Wexample\SymfonyDesignSystem\Translation\Translator;
 
 class VueService
 {
@@ -25,14 +24,14 @@ class VueService
 
     public function isRenderPassInVueContext(): bool
     {
-        return $this
+        return ComponentService::COMPONENT_NAME_VUE === $this
                 ->adaptiveResponseService
                 ->renderPass
-                ->getCurrentContextRenderNode()->name === ComponentService::COMPONENT_NAME_VUE;
+                ->getCurrentContextRenderNode()->name;
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function vueRender(
         Environment $twig,
@@ -57,8 +56,7 @@ class VueService
 
         $outputBody = '';
 
-        if (!$this->isRenderPassInVueContext())
-        {
+        if (!$this->isRenderPassInVueContext()) {
             $rootComponent = $this
                 ->componentsService
                 ->registerComponent(
@@ -71,9 +69,7 @@ class VueService
             $this->rootComponents[$vue->name] = $rootComponent;
 
             $outputBody = $rootComponent->renderTag();
-        }
-        else
-        {
+        } else {
             $rootComponent = $renderPass->getCurrentContextRenderNode();
 
             $contextCurrent = RenderingHelper::buildRenderContextKey(
@@ -81,9 +77,8 @@ class VueService
                 ComponentService::COMPONENT_NAME_VUE
             );
 
-            if ($rootComponent->getContextRenderNodeKey() !== $contextCurrent)
-            {
-                throw new Exception('Trying to render a non-root vue outside the vue context. Current context is '.$contextCurrent);
+            if ($rootComponent->getContextRenderNodeKey() !== $contextCurrent) {
+                throw new \Exception('Trying to render a non-root vue outside the vue context. Current context is '.$contextCurrent);
             }
         }
 
@@ -96,8 +91,7 @@ class VueService
                 $rootComponent->assets
             );
 
-        if (!isset($this->renderedTemplates[$vue->name]))
-        {
+        if (!isset($this->renderedTemplates[$vue->name])) {
             $renderPass->setCurrentContextRenderNode(
                 $rootComponent
             );
@@ -130,8 +124,7 @@ class VueService
             $this->renderedTemplates[$vue->name] = $template;
         }
 
-        if ($this->adaptiveResponseService->getResponse()->isJsonRequest())
-        {
+        if ($this->adaptiveResponseService->getResponse()->isJsonRequest()) {
             $renderPass->layoutRenderNode->vueTemplates = $this->renderedTemplates;
         }
 
