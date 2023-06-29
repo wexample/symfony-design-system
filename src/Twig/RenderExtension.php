@@ -2,8 +2,8 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig;
 
-use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Twig\TwigFunction;
+use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 
 class RenderExtension extends AbstractExtension
 {

@@ -2,14 +2,12 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
+use JetBrains\PhpStorm\Pure;
+use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Rendering\AdaptiveResponse;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\LayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Translation\Translator;
-use function array_merge;
-use Exception;
-use JetBrains\PhpStorm\Pure;
-use Twig\Environment;
 
 class LayoutService extends RenderNodeService
 {
@@ -27,7 +25,7 @@ class LayoutService extends RenderNodeService
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function layoutInitInitial(
         Environment $twig,
@@ -48,7 +46,7 @@ class LayoutService extends RenderNodeService
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function layoutInit(
         Environment $twig,
@@ -79,8 +77,7 @@ class LayoutService extends RenderNodeService
         );
 
         // No main js found.
-        if (empty($layoutRenderNode->assets[Asset::EXTENSION_JS]))
-        {
+        if (empty($layoutRenderNode->assets[Asset::EXTENSION_JS])) {
             // Try to load default js file.
             // Do not preload JS as it is configured
             // to wait for dom content loaded anyway.
@@ -92,12 +89,12 @@ class LayoutService extends RenderNodeService
             );
         }
 
-        $layoutRenderNode->assets[Asset::EXTENSION_JS] = array_merge(
+        $layoutRenderNode->assets[Asset::EXTENSION_JS] = \array_merge(
             $layoutRenderNode->assets[Asset::EXTENSION_JS],
             $backEndAssets[Asset::EXTENSION_JS]
         );
 
-        $layoutRenderNode->assets[Asset::EXTENSION_CSS] = array_merge(
+        $layoutRenderNode->assets[Asset::EXTENSION_CSS] = \array_merge(
             $layoutRenderNode->assets[Asset::EXTENSION_CSS],
             $backEndAssets[Asset::EXTENSION_CSS]
         );
@@ -106,8 +103,7 @@ class LayoutService extends RenderNodeService
             $layoutRenderNode
         );
 
-        if ($this->adaptiveResponseService->getResponse()->getRenderingBase() === AdaptiveResponse::BASE_MODAL)
-        {
+        if (AdaptiveResponse::BASE_MODAL === $this->adaptiveResponseService->getResponse()->getRenderingBase()) {
             $this->componentService->componentInitLayout(
                 $twig,
                 ComponentService::COMPONENT_NAME_MODAL,

@@ -2,7 +2,6 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig;
 
-use Exception;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -69,7 +68,7 @@ class VueExtension extends AbstractExtension
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function vue(
         Environment $env,
@@ -94,7 +93,7 @@ class VueExtension extends AbstractExtension
     /**
      * @throws LoaderError
      * @throws RuntimeError
-     * @throws SyntaxError|Exception
+     * @throws SyntaxError|\Exception
      */
     public function vueRequire(
         Environment $env,
@@ -110,7 +109,7 @@ class VueExtension extends AbstractExtension
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function vueInclude(
         Environment $env,
@@ -128,7 +127,7 @@ class VueExtension extends AbstractExtension
 
     public function vueKey(
         string $key,
-        ?string $filters = null
+        string $filters = null
     ): string {
         return '{{ '.$key.($filters ? ' | '.$filters : '').' }}';
     }

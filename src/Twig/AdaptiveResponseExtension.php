@@ -3,8 +3,8 @@
 namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Symfony\Component\HttpFoundation\RequestStack;
-use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Twig\TwigFunction;
+use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyDesignSystem\Service\JsService;
 
 class AdaptiveResponseExtension extends AbstractExtension

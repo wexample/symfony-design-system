@@ -22,8 +22,7 @@ class LocaleService
             ->renderPass
             ->getCurrentContextRenderNode();
 
-        foreach ($keys as $key)
-        {
+        foreach ($keys as $key) {
             $currentRenderNode->translations += $this->translator->transFilter($key);
         }
     }

@@ -6,7 +6,7 @@ use Wexample\SymfonyHelpers\Tests\Class\AbstractApplicationTestCase;
 
 abstract class AbstractDesignSystemTestCase extends AbstractApplicationTestCase
 {
-    protected function getPageLayoutData(?string $content = null): array
+    protected function getPageLayoutData(string $content = null): array
     {
         $matches = [];
         preg_match(

@@ -2,17 +2,14 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
+use JetBrains\PhpStorm\Pure;
+use Symfony\Component\Routing\RouterInterface;
 use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\PageRenderNode;
 use Wexample\SymfonyDesignSystem\Translation\Translator;
 use Wexample\SymfonyHelpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
-use function array_map;
-use function explode;
-use function implode;
-use JetBrains\PhpStorm\Pure;
-use Symfony\Component\Routing\RouterInterface;
 
 class PageService extends RenderNodeService
 {
@@ -55,7 +52,7 @@ class PageService extends RenderNodeService
 
     public function buildPageNameFromClassPath(string $methodClassPath): string
     {
-        $explode = explode(ClassHelper::METHOD_SEPARATOR, $methodClassPath);
+        $explode = \explode(ClassHelper::METHOD_SEPARATOR, $methodClassPath);
 
         // Remove useless namespace part.
         $controllerRelativePath = TextHelper::removePrefix(
@@ -64,7 +61,7 @@ class PageService extends RenderNodeService
         );
 
         // Cut parts.
-        $explodeController = explode(
+        $explodeController = \explode(
             ClassHelper::NAMESPACE_SEPARATOR,
             $controllerRelativePath
         );
@@ -73,13 +70,13 @@ class PageService extends RenderNodeService
         $explodeController[] = $explode[1];
 
         // Convert all parts.
-        $explodeController = array_map(
+        $explodeController = \array_map(
             TextHelper::class.'::toSnake',
             $explodeController
         );
 
         // Return joined string.
-        return AbstractPagesController::RESOURCES_DIR_PAGE.implode(
+        return AbstractPagesController::RESOURCES_DIR_PAGE.\implode(
             FileHelper::FOLDER_SEPARATOR,
             $explodeController
         );

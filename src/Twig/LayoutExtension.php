@@ -2,7 +2,6 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig;
 
-use Exception;
 use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Helper\PageHelper;
@@ -47,7 +46,7 @@ class LayoutExtension extends AbstractExtension
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function layoutInit(
         Environment $twig,

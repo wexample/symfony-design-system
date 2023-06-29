@@ -2,18 +2,15 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Wexample\SymfonyDesignSystem\Controller\AbstractController;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
-use Exception;
-use function in_array;
-use function is_null;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class AdaptiveResponse
 {
@@ -105,13 +102,15 @@ class AdaptiveResponse
         return $twigContext[self::RENDER_PARAM_NAME_OUTPUT_TYPE]
             ?? $this->outputType;
     }
+
     public function isJsonRequest(): bool
     {
-        return $this->getOutputType() === self::OUTPUT_TYPE_RESPONSE_JSON;
+        return self::OUTPUT_TYPE_RESPONSE_JSON === $this->getOutputType();
     }
+
     public function isHtmlRequest(): bool
     {
-        return $this->getOutputType() === self::OUTPUT_TYPE_RESPONSE_HTML;
+        return self::OUTPUT_TYPE_RESPONSE_HTML === $this->getOutputType();
     }
 
     public function detectRenderingBase(): string
@@ -120,12 +119,12 @@ class AdaptiveResponse
         $layout = $this->request->get(self::RENDER_PARAM_NAME_BASE);
 
         // Layout not specified in query string.
-        if (is_null($layout) && $this->isJsonRequest()) {
+        if (\is_null($layout) && $this->isJsonRequest()) {
             // Use modal as default ajax layout, but might be configurable.
             $layout = self::BASE_MODAL;
         }
 
-        if (in_array($layout, $this->allowedBases)) {
+        if (\in_array($layout, $this->allowedBases)) {
             return $layout;
         }
 
@@ -143,8 +142,7 @@ class AdaptiveResponse
     ): self {
         $this->view = $view;
 
-        if ($parameters)
-        {
+        if ($parameters) {
             $this->setParameters($parameters);
         }
 
@@ -174,7 +172,7 @@ class AdaptiveResponse
         return $this->body;
     }
 
-    public function setBody(?string $body = null): AdaptiveResponse
+    public function setBody(string $body = null): AdaptiveResponse
     {
         $this->body = $body;
 
@@ -182,12 +180,11 @@ class AdaptiveResponse
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function render(): Response
     {
-        if ($this->getOutputType() === self::OUTPUT_TYPE_RESPONSE_JSON)
-        {
+        if (self::OUTPUT_TYPE_RESPONSE_JSON === $this->getOutputType()) {
             return $this->renderJson();
         }
 
@@ -195,7 +192,7 @@ class AdaptiveResponse
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function renderHtml(): Response
     {
@@ -203,7 +200,7 @@ class AdaptiveResponse
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function renderJson(): JsonResponse
     {
@@ -221,15 +218,14 @@ class AdaptiveResponse
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function renderResponse(): Response
     {
         $view = $this->getView();
 
-        if (!$view)
-        {
-            throw new Exception('View must be defined before adaptive rendering');
+        if (!$view) {
+            throw new \Exception('View must be defined before adaptive rendering');
         }
 
         return $this->controller->adaptiveRender(

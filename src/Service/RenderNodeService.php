@@ -21,8 +21,7 @@ abstract class RenderNodeService
             $name
         );
 
-        if ($renderNode->hasAssets)
-        {
+        if ($renderNode->hasAssets) {
             $this->assetsService->assetsDetect(
                 $renderNode->name,
                 $renderNode,

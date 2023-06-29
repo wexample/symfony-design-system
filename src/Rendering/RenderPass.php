@@ -51,8 +51,7 @@ class RenderPass
     ) {
         $className = InitialLayoutRenderNode::class;
 
-        if ($this->adaptiveResponse->getOutputType() === AdaptiveResponse::OUTPUT_TYPE_RESPONSE_JSON)
-        {
+        if (AdaptiveResponse::OUTPUT_TYPE_RESPONSE_JSON === $this->adaptiveResponse->getOutputType()) {
             $className = AjaxLayoutRenderNode::class;
         }
 

@@ -2,11 +2,10 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering\ComponentManager;
 
+use Exception;
 use Wexample\SymfonyDesignSystem\Rendering\ComponentRenderNodeManager;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
-use Exception;
-use SimpleXMLElement;
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
@@ -33,15 +32,14 @@ class IconRenderNodeManager extends ComponentRenderNodeManager
     private int $translationX = 0;
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function createComponent(ComponentRenderNode $componentRenderNode)
     {
         $key = $componentRenderNode->options['group'].'-'.$componentRenderNode->options['name'];
 
         // Avoid duplicates.
-        if (!isset($this->icons[$key]))
-        {
+        if (!isset($this->icons[$key])) {
             $svgPath =
                 BundleHelper::getBundleRootPath(
                     WexampleSymfonyDesignSystemBundle::class,
@@ -56,21 +54,16 @@ class IconRenderNodeManager extends ComponentRenderNodeManager
                 .$componentRenderNode->options['name']
                 .'.'.FileHelper::FILE_EXTENSION_SVG;
 
-            if (is_file($svgPath))
-            {
+            if (is_file($svgPath)) {
                 $svg = file_get_contents($svgPath);
 
-                try
-                {
-                    $xml = new SimpleXMLElement($svg);
-                }
-                catch (Exception)
-                {
+                try {
+                    $xml = new \SimpleXMLElement($svg);
+                } catch (Exception) {
                     $xml = null;
                 }
 
-                if ($xml)
-                {
+                if ($xml) {
                     $pathXml = $xml->children();
 
                     $pathXml->addAttribute('fill', 'currentColor');
@@ -91,9 +84,7 @@ class IconRenderNodeManager extends ComponentRenderNodeManager
                         'path' => FileHelper::FOLDER_SEPARATOR.$this->buildPublicPath().'#'.$key,
                     ];
                 }
-            }
-            else
-            {
+            } else {
                 throw new \Exception('Icon not found : '.$key);
             }
         }

@@ -16,8 +16,7 @@ class NavigationExtension extends AbstractExtension
     ) {
         $request = $requestStack->getCurrentRequest();
 
-        if ($request)
-        {
+        if ($request) {
             $this->currentPath = $request->getPathInfo();
         }
     }

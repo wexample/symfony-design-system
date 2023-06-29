@@ -2,7 +2,6 @@
 
 namespace Wexample\SymfonyDesignSystem\Controller;
 
-
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
@@ -46,14 +45,13 @@ abstract class AbstractPagesController extends AbstractController
     {
         $base = self::RESOURCES_DIR_PAGE;
 
-        if (str_contains($view, self::BUNDLE_TEMPLATE_SEPARATOR))
-        {
+        if (str_contains($view, self::BUNDLE_TEMPLATE_SEPARATOR)) {
             $exp = explode(self::BUNDLE_TEMPLATE_SEPARATOR, $view);
             $base = $exp[0].FileHelper::FOLDER_SEPARATOR.BundleHelper::BUNDLE_PATH_TEMPLATES.$base;
             $view = $exp[1];
         }
 
-        return '@front/' . $base.$this->viewPathPrefix.$view.TemplateHelper::TEMPLATE_FILE_EXTENSION;
+        return '@front/'.$base.$this->viewPathPrefix.$view.TemplateHelper::TEMPLATE_FILE_EXTENSION;
     }
 
     protected function render(
@@ -61,8 +59,7 @@ abstract class AbstractPagesController extends AbstractController
         array $parameters = [],
         Response $response = null
     ): Response {
-        if (!is_null($this->requestStack->getMainRequest()->get('no-js')))
-        {
+        if (!is_null($this->requestStack->getMainRequest()->get('no-js'))) {
             $this->enableJavascript = false;
         }
 

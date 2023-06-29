@@ -2,17 +2,14 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig;
 
+use Twig\Environment;
+use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
-use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 use Wexample\SymfonyDesignSystem\Service\ComponentService;
-use function array_merge;
-use Exception;
-use function trim;
-use Twig\Environment;
-use Twig\TwigFunction;
+use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class ComponentsExtension extends AbstractExtension
 {
@@ -78,7 +75,7 @@ class ComponentsExtension extends AbstractExtension
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function component(
         Environment $twig,
@@ -95,7 +92,7 @@ class ComponentsExtension extends AbstractExtension
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function componentInitPrevious(
         Environment $twig,
@@ -124,7 +121,7 @@ class ComponentsExtension extends AbstractExtension
     /**
      * Init a components and provide a class name to retrieve dom element.
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public function componentInitClass(
         Environment $twig,
@@ -141,7 +138,7 @@ class ComponentsExtension extends AbstractExtension
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
     public function componentInitParent(
         Environment $twig,
@@ -161,12 +158,12 @@ class ComponentsExtension extends AbstractExtension
         array $context,
         array $defaults = []
     ): string {
-        $class = trim(($defaults[VariableHelper::CLASS_VAR] ?? '').' '.($context[VariableHelper::CLASS_VAR] ?? ''));
+        $class = \trim(($defaults[VariableHelper::CLASS_VAR] ?? '').' '.($context[VariableHelper::CLASS_VAR] ?? ''));
 
-        $attributes = array_merge([
+        $attributes = \array_merge([
             VariableHelper::ID => $context[VariableHelper::ID] ?? null,
-            VariableHelper::CLASS_VAR => $class === '' ? null : $class,
-        ], ($context['attr'] ?? []));
+            VariableHelper::CLASS_VAR => '' === $class ? null : $class,
+        ], $context['attr'] ?? []);
 
         return DomHelper::buildTagAttributes(
             $attributes
