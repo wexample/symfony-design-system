@@ -7,7 +7,7 @@ use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Rendering\AdaptiveResponse;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\LayoutRenderNode;
-use Wexample\SymfonyDesignSystem\Translation\Translator;
+use Wexample\SymfonyTranslations\Translation\Translator;
 
 class LayoutService extends RenderNodeService
 {

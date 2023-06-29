@@ -4,7 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Rendering\RenderNode;
 
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
-use Wexample\SymfonyDesignSystem\Translation\Translator;
+use Wexample\SymfonyTranslations\Translation\Translator;
 
 class InitialLayoutRenderNode extends LayoutRenderNode
 {

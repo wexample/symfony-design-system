@@ -6,10 +6,10 @@ use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Routing\RouterInterface;
 use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\PageRenderNode;
-use Wexample\SymfonyDesignSystem\Translation\Translator;
 use Wexample\SymfonyHelpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
+use Wexample\SymfonyTranslations\Translation\Translator;
 
 class PageService extends RenderNodeService
 {

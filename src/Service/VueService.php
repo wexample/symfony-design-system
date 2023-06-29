@@ -6,7 +6,7 @@ use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\Vue;
-use Wexample\SymfonyDesignSystem\Translation\Translator;
+use Wexample\SymfonyTranslations\Translation\Translator;
 
 class VueService
 {

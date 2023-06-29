@@ -4,6 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
+use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
 class RenderExtension extends AbstractExtension
 {
