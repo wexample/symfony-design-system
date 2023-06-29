@@ -22,6 +22,7 @@ class WexampleSymfonyDesignSystemExtension extends AbstractWexampleSymfonyExtens
 
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+        $translationPaths = $container->getParameter('translations_paths');
 
         $bundles = $container->getParameter('kernel.bundles');
         $paths = [];
@@ -29,7 +30,8 @@ class WexampleSymfonyDesignSystemExtension extends AbstractWexampleSymfonyExtens
         foreach ($config['front_paths'] as $frontPath) {
             // Ignore invalid paths.
             if ($realpath = realpath($frontPath)) {
-                $paths[VariableHelper::APP][] = $realpath.FileHelper::FOLDER_SEPARATOR;
+                $paths[VariableHelper::APP][] =
+                $translationPaths[] = $realpath.FileHelper::FOLDER_SEPARATOR;
             }
         }
 
@@ -40,21 +42,25 @@ class WexampleSymfonyDesignSystemExtension extends AbstractWexampleSymfonyExtens
             )) {
                 $bundleFronts = $class::getDesignSystemFrontPaths();
 
-                $realpath = [];
+                $realPaths = [];
                 foreach ($bundleFronts as $alias => $frontPath) {
                     $relativePath = realpath($frontPath).FileHelper::FOLDER_SEPARATOR;
 
                     if (is_string($alias)) {
-                        $realpath[$alias] = $relativePath;
+                        $realPaths[$alias] = $relativePath;
                     } else {
-                        $realpath[] = $relativePath;
+                        $realPaths[] = $relativePath;
                     }
+
+                    $translationPaths[] = $relativePath;
                 }
 
-                $paths[$class] = $realpath;
+                $paths[$class] = $realPaths;
             }
         }
 
+        // Save new paths
+        $container->setParameter('translations_paths', $translationPaths);
         $container->setParameter('design_system_packages_front_paths', $paths);
     }
 }

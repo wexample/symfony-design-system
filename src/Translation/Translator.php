@@ -6,14 +6,13 @@ use Exception;
 use Psr\Cache\InvalidArgumentException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Translation\MessageCatalogueInterface;
 use Symfony\Component\Translation\TranslatorBagInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Twig\Environment;
-use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\SymfonyHelpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
@@ -78,7 +77,7 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
         public \Symfony\Bundle\FrameworkBundle\Translation\Translator $translator,
         private readonly array $parameters,
         KernelInterface $kernel,
-        Environment $twig,
+        ParameterBagInterface $parameterBag,
     ) {
         $pathProject = $kernel->getProjectDir();
 
@@ -89,7 +88,7 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
 
         // Search into "translation" folder for sub folders.
         // Allow notation : path.to.folder::translation.key
-        $pathTranslationsAll = $twig->getLoader()->getPaths(DesignSystemHelper::TWIG_NAMESPACE_FRONT);
+        $pathTranslationsAll = $parameterBag->get('translations_paths');
         // Add root translations
         $pathTranslationsAll[] = $pathProject.'/translations';
 
