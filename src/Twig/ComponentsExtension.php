@@ -2,17 +2,18 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig;
 
+use Exception;
+use Twig\Environment;
+use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
-use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 use Wexample\SymfonyDesignSystem\Service\ComponentService;
+use Wexample\SymfonyHelpers\Helper\VariableHelper;
+use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 use function array_merge;
-use Exception;
 use function trim;
-use Twig\Environment;
-use Twig\TwigFunction;
 
 class ComponentsExtension extends AbstractExtension
 {

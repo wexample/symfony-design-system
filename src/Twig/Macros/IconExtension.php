@@ -2,24 +2,21 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig\Macros;
 
-use Wexample\SymfonyDesignSystem\Helper\DomHelper;
-use Wexample\SymfonyDesignSystem\Tests\AbstractDesignSystemTestCase;
-use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
-use Wexample\SymfonyHelpers\Helper\BundleHelper;
-use Wexample\SymfonyHelpers\Helper\JsonHelper;
-use Wexample\SymfonyHelpers\Helper\VariableHelper;
-use Wexample\SymfonyDesignSystem\Twig\AbstractExtension;
-use Wexample\SymfonyDesignSystem\Twig\ComponentsExtension;
 use Exception;
-use Wexample\SymfonyHelpers\Helper\FileHelper;
-use function explode;
-use function file_get_contents;
-use function json_decode;
 use stdClass;
-use function str_contains;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
 use Twig\TwigFunction;
+use Wexample\SymfonyDesignSystem\Helper\DomHelper;
+use Wexample\SymfonyDesignSystem\Twig\ComponentsExtension;
+use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
+use Wexample\SymfonyHelpers\Helper\BundleHelper;
+use Wexample\SymfonyHelpers\Helper\FileHelper;
+use Wexample\SymfonyHelpers\Helper\JsonHelper;
+use Wexample\SymfonyHelpers\Helper\VariableHelper;
+use Wexample\SymfonyHelpers\Twig\AbstractExtension;
+use function explode;
+use function str_contains;
 
 class IconExtension extends AbstractExtension
 {

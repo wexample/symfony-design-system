@@ -5,6 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\TwigFunction;
+use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
 class NavigationExtension extends AbstractExtension
 {

@@ -5,6 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyDesignSystem\Service\PageService;
+use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
 class PageExtension extends AbstractExtension
 {

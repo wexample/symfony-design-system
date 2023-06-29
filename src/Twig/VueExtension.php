@@ -10,6 +10,7 @@ use Twig\Error\SyntaxError;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Service\VueService;
+use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
 class VueExtension extends AbstractExtension
 {

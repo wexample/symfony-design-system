@@ -2,10 +2,10 @@
 
 namespace App\Test\Unit\Translation;
 
-use Wexample\SymfonyDesignSystem\Translation\Translator;
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyHelpers\Tests\Class\AbstractApplicationTestCase;
+use Wexample\SymfonyTranslations\Translation\Translator;
 
 class TranslationTest extends AbstractApplicationTestCase
 {

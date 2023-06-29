@@ -2,7 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
-use Wexample\SymfonyDesignSystem\Translation\Translator;
+use Wexample\SymfonyTranslations\Translation\Translator;
 
 class LocaleService
 {

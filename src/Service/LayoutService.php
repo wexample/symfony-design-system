@@ -2,14 +2,14 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
-use Wexample\SymfonyDesignSystem\Rendering\AdaptiveResponse;
-use Wexample\SymfonyDesignSystem\Rendering\Asset;
-use Wexample\SymfonyDesignSystem\Rendering\RenderNode\LayoutRenderNode;
-use Wexample\SymfonyDesignSystem\Translation\Translator;
-use function array_merge;
 use Exception;
 use JetBrains\PhpStorm\Pure;
 use Twig\Environment;
+use Wexample\SymfonyDesignSystem\Rendering\AdaptiveResponse;
+use Wexample\SymfonyDesignSystem\Rendering\Asset;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\LayoutRenderNode;
+use Wexample\SymfonyTranslations\Translation\Translator;
+use function array_merge;
 
 class LayoutService extends RenderNodeService
 {

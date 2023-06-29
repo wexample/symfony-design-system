@@ -9,6 +9,7 @@ use Wexample\SymfonyDesignSystem\Helper\PageHelper;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyDesignSystem\Service\LayoutService;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
+use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
 class LayoutExtension extends AbstractExtension
 {

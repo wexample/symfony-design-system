@@ -2,7 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig\Macros;
 
-use Wexample\SymfonyDesignSystem\Twig\AbstractExtension;
+use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
 class TabExtension extends AbstractExtension
 {

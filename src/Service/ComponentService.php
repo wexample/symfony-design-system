@@ -8,12 +8,12 @@ use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Rendering\ComponentRenderNodeManager;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
-use Wexample\SymfonyDesignSystem\Translation\Translator;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyHelpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
+use Wexample\SymfonyTranslations\Translation\Translator;
 
 class ComponentService extends RenderNodeService
 {
