@@ -20,8 +20,8 @@
     ],
     "require": {
         "php": ">=8.2",
-        "wexample/symfony-helpers": "^0.1.66",
-        "wexample/symfony-translations": "^0.1.5",
+        "wexample/symfony-helpers": "^0.1.67",
+        "wexample/symfony-translations": "^0.1.6",
         "friendsofsymfony/jsrouting-bundle": "^3.2.1",
         "symfony/webpack-encore-bundle": "^2.0.1"
     },
