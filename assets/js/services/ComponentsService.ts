@@ -13,9 +13,12 @@ import AppService from '../class/AppService';
 
 export default class ComponentsService extends AbstractRenderNodeService {
   elLayoutComponents: HTMLElement;
+
   pageHandlerRegistry: { [key: string]: PageManagerComponent } = {};
 
   public static dependencies: typeof AppService[] = [PromptService];
+
+  public static serviceName: string = 'components';
 
   constructor(app: App) {
     super(app);

@@ -10,6 +10,7 @@ export class ResponsiveServiceEvents {
 
 export default class ResponsiveService extends AppService {
   dependencies: [AssetsService];
+  public static serviceName: string = 'responsive';
 
   registerHooks() {
     return {

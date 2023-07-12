@@ -5,6 +5,8 @@ export class EventsServiceEvents {
 }
 
 export default class EventsService extends AppService {
+  public static serviceName: string = 'events';
+
   forget(name, callback, el = window.document) {
     this.applyEvents('remove', name, callback, el);
   }

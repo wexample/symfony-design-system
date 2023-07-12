@@ -2,6 +2,8 @@ import AppService from '../class/AppService';
 import MixinsAppService from '../class/MixinsAppService';
 
 export default class MixinsService extends AppService {
+  public static serviceName: string = 'mixins';
+
   /**
    * Execute a hook until all ext do not return false.
    * Useful to manage order when processing : an ext can wait for
@@ -35,7 +37,7 @@ export default class MixinsService extends AppService {
           throw `Mixins invocation timeout on method "${method}", stopping at "${currentName}".`;
         }, timeoutLimit);
 
-        let currentName = service.name;
+        let currentName = service.constructor.serviceName;
         let hooks = service.registerHooks();
 
         if (loops++ > loopsLimit) {

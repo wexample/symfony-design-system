@@ -14,6 +14,7 @@ export default class VueService extends AppService {
   public static dependencies: typeof AppService[] = [PagesService];
   protected elTemplates: HTMLElement;
   public vueRenderDataCache: { [key: string]: ComponentInterface } = {};
+  public static serviceName: string = 'vue';
 
   protected globalMixin: object = {
     props: {},

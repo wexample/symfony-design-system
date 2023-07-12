@@ -8,6 +8,7 @@ import Shape from '../class/RenderNodeUsage/Shape';
 
 export default class RenderNodeService extends AbstractRenderNodeService {
   public usages: { [key: string]: RenderNodeUsage } = {};
+  public static serviceName: string = 'renderNode';
 
   constructor(props) {
     super(props);

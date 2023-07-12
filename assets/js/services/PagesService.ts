@@ -14,6 +14,7 @@ export default class PagesService extends AbstractRenderNodeService {
     AdaptiveService,
     LocaleService,
   ];
+  public static serviceName: string = 'pages';
 
   registerHooks() {
     return {

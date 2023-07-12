@@ -8,6 +8,7 @@ import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
 import RenderNodeService from './RenderNodeService';
 import MixinsAppService from '../class/MixinsAppService';
 import RenderNodeUsage from '../class/RenderNodeUsage';
+import App from "../class/App";
 
 export class AssetsServiceType {
   public static CSS: string = 'css';
@@ -18,9 +19,11 @@ export class AssetsServiceType {
 export default class AssetsService extends AppService {
   public assetsRegistry: any = { css: {}, js: {} };
 
-  public static dependencies: typeof AppService[] = [RenderNodeService];
-
   public jsAssetsPending: { [key: string]: AssetInterface } = {};
+
+  public static serviceName: string = 'assets';
+
+  public static dependencies: typeof AppService[] = [RenderNodeService];
 
   registerMethods() {
     return {

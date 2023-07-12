@@ -7,6 +7,7 @@ export default class ModalsService extends AppService {
   public services: {
     pages: PagesService;
   };
+  public static serviceName: string = 'modals';
 
   get(path: string, requestOptions: ModalInterface = {}): Promise<any> {
     requestOptions.layout = requestOptions.layout || 'modal';

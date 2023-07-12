@@ -128,8 +128,8 @@ export default class extends AsyncConstructor {
     services = this.getServicesAndDependencies(services);
     let instances = [];
 
-    services.forEach((service: typeof AppService) => {
-      let name = this.buildServiceName(service.name);
+    services.forEach((service:any) => {
+      let name = service.serviceName
 
       if (!this.services[name]) {
         this.services[name] = new service(this);

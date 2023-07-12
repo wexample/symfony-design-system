@@ -4,6 +4,7 @@ import LocaleService from './LocaleService';
 export default class PromptService extends AppService {
   public static dependencies: typeof AppService[] = [LocaleService];
   protected service: PromptService;
+  public static serviceName: string = 'prompts';
 
   systemError(
     message,

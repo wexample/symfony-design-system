@@ -6,6 +6,8 @@ export class ColorSchemeServiceEvents {
 }
 
 export default class ColorSchemeService extends AppService {
+  public static serviceName: string = 'colorScheme';
+
   public static COLOR_SCHEME_DARK: string = 'dark';
 
   public static COLOR_SCHEME_DEFAULT: string = 'default';

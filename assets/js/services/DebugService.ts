@@ -13,6 +13,8 @@ export default class DebugService extends AppService {
 
   public static dependencies: typeof AppService[] = [];
 
+  public static serviceName: string = 'debug';
+
   registerHooks() {
     return {
       app: {

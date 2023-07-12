@@ -3,9 +3,11 @@ import MixinsAppService from '../class/MixinsAppService';
 import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
 import RequestOptionsInterface from '../interfaces/RequestOptions/RequestOptionsInterface';
 import ComponentsService from './ComponentsService';
+import App from "../class/App";
 
 export default class AdaptiveService extends AppService {
   public static dependencies: typeof AppService[] = [ComponentsService];
+  public static serviceName: string = 'adaptive';
 
   fetch(
     path: string,
