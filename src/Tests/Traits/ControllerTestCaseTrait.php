@@ -8,10 +8,6 @@ use Wexample\SymfonyHelpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
 
-/**
- * Trait LoggingTestCase
- * Various debug and logging helper methods.
- */
 trait ControllerTestCaseTrait
 {
     use SplFileTestCaseTrait;
