@@ -55,7 +55,7 @@ export default class PagesService extends AbstractRenderNodeService {
 
       delete this.services.components.pageHandlerRegistry[
         renderData.renderRequestId
-      ];
+        ];
     }
 
     await this.createRenderNode(renderData.name, renderData, parentNode);

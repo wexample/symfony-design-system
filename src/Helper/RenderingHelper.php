@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Helper;
 
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
+use function implode;
 
 class RenderingHelper
 {
@@ -20,7 +21,7 @@ class RenderingHelper
         string $renderContextType,
         string $renderContextName
     ): string {
-        return \implode('@', [
+        return implode('@', [
             $renderContextType,
             $renderContextName,
         ]);

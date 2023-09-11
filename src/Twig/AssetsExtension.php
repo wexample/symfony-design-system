@@ -40,8 +40,10 @@ class AssetsExtension extends AbstractExtension
         ];
     }
 
-    public function assetsRenderInitialAggregated(string $pageName, string $type): string
-    {
+    public function assetsRenderInitialAggregated(
+        string $pageName,
+        string $type
+    ): string {
         return $this
             ->assetsService
             ->aggregateInitialAssets(

@@ -4,9 +4,7 @@ import { Attribute, AttributeValue, TagName } from '../js/helpers/DomHelper';
 import { shallowCopy as ArrayShallowCopy } from '../js/helpers/ArrayHelper';
 import { AssetsServiceType } from '../js/services/AssetsService';
 import Explorer from './explorer';
-import ColorSchemeService, {
-  ColorSchemeServiceEvents,
-} from '../js/services/ColorSchemeService';
+import ColorSchemeService, { ColorSchemeServiceEvents, } from '../js/services/ColorSchemeService';
 import { EventsServiceEvents } from '../js/services/EventsService';
 import { formatBytes } from '../js/helpers/Number';
 import { ComponentsServiceEvents } from '../js/services/AbstractRenderNodeService';
@@ -42,8 +40,8 @@ export default {
 
   mounted() {
     this.app.services.events.listen(
-      this.updateEvents,
-      this.onChangeResponsiveSizeProxy
+        this.updateEvents,
+        this.onChangeResponsiveSizeProxy
     );
 
     this.onChangeResponsiveSize();
@@ -51,8 +49,8 @@ export default {
 
   unmounted() {
     this.app.services.events.forget(
-      this.updateEvents,
-      this.onChangeResponsiveSizeProxy
+        this.updateEvents,
+        this.onChangeResponsiveSizeProxy
     );
   },
 
@@ -92,7 +90,7 @@ export default {
     getAssetsTypeList(type) {
       if (this.selectedItem) {
         return ArrayShallowCopy(
-          this.selectedItem.object.renderData.assets[type]
+            this.selectedItem.object.renderData.assets[type]
         );
       }
 
@@ -148,13 +146,13 @@ export default {
     updateAssetsCss() {
       // Base loaded assets
       document
-        .querySelectorAll(
-          `${TagName.LINK}[${Attribute.REL}=${AttributeValue.STYLESHEET}]`
-        )
-        .forEach((el) => {
-          let href = el.getAttribute(Attribute.HREF);
-          this.loadedPaths.css[href] = href;
-        });
+          .querySelectorAll(
+              `${TagName.LINK}[${Attribute.REL}=${AttributeValue.STYLESHEET}]`
+          )
+          .forEach((el) => {
+            let href = el.getAttribute(Attribute.HREF);
+            this.loadedPaths.css[href] = href;
+          });
     },
 
     shortenAssetPath(asset) {

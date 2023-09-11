@@ -2,6 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
+use Exception;
 use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
@@ -31,7 +32,7 @@ class VueService
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function vueRender(
         Environment $twig,
@@ -78,7 +79,7 @@ class VueService
             );
 
             if ($rootComponent->getContextRenderNodeKey() !== $contextCurrent) {
-                throw new \Exception('Trying to render a non-root vue outside the vue context. Current context is '.$contextCurrent);
+                throw new Exception('Trying to render a non-root vue outside the vue context. Current context is '.$contextCurrent);
             }
         }
 

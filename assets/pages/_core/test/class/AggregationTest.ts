@@ -60,7 +60,6 @@ export default class AggregationTest extends UnitTest {
       );
 
 
-
     } else {
       this.assertTrue(
         document.head.querySelectorAll('link[rel=preload]').length > 2,

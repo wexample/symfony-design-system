@@ -11,7 +11,7 @@ module.exports = {
   tempPath: './var/tmp/build/',
   frontCachePathsFile: path.join(process.cwd(), 'assets', 'front.json'),
   wrapperTemplatePath: __dirname + '/../build/wrapper.js.tpl',
-  designSystemPackageRootDir:'./' + path.relative(process.cwd(), path.resolve(__dirname, '../../../../')) + '/',
+  designSystemPackageRootDir: './' + path.relative(process.cwd(), path.resolve(__dirname, '../../../../')) + '/',
   extToTypesMap: {
     css: 'css',
     js: 'js',

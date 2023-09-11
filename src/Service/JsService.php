@@ -2,10 +2,15 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
+use ReflectionClass;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Wexample\SymfonyApi\Api\Dto\Traits\EntityDto;
 use Wexample\SymfonyHelpers\Entity\Interfaces\AbstractEntityInterface;
+use function class_exists;
+use function is_array;
+use function is_object;
+use function is_subclass_of;
 
 class JsService
 {
@@ -44,7 +49,7 @@ class JsService
         $context = null
     ): mixed {
         // Recursive exploration.
-        if (\is_array($item)) {
+        if (is_array($item)) {
             return $this->serializeArray($item, $context);
         }
 
@@ -81,22 +86,22 @@ class JsService
             'displayFormat' => EntityDto::DISPLAY_FORMAT_DEFAULT,
         ]
     ): ?array {
-        if (\is_object($value)
-            && \is_subclass_of(
+        if (is_object($value)
+            && is_subclass_of(
                 $value,
                 AbstractEntityInterface::class
             )) {
             $objectValue = $value;
             // Find if class is an entity and have an API Dto object.
             $dtoClassName = '\\App\\Api\\Dto\\'.
-                (new \ReflectionClass($objectValue))->getShortName();
+                (new ReflectionClass($objectValue))->getShortName();
 
             if (!isset($context['collection_operation_name'])) {
                 $context['collection_operation_name'] = 'twig_serialize_entity';
             }
 
-            if (\class_exists($dtoClassName)
-                && \is_subclass_of($dtoClassName, EntityDto::class)) {
+            if (class_exists($dtoClassName)
+                && is_subclass_of($dtoClassName, EntityDto::class)) {
                 return $this->normalizer->normalize(
                     $objectValue,
                     'jsonld',

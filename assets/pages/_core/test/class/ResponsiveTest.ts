@@ -28,8 +28,8 @@ export default class ResponsiveTest extends UnitTest {
       document
         .getElementById('layout')
         .classList.contains(
-          `responsive-${this.app.layout.responsiveSizeCurrent}`
-        ),
+        `responsive-${this.app.layout.responsiveSizeCurrent}`
+      ),
       `The default responsive size of "responsive-${this.app.layout.responsiveSizeCurrent}" has been applied to layout body`
     );
 
@@ -141,7 +141,7 @@ export default class ResponsiveTest extends UnitTest {
     this.resetPageResponsiveSizesCounters();
     this.app.layout.page.vars.responsiveSizesCounters[
       this.app.layout.page.responsiveSizeCurrent
-    ]++;
+      ]++;
 
     for (let responsiveSize of breakPoints) {
       await this.app.layout.responsiveSet(responsiveSize, true);

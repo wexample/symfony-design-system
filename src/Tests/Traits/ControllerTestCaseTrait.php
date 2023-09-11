@@ -3,17 +3,27 @@
 namespace Wexample\SymfonyDesignSystem\Tests\Traits;
 
 use App\Wex\BaseBundle\Controller\AbstractEntityController;
+use SplFileInfo;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyHelpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
+use function basename;
+use function class_exists;
+use function explode;
+use function is_dir;
+use function is_file;
+use function method_exists;
+use function scandir;
+use function str_ends_with;
+use function str_starts_with;
 
 trait ControllerTestCaseTrait
 {
     use SplFileTestCaseTrait;
     use ClassTestCaseTrait;
 
-    protected function isSpecialFile(\SplFileInfo $fileInfo): bool
+    protected function isSpecialFile(SplFileInfo $fileInfo): bool
     {
         // Ignore .htaccess or .gitignore.
         return '.' === $fileInfo->getBasename()[0];
@@ -25,7 +35,10 @@ trait ControllerTestCaseTrait
 
         $this->forEachClassFileRecursive(
             $srcSubDir,
-            function (\SplFileInfo $file) use (
+            function(
+                SplFileInfo $file
+            ) use
+            (
                 $projectDir
             ): void {
                 if ($this->isSpecialFile($file)) {
@@ -33,7 +46,7 @@ trait ControllerTestCaseTrait
                 }
 
                 $controllerClass = $this->buildClassNameFromSpl($file);
-                $split = \explode('\\', $controllerClass);
+                $split = explode('\\', $controllerClass);
 
                 $this->assertSplFileNameHasSuffix($file, [
                     'Controller',
@@ -43,7 +56,7 @@ trait ControllerTestCaseTrait
 
                 // Controller is placed in the entity dir.
                 if ('Entity' === $split[2]) {
-                    if (\str_starts_with($file->getBasename('.php'), 'Abstract')) {
+                    if (str_starts_with($file->getBasename('.php'), 'Abstract')) {
                         return;
                     }
 
@@ -60,16 +73,16 @@ trait ControllerTestCaseTrait
                     $entityTableized = ClassHelper::getTableizedName($entityClassName);
 
                     $this->assertTrue(
-                        \class_exists($entityClassName),
+                        class_exists($entityClassName),
                         'Entity controller placed in the Entity folder should have a final entity name, entity not found '.$entityClassName
                     );
 
                     // Templates
 
                     $templateEntityWrongDir = $projectDir.'templates/pages/'.$entityTableized.'/';
-                    $hasTemplateEntityWrongDir = \is_dir($templateEntityWrongDir);
-                    $hasAViewOrEditTemplate = \is_file($templateEntityWrongDir.'view.html.twig')
-                        || \is_file($templateEntityWrongDir.'edit.html.twig');
+                    $hasTemplateEntityWrongDir = is_dir($templateEntityWrongDir);
+                    $hasAViewOrEditTemplate = is_file($templateEntityWrongDir.'view.html.twig')
+                        || is_file($templateEntityWrongDir.'edit.html.twig');
 
                     $this->assertFalse(
                         $hasTemplateEntityWrongDir && $hasAViewOrEditTemplate,
@@ -93,19 +106,19 @@ trait ControllerTestCaseTrait
         string $templatesDir,
         string $classSrcDir,
     ): void {
-        $scan = \scandir($templatesDir.$templatesRelDir);
+        $scan = scandir($templatesDir.$templatesRelDir);
 
         foreach ($scan as $item) {
             if ('.' !== $item[0]) {
                 $realSubPath = $templatesDir.$templatesRelDir.$item;
 
-                if (\is_dir($realSubPath)) {
+                if (is_dir($realSubPath)) {
                     $this->scanControllerPagesTemplates(
                         $templatesRelDir.$item.'/',
                         $templatesDir,
                         $classSrcDir
                     );
-                } elseif (\str_ends_with(
+                } elseif (str_ends_with(
                     $item,
                     TemplateHelper::TEMPLATE_FILE_EXTENSION
                 )) {
@@ -116,7 +129,7 @@ trait ControllerTestCaseTrait
                     );
 
                     $this->assertTrue(
-                        \class_exists(
+                        class_exists(
                             $controllerClassName,
                         ),
                         'The controller class '.$controllerClassName.' exists for template '.$realSubPath
@@ -124,13 +137,13 @@ trait ControllerTestCaseTrait
 
                     $methodName = TextHelper::toCamel(
                         FileHelper::removeExtension(
-                            \basename($realSubPath),
+                            basename($realSubPath),
                             TemplateHelper::TEMPLATE_FILE_EXTENSION
                         )
                     );
 
                     $this->assertTrue(
-                        \method_exists(
+                        method_exists(
                             $controllerClassName,
                             $methodName
                         ),

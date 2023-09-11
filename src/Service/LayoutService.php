@@ -2,12 +2,14 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
+use Exception;
 use JetBrains\PhpStorm\Pure;
 use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Rendering\AdaptiveResponse;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\LayoutRenderNode;
 use Wexample\SymfonyTranslations\Translation\Translator;
+use function array_merge;
 
 class LayoutService extends RenderNodeService
 {
@@ -25,7 +27,7 @@ class LayoutService extends RenderNodeService
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function layoutInitInitial(
         Environment $twig,
@@ -46,7 +48,7 @@ class LayoutService extends RenderNodeService
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function layoutInit(
         Environment $twig,
@@ -89,12 +91,12 @@ class LayoutService extends RenderNodeService
             );
         }
 
-        $layoutRenderNode->assets[Asset::EXTENSION_JS] = \array_merge(
+        $layoutRenderNode->assets[Asset::EXTENSION_JS] = array_merge(
             $layoutRenderNode->assets[Asset::EXTENSION_JS],
             $backEndAssets[Asset::EXTENSION_JS]
         );
 
-        $layoutRenderNode->assets[Asset::EXTENSION_CSS] = \array_merge(
+        $layoutRenderNode->assets[Asset::EXTENSION_CSS] = array_merge(
             $layoutRenderNode->assets[Asset::EXTENSION_CSS],
             $backEndAssets[Asset::EXTENSION_CSS]
         );

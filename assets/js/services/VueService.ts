@@ -89,7 +89,7 @@ export default class VueService extends AppService {
 
   inherit(vueComponent, rootComponent: Component) {
     let componentsFinal = vueComponent.components || {};
-    let extend = { components: {} };
+    let extend = {components: {}};
 
     if (vueComponent.extends) {
       extend = this.inherit(vueComponent.extends, rootComponent);

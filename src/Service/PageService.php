@@ -10,6 +10,9 @@ use Wexample\SymfonyHelpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
 use Wexample\SymfonyTranslations\Translation\Translator;
+use function array_map;
+use function explode;
+use function implode;
 
 class PageService extends RenderNodeService
 {
@@ -52,7 +55,7 @@ class PageService extends RenderNodeService
 
     public function buildPageNameFromClassPath(string $methodClassPath): string
     {
-        $explode = \explode(ClassHelper::METHOD_SEPARATOR, $methodClassPath);
+        $explode = explode(ClassHelper::METHOD_SEPARATOR, $methodClassPath);
 
         // Remove useless namespace part.
         $controllerRelativePath = TextHelper::removePrefix(
@@ -61,7 +64,7 @@ class PageService extends RenderNodeService
         );
 
         // Cut parts.
-        $explodeController = \explode(
+        $explodeController = explode(
             ClassHelper::NAMESPACE_SEPARATOR,
             $controllerRelativePath
         );
@@ -70,15 +73,15 @@ class PageService extends RenderNodeService
         $explodeController[] = $explode[1];
 
         // Convert all parts.
-        $explodeController = \array_map(
+        $explodeController = array_map(
             TextHelper::class.'::toSnake',
             $explodeController
         );
 
         // Return joined string.
-        return AbstractPagesController::RESOURCES_DIR_PAGE.\implode(
-            FileHelper::FOLDER_SEPARATOR,
-            $explodeController
-        );
+        return AbstractPagesController::RESOURCES_DIR_PAGE.implode(
+                FileHelper::FOLDER_SEPARATOR,
+                $explodeController
+            );
     }
 }

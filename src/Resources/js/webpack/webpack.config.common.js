@@ -12,7 +12,7 @@ for (let alias in paths) {
     const value = path.resolve(paths[alias]);
     tools.logVar(alias, value);
     Encore.addAliases({
-      [alias] : value
+      [alias]: value
     });
   }
 }

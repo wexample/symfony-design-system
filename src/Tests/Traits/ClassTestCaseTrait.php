@@ -2,7 +2,12 @@
 
 namespace Wexample\SymfonyDesignSystem\Tests\Traits;
 
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use SplFileInfo;
 use Wexample\SymfonyHelpers\Helper\ClassHelper;
+use function class_exists;
+use function is_dir;
 
 /**
  * Trait LoggingTestCase
@@ -18,15 +23,15 @@ trait ClassTestCaseTrait
         $controllersDir = $srcDir.$srcSubDir.'/';
 
         $this->assertTrue(
-            \is_dir($controllersDir),
+            is_dir($controllersDir),
             'Dir exists : '.$controllersDir
         );
 
-        $iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($controllersDir)
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($controllersDir)
         );
 
-        /** @var \SplFileInfo $file */
+        /** @var SplFileInfo $file */
         foreach ($iterator as $file) {
             if ($file->isFile() && '.' !== $file->getFilename()[0]) {
                 $callback($file);
@@ -50,7 +55,7 @@ trait ClassTestCaseTrait
         );
 
         $this->assertTrue(
-            \class_exists($cousinClass),
+            class_exists($cousinClass),
             'The class '.$className
             .' should have a cousin class : '.$cousinClass
         );

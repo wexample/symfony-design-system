@@ -2,6 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Controller;
 
+use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Controller\Traits\AdaptiveResponseControllerTrait;
@@ -90,7 +91,7 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
                 $view,
                 $parameters
             );
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $rendered = parent::renderView(
                 WexampleSymfonyDesignSystemBundle::getTemplatePath('pages/_core/error/default.html.twig'),
                 $parameters + [

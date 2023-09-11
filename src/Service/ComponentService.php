@@ -2,6 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
+use Exception;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
@@ -124,7 +125,7 @@ class ComponentService extends RenderNodeService
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function componentRenderBody(
         Environment $env,
@@ -164,15 +165,15 @@ class ComponentService extends RenderNodeService
             }
 
             return null;
-        } catch (\Exception $exception) {
-            throw new \Exception('Error during rendering component '.$component->name.' : '.$exception->getMessage(), $exception->getCode(), $exception);
+        } catch (Exception $exception) {
+            throw new Exception('Error during rendering component '.$component->name.' : '.$exception->getMessage(), $exception->getCode(), $exception);
         }
     }
 
     /**
      * Init a components and provide a class name to retrieve dom element.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function componentInitClass(
         Environment $twig,
@@ -188,7 +189,7 @@ class ComponentService extends RenderNodeService
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function componentInitLayout(
         Environment $twig,
@@ -211,7 +212,7 @@ class ComponentService extends RenderNodeService
      * Add component to the global page requirements.
      * It adds components assets to page assets.
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function componentInitParent(
         Environment $twig,
@@ -227,7 +228,7 @@ class ComponentService extends RenderNodeService
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function componentInitPrevious(
         Environment $twig,
@@ -253,7 +254,7 @@ class ComponentService extends RenderNodeService
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function registerComponent(
         Environment $twig,

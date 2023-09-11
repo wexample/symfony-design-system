@@ -4,6 +4,9 @@ namespace Wexample\SymfonyDesignSystem\Helper;
 
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
+use function str_ends_with;
+use function strlen;
+use function substr;
 
 class PageHelper
 {
@@ -15,11 +18,11 @@ class PageHelper
         $pagePath = TextHelper::trimFirstChunkIfMoreThanOne($pagePath, '/');
 
         // Path have extension.
-        if (\str_ends_with($pagePath, $ext)) {
-            $pagePath = \substr(
+        if (str_ends_with($pagePath, $ext)) {
+            $pagePath = substr(
                 $pagePath,
                 0,
-                -\strlen(TemplateHelper::TEMPLATE_FILE_EXTENSION)
+                -strlen(TemplateHelper::TEMPLATE_FILE_EXTENSION)
             );
         }
 
@@ -31,7 +34,7 @@ class PageHelper
         if (str_starts_with($pagePath, BundleHelper::ALIAS_PREFIX)) {
             foreach (TemplateHelper::TEMPLATES_LOCATIONS as $location) {
                 if ($location && str_starts_with($pagePath, $location)) {
-                    return \substr($pagePath, \strlen($location));
+                    return substr($pagePath, strlen($location));
                 }
             }
         }

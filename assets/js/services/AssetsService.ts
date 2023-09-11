@@ -1,14 +1,13 @@
 import AssetsCollectionInterface from '../interfaces/AssetsCollectionInterface';
 import AppService from '../class/AppService';
 import AssetInterface from '../interfaces/AssetInterface';
+import AssetsInterface from '../interfaces/AssetInterface';
 import RenderNode from '../class/RenderNode';
 import { Attribute, AttributeValue, TagName } from '../helpers/DomHelper';
-import AssetsInterface from '../interfaces/AssetInterface';
 import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
 import RenderNodeService from './RenderNodeService';
 import MixinsAppService from '../class/MixinsAppService';
 import RenderNodeUsage from '../class/RenderNodeUsage';
-import App from "../class/App";
 
 export class AssetsServiceType {
   public static CSS: string = 'css';
@@ -17,7 +16,7 @@ export class AssetsServiceType {
 }
 
 export default class AssetsService extends AppService {
-  public assetsRegistry: any = { css: {}, js: {} };
+  public assetsRegistry: any = {css: {}, js: {}};
 
   public jsAssetsPending: { [key: string]: AssetInterface } = {};
 
@@ -273,7 +272,7 @@ export default class AssetsService extends AppService {
       if (
         this.app.services.renderNode.usages[
           asset.usage
-        ].hookAssetShouldBeLoaded(asset, renderNode)
+          ].hookAssetShouldBeLoaded(asset, renderNode)
       ) {
         if (!asset.active) {
           hasChange = true;

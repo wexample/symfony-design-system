@@ -32,11 +32,13 @@ class NavigationExtension extends AbstractExtension
         ];
     }
 
-    public function routeIsCurrent(string $route, array $params): bool
-    {
+    public function routeIsCurrent(
+        string $route,
+        array $params
+    ): bool {
         return $this->urlGenerator->generate(
-            $route,
-            $params
-        ) === $this->currentPath;
+                $route,
+                $params
+            ) === $this->currentPath;
     }
 }

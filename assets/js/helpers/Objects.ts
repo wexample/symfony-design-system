@@ -58,7 +58,7 @@ export function deepAssignWithOptions(options) {
       //default: omit prototype's own properties
       if (options.proto)
         // Copy source prototype's own properties into target prototype's own properties
-        deepAssignWithOptions(Object.assign({}, options, { proto: false }))(
+        deepAssignWithOptions(Object.assign({}, options, {proto: false}))(
           // Prevent deeper copy of the prototype chain
           Object.getPrototypeOf(target),
           Object.getPrototypeOf(source)

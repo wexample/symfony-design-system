@@ -128,7 +128,7 @@ export default class extends AsyncConstructor {
     services = this.getServicesAndDependencies(services);
     let instances = [];
 
-    services.forEach((service:any) => {
+    services.forEach((service: any) => {
       let name = service.serviceName
 
       if (!this.services[name]) {

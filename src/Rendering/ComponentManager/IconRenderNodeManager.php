@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Rendering\ComponentManager;
 
 use Exception;
+use SimpleXMLElement;
 use Wexample\SymfonyDesignSystem\Rendering\ComponentRenderNodeManager;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
@@ -32,7 +33,7 @@ class IconRenderNodeManager extends ComponentRenderNodeManager
     private int $translationX = 0;
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function createComponent(ComponentRenderNode $componentRenderNode)
     {
@@ -45,7 +46,7 @@ class IconRenderNodeManager extends ComponentRenderNodeManager
                     WexampleSymfonyDesignSystemBundle::class,
                     $this->kernel
                 )
-                    .'src/'
+                .'src/'
                 .BundleHelper::BUNDLE_PATH_RESOURCES
                 .'fonts/'
                 .self::DIR_FONTAWESOME_SVG
@@ -58,7 +59,7 @@ class IconRenderNodeManager extends ComponentRenderNodeManager
                 $svg = file_get_contents($svgPath);
 
                 try {
-                    $xml = new \SimpleXMLElement($svg);
+                    $xml = new SimpleXMLElement($svg);
                 } catch (Exception) {
                     $xml = null;
                 }
@@ -85,7 +86,7 @@ class IconRenderNodeManager extends ComponentRenderNodeManager
                     ];
                 }
             } else {
-                throw new \Exception('Icon not found : '.$key);
+                throw new Exception('Icon not found : '.$key);
             }
         }
     }

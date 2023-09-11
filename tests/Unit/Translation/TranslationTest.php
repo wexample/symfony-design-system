@@ -129,7 +129,7 @@ class TranslationTest extends AbstractApplicationTestCase
                 $args,
                 $domain,
             ),
-            'Translation ' . $domain . '::' . $key . ' is translated as "' . $expectedValue . '"'
+            'Translation '.$domain.'::'.$key.' is translated as "'.$expectedValue.'"'
         );
     }
 }

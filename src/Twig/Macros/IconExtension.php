@@ -2,6 +2,8 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig\Macros;
 
+use Exception;
+use stdClass;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
 use Twig\TwigFunction;
@@ -13,6 +15,8 @@ use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\JsonHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
+use function explode;
+use function str_contains;
 
 class IconExtension extends AbstractExtension
 {
@@ -31,7 +35,7 @@ class IconExtension extends AbstractExtension
      */
     public const LIBRARY_SEPARATOR = ':';
 
-    protected \stdClass $icons;
+    protected stdClass $icons;
 
     private string $pathSvgFa;
 
@@ -86,7 +90,7 @@ class IconExtension extends AbstractExtension
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function icon(
         Environment $twig,
@@ -96,8 +100,8 @@ class IconExtension extends AbstractExtension
     ): string {
         $type = null;
 
-        if (\str_contains($name, self::LIBRARY_SEPARATOR)) {
-            [$type, $name] = \explode(
+        if (str_contains($name, self::LIBRARY_SEPARATOR)) {
+            [$type, $name] = explode(
                 self::LIBRARY_SEPARATOR,
                 $name
             );

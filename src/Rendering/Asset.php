@@ -103,9 +103,9 @@ class Asset extends RenderDataGenerator
         $this->type = $info['extension'];
 
         $this->path = FileHelper::FOLDER_SEPARATOR.PathHelper::relativeTo(
-            $path,
-            $basePath
-        );
+                $path,
+                $basePath
+            );
 
         // Remove the base part before build/{type}/ folder.
         $pathWithoutExt = dirname($this->path).FileHelper::FOLDER_SEPARATOR.$info['filename'];

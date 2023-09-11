@@ -1,9 +1,9 @@
 import Component from '../js/class/Component';
-import { hashParamGet as locationHashParamGet } from '../js/helpers/LocationHelper';
-import { hashParamSet as locationHashParamSet } from '../js/helpers/LocationHelper';
-import { parseUrl as locationParseUrl } from '../js/helpers/LocationHelper';
-import ComponentInterface from '../js/interfaces/RenderData/ComponentInterface';
-import RequestOptionsInterface from '../js/interfaces/RequestOptions/RequestOptionsInterface';
+import {
+  hashParamGet as locationHashParamGet,
+  hashParamSet as locationHashParamSet,
+  parseUrl as locationParseUrl
+} from '../js/helpers/LocationHelper';
 import { Attribute } from '../js/helpers/DomHelper';
 
 export default class extends Component {

@@ -2,6 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Controller\Pages;
 
+use Exception;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,7 +27,7 @@ abstract class TestController extends AbstractPagesController
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     #[Route(path: '_core/test/adaptive', name: '_core_test_adaptive', options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
     public function adaptive(): Response
@@ -49,7 +50,7 @@ abstract class TestController extends AbstractPagesController
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     #[Route(path: '_core/test/error-missing-view', name: '_core_test_error-missing-view', options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
     public function errorMissingVue(): Response

@@ -2,6 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
+use Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,6 +12,8 @@ use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
+use function in_array;
+use function is_null;
 
 class AdaptiveResponse
 {
@@ -119,12 +122,12 @@ class AdaptiveResponse
         $layout = $this->request->get(self::RENDER_PARAM_NAME_BASE);
 
         // Layout not specified in query string.
-        if (\is_null($layout) && $this->isJsonRequest()) {
+        if (is_null($layout) && $this->isJsonRequest()) {
             // Use modal as default ajax layout, but might be configurable.
             $layout = self::BASE_MODAL;
         }
 
-        if (\in_array($layout, $this->allowedBases)) {
+        if (in_array($layout, $this->allowedBases)) {
             return $layout;
         }
 
@@ -180,7 +183,7 @@ class AdaptiveResponse
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function render(): Response
     {
@@ -192,7 +195,7 @@ class AdaptiveResponse
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function renderHtml(): Response
     {
@@ -200,7 +203,7 @@ class AdaptiveResponse
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function renderJson(): JsonResponse
     {
@@ -218,14 +221,14 @@ class AdaptiveResponse
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function renderResponse(): Response
     {
         $view = $this->getView();
 
         if (!$view) {
-            throw new \Exception('View must be defined before adaptive rendering');
+            throw new Exception('View must be defined before adaptive rendering');
         }
 
         return $this->controller->adaptiveRender(

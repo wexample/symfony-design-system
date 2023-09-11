@@ -3,6 +3,8 @@
 namespace Wexample\SymfonyDesignSystem\Helper;
 
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
+use function implode;
+use function is_null;
 
 class DomHelper
 {
@@ -28,7 +30,7 @@ class DomHelper
             }
         }
 
-        return \implode(VariableHelper::_SPACE, $output);
+        return implode(VariableHelper::_SPACE, $output);
     }
 
     public static function buildTag(
@@ -42,7 +44,7 @@ class DomHelper
         $outputAttributes = static::buildTagAttributes($attributes);
         $output .= $outputAttributes ? ' '.$outputAttributes : '';
 
-        if (\is_null($allowSingleTag)) {
+        if (is_null($allowSingleTag)) {
             $allowSingleTag = static::TAG_ALLOWS_AUTO_CLOSING[$tagName] ?? false;
         }
 

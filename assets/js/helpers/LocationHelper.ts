@@ -36,7 +36,7 @@ export function updateLocation(href, ignoreHistory = false) {
 
   // Choose between push or replace.
   window.history[ignoreHistory ? 'replaceState' : 'pushState'](
-    { manualState: true },
+    {manualState: true},
     document.title,
     href
   );

@@ -25,7 +25,7 @@ export default {
       this.testNumber++;
 
       this.hidePartOfDomContainingComponent =
-        data.detail.hidePartOfDomContainingComponent;
+          data.detail.hidePartOfDomContainingComponent;
     });
   },
 };

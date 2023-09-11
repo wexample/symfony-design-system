@@ -2,17 +2,17 @@ export function deleteItem(
   haystack: unknown[],
   needle: unknown
 ): unknown[] {
-    return deleteByIndex(haystack, haystack.indexOf(needle));
+  return deleteByIndex(haystack, haystack.indexOf(needle));
 }
 
 export function deleteByIndex(
   haystack: unknown[],
   needle: number
 ): unknown[] {
-    if (needle !== -1) {
-        haystack.splice(needle, 1);
-    }
-    return haystack;
+  if (needle !== -1) {
+    haystack.splice(needle, 1);
+  }
+  return haystack;
 }
 
 /**
@@ -21,13 +21,13 @@ export function deleteByIndex(
 export function fromArguments(
   args: unknown[]
 ): unknown[] {
-    return Array.prototype.slice.call(args);
+  return Array.prototype.slice.call(args);
 }
 
 export function shallowCopy(
   array: unknown[]
 ): unknown[] {
-    return array.slice(0);
+  return array.slice(0);
 }
 
 export function unique(

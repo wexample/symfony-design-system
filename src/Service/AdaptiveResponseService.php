@@ -88,8 +88,10 @@ class AdaptiveResponseService
         $this->renderEventListeners[] = $service;
     }
 
-    public function triggerRenderEvent(string $eventName, array &$options = []): array
-    {
+    public function triggerRenderEvent(
+        string $eventName,
+        array &$options = []
+    ): array {
         $eventName = AdaptiveResponseService::EVENT_METHODS_PREFIX.ucfirst($eventName);
 
         foreach ($this->renderEventListeners as $service) {
