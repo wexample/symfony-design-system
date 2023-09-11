@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Wex\BaseBundle\Controller;
+namespace Wexample\SymfonyDesignSystem\Controller;
 
-use App\Wex\BaseBundle\Controller\Traits\EntityControllerTrait;
+use Wexample\SymfonyDesignSystem\Controller\Traits\EntityControllerTrait;
 
 /**
  * Reference trait and build simple constructor.

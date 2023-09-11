@@ -2,8 +2,8 @@
 
 namespace Wexample\SymfonyDesignSystem\Tests\Traits;
 
-use App\Wex\BaseBundle\Controller\AbstractEntityController;
 use SplFileInfo;
+use Wexample\SymfonyDesignSystem\Controller\AbstractEntityController;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyHelpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;

@@ -2,8 +2,8 @@
 
 namespace Wexample\SymfonyDesignSystem\Tests\Traits;
 
-use App\Wex\BaseBundle\Controller\AbstractEntityController;
 use SplFileInfo;
+use Wexample\SymfonyDesignSystem\Controller\AbstractEntityController;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use function implode;
 use function is_subclass_of;
