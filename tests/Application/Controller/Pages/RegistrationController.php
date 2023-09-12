@@ -8,7 +8,7 @@ class RegistrationController extends AbstractApplicationTestCase
 {
     public function testController()
     {
-        // TODO
+        // TODO ...
         $this->assertTrue(true);
     }
 }
