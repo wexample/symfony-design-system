@@ -5,7 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Service;
 use ReflectionClass;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Wexample\SymfonyApi\Api\Dto\Traits\EntityDto;
+use Wexample\SymfonyApi\Api\Dto\EntityDto;
 use Wexample\SymfonyHelpers\Entity\Interfaces\AbstractEntityInterface;
 use function class_exists;
 use function is_array;
