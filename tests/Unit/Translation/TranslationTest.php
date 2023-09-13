@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Test\Unit\Translation;
+namespace Wexample\SymfonyApi\Tests\Unit\Translation;
 
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;

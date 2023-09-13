@@ -1,0 +1,7 @@
+@import '../../css/mixins/wex';
+
+.display-breakpoint-l {
+  .size-name {
+    background: $wex-sub-color-yellow;
+  }
+}

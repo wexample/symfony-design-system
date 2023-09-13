@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Test\Unit\Helper;
+namespace Wexample\SymfonyApi\Tests\Unit\Helper;
 
 use Wexample\SymfonyHelpers\Helper\TextHelper;
 use Wexample\SymfonyHelpers\Tests\Class\AbstractApplicationTestCase;

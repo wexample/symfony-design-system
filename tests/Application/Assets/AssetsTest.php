@@ -2,8 +2,8 @@
 
 namespace Wexample\SymfonyDesignSystem\Tests\Application\Assets;
 
-use App\Controller\Pages\DemoController;
 use Wexample\SymfonyApi\Api\Controller\Test\ResponseController;
+use Wexample\SymfonyDesignSystem\Controller\DemoController;
 use Wexample\SymfonyDesignSystem\Tests\AbstractDesignSystemTestCase;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use function count;
