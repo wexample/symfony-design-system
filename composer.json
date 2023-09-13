@@ -4,7 +4,9 @@
     "type": "library",
     "license": "MIT",
     "version": "0.1.34",
-    "keywords": [],
+    "keywords": [
+        "symfony-ux"
+    ],
     "autoload": {
         "psr-4": {
             "Wexample\\SymfonyDesignSystem\\": "src/"

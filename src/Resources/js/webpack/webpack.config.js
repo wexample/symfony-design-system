@@ -53,7 +53,11 @@ Encore
   .enableSassLoader()
 
   // uncomment if you use TypeScript
-  .enableTypeScriptLoader()
+  .enableTypeScriptLoader(function(tsConfigLoaderOptions) {
+    // We don't want TypeScript to scan whole app folders for .ts files,
+    // as we set it manually.
+    tsConfigLoaderOptions.onlyCompileBundledFiles = true;
+  })
 
   // uncomment if you use React
   //.enableReactPreset()
