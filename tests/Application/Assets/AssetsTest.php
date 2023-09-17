@@ -3,7 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Tests\Application\Assets;
 
 use Wexample\SymfonyApi\Api\Controller\Test\ResponseController;
-use Wexample\SymfonyDesignSystem\Controller\DemoController;
+use Wexample\SymfonyDesignSystem\Controller\Pages\DemoController;
 use Wexample\SymfonyDesignSystem\Tests\AbstractDesignSystemTestCase;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use function count;

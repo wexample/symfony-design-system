@@ -1,10 +1,11 @@
 <?php
 
-namespace Wexample\SymfonyDesignSystem\Controller;
+namespace Wexample\SymfonyDesignSystem\Controller\Pages;
 
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 

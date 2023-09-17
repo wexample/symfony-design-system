@@ -20,6 +20,7 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
     public const ROUTE_OPTIONS_ONLY_EXPOSE = [self::ROUTE_OPTION_KEY_EXPOSE => true];
 
     public ?bool $enableAggregation = null;
+
     public bool $enableJavascript = true;
 
     public string $requestUri;

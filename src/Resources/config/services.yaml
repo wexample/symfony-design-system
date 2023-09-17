@@ -13,5 +13,5 @@ services:
         tags: ['console.command']
 
     Wexample\SymfonyDesignSystem\:
-        resource: '../../{Service,Twig}'
+        resource: '../../{Controller,Service,Twig}'
         tags: ['controller.service_arguments']

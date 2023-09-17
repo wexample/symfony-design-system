@@ -10,7 +10,7 @@ use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Helper\RequestHelper;
 
-abstract class TestController extends AbstractPagesController
+class TestController extends AbstractPagesController
 {
     #[Route(path: '_core/test', name: '_core_test_index')]
     public function index(RequestStack $requestStack): Response

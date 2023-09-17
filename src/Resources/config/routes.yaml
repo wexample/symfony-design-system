@@ -1,0 +1,3 @@
+design_system_controllers:
+    resource: '@WexampleSymfonyDesignSystemBundle/Controller/'
+    type: annotation
