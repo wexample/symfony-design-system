@@ -10,23 +10,32 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Wexample\SymfonyDesignSystem\Command\Traits\AbstractDesignSystemCommandTrait;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
-use Wexample\SymfonyHelpers\Command\AbstractCommand;
+use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
+use Wexample\SymfonyHelpers\Command\AbstractBundleCommand;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\JsonHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
+use Wexample\SymfonyHelpers\Service\BundleService;
 
-class GetFrontsCommand extends AbstractCommand
+class GetFrontsCommand extends AbstractBundleCommand
 {
     use AbstractDesignSystemCommandTrait;
 
     public function __construct(
         private readonly KernelInterface $kernel,
         private readonly ParameterBagInterface $parameterBag,
+        BundleService $bundleService,
         string $name = null,
     ) {
         parent::__construct(
+            $bundleService,
             $name
         );
+    }
+
+    public static function getBundleClassName(): string
+    {
+        return WexampleSymfonyDesignSystemBundle::class;
     }
 
     protected function execute(
