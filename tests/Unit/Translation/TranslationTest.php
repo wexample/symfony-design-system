@@ -4,7 +4,7 @@ namespace Wexample\SymfonyApi\Tests\Unit\Translation;
 
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
-use Wexample\SymfonyHelpers\Tests\Class\AbstractApplicationTestCase;
+use Wexample\SymfonyTesting\Tests\AbstractApplicationTestCase;
 use Wexample\SymfonyTranslations\Translation\Translator;
 
 class TranslationTest extends AbstractApplicationTestCase

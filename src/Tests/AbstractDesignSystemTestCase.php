@@ -2,7 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Tests;
 
-use Wexample\SymfonyHelpers\Tests\Class\AbstractApplicationTestCase;
+use Wexample\SymfonyTesting\Tests\AbstractApplicationTestCase;
 
 abstract class AbstractDesignSystemTestCase extends AbstractApplicationTestCase
 {

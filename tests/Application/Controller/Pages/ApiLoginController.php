@@ -2,7 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Tests\Application\Controller\Pages;
 
-use Wexample\SymfonyHelpers\Tests\Class\AbstractApplicationTestCase;
+use Wexample\SymfonyTesting\Tests\AbstractApplicationTestCase;
 
 class ApiLoginController extends AbstractApplicationTestCase
 {

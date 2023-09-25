@@ -4,7 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Tests\Syntax;
 
 use Wexample\SymfonyDesignSystem\Tests\Traits\ControllerTestCaseTrait;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
-use Wexample\SymfonyHelpers\Tests\Class\AbstractApplicationTestCase;
+use Wexample\SymfonyTesting\Tests\AbstractApplicationTestCase;
 
 class ControllersTest extends AbstractApplicationTestCase
 {
