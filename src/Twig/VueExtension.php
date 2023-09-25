@@ -14,7 +14,7 @@ use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
 class VueExtension extends AbstractExtension
 {
-    public const TEMPLATE_FILE_EXTENSION = '.vue.twig';
+    final public const TEMPLATE_FILE_EXTENSION = '.vue.twig';
 
     public function __construct(
         private readonly VueService $vueService
