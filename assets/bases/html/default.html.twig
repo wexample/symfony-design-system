@@ -34,6 +34,11 @@
 
                   var app = window.app;
 
+                  if (!app) {
+                    throw new Error("Unable to start app.");
+                    return;
+                  }
+
                     {#- When app core is not loaded, -#}
                     {#- js asset might be preloaded. -#}
                   if (app.hasCoreLoaded) {
@@ -67,10 +72,15 @@
             {#- If javascript fails to complete, force removing loading state after 2 seconds. -#}
             <script nonce="layout-loading">
               var classList = document.getElementById('layout').classList;
-              classList.add('layout-loading');
-              setTimeout(function () {
+
+              if (window.app) {
+                classList.add('layout-loading');
+                setTimeout(function () {
+                  classList.remove('layout-loading');
+                }, 2000);
+              } else {
                 classList.remove('layout-loading');
-              }, 2000);
+              }
             </script>
         {%- endif -%}
 

@@ -80,13 +80,20 @@ class AssetsService
         $this->pathProject = $kernel->getProjectDir().'/';
         $this->pathPublic = $this->pathProject.self::DIR_PUBLIC;
         $this->pathBuild = $this->pathPublic.self::DIR_BUILD;
+        $registry = null;
 
         // Assets registry is cached as manifest file may be unstable.
         if ($cache->hasItem(self::CACHE_KEY_ASSETS_REGISTRY)) {
             /** @var CacheItem $item */
             $item = $cache->getItem(self::CACHE_KEY_ASSETS_REGISTRY);
-            $this->registry = $item->get();
-        } else {
+            $registry = $item->get();
+
+            if ($registry) {
+                $this->registry = $registry;
+            }
+        }
+
+        if (!$registry) {
             $cache->get(
                 self::CACHE_KEY_ASSETS_REGISTRY,
                 function(): array {
