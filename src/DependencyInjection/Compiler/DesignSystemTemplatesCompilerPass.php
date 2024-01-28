@@ -29,15 +29,6 @@ readonly class DesignSystemTemplatesCompilerPass implements CompilerPassInterfac
                             $bundleClass::getAlias() : $bundleClass,
                     ]
                 );
-
-                // Add also in all "front" folder, as in translations extension.
-                $definition->addMethodCall(
-                    'addPath',
-                    [
-                        $path,
-                        DesignSystemHelper::TWIG_NAMESPACE_FRONT,
-                    ]
-                );
             }
         }
     }

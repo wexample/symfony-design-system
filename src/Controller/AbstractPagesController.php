@@ -2,12 +2,9 @@
 
 namespace Wexample\SymfonyDesignSystem\Controller;
 
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
-use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
-use Wexample\SymfonyDesignSystem\Service\AssetsService;
+use Wexample\SymfonyHelpers\AbstractBundle;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
@@ -20,8 +17,10 @@ abstract class AbstractPagesController extends AbstractController
 
     public const BUNDLE_TEMPLATE_SEPARATOR = '::';
 
-    public function buildTemplatePath(string $view): string
-    {
+    public function buildTemplatePath(
+        string $view,
+        AbstractBundle|string|null $bundleClass = null
+    ): string {
         $base = self::RESOURCES_DIR_PAGE;
 
         if (str_contains($view, self::BUNDLE_TEMPLATE_SEPARATOR)) {
@@ -30,15 +29,19 @@ abstract class AbstractPagesController extends AbstractController
             $view = $exp[1];
         }
 
-        return '@front/'.$base.$this->viewPathPrefix.$view.TemplateHelper::TEMPLATE_FILE_EXTENSION;
+        return '@'
+            .($bundleClass ? $bundleClass::getAlias() : 'front').'/'
+            .$base.$this->viewPathPrefix.$view.TemplateHelper::TEMPLATE_FILE_EXTENSION;
     }
+
     protected function renderPage(
         string $view,
         array $parameters = [],
-        Response $response = null
+        Response $response = null,
+        AbstractBundle|string $bundle = null
     ): Response {
         return $this->adaptiveRender(
-            $this->buildTemplatePath($view),
+            $this->buildTemplatePath($view, $bundle),
             $parameters,
             $response
         );
