@@ -16,30 +16,9 @@ abstract class AbstractPagesController extends AbstractController
 {
     protected string $viewPathPrefix = '';
 
-    public const NAMESPACE_CONTROLLER = 'App\\Controller\\';
-
-    public const NAMESPACE_PAGES = self::NAMESPACE_CONTROLLER.'Pages\\';
-
     public const RESOURCES_DIR_PAGE = VariableHelper::PLURAL_PAGE.FileHelper::FOLDER_SEPARATOR;
 
     public const BUNDLE_TEMPLATE_SEPARATOR = '::';
-
-    public function __construct(
-        protected AdaptiveResponseService $adaptiveResponseService,
-        protected AssetsService $assetsService,
-        protected Environment $twigEnvironment,
-        protected RequestStack $requestStack
-    ) {
-        parent::__construct(
-            $adaptiveResponseService,
-            $assetsService,
-            $twigEnvironment
-        );
-
-        $mainRequest = $this->requestStack->getMainRequest();
-
-        $this->requestUri = $mainRequest->getRequestUri();
-    }
 
     public function buildTemplatePath(string $view): string
     {
@@ -53,23 +32,6 @@ abstract class AbstractPagesController extends AbstractController
 
         return '@front/'.$base.$this->viewPathPrefix.$view.TemplateHelper::TEMPLATE_FILE_EXTENSION;
     }
-
-    protected function render(
-        string $view,
-        array $parameters = [],
-        Response $response = null
-    ): Response {
-        if (!is_null($this->requestStack->getMainRequest()->get('no-js'))) {
-            $this->enableJavascript = false;
-        }
-
-        return parent::render(
-            $view,
-            $parameters,
-            $response
-        );
-    }
-
     protected function renderPage(
         string $view,
         array $parameters = [],

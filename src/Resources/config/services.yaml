@@ -1,7 +1,3 @@
-parameters:
-    # TODO Fix it
-    design_system.enable_aggregation: false
-
 services:
     _defaults:
         autowire: true

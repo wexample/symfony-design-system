@@ -20,6 +20,7 @@ readonly class DesignSystemTemplatesCompilerPass implements CompilerPassInterfac
          */
         foreach ($bundlesPaths as $bundleClass => $paths) {
             foreach ($paths as $path) {
+                # Add template alias like @SymfonyDesignSystem for every registered path.
                 $definition->addMethodCall(
                     'addPath',
                     [
@@ -29,7 +30,7 @@ readonly class DesignSystemTemplatesCompilerPass implements CompilerPassInterfac
                     ]
                 );
 
-                // Add also to allow find all "front" folder, as in translations extension.
+                // Add also in all "front" folder, as in translations extension.
                 $definition->addMethodCall(
                     'addPath',
                     [
