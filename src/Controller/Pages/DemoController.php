@@ -9,15 +9,25 @@ use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
+#[Route(path: '_design_system/demo/', name: '_design_system_demo_')]
 class DemoController extends AbstractPagesController
 {
     final public const ROUTE_ASSETS = 'assets';
 
     protected string $viewPathPrefix = VariableHelper::DEMO.'/';
+    
+    #[Route(path: '', name: VariableHelper::INDEX)]
+    public function index(): Response
+    {
+        return $this->renderPage(
+            VariableHelper::INDEX,
+            bundle: WexampleSymfonyDesignSystemBundle::class
+        );
+    }
 
     #[Route(
-        path: VariableHelper::DEMO.'/'.VariableHelper::ASSETS,
-        name: VariableHelper::DEMO.'_'.self::ROUTE_ASSETS
+        path: VariableHelper::ASSETS,
+        name: self::ROUTE_ASSETS
     )]
     public function assets(): Response
     {
@@ -30,8 +40,8 @@ class DemoController extends AbstractPagesController
     }
 
     #[Route(
-        path: VariableHelper::DEMO.'/'.VariableHelper::PLURAL_COMPONENT,
-        name: VariableHelper::DEMO.'_'.VariableHelper::PLURAL_COMPONENT
+        path: VariableHelper::PLURAL_COMPONENT,
+        name: VariableHelper::PLURAL_COMPONENT
     )]
     public function components(): Response
     {
@@ -41,8 +51,8 @@ class DemoController extends AbstractPagesController
     }
 
     #[Route(
-        path: VariableHelper::DEMO.'/'.VariableHelper::LOADING,
-        name: VariableHelper::DEMO.'_'.VariableHelper::LOADING
+        path: VariableHelper::LOADING,
+        name: VariableHelper::LOADING
     )]
     public function loading(): Response
     {
@@ -55,8 +65,8 @@ class DemoController extends AbstractPagesController
      * @throws Exception
      */
     #[Route(
-        path: VariableHelper::DEMO.'/'.VariableHelper::LOADING.'/fetch/simple',
-        name: VariableHelper::DEMO.'_'.VariableHelper::LOADING.'_fetch_simple'
+        path: VariableHelper::LOADING.'/fetch/simple',
+        name: VariableHelper::LOADING.'_fetch_simple'
     )]
     public function loadingFetchSimple(): Response
     {
@@ -70,8 +80,8 @@ class DemoController extends AbstractPagesController
     }
 
     #[Route(
-        path: VariableHelper::DEMO.'/'.VariableHelper::TRANSLATIONS,
-        name: VariableHelper::DEMO.'_'.VariableHelper::TRANSLATIONS
+        path: VariableHelper::TRANSLATIONS,
+        name: VariableHelper::TRANSLATIONS
     )]
     public function translations(): Response
     {
