@@ -76,19 +76,6 @@ class AdaptiveResponseService
         return $this->currentResponse;
     }
 
-    public function setController(
-        AbstractController $controller
-    ): self {
-        $this->controller = $controller;
-
-        return $this;
-    }
-
-    public function getController(): ?AbstractController
-    {
-        return $this->controller;
-    }
-
     public function addRenderEventListener(object $service)
     {
         $this->renderEventListeners[] = $service;

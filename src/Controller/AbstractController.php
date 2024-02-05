@@ -59,8 +59,6 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
         array $parameters = [],
         Response $response = null
     ): Response {
-        $this->adaptiveResponseService->setController($this);
-
         // Allow controller to enable or not properties.
         if (is_null($this->enableAggregation)) {
             $this->enableAggregation = $this->getParameter('design_system.enable_aggregation');
