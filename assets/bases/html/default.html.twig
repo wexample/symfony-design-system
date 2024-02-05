@@ -1,0 +1,13 @@
+{%- extends '@SymfonyDesignSystemBundle/bases/base.html.twig' -%}
+
+{%- block layout_base -%}
+    {{- parent() -}}
+    <!DOCTYPE html>
+    <html lang="{{ app.request.locale }}">
+    <head>
+    </head>
+    <body>
+                            {{- block('page_body') -}}
+    </body>
+    </html>
+{%- endblock -%}
