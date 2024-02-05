@@ -2,7 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
-use Wexample\SymfonyDesignSystem\Helper\PathHelper;
+use Wexample\SymfonyHelpers\Helper\PathHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 use Wexample\SymfonyHelpers\Helper\FileHelper;

@@ -61,6 +61,8 @@ class AssetsService
 
     private array $assets = self::ASSETS_DEFAULT_EMPTY;
 
+    protected array $assetsLoaded = [];
+
     private string $pathProject;
 
     private string $pathBuild;
@@ -380,8 +382,6 @@ class AssetsService
 
         return $output;
     }
-
-    protected array $assetsLoaded = [];
 
     /**
      * @throws Exception
