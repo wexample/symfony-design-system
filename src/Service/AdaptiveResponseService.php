@@ -36,8 +36,8 @@ class AdaptiveResponseService
     ): void {
         // Response may be explicitly created in controller,
         // but if not we need at least one to detect layout base name.
-        if (!$this->getResponse()) {
-            $this->createResponse($this->controller);
+        if (!$this->hasResponse()) {
+            $this->createResponse($controller);
         }
 
         $this->renderPass = new RenderPass(
@@ -54,6 +54,11 @@ class AdaptiveResponseService
         );
     }
 
+    public function hasResponse(): bool
+    {
+        return $this->currentResponse !== null;
+    }
+
     public function createResponse(AbstractController $controller): AdaptiveResponse
     {
         $this->currentResponse = new AdaptiveResponse(
@@ -65,7 +70,7 @@ class AdaptiveResponseService
         return $this->getResponse();
     }
 
-    public function getResponse(): ?AdaptiveResponse
+    public function getResponse(): AdaptiveResponse
     {
         return $this->currentResponse;
     }
