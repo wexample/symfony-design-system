@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Wexample\SymfonyDesignSystem\Command\Traits\AbstractDesignSystemCommandTrait;
+use Wexample\SymfonyDesignSystem\Command\Traits\AbstractSymfonyDesignSystemBundleCommandTrait;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Command\AbstractBundleCommand;
@@ -19,7 +19,7 @@ use Wexample\SymfonyHelpers\Service\BundleService;
 
 class GetFrontsCommand extends AbstractBundleCommand
 {
-    use AbstractDesignSystemCommandTrait;
+    use AbstractSymfonyDesignSystemBundleCommandTrait;
 
     public function __construct(
         private readonly KernelInterface $kernel,

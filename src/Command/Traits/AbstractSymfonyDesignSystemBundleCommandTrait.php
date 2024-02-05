@@ -4,7 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Command\Traits;
 
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 
-trait AbstractDesignSystemCommandTrait
+trait AbstractSymfonyDesignSystemBundleCommandTrait
 {
     public static function getBundleClassName(): string
     {
