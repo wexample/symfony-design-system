@@ -8,7 +8,7 @@ use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
-class ComponentRenderNode extends RenderNode
+class ComponentRenderNode extends AbstractRenderNode
 {
     protected const VAR_INIT_MODE = 'initMode';
 
