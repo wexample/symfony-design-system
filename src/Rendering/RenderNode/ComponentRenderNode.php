@@ -27,7 +27,7 @@ class ComponentRenderNode extends AbstractRenderNode
         );
     }
 
-    public function init(string $name)
+    public function init(string $name): void
     {
         parent::init($name);
 
