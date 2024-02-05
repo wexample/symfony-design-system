@@ -38,13 +38,16 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
         array $parameters = [],
         Response $response = null
     ): Response {
-        $this->adaptiveResponseService->renderPrepare(
-            $this,
-        );
+        $pass = $this
+            ->adaptiveResponseService
+            ->createRenderPass(
+                $this,
+                $view
+            );
 
         return parent::render(
             $view,
-            $parameters,
+            $parameters + $pass->getRenderParameters(),
             $response
         );
     }

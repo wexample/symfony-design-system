@@ -5,24 +5,32 @@ namespace Wexample\SymfonyDesignSystem\Service;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Wexample\SymfonyDesignSystem\Controller\AbstractController;
 use Wexample\SymfonyDesignSystem\Rendering\AdaptiveResponse;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 
 class AdaptiveResponseService
 {
     private ?AdaptiveResponse $currentResponse = null;
+
+    public RenderPass $renderPass;
 
     public function __construct(
         private readonly RequestStack $requestStack,
     ) {
     }
 
-    public function renderPrepare(
+    public function createRenderPass(
         AbstractController $controller,
-    ): void {
-        // Response may be explicitly created in controller,
-        // but if not we need at least one to detect layout base name.
-        if (!$this->hasResponse()) {
-            $this->createResponse($controller);
-        }
+        string $view,
+    ): RenderPass {
+
+        $this->renderPass = new RenderPass(
+            // Response may be explicitly created in controller,
+            // but if not we need at least one to detect layout base name.
+            ($this->hasResponse() ? $this->getResponse() : $this->createResponse($controller))->getOutputType(),
+            $view,
+        );
+
+        return $this->renderPass;
     }
 
     public function hasResponse(): bool

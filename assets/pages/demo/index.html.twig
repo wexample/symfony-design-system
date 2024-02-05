@@ -1,1 +1,5 @@
 {%- extends '@SymfonyDesignSystemBundle/layouts/black/layout.html.twig' -%}
+
+{% block page_body %}
+    {{ '@page::body' | trans }}
+{% endblock %}
