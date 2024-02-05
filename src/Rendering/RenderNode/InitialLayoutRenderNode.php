@@ -6,7 +6,7 @@ use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 use Wexample\SymfonyTranslations\Translation\Translator;
 
-class InitialLayoutRenderNode extends LayoutRenderNode
+class InitialLayoutRenderNode extends AbstractLayoutRenderNode
 {
     public string $colorScheme;
 

@@ -8,7 +8,7 @@ use Wexample\SymfonyDesignSystem\Helper\PageHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AjaxLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
-use Wexample\SymfonyDesignSystem\Rendering\RenderNode\RenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 
 class RenderPass
 {
@@ -20,7 +20,7 @@ class RenderPass
 
     protected array $contextRenderNodeStack = [];
 
-    protected RenderNode $renderDataContextCurrent;
+    protected AbstractRenderNode $renderDataContextCurrent;
 
     public array $registry = [
         RenderingHelper::CONTEXT_COMPONENT => [],
@@ -80,7 +80,7 @@ class RenderPass
     }
 
     public function registerRenderNode(
-        RenderNode $renderNode
+        AbstractRenderNode $renderNode
     ) {
         $this->registry[$renderNode->getContextType()][$renderNode->name] = $renderNode;
     }
@@ -103,13 +103,13 @@ class RenderPass
     }
 
     public function registerContextRenderNode(
-        RenderNode $renderNode
+        AbstractRenderNode $renderNode
     ) {
         $this->contextRenderNodeRegistry[$renderNode->getContextRenderNodeKey()] = $renderNode;
     }
 
     public function setCurrentContextRenderNode(
-        RenderNode $renderNode
+        AbstractRenderNode $renderNode
     ) {
         $this->setCurrentContextRenderNodeByTypeAndName(
             $renderNode->getContextType(),
@@ -129,7 +129,7 @@ class RenderPass
         $this->contextRenderNodeStack[] = $this->contextRenderNodeRegistry[$key];
     }
 
-    public function getCurrentContextRenderNode(): ?RenderNode
+    public function getCurrentContextRenderNode(): ?AbstractRenderNode
     {
         return empty($this->contextRenderNodeStack) ? null : end($this->contextRenderNodeStack);
     }

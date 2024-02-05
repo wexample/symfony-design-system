@@ -3,7 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
 use Wexample\SymfonyDesignSystem\Helper\PathHelper;
-use Wexample\SymfonyDesignSystem\Rendering\RenderNode\RenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 
@@ -93,7 +93,7 @@ class Asset extends RenderDataGenerator
 
     public function __construct(
         string $path,
-        public RenderNode $renderData,
+        public AbstractRenderNode $renderData,
         string $basePath,
         public string $usage
     ) {

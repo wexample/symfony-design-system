@@ -2,7 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering\RenderNode;
 
-class AjaxLayoutRenderNode extends LayoutRenderNode
+class AjaxLayoutRenderNode extends AbstractLayoutRenderNode
 {
     public array $vueTemplates = [];
 

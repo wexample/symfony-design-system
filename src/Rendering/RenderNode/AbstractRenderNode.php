@@ -7,7 +7,7 @@ use Wexample\SymfonyDesignSystem\Rendering\RenderDataGenerator;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 
-abstract class RenderNode extends RenderDataGenerator
+abstract class AbstractRenderNode extends RenderDataGenerator
 {
     public array $assets = AssetsService::ASSETS_DEFAULT_EMPTY;
 
@@ -15,7 +15,7 @@ abstract class RenderNode extends RenderDataGenerator
 
     protected string $id;
 
-    public ?RenderNode $parent = null;
+    public ?AbstractRenderNode $parent = null;
 
     public bool $hasAssets = true;
 

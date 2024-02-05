@@ -5,7 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Rendering\RenderNode;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 
-class LayoutRenderNode extends RenderNode
+abstract class AbstractLayoutRenderNode extends AbstractRenderNode
 {
     public PageRenderNode $page;
 
@@ -25,7 +25,7 @@ class LayoutRenderNode extends RenderNode
 
     public function init(
         string $name,
-    ) {
+    ): void {
         parent::init(
             $name
         );

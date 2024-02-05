@@ -12,7 +12,7 @@ use Wexample\SymfonyDesignSystem\Helper\ColorSchemeHelper;
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
-use Wexample\SymfonyDesignSystem\Rendering\RenderNode\RenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\JsonHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
@@ -276,7 +276,7 @@ class AssetsService
 
     public function assetsDetect(
         string $path,
-        RenderNode $context,
+        AbstractRenderNode $context,
         array &$collection = []
     ): array {
         foreach (Asset::ASSETS_EXTENSIONS as $ext) {
@@ -300,7 +300,7 @@ class AssetsService
     public function assetsDetectForType(
         string $renderNodeName,
         string $ext,
-        RenderNode $renderNode,
+        AbstractRenderNode $renderNode,
         bool $searchColorScheme
     ): array {
         $assetPathFull = $ext.'/'.$renderNodeName.'.'.$ext;
@@ -388,7 +388,7 @@ class AssetsService
      */
     public function addAsset(
         string $pathRelative,
-        RenderNode $renderNode,
+        AbstractRenderNode $renderNode,
         string $usage
     ): ?Asset {
         $pathRelativeToPublic = self::DIR_BUILD.$pathRelative;
@@ -455,7 +455,7 @@ class AssetsService
         $registry = $this->adaptiveResponseService->renderPass->registry;
         $assets = [];
 
-        /** @var RenderNode $renderNode */
+        /** @var AbstractRenderNode $renderNode */
         foreach ($registry[$contextType] as $renderNode) {
             $assets = array_merge(
                 $assets,

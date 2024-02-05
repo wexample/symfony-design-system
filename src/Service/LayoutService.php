@@ -7,7 +7,7 @@ use JetBrains\PhpStorm\Pure;
 use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Rendering\AdaptiveResponse;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
-use Wexample\SymfonyDesignSystem\Rendering\RenderNode\LayoutRenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractLayoutRenderNode;
 use Wexample\SymfonyTranslations\Translation\Translator;
 use function array_merge;
 
@@ -52,7 +52,7 @@ class LayoutService extends RenderNodeService
      */
     public function layoutInit(
         Environment $twig,
-        LayoutRenderNode $layoutRenderNode,
+        AbstractLayoutRenderNode $layoutRenderNode,
         string $layoutName,
         bool $useJs
     ) {
