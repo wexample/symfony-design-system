@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\SymfonyHelpers\AbstractBundle;
+use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 readonly class DesignSystemTemplatesCompilerPass implements CompilerPassInterface
 {
@@ -20,15 +21,27 @@ readonly class DesignSystemTemplatesCompilerPass implements CompilerPassInterfac
          */
         foreach ($bundlesPaths as $bundleClass => $paths) {
             foreach ($paths as $path) {
-                # Add template alias like @SymfonyDesignSystem for every registered path.
-                $definition->addMethodCall(
-                    'addPath',
-                    [
-                        $path,
-                        class_exists($bundleClass) ?
-                            $bundleClass::getAlias() : $bundleClass,
-                    ]
-                );
+                if ($bundleClass != VariableHelper::APP) {
+                    # Add template alias like @SymfonyDesignSystem for every registered path.
+                    $definition->addMethodCall(
+                        'addPath',
+                        [
+                            $path,
+                            class_exists($bundleClass) ?
+                                $bundleClass::getAlias() : $bundleClass,
+                        ]
+                    );
+                }
+                else {
+                    // Add also to allow find all "front" folder, as in translations extension.
+                    $definition->addMethodCall(
+                        'addPath',
+                        [
+                            $path,
+                            basename($path),
+                        ]
+                    );
+                }
             }
         }
     }
