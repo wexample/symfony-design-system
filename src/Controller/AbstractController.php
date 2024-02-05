@@ -67,6 +67,7 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
         }
 
         $this->adaptiveResponseService->renderPrepare(
+            $this,
             $view,
             $parameters
         );

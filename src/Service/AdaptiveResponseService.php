@@ -31,6 +31,7 @@ class AdaptiveResponseService
     }
 
     public function renderPrepare(
+        AbstractController $controller,
         string $view,
         array &$parameters = []
     ): void {
@@ -42,9 +43,9 @@ class AdaptiveResponseService
 
         $this->renderPass = new RenderPass(
             $this->getResponse(),
-            $this->controller->enableAggregation,
+            $controller->enableAggregation,
             $this->requestStack->getMainRequest(),
-            $this->controller->enableJavascript,
+            $controller->enableJavascript,
             $view,
         );
 
