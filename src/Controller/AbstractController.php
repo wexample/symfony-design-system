@@ -47,7 +47,9 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
 
         return parent::render(
             $view,
-            $parameters + $pass->getRenderParameters(),
+            [
+                'render_pass' => $pass
+            ] + $parameters + $pass->getRenderParameters(),
             $response
         );
     }

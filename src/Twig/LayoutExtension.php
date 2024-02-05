@@ -5,15 +5,16 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 use Exception;
 use Twig\Environment;
 use Twig\TwigFunction;
-use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\LayoutService;
+use Wexample\SymfonyDesignSystem\Service\PageService;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
 class LayoutExtension extends AbstractExtension
 {
     public function __construct(
-        private readonly AdaptiveResponseService $adaptiveResponseService,
         private readonly LayoutService $layoutService,
+        private readonly PageService $pageService,
     ) {
     }
 
@@ -38,11 +39,19 @@ class LayoutExtension extends AbstractExtension
      */
     public function layoutInit(
         Environment $twig,
-        ?string $layoutName,
+        RenderPass $renderPass,
+        string $layoutName,
+        string $pageName,
     ): void {
         $this->layoutService->layoutInitInitial(
+            $renderPass,
             $twig,
             $layoutName,
+        );
+
+        $this->pageService->pageInit(
+            $renderPass->layoutRenderNode->page,
+            $pageName,
         );
     }
 }

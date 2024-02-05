@@ -11,8 +11,6 @@ class AdaptiveResponseService
 {
     private ?AdaptiveResponse $currentResponse = null;
 
-    public RenderPass $renderPass;
-
     public function __construct(
         private readonly RequestStack $requestStack,
     ) {
@@ -22,15 +20,12 @@ class AdaptiveResponseService
         AbstractController $controller,
         string $view,
     ): RenderPass {
-
-        $this->renderPass = new RenderPass(
+        return new RenderPass(
             // Response may be explicitly created in controller,
             // but if not we need at least one to detect layout base name.
             ($this->hasResponse() ? $this->getResponse() : $this->createResponse($controller))->getOutputType(),
             $view,
         );
-
-        return $this->renderPass;
     }
 
     public function hasResponse(): bool

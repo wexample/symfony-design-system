@@ -1,6 +1,5 @@
 {%- block layout_base -%}
     {%- block layout_config -%}
-        {{- layout_init(layout_name) -}}
-        {{- page_init(page_name) -}}
+        {{- layout_init(render_pass, layout_name, page_name) -}}
     {%- endblock -%}
 {%- endblock -%}
