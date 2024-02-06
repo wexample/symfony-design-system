@@ -14,7 +14,6 @@ class LayoutExtension extends AbstractExtension
 {
     public function __construct(
         private readonly LayoutService $layoutService,
-        private readonly PageService $pageService,
     ) {
     }
 
@@ -40,18 +39,14 @@ class LayoutExtension extends AbstractExtension
     public function layoutInit(
         Environment $twig,
         RenderPass $renderPass,
-        string $layoutName,
+        string $layoutPath,
         string $pageName,
     ): void {
         $this->layoutService->layoutInitInitial(
             $renderPass,
             $twig,
-            $layoutName,
-        );
-
-        $this->pageService->pageInit(
-            $renderPass->layoutRenderNode->page,
-            $pageName,
+            $layoutPath,
+            $pageName
         );
     }
 }

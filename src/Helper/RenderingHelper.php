@@ -2,6 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Helper;
 
+use Wexample\SymfonyHelpers\Helper\TextHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use function implode;
 
@@ -25,5 +26,24 @@ class RenderingHelper
             $renderContextType,
             $renderContextName,
         ]);
+    }
+
+    public static function renderNodeNameFromPath(string $templatePath): string
+    {
+        // Define template name.
+        $ext = TemplateHelper::TEMPLATE_FILE_EXTENSION;
+        // Remove the leading @SomeThing.
+        $templatePath = TextHelper::trimFirstChunkIfMoreThanOne($templatePath, '/');
+
+        // Path have extension.
+        if (str_ends_with($templatePath, $ext)) {
+            $templatePath = substr(
+                $templatePath,
+                0,
+                -strlen(TemplateHelper::TEMPLATE_FILE_EXTENSION)
+            );
+        }
+
+        return TemplateHelper::trimTemplateLocationAlias($templatePath);
     }
 }

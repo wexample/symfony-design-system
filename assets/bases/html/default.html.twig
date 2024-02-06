@@ -1,5 +1,7 @@
 {%- extends '@SymfonyDesignSystemBundle/bases/base.html.twig' -%}
 
+{%- import '@SymfonyDesignSystemBundle/macros/assets.html.twig' as macro_assets -%}
+
 {%- block layout_base -%}
     {{- parent() -}}
     <!DOCTYPE html>
@@ -49,6 +51,10 @@
     <div id="layout" >
                             {{- block('page_body') -}}
     </div>
+        {{ macro_assets.render_available_css(render_pass, 'layout') }}
+        {{ macro_assets.render_available_js(render_pass, 'layout') }}
+
+        <script type="text/javascript" src="{{ asset('build/runtime.js') }}"></script>
     </body>
     </html>
 {%- endblock -%}
