@@ -34,7 +34,7 @@ class LayoutService extends RenderNodeService
         string $layoutName,
         string $colorScheme,
         bool $useJs
-    ) {
+    ): void {
         $renderPass = $this->adaptiveResponseService->renderPass;
 
         $renderPass->layoutRenderNode->colorScheme = $colorScheme;

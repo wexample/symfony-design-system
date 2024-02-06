@@ -98,7 +98,6 @@ class Asset extends RenderDataGenerator
         public string $usage
     ) {
         $this->filesize = filesize($path);
-
         $info = pathinfo($path);
         $this->type = $info['extension'];
 
