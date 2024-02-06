@@ -44,8 +44,6 @@ class AssetsService
 
     public const FILE_MANIFEST = 'manifest.json';
 
-    private array $assets = self::ASSETS_DEFAULT_EMPTY;
-
     protected array $assetsLoaded = [];
 
     private string $pathProject;
@@ -165,8 +163,6 @@ class AssetsService
         } else {
             $asset = $this->assetsLoaded[$pathRelative];
         }
-
-        $this->assets[$asset->type][] = $asset;
 
         return $this->assetsLoaded[$pathRelative];
     }
