@@ -2,10 +2,10 @@
 
 namespace Wexample\SymfonyDesignSystem\Command;
 
-use Wexample\SymfonyDesignSystem\Command\Traits\AbstractSymfonyDesignSystemBundleCommandTrait;
+use Wexample\SymfonyDesignSystem\Traits\SymfonyDesignSystemBundleClassTrait;
 use Wexample\SymfonyHelpers\Command\AbstractCheckNodeInstallCommand;
 
 class CheckNodeInstallCommand extends AbstractCheckNodeInstallCommand
 {
-    use AbstractSymfonyDesignSystemBundleCommandTrait;
+    use SymfonyDesignSystemBundleClassTrait;
 }
