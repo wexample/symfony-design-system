@@ -17,9 +17,10 @@ abstract class AbstractPagesController extends AbstractController
 
     public const BUNDLE_TEMPLATE_SEPARATOR = '::';
 
-    #[\Symfony\Component\Routing\Annotation\Route(name: 'build_template_path')]
-    public function buildTemplatePath(string $view, AbstractBundle|string|null $bundleClass = null) : string
-    {
+    protected function buildTemplatePath(
+        string $view,
+        AbstractBundle|string|null $bundleClass = null
+    ): string {
         $base = self::RESOURCES_DIR_PAGE;
 
         if (str_contains($view, self::BUNDLE_TEMPLATE_SEPARATOR)) {
