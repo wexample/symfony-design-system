@@ -4,11 +4,10 @@ namespace Wexample\SymfonyDesignSystem\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\SymfonyHelpers\AbstractBundle;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
-readonly class DesignSystemTemplatesCompilerPass implements CompilerPassInterface
+class DesignSystemTemplatesCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
