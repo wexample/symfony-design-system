@@ -2,7 +2,6 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
-use JetBrains\PhpStorm\Pure;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
@@ -15,7 +14,6 @@ use Wexample\SymfonyTranslations\Translation\Translator;
 
 class PageService extends RenderNodeService
 {
-    #[Pure]
     public function __construct(
         AssetsService $assetsService,
         AdaptiveResponseService $adaptiveResponseService,
@@ -33,12 +31,12 @@ class PageService extends RenderNodeService
     public function pageInit(
         RenderPass $renderPass,
         PageRenderNode $page,
-        string $pagePath,
+        string $pagePath
     ): void {
         $this->initRenderNode(
             $renderPass,
             $page,
-            $pagePath,
+            $pagePath
         );
 
         $this->translator->setDomainFromPath(
@@ -49,54 +47,42 @@ class PageService extends RenderNodeService
 
     public function getControllerClassPathFromRouteName(string $routeName): string
     {
-        $routes = $this->router->getRouteCollection();
-
-        return $routes->get($routeName)->getDefault('_controller');
+        return $this->router->getRouteCollection()->get($routeName)->getDefault('_controller');
     }
 
-    private function buildPageNameFromClassPathComplete(array $parts): string
+    private function convertClassPathToPageName(array $pathParts): string
     {
-        // Convert all parts.
-        $parts = array_map(
-            TextHelper::class.'::toSnake',
-            $parts
-        );
-
-        return implode(
-            '.',
-            $parts
-        );
+        $pathParts = array_map([TextHelper::class, 'toSnake'], $pathParts);
+        return implode('.', $pathParts);
     }
 
-    public function buildPageNameFromClassPath(string $methodClassPath): string
+    public function buildPageNameFromClassPath(string $classPath): string
     {
-        $explode = explode(ClassHelper::METHOD_SEPARATOR, $methodClassPath);
-        $methodName = $explode[1];
-        /** @var AbstractPagesController $controllerClass */
-        $controllerClass = $explode[0];
+        [$controllerFullPath, $methodName] = explode(ClassHelper::METHOD_SEPARATOR, $classPath);
 
         // Remove useless namespace part.
-        $controllerWithoutSuffix = TextHelper::removeSuffix($explode[0], 'Controller');
+        $controllerName = TextHelper::removeSuffix($controllerFullPath, 'Controller');
 
+        /** @var AbstractPagesController $controllerFullPath */
         /** @var AbstractBundle $controllerBundle */
-        if ($controllerBundle = $controllerClass::getControllerBundle()) {
+        if ($controllerBundle = $controllerFullPath::getControllerBundle()) {
             $explodeController = explode(
                 ClassHelper::NAMESPACE_SEPARATOR,
-                $controllerWithoutSuffix
+                $controllerName
             );
 
             $explodeController = array_splice($explodeController, 3);
 
             // Append method name.
-            $explodeController[] = $explode[1];
+            $explodeController[] = $methodName;
 
-            return '@'.$controllerBundle::getAlias().'.'.$this->buildPageNameFromClassPathComplete(
+            return '@'.$controllerBundle::getAlias().'.'.$this->convertClassPathToPageName(
                     $explodeController,
                 );
         }
         // Remove useless namespace part.
         $controllerRelativePath = TextHelper::removePrefix(
-            $controllerWithoutSuffix,
+            $controllerName,
             AbstractPagesController::NAMESPACE_CONTROLLER
         );
 
@@ -109,9 +95,27 @@ class PageService extends RenderNodeService
         // Append method name.
         $explodeController[] = $methodName;
 
-        return $this->buildPageNameFromClassPathComplete(
+        return $this->convertClassPathToPageName(
             $explodeController,
             $methodName
         );
+    }
+
+    private function getRelativePathParts(
+        string $controllerName,
+        string $methodName
+    ): array {
+        if ($bundle = $controllerName::getControllerBundle()) {
+            $parts = explode(ClassHelper::NAMESPACE_SEPARATOR, $controllerName);
+            $relevantParts = array_slice($parts, 3); // Skipping the first three namespace parts
+            $relevantParts[] = $methodName;
+            return ['@'.$bundle::getAlias(), ...$relevantParts];
+        }
+
+        $controllerRelativePath = TextHelper::removePrefix($controllerName, AbstractPagesController::NAMESPACE_CONTROLLER);
+        $parts = explode(ClassHelper::NAMESPACE_SEPARATOR, $controllerRelativePath);
+        $parts[] = $methodName;
+
+        return $parts;
     }
 }
