@@ -2,7 +2,7 @@ const tools = require('./webpack.tools');
 
 tools.logTitle('Vues local');
 
-tools.buildAssetsLocationsList('js').forEach((location) => {
+tools.forEachFrontPath((bundle, location) => {
   tools.addAssetsJsWrapped(
     location,
     '',

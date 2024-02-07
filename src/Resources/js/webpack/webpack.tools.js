@@ -30,13 +30,10 @@ module.exports = {
     return JSON.parse(fs.readFileSync(this.frontCachePathsFile, 'utf-8'));
   },
 
-  buildAssetsLocationsList(type) {
-    return [
-      // Project level.
-      `./assets/${type}/`,
-    ].concat(
-      Object.values(this.getFrontPaths())
-    );
+  forEachFrontPath(callback) {
+    Object.entries(this.getFrontPaths()).forEach((entry) => {
+      callback(entry[0], entry[1])
+    });
   },
 
   getFileName(path) {
@@ -51,7 +48,7 @@ module.exports = {
 
   forEachJsExtAndLocations(callback) {
     this.jsFilesExtensions.forEach((srcExt) => {
-      this.buildAssetsLocationsList('js').forEach((location) => {
+      this.forEachFrontPath((bundle, location) => {
         callback(srcExt, location);
       });
     });
@@ -69,15 +66,6 @@ module.exports = {
    */
   camelCaseToDash: myStr => {
     return myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-  },
-
-  pathToCamel: (path) => {
-    return path
-      .split('/')
-      .map((string) => {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-      })
-      .join('');
   },
 
   removeFileExtension: fileName => {
@@ -156,10 +144,6 @@ module.exports = {
       args.shift(),
       module.exports.textLogPath.apply(this, args)
     );
-  },
-
-  logPath() {
-    console.log(module.exports.textLogPath.apply(this, arguments));
   },
 
   textLogPath(one, two, three) {

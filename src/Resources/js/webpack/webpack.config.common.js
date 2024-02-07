@@ -21,7 +21,7 @@ for (let alias in paths) {
 // Ignored CSS files are prefixed by an underscore.
 tools.logTitle('CSS : all');
 
-tools.buildAssetsLocationsList('css').forEach((location) => {
+tools.forEachFrontPath((bundle, location) => {
   tools.addAssetsCss(
     location,
     '',
