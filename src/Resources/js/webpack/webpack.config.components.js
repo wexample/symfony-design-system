@@ -27,17 +27,3 @@ tools.forEachJsExtAndLocations((srcExt, bundle, location) => {
   );
 });
 
-// Local components css are built in common config.
-
-// Core level
-
-tools.logTitle('JS Core level components');
-
-tools.jsFilesExtensions.forEach((srcExt) => {
-  tools.addAssetsJsWrapped(
-    tools.designSystemPackageRootDir + 'src/Resources/js/',
-    'components/',
-    srcExt,
-    'components'
-  );
-});

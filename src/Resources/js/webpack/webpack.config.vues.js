@@ -11,18 +11,3 @@ tools.forEachFrontPath((bundle, location) => {
     'vue'
   );
 });
-
-tools.logTitle('Vues core');
-
-tools.addAssetsCss(
-  tools.designSystemPackageRootDir + 'front/css/',
-  'vue/',
-  'scss'
-);
-
-// We have to define manually which css is for vue components.
-tools.addAssetsCss(
-  tools.designSystemPackageRootDir + 'front/css/',
-  'forms_themes/vue/',
-  'scss'
-);
