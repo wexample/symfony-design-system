@@ -1,0 +1,22 @@
+// Layout.
+@use '../../layouts/black/layout';
+
+// Base partials.
+@use '../../css/shapes/container';
+@use '../../css/partials/debug';
+@use '../../css/shapes/pill';
+@use '../../css/shapes/tab';
+
+// Local partials.
+@use 'partials/header';
+
+// Allowed partials in all pages.
+@use '../../css/shapes/block';
+
+#nav-secondary {
+  @extend .pill;
+
+  ul {
+    display: flex;
+  }
+}

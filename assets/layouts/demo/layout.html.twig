@@ -1,0 +1,33 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/black/layout.html.twig' -%}
+
+{#{% import '@WexampleSymfonyDesignSystemBundle/macros/tabs.html.twig' as macro_tabs %}#}
+
+{%- set layout_path = layout_path|default(_self) -%}
+
+{# Has a header bar with mobile burger and user menu #}
+{#{%- block layout_composer_html -%}#}
+{#    <header>#}
+{#        <div class="layout-header">#}
+{#                <a class="logo" href="{{ url('home_index') }}" title="{{ 'common.app::name' | trans }}">#}
+{#                    <img src="{{ asset('/images/wex.gif') }}">#}
+{#                </a>#}
+{#        </div>#}
+{#    </header>#}
+{#    <div class="container-medium">#}
+{#        <nav id="nav-secondary">#}
+{#            {{ macro_tabs.start() }}#}
+{#            {{ macro_tabs.tab_to_page('home_index') }}#}
+{#            {{ macro_tabs.tab_to_page('demo_assets') }}#}
+{#            {{ macro_tabs.tab_to_page('demo_loading') }}#}
+{#            {{ macro_tabs.tab_to_page('demo_translations') }}#}
+{#            {{ macro_tabs.tab_to_page('demo_components') }}#}
+{#            {{ macro_tabs.end() }}#}
+{#        </nav>#}
+{#        {% if page_title is defined %}#}
+{#            <h1>{{ page_title | trans }}</h1>#}
+{#        {% endif %}#}
+{#        <div class="page-content-body">#}
+{#            {{ block('page') }}#}
+{#        </div>#}
+{#    </div>#}
+{#{%- endblock -%}#}
