@@ -1,5 +1,6 @@
 {% macro start(render_pass, group = 'default', class = '') %}
      <ul class="tabs tabs-{{ group }} {{ class }}">
+        {{ component_init_parent(render_pass, 'components/tabs', {group:group}) }}
 {% endmacro %}
 
     {% macro end() %}
@@ -10,7 +11,7 @@
     <li>
         <a href="{{ url(route, routeParameters) }}"
            class="tab tab-internal {{ route_is_current(route, routeParameters) ? 'active' : '' }}">
-            TODO
+            {{ (translation_build_domain_from_path(page_name_from_route(route)) ~ '::page_title') | trans }}
         </a>
     </li>
 {% endmacro %}

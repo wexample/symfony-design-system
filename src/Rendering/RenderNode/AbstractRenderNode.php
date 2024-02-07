@@ -12,6 +12,8 @@ abstract class AbstractRenderNode extends RenderDataGenerator
 {
     public array $assets = AssetsService::ASSETS_DEFAULT_EMPTY;
 
+    protected string $id;
+
     public bool $hasAssets = true;
 
     public string $name;
@@ -23,6 +25,9 @@ abstract class AbstractRenderNode extends RenderDataGenerator
         string $name,
     ): void {
         $this->name = $name;
+        $this->id = $this->getContextType().'-'
+            .str_replace('/', '-', $this->name)
+            .'-'.uniqid();
 
         $renderPass->registerRenderNode($this);
     }

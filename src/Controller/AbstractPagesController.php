@@ -13,6 +13,10 @@ abstract class AbstractPagesController extends AbstractController
 {
     protected string $viewPathPrefix = '';
 
+    public const NAMESPACE_CONTROLLER = 'App\\Controller\\';
+
+    public const NAMESPACE_PAGES = self::NAMESPACE_CONTROLLER.'Pages\\';
+
     public const RESOURCES_DIR_PAGE = VariableHelper::PLURAL_PAGE.FileHelper::FOLDER_SEPARATOR;
 
     public const BUNDLE_TEMPLATE_SEPARATOR = '::';
