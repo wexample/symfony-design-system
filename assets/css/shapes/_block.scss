@@ -1,0 +1,14 @@
+@use 'sass:math';
+
+@import '../mixins/block';
+
+.block {
+  margin: $block-spacing;
+  border-radius: $block-border-radius;
+  padding: $block-padding-y $block-padding-x;
+}
+
+.blocks {
+  display: flex;
+  width: 100%;
+}

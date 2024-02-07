@@ -1,0 +1,21 @@
+
+.inline-infos {
+  @import 'block';
+
+  align-items: center;
+  display: flex;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+
+  & > div.info {
+    padding: 0 0 0 1rem;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+}

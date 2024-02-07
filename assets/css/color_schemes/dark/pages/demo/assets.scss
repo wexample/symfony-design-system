@@ -1,0 +1,16 @@
+$global-color-scheme-name: 'dark' !default;
+
+@use '../../partials/inline-info'
+  with (
+  $global-color-scheme-name: $global-color-scheme-name
+);
+
+@import '../../mixins/global';
+
+body.color-scheme-#{$global-color-scheme-name} .display-breakpoint,
+body.color-scheme-default .theme-dark.display-breakpoint {
+  .size-name {
+    background: $color-disabled-background;
+    color: $color-disabled-text;
+  }
+}

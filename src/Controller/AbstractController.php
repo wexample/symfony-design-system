@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Wexample\SymfonyDesignSystem\Helper\ColorSchemeHelper;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 
 abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\AbstractController
@@ -48,8 +49,9 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
         return parent::render(
             $view,
             [
+                'layout_color_scheme' => ColorSchemeHelper::SCHEME_DEFAULT,
+                'debug' => (bool) $this->getParameter('design_system.debug'),
                 'render_pass' => $pass,
-                'debug' => (bool) $this->getParameter('design_system.debug')
             ] + $parameters + $pass->getRenderParameters(),
             $response
         );
