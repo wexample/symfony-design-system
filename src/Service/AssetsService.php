@@ -137,9 +137,7 @@ class AssetsService
     ): ?Asset {
         $pathRelativeToPublic = $renderNode->buildBuiltPublicAssetPath($ext);
 
-
         if (!isset($this->registry[$pathRelativeToPublic])) {
-//            dd($pathRelativeToPublic);
             return null;
         }
 
