@@ -20,14 +20,14 @@
             <script nonce="layout-init">
               "use strict";
 
-              {#- Use old school fashioned javascript notation to improve compatibility. -#}
+              {# Use old school fashioned javascript notation to improve compatibility. -#}
               var AppRegistryBundlesManager = function AppRegistryBundlesManager() {
                 this.classes = {};
               };
 
               AppRegistryBundlesManager.prototype = {
                 add: function add(id, definition) {
-                    {#- Prevent class override. -#}
+                  {# Prevent class override. -#}
                   if (!this.classes[id]) {
                     this.classes[id] = definition;
                   }
@@ -36,17 +36,16 @@
 
                   if (!app) {
                     throw new Error("Unable to start app.");
-                    return;
                   }
 
-                    {#- When app core is not loaded, -#}
-                    {#- js asset might be preloaded. -#}
+                  {# When app core is not loaded, -#}
+                  {# js asset might be preloaded. -#}
                   if (app.hasCoreLoaded) {
-                      {#- Mark now that class is loaded. -#}
+                    {# Mark now that class is loaded. -#}
                     app.services.assets.jsPendingLoaded(id);
                   }
 
-                    {#- Return to allow export or extending class. -#}
+                  {# Return to allow export or extending class. -#}
                   return definition;
                 }
               };

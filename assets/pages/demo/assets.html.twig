@@ -5,23 +5,13 @@
     {{ var_js('demoVariableLayout', 'demoVariableLayoutValue') }}
 {%- endblock -%}
 
-{%- block page_config -%}
-    {{ parent() }}
-    {{ var_js('demoVariable', 'demoVariableValueOverridden') }}
-    {{ var_js('demoVariable', 'demoVariableValue') }}
-    {{ var_js('demoVariableBoolean', true) }}
-    {{ var_js('demoVariableInteger', 123) }}
-    {{ var_js('demoVariableFloat', 123.456) }}
-    {{ var_js('demoVariableObject', {'key':{'key2':'value'}}) }}
-{%- endblock -%}
-
 {%- block page_body -%}
     <div class="inline-infos">
         <div class="info">
             {{ '@page::infos.page_name' | trans }} : <b>{{ page_name }}</b>
         </div>
         <div class="info">
-            {{ '@page::infos.layout_name' | trans }} : <b>{{ layout_name }}</b>
+            {{ '@page::infos.layout_name' | trans }} : <b>{{ layout_path }}</b>
         </div>
     </div>
     <h2>{{ '@page::resources.title' | trans }}</h2>
