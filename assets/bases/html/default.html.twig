@@ -58,7 +58,9 @@
         {%- endblock -%}
     </div>
         {{ macro_assets.render_available_css(render_pass, 'layout') }}
+        {{ macro_assets.render_available_css(render_pass, 'page') }}
         {{ macro_assets.render_available_js(render_pass, 'layout') }}
+        {{ macro_assets.render_available_js(render_pass, 'page') }}
 
         <script type="text/javascript" src="{{ asset('build/runtime.js') }}"></script>
 
