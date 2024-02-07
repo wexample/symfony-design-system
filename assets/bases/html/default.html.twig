@@ -50,7 +50,10 @@
     <div id="layout" >
         {%- block layout -%}
             {%- block layout_composer_html -%}
+                {%- block page -%}
                             {{- block('page_body') -}}
+
+                {%- endblock -%}
             {%- endblock -%}
         {%- endblock -%}
     </div>

@@ -1,5 +1,33 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/layouts/demo/layout.html.twig' -%}
 
 {%- block page_body -%}
-    ASSETS
+    <div class="inline-infos">
+        <div class="info">
+            {{ '@page::infos.layout_name' | trans }} : <b>{{ layout_path }}</b>
+        </div>
+    </div>
+    <h2>{{ '@page::resources.title' | trans }}</h2>
+    <h2>{{ '@page::themes.title' | trans }}</h2>
+    <div class="blocks">
+        <div class="block blocks-col color-scheme-light">
+        </div>
+        <div class="block blocks-col color-scheme-light">
+        </div>
+        <div class="block blocks-col color-scheme-light">
+        </div>
+    </div>
+    <h2>{{ '@page::breakpoints.title' | trans }}</h2>
+    <div class="blocks blocks-no-stretch blocks-side-column-left">
+        <div class="blocks-col">
+            {% for name,sizeMin in displayBreakpoints %}
+                <div class="inline-infos display-breakpoint display-breakpoint-{{ name }}">
+                    <div class="pill size-name">{{ name }}</div>
+                    <div class="size-min">{{ sizeMin }}px</div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="block color-scheme-light">
+            {{ '@page::breakpoints.body' | trans | raw }}
+        </div>
+    </div>
 {%- endblock -%}

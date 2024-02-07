@@ -6,15 +6,15 @@
 
 {# Has a header bar with mobile burger and user menu #}
 {%- block layout_composer_html -%}
-{#    <header>#}
-{#        <div class="layout-header">#}
-{#                <a class="logo" href="{{ url('home_index') }}" title="{{ 'common.app::name' | trans }}">#}
-{#                    <img src="{{ asset('/images/wex.gif') }}">#}
-{#                </a>#}
-{#        </div>#}
-{#    </header>#}
-{#    <div class="container-medium">#}
-{#        <nav id="nav-secondary">#}
+    <header>
+        <div class="layout-header">
+                <a class="logo" href="{{ url('home_index') }}" title="{{ 'common.app::name' | trans }}">
+                    <img alt="{{ 'common.app::name' | trans }}" src="{{ asset('/images/wex.gif') }}">
+                </a>
+        </div>
+    </header>
+    <div class="container-medium">
+        <nav id="nav-secondary">
             {{ macro_tabs.start(render_pass) }}
             {{ macro_tabs.tab_to_page('home_index') }}
             {{ macro_tabs.tab_to_page('_design_system_demo_index') }}
@@ -23,12 +23,12 @@
 {#            {{ macro_tabs.tab_to_page(render_pass, '_design_system_demo_translations') }}#}
 {#            {{ macro_tabs.tab_to_page(render_pass, '_design_system_demo_components') }}#}
             {{ macro_tabs.end() }}
-{#        </nav>#}
-{#        {% if page_title is defined %}#}
-{#            <h1>{{ page_title | trans }}</h1>#}
-{#        {% endif %}#}
-{#        <div class="page-content-body">#}
-{#            {{ block('page') }}#}
-{#        </div>#}
-{#    </div>#}
+        </nav>
+        {% if page_title is defined %}
+            <h1>{{ page_title | trans }}</h1>
+        {% endif %}
+        <div class="page-content-body">
+            {{ block('page') }}
+        </div>
+    </div>
 {%- endblock -%}
