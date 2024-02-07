@@ -17,6 +17,7 @@ final class DemoController extends AbstractPagesController
     use SymfonyDesignSystemBundleClassTrait;
 
     final public const ROUTE_INDEX = VariableHelper::INDEX;
+    final public const ROUTE_ASSETS = VariableHelper::ASSETS;
 
     protected string $viewPathPrefix = VariableHelper::DEMO.'/';
 
@@ -24,8 +25,7 @@ final class DemoController extends AbstractPagesController
     public function index(): Response
     {
         return $this->renderPage(
-            self::ROUTE_INDEX,
-            bundle: WexampleSymfonyDesignSystemBundle::class
+            self::ROUTE_INDEX
         );
     }
 
@@ -36,21 +36,10 @@ final class DemoController extends AbstractPagesController
     public function assets(): Response
     {
         return $this->renderPage(
-            VariableHelper::ASSETS,
+            self::ROUTE_ASSETS,
             [
                 'displayBreakpoints' => AssetsService::DISPLAY_BREAKPOINTS,
             ]
-        );
-    }
-
-    #[Route(
-        path: VariableHelper::PLURAL_COMPONENT,
-        name: VariableHelper::PLURAL_COMPONENT
-    )]
-    public function components(): Response
-    {
-        return $this->renderPage(
-            VariableHelper::PLURAL_COMPONENT
         );
     }
 
@@ -91,6 +80,17 @@ final class DemoController extends AbstractPagesController
     {
         return $this->renderPage(
             VariableHelper::TRANSLATIONS
+        );
+    }
+
+    #[Route(
+        path: VariableHelper::PLURAL_COMPONENT,
+        name: VariableHelper::PLURAL_COMPONENT
+    )]
+    public function components(): Response
+    {
+        return $this->renderPage(
+            VariableHelper::PLURAL_COMPONENT
         );
     }
 }
