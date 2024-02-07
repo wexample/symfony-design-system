@@ -1,0 +1,14 @@
+
+@import '../mixins/reset';
+
+.tabs {
+  @extend .reset;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  a.tab {
+    padding: 0.9rem 1.7rem;
+    transition-duration: 0.5s;
+  }
+}
