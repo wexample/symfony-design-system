@@ -18,14 +18,10 @@ class RenderPass
         RenderingHelper::CONTEXT_VUE => [],
     ];
 
-    public string $pageName;
-
     public function __construct(
         string $outputType,
         public string $view,
     ) {
-        $this->pageName = RenderingHelper::renderNodeNameFromPath($this->view);
-
         $className = InitialLayoutRenderNode::class;
 
         if (AdaptiveResponse::OUTPUT_TYPE_RESPONSE_JSON === $outputType) {
@@ -47,7 +43,6 @@ class RenderPass
     {
         return [
             'document_head_title' => '@page::page_title',
-            'page_name' => $this->pageName,
         ];
     }
 }

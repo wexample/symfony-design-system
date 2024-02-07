@@ -4,8 +4,8 @@ namespace Wexample\SymfonyDesignSystem\Service;
 
 use Exception;
 use JetBrains\PhpStorm\Pure;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
-use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyTranslations\Translation\Translator;
@@ -16,12 +16,14 @@ class LayoutService extends RenderNodeService
     public function __construct(
         AssetsService $assetsService,
         AdaptiveResponseService $adaptiveResponseService,
+        KernelInterface $kernel,
         private readonly PageService $pageService,
-        protected Translator $translator
+        protected Translator $translator,
     ) {
         parent::__construct(
             $assetsService,
-            $adaptiveResponseService
+            $adaptiveResponseService,
+            $kernel
         );
     }
 
@@ -32,7 +34,6 @@ class LayoutService extends RenderNodeService
         RenderPass $renderPass,
         Environment $twig,
         string $layoutPath,
-        string $pageName,
     ): void {
         $this->layoutInit(
             $renderPass,
@@ -44,7 +45,7 @@ class LayoutService extends RenderNodeService
         $this->pageService->pageInit(
             $renderPass,
             $renderPass->layoutRenderNode->page,
-            $pageName,
+            $renderPass->view,
         );
     }
 
@@ -60,7 +61,7 @@ class LayoutService extends RenderNodeService
         $this->initRenderNode(
             $renderPass,
             $layoutRenderNode,
-            RenderingHelper::renderNodeNameFromPath($layoutPath),
+            $layoutPath,
         );
     }
 }

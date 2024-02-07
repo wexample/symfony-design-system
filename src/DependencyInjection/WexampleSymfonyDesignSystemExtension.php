@@ -52,7 +52,7 @@ class WexampleSymfonyDesignSystemExtension extends AbstractWexampleSymfonyExtens
                         $realPaths[] = $relativePath;
                     }
 
-                    $translationPaths[] = $relativePath;
+                    $translationPaths['@'.$class::getAlias()] = $relativePath;
                 }
 
                 $paths[$class] = $realPaths;

@@ -25,4 +25,12 @@ abstract class AbstractLayoutRenderNode extends AbstractRenderNode
     {
         return RenderingHelper::CONTEXT_LAYOUT;
     }
+
+    public function toRenderData(): array
+    {
+        return parent::toRenderData()
+            + $this->serializeVariables([
+                'page',
+            ]);
+    }
 }

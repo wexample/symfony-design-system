@@ -46,13 +46,11 @@ class LayoutExtension extends AbstractExtension
         Environment $twig,
         RenderPass $renderPass,
         string $layoutPath,
-        string $pageName,
     ): void {
         $this->layoutService->layoutInitInitial(
             $renderPass,
             $twig,
             $layoutPath,
-            $pageName
         );
     }
 

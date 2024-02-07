@@ -7,6 +7,17 @@ use function is_object;
 
 abstract class RenderDataGenerator
 {
+    public function arrayToRenderData(array $array): array
+    {
+        $output = [];
+
+        /** @var RenderDataGenerator $renderDataGenerator */
+        foreach ($array as $key => $renderDataGenerator) {
+            $output[$key] = $renderDataGenerator->toRenderData();
+        }
+
+        return $output;
+    }
 
     abstract public function toRenderData(): array;
 

@@ -95,7 +95,7 @@ class AssetsService
 
     public function assetsDetect(
         string $path,
-        AbstractRenderNode $context,
+        AbstractRenderNode $contextRenderNode,
         array &$collection = []
     ): array {
         foreach (Asset::ASSETS_EXTENSIONS as $ext) {
@@ -104,8 +104,7 @@ class AssetsService
                 $this->assetsDetectForType(
                     $path,
                     $ext,
-                    $context,
-                    true
+                    $contextRenderNode,
                 )
             );
         }
@@ -125,8 +124,8 @@ class AssetsService
         $output = [];
 
         if ($asset = $this->addAsset(
-            $assetPathFull,
-            $renderNode
+            $renderNode,
+            $ext
         )) {
             $output[] = $asset;
         }
@@ -138,16 +137,16 @@ class AssetsService
      * @throws Exception
      */
     public function addAsset(
-        string $pathRelative,
         AbstractRenderNode $renderNode,
+        string $ext
     ): ?Asset {
-        $pathRelativeToPublic = self::DIR_BUILD.$pathRelative;
+        $pathRelativeToPublic = $renderNode->buildBuiltPublicAssetPath($ext);
 
         if (!isset($this->registry[$pathRelativeToPublic])) {
             return null;
         }
 
-        if (!isset($this->assetsLoaded[$pathRelative])) {
+        if (!isset($this->assetsLoaded[$pathRelativeToPublic])) {
             $pathReal = realpath($this->pathPublic.$this->registry[$pathRelativeToPublic]);
 
             if (!$pathReal) {
@@ -159,12 +158,10 @@ class AssetsService
                 $this->pathPublic,
             );
 
-            $this->assetsLoaded[$pathRelative] = $asset;
-        } else {
-            $asset = $this->assetsLoaded[$pathRelative];
+            $this->assetsLoaded[$pathRelativeToPublic] = $asset;
         }
 
-        return $this->assetsLoaded[$pathRelative];
+        return $this->assetsLoaded[$pathRelativeToPublic];
     }
 
     public function assetsFiltered(
