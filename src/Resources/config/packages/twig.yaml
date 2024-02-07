@@ -1,2 +1,2 @@
 form_themes:
-  - '@SymfonyDesignSystemBundle/forms_themes/form.html.twig'
+  - '@WexampleSymfonyDesignSystemBundle/forms_themes/form.html.twig'
