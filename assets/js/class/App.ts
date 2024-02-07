@@ -1,3 +1,4 @@
+import AppService from './AppService';
 import AsyncConstructor from './AsyncConstructor';
 
 export default class extends AsyncConstructor {
@@ -9,5 +10,11 @@ export default class extends AsyncConstructor {
     super();
 
     window[globalName] = this;
+  }
+
+  getServices(): typeof AppService[] {
+    return [
+
+    ];
   }
 }
