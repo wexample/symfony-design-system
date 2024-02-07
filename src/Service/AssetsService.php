@@ -10,7 +10,6 @@ use Symfony\Contracts\Cache\CacheInterface;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
-use Wexample\SymfonyHelpers\Helper\PathHelper;
 use Wexample\SymfonyHelpers\Helper\JsonHelper;
 use function array_merge;
 
@@ -94,7 +93,6 @@ class AssetsService
     }
 
     public function assetsDetect(
-        string $path,
         AbstractRenderNode $contextRenderNode,
         array &$collection = []
     ): array {
@@ -102,7 +100,6 @@ class AssetsService
             $collection[$ext] = array_merge(
                 $collection[$ext] ?? [],
                 $this->assetsDetectForType(
-                    $path,
                     $ext,
                     $contextRenderNode,
                 )
@@ -116,11 +113,9 @@ class AssetsService
      * Return all assets for a given type, including suffixes like -s, -l, etc.
      */
     public function assetsDetectForType(
-        string $renderNodeName,
         string $ext,
         AbstractRenderNode $renderNode,
     ): array {
-        PathHelper::join([$ext, $renderNodeName.'.'.$ext]);
         $output = [];
 
         if ($asset = $this->addAsset(
@@ -142,7 +137,9 @@ class AssetsService
     ): ?Asset {
         $pathRelativeToPublic = $renderNode->buildBuiltPublicAssetPath($ext);
 
+
         if (!isset($this->registry[$pathRelativeToPublic])) {
+//            dd($pathRelativeToPublic);
             return null;
         }
 
