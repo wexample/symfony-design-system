@@ -54,7 +54,8 @@ abstract class AbstractPagesController extends AbstractController
             $view = $exp[1];
         }
 
-        return '@'.($bundleClass ? $bundleClass::getAlias() : 'front').'/'
+        return '@'
+            .($bundleClass ? $bundleClass::getAlias() : 'front').'/'
             .$base.$this->viewPathPrefix.$view.TemplateHelper::TEMPLATE_FILE_EXTENSION;
     }
 

@@ -30,16 +30,17 @@ class LayoutService extends RenderNodeService
      * @throws Exception
      */
     public function layoutInitInitial(
+        RenderPass $renderPass,
         Environment $twig,
         string $layoutName,
         string $colorScheme,
         bool $useJs
     ): void {
-        $renderPass = $this->adaptiveResponseService->renderPass;
 
         $renderPass->layoutRenderNode->colorScheme = $colorScheme;
 
         $this->layoutInit(
+            $renderPass,
             $twig,
             $renderPass->layoutRenderNode,
             $layoutName,
@@ -51,6 +52,7 @@ class LayoutService extends RenderNodeService
      * @throws Exception
      */
     public function layoutInit(
+        RenderPass $renderPass,
         Environment $twig,
         AbstractLayoutRenderNode $layoutRenderNode,
         string $layoutName,

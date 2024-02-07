@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Service;
 
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 
 abstract class RenderNodeService
 {
@@ -13,11 +14,13 @@ abstract class RenderNodeService
     }
 
     public function initRenderNode(
+        RenderPass $renderPass,
         AbstractRenderNode $renderNode,
         string $name,
         string $useJs
     ) {
         $renderNode->init(
+            $renderPass,
             $name
         );
 

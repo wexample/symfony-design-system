@@ -449,14 +449,14 @@ class AssetsService
     }
 
     public function assetsFiltered(
+        RenderPass $renderPass,
         string $contextType,
         string $assetType = null
     ): array {
-        $registry = $this->adaptiveResponseService->renderPass->registry;
         $assets = [];
 
         /** @var AbstractRenderNode $renderNode */
-        foreach ($registry[$contextType] as $renderNode) {
+        foreach ($renderPass->registry[$contextType] as $renderNode) {
             $assets = array_merge(
                 $assets,
                 $renderNode->assets[$assetType]

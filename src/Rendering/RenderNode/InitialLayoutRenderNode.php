@@ -24,9 +24,11 @@ class InitialLayoutRenderNode extends AbstractLayoutRenderNode
     }
 
     public function init(
+        RenderPass $renderPass,
         string $name,
-    ) {
+    ):void {
         parent::init(
+            $renderPass,
             $name
         );
 

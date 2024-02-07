@@ -35,8 +35,9 @@ abstract class AbstractRenderNode extends RenderDataGenerator
     }
 
     public function init(
+        RenderPass $renderPass,
         string $name,
-    ) {
+    ): void {
         $this->parent = $this->renderPass->getCurrentContextRenderNode();
         $this->renderRequestId = $this->renderPass->getRenderRequestId();
         $this->name = $name;
