@@ -1,0 +1,18 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/demo/layout.html.twig' -%}
+
+{%- block page_body -%}
+    <div class="blocks blocks-no-stretch blocks-side-column-right">
+        <div class="block">
+            {{ '@page::layout_overlay.body' | trans }}
+        </div>
+    </div>
+    <div class="blocks blocks-no-stretch blocks-side-column-right">
+        <div class="block">
+            {{ '@page::layout_modal.body' | trans }}
+        </div>
+    </div>
+    <div class="blocks blocks-no-stretch blocks-side-column-right">
+        <div class="block">
+        </div>
+    </div>
+{%- endblock -%}
