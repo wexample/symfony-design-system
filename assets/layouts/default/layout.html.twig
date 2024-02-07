@@ -1,5 +1,7 @@
 {%- extends adaptive_response_rendering_base_path() -%}
 
+{%- set layout_path = layout_path|default(_self) -%}
+
 {%- block layout -%}
     {{ parent() }}
     <div class="page-overlay"></div>

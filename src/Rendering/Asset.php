@@ -35,4 +35,10 @@ class Asset extends RenderDataGenerator
                 $basePath
             );
     }
+
+    public function toRenderData(): array
+    {
+        return $this->serializeVariables([
+        ]);
+    }
 }

@@ -24,4 +24,11 @@ abstract class AbstractRenderNode extends RenderDataGenerator
 
         $renderPass->registerRenderNode($this);
     }
+
+    public function toRenderData(): array
+    {
+        return [
+            'name' => $this->name,
+        ];
+    }
 }

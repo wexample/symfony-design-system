@@ -7,7 +7,6 @@ use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\LayoutService;
-use Wexample\SymfonyDesignSystem\Service\PageService;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
 class LayoutExtension extends AbstractExtension
@@ -30,6 +29,13 @@ class LayoutExtension extends AbstractExtension
                     self::FUNCTION_OPTION_NEEDS_ENVIRONMENT => true,
                 ]
             ),
+            new TwigFunction(
+                'layout_render_initial_data',
+                [
+                    $this,
+                    'layoutRenderInitialData',
+                ]
+            ),
         ];
     }
 
@@ -48,5 +54,12 @@ class LayoutExtension extends AbstractExtension
             $layoutPath,
             $pageName
         );
+    }
+
+    public function layoutRenderInitialData(RenderPass $renderPass): array
+    {
+        return $renderPass
+            ->layoutRenderNode
+            ->toRenderData();
     }
 }
