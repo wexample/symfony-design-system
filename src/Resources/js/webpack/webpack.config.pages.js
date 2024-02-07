@@ -1,9 +1,10 @@
 const tools = require('./webpack.tools');
 
-tools.logTitle('JS : Pages');
+tools.logTitle('JS App level pages');
 
 tools.forEachJsExtAndLocations((srcExt, bundle, location) => {
   tools.addAssetsJsWrapped(
+    'app',
     location,
     'pages/',
     srcExt,

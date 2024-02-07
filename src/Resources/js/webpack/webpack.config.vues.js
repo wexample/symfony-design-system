@@ -1,9 +1,10 @@
 const tools = require('./webpack.tools');
 
-tools.logTitle('Vues local');
+tools.logTitle('Vues app level');
 
 tools.forEachFrontPath((bundle, location) => {
   tools.addAssetsJsWrapped(
+    'app',
     location,
     '',
     'vue',
@@ -11,7 +12,7 @@ tools.forEachFrontPath((bundle, location) => {
   );
 });
 
-tools.logTitle('Vues global');
+tools.logTitle('Vues core');
 
 tools.addAssetsCss(
   tools.designSystemPackageRootDir + 'front/css/',

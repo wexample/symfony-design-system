@@ -32,12 +32,17 @@ module.exports = {
 
   forEachFrontPath(callback) {
     Object.entries(this.getFrontPaths()).forEach((entry) => {
-      callback(entry[0], entry[1])
+      const bundle = entry[0]
+      callback(this.isBundleAlias(bundle) ? bundle : 'app', entry[1])
     });
   },
 
   getFileName(path) {
     return path.substring(path.lastIndexOf('/') + 1);
+  },
+
+  isBundleAlias(alias) {
+    return isNaN(parseInt(alias));
   },
 
   fileIsAClass(filePath) {
@@ -79,6 +84,7 @@ module.exports = {
    * Map ./assets/(js|css)/* to ./public/build/(js|css)/*
    */
   addAssetsSyncEntries: (
+    bundle,
     srcAssetsDir,
     srcSubDir,
     srcExt,
@@ -101,7 +107,8 @@ module.exports = {
         // Exclude underscores.
         if (basename[0] !== '_') {
           let finalExt = module.exports.extToTypesMap[srcExt];
-          let fileDest = finalExt
+          let fileDest = bundle
+            + '/' + finalExt
             + '/' + srcFile.file
               .substr(srcFile.dir.length)
               .split('.')
@@ -193,8 +200,9 @@ module.exports = {
     return "\033[" + `${style};38;5;${color}m${text}\x1b[0m`;
   },
 
-  addAssetsCss: (srcAssetsDir, srcSubDir, srcExt, callback) => {
+  addAssetsCss: (bundle, srcAssetsDir, srcSubDir, srcExt, callback) => {
     return module.exports.addAssetsSyncEntries(
+      bundle,
       srcAssetsDir,
       srcSubDir,
       srcExt,
@@ -203,8 +211,9 @@ module.exports = {
     );
   },
 
-  addAssetsJs: (srcAssetsDir, srcSubDir, srcExt, callback) => {
+  addAssetsJs: (bundle, srcAssetsDir, srcSubDir, srcExt, callback) => {
     return module.exports.addAssetsSyncEntries(
+      bundle,
       srcAssetsDir,
       srcSubDir,
       srcExt,
@@ -224,13 +233,13 @@ module.exports = {
     );
   },
 
-  addAssetsJsWrapped: (srcAssetsDir, srcSubDir, srcExt, type, callback) => {
+  addAssetsJsWrapped: (bundle, srcAssetsDir, srcSubDir, srcExt, type, callback) => {
     let templateContentBase = fs.readFileSync(
       module.exports.wrapperTemplatePath,
       'utf8'
     );
 
-    module.exports.addAssetsJs(srcAssetsDir, srcSubDir, srcExt, (srcFile) => {
+    module.exports.addAssetsJs(bundle, srcAssetsDir, srcSubDir, srcExt, (srcFile) => {
       // Allow callback to filter files to pack.
       srcFile = callback ? callback(srcFile) : srcFile;
 

@@ -8,7 +8,7 @@ const paths = tools.getFrontPaths();
 
 for (let alias in paths) {
   // Use only text keys.
-  if (isNaN(parseInt(alias))) {
+  if (tools.isBundleAlias(alias)) {
     const value = path.resolve(paths[alias]);
     tools.logVar(alias, value);
     Encore.addAliases({
@@ -23,6 +23,7 @@ tools.logTitle('CSS : all');
 
 tools.forEachFrontPath((bundle, location) => {
   tools.addAssetsCss(
+    bundle,
     location,
     '',
     'scss'
@@ -35,7 +36,7 @@ tools.logTitle('JS : mains');
 let allowed = ['layouts'];
 
 tools.forEachJsExtAndLocations((srcExt, bundle, location) => {
-  tools.addAssetsJs(location, '', srcExt, (srcFile) => {
+  tools.addAssetsJs(bundle, location, '', srcExt, (srcFile) => {
     // First dir under js should be a part of allowed dirs.
     return (
       allowed.indexOf(
