@@ -41,7 +41,7 @@ abstract class AbstractPagesController extends AbstractController
         AbstractBundle|string $bundle = null
     ): Response {
         return $this->adaptiveRender(
-            $this->buildTemplatePath($view, $bundle),
+            $this->buildTemplatePath($view, ($bundle ?: $this->getControllerBundle())),
             $parameters,
             $response
         );
