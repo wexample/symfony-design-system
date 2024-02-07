@@ -26,7 +26,10 @@ export default class extends AsyncConstructor {
   public lib: object = {};
   public services: ServicesRegistryInterface = {};
 
-  constructor(readyCallback?: any | Function, globalName = 'app') {
+  constructor(
+    readyCallback?: any | Function,
+    globalName: string = 'app'
+  ) {
     super();
 
     window[globalName] = this;
