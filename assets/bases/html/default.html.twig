@@ -43,11 +43,17 @@
               };
 
               window.appRegistry = {bundles: new AppRegistryBundlesManager()};
-	    </script>
+            </script>
+            {# Don't use display none as we need to be able to calculate elements size before display #}
+            <style>
+                .layout-loading {
+                    visibility: hidden;
+                }
+            </style>
     </head>
     <body class="color-scheme-{{ layout_color_scheme }}">
 
-    <div id="layout" >
+    <div id="layout" class="layout-loading">
         {%- block layout -%}
             {%- block layout_composer_html -%}
                 {%- block page -%}
