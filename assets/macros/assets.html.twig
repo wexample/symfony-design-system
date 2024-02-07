@@ -1,5 +1,5 @@
-{% macro render_available_css(context_type, enable_aggregation, color_scheme, layout_use_js) %}
-    {% for asset in assets_type_filtered(context_type, 'css') %}
+{% macro render_available_css(render_pass, context_type) %}
+    {% for asset in assets_type_filtered(render_pass, context_type, 'css') %}
         {%- if asset.isReadyForServerSideRendering(color_scheme, layout_use_js) -%}
             {% if not layout_use_js or not enable_aggregation %}
                 <link rel="stylesheet" media="{{ asset.media }}"
@@ -10,8 +10,8 @@
     {% endfor %}
 {% endmacro %}
 
-{% macro render_available_js(context_type, enable_aggregation, color_scheme) %}
-    {%- for asset in assets_type_filtered(context_type, 'js') -%}
+{{% macro render_available_js(render_pass, context_type) %}
+    {%- for asset in assets_type_filtered(render_pass, context_type, 'js') -%}
         {%- if asset.isReadyForServerSideRendering(color_scheme, true) -%}
             {% if not enable_aggregation %}
                 <script type="text/javascript" src="{{ asset(asset.path) }}"></script>
