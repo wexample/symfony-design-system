@@ -1,3 +1,6 @@
+parameters:
+    design_system.debug: false
+
 services:
     _defaults:
         autowire: true
