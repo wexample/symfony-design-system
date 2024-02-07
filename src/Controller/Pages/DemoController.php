@@ -14,9 +14,9 @@ use Wexample\SymfonyHelpers\Helper\VariableHelper;
 #[Route(path: '_design_system/demo/', name: '_design_system_demo_')]
 final class DemoController extends AbstractPagesController
 {
-    final public const ROUTE_INDEX = VariableHelper::INDEX;
-
     use SymfonyDesignSystemBundleClassTrait;
+
+    final public const ROUTE_INDEX = VariableHelper::INDEX;
 
     protected string $viewPathPrefix = VariableHelper::DEMO.'/';
 

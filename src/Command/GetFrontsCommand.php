@@ -9,6 +9,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
+use Wexample\SymfonyHelpers\Helper\PathHelper;
 use Wexample\SymfonyDesignSystem\Traits\SymfonyDesignSystemBundleClassTrait;
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Command\AbstractBundleCommand;
@@ -69,7 +70,7 @@ class GetFrontsCommand extends AbstractBundleCommand
 
     private function getFrontsListPath(): string
     {
-        return FileHelper::joinPathParts([
+        return PathHelper::join([
             $this->kernel->getProjectDir(),
             VariableHelper::ASSETS,
             DesignSystemHelper::TWIG_NAMESPACE_FRONT
