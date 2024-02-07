@@ -120,7 +120,7 @@ class AssetsService
         string $ext,
         AbstractRenderNode $renderNode,
     ): array {
-        $assetPathFull = PathHelper::join([$ext, $renderNodeName.'.'.$ext]);
+        PathHelper::join([$ext, $renderNodeName.'.'.$ext]);
         $output = [];
 
         if ($asset = $this->addAsset(
