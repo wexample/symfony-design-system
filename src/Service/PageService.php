@@ -100,22 +100,4 @@ class PageService extends RenderNodeService
             $methodName
         );
     }
-
-    private function getRelativePathParts(
-        string $controllerName,
-        string $methodName
-    ): array {
-        if ($bundle = $controllerName::getControllerBundle()) {
-            $parts = explode(ClassHelper::NAMESPACE_SEPARATOR, $controllerName);
-            $relevantParts = array_slice($parts, 3); // Skipping the first three namespace parts
-            $relevantParts[] = $methodName;
-            return ['@'.$bundle::getAlias(), ...$relevantParts];
-        }
-
-        $controllerRelativePath = TextHelper::removePrefix($controllerName, AbstractPagesController::NAMESPACE_CONTROLLER);
-        $parts = explode(ClassHelper::NAMESPACE_SEPARATOR, $controllerRelativePath);
-        $parts[] = $methodName;
-
-        return $parts;
-    }
 }
