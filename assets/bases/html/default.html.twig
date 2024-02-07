@@ -49,7 +49,9 @@
 
     <div id="layout" >
         {%- block layout -%}
+            {%- block layout_composer_html -%}
                             {{- block('page_body') -}}
+            {%- endblock -%}
         {%- endblock -%}
     </div>
         {{ macro_assets.render_available_css(render_pass, 'layout') }}
