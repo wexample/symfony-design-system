@@ -34,7 +34,7 @@ tools.logTitle('JS : mains');
 
 let allowed = ['layouts'];
 
-tools.forEachJsExtAndLocations((srcExt, location) => {
+tools.forEachJsExtAndLocations((srcExt, bundle, location) => {
   tools.addAssetsJs(location, '', srcExt, (srcFile) => {
     // First dir under js should be a part of allowed dirs.
     return (

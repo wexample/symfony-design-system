@@ -49,7 +49,7 @@ module.exports = {
   forEachJsExtAndLocations(callback) {
     this.jsFilesExtensions.forEach((srcExt) => {
       this.forEachFrontPath((bundle, location) => {
-        callback(srcExt, location);
+        callback(srcExt, bundle, location);
       });
     });
   },

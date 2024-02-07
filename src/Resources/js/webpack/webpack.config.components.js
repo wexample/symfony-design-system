@@ -4,7 +4,7 @@ const tools = require('./webpack.tools');
 
 tools.logTitle('JS Project level components');
 
-tools.forEachJsExtAndLocations((srcExt, location) => {
+tools.forEachJsExtAndLocations((srcExt, bundle, location) => {
   tools.addAssetsJsWrapped(
     location,
     'components/',
@@ -16,7 +16,7 @@ tools.forEachJsExtAndLocations((srcExt, location) => {
 tools.logTitle('JS Project level components (forms)');
 
 // Project level
-tools.forEachJsExtAndLocations((srcExt, location) => {
+tools.forEachJsExtAndLocations((srcExt, bundle, location) => {
   tools.addAssetsJsWrapped(
     location,
     'forms/',
