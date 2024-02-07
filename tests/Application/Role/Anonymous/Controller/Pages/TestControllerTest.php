@@ -1,10 +1,10 @@
 <?php
 
-namespace Wexample\SymfonyDesignSystem\Tests\Application\Controller\Pages;
+namespace Wexample\SymfonyDesignSystem\Tests\Application\Role\Anonymous\Controller\Pages;
 
 use Wexample\SymfonyTesting\Tests\AbstractApplicationTestCase;
 
-class ApiLoginController extends AbstractApplicationTestCase
+class TestController extends AbstractApplicationTestCase
 {
     public function testController()
     {
