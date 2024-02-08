@@ -15,6 +15,9 @@ class ComponentService extends RenderNodeService
     // Component is loaded from template into the target tag.
     public const INIT_MODE_PARENT = VariableHelper::PARENT;
 
+    // Component is loaded from template, just after target tag.
+    public const INIT_MODE_PREVIOUS = VariableHelper::PREVIOUS;
+
     /**
      * @throws Exception
      */
@@ -50,7 +53,20 @@ class ComponentService extends RenderNodeService
     /**
      * @throws Exception
      */
-
+    public function componentInitPrevious(
+        Environment $twig,
+        RenderPass $renderPass,
+        string $name,
+        array $options = []
+    ): ComponentRenderNode {
+        return $this->registerComponent(
+            $twig,
+            $renderPass,
+            $name,
+            self::INIT_MODE_PREVIOUS,
+            $options
+        );
+    }
 
     public function findComponentClassName(string $name): string
     {
