@@ -234,11 +234,13 @@ class ComponentService extends RenderNodeService
      */
     public function componentInitPrevious(
         Environment $twig,
+        RenderPass $renderPass,
         string $name,
         array $options = []
     ): ComponentRenderNode {
         return $this->registerComponent(
             $twig,
+            $renderPass,
             $name,
             self::INIT_MODE_PREVIOUS,
             $options
