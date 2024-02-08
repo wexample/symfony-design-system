@@ -2,6 +2,9 @@ const Encore = require('@symfony/webpack-encore');
 const isProd = Encore.isProduction();
 const webpack = require('webpack');
 const FosRouting = require('fos-router/webpack/FosRouting');
+const tools = require('./webpack.tools');
+
+tools.logTitle(`Environment is ${isProd ? "prod" : "dev"}`);
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -53,10 +56,19 @@ Encore
   .enableSassLoader()
 
   // uncomment if you use TypeScript
-  .enableTypeScriptLoader(function(tsConfigLoaderOptions) {
+  .enableTypeScriptLoader(function (tsConfigLoaderOptions) {
     // We don't want TypeScript to scan whole app folders for .ts files,
     // as we set it manually.
     tsConfigLoaderOptions.onlyCompileBundledFiles = true;
+
+    const compilerOptions = {};
+
+    if (!isProd) {
+      tools.logTitle('Sources maps enabled');
+      compilerOptions.sourceMap = true;
+    }
+
+    tsConfigLoaderOptions.compilerOptions = compilerOptions;
   })
 
   // uncomment if you use React
@@ -77,7 +89,6 @@ require('./webpack.config.common');
 require('./webpack.config.pages');
 require('./webpack.config.components');
 require('./webpack.config.vues');
-const tools = require("./webpack.tools");
 
 tools.logTitle('Starting...');
 
