@@ -24,7 +24,7 @@
     </div>
 
     <h3>{{ '@page::components.init.class.title' | trans }}</h3>
-    <div class="block {{ component_init_class('components/demo-init') }}">
+    <div class="block {{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/demo-init') }}">
         {{ '@page::components.init.class.body' | trans }}
     </div>
     <div class="block">

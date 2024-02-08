@@ -177,11 +177,13 @@ class ComponentService extends RenderNodeService
      */
     public function componentInitClass(
         Environment $twig,
+        RenderPass $renderPass,
         string $name,
         array $options = []
     ): ComponentRenderNode {
         return $this->registerComponent(
             $twig,
+            $renderPass,
             $name,
             self::INIT_MODE_CLASS,
             $options
