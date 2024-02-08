@@ -254,7 +254,7 @@ module.exports = {
         let templateContent = templateContentBase;
         let className = pathWithoutExt.split('/');
         className.push(module.exports.camelCaseToDash(className.pop()));
-        className = className.join('/');
+        className = bundle + '::' + className.join('/');
 
         fs.mkdirSync(assetPathTemp, {recursive: true});
 
