@@ -1,7 +1,6 @@
 const Encore = require('@symfony/webpack-encore');
 const isProd = Encore.isProduction();
 const webpack = require('webpack');
-const FosRouting = require('fos-router/webpack/FosRouting');
 const tools = require('./webpack.tools');
 
 tools.logTitle(`Environment is ${isProd ? "prod" : "dev"}`);
@@ -76,10 +75,7 @@ Encore
 
   // uncomment to get integrity="..." attributes on your script & link tags
   // requires WebpackEncoreBundle 1.4 or higher
-  .enableIntegrityHashes(isProd)
-
-  // Js routes
-  .addPlugin(new FosRouting());
+  .enableIntegrityHashes(isProd);
 
 // uncomment if you use API Platform Admin (composer req api-admin)
 //.enableReactPreset()
