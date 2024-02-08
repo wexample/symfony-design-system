@@ -12,7 +12,13 @@ use Wexample\SymfonyHelpers\Helper\RequestHelper;
 
 class TestController extends AbstractPagesController
 {
-    #[Route(path: '_core/test', name: '_core_test_index')]
+    use SymfonyDesignSystemBundleClassTrait;
+
+    final public const ROUTE_INDEX = VariableHelper::INDEX;
+
+    protected string $viewPathPrefix = VariableHelper::TEST.'/';
+
+    #[Route(path: '', name: self::ROUTE_INDEX)]
     public function index(RequestStack $requestStack): Response
     {
         // Allow parameter to disable aggregation.
