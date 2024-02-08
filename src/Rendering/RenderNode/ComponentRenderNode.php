@@ -2,13 +2,25 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering\RenderNode;
 
-
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 
 class ComponentRenderNode extends AbstractRenderNode
 {
+    public function init(
+        RenderPass $renderPass,
+        string $name
+    ): void
+    {
+        parent::init($renderPass, $name);
+
+        $renderPass
+            ->getCurrentContextRenderNode()
+            ->components[] = $this;
+    }
+
     public function getContextType(): string
     {
         return RenderingHelper::CONTEXT_COMPONENT;

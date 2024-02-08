@@ -63,5 +63,9 @@ class LayoutService extends RenderNodeService
             $layoutRenderNode,
             $layoutPath,
         );
+
+        $renderPass->setCurrentContextRenderNode(
+            $layoutRenderNode
+        );
     }
 }

@@ -39,6 +39,7 @@ class Asset extends RenderDataGenerator
     public function toRenderData(): array
     {
         return $this->serializeVariables([
+            'path',
         ]);
     }
 }

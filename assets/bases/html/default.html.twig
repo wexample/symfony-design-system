@@ -52,13 +52,19 @@
             </style>
     </head>
     <body class="color-scheme-{{ layout_color_scheme }}">
-
     <div id="layout" class="layout-loading">
+        {#- If javascript fails to complete, force removing loading state after 2 seconds. -#}
+        <script>
+          var classList = document.getElementById('layout').classList;
+          classList.add('layout-loading');
+          setTimeout(function () { classList.remove('layout-loading'); }, 1000);
+        </script>
         {%- block layout -%}
             {%- block layout_composer_html -%}
                 {%- block page -%}
+                    {{ adaptive_response_set_page_context(render_pass) }}
                             {{- block('page_body') -}}
-
+                    {{ adaptive_response_revert_context(render_pass) }}
                 {%- endblock -%}
             {%- endblock -%}
         {%- endblock -%}

@@ -35,14 +35,17 @@ abstract class RenderNodeService
         }
     }
 
-    private function buildNodeNameFromPath(string $layoutPath): string
+    private function buildNodeNameFromPath(string $renderNodePath): string
     {
-        $layoutNameParts = explode('/', substr(
-            $layoutPath,
-            0,
-            -strlen(TemplateHelper::TEMPLATE_FILE_EXTENSION)
-        ));
+        if (str_ends_with($renderNodePath, TemplateHelper::TEMPLATE_FILE_EXTENSION)) {
+            $renderNodePath = substr(
+                $renderNodePath,
+                0,
+                -strlen(TemplateHelper::TEMPLATE_FILE_EXTENSION)
+            );
+        }
 
+        $layoutNameParts = explode('/', $renderNodePath);
         $bundleName = ltrim(current($layoutNameParts), '@');
         array_shift($layoutNameParts);
         $bundles = $this->kernel->getBundles();

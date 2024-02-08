@@ -74,7 +74,6 @@ class ComponentService extends RenderNodeService
     ): ComponentRenderNode {
         $className = $this->findComponentClassName($name);
 
-        // Using an object allow continuing edit properties after save.
         /** @var ComponentRenderNode $component */
         $component = new $className(
             $renderPass,
