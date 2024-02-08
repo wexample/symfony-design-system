@@ -14,5 +14,7 @@ class InitialLayoutRenderNode extends AbstractLayoutRenderNode
             $renderPass,
             $name
         );
+
+        $this->page->isInitialPage = true;
     }
 }

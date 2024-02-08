@@ -5,10 +5,16 @@
         <div class="block">
             {{ '@page::layout_overlay.body' | trans }}
         </div>
+        <div class="block blocks-col">
+            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/button', {id:'page-overlay-show', text:'Test One'}) }}
+        </div>
     </div>
     <div class="blocks blocks-no-stretch blocks-side-column-right">
         <div class="block">
             {{ '@page::layout_modal.body' | trans }}
+        </div>
+        <div class="block blocks-col">
+            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/button', {id:'page-modal-show', text:'Test Two'}) }}
         </div>
     </div>
     <div class="blocks blocks-no-stretch blocks-side-column-right">

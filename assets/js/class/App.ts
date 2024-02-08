@@ -1,6 +1,9 @@
+import Page from './Page';
+
 import AppService from './AppService';
 import LayoutsService from '../services/LayoutsService';
 import MixinsService from '../services/MixinsService';
+import PagesService from '../services/PagesService';
 
 import { unique as arrayUnique } from '../helpers/ArrayHelper';
 import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
@@ -73,14 +76,25 @@ export default class extends AsyncConstructor {
   }
 
   async loadLayoutRenderData(renderData: RenderDataInterface): Promise<any> {
+    await this.services.mixins.invokeUntilComplete(
+      'hookLoadLayoutRenderData',
+      'app',
+      [renderData]
+    );
+
     // Pass through the whole tree to find unmounted nodes.
     await this.layout.mountTree();
+  }
+
+  getClassPage() {
+    return Page;
   }
 
   getServices(): typeof AppService[] {
     return [
       LayoutsService,
       MixinsService,
+      PagesService,
     ];
   }
 

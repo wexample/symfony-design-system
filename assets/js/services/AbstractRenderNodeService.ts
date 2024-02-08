@@ -1,8 +1,11 @@
 import AppService from '../class/AppService';
 import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
 import RenderNode from '../class/RenderNode';
+import ServicesRegistryInterface from '../interfaces/ServicesRegistryInterface';
 
 export default abstract class AbstractRenderNodeService extends AppService {
+  public services: ServicesRegistryInterface;
+
   async createRenderNode(
     definitionName: string,
     renderData: RenderDataInterface,
@@ -17,6 +20,10 @@ export default abstract class AbstractRenderNodeService extends AppService {
       classDefinition,
       parentRenderNode
     );
+
+    instance.loadFirstRenderData(renderData);
+
+    await instance.init();
 
     return instance;
   }
