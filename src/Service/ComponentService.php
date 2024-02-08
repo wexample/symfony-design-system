@@ -114,7 +114,6 @@ class ComponentService extends RenderNodeService
 
         /** @var ComponentRenderNode $component */
         $component = new $className(
-            $renderPass,
             $initMode,
             $options
         );

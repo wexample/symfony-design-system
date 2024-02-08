@@ -4,11 +4,18 @@ namespace Wexample\SymfonyDesignSystem\Rendering\RenderNode;
 
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
-use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class ComponentRenderNode extends AbstractRenderNode
 {
+    public function __construct(
+        public string $initMode,
+        public array $options = []
+    ) {
+
+    }
+
     public function init(
         RenderPass $renderPass,
         string $name
@@ -42,5 +49,14 @@ class ComponentRenderNode extends AbstractRenderNode
                 VariableHelper::CLASS_VAR => 'com-init '.$this->id,
             ]
         );
+    }
+
+    public function toRenderData(): array
+    {
+        return parent::toRenderData()
+            + [
+                'initMode' => $this->initMode,
+                'options' => $this->options,
+            ];
     }
 }
