@@ -100,11 +100,13 @@ class ComponentsExtension extends AbstractExtension
      */
     public function componentInitPrevious(
         Environment $twig,
+        RenderPass $renderPass,
         string $name,
         array $options = []
     ): string {
         return $this->componentService->componentInitPrevious(
             $twig,
+            $renderPass,
             $name,
             $options
         )->renderTag();

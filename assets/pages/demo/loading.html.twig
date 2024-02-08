@@ -1,4 +1,4 @@
-{%- extends 'layouts/public.html.twig' -%}
+{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/demo/layout.html.twig' -%}
 
 {%- block page_body -%}
     <div class="blocks blocks-no-stretch blocks-side-column-right">
@@ -6,7 +6,7 @@
             {{ '@page::layout_overlay.body' | trans }}
         </div>
         <div class="block blocks-col">
-            {{ component('components/button', {id:'page-overlay-show', text:'Test One'}) }}
+            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/button', {id:'page-overlay-show', text:'Test One'}) }}
         </div>
     </div>
     <div class="blocks blocks-no-stretch blocks-side-column-right">
@@ -14,7 +14,7 @@
             {{ '@page::layout_modal.body' | trans }}
         </div>
         <div class="block blocks-col">
-            {{ component('components/button', {id:'page-modal-show', text:'Test Two'}) }}
+            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/button', {id:'page-modal-show', text:'Test Two'}) }}
         </div>
     </div>
     <div class="blocks blocks-no-stretch blocks-side-column-right">
