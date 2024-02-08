@@ -11,6 +11,8 @@ use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class ComponentService extends RenderNodeService
 {
+    // Component is loaded with a css class.
+    public const INIT_MODE_CLASS = VariableHelper::CLASS_VAR;
 
     // Component is loaded from template into the target tag.
     public const INIT_MODE_PARENT = VariableHelper::PARENT;
@@ -27,6 +29,26 @@ class ComponentService extends RenderNodeService
         ComponentRenderNode $component
     ): ?string {
         return null;
+    }
+
+    /**
+     * Init a components and provide a class name to retrieve dom element.
+     *
+     * @throws Exception
+     */
+    public function componentInitClass(
+        Environment $twig,
+        RenderPass $renderPass,
+        string $name,
+        array $options = []
+    ): ComponentRenderNode {
+        return $this->registerComponent(
+            $twig,
+            $renderPass,
+            $name,
+            self::INIT_MODE_CLASS,
+            $options
+        );
     }
 
     /**

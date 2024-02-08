@@ -25,6 +25,22 @@ class ComponentsExtension extends AbstractExtension
 
         return [
             new TwigFunction(
+                'component',
+                [
+                    $this,
+                    'componentInitPrevious',
+                ],
+                $initOptions
+            ),
+            new TwigFunction(
+                'component_init_class',
+                [
+                    $this,
+                    'componentInitClass',
+                ],
+                $initOptions
+            ),
+            new TwigFunction(
                 'component_init_parent',
                 [
                     $this,
@@ -58,6 +74,27 @@ class ComponentsExtension extends AbstractExtension
             $name,
             $options
         )->renderTag();
+    }
+
+    /**
+     * Init a components and provide a class name to retrieve dom element.
+     *
+     * @throws Exception
+     */
+    public function componentInitClass(
+        Environment $twig,
+        RenderPass $renderPass,
+        string $name,
+        array $options = []
+    ): string {
+        return $this
+            ->componentService
+            ->componentInitClass(
+                $twig,
+                $renderPass,
+                $name,
+                $options
+            )->renderCssClass();
     }
 
     /**

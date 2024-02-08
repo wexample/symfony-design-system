@@ -26,6 +26,11 @@ class ComponentRenderNode extends AbstractRenderNode
         return RenderingHelper::CONTEXT_COMPONENT;
     }
 
+    public function renderCssClass(): string
+    {
+        return 'com-class-loaded '.$this->id;
+    }
+
     public function renderTag(): string
     {
         return DomHelper::buildTag(
