@@ -64,12 +64,19 @@ class Asset extends RenderDataGenerator
 
         return $bundleName.'::'.implode('/', array_slice($explode, $slicePos + 1));
     }
+
+    public function setServerSideRendered(bool $bool = true)
+    {
+        $this->active = $bool;
     }
 
     public function toRenderData(): array
     {
         return $this->serializeVariables([
+            'active',
+            'id',
             'path',
+            'type',
         ]);
     }
 }

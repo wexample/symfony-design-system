@@ -2,11 +2,15 @@
     {% for asset in assets_type_filtered(render_pass, context_type, 'css') %}
                 <link rel="stylesheet" media="{{ asset.media }}"
                       href="{{ asset(asset.path) }}"/>
+
+            {{ asset.setServerSideRendered() }}
     {% endfor %}
 {% endmacro %}
 
 {% macro render_available_js(render_pass, context_type) %}
     {%- for asset in assets_type_filtered(render_pass, context_type, 'js') -%}
                 <script type="text/javascript" src="{{ asset(asset.path) }}"></script>
+
+            {{ asset.setServerSideRendered() }}
     {%- endfor -%}
 {% endmacro %}

@@ -5,7 +5,7 @@ export default abstract class AppService extends AppChild {
   public app: App;
   public static dependencies: typeof AppService[] = [];
 
-  registerHooks(): { app?: {}; page?: {} } {
+  registerHooks(): { app?: {}; page?: {}, renderNode?: {} } {
     return {};
   }
 }
