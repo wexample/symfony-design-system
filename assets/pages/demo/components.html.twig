@@ -1,11 +1,11 @@
-{%- extends 'layouts/public.html.twig' -%}
+{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/demo/layout.html.twig' -%}
 
 {%- block page_body -%}
     <h2>{{ '@page::components.init.title' | trans }}</h2>
     <h3>{{ '@page::components.init.parent.title' | trans }}</h3>
     <div class="block">
         {{ '@page::components.init.parent.body' | trans }}
-        {{ component_init_parent('components/demo-init') }}
+        {{ component_init_parent(render_pass, 'components/demo-init') }}
     </div>
     <div class="block">
         &lt;div class="it-will-be-component-element"&gt;<br>

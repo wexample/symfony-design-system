@@ -146,6 +146,7 @@ class ComponentsExtension extends AbstractExtension
      */
     public function componentInitParent(
         Environment $twig,
+        RenderPass $renderPass,
         string $name,
         array $options = []
     ): string {
@@ -153,6 +154,7 @@ class ComponentsExtension extends AbstractExtension
             ->componentService
             ->componentInitParent(
                 $twig,
+                $renderPass,
                 $name,
                 $options
             )->renderTag();

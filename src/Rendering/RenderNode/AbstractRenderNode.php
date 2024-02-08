@@ -45,9 +45,9 @@ abstract class AbstractRenderNode extends RenderDataGenerator
             .str_replace('/', '-', $this->name)
             .'-'.uniqid();
 
-        $this->renderPass->registerContextRenderNode($this);
+        $renderPass->registerContextRenderNode($this);
 
-        $this->renderPass->registerRenderNode($this);
+        $renderPass->registerRenderNode($this);
     }
 
     public function getContextRenderNodeKey(): string
@@ -79,8 +79,8 @@ abstract class AbstractRenderNode extends RenderDataGenerator
     {
         return [
             'assets' => [
-                'css' => $this->arrayToRenderData($this->assets['css']),
-                'js' => $this->arrayToRenderData($this->assets['js']),
+                Asset::EXTENSION_CSS => $this->arrayToRenderData($this->assets[Asset::EXTENSION_CSS]),
+                Asset::EXTENSION_JS => $this->arrayToRenderData($this->assets[Asset::EXTENSION_JS]),
             ],
             'components' => $this->arrayToRenderData($this->components),
             'id' => $this->id,

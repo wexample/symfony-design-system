@@ -216,11 +216,13 @@ class ComponentService extends RenderNodeService
      */
     public function componentInitParent(
         Environment $twig,
+        RenderPass $renderPass,
         string $name,
         array $options = []
     ): ComponentRenderNode {
         return $this->registerComponent(
             $twig,
+            $renderPass,
             $name,
             self::INIT_MODE_PARENT,
             $options
@@ -258,16 +260,16 @@ class ComponentService extends RenderNodeService
      */
     public function registerComponent(
         Environment $twig,
+        RenderPass $renderPass,
         string $name,
         string $initMode,
         array $options = [],
     ): ComponentRenderNode {
         $className = $this->findComponentClassName($name);
 
-        // Using an object allow continuing edit properties after save.
         /** @var ComponentRenderNode $component */
         $component = new $className(
-            $this->adaptiveResponseService->renderPass,
+            $renderPass,
             $initMode,
             $options
         );
@@ -276,12 +278,14 @@ class ComponentService extends RenderNodeService
             ?->createComponent($component);
 
         $this->initRenderNode(
+            $renderPass,
             $component,
             $name,
             $this->adaptiveResponseService->renderPass->useJs,
         );
 
         $component->body = $this->componentRenderBody(
+            $renderPass,
             $twig,
             $component
         );
