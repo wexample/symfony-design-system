@@ -33,7 +33,7 @@ export default class ColorSchemeService extends AppService {
       app: {
         hookInit(registry: any) {
           if (registry.assets === MixinsAppService.LOAD_STATUS_COMPLETE) {
-            this.services.colorScheme.activateListeners();
+            this.app.services.colorScheme.activateListeners();
 
             return;
           }
@@ -88,7 +88,7 @@ export default class ColorSchemeService extends AppService {
             await this.app.layout.assetsUpdate();
           }
 
-          this.services.events.trigger(
+          this.app.services.events.trigger(
             ColorSchemeServiceEvents.COLOR_SCHEME_CHANGE,
             {
               renderNode: this,

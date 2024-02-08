@@ -29,7 +29,7 @@ export default class PagesService extends AbstractRenderNodeService {
             registry.locale === MixinsAppService.LOAD_STATUS_COMPLETE
           ) {
             if (renderData.page) {
-              await this.services.pages.createPage(renderData.page);
+              await this.app.services.pages.createPage(renderData.page);
             }
             return;
           }
@@ -48,12 +48,12 @@ export default class PagesService extends AbstractRenderNodeService {
     }
 
     let pageHandler =
-      this.services.components.pageHandlerRegistry[renderData.renderRequestId];
+      this.app.services.components.pageHandlerRegistry[renderData.renderRequestId];
 
     if (pageHandler) {
       parentNode = pageHandler;
 
-      delete this.services.components.pageHandlerRegistry[
+      delete this.app.services.components.pageHandlerRegistry[
         renderData.renderRequestId
         ];
     }
@@ -72,6 +72,6 @@ export default class PagesService extends AbstractRenderNodeService {
   }
 
   get(path: string, options: RequestOptionsPageInterface = {}): Promise<any> {
-    return this.services.adaptive.get(path, options);
+    return this.app.services.adaptive.get(path, options);
   }
 }

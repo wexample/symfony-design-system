@@ -85,7 +85,7 @@ export default class ResponsiveService extends AppService {
             // Now change page class.
             this.responsiveUpdateClass();
 
-            this.services.events.trigger(
+            this.app.services.events.trigger(
               ResponsiveServiceEvents.RESPONSIVE_CHANGE_SIZE,
               {
                 renderNode: this,

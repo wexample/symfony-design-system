@@ -22,7 +22,7 @@ export default class extends Component {
     super.attachHtmlElements();
 
     if (!this.app.services.vue) {
-      this.services.prompt.systemError(
+      this.app.services.prompt.systemError(
         'page_message.error.vue_service_missing'
       );
 

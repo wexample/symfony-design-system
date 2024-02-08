@@ -4,7 +4,7 @@ import LocaleService from './LocaleService';
 export default class PromptService extends AppService {
   public static dependencies: typeof AppService[] = [LocaleService];
   protected service: PromptService;
-  public static serviceName: string = 'prompts';
+  public static serviceName: string = 'prompt';
 
   systemError(
     message,
@@ -12,7 +12,7 @@ export default class PromptService extends AppService {
     debugData: any = null,
     fatal: boolean = false
   ) {
-    message = this.services.locale.trans(message, args);
+    message = this.app.services.locale.trans(message, args);
 
     if (fatal) {
       throw new Error(message);

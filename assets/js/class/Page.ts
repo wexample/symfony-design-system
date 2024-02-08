@@ -41,7 +41,7 @@ export default class extends RenderNode {
     if (el) {
       this.el = el;
     } else {
-      this.services.prompt.systemError('page_message.error.page_missing_el');
+      this.app.services.prompt.systemError('page_message.error.page_missing_el');
     }
 
     this.el.classList.add(`page-${pathToTagName(this.name)}`);
@@ -70,7 +70,7 @@ export default class extends RenderNode {
       this.parentRenderNode.setPage(this);
     }
 
-    await this.services.mixins.invokeUntilComplete('hookInitPage', 'page', [
+    await this.app.services.mixins.invokeUntilComplete('hookInitPage', 'page', [
       this,
     ]);
 
@@ -126,24 +126,24 @@ export default class extends RenderNode {
     this.onChangeResponsiveSizeProxy = this.onChangeResponsiveSize.bind(this);
     this.onChangeColorSchemeProxy = this.onChangeColorScheme.bind(this);
 
-    this.services.events.listen(
+    this.app.services.events.listen(
       ResponsiveServiceEvents.RESPONSIVE_CHANGE_SIZE,
       this.onChangeResponsiveSizeProxy
     );
 
-    this.services.events.listen(
+    this.app.services.events.listen(
       ColorSchemeServiceEvents.COLOR_SCHEME_CHANGE,
       this.onChangeColorSchemeProxy
     );
   }
 
   protected deactivateMountedListeners(): void {
-    this.services.events.forget(
+    this.app.services.events.forget(
       ResponsiveServiceEvents.RESPONSIVE_CHANGE_SIZE,
       this.onChangeResponsiveSizeProxy
     );
 
-    this.services.events.forget(
+    this.app.services.events.forget(
       ColorSchemeServiceEvents.COLOR_SCHEME_CHANGE,
       this.onChangeResponsiveSizeProxy
     );

@@ -1,5 +1,5 @@
-export default interface AssetsInterface {
-  // Defines that assets should be rendered
+export default interface AssetInterface {
+  // Defines that assets should be loaded
   // even the loading process is not finished.
   active: boolean;
   colorScheme?: string;

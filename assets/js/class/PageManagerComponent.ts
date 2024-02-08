@@ -13,7 +13,7 @@ export default abstract class PageManagerComponent extends Component {
     // Basically a modal or a panel (layout level).
     if (renderData.options.adaptiveResponseBodyDestination) {
       // Save component in registry for further usage.
-      this.services.components.pageHandlerRegistry[renderData.renderRequestId] =
+      this.app.services.components.pageHandlerRegistry[renderData.renderRequestId] =
         this;
     }
   }

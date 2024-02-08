@@ -23,7 +23,7 @@ export default abstract class Component extends RenderNode {
   public async init() {
     await super.init();
 
-    await this.services.mixins.invokeUntilComplete(
+    await this.app.services.mixins.invokeUntilComplete(
       'hookInitComponent',
       'component',
       [this]
@@ -39,7 +39,7 @@ export default abstract class Component extends RenderNode {
     let removePlaceHolder = true;
 
     if (!elPlaceholder) {
-      this.services.prompt.systemError(
+      this.app.services.prompt.systemError(
         'page_message.error.com_placeholder_missing',
         {},
         this,
@@ -67,7 +67,7 @@ export default abstract class Component extends RenderNode {
     }
 
     if (!el) {
-      this.services.prompt.systemError(
+      this.app.services.prompt.systemError(
         'page_message.error.com_el_missing',
         {},
         this

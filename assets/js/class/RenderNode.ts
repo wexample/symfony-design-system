@@ -47,7 +47,7 @@ export default abstract class RenderNode extends AppChild {
   public async init() {
     this.app.mix(this, 'renderNode');
 
-    this.services.events.trigger(ComponentsServiceEvents.CREATE_RENDER_NODE, {
+    this.app.services.events.trigger(ComponentsServiceEvents.CREATE_RENDER_NODE, {
       component: this,
     });
 
@@ -56,7 +56,7 @@ export default abstract class RenderNode extends AppChild {
       this.parentRenderNode.appendChildRenderNode(this);
     }
 
-    await this.services.mixins.invokeUntilComplete(
+    await this.app.services.mixins.invokeUntilComplete(
       'hookInitRenderNode',
       'renderNode',
       [this]
@@ -220,7 +220,7 @@ export default abstract class RenderNode extends AppChild {
   }
 
   protected async activateListeners(): Promise<void> {
-    await this.services.mixins.invokeUntilComplete(
+    await this.app.services.mixins.invokeUntilComplete(
       'hookActivateListener',
       'renderNode',
       [this]
@@ -228,7 +228,7 @@ export default abstract class RenderNode extends AppChild {
   }
 
   protected async deactivateListeners(): Promise<void> {
-    await this.services.mixins.invokeUntilComplete(
+    await this.app.services.mixins.invokeUntilComplete(
       'hookDeactivateListener',
       'renderNode',
       [this]
@@ -236,7 +236,7 @@ export default abstract class RenderNode extends AppChild {
   }
 
   protected async mounted(): Promise<void> {
-    await this.services.mixins.invokeUntilComplete(
+    await this.app.services.mixins.invokeUntilComplete(
       'hookMounted',
       'renderNode',
       [this]
@@ -248,7 +248,7 @@ export default abstract class RenderNode extends AppChild {
       this.parentRenderNode.childUnmounted(this);
     }
 
-    await this.services.mixins.invokeUntilComplete(
+    await this.app.services.mixins.invokeUntilComplete(
       'hookUnmounted',
       'renderNode',
       [this]

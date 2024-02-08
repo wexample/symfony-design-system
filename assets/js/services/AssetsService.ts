@@ -45,6 +45,7 @@ export default class AssetsService extends AppService {
         },
 
         async hookPrepareRenderData(renderData: RenderDataInterface) {
+          // Replace assets list by reference objects if exists.
           renderData.assets = this.registerAssetsInCollection(
             renderData.assets
           );
@@ -56,7 +57,7 @@ export default class AssetsService extends AppService {
           definitionName: string,
           renderData: RenderDataInterface
         ) {
-          await this.services.assets.loadValidAssetsInCollection(
+          await this.loadValidAssetsInCollection(
             renderData.assets,
             RenderNodeUsage.USAGE_INITIAL
           );
@@ -70,7 +71,7 @@ export default class AssetsService extends AppService {
             return MixinsAppService.LOAD_STATUS_WAIT;
           }
 
-          await this.services.assets.loadValidAssetsForRenderNode(
+          await this.app.services.assets.loadValidAssetsForRenderNode(
             renderNode,
             // TODO Load all non initial assets.
             RenderNodeUsage.USAGE_RESPONSIVE
@@ -97,12 +98,12 @@ export default class AssetsService extends AppService {
     });
   }
 
-  appendAsset(asset: AssetInterface): Promise<AssetsInterface> {
+  appendAsset(asset: AssetInterface): Promise<AssetInterface> {
     return new Promise(async (resolve) => {
       // Avoid currently and already loaded.
       if (!asset.active) {
         // Active said that asset should be loaded,
-        // event loading is not complete or queue is terminated.
+        // even loading is not complete or queue is terminated.
         asset.active = true;
 
         // Storing resolver allow javascript to be,
@@ -150,7 +151,7 @@ export default class AssetsService extends AppService {
     return output;
   }
 
-  async appendAssets(assetsCollection) {
+  async appendAssets(assetsCollection: AssetsCollectionInterface) {
     return new Promise(async (resolveAll) => {
       let assets = this.assetsInCollection(assetsCollection);
 
@@ -160,7 +161,7 @@ export default class AssetsService extends AppService {
       }
 
       let count: number = 0;
-      assets.forEach((asset: AssetsInterface) => {
+      assets.forEach((asset: AssetInterface) => {
         count++;
 
         this.appendAsset(asset).then(() => {

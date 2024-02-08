@@ -37,7 +37,7 @@ export default class ComponentsService extends AbstractRenderNodeService {
             return MixinsAppService.LOAD_STATUS_WAIT;
           }
 
-          await this.services.components.loadLayoutRenderData(renderData);
+          await this.app.services.components.loadLayoutRenderData(renderData);
         },
       },
 
@@ -64,7 +64,7 @@ export default class ComponentsService extends AbstractRenderNodeService {
   ): RenderNode | null {
     // Prevent multiple alerts for the same component.
     if (!classDefinition) {
-      this.services.prompt.systemError(
+      this.app.services.prompt.systemError(
         'page_message.error.com_missing',
         {},
         classDefinition
@@ -87,9 +87,11 @@ export default class ComponentsService extends AbstractRenderNodeService {
   }
 
   async createRenderDataComponents(
-    renderData: RenderDataInterface,
-    parentRenderNode: RenderNode
+    parentRenderNode: RenderNode,
+    renderData: RenderDataInterface | null = null,
   ) {
+    renderData = renderData || parentRenderNode.renderData;
+
     for (const renderDataComponent of renderData.components) {
       // Share request options.
       renderDataComponent.requestOptions = renderData.requestOptions;

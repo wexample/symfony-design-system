@@ -55,7 +55,7 @@ export default class VueService extends AppService {
         },
 
         hookLoadLayoutRenderData(renderData: LayoutInterface) {
-          this.services.vue.addTemplatesHtml(renderData.vueTemplates);
+          this.app.services.vue.addTemplatesHtml(renderData.vueTemplates);
         },
       },
     };
@@ -130,7 +130,7 @@ export default class VueService extends AppService {
       let vueClassDefinition = this.app.getBundleClassDefinition(className);
 
       if (!vueClassDefinition) {
-        this.services.prompt.systemError(
+        this.app.services.prompt.systemError(
           'page_message.error.vue_missing',
           {},
           {

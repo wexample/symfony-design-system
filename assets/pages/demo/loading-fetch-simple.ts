@@ -14,7 +14,7 @@ export default class extends Page {
     this.el
       .querySelector('.open-another-modal')
       .addEventListener('click', () => {
-        this.services.modals.get('/demo/loading/fetch/simple');
+        this.app.services.modals.get('/demo/loading/fetch/simple');
       });
   }
 }

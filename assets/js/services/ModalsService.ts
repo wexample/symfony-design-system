@@ -12,6 +12,6 @@ export default class ModalsService extends AppService {
   get(path: string, requestOptions: ModalInterface = {}): Promise<any> {
     requestOptions.layout = requestOptions.layout || 'modal';
 
-    return this.services.pages.get(path, requestOptions);
+    return this.app.services.pages.get(path, requestOptions);
   }
 }

@@ -14,7 +14,7 @@ export default abstract class AbstractRenderNodeService extends AppService {
   public async prepareRenderData(renderData: RenderDataInterface) {
     renderData.requestOptions = renderData.requestOptions || {};
 
-    await this.services.mixins.invokeUntilComplete(
+    await this.app.services.mixins.invokeUntilComplete(
       'hookPrepareRenderData',
       'app',
       [renderData]
@@ -31,7 +31,7 @@ export default abstract class AbstractRenderNodeService extends AppService {
   ): Promise<RenderNode> {
     await this.prepareRenderData(renderData);
 
-    await this.services.mixins.invokeUntilComplete(
+    await this.app.services.mixins.invokeUntilComplete(
       'hookBeforeCreate',
       'renderNode',
       [definitionName, renderData, parentRenderNode]

@@ -22,7 +22,7 @@ export default class extends Page {
       });
 
     this.el.querySelector('#page-modal-show').addEventListener('click', () => {
-      this.services.modals.get('/demo/loading/fetch/simple');
+      this.app.services.modals.get('/demo/loading/fetch/simple');
     });
   }
 }
