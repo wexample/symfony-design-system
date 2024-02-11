@@ -1,5 +1,12 @@
 parameters:
     design_system.debug: false
+    design_system.display_breakpoints:
+      xs: 0
+      s: 576
+      m: 768
+      l: 992
+      xl: 1200
+      xxl: 1400
 
 services:
     _defaults:

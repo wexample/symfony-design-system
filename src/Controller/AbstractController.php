@@ -49,8 +49,9 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
         return parent::render(
             $view,
             [
-                'layout_color_scheme' => ColorSchemeHelper::SCHEME_DEFAULT,
                 'debug' => (bool) $this->getParameter('design_system.debug'),
+                'display_breakpoints' => $this->getParameter('design_system.display_breakpoints'),
+                'layout_color_scheme' => ColorSchemeHelper::SCHEME_DEFAULT,
                 'render_pass' => $pass,
             ] + $parameters + $pass->getRenderParameters(),
             $response
