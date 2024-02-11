@@ -9,7 +9,7 @@ use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class ComponentRenderNode extends AbstractRenderNode
 {
-    public ?string $body = null;
+    public string $cssClassName;
 
     public function __construct(
         public string $initMode,
@@ -21,9 +21,10 @@ class ComponentRenderNode extends AbstractRenderNode
     public function init(
         RenderPass $renderPass,
         string $name
-    ): void
-    {
+    ): void {
         parent::init($renderPass, $name);
+
+        $this->cssClassName = DomHelper::buildCssClassName($this->id);
 
         $renderPass
             ->getCurrentContextRenderNode()
@@ -35,9 +36,9 @@ class ComponentRenderNode extends AbstractRenderNode
         return RenderingHelper::CONTEXT_COMPONENT;
     }
 
-    public function renderCssClass(): string
+    public function renderCssClasses(): string
     {
-        return 'com-class-loaded '.$this->id;
+        return 'com-class-loaded '.$this->cssClassName;
     }
 
     public function renderTag(): string
@@ -48,7 +49,7 @@ class ComponentRenderNode extends AbstractRenderNode
                 // ID are not used as "id" html attribute,
                 // as component may be embedded into a vue,
                 // so replicated multiple times.
-                VariableHelper::CLASS_VAR => 'com-init '.$this->id,
+                VariableHelper::CLASS_VAR => 'com-init '.$this->cssClassName,
             ]
         );
     }
@@ -57,6 +58,7 @@ class ComponentRenderNode extends AbstractRenderNode
     {
         return parent::toRenderData()
             + [
+                'cssClassName' => $this->cssClassName,
                 'initMode' => $this->initMode,
                 'options' => $this->options,
             ];

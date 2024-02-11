@@ -21,7 +21,7 @@ class DesignSystemTemplatesCompilerPass implements CompilerPassInterface
         foreach ($bundlesPaths as $bundleClass => $paths) {
             foreach ($paths as $path) {
                 if ($bundleClass != VariableHelper::APP) {
-                    # Add template alias like @SymfonyDesignSystem for every registered path.
+                    # Add template alias like @WexampleSymfonyDesignSystemBundle for every registered path.
                     $definition->addMethodCall(
                         'addPath',
                         [

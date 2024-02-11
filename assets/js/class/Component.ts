@@ -34,7 +34,7 @@ export default abstract class Component extends RenderNode {
     let el: HTMLElement;
 
     let elPlaceholder = this.parentRenderNode.el.querySelector(
-      `.${this.id}`
+      `.${this.cssClassName}`
     ) as HTMLElement;
     let removePlaceHolder = true;
 
@@ -89,6 +89,7 @@ export default abstract class Component extends RenderNode {
     super.mergeRenderData(renderData);
 
     this.initMode = renderData.initMode;
+    this.cssClassName = renderData.cssClassName;
     this.options = {...this.options, ...renderData.options};
     this.callerPage = renderData.requestOptions.callerPage;
     this.initMode = renderData.initMode;

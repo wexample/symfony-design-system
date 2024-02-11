@@ -56,4 +56,23 @@ class DomHelper
 
         return $output;
     }
+
+    public static function buildCssClassName(string $string): string
+    {
+        // Remove leading or trailing dash.
+        return trim(
+        // Replace double dash.
+            preg_replace(
+                '/-+/',
+                '-',
+                // Keep valid chars.
+                preg_replace(
+                    '/[^a-zA-Z0-9-]/',
+                    '-',
+                    $string
+                )
+            ),
+            '-'
+        );
+    }
 }

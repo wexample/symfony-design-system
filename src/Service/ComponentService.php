@@ -128,6 +128,7 @@ class ComponentService extends RenderNodeService
      * @throws Exception
      */
     public function componentRenderBody(
+        RenderPass $renderPass,
         Environment $env,
         ComponentRenderNode $component
     ): ?string {
@@ -273,7 +274,6 @@ class ComponentService extends RenderNodeService
 
         /** @var ComponentRenderNode $component */
         $component = new $className(
-            $renderPass,
             $initMode,
             $options
         );

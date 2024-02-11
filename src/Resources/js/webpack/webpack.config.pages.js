@@ -1,15 +1,16 @@
 const tools = require('./webpack.tools');
 
-tools.logTitle('JS : Pages');
+tools.logTitle('JS App level pages');
 
-tools.forEachJsExtAndLocations((srcExt, location) => {
+tools.forEachJsExtAndLocations((srcExt, bundle, location) => {
   tools.addAssetsJsWrapped(
+    'app',
     location,
     'pages/',
     srcExt,
     'pages',
     (srcFile) => {
-      // If first letter is a capital, this is a included class.
+      // If first letter is a capital, this is an included class.
       return !tools.fileIsAClass(srcFile.file) && srcFile;
     }
   );

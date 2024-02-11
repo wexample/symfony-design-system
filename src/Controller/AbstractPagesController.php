@@ -42,7 +42,7 @@ abstract class AbstractPagesController extends AbstractController
         $this->requestUri = $mainRequest->getRequestUri();
     }
 
-    public function buildTemplatePath(
+    protected function buildTemplatePath(
         string $view,
         AbstractBundle|string|null $bundleClass = null
     ): string {
@@ -82,7 +82,7 @@ abstract class AbstractPagesController extends AbstractController
         AbstractBundle|string $bundle = null
     ): Response {
         return $this->adaptiveRender(
-            $this->buildTemplatePath($view, $bundle),
+            $this->buildTemplatePath($view, ($bundle ?: $this->getControllerBundle())),
             $parameters,
             $response
         );

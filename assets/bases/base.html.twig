@@ -1,6 +1,5 @@
 {%- block layout_base -%}
     {%- block layout_config -%}
-        {{- layout_init(layout_path, layout_color_scheme, layout_use_js) -}}
-        {{- page_init(page_name) -}}
+        {{- layout_init(render_pass, layout_path) -}}
     {%- endblock -%}
 {%- endblock -%}

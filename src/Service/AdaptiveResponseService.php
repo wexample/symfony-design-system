@@ -30,7 +30,7 @@ class AdaptiveResponseService
     ) {
     }
 
-    public function renderPrepare(
+    public function createRenderPass(
         AbstractController $controller,
         string $view,
         array &$parameters = []

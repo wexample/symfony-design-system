@@ -2,10 +2,11 @@ const tools = require('./webpack.tools');
 
 // Project level
 
-tools.logTitle('JS Project level components');
+tools.logTitle('JS App level components');
 
-tools.forEachJsExtAndLocations((srcExt, location) => {
+tools.forEachJsExtAndLocations((srcExt, bundle, location) => {
   tools.addAssetsJsWrapped(
+    bundle,
     location,
     'components/',
     srcExt,
@@ -13,11 +14,12 @@ tools.forEachJsExtAndLocations((srcExt, location) => {
   );
 });
 
-tools.logTitle('JS Project level components (forms)');
+tools.logTitle('JS App level components (forms)');
 
 // Project level
-tools.forEachJsExtAndLocations((srcExt, location) => {
+tools.forEachJsExtAndLocations((srcExt, bundle, location) => {
   tools.addAssetsJsWrapped(
+    'app',
     location,
     'forms/',
     srcExt,
@@ -25,17 +27,3 @@ tools.forEachJsExtAndLocations((srcExt, location) => {
   );
 });
 
-// Local components css are built in common config.
-
-// Core level
-
-tools.logTitle('JS Core level components');
-
-tools.jsFilesExtensions.forEach((srcExt) => {
-  tools.addAssetsJsWrapped(
-    tools.designSystemPackageRootDir + 'src/Resources/js/',
-    'components/',
-    srcExt,
-    'components'
-  );
-});

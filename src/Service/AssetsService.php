@@ -277,18 +277,15 @@ class AssetsService
     }
 
     public function assetsDetect(
-        string $path,
-        AbstractRenderNode $context,
+        AbstractRenderNode $contextRenderNode,
         array &$collection = []
     ): array {
         foreach (Asset::ASSETS_EXTENSIONS as $ext) {
             $collection[$ext] = array_merge(
                 $collection[$ext] ?? [],
                 $this->assetsDetectForType(
-                    $path,
                     $ext,
-                    $context,
-                    true
+                    $contextRenderNode,
                 )
             );
         }
@@ -300,16 +297,13 @@ class AssetsService
      * Return all assets for a given type, including suffixes like -s, -l, etc.
      */
     public function assetsDetectForType(
-        string $renderNodeName,
         string $ext,
         AbstractRenderNode $renderNode,
         bool $searchColorScheme
     ): array {
-        $assetPathFull = $ext.'/'.$renderNodeName.'.'.$ext;
         $output = [];
 
         if ($asset = $this->addAsset(
-            $assetPathFull,
             $renderNode,
             Asset::USAGE_INITIAL
         )) {
@@ -387,16 +381,16 @@ class AssetsService
      * @throws Exception
      */
     public function addAsset(
-        string $pathRelative,
         AbstractRenderNode $renderNode,
-        string $usage
+        string $ext
     ): ?Asset {
-        $pathRelativeToPublic = self::DIR_BUILD.$pathRelative;
+        $pathRelativeToPublic = $renderNode->buildBuiltPublicAssetPath($ext);
+
         if (!isset($this->registry[$pathRelativeToPublic])) {
             return null;
         }
 
-        if (!isset($this->assetsLoaded[$pathRelative])) {
+        if (!isset($this->assetsLoaded[$pathRelativeToPublic])) {
             $pathReal = realpath($this->pathPublic.$this->registry[$pathRelativeToPublic]);
 
             if (!$pathReal) {
@@ -405,19 +399,17 @@ class AssetsService
 
             $asset = new Asset(
                 $pathReal,
-                $renderNode,
                 $this->pathPublic,
-                $usage
             );
 
-            $this->assetsLoaded[$pathRelative] = $asset;
+            $this->assetsLoaded[$pathRelativeToPublic] = $asset;
         } else {
             $asset = $this->assetsLoaded[$pathRelative];
         }
 
         $this->assets[$asset->type][] = $asset;
 
-        return $this->assetsLoaded[$pathRelative];
+        return $this->assetsLoaded[$pathRelativeToPublic];
     }
 
     public function assetsPreload(

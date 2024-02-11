@@ -31,10 +31,10 @@ class AdaptiveResponseExtension extends AbstractExtension
                 ]
             ),
             new TwigFunction(
-                'adaptive_response_set_context',
+                'adaptive_response_set_page_context',
                 [
                     $this,
-                    'adaptiveResponseSetContext',
+                    'adaptiveResponseSetPageContext',
                 ]
             ),
             new TwigFunction(
@@ -84,25 +84,17 @@ class AdaptiveResponseExtension extends AbstractExtension
             ->getRenderingBase();
     }
 
-    public function adaptiveResponseSetContext(
-        string $renderNodeType,
-        ?string $renderNodeName,
+    public function adaptiveResponseSetPageContext(
+        RenderPass $renderPass,
     ) {
-        $this
-            ->adaptiveResponseService
-            ->renderPass
-            ->setCurrentContextRenderNodeByTypeAndName(
-                $renderNodeType,
-                $renderNodeName
-            );
+        $renderPass->setCurrentContextRenderNode(
+            $renderPass->layoutRenderNode->page
+        );
     }
 
-    public function adaptiveResponseRevertContext()
+    public function adaptiveResponseRevertContext(RenderPass $renderPass)
     {
-        $this
-            ->adaptiveResponseService
-            ->renderPass
-            ->revertCurrentContextRenderNode();
+        $renderPass->revertCurrentContextRenderNode();
     }
 
     public function varJs(

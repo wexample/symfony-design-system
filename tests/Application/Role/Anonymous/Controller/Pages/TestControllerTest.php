@@ -2,13 +2,22 @@
 
 namespace Wexample\SymfonyDesignSystem\Tests\Application\Role\Anonymous\Controller\Pages;
 
-use Wexample\SymfonyTesting\Tests\AbstractApplicationTestCase;
+use Wexample\SymfonyDesignSystem\Controller\Pages\DemoController;
+use Wexample\SymfonyDesignSystem\Traits\SymfonyDesignSystemBundleClassTrait;
+use Wexample\SymfonyTesting\Tests\AbstractRoleControllerTestCase;
+use Wexample\SymfonyTesting\Tests\Traits\RoleAnonymousTestCaseTrait;
+use Wexample\SymfonyTesting\Traits\ControllerTestCaseTrait;
 
-class TestController extends AbstractApplicationTestCase
+class TestControllerTest extends AbstractRoleControllerTestCase
 {
-    public function testController()
+    use RoleAnonymousTestCaseTrait;
+    use ControllerTestCaseTrait;
+    use SymfonyDesignSystemBundleClassTrait;
+
+    public function testIndex()
     {
-        // TODO
-        $this->assertTrue(true);
+        $this->goToControllerRouteAndCheckHtml(
+            DemoController::ROUTE_INDEX
+        );
     }
 }

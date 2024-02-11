@@ -11,10 +11,14 @@ export default abstract class AbstractRenderNodeService extends AppService {
   public pages: {};
   public services: ServicesRegistryInterface;
 
-  public async prepareRenderData(renderData: RenderDataInterface) {
+  /**
+   * Prepare raw data object, for example make assets definition unique across
+   * the several render nodes (one single css file for every rendered node).
+   */
+  public async prepareRenderData(renderData: RenderDataInterface): Promise<any> {
     renderData.requestOptions = renderData.requestOptions || {};
 
-    await this.app.services.mixins.invokeUntilComplete(
+    const response = await this.app.services.mixins.invokeUntilComplete(
       'hookPrepareRenderData',
       'app',
       [renderData]
@@ -22,6 +26,8 @@ export default abstract class AbstractRenderNodeService extends AppService {
 
     // Do not deep freeze as sub-parts might be prepared later.
     Object.seal(renderData);
+
+    return response;
   }
 
   async createRenderNode(

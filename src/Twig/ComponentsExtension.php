@@ -36,7 +36,7 @@ class ComponentsExtension extends AbstractExtension
                 'component',
                 [
                     $this,
-                    'component',
+                    'componentInitPrevious',
                 ],
                 $initOptions
             ),
@@ -131,6 +131,7 @@ class ComponentsExtension extends AbstractExtension
      */
     public function componentInitClass(
         Environment $twig,
+        RenderPass $renderPass,
         string $name,
         array $options = []
     ): string {
@@ -138,9 +139,10 @@ class ComponentsExtension extends AbstractExtension
             ->componentService
             ->componentInitClass(
                 $twig,
+                $renderPass,
                 $name,
                 $options
-            )->renderCssClass();
+            )->renderCssClasses();
     }
 
     /**

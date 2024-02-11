@@ -1,6 +1,6 @@
-import AssetsInterface from './AssetInterface';
+import AssetInterface from './AssetInterface';
 
 export default interface AssetsCollectionInterface {
-  css: AssetsInterface[];
-  js: AssetsInterface[];
+  css: AssetInterface[];
+  js: AssetInterface[];
 }

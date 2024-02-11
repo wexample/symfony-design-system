@@ -18,6 +18,9 @@ final class DemoController extends AbstractPagesController
 
     final public const ROUTE_INDEX = VariableHelper::INDEX;
     final public const ROUTE_ASSETS = VariableHelper::ASSETS;
+    final public const ROUTE_LOADING = VariableHelper::LOADING;
+    final public const ROUTE_TRANSLATIONS = VariableHelper::TRANSLATIONS;
+    final public const ROUTE_COMPONENTS = VariableHelper::PLURAL_COMPONENT;
 
     protected string $viewPathPrefix = VariableHelper::DEMO.'/';
 
@@ -45,12 +48,12 @@ final class DemoController extends AbstractPagesController
 
     #[Route(
         path: VariableHelper::LOADING,
-        name: VariableHelper::LOADING
+        name: self::ROUTE_LOADING
     )]
     public function loading(): Response
     {
         return $this->renderPage(
-            VariableHelper::LOADING
+            self::ROUTE_LOADING
         );
     }
 
@@ -74,23 +77,23 @@ final class DemoController extends AbstractPagesController
 
     #[Route(
         path: VariableHelper::TRANSLATIONS,
-        name: VariableHelper::TRANSLATIONS
+        name: self::ROUTE_TRANSLATIONS
     )]
     public function translations(): Response
     {
         return $this->renderPage(
-            VariableHelper::TRANSLATIONS
+            self::ROUTE_TRANSLATIONS
         );
     }
 
     #[Route(
         path: VariableHelper::PLURAL_COMPONENT,
-        name: VariableHelper::PLURAL_COMPONENT
+        name: self::ROUTE_COMPONENTS
     )]
     public function components(): Response
     {
         return $this->renderPage(
-            VariableHelper::PLURAL_COMPONENT
+            self::ROUTE_COMPONENTS
         );
     }
 }

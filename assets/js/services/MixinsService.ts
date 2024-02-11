@@ -32,7 +32,7 @@ export default class MixinsService extends AppService {
       let registry: { [key: string]: string } = {};
       let service;
 
-      while ((service = services.shift())) {
+      while (service = services.shift()) {
         let timeout = setTimeout(() => {
           throw `Mixins invocation timeout on method "${method}", stopping at "${currentName}".`;
         }, timeoutLimit);
