@@ -1,5 +1,6 @@
 import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
 import AppChild from './AppChild';
+import App from './App';
 import Component from './Component';
 
 export default abstract class RenderNode extends AppChild {
@@ -8,12 +9,21 @@ export default abstract class RenderNode extends AppChild {
   public el: HTMLElement;
   public id: string;
   public name: string;
+  public parentRenderNode: RenderNode;
   public renderData: RenderDataInterface;
   public translations: {} = {};
   public vars: any = {};
 
-  public async init() {
+  constructor(app: App, parentRenderNode?: RenderNode) {
+    super(app);
+    this.parentRenderNode = parentRenderNode;
+  }
 
+  public async init() {
+    // Layout can have no parent node.
+    if (this.parentRenderNode) {
+      this.parentRenderNode.appendChildRenderNode(this);
+    }
   }
 
   loadFirstRenderData(renderData: RenderDataInterface) {
@@ -33,6 +43,12 @@ export default abstract class RenderNode extends AppChild {
 
     this.vars = {...this.vars, ...renderData.vars};
   }
+
+  appendChildRenderNode(renderNode: RenderNode) {
+    renderNode.parentRenderNode = this;
+    this.childRenderNodes[renderNode.id] = renderNode;
+  }
+
   eachChildRenderNode(): RenderNode[] {
     return Object.values(this.childRenderNodes);
   }
@@ -41,6 +57,8 @@ export default abstract class RenderNode extends AppChild {
 
   async mount() {
     this.attachHtmlElements();
+
+    await this.mounted();
   }
   
   async mountTree() {

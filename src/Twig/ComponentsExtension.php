@@ -94,7 +94,7 @@ class ComponentsExtension extends AbstractExtension
                 $renderPass,
                 $name,
                 $options
-            )->renderCssClass();
+            )->renderCssClasses();
     }
 
     /**

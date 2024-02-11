@@ -25,3 +25,11 @@ export class TagName {
 
   public static SCRIPT: string = 'script';
 }
+
+export function findPreviousNode(el) {
+  // Search for previous non text node.
+  do {
+    el = el.previousSibling;
+  } while (el && el.nodeType === Node.TEXT_NODE);
+  return el;
+}
