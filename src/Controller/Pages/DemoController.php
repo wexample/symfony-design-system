@@ -39,7 +39,7 @@ final class DemoController extends AbstractPagesController
         return $this->renderPage(
             self::ROUTE_ASSETS,
             [
-                'displayBreakpoints' => AssetsService::DISPLAY_BREAKPOINTS,
+                'displayBreakpoints' => $this->getParameter('design_system.display_breakpoints'),
             ]
         );
     }

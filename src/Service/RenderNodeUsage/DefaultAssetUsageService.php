@@ -3,8 +3,6 @@
 namespace Wexample\SymfonyDesignSystem\Service\RenderNodeUsage;
 
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
-use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
-use Wexample\SymfonyHelpers\Helper\PathHelper;
 
 class DefaultAssetUsageService extends AbstractAssetUsageService
 {
@@ -14,25 +12,9 @@ class DefaultAssetUsageService extends AbstractAssetUsageService
         AbstractRenderNode $renderNode,
         string $ext
     ): void {
-        $asset = $this->createAsset(
-            $this->buildBuiltPublicAssetPath($renderNode, $ext)
+        $this->createAssetIfExists(
+            $this->buildBuiltPublicAssetPath($renderNode, $ext),
+            $renderNode,
         );
-
-        if ($asset) {
-            $renderNode->assets[$ext][] = $asset;
-
-            $this->assetsRegistryService->addAsset(
-                $asset,
-            );
-        }
-    }
-
-    public function buildBuiltPublicAssetPath(
-        AbstractRenderNode $renderNode,
-        string $ext
-    ): string {
-        $nameParts = explode('::', $renderNode->name);
-
-        return AssetsRegistryService::DIR_BUILD.PathHelper::join([$nameParts[0], $ext, $nameParts[1].'.'.$ext]);
     }
 }
