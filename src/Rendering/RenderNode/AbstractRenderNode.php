@@ -62,11 +62,4 @@ abstract class AbstractRenderNode extends RenderDataGenerator
             'name' => $this->name,
         ];
     }
-
-    public function buildBuiltPublicAssetPath(string $ext): string
-    {
-        $nameParts = explode('::', $this->name);
-
-        return AssetsService::DIR_BUILD . PathHelper::join([$nameParts[0], $ext, $nameParts[1].'.'.$ext]);
-    }
 }

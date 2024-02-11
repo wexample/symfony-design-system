@@ -10,6 +10,9 @@ use Symfony\Contracts\Cache\CacheInterface;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyDesignSystem\Service\RenderNodeUsage\AbstractAssetUsageService;
+use Wexample\SymfonyDesignSystem\Service\RenderNodeUsage\DefaultAssetUsageService;
+use Wexample\SymfonyDesignSystem\Service\RenderNodeUsage\ResponsiveAssetUsageService;
 use Wexample\SymfonyHelpers\Helper\JsonHelper;
 use function array_merge;
 
@@ -42,6 +45,11 @@ class AssetsService
 
     private array $registry = [];
 
+    /**
+     * @var array<AbstractAssetUsageService>
+     */
+    private array $usages;
+
     private string $pathPublic;
 
     /**
@@ -49,8 +57,15 @@ class AssetsService
      */
     public function __construct(
         KernelInterface $kernel,
-        CacheInterface $cache
+        CacheInterface $cache,
+        DefaultAssetUsageService $defaultAssetUsageService,
+        ResponsiveAssetUsageService $responsiveAssetUsageService
     ) {
+        $this->usages = [
+            $defaultAssetUsageService,
+            $responsiveAssetUsageService,
+        ];
+
         $this->pathProject = $kernel->getProjectDir().'/';
         $this->pathPublic = $this->pathProject.self::DIR_PUBLIC;
         $this->pathBuild = $this->pathPublic.self::DIR_BUILD;
@@ -84,50 +99,42 @@ class AssetsService
     }
 
     public function assetsDetect(
-        AbstractRenderNode $contextRenderNode,
+        AbstractRenderNode $renderNode,
         array &$collection = []
     ): array {
+
         foreach (Asset::ASSETS_EXTENSIONS as $ext) {
-            $collection[$ext] = array_merge(
-                $collection[$ext] ?? [],
-                $this->assetsDetectForType(
-                    $ext,
-                    $contextRenderNode,
-                )
-            );
+            $collection[$ext] = $collection[$ext] ?? [];
+
+            foreach ($this->usages as $usage) {
+                $paths = $usage->buildAssetsPathsForRenderNodeAndType(
+                    $renderNode,
+                    $ext
+                );
+
+                foreach ($paths as $path) {
+                    $asset = $this->addAsset($path);
+
+                    // Suggested asset path may not exist.
+                    if ($asset) {
+                        $collection[$ext][] = $asset;
+                    }
+                }
+            }
         }
 
         return $collection;
     }
 
     /**
-     * Return all assets for a given type, including suffixes like -s, -l, etc.
-     */
-    public function assetsDetectForType(
-        string $ext,
-        AbstractRenderNode $renderNode,
-    ): array {
-        $output = [];
-
-        if ($asset = $this->addAsset(
-            $renderNode,
-            $ext
-        )) {
-            $output[] = $asset;
-        }
-
-        return $output;
-    }
-
-    /**
      * @throws Exception
      */
     public function addAsset(
-        AbstractRenderNode $renderNode,
-        string $ext
+        string $pathRelativeToPublic,
     ): ?Asset {
-        $pathRelativeToPublic = $renderNode->buildBuiltPublicAssetPath($ext);
-
+        // Service will generate list of possible paths,
+        // but it may not exist in registry,
+        // no error in this case.
         if (!isset($this->registry[$pathRelativeToPublic])) {
             return null;
         }
