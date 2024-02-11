@@ -32,15 +32,6 @@ class AssetsService
      */
     private const CACHE_KEY_ASSETS_REGISTRY = 'assets_registry';
 
-    public const DISPLAY_BREAKPOINTS = [
-        'xs' => 0,
-        's' => 576,
-        'm' => 768,
-        'l' => 992,
-        'xl' => 1200,
-        'xxl' => 1400,
-    ];
-
     public const COLOR_SCHEME_DIR = 'color_schemes';
 
     /**
