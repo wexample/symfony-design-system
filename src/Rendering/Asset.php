@@ -2,9 +2,8 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
-use Wexample\SymfonyDesignSystem\Service\AssetsService;
+use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
-use Wexample\SymfonyHelpers\Helper\PathHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
 
 class Asset extends RenderDataGenerator
@@ -31,17 +30,12 @@ class Asset extends RenderDataGenerator
     public string $type;
 
     public function __construct(
-        string $path,
-        string $basePath,
+        string $pathRelativeToPublic,
     ) {
-        $info = pathinfo($path);
+        $info = pathinfo($pathRelativeToPublic);
         $this->type = $info['extension'];
-
-        $this->path = FileHelper::FOLDER_SEPARATOR.PathHelper::relativeTo(
-                $path,
-                $basePath
-            );
-
+        // Add leading slash to load it from frontend.
+        $this->path = FileHelper::FOLDER_SEPARATOR.$pathRelativeToPublic;
         $this->id = $this->buildId($this->path);
     }
 
@@ -49,7 +43,7 @@ class Asset extends RenderDataGenerator
     {
         $path = TextHelper::trimFirstChunk(
             FileHelper::removeExtension($path),
-            AssetsService::DIR_BUILD
+            AssetsRegistryService::DIR_BUILD
         );
 
         $explode = explode('/', $path);
