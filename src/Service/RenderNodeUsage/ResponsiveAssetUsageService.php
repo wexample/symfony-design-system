@@ -9,9 +9,12 @@ use Wexample\SymfonyHelpers\Helper\FileHelper;
 
 class ResponsiveAssetUsageService extends AbstractAssetUsageService
 {
-    const NAME = 'responsive';
-
     private array $breakpoints;
+
+    public static function getName(): string
+    {
+        return 'responsive';
+    }
 
     public function __construct(
         AssetsRegistryService $assetsRegistryService,

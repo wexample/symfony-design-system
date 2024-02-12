@@ -6,7 +6,10 @@ use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 
 class DefaultAssetUsageService extends AbstractAssetUsageService
 {
-    const NAME = 'default';
+    public static function getName(): string
+    {
+        return 'default';
+    }
 
     public function addAssetsForRenderNodeAndType(
         AbstractRenderNode $renderNode,

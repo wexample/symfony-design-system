@@ -16,6 +16,8 @@ abstract class AbstractAssetUsageService
 
     }
 
+    abstract public static function getName(): string;
+
     public function buildBuiltPublicAssetPath(
         AbstractRenderNode $renderNode,
         string $ext
@@ -45,7 +47,8 @@ abstract class AbstractAssetUsageService
         }
 
         $asset = new Asset(
-            $pathRelativeToPublic
+            $pathRelativeToPublic,
+            $this::getName()
         );
 
         $renderNode->assets[$asset->type][] = $asset;

@@ -31,6 +31,7 @@ class Asset extends RenderDataGenerator
 
     public function __construct(
         string $pathRelativeToPublic,
+        public string $usage
     ) {
         $info = pathinfo($pathRelativeToPublic);
         $this->type = $info['extension'];
@@ -71,6 +72,7 @@ class Asset extends RenderDataGenerator
             'id',
             'path',
             'type',
+            'usage',
         ]);
     }
 }
