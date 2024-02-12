@@ -294,44 +294,6 @@ class AssetsService
     ): array {
         $output = [];
 
-        if ($asset = $this->addAsset(
-            $renderNode,
-            Asset::USAGE_INITIAL
-        )) {
-            $output[] = $asset;
-        }
-
-        // Add responsive assets.
-
-        $breakpointsReverted = array_reverse(
-            self::DISPLAY_BREAKPOINTS
-        );
-        $maxWidth = null;
-
-        foreach ($breakpointsReverted as $breakpointName => $minWidth) {
-            $assetPathFull = implode(
-                FileHelper::FOLDER_SEPARATOR,
-                [
-                    $ext,
-                    $renderNodeName.'-'.$breakpointName.'.'.$ext,
-                ]
-            );
-
-            if ($asset = $this->addAsset(
-                $assetPathFull,
-                $renderNode,
-                Asset::USAGE_RESPONSIVE
-            )) {
-                $asset->responsive = $breakpointName;
-                $asset->media = 'screen and (min-width:'.$minWidth.'px)'.
-                    ($maxWidth ? ' and (max-width:'.$maxWidth.'px)' : '');
-
-                $output[] = $asset;
-            }
-
-            $maxWidth = $minWidth;
-        }
-
         // Prevent infinite loops.
         if ($searchColorScheme) {
             // Add color scheme assets.
