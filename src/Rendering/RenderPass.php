@@ -22,6 +22,8 @@ class RenderPass
         RenderingHelper::CONTEXT_VUE => [],
     ];
 
+    public bool $useJs = true;
+
     public function __construct(
         string $outputType,
         public string $view,

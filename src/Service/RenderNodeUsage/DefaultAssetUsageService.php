@@ -2,9 +2,11 @@
 
 namespace Wexample\SymfonyDesignSystem\Service\RenderNodeUsage;
 
+use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 
-class DefaultAssetUsageService extends AbstractAssetUsageService
+final class DefaultAssetUsageService extends AbstractAssetUsageService
 {
     public static function getName(): string
     {
@@ -19,5 +21,16 @@ class DefaultAssetUsageService extends AbstractAssetUsageService
             $this->buildBuiltPublicAssetPath($renderNode, $ext),
             $renderNode,
         );
+    }
+
+    public function isAssetReadyForServerSideRendering(
+        Asset $asset,
+        RenderPass $renderPass,
+    ): bool {
+        if ($asset->type === Asset::EXTENSION_JS) {
+            return $renderPass->useJs;
+        }
+
+        return true;
     }
 }

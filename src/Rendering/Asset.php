@@ -31,7 +31,7 @@ class Asset extends RenderDataGenerator
 
     public function __construct(
         string $pathRelativeToPublic,
-        public string $usage
+        protected string $usage
     ) {
         $info = pathinfo($pathRelativeToPublic);
         $this->type = $info['extension'];
@@ -63,6 +63,11 @@ class Asset extends RenderDataGenerator
     public function setServerSideRendered(bool $bool = true)
     {
         $this->active = $bool;
+    }
+
+    public function getUsage(): string
+    {
+        return $this->usage;
     }
 
     public function toRenderData(): array

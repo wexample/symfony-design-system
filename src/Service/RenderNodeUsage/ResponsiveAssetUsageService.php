@@ -3,11 +3,13 @@
 namespace Wexample\SymfonyDesignSystem\Service\RenderNodeUsage;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 
-class ResponsiveAssetUsageService extends AbstractAssetUsageService
+final class ResponsiveAssetUsageService extends AbstractAssetUsageService
 {
     private array $breakpoints;
 
@@ -51,5 +53,18 @@ class ResponsiveAssetUsageService extends AbstractAssetUsageService
 
             $maxWidth = $minWidth;
         }
+    }
+
+    public function isAssetReadyForServerSideRendering(
+        Asset $asset,
+        RenderPass $renderPass,
+    ): bool {
+        if ($asset->type === Asset::EXTENSION_CSS) {
+            if ($asset->responsive) {
+                // Responsive CSS are loaded in page when JS is disabled.
+                return !$renderPass->useJs;
+            }
+        }
+        return true;
     }
 }

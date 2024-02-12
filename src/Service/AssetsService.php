@@ -33,10 +33,9 @@ class AssetsService
         DefaultAssetUsageService $defaultAssetUsageService,
         ResponsiveAssetUsageService $responsiveAssetUsageService
     ) {
-        $this->usages = [
-            $defaultAssetUsageService,
-            $responsiveAssetUsageService,
-        ];
+        foreach ([$defaultAssetUsageService, $responsiveAssetUsageService] as $usage) {
+            $this->usages[$usage->getName()] = $usage;
+        }
     }
 
     public function assetsDetect(
@@ -69,5 +68,15 @@ class AssetsService
         }
 
         return $assets;
+    }
+
+    public function assetIsReadyForRender(
+        Asset $asset,
+        RenderPass $renderPass,
+    ): bool {
+        return $this->usages[$asset->getUsage()]->isAssetReadyForServerSideRendering(
+            $asset,
+            $renderPass
+        );
     }
 }
