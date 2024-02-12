@@ -187,7 +187,7 @@ export default class AssetsService extends AppService {
     return outputCollection;
   }
 
-  registerAsset(asset: AssetsInterface): AssetInterface {
+  registerAsset(asset: AssetInterface): AssetInterface {
     // Each asset has a unique reference object shared between all render node.
     if (!this.assetsRegistry[asset.type][asset.id]) {
       this.assetsRegistry[asset.type][asset.id] = asset;
@@ -229,7 +229,7 @@ export default class AssetsService extends AppService {
     let el = document.createElement(TagName.SCRIPT);
     el.setAttribute(Attribute.SRC, src);
 
-    document.head.appendChild(el);
+    this.app.layout.elScriptsContainer.appendChild(el);
     return el;
   }
 
@@ -237,7 +237,7 @@ export default class AssetsService extends AppService {
     let el = this.createStyleLinkElement();
     el.setAttribute(Attribute.HREF, href);
 
-    document.head.appendChild(el);
+    this.app.layout.elStylesContainer.appendChild(el);
     return el;
   }
 

@@ -122,7 +122,6 @@ export default class extends AsyncConstructor {
       LayoutsService,
       MixinsService,
       PagesService,
-      ResponsiveService,
       RoutingService,
     ];
   }
@@ -171,36 +170,6 @@ export default class extends AsyncConstructor {
     });
 
     return arrayUnique(services) as typeof AppService[];
-  }
-
-  mix(dest: object, group: string) {
-    Object.values(this.services).forEach((service: AppService) => {
-      let methods = service.registerMethods(dest, group);
-
-      if (methods && methods[group]) {
-        let toMix = methods[group];
-
-        // Use a "one level deep merge" to allow mix groups of methods.
-        for (let i in toMix) {
-          let value = toMix[i];
-
-          // Mix objects.
-          if (value && value.constructor && value.constructor === Object) {
-            dest[i] = dest[i] || {};
-
-            Object.assign(dest[i], toMix[i]);
-          }
-          // Methods, bind it to main object.
-          else if (typeof value === 'function') {
-            dest[i] = toMix[i].bind(dest);
-          }
-          // Override others.
-          else {
-            dest[i] = toMix[i];
-          }
-        }
-      }
-    });
   }
 
   /**
