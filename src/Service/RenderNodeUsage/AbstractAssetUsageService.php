@@ -5,6 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Service\RenderNodeUsage;
 use Exception;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
 use Wexample\SymfonyHelpers\Helper\PathHelper;
 
@@ -28,6 +29,7 @@ abstract class AbstractAssetUsageService
     }
 
     abstract public function addAssetsForRenderNodeAndType(
+        RenderPass $renderPass,
         AbstractRenderNode $renderNode,
         string $ext
     ): void;

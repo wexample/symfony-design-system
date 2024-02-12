@@ -14,6 +14,7 @@ final class DefaultAssetUsageService extends AbstractAssetUsageService
     }
 
     public function addAssetsForRenderNodeAndType(
+        RenderPass $renderPass,
         AbstractRenderNode $renderNode,
         string $ext
     ): void {

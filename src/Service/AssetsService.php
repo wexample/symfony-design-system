@@ -39,12 +39,13 @@ class AssetsService
     }
 
     public function assetsDetect(
+        RenderPass $renderPass,
         AbstractRenderNode $renderNode,
     ): void {
-
         foreach (Asset::ASSETS_EXTENSIONS as $ext) {
             foreach ($this->usages as $usage) {
                 $usage->addAssetsForRenderNodeAndType(
+                    $renderPass,
                     $renderNode,
                     $ext
                 );

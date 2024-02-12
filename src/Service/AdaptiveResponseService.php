@@ -20,12 +20,16 @@ class AdaptiveResponseService
         AbstractController $controller,
         string $view,
     ): RenderPass {
-        return new RenderPass(
-            // Response may be explicitly created in controller,
-            // but if not we need at least one to detect layout base name.
+        $renderPass = new RenderPass(
+        // Response may be explicitly created in controller,
+        // but if not we need at least one to detect layout base name.
             ($this->hasResponse() ? $this->getResponse() : $this->createResponse($controller))->getOutputType(),
             $view,
         );
+
+        $renderPass->displayBreakpoints = $controller->getDisplayBreakpoints();
+
+        return $renderPass;
     }
 
     public function hasResponse(): bool

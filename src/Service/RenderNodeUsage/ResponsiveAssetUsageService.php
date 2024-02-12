@@ -2,39 +2,27 @@
 
 namespace Wexample\SymfonyDesignSystem\Service\RenderNodeUsage;
 
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
-use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 
 final class ResponsiveAssetUsageService extends AbstractAssetUsageService
 {
-    private array $breakpoints;
-
     public static function getName(): string
     {
         return 'responsive';
     }
 
-    public function __construct(
-        AssetsRegistryService $assetsRegistryService,
-        ParameterBagInterface $parameterBag
-    ) {
-        parent::__construct($assetsRegistryService);
-
-        $this->breakpoints = array_reverse($parameterBag->get('design_system.display_breakpoints'));
-    }
-
     public function addAssetsForRenderNodeAndType(
+        RenderPass $renderPass,
         AbstractRenderNode $renderNode,
         string $ext
     ): void {
         $pathInfo = pathinfo($this->buildBuiltPublicAssetPath($renderNode, $ext));
         $maxWidth = null;
 
-        foreach ($this->breakpoints as $breakpointName => $minWidth) {
+        foreach ($renderPass->displayBreakpoints as $breakpointName => $minWidth) {
             $responsivePath = $pathInfo['dirname']
                 .FileHelper::FOLDER_SEPARATOR
                 .$pathInfo['filename']

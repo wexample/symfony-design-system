@@ -145,7 +145,7 @@ export default class extends AsyncConstructor {
 
     return arrayUnique(services) as typeof AppService[];
   }
-  
+
   /**
    * @param classRegistryName
    * @param bundled

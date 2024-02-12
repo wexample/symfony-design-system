@@ -8,4 +8,8 @@ export default abstract class AppService extends AppChild {
   registerHooks(): { app?: {}; page?: {}, renderNode?: {} } {
     return {};
   }
+
+  registerMethods(object: any, group: string) {
+    return {};
+  }
 }

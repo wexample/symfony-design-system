@@ -5,6 +5,7 @@ import RequestOptionsInterface from '../RequestOptions/RequestOptionsInterface';
 export default interface RenderDataInterface {
   assets: AssetsCollectionInterface;
   components: ComponentInterface[];
+  cssClassName: string;
   id: string;
   name: string;
   requestOptions?: RequestOptionsInterface;

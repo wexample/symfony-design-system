@@ -17,8 +17,6 @@ class Asset extends RenderDataGenerator
         Asset::EXTENSION_JS,
     ];
 
-    public const USAGE_INITIAL = 'initial';
-
     public bool $active = false;
 
     public string $id;

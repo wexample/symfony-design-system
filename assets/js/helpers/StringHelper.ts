@@ -6,7 +6,3 @@ export function format(text: string, args: object): string {
 
   return text;
 }
-
-export function pathToTagName(string: string): string {
-  return string.split('/').join('-').toLowerCase();
-}

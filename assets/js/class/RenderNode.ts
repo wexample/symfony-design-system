@@ -6,13 +6,17 @@ import Component from './Component';
 export default abstract class RenderNode extends AppChild {
   public childRenderNodes: { [key: string]: RenderNode } = {};
   public components: Component[] = [];
+  public cssClassName: string;
   public el: HTMLElement;
+  public elHeight: number = 0;
+  public elWidth: number = 0;
   public id: string;
   public name: string;
   public parentRenderNode: RenderNode;
   public renderData: RenderDataInterface;
   public translations: {} = {};
   public vars: any = {};
+  public responsiveSizeCurrent?: string;
 
   constructor(app: App, parentRenderNode?: RenderNode) {
     super(app);
@@ -20,6 +24,7 @@ export default abstract class RenderNode extends AppChild {
   }
 
   public async init() {
+    this.app.services.mixins.applyMethods(this, 'renderNode');
     // Layout can have no parent node.
     if (this.parentRenderNode) {
       this.parentRenderNode.appendChildRenderNode(this);
@@ -33,6 +38,7 @@ export default abstract class RenderNode extends AppChild {
   }
 
   mergeRenderData(renderData: RenderDataInterface) {
+    this.cssClassName = renderData.cssClassName;
     this.id = renderData.id;
     this.name = renderData.name;
 
@@ -60,7 +66,7 @@ export default abstract class RenderNode extends AppChild {
 
     await this.mounted();
   }
-  
+
   async mountTree() {
     await this.forEachTreeRenderNode(async (renderNode: RenderNode) => {
       await renderNode.mount();
@@ -80,6 +86,13 @@ export default abstract class RenderNode extends AppChild {
     }
   }
 
+  getElWidth(): number {
+    return this.elWidth;
+  }
+
+  getElHeight(): number {
+    return this.elHeight;
+  }
 
   protected async mounted(): Promise<void> {
 

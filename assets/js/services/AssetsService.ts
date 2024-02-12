@@ -4,6 +4,7 @@ import AssetInterface from '../interfaces/AssetInterface';
 import RenderNode from '../class/RenderNode';
 import { Attribute, AttributeValue, TagName } from '../helpers/DomHelper';
 import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
+import RenderNodeUsage from '../class/RenderNodeUsage';
 
 export class AssetsServiceType {
   public static CSS: string = 'css';
@@ -17,6 +18,19 @@ export default class AssetsService extends AppService {
   public jsAssetsPending: { [key: string]: AssetInterface } = {};
 
   public static serviceName: string = 'assets';
+
+  registerMethods() {
+    return {
+      renderNode: {
+        async assetsUpdate(usage: string) {
+          await this.app.services.assets.loadValidAssetsForRenderNode(
+            this,
+            usage
+          );
+        },
+      },
+    };
+  }
 
   registerHooks() {
     return {
@@ -36,6 +50,7 @@ export default class AssetsService extends AppService {
         ) {
           await this.loadValidAssetsInCollection(
             renderData.assets,
+            RenderNodeUsage.USAGE_DEFAULT
           );
         },
       },
@@ -141,6 +156,22 @@ export default class AssetsService extends AppService {
     return this.assetsRegistry[asset.type][asset.id];
   }
 
+  removeAssets(assetsCollection: AssetsCollectionInterface) {
+    this.assetsInCollection(assetsCollection).forEach((asset) =>
+      this.removeAsset(asset)
+    );
+  }
+
+  removeAsset(asset: AssetInterface) {
+    asset.active = false;
+    asset.loaded = false;
+
+    if (asset.el) {
+      // Remove from document.
+      asset.el.remove();
+      asset.el = null;
+    }
+  }
 
   setAssetLoaded(asset: AssetInterface) {
     asset.loaded = true;
@@ -158,7 +189,7 @@ export default class AssetsService extends AppService {
     let el = document.createElement(TagName.SCRIPT);
     el.setAttribute(Attribute.SRC, src);
 
-    document.head.appendChild(el);
+    this.app.layout.elScriptsContainer.appendChild(el);
     return el;
   }
 
@@ -166,7 +197,7 @@ export default class AssetsService extends AppService {
     let el = this.createStyleLinkElement();
     el.setAttribute(Attribute.HREF, href);
 
-    document.head.appendChild(el);
+    this.app.layout.elStylesContainer.appendChild(el);
     return el;
   }
 
@@ -193,18 +224,39 @@ export default class AssetsService extends AppService {
     let hasChange = false;
 
     this.assetsInCollection(collection).forEach((asset: AssetInterface) => {
+      if (asset.usage !== usage) {
+        return;
+      }
+
       let type = asset.type;
 
       if (!asset.active) {
         hasChange = true;
         toLoad[type].push(asset);
       }
+
+      if (asset.active) {
+        hasChange = true;
+        toUnload[type].push(asset);
+      }
     });
 
     if (hasChange) {
       // Load new assets.
       await this.appendAssets(toLoad);
+      // Remove old ones.
+      this.removeAssets(toUnload);
     }
   }
 
+  public async loadValidAssetsForRenderNode(
+    renderNode: RenderNode,
+    usage: string
+  ) {
+    await this.loadValidAssetsInCollection(
+      renderNode.renderData.assets,
+      usage,
+      renderNode
+    );
+  }
 }

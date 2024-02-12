@@ -14,6 +14,11 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
 
     }
 
+    public function getDisplayBreakpoints(): array
+    {
+        return $this->getParameter('design_system.display_breakpoints');
+    }
+
     /**
      * As adaptive response plays with controller rendering,
      * we should create a way to execute render from outside

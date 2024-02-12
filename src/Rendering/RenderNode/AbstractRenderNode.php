@@ -2,9 +2,9 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering\RenderNode;
 
+use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
-use Wexample\SymfonyHelpers\Helper\PathHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderDataGenerator;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
@@ -15,9 +15,13 @@ abstract class AbstractRenderNode extends RenderDataGenerator
 
     public array $components = [];
 
+    public string $cssClassName;
+
     protected string $id;
 
     public bool $hasAssets = true;
+
+    public array $vars = [];
 
     public string $name;
 
@@ -31,6 +35,8 @@ abstract class AbstractRenderNode extends RenderDataGenerator
         $this->id = $this->getContextType().'-'
             .str_replace('/', '-', $this->name)
             .'-'.uniqid();
+
+        $this->cssClassName = DomHelper::buildCssClassName($this->id);
 
         $renderPass->registerContextRenderNode($this);
 
@@ -58,8 +64,10 @@ abstract class AbstractRenderNode extends RenderDataGenerator
                 Asset::EXTENSION_JS => $this->arrayToRenderData($this->assets[Asset::EXTENSION_JS]),
             ],
             'components' => $this->arrayToRenderData($this->components),
+            'cssClassName' => $this->cssClassName,
             'id' => $this->id,
             'name' => $this->name,
+            'vars' => $this->vars,
         ];
     }
 }

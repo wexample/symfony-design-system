@@ -15,6 +15,8 @@ class RenderPass
 
     protected array $contextRenderNodeStack = [];
 
+    public array $displayBreakpoints = [];
+
     public array $registry = [
         RenderingHelper::CONTEXT_COMPONENT => [],
         RenderingHelper::CONTEXT_PAGE => [],

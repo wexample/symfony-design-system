@@ -9,8 +9,6 @@ use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class ComponentRenderNode extends AbstractRenderNode
 {
-    public string $cssClassName;
-
     public function __construct(
         public string $initMode,
         public array $options = []
@@ -23,8 +21,6 @@ class ComponentRenderNode extends AbstractRenderNode
         string $name
     ): void {
         parent::init($renderPass, $name);
-
-        $this->cssClassName = DomHelper::buildCssClassName($this->id);
 
         $renderPass
             ->getCurrentContextRenderNode()
@@ -58,7 +54,6 @@ class ComponentRenderNode extends AbstractRenderNode
     {
         return parent::toRenderData()
             + [
-                'cssClassName' => $this->cssClassName,
                 'initMode' => $this->initMode,
                 'options' => $this->options,
             ];
