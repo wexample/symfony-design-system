@@ -29,6 +29,8 @@ class Asset extends RenderDataGenerator
 
     public string $type;
 
+    public bool $responsive = false;
+
     public function __construct(
         string $pathRelativeToPublic,
         protected string $usage
