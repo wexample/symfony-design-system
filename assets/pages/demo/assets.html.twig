@@ -34,12 +34,16 @@
     <h2>{{ '@page::resources.title' | trans }}</h2>
     <div class="block">
         {{ ('@page::resources.body_' ~ (render_pass.isUseJs() ? '' : 'no_') ~ 'js') | trans | raw }}
-	    {% if render_pass.isUseJs() %}
+        {% if render_pass.isUseJs() %}
 
-	    {% endif %}
+        {% endif %}
     </div>
     <h2>{{ '@page::page.title' | trans }}</h2>
     <div class="block">
         {{ '@page::page.body' | trans }}
+        <div>
+            <br>
+            <button id="responsive-page-m-button" disabled="disabled">Ce boutton ne fonctionne qu'en largeur d'écran "m".</button>
+        </div>
     </div>
 {%- endblock -%}
