@@ -66,10 +66,10 @@
     </head>
     <body class="color-scheme-{{ layout_color_scheme }} {{ body_class|default('') }}">
     <div id="layout" class="layout-loading {{ layout_class|default('') }}">
-        {%- if layout_use_js -%}
-            {#- If javascript fails to complete, force removing loading state after 2 seconds. -#}
-            <script nonce="layout-loading">
-              var classList = document.getElementById('layout').classList;
+        {%- if render_pass.isUseJs() -%}
+        {#- If javascript fails to complete, force removing loading state after 2 seconds. -#}
+        <script nonce="layout-loading">
+          var classList = document.getElementById('layout').classList;
 
               if (window.app) {
                 classList.add('layout-loading');
@@ -126,7 +126,8 @@
         {%- endif -%}
 
         <script type="text/javascript" nonce="layout-data" id="layout-data">
-          window.appRegistry.layoutRenderData = {{ layout_render_initial_data() | json_encode(constant('JSON_PRETTY_PRINT')) | raw }};
+          {%- set layout_initial_data = layout_render_initial_data(render_pass) -%}
+          window.appRegistry.layoutRenderData = {{ layout_initial_data | json_encode(constant('JSON_PRETTY_PRINT')) | raw }};
         </script>
         {%- endif -%}
     {%- endblock -%}
