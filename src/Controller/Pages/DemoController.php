@@ -17,6 +17,7 @@ final class DemoController extends AbstractPagesController
 
     final public const ROUTE_INDEX = VariableHelper::INDEX;
     final public const ROUTE_ASSETS = VariableHelper::ASSETS;
+    final public const ROUTE_AGGREGATION = 'aggregation';
     final public const ROUTE_LOADING = VariableHelper::LOADING;
     final public const ROUTE_TRANSLATIONS = VariableHelper::TRANSLATIONS;
     final public const ROUTE_COMPONENTS = VariableHelper::PLURAL_COMPONENT;
@@ -58,6 +59,17 @@ final class DemoController extends AbstractPagesController
             [
                 'displayBreakpoints' => $this->getParameter('design_system.display_breakpoints'),
             ]
+        );
+    }
+
+    #[Route(
+        path: self::ROUTE_AGGREGATION,
+        name: self::ROUTE_AGGREGATION
+    )]
+    public function aggregation(): Response
+    {
+        return $this->renderPage(
+            self::ROUTE_AGGREGATION
         );
     }
 
