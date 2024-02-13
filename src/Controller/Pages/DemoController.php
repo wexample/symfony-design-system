@@ -2,10 +2,11 @@
 
 namespace Wexample\SymfonyDesignSystem\Controller\Pages;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
-use Wexample\SymfonyDesignSystem\Service\AssetsService;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Traits\SymfonyDesignSystemBundleClassTrait;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
@@ -22,6 +23,8 @@ final class DemoController extends AbstractPagesController
 
     protected string $viewPathPrefix = VariableHelper::DEMO.'/';
 
+    private bool $useJs = true;
+
     #[Route(path: '', name: self::ROUTE_INDEX)]
     public function index(): Response
     {
@@ -30,12 +33,26 @@ final class DemoController extends AbstractPagesController
         );
     }
 
+    protected function createRenderPass(
+        string $view
+    ): RenderPass {
+        $pass = parent::createRenderPass(
+            $view
+        );
+
+        $pass->setUseJs($this->useJs);
+
+        return $pass;
+    }
+
     #[Route(
         path: VariableHelper::ASSETS,
         name: self::ROUTE_ASSETS
     )]
-    public function assets(): Response
+    public function assets(Request $request): Response
     {
+        $this->useJs = !$request->get('no_js');
+
         return $this->renderPage(
             self::ROUTE_ASSETS,
             [

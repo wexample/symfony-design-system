@@ -28,6 +28,9 @@
         </div>
         <div class="block color-scheme-light">
             {{ '@page::breakpoints.body' | trans | raw }}
+            <br>
+            <br>
+            {{ ('@page::breakpoints.body_' ~ (render_pass.isUseJs() ? '' : 'no_') ~ 'js') | trans | raw }}
         </div>
     </div>
 {%- endblock -%}

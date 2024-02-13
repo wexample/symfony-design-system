@@ -24,7 +24,7 @@ class RenderPass
         RenderingHelper::CONTEXT_VUE => [],
     ];
 
-    public bool $useJs = true;
+    private bool $useJs = true;
 
     public function __construct(
         string $outputType,
@@ -89,5 +89,15 @@ class RenderPass
     public function revertCurrentContextRenderNode(): void
     {
         array_pop($this->contextRenderNodeStack);
+    }
+
+    public function isUseJs(): bool
+    {
+        return $this->useJs;
+    }
+
+    public function setUseJs(bool $useJs): void
+    {
+        $this->useJs = $useJs;
     }
 }

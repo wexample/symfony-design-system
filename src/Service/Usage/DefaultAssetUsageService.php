@@ -29,7 +29,7 @@ final class DefaultAssetUsageService extends AbstractAssetUsageService
         RenderPass $renderPass,
     ): bool {
         if ($asset->type === Asset::EXTENSION_JS) {
-            return $renderPass->useJs;
+            return $renderPass->isUseJs();
         }
 
         return true;

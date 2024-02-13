@@ -4,6 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Wexample\SymfonyDesignSystem\Helper\ColorSchemeHelper;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 
 abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\AbstractController
@@ -36,6 +37,17 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
         );
     }
 
+    protected function createRenderPass(
+        string $view
+    ): RenderPass {
+        return $this
+            ->adaptiveResponseService
+            ->createRenderPass(
+                $this,
+                $view
+            );
+    }
+
     /**
      * Overrides default render, adding some magic.
      */
@@ -44,12 +56,7 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
         array $parameters = [],
         Response $response = null
     ): Response {
-        $pass = $this
-            ->adaptiveResponseService
-            ->createRenderPass(
-                $this,
-                $view
-            );
+        $pass = $this->createRenderPass($view);
 
         return parent::render(
             $view,

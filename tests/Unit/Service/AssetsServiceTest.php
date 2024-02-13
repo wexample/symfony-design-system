@@ -72,13 +72,13 @@ class AssetsServiceTest extends AbstractSymfonyTestCase
 
         // When JS is disabled, responsive will render css assets
         // with media query attributes as a fallback mechanism.
-        $renderPass->useJs = false;
+        $renderPass->setUseJs(false);
         $this->assertTrue($service->assetIsReadyForRender(
             $asset,
             $renderPass,
         ));
 
         // Rollback
-        $renderPass->useJs = true;
+        $renderPass->setUseJs(true);
     }
 }

@@ -1,5 +1,6 @@
 import AdaptiveService from './AdaptiveService';
-
+import LocaleService from './LocaleService';
+import MixinsAppService from '../class/MixinsAppService';
 import RenderDataPageInterface from '../interfaces/RenderData/PageInterface';
 import LayoutInterface from '../interfaces/RenderData/LayoutInterface';
 import AbstractRenderNodeService from './AbstractRenderNodeService';
@@ -12,6 +13,7 @@ export default class PagesService extends AbstractRenderNodeService {
   public static dependencies: typeof AppService[] = [
     AdaptiveService,
     ResponsiveService,
+    LocaleService,
   ];
   public static serviceName: string = 'pages';
 
@@ -22,10 +24,18 @@ export default class PagesService extends AbstractRenderNodeService {
           renderData: LayoutInterface,
           registry: any
         ) {
-          if (renderData.page) {
-            await this.app.services.pages.createPage(renderData.page);
+          if (
+            registry.components === MixinsAppService.LOAD_STATUS_COMPLETE &&
+            registry.responsive === MixinsAppService.LOAD_STATUS_COMPLETE &&
+            registry.locale === MixinsAppService.LOAD_STATUS_COMPLETE
+          ) {
+            if (renderData.page) {
+              await this.app.services.pages.createPage(renderData.page);
+            }
+            return;
           }
-          return;
+
+          return MixinsAppService.LOAD_STATUS_WAIT;
         },
       },
     };
