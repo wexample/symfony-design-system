@@ -77,6 +77,9 @@ export default class extends AsyncConstructor {
   }
 
   async loadLayoutRenderData(renderData: RenderDataInterface): Promise<any> {
+    // These elements can"t be mounted during regular mount pass.
+    this.layout.attachCoreHtmlElements();
+
     await this.services.mixins.invokeUntilComplete(
       'hookLoadLayoutRenderData',
       'app',

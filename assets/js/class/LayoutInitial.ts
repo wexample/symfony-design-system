@@ -5,7 +5,7 @@ export default class extends Layout {
   public elStylesContainer: HTMLElement;
   public elScriptsContainer: HTMLElement;
 
-  attachHtmlElements() {
+  attachCoreHtmlElements() {
     this.el = document.getElementById('layout');
     this.elStylesContainer = document.getElementById('layout-styles-container');
     this.elScriptsContainer = document.getElementById('layout-scripts-container');

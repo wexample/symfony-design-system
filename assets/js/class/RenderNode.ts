@@ -59,7 +59,8 @@ export default abstract class RenderNode extends AppChild {
     return Object.values(this.childRenderNodes);
   }
 
-  abstract attachHtmlElements();
+  attachHtmlElements() {
+  }
 
   async mount() {
     this.attachHtmlElements();
