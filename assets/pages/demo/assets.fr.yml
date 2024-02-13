@@ -17,7 +17,13 @@ infos:
   page_name: Template
 
 page:
-  title: Page Responsive
+  title: Au niveau de la page
+  body:
+    Chaque classe d'objet Page dispose d'un callback `updateCurrentResponsiveDisplay` permettant de s'adapter au changement de taille d'écran.
+    Dans cet exemple, c'est cette fonction qui gère le changement de taille de point d'arrêt en surbrillance, ci-dessus.
+
+display:
+  title: Responsive displays
   body:
     La fonctionnalité Page intègre des éléments spécifiques appelés PageResponsiveDisplays, conçus pour charger des fichiers JavaScript adaptés à chaque format d'écran.
     Cette approche assure une séparation efficace du code en fournissant des scripts sur mesure en fonction de la taille de l'écran utilisé.
