@@ -59,7 +59,7 @@ export default class AssetsService extends AppService {
         ) {
           await this.loadValidAssetsInCollection(
             renderData.assets,
-            RenderNodeUsage.USAGE_INITIAL
+            AssetUsage.USAGE_DEFAULT
           );
         },
 
@@ -247,6 +247,10 @@ export default class AssetsService extends AppService {
     return el;
   }
 
+  getAssetUsage(usage: string): AssetUsage | undefined {
+    return this.usages[usage]
+  }
+
   public static createEmptyAssetsCollection(): AssetsCollectionInterface {
     return {
       css: [],
@@ -270,11 +274,7 @@ export default class AssetsService extends AppService {
 
       let type = asset.type;
 
-      if (
-        this.app.services.renderNode.usages[
-          asset.usage
-          ].hookAssetShouldBeLoaded(asset, renderNode)
-      ) {
+      if (this.getAssetUsage(usage).assetShouldBeLoaded(asset, renderNode)) {
         if (!asset.active) {
           hasChange = true;
           toLoad[type].push(asset);
