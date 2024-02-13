@@ -8,10 +8,12 @@ import AbstractRenderNodeService from './AbstractRenderNodeService';
 import Page from '../class/Page';
 import RenderNode from '../class/RenderNode';
 import AppService from '../class/AppService';
+import ResponsiveService from "./ResponsiveService";
 
 export default class PagesService extends AbstractRenderNodeService {
   public static dependencies: typeof AppService[] = [
     AdaptiveService,
+    ResponsiveService,
     LocaleService,
   ];
   public static serviceName: string = 'pages';

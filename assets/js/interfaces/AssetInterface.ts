@@ -20,5 +20,5 @@ export default interface AssetInterface {
   // if we append it again to document.
   rendered: boolean;
   type: string;
-  usage?: string;
+  usage: string;
 }

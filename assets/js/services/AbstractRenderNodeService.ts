@@ -8,7 +8,6 @@ export class ComponentsServiceEvents {
 }
 
 export default abstract class AbstractRenderNodeService extends AppService {
-  public pages: {};
   public services: ServicesRegistryInterface;
 
   /**
