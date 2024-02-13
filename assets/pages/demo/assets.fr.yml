@@ -12,10 +12,15 @@ breakpoints:
     En l'absence de JavaScript, le chargement des feuilles de style est directement géré par le navigateur grâce à l'utilisation de l'attribut "media" dans la balise <link>. Cela implique que toutes les feuilles de styles soient chargées dès le lancement de la page, afin d'assurer une expérience utilisateur cohérente et complète.
     <br><br>Si vous souhaitez comparer, visitez la <a href="?no_js">version avec JavaScript</a> pour observer les différences de gestion des ressources.
 
-
 infos:
   layout_name: Layout
   page_name: Template
+
+page:
+  title: Page Responsive
+  body:
+    La fonctionnalité Page intègre des éléments spécifiques appelés PageResponsiveDisplays, conçus pour charger des fichiers JavaScript adaptés à chaque format d'écran.
+    Cette approche assure une séparation efficace du code en fournissant des scripts sur mesure en fonction de la taille de l'écran utilisé.
 
 resources:
   title: Ressources

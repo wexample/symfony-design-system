@@ -63,8 +63,15 @@ export default abstract class RenderNode extends AppChild {
 
   async mount() {
     this.attachHtmlElements();
+    this.updateElSize();
+    await this.activateListeners();
 
     await this.mounted();
+  }
+
+  async unmount() {
+    await this.deactivateListeners();
+    await this.unmounted();
   }
 
   async mountTree() {
@@ -86,6 +93,13 @@ export default abstract class RenderNode extends AppChild {
     }
   }
 
+  updateElSize() {
+    let rect = this.el.getBoundingClientRect();
+
+    this.elWidth = rect.width;
+    this.elHeight = rect.height;
+  }
+
   getElWidth(): number {
     return this.elWidth;
   }
@@ -94,9 +108,24 @@ export default abstract class RenderNode extends AppChild {
     return this.elHeight;
   }
 
+  async activateListeners(): Promise<void> {
+  }
+
+  protected async deactivateListeners(): Promise<void> {
+  }
+
   protected async mounted(): Promise<void> {
     await this.app.services.mixins.invokeUntilComplete(
       'hookMounted',
+      'renderNode',
+      [this]
+    );
+  }
+
+  protected async unmounted(): Promise<void> {
+
+    await this.app.services.mixins.invokeUntilComplete(
+      'hookUnmounted',
       'renderNode',
       [this]
     );

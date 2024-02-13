@@ -1,15 +1,17 @@
 import AssetsService from './AssetsService';
 import AppService from '../class/AppService';
+import EventsService from '../services/EventsService';
 import Events from '../helpers/Events';
 import RenderNode from '../class/RenderNode';
 import AssetUsage from '../class/AssetUsage';
+import Page from "../class/Page";
 
 export class ResponsiveServiceEvents {
   public static RESPONSIVE_CHANGE_SIZE: string = 'responsive-change-size';
 }
 
 export default class ResponsiveService extends AppService {
-  dependencies: [AssetsService];
+  public static dependencies: typeof AppService[] = [AssetsService, EventsService];
   public static serviceName: string = 'responsive';
 
   registerHooks() {
@@ -35,7 +37,7 @@ export default class ResponsiveService extends AppService {
   }
 
   registerMethods(object: any, group: string) {
-    return {
+    const methods = {
       renderNode: {
         responsiveSupportsBreakpoint(letter: string): boolean {
           return this.responsiveBreakpointSupported().hasOwnProperty(letter);
@@ -78,6 +80,15 @@ export default class ResponsiveService extends AppService {
 
             // Now change page class.
             this.responsiveUpdateClass();
+
+            this.app.services.events.trigger(
+              ResponsiveServiceEvents.RESPONSIVE_CHANGE_SIZE,
+              {
+                renderNode: this,
+                current: size,
+                previous: this.responsiveSizePrevious,
+              }
+            );
           }
 
           if (propagate) {
@@ -102,5 +113,67 @@ export default class ResponsiveService extends AppService {
         },
       },
     };
+
+    if (object instanceof Page) {
+      methods.renderNode = Object.assign(methods.renderNode, {
+        responsiveDisplays:[],
+
+        activateListeners() {
+          Page.prototype.activateListeners.apply(this, arguments)
+          this.onChangeResponsiveSizeProxy = this.onChangeResponsiveSize.bind(this);
+
+          this.app.services.events.listen(
+            ResponsiveServiceEvents.RESPONSIVE_CHANGE_SIZE,
+            this.onChangeResponsiveSizeProxy
+          );
+        },
+
+        deactivateListeners() {
+          this.app.services.events.forget(
+            ResponsiveServiceEvents.RESPONSIVE_CHANGE_SIZE,
+            this.onChangeResponsiveSizeProxy
+          );
+        },
+
+        async onChangeResponsiveSize(event) {
+          if (event.detail.renderNode === this) {
+            await this.updateCurrentResponsiveDisplay();
+          }
+        },
+
+        async updateCurrentResponsiveDisplay() {
+          let previous = this.responsiveSizePrevious;
+          let current = this.responsiveSizeCurrent;
+          let displays = this.responsiveDisplays;
+
+          if (previous !== current) {
+            if (displays[current] === undefined) {
+              let display = this.app.getBundleClassDefinition(
+                `${this.name}-${current}`,
+                true
+              );
+
+              displays[current] = display ? new display(this) : null;
+
+              if (displays[current]) {
+                displays[current].init();
+              }
+            }
+
+            if (displays[previous]) {
+              await displays[previous].onResponsiveExit();
+            }
+
+            if (displays[current]) {
+              await displays[current].onResponsiveEnter();
+            }
+
+            this.responsiveDisplayCurrent = displays[current];
+          }
+        }
+      })
+    }
+
+    return methods;
   }
 }
