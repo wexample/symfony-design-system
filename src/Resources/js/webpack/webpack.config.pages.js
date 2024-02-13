@@ -4,7 +4,7 @@ tools.logTitle('JS App level pages');
 
 tools.forEachJsExtAndLocations((srcExt, bundle, location) => {
   tools.addAssetsJsWrapped(
-    'app',
+    bundle,
     location,
     'pages/',
     srcExt,

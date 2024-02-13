@@ -19,7 +19,7 @@ tools.logTitle('JS App level components (forms)');
 // Project level
 tools.forEachJsExtAndLocations((srcExt, bundle, location) => {
   tools.addAssetsJsWrapped(
-    'app',
+    bundle,
     location,
     'forms/',
     srcExt,

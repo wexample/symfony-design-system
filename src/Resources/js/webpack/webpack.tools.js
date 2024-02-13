@@ -31,6 +31,7 @@ module.exports = {
 
   forEachFrontPath(callback) {
     Object.entries(this.getFrontPaths()).forEach((entry) => {
+      // callback(entry[0], entry[1])
       const bundle = entry[0]
       callback(this.isBundleAlias(bundle) ? bundle : 'app', entry[1])
     });
@@ -91,6 +92,7 @@ module.exports = {
     callback
   ) => {
     let files = glob.sync(srcAssetsDir + srcSubDir + '**/*.' + srcExt);
+    bundle = module.exports.isBundleAlias(bundle) ? bundle : 'app';
 
     for (let file of files) {
       let srcFile = {
@@ -120,6 +122,7 @@ module.exports = {
               srcFile.file.substr(srcFile.dir.length);
 
             console.log('    From', file);
+            module.exports.logVarPath('      > bundle : ', bundle);
             module.exports.logVarPath('      > watching : ', srcFile.dir, pathDestRel);
             module.exports.logVarPath('      > to       : ', './public/build/', fileDest);
             console.log('');

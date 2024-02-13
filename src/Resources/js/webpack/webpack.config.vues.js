@@ -4,7 +4,7 @@ tools.logTitle('Vues app level');
 
 tools.forEachFrontPath((bundle, location) => {
   tools.addAssetsJsWrapped(
-    'app',
+    bundle,
     location,
     '',
     'vue',
