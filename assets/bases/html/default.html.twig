@@ -44,21 +44,23 @@
 
               window.appRegistry = {bundles: new AppRegistryBundlesManager()};
             </script>
+    </head>
+    <body class="color-scheme-{{ layout_color_scheme }}">
+    <div id="layout" class="layout-loading">
+        {%- if render_pass.isUseJs() -%}
             {# Don't use display none as we need to be able to calculate elements size before display #}
             <style>
                 .layout-loading {
                     visibility: hidden;
                 }
             </style>
-    </head>
-    <body class="color-scheme-{{ layout_color_scheme }}">
-    <div id="layout" class="layout-loading">
-        {#- If javascript fails to complete, force removing loading state after 2 seconds. -#}
-        <script nonce="layout-loading">
-          var classList = document.getElementById('layout').classList;
-          classList.add('layout-loading');
-          setTimeout(function () { classList.remove('layout-loading'); }, 1000);
-        </script>
+            {#- If javascript fails to complete, force removing loading state after 2 seconds. -#}
+            <script nonce="layout-loading">
+              var classList = document.getElementById('layout').classList;
+              classList.add('layout-loading');
+              setTimeout(function () { classList.remove('layout-loading'); }, 1000);
+            </script>
+        {%- endif -%}
         {%- block layout -%}
             {%- block layout_composer_html -%}
                 {%- block page -%}
@@ -73,13 +75,13 @@
         {{ macro_assets.render_available_css(render_pass, 'layout') }}
         {{ macro_assets.render_available_css(render_pass, 'page') }}
     </div>
-    <div id="layout-scripts-container">
-        {{ macro_assets.render_available_js(render_pass, 'layout') }}
-        {{ macro_assets.render_available_js(render_pass, 'page') }}
-    </div>
 
+    {%- if render_pass.isUseJs() -%}
+        <div id="layout-scripts-container">
+            {{ macro_assets.render_available_js(render_pass, 'layout') }}
+            {{ macro_assets.render_available_js(render_pass, 'page') }}
+        </div>
         <script type="text/javascript" src="{{ asset('build/runtime.js') }}"></script>
-
         <script type="text/javascript" nonce="layout-data" id="layout-data">
           {%- set layout_initial_data = layout_render_initial_data(render_pass) -%}
           window.appRegistry.layoutRenderData = {{ layout_initial_data | json_encode(constant('JSON_PRETTY_PRINT')) | raw }};
@@ -93,6 +95,7 @@
                 {{ dump(translation_debug_info(render_pass)) }}
             </div>
         {% endif -%}
+    {% endif %}
     </body>
     </html>
 {%- endblock -%}
