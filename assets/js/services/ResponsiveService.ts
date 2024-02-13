@@ -37,6 +37,10 @@ export default class ResponsiveService extends AppService {
   registerMethods(object: any, group: string) {
     return {
       renderNode: {
+        responsiveSupportsBreakpoint(letter: string): boolean {
+          return this.responsiveBreakpointSupported().hasOwnProperty(letter);
+        },
+
         responsiveDetect() {
           if (!Object.values(this.responsiveBreakpointSupported()).length) {
             this.el.style.display = 'block';
