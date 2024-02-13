@@ -5,6 +5,7 @@ import Events from '../helpers/Events';
 import RenderNode from '../class/RenderNode';
 import AssetUsage from '../class/AssetUsage';
 import Page from "../class/Page";
+import { callPrototypeMethodIfExists } from "../helpers/Objects";
 
 export class ResponsiveServiceEvents {
   public static RESPONSIVE_CHANGE_SIZE: string = 'responsive-change-size';
@@ -26,11 +27,11 @@ export default class ResponsiveService extends AppService {
       },
 
       renderNode: {
-        async hookMounted(renderNode: RenderNode|any) {
-            await renderNode.responsiveUpdate(
-              // Do not propagate as children might not be created.
-              false
-            );
+        async hookMounted(renderNode: RenderNode | any) {
+          await renderNode.responsiveUpdate(
+            // Do not propagate as children might not be created.
+            false
+          );
         },
       },
     };
@@ -116,10 +117,10 @@ export default class ResponsiveService extends AppService {
 
     if (object instanceof Page) {
       methods.renderNode = Object.assign(methods.renderNode, {
-        responsiveDisplays:[],
+        responsiveDisplays: [],
 
-        activateListeners() {
-          Page.prototype.activateListeners.apply(this, arguments)
+        activateListeners(...args) {
+          callPrototypeMethodIfExists(this, 'activateListeners', args);
           this.onChangeResponsiveSizeProxy = this.onChangeResponsiveSize.bind(this);
 
           this.app.services.events.listen(
@@ -128,7 +129,9 @@ export default class ResponsiveService extends AppService {
           );
         },
 
-        deactivateListeners() {
+        deactivateListeners(...args) {
+          callPrototypeMethodIfExists(this, 'deactivateListeners', args);
+
           this.app.services.events.forget(
             ResponsiveServiceEvents.RESPONSIVE_CHANGE_SIZE,
             this.onChangeResponsiveSizeProxy
@@ -141,7 +144,9 @@ export default class ResponsiveService extends AppService {
           }
         },
 
-        async updateCurrentResponsiveDisplay() {
+        async updateCurrentResponsiveDisplay(...args) {
+          callPrototypeMethodIfExists(this, 'updateCurrentResponsiveDisplay', args);
+
           let previous = this.responsiveSizePrevious;
           let current = this.responsiveSizeCurrent;
           let displays = this.responsiveDisplays;

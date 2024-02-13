@@ -96,6 +96,9 @@ export default class extends AsyncConstructor {
   }
 
   async loadLayoutRenderData(renderData: RenderDataInterface): Promise<any> {
+    // These elements can"t be mounted during regular mount pass.
+    this.layout.attachCoreHtmlElements();
+
     await this.services.mixins.invokeUntilComplete(
       'hookLoadLayoutRenderData',
       'app',
@@ -106,10 +109,6 @@ export default class extends AsyncConstructor {
     await this.layout.mountTree();
   }
 
-  buildServiceName(serviceName: string): string {
-    return toCamel(serviceName.slice(0, -'Service'.length));
-  }
-
   getClassPage() {
     return Page;
   }
@@ -118,7 +117,6 @@ export default class extends AsyncConstructor {
     return [
       AssetsService,
       ColorSchemeService,
-      EventsService,
       LayoutsService,
       MixinsService,
       PagesService,
