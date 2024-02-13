@@ -1,7 +1,5 @@
-@import '../../css/mixins/wex';
-
-.display-breakpoint-l {
+body.color-scheme-default .display-breakpoint-l {
   .size-name {
-    background: $wex-sub-color-yellow;
+    background: #c7a744;
   }
 }

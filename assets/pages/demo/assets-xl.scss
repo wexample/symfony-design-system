@@ -1,7 +1,5 @@
-@import '../../css/mixins/wex';
-
-.display-breakpoint-xl {
+body.color-scheme-default .display-breakpoint-xl {
   .size-name {
-    background: $wex-sub-color-green;
+    background: #00ae5b;
   }
 }

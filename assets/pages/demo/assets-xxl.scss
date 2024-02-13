@@ -1,7 +1,5 @@
-@import '../../css/mixins/wex';
-
-.display-breakpoint-xxl {
+body.color-scheme-default .display-breakpoint-xxl {
   .size-name {
-    background: $wex-sub-color-blue;
+    background: #4fad9a;
   }
 }

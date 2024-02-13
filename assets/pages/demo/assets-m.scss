@@ -1,9 +1,7 @@
 @use '@wexample/symfony-design-system/css/shapes/inline-info-m';
 
-@import '../../css/mixins/wex';
-
-.display-breakpoint-m {
+body.color-scheme-default .display-breakpoint-m {
   .size-name {
-    background: $wex-sub-color-orange;
+    background: #ef863a;
   }
 }
