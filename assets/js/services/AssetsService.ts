@@ -4,7 +4,9 @@ import AssetInterface from '../interfaces/AssetInterface';
 import RenderNode from '../class/RenderNode';
 import { Attribute, AttributeValue, TagName } from '../helpers/DomHelper';
 import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
-import RenderNodeUsage from '../class/RenderNodeUsage';
+import AssetUsage from '../class/AssetUsage';
+import DefaultAssetUsage from '../class/AssetUsage/Default';
+import ResponsiveAssetUsage from '../class/AssetUsage/Responsive';
 
 export class AssetsServiceType {
   public static CSS: string = 'css';
@@ -13,11 +15,25 @@ export class AssetsServiceType {
 }
 
 export default class AssetsService extends AppService {
+  public usages: { [key: string]: AssetUsage } = {};
+
   public assetsRegistry: any = {css: {}, js: {}};
 
   public jsAssetsPending: { [key: string]: AssetInterface } = {};
 
   public static serviceName: string = 'assets';
+
+  constructor(props) {
+    super(props);
+
+    [DefaultAssetUsage, ResponsiveAssetUsage].forEach(
+      (definition: any) => {
+        let usage = new definition(this.app);
+
+        this.usages[usage.usageName] = usage;
+      }
+    );
+  }
 
   registerMethods() {
     return {
@@ -50,7 +66,7 @@ export default class AssetsService extends AppService {
         ) {
           await this.loadValidAssetsInCollection(
             renderData.assets,
-            RenderNodeUsage.USAGE_DEFAULT
+            AssetUsage.USAGE_DEFAULT
           );
         },
       },
@@ -207,6 +223,10 @@ export default class AssetsService extends AppService {
     return el;
   }
 
+  getAssetUsage(usage: string): AssetUsage | undefined {
+    return this.usages[usage]
+  }
+
   public static createEmptyAssetsCollection(): AssetsCollectionInterface {
     return {
       css: [],
@@ -230,14 +250,16 @@ export default class AssetsService extends AppService {
 
       let type = asset.type;
 
-      if (!asset.active) {
-        hasChange = true;
-        toLoad[type].push(asset);
-      }
-
-      if (asset.active) {
-        hasChange = true;
-        toUnload[type].push(asset);
+      if (this.getAssetUsage(usage).assetShouldBeLoaded(asset, renderNode)) {
+        if (!asset.active) {
+          hasChange = true;
+          toLoad[type].push(asset);
+        }
+      } else {
+        if (asset.active) {
+          hasChange = true;
+          toUnload[type].push(asset);
+        }
       }
     });
 

@@ -2,7 +2,7 @@ import AppChild from './AppChild';
 import AssetsInterface from '../interfaces/AssetInterface';
 import RenderNode from './RenderNode';
 
-export default abstract class RenderNodeUsage extends AppChild {
+export default abstract class AssetUsage extends AppChild {
   public static USAGE_ANIMATION: string = 'animation';
 
   public static USAGE_COLOR_SCHEME: string = 'color-scheme';
@@ -14,16 +14,16 @@ export default abstract class RenderNodeUsage extends AppChild {
   public static USAGE_SHAPE: string = 'shape';
 
   public static USAGES: string[] = [
-    RenderNodeUsage.USAGE_ANIMATION,
-    RenderNodeUsage.USAGE_COLOR_SCHEME,
-    RenderNodeUsage.USAGE_DEFAULT,
-    RenderNodeUsage.USAGE_RESPONSIVE,
-    RenderNodeUsage.USAGE_SHAPE,
+    AssetUsage.USAGE_ANIMATION,
+    AssetUsage.USAGE_COLOR_SCHEME,
+    AssetUsage.USAGE_DEFAULT,
+    AssetUsage.USAGE_RESPONSIVE,
+    AssetUsage.USAGE_SHAPE,
   ];
 
   public abstract usageName: string;
 
-  public hookAssetShouldBeLoaded(
+  public assetShouldBeLoaded(
     asset: AssetsInterface,
     renderNode: RenderNode
   ): boolean {

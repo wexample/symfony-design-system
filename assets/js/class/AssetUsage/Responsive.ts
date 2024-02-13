@@ -1,11 +1,11 @@
-import RenderNodeUsage from '../RenderNodeUsage';
+import AssetUsage from '../AssetUsage';
 import AssetsInterface from '../../interfaces/AssetInterface';
 import RenderNode from '../RenderNode';
 
-export default class extends RenderNodeUsage {
-  public usageName: string = RenderNodeUsage.USAGE_RESPONSIVE;
+export default class extends AssetUsage {
+  public usageName: string = AssetUsage.USAGE_RESPONSIVE;
 
-  hookAssetShouldBeLoaded(
+  assetShouldBeLoaded(
     asset: AssetsInterface,
     renderNode: RenderNode
   ): boolean {

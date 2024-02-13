@@ -27,7 +27,7 @@ class Asset extends RenderDataGenerator
 
     public string $type;
 
-    public bool $responsive = false;
+    public ?string $responsive = null;
 
     public function __construct(
         string $pathRelativeToPublic,
@@ -76,6 +76,7 @@ class Asset extends RenderDataGenerator
             'active',
             'id',
             'path',
+            'responsive',
             'type',
             'usage',
         ]);

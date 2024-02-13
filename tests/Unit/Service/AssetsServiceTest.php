@@ -6,8 +6,8 @@ use Wexample\SymfonyDesignSystem\Rendering\AdaptiveResponse;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
-use Wexample\SymfonyDesignSystem\Service\RenderNodeUsage\DefaultAssetUsageService;
-use Wexample\SymfonyDesignSystem\Service\RenderNodeUsage\ResponsiveAssetUsageService;
+use Wexample\SymfonyDesignSystem\Service\Usage\DefaultAssetUsageService;
+use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
 use Wexample\SymfonyTesting\Tests\AbstractSymfonyTestCase;
 
 class AssetsServiceTest extends AbstractSymfonyTestCase

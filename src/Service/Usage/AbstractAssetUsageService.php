@@ -1,6 +1,6 @@
 <?php
 
-namespace Wexample\SymfonyDesignSystem\Service\RenderNodeUsage;
+namespace Wexample\SymfonyDesignSystem\Service\Usage;
 
 use Exception;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;

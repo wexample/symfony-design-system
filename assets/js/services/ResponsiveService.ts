@@ -2,7 +2,7 @@ import AssetsService from './AssetsService';
 import AppService from '../class/AppService';
 import Events from '../helpers/Events';
 import RenderNode from '../class/RenderNode';
-import RenderNodeUsage from '../class/RenderNodeUsage';
+import AssetUsage from '../class/AssetUsage';
 
 export class ResponsiveServiceEvents {
   public static RESPONSIVE_CHANGE_SIZE: string = 'responsive-change-size';
@@ -61,7 +61,7 @@ export default class ResponsiveService extends AppService {
             this.responsiveSizePrevious = this.responsiveSizeCurrent;
             this.responsiveSizeCurrent = size;
 
-            await this.assetsUpdate(RenderNodeUsage.USAGE_RESPONSIVE);
+            await this.assetsUpdate(AssetUsage.USAGE_RESPONSIVE);
 
             // Now change page class.
             this.responsiveUpdateClass();
