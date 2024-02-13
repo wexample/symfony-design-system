@@ -11,10 +11,6 @@
             {{ '@page::infos.layout_name' | trans }} : <b>{{ layout_path }}</b>
         </div>
     </div>
-    <h2>{{ '@page::resources.title' | trans }}</h2>
-    <div class="block">
-        {{ ('@page::resources.body_' ~ (layout_use_js ? '' : 'no_') ~ 'js') | trans | raw }}
-    </div>
     {% if layout_use_js %}
         {{ vue('vue/debug-assets') }}
     {% endif %}
@@ -58,5 +54,9 @@
             <br>
             {{ ('@page::breakpoints.body_' ~ (layout_use_js ? '' : 'no_') ~ 'js') | trans | raw }}
         </div>
+    </div>
+    <h2>{{ '@page::resources.title' | trans }}</h2>
+    <div class="block">
+        {{ ('@page::resources.body_' ~ (layout_use_js ? '' : 'no_') ~ 'js') | trans | raw }}
     </div>
 {%- endblock -%}
