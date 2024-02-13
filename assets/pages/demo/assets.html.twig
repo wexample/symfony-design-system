@@ -6,8 +6,6 @@
             {{ '@page::infos.layout_name' | trans }} : <b>{{ layout_path }}</b>
         </div>
     </div>
-    <h2>{{ '@page::resources.title' | trans }}</h2>
-    <h2>{{ '@page::themes.title' | trans }}</h2>
     <div class="blocks">
         <div class="block blocks-col color-scheme-light">
         </div>
@@ -32,5 +30,9 @@
             <br>
             {{ ('@page::breakpoints.body_' ~ (render_pass.isUseJs() ? '' : 'no_') ~ 'js') | trans | raw }}
         </div>
+    </div>
+    <h2>{{ '@page::resources.title' | trans }}</h2>
+    <div class="block">
+        {{ ('@page::resources.body_' ~ (render_pass.isUseJs() ? '' : 'no_') ~ 'js') | trans | raw }}
     </div>
 {%- endblock -%}
