@@ -15,7 +15,6 @@ export default class extends RenderNode {
   protected onChangeResponsiveSizeProxy: Function;
   protected onChangeColorSchemeProxy: Function;
   public parentRenderNode: PageManagerComponent;
-  protected readonly responsiveDisplays: any = [];
   public renderData: RenderDataPageInterface;
   public responsiveDisplayCurrent: PageResponsiveDisplay;
   public services: ServicesRegistryInterface;
@@ -52,7 +51,6 @@ export default class extends RenderNode {
     super.mergeRenderData(renderData);
 
     this.isInitialPage = renderData.isInitialPage;
-    this.name = renderData.name;
 
     if (this.isInitialPage) {
       this.app.layout.page = this;
@@ -122,13 +120,9 @@ export default class extends RenderNode {
   }
 
   protected activateMountedListeners(): void {
-    this.onChangeResponsiveSizeProxy = this.onChangeResponsiveSize.bind(this);
     this.onChangeColorSchemeProxy = this.onChangeColorScheme.bind(this);
 
-    this.app.services.events.listen(
-      ResponsiveServiceEvents.RESPONSIVE_CHANGE_SIZE,
-      this.onChangeResponsiveSizeProxy
-    );
+
 
     this.app.services.events.listen(
       ColorSchemeServiceEvents.COLOR_SCHEME_CHANGE,
@@ -148,48 +142,11 @@ export default class extends RenderNode {
     );
   }
 
-  async updateCurrentResponsiveDisplay() {
-    let previous = this.responsiveSizePrevious;
-    let current = this.responsiveSizeCurrent;
-    let displays = this.responsiveDisplays;
-
-    if (previous !== current) {
-      if (displays[current] === undefined) {
-        let display = this.app.getBundleClassDefinition(
-          `${this.name}-${current}`,
-          true
-        );
-
-        displays[current] = display ? new display(this) : null;
-
-        if (displays[current]) {
-          displays[current].init();
-        }
-      }
-
-      if (displays[previous]) {
-        await displays[previous].onResponsiveExit();
-      }
-
-      if (displays[current]) {
-        await displays[current].onResponsiveEnter();
-      }
-
-      this.responsiveDisplayCurrent = displays[current];
-    }
-  }
-
   getElWidth(): number {
     // Initial page uses layout width for responsiveness calculation.
     return this.isInitialPage
       ? this.app.layout.getElWidth()
       : super.getElWidth();
-  }
-
-  async onChangeResponsiveSize(event) {
-    if (event.detail.renderNode === this) {
-      await this.updateCurrentResponsiveDisplay();
-    }
   }
 
   async onChangeColorScheme(event) {
