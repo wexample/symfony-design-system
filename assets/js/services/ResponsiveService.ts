@@ -22,6 +22,15 @@ export default class ResponsiveService extends AppService {
           );
         },
       },
+
+      renderNode: {
+        async hookMounted(renderNode: RenderNode|any) {
+            await renderNode.responsiveUpdate(
+              // Do not propagate as children might not be created.
+              false
+            );
+        },
+      },
     };
   }
 

@@ -21,6 +21,8 @@ class Asset extends RenderDataGenerator
 
     public string $id;
 
+    public bool $initialLayout = false;
+
     public string $media = 'screen';
 
     public string $path;
@@ -62,7 +64,8 @@ class Asset extends RenderDataGenerator
 
     public function setServerSideRendered(bool $bool = true)
     {
-        $this->active = $bool;
+        $this->active = 
+        $this->initialLayout = $bool;
     }
 
     public function getUsage(): string
@@ -75,6 +78,7 @@ class Asset extends RenderDataGenerator
         return $this->serializeVariables([
             'active',
             'id',
+            'initialLayout',
             'path',
             'responsive',
             'type',

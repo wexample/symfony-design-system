@@ -95,6 +95,10 @@ export default abstract class RenderNode extends AppChild {
   }
 
   protected async mounted(): Promise<void> {
-
+    await this.app.services.mixins.invokeUntilComplete(
+      'hookMounted',
+      'renderNode',
+      [this]
+    );
   }
 }

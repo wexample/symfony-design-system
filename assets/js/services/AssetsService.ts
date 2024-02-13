@@ -4,6 +4,7 @@ import AssetInterface from '../interfaces/AssetInterface';
 import RenderNode from '../class/RenderNode';
 import { Attribute, AttributeValue, TagName } from '../helpers/DomHelper';
 import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
+import MixinsAppService from '../class/MixinsAppService';
 import AssetUsage from '../class/AssetUsage';
 import DefaultAssetUsage from '../class/AssetUsage/Default';
 import ResponsiveAssetUsage from '../class/AssetUsage/Responsive';
@@ -51,6 +52,23 @@ export default class AssetsService extends AppService {
   registerHooks() {
     return {
       app: {
+        hookInit() {
+          // Wait for all render node tree to be properly set.
+          this.app.ready(async () => {
+            // Mark all initially rendered assets in layout as loaded.
+            await this.app.layout.forEachTreeRenderNode(
+              async (renderNode: RenderNode) =>
+                this.assetsInCollection(renderNode.renderData.assets).forEach(
+                  (asset: AssetInterface) => {
+                    if (asset.initialLayout) {
+                      this.setAssetLoaded(asset);
+                    }
+                  }
+                )
+            );
+          });
+        },
+
         async hookPrepareRenderData(renderData: RenderDataInterface) {
           // Replace assets list by reference objects if exists.
           renderData.assets = this.registerAssetsInCollection(
@@ -69,10 +87,23 @@ export default class AssetsService extends AppService {
             AssetUsage.USAGE_DEFAULT
           );
         },
+
+        async hookMounted(renderNode: RenderNode, registry: any) {
+          // Wait for responsive to be loaded before assets.
+          // The current responsive should be detected to allow
+          // selecting proper responsive assets.
+          if (registry.responsive !== MixinsAppService.LOAD_STATUS_COMPLETE) {
+            return MixinsAppService.LOAD_STATUS_WAIT;
+          }
+
+          await this.app.services.assets.loadValidAssetsForRenderNode(
+            renderNode,
+            AssetUsage.USAGE_RESPONSIVE
+          );
+        },
       },
     };
   }
-
 
   appendAsset(asset: AssetInterface): Promise<AssetInterface> {
     return new Promise(async (resolve) => {

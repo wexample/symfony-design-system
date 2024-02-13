@@ -23,6 +23,16 @@ export default class extends RenderNode {
     this.el.classList.add(`page-${this.cssClassName}`);
   }
 
+  mergeRenderData(renderData: RenderDataPageInterface) {
+    super.mergeRenderData(renderData);
+
+    this.isInitialPage = renderData.isInitialPage;
+
+    if (this.isInitialPage) {
+      this.app.layout.page = this;
+    }
+  }
+
   public async init() {
     await super.init();
 

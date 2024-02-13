@@ -4,6 +4,7 @@ export default interface AssetInterface {
   active: boolean;
   el: HTMLElement;
   id: string;
+  initialLayout: string;
   loaded: boolean;
   path: string;
   resolver: Function;
