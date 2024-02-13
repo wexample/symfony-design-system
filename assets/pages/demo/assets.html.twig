@@ -49,7 +49,7 @@
             {{ '@page::breakpoints.body' | trans | raw }}
             <br>
             <br>
-            {{ ('@page::breakpoints.body_' ~ (layout_use_js ? '' : 'no_') ~ 'js') | trans | raw }}
+            {{ ('@page::breakpoints.body_' ~ (render_pass.isUseJs() ? '' : 'no_') ~ 'js') | trans | raw }}
         </div>
     </div>
     <h2>{{ '@page::resources.title' | trans }}</h2>

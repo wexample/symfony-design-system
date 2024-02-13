@@ -2,7 +2,7 @@ import AssetsService from './AssetsService';
 import AppService from '../class/AppService';
 import Events from '../helpers/Events';
 import RenderNode from '../class/RenderNode';
-import RenderNodeUsage from '../class/RenderNodeUsage';
+import AssetUsage from '../class/AssetUsage';
 
 export class ResponsiveServiceEvents {
   public static RESPONSIVE_CHANGE_SIZE: string = 'responsive-change-size';
@@ -24,26 +24,20 @@ export default class ResponsiveService extends AppService {
       },
 
       renderNode: {
-        async hookMounted(renderNode: RenderNode) {
-          if (renderNode.responsiveEnabled) {
+        async hookMounted(renderNode: RenderNode|any) {
             await renderNode.responsiveUpdate(
               // Do not propagate as children might not be created.
               false
             );
-          }
         },
       },
     };
   }
 
   registerMethods(object: any, group: string) {
-    if (!object.responsiveEnabled) {
-      return {};
-    }
-
     return {
       renderNode: {
-        responsiveBreakpointIsSupported(letter: string): boolean {
+        responsiveSupportsBreakpoint(letter: string): boolean {
           return this.responsiveBreakpointSupported().hasOwnProperty(letter);
         },
 
@@ -80,7 +74,7 @@ export default class ResponsiveService extends AppService {
             this.responsiveSizePrevious = this.responsiveSizeCurrent;
             this.responsiveSizeCurrent = size;
 
-            await this.assetsUpdate(RenderNodeUsage.USAGE_RESPONSIVE);
+            await this.assetsUpdate(AssetUsage.USAGE_RESPONSIVE);
 
             // Now change page class.
             this.responsiveUpdateClass();
@@ -97,10 +91,8 @@ export default class ResponsiveService extends AppService {
 
           if (propagate) {
             await this.forEachTreeChildRenderNode(
-              async (renderNode: RenderNode) => {
-                if (renderNode.responsiveEnabled) {
-                  await renderNode.responsiveSet(size, propagate);
-                }
+              async (renderNode: RenderNode | any) => {
+                await renderNode.responsiveSet(size, propagate);
               }
             );
           }

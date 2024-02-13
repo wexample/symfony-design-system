@@ -19,7 +19,6 @@ export default abstract class RenderNode extends AppChild {
   public name: string;
   public parentRenderNode: RenderNode;
   public renderData: RenderDataInterface;
-  public responsiveEnabled: boolean = false;
   public translations: {} = {};
   public vars: any = {};
   // Mixed functions from services.

@@ -17,7 +17,6 @@ export default class extends RenderNode {
   public parentRenderNode: PageManagerComponent;
   protected readonly responsiveDisplays: any = [];
   public renderData: RenderDataPageInterface;
-  public responsiveEnabled: boolean = true;
   public responsiveDisplayCurrent: PageResponsiveDisplay;
   public services: ServicesRegistryInterface;
 
