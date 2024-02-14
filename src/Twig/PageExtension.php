@@ -6,6 +6,7 @@ use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Service\PageService;
 use Wexample\SymfonyHelpers\Attribute\IsSimpleMethodResolver;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
+use Wexample\SymfonyHelpers\Controller\Traits\HasSimpleRoutesControllerTrait;
 use Wexample\SymfonyHelpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
@@ -40,7 +41,7 @@ class PageExtension extends AbstractExtension
             $controllerMethodPath,
             IsSimpleMethodResolver::class
         )) {
-            /** @var AbstractController $classPath */
+            /** @var HasSimpleRoutesControllerTrait $classPath */
             $classPath = TextHelper::getFirstChunk(
                 $controllerMethodPath,
                 ClassHelper::METHOD_SEPARATOR,
