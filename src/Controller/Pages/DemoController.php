@@ -27,6 +27,13 @@ final class DemoController extends AbstractPagesController
 
     private bool $useJs = true;
 
+    public static function getSimpleRoutes(): array
+    {
+        return [
+            self::ROUTE_COLOR_SCHEMES,
+        ];
+    }
+
     #[Route(path: '', name: self::ROUTE_INDEX)]
     public function index(): Response
     {
@@ -61,13 +68,6 @@ final class DemoController extends AbstractPagesController
                 'displayBreakpoints' => $this->getParameter('design_system.display_breakpoints'),
             ]
         );
-    }
-
-    public static function getSimpleRoutes(): array
-    {
-        return [
-            'color_schemes',
-        ];
     }
 
     #[Route(
