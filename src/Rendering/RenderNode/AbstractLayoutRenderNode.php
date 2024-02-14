@@ -32,9 +32,7 @@ abstract class AbstractLayoutRenderNode extends AbstractRenderNode
             $name
         );
 
-        $this->page = new PageRenderNode(
-            $this->renderPass
-        );
+        $this->page = new PageRenderNode();
     }
 
     public function getContextType(): string
