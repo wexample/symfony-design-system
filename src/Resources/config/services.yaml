@@ -17,3 +17,7 @@ services:
     Wexample\SymfonyDesignSystem\:
         resource: '../../{Command,Controller,Service,Twig}'
         tags: ['controller.service_arguments']
+
+    Wexample\SymfonyDesignSystem\Controller\Pages\DemoController:
+        tags:
+            - { name: 'has_simple_routes' }
