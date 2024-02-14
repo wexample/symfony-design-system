@@ -5,12 +5,16 @@ namespace Wexample\SymfonyDesignSystem\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyHelpers\AbstractBundle;
+use Wexample\SymfonyHelpers\Attribute\IsSimpleMethodResolver;
+use Wexample\SymfonyHelpers\Controller\Traits\HasSimpleRoutesControllerTrait;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 abstract class AbstractPagesController extends AbstractController
 {
+    use HasSimpleRoutesControllerTrait;
+
     protected string $viewPathPrefix = '';
 
     public const NAMESPACE_CONTROLLER = 'App\\Controller\\';
@@ -48,6 +52,17 @@ abstract class AbstractPagesController extends AbstractController
             $this->buildTemplatePath($view, ($bundle ?: $this->getControllerBundle())),
             $parameters,
             $response
+        );
+    }
+
+    #[IsSimpleMethodResolver]
+    public function simpleRoutesResolver(string $routeName): Response
+    {
+        return $this->renderPage(
+            $routeName,
+            [
+                'page_name' => $routeName,
+            ]
         );
     }
 }

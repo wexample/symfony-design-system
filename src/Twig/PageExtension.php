@@ -4,6 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Service\PageService;
+use Wexample\SymfonyHelpers\Attribute\IsSimpleMethodResolver;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
 use Wexample\SymfonyHelpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
@@ -35,12 +36,10 @@ class PageExtension extends AbstractExtension
             ->pageService
             ->getControllerClassPathFromRouteName($route);
 
-        if (
-            ClassHelper::isSameClassMethod(
-                $controllerMethodPath,
-                AbstractController::class.ClassHelper::METHOD_SEPARATOR.'simpleRoutesResolver'
-            )
-        ) {
+        if (ClassHelper::hasAttributes(
+            $controllerMethodPath,
+            IsSimpleMethodResolver::class
+        )) {
             /** @var AbstractController $classPath */
             $classPath = TextHelper::getFirstChunk(
                 $controllerMethodPath,
