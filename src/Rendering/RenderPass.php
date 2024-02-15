@@ -15,6 +15,8 @@ class RenderPass
 
     protected array $contextRenderNodeStack = [];
 
+    public string $colorScheme;
+
     public array $colorSchemes = [];
 
     public array $displayBreakpoints = [];
@@ -61,7 +63,7 @@ class RenderPass
     ) {
         $this->contextRenderNodeRegistry[$renderNode->getContextRenderNodeKey()] = $renderNode;
     }
-    
+
     public function setCurrentContextRenderNode(
         AbstractRenderNode $renderNode
     ) {

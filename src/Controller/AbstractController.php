@@ -51,6 +51,7 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
 
         $renderPass->displayBreakpoints = $this->getDisplayBreakpoints();
         $renderPass->colorSchemes = $this->getParameter('design_system.color_schemes');
+        $renderPass->colorScheme = $this->getParameter('design_system.color_scheme_default') ?: array_key_first($renderPass->colorSchemes);
 
         return $this->configureRenderPAss($renderPass);
     }

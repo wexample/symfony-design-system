@@ -156,7 +156,7 @@ export default class extends AsyncConstructor {
   getBundleClassDefinition(
     classRegistryName: string,
     bundled: boolean = false
-  ): any | null {
+  ): object | null {
     let bundle = this.bundles.classes[classRegistryName];
 
     if (bundled) {
