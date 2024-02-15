@@ -8,7 +8,7 @@
     <html lang="{{ app.request.locale }}">
     <head>
         <meta charset="utf-8"/>
-
+        {%- if render_pass.isUseJs() -%}
             <script nonce="layout-init">
               "use strict";
 
@@ -44,6 +44,7 @@
 
               window.appRegistry = {bundles: new AppRegistryBundlesManager()};
             </script>
+        {%- endif -%}
     </head>
     <body class="color-scheme-{{ layout_color_scheme }}">
     <div id="layout" class="layout-loading">
