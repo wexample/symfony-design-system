@@ -27,6 +27,8 @@ class Asset extends RenderDataGenerator
 
     public string $path;
 
+    public ?string $colorScheme = null;
+
     public string $type;
 
     public ?string $responsive = null;
@@ -77,6 +79,7 @@ class Asset extends RenderDataGenerator
     {
         return $this->serializeVariables([
             'active',
+            'colorScheme',
             'id',
             'initialLayout',
             'path',
