@@ -73,14 +73,22 @@
         {%- endblock -%}
     </div>
     <div id="layout-styles-container">
-        {{ macro_assets.render_available_css(render_pass, 'layout') }}
-        {{ macro_assets.render_available_css(render_pass, 'page') }}
+        {% for usage in assets_usages() %}
+            <div id="layout-styles-usage-{{ usage }}">
+                {{ macro_assets.render_available_css(render_pass, usage, 'layout') }}
+                {{ macro_assets.render_available_css(render_pass, usage, 'page') }}
+            </div>
+        {% endfor %}
     </div>
 
     {%- if render_pass.isUseJs() -%}
         <div id="layout-scripts-container">
-            {{ macro_assets.render_available_js(render_pass, 'layout') }}
-            {{ macro_assets.render_available_js(render_pass, 'page') }}
+            {% for usage in assets_usages() %}
+                <div id="layout-scripts-usage-{{ usage }}">
+                    {{ macro_assets.render_available_js(render_pass, usage, 'layout') }}
+                    {{ macro_assets.render_available_js(render_pass, usage, 'page') }}
+                </div>
+            {% endfor %}
         </div>
         <script type="text/javascript" src="{{ asset('build/runtime.js') }}"></script>
         <script type="text/javascript" nonce="layout-data" id="layout-data">

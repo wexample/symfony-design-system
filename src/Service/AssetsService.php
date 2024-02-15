@@ -36,8 +36,13 @@ class AssetsService
         ResponsiveAssetUsageService $responsiveAssetUsageService
     ) {
         foreach ([
-                     $colorSchemeAssetUsageService,
+                     // Order is important, it defines the order the assets
+                     // i.e. the order of CSS loading, so responsive or
+                     // color schemes should be loaded after base ones.
+                     // The same order should also be used in frontend
+                     // to preserve order during dynamic assets loading.
                      $defaultAssetUsageService,
+                     $colorSchemeAssetUsageService,
                      $responsiveAssetUsageService,
                  ] as $usage) {
             $this->usages[$usage->getName()] = $usage;
@@ -74,6 +79,30 @@ class AssetsService
             );
         }
 
+        return $this->sortAssets($assets);
+    }
+
+    /**
+     * Sort assets by usage.
+     * @param array<Asset> $assets
+     * @return array<Asset>
+     */
+    protected function sortAssets(array $assets): array
+    {
+        usort($assets, function(
+            Asset $a,
+            Asset $b
+        ) {
+            $orderA = array_search($a->getUsage(), $this->usages);
+            $orderB = array_search($b->getUsage(), $this->usages);
+
+            if ($orderA === $orderB) {
+                return 0;
+            }
+
+            return $orderA < $orderB ? -1 : 1;
+        });
+
         return $assets;
     }
 
@@ -85,5 +114,10 @@ class AssetsService
             $asset,
             $renderPass
         );
+    }
+
+    public function getAssetsUsages(): array
+    {
+        return $this->usages;
     }
 }

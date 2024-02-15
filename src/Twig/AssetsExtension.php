@@ -32,12 +32,20 @@ class AssetsExtension extends AbstractExtension
                     'assetsIsReadyForRender',
                 ]
             ),
+            new TwigFunction(
+                'assets_usages',
+                [
+                    $this,
+                    'assetsUsages',
+                ]
+            ),
         ];
     }
 
     public function assetsTypeFiltered(
         RenderPass $renderPass,
         string $contextType,
+        string $usage,
         string $assetType = null
     ): array {
         return $this
@@ -45,6 +53,7 @@ class AssetsExtension extends AbstractExtension
             ->assetsFiltered(
                 $renderPass,
                 $contextType,
+                $usage,
                 $assetType
             );
     }
@@ -59,5 +68,13 @@ class AssetsExtension extends AbstractExtension
                 $asset,
                 $renderPass,
             );
+    }
+
+    public function assetsUsages(): array
+    {
+        $usages = $this->assetsService->getAssetsUsages();
+        return array_keys(
+            $usages
+        );
     }
 }
