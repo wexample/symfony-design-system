@@ -61,6 +61,8 @@ export default class AssetsService extends AppService {
                 this.assetsInCollection(renderNode.renderData.assets).forEach(
                   (asset: AssetInterface) => {
                     if (asset.initialLayout) {
+                      // Fetch the server-side rendered tag.
+                      asset.el = document.getElementById(asset.id);
                       this.setAssetLoaded(asset);
                     }
                   }

@@ -1,7 +1,7 @@
 {% macro render_available_css(render_pass, context_type) %}
     {% for asset in assets_type_filtered(render_pass, context_type, 'css') %}
         {%- if assets_is_ready_for_render(render_pass, asset) -%}
-                <link rel="stylesheet" media="{{ asset.media }}"
+                <link id="{{ asset.id }}" rel="stylesheet" media="{{ asset.media }}"
                       href="{{ asset(asset.path) }}"/>
             {{ asset.setServerSideRendered() }}
         {%- endif -%}
@@ -11,7 +11,7 @@
 {% macro render_available_js(render_pass, context_type) %}
     {%- for asset in assets_type_filtered(render_pass, context_type, 'js') -%}
         {%- if assets_is_ready_for_render(render_pass, asset) -%}
-                <script type="text/javascript" src="{{ asset(asset.path) }}"></script>
+                <script id="{{ asset.id }}" type="text/javascript" src="{{ asset(asset.path) }}"></script>
             {{ asset.setServerSideRendered() }}
         {%- endif -%}
     {%- endfor -%}
