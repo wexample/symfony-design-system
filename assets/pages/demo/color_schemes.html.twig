@@ -1,0 +1,32 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/demo/layout.html.twig' -%}
+
+{%- block page_body -%}
+    <h2>{{ '@page::color_schemes.title' | trans }}</h2>
+    <div class="block">
+        {{ '@page::color_schemes.body' | trans | raw }}
+    </div>
+    <h2>{{ '@page::themes.title' | trans }}</h2>
+    <div class="blocks">
+        <div class="block blocks-col color-scheme-light">
+            {{ component('components/button', {
+                attr:{'data-color-scheme':'dark'},
+                class:'demo-button-switch-color-scheme',
+                text:'Thème sombre'
+            }) }}
+        </div>
+        <div class="block blocks-col color-scheme-light">
+            {{ component('components/button', {
+                attr:{'data-color-scheme':'light'},
+                class:'demo-button-switch-color-scheme',
+                text:'Thème clair'
+            }) }}
+        </div>
+        <div class="block blocks-col color-scheme-light">
+            {{ component('components/button', {
+                attr:{'data-color-scheme':'default'},
+                class:'demo-button-switch-color-scheme',
+                text:'Thème par défaut'
+            }) }}
+        </div>
+    </div>
+{%- endblock -%}

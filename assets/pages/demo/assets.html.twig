@@ -59,4 +59,12 @@
 	        {{ vue('vue/debug-assets') }}
 	    {% endif %}
     </div>
+    <h2>{{ '@page::page.title' | trans }}</h2>
+    <div class="block">
+        {{ '@page::page.body' | trans }}
+        <div>
+            <br>
+            <button id="responsive-page-m-button" disabled="disabled">Ce boutton ne fonctionne qu'en largeur d'écran "m".</button>
+        </div>
+    </div>
 {%- endblock -%}
