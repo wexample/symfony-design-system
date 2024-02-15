@@ -17,6 +17,19 @@ final class ColorSchemeAssetUsageService extends AbstractAssetUsageService
         AbstractRenderNode $renderNode,
         string $ext
     ): void {
+        $pathInfo = pathinfo($this->buildBuiltPublicAssetPath($renderNode, $ext));
 
+        foreach ($renderPass->colorSchemes as $colorScheme) {
+            $assetPath = $pathInfo['dirname'].'/'.$pathInfo['filename'].'.color-scheme.'.$colorScheme.'.'.$pathInfo['extension'];
+
+            print('<br>'.$assetPath);
+
+            if ($asset = $this->createAssetIfExists(
+                $assetPath,
+                $renderNode
+            )) {
+                $asset->colorScheme = $colorScheme;
+            }
+        }
     }
 }

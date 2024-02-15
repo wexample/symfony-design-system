@@ -61,4 +61,11 @@ abstract class AbstractAssetUsageService
 
         return $asset;
     }
+
+    public function isAssetReadyForServerSideRendering(
+        Asset $asset,
+        RenderPass $renderPass,
+    ): bool {
+        return true;
+    }
 }
