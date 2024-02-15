@@ -33,10 +33,10 @@ class AssetsExtension extends AbstractExtension
                 ]
             ),
             new TwigFunction(
-                'assets_usages',
+                'assets_non_empty_usages',
                 [
                     $this,
-                    'assetsUsages',
+                    'assetsNonEmptyUsages',
                 ]
             ),
         ];
@@ -70,11 +70,17 @@ class AssetsExtension extends AbstractExtension
             );
     }
 
-    public function assetsUsages(): array
+    public function assetsNonEmptyUsages(): array
     {
+        $keys = [];
         $usages = $this->assetsService->getAssetsUsages();
-        return array_keys(
-            $usages
-        );
+
+        foreach ($usages as $name => $usage) {
+            if ($usage->hasAsset()) {
+                $keys[] = $name;
+            }
+        }
+
+        return $keys;
     }
 }

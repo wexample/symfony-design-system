@@ -73,7 +73,7 @@
         {%- endblock -%}
     </div>
     <div id="layout-styles-container">
-        {% for usage in assets_usages() %}
+        {% for usage in assets_non_empty_usages() %}
             <div id="layout-styles-usage-{{ usage }}">
                 {{ macro_assets.render_available_css(render_pass, usage, 'layout') }}
                 {{ macro_assets.render_available_css(render_pass, usage, 'page') }}
@@ -83,7 +83,7 @@
 
     {%- if render_pass.isUseJs() -%}
         <div id="layout-scripts-container">
-            {% for usage in assets_usages() %}
+            {% for usage in assets_non_empty_usages() %}
                 <div id="layout-scripts-usage-{{ usage }}">
                     {{ macro_assets.render_available_js(render_pass, usage, 'layout') }}
                     {{ macro_assets.render_available_js(render_pass, usage, 'page') }}

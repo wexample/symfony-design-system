@@ -60,6 +60,9 @@ export default class extends AsyncConstructor {
       // Display page content.
       this.layout.el.classList.remove('layout-loading');
 
+      // Activate every new render node.
+      await this.layout.setNewTreeRenderNodeReady();
+
       // Execute ready callbacks.
       await this.readyComplete();
 

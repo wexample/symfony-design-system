@@ -67,16 +67,18 @@ class AssetsService
     public function assetsFiltered(
         RenderPass $renderPass,
         string $contextType,
+        string $usage,
         string $assetType = null
     ): array {
         $assets = [];
 
         /** @var AbstractRenderNode $renderNode */
         foreach ($renderPass->registry[$contextType] as $renderNode) {
-            $assets = array_merge(
-                $assets,
-                $renderNode->assets[$assetType]
-            );
+            foreach ($renderNode->assets[$assetType] as $asset) {
+                if ($asset->getUsage() === $usage) {
+                    $assets[] = $asset;
+                }
+            }
         }
 
         return $this->sortAssets($assets);

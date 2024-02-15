@@ -45,10 +45,20 @@ export default class extends RenderNode {
     );
   }
 
+  public async renderNodeReady(): Promise<void> {
+    await super.renderNodeReady();
+
+    await this.pageReady();
+  }
+
   getElWidth(): number {
     // Initial page uses layout width for responsiveness calculation.
     return this.isInitialPage
       ? this.app.layout.getElWidth()
       : super.getElWidth();
+  }
+
+  pageReady() {
+    // To override.
   }
 }

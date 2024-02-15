@@ -5,4 +5,16 @@
     <div class="block">
         {{ '@page::color_schemes.body' | trans | raw }}
     </div>
+    <h2>{{ '@page::themes.title' | trans }}</h2>
+    <div class="blocks">
+        <div class="block blocks-col">
+            <a data-color-scheme="dark" class="demo-button-switch-color-scheme" href="#">Dark</a>
+        </div>
+        <div class="block blocks-col">
+            <a data-color-scheme="light" class="demo-button-switch-color-scheme" href="#">Light</a>
+        </div>
+        <div class="block blocks-col">
+            <a data-color-scheme="default" class="demo-button-switch-color-scheme" href="#">Default</a>
+        </div>
+    </div>
 {%- endblock -%}

@@ -2,6 +2,7 @@ export default interface AssetInterface {
   // Defines that assets should be loaded
   // even the loading process is not finished.
   active: boolean;
+  colorScheme?: string;
   el: HTMLElement;
   id: string;
   initialLayout: string;

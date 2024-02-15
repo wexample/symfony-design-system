@@ -11,6 +11,8 @@ use Wexample\SymfonyHelpers\Helper\PathHelper;
 
 abstract class AbstractAssetUsageService
 {
+    protected array $assets = [];
+
     public function __construct(
         protected AssetsRegistryService $assetsRegistryService
     ) {
@@ -54,12 +56,18 @@ abstract class AbstractAssetUsageService
         );
 
         $renderNode->assets[$asset->type][] = $asset;
+        $this->assets[] = $asset;
 
         $this->assetsRegistryService->addAsset(
             $asset,
         );
 
         return $asset;
+    }
+
+    public function hasAsset(): bool
+    {
+        return !empty($this->assets);
     }
 
     public function isAssetReadyForServerSideRendering(

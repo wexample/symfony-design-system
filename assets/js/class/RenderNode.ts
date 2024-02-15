@@ -16,6 +16,10 @@ export default abstract class RenderNode extends AppChild {
   public renderData: RenderDataInterface;
   public translations: {} = {};
   public vars: any = {};
+  // Mixed functions from services.
+  public activeColorScheme?: string;
+  public colorSchemeSet?: Function;
+  public colorSchemeUpdate?: Function;
   public responsiveSizeCurrent?: string;
 
   constructor(app: App, parentRenderNode?: RenderNode) {
@@ -81,6 +85,14 @@ export default abstract class RenderNode extends AppChild {
     });
   }
 
+  async setNewTreeRenderNodeReady() {
+    await this.forEachTreeRenderNode(async (renderNode: RenderNode) => {
+      if (!renderNode.isReady) {
+        await renderNode.renderNodeReady();
+      }
+    });
+  }
+
   async forEachTreeRenderNode(callback?: Function) {
     await callback(this);
 
@@ -109,7 +121,7 @@ export default abstract class RenderNode extends AppChild {
     return this.elHeight;
   }
 
-  async activateListeners(): Promise<void> {
+  protected async activateListeners(): Promise<void> {
   }
 
   protected async deactivateListeners(): Promise<void> {
@@ -130,5 +142,9 @@ export default abstract class RenderNode extends AppChild {
       'renderNode',
       [this]
     );
+  }
+
+  public async renderNodeReady(): Promise<void> {
+    await this.readyComplete();
   }
 }

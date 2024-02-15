@@ -6,6 +6,7 @@ import { Attribute, AttributeValue, TagName } from '../helpers/DomHelper';
 import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
 import MixinsAppService from '../class/MixinsAppService';
 import AssetUsage from '../class/AssetUsage';
+import ColorScheme from '../class/AssetUsage/ColorScheme';
 import DefaultAssetUsage from '../class/AssetUsage/Default';
 import ResponsiveAssetUsage from '../class/AssetUsage/Responsive';
 
@@ -27,7 +28,11 @@ export default class AssetsService extends AppService {
   constructor(props) {
     super(props);
 
-    [DefaultAssetUsage, ResponsiveAssetUsage].forEach(
+    [
+      ColorScheme,
+      DefaultAssetUsage,
+      ResponsiveAssetUsage
+    ].forEach(
       (definition: any) => {
         let usage = new definition(this.app);
 
