@@ -22,8 +22,6 @@ final class ColorSchemeAssetUsageService extends AbstractAssetUsageService
         foreach ($renderPass->colorSchemes as $colorScheme) {
             $assetPath = $pathInfo['dirname'].'/'.$pathInfo['filename'].'.color-scheme.'.$colorScheme.'.'.$pathInfo['extension'];
 
-            print('<br>'.$assetPath);
-
             if ($asset = $this->createAssetIfExists(
                 $assetPath,
                 $renderNode
