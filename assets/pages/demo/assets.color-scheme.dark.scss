@@ -1,11 +1,11 @@
 $global-color-scheme-name: 'dark' !default;
 
-@use '../../partials/inline-info'
+@use '../../css/shapes/inline-info.color-scheme.dark'
   with (
   $global-color-scheme-name: $global-color-scheme-name
 );
 
-@import '../../mixins/global';
+@import '../../css/mixins/global.color-scheme.dark';
 
 body.color-scheme-#{$global-color-scheme-name} .display-breakpoint,
 body.color-scheme-default .theme-dark.display-breakpoint {
