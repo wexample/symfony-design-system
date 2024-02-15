@@ -2,6 +2,7 @@ import Page from './Page';
 
 import AppService from './AppService';
 import AssetsService from '../services/AssetsService';
+import ColorSchemeService from '../services/ColorSchemeService';
 import LayoutsService from '../services/LayoutsService';
 import MixinsService from '../services/MixinsService';
 import PagesService from '../services/PagesService';
@@ -97,6 +98,7 @@ export default class extends AsyncConstructor {
   getServices(): typeof AppService[] {
     return [
       AssetsService,
+      ColorSchemeService,
       LayoutsService,
       MixinsService,
       PagesService,
