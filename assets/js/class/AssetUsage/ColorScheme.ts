@@ -1,11 +1,11 @@
-import RenderNodeUsage from '../RenderNodeUsage';
-import RenderNode from '../RenderNode';
+import AssetUsage from '../AssetUsage';
 import AssetsInterface from '../../interfaces/AssetInterface';
+import RenderNode from '../RenderNode';
 
-export default class extends RenderNodeUsage {
-  public name: string = RenderNodeUsage.USAGE_COLOR_SCHEME;
+export default class extends AssetUsage {
+  public usageName: string = AssetUsage.USAGE_COLOR_SCHEME;
 
-  hookAssetShouldBeLoaded(
+  assetShouldBeLoaded(
     asset: AssetsInterface,
     renderNode: RenderNode
   ): boolean {
