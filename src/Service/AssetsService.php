@@ -7,6 +7,7 @@ use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\Usage\AbstractAssetUsageService;
+use Wexample\SymfonyDesignSystem\Service\Usage\ColorSchemeAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\DefaultAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
 use function array_merge;
@@ -30,10 +31,15 @@ class AssetsService
      * @throws InvalidArgumentException
      */
     public function __construct(
+        ColorSchemeAssetUsageService $colorSchemeAssetUsageService,
         DefaultAssetUsageService $defaultAssetUsageService,
         ResponsiveAssetUsageService $responsiveAssetUsageService
     ) {
-        foreach ([$defaultAssetUsageService, $responsiveAssetUsageService] as $usage) {
+        foreach ([
+                     $colorSchemeAssetUsageService,
+                     $defaultAssetUsageService,
+                     $responsiveAssetUsageService,
+                 ] as $usage) {
             $this->usages[$usage->getName()] = $usage;
         }
     }

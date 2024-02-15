@@ -15,6 +15,8 @@ class RenderPass
 
     protected array $contextRenderNodeStack = [];
 
+    public array $colorSchemes = [];
+
     public array $displayBreakpoints = [];
 
     public array $registry = [

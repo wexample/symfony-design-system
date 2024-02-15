@@ -42,16 +42,12 @@ final class DemoController extends AbstractPagesController
         );
     }
 
-    protected function createRenderPass(
-        string $view
+    protected function configureRenderPass(
+        RenderPass $renderPass
     ): RenderPass {
-        $pass = parent::createRenderPass(
-            $view
-        );
+        $renderPass->setUseJs($this->useJs);
 
-        $pass->setUseJs($this->useJs);
-
-        return $pass;
+        return $renderPass;
     }
 
     #[Route(
@@ -65,7 +61,7 @@ final class DemoController extends AbstractPagesController
         return $this->renderPage(
             self::ROUTE_ASSETS,
             [
-                'displayBreakpoints' => $this->getParameter('design_system.display_breakpoints'),
+                'displayBreakpoints' => $this->getDisplayBreakpoints(),
             ]
         );
     }

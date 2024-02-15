@@ -7,6 +7,10 @@ parameters:
       l: 992
       xl: 1200
       xxl: 1400
+    design_system.color_schemes:
+      - dark
+      - default
+      - light
 
 services:
     _defaults:

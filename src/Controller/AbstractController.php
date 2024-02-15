@@ -40,12 +40,26 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
     protected function createRenderPass(
         string $view
     ): RenderPass {
-        return $this
-            ->adaptiveResponseService
-            ->createRenderPass(
-                $this,
-                $view
-            );
+        $responseService = $this->adaptiveResponseService;
+
+        $renderPass = new RenderPass(
+        // Response may be explicitly created in controller,
+        // but if not we need at least one to detect layout base name.
+            ($responseService->hasResponse() ? $responseService->getResponse() : $responseService->createResponse($this))->getOutputType(),
+            $view,
+        );
+
+        $renderPass->displayBreakpoints = $this->getDisplayBreakpoints();
+        $renderPass->colorSchemes = $this->getParameter('design_system.color_schemes');
+
+        return $this->configureRenderPAss($renderPass);
+    }
+
+    protected function configureRenderPass(
+        RenderPass $renderPass
+    ): RenderPass {
+
+        return $renderPass;
     }
 
     /**
@@ -62,7 +76,7 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
             $view,
             [
                 'debug' => (bool) $this->getParameter('design_system.debug'),
-                'display_breakpoints' => $this->getParameter('design_system.display_breakpoints'),
+                'display_breakpoints' => $pass->displayBreakpoints,
                 'layout_color_scheme' => ColorSchemeHelper::SCHEME_DEFAULT,
                 'render_pass' => $pass,
             ] + $parameters + $pass->getRenderParameters(),
