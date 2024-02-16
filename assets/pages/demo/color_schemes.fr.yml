@@ -1,6 +1,12 @@
-page_title: Color schemes
+animations:
+  title: Animations
 
 color_schemes:
   title: Color schemes
   body:
     Les "Color schemes" permettent de gérer séparément les thème colométriques "light" ou "dark".
+
+margins:
+  title: Margins
+
+page_title: Color schemes

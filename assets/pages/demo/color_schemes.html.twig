@@ -5,16 +5,27 @@
     <div class="block">
         {{ '@page::color_schemes.body' | trans | raw }}
     </div>
-    <h2>{{ '@page::themes.title' | trans }}</h2>
     <div class="blocks">
-        <div class="block blocks-col">
-            <a data-color-scheme="dark" class="demo-button-switch-color-scheme" href="#">Dark</a>
-        </div>
-        <div class="block blocks-col">
-            <a data-color-scheme="light" class="demo-button-switch-color-scheme" href="#">Light</a>
-        </div>
-        <div class="block blocks-col">
-            <a data-color-scheme="default" class="demo-button-switch-color-scheme" href="#">Default</a>
-        </div>
+        {% for scheme, config in render_pass.colorSchemeList %}
+            <div class="block blocks-col">
+                <a data-usage-name="color_scheme" data-usage-value="{{ scheme }}" class="demo-button-switch-usage" href="#">{{ scheme }}</a>
+            </div>
+        {% endfor %}
+    </div>
+    <h2>{{ '@page::margins.title' | trans }}</h2>
+    <div class="blocks">
+        {% for margin, config in render_pass.marginsList %}
+            <div class="block blocks-col">
+                <a data-usage-name="margins" data-usage-value="{{ margin }}" class="demo-button-switch-usage" href="#">{{ margin }}</a>
+            </div>
+        {% endfor %}
+    </div>
+    <h2>{{ '@page::animations.title' | trans }}</h2>
+    <div class="blocks">
+        {% for animation, config in render_pass.animationsList %}
+            <div class="block blocks-col">
+                <a data-usage-name="animations" data-usage-value="{{ animation }}" class="demo-button-switch-usage" href="#">{{ animation }}</a>
+            </div>
+        {% endfor %}
     </div>
 {%- endblock -%}
