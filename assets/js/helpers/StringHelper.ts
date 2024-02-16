@@ -6,3 +6,7 @@ export function format(text: string, args: object): string {
 
   return text;
 }
+
+export function toKebab(string: string): string {
+  return string.replace(/[\_\-]/g, '-').toLowerCase();
+}

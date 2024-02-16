@@ -17,10 +17,12 @@ export default abstract class RenderNode extends AppChild {
   public translations: {} = {};
   public vars: any = {};
   // Mixed functions from services.
+  public assetsUpdate?: Function;
   public activeColorScheme?: string;
   public colorSchemeSet?: Function;
   public colorSchemeUpdate?: Function;
   public responsiveSizeCurrent?: string;
+  public usages: {} = {};
 
   constructor(app: App, parentRenderNode?: RenderNode) {
     super(app);

@@ -8,7 +8,9 @@ import MixinsAppService from '../class/MixinsAppService';
 import AssetUsage from '../class/AssetUsage';
 import ColorScheme from '../class/AssetUsage/ColorScheme';
 import DefaultAssetUsage from '../class/AssetUsage/Default';
+import Margins from '../class/AssetUsage/Margins';
 import ResponsiveAssetUsage from '../class/AssetUsage/Responsive';
+import Animations from "../class/AssetUsage/Animations";
 
 export class AssetsServiceType {
   public static CSS: string = 'css';
@@ -29,8 +31,10 @@ export default class AssetsService extends AppService {
     super(props);
 
     [
+      Animations,
       ColorScheme,
       DefaultAssetUsage,
+      Margins,
       ResponsiveAssetUsage
     ].forEach(
       (definition: any) => {
