@@ -63,8 +63,6 @@ class AssetsServiceTest extends AbstractSymfonyTestCase
             ResponsiveAssetUsageService::getName()
         );
 
-        $asset->responsive = true;
-
         $this->assertFalse($service->assetIsReadyForRender(
             $asset,
             $renderPass,

@@ -31,7 +31,7 @@ class Asset extends RenderDataGenerator
 
     public string $type;
 
-    public ?string $responsive = null;
+    public array $usages = [];
 
     public function __construct(
         string $pathRelativeToPublic,
@@ -66,7 +66,7 @@ class Asset extends RenderDataGenerator
 
     public function setServerSideRendered(bool $bool = true)
     {
-        $this->active = 
+        $this->active =
         $this->initialLayout = $bool;
     }
 
@@ -79,13 +79,12 @@ class Asset extends RenderDataGenerator
     {
         return $this->serializeVariables([
             'active',
-            'colorScheme',
             'id',
             'initialLayout',
             'path',
-            'responsive',
             'type',
             'usage',
+            'usages',
         ]);
     }
 }
