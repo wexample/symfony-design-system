@@ -35,7 +35,7 @@ final class ResponsiveAssetUsageService extends AbstractAssetUsageService
                 $responsivePath,
                 $renderNode
             )) {
-                $asset->responsive = $breakpointName;
+                $asset->usages[$this->getName()] = $breakpointName;
                 $asset->media = 'screen and (min-width:'.$minWidth.'px)'.
                     ($maxWidth ? ' and (max-width:'.$maxWidth.'px)' : '');
             }
@@ -49,7 +49,7 @@ final class ResponsiveAssetUsageService extends AbstractAssetUsageService
         RenderPass $renderPass,
     ): bool {
         if ($asset->type === Asset::EXTENSION_CSS) {
-            if ($asset->responsive) {
+            if ($asset->usages[$this->getName()]) {
                 // Responsive CSS are loaded in page when JS is disabled.
                 return !$renderPass->isUseJs();
             }

@@ -2,10 +2,10 @@
 
 namespace Wexample\SymfonyDesignSystem\Service\Usage;
 
-final class ColorSchemeAssetUsageService extends AbstractAssetUsageService
+final class AnimationsAssetUsageService extends AbstractAssetUsageService
 {
     public static function getName(): string
     {
-        return 'color_scheme';
+       return 'animations';
     }
 }

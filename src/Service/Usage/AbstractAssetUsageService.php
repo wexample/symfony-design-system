@@ -8,6 +8,7 @@ use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
 use Wexample\SymfonyHelpers\Helper\PathHelper;
+use Wexample\SymfonyHelpers\Helper\TextHelper;
 
 abstract class AbstractAssetUsageService
 {
@@ -30,11 +31,27 @@ abstract class AbstractAssetUsageService
         return AssetsRegistryService::DIR_BUILD.PathHelper::join([$nameParts[0], $ext, $nameParts[1].'.'.$ext]);
     }
 
-    abstract public function addAssetsForRenderNodeAndType(
+    public function addAssetsForRenderNodeAndType(
         RenderPass $renderPass,
         AbstractRenderNode $renderNode,
         string $ext
-    ): void;
+    ): void {
+        $pathInfo = pathinfo($this->buildBuiltPublicAssetPath($renderNode, $ext));
+        $usage = $this->getName();
+        $usageKebab = TextHelper::toKebab($usage);
+        $usageListCamel = TextHelper::toCamel($usage.'_list');
+
+        foreach ($renderPass->$usageListCamel as $usageValue => $config) {
+            $assetPath = $pathInfo['dirname'].'/'.$pathInfo['filename'].'.'.$usageKebab.'.'.$usageValue.'.'.$pathInfo['extension'];
+
+            if ($asset = $this->createAssetIfExists(
+                $assetPath,
+                $renderNode
+            )) {
+                $asset->usages[$usage] = $usageValue;
+            }
+        }
+    }
 
     protected function createAssetIfExists(
         string $pathRelativeToPublic,
@@ -74,6 +91,27 @@ abstract class AbstractAssetUsageService
         Asset $asset,
         RenderPass $renderPass,
     ): bool {
-        return true;
+        $usageCamel = TextHelper::toCamel(static::getName());
+
+        // There is more than one same usage in frontend.
+        return $this->hasExtraSwitchableUsage($renderPass)
+            // This is the base usage (i.e. default).
+            || $asset->usages[$this->getName()] == $renderPass->$usageCamel;
+    }
+
+    protected function hasExtraSwitchableUsage(RenderPass $renderPass): bool
+    {
+        $usage = TextHelper::toCamel(static::getName());
+        $usageList = TextHelper::toCamel(static::getName().'_list');
+
+        foreach ($renderPass->$usageList as $scheme => $config) {
+            // There is at least one other switchable usage different than default one.
+            if (($config['allow_switch'] ?? false)
+                && $scheme !== $renderPass->$usage) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
