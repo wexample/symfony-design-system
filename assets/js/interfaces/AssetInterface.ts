@@ -16,5 +16,5 @@ export default interface AssetInterface {
   rendered: boolean;
   type: string;
   usage: string;
-  usages: {};
+  usages: any;
 }
