@@ -30,7 +30,11 @@ final class DemoController extends AbstractPagesController
     public static function getSimpleRoutes(): array
     {
         return [
+            self::ROUTE_AGGREGATION,
             self::ROUTE_COLOR_SCHEMES,
+            self::ROUTE_COMPONENTS,
+            self::ROUTE_LOADING,
+            self::ROUTE_TRANSLATIONS,
         ];
     }
 
@@ -63,50 +67,6 @@ final class DemoController extends AbstractPagesController
             [
                 'displayBreakpoints' => $this->getDisplayBreakpoints(),
             ]
-        );
-    }
-
-    #[Route(
-        path: self::ROUTE_AGGREGATION,
-        name: self::ROUTE_AGGREGATION
-    )]
-    public function aggregation(): Response
-    {
-        return $this->renderPage(
-            self::ROUTE_AGGREGATION
-        );
-    }
-
-    #[Route(
-        path: VariableHelper::LOADING,
-        name: self::ROUTE_LOADING
-    )]
-    public function loading(): Response
-    {
-        return $this->renderPage(
-            self::ROUTE_LOADING
-        );
-    }
-
-    #[Route(
-        path: VariableHelper::TRANSLATIONS,
-        name: self::ROUTE_TRANSLATIONS
-    )]
-    public function translations(): Response
-    {
-        return $this->renderPage(
-            self::ROUTE_TRANSLATIONS
-        );
-    }
-
-    #[Route(
-        path: VariableHelper::PLURAL_COMPONENT,
-        name: self::ROUTE_COMPONENTS
-    )]
-    public function components(): Response
-    {
-        return $this->renderPage(
-            self::ROUTE_COMPONENTS
         );
     }
 }
