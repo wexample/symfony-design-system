@@ -39,16 +39,17 @@ abstract class AbstractAssetUsageService
         $pathInfo = pathinfo($this->buildBuiltPublicAssetPath($renderNode, $ext));
         $usage = $this->getName();
         $usageKebab = TextHelper::toKebab($usage);
-        $usageListCamel = TextHelper::toCamel($usage.'_list');
 
-        foreach ($renderPass->$usageListCamel as $usageValue => $config) {
-            $assetPath = $pathInfo['dirname'].'/'.$pathInfo['filename'].'.'.$usageKebab.'.'.$usageValue.'.'.$pathInfo['extension'];
+        if (isset($renderPass->usagesList[$usage]['list'])) {
+            foreach ($renderPass->usagesList[$usage]['list'] as $usageValue => $config) {
+                $assetPath = $pathInfo['dirname'].'/'.$pathInfo['filename'].'.'.$usageKebab.'.'.$usageValue.'.'.$pathInfo['extension'];
 
-            if ($asset = $this->createAssetIfExists(
-                $assetPath,
-                $renderNode
-            )) {
-                $asset->usages[$usage] = $usageValue;
+                if ($asset = $this->createAssetIfExists(
+                    $assetPath,
+                    $renderNode
+                )) {
+                    $asset->usages[$usage] = $usageValue;
+                }
             }
         }
     }
@@ -91,23 +92,22 @@ abstract class AbstractAssetUsageService
         Asset $asset,
         RenderPass $renderPass,
     ): bool {
-        $usageCamel = TextHelper::toCamel(static::getName());
+        $usage = $this->getName();
 
         // There is more than one same usage in frontend.
         return $this->hasExtraSwitchableUsage($renderPass)
             // This is the base usage (i.e. default).
-            || $asset->usages[$this->getName()] == $renderPass->$usageCamel;
+            || $asset->usages[$usage] == $renderPass->getUsageConfig($usage, 'default');
     }
 
     protected function hasExtraSwitchableUsage(RenderPass $renderPass): bool
     {
-        $usage = TextHelper::toCamel(static::getName());
-        $usageList = TextHelper::toCamel(static::getName().'_list');
+        $usage = static::getName();
 
-        foreach ($renderPass->$usageList as $scheme => $config) {
-            // There is at least one other switchable usage different than default one.
+        foreach ($renderPass->usagesList[$usage] as $scheme => $config) {
+            // There is at least one other switchable usage different from default one.
             if (($config['allow_switch'] ?? false)
-                && $scheme !== $renderPass->$usage) {
+                && $scheme !== $renderPass->getUsageConfig($usage, 'default')) {
                 return true;
             }
         }

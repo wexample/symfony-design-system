@@ -1,38 +1,50 @@
 parameters:
     design_system.debug: false
-    design_system.display_breakpoints:
-      xs: 0
-      s: 576
-      m: 768
-      l: 992
-      xl: 1200
-      xxl: 1400
-    design_system.color_scheme_list:
-      dark:
-        allow_switch: false
-      default:
-        allow_switch: false
-      light:
-        allow_switch: false
-    design_system.color_scheme_default: default
-    design_system.margins_list:
-      default:
-        allow_switch: false
-      fat:
-        allow_switch: false
-      slim:
-        allow_switch: false
-      none:
-        allow_switch: false
-    design_system.margins_default: default
-    design_system.animations_list:
-      bounce:
-        allow_switch: false
-      none:
-        allow_switch: false
-      soft:
-        allow_switch: false
-    design_system.animations_default: none
+
+    # Responsive display breakpoints
+    design_system.usages.responsive:
+      display_breakpoints:
+        xs: 0
+        s: 576
+        m: 768
+        l: 992
+        xl: 1200
+        xxl: 1400
+
+    # Color schemes
+    design_system.usages.color_scheme:
+      default: default
+      list:
+        dark:
+          allow_switch: false
+        default:
+          allow_switch: false
+        light:
+          allow_switch: false
+
+    # Margins
+    design_system.usages.margins:
+      default: default
+      list:
+        default:
+          allow_switch: false
+        fat:
+          allow_switch: false
+        slim:
+          allow_switch: false
+        none:
+          allow_switch: false
+
+    # Animations
+    design_system.usages.animations:
+      default: none
+      list:
+        bounce:
+          allow_switch: false
+        none:
+          allow_switch: false
+        soft:
+          allow_switch: false
 
 services:
     _defaults:

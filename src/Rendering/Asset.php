@@ -27,8 +27,6 @@ class Asset extends RenderDataGenerator
 
     public string $path;
 
-    public ?string $colorScheme = null;
-
     public string $type;
 
     public array $usages = [];

@@ -27,8 +27,6 @@ class AdaptiveResponseService
             $view,
         );
 
-        $renderPass->displayBreakpoints = $controller->getDisplayBreakpoints();
-
         return $renderPass;
     }
 

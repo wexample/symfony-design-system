@@ -291,7 +291,6 @@ export default class AssetsService extends AppService {
       }
 
       let type = asset.type;
-
       if (this.getAssetUsage(usage).assetShouldBeLoaded(asset, renderNode)) {
         if (!asset.active) {
           hasChange = true;

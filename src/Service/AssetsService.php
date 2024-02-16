@@ -12,7 +12,6 @@ use Wexample\SymfonyDesignSystem\Service\Usage\ColorSchemeAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\DefaultAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\MarginsAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
-use function array_merge;
 
 class AssetsService
 {
@@ -53,6 +52,20 @@ class AssetsService
                  ] as $usage) {
             $this->usages[$usage->getName()] = $usage;
         }
+    }
+
+    /**
+     * @return AbstractAssetUsageService[]
+     */
+    public static function getAssetsUsagesStatic(): array
+    {
+        return [
+            AnimationsAssetUsageService::class,
+            ColorSchemeAssetUsageService::class,
+            DefaultAssetUsageService::class,
+            MarginsAssetUsageService::class,
+            ResponsiveAssetUsageService::class,
+        ];
     }
 
     public function assetsDetect(

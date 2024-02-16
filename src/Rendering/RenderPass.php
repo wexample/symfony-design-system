@@ -6,6 +6,7 @@ use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AjaxLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
+use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
 
 class RenderPass
 {
@@ -15,11 +16,9 @@ class RenderPass
 
     protected array $contextRenderNodeStack = [];
 
-    public string $colorScheme;
-
-    public array $colorSchemes = [];
-
     public array $displayBreakpoints = [];
+
+    public array $usagesList = [];
 
     public array $registry = [
         RenderingHelper::CONTEXT_COMPONENT => [],
@@ -103,5 +102,24 @@ class RenderPass
     public function setUseJs(bool $useJs): void
     {
         $this->useJs = $useJs;
+    }
+
+    public function getDisplayBreakpoints(): array
+    {
+        return $this->usagesList[ResponsiveAssetUsageService::getName()]['display_breakpoints'];
+    }
+
+    public function getUsageConfig(
+        string $usage,
+        string $key,
+        string|int|float|array|null $default = null
+    ): string|int|float|array|null {
+        $config = $this->usagesList[$usage];
+
+        if (isset($config[$key])) {
+            return $config[$key];
+        }
+
+        return $default;
     }
 }

@@ -22,7 +22,7 @@ final class ResponsiveAssetUsageService extends AbstractAssetUsageService
         $pathInfo = pathinfo($this->buildBuiltPublicAssetPath($renderNode, $ext));
         $maxWidth = null;
 
-        $breakpoints = array_reverse($renderPass->displayBreakpoints);
+        $breakpoints = array_reverse($renderPass->getDisplayBreakpoints());
         foreach ($breakpoints as $breakpointName => $minWidth) {
             $responsivePath = $pathInfo['dirname']
                 .FileHelper::FOLDER_SEPARATOR
