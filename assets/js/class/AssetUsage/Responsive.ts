@@ -10,8 +10,8 @@ export default class extends AssetUsage {
     renderNode: RenderNode
   ): boolean {
     if (
-      asset.responsive !== null &&
-      asset.responsive !== renderNode.responsiveSizeCurrent
+      asset.usages.responsive &&
+      asset.usages.responsive !== renderNode.responsiveSizeCurrent
     ) {
       return false;
     }
