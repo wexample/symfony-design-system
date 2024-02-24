@@ -1,31 +1,18 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/layouts/demo/layout.html.twig' -%}
 
 {%- block page_body -%}
-    <h2>{{ '@page::color_schemes.title' | trans }}</h2>
-    <div class="block">
-        {{ '@page::color_schemes.body' | trans | raw }}
-    </div>
-    <div class="blocks">
-        {% for scheme, config in render_pass.usagesList.color_scheme.list %}
-            <div class="block blocks-col">
-                <a data-usage-name="color_scheme" data-usage-value="{{ scheme }}" class="demo-button-switch-usage" href="#">{{ scheme }}</a>
-            </div>
-        {% endfor %}
-    </div>
-    <h2>{{ '@page::margins.title' | trans }}</h2>
-    <div class="blocks">
-        {% for margin, config in render_pass.usagesList.margins.list %}
-            <div class="block blocks-col">
-                <a data-usage-name="margins" data-usage-value="{{ margin }}" class="demo-button-switch-usage" href="#">{{ margin }}</a>
-            </div>
-        {% endfor %}
-    </div>
-    <h2>{{ '@page::animations.title' | trans }}</h2>
-    <div class="blocks">
-        {% for animation, config in render_pass.usagesList.animations.list %}
-            <div class="block blocks-col">
-                <a data-usage-name="animations" data-usage-value="{{ animation }}" class="demo-button-switch-usage" href="#">{{ animation }}</a>
-            </div>
-        {% endfor %}
-    </div>
+    {% set usages = ['color_scheme', 'fonts', 'margins', 'animations'] %}
+    {% for usage in usages %}
+        <h2>{{ ('@page::' ~ usage ~ '.title') | trans }}</h2>
+        <div class="block">
+            {{ ('@page::' ~ usage ~ '.body') | trans | raw }}
+        </div>
+        <div class="blocks">
+            {% for key, config in render_pass.usagesList[usage].list %}
+                <div class="block blocks-col">
+                    <a data-usage-name="{{ usage }}" data-usage-value="{{ key }}" class="demo-button-switch-usage" href="#">{{ key }}</a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
 {%- endblock -%}
