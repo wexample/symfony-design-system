@@ -9,6 +9,8 @@ export default abstract class AssetUsage extends AppChild {
 
   public static USAGE_DEFAULT: string = 'default';
 
+  public static USAGE_FONTS: string = 'fonts';
+
   public static USAGE_MARGINS: string = 'margins';
 
   public static USAGE_RESPONSIVE: string = 'responsive';
@@ -20,6 +22,7 @@ export default abstract class AssetUsage extends AppChild {
     AssetUsage.USAGE_COLOR_SCHEME,
     AssetUsage.USAGE_RESPONSIVE,
     AssetUsage.USAGE_ANIMATIONS,
+    AssetUsage.USAGE_FONTS,
   ];
 
   public abstract usageName: string;

@@ -10,6 +10,7 @@ use Wexample\SymfonyDesignSystem\Service\Usage\AbstractAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\AnimationsAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\ColorSchemeAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\DefaultAssetUsageService;
+use Wexample\SymfonyDesignSystem\Service\Usage\FontsAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\MarginsAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
 
@@ -36,7 +37,8 @@ class AssetsService
         ColorSchemeAssetUsageService $colorSchemeAssetUsageService,
         DefaultAssetUsageService $defaultAssetUsageService,
         MarginsAssetUsageService $marginsAssetUsageService,
-        ResponsiveAssetUsageService $responsiveAssetUsageService
+        ResponsiveAssetUsageService $responsiveAssetUsageService,
+        FontsAssetUsageService $fontsAssetUsageService
     ) {
         foreach ([
                      // Order is important, it defines the order the assets
@@ -49,6 +51,7 @@ class AssetsService
                      $responsiveAssetUsageService,
                      $marginsAssetUsageService,
                      $animationsAssetUsageService,
+                     $fontsAssetUsageService,
                  ] as $usage) {
             $this->usages[$usage->getName()] = $usage;
         }
@@ -65,6 +68,7 @@ class AssetsService
             DefaultAssetUsageService::class,
             MarginsAssetUsageService::class,
             ResponsiveAssetUsageService::class,
+            FontsAssetUsageService::class,
         ];
     }
 

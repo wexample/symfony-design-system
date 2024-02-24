@@ -9,6 +9,7 @@ import AssetUsage from '../class/AssetUsage';
 import ColorScheme from '../class/AssetUsage/ColorScheme';
 import DefaultAssetUsage from '../class/AssetUsage/Default';
 import Margins from '../class/AssetUsage/Margins';
+import Fonts from '../class/AssetUsage/Fonts';
 import ResponsiveAssetUsage from '../class/AssetUsage/Responsive';
 import Animations from "../class/AssetUsage/Animations";
 
@@ -35,7 +36,8 @@ export default class AssetsService extends AppService {
       ColorScheme,
       DefaultAssetUsage,
       Margins,
-      ResponsiveAssetUsage
+      ResponsiveAssetUsage,
+      Fonts
     ].forEach(
       (definition: any) => {
         let usage = new definition(this.app);
