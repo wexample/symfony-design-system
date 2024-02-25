@@ -6,6 +6,7 @@ import ColorSchemeService from '../services/ColorSchemeService';
 import LayoutsService from '../services/LayoutsService';
 import MixinsService from '../services/MixinsService';
 import PagesService from '../services/PagesService';
+import { RenderNodeResponsiveType } from '../services/ResponsiveService';
 
 import { unique as arrayUnique } from '../helpers/ArrayHelper';
 import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
@@ -17,7 +18,7 @@ import ServicesRegistryInterface from '../interfaces/ServicesRegistryInterface';
 export default class extends AsyncConstructor {
   public bundles: any;
   public hasCoreLoaded: boolean = false;
-  public layout: LayoutInitial = null;
+  public layout: LayoutInitial & RenderNodeResponsiveType = null;
   public services: ServicesRegistryInterface = {};
 
   constructor(
@@ -45,7 +46,7 @@ export default class extends AsyncConstructor {
       this.layout = (await this.services.layouts.createRenderNode(
         registry.layoutRenderData.name,
         registry.layoutRenderData
-      )) as LayoutInitial;
+      )) as (LayoutInitial & RenderNodeResponsiveType);
 
       // The main functionalities are ready,
       // but first data has not been loaded.

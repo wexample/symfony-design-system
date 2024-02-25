@@ -6,10 +6,17 @@ import RenderNode from '../class/RenderNode';
 import AssetUsage from '../class/AssetUsage';
 import Page from "../class/Page";
 import { callPrototypeMethodIfExists } from "../helpers/Objects";
+import PageResponsiveDisplay from "../class/PageResponsiveDisplay";
 
 export class ResponsiveServiceEvents {
   public static RESPONSIVE_CHANGE_SIZE: string = 'responsive-change-size';
 }
+
+export type RenderNodeResponsiveType = {
+  responsiveSizeCurrent?: string;
+  responsiveSizePrevious?: string;
+  responsiveDisplays: PageResponsiveDisplay[];
+};
 
 export default class ResponsiveService extends AppService {
   public static dependencies: typeof AppService[] = [AssetsService, EventsService];
