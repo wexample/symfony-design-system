@@ -13,6 +13,10 @@ import Fonts from '../class/AssetUsage/Fonts';
 import ResponsiveAssetUsage from '../class/AssetUsage/Responsive';
 import Animations from "../class/AssetUsage/Animations";
 
+type RenderNodeAssetsType = {
+  assetsUpdate?: Function;
+};
+
 export class AssetsServiceType {
   public static CSS: string = 'css';
 
