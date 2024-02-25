@@ -7,11 +7,11 @@ export class EventsServiceEvents {
 export default class EventsService extends AppService {
   public static serviceName: string = 'events';
 
-  forget(name: string, callback, el = window.document) {
+  forget(name: string, callback, el: EventTarget = window.document) {
     this.applyEvents('remove', name, callback, el);
   }
 
-  listen(name: string, callback, el = window.document) {
+  listen(name: string, callback, el: EventTarget = window.document) {
     this.applyEvents('add', name, callback, el);
   }
 
@@ -23,7 +23,7 @@ export default class EventsService extends AppService {
    * @param callback
    * @param el
    */
-  applyEvents(callbackName: string, eventName, callback, el = window.document) {
+  applyEvents(callbackName: string, eventName, callback, el: EventTarget = window.document) {
     callbackName += 'EventListener';
 
     if (Array.isArray(eventName)) {
@@ -33,7 +33,7 @@ export default class EventsService extends AppService {
     }
   }
 
-  trigger(name: string, data: any = {}, el = window.document) {
+  trigger(name: string, data: any = {}, el: EventTarget = window.document) {
     el.dispatchEvent(
       new CustomEvent(name, {
         detail: data,
