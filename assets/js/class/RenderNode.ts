@@ -3,6 +3,11 @@ import AppChild from './AppChild';
 import App from './App';
 import Component from './Component';
 
+export class RenderNodeServiceEvents {
+  public static USAGE_UPDATED: string = 'usage-changed';
+}
+
+
 export default abstract class RenderNode extends AppChild {
   public childRenderNodes: { [key: string]: RenderNode } = {};
   public components: Component[] = [];
@@ -16,13 +21,6 @@ export default abstract class RenderNode extends AppChild {
   public renderData: RenderDataInterface;
   public translations: {} = {};
   public vars: any = {};
-  // Mixed functions from services.
-  public assetsUpdate?: Function;
-  public activeColorScheme?: string;
-  public colorSchemeSet?: Function;
-  public colorSchemeUpdate?: Function;
-  public responsiveSizeCurrent?: string;
-  public usages: {} = {};
 
   constructor(app: App, parentRenderNode?: RenderNode) {
     super(app);
