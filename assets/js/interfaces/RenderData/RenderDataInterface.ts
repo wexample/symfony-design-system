@@ -10,5 +10,6 @@ export default interface RenderDataInterface {
   name: string;
   requestOptions?: RequestOptionsInterface;
   translations: {};
-  vars: any;
+  vars: {};
+  usages: {};
 }

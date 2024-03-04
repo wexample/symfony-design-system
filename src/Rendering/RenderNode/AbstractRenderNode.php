@@ -25,6 +25,8 @@ abstract class AbstractRenderNode extends RenderDataGenerator
 
     public string $name;
 
+    public array $usages;
+
     abstract public function getContextType(): string;
 
     public function init(
@@ -35,6 +37,7 @@ abstract class AbstractRenderNode extends RenderDataGenerator
         $this->id = $this->getContextType().'-'
             .str_replace('/', '-', $this->name)
             .'-'.uniqid();
+        $this->usages = $renderPass->usages;
 
         $this->cssClassName = DomHelper::buildCssClassName($this->id);
 
@@ -68,6 +71,7 @@ abstract class AbstractRenderNode extends RenderDataGenerator
             'id' => $this->id,
             'name' => $this->name,
             'vars' => $this->vars,
+            'usages' => $this->usages,
         ];
     }
 }

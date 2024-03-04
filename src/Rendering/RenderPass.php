@@ -20,6 +20,11 @@ class RenderPass
 
     public array $usagesList = [];
 
+    /**
+     * @var array<string|null>
+     */
+    public array $usages = [];
+
     public array $registry = [
         RenderingHelper::CONTEXT_COMPONENT => [],
         RenderingHelper::CONTEXT_PAGE => [],
@@ -121,5 +126,17 @@ class RenderPass
         }
 
         return $default;
+    }
+
+    public function setUsage(
+        string $usageName,
+        ?string $usageValue
+    ): void {
+        // Not found
+        if (!isset($this->usagesList[$usageName])) {
+            return;
+        }
+
+        $this->usages[$usageName] = $usageValue;
     }
 }

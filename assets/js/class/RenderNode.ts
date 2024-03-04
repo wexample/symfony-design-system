@@ -20,6 +20,7 @@ export default abstract class RenderNode extends AppChild {
   public parentRenderNode: RenderNode;
   public renderData: RenderDataInterface;
   public translations: {} = {};
+  public usages: {} = {};
   public vars: any = {};
 
   constructor(app: App, parentRenderNode?: RenderNode) {
@@ -52,6 +53,7 @@ export default abstract class RenderNode extends AppChild {
     };
 
     this.vars = {...this.vars, ...renderData.vars};
+    this.usages = {...this.usages, ...renderData.usages};
   }
 
   appendChildRenderNode(renderNode: RenderNode) {
@@ -146,5 +148,32 @@ export default abstract class RenderNode extends AppChild {
 
   public async renderNodeReady(): Promise<void> {
     await this.readyComplete();
+  }
+
+  async setUsage(
+    usageName: string,
+    usageValue: string,
+    updateAssets: boolean
+  ) {
+    let classList = document.body.classList;
+    let usageKebab = toKebab(usageName)
+
+    this.usages[usageName] = usageValue;
+
+    classList.forEach((className: string) => {
+      if (className.startsWith(`usage-${usageKebab}-`)) {
+        classList.remove(className);
+      }
+    });
+
+    classList.add(`usage-${usageKebab}-${usageValue}`);
+
+    await this.forEachTreeChildRenderNode(async (renderNode: RenderNode) => {
+      await renderNode.setUsage(
+        usageName,
+        usageValue,
+        updateAssets,
+      );
+    });
   }
 }

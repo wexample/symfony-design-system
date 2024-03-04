@@ -51,7 +51,13 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
             $usageName = $usageStatic::getName();
             $key = 'design_system.usages.'.$usageName;
 
-            $renderPass->usagesList[$usageName] = $parameterBag->has($key) ? $this->getParameter($key) : true;
+            $config = $parameterBag->has($key) ? $this->getParameter($key) : ['list' => []];
+            $renderPass->usagesList[$usageName] = $config;
+
+            $renderPass->setUsage(
+                $usageName,
+                $config['default'] ?? null
+            );
         }
 
         return $this->configureRenderPAss($renderPass);

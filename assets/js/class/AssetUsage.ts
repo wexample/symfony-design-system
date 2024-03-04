@@ -31,8 +31,8 @@ export default abstract class AssetUsage extends AppChild {
     asset: AssetsInterface,
     renderNode?: RenderNode
   ): boolean {
-    return asset.usage === this.usageName
-      && renderNode
-      && asset.usages[this.usageName] == renderNode.usages[this.usageName];
+    if (asset.usage === this.usageName) {
+      return !(renderNode && asset.usages[this.usageName] != renderNode.usages[this.usageName]);
+    }
   }
 }
