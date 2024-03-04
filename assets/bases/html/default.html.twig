@@ -2,6 +2,11 @@
 
 {%- import '@WexampleSymfonyDesignSystemBundle/macros/assets.html.twig' as macro_assets -%}
 
+{%- block layout_config -%}
+    {{ parent() }}
+    {{ trans_js(render_pass, 'system::*') }}
+{% endblock %}
+
 {%- block layout_base -%}
     {{- parent() -}}
     <!DOCTYPE html>
