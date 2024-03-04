@@ -2,10 +2,6 @@
 @import '../../css/shapes/icon';
 @import '../../css/shapes/icon_material';
 
-body {
-  padding: 0;
-}
-
 .page-overlay,
 .page-overlay-full {
   @include full-parent-size;

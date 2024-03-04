@@ -44,7 +44,7 @@ export default abstract class RenderNode extends AppChild {
   }
 
   public async init() {
-    this.app.mix(this, 'renderNode');
+    this.app.services.mixins.applyMethods(this, 'renderNode');
 
     this.app.services.events.trigger(ComponentsServiceEvents.CREATE_RENDER_NODE, {
       component: this,
@@ -115,7 +115,8 @@ export default abstract class RenderNode extends AppChild {
     return Object.values(this.childRenderNodes);
   }
 
-  abstract attachHtmlElements();
+  attachHtmlElements() {
+  }
 
   async mount() {
     if (this.isMounted) {

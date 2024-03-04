@@ -7,11 +7,11 @@ export class EventsServiceEvents {
 export default class EventsService extends AppService {
   public static serviceName: string = 'events';
 
-  forget(name, callback, el = window.document) {
+  forget(name: string, callback, el = window.document) {
     this.applyEvents('remove', name, callback, el);
   }
 
-  listen(name, callback, el = window.document) {
+  listen(name: string, callback, el = window.document) {
     this.applyEvents('add', name, callback, el);
   }
 
@@ -33,7 +33,7 @@ export default class EventsService extends AppService {
     }
   }
 
-  trigger(name, data: any = {}, el = window.document) {
+  trigger(name: string, data: any = {}, el = window.document) {
     el.dispatchEvent(
       new CustomEvent(name, {
         detail: data,
