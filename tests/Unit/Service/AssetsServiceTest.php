@@ -46,7 +46,7 @@ class AssetsServiceTest extends AbstractSymfonyTestCase
             DefaultAssetUsageService::getName()
         );
 
-        $this->assertTrue($service->assetIsReadyForRender(
+        $this->assertTrue($service->assetNeedsInitialRender(
             $asset,
             $renderPass,
         ));
@@ -63,7 +63,7 @@ class AssetsServiceTest extends AbstractSymfonyTestCase
             ResponsiveAssetUsageService::getName()
         );
 
-        $this->assertFalse($service->assetIsReadyForRender(
+        $this->assertFalse($service->assetNeedsInitialRender(
             $asset,
             $renderPass,
         ));
@@ -71,7 +71,7 @@ class AssetsServiceTest extends AbstractSymfonyTestCase
         // When JS is disabled, responsive will render css assets
         // with media query attributes as a fallback mechanism.
         $renderPass->setUseJs(false);
-        $this->assertTrue($service->assetIsReadyForRender(
+        $this->assertTrue($service->assetNeedsInitialRender(
             $asset,
             $renderPass,
         ));

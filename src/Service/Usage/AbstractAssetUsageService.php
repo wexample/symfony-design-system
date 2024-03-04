@@ -88,7 +88,7 @@ abstract class AbstractAssetUsageService
         return !empty($this->assets);
     }
 
-    public function isAssetReadyForServerSideRendering(
+    public function assetNeedsInitialRender(
         Asset $asset,
         RenderPass $renderPass,
     ): bool {

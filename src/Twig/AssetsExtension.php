@@ -26,10 +26,10 @@ class AssetsExtension extends AbstractExtension
                 ]
             ),
             new TwigFunction(
-                'assets_is_ready_for_render',
+                'assets_needs_initial_render',
                 [
                     $this,
-                    'assetsIsReadyForRender',
+                    'assetsNeedsInitialRender',
                 ]
             ),
             new TwigFunction(
@@ -58,13 +58,13 @@ class AssetsExtension extends AbstractExtension
             );
     }
 
-    public function assetsIsReadyForRender(
+    public function assetsNeedsInitialRender(
         RenderPass $renderPass,
         Asset $asset
     ): bool {
         return $this
             ->assetsService
-            ->assetIsReadyForRender(
+            ->assetNeedsInitialRender(
                 $asset,
                 $renderPass,
             );

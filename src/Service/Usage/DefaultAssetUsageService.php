@@ -24,7 +24,7 @@ final class DefaultAssetUsageService extends AbstractAssetUsageService
         );
     }
 
-    public function isAssetReadyForServerSideRendering(
+    public function assetNeedsInitialRender(
         Asset $asset,
         RenderPass $renderPass,
     ): bool {

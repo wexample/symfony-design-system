@@ -131,11 +131,11 @@ class AssetsService
         return $assets;
     }
 
-    public function assetIsReadyForRender(
+    public function assetNeedsInitialRender(
         Asset $asset,
         RenderPass $renderPass,
     ): bool {
-        return $this->usages[$asset->getUsage()]->isAssetReadyForServerSideRendering(
+        return $this->usages[$asset->getUsage()]->assetNeedsInitialRender(
             $asset,
             $renderPass
         );
