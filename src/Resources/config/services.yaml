@@ -1,5 +1,6 @@
 parameters:
     design_system.debug: false
+    design_system.enable_aggregation: true
 
     # Responsive display breakpoints
     design_system.usages.responsive:

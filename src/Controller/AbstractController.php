@@ -60,6 +60,11 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
             );
         }
 
+        $renderPass->enableAggregation = $this->getParameterOrDefault(
+            'design_system.enable_aggregation',
+            false
+        );
+
         return $this->configureRenderPass($renderPass);
     }
 

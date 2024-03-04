@@ -20,6 +20,8 @@ class RenderPass
 
     public array $usagesList = [];
 
+    public ?bool $enableAggregation = null;
+
     /**
      * @var array<string|null>
      */

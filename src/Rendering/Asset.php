@@ -73,6 +73,12 @@ class Asset extends RenderDataGenerator
         return $this->usage;
     }
 
+    public function isServerSideRendered(): bool
+    {
+        return $this->active
+            && $this->initialLayout;
+    }
+
     public function toRenderData(): array
     {
         return $this->serializeVariables([
