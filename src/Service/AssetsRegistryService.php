@@ -85,4 +85,18 @@ class AssetsRegistryService
         $this->registry[$asset->type] = $this->registry[$asset->type] ?? [];
         $this->registry[$asset->type][] = $asset;
     }
+
+    public function getServerSideRenderedAssets(
+        string $type
+    ): array {
+        $output = [];
+
+        foreach ($this->registry[$type] as $asset) {
+            if ($asset->isServerSideRendered()) {
+                $output[] = $asset;
+            }
+        }
+
+        return $output;
+    }
 }

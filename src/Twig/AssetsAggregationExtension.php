@@ -35,7 +35,6 @@ class AssetsAggregationExtension extends AbstractExtension
         return $this
             ->assetsAggregationService
             ->aggregateInitialAssets(
-                $renderPass,
                 $pageName,
                 $type
             );

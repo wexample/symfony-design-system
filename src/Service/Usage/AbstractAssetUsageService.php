@@ -111,7 +111,7 @@ abstract class AbstractAssetUsageService
         // There is more than one same usage in frontend.
         return $this->hasExtraSwitchableUsage($renderPass)
             // This is the base usage (i.e. default).
-            || $asset->usages[$usage] == $renderPass->getUsageConfig($usage, 'default');
+            || $asset->usages[$usage] == $renderPass->getUsage($usage);
     }
 
     protected function hasExtraSwitchableUsage(RenderPass $renderPass): bool
@@ -121,29 +121,11 @@ abstract class AbstractAssetUsageService
         foreach ($renderPass->usagesList[$usage] as $scheme => $config) {
             // There is at least one other switchable usage different from default one.
             if (($config['allow_switch'] ?? false)
-                && $scheme !== $renderPass->getUsageConfig($usage, 'default')) {
+                && $scheme !== $renderPass->getUsage($usage)) {
                 return true;
             }
         }
 
         return false;
-    }
-
-    public function getServerSideRenderedAssets(
-        RenderPass $renderPass,
-        string $type
-    ): array {
-        if ($this->hasExtraSwitchableUsage($renderPass)) {
-            return [];
-        }
-
-        $output = [];
-        foreach ($this->assets[$type] as $asset) {
-            if ($asset->isServerSideRendered()) {
-                $output[] = $asset;
-            }
-        }
-
-        return $output;
     }
 }

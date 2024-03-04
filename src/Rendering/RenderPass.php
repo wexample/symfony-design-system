@@ -116,18 +116,10 @@ class RenderPass
         return $this->usagesList[ResponsiveAssetUsageService::getName()]['display_breakpoints'];
     }
 
-    public function getUsageConfig(
-        string $usage,
-        string $key,
-        string|int|float|array|null $default = null
-    ): string|int|float|array|null {
-        $config = $this->usagesList[$usage];
-
-        if (isset($config[$key])) {
-            return $config[$key];
-        }
-
-        return $default;
+    public function getUsage(
+        string $usageName,
+    ): ?string {
+        return $this->usages[$usageName];
     }
 
     public function setUsage(

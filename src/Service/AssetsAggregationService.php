@@ -4,7 +4,6 @@ namespace Wexample\SymfonyDesignSystem\Service;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
-use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 
 class AssetsAggregationService
@@ -17,21 +16,17 @@ class AssetsAggregationService
 
     private string $pathProject;
 
-    private string $pathBuild;
-
     private string $pathPublic;
 
     public function __construct(
         KernelInterface $kernel,
-        readonly private AssetsService $assetsService
+        readonly private AssetsRegistryService $assetsRegistryService
     ) {
         $this->pathProject = $kernel->getProjectDir().'/';
         $this->pathPublic = $this->pathProject.self::DIR_PUBLIC;
-        $this->pathBuild = $this->pathPublic.self::DIR_BUILD;
     }
 
     public function getServerSideRenderedAssets(
-        RenderPass $renderPass,
         string $type,
         bool $serverPath
     ): array {
@@ -43,13 +38,14 @@ class AssetsAggregationService
             );
         }
 
-        $aggregatePaths = [];
+        $assets = $this
+            ->assetsRegistryService
+            ->getServerSideRenderedAssets(
+                $type
+            );
 
-        foreach ($this->assetsService->getAssetsUsages() as $usage) {
-            $assets = $usage->getServerSideRenderedAssets($renderPass, $type);
-            foreach ($assets as $asset) {
-                $aggregatePaths[] = $basePath.$asset->path;
-            }
+        foreach ($assets as $asset) {
+            $aggregatePaths[] = $basePath.$asset->path;
         }
 
         // Per type specific assets.
@@ -65,7 +61,6 @@ class AssetsAggregationService
     }
 
     public function aggregateInitialAssets(
-        RenderPass $renderPass,
         string $pageName,
         string $type
     ): string {
@@ -73,7 +68,6 @@ class AssetsAggregationService
         $output = '';
 
         $aggregatePaths = $this->getServerSideRenderedAssets(
-            $renderPass,
             $type,
             true
         );
