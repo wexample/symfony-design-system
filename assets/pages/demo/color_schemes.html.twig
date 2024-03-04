@@ -10,7 +10,7 @@
         <div class="blocks">
             {% for key, config in render_pass.usagesList[usage].list %}
                 <div class="block blocks-col">
-                    <a data-usage-name="{{ usage }}" data-usage-value="{{ key }}" class="demo-button-switch-usage" href="#">{{ key }}</a>
+                    <button data-usage-name="{{ usage }}" data-usage-value="{{ key }}" class="demo-button-switch-usage">{{ key }}</button>
                 </div>
             {% endfor %}
         </div>
