@@ -21,6 +21,8 @@ abstract class AbstractRenderNode extends RenderDataGenerator
 
     public bool $hasAssets = true;
 
+    public array $translations = [];
+
     public array $vars = [];
 
     public string $name;
@@ -70,6 +72,7 @@ abstract class AbstractRenderNode extends RenderDataGenerator
             'cssClassName' => $this->cssClassName,
             'id' => $this->id,
             'name' => $this->name,
+            'translations' => $this->translations,
             'vars' => $this->vars,
             'usages' => $this->usages,
         ];

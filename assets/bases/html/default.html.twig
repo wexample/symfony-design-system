@@ -66,6 +66,7 @@
             {%- block layout_composer_html -%}
                 {%- block page -%}
                     {{ adaptive_response_set_page_context(render_pass) }}
+                    {%- block page_config -%}{%- endblock -%}
                             {{- block('page_body') -}}
                     {{ adaptive_response_revert_context(render_pass) }}
                 {%- endblock -%}
