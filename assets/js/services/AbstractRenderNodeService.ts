@@ -43,10 +43,22 @@ export default abstract class AbstractRenderNodeService extends AppService {
       true
     );
 
-    let instance = this.createRenderNodeInstance(
-      classDefinition,
-      parentRenderNode
-    );
+    let instance;
+    try {
+      instance = this.createRenderNodeInstance(
+        classDefinition,
+        parentRenderNode
+      );
+    } catch {
+      this.app.services.prompt.systemError(
+        'system::error.render_node_type_missing',
+        {
+          ":type": definitionName
+        }
+      );
+      return;
+    }
+
 
     instance.loadFirstRenderData(renderData);
 

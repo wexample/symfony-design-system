@@ -25,25 +25,6 @@ export default class ComponentsService extends AbstractRenderNodeService {
     }
   }
 
-  createRenderNodeInstance(
-    classDefinition: any,
-    parentRenderNode: RenderNode
-  ): RenderNode | null {
-    // Prevent multiple alerts for the same component.
-    if (!classDefinition) {
-      this.app.services.prompt.systemError(
-        'page_message.error.com_missing',
-        {},
-        classDefinition
-      );
-    } else {
-      return super.createRenderNodeInstance(
-        classDefinition,
-        parentRenderNode
-      ) as Component;
-    }
-  }
-
   async createRenderDataComponents(
     parentRenderNode: RenderNode,
     renderData: RenderDataInterface | null = null,

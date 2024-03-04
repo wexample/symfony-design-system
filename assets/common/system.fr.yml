@@ -2,4 +2,4 @@ name: Symfony Design System
 
 error:
   api_response: 'Unable to parse API response, got : :body'
-  com_missing: 'Le composant de type :type est introuvable'
+  render_node_type_missing: 'Le composant de type :type est introuvable'
