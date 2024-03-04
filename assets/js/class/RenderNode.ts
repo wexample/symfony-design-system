@@ -2,6 +2,7 @@ import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
 import AppChild from './AppChild';
 import App from './App';
 import Component from './Component';
+import { toKebab } from "../helpers/StringHelper";
 
 export class RenderNodeServiceEvents {
   public static USAGE_UPDATED: string = 'usage-changed';

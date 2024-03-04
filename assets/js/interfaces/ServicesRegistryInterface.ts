@@ -1,5 +1,6 @@
 import AssetsService from '../services/AssetsService';
 import AdaptiveService from '../services/AdaptiveService';
+import EventsService from '../services/EventsService';
 import LayoutsService from '../services/LayoutsService';
 import MixinsService from '../services/MixinsService';
 import PagesService from '../services/PagesService';
@@ -13,6 +14,7 @@ export default interface ServicesRegistryInterface {
   assets?: AssetsService;
   components?: ComponentsService;
   debug?: DebugService;
+  events?: EventsService;
   layouts?: LayoutsService;
   locale?: LocaleService;
   mixins?: MixinsService;

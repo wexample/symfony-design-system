@@ -51,7 +51,7 @@ export default class AssetsService extends AppService {
     );
   }
 
-  registerMethods() {
+  registerMethods(object: any) {
     return {
       renderNode: {
         async assetsUpdate(usage: string) {
@@ -60,7 +60,23 @@ export default class AssetsService extends AppService {
             usage
           );
         },
-      },
+
+        async setUsage(
+          usageName: string,
+          usageValue: string,
+          updateAssets: boolean
+        ) {
+          RenderNode.prototype.setUsage.apply(
+            this,
+            [
+              usageName,
+              usageValue,
+              updateAssets,
+            ]);
+
+          this.assetsUpdate(usageName);
+        },
+      } as RenderNodeAssetsType,
     };
   }
 
@@ -113,10 +129,13 @@ export default class AssetsService extends AppService {
             return MixinsAppService.LOAD_STATUS_WAIT;
           }
 
-          await this.app.services.assets.loadValidAssetsForRenderNode(
-            renderNode,
-            AssetUsage.USAGE_RESPONSIVE
-          );
+          for (let usage in this.usages) {
+            await renderNode.setUsage(
+              usage,
+              renderNode.usages[usage],
+              true
+            );
+          }
         },
       },
     };
