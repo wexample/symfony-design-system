@@ -46,6 +46,15 @@ parameters:
         soft:
           allow_switch: false
 
+    # Fonts
+    design_system.usages.fonts:
+      default: none
+      list:
+        none:
+          allow_switch: false
+        demo:
+          allow_switch: false
+
 services:
     _defaults:
         autowire: true

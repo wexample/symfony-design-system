@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyDesignSystem\Service\Usage\FontsAssetUsageService;
 use Wexample\SymfonyDesignSystem\Traits\SymfonyDesignSystemBundleClassTrait;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
@@ -50,6 +51,11 @@ final class DemoController extends AbstractPagesController
         RenderPass $renderPass
     ): RenderPass {
         $renderPass->setUseJs($this->useJs);
+
+        $renderPass->setUsage(
+            FontsAssetUsageService::getName(),
+            'demo'
+        );
 
         return $renderPass;
     }

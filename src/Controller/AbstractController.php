@@ -60,7 +60,7 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
             );
         }
 
-        return $this->configureRenderPAss($renderPass);
+        return $this->configureRenderPass($renderPass);
     }
 
     protected function configureRenderPass(
