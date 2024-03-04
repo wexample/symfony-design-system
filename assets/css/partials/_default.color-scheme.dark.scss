@@ -1,11 +1,11 @@
 @import '../mixins/global.color-scheme.dark';
 
-.color-scheme-dark {
+.usage-color-scheme-dark {
   background: $color-default-background;
 }
 
-.color-scheme-dark,
-.color-scheme-default .color-scheme-dark {
+.usage-color-scheme-dark,
+.usage-color-scheme-default .usage-color-scheme-dark {
   color: $color-default-text;
 
   a {
