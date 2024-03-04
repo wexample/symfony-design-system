@@ -1,7 +1,7 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/layouts/demo/layout.html.twig' -%}
 
 {%- block page_body -%}
-    {% set usages = ['color_scheme', 'fonts', 'margins', 'animations'] %}
+    {% set usages = ['animations', 'margins', 'color_scheme', 'fonts'] %}
     {% for usage in usages %}
         <h2>{{ ('@page::' ~ usage ~ '.title') | trans }}</h2>
         <div class="block">
