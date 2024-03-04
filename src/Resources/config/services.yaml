@@ -1,5 +1,7 @@
 parameters:
     design_system.debug: false
+    # TODO font n'est pas aggrégé
+    # TODO default devrait être supprimé lorsque l'on switch, donc non aggrégé s'il y a plusieurs possibilité.
     design_system.enable_aggregation: true
 
     # Responsive display breakpoints

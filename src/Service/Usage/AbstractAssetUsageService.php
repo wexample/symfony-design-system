@@ -7,12 +7,16 @@ use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
+use Wexample\SymfonyDesignSystem\Service\AssetsService;
 use Wexample\SymfonyHelpers\Helper\PathHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
 
 abstract class AbstractAssetUsageService
 {
-    protected array $assets = [];
+    /**
+     * @var array|array[]|\Wexample\SymfonyDesignSystem\Rendering\Asset[][]
+     */
+    protected array $assets = AssetsService::ASSETS_DEFAULT_EMPTY;
 
     public function __construct(
         protected AssetsRegistryService $assetsRegistryService
@@ -74,7 +78,7 @@ abstract class AbstractAssetUsageService
         );
 
         $renderNode->assets[$asset->type][] = $asset;
-        $this->assets[] = $asset;
+        $this->assets[$asset->type][] = $asset;
 
         $this->assetsRegistryService->addAsset(
             $asset,
@@ -83,9 +87,19 @@ abstract class AbstractAssetUsageService
         return $asset;
     }
 
-    public function hasAsset(): bool
+    public function hasAsset(?string $type = null): bool
     {
-        return !empty($this->assets);
+        if ($type) {
+            return !empty($this->assets[$type]);
+        }
+
+        foreach ($this->assets as $type => $assets) {
+            if ($this->hasAsset($type)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function assetNeedsInitialRender(
@@ -113,5 +127,23 @@ abstract class AbstractAssetUsageService
         }
 
         return false;
+    }
+
+    public function getServerSideRenderedAssets(
+        RenderPass $renderPass,
+        string $type
+    ): array {
+        if ($this->hasExtraSwitchableUsage($renderPass)) {
+            return [];
+        }
+
+        $output = [];
+        foreach ($this->assets[$type] as $asset) {
+            if ($asset->isServerSideRendered()) {
+                $output[] = $asset;
+            }
+        }
+
+        return $output;
     }
 }
