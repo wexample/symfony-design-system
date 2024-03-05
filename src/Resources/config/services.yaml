@@ -2,26 +2,37 @@ parameters:
     design_system.debug: false
     design_system.enable_aggregation: true
 
-    # Responsive display breakpoints
     design_system.usages.responsive:
-      display_breakpoints:
-        xs: 0
-        s: 576
-        m: 768
-        l: 992
-        xl: 1200
-        xxl: 1400
+      list:
+        xs:
+          allow_switch: true
+          breakpoint: 0
+        s:
+          allow_switch: true
+          breakpoint: 576
+        m:
+          allow_switch: true
+          breakpoint: 768
+        l:
+          allow_switch: true
+          breakpoint: 992
+        xl:
+          allow_switch: true
+          breakpoint: 1200
+        xxl:
+          allow_switch: true
+          breakpoint: 1400
 
     # Color schemes
     design_system.usages.color_scheme:
       default: default
       list:
         dark:
-          allow_switch: true
+          allow_switch: false
         default:
-          allow_switch: true
+          allow_switch: false
         light:
-          allow_switch: true
+          allow_switch: false
 
     # Margins
     design_system.usages.margins:

@@ -9,7 +9,7 @@
     <h2>{{ '@page::breakpoints.title' | trans }}</h2>
     <div class="blocks blocks-no-stretch blocks-side-column-left">
         <div class="blocks-col">
-            {% for name,sizeMin in displayBreakpoints %}
+            {% for name, sizeMin in display_breakpoints %}
                 <div class="inline-infos display-breakpoint display-breakpoint-{{ name }}">
                     <div class="pill size-name">{{ name }}</div>
                     <div class="size-min">{{ sizeMin }}px</div>

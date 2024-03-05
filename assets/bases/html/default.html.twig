@@ -3,6 +3,7 @@
 {%- block layout_config -%}
     {{ parent() }}
     {{ trans_js(render_pass, 'system::*') }}
+    {{ var_js(render_pass, 'displayBreakpoints', display_breakpoints) }}
 {% endblock %}
 
 {%- block layout_base -%}

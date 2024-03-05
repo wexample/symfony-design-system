@@ -16,9 +16,5 @@ class InitialLayoutRenderNode extends AbstractLayoutRenderNode
         );
 
         $this->page->isInitialPage = true;
-
-        $this->vars += [
-            'displayBreakpoints' => $renderPass->getDisplayBreakpoints(),
-        ];
     }
 }
