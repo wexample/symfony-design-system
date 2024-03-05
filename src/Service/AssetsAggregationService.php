@@ -45,6 +45,10 @@ class AssetsAggregationService
                         $templateName . '-' . $counter
                     );
 
+                    $aggregationTag->setMedia(
+                        $tag->getMedia()
+                    );
+
                     $aggregationTag->setPath(
                         $this->buildAggregatedPathFromPageName(
                             $templateName,

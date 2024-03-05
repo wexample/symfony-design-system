@@ -7,7 +7,7 @@ class AssetTag
     private ?Asset $asset = null;
     private bool $canAggregate = false;
     private string $id;
-    private string $media;
+    private ?string $media = null;
     private string $path;
 
     public function __construct(?Asset $asset = null)
@@ -35,12 +35,12 @@ class AssetTag
         $this->id = $id;
     }
 
-    public function getMedia(): string
+    public function getMedia(): ?string
     {
         return $this->media;
     }
 
-    public function setMedia(string $media): void
+    public function setMedia(?string $media): void
     {
         $this->media = $media;
     }
