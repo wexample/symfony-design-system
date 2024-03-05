@@ -96,8 +96,8 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
             'rendered' => $rendered,
         ];
 
-        $this->adaptiveResponseService->triggerRenderEvent(
-            AdaptiveResponseService::EVENT_NAME_POST_RENDER,
+        $this->renderEventListenerService->triggerRenderEvent(
+            RenderEventListenerService::EVENT_NAME_POST_RENDER,
             $options
         );
 
