@@ -44,8 +44,8 @@ abstract class AbstractAssetUsageService
         $usage = $this->getName();
         $usageKebab = TextHelper::toKebab($usage);
 
-        if (isset($renderPass->usagesList[$usage]['list'])) {
-            foreach ($renderPass->usagesList[$usage]['list'] as $usageValue => $config) {
+        if (isset($renderPass->usagesConfig[$usage]['list'])) {
+            foreach ($renderPass->usagesConfig[$usage]['list'] as $usageValue => $config) {
                 $assetPath = $pathInfo['dirname'].'/'.$pathInfo['filename'].'.'.$usageKebab.'.'.$usageValue.'.'.$pathInfo['extension'];
 
                 if ($asset = $this->createAssetIfExists(
@@ -117,7 +117,7 @@ abstract class AbstractAssetUsageService
     protected function hasExtraSwitchableUsage(RenderPass $renderPass): bool
     {
         $usage = static::getName();
-        foreach (($renderPass->usagesList[$usage]['list'] ?? []) as $scheme => $config) {
+        foreach (($renderPass->usagesConfig[$usage]['list'] ?? []) as $scheme => $config) {
             // There is at least one other switchable usage different from default one.
             if (($config['allow_switch'] ?? false)
                 && $scheme !== $renderPass->getUsage($usage)) {

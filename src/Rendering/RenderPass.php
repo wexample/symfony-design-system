@@ -16,7 +16,7 @@ class RenderPass
 
     protected array $contextRenderNodeStack = [];
 
-    public array $usagesList = [];
+    public array $usagesConfig = [];
 
     public ?bool $enableAggregation = null;
 
@@ -111,7 +111,7 @@ class RenderPass
 
     public function getDisplayBreakpoints(): array
     {
-        $usagesTypes = $this->usagesList[ResponsiveAssetUsageService::getName()]['list'];
+        $usagesTypes = $this->usagesConfig[ResponsiveAssetUsageService::getName()]['list'];
         $breakpoints = [];
 
         foreach ($usagesTypes as $name => $config) {
@@ -132,7 +132,7 @@ class RenderPass
         ?string $usageValue
     ): void {
         // Not found
-        if (!isset($this->usagesList[$usageName])) {
+        if (!isset($this->usagesConfig[$usageName])) {
             return;
         }
 

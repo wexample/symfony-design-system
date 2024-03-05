@@ -154,8 +154,13 @@ export default abstract class RenderNode extends AppChild {
   async setUsage(
     usageName: string,
     usageValue: string,
-    updateAssets: boolean
+    initial: boolean = false
   ) {
+    if (!initial && this.app.layout.vars['usagesConfig'][usageName]['list'][usageValue]['allow_switch'] == false) {
+      this.app.services.prompt.systemError('@WexampleSymfonyDesignSystemBundle.common.system::error.usage_switch_not_allowed');
+      return;
+    }
+
     let classList = document.body.classList;
     let usageKebab = toKebab(usageName)
 
@@ -168,13 +173,5 @@ export default abstract class RenderNode extends AppChild {
     });
 
     classList.add(`usage-${usageKebab}-${usageValue}`);
-
-    await this.forEachTreeChildRenderNode(async (renderNode: RenderNode) => {
-      await renderNode.setUsage(
-        usageName,
-        usageValue,
-        updateAssets,
-      );
-    });
   }
 }

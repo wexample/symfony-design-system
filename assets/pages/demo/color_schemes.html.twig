@@ -8,7 +8,7 @@
             {{ ('@page::' ~ usage ~ '.body') | trans | raw }}
         </div>
         <div class="blocks">
-            {% for key, config in render_pass.usagesList[usage].list %}
+            {% for key, config in render_pass.usagesConfig[usage].list %}
                 <div class="block blocks-col">
                     <button data-usage-name="{{ usage }}" data-usage-value="{{ key }}" class="demo-button-switch-usage">{{ key }}</button>
                 </div>

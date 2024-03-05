@@ -4,6 +4,7 @@
     {{ parent() }}
     {{ trans_js(render_pass, '@WexampleSymfonyDesignSystemBundle.common.system::*') }}
     {{ var_js(render_pass, 'displayBreakpoints', display_breakpoints) }}
+    {{ var_js(render_pass, 'usagesConfig', render_pass.usagesConfig) }}
 {% endblock %}
 
 {%- block layout_base -%}

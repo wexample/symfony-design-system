@@ -52,7 +52,7 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
             $key = 'design_system.usages.'.$usageName;
 
             $config = $parameterBag->has($key) ? $this->getParameter($key) : ['list' => []];
-            $renderPass->usagesList[$usageName] = $config;
+            $renderPass->usagesConfig[$usageName] = $config;
 
             $renderPass->setUsage(
                 $usageName,
