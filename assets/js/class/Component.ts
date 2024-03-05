@@ -23,7 +23,7 @@ export default abstract class Component extends RenderNode {
 
     if (!elPlaceholder) {
       this.app.services.prompt.systemError(
-        'page_message.error.com_placeholder_missing',
+        '@WexampleSymfonyDesignSystemBundle.common.system::error.com_placeholder_missing',
         {},
         this,
         true
@@ -51,7 +51,7 @@ export default abstract class Component extends RenderNode {
 
     if (!el) {
       this.app.services.prompt.systemError(
-        'page_message.error.com_el_missing',
+        '@WexampleSymfonyDesignSystemBundle.common.system::error.com_el_missing',
         {},
         this
       );

@@ -51,7 +51,7 @@ export default abstract class AbstractRenderNodeService extends AppService {
       );
     } catch {
       this.app.services.prompt.systemError(
-        'system::error.render_node_type_missing',
+        '@WexampleSymfonyDesignSystemBundle.common.system::error.render_node_type_missing',
         {
           ":type": definitionName
         }

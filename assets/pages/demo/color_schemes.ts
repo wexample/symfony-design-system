@@ -10,7 +10,6 @@ export default class extends Page {
           await this.app.layout.setUsage(
             el.getAttribute('data-usage-name'),
             el.getAttribute('data-usage-value'),
-            true
           );
         });
       });

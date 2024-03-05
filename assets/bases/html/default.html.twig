@@ -2,7 +2,7 @@
 
 {%- block layout_config -%}
     {{ parent() }}
-    {{ trans_js(render_pass, 'system::*') }}
+    {{ trans_js(render_pass, '@WexampleSymfonyDesignSystemBundle.common.system::*') }}
     {{ var_js(render_pass, 'displayBreakpoints', display_breakpoints) }}
 {% endblock %}
 
