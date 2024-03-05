@@ -132,7 +132,7 @@ abstract class AbstractAssetUsageService
         RenderPass $renderPass,
         Asset $asset
     ): bool {
-        return !$this->hasExtraSwitchableUsage($renderPass) && $asset->isServerSideRendered();
+        return (!$this->hasExtraSwitchableUsage($renderPass)) && $asset->isServerSideRendered();
     }
 
     public function getServerSideRenderedAssets(

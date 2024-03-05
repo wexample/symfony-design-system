@@ -61,8 +61,8 @@ class AssetsAggregationService
                 }
 
                 $tagPath = $tag->getPath();
-                $aggregationContent .= PHP_EOL.'/* '.$tagPath.' */ '.PHP_EOL
-                    .file_get_contents($tagPath);
+                $aggregationContent .= PHP_EOL.'/* AGGREGATED : '.$tagPath.' */ '.PHP_EOL
+                    .file_get_contents($this->pathPublic . $tagPath);
             } else {
                 $this->writeAggregationTag(
                     $aggregationTag,

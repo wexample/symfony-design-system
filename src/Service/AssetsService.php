@@ -177,6 +177,8 @@ class AssetsService
                         )) {
                             $tag = new AssetTag($asset);
 
+                            $asset->setServerSideRendered();
+
                             $tag->setCanAggregate(
                                 $usage->canAggregate(
                                     $renderPass,
@@ -185,8 +187,6 @@ class AssetsService
                             );
 
                             $tags[] = $tag;
-
-                            $asset->setServerSideRendered();
                         }
                     }
                 }
