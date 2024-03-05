@@ -16,7 +16,6 @@ class AdaptiveResponseExtension extends AbstractExtension
     public function __construct(
         protected AdaptiveResponseService $adaptiveResponseService,
         protected RequestStack $requestStack,
-        protected JsService $jsService
     ) {
     }
 
@@ -54,13 +53,6 @@ class AdaptiveResponseExtension extends AbstractExtension
                     'adaptiveRenderingBase',
                 ]
             ),
-            new TwigFunction(
-                'var_js',
-                [
-                    $this,
-                    'varJs',
-                ]
-            ),
         ];
     }
 
@@ -95,12 +87,5 @@ class AdaptiveResponseExtension extends AbstractExtension
     public function adaptiveResponseRevertContext(RenderPass $renderPass)
     {
         $renderPass->revertCurrentContextRenderNode();
-    }
-
-    public function varJs(
-        string $name,
-        mixed $value
-    ): void {
-        $this->jsService->varJs($name, $value);
     }
 }

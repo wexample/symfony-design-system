@@ -6,6 +6,7 @@ use ReflectionClass;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Wexample\SymfonyApi\Api\Dto\EntityDto;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\Entity\Interfaces\AbstractEntityInterface;
 use function class_exists;
 use function is_array;
@@ -14,16 +15,11 @@ use function is_subclass_of;
 
 class JsService
 {
-    public const VARS_GROUP_GLOBAL = 'global';
-
-    public const VARS_GROUP_PAGE = 'page';
-
     /**
      * CommonExtension constructor.
      */
     public function __construct(
-        private NormalizerInterface $normalizer,
-        private AdaptiveResponseService $adaptiveResponseService
+        private readonly NormalizerInterface $normalizer,
     ) {
     }
 
@@ -31,12 +27,11 @@ class JsService
      * @throws ExceptionInterface
      */
     public function varJs(
+        RenderPass $renderPass,
         string $name,
         mixed $value,
     ): void {
-        $this
-            ->adaptiveResponseService
-            ->renderPass
+        $renderPass
             ->getCurrentContextRenderNode()
             ->vars[$name] = $this->serializeValue($value);
     }
