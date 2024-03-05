@@ -50,7 +50,7 @@ abstract class AbstractPagesController extends AbstractController
     ): Response {
         return $this->adaptiveRender(
             $this->buildTemplatePath($pageName, ($bundle ?: $this->getControllerBundle())),
-            $parameters + ['page_name' => $pageName],
+            $parameters,
             $response
         );
     }

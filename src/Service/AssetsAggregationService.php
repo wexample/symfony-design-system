@@ -4,7 +4,6 @@ namespace Wexample\SymfonyDesignSystem\Service;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 use Wexample\SymfonyDesignSystem\Rendering\AssetTag;
-use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 
 class AssetsAggregationService
@@ -12,8 +11,6 @@ class AssetsAggregationService
     public const DIR_BUILD = 'build/';
 
     public const DIR_PUBLIC = 'public/';
-
-    private array $aggregationHash = [];
 
     private string $pathProject;
 
@@ -28,7 +25,7 @@ class AssetsAggregationService
     }
 
     public function buildAggregatedTags(
-        RenderPass $renderPass,
+        string $templateName,
         array $tags,
         string $type
     ): array {
@@ -45,12 +42,12 @@ class AssetsAggregationService
                     $aggregationTag = new AssetTag();
 
                     $aggregationTag->setId(
-                        $renderPass->getCurrentContextRenderNode()->getName() . '-' . $counter
+                        $templateName . '-' . $counter
                     );
 
                     $aggregationTag->setPath(
                         $this->buildAggregatedPathFromPageName(
-                            $renderPass,
+                            $templateName,
                             $type,
                             $counter,
                         )
@@ -108,7 +105,7 @@ class AssetsAggregationService
     }
 
     protected function buildAggregatedPathFromPageName(
-        RenderPass $renderPass,
+        string $templateName,
         string $type,
         int $counter
     ): string {
@@ -116,7 +113,7 @@ class AssetsAggregationService
                 '/'.$type.'/',
                 explode(
                     '::',
-                    $renderPass->getCurrentContextRenderNode()->getName()
+                    $templateName
                 )
             ).'-'.$counter.'.'.FileHelper::SUFFIX_AGGREGATED.'.'.$type;
     }

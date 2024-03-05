@@ -38,7 +38,7 @@ class RenderPass
 
     public function __construct(
         string $outputType,
-        public string $view,
+        readonly private string $view,
     ) {
         $className = InitialLayoutRenderNode::class;
 
@@ -132,5 +132,10 @@ class RenderPass
         }
 
         $this->usages[$usageName] = $usageValue;
+    }
+
+    public function getView(): string
+    {
+        return $this->view;
     }
 }

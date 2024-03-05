@@ -43,7 +43,7 @@ class LayoutService extends RenderNodeService
         $this->pageService->pageInit(
             $renderPass,
             $renderPass->layoutRenderNode->page,
-            $renderPass->view,
+            $renderPass->getView(),
         );
     }
 
