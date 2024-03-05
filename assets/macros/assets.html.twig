@@ -1,0 +1,14 @@
+{% for tag in assets_build_tags(render_pass, 'css') %}
+    <link rel="preload" as="style" href="{{ asset(tag.path) }}">
+    <link id="{{ tag.id }}" rel="stylesheet" media="{{ tag.media }}" href="{{ asset(tag.path) }}"/>
+{% endfor %}
+{%- if render_pass.isUseJs() -%}
+    {% for tag in assets_build_tags(render_pass, 'js') %}
+        <link rel="preload" as="script" href="{{ asset(tag.path) }}">
+        <script id="{{ tag.id }}" type="text/javascript" src="{{ asset(tag.path) }}"></script>
+    {% endfor %}
+    <script type="text/javascript" nonce="layout-data" id="layout-data">
+        {%- set layout_initial_data = layout_render_initial_data(render_pass) -%}
+        window.appRegistry.layoutRenderData = {{ layout_initial_data | json_encode() | raw }};
+    </script>
+{% endif %}

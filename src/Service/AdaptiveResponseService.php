@@ -32,7 +32,6 @@ class AdaptiveResponseService
         return $this->getResponse();
     }
 
-
     public function getResponse(): AdaptiveResponse
     {
         return $this->currentResponse;

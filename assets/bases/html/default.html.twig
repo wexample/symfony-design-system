@@ -24,7 +24,7 @@
 
               AppRegistryBundlesManager.prototype = {
                 add: function add(id, definition) {
-                  {# Prevent class override. -#}
+                    {# Prevent class override. -#}
                   if (!this.classes[id]) {
                     this.classes[id] = definition;
                   }
@@ -35,14 +35,14 @@
                     throw new Error("Unable to start app.");
                   }
 
-                  {# When app core is not loaded, -#}
-                  {# js asset might be preloaded. -#}
+                    {# When app core is not loaded, -#}
+                    {# js asset might be preloaded. -#}
                   if (app.hasCoreLoaded) {
-                    {# Mark now that class is loaded. -#}
+                      {# Mark now that class is loaded. -#}
                     app.services.assets.jsPendingLoaded(id);
                   }
 
-                  {# Return to allow export or extending class. -#}
+                    {# Return to allow export or extending class. -#}
                   return definition;
                 }
               };
@@ -50,6 +50,7 @@
               window.appRegistry = {bundles: new AppRegistryBundlesManager()};
             </script>
         {%- endif -%}
+        {{- constant('\\Wexample\\SymfonyDesignSystem\\Helper\\RenderingHelper::PLACEHOLDER_PRELOAD_TAG') | raw -}}
     </head>
     <body class="{{ body_class|default('') }}">
     <div id="layout" class="layout-loading {{ layout_class|default('') }}">
@@ -64,7 +65,9 @@
             <script nonce="layout-loading">
               var classList = document.getElementById('layout').classList;
               classList.add('layout-loading');
-              setTimeout(function () { classList.remove('layout-loading'); }, 1000);
+              setTimeout(function () {
+                classList.remove('layout-loading');
+              }, 1000);
             </script>
         {%- endif -%}
         {%- block layout -%}
@@ -72,38 +75,12 @@
                 {%- block page -%}
                     {{ adaptive_response_set_page_context(render_pass) }}
                     {%- block page_config -%}{%- endblock -%}
-                            {{- block('page_body') -}}
+                    {{- block('page_body') -}}
                     {{ adaptive_response_revert_context(render_pass) }}
                 {%- endblock -%}
             {%- endblock -%}
         {%- endblock -%}
     </div>
-    <div id="layout-styles-container">
-        {% for tag in assets_build_tags(render_pass, 'css') %}
-            <link id="{{ tag.id }}" rel="stylesheet" media="{{ tag.media }}" href="{{ asset(tag.path) }}"/>
-        {% endfor %}
-    </div>
-
-    {%- if render_pass.isUseJs() -%}
-        <div id="layout-scripts-container">
-            {% for tag in assets_build_tags(render_pass, 'js') %}
-                <script id="{{ tag.id }}" type="text/javascript" src="{{ asset(tag.path) }}"></script>
-            {% endfor %}
-        </div>
-        <script type="text/javascript" nonce="layout-data" id="layout-data">
-          {%- set layout_initial_data = layout_render_initial_data(render_pass) -%}
-          window.appRegistry.layoutRenderData = {{ layout_initial_data | json_encode(constant('JSON_PRETTY_PRINT')) | raw }};
-        </script>
-
-        {% if debug -%}
-            <div id="debug">
-                <h2>Layout initial data</h2>
-                {{ dump(layout_initial_data) }}
-                <h2>Translations</h2>
-                {{ dump(translation_debug_info(render_pass)) }}
-            </div>
-        {% endif -%}
-    {% endif %}
     </body>
     </html>
 {%- endblock -%}

@@ -272,7 +272,7 @@ export default class AssetsService extends AppService {
     let el = document.createElement(TagName.SCRIPT);
     el.setAttribute(Attribute.SRC, src);
 
-    this.app.layout.elScriptsContainer.appendChild(el);
+    this.app.layout.el.ownerDocument.head.appendChild(el);
     return el;
   }
 
@@ -280,7 +280,7 @@ export default class AssetsService extends AppService {
     let el = this.createStyleLinkElement();
     el.setAttribute(Attribute.HREF, href);
 
-    this.app.layout.elStylesContainer.appendChild(el);
+    this.app.layout.el.ownerDocument.head.appendChild(el);
     return el;
   }
 

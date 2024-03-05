@@ -236,6 +236,6 @@ class AssetsService
             return BundleHelper::getBundleCssAlias($bundle::class).$nameRight;
         }
 
-        return 'app' . $nameRight;
+        return 'app'.$nameRight;
     }
 }

@@ -7,13 +7,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
+use Wexample\SymfonyDesignSystem\Service\RenderPassBagService;
 
 abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\AbstractController
 {
     public function __construct(
-        protected AdaptiveResponseService $adaptiveResponseService,
+        readonly protected AdaptiveResponseService $adaptiveResponseService,
+        readonly protected RenderPassBagService $renderPassBagService,
     ) {
-
     }
 
     /**
@@ -86,6 +87,9 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
         RenderPass $renderPass = null
     ): Response {
         $renderPass = $renderPass ?: $this->createRenderPass($view);
+
+        // Store it for post render events.
+        $this->renderPassBagService->setRenderPass($renderPass);
 
         return parent::render(
             $view,
