@@ -4,6 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\AbstractBundle;
 use Wexample\SymfonyHelpers\Attribute\IsSimpleMethodResolver;
 use Wexample\SymfonyHelpers\Controller\Traits\HasSimpleRoutesControllerTrait;
@@ -30,6 +31,7 @@ abstract class AbstractPagesController extends AbstractController
         AbstractBundle|string|null $bundleClass = null
     ): string {
         $base = self::RESOURCES_DIR_PAGE;
+        $bundleClass = $bundleClass ?: $this->getControllerBundle();
 
         if (str_contains($view, self::BUNDLE_TEMPLATE_SEPARATOR)) {
             $exp = explode(self::BUNDLE_TEMPLATE_SEPARATOR, $view);
@@ -46,12 +48,14 @@ abstract class AbstractPagesController extends AbstractController
         string $pageName,
         array $parameters = [],
         Response $response = null,
-        AbstractBundle|string $bundle = null
+        AbstractBundle|string $bundle = null,
+        RenderPass $renderPass = null
     ): Response {
         return $this->adaptiveRender(
-            $this->buildTemplatePath($pageName, ($bundle ?: $this->getControllerBundle())),
+            $this->buildTemplatePath($pageName, $bundle),
             $parameters,
-            $response
+            $response,
+            renderPass:$renderPass
         );
     }
 

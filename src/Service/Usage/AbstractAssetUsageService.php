@@ -107,11 +107,8 @@ abstract class AbstractAssetUsageService
         RenderPass $renderPass,
     ): bool {
         $usage = $this->getName();
-
-        // There is more than one same usage in frontend.
-        return $this->hasExtraSwitchableUsage($renderPass)
-            // This is the base usage (i.e. default).
-            || $asset->usages[$usage] == $renderPass->getUsage($usage);
+        // This is the base usage (i.e. default).
+        return $asset->usages[$usage] == $renderPass->getUsage($usage);
     }
 
     protected function hasExtraSwitchableUsage(RenderPass $renderPass): bool
@@ -128,7 +125,7 @@ abstract class AbstractAssetUsageService
         return false;
     }
 
-    public function canAggregate(
+    public function canAggregateAsset(
         RenderPass $renderPass,
         Asset $asset
     ): bool {

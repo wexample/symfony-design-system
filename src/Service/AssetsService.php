@@ -180,7 +180,7 @@ class AssetsService
                             $asset->setServerSideRendered();
 
                             $tag->setCanAggregate(
-                                $usage->canAggregate(
+                                $usage->canAggregateAsset(
                                     $renderPass,
                                     $asset
                                 )

@@ -32,7 +32,6 @@ final class DemoController extends AbstractPagesController
     {
         return [
             self::ROUTE_AGGREGATION,
-            self::ROUTE_COLOR_SCHEMES,
             self::ROUTE_COMPONENTS,
             self::ROUTE_LOADING,
             self::ROUTE_TRANSLATIONS,
@@ -70,6 +69,30 @@ final class DemoController extends AbstractPagesController
 
         return $this->renderPage(
             self::ROUTE_ASSETS,
+        );
+    }
+
+    #[Route(
+        path: 'color-schemes',
+        name: self::ROUTE_COLOR_SCHEMES
+    )]
+    public function colorSchemes(): Response
+    {
+        // Prepare specific render pass.
+        $renderPass = $this->createRenderPass(
+            $this->buildTemplatePath(self::ROUTE_COLOR_SCHEMES),
+        );
+
+        // Allow every usage switch.
+        foreach ($renderPass->usagesConfig as $usageName => &$config) {
+            foreach ($config['list'] as &$item) {
+                $item['allow_switch'] = true;
+            }
+        }
+
+        return $this->renderPage(
+            self::ROUTE_COLOR_SCHEMES,
+            renderPass: $renderPass
         );
     }
 }

@@ -24,12 +24,14 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
     public function adaptiveRender(
         string $view,
         array $parameters = [],
-        Response $response = null
+        Response $response = null,
+        RenderPass $renderPass = null
     ): ?Response {
         return $this->render(
             $view,
             $parameters,
-            $response
+            $response,
+            renderPass: $renderPass
         );
     }
 
@@ -71,7 +73,6 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
     protected function configureRenderPass(
         RenderPass $renderPass
     ): RenderPass {
-
         return $renderPass;
     }
 
@@ -81,17 +82,18 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
     protected function render(
         string $view,
         array $parameters = [],
-        Response $response = null
+        Response $response = null,
+        RenderPass $renderPass = null
     ): Response {
-        $pass = $this->createRenderPass($view);
+        $renderPass = $renderPass ?: $this->createRenderPass($view);
 
         return parent::render(
             $view,
             [
                 'debug' => (bool) $this->getParameter('design_system.debug'),
-                'display_breakpoints' => $pass->getDisplayBreakpoints(),
-                'render_pass' => $pass,
-            ] + $parameters + $pass->getRenderParameters(),
+                'display_breakpoints' => $renderPass->getDisplayBreakpoints(),
+                'render_pass' => $renderPass,
+            ] + $parameters + $renderPass->getRenderParameters(),
             $response
         );
     }
