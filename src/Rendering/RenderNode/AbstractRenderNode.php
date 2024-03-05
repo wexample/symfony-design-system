@@ -25,7 +25,7 @@ abstract class AbstractRenderNode extends RenderDataGenerator
 
     public array $vars = [];
 
-    public string $name;
+    private string $name;
 
     public array $usages;
 
@@ -35,9 +35,9 @@ abstract class AbstractRenderNode extends RenderDataGenerator
         RenderPass $renderPass,
         string $name,
     ): void {
-        $this->name = $name;
+        $this->setName($name);
         $this->id = $this->getContextType().'-'
-            .str_replace('/', '-', $this->name)
+            .str_replace('/', '-', $this->getName())
             .'-'.uniqid();
         $this->usages = $renderPass->usages;
 
@@ -52,13 +52,8 @@ abstract class AbstractRenderNode extends RenderDataGenerator
     {
         return RenderingHelper::buildRenderContextKey(
             $this->getContextType(),
-            $this->getRenderContextName()
+            $this->getName()
         );
-    }
-
-    protected function getRenderContextName(): string
-    {
-        return $this->name;
     }
 
     public function toRenderData(): array
@@ -71,10 +66,20 @@ abstract class AbstractRenderNode extends RenderDataGenerator
             'components' => $this->arrayToRenderData($this->components),
             'cssClassName' => $this->cssClassName,
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => $this->getName(),
             'translations' => $this->translations,
             'vars' => $this->vars,
             'usages' => $this->usages,
         ];
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
     }
 }

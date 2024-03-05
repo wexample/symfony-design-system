@@ -3,7 +3,8 @@
 namespace Wexample\SymfonyDesignSystem\Service;
 
 use Symfony\Component\HttpKernel\KernelInterface;
-use Wexample\SymfonyDesignSystem\Rendering\Asset;
+use Wexample\SymfonyDesignSystem\Rendering\AssetTag;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 
 class AssetsAggregationService
@@ -20,96 +21,103 @@ class AssetsAggregationService
 
     public function __construct(
         KernelInterface $kernel,
-        readonly private AssetsRegistryService $assetsRegistryService
-    ) {
+    )
+    {
         $this->pathProject = $kernel->getProjectDir().'/';
         $this->pathPublic = $this->pathProject.self::DIR_PUBLIC;
     }
 
-    public function getServerSideRenderedAssets(
-        string $type,
-        bool $serverPath
+    public function buildAggregatedTags(
+        RenderPass $renderPass,
+        array $tags,
+        string $type
     ): array {
-        $basePath = '';
-        if ($serverPath) {
-            $basePath = rtrim(
-                $this->pathPublic,
-                FileHelper::FOLDER_SEPARATOR
-            );
-        }
-
-        $assets = $this
-            ->assetsRegistryService
-            ->getServerSideRenderedAssets(
-                $type
-            );
-
-        foreach ($assets as $asset) {
-            $aggregatePaths[] = $basePath.$asset->path;
-        }
-
-        // Per type specific assets.
-        if (Asset::EXTENSION_JS === $type) {
-            $runtimePath = $basePath.FileHelper::FOLDER_SEPARATOR.'build/runtime.js';
-
-            if (is_file($runtimePath)) {
-                $aggregatePaths[] = $runtimePath;
-            }
-        }
-
-        return $aggregatePaths;
-    }
-
-    public function aggregateInitialAssets(
-        string $pageName,
-        string $type
-    ): string {
-        $aggregatedFileName = $this->buildAggregatedPathFromPageName($pageName, $type);
-        $output = '';
-
-        $aggregatePaths = $this->getServerSideRenderedAssets(
-            $type,
-            true
-        );
-
         $aggregated = [];
-        foreach ($aggregatePaths as $path) {
-            if (!isset($aggregated[$path])) {
-                $aggregated[$path] = true;
-                $output .=
-                    PHP_EOL.'/* '.$path.' */ '.PHP_EOL
-                    .file_get_contents($path);
+        /** @var ?AssetTag $aggregationTag */
+        $aggregationTag = null;
+        $aggregationContent = '';
+        $counter = 0;
+
+        /** @var AssetTag $tag */
+        foreach ($tags as $tag) {
+            if ($tag->canAggregate()) {
+                if (!$aggregationTag) {
+                    $aggregationTag = new AssetTag();
+
+                    $aggregationTag->setId(
+                        $renderPass->getCurrentContextRenderNode()->getName() . '-' . $counter
+                    );
+
+                    $aggregationTag->setPath(
+                        $this->buildAggregatedPathFromPageName(
+                            $renderPass,
+                            $type,
+                            $counter,
+                        )
+                    );
+
+                    $counter++;
+                }
+
+                $tagPath = $tag->getPath();
+                $aggregationContent .= PHP_EOL.'/* '.$tagPath.' */ '.PHP_EOL
+                    .file_get_contents($tagPath);
+            } else {
+                $this->writeAggregationTag(
+                    $aggregationTag,
+                    $aggregationContent,
+                    $aggregated
+                );
+
+                $aggregationTag = null;
+                $aggregationContent = '';
+
+                $aggregated[] = $tag;
             }
         }
 
-        $this->aggregationHash[$type.'-'.$pageName] = FileHelper::fileWriteAndHash(
-            $this->pathPublic.$aggregatedFileName,
-            $output
+        $this->writeAggregationTag(
+            $aggregationTag,
+            $aggregationContent,
+            $aggregated
         );
 
-        return $this->buildAggregatedPublicPath(
-            $pageName,
-            $type
-        );
+        return $aggregated;
     }
 
-    protected function buildAggregatedPublicPath(
-        string $pageName,
-        string $type
-    ): string {
-        return FileHelper::FOLDER_SEPARATOR.
-            $this->buildAggregatedPathFromPageName($pageName, $type)
-            .(
-            isset($this->aggregationHash[$type.'-'.$pageName])
-                ? '?'.$this->aggregationHash[$type.'-'.$pageName]
-                : ''
-            );
+    private function writeAggregationTag(
+        ?AssetTag $tag,
+        string $body,
+        &$tags
+    ): void {
+        // Null tag says that no file has been read.
+        if (is_null($tag)) {
+            return;
+        }
+
+        $hash = FileHelper::fileWriteAndHash(
+            $this->pathPublic.$tag->getPath(),
+            $body
+        );
+
+        $tag->setPath(
+            $tag->getPath() . '?' . $hash
+        );
+
+        $tags[] = $tag;
     }
 
     protected function buildAggregatedPathFromPageName(
-        string $pageName,
-        string $type
+        RenderPass $renderPass,
+        string $type,
+        int $counter
     ): string {
-        return self::DIR_BUILD.$type.'/'.$pageName.'.'.FileHelper::SUFFIX_AGGREGATED.'.'.$type;
+        return self::DIR_BUILD.implode(
+                '/'.$type.'/',
+                explode(
+                    '::',
+                    $renderPass->getCurrentContextRenderNode()->getName()
+                )
+            ).'-'.$counter.'.'.FileHelper::SUFFIX_AGGREGATED.'.'.$type;
     }
 }

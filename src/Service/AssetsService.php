@@ -4,6 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Service;
 
 use Psr\Cache\InvalidArgumentException;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
+use Wexample\SymfonyDesignSystem\Rendering\AssetTag;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\Usage\AbstractAssetUsageService;
@@ -38,7 +39,8 @@ class AssetsService
         DefaultAssetUsageService $defaultAssetUsageService,
         MarginsAssetUsageService $marginsAssetUsageService,
         ResponsiveAssetUsageService $responsiveAssetUsageService,
-        FontsAssetUsageService $fontsAssetUsageService
+        FontsAssetUsageService $fontsAssetUsageService,
+        readonly protected AssetsAggregationService $assetsAggregationService
     ) {
         foreach ([
                      // Order is important, it defines the order the assets
@@ -144,5 +146,62 @@ class AssetsService
     public function getAssetsUsages(): array
     {
         return $this->usages;
+    }
+
+    public function buildTags(
+        RenderPass $renderPass,
+        string $type
+    ): array {
+        $tags = [];
+        $contexts = ['layout', 'page'];
+        $usages = $this->getAssetsUsages();
+
+        foreach ($usages as $name => $usage) {
+            if ($usage->hasAsset()) {
+                foreach ($contexts as $context) {
+                    $assets = $this->assetsFiltered(
+                        $renderPass,
+                        $context,
+                        $name,
+                        $type
+                    );
+
+                    foreach ($assets as $asset) {
+                        if ($this->assetNeedsInitialRender(
+                            $asset,
+                            $renderPass,
+                        )) {
+                            $tag = new AssetTag($asset);
+
+                            $tag->setCanAggregate(
+                                $usage->canAggregate(
+                                    $renderPass,
+                                    $asset
+                                )
+                            );
+
+                            $tags[] = $tag;
+
+                            $asset->setServerSideRendered();
+                        }
+                    }
+                }
+            }
+        }
+
+        if ($type === Asset::EXTENSION_JS) {
+            $tag = new AssetTag();
+            $tag->setCanAggregate(true);
+            $tag->setPath('build/runtime.js');
+            $tag->setId('javascript-runtime');
+
+            $tags[] = $tag;
+        }
+
+        if ($renderPass->enableAggregation) {
+            return $this->assetsAggregationService->buildAggregatedTags($renderPass, $tags, $type);
+        }
+
+        return $tags;
     }
 }

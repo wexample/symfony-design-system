@@ -1,7 +1,5 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/bases/base.html.twig' -%}
 
-{%- import '@WexampleSymfonyDesignSystemBundle/macros/assets.html.twig' as macro_assets -%}
-
 {%- block layout_config -%}
     {{ parent() }}
     {{ trans_js(render_pass, 'system::*') }}
@@ -79,32 +77,17 @@
         {%- endblock -%}
     </div>
     <div id="layout-styles-container">
-        {% for usage in assets_non_empty_usages() %}
-            <div id="layout-styles-usage-{{ usage }}">
-                {{ macro_assets.render_available_css(render_pass, usage, 'layout') }}
-                {{ macro_assets.render_available_css(render_pass, usage, 'page') }}
-            </div>
+        {% for tag in assets_build_tags(render_pass, 'css') %}
+            <link id="{{ tag.id }}" rel="stylesheet" media="{{ tag.media }}" href="{{ asset(tag.path) }}"/>
         {% endfor %}
-    	{% if render_pass.enableAggregation %}
-            <link id="layout-aggregated-styles" rel="stylesheet" media="screen" href="{{ asset(assets_aggregation_render_initial(render_pass, page_name, 'css')) }}">
-        {% endif %}
     </div>
 
     {%- if render_pass.isUseJs() -%}
         <div id="layout-scripts-container">
-            {% for usage in assets_non_empty_usages() %}
-                <div id="layout-scripts-usage-{{ usage }}">
-                    {{ macro_assets.render_available_js(render_pass, usage, 'layout') }}
-                    {{ macro_assets.render_available_js(render_pass, usage, 'page') }}
-                </div>
+            {% for tag in assets_build_tags(render_pass, 'js') %}
+                <script id="{{ tag.id }}" type="text/javascript" src="{{ asset(tag.path) }}"></script>
             {% endfor %}
-	    {% if render_pass.enableAggregation %}
-              <script id="layout-aggregated-scripts" src="{{ asset(assets_aggregation_render_initial(render_pass, page_name, 'js')) }}"></script>
-            {% endif %}
         </div>
-     	{% if not render_pass.enableAggregation %}
-          <script type="text/javascript" src="{{ asset('build/runtime.js') }}"></script>
-        {% endif %}
         <script type="text/javascript" nonce="layout-data" id="layout-data">
           {%- set layout_initial_data = layout_render_initial_data(render_pass) -%}
           window.appRegistry.layoutRenderData = {{ layout_initial_data | json_encode(constant('JSON_PRETTY_PRINT')) | raw }};

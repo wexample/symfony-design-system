@@ -43,14 +43,14 @@ abstract class AbstractPagesController extends AbstractController
     }
 
     protected function renderPage(
-        string $view,
+        string $pageName,
         array $parameters = [],
         Response $response = null,
         AbstractBundle|string $bundle = null
     ): Response {
         return $this->adaptiveRender(
-            $this->buildTemplatePath($view, ($bundle ?: $this->getControllerBundle())),
-            $parameters,
+            $this->buildTemplatePath($pageName, ($bundle ?: $this->getControllerBundle())),
+            $parameters + ['page_name' => $pageName],
             $response
         );
     }
@@ -60,9 +60,6 @@ abstract class AbstractPagesController extends AbstractController
     {
         return $this->renderPage(
             $routeName,
-            [
-                'page_name' => $routeName,
-            ]
         );
     }
 }

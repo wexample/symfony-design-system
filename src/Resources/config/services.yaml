@@ -1,6 +1,5 @@
 parameters:
     design_system.debug: false
-    # TODO default devrait être supprimé lorsque l'on switch, donc non aggrégé s'il y a plusieurs possibilité.
     design_system.enable_aggregation: true
 
     # Responsive display breakpoints
@@ -18,11 +17,11 @@ parameters:
       default: default
       list:
         dark:
-          allow_switch: false
+          allow_switch: true
         default:
-          allow_switch: false
+          allow_switch: true
         light:
-          allow_switch: false
+          allow_switch: true
 
     # Margins
     design_system.usages.margins:

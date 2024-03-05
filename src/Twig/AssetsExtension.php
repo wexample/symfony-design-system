@@ -19,68 +19,24 @@ class AssetsExtension extends AbstractExtension
     {
         return [
             new TwigFunction(
-                'assets_type_filtered',
+                'assets_build_tags',
                 [
                     $this,
-                    'assetsTypeFiltered',
-                ]
-            ),
-            new TwigFunction(
-                'assets_needs_initial_render',
-                [
-                    $this,
-                    'assetsNeedsInitialRender',
-                ]
-            ),
-            new TwigFunction(
-                'assets_non_empty_usages',
-                [
-                    $this,
-                    'assetsNonEmptyUsages',
+                    'assetsBuildTags',
                 ]
             ),
         ];
     }
 
-    public function assetsTypeFiltered(
+    public function assetsBuildTags(
         RenderPass $renderPass,
-        string $contextType,
-        string $usage,
-        string $assetType = null
+        string $type
     ): array {
         return $this
             ->assetsService
-            ->assetsFiltered(
+            ->buildTags(
                 $renderPass,
-                $contextType,
-                $usage,
-                $assetType
+                $type
             );
-    }
-
-    public function assetsNeedsInitialRender(
-        RenderPass $renderPass,
-        Asset $asset
-    ): bool {
-        return $this
-            ->assetsService
-            ->assetNeedsInitialRender(
-                $asset,
-                $renderPass,
-            );
-    }
-
-    public function assetsNonEmptyUsages(): array
-    {
-        $keys = [];
-        $usages = $this->assetsService->getAssetsUsages();
-
-        foreach ($usages as $name => $usage) {
-            if ($usage->hasAsset()) {
-                $keys[] = $name;
-            }
-        }
-
-        return $keys;
     }
 }

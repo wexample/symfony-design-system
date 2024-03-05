@@ -31,17 +31,17 @@ class PageService extends RenderNodeService
     public function pageInit(
         RenderPass $renderPass,
         PageRenderNode $page,
-        string $pagePath
+        string $view
     ): void {
         $this->initRenderNode(
             $renderPass,
             $page,
-            $pagePath
+            $view
         );
 
         $this->translator->setDomainFromPath(
             $page->getContextType(),
-            $pagePath
+            $view
         );
     }
 

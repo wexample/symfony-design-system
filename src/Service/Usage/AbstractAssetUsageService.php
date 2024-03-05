@@ -30,7 +30,7 @@ abstract class AbstractAssetUsageService
         AbstractRenderNode $renderNode,
         string $ext
     ): string {
-        $nameParts = explode('::', $renderNode->name);
+        $nameParts = explode('::', $renderNode->getName());
 
         return AssetsRegistryService::DIR_BUILD.PathHelper::join([$nameParts[0], $ext, $nameParts[1].'.'.$ext]);
     }
@@ -117,8 +117,7 @@ abstract class AbstractAssetUsageService
     protected function hasExtraSwitchableUsage(RenderPass $renderPass): bool
     {
         $usage = static::getName();
-
-        foreach ($renderPass->usagesList[$usage] as $scheme => $config) {
+        foreach (($renderPass->usagesList[$usage]['list'] ?? []) as $scheme => $config) {
             // There is at least one other switchable usage different from default one.
             if (($config['allow_switch'] ?? false)
                 && $scheme !== $renderPass->getUsage($usage)) {
@@ -127,5 +126,30 @@ abstract class AbstractAssetUsageService
         }
 
         return false;
+    }
+
+    public function canAggregate(
+        RenderPass $renderPass,
+        Asset $asset
+    ): bool {
+        return !$this->hasExtraSwitchableUsage($renderPass) && $asset->isServerSideRendered();
+    }
+
+    public function getServerSideRenderedAssets(
+        RenderPass $renderPass,
+        string $type
+    ): array {
+        if ($this->hasExtraSwitchableUsage($renderPass)) {
+            return [];
+        }
+
+        $output = [];
+        foreach ($this->assets[$type] as $asset) {
+            if ($asset->isServerSideRendered()) {
+                $output[] = $asset;
+            }
+        }
+
+        return $output;
     }
 }

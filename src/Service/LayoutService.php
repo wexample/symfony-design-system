@@ -32,12 +32,10 @@ class LayoutService extends RenderNodeService
      */
     public function layoutInitInitial(
         RenderPass $renderPass,
-        Environment $twig,
         string $layoutPath,
     ): void {
         $this->layoutInit(
             $renderPass,
-            $twig,
             $renderPass->layoutRenderNode,
             $layoutPath,
         );
@@ -54,7 +52,6 @@ class LayoutService extends RenderNodeService
      */
     public function layoutInit(
         RenderPass $renderPass,
-        Environment $twig,
         AbstractLayoutRenderNode $layoutRenderNode,
         string $layoutPath,
     ) {
