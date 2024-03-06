@@ -2,6 +2,11 @@
 
 {%- set layout_path = layout_path|default(_self) -%}
 
+{%- block layout_config -%}
+    {{ render_pass.setUsage('color_scheme', 'light') }}
+    {{ parent() }}
+{%- endblock -%}
+
 {%- block layout -%}
     {{ parent() }}
     <div class="page-overlay"></div>

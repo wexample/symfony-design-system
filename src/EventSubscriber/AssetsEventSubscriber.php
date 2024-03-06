@@ -45,6 +45,12 @@ class AssetsEventSubscriber implements EventSubscriberInterface
             );
 
             $response->setContent($content);
+
+//            dd(
+//                $renderPass
+//                    ->layoutRenderNode
+//                    ->toRenderData()
+//            );
         }
     }
 }

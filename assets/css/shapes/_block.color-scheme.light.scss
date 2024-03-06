@@ -3,7 +3,7 @@ $global-color-scheme-name: 'light' !default;
 @import '../mixins/global.color-scheme.light';
 
 $color-block-text: $color-default-text;
-$color-block-background: #111;
+$color-block-background: #DDD;
 
 body.usage-color-scheme-#{$global-color-scheme-name} .block,
 body.usage-color-scheme-default .usage-color-scheme-light.block {
