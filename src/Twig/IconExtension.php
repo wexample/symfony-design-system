@@ -4,6 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 
 use DOMDocument;
 use Exception;
+use Psr\Cache\CacheItemPoolInterface;
 use stdClass;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
@@ -35,15 +36,34 @@ class IconExtension extends AbstractExtension
 
     private string $projectDir;
 
+    private \Psr\Cache\CacheItemInterface $cacheItem;
+
     public function __construct(
         KernelInterface $kernel,
-        protected ComponentsExtension $componentsExtension
+        readonly protected ComponentsExtension $componentsExtension,
+        readonly protected CacheItemPoolInterface $cache
     ) {
         $this->projectDir = $kernel->getProjectDir();
-        $this->icons = (object) [
-            self::ICONS_LIBRARY_FA => $this->buildIconsListFa(),
-            self::ICONS_LIBRARY_MATERIAL => $this->buildIconsListMaterial(),
-        ];
+        $this->cacheItem = $this->cache->getItem('symfony_design_system_icons_list');
+        if (!$this->cacheItem->isHit()) {
+            $this->icons = (object) [
+                self::ICONS_LIBRARY_FA => $this->buildIconsListFa(),
+                self::ICONS_LIBRARY_MATERIAL => $this->buildIconsListMaterial(),
+            ];
+            $this->saveRegistryCache();
+
+        } else {
+            $this->icons = $this->cacheItem->get();
+        }
+    }
+
+    private function saveRegistryCache(): void
+    {
+        $this->cache->save(
+            $this->cacheItem->set(
+                $this->icons
+            )
+        );
     }
 
     public function getFunctions(): array
@@ -136,41 +156,43 @@ class IconExtension extends AbstractExtension
     public function icon(
         Environment $twig,
         string $name,
-        bool $global = false,
         array $classes = []
     ): string {
-        $type = null;
-
-        if (str_contains($name, self::LIBRARY_SEPARATOR)) {
-            [$type, $name] = explode(
-                self::LIBRARY_SEPARATOR,
-                $name
-            );
-        }
 
         $default = DomHelper::buildTag('span');
 
-        // Materialize.
-        if (self::ICONS_LIBRARY_MATERIAL === $type || (null === $type && isset($this->icons->material[$name]))) {
-            return $this->loadIconSvg($this->icons->material, $name, $classes) ?: $default;
+        if ($icon = $this->loadIconSvg(self::ICONS_LIBRARY_MATERIAL, $name, $classes)) {
+            return $icon;
+        } elseif ($icon = $this->loadIconSvg(self::ICONS_LIBRARY_FA, $name, $classes)) {
+            return $icon;
         }
-
-        // Font Awesome.
-        if (self::ICONS_LIBRARY_FA === $type || (null === $type && isset($this->icons->fa->$name))) {
-            return $this->loadIconSvg($this->icons->fa, $name, $classes) ?: $default;
-        }
-
         // Just display tag on error.
         return $default;
     }
 
     private function loadIconSvg(
-        array &$registry,
+        string $registryType,
         string $name,
         array $classes
     ): ?string {
+        [$type, $name] = explode(
+            self::LIBRARY_SEPARATOR,
+            $name
+        );
+
+        if ($registryType !== $type) {
+            return null;
+        }
+
+        $registry = &$this->icons->$registryType;
+        $contentName = md5(
+            implode(
+                $classes
+            )
+        );
+
         if (isset($registry[$name])) {
-            if (is_null($registry[$name]['content'])) {
+            if (!isset($registry[$name]['content'][$contentName])) {
                 $svgContent = file_get_contents($registry[$name]['file']);
 
                 $dom = new DOMDocument();
@@ -182,18 +204,22 @@ class IconExtension extends AbstractExtension
                     $existingClass = $svg->getAttribute('class');
                     $svg->setAttribute(
                         'class',
-                        $existingClass.implode(' ',
-                            array_merge([
-                                'icon',
-                            ], $classes)));
+                        $existingClass
+                        .implode(' ',
+                            array_merge(['icon'],
+                                $classes
+                            )
+                        )
+                    );
 
                     $content = $dom->saveXML($svg);
+                    $registry[$name]['content'][$contentName] = $content;
 
-                    $registry[$name]['content'] = $content;
-
-                    return $registry[$name]['content'];
+                    $this->saveRegistryCache();
                 }
             }
+
+            return $registry[$name]['content'][$contentName];
         }
 
         return null;

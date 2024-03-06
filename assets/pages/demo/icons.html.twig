@@ -4,13 +4,13 @@
     <h2>Font Awesome</h2>
     <div class="block icons-list">
         {% for icon in icon_list('fa') %}
-            {{ icon('fa:' ~ icon.name, true) }}
+            {{ icon('fa:' ~ icon.name) }}
         {% endfor %}
     </div>
     <h2>Material Design</h2>
     <div class="block icons-list">
         {% for icon in icon_list('material') %}
-            {{ icon('material:' ~ icon.name, true) }}
+            {{ icon('material:' ~ icon.name) }}
         {% endfor %}
     </div>
 {%- endblock -%}
