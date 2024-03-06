@@ -8,6 +8,10 @@
 .usage-color-scheme-default .usage-color-scheme-dark {
   color: $color-default-text;
 
+  svg.icon {
+    fill: $color-default-text;
+  }
+
   a {
     color: $color-default-link;
   }
