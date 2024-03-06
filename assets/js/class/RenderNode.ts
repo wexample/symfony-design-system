@@ -173,5 +173,14 @@ export default abstract class RenderNode extends AppChild {
     });
 
     classList.add(`usage-${usageKebab}-${usageValue}`);
+
+    // Propagate
+    this.forEachTreeChildRenderNode((renderNode: RenderNode) => {
+      renderNode.setUsage(
+        usageName,
+        usageValue,
+        initial
+      )
+    })
   }
 }

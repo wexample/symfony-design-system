@@ -20,6 +20,8 @@ class RenderPass
 
     public ?bool $enableAggregation = null;
 
+    private bool $debug = false;
+
     /**
      * @var array<string|null>
      */
@@ -140,5 +142,15 @@ class RenderPass
     public function getView(): string
     {
         return $this->view;
+    }
+
+    public function isDebug(): bool
+    {
+        return $this->debug;
+    }
+
+    public function setDebug(bool $debug): void
+    {
+        $this->debug = $debug;
     }
 }

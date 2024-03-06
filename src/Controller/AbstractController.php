@@ -76,6 +76,13 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
             false
         );
 
+        $renderPass->setDebug(
+            $this->getParameterOrDefault(
+                'design_system.debug',
+                false
+            )
+        );
+
         return $this->configureRenderPass($renderPass);
     }
 

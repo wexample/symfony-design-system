@@ -44,13 +44,16 @@ class AssetsEventSubscriber implements EventSubscriberInterface
                 $response->getContent()
             );
 
-            $response->setContent($content);
+            if ($renderPass->isDebug()) {
+                $content .= $this->twig->render(
+                    '@WexampleSymfonyDesignSystemBundle/macros/debug.html.twig',
+                    [
+                        'render_pass' => $renderPass,
+                    ]
+                );
+            }
 
-//            dd(
-//                $renderPass
-//                    ->layoutRenderNode
-//                    ->toRenderData()
-//            );
+            $response->setContent($content);
         }
     }
 }
