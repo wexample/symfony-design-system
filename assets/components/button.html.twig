@@ -1,7 +1,8 @@
-<div class="mdc-touch-target-wrapper">
-    <button class="mdc-button mdc-button--touch">
+<div class="button mdc-touch-target-wrapper">
+    <button class="mdc-button mdc-button--touch mdc-button--raised mdc-button--leading">
         <span class="mdc-button__ripple"></span>
         <span class="mdc-button__touch"></span>
+        {{ (icon is defined ? icon(icon) : '') | raw }}
         <span class="mdc-button__label">{{ text }}</span>
     </button>
 </div>
