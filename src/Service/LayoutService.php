@@ -7,6 +7,7 @@ use JetBrains\PhpStorm\Pure;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractLayoutRenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\PageRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyTranslations\Translation\Translator;
 
@@ -39,6 +40,12 @@ class LayoutService extends RenderNodeService
             $renderPass->layoutRenderNode,
             $layoutPath,
         );
+
+        $renderPass->layoutRenderNode->page = new PageRenderNode(
+            $renderPass->getView()
+        );
+
+        $renderPass->layoutRenderNode->page->isInitialPage = true;
 
         $this->pageService->pageInit(
             $renderPass,
