@@ -44,9 +44,7 @@ class RenderPass
             $className = AjaxLayoutRenderNode::class;
         }
 
-        $this->layoutRenderNode = new $className(
-            $this,
-        );
+        $this->layoutRenderNode = new $className();
     }
 
     public function registerRenderNode(

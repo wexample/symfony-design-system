@@ -12,6 +12,11 @@ abstract class RenderNodeService
     ) {
     }
 
+    /**
+     * Render node path or name are created after class construction,
+     * as layout name is given by the template and so undefined
+     * on layout render node class instanciation.
+     */
     public function initRenderNode(
         RenderPass $renderPass,
         AbstractRenderNode $renderNode,

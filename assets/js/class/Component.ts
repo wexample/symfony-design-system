@@ -24,7 +24,9 @@ export default abstract class Component extends RenderNode {
     if (!elPlaceholder) {
       this.app.services.prompt.systemError(
         '@WexampleSymfonyDesignSystemBundle.common.system::error.com_placeholder_missing',
-        {},
+        {
+          ':name': this.name
+        },
         this,
         true
       );
@@ -52,7 +54,10 @@ export default abstract class Component extends RenderNode {
     if (!el) {
       this.app.services.prompt.systemError(
         '@WexampleSymfonyDesignSystemBundle.common.system::error.com_el_missing',
-        {},
+        {
+          ':name': this.name,
+          ':initMode' : this.initMode
+        },
         this
       );
     }
@@ -62,7 +67,7 @@ export default abstract class Component extends RenderNode {
 
   mergeRenderData(renderData: ComponentInterface) {
     super.mergeRenderData(renderData);
-    
+
     this.initMode = renderData.initMode;
   }
 }

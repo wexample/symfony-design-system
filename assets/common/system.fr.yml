@@ -2,7 +2,7 @@ name: Symfony Design System
 
 error:
   api_response: 'Impossible de traiter la réponse : :body'
-  com_el_missing: 'Elément non trouvé pour le composant'
-  com_placeholder_missing: 'Placholder non trouvé pour le composant'
+  com_el_missing: 'Element non trouvé avec le mode ":initMode", pour le composant : :name'
+  com_placeholder_missing: 'Placholder non trouvé pour le composant : :name'
   render_node_type_missing: 'Le composant de type :type est introuvable'
   usage_switch_not_allowed: Le changement d'usage est interdit par la configuration
