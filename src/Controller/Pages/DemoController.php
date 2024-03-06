@@ -31,7 +31,6 @@ final class DemoController extends AbstractPagesController
     public static function getSimpleRoutes(): array
     {
         return [
-            self::ROUTE_AGGREGATION,
             self::ROUTE_COMPONENTS,
             self::ROUTE_LOADING,
             self::ROUTE_TRANSLATIONS,
@@ -73,18 +72,32 @@ final class DemoController extends AbstractPagesController
     }
 
     #[Route(
+        path: self::ROUTE_AGGREGATION,
+        name: self::ROUTE_AGGREGATION
+    )]
+    public function aggregation(Request $request): Response
+    {
+        // Prepare specific render pass.
+        $renderPass = $this->createPageRenderPass(self::ROUTE_AGGREGATION);
+        $renderPass->enableAggregation = true;
+
+        return $this->renderPage(
+            self::ROUTE_AGGREGATION,
+            renderPass: $renderPass
+        );
+    }
+
+    #[Route(
         path: 'color-schemes',
         name: self::ROUTE_COLOR_SCHEMES
     )]
     public function colorSchemes(): Response
     {
         // Prepare specific render pass.
-        $renderPass = $this->createRenderPass(
-            $this->buildTemplatePath(self::ROUTE_COLOR_SCHEMES),
-        );
+        $renderPass = $this->createPageRenderPass(self::ROUTE_COLOR_SCHEMES);
 
         // Allow every usage switch.
-        foreach ($renderPass->usagesConfig as $usageName => &$config) {
+        foreach ($renderPass->usagesConfig as &$config) {
             foreach ($config['list'] as &$item) {
                 $item['allow_switch'] = true;
             }

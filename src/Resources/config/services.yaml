@@ -1,6 +1,6 @@
 parameters:
     design_system.debug: false
-    design_system.enable_aggregation: true
+    design_system.enable_aggregation: false
 
     design_system.usages.responsive:
       list:

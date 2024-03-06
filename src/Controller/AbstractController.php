@@ -36,6 +36,14 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
         );
     }
 
+    protected function createPageRenderPass(
+        string $pageName
+    ): RenderPass {
+        return $this->createRenderPass(
+            $this->buildTemplatePath($pageName),
+        );
+    }
+
     protected function createRenderPass(
         string $view
     ): RenderPass {
