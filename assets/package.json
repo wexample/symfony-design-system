@@ -2,5 +2,6 @@
   "name": "@wexample/symfony-design-system",
   "version": "0.1.22",
   "peerDependencies": {
+    "@material/button": "^14.0.0"
   }
 }
