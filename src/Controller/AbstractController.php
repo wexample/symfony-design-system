@@ -91,16 +91,6 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
             );
         }
 
-        $options = [
-            'view' => $view,
-            'rendered' => $rendered,
-        ];
-
-        $this->renderEventListenerService->triggerRenderEvent(
-            RenderEventListenerService::EVENT_NAME_POST_RENDER,
-            $options
-        );
-
-        return $options['rendered'];
+        return $rendered;
     }
 }
