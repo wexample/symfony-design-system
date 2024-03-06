@@ -1,5 +1,14 @@
+@use '../../css/shapes/block';
+@use '../../css/shapes/grid';
 
-.icons-list .icon {
-  max-width: 2rem;
-  max-height: 2rem;
+.icons-list {
+  @extend .block;
+  @extend .grid;
+  grid-template-columns: repeat(24, 1fr);
+  grid-gap: .1rem;
+
+  .icon {
+    max-width: 2rem;
+    max-height: 2rem;
+  }
 }
