@@ -8,6 +8,10 @@ use function is_null;
 
 class DomHelper
 {
+    public const TAG_DIV = 'div';
+
+    public const TAG_SPAN = 'span';
+
     public const TAG_LINK = 'link';
 
     public const TAG_ALLOWS_AUTO_CLOSING = [
@@ -31,7 +35,7 @@ class DomHelper
 
     public static function buildTag(
         string $tagName,
-        array $attributes,
+        array $attributes = [],
         string $body = '',
         bool $allowSingleTag = null
     ): string {
