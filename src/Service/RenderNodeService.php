@@ -24,6 +24,7 @@ abstract class RenderNodeService
     ): void {
         $renderNode->init(
             $renderPass,
+            $path,
             $this->assetsService->buildTemplateNameFromPath($path)
         );
 

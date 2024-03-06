@@ -18,9 +18,10 @@ class ComponentRenderNode extends AbstractRenderNode
 
     public function init(
         RenderPass $renderPass,
-        string $name
+        string $path,
+        string $name,
     ): void {
-        parent::init($renderPass, $name);
+        parent::init($renderPass, $path, $name);
 
         $renderPass
             ->getCurrentContextRenderNode()

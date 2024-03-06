@@ -29,12 +29,16 @@ abstract class AbstractRenderNode extends RenderDataGenerator
 
     public array $usages;
 
+    private string $path;
+
     abstract public function getContextType(): string;
 
     public function init(
         RenderPass $renderPass,
+        string $path,
         string $name,
     ): void {
+        $this->setPath($path);
         $this->setName($name);
         $this->id = $this->getContextType().'-'
             .str_replace('/', '-', $this->getName())
@@ -81,5 +85,15 @@ abstract class AbstractRenderNode extends RenderDataGenerator
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    public function setPath(string $path): void
+    {
+        $this->path = $path;
     }
 }

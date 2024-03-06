@@ -4,10 +4,12 @@ namespace Wexample\SymfonyDesignSystem\Service;
 
 use Exception;
 use Twig\Environment;
+use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Rendering\ComponentRenderNodeManager;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
+use Wexample\SymfonyTranslations\Translation\Translator;
 
 class ComponentService extends RenderNodeService
 {
@@ -20,6 +22,20 @@ class ComponentService extends RenderNodeService
     // Component is loaded from template, just after target tag.
     public const INIT_MODE_PREVIOUS = VariableHelper::PREVIOUS;
 
+    public const COMPONENT_NAME_VUE = 'components/vue';
+
+    public function __construct(
+        AdaptiveResponseService $adaptiveResponseService,
+        AssetsService $assetsService,
+        readonly protected Translator $translator
+    ) {
+        parent::__construct(
+            $assetsService,
+            $adaptiveResponseService
+        );
+    }
+
+
     /**
      * @throws Exception
      */
@@ -28,7 +44,39 @@ class ComponentService extends RenderNodeService
         Environment $env,
         ComponentRenderNode $component
     ): ?string {
-        return null;
+        $loader = $env->getLoader();
+
+        try {
+            $templatePath = $component->getPath() . '.html.twig';
+
+            if ($loader->exists($templatePath)) {
+                $renderPass->setCurrentContextRenderNode(
+                    $component
+                );
+
+                $this->translator->setDomainFromPath(
+                    Translator::DOMAIN_TYPE_COMPONENT,
+                    $component->getName()
+                );
+
+                $rendered = $env->render(
+                    $templatePath,
+                    $component->options
+                );
+
+                $this->translator->revertDomain(
+                    Translator::DOMAIN_TYPE_COMPONENT
+                );
+
+                $renderPass->revertCurrentContextRenderNode();
+
+                return $rendered;
+            }
+
+            return DomHelper::buildTag(DomHelper::TAG_SPAN);
+        } catch (Exception $exception) {
+            throw new Exception('Error during rendering component '.$component->getName().' : '.$exception->getMessage(), $exception->getCode(), $exception);
+        }
     }
 
     /**

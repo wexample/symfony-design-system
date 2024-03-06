@@ -28,7 +28,7 @@ class ComponentsExtension extends AbstractExtension
                 'component',
                 [
                     $this,
-                    'componentInitPrevious',
+                    'component',
                 ],
                 $initOptions
             ),
@@ -57,6 +57,25 @@ class ComponentsExtension extends AbstractExtension
                 $initOptions
             ),
         ];
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function component(
+        Environment $twig,
+        RenderPass $renderPass,
+        string $path,
+        array $options = []
+    ): string {
+        $component = $this->componentService->componentInitPrevious(
+            $twig,
+            $renderPass,
+            $path,
+            $options
+        );
+
+        return $component->body.$component->renderTag();
     }
 
     /**
