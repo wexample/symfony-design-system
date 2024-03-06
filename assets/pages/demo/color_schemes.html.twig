@@ -10,7 +10,15 @@
         <div class="blocks">
             {% for key, config in render_pass.usagesConfig[usage].list %}
                 <div class="block blocks-col">
-                    <button data-usage-name="{{ usage }}" data-usage-value="{{ key }}" class="demo-button-switch-usage">{{ key }}</button>
+                    {{ component(
+                        render_pass,
+                        '@WexampleSymfonyDesignSystemBundle/components/button',
+                        {
+                            text: key,
+                            icon:'fa:solid/play',
+                            class: 'demo-button-switch-usage',
+                            attr: {'data-usage-name': usage, 'data-usage-value': key}
+                        }) }}
                 </div>
             {% endfor %}
         </div>

@@ -5,8 +5,10 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 use Exception;
 use Twig\Environment;
 use Twig\TwigFunction;
+use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\ComponentService;
+use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
 class ComponentsExtension extends AbstractExtension
@@ -55,6 +57,17 @@ class ComponentsExtension extends AbstractExtension
                     'componentInitPrevious',
                 ],
                 $initOptions
+            ),
+            new TwigFunction(
+                'component_render_tag_attributes',
+                [
+                    $this,
+                    'componentRenderTagAttributes',
+                ],
+                [
+                    self::FUNCTION_OPTION_IS_SAFE => self::FUNCTION_OPTION_IS_SAFE_VALUE_HTML,
+                    self::FUNCTION_OPTION_NEEDS_CONTEXT => true,
+                ]
             ),
         ];
     }
@@ -133,5 +146,22 @@ class ComponentsExtension extends AbstractExtension
                 $name,
                 $options
             )->renderTag();
+    }
+
+    public function componentRenderTagAttributes(
+        array $context,
+        array $defaults = []
+    ): string {
+        $class = trim(($defaults[VariableHelper::CLASS_VAR] ?? '').' '.($context[VariableHelper::CLASS_VAR] ?? ''));
+
+        $attributes = array_merge([
+            VariableHelper::ID => $context[VariableHelper::ID] ?? null,
+            VariableHelper::CLASS_VAR => '' === $class ? null : $class,
+        ], $context['attr'] ?? []);
+
+
+        return DomHelper::buildTagAttributes(
+            $attributes
+        );
     }
 }
