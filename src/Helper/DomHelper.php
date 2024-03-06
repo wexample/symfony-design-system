@@ -35,7 +35,7 @@ class DomHelper
 
     public static function buildTag(
         string $tagName,
-        array $attributes,
+        array $attributes = [],
         string $body = '',
         bool $allowSingleTag = null
     ): string {

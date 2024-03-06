@@ -285,7 +285,6 @@ class ComponentService extends RenderNodeService
             $renderPass,
             $component,
             $name,
-            $this->adaptiveResponseService->renderPass->useJs,
         );
 
         $component->body = $this->componentRenderBody(

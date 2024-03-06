@@ -36,7 +36,7 @@ class ComponentsExtension extends AbstractExtension
                 'component',
                 [
                     $this,
-                    'componentInitPrevious',
+                    'component',
                 ],
                 $initOptions
             ),
