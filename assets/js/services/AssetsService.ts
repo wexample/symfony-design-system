@@ -141,7 +141,7 @@ export default class AssetsService extends AppService {
     };
   }
 
-  appendAsset(asset: AssetInterface): Promise<AssetInterface> {
+  appendAsset(asset: AssetInterface, assetReplaced?: AssetInterface): Promise<AssetInterface> {
     return new Promise(async (resolve) => {
       // Avoid currently and already loaded.
       if (!asset.active) {
@@ -157,14 +157,18 @@ export default class AssetsService extends AppService {
           // Browsers does not load twice the JS file content.
           if (!asset.rendered) {
             this.jsAssetsPending[asset.id] = asset;
-            asset.el = this.addScript(asset.path);
+            asset.el = this.addScript(
+              asset.path,
+              assetReplaced && assetReplaced.el);
 
             // Javascript file will run resolve.
             return;
           }
         } else {
           if (!asset.loaded) {
-            asset.el = this.addStyle(asset.path);
+            asset.el = this.addStyle(
+              asset.path,
+              assetReplaced && assetReplaced.el);
           }
         }
       }
@@ -194,27 +198,34 @@ export default class AssetsService extends AppService {
     return output;
   }
 
-  async appendAssets(assetsCollection: AssetsCollectionInterface) {
+  async appendAssets(
+    assetsCollection: AssetsCollectionInterface,
+    replacedCollection: AssetsCollectionInterface
+  ) {
     return new Promise(async (resolveAll) => {
-      let assets = this.assetsInCollection(assetsCollection);
-
-      if (!assets.length) {
-        resolveAll(assets);
+      // Is empty.
+      if (!this.assetsInCollection(assetsCollection).length) {
+        resolveAll(assetsCollection);
         return;
       }
 
       let count: number = 0;
-      assets.forEach((asset: AssetInterface) => {
-        count++;
+      Object.keys(assetsCollection).forEach((type) => {
+        assetsCollection[type].forEach((asset: AssetInterface, index: number) => {
+          count++;
 
-        this.appendAsset(asset).then(() => {
-          count--;
+          this.appendAsset(asset, replacedCollection[type][index]).then(() => {
+            count--;
 
-          if (count === 0) {
-            resolveAll(assetsCollection);
-          }
+            if (count === 0) {
+              resolveAll(assetsCollection);
+            }
+          });
         });
       });
+
+      // Remove replaced and non replaced assets.
+      this.removeAssets(replacedCollection);
     });
   }
 
@@ -268,20 +279,30 @@ export default class AssetsService extends AppService {
     delete this.jsAssetsPending[id];
   }
 
-  addScript(src: string) {
+  addScript(src: string, elReplacement?: HTMLElement) {
     let el = document.createElement(TagName.SCRIPT);
     el.setAttribute(Attribute.SRC, src);
 
-    this.app.layout.el.ownerDocument.head.appendChild(el);
+    this.addAssetEl(el, elReplacement);
+
     return el;
   }
 
-  addStyle(href: string) {
+  addStyle(href: string, elReplacement?: HTMLElement) {
     let el = this.createStyleLinkElement();
     el.setAttribute(Attribute.HREF, href);
 
-    this.app.layout.el.ownerDocument.head.appendChild(el);
+    this.addAssetEl(el, elReplacement);
+
     return el;
+  }
+
+  addAssetEl(el: HTMLElement, elReplacement?: HTMLElement) {
+    if (elReplacement) {
+      elReplacement.parentNode.replaceChild(el, elReplacement);
+    } else {
+      this.app.layout.el.ownerDocument.head.appendChild(el);
+    }
   }
 
   createStyleLinkElement() {
@@ -308,7 +329,7 @@ export default class AssetsService extends AppService {
   ) {
     const toLoad = AssetsService.createEmptyAssetsCollection();
     const toUnload = AssetsService.createEmptyAssetsCollection();
-    const usageManager = this.getAssetUsage(usage)
+    const usageManager = this.getAssetUsage(usage);
     let hasChange = false;
 
     this.assetsInCollection(collection).forEach((asset: AssetInterface) => {
@@ -332,9 +353,7 @@ export default class AssetsService extends AppService {
 
     if (hasChange) {
       // Load new assets.
-      await this.appendAssets(toLoad);
-      // Remove old ones.
-      this.removeAssets(toUnload);
+      await this.appendAssets(toLoad, toUnload);
     }
   }
 
