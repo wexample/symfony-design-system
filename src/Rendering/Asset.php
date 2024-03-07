@@ -45,7 +45,7 @@ class Asset extends RenderDataGenerator
         $this->path = FileHelper::FOLDER_SEPARATOR.$pathRelativeToPublic;
         // Same as render node id
         $this->id = $this->buildId($this->path);
-        $this->domId = DomHelper::buildStringIdentifier($this->id);
+        $this->domId = $this->type . '-' . DomHelper::buildStringIdentifier($this->id);
     }
 
     private function buildId($path): string

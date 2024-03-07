@@ -83,6 +83,14 @@ class AssetsRegistryService
     public function addAsset(Asset $asset): void
     {
         $this->registry[$asset->type] = $this->registry[$asset->type] ?? [];
-        $this->registry[$asset->type][] = $asset;
+
+        if (!isset($this->registry[$asset->type][$asset->id])) {
+            $this->registry[$asset->type][$asset->id] = $asset;
+        }
+    }
+
+    public function getRegistry(): array
+    {
+        return $this->registry;
     }
 }

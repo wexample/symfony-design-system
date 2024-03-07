@@ -26,8 +26,6 @@ export class AssetsServiceType {
 export default class AssetsService extends AppService {
   public usages: { [key: string]: AssetUsage } = {};
 
-  public assetsRegistry: any = {css: {}, js: {}};
-
   public jsAssetsPending: { [key: string]: AssetInterface } = {};
 
   public static serviceName: string = 'assets';
@@ -241,12 +239,13 @@ export default class AssetsService extends AppService {
   }
 
   registerAsset(asset: AssetInterface): AssetInterface {
-    // Each asset has a unique reference object shared between all render node.
-    if (!this.assetsRegistry[asset.type][asset.id]) {
-      this.assetsRegistry[asset.type][asset.id] = asset;
-    }
+    const registry = this.app.registry.assetsRegistry;
 
-    return this.assetsRegistry[asset.type][asset.id];
+    // Each asset has a unique reference object shared between all render node.
+    if (!registry[asset.type][asset.id]) {
+      registry[asset.type][asset.id] = asset;
+    }
+    return registry[asset.type][asset.id];
   }
 
   removeAssets(assetsCollection: AssetsCollectionInterface) {

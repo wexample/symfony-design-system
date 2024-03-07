@@ -155,9 +155,9 @@ class AssetsService
     public function buildTags(
         RenderPass $renderPass,
     ): array {
-        $tags = [];
-        $contexts = ['layout', 'page'];
         $usages = $this->getAssetsUsages();
+        $tags = array_fill_keys(array_keys($usages), []);
+        $contexts = ['layout', 'page', 'component'];
 
         foreach ($usages as $name => $usage) {
             foreach (Asset::ASSETS_EXTENSIONS as $type) {
@@ -169,8 +169,8 @@ class AssetsService
                             $name,
                             $type
                         );
-
                         foreach ($assets as $asset) {
+
                             if ($this->assetNeedsInitialRender(
                                 $asset,
                                 $renderPass,
@@ -200,12 +200,19 @@ class AssetsService
             }
         }
 
-            $tag = new AssetTag();
-            $tag->setCanAggregate(true);
-            $tag->setPath('build/runtime.js');
-            $tag->setId('javascript-runtime');
+        $tag = new AssetTag();
+        $tag->setCanAggregate(true);
+        $tag->setPath('build/runtime.js');
+        $tag->setId('javascript-runtime');
 
-            $tags['extra'][Asset::EXTENSION_JS]['runtime'] = $tag;
+        $tags['extra'][Asset::EXTENSION_JS]['runtime'] = $tag;
+
+        if ($renderPass->enableAggregation) {
+            return $this->assetsAggregationService->buildAggregatedTags(
+                $this->buildTemplateNameFromPath($renderPass->getView()),
+                $tags,
+            );
+        }
 
         return $tags;
     }
