@@ -14,12 +14,17 @@ import LayoutInitial from './LayoutInitial';
 import LayoutInterface from '../interfaces/RenderData/LayoutInterface';
 import AsyncConstructor from './AsyncConstructor';
 import ServicesRegistryInterface from '../interfaces/ServicesRegistryInterface';
+import AssetsCollectionInterface from "../interfaces/AssetsCollectionInterface";
 
 export default class extends AsyncConstructor {
-  public bundles: any;
   public hasCoreLoaded: boolean = false;
   public layout: LayoutInitial & RenderNodeResponsiveType = null;
   public services: ServicesRegistryInterface = {};
+  public registry = {} as {
+    bundles: any;
+    layoutRenderData: LayoutInterface;
+    assetsRegistry: AssetsCollectionInterface;
+  };
 
   constructor(
     readyCallback?: any | Function,
@@ -34,18 +39,13 @@ export default class extends AsyncConstructor {
     let run = async () => {
       await this.loadAndInitServices(this.getServices());
 
-      let registry: {
-        bundles: any;
-        layoutRenderData: LayoutInterface;
-      } = window['appRegistry'];
-
-      this.bundles = registry.bundles;
+      this.registry = window['appRegistry'];
       // Save layout class definition to allow loading it as a normal render node definition.
-      this.bundles.classes[registry.layoutRenderData.name] = LayoutInitial;
+      this.registry.bundles.classes[this.registry.layoutRenderData.name] = LayoutInitial;
 
       this.layout = (await this.services.layouts.createRenderNode(
-        registry.layoutRenderData.name,
-        registry.layoutRenderData
+        this.registry.layoutRenderData.name,
+        this.registry.layoutRenderData
       )) as (LayoutInitial & RenderNodeResponsiveType);
 
       // The main functionalities are ready,
@@ -163,7 +163,7 @@ export default class extends AsyncConstructor {
     classRegistryName: string,
     bundled: boolean = false
   ): object | null {
-    let bundle = this.bundles.classes[classRegistryName];
+    let bundle = this.registry.bundles.classes[classRegistryName];
 
     if (bundled) {
       return bundle ? bundle : null;
