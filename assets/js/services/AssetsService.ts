@@ -306,8 +306,9 @@ export default class AssetsService extends AppService {
     usage: string,
     renderNode?: RenderNode
   ) {
-    let toLoad = AssetsService.createEmptyAssetsCollection();
-    let toUnload = AssetsService.createEmptyAssetsCollection();
+    const toLoad = AssetsService.createEmptyAssetsCollection();
+    const toUnload = AssetsService.createEmptyAssetsCollection();
+    const usageManager = this.getAssetUsage(usage)
     let hasChange = false;
 
     this.assetsInCollection(collection).forEach((asset: AssetInterface) => {
@@ -316,7 +317,7 @@ export default class AssetsService extends AppService {
       }
 
       let type = asset.type;
-      if (this.getAssetUsage(usage).assetShouldBeLoaded(asset, renderNode)) {
+      if (usageManager.assetShouldBeLoaded(asset, renderNode)) {
         if (!asset.active) {
           hasChange = true;
           toLoad[type].push(asset);
