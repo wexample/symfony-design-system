@@ -7,13 +7,14 @@ use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
+use Wexample\SymfonyDesignSystem\Rendering\RenderDataGenerator;
 use Wexample\SymfonyHelpers\Helper\JsonHelper;
 
-class AssetsRegistryService
+class AssetsRegistryService extends RenderDataGenerator
 {
     private array $manifest = [];
 
-    private array $registry = [];
+    protected array $registry = [];
 
     private string $pathPublic;
 
@@ -89,8 +90,17 @@ class AssetsRegistryService
         }
     }
 
-    public function getRegistry(): array
+    public function toRenderData(): array
     {
-        return $this->registry;
+        $output = [];
+        foreach ($this->registry as $type => $assets) {
+            $output[$type] = [];
+            /** @var Asset $asset */
+            foreach ($assets as $asset) {
+                $output[] = $asset->toRenderData();
+            }
+        }
+
+        return $output;
     }
 }

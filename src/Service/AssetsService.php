@@ -157,7 +157,7 @@ class AssetsService
     ): array {
         $usages = $this->getAssetsUsages();
         $tags = array_fill_keys(array_keys($usages), []);
-        $contexts = ['layout', 'page', 'component'];
+        $contexts = ['layout', 'page'];
 
         foreach ($usages as $name => $usage) {
             foreach (Asset::ASSETS_EXTENSIONS as $type) {
