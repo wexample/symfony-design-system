@@ -3,7 +3,9 @@
 namespace Wexample\SymfonyDesignSystem\Service;
 
 use Symfony\Component\HttpKernel\KernelInterface;
+use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\AssetTag;
+use Wexample\SymfonyHelpers\Helper\ArrayHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 
 class AssetsAggregationService
@@ -18,78 +20,94 @@ class AssetsAggregationService
 
     public function __construct(
         KernelInterface $kernel,
-    )
-    {
+    ) {
         $this->pathProject = $kernel->getProjectDir().'/';
         $this->pathPublic = $this->pathProject.self::DIR_PUBLIC;
     }
 
     public function buildAggregatedTags(
         string $templateName,
-        array $tags,
-        string $type
+        array $usagesAssetsCollection,
     ): array {
-        $aggregated = [];
-        /** @var ?AssetTag $aggregationTag */
-        $aggregationTag = null;
-        $aggregationContent = '';
-        $counter = 0;
+        $aggregated = array_fill_keys(array_keys($usagesAssetsCollection), []);
 
-        /** @var AssetTag $tag */
-        foreach ($tags as $tag) {
-            if ($tag->canAggregate()) {
-                if (!$aggregationTag) {
-                    $aggregationTag = new AssetTag();
+        foreach (Asset::ASSETS_EXTENSIONS as $type) {
+            /** @var ?AssetTag $aggregationTag */
+            $aggregationTag = null;
+            $aggregationContent = '';
+            $counter = 0;
 
-                    $aggregationTag->setId(
-                        $templateName . '-' . $counter
-                    );
+            foreach ($usagesAssetsCollection as $usage => $tagsCollection) {
+                if (isset($tagsCollection[$type])) {
+                    /** @var AssetTag $tag */
+                    foreach ($tagsCollection[$type] as $tag) {
+                        // Ignore placeholders.
+                        if ($tag->getPath()) {
+                            if ($tag->canAggregate()) {
+                                if (!$aggregationTag) {
+                                    $aggregationTag = new AssetTag();
 
-                    $aggregationTag->setMedia(
-                        $tag->getMedia()
-                    );
+                                    $aggregationTag->setId(
+                                        $templateName.'-'.$counter
+                                    );
 
-                    $aggregationTag->setPath(
-                        $this->buildAggregatedPathFromPageName(
-                            $templateName,
-                            $type,
-                            $counter,
-                        )
-                    );
+                                    $aggregationTag->setMedia(
+                                        $tag->getMedia()
+                                    );
 
-                    $counter++;
+                                    $aggregationTag->setPath(
+                                        $this->buildAggregatedPathFromPageName(
+                                            $templateName,
+                                            $type,
+                                            $counter,
+                                        )
+                                    );
+
+                                    $counter++;
+                                }
+
+                                $tagPath = $tag->getPath();
+                                $aggregationContent .= PHP_EOL.'/* AGGREGATED : '.$tagPath.' */ '.PHP_EOL
+                                    .file_get_contents($this->pathPublic.$tagPath);
+                            } else {
+                                $this->writeAggregationTag(
+                                    $usage,
+                                    $type,
+                                    $aggregationTag,
+                                    $aggregationContent,
+                                    $aggregated
+                                );
+
+                                $aggregationTag = null;
+                                $aggregationContent = '';
+
+                                $aggregated[$usage][$type][] = $tag;
+                            }
+                        } else {
+
+                            $aggregated[$usage][$type][] = $tag;
+                        }
+                    }
                 }
-
-                $tagPath = $tag->getPath();
-                $aggregationContent .= PHP_EOL.'/* AGGREGATED : '.$tagPath.' */ '.PHP_EOL
-                    .file_get_contents($this->pathPublic . $tagPath);
-            } else {
-                $this->writeAggregationTag(
-                    $aggregationTag,
-                    $aggregationContent,
-                    $aggregated
-                );
-
-                $aggregationTag = null;
-                $aggregationContent = '';
-
-                $aggregated[] = $tag;
             }
+            $this->writeAggregationTag(
+                'extra',
+                $type,
+                $aggregationTag,
+                $aggregationContent,
+                $aggregated
+            );
         }
-
-        $this->writeAggregationTag(
-            $aggregationTag,
-            $aggregationContent,
-            $aggregated
-        );
 
         return $aggregated;
     }
 
     private function writeAggregationTag(
+        string $usage,
+        string $type,
         ?AssetTag $tag,
         string $body,
-        &$tags
+        &$aggregated
     ): void {
         // Null tag says that no file has been read.
         if (is_null($tag)) {
@@ -102,10 +120,18 @@ class AssetsAggregationService
         );
 
         $tag->setPath(
-            $tag->getPath() . '?' . $hash
+            $tag->getPath().'?'.$hash
         );
 
-        $tags[] = $tag;
+        // Try to keep an order.
+        $aggregated = ArrayHelper::insertNewAfterKey(
+            $aggregated,
+            $usage,
+            $usage.'-agg',
+            []
+        );
+
+        $aggregated[$usage.'-agg'][$type][] = $tag;
     }
 
     protected function buildAggregatedPathFromPageName(
