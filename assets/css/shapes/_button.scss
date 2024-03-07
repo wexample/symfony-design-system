@@ -2,4 +2,9 @@
 
 .button {
   white-space: nowrap;
+
+  svg.icon {
+    // Reset fill color.
+    fill: var(--mdc-protected-button-label-text-color, var(--mdc-theme-on-primary, #fff));
+  }
 }
