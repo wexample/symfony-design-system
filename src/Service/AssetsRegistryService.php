@@ -96,8 +96,8 @@ class AssetsRegistryService extends RenderDataGenerator
         foreach ($this->registry as $type => $assets) {
             $output[$type] = [];
             /** @var Asset $asset */
-            foreach ($assets as $asset) {
-                $output[] = $asset->toRenderData();
+            foreach ($assets as $id => $asset) {
+                $output[$type][$id] = $asset->toRenderData();
             }
         }
 
