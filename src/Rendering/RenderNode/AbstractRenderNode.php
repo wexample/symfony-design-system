@@ -45,7 +45,7 @@ abstract class AbstractRenderNode extends RenderDataGenerator
             .'-'.uniqid();
         $this->usages = $renderPass->usages;
 
-        $this->cssClassName = DomHelper::buildCssClassName($this->id);
+        $this->cssClassName = DomHelper::buildStringIdentifier($this->id);
 
         $renderPass->registerContextRenderNode($this);
 

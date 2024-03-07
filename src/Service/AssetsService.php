@@ -154,61 +154,58 @@ class AssetsService
 
     public function buildTags(
         RenderPass $renderPass,
-        string $type
     ): array {
         $tags = [];
         $contexts = ['layout', 'page'];
         $usages = $this->getAssetsUsages();
 
         foreach ($usages as $name => $usage) {
-            if ($usage->hasAsset()) {
+            foreach (Asset::ASSETS_EXTENSIONS as $type) {
                 foreach ($contexts as $context) {
-                    $assets = $this->assetsFiltered(
-                        $renderPass,
-                        $context,
-                        $name,
-                        $type
-                    );
-
-                    foreach ($assets as $asset) {
-                        if ($this->assetNeedsInitialRender(
-                            $asset,
+                    if ($usage->hasAsset()) {
+                        $assets = $this->assetsFiltered(
                             $renderPass,
-                        )) {
-                            $tag = new AssetTag($asset);
+                            $context,
+                            $name,
+                            $type
+                        );
 
-                            $asset->setServerSideRendered();
+                        foreach ($assets as $asset) {
+                            if ($this->assetNeedsInitialRender(
+                                $asset,
+                                $renderPass,
+                            )) {
+                                $tag = new AssetTag($asset);
 
-                            $tag->setCanAggregate(
-                                $usage->canAggregateAsset(
-                                    $renderPass,
-                                    $asset
-                                )
-                            );
+                                $asset->setServerSideRendered();
 
-                            $tags[] = $tag;
+                                $tag->setCanAggregate(
+                                    $usage->canAggregateAsset(
+                                        $renderPass,
+                                        $asset
+                                    )
+                                );
+
+                                $tags[$name][$type][$context] = $tag;
+                            }
                         }
+                    } else {
+                        $tag = new AssetTag();
+                        $tag->setId($type.'-'.$name.'-'.$context.'-placeholder');
+                        $tag->setPath(null);
+                        $tag->setUsageName($name);
+                        $tags[$name][$type][$context] = $tag;
                     }
                 }
             }
         }
 
-        if ($type === Asset::EXTENSION_JS) {
             $tag = new AssetTag();
             $tag->setCanAggregate(true);
             $tag->setPath('build/runtime.js');
             $tag->setId('javascript-runtime');
 
-            $tags[] = $tag;
-        }
-
-        if ($renderPass->enableAggregation) {
-            return $this->assetsAggregationService->buildAggregatedTags(
-                $this->buildTemplateNameFromPath($renderPass->getView()),
-                $tags,
-                $type
-            );
-        }
+            $tags['extra'][Asset::EXTENSION_JS]['runtime'] = $tag;
 
         return $tags;
     }

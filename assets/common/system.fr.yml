@@ -2,6 +2,7 @@ name: Symfony Design System
 
 error:
   api_response: 'Impossible de traiter la réponse : :body'
+  asset_replacement_node_misplaced: Le node de remplacement ne se trouve pas dans la bonne section du head
   com_el_missing: 'Element non trouvé avec le mode ":initMode", pour le composant : :name'
   com_placeholder_missing: 'Placholder non trouvé pour le composant : :name'
   render_node_type_missing: 'Le composant de type :type est introuvable'

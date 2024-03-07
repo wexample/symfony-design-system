@@ -8,7 +8,9 @@ class AssetTag
     private bool $canAggregate = false;
     private string $id;
     private ?string $media = null;
-    private string $path;
+    private ?string $path;
+    private string $usageName;
+    private string $context;
 
     public function __construct(?Asset $asset = null)
     {
@@ -45,12 +47,12 @@ class AssetTag
         $this->media = $media;
     }
 
-    public function getPath(): string
+    public function getPath(): ?string
     {
         return $this->path;
     }
 
-    public function setPath(string $path): void
+    public function setPath(?string $path): void
     {
         $this->path = $path;
     }
@@ -65,9 +67,31 @@ class AssetTag
         $this->asset = $asset;
 
         if ($asset) {
-            $this->setId($asset->id);
+            $this->setId($asset->domId);
             $this->setPath($asset->path);
             $this->setMedia($asset->media);
+            $this->setUsageName($asset->getUsage());
+            $this->setContext($asset->getContext());
         }
+    }
+
+    public function getUsageName(): string
+    {
+        return $this->usageName;
+    }
+
+    public function setUsageName(string $usageName): void
+    {
+        $this->usageName = $usageName;
+    }
+
+    public function getContext(): string
+    {
+        return $this->context;
+    }
+
+    public function setContext(string $context): void
+    {
+        $this->context = $context;
     }
 }

@@ -1,14 +1,29 @@
-{% for tag in assets_build_tags(render_pass, 'css') %}
-    <link id="{{ tag.id }}-preload" rel="preload" as="style" href="{{ asset(tag.path) }}">
-    <link id="{{ tag.id }}" rel="stylesheet" media="{{ tag.media }}" href="{{ asset(tag.path) }}"/>
-{% endfor %}
+{%- set assets_by_usage = assets_build_tags(render_pass) -%}
+
 {%- if render_pass.isUseJs() -%}
-    {% for tag in assets_build_tags(render_pass, 'js') %}
-        <link id="{{ tag.id }}-preload" rel="preload" as="script" href="{{ asset(tag.path) }}">
-        <script id="{{ tag.id }}" type="text/javascript" src="{{ asset(tag.path) }}"></script>
-    {% endfor %}
     <script type="text/javascript" nonce="layout-data" id="layout-data">
         {%- set layout_initial_data = layout_render_initial_data(render_pass) -%}
         window.appRegistry.layoutRenderData = {{ layout_initial_data | json_encode() | raw }};
     </script>
-{% endif %}
+{%- endif -%}
+
+{%- for usage_name, assets_groups in assets_by_usage -%}
+    {%- for type, types_groups in assets_groups -%}
+        {% for context, tag in types_groups %}
+            {%- set assets_group_name = usage_name ~ '-' ~ context -%}
+            <!--USAGE[{{ assets_group_name }}]-->
+            {%- if type == 'css' -%}
+                {%- if tag.path -%}
+                    <link id="{{ tag.id }}-preload" rel="preload" as="style" href="{{ asset(tag.path) }}">
+                {%- endif -%}
+                <link id="{{ tag.id }}" rel="stylesheet" media="{{ tag.media }}" href="{{ tag.path ? asset(tag.path) : '' }}"/>
+            {%- elseif type == 'js' and render_pass.isUseJs() -%}
+                {%- if tag.path -%}
+                    <link id="{{ tag.id }}-preload" rel="preload" as="script" href="{{ asset(tag.path) }}">
+                {%- endif -%}
+                <script id="{{ tag.id }}" type="text/javascript" src="{{ tag.path ? asset(tag.path) : '' }}"></script>
+            {%- endif -%}
+            <!--END_USAGE[{{ assets_group_name }}]-->
+        {% endfor %}
+    {%- endfor -%}
+{%- endfor -%}

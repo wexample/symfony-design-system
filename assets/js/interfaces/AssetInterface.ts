@@ -3,6 +3,8 @@ export default interface AssetInterface {
   // even the loading process is not finished.
   active: boolean;
   colorScheme?: string;
+  context: string;
+  domId: string;
   el: HTMLElement;
   id: string;
   initialLayout: string;

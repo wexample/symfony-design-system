@@ -43,7 +43,8 @@ class AssetsServiceTest extends AbstractSymfonyTestCase
 
         $asset = new Asset(
             'test.css',
-            DefaultAssetUsageService::getName()
+            DefaultAssetUsageService::getName(),
+            'test'
         );
 
         $this->assertTrue($service->assetNeedsInitialRender(
@@ -60,7 +61,8 @@ class AssetsServiceTest extends AbstractSymfonyTestCase
 
         $asset = new Asset(
             'test.css',
-            ResponsiveAssetUsageService::getName()
+            ResponsiveAssetUsageService::getName(),
+            'test'
         );
 
         $this->assertFalse($service->assetNeedsInitialRender(

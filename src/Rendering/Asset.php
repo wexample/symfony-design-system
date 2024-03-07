@@ -2,6 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
+use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
@@ -21,6 +22,8 @@ class Asset extends RenderDataGenerator
 
     public string $id;
 
+    public string $domId;
+
     public bool $initialLayout = false;
 
     public string $media = 'screen';
@@ -33,13 +36,16 @@ class Asset extends RenderDataGenerator
 
     public function __construct(
         string $pathRelativeToPublic,
-        protected string $usage
+        protected string $usage,
+        protected string $context
     ) {
         $info = pathinfo($pathRelativeToPublic);
         $this->type = $info['extension'];
         // Add leading slash to load it from frontend.
         $this->path = FileHelper::FOLDER_SEPARATOR.$pathRelativeToPublic;
+        // Same as render node id
         $this->id = $this->buildId($this->path);
+        $this->domId = DomHelper::buildStringIdentifier($this->id);
     }
 
     private function buildId($path): string
@@ -83,6 +89,8 @@ class Asset extends RenderDataGenerator
     {
         return $this->serializeVariables([
             'active',
+            'context',
+            'domId',
             'id',
             'initialLayout',
             'path',
@@ -90,5 +98,10 @@ class Asset extends RenderDataGenerator
             'usage',
             'usages',
         ]);
+    }
+
+    public function getContext(): string
+    {
+        return $this->context;
     }
 }

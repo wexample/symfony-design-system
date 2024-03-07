@@ -93,7 +93,7 @@ export default class AssetsService extends AppService {
                   (asset: AssetInterface) => {
                     if (asset.initialLayout) {
                       // Fetch the server-side rendered tag.
-                      asset.el = document.getElementById(asset.id);
+                      asset.el = document.getElementById(asset.domId);
                       this.setAssetLoaded(asset);
                     }
                   }
@@ -157,18 +157,18 @@ export default class AssetsService extends AppService {
           // Browsers does not load twice the JS file content.
           if (!asset.rendered) {
             this.jsAssetsPending[asset.id] = asset;
-            asset.el = this.addScript(
-              asset.path,
-              assetReplaced && assetReplaced.el);
+            this.addScript(
+              asset,
+              assetReplaced);
 
             // Javascript file will run resolve.
             return;
           }
         } else {
           if (!asset.loaded) {
-            asset.el = this.addStyle(
-              asset.path,
-              assetReplaced && assetReplaced.el);
+            this.addStyle(
+              asset,
+              assetReplaced);
           }
         }
       }
@@ -218,14 +218,13 @@ export default class AssetsService extends AppService {
             count--;
 
             if (count === 0) {
+              // Remove replaced and non replaced assets.
+              this.removeAssets(replacedCollection);
               resolveAll(assetsCollection);
             }
           });
         });
       });
-
-      // Remove replaced and non replaced assets.
-      this.removeAssets(replacedCollection);
     });
   }
 
@@ -287,29 +286,43 @@ export default class AssetsService extends AppService {
     delete this.jsAssetsPending[id];
   }
 
-  addScript(src: string, elReplacement?: HTMLElement) {
+  addScript(asset: AssetInterface, assetReplacement?: AssetInterface) {
     let el = document.createElement(TagName.SCRIPT);
-    el.setAttribute(Attribute.SRC, src);
+    el.setAttribute(Attribute.SRC, asset.path);
+    asset.el = el;
 
-    this.addAssetEl(el, elReplacement);
+    this.addAssetEl(asset, assetReplacement);
 
     return el;
   }
 
-  addStyle(href: string, elReplacement?: HTMLElement) {
+  addStyle(asset: AssetInterface, assetReplacement?: AssetInterface) {
     let el = this.createStyleLinkElement();
-    el.setAttribute(Attribute.HREF, href);
+    el.setAttribute(Attribute.HREF, asset.path);
+    asset.el = el;
 
-    this.addAssetEl(el, elReplacement);
+    this.addAssetEl(asset, assetReplacement);
 
     return el;
   }
 
-  addAssetEl(el: HTMLElement, elReplacement?: HTMLElement) {
+  addAssetEl(asset: AssetInterface, assetReplacement?: AssetInterface) {
+    const elReplacement = assetReplacement ? assetReplacement.el : document.getElementById(`${asset.type}-${asset.usage}-placeholder`)
+    const elUsageMarker = Array.from(document.head.childNodes)
+      .find(node => node.nodeType === 8 && node.nodeValue === `END_USAGE[${asset.usage}-${asset.context}]`);
+
+    let elParent = elUsageMarker ? elUsageMarker.parentNode : this.app.layout.el.ownerDocument.head;
+
     if (elReplacement) {
-      elReplacement.parentNode.replaceChild(el, elReplacement);
+      if (!elParent.contains(
+        elReplacement
+      )) {
+        this.app.services.prompt.systemError('@WexampleSymfonyDesignSystemBundle.common.system::error.asset_replacement_node_misplaced');
+      }
+
+      elReplacement.parentNode.replaceChild(asset.el, elReplacement);
     } else {
-      this.app.layout.el.ownerDocument.head.appendChild(el);
+      elParent.appendChild(asset.el);
     }
   }
 

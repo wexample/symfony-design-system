@@ -74,7 +74,8 @@ abstract class AbstractAssetUsageService
 
         $asset = new Asset(
             $pathRelativeToPublic,
-            $this::getName()
+            $this::getName(),
+            $renderNode->getContextType()
         );
 
         $renderNode->assets[$asset->type][] = $asset;
