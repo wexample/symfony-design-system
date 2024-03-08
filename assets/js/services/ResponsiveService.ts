@@ -52,11 +52,13 @@ export default class ResponsiveService extends AppService {
         },
 
         responsiveDetect() {
-          if (!Object.values(this.responsiveBreakpointSupported()).length) {
+          const supported = this.responsiveBreakpointSupported();
+          if (!Object.values(supported).length) {
             this.el.style.display = 'block';
+            return;
           }
 
-          return Object.entries(this.responsiveBreakpointSupported()).reduce(
+          return Object.entries(supported).reduce(
             (prev, current) => {
               // Return the greater one.
               return current[1] > prev[1] ? current : prev;

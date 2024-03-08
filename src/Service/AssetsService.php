@@ -182,7 +182,7 @@ class AssetsService
                                     )
                                 );
 
-                                $tags[$usageName][$type][$context] = $tag;
+                                $tags[$usageName][$type][$context][] = $tag;
                             }
                         }
                     }
@@ -192,7 +192,7 @@ class AssetsService
                         $tag->setId($type.'-'.$usageName.'-'.$context.'-placeholder');
                         $tag->setPath(null);
                         $tag->setUsageName($usageName);
-                        $tags[$usageName][$type][$context] = $tag;
+                        $tags[$usageName][$type][$context][] = $tag;
                     }
                 }
             }
@@ -203,7 +203,7 @@ class AssetsService
         $tag->setPath('build/runtime.js');
         $tag->setId('javascript-runtime');
 
-        $tags['extra'][Asset::EXTENSION_JS]['runtime'] = $tag;
+        $tags['extra'][Asset::EXTENSION_JS]['runtime'][] = $tag;
 
         if ($renderPass->enableAggregation) {
             return $this->assetsAggregationService->buildAggregatedTags(

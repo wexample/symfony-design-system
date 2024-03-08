@@ -6,6 +6,7 @@ import MixinsService from '../services/MixinsService';
 import PagesService from '../services/PagesService';
 import PromptService from '../services/PromptsService';
 import ComponentsService from '../services/ComponentsService';
+import VueService from '../services/VueService';
 import DebugService from '../services/DebugService';
 import LocaleService from '../services/LocaleService';
 
@@ -20,4 +21,5 @@ export default interface ServicesRegistryInterface {
   mixins?: MixinsService;
   pages?: PagesService;
   prompt?: PromptService;
+  vue?: VueService;
 }

@@ -308,7 +308,7 @@ export default class AssetsService extends AppService {
   addAssetEl(asset: AssetInterface, assetReplacement?: AssetInterface) {
     const elReplacement = assetReplacement ? assetReplacement.el : document.getElementById(`${asset.type}-${asset.usage}-placeholder`)
     const elUsageMarker = Array.from(document.head.childNodes)
-      .find(node => node.nodeType === 8 && node.nodeValue === `END_USAGE[${asset.usage}-${asset.context}]`);
+      .find(node => node.nodeType === 8 && node.nodeValue === `END_USAGE[${asset.type}-${asset.usage}-${asset.context}]`);
 
     let elParent = elUsageMarker ? elUsageMarker.parentNode : this.app.layout.el.ownerDocument.head;
 
