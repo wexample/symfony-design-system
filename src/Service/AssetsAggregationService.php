@@ -38,9 +38,9 @@ class AssetsAggregationService
             $counter = 0;
 
             foreach ($usagesAssetsCollection as $usage => $tagsCollection) {
-                if (isset($tagsCollection[$type])) {
-                    /** @var AssetTag $tag */
-                    foreach ($tagsCollection[$type] as $tag) {
+                /** @var AssetTag $tag */
+                foreach ($tagsCollection[$type] ?? [] as $tags) {
+                    foreach ($tags as $tag) {
                         // Ignore placeholders.
                         if ($tag->getPath()) {
                             if ($tag->canAggregate()) {
@@ -53,6 +53,10 @@ class AssetsAggregationService
 
                                     $aggregationTag->setMedia(
                                         $tag->getMedia()
+                                    );
+
+                                    $aggregationTag->setContext(
+                                        $tag->getContext()
                                     );
 
                                     $aggregationTag->setPath(
@@ -81,11 +85,10 @@ class AssetsAggregationService
                                 $aggregationTag = null;
                                 $aggregationContent = '';
 
-                                $aggregated[$usage][$type][] = $tag;
+                                $aggregated[$usage][$type][$tag->getContext()][] = $tag;
                             }
                         } else {
-
-                            $aggregated[$usage][$type][] = $tag;
+                            $aggregated[$usage][$type][$tag->getContext()][] = $tag;
                         }
                     }
                 }
@@ -131,7 +134,7 @@ class AssetsAggregationService
             []
         );
 
-        $aggregated[$usage.'-agg'][$type][] = $tag;
+        $aggregated[$usage.'-agg'][$type][$tag->getContext()][] = $tag;
     }
 
     protected function buildAggregatedPathFromPageName(

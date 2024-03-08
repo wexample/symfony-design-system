@@ -174,6 +174,7 @@ class AssetsService
                         $tag->setId($type.'-'.$usageName.'-'.$context.'-placeholder');
                         $tag->setPath(null);
                         $tag->setUsageName($usageName);
+                        $tag->setContext($context);
                         $tags[$usageName][$type][$context][] = $tag;
                     }
                 }
