@@ -143,7 +143,7 @@ class ComponentService extends RenderNodeService
         return $this->componentsClasses[$name] ?? ComponentRenderNode::class;
     }
 
-    public function getComponentManager(string $name): ?ComponentRenderNodeManager
+    public function getComponentManager(string $name): ?ComponentRenderNode
     {
         return $this->componentsManagers[$name] ?? null;
     }

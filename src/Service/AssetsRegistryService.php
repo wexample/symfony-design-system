@@ -103,4 +103,9 @@ class AssetsRegistryService extends RenderDataGenerator
 
         return $output;
     }
+
+    public function getRegistry(): array
+    {
+        return $this->registry;
+    }
 }

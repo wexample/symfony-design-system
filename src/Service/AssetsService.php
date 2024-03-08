@@ -44,7 +44,8 @@ class AssetsService
         ResponsiveAssetUsageService $responsiveAssetUsageService,
         FontsAssetUsageService $fontsAssetUsageService,
         readonly protected KernelInterface $kernel,
-        readonly protected AssetsAggregationService $assetsAggregationService
+        readonly protected AssetsAggregationService $assetsAggregationService,
+        readonly protected AssetsRegistryService $assetsRegistryService,
     ) {
         foreach ([
                      // Order is important, it defines the order the assets
@@ -157,20 +158,15 @@ class AssetsService
     ): array {
         $usages = $this->getAssetsUsages();
         $tags = array_fill_keys(array_keys($usages), []);
-        $contexts = ['layout', 'page'];
+        $contexts = ['layout', 'page', 'component'];
+        $registry = $this->assetsRegistryService->getRegistry();
 
-        foreach ($usages as $name => $usage) {
+        foreach ($usages as $usageName => $usageManager) {
             foreach (Asset::ASSETS_EXTENSIONS as $type) {
                 foreach ($contexts as $context) {
-                    if ($usage->hasAsset()) {
-                        $assets = $this->assetsFiltered(
-                            $renderPass,
-                            $context,
-                            $name,
-                            $type
-                        );
-                        foreach ($assets as $asset) {
-
+                    /** @var Asset $asset */
+                    foreach ($registry[$type] as $asset) {
+                        if ($asset->getUsage() == $usageName && $asset->getContext() == $context) {
                             if ($this->assetNeedsInitialRender(
                                 $asset,
                                 $renderPass,
@@ -180,21 +176,23 @@ class AssetsService
                                 $asset->setServerSideRendered();
 
                                 $tag->setCanAggregate(
-                                    $usage->canAggregateAsset(
+                                    $usageManager->canAggregateAsset(
                                         $renderPass,
                                         $asset
                                     )
                                 );
 
-                                $tags[$name][$type][$context] = $tag;
+                                $tags[$usageName][$type][$context] = $tag;
                             }
                         }
-                    } else {
+                    }
+
+                    if (empty($tags[$usageName][$type])) {
                         $tag = new AssetTag();
-                        $tag->setId($type.'-'.$name.'-'.$context.'-placeholder');
+                        $tag->setId($type.'-'.$usageName.'-'.$context.'-placeholder');
                         $tag->setPath(null);
-                        $tag->setUsageName($name);
-                        $tags[$name][$type][$context] = $tag;
+                        $tag->setUsageName($usageName);
+                        $tags[$usageName][$type][$context] = $tag;
                     }
                 }
             }
