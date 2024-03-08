@@ -34,7 +34,6 @@ class ComponentService extends RenderNodeService
         );
     }
 
-
     /**
      * @throws Exception
      */
@@ -42,13 +41,11 @@ class ComponentService extends RenderNodeService
         RenderPass $renderPass,
         Environment $env,
         ComponentRenderNode $component
-    ): ?string {
+    ): string {
         $loader = $env->getLoader();
 
         try {
-            $templatePath = $component->getPath().'.html.twig';
-
-            if ($loader->exists($templatePath)) {
+            if ($loader->exists($component->getTemplatePath())) {
                 $renderPass->setCurrentContextRenderNode(
                     $component
                 );
@@ -58,9 +55,8 @@ class ComponentService extends RenderNodeService
                     $component->getName()
                 );
 
-                $rendered = $env->render(
-                    $templatePath,
-                    $component->options
+                $component->render(
+                    $env,
                 );
 
                 $this->translator->revertDomain(
@@ -68,8 +64,8 @@ class ComponentService extends RenderNodeService
                 );
 
                 $renderPass->revertCurrentContextRenderNode();
-
-                return $rendered;
+            } else {
+                $component->setBody(null);
             }
 
             return DomHelper::buildTag(DomHelper::TAG_SPAN);
@@ -137,11 +133,6 @@ class ComponentService extends RenderNodeService
         );
     }
 
-    public function findComponentClassName(string $name): string
-    {
-        return $this->componentsClasses[$name] ?? ComponentRenderNode::class;
-    }
-
     /**
      * @throws Exception
      */
@@ -152,24 +143,29 @@ class ComponentService extends RenderNodeService
         string $initMode,
         array $options = [],
     ): ComponentRenderNode {
-        $className = $this->findComponentClassName($name);
+        $componentManager = $this
+            ->componentManagerLocatorService
+            ->getComponentService($name);
 
-        /** @var ComponentRenderNode $component */
-        $component = new $className(
+        $component = $componentManager?->createComponent(
             $initMode,
             $options
         );
 
-        $this->componentManagerLocatorService->getComponentService($name)
-            ?->createComponent($component);
+        if (!$component) {
+            $component = new ComponentRenderNode(
+                $initMode,
+                $options
+            );
+        }
 
         $this->initRenderNode(
-            $renderPass,
             $component,
+            $renderPass,
             $name,
         );
 
-        $component->body = $this->componentRenderBody(
+        $this->componentRenderBody(
             $renderPass,
             $twig,
             $component

@@ -88,7 +88,7 @@ class ComponentsExtension extends AbstractExtension
             $options
         );
 
-        return $component->body.$component->renderTag();
+        return $component->getBody().$component->renderTag();
     }
 
     /**

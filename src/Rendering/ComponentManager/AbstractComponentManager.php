@@ -5,6 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Rendering\ComponentManager;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
+use Wexample\SymfonyHelpers\Helper\TextHelper;
 
 abstract class AbstractComponentManager
 {
@@ -14,9 +15,26 @@ abstract class AbstractComponentManager
     ) {
     }
 
-    public function createComponent(ComponentRenderNode $componentRenderNode)
-    {
-        // To override...
+    public function createComponent(
+        string $initMode,
+        array $options = [],
+    ): ?ComponentRenderNode {
+        $parts = explode('\\', static::class);
+        $name = end($parts);
+        $componentParts = array_splice($parts, 0, -2);
+        $componentParts[] = 'Component';
+        $componentParts[] = TextHelper::trimLastChunk($name, 'ComponentManager');
+
+        $className = implode('\\', $componentParts);
+
+        if (class_exists($className)) {
+            return new $className(
+                $initMode,
+                $options
+            );
+        }
+
+        return null;
     }
 
     public function postRender()

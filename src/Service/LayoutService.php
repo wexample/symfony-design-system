@@ -54,8 +54,8 @@ class LayoutService extends RenderNodeService
         string $layoutPath,
     ) {
         $this->initRenderNode(
-            $renderPass,
             $layoutRenderNode,
+            $renderPass,
             $layoutPath,
         );
 

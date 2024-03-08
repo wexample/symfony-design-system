@@ -17,15 +17,11 @@ class PageService extends RenderNodeService
 {
     public function __construct(
         AssetsService $assetsService,
-        AdaptiveResponseService $adaptiveResponseService,
-        KernelInterface $kernel,
         protected Translator $translator,
         protected RouterInterface $router
     ) {
         parent::__construct(
             $assetsService,
-            $adaptiveResponseService,
-            $kernel
         );
     }
 
@@ -35,8 +31,8 @@ class PageService extends RenderNodeService
         string $view
     ): void {
         $this->initRenderNode(
-            $renderPass,
             $page,
+            $renderPass,
             $view
         );
 

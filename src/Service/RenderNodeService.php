@@ -18,8 +18,8 @@ abstract class RenderNodeService
      * on layout render node class instanciation.
      */
     public function initRenderNode(
-        RenderPass $renderPass,
         AbstractRenderNode $renderNode,
+        RenderPass $renderPass,
         string $path,
     ): void {
         $renderNode->init(
