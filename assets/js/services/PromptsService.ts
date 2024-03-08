@@ -1,5 +1,6 @@
 import AppService from '../class/AppService';
 import LocaleService from './LocaleService';
+import { format as StringFormat } from '../helpers/StringHelper';
 
 export default class PromptService extends AppService {
   public static dependencies: typeof AppService[] = [LocaleService];
@@ -12,7 +13,7 @@ export default class PromptService extends AppService {
     debugData: any = null,
     fatal: boolean = false
   ) {
-    message = this.app.services.locale.trans(message, args);
+    message = StringFormat(message, args);
 
     if (fatal) {
       throw new Error(message);

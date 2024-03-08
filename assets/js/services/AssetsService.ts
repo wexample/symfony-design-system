@@ -316,7 +316,7 @@ export default class AssetsService extends AppService {
       if (!elParent.contains(
         elReplacement
       )) {
-        this.app.services.prompt.systemError('@WexampleSymfonyDesignSystemBundle.common.system::error.asset_replacement_node_misplaced');
+        this.app.services.prompt.systemError('The replacement node is not in the expected location in head, ignoring');
       }
 
       elReplacement.parentNode.replaceChild(asset.el, elReplacement);

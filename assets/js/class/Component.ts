@@ -23,7 +23,7 @@ export default abstract class Component extends RenderNode {
 
     if (!elPlaceholder) {
       this.app.services.prompt.systemError(
-        '@WexampleSymfonyDesignSystemBundle.common.system::error.com_placeholder_missing',
+        'Placeholder missing for component ":name"',
         {
           ':name': this.name
         },
@@ -53,10 +53,10 @@ export default abstract class Component extends RenderNode {
 
     if (!el) {
       this.app.services.prompt.systemError(
-        '@WexampleSymfonyDesignSystemBundle.common.system::error.com_el_missing',
+        'Unable to find element ":name" using ":init_mode" init mode',
         {
           ':name': this.name,
-          ':initMode' : this.initMode
+          ':init_mode': this.initMode
         },
         this
       );
