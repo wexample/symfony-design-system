@@ -119,27 +119,28 @@ export default class VueService extends AppService {
   }
 
   createVueAppForComponent(component: Component) {
-    let vue = this.initComponent(component.renderData.options.path, component);
-    let app = this.createApp(vue, component.options.props);
+    let vue = this.initComponent(component, component);
+    let app = this.createApp(vue, component.renderData.options.props);
 
     return app;
   }
 
-  initComponent(className, rootComponent: Component): object {
-    if (!this.componentRegistered[className]) {
-      let vueClassDefinition = this.app.getBundleClassDefinition(className);
+  initComponent(vueComponent: Component, rootComponent: Component): object {
+    const name = vueComponent.renderData.options.name
+
+    if (!this.componentRegistered[name]) {
+      let vueClassDefinition = this.app.getBundleClassDefinition(name) as any;
 
       if (!vueClassDefinition) {
         this.app.services.prompt.systemError(
-          'page_message.error.vue_missing',
-          {},
+          'Missing vue definition for ":class"',
           {
-            ':class': className,
+            ':class': name,
           }
         );
       } else {
-        let comName = pathToTagName(className);
-        let id = `vue-template-${comName}`;
+        let comName = pathToTagName(name);
+        let id = `vue-template-${vueComponent.renderData.options.domId}`;
 
         vueClassDefinition.template = document.getElementById(id);
 
@@ -162,18 +163,23 @@ export default class VueService extends AppService {
         ]);
 
         if (!vueClassDefinition.template) {
-          throw new Error(
-            `Unable to load vue component as template item #${id} has not been found.`
+          this.app.services.prompt.systemError(
+            `Unable to load vue component as template item #:id has not been found.`,
+            {
+              ':id': id
+            },
+            undefined,
+            true
           );
         }
 
-        this.componentRegistered[className] = vueClassDefinition;
+        this.componentRegistered[name] = vueClassDefinition;
 
         this.inherit(vueClassDefinition, rootComponent);
       }
     }
 
-    return this.componentRegistered[className];
+    return this.componentRegistered[name];
   }
 
   addTemplatesHtml(renderedTemplates: string[]) {
