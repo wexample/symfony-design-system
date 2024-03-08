@@ -7,10 +7,15 @@ use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderDataGenerator;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithTemplateAbstractPathTrait;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithTemplateNameTrait;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 
 abstract class AbstractRenderNode extends RenderDataGenerator
 {
+    use WithTemplateAbstractPathTrait;
+    use WithTemplateNameTrait;
+
     public array $assets = AssetsService::ASSETS_DEFAULT_EMPTY;
 
     public array $components = [];
@@ -25,11 +30,11 @@ abstract class AbstractRenderNode extends RenderDataGenerator
 
     public array $vars = [];
 
-    private string $name;
+    private string $templateAbstractPath;
 
     public array $usages;
 
-    private string $path;
+    private string $templateName;
 
     abstract public function getContextType(): string;
 
@@ -42,7 +47,7 @@ abstract class AbstractRenderNode extends RenderDataGenerator
         $this->setTemplateAbstractPath($name);
 
         $this->id = $this->getContextType().'-'
-            .str_replace('/', '-', $this->getName())
+            .str_replace('/', '-', $this->getTemplateAbstractPath())
             .'-'.uniqid();
         $this->usages = $renderPass->usages;
 
@@ -57,7 +62,7 @@ abstract class AbstractRenderNode extends RenderDataGenerator
     {
         return RenderingHelper::buildRenderContextKey(
             $this->getContextType(),
-            $this->getName()
+            $this->getTemplateAbstractPath()
         );
     }
 
@@ -71,30 +76,10 @@ abstract class AbstractRenderNode extends RenderDataGenerator
             'components' => $this->arrayToRenderData($this->components),
             'cssClassName' => $this->cssClassName,
             'id' => $this->id,
-            'templateAbstractPath' => $this->getName(),
+            'templateAbstractPath' => $this->getTemplateAbstractPath(),
             'translations' => $this->translations,
             'vars' => $this->vars,
             'usages' => $this->usages,
         ];
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function setTemplateAbstractPath(string $name): void
-    {
-        $this->name = $name;
-    }
-
-    public function getPath(): string
-    {
-        return $this->path;
-    }
-
-    public function setTemplateName(string $path): void
-    {
-        $this->path = $path;
     }
 }

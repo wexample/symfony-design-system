@@ -52,7 +52,7 @@ class RenderPass
     public function registerRenderNode(
         AbstractRenderNode $renderNode
     ) {
-        $this->registry[$renderNode->getContextType()][$renderNode->getName()] = $renderNode;
+        $this->registry[$renderNode->getContextType()][$renderNode->getTemplateAbstractPath()] = $renderNode;
     }
 
     public function getRenderParameters(): array
@@ -73,7 +73,7 @@ class RenderPass
     ) {
         $this->setCurrentContextRenderNodeByTypeAndName(
             $renderNode->getContextType(),
-            $renderNode->getName()
+            $renderNode->getTemplateAbstractPath()
         );
     }
 

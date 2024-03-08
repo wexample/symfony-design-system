@@ -20,7 +20,7 @@ final class ResponsiveAssetUsageService extends AbstractAssetUsageService
         string $ext,
         ?string $templateName = null
     ): void {
-        $pathInfo = pathinfo($this->buildPublicAssetPathFromTemplateName($templateName ?: $renderNode->getName(), $ext));
+        $pathInfo = pathinfo($this->buildPublicAssetPathFromTemplateName($templateName ?: $renderNode->getTemplateAbstractPath(), $ext));
         $maxWidth = null;
 
         $breakpoints = array_reverse($renderPass->getDisplayBreakpoints());

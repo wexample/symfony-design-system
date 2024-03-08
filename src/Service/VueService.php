@@ -29,7 +29,7 @@ class VueService
 
     public function isRenderPassInVueContext(RenderPass $renderPass): bool
     {
-        return ComponentService::COMPONENT_NAME_VUE === $renderPass->getCurrentContextRenderNode()->getName();
+        return ComponentService::COMPONENT_NAME_VUE === $renderPass->getCurrentContextRenderNode()->getTemplateAbstractPath();
     }
 
     /**

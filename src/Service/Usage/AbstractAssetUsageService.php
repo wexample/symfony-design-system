@@ -37,7 +37,7 @@ abstract class AbstractAssetUsageService
     ): void {
         $pathInfo = pathinfo(
             $this->buildPublicAssetPathFromTemplateName(
-                $templateName ?: $renderNode->getName(),
+                $templateName ?: $renderNode->getTemplateAbstractPath(),
                 $ext
             )
         );

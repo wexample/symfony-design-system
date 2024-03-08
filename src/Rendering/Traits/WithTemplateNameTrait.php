@@ -2,7 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering\Traits;
 
-trait WithTemplateName
+trait WithTemplateNameTrait
 {
     private string $templateName;
 

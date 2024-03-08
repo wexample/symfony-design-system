@@ -52,7 +52,7 @@ class ComponentService extends RenderNodeService
 
                 $this->translator->setDomainFromPath(
                     Translator::DOMAIN_TYPE_COMPONENT,
-                    $component->getName()
+                    $component->getTemplateAbstractPath()
                 );
 
                 $component->render(
@@ -70,7 +70,7 @@ class ComponentService extends RenderNodeService
 
             return DomHelper::buildTag(DomHelper::TAG_SPAN);
         } catch (Exception $exception) {
-            throw new Exception('Error during rendering component '.$component->getName().' : '.$exception->getMessage(), $exception->getCode(), $exception);
+            throw new Exception('Error during rendering component '.$component->getTemplateAbstractPath().' : '.$exception->getMessage(), $exception->getCode(), $exception);
         }
     }
 
