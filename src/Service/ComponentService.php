@@ -5,7 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Service;
 use Exception;
 use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
-use Wexample\SymfonyDesignSystem\Rendering\ComponentRenderNodeManager;
+use Wexample\SymfonyDesignSystem\Rendering\ComponentManagerLocatorService;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
@@ -25,13 +25,12 @@ class ComponentService extends RenderNodeService
     public const COMPONENT_NAME_VUE = 'components/vue';
 
     public function __construct(
-        AdaptiveResponseService $adaptiveResponseService,
         AssetsService $assetsService,
+        readonly protected ComponentManagerLocatorService $componentManagerLocatorService,
         readonly protected Translator $translator
     ) {
         parent::__construct(
             $assetsService,
-            $adaptiveResponseService
         );
     }
 
@@ -47,7 +46,7 @@ class ComponentService extends RenderNodeService
         $loader = $env->getLoader();
 
         try {
-            $templatePath = $component->getPath() . '.html.twig';
+            $templatePath = $component->getPath().'.html.twig';
 
             if ($loader->exists($templatePath)) {
                 $renderPass->setCurrentContextRenderNode(
@@ -143,11 +142,6 @@ class ComponentService extends RenderNodeService
         return $this->componentsClasses[$name] ?? ComponentRenderNode::class;
     }
 
-    public function getComponentManager(string $name): ?ComponentRenderNode
-    {
-        return $this->componentsManagers[$name] ?? null;
-    }
-
     /**
      * @throws Exception
      */
@@ -166,7 +160,7 @@ class ComponentService extends RenderNodeService
             $options
         );
 
-        $this->getComponentManager($name)
+        $this->componentManagerLocatorService->getComponentService($name)
             ?->createComponent($component);
 
         $this->initRenderNode(

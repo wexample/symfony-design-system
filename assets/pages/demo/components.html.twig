@@ -30,4 +30,10 @@
     <div class="block">
         &lt;div class="it-will-be-component-element {{ '{{ component_init_class(\'components/demo-init\') }}' }}"&gt;...&lt;/div&gt;
     </div>
+
+    <h3>{{ '@page::components.init.server_side.title' | trans }}</h3>
+    <div class="block">
+        {{ '@page::components.init.server_side.body' | trans }}
+        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/demo-server-side-component') }}
+    </div>
 {%- endblock -%}
