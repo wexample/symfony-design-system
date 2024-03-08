@@ -9,6 +9,7 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\VueService;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
@@ -74,6 +75,7 @@ class VueExtension extends AbstractExtension
      */
     public function vue(
         Environment $env,
+        RenderPass $renderPass,
         string $path,
         ?array $props = [],
         ?array $twigContext = []
