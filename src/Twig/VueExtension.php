@@ -32,6 +32,13 @@ class VueExtension extends AbstractExtension
                     self::FUNCTION_OPTION_IS_SAFE => [self::FUNCTION_OPTION_HTML],
                 ]
             ),
+            new TwigFunction(
+                'vue_render_templates',
+                [
+                    $this,
+                    'vueRenderTemplates',
+                ]
+            ),
         ];
     }
 
@@ -52,5 +59,11 @@ class VueExtension extends AbstractExtension
             $props,
             $twigContext
         );
+    }
+
+    public function vueRenderTemplates(): string
+    {
+        // Add vue js templates.
+        return implode('', $this->vueService->renderedTemplates);
     }
 }

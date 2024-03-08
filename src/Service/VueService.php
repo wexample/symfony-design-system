@@ -15,6 +15,8 @@ use Wexample\SymfonyTranslations\Translation\Translator;
 
 class VueService
 {
+    public array $renderedTemplates = [];
+
     public array $rootComponents = [];
 
     public function __construct(
@@ -22,8 +24,7 @@ class VueService
         readonly protected AssetsService $assetsService,
         readonly protected ComponentService $componentsService,
         readonly protected Translator $translator
-    )
-    {
+    ) {
     }
 
     public function isRenderPassInVueContext(RenderPass $renderPass): bool
@@ -62,7 +63,7 @@ class VueService
                 ->registerComponent(
                     $twig,
                     $renderPass,
-                    BundleHelper::ALIAS_PREFIX . WexampleSymfonyDesignSystemBundle::getAlias() . '/' . ComponentService::COMPONENT_NAME_VUE,
+                    BundleHelper::ALIAS_PREFIX.WexampleSymfonyDesignSystemBundle::getAlias().'/'.ComponentService::COMPONENT_NAME_VUE,
                     ComponentService::INIT_MODE_PARENT,
                     $options
                 );
@@ -81,6 +82,47 @@ class VueService
             if ($rootComponent->getContextRenderNodeKey() !== $contextCurrent) {
                 throw new Exception('Trying to render a non-root vue outside the vue context. Current context is '.$contextCurrent);
             }
+        }
+
+        // Append assets to root vue component.
+        $this
+            ->assetsService
+            ->assetsDetect(
+                $renderPass,
+                $rootComponent,
+            );
+
+        if (!isset($this->renderedTemplates[$vue->name])) {
+            $renderPass->setCurrentContextRenderNode(
+                $rootComponent
+            );
+
+            $this->translator->setDomainFromPath(
+                Translator::DOMAIN_TYPE_VUE,
+                $vue->path
+            );
+
+            $template = DomHelper::buildTag(
+                'template',
+                [
+                    'class' => 'vue vue-loading',
+                    'id' => 'vue-template-'.$vue->name,
+                ],
+                $twig->render(
+                    $pathWithExtension,
+                    $twigContext + $options
+                )
+            );
+
+            $rootComponent->translations['INCLUDE|'.$vue->name] = $this->translator->transFilter('@vue::*');
+
+            $this->translator->revertDomain(
+                Translator::DOMAIN_TYPE_VUE
+            );
+
+            $renderPass->revertCurrentContextRenderNode();
+
+            $this->renderedTemplates[$vue->name] = $template;
         }
 
         return DomHelper::buildTag(
