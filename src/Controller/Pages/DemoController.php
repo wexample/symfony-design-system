@@ -40,7 +40,7 @@ final class DemoController extends AbstractPagesController
     }
 
     #[Route(path: '', name: self::ROUTE_INDEX)]
-    public function index(): Response
+    final public function index(): Response
     {
         return $this->renderPage(
             self::ROUTE_INDEX
@@ -64,7 +64,7 @@ final class DemoController extends AbstractPagesController
         path: VariableHelper::ASSETS,
         name: self::ROUTE_ASSETS
     )]
-    public function assets(Request $request): Response
+    final public function assets(Request $request): Response
     {
         $this->useJs = !$request->get('no_js');
 
@@ -77,7 +77,7 @@ final class DemoController extends AbstractPagesController
         path: self::ROUTE_AGGREGATION,
         name: self::ROUTE_AGGREGATION
     )]
-    public function aggregation(Request $request): Response
+    final public function aggregation(): Response
     {
         // Prepare specific render pass.
         $renderPass = $this->createPageRenderPass(self::ROUTE_AGGREGATION);
@@ -93,7 +93,7 @@ final class DemoController extends AbstractPagesController
         path: 'color-schemes',
         name: self::ROUTE_COLOR_SCHEMES
     )]
-    public function colorSchemes(): Response
+    final public function colorSchemes(): Response
     {
         // Prepare specific render pass.
         $renderPass = $this->createPageRenderPass(self::ROUTE_COLOR_SCHEMES);

@@ -51,9 +51,9 @@ export default abstract class AbstractRenderNodeService extends AppService {
       );
     } catch {
       this.app.services.prompt.systemError(
-        'Unable to find component with type ":type"',
+        'Unable to find component with name ":name"',
         {
-          ":type": definitionName
+          ":name": definitionName
         }
       );
       return;
