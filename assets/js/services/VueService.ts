@@ -20,7 +20,7 @@ export default class VueService extends AppService {
     props: {},
 
     methods: {},
-
+	
     async updated() {
       await this.rootComponent.forEachTreeRenderNode((renderNode) => {
         if (this === this.$root) {
