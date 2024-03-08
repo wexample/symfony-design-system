@@ -10,3 +10,7 @@ export function format(text: string, args: object): string {
 export function toKebab(string: string): string {
   return string.replace(/[\_\-]/g, '-').toLowerCase();
 }
+
+export function pathToTagName(string: string): string {
+  return string.split('/').join('-').toLowerCase();
+}

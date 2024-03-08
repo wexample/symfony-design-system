@@ -2,6 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
+use Wexample\SymfonyHelpers\Helper\ClassHelper;
 use function is_a;
 use function is_object;
 
@@ -26,7 +27,13 @@ abstract class RenderDataGenerator
         $output = [];
 
         foreach ($variables as $variable) {
-            $value = $this->$variable;
+            $reflect = new \ReflectionProperty($this, $variable);
+            if ($reflect->isPrivate()) {
+                // Try to use $this->getVariable().
+                ClassHelper::getFieldGetterValue($this, $variable);
+            } else {
+                $value = $this->$variable;
+            }
 
             if (!is_object($value)) {
                 $output[$variable] = $value;

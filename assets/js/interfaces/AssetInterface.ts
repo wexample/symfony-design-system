@@ -6,7 +6,7 @@ export default interface AssetInterface {
   context: string;
   domId: string;
   el: HTMLElement;
-  id: string;
+  templateName: string;
   initialLayout: string;
   loaded: boolean;
   path: string;

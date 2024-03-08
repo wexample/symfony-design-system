@@ -71,22 +71,23 @@ class AssetsRegistryService extends RenderDataGenerator
         }
     }
 
-    public function assetExists(string $pathRelativeToPublic): bool
+    public function assetExists(string $pathInManifest): bool
     {
-        return isset($this->manifest[$pathRelativeToPublic]);
+        return isset($this->manifest[$pathInManifest]);
     }
 
-    public function getRealPath(string $pathRelativeToPublic): string
+    public function getRealPath(string $pathInManifest): string
     {
-        return realpath($this->pathPublic.$this->manifest[$pathRelativeToPublic]);
+        return realpath($this->pathPublic.$this->manifest[$pathInManifest]);
     }
 
     public function addAsset(Asset $asset): void
     {
         $this->registry[$asset->type] = $this->registry[$asset->type] ?? [];
+        $templateName = $asset->getTemplateName();
 
-        if (!isset($this->registry[$asset->type][$asset->id])) {
-            $this->registry[$asset->type][$asset->id] = $asset;
+        if (!isset($this->registry[$asset->type][$templateName])) {
+            $this->registry[$asset->type][$templateName] = $asset;
         }
     }
 

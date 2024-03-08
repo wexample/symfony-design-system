@@ -82,36 +82,18 @@ class AssetsService
     public function assetsDetect(
         RenderPass $renderPass,
         AbstractRenderNode $renderNode,
+        ?string $templateName = null
     ): void {
         foreach (Asset::ASSETS_EXTENSIONS as $ext) {
             foreach ($this->usages as $usage) {
                 $usage->addAssetsForRenderNodeAndType(
                     $renderPass,
                     $renderNode,
-                    $ext
+                    $ext,
+                    $templateName
                 );
             }
         }
-    }
-
-    public function assetsFiltered(
-        RenderPass $renderPass,
-        string $contextType,
-        string $usage,
-        string $assetType = null
-    ): array {
-        $assets = [];
-
-        /** @var AbstractRenderNode $renderNode */
-        foreach ($renderPass->registry[$contextType] as $renderNode) {
-            foreach ($renderNode->assets[$assetType] as $asset) {
-                if ($asset->getUsage() === $usage) {
-                    $assets[] = $asset;
-                }
-            }
-        }
-
-        return $this->sortAssets($assets);
     }
 
     /**

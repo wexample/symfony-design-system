@@ -3,12 +3,15 @@
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithTemplateNameTrait;
 use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
 
 class Asset extends RenderDataGenerator
 {
+    use WithTemplateNameTrait;
+
     public const EXTENSION_CSS = 'css';
 
     public const EXTENSION_JS = 'js';
@@ -19,8 +22,6 @@ class Asset extends RenderDataGenerator
     ];
 
     public bool $active = false;
-
-    public string $id;
 
     public string $domId;
 
@@ -35,20 +36,23 @@ class Asset extends RenderDataGenerator
     public array $usages = [];
 
     public function __construct(
-        string $pathRelativeToPublic,
+        string $pathInManifest,
         protected string $usage,
         protected string $context
     ) {
-        $info = pathinfo($pathRelativeToPublic);
+        $info = pathinfo($pathInManifest);
         $this->type = $info['extension'];
         // Add leading slash to load it from frontend.
-        $this->path = FileHelper::FOLDER_SEPARATOR.$pathRelativeToPublic;
+        $this->path = FileHelper::FOLDER_SEPARATOR.$pathInManifest;
         // Same as render node id
-        $this->id = $this->buildId($this->path);
-        $this->domId = $this->type . '-' . DomHelper::buildStringIdentifier($this->id);
+        $this->setTemplateName(
+            $this->buildTemplateName($this->path)
+        );
+
+        $this->domId = $this->type.'-'.DomHelper::buildStringIdentifier($this->getTemplateName());
     }
 
-    private function buildId($path): string
+    private function buildTemplateName(string $path): string
     {
         $path = TextHelper::trimFirstChunk(
             FileHelper::removeExtension($path),
@@ -91,9 +95,9 @@ class Asset extends RenderDataGenerator
             'active',
             'context',
             'domId',
-            'id',
             'initialLayout',
             'path',
+            'templateName',
             'type',
             'usage',
             'usages',

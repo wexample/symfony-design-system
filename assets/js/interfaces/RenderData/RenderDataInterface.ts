@@ -8,6 +8,7 @@ export default interface RenderDataInterface {
   cssClassName: string;
   id: string;
   name: string;
+  options: any;
   requestOptions?: RequestOptionsInterface;
   translations: {};
   vars: {};

@@ -20,11 +20,11 @@ abstract class AbstractAssetUsageService
 
     abstract public static function getName(): string;
 
-    public function buildBuiltPublicAssetPath(
-        AbstractRenderNode $renderNode,
+    public function buildPublicAssetPathFromTemplateName(
+        string $templateName,
         string $ext
     ): string {
-        $nameParts = explode('::', $renderNode->getName());
+        $nameParts = explode('::', $templateName);
 
         return AssetsRegistryService::DIR_BUILD.PathHelper::join([$nameParts[0], $ext, $nameParts[1].'.'.$ext]);
     }
@@ -32,9 +32,16 @@ abstract class AbstractAssetUsageService
     public function addAssetsForRenderNodeAndType(
         RenderPass $renderPass,
         AbstractRenderNode $renderNode,
-        string $ext
+        string $ext,
+        ?string $templateName = null
     ): void {
-        $pathInfo = pathinfo($this->buildBuiltPublicAssetPath($renderNode, $ext));
+        $pathInfo = pathinfo(
+            $this->buildPublicAssetPathFromTemplateName(
+                $templateName ?: $renderNode->getName(),
+                $ext
+            )
+        );
+
         $usage = $this->getName();
         $usageKebab = TextHelper::toKebab($usage);
 
@@ -53,21 +60,21 @@ abstract class AbstractAssetUsageService
     }
 
     protected function createAssetIfExists(
-        string $pathRelativeToPublic,
+        string $pathInManifest,
         AbstractRenderNode $renderNode,
     ): ?Asset {
-        if (!$this->assetsRegistryService->assetExists($pathRelativeToPublic)) {
+        if (!$this->assetsRegistryService->assetExists($pathInManifest)) {
             return null;
         }
 
-        $realPath = $this->assetsRegistryService->getRealPath($pathRelativeToPublic);
+        $realPath = $this->assetsRegistryService->getRealPath($pathInManifest);
 
         if (!$realPath) {
-            throw new Exception('Unable to find asset "'.$pathRelativeToPublic.'" in manifest.');
+            throw new Exception('Unable to find asset "'.$pathInManifest.'" in manifest.');
         }
 
         $asset = new Asset(
-            $pathRelativeToPublic,
+            $pathInManifest,
             $this::getName(),
             $renderNode->getContextType()
         );

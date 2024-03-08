@@ -43,7 +43,7 @@ class VueService
         ?array $twigContext = []
     ): string {
         $vue = new Vue(
-            $path,
+            $this->assetsService->buildTemplateNameFromPath($path),
         );
 
         $pathWithExtension = $path.VueExtension::TEMPLATE_FILE_EXTENSION;
@@ -52,8 +52,11 @@ class VueService
             throw new Exception('Unable to find template: '.$pathWithExtension);
         }
 
-        $options = [
+        $vueTemplateName = $vue->getTemplateName();
 
+        $options = [
+            'domId' => $vue->domId,
+            'name' => $vueTemplateName,
         ];
 
         $outputBody = '';
@@ -68,7 +71,7 @@ class VueService
                     $options
                 );
 
-            $this->rootComponents[$vue->name] = $rootComponent;
+            $this->rootComponents[$vueTemplateName] = $rootComponent;
 
             $outputBody = $rootComponent->renderTag();
         } else {
@@ -90,23 +93,24 @@ class VueService
             ->assetsDetect(
                 $renderPass,
                 $rootComponent,
+                $vueTemplateName
             );
 
-        if (!isset($this->renderedTemplates[$vue->name])) {
+        if (!isset($this->renderedTemplates[$vueTemplateName])) {
             $renderPass->setCurrentContextRenderNode(
                 $rootComponent
             );
 
             $this->translator->setDomainFromPath(
                 Translator::DOMAIN_TYPE_VUE,
-                $vue->path
+                $vueTemplateName
             );
 
             $template = DomHelper::buildTag(
                 'template',
                 [
                     'class' => 'vue vue-loading',
-                    'id' => 'vue-template-'.$vue->name,
+                    'id' => 'vue-template-'.$vue->domId,
                 ],
                 $twig->render(
                     $pathWithExtension,
@@ -114,7 +118,7 @@ class VueService
                 )
             );
 
-            $rootComponent->translations['INCLUDE|'.$vue->name] = $this->translator->transFilter('@vue::*');
+            $rootComponent->translations['INCLUDE|'.$vueTemplateName] = $this->translator->transFilter('@vue::*');
 
             $this->translator->revertDomain(
                 Translator::DOMAIN_TYPE_VUE
@@ -122,13 +126,13 @@ class VueService
 
             $renderPass->revertCurrentContextRenderNode();
 
-            $this->renderedTemplates[$vue->name] = $template;
+            $this->renderedTemplates[$vueTemplateName] = $template;
         }
 
         return DomHelper::buildTag(
-            $vue->name,
+            $vueTemplateName,
             [
-                'class' => $vue->id,
+                'class' => $vue->domId,
             ],
             $outputBody
         );
