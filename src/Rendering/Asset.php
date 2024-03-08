@@ -3,14 +3,14 @@
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
-use Wexample\SymfonyDesignSystem\Rendering\Traits\WithTemplateNameTrait;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithTemplateAbstractPathTrait;
 use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
 
 class Asset extends RenderDataGenerator
 {
-    use WithTemplateNameTrait;
+    use WithTemplateAbstractPathTrait;
 
     public const EXTENSION_CSS = 'css';
 
@@ -45,11 +45,11 @@ class Asset extends RenderDataGenerator
         // Add leading slash to load it from frontend.
         $this->path = FileHelper::FOLDER_SEPARATOR.$pathInManifest;
         // Same as render node id
-        $this->setTemplateName(
-            $this->buildTemplateName($this->path)
+        $this->setTemplateAbstractPath(
+            $this->buildTemplateAbstractPath($this->path)
         );
 
-        $this->domId = $this->type.'-'.DomHelper::buildStringIdentifier($this->getTemplateName());
+        $this->domId = $this->type.'-'.DomHelper::buildStringIdentifier($this->getTemplateAbstractPath());
     }
 
     private function buildTemplateName(string $path): string
@@ -97,7 +97,7 @@ class Asset extends RenderDataGenerator
             'domId',
             'initialLayout',
             'path',
-            'templateName',
+            'templateAbstractPath',
             'type',
             'usage',
             'usages',

@@ -52,7 +52,7 @@ class VueService
             throw new Exception('Unable to find template: '.$pathWithExtension);
         }
 
-        $vueTemplateName = $vue->getTemplateName();
+        $vueTemplateName = $vue->getTemplateAbstractPath();
 
         $options = [
             'domId' => $vue->domId,

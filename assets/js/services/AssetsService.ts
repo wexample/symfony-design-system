@@ -154,7 +154,7 @@ export default class AssetsService extends AppService {
         if (asset.type === 'js') {
           // Browsers does not load twice the JS file content.
           if (!asset.rendered) {
-            this.jsAssetsPending[asset.templateName] = asset;
+            this.jsAssetsPending[asset.templateAbstractPath] = asset;
             this.addScript(
               asset,
               assetReplaced);
@@ -242,10 +242,10 @@ export default class AssetsService extends AppService {
     const registry = this.app.registry.assetsRegistry;
 
     // Each asset has a unique reference object shared between all render node.
-    if (!registry[asset.type][asset.templateName]) {
-      registry[asset.type][asset.templateName] = asset;
+    if (!registry[asset.type][asset.templateAbstractPath]) {
+      registry[asset.type][asset.templateAbstractPath] = asset;
     }
-    return registry[asset.type][asset.templateName];
+    return registry[asset.type][asset.templateAbstractPath];
   }
 
   removeAssets(assetsCollection: AssetsCollectionInterface) {
@@ -261,7 +261,7 @@ export default class AssetsService extends AppService {
     if (asset.el) {
       // Do some cleanup, only useful for source readability.
       if (asset.initialLayout) {
-        const elPreload = document.getElementById(`${asset.templateName}-preload`);
+        const elPreload = document.getElementById(`${asset.templateAbstractPath}-preload`);
         if (elPreload) {
           elPreload.remove();
         }

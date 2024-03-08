@@ -4,23 +4,23 @@ namespace Wexample\SymfonyDesignSystem\Rendering;
 
 use Exception;
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
-use Wexample\SymfonyDesignSystem\Rendering\Traits\WithTemplateNameTrait;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithTemplateAbstractPathTrait;
 
 class Vue
 {
-    use WithTemplateNameTrait;
+    use WithTemplateAbstractPathTrait;
 
     public string $domId;
 
     /**
      * @throws Exception
      */
-    public function __construct(string $templateName)
+    public function __construct(string $templateAbstractPath)
     {
-        $this->setTemplateName($templateName);
+        $this->setTemplateAbstractPath($templateAbstractPath);
 
         $this->domId = DomHelper::buildStringIdentifier(
-            $this->getTemplateName()
+            $this->getTemplateAbstractPath()
         );
     }
 }
