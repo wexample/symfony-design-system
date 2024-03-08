@@ -8,6 +8,8 @@ use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\PageRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\AbstractBundle;
+use Wexample\SymfonyHelpers\Class\AbstractBundle;
+use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyHelpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
 use Wexample\SymfonyTranslations\Translation\Translator;
@@ -76,7 +78,7 @@ class PageService extends RenderNodeService
             // Append method name.
             $explodeController[] = $methodName;
 
-            return '@'.$controllerBundle::getAlias().'.'.$this->convertClassPathToPageName(
+            return BundleHelper::ALIAS_PREFIX.$controllerBundle::getAlias().'.'.$this->convertClassPathToPageName(
                     $explodeController,
                 );
         }
