@@ -38,8 +38,9 @@ abstract class AbstractRenderNode extends RenderDataGenerator
         string $path,
         string $name,
     ): void {
-        $this->setPath($path);
-        $this->setName($name);
+        $this->setTemplateName($path);
+        $this->setTemplateAbstractPath($name);
+
         $this->id = $this->getContextType().'-'
             .str_replace('/', '-', $this->getName())
             .'-'.uniqid();
@@ -70,7 +71,7 @@ abstract class AbstractRenderNode extends RenderDataGenerator
             'components' => $this->arrayToRenderData($this->components),
             'cssClassName' => $this->cssClassName,
             'id' => $this->id,
-            'name' => $this->getName(),
+            'templateAbstractPath' => $this->getName(),
             'translations' => $this->translations,
             'vars' => $this->vars,
             'usages' => $this->usages,
@@ -82,7 +83,7 @@ abstract class AbstractRenderNode extends RenderDataGenerator
         return $this->name;
     }
 
-    public function setName(string $name): void
+    public function setTemplateAbstractPath(string $name): void
     {
         $this->name = $name;
     }
@@ -92,7 +93,7 @@ abstract class AbstractRenderNode extends RenderDataGenerator
         return $this->path;
     }
 
-    public function setPath(string $path): void
+    public function setTemplateName(string $path): void
     {
         $this->path = $path;
     }

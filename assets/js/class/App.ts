@@ -41,10 +41,10 @@ export default class extends AsyncConstructor {
 
       this.registry = window['appRegistry'];
       // Save layout class definition to allow loading it as a normal render node definition.
-      this.registry.bundles.classes[this.registry.layoutRenderData.name] = LayoutInitial;
+      this.registry.bundles.classes[this.registry.layoutRenderData.templateAbstractPath] = LayoutInitial;
 
       this.layout = (await this.services.layouts.createRenderNode(
-        this.registry.layoutRenderData.name,
+        this.registry.layoutRenderData.templateAbstractPath,
         this.registry.layoutRenderData
       )) as (LayoutInitial & RenderNodeResponsiveType);
 

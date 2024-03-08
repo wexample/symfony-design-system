@@ -25,7 +25,7 @@ export default abstract class Component extends RenderNode {
       this.app.services.prompt.systemError(
         'Placeholder missing for component ":name"',
         {
-          ':name': this.name
+          ':name': this.templateAbstractPath
         },
         this,
         true
@@ -55,7 +55,7 @@ export default abstract class Component extends RenderNode {
       this.app.services.prompt.systemError(
         'Unable to find element ":name" using ":init_mode" init mode',
         {
-          ':name': this.name,
+          ':name': this.templateAbstractPath,
           ':init_mode': this.initMode
         },
         this

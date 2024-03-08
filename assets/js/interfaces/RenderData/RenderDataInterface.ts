@@ -7,9 +7,9 @@ export default interface RenderDataInterface {
   components: ComponentInterface[];
   cssClassName: string;
   id: string;
-  name: string;
   options: any;
   requestOptions?: RequestOptionsInterface;
+  templateAbstractPath: string;
   translations: {};
   vars: {};
   usages: {};

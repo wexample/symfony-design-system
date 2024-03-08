@@ -17,7 +17,7 @@ export default abstract class RenderNode extends AppChild {
   public elHeight: number = 0;
   public elWidth: number = 0;
   public id: string;
-  public name: string;
+  public templateAbstractPath: string;
   public parentRenderNode: RenderNode;
   public renderData: RenderDataInterface;
   public translations: {} = {};
@@ -46,7 +46,7 @@ export default abstract class RenderNode extends AppChild {
   mergeRenderData(renderData: RenderDataInterface) {
     this.cssClassName = renderData.cssClassName;
     this.id = renderData.id;
-    this.name = renderData.name;
+    this.templateAbstractPath = renderData.templateAbstractPath;
 
     this.translations = {
       ...this.translations,

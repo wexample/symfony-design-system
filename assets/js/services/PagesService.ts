@@ -48,7 +48,7 @@ export default class PagesService extends AbstractRenderNodeService {
       parentNode = this.app.layout;
     }
 
-    await this.createRenderNode(renderData.name, renderData, parentNode);
+    await this.createRenderNode(renderData.templateAbstractPath, renderData, parentNode);
   }
 
   createRenderNodeInstance(

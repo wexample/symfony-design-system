@@ -52,7 +52,7 @@ class Asset extends RenderDataGenerator
         $this->domId = $this->type.'-'.DomHelper::buildStringIdentifier($this->getTemplateAbstractPath());
     }
 
-    private function buildTemplateName(string $path): string
+    private function buildTemplateAbstractPath(string $path): string
     {
         $path = TextHelper::trimFirstChunk(
             FileHelper::removeExtension($path),
