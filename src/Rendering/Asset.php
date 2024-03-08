@@ -2,15 +2,14 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
-use Wexample\SymfonyDesignSystem\Helper\DomHelper;
-use Wexample\SymfonyDesignSystem\Rendering\Traits\WithTemplateAbstractPathTrait;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithDomIdFromTemplateAbstractPathTrait;
 use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
 
 class Asset extends RenderDataGenerator
 {
-    use WithTemplateAbstractPathTrait;
+    use WithDomIdFromTemplateAbstractPathTrait;
 
     public const EXTENSION_CSS = 'css';
 
@@ -22,8 +21,6 @@ class Asset extends RenderDataGenerator
     ];
 
     public bool $active = false;
-
-    public string $domId;
 
     public bool $initialLayout = false;
 
@@ -48,8 +45,6 @@ class Asset extends RenderDataGenerator
         $this->setTemplateAbstractPath(
             $this->buildTemplateAbstractPath($this->path)
         );
-
-        $this->domId = $this->type.'-'.DomHelper::buildStringIdentifier($this->getTemplateAbstractPath());
     }
 
     private function buildTemplateAbstractPath(string $path): string
@@ -107,5 +102,10 @@ class Asset extends RenderDataGenerator
     public function getContext(): string
     {
         return $this->context;
+    }
+
+    public function getDomPrefix(): string
+    {
+        return $this->type;
     }
 }

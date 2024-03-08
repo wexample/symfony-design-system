@@ -30,7 +30,7 @@ abstract class RenderDataGenerator
             $reflect = new \ReflectionProperty($this, $variable);
             if ($reflect->isPrivate()) {
                 // Try to use $this->getVariable().
-                ClassHelper::getFieldGetterValue($this, $variable);
+                $value = ClassHelper::getFieldGetterValue($this, $variable);
             } else {
                 $value = $this->$variable;
             }

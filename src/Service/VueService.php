@@ -53,9 +53,10 @@ class VueService
         }
 
         $vueTemplateName = $vue->getTemplateAbstractPath();
+        $vueDomId = $vue->getDomId();
 
         $options = [
-            'domId' => $vue->domId,
+            'domId' => $vueDomId,
             'name' => $vueTemplateName,
         ];
 
@@ -110,7 +111,7 @@ class VueService
                 'template',
                 [
                     'class' => 'vue vue-loading',
-                    'id' => 'vue-template-'.$vue->domId,
+                    'id' => 'vue-template-'.$vueDomId,
                 ],
                 $twig->render(
                     $pathWithExtension,
@@ -132,7 +133,7 @@ class VueService
         return DomHelper::buildTag(
             $vueTemplateName,
             [
-                'class' => $vue->domId,
+                'class' => $vueDomId,
             ],
             $outputBody
         );

@@ -67,7 +67,7 @@ class AssetTag
         $this->asset = $asset;
 
         if ($asset) {
-            $this->setId($asset->domId);
+            $this->setId($asset->getDomId());
             $this->setPath($asset->path);
             $this->setMedia($asset->media);
             $this->setUsageName($asset->getUsage());
