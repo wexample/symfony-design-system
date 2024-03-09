@@ -97,5 +97,9 @@ abstract class AbstractRenderNode extends RenderDataGenerator
                 $this->inheritanceStack,
                 $templateName);
         }
+
+    public function getInheritanceStack(): array
+    {
+        return $this->inheritanceStack;
     }
 }

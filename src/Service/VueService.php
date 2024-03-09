@@ -52,12 +52,12 @@ class VueService
             throw new Exception('Unable to find template: '.$pathWithExtension);
         }
 
-        $vueTemplateName = $vue->getTemplateAbstractPath();
+        $vueTemplateAbstractPath = $vue->getTemplateAbstractPath();
         $vueDomId = $vue->getDomId();
 
         $options = [
             'domId' => $vueDomId,
-            'name' => $vueTemplateName,
+            'name' => $vueTemplateAbstractPath,
         ];
 
         $outputBody = '';
@@ -72,7 +72,7 @@ class VueService
                     $options
                 );
 
-            $this->rootComponents[$vueTemplateName] = $rootComponent;
+            $this->rootComponents[$vueTemplateAbstractPath] = $rootComponent;
 
             $outputBody = $rootComponent->renderTag();
         } else {
@@ -94,17 +94,17 @@ class VueService
             ->assetsDetect(
                 $renderPass,
                 $rootComponent,
-                $vueTemplateName
+                $vueTemplateAbstractPath
             );
 
-        if (!isset($this->renderedTemplates[$vueTemplateName])) {
+        if (!isset($this->renderedTemplates[$vueTemplateAbstractPath])) {
             $renderPass->setCurrentContextRenderNode(
                 $rootComponent
             );
 
             $this->translator->setDomainFromPath(
                 Translator::DOMAIN_TYPE_VUE,
-                $vueTemplateName
+                $vueTemplateAbstractPath
             );
 
             $template = DomHelper::buildTag(
@@ -119,7 +119,7 @@ class VueService
                 )
             );
 
-            $rootComponent->translations['INCLUDE|'.$vueTemplateName] = $this->translator->transFilter('@vue::*');
+            $rootComponent->translations['INCLUDE|'.$vueTemplateAbstractPath] = $this->translator->transFilter('@vue::*');
 
             $this->translator->revertDomain(
                 Translator::DOMAIN_TYPE_VUE
@@ -127,11 +127,11 @@ class VueService
 
             $renderPass->revertCurrentContextRenderNode();
 
-            $this->renderedTemplates[$vueTemplateName] = $template;
+            $this->renderedTemplates[$vueTemplateAbstractPath] = $template;
         }
 
         return DomHelper::buildTag(
-            $vueTemplateName,
+            $vueTemplateAbstractPath,
             [
                 'class' => $vueDomId,
             ],
