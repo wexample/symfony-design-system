@@ -1,11 +1,6 @@
-{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/default/layout.html.twig' -%}
+{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/demo/layout.html.twig' -%}
 
 {%- block layout_config -%}
     {{- render_pass.layoutRenderNode.setDefaultTemplateName(_self) -}}
     {{ parent() }}
-{%- endblock -%}
-
-{%- block layout -%}
-    <h1 id="test-layout-title">TEST_LAYOUT_TITLE</h1>
-    {{- parent() -}}
 {%- endblock -%}

@@ -49,7 +49,7 @@ abstract class AbstractRenderNode extends RenderDataGenerator
         $this->id = implode('-', [
             $this->getContextType(),
             str_replace('/', '-', $this->getTemplateAbstractPath()),
-            uniqid()
+            uniqid(),
         ]);
 
         $this->usages = $renderPass->usages;

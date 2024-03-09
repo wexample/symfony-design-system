@@ -20,7 +20,7 @@ abstract class AbstractAssetUsageService
 
     abstract public static function getName(): string;
 
-    public function buildPublicAssetPathFromTemplateName(
+    public function buildPublicAssetPathFromTemplateAbstractPath(
         string $templateName,
         string $ext
     ): string {
@@ -33,11 +33,11 @@ abstract class AbstractAssetUsageService
         RenderPass $renderPass,
         AbstractRenderNode $renderNode,
         string $ext,
-        ?string $templateName = null
+        ?string $templateAbstractPath = null
     ): void {
         $pathInfo = pathinfo(
-            $this->buildPublicAssetPathFromTemplateName(
-                $templateName ?: $renderNode->getTemplateAbstractPath(),
+            $this->buildPublicAssetPathFromTemplateAbstractPath(
+                $templateAbstractPath ?: $renderNode->getTemplateAbstractPath(),
                 $ext
             )
         );
