@@ -82,7 +82,7 @@ class AssetsService
     public function assetsDetect(
         RenderPass $renderPass,
         AbstractRenderNode $renderNode,
-        ?string $templateName = null
+        ?string $templateAbstractPath = null
     ): void {
         foreach (Asset::ASSETS_EXTENSIONS as $ext) {
             foreach ($this->usages as $usage) {
@@ -90,7 +90,7 @@ class AssetsService
                     $renderPass,
                     $renderNode,
                     $ext,
-                    $templateName
+                    $templateAbstractPath
                 );
             }
         }
