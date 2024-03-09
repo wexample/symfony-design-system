@@ -18,9 +18,9 @@ final class ResponsiveAssetUsageService extends AbstractAssetUsageService
         RenderPass $renderPass,
         AbstractRenderNode $renderNode,
         string $ext,
-        ?string $templateAbstractPath = null
+        string $templateAbstractPath
     ): bool {
-        $pathInfo = pathinfo($this->buildPublicAssetPathFromTemplateAbstractPath($templateAbstractPath ?: $renderNode->getTemplateAbstractPath(), $ext));
+        $pathInfo = pathinfo($this->buildPublicAssetPathFromTemplateAbstractPath($templateAbstractPath, $ext));
         $maxWidth = null;
         $hasAsset = false;
 

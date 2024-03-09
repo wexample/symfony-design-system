@@ -84,14 +84,31 @@ class AssetsService
         AbstractRenderNode $renderNode,
         ?string $templateAbstractPath = null
     ): void {
+        if ($templateAbstractPath) {
+            $abstractPaths = [$templateAbstractPath];
+        } else {
+            $abstractPaths = [];
+            foreach ($renderNode->getInheritanceStack() as $templateName) {
+                $abstractPaths[] = $this->buildTemplateAbstractPathFromTemplateName($templateName);
+            }
+        }
+
         foreach (Asset::ASSETS_EXTENSIONS as $ext) {
             foreach ($this->usages as $usage) {
-                $usage->addAssetsForRenderNodeAndType(
-                    $renderPass,
-                    $renderNode,
-                    $ext,
-                    $templateAbstractPath
-                );
+                // i.e. only first css or js needed for the given usage,
+                // inheritance is managed into asset.
+                $usageFoundForType = false;
+
+                foreach ($abstractPaths as $templateAbstractPath) {
+                    if (!$usageFoundForType && $usage->addAssetsForRenderNodeAndType(
+                            $renderPass,
+                            $renderNode,
+                            $ext,
+                            $templateAbstractPath
+                        )) {
+                        $usageFoundForType = true;
+                    }
+                }
             }
         }
     }

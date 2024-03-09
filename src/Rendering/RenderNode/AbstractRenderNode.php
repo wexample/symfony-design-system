@@ -43,7 +43,7 @@ abstract class AbstractRenderNode extends RenderDataGenerator
         string $templateName,
         string $name,
     ): void {
-        $this->setTemplateName($templateName);
+        $this->setDefaultTemplateName($templateName);
         $this->setTemplateAbstractPath($name);
 
         $this->id = implode('-', [

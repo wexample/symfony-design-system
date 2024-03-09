@@ -33,11 +33,11 @@ abstract class AbstractAssetUsageService
         RenderPass $renderPass,
         AbstractRenderNode $renderNode,
         string $ext,
-        ?string $templateAbstractPath = null
+        string $templateAbstractPath
     ): bool {
         $pathInfo = pathinfo(
             $this->buildPublicAssetPathFromTemplateAbstractPath(
-                $templateAbstractPath ?: $renderNode->getTemplateAbstractPath(),
+                $templateAbstractPath,
                 $ext
             )
         );
