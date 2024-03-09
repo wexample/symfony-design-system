@@ -25,13 +25,13 @@ abstract class RenderNodeService
         $renderNode->init(
             $renderPass,
             $path,
-            $this->assetsService->buildTemplateNameFromPath($path)
+            $this->assetsService->buildTemplateAbstractPathFromTemplateName($path)
         );
 
         if ($renderNode->hasAssets) {
             $this->assetsService->assetsDetect(
                 $renderPass,
-                $renderNode
+                $renderNode,
             );
         }
     }

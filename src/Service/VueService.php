@@ -43,7 +43,7 @@ class VueService
         ?array $twigContext = []
     ): string {
         $vue = new Vue(
-            $this->assetsService->buildTemplateNameFromPath($path),
+            $this->assetsService->buildTemplateAbstractPathFromTemplateName($path),
         );
 
         $pathWithExtension = $path.VueExtension::TEMPLATE_FILE_EXTENSION;

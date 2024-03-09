@@ -190,7 +190,7 @@ class AssetsService
 
         if ($renderPass->enableAggregation) {
             return $this->assetsAggregationService->buildAggregatedTags(
-                $this->buildTemplateNameFromPath($renderPass->getView()),
+                $this->buildTemplateAbstractPathFromTemplateName($renderPass->getView()),
                 $tags,
             );
         }
@@ -198,17 +198,17 @@ class AssetsService
         return $tags;
     }
 
-    public function buildTemplateNameFromPath(string $renderNodePath): string
+    public function buildTemplateAbstractPathFromTemplateName(string $templateName): string
     {
-        if (str_ends_with($renderNodePath, TemplateHelper::TEMPLATE_FILE_EXTENSION)) {
-            $renderNodePath = substr(
-                $renderNodePath,
+        if (str_ends_with($templateName, TemplateHelper::TEMPLATE_FILE_EXTENSION)) {
+            $templateName = substr(
+                $templateName,
                 0,
                 -strlen(TemplateHelper::TEMPLATE_FILE_EXTENSION)
             );
         }
 
-        $layoutNameParts = explode('/', $renderNodePath);
+        $layoutNameParts = explode('/', $templateName);
         $bundleName = ltrim(current($layoutNameParts), '@');
         array_shift($layoutNameParts);
         $bundles = $this->kernel->getBundles();
