@@ -90,13 +90,10 @@ abstract class AbstractRenderNode extends RenderDataGenerator
     {
         if (!$this->getTemplateName()) {
             $this->setTemplateName($templateName);
-            $this->inheritanceStack[] = $templateName;
-        } else {
-            // Add it as oldest ancestor.
-            array_unshift(
-                $this->inheritanceStack,
-                $templateName);
         }
+
+        $this->inheritanceStack[] = $templateName;
+    }
 
     public function getInheritanceStack(): array
     {
