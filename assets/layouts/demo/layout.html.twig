@@ -2,7 +2,10 @@
 
 {% import '@WexampleSymfonyDesignSystemBundle/macros/tabs.html.twig' as macro_tabs %}
 
-{%- set layout_path = layout_path|default(_self) -%}
+{%- block layout_config -%}
+    {{- render_pass.layoutRenderNode.setDefaultTemplateName(_self) -}}
+    {{ parent() }}
+{%- endblock -%}
 
 {# Has a header bar with mobile burger and user menu #}
 {%- block layout_composer_html -%}

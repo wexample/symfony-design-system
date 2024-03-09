@@ -1,8 +1,7 @@
 {%- extends adaptive_response_rendering_base_path() -%}
 
-{%- set layout_path = layout_path|default(_self) -%}
-
 {%- block layout_config -%}
+    {{- render_pass.layoutRenderNode.setDefaultTemplateName(_self) -}}
     {{ render_pass.setUsage('color_scheme', 'dark') }}
     {{ parent() }}
 {%- endblock -%}

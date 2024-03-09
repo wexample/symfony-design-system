@@ -41,11 +41,9 @@ class LayoutExtension extends AbstractExtension
      */
     public function layoutInit(
         RenderPass $renderPass,
-        string $layoutPath,
     ): void {
         $this->layoutService->layoutInitInitial(
             $renderPass,
-            $layoutPath,
         );
     }
 

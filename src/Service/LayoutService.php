@@ -27,12 +27,11 @@ class LayoutService extends RenderNodeService
      */
     public function layoutInitInitial(
         RenderPass $renderPass,
-        string $layoutPath,
     ): void {
         $this->layoutInit(
             $renderPass,
             $renderPass->layoutRenderNode,
-            $layoutPath,
+            $renderPass->layoutRenderNode->getTemplateName(),
         );
 
         $renderPass->layoutRenderNode->page = new PageRenderNode();

@@ -34,21 +34,24 @@ abstract class AbstractRenderNode extends RenderDataGenerator
 
     public array $usages;
 
-    private string $templateName;
+    private array $inheritanceStack = [];
 
     abstract public function getContextType(): string;
 
     public function init(
         RenderPass $renderPass,
-        string $path,
+        string $templateName,
         string $name,
     ): void {
-        $this->setTemplateName($path);
+        $this->setTemplateName($templateName);
         $this->setTemplateAbstractPath($name);
 
-        $this->id = $this->getContextType().'-'
-            .str_replace('/', '-', $this->getTemplateAbstractPath())
-            .'-'.uniqid();
+        $this->id = implode('-', [
+            $this->getContextType(),
+            str_replace('/', '-', $this->getTemplateAbstractPath()),
+            uniqid()
+        ]);
+
         $this->usages = $renderPass->usages;
 
         $this->cssClassName = DomHelper::buildStringIdentifier($this->id);
@@ -81,5 +84,18 @@ abstract class AbstractRenderNode extends RenderDataGenerator
             'vars' => $this->vars,
             'usages' => $this->usages,
         ];
+    }
+
+    public function setDefaultTemplateName(string $templateName): void
+    {
+        if (!$this->getTemplateName()) {
+            $this->setTemplateName($templateName);
+            $this->inheritanceStack[] = $templateName;
+        } else {
+            // Add it as oldest ancestor.
+            array_unshift(
+                $this->inheritanceStack,
+                $templateName);
+        }
     }
 }
