@@ -3,7 +3,6 @@
 namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Twig\TwigFunction;
-use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
@@ -20,20 +19,6 @@ class AdaptiveResponseExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction(
-                'adaptive_response_revert_context',
-                [
-                    $this,
-                    'adaptiveResponseRevertContext',
-                ]
-            ),
-            new TwigFunction(
-                'adaptive_response_set_page_context',
-                [
-                    $this,
-                    'adaptiveResponseSetPageContext',
-                ]
-            ),
             new TwigFunction(
                 'adaptive_response_rendering_base_path',
                 [
@@ -59,16 +44,4 @@ class AdaptiveResponseExtension extends AbstractExtension
             ->getRenderingBasePath($context);
     }
 
-    public function adaptiveResponseSetPageContext(
-        RenderPass $renderPass,
-    ) {
-        $renderPass->setCurrentContextRenderNode(
-            $renderPass->layoutRenderNode->page
-        );
-    }
-
-    public function adaptiveResponseRevertContext(RenderPass $renderPass)
-    {
-        $renderPass->revertCurrentContextRenderNode();
-    }
 }
