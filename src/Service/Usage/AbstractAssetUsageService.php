@@ -21,10 +21,10 @@ abstract class AbstractAssetUsageService
     abstract public static function getName(): string;
 
     public function buildPublicAssetPathFromTemplateAbstractPath(
-        string $templateName,
+        string $templateAbstractPath,
         string $ext
     ): string {
-        $nameParts = explode('::', $templateName);
+        $nameParts = explode('::', $templateAbstractPath);
 
         return AssetsRegistryService::DIR_BUILD.PathHelper::join([$nameParts[0], $ext, $nameParts[1].'.'.$ext]);
     }
