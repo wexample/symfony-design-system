@@ -20,6 +20,8 @@ final class DefaultAssetUsageService extends AbstractAssetUsageService
         ?string $templateAbstractPath = null
     ): void {
         $this->createAssetIfExists(
+    ): bool {
+        return (bool) $this->createAssetIfExists(
             $this->buildPublicAssetPathFromTemplateAbstractPath(
                 $templateAbstractPath ?: $renderNode->getTemplateAbstractPath(),
                 $ext

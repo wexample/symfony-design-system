@@ -21,7 +21,9 @@ final class ResponsiveAssetUsageService extends AbstractAssetUsageService
         ?string $templateAbstractPath = null
     ): void {
         $pathInfo = pathinfo($this->buildPublicAssetPathFromTemplateAbstractPath($templateAbstractPath ?: $renderNode->getTemplateAbstractPath(), $ext));
+    ): bool {
         $maxWidth = null;
+        $hasAsset = false;
 
         $breakpoints = array_reverse($renderPass->getDisplayBreakpoints());
         foreach ($breakpoints as $breakpointName => $minWidth) {
@@ -36,6 +38,7 @@ final class ResponsiveAssetUsageService extends AbstractAssetUsageService
                 $responsivePath,
                 $renderNode
             )) {
+                $hasAsset = true;
                 $asset->usages[$this->getName()] = $breakpointName;
                 $asset->media = 'screen and (min-width:'.$minWidth.'px)'.
                     ($maxWidth ? ' and (max-width:'.$maxWidth.'px)' : '');
@@ -43,6 +46,8 @@ final class ResponsiveAssetUsageService extends AbstractAssetUsageService
 
             $maxWidth = $minWidth;
         }
+
+        return $hasAsset;
     }
 
     public function assetNeedsInitialRender(

@@ -35,6 +35,7 @@ abstract class AbstractAssetUsageService
         string $ext,
         ?string $templateAbstractPath = null
     ): void {
+    ): bool {
         $pathInfo = pathinfo(
             $this->buildPublicAssetPathFromTemplateAbstractPath(
                 $templateAbstractPath ?: $renderNode->getTemplateAbstractPath(),
@@ -44,6 +45,7 @@ abstract class AbstractAssetUsageService
 
         $usage = $this->getName();
         $usageKebab = TextHelper::toKebab($usage);
+        $hasAsset = false;
 
         if (isset($renderPass->usagesConfig[$usage]['list'])) {
             foreach ($renderPass->usagesConfig[$usage]['list'] as $usageValue => $config) {
@@ -53,10 +55,13 @@ abstract class AbstractAssetUsageService
                     $assetPath,
                     $renderNode
                 )) {
+                    $hasAsset = true;
                     $asset->usages[$usage] = $usageValue;
                 }
             }
         }
+
+        return $hasAsset;
     }
 
     protected function createAssetIfExists(
