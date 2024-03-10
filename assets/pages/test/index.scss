@@ -1,0 +1,7 @@
+@use '../../css/shapes/block';
+
+.tests-results {
+  @extend .block;
+
+  background: rgba(125, 125, 125, .1)
+}
