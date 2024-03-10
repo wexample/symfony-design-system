@@ -13,7 +13,7 @@ export default class AggregationTest extends UnitTest {
     this.assertEquals(
       /\.agg\.[a-z\?0-9]*"/.test(document.documentElement.innerHTML),
       enableAggregation,
-      `The aggregation mode is ${enableAggregation}, .agg files are present according to it.`
+      `The aggregation mode is ${enableAggregation ? 'enabled' : 'disabled'}, .agg files are present according to it.`
     );
 
     if (enableAggregation) {
