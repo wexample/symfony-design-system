@@ -31,7 +31,6 @@ module.exports = {
 
   forEachFrontPath(callback) {
     Object.entries(this.getFrontPaths()).forEach((entry) => {
-      // callback(entry[0], entry[1])
       const bundle = entry[0]
       callback(this.isBundleAlias(bundle) ? bundle : 'app', entry[1])
     });

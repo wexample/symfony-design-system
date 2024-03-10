@@ -7,6 +7,7 @@ import LayoutsService from '../services/LayoutsService';
 import MixinsService from '../services/MixinsService';
 import PagesService from '../services/PagesService';
 import { RenderNodeResponsiveType } from '../services/ResponsiveService';
+import RoutingService from '../services/RoutingService';
 
 import { unique as arrayUnique } from '../helpers/ArrayHelper';
 import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
@@ -106,6 +107,7 @@ export default class extends AsyncConstructor {
       LayoutsService,
       MixinsService,
       PagesService,
+      RoutingService,
     ];
   }
 

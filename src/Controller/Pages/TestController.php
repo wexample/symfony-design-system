@@ -2,6 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Controller\Pages;
 
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,12 +17,13 @@ final class TestController extends AbstractPagesController
 {
     use SymfonyDesignSystemBundleClassTrait;
 
+    final public const ROUTE_ADAPTIVE = 'adaptive';
     final public const ROUTE_INDEX = VariableHelper::INDEX;
 
     protected string $viewPathPrefix = VariableHelper::TEST.'/';
 
     #[Route(path: '', name: self::ROUTE_INDEX)]
-    public function index(Request $request): Response
+    final public function index(Request $request): Response
     {
         $renderPass = $this->createPageRenderPass(self::ROUTE_INDEX);
 
@@ -37,5 +39,10 @@ final class TestController extends AbstractPagesController
             bundle: WexampleSymfonyDesignSystemBundle::class,
             renderPass: $renderPass
         );
+    }
+
+    #[Route(path: self::ROUTE_ADAPTIVE, name: self::ROUTE_ADAPTIVE, options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
+    final public function adaptive(): Response
+    {
     }
 }
