@@ -11,14 +11,26 @@ class Asset extends RenderDataGenerator
 {
     use WithDomIdFromTemplateAbstractPathTrait;
 
-    public const EXTENSION_CSS = 'css';
-
-    public const EXTENSION_JS = 'js';
-
     public const ASSETS_EXTENSIONS = [
         Asset::EXTENSION_CSS,
         Asset::EXTENSION_JS,
     ];
+
+    public const CONTEXT_LAYOUT = 'layout';
+
+    public const CONTEXT_PAGE = 'page';
+
+    public const CONTEXT_COMPONENT = 'component';
+
+    public const CONTEXTS = [
+        self::CONTEXT_LAYOUT,
+        self::CONTEXT_PAGE,
+        self::CONTEXT_COMPONENT,
+    ];
+
+    public const EXTENSION_CSS = 'css';
+
+    public const EXTENSION_JS = 'js';
 
     public bool $active = false;
 

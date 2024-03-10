@@ -157,7 +157,7 @@ class AssetsService
     ): array {
         $usages = $this->getAssetsUsages();
         $tags = array_fill_keys(array_keys($usages), []);
-        $contexts = ['layout', 'page', 'component'];
+        $contexts = Asset::CONTEXTS;
         $registry = $this->assetsRegistryService->getRegistry();
 
         foreach ($usages as $usageName => $usageManager) {
