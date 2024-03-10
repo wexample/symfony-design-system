@@ -10,7 +10,8 @@ use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Helper\RequestHelper;
 
-class TestController extends AbstractPagesController
+#[Route(path: '_design_system/test/', name: '_design_system_test_')]
+final class TestController extends AbstractPagesController
 {
     use SymfonyDesignSystemBundleClassTrait;
 

@@ -2,13 +2,13 @@
 
 namespace Wexample\SymfonyDesignSystem\Controller\Pages;
 
-use Exception;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
-use Wexample\SymfonyDesignSystem\Service\AssetsService;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyDesignSystem\Service\Usage\FontsAssetUsageService;
 use Wexample\SymfonyDesignSystem\Traits\SymfonyDesignSystemBundleClassTrait;
-use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 #[Route(path: '_design_system/demo/', name: '_design_system_demo_')]
@@ -18,82 +18,96 @@ final class DemoController extends AbstractPagesController
 
     final public const ROUTE_INDEX = VariableHelper::INDEX;
     final public const ROUTE_ASSETS = VariableHelper::ASSETS;
+    final public const ROUTE_AGGREGATION = 'aggregation';
+    final public const ROUTE_COLOR_SCHEMES = 'color_schemes';
+    final public const ROUTE_ICONS = 'icons';
     final public const ROUTE_LOADING = VariableHelper::LOADING;
     final public const ROUTE_TRANSLATIONS = VariableHelper::TRANSLATIONS;
     final public const ROUTE_COMPONENTS = VariableHelper::PLURAL_COMPONENT;
 
     protected string $viewPathPrefix = VariableHelper::DEMO.'/';
 
+    private bool $useJs = true;
+
+    public static function getSimpleRoutes(): array
+    {
+        return [
+            self::ROUTE_COMPONENTS,
+            self::ROUTE_ICONS,
+            self::ROUTE_LOADING,
+            self::ROUTE_TRANSLATIONS,
+        ];
+    }
+
     #[Route(path: '', name: self::ROUTE_INDEX)]
-    public function index(): Response
+    final public function index(): Response
     {
         return $this->renderPage(
             self::ROUTE_INDEX
         );
     }
 
+    protected function configureRenderPass(
+        RenderPass $renderPass
+    ): RenderPass {
+        $renderPass->setUseJs($this->useJs);
+
+        $renderPass->setUsage(
+            FontsAssetUsageService::getName(),
+            'demo'
+        );
+
+        return $renderPass;
+    }
+
     #[Route(
         path: VariableHelper::ASSETS,
         name: self::ROUTE_ASSETS
     )]
-    public function assets(): Response
+    final public function assets(Request $request): Response
     {
+        $this->useJs = !$request->get('no_js');
+
         return $this->renderPage(
             self::ROUTE_ASSETS,
-            [
-                'displayBreakpoints' => AssetsService::DISPLAY_BREAKPOINTS,
-            ]
         );
     }
 
     #[Route(
-        path: VariableHelper::LOADING,
-        name: self::ROUTE_LOADING
+        path: self::ROUTE_AGGREGATION,
+        name: self::ROUTE_AGGREGATION
     )]
-    public function loading(): Response
+    final public function aggregation(): Response
     {
-        return $this->renderPage(
-            self::ROUTE_LOADING
-        );
-    }
+        // Prepare specific render pass.
+        $renderPass = $this->createPageRenderPass(self::ROUTE_AGGREGATION);
+        $renderPass->enableAggregation = true;
 
-    /**
-     * @throws Exception
-     */
-    #[Route(
-        path: VariableHelper::LOADING.'/fetch/simple',
-        name: VariableHelper::LOADING.'_fetch_simple'
-    )]
-    public function loadingFetchSimple(): Response
-    {
-        return $this
-            ->adaptiveResponseService
-            ->createResponse($this)
-            ->setView(
-                $this->buildTemplatePath('loading-fetch-simple')
-            )
-            ->render();
-    }
-
-    #[Route(
-        path: VariableHelper::TRANSLATIONS,
-        name: self::ROUTE_TRANSLATIONS
-    )]
-    public function translations(): Response
-    {
         return $this->renderPage(
-            self::ROUTE_TRANSLATIONS
+            self::ROUTE_AGGREGATION,
+            renderPass: $renderPass
         );
     }
 
     #[Route(
-        path: VariableHelper::PLURAL_COMPONENT,
-        name: self::ROUTE_COMPONENTS
+        path: 'color-schemes',
+        name: self::ROUTE_COLOR_SCHEMES
     )]
-    public function components(): Response
+    final public function colorSchemes(): Response
     {
+        // Prepare specific render pass.
+        $renderPass = $this->createPageRenderPass(self::ROUTE_COLOR_SCHEMES);
+
+        // Allow every usage switch.
+        foreach ($renderPass->usagesConfig as &$config) {
+            foreach ($config['list'] as &$item) {
+                $item['allow_switch'] = true;
+            }
+        }
+
         return $this->renderPage(
-            self::ROUTE_COMPONENTS
+            self::ROUTE_COLOR_SCHEMES,
+            renderPass: $renderPass
         );
     }
 }
