@@ -2,10 +2,10 @@
 
 namespace Wexample\SymfonyDesignSystem\Controller\Pages;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
-use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\Usage\FontsAssetUsageService;
 use Wexample\SymfonyDesignSystem\Traits\SymfonyDesignSystemBundleClassTrait;
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
@@ -20,23 +20,22 @@ final class TestController extends AbstractPagesController
 
     protected string $viewPathPrefix = VariableHelper::TEST.'/';
 
-    protected function configureRenderPass(
-        RenderPass $renderPass
-    ): RenderPass {
+    #[Route(path: '', name: self::ROUTE_INDEX)]
+    public function index(Request $request): Response
+    {
+        $renderPass = $this->createPageRenderPass(self::ROUTE_INDEX);
+
         $renderPass->setUsage(
             FontsAssetUsageService::getName(),
             'demo'
         );
 
-        return $renderPass;
-    }
+        $renderPass->enableAggregation = $request->get('test-aggregation', false);
 
-    #[Route(path: '', name: self::ROUTE_INDEX)]
-    public function index(): Response
-    {
         return $this->renderPage(
             self::ROUTE_INDEX,
-            bundle: WexampleSymfonyDesignSystemBundle::class
+            bundle: WexampleSymfonyDesignSystemBundle::class,
+            renderPass: $renderPass
         );
     }
 }

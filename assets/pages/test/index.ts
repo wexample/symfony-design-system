@@ -31,5 +31,12 @@ export default class extends TestManagerPage {
       UsageTest,
       VariablesTest,
     });
+
+    // Run test without aggregation.
+    if (!this.app.layout.vars.enableAggregation) {
+      document.location.replace(
+        `${document.location.origin}${document.location.pathname}?test-aggregation=1`
+      );
+    }
   }
 }
