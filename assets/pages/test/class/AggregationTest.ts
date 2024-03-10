@@ -19,6 +19,11 @@ export default class AggregationTest extends UnitTest {
     );
 
     if (enableAggregation) {
+      this.assertEquals(
+        document.head.querySelectorAll('link[rel=preload]').length,
+        2,
+        `There is only two preloaded items when aggregation is enabled (js, css)`
+      );
     } else {
       this.assertTrue(
         document.head.querySelectorAll('link[rel=preload]').length > 2,

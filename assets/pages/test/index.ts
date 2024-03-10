@@ -33,9 +33,10 @@ export default class extends TestManagerPage {
     });
 
     // Run test without aggregation.
-    if (!this.app.layout.vars.enableAggregation) {
-      document.location.replace(
-        `${document.location.origin}${document.location.pathname}?test-aggregation=1`
+    const location = window.location;
+    if (!this.app.layout.vars.enableAggregation && !(new URLSearchParams(location.search)).get('no-test-aggregation')) {
+      location.replace(
+        `${location.origin}${location.pathname}?test-aggregation=1`
       );
     }
   }

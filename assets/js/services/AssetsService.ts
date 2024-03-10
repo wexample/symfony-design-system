@@ -21,6 +21,11 @@ export class AssetsServiceType {
   public static CSS: string = 'css';
 
   public static JS: string = 'js';
+
+  public static ALL: [string, string] = [
+    AssetsServiceType.CSS,
+    AssetsServiceType.JS,
+  ];
 }
 
 export default class AssetsService extends AppService {
