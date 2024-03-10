@@ -10,6 +10,20 @@ export default class AggregationTest extends UnitTest {
   private testDefault(path: string, testString: string) {
     let enableAggregation = this.app.layout.vars.enableAggregation;
 
-    this.assertEquals(typeof(enableAggregation), 'boolean')
+    this.assertEquals(typeof (enableAggregation), 'boolean')
+
+    this.assertEquals(
+      /\.agg\.[a-z\?0-9]*"/.test(document.documentElement.innerHTML),
+      enableAggregation,
+      `The aggregation mode is ${enableAggregation ? 'enabled' : 'disabled'}, .agg files are present according to it.`
+    );
+
+    if (enableAggregation) {
+    } else {
+      this.assertTrue(
+        document.head.querySelectorAll('link[rel=preload]').length > 2,
+        `There is more than two preloaded items when aggregation is off (around one per render node)`
+      );
+    }
   }
 }
