@@ -11,10 +11,6 @@ import NoJsTest from "./class/NoJsTest";
 
 export default class extends TestManagerPage {
   async pageReady() {
-    // TODO Test icons
-    // TODO Test color schemes
-    // TODO Test modal in modal
-    // TODO Test js helpers
     // TODO Test overlays (multiple / inside a modal ?)
 
     await this.runTests({

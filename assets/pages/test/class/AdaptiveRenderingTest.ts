@@ -2,9 +2,9 @@ import ModalComponent from '../../../../components/modal';
 import LayoutInterface from '../../../../js/interfaces/RenderData/LayoutInterface';
 import { sleep } from '../../../../js/helpers/Time';
 import { toScreamingSnake } from '../../../../js/helpers/StringHelper';
-import AbstractResponsiteTest from "./AbstractResponsiteTest";
+import AbstractTest from "./AbstractTest";
 
-export default class AdaptiveRenderingTest extends AbstractResponsiteTest {
+export default class AdaptiveRenderingTest extends AbstractTest {
   public getTestMethods() {
     return [
       this.testNonAdaptivePage,

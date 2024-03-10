@@ -1,6 +1,6 @@
-import AbstractResponsiteTest from "./AbstractResponsiteTest";
+import AbstractTest from "./AbstractTest";
 
-export default class NoJsTest extends AbstractResponsiteTest {
+export default class NoJsTest extends AbstractTest {
   public getTestMethods() {
     return [
       this.testDefault,
