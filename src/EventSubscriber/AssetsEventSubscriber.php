@@ -29,7 +29,7 @@ class AssetsEventSubscriber implements EventSubscriberInterface
         $renderPass = $this->renderPassBagService->getRenderPass();
 
         // Support regular controllers
-        if ($renderPass) {
+        if ($renderPass && !$event->getResponse()->isServerError()) {
             $assetsIncludes = $this->twig->render(
                 '@WexampleSymfonyDesignSystemBundle/macros/assets.html.twig',
                 [
