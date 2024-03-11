@@ -116,24 +116,6 @@ class AdaptiveResponse
         return self::OUTPUT_TYPE_RESPONSE_HTML === $this->getOutputType();
     }
 
-    public function detectRenderingBase(): string
-    {
-        // Allow defining json layout expected type from query string.
-        $layout = $this->request->get(self::RENDER_PARAM_NAME_BASE);
-
-        // Layout not specified in query string.
-        if (is_null($layout) && $this->isJsonRequest()) {
-            // Use modal as default ajax layout, but might be configurable.
-            $layout = self::BASE_MODAL;
-        }
-
-        if (in_array($layout, $this->allowedBases)) {
-            return $layout;
-        }
-
-        return self::BASE_DEFAULT;
-    }
-
     public function getView(): ?string
     {
         return $this->view;
