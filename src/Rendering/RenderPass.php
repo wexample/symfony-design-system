@@ -163,4 +163,9 @@ class RenderPass
     {
         return AdaptiveResponse::OUTPUT_TYPE_RESPONSE_JSON === $this->getOutputType();
     }
+
+    public function isHtmlRequest(): bool
+    {
+        return AdaptiveResponse::OUTPUT_TYPE_RESPONSE_HTML === $this->getOutputType();
+    }
 }

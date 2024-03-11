@@ -3,8 +3,8 @@
 namespace Wexample\SymfonyDesignSystem\Controller;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Wexample\SymfonyDesignSystem\Rendering\AdaptiveResponse;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AjaxLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
@@ -106,11 +106,16 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
         // Store it for post render events.
         $this->renderPassBagService->setRenderPass($renderPass);
 
-        $className = AdaptiveResponse::OUTPUT_TYPE_RESPONSE_JSON === $renderPass->getOutputType()
-            ? AjaxLayoutRenderNode::class
-            : InitialLayoutRenderNode::class;
+        if ($renderPass->isJsonRequest()) {
+            $renderPass->layoutRenderNode = new AjaxLayoutRenderNode();
 
         $renderPass->layoutRenderNode = new $className;
+            return new JsonResponse((object) [
+                'assets' => [],
+            ]);
+        }
+
+        $renderPass->layoutRenderNode = new InitialLayoutRenderNode();
 
         return parent::render(
             $view,
