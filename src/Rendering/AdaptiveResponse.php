@@ -43,82 +43,9 @@ class AdaptiveResponse
 
     private RenderPass $renderPass;
 
-    private ?string $view = null;
-
-    protected array $allowedBases = [
-        self::BASE_MODAL,
-        self::BASE_PAGE,
-        self::BASE_DEFAULT,
-    ];
-
-    public function __construct(
-        protected Request $request,
-        protected AbstractController $controller,
-        protected AdaptiveResponseService $adaptiveResponseService,
-    ) {
-        $this->setOutputType(
-            $this->detectOutputType()
-        );
-        $this->setRenderingBase(
-            $this->detectRenderingBase()
-        );
-    }
-
-    public function setRenderPass(RenderPass $renderPass)
-    {
-        $this->renderPass = $renderPass;
-    }
-
-    public function setOutputType(string $type): self
-    {
-        $this->outputType = $type;
-
-        return $this;
-    }
-
-    public function getRenderingBase(): string
-    {
-        return $this->renderingBase;
-    }
-
-    public function setRenderingBase(string $base): self
-    {
-        $this->renderingBase = $base;
-
-        return $this;
-    }
-
-    public function getRenderingBasePath(array $twigContext): string
-    {
-        return self::BASES_MAIN_DIR
-            .$this->getOutputType($twigContext)
-            .FileHelper::FOLDER_SEPARATOR
-            .$this->getRenderingBase()
-            .TemplateHelper::TEMPLATE_FILE_EXTENSION;
-    }
-
-    /**
-     * Return detected output type if not overridden in twig.
-     */
-    public function getOutputType(array $twigContext = []): string
-    {
-        return $twigContext[self::RENDER_PARAM_NAME_OUTPUT_TYPE]
-            ?? $this->outputType;
-    }
-
     public function isJsonRequest(): bool
     {
         return self::OUTPUT_TYPE_RESPONSE_JSON === $this->getOutputType();
-    }
-
-    public function isHtmlRequest(): bool
-    {
-        return self::OUTPUT_TYPE_RESPONSE_HTML === $this->getOutputType();
-    }
-
-    public function getView(): ?string
-    {
-        return $this->view;
     }
 
     public function setView(
