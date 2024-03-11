@@ -48,14 +48,7 @@ final class TestController extends AbstractPagesController
     #[Route(path: self::ROUTE_ADAPTIVE, name: self::ROUTE_ADAPTIVE, options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
     final public function adaptive(): Response
     {
-        dd('OK');
-        return $this
-            ->adaptiveResponseService
-            ->createResponse($this)
-            ->setView(
-                $this->buildTemplatePath('_core/test/adaptive')
-            )
-            ->render();
+        new Response('TODO');
     }
 
     #[Route(path: self::ROUTE_VIEW, name: self::ROUTE_VIEW, options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
