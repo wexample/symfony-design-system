@@ -1,4 +1,5 @@
 import AbstractTest from "./AbstractTest";
+import LayoutInterface from "../../../js/interfaces/RenderData/LayoutInterface";
 
 export default class AdaptiveRenderingTest extends AbstractTest {
   public getTestMethods() {
@@ -30,6 +31,13 @@ export default class AdaptiveRenderingTest extends AbstractTest {
           !!renderData.id,
           `There is an id in the response object`
         );
+
+        this.assertTrue(
+          !renderData.assets,
+          `Layout data contains any assets`
+        );
+
+        this.assertTrue(!!renderData.page, 'The response contains page data');
 
         return renderData;
       });

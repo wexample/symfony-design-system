@@ -25,9 +25,6 @@ export default class AdaptiveService extends AppService {
     path: string,
     requestOptions: RequestOptionsInterface = {}
   ): Promise<any> {
-    requestOptions.callerPage =
-      requestOptions.callerPage || this.app.layout.pageFocused;
-
     Object.freeze(requestOptions);
 
     return this.fetch(path, requestOptions)
@@ -35,7 +32,6 @@ export default class AdaptiveService extends AppService {
         if (response.ok) {
           return response.json();
         }
-        // TODO ERRORS HANDLING
       })
       .then(async (renderData: RenderDataInterface) => {
         renderData.requestOptions = requestOptions;

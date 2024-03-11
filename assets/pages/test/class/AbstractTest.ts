@@ -1,5 +1,5 @@
 import UnitTest from '../../../js/class/UnitTest';
-import LayoutInterface from "../../../../js/interfaces/RenderData/LayoutInterface";
+import LayoutInterface from "../../../js/interfaces/RenderData/LayoutInterface";
 
 export default abstract class AbstractTest extends UnitTest {
   protected pathCoreTestAdaptive: string;
