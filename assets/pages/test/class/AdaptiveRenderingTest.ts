@@ -1,4 +1,4 @@
-import ModalComponent from '../../../../components/modal';
+import ModalComponent from '../../../components/modal';
 import LayoutInterface from '../../../../js/interfaces/RenderData/LayoutInterface';
 import { sleep } from '../../../../js/helpers/Time';
 import { toScreamingSnake } from '../../../../js/helpers/StringHelper';
@@ -30,25 +30,25 @@ export default class AdaptiveRenderingTest extends AbstractTest {
 
       this.assertEquals(
         pageFocused.templateAbstractPath,
-        `@wexample/symfony-design-system::pages/test/index`,
+        `@wexample/symfony-design-system::pages/test/adaptive`,
         'The focused page is the modal content page'
       );
 
       this.assertEquals(
-        pageFocused.parentRenderNode.name,
-        `components/modal`,
+        modal.templateAbstractPath,
+        `@wexample/symfony-design-system::components/modal`,
         'The focused page is a child of modal component'
       );
 
       this.assertEquals(
-        modal.parentRenderNode.name,
-        this.app.layout.name,
+        modal.parentRenderNode.templateAbstractPath,
+        this.app.layout.templateAbstractPath,
         'The parent of modal is the initial layout'
       );
 
       this.assertEquals(
-        modal.callerPage.name,
-        'pages/_core/test/index',
+        modal.callerPage.templateAbstractPath,
+        this.app.layout.page.templateAbstractPath,
         'The caller page of modal is the initial layout page'
       );
 

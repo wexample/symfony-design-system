@@ -93,7 +93,7 @@ export default class ModalComponent extends PageManagerComponent {
 
     this.showEl();
 
-    this.focus();
+    this.page.focus();
   }
 
   close() {
@@ -101,13 +101,13 @@ export default class ModalComponent extends PageManagerComponent {
 
     this.hideEl();
 
-    this.blur();
+    this.page.blur();
 
     return new Promise(async (resolve) => {
       // Sync with CSS animation.
       await setTimeout(async () => {
         this.el.classList.remove(Variables.CLOSED);
-        this.opened = this.focused = this.closing = false;
+        this.opened = this.closing = false;
 
         await this.exit();
 
