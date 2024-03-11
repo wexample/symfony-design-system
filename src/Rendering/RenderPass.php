@@ -7,6 +7,7 @@ use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AjaxLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithRenderRequestId;
 use Wexample\SymfonyDesignSystem\Rendering\Traits\WithView;
 use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
@@ -14,6 +15,7 @@ use Wexample\SymfonyHelpers\Helper\VariableHelper;
 class RenderPass
 {
     use WithView;
+    use WithRenderRequestId;
 
     public const BASE_DEFAULT = VariableHelper::DEFAULT;
 
@@ -64,6 +66,7 @@ class RenderPass
     public function __construct(
         string $view,
     ) {
+        $this->createRenderRequestId();
         $this->setView($view);
     }
 
@@ -71,6 +74,12 @@ class RenderPass
         AbstractRenderNode $renderNode
     ) {
         $this->registry[$renderNode->getContextType()][$renderNode->getTemplateAbstractPath()] = $renderNode;
+    }
+
+    public function createRenderRequestId(): string
+    {
+        $this->setRenderRequestId(uniqid());
+        return $this->getRenderRequestId();
     }
 
     public function getRenderParameters(): array

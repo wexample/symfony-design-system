@@ -4,9 +4,12 @@ namespace Wexample\SymfonyDesignSystem\Rendering\RenderNode;
 
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithRenderRequestId;
 
 abstract class AbstractLayoutRenderNode extends AbstractRenderNode
 {
+    use WithRenderRequestId;
+
     public PageRenderNode $page;
 
     public function getContextType(): string
@@ -17,7 +20,10 @@ abstract class AbstractLayoutRenderNode extends AbstractRenderNode
     public function toRenderData(): array
     {
         return parent::toRenderData()
-            + $this->serializeVariables(['page'])
+            + $this->serializeVariables([
+                'renderRequestId',
+                'page'
+            ])
             + ['templates' => $this->getComponentsTemplates()];
     }
 

@@ -90,9 +90,9 @@ abstract class AbstractRenderNode extends RenderDataGenerator
             'cssClassName' => $this->cssClassName,
             'id' => $this->id,
             'templateAbstractPath' => $this->getTemplateAbstractPath(),
-            'translations' => $this->translations,
-            'vars' => $this->vars,
-            'usages' => $this->usages,
+            'translations' => (object) $this->translations,
+            'vars' => (object) $this->vars,
+            'usages' => (object) $this->usages,
         ];
 
         if ($this->hasAssets) {

@@ -3,11 +3,12 @@ import ComponentInterface from './ComponentInterface';
 import RequestOptionsInterface from '../RequestOptions/RequestOptionsInterface';
 
 export default interface RenderDataInterface {
-  assets: AssetsCollectionInterface;
+  assets: null | AssetsCollectionInterface;
   components: ComponentInterface[];
   cssClassName: string;
   id: string;
   options: any;
+  renderRequestId?: string;
   requestOptions?: RequestOptionsInterface;
   templateAbstractPath: string;
   translations: {};
