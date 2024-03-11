@@ -62,13 +62,6 @@ class LayoutService extends RenderNodeService
         $layoutRenderNode->useJs = $useJs;
         $backEndAssets = $layoutRenderNode->assets;
 
-        // No layout assets on ajax responses.
-        $layoutRenderNode->hasAssets = $this
-            ->adaptiveResponseService
-            ->renderPass
-            ->adaptiveResponse
-            ->isHtmlRequest();
-
         $this->initRenderNode(
             $layoutRenderNode,
             $layoutName,
