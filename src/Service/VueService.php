@@ -9,8 +9,6 @@ use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Rendering\Vue;
 use Wexample\SymfonyDesignSystem\Twig\VueExtension;
-use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
-use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyTranslations\Translation\Translator;
 
 class VueService
@@ -61,13 +59,15 @@ class VueService
         ];
 
         $outputBody = '';
+        $componentName = ComponentService::buildCoreComponentName(ComponentService::COMPONENT_NAME_VUE);
+
         if (!$this->isRenderPassInVueContext($renderPass)) {
             $rootComponent = $this
                 ->componentsService
                 ->registerComponent(
                     $twig,
                     $renderPass,
-                    BundleHelper::ALIAS_PREFIX.WexampleSymfonyDesignSystemBundle::getAlias().'/'.ComponentService::COMPONENT_NAME_VUE,
+                    $componentName,
                     ComponentService::INIT_MODE_PARENT,
                     $options
                 );
@@ -80,7 +80,7 @@ class VueService
 
             $contextCurrent = RenderingHelper::buildRenderContextKey(
                 RenderingHelper::CONTEXT_COMPONENT,
-                ComponentService::COMPONENT_NAME_VUE
+                $componentName
             );
 
             if ($rootComponent->getContextRenderNodeKey() !== $contextCurrent) {

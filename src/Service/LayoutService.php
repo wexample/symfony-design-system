@@ -37,7 +37,7 @@ class LayoutService extends RenderNodeService
             $this->componentService->componentInitLayout(
                 $twig,
                 $renderPass,
-                ComponentService::COMPONENT_NAME_MODAL,
+                ComponentService::buildCoreComponentName(ComponentService::COMPONENT_NAME_MODAL),
                 [
                     'adaptiveResponsePageManager' => true,
                 ]

@@ -34,13 +34,15 @@ export default class ComponentsService extends AbstractRenderNodeService {
 
           // Components like modal can contain a new layout.
           await this.app.services.components.loadLayoutRenderData(renderData);
+          await this.loadLayoutRenderData(renderData);
         },
       },
-      
+
       page: {
         async hookInitPage(page: Page) {
           await this.createRenderDataComponents(
-            page
+            page,
+            page.renderData
           );
         },
       },
@@ -53,7 +55,10 @@ export default class ComponentsService extends AbstractRenderNodeService {
       appendInnerHtml(this.elLayoutComponents, renderData.templates);
     }
 
-    await this.createRenderDataComponents(renderData, this.app.layout);
+    await this.createRenderDataComponents(
+      this.app.layout,
+      renderData
+    );
   }
 
   async createRenderDataComponents(

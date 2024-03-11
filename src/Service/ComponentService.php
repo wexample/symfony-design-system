@@ -28,6 +28,7 @@ class ComponentService extends RenderNodeService
     public const COMPONENT_NAME_VUE = 'components/vue';
 
     public const COMPONENT_NAME_MODAL = 'components/modal';
+
     public function __construct(
         AssetsService $assetsService,
         readonly protected ComponentManagerLocatorService $componentManagerLocatorService,
@@ -36,6 +37,11 @@ class ComponentService extends RenderNodeService
         parent::__construct(
             $assetsService,
         );
+    }
+
+    public static function buildCoreComponentName(string $shortName): string
+    {
+        return BundleHelper::ALIAS_PREFIX.WexampleSymfonyDesignSystemBundle::getAlias().'/'.$shortName;
     }
 
     /**
@@ -116,7 +122,7 @@ class ComponentService extends RenderNodeService
         );
 
         $component->setBody(
-            $component->renderTag()
+            ($component->getBody() ?: '') . $component->renderTag()
         );
 
         return $component;
