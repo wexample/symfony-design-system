@@ -247,13 +247,13 @@ export default class AdaptiveRenderingTest extends AbstractTest {
     return this.fetchAdaptiveAjaxPage()
       .then((renderData: LayoutInterface) => {
         this.assertTrue(
-          !renderData.assets.css.length,
-          `Layout data contains any CSS assets`
+          !!renderData.id,
+          `There is an id in the response object`
         );
 
         this.assertTrue(
-          !renderData.assets.js.length,
-          `Layout data contains any JS assets`
+          !renderData.assets,
+          `Layout data contains any assets`
         );
 
         this.assertTrue(!!renderData.page, 'The response contains page data');
