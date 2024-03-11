@@ -81,14 +81,14 @@
         {%- block layout -%}
             {%- block layout_composer_html -%}
                 {%- block page -%}
-                    {{ adaptive_response_set_page_context(render_pass) }}
+                    {{ render_pass.setCurrentContextRenderNode(render_pass.layoutRenderNode.page) }}
                     {%- block page_config -%}{%- endblock -%}
                     <div class="page">
                         {%- block page_composer_html -%}
                             {{- block('page_body') -}}
                         {%- endblock -%}
                     </div>
-                    {{ adaptive_response_revert_context(render_pass) }}
+                    {{ render_pass.revertCurrentContextRenderNode() }}
                 {%- endblock -%}
             {%- endblock -%}
         {%- endblock -%}
@@ -100,17 +100,6 @@
             {{ vue_render_templates() | raw }}
         </div>
     </div>
-
-    {%- block template_assets -%}
-        {{ macro_assets.render_available_css('component', render_pass.enableAggregation, layout_color_scheme, layout_use_js) }}
-
-
-    {%- if render_pass.isUseJs() -%}
-        {{ macro_assets.render_available_js('component', render_pass.enableAggregation, layout_color_scheme) }}
-
-
-        {%- endif -%}
-    {%- endblock -%}
     </body>
     </html>
 {%- endblock -%}

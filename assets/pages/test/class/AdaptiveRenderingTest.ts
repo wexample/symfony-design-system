@@ -16,7 +16,7 @@ export default class AdaptiveRenderingTest extends AbstractTest {
   async testNonAdaptivePage() {
     await this.fetchTestPageAdaptiveHtml(
       'VIEW',
-      this.app.services.routing.path('_core_test_view')
+      this.app.services.routing.path('_design_system_test_view')
     );
   }
 

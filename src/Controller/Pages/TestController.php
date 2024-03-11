@@ -15,12 +15,13 @@ final class TestController extends AbstractPagesController
 {
     use SymfonyDesignSystemBundleClassTrait;
 
+    final public const ROUTE_ADAPTIVE = 'adaptive';
     final public const ROUTE_INDEX = VariableHelper::INDEX;
 
     protected string $viewPathPrefix = VariableHelper::TEST.'/';
 
     #[Route(path: '', name: self::ROUTE_INDEX)]
-    public function index(RequestStack $requestStack): Response
+    final public function index(Request $request): Response
     {
         // Allow parameter to disable aggregation.
         $this->enableAggregation = RequestHelper::getQueryBoolean(
