@@ -1,4 +1,4 @@
-{%- extends adaptive_response_rendering_base_path() -%}
+{%- extends adaptive_response_rendering_base_path(render_pass) -%}
 
 {%- block layout_config -%}
     {{- render_pass.layoutRenderNode.setDefaultTemplateName(_self) -}}

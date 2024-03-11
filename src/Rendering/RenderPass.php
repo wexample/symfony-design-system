@@ -22,6 +22,8 @@ class RenderPass
 
     private bool $debug = false;
 
+    private string $outputType;
+
     /**
      * @var array<string|null>
      */
@@ -37,16 +39,9 @@ class RenderPass
     private bool $useJs = true;
 
     public function __construct(
-        string $outputType,
         readonly private string $view,
     ) {
-        $className = InitialLayoutRenderNode::class;
 
-        if (AdaptiveResponse::OUTPUT_TYPE_RESPONSE_JSON === $outputType) {
-            $className = AjaxLayoutRenderNode::class;
-        }
-
-        $this->layoutRenderNode = new $className();
     }
 
     public function registerRenderNode(
@@ -152,5 +147,22 @@ class RenderPass
     public function setDebug(bool $debug): void
     {
         $this->debug = $debug;
+    }
+
+    public function setOutputType(string $type): self
+    {
+        $this->outputType = $type;
+
+        return $this;
+    }
+
+    public function getOutputType(): string
+    {
+        return $this->outputType;
+    }
+
+    public function isJsonRequest(): bool
+    {
+        return AdaptiveResponse::OUTPUT_TYPE_RESPONSE_JSON === $this->getOutputType();
     }
 }

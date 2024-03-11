@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Twig\TwigFunction;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
@@ -24,9 +25,6 @@ class AdaptiveResponseExtension extends AbstractExtension
                 [
                     $this,
                     'adaptiveResponseRenderingBasePath',
-                ],
-                [
-                    self::FUNCTION_OPTION_NEEDS_CONTEXT => true,
                 ]
             ),
         ];
@@ -36,12 +34,12 @@ class AdaptiveResponseExtension extends AbstractExtension
      * Return base layout path regarding request type
      * and template configuration.
      */
-    public function adaptiveResponseRenderingBasePath(array $context): string
+    public function adaptiveResponseRenderingBasePath(
+        RenderPass $renderPass,
+    ): string
     {
-        return $this
-            ->adaptiveResponseService
-            ->getResponse()
-            ->getRenderingBasePath($context);
+        return $this->adaptiveResponseService->getRenderingBasePath(
+            $renderPass,
+        );
     }
-
 }

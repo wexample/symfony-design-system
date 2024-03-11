@@ -4,6 +4,9 @@ namespace Wexample\SymfonyDesignSystem\Controller;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Wexample\SymfonyDesignSystem\Rendering\AdaptiveResponse;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AjaxLayoutRenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
@@ -47,14 +50,7 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
     protected function createRenderPass(
         string $view
     ): RenderPass {
-        $responseService = $this->adaptiveResponseService;
-
-        $renderPass = new RenderPass(
-        // Response may be explicitly created in controller,
-        // but if not we need at least one to detect layout base name.
-            ($responseService->hasResponse() ? $responseService->getResponse() : $responseService->createResponse($this))->getOutputType(),
-            $view,
-        );
+        $renderPass = new RenderPass($view);
 
         /** @var ParameterBagInterface $parameterBag */
         $parameterBag = $this->container->get('parameter_bag');
@@ -83,6 +79,10 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
             )
         );
 
+        $renderPass->setOutputType(
+            $this->adaptiveResponseService->detectOutputType()
+        );
+
         return $this->configureRenderPass($renderPass);
     }
 
@@ -105,6 +105,12 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
 
         // Store it for post render events.
         $this->renderPassBagService->setRenderPass($renderPass);
+
+        $className = AdaptiveResponse::OUTPUT_TYPE_RESPONSE_JSON === $renderPass->getOutputType()
+            ? AjaxLayoutRenderNode::class
+            : InitialLayoutRenderNode::class;
+
+        $renderPass->layoutRenderNode = new $className;
 
         return parent::render(
             $view,

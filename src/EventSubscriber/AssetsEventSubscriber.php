@@ -29,7 +29,8 @@ class AssetsEventSubscriber implements EventSubscriberInterface
         $renderPass = $this->renderPassBagService->getRenderPass();
 
         // Support regular controllers
-        if ($renderPass && !$event->getResponse()->isServerError()) {
+        $response = $event->getResponse();
+        if ($renderPass && !$response->isServerError() && !$response->isClientError()) {
             $assetsIncludes = $this->twig->render(
                 '@WexampleSymfonyDesignSystemBundle/macros/assets.html.twig',
                 [
@@ -37,7 +38,6 @@ class AssetsEventSubscriber implements EventSubscriberInterface
                 ]
             );
 
-            $response = $event->getResponse();
             $content = str_replace(
                 RenderingHelper::PLACEHOLDER_PRELOAD_TAG,
                 $assetsIncludes,

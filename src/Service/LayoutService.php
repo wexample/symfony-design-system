@@ -14,8 +14,9 @@ class LayoutService extends RenderNodeService
     #[Pure]
     public function __construct(
         AssetsService $assetsService,
-        private readonly PageService $pageService,
-        protected Translator $translator,
+        readonly private AdaptiveResponseService $adaptiveResponseService,
+        readonly private PageService $pageService,
+        readonly protected Translator $translator,
     ) {
         parent::__construct(
             $assetsService,
