@@ -8,13 +8,13 @@ use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderDataGenerator;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Rendering\Traits\WithTemplateAbstractPathTrait;
-use Wexample\SymfonyDesignSystem\Rendering\Traits\WithTemplateNameTrait;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithView;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 
 abstract class AbstractRenderNode extends RenderDataGenerator
 {
     use WithTemplateAbstractPathTrait;
-    use WithTemplateNameTrait;
+    use WithView;
 
     public array $assets = AssetsService::ASSETS_DEFAULT_EMPTY;
 
@@ -88,8 +88,8 @@ abstract class AbstractRenderNode extends RenderDataGenerator
 
     public function setDefaultTemplateName(string $templateName): void
     {
-        if (!$this->getTemplateName()) {
-            $this->setTemplateName($templateName);
+        if (!$this->getView()) {
+            $this->setView($templateName);
         }
 
         $this->inheritanceStack[] = $templateName;

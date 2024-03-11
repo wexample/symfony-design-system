@@ -92,6 +92,6 @@ class ComponentRenderNode extends AbstractRenderNode
 
     public function getTemplatePath(): string
     {
-        return $this->getTemplateName().TemplateHelper::TEMPLATE_FILE_EXTENSION;
+        return $this->getView().TemplateHelper::TEMPLATE_FILE_EXTENSION;
     }
 }

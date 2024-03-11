@@ -6,10 +6,13 @@ use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AjaxLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithView;
 use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
 
 class RenderPass
 {
+    use WithView;
+
     public InitialLayoutRenderNode|AjaxLayoutRenderNode $layoutRenderNode;
 
     protected array $contextRenderNodeRegistry = [];
@@ -39,9 +42,9 @@ class RenderPass
     private bool $useJs = true;
 
     public function __construct(
-        readonly private string $view,
+        string $view,
     ) {
-
+        $this->setView($view);
     }
 
     public function registerRenderNode(
@@ -132,11 +135,6 @@ class RenderPass
         }
 
         $this->usages[$usageName] = $usageValue;
-    }
-
-    public function getView(): string
-    {
-        return $this->view;
     }
 
     public function isDebug(): bool
