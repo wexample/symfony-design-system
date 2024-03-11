@@ -71,11 +71,7 @@ abstract class AbstractRenderNode extends RenderDataGenerator
 
     public function toRenderData(): array
     {
-        return [
-            'assets' => [
-                Asset::EXTENSION_CSS => $this->arrayToRenderData($this->assets[Asset::EXTENSION_CSS]),
-                Asset::EXTENSION_JS => $this->arrayToRenderData($this->assets[Asset::EXTENSION_JS]),
-            ],
+        $data = [
             'components' => $this->arrayToRenderData($this->components),
             'cssClassName' => $this->cssClassName,
             'id' => $this->id,
@@ -84,6 +80,15 @@ abstract class AbstractRenderNode extends RenderDataGenerator
             'vars' => $this->vars,
             'usages' => $this->usages,
         ];
+
+        if ($this->hasAssets) {
+            $data['assets'] = [
+                Asset::EXTENSION_CSS => $this->arrayToRenderData($this->assets[Asset::EXTENSION_CSS]),
+                Asset::EXTENSION_JS => $this->arrayToRenderData($this->assets[Asset::EXTENSION_JS]),
+            ];
+        }
+
+        return $data;
     }
 
     public function setDefaultTemplateName(string $templateName): void

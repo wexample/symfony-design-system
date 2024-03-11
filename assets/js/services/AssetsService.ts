@@ -106,10 +106,13 @@ export default class AssetsService extends AppService {
         },
 
         async hookPrepareRenderData(renderData: RenderDataInterface) {
-          // Replace assets list by reference objects if exists.
-          renderData.assets = this.registerAssetsInCollection(
-            renderData.assets
-          );
+          // Ajax layouts does not have assets.
+          if (renderData.assets) {
+            // Replace assets list by reference objects if exists.
+            renderData.assets = this.registerAssetsInCollection(
+              renderData.assets
+            );
+          }
         },
       },
 
