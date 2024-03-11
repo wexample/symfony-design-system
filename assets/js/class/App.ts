@@ -17,15 +17,19 @@ import AsyncConstructor from './AsyncConstructor';
 import ServicesRegistryInterface from '../interfaces/ServicesRegistryInterface';
 import AssetsCollectionInterface from "../interfaces/AssetsCollectionInterface";
 
+interface AppRegistryInterface {
+  bundles: {
+    classes: {}
+  };
+  layoutRenderData: LayoutInterface;
+  assetsRegistry: AssetsCollectionInterface;
+}
+
 export default class extends AsyncConstructor {
   public hasCoreLoaded: boolean = false;
   public layout: LayoutInitial & RenderNodeResponsiveType = null;
   public services: ServicesRegistryInterface = {};
-  public registry = {} as {
-    bundles: any;
-    layoutRenderData: LayoutInterface;
-    assetsRegistry: AssetsCollectionInterface;
-  };
+  public registry = {} as AppRegistryInterface;
 
   constructor(
     readyCallback?: any | Function,
@@ -40,13 +44,14 @@ export default class extends AsyncConstructor {
     let run = async () => {
       await this.loadAndInitServices(this.getServices());
 
-      this.registry = window['appRegistry'];
+      const registry = this.registry = window['appRegistry'] as AppRegistryInterface;
       // Save layout class definition to allow loading it as a normal render node definition.
-      this.registry.bundles.classes[this.registry.layoutRenderData.templateAbstractPath] = LayoutInitial;
+      registry.bundles.classes[registry.layoutRenderData.templateAbstractPath] = LayoutInitial;
 
       this.layout = (await this.services.layouts.createRenderNode(
-        this.registry.layoutRenderData.templateAbstractPath,
-        this.registry.layoutRenderData
+        registry.layoutRenderData.renderRequestId,
+        registry.layoutRenderData.templateAbstractPath,
+        registry.layoutRenderData
       )) as (LayoutInitial & RenderNodeResponsiveType);
 
       // The main functionalities are ready,
