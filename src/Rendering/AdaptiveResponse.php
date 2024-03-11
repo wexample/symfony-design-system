@@ -122,24 +122,4 @@ class AdaptiveResponse
 
         return $response;
     }
-
-    /**
-     * @throws Exception
-     */
-    public function renderResponse(): Response
-    {
-        $view = $this->getView();
-
-        if (!$view) {
-            throw new Exception('View must be defined before adaptive rendering');
-        }
-
-        return $this->controller->adaptiveRender(
-            $view,
-            $this->getParameters() + [
-                AdaptiveResponse::RENDER_PARAM_NAME_OUTPUT_TYPE => $this->detectOutputType(),
-                AdaptiveResponse::RENDER_PARAM_NAME_BASE => $this->detectOutputType(),
-            ]
-        );
-    }
 }
