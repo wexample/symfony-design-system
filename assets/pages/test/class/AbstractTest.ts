@@ -1,4 +1,4 @@
-import UnitTest from '../../../../js/class/UnitTest';
+import UnitTest from '../../../js/class/UnitTest';
 import LayoutInterface from "../../../../js/interfaces/RenderData/LayoutInterface";
 
 export default abstract class AbstractTest extends UnitTest {
@@ -9,8 +9,7 @@ export default abstract class AbstractTest extends UnitTest {
   }
 
   protected async fetchAdaptiveAjaxPage(path: string = this.pathCoreTestAdaptive): Promise<LayoutInterface> {
-    return this.app.services.pages
-      .get(path);
+    return this.app.services.adaptive.get(path);
   }
 
   protected async fetchAdaptiveHtmlPage(path: string = this.pathCoreTestAdaptive): Promise<string> {
