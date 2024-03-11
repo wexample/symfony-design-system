@@ -8,6 +8,8 @@ use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Rendering\ComponentManagerLocatorService;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
+use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use Wexample\SymfonyTranslations\Translation\Translator;
 

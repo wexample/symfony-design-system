@@ -1,8 +1,7 @@
 import MixinsAppService from '../class/MixinsAppService';
 import Page from '../class/Page';
 import PromptService from './PromptsService';
-
-
+import LayoutInterface from '../interfaces/RenderData/LayoutInterface';
 import Component from '../class/Component';
 import AbstractRenderNodeService from './AbstractRenderNodeService';
 import RenderNode from '../class/RenderNode';
@@ -33,8 +32,16 @@ export default class ComponentsService extends AbstractRenderNodeService {
           }
 
           // Components like modal can contain a new layout.
-          await this.app.services.components.loadLayoutRenderData(renderData);
           await this.loadLayoutRenderData(renderData);
+        },
+      },
+
+      component: {
+        async hookInitComponent(component: Component) {
+          await this.createRenderDataComponents(
+            component,
+            component.renderData,
+          );
         },
       },
 
