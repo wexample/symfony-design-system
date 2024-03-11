@@ -19,6 +19,7 @@ final class TestController extends AbstractPagesController
 
     final public const ROUTE_ADAPTIVE = 'adaptive';
     final public const ROUTE_INDEX = VariableHelper::INDEX;
+    final public const ROUTE_VIEW = VariableHelper::VIEW;
 
     protected string $viewPathPrefix = VariableHelper::TEST.'/';
 
@@ -41,8 +42,25 @@ final class TestController extends AbstractPagesController
         );
     }
 
+    /**
+     * @throws Exception
+     */
     #[Route(path: self::ROUTE_ADAPTIVE, name: self::ROUTE_ADAPTIVE, options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
     final public function adaptive(): Response
     {
+        dd('OK');
+        return $this
+            ->adaptiveResponseService
+            ->createResponse($this)
+            ->setView(
+                $this->buildTemplatePath('_core/test/adaptive')
+            )
+            ->render();
+    }
+
+    #[Route(path: self::ROUTE_VIEW, name: self::ROUTE_VIEW, options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
+    public function view(): Response
+    {
+        return $this->renderPage(self::ROUTE_VIEW);
     }
 }
