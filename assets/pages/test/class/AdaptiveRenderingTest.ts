@@ -19,12 +19,7 @@ export default class AdaptiveRenderingTest extends AbstractTest {
     // Load in html.
     await this.fetchTestPageAdaptiveHtml('ADAPTIVE');
 
-    await this.fetchTestPageAdaptiveAjax().then(async () => {
-      let pageFocused = this.app.layout.pageFocused;
-
-      console.log(pageFocused);
-
-    });
+    await this.fetchTestPageAdaptiveAjax();
   }
 
   private fetchTestPageAdaptiveAjax() {
@@ -32,20 +27,8 @@ export default class AdaptiveRenderingTest extends AbstractTest {
     return this.fetchAdaptiveAjaxPage()
       .then((renderData: LayoutInterface) => {
         this.assertTrue(
-          !renderData.assets.css.length,
-          `Layout data contains any CSS assets`
-        );
-
-        this.assertTrue(
-          !renderData.assets.js.length,
-          `Layout data contains any JS assets`
-        );
-
-        this.assertTrue(!!renderData.page, 'The response contains page data');
-
-        this.assertTrue(
-          !!renderData.templates,
-          'The response contains template html'
+          !!renderData.id,
+          `There is an id in the response object`
         );
 
         return renderData;

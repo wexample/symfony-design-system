@@ -6,6 +6,8 @@ use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 
 class PageRenderNode extends AbstractRenderNode
 {
+    public ?string $body = null;
+
     public bool $isInitialPage = false;
 
     public function getContextType(): string
@@ -17,6 +19,7 @@ class PageRenderNode extends AbstractRenderNode
     {
         return parent::toRenderData()
             + $this->serializeVariables([
+                'body',
                 'isInitialPage',
             ]);
     }

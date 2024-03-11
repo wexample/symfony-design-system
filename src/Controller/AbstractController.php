@@ -2,41 +2,26 @@
 
 namespace Wexample\SymfonyDesignSystem\Controller;
 
+use Exception;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Wexample\SymfonyDesignSystem\Rendering\AdaptiveResponse;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AjaxLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
+use Wexample\SymfonyDesignSystem\Service\LayoutService;
 use Wexample\SymfonyDesignSystem\Service\RenderPassBagService;
 
 abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\AbstractController
 {
     public function __construct(
         readonly protected AdaptiveResponseService $adaptiveResponseService,
+        readonly protected LayoutService $layoutService,
         readonly protected RenderPassBagService $renderPassBagService,
     ) {
-    }
-
-    /**
-     * As adaptive response plays with controller rendering,
-     * we should create a way to execute render from outside
-     * using this public method.
-     */
-    public function adaptiveRender(
-        string $view,
-        array $parameters = [],
-        Response $response = null,
-        RenderPass $renderPass = null
-    ): ?Response {
-        return $this->render(
-            $view,
-            $parameters,
-            $response,
-            renderPass: $renderPass
-        );
     }
 
     protected function createPageRenderPass(
@@ -94,8 +79,9 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
 
     /**
      * Overrides default render, adding some magic.
+     * @throws Exception
      */
-    protected function render(
+    protected function adaptiveRender(
         string $view,
         array $parameters = [],
         Response $response = null,
@@ -106,21 +92,60 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
         // Store it for post render events.
         $this->renderPassBagService->setRenderPass($renderPass);
 
+        $className = AdaptiveResponse::OUTPUT_TYPE_RESPONSE_JSON === $renderPass->getOutputType()
+            ? AjaxLayoutRenderNode::class
+            : InitialLayoutRenderNode::class;
+
+        $renderPass->layoutRenderNode = new $className;
+        $renderPass->setView($view);
+
         if ($renderPass->isJsonRequest()) {
             $renderPass->layoutRenderNode = new AjaxLayoutRenderNode();
 
-            return new JsonResponse((object) [
-                'assets' => [],
-            ]);
+            $this->layoutService->initRenderNode(
+                $renderPass->layoutRenderNode,
+                $renderPass,
+                $view
+            );
+
+            $response = $this->renderRenderPass(
+                $renderPass,
+                $parameters,
+                $response,
+            );
+
+            $renderPass->layoutRenderNode->page->body = trim($response->getContent());
+
+            return new JsonResponse($renderPass->layoutRenderNode->toRenderData());
         }
 
-        $renderPass->layoutRenderNode = new InitialLayoutRenderNode();
+        return $this->renderRenderPass(
+            $renderPass,
+            $parameters + [
+                'display_breakpoints' => $renderPass->getDisplayBreakpoints(),
+            ],
+            $response,
+        );
+    }
 
-        return parent::render(
+    /**
+     * @throws Exception
+     */
+    public function renderRenderPass(
+        RenderPass $renderPass,
+        array $parameters = [],
+        Response $response = null,
+    ): Response {
+        $view = $renderPass->getView();
+
+        if (!$view) {
+            throw new Exception('View must be defined before adaptive rendering');
+        }
+
+        return $this->render(
             $view,
             [
                 'debug' => (bool) $this->getParameter('design_system.debug'),
-                'display_breakpoints' => $renderPass->getDisplayBreakpoints(),
                 'render_pass' => $renderPass,
             ] + $parameters + $renderPass->getRenderParameters(),
             $response

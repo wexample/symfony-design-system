@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Rendering\RenderNode;
 
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 
 abstract class AbstractLayoutRenderNode extends AbstractRenderNode
 {
@@ -19,5 +20,17 @@ abstract class AbstractLayoutRenderNode extends AbstractRenderNode
             + $this->serializeVariables([
                 'page',
             ]);
+    }
+
+    public function init(
+        RenderPass $renderPass,
+        string $templateName,
+        string $name,
+    ): void {
+        parent::init($renderPass, $templateName, $name);
+
+        $renderPass->setCurrentContextRenderNode(
+            $this
+        );
     }
 }
