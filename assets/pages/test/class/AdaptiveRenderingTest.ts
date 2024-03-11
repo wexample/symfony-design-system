@@ -37,7 +37,15 @@ export default class AdaptiveRenderingTest extends AbstractTest {
           `Layout data contains any assets`
         );
 
-        this.assertTrue(!!renderData.page, 'The response contains page data');
+        this.assertTrue(
+          !!renderData.page,
+          'The response contains page data'
+        );
+
+        this.assertFalse(
+          renderData.page.isInitialPage,
+          'Page is not set as initial'
+        );
 
         return renderData;
       });

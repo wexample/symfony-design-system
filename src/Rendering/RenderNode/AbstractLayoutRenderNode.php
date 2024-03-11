@@ -33,4 +33,11 @@ abstract class AbstractLayoutRenderNode extends AbstractRenderNode
             $this
         );
     }
+
+    public function createLayoutPageInstance(): PageRenderNode
+    {
+        $this->page = new PageRenderNode();
+
+        return $this->page;
+    }
 }
