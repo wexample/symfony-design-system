@@ -26,6 +26,11 @@ export class TagName {
   public static SCRIPT: string = 'script';
 }
 
+export function appendInnerHtml(el: HTMLElement, html: string) {
+  // Using innerHTML will break dom structure.
+  el.insertAdjacentHTML(InsertPosition.BEFORE_END as any, html);
+}
+
 export function findPreviousNode(el) {
   // Search for previous non text node.
   do {

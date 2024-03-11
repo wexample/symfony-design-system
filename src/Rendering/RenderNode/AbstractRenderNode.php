@@ -69,6 +69,18 @@ abstract class AbstractRenderNode extends RenderDataGenerator
         );
     }
 
+    public function getComponentsTemplates(): string
+    {
+        $output = '';
+
+        /** @var ComponentRenderNode $component */
+        foreach ($this->components as $component) {
+            $output .= $component->getBody();
+        }
+
+        return $output;
+    }
+
     public function toRenderData(): array
     {
         $data = [

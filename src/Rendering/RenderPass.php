@@ -45,6 +45,8 @@ class RenderPass
 
     private string $outputType;
 
+    protected string $layoutBase;
+
     /**
      * @var array<string|null>
      */
@@ -185,5 +187,15 @@ class RenderPass
     public function isHtmlRequest(): bool
     {
         return self::OUTPUT_TYPE_RESPONSE_HTML === $this->getOutputType();
+    }
+
+    public function getLayoutBase(): string
+    {
+        return $this->layoutBase;
+    }
+
+    public function setLayoutBase(string $layoutBase): void
+    {
+        $this->layoutBase = $layoutBase;
     }
 }

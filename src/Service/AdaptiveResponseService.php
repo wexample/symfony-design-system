@@ -27,30 +27,23 @@ class AdaptiveResponseService
             RenderPass::OUTPUT_TYPE_RESPONSE_HTML;
     }
 
-    public function detectRenderingBase(RenderPass $renderPass): string
+    public function detectLayoutBase(RenderPass $renderPass): string
     {
-        // Allow defining json layout expected type from query string.
-        $layout = $this->requestStack->getCurrentRequest()->get(RenderPass::RENDER_PARAM_NAME_BASE);
-
         // Layout not specified in query string.
-        if (is_null($layout) && $renderPass->isJsonRequest()) {
+        if ($renderPass->isJsonRequest()) {
             // Use modal as default ajax layout, but might be configurable.
-            $layout = RenderPass::BASE_MODAL;
-        }
-
-        if (in_array($layout, $this->allowedBases)) {
-            return $layout;
+            return RenderPass::BASE_MODAL;
         }
 
         return RenderPass::BASE_DEFAULT;
     }
 
-    public function getRenderingBasePath(RenderPass $renderPass): string
+    public function getLayoutBasePath(RenderPass $renderPass): string
     {
         return RenderPass::BASES_MAIN_DIR
             .$renderPass->getOutputType()
             .FileHelper::FOLDER_SEPARATOR
-            .$this->detectRenderingBase($renderPass)
+            .$renderPass->getLayoutBase()
             .TemplateHelper::TEMPLATE_FILE_EXTENSION;
     }
 }

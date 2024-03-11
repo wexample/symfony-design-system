@@ -24,6 +24,9 @@ class LayoutExtension extends AbstractExtension
                 [
                     $this,
                     'layoutInit',
+                ],
+                [
+                    self::FUNCTION_OPTION_NEEDS_ENVIRONMENT => true,
                 ]
             ),
             new TwigFunction(
@@ -40,9 +43,11 @@ class LayoutExtension extends AbstractExtension
      * @throws Exception
      */
     public function layoutInit(
+        Environment $twig,
         RenderPass $renderPass,
     ): void {
         $this->layoutService->layoutInitInitial(
+            $twig,
             $renderPass,
         );
     }

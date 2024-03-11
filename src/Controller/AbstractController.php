@@ -67,6 +67,10 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
             $this->adaptiveResponseService->detectOutputType()
         );
 
+        $renderPass->setLayoutBase(
+            $this->adaptiveResponseService->detectLayoutBase($renderPass)
+        );
+
         return $this->configureRenderPass($renderPass);
     }
 

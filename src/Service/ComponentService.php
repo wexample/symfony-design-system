@@ -16,6 +16,9 @@ class ComponentService extends RenderNodeService
     // Component is loaded with a css class.
     public const INIT_MODE_CLASS = VariableHelper::CLASS_VAR;
 
+    // Component is simply loaded from PHP or from backend adaptive event. It may have no target tag.
+    public const INIT_MODE_LAYOUT = VariableHelper::LAYOUT;
+
     // Component is loaded from template into the target tag.
     public const INIT_MODE_PARENT = VariableHelper::PARENT;
 
@@ -24,6 +27,7 @@ class ComponentService extends RenderNodeService
 
     public const COMPONENT_NAME_VUE = 'components/vue';
 
+    public const COMPONENT_NAME_MODAL = 'components/modal';
     public function __construct(
         AssetsService $assetsService,
         readonly protected ComponentManagerLocatorService $componentManagerLocatorService,
@@ -39,10 +43,10 @@ class ComponentService extends RenderNodeService
      */
     public function componentRenderBody(
         RenderPass $renderPass,
-        Environment $env,
+        Environment $twig,
         ComponentRenderNode $component
     ): string {
-        $loader = $env->getLoader();
+        $loader = $twig->getLoader();
 
         try {
             if ($loader->exists($component->getTemplatePath())) {
@@ -56,7 +60,7 @@ class ComponentService extends RenderNodeService
                 );
 
                 $component->render(
-                    $env,
+                    $twig,
                 );
 
                 $this->translator->revertDomain(
@@ -92,6 +96,30 @@ class ComponentService extends RenderNodeService
             self::INIT_MODE_CLASS,
             $options
         );
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function componentInitLayout(
+        Environment $twig,
+        RenderPass $renderPass,
+        string $name,
+        array $options = []
+    ): ComponentRenderNode {
+        $component = $this->registerComponent(
+            $twig,
+            $renderPass,
+            $name,
+            ComponentService::INIT_MODE_LAYOUT,
+            $options
+        );
+
+        $component->setBody(
+            $component->renderTag()
+        );
+
+        return $component;
     }
 
     /**
