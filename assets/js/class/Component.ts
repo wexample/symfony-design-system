@@ -13,6 +13,16 @@ export default abstract class Component extends RenderNode {
 
   public static INIT_MODE_PREVIOUS: string = 'previous';
 
+  public async init() {
+    await super.init();
+
+    await this.app.services.mixins.invokeUntilComplete(
+      'hookInitComponent',
+      'component',
+      [this]
+    );
+  }
+
   attachHtmlElements() {
     let el: HTMLElement;
 

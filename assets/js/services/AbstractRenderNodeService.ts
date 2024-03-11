@@ -26,10 +26,11 @@ export default abstract class AbstractRenderNodeService extends AppService {
   }
 
   async createRenderNode(
+    renderRequestId: string,
     definitionName: string,
     renderData: RenderDataInterface,
     parentRenderNode?: RenderNode
-  ): Promise<RenderNode> {
+  ): Promise<null | RenderNode> {
     await this.prepareRenderData(renderData);
 
     await this.app.services.mixins.invokeUntilComplete(
@@ -43,34 +44,37 @@ export default abstract class AbstractRenderNodeService extends AppService {
       true
     );
 
-    let instance;
-    try {
-      instance = this.createRenderNodeInstance(
-        classDefinition,
-        parentRenderNode
-      );
-    } catch {
-      this.app.services.prompt.systemError(
-        'Unable to find component with name ":name"',
-        {
-          ":name": definitionName
-        }
-      );
-      return;
+    const instance: null | RenderNode = this.createRenderNodeInstance(
+      renderRequestId,
+      classDefinition,
+      parentRenderNode
+    );
+
+    if (instance) {
+      instance.loadFirstRenderData(renderData);
+
+      await instance.init();
     }
-
-
-    instance.loadFirstRenderData(renderData);
-
-    await instance.init();
 
     return instance;
   }
 
   createRenderNodeInstance(
+    renderRequestId: string,
     classDefinition: any,
     parentRenderNode: RenderNode
   ): RenderNode | null {
-    return new classDefinition(this.app, parentRenderNode);
+    try {
+      return new classDefinition(renderRequestId, this.app, parentRenderNode);
+    } catch {
+      this.app.services.prompt.systemError(
+        'Unable to find component with name ":name"',
+        {
+          ":name": classDefinition.toString()
+        }
+      );
+
+      return null;
+    }
   }
 }

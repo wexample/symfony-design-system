@@ -34,6 +34,10 @@ abstract class AbstractLayoutRenderNode extends AbstractRenderNode
     ): void {
         parent::init($renderPass, $templateName, $name);
 
+        $this->setRenderRequestId(
+            $renderPass->getRenderRequestId()
+        );
+
         $renderPass->setCurrentContextRenderNode(
             $this
         );

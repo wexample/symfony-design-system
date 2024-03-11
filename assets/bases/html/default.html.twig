@@ -77,7 +77,9 @@
                     {{ render_pass.setCurrentContextRenderNode(render_pass.layoutRenderNode.page) }}
                     {%- block page_config -%}{%- endblock -%}
                     <div class="page">
-                        {{- block('page_body') -}}
+                        {%- block page_composer_html -%}
+                            {{- block('page_body') -}}
+                        {%- endblock -%}
                     </div>
                     {{ render_pass.revertCurrentContextRenderNode() }}
                 {%- endblock -%}

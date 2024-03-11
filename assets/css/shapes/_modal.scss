@@ -1,0 +1,48 @@
+@import '../mixins/global';
+
+.layout-modal {
+  width: 40rem;
+  overflow-y: hidden;
+  max-height: 100vh;
+  max-width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal {
+  @include full-parent-size;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  // By default, modal is neither opened or closed,
+  // it should have dimensions to be evaluated.
+  visibility: hidden;
+
+  &.opened {
+    display: flex;
+    visibility: initial;
+  }
+
+  &.closed {
+    display: none;
+    visibility: initial;
+  }
+}
+
+.modal-header {
+  display: flex;
+  border-bottom: 1px solid $medium-gray;
+
+  h2 {
+    @include text-ellipsis;
+    flex-basis: 100%;
+  }
+
+  .modal-close a {
+    display: block;
+  }
+}
+
+.modal-body {
+  overflow-y: auto;
+}

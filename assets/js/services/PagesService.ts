@@ -30,7 +30,7 @@ export default class PagesService extends AbstractRenderNodeService {
             registry.locale === MixinsAppService.LOAD_STATUS_COMPLETE
           ) {
             if (renderData.page) {
-              await this.app.services.pages.createPage(renderData.page);
+              await this.app.services.pages.createPage(renderData.renderRequestId, renderData.page);
             }
             return;
           }
@@ -41,21 +41,37 @@ export default class PagesService extends AbstractRenderNodeService {
     };
   }
 
-  async createPage(renderData: RenderDataPageInterface) {
+  async createPage(renderRequestId: string, renderData: RenderDataPageInterface) {
     let parentNode: RenderNode;
 
     if (renderData.isInitialPage) {
       parentNode = this.app.layout;
     }
 
-    await this.createRenderNode(renderData.templateAbstractPath, renderData, parentNode);
+    const registry = this.app.services.components.pageHandlerRegistry;
+    let pageHandler = registry[renderRequestId];
+
+    if (pageHandler) {
+      parentNode = pageHandler;
+
+      delete registry[renderData.renderRequestId];
+    }
+
+    await this.createRenderNode(
+      renderRequestId,
+      renderData.templateAbstractPath,
+      renderData,
+      parentNode
+    );
   }
 
   createRenderNodeInstance(
+    renderRequestId: string,
     classDefinition: any,
     parentRenderNode: RenderNode
   ): RenderNode | null {
     return super.createRenderNodeInstance(
+      renderRequestId,
       classDefinition || this.app.getClassPage(),
       parentRenderNode
     ) as Page;

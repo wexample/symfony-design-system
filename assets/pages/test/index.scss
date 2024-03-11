@@ -3,5 +3,7 @@
 .tests-results {
   @extend .block;
 
-  background: rgba(125, 125, 125, .1)
+  background: rgba(125, 125, 125, .1);
+  // Avoid debug infos to override page content.
+  min-height: 10rem;
 }

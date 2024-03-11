@@ -20,7 +20,21 @@ export default class AdaptiveRenderingTest extends AbstractTest {
     // Load in html.
     await this.fetchTestPageAdaptiveHtml('ADAPTIVE');
 
-    await this.fetchTestPageAdaptiveAjax();
+    await this.fetchTestPageAdaptiveAjax().then(async () => {
+      let pageFocused = this.app.layout.pageFocused;
+
+      this.assertEquals(
+        pageFocused.templateAbstractPath,
+        `@wexample/symfony-design-system::pages/test/adaptive`,
+        'The focused page is the modal content page'
+      );
+
+      this.assertEquals(
+        pageFocused.parentRenderNode.templateAbstractPath,
+        `@wexample/symfony-design-system::components/modal`,
+        'The focused page is a child of modal component'
+      );
+    });
   }
 
   private fetchTestPageAdaptiveAjax() {
@@ -45,6 +59,11 @@ export default class AdaptiveRenderingTest extends AbstractTest {
         this.assertFalse(
           renderData.page.isInitialPage,
           'Page is not set as initial'
+        );
+
+        this.assertTrue(
+          !!renderData.templates,
+          'The response contains template html'
         );
 
         return renderData;

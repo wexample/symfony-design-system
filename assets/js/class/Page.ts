@@ -1,9 +1,11 @@
 import RenderDataPageInterface from '../interfaces/RenderData/PageInterface';
 import RenderNode from './RenderNode';
+import PageManagerComponent from './PageManagerComponent';
 import ServicesRegistryInterface from '../interfaces/ServicesRegistryInterface';
 
 export default class extends RenderNode {
   public isInitialPage: boolean;
+  public parentRenderNode: PageManagerComponent;
   public renderData: RenderDataPageInterface;
   public services: ServicesRegistryInterface;
 
@@ -12,12 +14,14 @@ export default class extends RenderNode {
 
     if (this.renderData.isInitialPage) {
       el = this.app.layout.el;
+    } else if (this.parentRenderNode instanceof PageManagerComponent) {
+      el = this.parentRenderNode.renderPageEl(this);
     }
 
     if (el) {
       this.el = el;
     } else {
-      this.app.services.prompt.systemError('page_message.error.page_missing_el');
+      this.app.services.prompt.systemError('Unable to find DOM HTMLElement for page');
     }
 
     this.el.classList.add(`page-${this.cssClassName}`);
@@ -36,6 +40,11 @@ export default class extends RenderNode {
   public async init() {
     await super.init();
 
+    // The initial layout is a page manager component.
+    if (this.parentRenderNode instanceof PageManagerComponent) {
+      this.parentRenderNode.setPage(this);
+    }
+
     await this.app.services.mixins.invokeUntilComplete(
       'hookInitPage',
       'page',
@@ -43,12 +52,35 @@ export default class extends RenderNode {
         this,
       ]
     );
+
+    if (!this.app.layout.pageFocused) {
+      this.focus();
+    }
   }
 
   public async renderNodeReady(): Promise<void> {
     await super.renderNodeReady();
 
     await this.pageReady();
+  }
+
+  public focus() {
+    this.activateFocusListeners();
+
+    this.app.layout.pageFocused && this.app.layout.pageFocused.blur();
+    this.app.layout.pageFocused = this;
+  }
+
+  public blur() {
+    this.deactivateFocusListeners();
+  }
+
+  protected activateFocusListeners(): void {
+    // To override.
+  }
+
+  protected deactivateFocusListeners(): void {
+    // To override.
   }
 
   getElWidth(): number {

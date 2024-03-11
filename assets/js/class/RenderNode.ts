@@ -14,6 +14,7 @@ export default abstract class RenderNode extends AppChild {
   public components: Component[] = [];
   public cssClassName: string;
   public el: HTMLElement;
+  public elements: { [key: string]: HTMLElement } = {};
   public elHeight: number = 0;
   public elWidth: number = 0;
   public id: string;
@@ -25,7 +26,11 @@ export default abstract class RenderNode extends AppChild {
   public usages: {} = {};
   public vars: any = {};
 
-  constructor(app: App, parentRenderNode?: RenderNode) {
+  constructor(
+    public renderRequestId: string,
+    app: App,
+    parentRenderNode?: RenderNode
+  ) {
     super(app);
     this.parentRenderNode = parentRenderNode;
   }
@@ -123,6 +128,13 @@ export default abstract class RenderNode extends AppChild {
   detachHtmlElements() {
     this.el.remove();
     delete this.el;
+
+    let el: HTMLElement;
+    for (el of Object.values(this.elements)) {
+      el.remove();
+    }
+
+    this.elements = {};
   }
 
   async forEachTreeRenderNode(callback?: Function) {
