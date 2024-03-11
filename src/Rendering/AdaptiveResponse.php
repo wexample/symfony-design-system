@@ -73,12 +73,6 @@ class AdaptiveResponse
         return $this;
     }
 
-    public function detectOutputType(): string
-    {
-        return $this->request->isXmlHttpRequest() ?
-            self::OUTPUT_TYPE_RESPONSE_JSON : self::OUTPUT_TYPE_RESPONSE_HTML;
-    }
-
     public function getBody(): ?string
     {
         return $this->body;
