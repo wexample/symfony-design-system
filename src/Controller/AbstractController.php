@@ -119,7 +119,13 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
 
             $renderPass->layoutRenderNode->page->body = trim($response->getContent());
 
-            return new JsonResponse($renderPass->layoutRenderNode->toRenderData());
+            $response = new JsonResponse($renderPass->layoutRenderNode->toRenderData());
+
+            // Prevents browser to display json response when
+            // clicking on back button.
+            $response->headers->set('Vary', 'Accept');
+
+            return $response;
         }
 
         return $this->renderRenderPass(

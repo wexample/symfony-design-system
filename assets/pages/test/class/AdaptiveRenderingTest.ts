@@ -1,3 +1,4 @@
+import ModalComponent from '../../../components/modal';
 import AbstractTest from "./AbstractTest";
 import LayoutInterface from "../../../js/interfaces/RenderData/LayoutInterface";
 
@@ -22,6 +23,7 @@ export default class AdaptiveRenderingTest extends AbstractTest {
 
     await this.fetchTestPageAdaptiveAjax().then(async () => {
       let pageFocused = this.app.layout.pageFocused;
+      let modal = pageFocused.parentRenderNode as ModalComponent;
 
       this.assertEquals(
         pageFocused.templateAbstractPath,
@@ -30,9 +32,21 @@ export default class AdaptiveRenderingTest extends AbstractTest {
       );
 
       this.assertEquals(
-        pageFocused.parentRenderNode.templateAbstractPath,
+        modal.templateAbstractPath,
         `@wexample/symfony-design-system::components/modal`,
         'The focused page is a child of modal component'
+      );
+
+      this.assertEquals(
+        modal.parentRenderNode.templateAbstractPath,
+        this.app.layout.templateAbstractPath,
+        'The parent of modal is the initial layout'
+      );
+
+      this.assertEquals(
+        modal.callerPage.templateAbstractPath,
+        this.app.layout.page.templateAbstractPath,
+        'The caller page of modal is the initial layout page'
       );
     });
   }

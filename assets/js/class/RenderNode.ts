@@ -3,6 +3,7 @@ import AppChild from './AppChild';
 import App from './App';
 import Component from './Component';
 import { toKebab } from "../helpers/StringHelper";
+import Page from './Page';
 
 export class RenderNodeServiceEvents {
   public static USAGE_UPDATED: string = 'usage-changed';
@@ -10,6 +11,7 @@ export class RenderNodeServiceEvents {
 
 
 export default abstract class RenderNode extends AppChild {
+  public callerPage: Page;
   public childRenderNodes: { [key: string]: RenderNode } = {};
   public components: Component[] = [];
   public cssClassName: string;
@@ -43,6 +45,18 @@ export default abstract class RenderNode extends AppChild {
     }
   }
 
+  public async exit() {
+    for (const renderNode of this.eachChildRenderNode()) {
+      await renderNode.exit();
+    }
+
+    if (this.parentRenderNode) {
+      this.parentRenderNode.removeChildRenderNode(this);
+    }
+
+    await this.unmounted();
+  }
+
   loadFirstRenderData(renderData: RenderDataInterface) {
     this.renderData = renderData;
 
@@ -53,6 +67,7 @@ export default abstract class RenderNode extends AppChild {
     this.cssClassName = renderData.cssClassName;
     this.id = renderData.id;
     this.templateAbstractPath = renderData.templateAbstractPath;
+    this.callerPage = renderData.requestOptions.callerPage;
 
     this.translations = {
       ...this.translations,
@@ -66,6 +81,10 @@ export default abstract class RenderNode extends AppChild {
   appendChildRenderNode(renderNode: RenderNode) {
     renderNode.parentRenderNode = this;
     this.childRenderNodes[renderNode.id] = renderNode;
+  }
+
+  removeChildRenderNode(renderNode: RenderNode) {
+    delete this.childRenderNodes[renderNode.id];
   }
 
   eachChildRenderNode(): RenderNode[] {

@@ -5,7 +5,6 @@ import Events from '../js/helpers/Events';
 import RenderNode from '../js/class/RenderNode';
 
 export default class ModalComponent extends PageManagerComponent {
-  public focused: boolean = false;
   public closing: boolean = false;
   public onClickCloseProxy: EventListenerObject;
   public opened: boolean = false;
@@ -68,5 +67,19 @@ export default class ModalComponent extends PageManagerComponent {
     this.hideEl();
 
     this.page.blur();
+
+    return new Promise(async (resolve) => {
+      // Sync with CSS animation.
+      await setTimeout(async () => {
+        this.el.classList.remove(Variables.CLOSED);
+        this.opened = this.closing = false;
+
+        await this.exit();
+
+        this.callerPage.focus();
+
+        resolve(this);
+      }, 400);
+    });
   }
 }
