@@ -12,7 +12,7 @@ import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
 import AppService from '../class/AppService';
 
 export default class ComponentsService extends AbstractRenderNodeService {
-  elLayoutComponents: HTMLElement;
+  private elLayoutComponents: HTMLElement;
 
   pageHandlerRegistry: { [key: string]: PageManagerComponent } = {};
 
@@ -20,15 +20,13 @@ export default class ComponentsService extends AbstractRenderNodeService {
 
   public static serviceName: string = 'components';
 
-  constructor(app: App) {
-    super(app);
-
-    this.elLayoutComponents = document.getElementById('components-templates');
-  }
-
   registerHooks() {
     return {
       app: {
+        hookInit() {
+          this.elLayoutComponents = document.getElementById('components-templates');
+        },
+
         async hookLoadLayoutRenderData(
           renderData: LayoutInterface,
           registry: any
@@ -37,15 +35,16 @@ export default class ComponentsService extends AbstractRenderNodeService {
             return MixinsAppService.LOAD_STATUS_WAIT;
           }
 
-          await this.app.services.components.loadLayoutRenderData(renderData);
+          // Components like modal can contain a new layout.
+          await this.loadLayoutRenderData(renderData);
         },
       },
 
       component: {
         async hookInitComponent(component: Component) {
           await this.createRenderDataComponents(
+            component,
             component.renderData,
-            component
           );
         },
       },

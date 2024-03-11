@@ -13,7 +13,6 @@ export default abstract class RenderNode extends AppChild {
   public elements: { [key: string]: HTMLElement } = {};
   public elHeight: number = 0;
   public elWidth: number = 0;
-  public focused: boolean = false;
   public id: string;
   public isMounted: boolean = false;
   public name: string;
@@ -209,14 +208,6 @@ export default abstract class RenderNode extends AppChild {
 
   getElHeight(): number {
     return this.elHeight;
-  }
-
-  public focus() {
-    this.focused = true;
-  }
-
-  public blur() {
-    this.focused = false;
   }
 
   protected async activateListeners(): Promise<void> {

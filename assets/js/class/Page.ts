@@ -39,7 +39,7 @@ export default class extends RenderNode {
     if (el) {
       this.el = el;
     } else {
-      this.app.services.prompt.systemError('page_message.error.page_missing_el');
+      this.app.services.prompt.systemError('Unable to find DOM HTMLElement for page');
     }
 
     this.el.classList.add(`page-${pathToTagName(this.name)}`);

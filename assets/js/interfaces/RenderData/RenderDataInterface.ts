@@ -12,5 +12,4 @@ export default interface RenderDataInterface {
   requestOptions?: RequestOptionsInterface;
   translations: {};
   vars: any;
-  templates: string;
 }

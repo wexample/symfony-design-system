@@ -29,8 +29,8 @@ export default class AdaptiveRenderingTest extends AbstractTest {
       let modal = pageFocused.parentRenderNode as ModalComponent;
 
       this.assertEquals(
-        pageFocused.name,
-        `pages/_core/test/adaptive`,
+        pageFocused.templateAbstractPath,
+        `@wexample/symfony-design-system::pages/test/index`,
         'The focused page is the modal content page'
       );
 
