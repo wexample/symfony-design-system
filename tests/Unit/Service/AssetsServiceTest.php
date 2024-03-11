@@ -2,7 +2,6 @@
 
 namespace Wexample\SymfonyDesignSystem\Tests\Unit\Service;
 
-use Wexample\SymfonyDesignSystem\Rendering\AdaptiveResponse;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
@@ -28,7 +27,7 @@ class AssetsServiceTest extends AbstractSymfonyTestCase
     {
 
         $renderPass = new RenderPass(
-            AdaptiveResponse::OUTPUT_TYPE_RESPONSE_HTML,
+            RenderPass::OUTPUT_TYPE_RESPONSE_HTML,
             'test.html.twig'
         );
 

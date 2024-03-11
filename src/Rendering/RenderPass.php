@@ -2,16 +2,34 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
+use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AjaxLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\Traits\WithView;
 use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
+use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class RenderPass
 {
     use WithView;
+
+    public const BASE_DEFAULT = VariableHelper::DEFAULT;
+
+    public const BASE_MODAL = VariableHelper::MODAL;
+
+    public const BASE_PAGE = VariableHelper::PAGE;
+
+    public const BASES_MAIN_DIR = DesignSystemHelper::FOLDER_FRONT_ALIAS.'bases/';
+
+    public const OUTPUT_TYPE_RESPONSE_HTML = VariableHelper::HTML;
+
+    public const OUTPUT_TYPE_RESPONSE_JSON = VariableHelper::JSON;
+
+    public const RENDER_PARAM_NAME_BASE = 'adaptive_base';
+
+    public const RENDER_PARAM_NAME_OUTPUT_TYPE = 'adaptive_output_type';
 
     public InitialLayoutRenderNode|AjaxLayoutRenderNode $layoutRenderNode;
 
@@ -161,11 +179,11 @@ class RenderPass
 
     public function isJsonRequest(): bool
     {
-        return AdaptiveResponse::OUTPUT_TYPE_RESPONSE_JSON === $this->getOutputType();
+        return self::OUTPUT_TYPE_RESPONSE_JSON === $this->getOutputType();
     }
 
     public function isHtmlRequest(): bool
     {
-        return AdaptiveResponse::OUTPUT_TYPE_RESPONSE_HTML === $this->getOutputType();
+        return self::OUTPUT_TYPE_RESPONSE_HTML === $this->getOutputType();
     }
 }
