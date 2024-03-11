@@ -109,7 +109,6 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
         if ($renderPass->isJsonRequest()) {
             $renderPass->layoutRenderNode = new AjaxLayoutRenderNode();
 
-        $renderPass->layoutRenderNode = new $className;
             return new JsonResponse((object) [
                 'assets' => [],
             ]);
