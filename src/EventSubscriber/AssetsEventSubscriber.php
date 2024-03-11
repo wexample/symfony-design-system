@@ -30,7 +30,11 @@ class AssetsEventSubscriber implements EventSubscriberInterface
 
         // Support regular controllers
         $response = $event->getResponse();
-        if ($renderPass && !$response->isServerError() && !$response->isClientError()) {
+        if ($renderPass
+            && !$renderPass->isJsonRequest()
+            && !$response->isServerError()
+            && !$response->isClientError()
+        ) {
             $assetsIncludes = $this->twig->render(
                 '@WexampleSymfonyDesignSystemBundle/macros/assets.html.twig',
                 [
