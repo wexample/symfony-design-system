@@ -1,0 +1,15 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/test/layout.html.twig' -%}
+
+{%- block layout_config -%}
+    {{ parent() }}
+    {{- var_js(render_pass, 'layoutLevelTestVar', 'value') -}}
+{%- endblock -%}
+
+{%- block page_config -%}
+    {{ parent() }}
+    {{- var_js(render_pass, 'pageLevelTestVar', 'value') -}}
+{%- endblock -%}
+
+{%- block page_body -%}
+    <div class="test-string">ADAPTIVE</div>
+{%- endblock -%}

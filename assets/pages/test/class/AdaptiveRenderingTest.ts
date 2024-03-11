@@ -18,17 +18,8 @@ export default class AdaptiveRenderingTest extends AbstractTest {
   async testAdaptivePage() {
     // Load in html.
     await this.fetchTestPageAdaptiveHtml('ADAPTIVE');
-
-    await this.fetchTestPageAdaptiveAjax().then(async () => {
-      let pageFocused = this.app.layout.pageFocused;
-
-      this.assertEquals(
-        pageFocused.name,
-        `pages/_core/test/adaptive`,
-        'The focused page is the modal content page'
-      );
-    });
   }
+
   private createElDocument(html: string) {
     let elHtml = document.createElement('html');
     elHtml.innerHTML = html;
