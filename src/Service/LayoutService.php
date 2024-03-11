@@ -99,15 +99,5 @@ class LayoutService extends RenderNodeService
         $this->adaptiveResponseService->renderPass->setCurrentContextRenderNode(
             $layoutRenderNode
         );
-
-        if (AdaptiveResponse::BASE_MODAL === $this->adaptiveResponseService->getResponse()->getRenderingBase()) {
-            $this->componentService->componentInitLayout(
-                $twig,
-                ComponentService::COMPONENT_NAME_MODAL,
-                [
-                    'adaptiveResponseBodyDestination' => true,
-                ]
-            );
-        }
     }
 }

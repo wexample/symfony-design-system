@@ -43,12 +43,8 @@ abstract class AbstractLayoutRenderNode extends AbstractRenderNode
     public function toRenderData(): array
     {
         return parent::toRenderData()
-            + $this->serializeVariables([
-                'page',
-                'useJs',
-            ])
-            + [
-                'templates' => $this->getComponentsTemplates(),
-            ];
+            + $this->serializeVariables(['page'])
+            + ['templates' => $this->getComponentsTemplates()];
+
     }
 }

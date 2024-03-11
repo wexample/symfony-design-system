@@ -20,8 +20,7 @@ class ComponentService extends RenderNodeService
     // Component is loaded with a css class.
     public const INIT_MODE_CLASS = VariableHelper::CLASS_VAR;
 
-    // Component is simply loaded from PHP or from backend adaptive event.
-    // It may have no target tag.
+    // Component is simply loaded from PHP or from backend adaptive event. It may have no target tag.
     public const INIT_MODE_LAYOUT = VariableHelper::LAYOUT;
 
     // Component is loaded from template into the target tag.
@@ -196,11 +195,13 @@ class ComponentService extends RenderNodeService
      */
     public function componentInitLayout(
         Environment $twig,
+        RenderPass $renderPass,
         string $name,
         array $options = []
     ): ComponentRenderNode {
         $component = $this->registerComponent(
             $twig,
+            $renderPass,
             $name,
             ComponentService::INIT_MODE_LAYOUT,
             $options
