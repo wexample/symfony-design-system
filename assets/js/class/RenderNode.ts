@@ -17,6 +17,7 @@ export default abstract class RenderNode extends AppChild {
   public elHeight: number = 0;
   public elWidth: number = 0;
   public id: string;
+  public isMounted: null | boolean = null;
   public templateAbstractPath: string;
   public parentRenderNode: RenderNode;
   public renderData: RenderDataInterface;
@@ -69,7 +70,22 @@ export default abstract class RenderNode extends AppChild {
   attachHtmlElements() {
   }
 
+  async mountOnce() {
+    // When render nodes are attached to the tree,
+    // the whole layout try to mount the newly created render nodes,
+    // so we should prevent it to be mounted twice.
+    if (this.isMounted === null) {
+      await this.mount();
+    }
+  }
+
   async mount() {
+    if (this.isMounted === true) {
+      return;
+    }
+
+    this.isMounted = true;
+
     this.attachHtmlElements();
     this.updateElSize();
     await this.activateListeners();
@@ -78,13 +94,21 @@ export default abstract class RenderNode extends AppChild {
   }
 
   async unmount() {
+    if (!this.isMounted === false) {
+      return;
+    }
+
+    this.isMounted = false;
+
+    this.detachHtmlElements();
+
     await this.deactivateListeners();
     await this.unmounted();
   }
 
   async mountTree() {
     await this.forEachTreeRenderNode(async (renderNode: RenderNode) => {
-      await renderNode.mount();
+      await renderNode.mountOnce();
     });
   }
 
@@ -94,6 +118,11 @@ export default abstract class RenderNode extends AppChild {
         await renderNode.renderNodeReady();
       }
     });
+  }
+
+  detachHtmlElements() {
+    this.el.remove();
+    delete this.el;
   }
 
   async forEachTreeRenderNode(callback?: Function) {
