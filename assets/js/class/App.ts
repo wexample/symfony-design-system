@@ -39,6 +39,13 @@ export default class extends AsyncConstructor {
 
     window[globalName] = this;
 
+    // Allow callback as object definition.
+    if (typeof readyCallback === 'object') {
+      Object.assign(this, readyCallback);
+      // Allow object.readyCallback property.
+      readyCallback = readyCallback.readyCallback || readyCallback;
+    }
+
     let doc = window.document;
 
     let run = async () => {
