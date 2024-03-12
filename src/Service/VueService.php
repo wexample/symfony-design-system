@@ -115,7 +115,7 @@ class VueService
                 ],
                 $twig->render(
                     $pathWithExtension,
-                    $twigContext + $options
+                    $twigContext + $options + ['render_pass' => $renderPass]
                 )
             );
 

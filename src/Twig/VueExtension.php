@@ -4,6 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Exception;
 use Twig\Environment;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\VueService;
@@ -16,6 +17,19 @@ class VueExtension extends AbstractExtension
     public function __construct(
         private readonly VueService $vueService
     ) {
+    }
+
+    public function getFilters(): array
+    {
+        return [
+            new TwigFilter(
+                'vue_key',
+                [
+                    $this,
+                    'vueKey',
+                ]
+            ),
+        ];
     }
 
     public function getFunctions(): array
@@ -65,5 +79,12 @@ class VueExtension extends AbstractExtension
     {
         // Add vue js templates.
         return implode('', $this->vueService->renderedTemplates);
+    }
+
+    public function vueKey(
+        string $key,
+        string $filters = null
+    ): string {
+        return '{{ '.$key.($filters ? ' | '.$filters : '').' }}';
     }
 }

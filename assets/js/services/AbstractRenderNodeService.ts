@@ -70,7 +70,7 @@ export default abstract class AbstractRenderNodeService extends AppService {
       this.app.services.prompt.systemError(
         'Unable to find component with name ":name"',
         {
-          ":name": classDefinition.toString()
+          ":name": classDefinition ? classDefinition.toString() : classDefinition
         }
       );
 
