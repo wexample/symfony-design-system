@@ -33,13 +33,14 @@
   display: flex;
   border-bottom: 1px solid $medium-gray;
 
-  h2 {
+  .header-title {
     @include text-ellipsis;
     flex-basis: 100%;
   }
 
   .modal-close a {
     display: block;
+    width: 1em;
   }
 }
 
