@@ -44,10 +44,6 @@ class VueExtension extends AbstractExtension
                     $this,
                     'vue',
                 ],
-                [
-                    self::FUNCTION_OPTION_NEEDS_ENVIRONMENT => true,
-                    self::FUNCTION_OPTION_IS_SAFE => [self::FUNCTION_OPTION_HTML],
-                ]
             ),
             new TwigFunction(
                 'vue_require',
@@ -82,6 +78,7 @@ class VueExtension extends AbstractExtension
     ): string {
         return $this->vueService->vueRender(
             $env,
+            $renderPass,
             $path,
             $props,
             $twigContext
