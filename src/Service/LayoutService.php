@@ -2,7 +2,6 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
-use App\Wex\BaseBundle\Rendering\AdaptiveResponse;
 use Exception;
 use JetBrains\PhpStorm\Pure;
 use Twig\Environment;

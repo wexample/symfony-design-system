@@ -10,11 +10,12 @@ use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyHelpers\Class\Traits\WithBodyClassTrait;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class ComponentRenderNode extends AbstractRenderNode
 {
-    private ?string $body;
+    use WithBodyClassTrait;
 
     public function __construct(
         public string $initMode,
@@ -78,16 +79,6 @@ class ComponentRenderNode extends AbstractRenderNode
             $this->getTemplatePath(),
             $this->options
         ));
-    }
-
-    public function getBody(): ?string
-    {
-        return $this->body;
-    }
-
-    public function setBody(?string $body): void
-    {
-        $this->body = $body;
     }
 
     public function getTemplatePath(): string

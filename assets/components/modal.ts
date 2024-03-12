@@ -9,10 +9,15 @@ export default class ModalComponent extends PageManagerComponent {
   public onClickCloseProxy: EventListenerObject;
   public opened: boolean = false;
 
+  mergeRenderData(renderData: ComponentInterface) {
+    super.mergeRenderData(renderData);
+  }
+
   attachHtmlElements() {
     super.attachHtmlElements();
 
     this.elements.content = this.el.querySelector('.modal-content');
+    this.elements.content.innerHTML = this.layoutBody;
   }
 
   appendChildRenderNode(renderNode: RenderNode) {
@@ -23,16 +28,6 @@ export default class ModalComponent extends PageManagerComponent {
         this.open();
       });
     }
-  }
-
-  public renderPageEl(page: Page): HTMLElement {
-    this.elements.content.innerHTML = page.renderData.body;
-
-    this.el
-      .querySelector('.modal-close a')
-      .addEventListener(Events.CLICK, this.onClickCloseProxy);
-
-    return this.getPageEl();
   }
 
   public getPageEl(): HTMLElement {

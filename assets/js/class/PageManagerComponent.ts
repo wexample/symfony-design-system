@@ -4,6 +4,7 @@ import ComponentInterface from "../interfaces/RenderData/ComponentInterface";
 
 export default abstract class PageManagerComponent extends Component {
   public page: Page;
+  public layoutBody: string;
 
   mergeRenderData(renderData: ComponentInterface) {
     super.mergeRenderData(renderData);
@@ -21,7 +22,9 @@ export default abstract class PageManagerComponent extends Component {
   /**
    * Used by page handlers (modal / panels).
    */
-  public abstract renderPageEl(page: Page): HTMLElement;
+  public setLayoutBody(body: html) {
+    this.layoutBody = body;
+  }
 
   public abstract getPageEl(): HTMLElement;
 

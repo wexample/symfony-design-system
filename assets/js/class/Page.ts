@@ -15,7 +15,7 @@ export default class extends RenderNode {
     if (this.renderData.isInitialPage) {
       el = this.app.layout.el;
     } else if (this.parentRenderNode instanceof PageManagerComponent) {
-      el = this.parentRenderNode.renderPageEl(this);
+      el = this.parentRenderNode.getPageEl();
     }
 
     if (el) {
