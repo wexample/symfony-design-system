@@ -1,5 +1,5 @@
-{{- trans_js('@component::string.client_side') -}}
-{{- var_js('testComponentVar', true) -}}
+{{- trans_js(render_pass, '@component::string.client_side') -}}
+{{- var_js(render_pass, 'testComponentVar', true) -}}
 
 {% set suffix = suffix|default('') %}
 
@@ -18,7 +18,7 @@
             <div class="test-component-string-translated-client{{ suffix }}">-</div>
         </li>
         {% block sub_component %}
-            <li>{{ component('components/test-component-2') }}</li>
+            <li>{{ component(render_pass, 'components/test-component-2') }}</li>
         {% endblock %}
         <li class="component-playground"></li>
     </ul>
