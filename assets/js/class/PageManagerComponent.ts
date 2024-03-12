@@ -22,7 +22,7 @@ export default abstract class PageManagerComponent extends Component {
   /**
    * Used by page handlers (modal / panels).
    */
-  public setLayoutBody(body: html) {
+  public setLayoutBody(body: string) {
     this.layoutBody = body;
   }
 
