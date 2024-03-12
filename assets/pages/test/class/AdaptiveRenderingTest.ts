@@ -121,7 +121,7 @@ export default class AdaptiveRenderingTest extends AbstractTest {
     });
   }
 
-  assertTestComponentAssets(
+  private assertTestComponentAssets(
     el: HTMLElement,
     prefix: string = '',
     suffix: string = ''
@@ -147,7 +147,7 @@ export default class AdaptiveRenderingTest extends AbstractTest {
     );
   }
 
-  assertTestComponentIntegrity = (
+  private assertTestComponentIntegrity = (
     el: HTMLElement,
     prefix: string = '',
     suffix: string = ''
