@@ -96,7 +96,37 @@ export default class AdaptiveRenderingTest extends AbstractTest {
       this.assertTestComponentIntegrity(elComponent, 'test-component');
 
       this.assertTestComponentIntegrity(elComponent, 'test-component', '-2');
+
+      this.assertTestComponentAssets(elComponent, 'test-component');
+
+      this.assertTestComponentAssets(elComponent, 'test-component', '-2');
     });
+  }
+
+  private assertTestComponentAssets(
+    el: HTMLElement,
+    prefix: string = '',
+    suffix: string = ''
+  ) {
+    this.assertEquals(
+      getComputedStyle(
+        this.app.layout.pageFocused.el.querySelector(
+          `.test-component-test-css${suffix}`
+        )
+      ).backgroundColor,
+      'rgb(0, 128, 0)',
+      'The adaptive CSS has applied green on component'
+    );
+
+    this.assertEquals(
+      getComputedStyle(
+        this.app.layout.pageFocused.el.querySelector(
+          `.test-component-test-js${suffix}`
+        )
+      ).backgroundColor,
+      'rgb(0, 128, 0)',
+      'The adaptive JS has applied green on component'
+    );
   }
 
   private assertTestComponentIntegrity = (
