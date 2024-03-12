@@ -7,7 +7,7 @@ import Events from '../js/helpers/Events';
 import RenderNode from '../js/class/RenderNode';
 
 export default class ModalComponent extends PageManagerComponent {
-  public closing: boolean;
+  public closing: boolean = false;
   public listenKeyboardKey: string[] = [Keyboard.KEY_ESCAPE];
   public mouseDownOverlayTarget: EventTarget | null;
   public mouseDownOverlayTimestamp: number | null;
@@ -20,6 +20,7 @@ export default class ModalComponent extends PageManagerComponent {
     super.attachHtmlElements();
 
     this.elements.content = this.el.querySelector('.modal-content');
+    this.elements.close = this.el.querySelector('.modal-close a');
   }
 
   appendChildRenderNode(renderNode: RenderNode) {
@@ -34,10 +35,6 @@ export default class ModalComponent extends PageManagerComponent {
 
   public renderPageEl(page: Page): HTMLElement {
     this.elements.content.innerHTML = page.renderData.body;
-
-    this.el
-      .querySelector('.modal-close a')
-      .addEventListener(Events.CLICK, this.onClickCloseProxy);
 
     return this.getPageEl();
   }
