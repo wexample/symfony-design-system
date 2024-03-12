@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Twig\TwigFunction;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 use Wexample\SymfonyTranslations\Translation\Translator;
@@ -32,17 +33,15 @@ class TransJsExtension extends AbstractExtension
      * Make translation available for javascript.
      */
     public function transJs(
+        RenderPass $renderPass,
         string|array $keys
     ): void {
         $keys = is_string($keys) ? [$keys] : $keys;
 
-        $currentRenderNode = $this
-            ->adaptiveResponseService
-            ->renderPass
-            ->getCurrentContextRenderNode();
-
         foreach ($keys as $key) {
-            $currentRenderNode->translations += $this->translator->transFilter($key);
+            $renderPass
+                ->getCurrentContextRenderNode()
+                ->translations += $this->translator->transFilter($key);
         }
     }
 }

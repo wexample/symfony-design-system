@@ -1,0 +1,22 @@
+@import '../mixins/global.color-scheme.dark';
+
+.usage-color-scheme-dark {
+  background: $color-default-background;
+}
+
+.usage-color-scheme-dark,
+.usage-color-scheme-default .usage-color-scheme-dark {
+  color: $color-default-text;
+
+  svg.icon {
+    fill: $color-default-text;
+  }
+
+  a {
+    color: $color-default-link;
+  }
+
+  #{$selector-title-all} {
+    color: $color-default-title;
+  }
+}

@@ -5,6 +5,7 @@ import Mouse from '../js/helpers/Mouse';
 import Variables from '../js/helpers/Variables';
 import Events from '../js/helpers/Events';
 import RenderNode from '../js/class/RenderNode';
+import ComponentInterface from '../js/interfaces/RenderData/ComponentInterface';
 
 export default class ModalComponent extends PageManagerComponent {
   public closing: boolean = false;
@@ -16,10 +17,15 @@ export default class ModalComponent extends PageManagerComponent {
   public onMouseUpOverlayProxy: EventListenerObject;
   public opened: boolean = false;
 
+  mergeRenderData(renderData: ComponentInterface) {
+    super.mergeRenderData(renderData);
+  }
+
   attachHtmlElements() {
     super.attachHtmlElements();
 
     this.elements.content = this.el.querySelector('.modal-content');
+    this.elements.content.innerHTML = this.layoutBody;
     this.elements.close = this.el.querySelector('.modal-close a');
   }
 
@@ -31,12 +37,6 @@ export default class ModalComponent extends PageManagerComponent {
         this.open();
       });
     }
-  }
-
-  public renderPageEl(page: Page): HTMLElement {
-    this.elements.content.innerHTML = page.renderData.body;
-
-    return this.getPageEl();
   }
 
   public getPageEl(): HTMLElement {
@@ -58,6 +58,7 @@ export default class ModalComponent extends PageManagerComponent {
 
     this.el.addEventListener(Events.MOUSEDOWN, this.onMouseDownOverlayProxy);
     this.el.addEventListener(Events.MOUSEUP, this.onMouseUpOverlayProxy);
+    this.elements.close.addEventListener(Events.CLICK, this.onClickCloseProxy);
   }
 
   protected async deactivateListeners(): Promise<void> {
@@ -65,10 +66,7 @@ export default class ModalComponent extends PageManagerComponent {
 
     this.el.removeEventListener(Events.MOUSEDOWN, this.onMouseDownOverlayProxy);
     this.el.removeEventListener(Events.MOUSEUP, this.onMouseUpOverlayProxy);
-
-    this.el
-      .querySelector('.modal-close a')
-      .removeEventListener(Events.CLICK, this.onClickCloseProxy);
+    this.elements.close.removeEventListener(Events.CLICK, this.onClickCloseProxy);
   }
 
   showEl() {

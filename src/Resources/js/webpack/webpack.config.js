@@ -2,8 +2,13 @@ const Encore = require('@symfony/webpack-encore');
 const isProd = Encore.isProduction();
 const webpack = require('webpack');
 const tools = require('./webpack.tools');
+const execSync = require('child_process').execSync;
+const FosRouting = require('fos-router/webpack/FosRouting');
 
 tools.logTitle(`Environment is ${isProd ? "prod" : "dev"}`);
+
+tools.logTitle('Building FOS Js Routes...');
+execSync('php bin/console fos:js-routing:dump');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -37,8 +42,8 @@ Encore
   .enableBuildNotifications()
   .enableSourceMaps(!isProd)
   // enables hashed filenames (e.g. app.abc123.css)
-  // TODO Fix it
-  // .enableVersioning(isProd)
+
+  .enableVersioning(isProd)
 
   // Load VueJs.
   .enableVueLoader(() => {
@@ -50,6 +55,8 @@ Encore
       __VUE_PROD_DEVTOOLS__: false,
     })
   )
+
+  .addPlugin(new FosRouting())
 
   // enables Sass/SCSS support
   .enableSassLoader()

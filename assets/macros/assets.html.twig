@@ -2,21 +2,25 @@
 
 {%- for usage_name, assets_groups in assets_by_usage -%}
     {%- for type, types_groups in assets_groups -%}
-        {% for context, tag in types_groups %}
-            {%- set assets_group_name = usage_name ~ '-' ~ context -%}
-            <!--USAGE[{{ assets_group_name }}]-->
-            {%- if type == 'css' -%}
-                {%- if tag.path -%}
-                    <link id="{{ tag.id }}-preload" rel="preload" as="style" href="{{ asset(tag.path) }}">
+        {% for context, tags in types_groups %}
+            {% for tag in tags %}
+                {%- set assets_group_name = type ~ '-' ~ usage_name ~ '-' ~ context -%}
+                <!--USAGE[{{ assets_group_name }}]-->
+                {%- if type == 'css' -%}
+                    {%- if tag.path -%}
+                        <link id="{{ tag.id }}-preload" rel="preload" as="style" href="{{ asset(tag.path) }}">
+                    {%- endif -%}
+                    <link id="{{ tag.id }}" rel="stylesheet" media="{{ tag.media }}"
+                          href="{{ tag.path ? asset(tag.path) : '' }}"/>
+                {%- elseif type == 'js' and render_pass.isUseJs() -%}
+                    {%- if tag.path -%}
+                        <link id="{{ tag.id }}-preload" rel="preload" as="script" href="{{ asset(tag.path) }}">
+                    {%- endif -%}
+                    <script id="{{ tag.id }}" type="text/javascript"
+                            src="{{ tag.path ? asset(tag.path) : '' }}"></script>
                 {%- endif -%}
-                <link id="{{ tag.id }}" rel="stylesheet" media="{{ tag.media }}" href="{{ tag.path ? asset(tag.path) : '' }}"/>
-            {%- elseif type == 'js' and render_pass.isUseJs() -%}
-                {%- if tag.path -%}
-                    <link id="{{ tag.id }}-preload" rel="preload" as="script" href="{{ asset(tag.path) }}">
-                {%- endif -%}
-                <script id="{{ tag.id }}" type="text/javascript" src="{{ tag.path ? asset(tag.path) : '' }}"></script>
-            {%- endif -%}
-            <!--END_USAGE[{{ assets_group_name }}]-->
+                <!--END_USAGE[{{ assets_group_name }}]-->
+            {% endfor %}
         {% endfor %}
     {%- endfor -%}
 {%- endfor -%}

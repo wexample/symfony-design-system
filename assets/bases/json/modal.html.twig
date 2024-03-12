@@ -11,10 +11,14 @@
 
 {%- block page_composer_json -%}
     <div class="modal-header">
-        <h2>{{ page_title | trans }}</h2>
+        {% if page_title | default(false) %}
+            <h2 class="header-title">{{ page_title | trans }}</h2>
+        {% else %}
+            <div class="header-title"></div>
+        {% endif %}
         <div class="modal-close">
             <a href="#">
-                {{ icon('close') }}
+                {{ icon('fa:solid/xmark') }}
             </a>
         </div>
     </div>

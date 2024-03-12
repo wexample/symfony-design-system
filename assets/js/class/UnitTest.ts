@@ -9,7 +9,7 @@ export default abstract class extends AppChild {
       console.log(
         '%c Fail ',
         `background: #FFCCCC; color: #880000; ${styleDefault}`,
-        `Assertion failed, ${value} is not equal to expected value : ${expected}. ${message}`
+        `Assertion failed, ${value} is not equal to expected value : ${expected}. ${message || ''}`
       );
 
       if (fatal) {
@@ -19,7 +19,7 @@ export default abstract class extends AppChild {
       console.log(
         '%c Success ',
         `background: #00FF00; color: #002200; ${styleDefault}`,
-        message
+        message || expected
       );
     }
   }

@@ -5,7 +5,7 @@ namespace Wexample\SymfonyDesignSystem;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Wexample\SymfonyDesignSystem\DependencyInjection\Compiler\DesignSystemTemplatesCompilerPass;
 use Wexample\SymfonyDesignSystem\Interface\DesignSystemBundleInterface;
-use Wexample\SymfonyHelpers\AbstractBundle;
+use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
 
 class WexampleSymfonyDesignSystemBundle extends AbstractBundle implements DesignSystemBundleInterface

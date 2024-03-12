@@ -16,19 +16,16 @@ class VueService
     public array $rootComponents = [];
 
     public function __construct(
-        protected AdaptiveResponseService $adaptiveResponseService,
-        protected AssetsService $assetsService,
-        protected ComponentService $componentsService,
-        protected Translator $translator
+        readonly protected AdaptiveResponseService $adaptiveResponseService,
+        readonly protected AssetsService $assetsService,
+        readonly protected ComponentService $componentsService,
+        readonly protected Translator $translator
     ) {
     }
 
-    public function isRenderPassInVueContext(): bool
+    public function isRenderPassInVueContext(RenderPass $renderPass): bool
     {
-        return ComponentService::COMPONENT_NAME_VUE === $this
-                ->adaptiveResponseService
-                ->renderPass
-                ->getCurrentContextRenderNode()->name;
+        return ComponentService::COMPONENT_NAME_VUE === $renderPass->getCurrentContextRenderNode()->getTemplateAbstractPath();
     }
 
     /**
@@ -36,12 +33,13 @@ class VueService
      */
     public function vueRender(
         Environment $twig,
+        RenderPass $renderPass,
         string $path,
         ?array $props = [],
         ?array $twigContext = []
     ): string {
         $vue = new Vue(
-            $path,
+            $this->assetsService->buildTemplateAbstractPathFromTemplateName($path),
         );
 
         $pathTemplate = $vue->findTemplate($twig);
