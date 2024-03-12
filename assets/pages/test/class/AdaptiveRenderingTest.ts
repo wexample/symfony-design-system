@@ -1,4 +1,6 @@
 import ModalComponent from '../../../components/modal';
+
+import { toScreamingSnake } from '../../../js/helpers/StringHelper';
 import AbstractTest from "./AbstractTest";
 import LayoutInterface from "../../../js/interfaces/RenderData/LayoutInterface";
 
@@ -86,8 +88,36 @@ export default class AdaptiveRenderingTest extends AbstractTest {
         'rgb(0, 128, 0)',
         'The adaptive JS has applied green'
       );
+
+      let elComponent = pageFocused.el.querySelector(
+        '.adaptive-page-test-component'
+      ) as HTMLElement;
+
+      this.assertTestComponentIntegrity(elComponent, 'test-component');
     });
   }
+
+  private assertTestComponentIntegrity = (
+    el: HTMLElement,
+    prefix: string = '',
+    suffix: string = ''
+  ) => {
+    this.assertEquals(
+      this.app.layout.pageFocused.el.querySelector(
+        `.${prefix}-string-translated-server${suffix}`
+      ).innerHTML,
+      `SERVER_SIDE_${toScreamingSnake(prefix)}_TRANSLATION${suffix}`,
+      `Test server side translation`
+    );
+
+    this.assertEquals(
+      this.app.layout.pageFocused.el.querySelector(
+        `.${prefix}-string-translated-client${suffix}`
+      ).innerHTML,
+      `CLIENT_SIDE_${toScreamingSnake(prefix)}_TRANSLATION${suffix}`,
+      `Test client side translation`
+    );
+  };
 
   private fetchTestPageAdaptiveAjax() {
     // Load in json.

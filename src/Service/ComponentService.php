@@ -64,7 +64,7 @@ class ComponentService extends RenderNodeService
 
                 $this->translator->setDomainFromPath(
                     Translator::DOMAIN_TYPE_COMPONENT,
-                    $component->getTemplateAbstractPath()
+                    $component->getView()
                 );
 
                 $component->render(
