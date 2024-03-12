@@ -10,6 +10,8 @@ export default class AggregationTest extends UnitTest {
   private testDefault(path: string, testString: string) {
     let enableAggregation = this.app.layout.vars.enableAggregation;
 
+    this.assertEquals(typeof (enableAggregation), 'boolean')
+
     this.assertEquals(
       /\.agg\.[a-z\?0-9]*"/.test(document.documentElement.innerHTML),
       enableAggregation,
@@ -20,7 +22,7 @@ export default class AggregationTest extends UnitTest {
       this.assertEquals(
         document.head.querySelectorAll('link[rel=preload]').length,
         2,
-        `There is only two preloaded items when aggregation is on (js, css)`
+        `There is only two preloaded items when aggregation is enabled (js, css)`
       );
 
       // Js count
