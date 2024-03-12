@@ -1,13 +1,13 @@
 import AdaptiveService from './AdaptiveService';
 import LocaleService from './LocaleService';
 import MixinsAppService from '../class/MixinsAppService';
-import RenderDataPageInterface from '../interfaces/RenderData/PageInterface';
 import LayoutInterface from '../interfaces/RenderData/LayoutInterface';
 import AbstractRenderNodeService from './AbstractRenderNodeService';
 import Page from '../class/Page';
 import RenderNode from '../class/RenderNode';
 import AppService from '../class/AppService';
 import ResponsiveService from "./ResponsiveService";
+import PageManagerComponent from "../class/PageManagerComponent";
 
 export default class PagesService extends AbstractRenderNodeService {
   public static dependencies: typeof AppService[] = [
@@ -15,6 +15,9 @@ export default class PagesService extends AbstractRenderNodeService {
     ResponsiveService,
     LocaleService,
   ];
+
+  public pageHandlerRegistry: { [key: string]: PageManagerComponent } = {};
+
   public static serviceName: string = 'pages';
 
   registerHooks() {
@@ -48,7 +51,7 @@ export default class PagesService extends AbstractRenderNodeService {
       parentNode = this.app.layout;
     }
 
-    const registry = this.app.services.components.pageHandlerRegistry;
+    const registry = this.app.services.pages.pageHandlerRegistry;
     let pageHandler = registry[renderData.renderRequestId];
 
     if (pageHandler) {
