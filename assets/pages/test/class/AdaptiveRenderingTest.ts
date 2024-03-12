@@ -48,6 +48,12 @@ export default class AdaptiveRenderingTest extends AbstractTest {
         this.app.layout.page.templateAbstractPath,
         'The caller page of modal is the initial layout page'
       );
+
+      this.assertEquals(
+        pageFocused.el.querySelector('.modal-header h2').innerHTML,
+        'ADAPTIVE_PAGE_TITLE',
+        'The modal page title has been translated'
+      );
     });
   }
 

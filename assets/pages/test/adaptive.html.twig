@@ -1,5 +1,7 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/layouts/test/layout.html.twig' -%}
 
+{% set page_title = '@page::page_title' | trans %}
+
 {%- block layout_config -%}
     {{ parent() }}
     {{- var_js(render_pass, 'layoutLevelTestVar', 'value') -}}
