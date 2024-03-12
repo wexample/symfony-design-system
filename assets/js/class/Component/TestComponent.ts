@@ -1,4 +1,5 @@
 import Component from '../Component';
+import { RenderNodeLocaleType } from "../../services/LocaleService";
 
 export default class extends Component {
   protected interval: any;
@@ -23,7 +24,8 @@ export default class extends Component {
     let elTranslations = this.el.querySelector(
       `.test-component-string-translated-client${this.suffix}`
     ) as HTMLElement;
-    elTranslations.innerText = this.trans('@component::string.client_side');
+
+    elTranslations.innerText = (this as RenderNodeLocaleType).trans('@component::string.client_side');
   }
 
   async unmounted() {

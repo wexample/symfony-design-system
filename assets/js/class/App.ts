@@ -7,7 +7,7 @@ import EventsService from '../services/EventsService';
 import LayoutsService from '../services/LayoutsService';
 import MixinsService from '../services/MixinsService';
 import PagesService from '../services/PagesService';
-import ResponsiveService from '../services/ResponsiveService';
+import { RenderNodeResponsiveType } from '../services/ResponsiveService';
 import RoutingService from '../services/RoutingService';
 
 import { unique as arrayUnique } from '../helpers/ArrayHelper';
@@ -17,14 +17,24 @@ import LayoutInterface from '../interfaces/RenderData/LayoutInterface';
 import AsyncConstructor from './AsyncConstructor';
 import { toCamel } from '../helpers/StringHelper';
 import ServicesRegistryInterface from '../interfaces/ServicesRegistryInterface';
+import AssetsCollectionInterface from "../interfaces/AssetsCollectionInterface";
+
+interface AppRegistryInterface {
+  bundles: {
+    classes: {}
+  };
+  layoutRenderData: LayoutInterface;
+  assetsRegistry: AssetsCollectionInterface;
+}
 
 export default class extends AsyncConstructor {
   public bundles: any;
   public hasCoreLoaded: boolean = false;
-  public layout: LayoutInitial = null;
+  public layout: LayoutInitial & RenderNodeResponsiveType = null;
   public mixins: typeof AppService[] = [];
   public lib: object = {};
   public services: ServicesRegistryInterface = {};
+  public registry = {} as AppRegistryInterface;
 
   constructor(
     readyCallback?: any | Function,
@@ -46,21 +56,15 @@ export default class extends AsyncConstructor {
     let run = async () => {
       await this.loadAndInitServices(this.getServices());
 
-      let registry: {
-        bundles: any;
-        layoutRenderData: LayoutInterface;
-      } = window['appRegistry'];
-
-      this.bundles = registry.bundles;
+      const registry = this.registry = window['appRegistry'] as AppRegistryInterface;
       // Save layout class definition to allow loading it as a normal render node definition.
-      this.bundles.classes[registry.layoutRenderData.name] = LayoutInitial;
+      registry.bundles.classes[registry.layoutRenderData.templateAbstractPath] = LayoutInitial;
 
       this.layout = (await this.services.layouts.createRenderNode(
-        registry.layoutRenderData.name,
+        registry.layoutRenderData.renderRequestId,
+        registry.layoutRenderData.templateAbstractPath,
         registry.layoutRenderData
-      )) as LayoutInitial;
-
-      this.addLibraries(this.lib);
+      )) as (LayoutInitial & RenderNodeResponsiveType);
 
       // The main functionalities are ready,
       // but first data has not been loaded.
@@ -178,7 +182,7 @@ export default class extends AsyncConstructor {
     classRegistryName: string,
     bundled: boolean = false
   ): object | null {
-    let bundle = this.bundles.classes[classRegistryName];
+    let bundle = this.registry.bundles.classes[classRegistryName];
 
     if (bundled) {
       return bundle ? bundle : null;
