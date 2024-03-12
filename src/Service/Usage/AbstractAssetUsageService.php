@@ -63,6 +63,9 @@ abstract class AbstractAssetUsageService
         return $hasAsset;
     }
 
+    /**
+     * @throws Exception
+     */
     protected function createAssetIfExists(
         string $pathInManifest,
         AbstractRenderNode $renderNode,
@@ -74,7 +77,8 @@ abstract class AbstractAssetUsageService
         $realPath = $this->assetsRegistryService->getRealPath($pathInManifest);
 
         if (!$realPath) {
-            throw new Exception('Unable to find asset "'.$pathInManifest.'" in manifest.');
+            throw new Exception('Unable to find realpath of asset "'
+                .$pathInManifest.', check build folder content or files permissions.');
         }
 
         $asset = new Asset(

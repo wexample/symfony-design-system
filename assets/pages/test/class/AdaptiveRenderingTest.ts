@@ -71,6 +71,21 @@ export default class AdaptiveRenderingTest extends AbstractTest {
         pageFocused.components[0].options.testOption,
         'The component option has been loaded'
       );
+
+      this.assertEquals(
+        getComputedStyle(
+          pageFocused.el.querySelector(`.adaptive-page-test-css`)
+        ).backgroundColor,
+        'rgb(0, 128, 0)',
+        'The adaptive CSS has applied green'
+      );
+
+      this.assertEquals(
+        getComputedStyle(pageFocused.el.querySelector(`.adaptive-page-test-js`))
+          .backgroundColor,
+        'rgb(0, 128, 0)',
+        'The adaptive JS has applied green'
+      );
     });
   }
 
