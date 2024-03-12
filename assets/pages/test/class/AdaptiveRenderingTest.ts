@@ -94,6 +94,8 @@ export default class AdaptiveRenderingTest extends AbstractTest {
       ) as HTMLElement;
 
       this.assertTestComponentIntegrity(elComponent, 'test-component');
+
+      this.assertTestComponentIntegrity(elComponent, 'test-component', '-2');
     });
   }
 

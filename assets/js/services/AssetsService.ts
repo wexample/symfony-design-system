@@ -13,7 +13,7 @@ import Fonts from '../class/AssetUsage/Fonts';
 import ResponsiveAssetUsage from '../class/AssetUsage/Responsive';
 import Animations from "../class/AssetUsage/Animations";
 
-type RenderNodeAssetsType = {
+export type RenderNodeAssetsType = {
   assetsUpdate?: Function;
 };
 

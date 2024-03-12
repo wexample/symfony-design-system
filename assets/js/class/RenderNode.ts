@@ -9,7 +9,6 @@ export class RenderNodeServiceEvents {
   public static USAGE_UPDATED: string = 'usage-changed';
 }
 
-
 export default abstract class RenderNode extends AppChild {
   public callerPage: Page;
   public childRenderNodes: { [key: string]: RenderNode } = {};
