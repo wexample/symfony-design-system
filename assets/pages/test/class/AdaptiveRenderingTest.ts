@@ -54,6 +54,18 @@ export default class AdaptiveRenderingTest extends AbstractTest {
         'ADAPTIVE_PAGE_TITLE',
         'The modal page title has been translated'
       );
+
+      this.assertEquals(
+        pageFocused.vars.pageLevelTestVar,
+        'value',
+        'The modal page has vars'
+      );
+
+      this.assertEquals(
+        this.app.layout.vars.layoutLevelTestVar,
+        'value',
+        'The layout has a new var'
+      );
     });
   }
 
