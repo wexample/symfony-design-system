@@ -69,6 +69,9 @@ class ComponentService extends RenderNodeService
 
                 $component->render(
                     $twig,
+                    [
+                        'render_pass' => $renderPass
+                    ]
                 );
 
                 $this->translator->revertDomain(

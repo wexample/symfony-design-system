@@ -73,11 +73,11 @@ class ComponentRenderNode extends AbstractRenderNode
      * @throws SyntaxError
      * @throws LoaderError
      */
-    public function render(Environment $env): void
+    public function render(Environment $env, array $parameters = []): void
     {
         $this->setBody($env->render(
             $this->getTemplatePath(),
-            $this->options
+            $this->options + $parameters
         ));
     }
 

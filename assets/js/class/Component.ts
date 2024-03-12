@@ -4,6 +4,7 @@ import { findPreviousNode as DomFindPreviousNode } from '../helpers/DomHelper';
 
 export default abstract class Component extends RenderNode {
   protected initMode: string;
+  public options: any = {};
 
   public static INIT_MODE_CLASS: string = 'class';
 
@@ -79,5 +80,6 @@ export default abstract class Component extends RenderNode {
     super.mergeRenderData(renderData);
 
     this.initMode = renderData.initMode;
+    this.options = {...this.options, ...renderData.options};
   }
 }

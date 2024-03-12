@@ -66,6 +66,11 @@ export default class AdaptiveRenderingTest extends AbstractTest {
         'value',
         'The layout has a new var'
       );
+
+      this.assertTrue(
+        pageFocused.components[0].options.testOption,
+        'The component option has been loaded'
+      );
     });
   }
 

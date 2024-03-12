@@ -31,10 +31,10 @@ export function appendInnerHtml(el: HTMLElement, html: string) {
   el.insertAdjacentHTML(InsertPosition.BEFORE_END as any, html);
 }
 
-export function findPreviousNode(el) {
+export function findPreviousNode(el: HTMLElement) {
   // Search for previous non text node.
   do {
-    el = el.previousSibling;
+    el = el.previousSibling as HTMLElement;
   } while (el && el.nodeType === Node.TEXT_NODE);
   return el;
 }
