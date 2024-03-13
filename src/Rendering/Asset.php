@@ -4,6 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Rendering;
 
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Rendering\Traits\WithDomId;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithView;
 use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
@@ -11,6 +12,7 @@ use Wexample\SymfonyHelpers\Helper\TextHelper;
 class Asset extends RenderDataGenerator
 {
     use WithDomId;
+    use WithView;
 
     public const ASSETS_EXTENSIONS = [
         Asset::EXTENSION_CSS,
@@ -54,17 +56,18 @@ class Asset extends RenderDataGenerator
         $this->type = $info['extension'];
         // Add leading slash to load it from frontend.
         $this->path = FileHelper::FOLDER_SEPARATOR.$pathInManifest;
+
         // Same as render node id
-        $this->setTemplateAbstractPath(
-            $this->buildTemplateAbstractPath($this->path)
+        $this->setView(
+            $this->buildView($this->path)
         );
 
         $this->setDomId(
-            $this->type.'-'.DomHelper::buildStringIdentifier($this->getTemplateAbstractPath())
+            $this->type.'-'.DomHelper::buildStringIdentifier($this->getView())
         );
     }
 
-    private function buildTemplateAbstractPath(string $path): string
+    private function buildView(string $path): string
     {
         $path = TextHelper::trimFirstChunk(
             FileHelper::removeExtension($path),
@@ -72,16 +75,10 @@ class Asset extends RenderDataGenerator
         );
 
         $explode = explode('/', $path);
+        $parts = array_slice($explode, 2);
+        array_unshift($parts, current($explode));
 
-        if (current($explode) == 'app') {
-            $slicePos = 1;
-            $bundleName = current($explode);
-        } else {
-            $slicePos = 2;
-            $bundleName = implode('/', array_slice($explode, 0, $slicePos));
-        }
-
-        return $bundleName.'::'.implode('/', array_slice($explode, $slicePos + 1));
+        return implode('/', $parts);
     }
 
     public function setServerSideRendered(bool $bool = true)
@@ -109,10 +106,10 @@ class Asset extends RenderDataGenerator
             'domId',
             'initialLayout',
             'path',
-            'templateAbstractPath',
             'type',
             'usage',
             'usages',
+            'view',
         ]);
     }
 

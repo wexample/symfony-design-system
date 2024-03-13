@@ -20,12 +20,11 @@ abstract class RenderNodeService
     public function initRenderNode(
         AbstractRenderNode $renderNode,
         RenderPass $renderPass,
-        string $path,
+        string $view,
     ): void {
         $renderNode->init(
             $renderPass,
-            $path,
-            $this->assetsService->buildTemplateAbstractPathFromTemplateName($path)
+            $view,
         );
 
         if ($renderNode->hasAssets) {

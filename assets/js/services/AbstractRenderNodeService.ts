@@ -27,7 +27,7 @@ export default abstract class AbstractRenderNodeService extends AppService {
 
   async createRenderNode(
     renderRequestId: string,
-    definitionName: string,
+    view: string,
     renderData: RenderDataInterface,
     parentRenderNode?: RenderNode
   ): Promise<null | RenderNode> {
@@ -36,11 +36,11 @@ export default abstract class AbstractRenderNodeService extends AppService {
     await this.app.services.mixins.invokeUntilComplete(
       'hookBeforeCreate',
       'renderNode',
-      [definitionName, renderData, parentRenderNode]
+      [view, renderData, parentRenderNode]
     );
 
     let classDefinition = this.app.getBundleClassDefinition(
-      definitionName,
+      view,
       true
     );
 

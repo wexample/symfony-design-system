@@ -29,10 +29,9 @@ abstract class AbstractLayoutRenderNode extends AbstractRenderNode
 
     public function init(
         RenderPass $renderPass,
-        string $templateName,
-        string $name,
+        string $view,
     ): void {
-        parent::init($renderPass, $templateName, $name);
+        parent::init($renderPass, $view);
 
         $this->setRenderRequestId(
             $renderPass->getRenderRequestId()

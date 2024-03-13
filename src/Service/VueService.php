@@ -36,25 +36,21 @@ class VueService
     public function vueRender(
         Environment $twig,
         RenderPass $renderPass,
-        string $path,
+        string $view,
         ?array $props = [],
         ?array $twigContext = []
     ): string {
-        $vue = new Vue(
-            $this->assetsService->buildTemplateAbstractPathFromTemplateName($path),
-        );
-
-        $pathWithExtension = $path.VueExtension::TEMPLATE_FILE_EXTENSION;
+        $pathWithExtension = $view.VueExtension::TEMPLATE_FILE_EXTENSION;
 
         if (!$twig->getLoader()->exists($pathWithExtension)) {
             throw new Exception('Unable to find template: '.$pathWithExtension);
         }
-        $vueTemplateAbstractPath = $vue->getTemplateAbstractPath();
-        $vueDomId = DomHelper::buildStringIdentifier($vueTemplateAbstractPath);
+
+        $vueDomId = DomHelper::buildStringIdentifier($view);
 
         $options = [
             'domId' => $vueDomId,
-            'name' => $vueTemplateAbstractPath,
+            'name' => $view
         ];
 
         $outputBody = '';
@@ -71,7 +67,7 @@ class VueService
                     $options
                 );
 
-            $this->rootComponents[$vueTemplateAbstractPath] = $rootComponent;
+            $this->rootComponents[$view] = $rootComponent;
 
             $outputBody = $rootComponent->renderTag();
         } else {
@@ -79,7 +75,7 @@ class VueService
 
             $contextCurrent = RenderingHelper::buildRenderContextKey(
                 RenderingHelper::CONTEXT_COMPONENT,
-                $rootComponent->getTemplateAbstractPath()
+                $rootComponent->getView()
             );
 
             if ($rootComponent->getContextRenderNodeKey() !== $contextCurrent) {
@@ -93,17 +89,17 @@ class VueService
             ->assetsDetect(
                 $renderPass,
                 $rootComponent,
-                $vueTemplateAbstractPath
+                $view
             );
 
-        if (!isset($this->renderedTemplates[$vueTemplateAbstractPath])) {
+        if (!isset($this->renderedTemplates[$view])) {
             $renderPass->setCurrentContextRenderNode(
                 $rootComponent
             );
 
             $this->translator->setDomainFromPath(
                 Translator::DOMAIN_TYPE_VUE,
-                $vueTemplateAbstractPath
+                $view
             );
 
             $template = DomHelper::buildTag(
@@ -118,7 +114,7 @@ class VueService
                 )
             );
 
-            $rootComponent->translations['INCLUDE|'.$vueTemplateAbstractPath] = $this->translator->transFilter('@vue::*');
+            $rootComponent->translations['INCLUDE|'.$view] = $this->translator->transFilter('@vue::*');
 
             $this->translator->revertDomain(
                 Translator::DOMAIN_TYPE_VUE
@@ -126,7 +122,7 @@ class VueService
 
             $renderPass->revertCurrentContextRenderNode();
 
-            $this->renderedTemplates[$vueTemplateAbstractPath] = $template;
+            $this->renderedTemplates[$view] = $template;
         }
 
         if ($renderPass->isJsonRequest()) {

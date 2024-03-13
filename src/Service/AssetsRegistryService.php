@@ -84,7 +84,7 @@ class AssetsRegistryService extends RenderDataGenerator
     public function addAsset(Asset $asset): void
     {
         $this->registry[$asset->type] = $this->registry[$asset->type] ?? [];
-        $templateName = $asset->getTemplateAbstractPath();
+        $templateName = $asset->getView();
 
         if (!isset($this->registry[$asset->type][$templateName])) {
             $this->registry[$asset->type][$templateName] = $asset;

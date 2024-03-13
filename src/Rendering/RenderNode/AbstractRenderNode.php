@@ -4,16 +4,15 @@ namespace Wexample\SymfonyDesignSystem\Rendering\RenderNode;
 
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
+use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderDataGenerator;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
-use Wexample\SymfonyDesignSystem\Rendering\Traits\WithTemplateAbstractPathTrait;
 use Wexample\SymfonyDesignSystem\Rendering\Traits\WithView;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 
 abstract class AbstractRenderNode extends RenderDataGenerator
 {
-    use WithTemplateAbstractPathTrait;
     use WithView;
 
     public array $assets = AssetsService::ASSETS_DEFAULT_EMPTY;
@@ -30,8 +29,6 @@ abstract class AbstractRenderNode extends RenderDataGenerator
 
     public array $vars = [];
 
-    private string $templateAbstractPath;
-
     public array $usages;
 
     private array $inheritanceStack = [];
@@ -40,15 +37,13 @@ abstract class AbstractRenderNode extends RenderDataGenerator
 
     public function init(
         RenderPass $renderPass,
-        string $templateName,
-        string $name,
+        string $view,
     ): void {
-        $this->setDefaultTemplateName($templateName);
-        $this->setTemplateAbstractPath($name);
+        $this->setDefaultView($view);
 
         $this->id = implode('-', [
             $this->getContextType(),
-            str_replace('/', '-', $this->getTemplateAbstractPath()),
+            str_replace('/', '-', $this->getView()),
             uniqid(),
         ]);
 
@@ -63,7 +58,7 @@ abstract class AbstractRenderNode extends RenderDataGenerator
     {
         return RenderingHelper::buildRenderContextKey(
             $this->getContextType(),
-            $this->getTemplateAbstractPath()
+            $this->getView()
         );
     }
 
@@ -87,8 +82,8 @@ abstract class AbstractRenderNode extends RenderDataGenerator
             'components' => $this->arrayToRenderData($this->components),
             'cssClassName' => $this->cssClassName,
             'id' => $this->id,
-            'templateAbstractPath' => $this->getTemplateAbstractPath(),
             'translations' => (object) $this->translations,
+            'view' => $this->getView(),
             'vars' => (object) $this->vars,
             'usages' => (object) $this->usages,
         ];
@@ -103,13 +98,15 @@ abstract class AbstractRenderNode extends RenderDataGenerator
         return $data;
     }
 
-    public function setDefaultTemplateName(string $templateName): void
+    public function setDefaultView(string $view): void
     {
+        $view = TemplateHelper::removeExtension($view);
+
         if (!$this->getView()) {
-            $this->setView($templateName);
+            $this->setView($view);
         }
 
-        $this->inheritanceStack[] = $templateName;
+        $this->inheritanceStack[] = $view;
     }
 
     public function getInheritanceStack(): array

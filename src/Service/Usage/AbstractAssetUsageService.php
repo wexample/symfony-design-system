@@ -20,24 +20,25 @@ abstract class AbstractAssetUsageService
 
     abstract public static function getName(): string;
 
-    public function buildPublicAssetPathFromTemplateAbstractPath(
-        string $templateAbstractPath,
+    public function buildPublicAssetPathFromView(
+        string $view,
         string $ext
     ): string {
-        $nameParts = explode('::', $templateAbstractPath);
+        $nameParts = explode('/', $view);
+        $bundle = array_shift($nameParts);
 
-        return AssetsRegistryService::DIR_BUILD.PathHelper::join([$nameParts[0], $ext, $nameParts[1].'.'.$ext]);
+        return AssetsRegistryService::DIR_BUILD.PathHelper::join(array_merge([$bundle, $ext], $nameParts)).'.'.$ext;
     }
 
     public function addAssetsForRenderNodeAndType(
         RenderPass $renderPass,
         AbstractRenderNode $renderNode,
         string $ext,
-        string $templateAbstractPath
+        string $view
     ): bool {
         $pathInfo = pathinfo(
-            $this->buildPublicAssetPathFromTemplateAbstractPath(
-                $templateAbstractPath,
+            $this->buildPublicAssetPathFromView(
+                $view,
                 $ext
             )
         );

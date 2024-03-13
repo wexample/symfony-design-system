@@ -87,7 +87,7 @@ export default class ComponentsService extends AbstractRenderNodeService {
 
       let component = (await this.createRenderNode(
         renderRequestId,
-        renderDataComponent.templateAbstractPath,
+        renderDataComponent.view,
         renderDataComponent,
         parentRenderNode
       )) as Component;

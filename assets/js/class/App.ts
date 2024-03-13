@@ -53,11 +53,11 @@ export default class extends AsyncConstructor {
 
       const registry = this.registry = window['appRegistry'] as AppRegistryInterface;
       // Save layout class definition to allow loading it as a normal render node definition.
-      registry.bundles.classes[registry.layoutRenderData.templateAbstractPath] = LayoutInitial;
+      registry.bundles.classes[registry.layoutRenderData.view] = LayoutInitial;
 
       this.layout = (await this.services.layouts.createRenderNode(
         registry.layoutRenderData.renderRequestId,
-        registry.layoutRenderData.templateAbstractPath,
+        registry.layoutRenderData.view,
         registry.layoutRenderData
       )) as (LayoutInitial & RenderNodeResponsiveType);
 

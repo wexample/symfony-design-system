@@ -105,22 +105,22 @@ export default class VueService extends AppService {
       component.renderData.options.props);
   }
 
-  initComponent(name: string, rootComponent: Component): object {
-    const vueName = buildStringIdentifier(name);
+  initComponent(view: string, rootComponent: Component): object {
+    const vueName = buildStringIdentifier(view);
 
     if (!this.componentRegistered[vueName]) {
       const domId = 'vue-template-'+vueName;
-      let vueClassDefinition = this.app.getBundleClassDefinition(name) as any;
+      let vueClassDefinition = this.app.getBundleClassDefinition(view) as any;
 
       if (!vueClassDefinition) {
         this.app.services.prompt.systemError(
           'Missing vue definition for ":class"',
           {
-            ':class': name,
+            ':class': view,
           }
         );
       } else {
-        let comName = pathToTagName(name);
+        let comName = pathToTagName(view);
         vueClassDefinition.template = document.getElementById(domId);
 
         vueClassDefinition.props = {

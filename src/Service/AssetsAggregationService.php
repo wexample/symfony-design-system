@@ -26,7 +26,7 @@ class AssetsAggregationService
     }
 
     public function buildAggregatedTags(
-        string $templateAbstractPath,
+        string $view,
         array $usagesAssetsCollection,
     ): array {
         $aggregated = array_fill_keys(array_keys($usagesAssetsCollection), []);
@@ -48,7 +48,7 @@ class AssetsAggregationService
                                     $aggregationTag = new AssetTag();
 
                                     $aggregationTag->setId(
-                                        $templateAbstractPath.'-'.$counter
+                                        $view.'-'.$counter
                                     );
 
                                     $aggregationTag->setMedia(
@@ -60,8 +60,8 @@ class AssetsAggregationService
                                     );
 
                                     $aggregationTag->setPath(
-                                        $this->buildAggregatedPathFromTemplateAbstractPath(
-                                            $templateAbstractPath,
+                                        $this->buildAggregatedPathFromView(
+                                            $view,
                                             $type,
                                             $counter,
                                         )
@@ -137,7 +137,7 @@ class AssetsAggregationService
         $aggregated[$usage.'-agg'][$type][$tag->getContext()][] = $tag;
     }
 
-    protected function buildAggregatedPathFromTemplateAbstractPath(
+    protected function buildAggregatedPathFromView(
         string $templateName,
         string $type,
         int $counter

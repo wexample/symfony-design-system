@@ -11,7 +11,6 @@ export default interface AssetInterface {
   path: string;
   resolver: Function;
   responsive?: string;
-  templateAbstractPath: string;
   // Defines that asset has been fully loaded once,
   // so browser will not load it again
   // if we append it again to document.
@@ -19,4 +18,5 @@ export default interface AssetInterface {
   type: string;
   usage: string;
   usages: any;
+  view: string;
 }

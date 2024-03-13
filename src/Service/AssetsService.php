@@ -82,15 +82,12 @@ class AssetsService
     public function assetsDetect(
         RenderPass $renderPass,
         AbstractRenderNode $renderNode,
-        ?string $templateAbstractPath = null
+        ?string $view = null
     ): void {
-        if ($templateAbstractPath) {
-            $abstractPaths = [$templateAbstractPath];
+        if ($view) {
+            $views = [$view];
         } else {
-            $abstractPaths = [];
-            foreach ($renderNode->getInheritanceStack() as $templateName) {
-                $abstractPaths[] = $this->buildTemplateAbstractPathFromTemplateName($templateName);
-            }
+            $views = $renderNode->getInheritanceStack();
         }
 
         foreach (Asset::ASSETS_EXTENSIONS as $ext) {
@@ -99,12 +96,12 @@ class AssetsService
                 // inheritance is managed into asset.
                 $usageFoundForType = false;
 
-                foreach ($abstractPaths as $templateAbstractPath) {
+                foreach ($views as $view) {
                     if (!$usageFoundForType && $usage->addAssetsForRenderNodeAndType(
                             $renderPass,
                             $renderNode,
                             $ext,
-                            $templateAbstractPath
+                            $view
                         )) {
                         $usageFoundForType = true;
                     }
@@ -207,37 +204,11 @@ class AssetsService
 
         if ($renderPass->enableAggregation) {
             return $this->assetsAggregationService->buildAggregatedTags(
-                $this->buildTemplateAbstractPathFromTemplateName($renderPass->getView()),
+                $renderPass->getView(),
                 $tags,
             );
         }
 
         return $tags;
-    }
-
-    public function buildTemplateAbstractPathFromTemplateName(string $templateName): string
-    {
-        if (str_ends_with($templateName, TemplateHelper::TEMPLATE_FILE_EXTENSION)) {
-            $templateName = substr(
-                $templateName,
-                0,
-                -strlen(TemplateHelper::TEMPLATE_FILE_EXTENSION)
-            );
-        }
-
-        $layoutNameParts = explode('/', $templateName);
-        $bundleName = ltrim(current($layoutNameParts), '@');
-        array_shift($layoutNameParts);
-        $bundles = $this->kernel->getBundles();
-
-        $nameRight = '::'.implode('/', $layoutNameParts);
-
-        // This is a bundle alias.
-        if (isset($bundles[$bundleName])) {
-            $bundle = $this->kernel->getBundle($bundleName);
-            return BundleHelper::getBundleCssAlias($bundle::class).$nameRight;
-        }
-
-        return 'app'.$nameRight;
     }
 }

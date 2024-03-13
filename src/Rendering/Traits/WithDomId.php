@@ -4,8 +4,6 @@ namespace Wexample\SymfonyDesignSystem\Rendering\Traits;
 
 trait WithDomId
 {
-    use WithTemplateAbstractPathTrait;
-
     private string $domId;
 
     public function getDomId(): string

@@ -163,7 +163,7 @@ export default class ResponsiveService extends AppService {
           if (previous !== current) {
             if (displays[current] === undefined) {
               let display = this.app.getBundleClassDefinition(
-                `${this.name}-${current}`,
+                `${this.view}-${current}`,
                 true
               );
 

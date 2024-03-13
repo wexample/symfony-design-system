@@ -20,11 +20,11 @@ export default abstract class RenderNode extends AppChild {
   public elWidth: number = 0;
   public id: string;
   public isMounted: null | boolean = null;
-  public templateAbstractPath: string;
   public parentRenderNode: RenderNode;
   public renderData: RenderDataInterface;
   public translations: {} = {};
   public usages: {} = {};
+  public view: string;
   public vars: any = {};
 
   constructor(
@@ -65,7 +65,7 @@ export default abstract class RenderNode extends AppChild {
   mergeRenderData(renderData: RenderDataInterface) {
     this.cssClassName = renderData.cssClassName;
     this.id = renderData.id;
-    this.templateAbstractPath = renderData.templateAbstractPath;
+    this.view = renderData.view;
     this.callerPage = renderData.requestOptions.callerPage;
 
     this.translations = {
@@ -86,9 +86,9 @@ export default abstract class RenderNode extends AppChild {
     delete this.childRenderNodes[renderNode.id];
   }
 
-  findChildRenderNodeByTemplateAbstractPath(templateAbstractPath: string): RenderNode {
+  findChildRenderNodeByView(view: string): RenderNode {
     for (let node of this.eachChildRenderNode()) {
-      if (node.templateAbstractPath === templateAbstractPath) {
+      if (node.view === view) {
         return node;
       }
     }

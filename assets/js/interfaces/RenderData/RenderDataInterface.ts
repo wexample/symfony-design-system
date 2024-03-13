@@ -10,8 +10,8 @@ export default interface RenderDataInterface {
   options: any;
   renderRequestId?: string;
   requestOptions?: RequestOptionsInterface;
-  templateAbstractPath: string;
   translations: {};
   vars: {};
+  view: string;
   usages: {};
 }
