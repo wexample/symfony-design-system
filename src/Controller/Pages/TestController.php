@@ -2,7 +2,6 @@
 
 namespace Wexample\SymfonyDesignSystem\Controller\Pages;
 
-use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,9 +43,13 @@ final class TestController extends AbstractPagesController
     }
 
     #[Route(path: self::ROUTE_ADAPTIVE, name: self::ROUTE_ADAPTIVE, options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
-    final public function adaptive(): Response
+    final public function adaptive(Request $request): Response
     {
         $renderPass = $this->createPageRenderPass(self::ROUTE_ADAPTIVE);
+
+        if ($request->get('no-js')) {
+            $renderPass->setUseJs(false);
+        }
 
         return $this->renderPage(
             self::ROUTE_ADAPTIVE,
