@@ -1,7 +1,7 @@
 import ModalComponent from '../../../components/modal';
-import LayoutInterface from '../../../../js/interfaces/RenderData/LayoutInterface';
-import { sleep } from '../../../../js/helpers/Time';
-import { toScreamingSnake } from '../../../../js/helpers/StringHelper';
+import LayoutInterface from '../../../js/interfaces/RenderData/LayoutInterface';
+import { sleep } from '../../../js/helpers/Time';
+import { toScreamingSnake } from '../../../js/helpers/StringHelper';
 import AbstractTest from "./AbstractTest";
 
 export default class AdaptiveRenderingTest extends AbstractTest {
@@ -29,26 +29,26 @@ export default class AdaptiveRenderingTest extends AbstractTest {
       let modal = pageFocused.parentRenderNode as ModalComponent;
 
       this.assertEquals(
-        pageFocused.templateAbstractPath,
-        `@wexample/symfony-design-system::pages/test/adaptive`,
+        pageFocused.view,
+        `@WexampleSymfonyDesignSystemBundle/pages/test/adaptive`,
         'The focused page is the modal content page'
       );
 
       this.assertEquals(
-        modal.templateAbstractPath,
-        `@wexample/symfony-design-system::components/modal`,
+        modal.view,
+        `@WexampleSymfonyDesignSystemBundle/components/modal`,
         'The focused page is a child of modal component'
       );
 
       this.assertEquals(
-        modal.parentRenderNode.templateAbstractPath,
-        this.app.layout.templateAbstractPath,
+        modal.parentRenderNode.view,
+        this.app.layout.view,
         'The parent of modal is the initial layout'
       );
 
       this.assertEquals(
-        modal.callerPage.templateAbstractPath,
-        this.app.layout.page.templateAbstractPath,
+        modal.callerPage.view,
+        this.app.layout.page.view,
         'The caller page of modal is the initial layout page'
       );
 
@@ -189,8 +189,8 @@ export default class AdaptiveRenderingTest extends AbstractTest {
     await sleep();
 
     let testComponent = this.app.layout.pageFocused
-      .findChildRenderNodeByName('components/vue')
-      .findChildRenderNodeByName('components/test-component');
+      .findChildRenderNodeByView('@WexampleSymfonyDesignSystemBundle/components/vue')
+      .findChildRenderNodeByView('@WexampleSymfonyDesignSystemBundle/components/test-component');
 
     this.assertFalse(
       testComponent.isMounted,

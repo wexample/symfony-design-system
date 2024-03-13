@@ -3,12 +3,12 @@
 namespace Wexample\SymfonyDesignSystem\Controller\Pages;
 
 use Exception;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
+use Wexample\SymfonyDesignSystem\Service\Usage\FontsAssetUsageService;
+use Wexample\SymfonyDesignSystem\Traits\SymfonyDesignSystemBundleClassTrait;
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
-use Wexample\SymfonyHelpers\Helper\RequestHelper;
 
 #[Route(path: '_design_system/test/', name: '_design_system_test_')]
 final class TestController extends AbstractPagesController
@@ -23,38 +23,40 @@ final class TestController extends AbstractPagesController
     #[Route(path: '', name: self::ROUTE_INDEX)]
     final public function index(Request $request): Response
     {
-        // Allow parameter to disable aggregation.
-        $this->enableAggregation = RequestHelper::getQueryBoolean(
-            $requestStack->getMainRequest(),
-            'no-aggregation'
-        ) ? false : $this->enableAggregation;
+        $renderPass = $this->createPageRenderPass(self::ROUTE_INDEX);
+
+        $renderPass->setUsage(
+            FontsAssetUsageService::getName(),
+            'demo'
+        );
+
+        $renderPass->enableAggregation = $request->get('test-aggregation', false);
 
         return $this->renderPage(
-            '_core/test/index'
+            self::ROUTE_INDEX,
+            bundle: WexampleSymfonyDesignSystemBundle::class,
+            renderPass: $renderPass
         );
     }
 
     /**
      * @throws Exception
      */
-    #[Route(path: '_core/test/adaptive', name: '_core_test_adaptive', options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
-    public function adaptive(): Response
+    #[Route(path: self::ROUTE_ADAPTIVE, name: self::ROUTE_ADAPTIVE, options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
+    final public function adaptive(): Response
     {
-        return $this
-            ->adaptiveResponseService
-            ->createResponse($this)
-            ->setView(
-                $this->buildTemplatePath('_core/test/adaptive')
-            )
-            ->render();
+        $renderPass = $this->createPageRenderPass(self::ROUTE_ADAPTIVE);
+
+        return $this->renderPage(
+            self::ROUTE_ADAPTIVE,
+            renderPass:$renderPass
+        );
     }
 
-    #[Route(path: '_core/test/view', name: '_core_test_view', options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
+    #[Route(path: self::ROUTE_VIEW, name: self::ROUTE_VIEW, options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
     public function view(): Response
     {
-        return $this->render(
-            '@'.WexampleSymfonyDesignSystemBundle::getAlias().'/pages/_core/test/view.html.twig'
-        );
+        return $this->renderPage(self::ROUTE_VIEW);
     }
 
     /**
