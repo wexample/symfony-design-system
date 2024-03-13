@@ -1,9 +1,9 @@
-import UnitTest from '../../../../js/class/UnitTest';
+import AbstractTest from "./AbstractTest";
 import Component from '../../../../js/class/Component';
 import LayoutInterface from '../../../../js/interfaces/RenderData/LayoutInterface';
 import ModalComponent from '../../../../components/modal';
 
-export default class VariablesTest extends UnitTest {
+export default class VariablesTest extends AbstractTest {
   public getTestMethods() {
     return [this.testVariables];
   }
