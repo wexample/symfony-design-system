@@ -18,6 +18,7 @@ final class TestController extends AbstractPagesController
     use SymfonyDesignSystemBundleClassTrait;
 
     final public const ROUTE_ADAPTIVE = 'adaptive';
+    final public const ROUTE_ERROR_MISSING_VIEW = 'error_missing_view';
     final public const ROUTE_INDEX = VariableHelper::INDEX;
     final public const ROUTE_VIEW = VariableHelper::VIEW;
 
@@ -42,9 +43,6 @@ final class TestController extends AbstractPagesController
         );
     }
 
-    /**
-     * @throws Exception
-     */
     #[Route(path: self::ROUTE_ADAPTIVE, name: self::ROUTE_ADAPTIVE, options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
     final public function adaptive(): Response
     {
@@ -52,7 +50,7 @@ final class TestController extends AbstractPagesController
 
         return $this->renderPage(
             self::ROUTE_ADAPTIVE,
-            renderPass:$renderPass
+            renderPass: $renderPass
         );
     }
 
@@ -60,5 +58,11 @@ final class TestController extends AbstractPagesController
     public function view(): Response
     {
         return $this->renderPage(self::ROUTE_VIEW);
+    }
+
+    #[Route(path: 'error-missing-view', name: self::ROUTE_ERROR_MISSING_VIEW, options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
+    public function errorMissingVue(): Response
+    {
+        return $this->renderPage(self::ROUTE_ERROR_MISSING_VIEW);
     }
 }

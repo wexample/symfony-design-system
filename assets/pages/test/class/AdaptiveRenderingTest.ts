@@ -9,6 +9,7 @@ export default class AdaptiveRenderingTest extends AbstractTest {
     return [
       this.testNonAdaptivePage,
       this.testAdaptivePage,
+      this.testAdaptiveErrorMissingView,
     ];
   }
 
@@ -109,6 +110,14 @@ export default class AdaptiveRenderingTest extends AbstractTest {
       this.assertTestVueIntegrity('2');
       this.assertTestVueIntegrity('3');
 
+      // Close modal.
+      await modal.close();
+
+      this.assertEquals(
+        this.app.layout.pageFocused,
+        this.app.layout.page,
+        'The focus has been thrown back to the main page'
+      );
     });
   }
 
@@ -209,6 +218,28 @@ export default class AdaptiveRenderingTest extends AbstractTest {
       testComponent.el === undefined,
       'The vue dom has been hidden, then component el is not empty'
     );
+  }
+
+  async testAdaptiveErrorMissingView() {
+    await this.app.services.adaptive
+      .get(this.app.services.routing.path('_design_system_test_error_missing_view'))
+      .then(async () => {
+        let pageFocused = this.app.layout.pageFocused;
+
+        this.assertTrue(
+          pageFocused.el
+            .querySelector('.modal-body')
+            .innerHTML.indexOf('Unable to find template') !== -1,
+          'Error message has been displayed into modal'
+        );
+
+        this.assertTrue(pageFocused.vars.hasError, 'Page has error');
+
+        // Close modal.
+        let modal = pageFocused.parentRenderNode as ModalComponent;
+
+        await modal.close();
+      });
   }
 
   private fetchTestPageAdaptiveAjax() {

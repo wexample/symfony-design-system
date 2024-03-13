@@ -6,6 +6,7 @@ use Exception;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AjaxLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
@@ -13,6 +14,8 @@ use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 use Wexample\SymfonyDesignSystem\Service\LayoutService;
 use Wexample\SymfonyDesignSystem\Service\RenderPassBagService;
+use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
+use Wexample\SymfonyHelpers\Helper\BundleHelper;
 
 abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\AbstractController
 {
@@ -111,23 +114,52 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
                 $view
             );
 
-            $response = $this->renderRenderPass(
-                $renderPass,
-                $parameters,
-                $response,
-            );
+            try {
+                $renderPasseResponse = $this->renderRenderPass(
+                    $renderPass,
+                    $parameters,
+                    $response,
+                );
 
-            $renderPass->layoutRenderNode->setBody(
-                trim($response->getContent())
-            );
+                $renderPass->layoutRenderNode->setBody(
+                    trim($renderPasseResponse->getContent())
+                );
 
-            $response = new JsonResponse($renderPass->layoutRenderNode->toRenderData());
+                $finalResponse = new JsonResponse(
+                    $renderPass->layoutRenderNode->toRenderData());
 
-            // Prevents browser to display json response when
-            // clicking on back button.
-            $response->headers->set('Vary', 'Accept');
+                $finalResponse->setStatusCode(
+                    $renderPasseResponse->getStatusCode()
+                );
 
-            return $response;
+
+                // Prevents browser to display json response when
+                // clicking on back button.
+                $finalResponse->headers->set('Vary', 'Accept');
+
+                return $finalResponse;
+            } catch (\Exception $exception) {
+                $errorView = BundleHelper::ALIAS_PREFIX.
+                    WexampleSymfonyDesignSystemBundle::getAlias()
+                    .'/'.AbstractPagesController::RESOURCES_DIR_PAGE
+                    .'system/error'
+                    .TemplateHelper::TEMPLATE_FILE_EXTENSION;
+
+                if ($view !== $errorView) {
+                    $errorResponse = new JsonResponse();
+                    $errorResponse->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+
+                    return $this->adaptiveRender(
+                        $errorView,
+                        [
+                            'exception' => $exception,
+                        ],
+                        $errorResponse
+                    );
+                }
+
+                return new JsonResponse($exception->getMessage());
+            }
         }
 
         return $this->renderRenderPass(
