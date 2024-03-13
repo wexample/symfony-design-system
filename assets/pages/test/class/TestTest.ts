@@ -1,6 +1,6 @@
-import UnitTest from '../../../../js/class/UnitTest';
+import AbstractTest from "./AbstractTest";
 
-export default class TestTest extends UnitTest {
+export default class TestTest extends AbstractTest {
   public getTestMethods() {
     return [this.testAsserts];
   }
