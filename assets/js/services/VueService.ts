@@ -132,7 +132,7 @@ export default class VueService extends AppService {
             },
             translations: {
               type: Object,
-              default: rootComponent.translations[`INCLUDE|${domId}`],
+              default: rootComponent.translations[`INCLUDE|${view}`],
             },
           },
         };

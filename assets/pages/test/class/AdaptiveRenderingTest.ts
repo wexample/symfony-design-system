@@ -104,6 +104,11 @@ export default class AdaptiveRenderingTest extends AbstractTest {
       // Test twice to ensure stability.
       await this.assertVueUpdateSupportedByComponent();
       await this.assertVueUpdateSupportedByComponent();
+
+      this.assertTestVueIntegrity();
+      this.assertTestVueIntegrity('2');
+      this.assertTestVueIntegrity('3');
+
     });
   }
 
@@ -154,6 +159,16 @@ export default class AdaptiveRenderingTest extends AbstractTest {
       `Test client side translation`
     );
   };
+
+  assertTestVueIntegrity(suffix: string = '') {
+    this.assertTestComponentIntegrity(
+      this.app.layout.pageFocused.el.querySelector(
+        '.adaptive-page-test-vue'
+      ) as HTMLElement,
+      'test-vue',
+      suffix ? `-${suffix}` : ''
+    );
+  }
 
   async assertVueUpdateSupportedByComponent() {
     // Event changes vue content.
