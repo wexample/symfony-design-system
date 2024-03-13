@@ -1,6 +1,10 @@
 import AppService from '../class/AppService';
 import { format as StringFormat } from '../helpers/StringHelper';
 
+export type RenderNodeLocaleType = {
+  trans?: Function;
+};
+
 export default class LocaleService extends AppService {
   public static serviceName: string = 'locale';
 
