@@ -2,6 +2,7 @@
 export default {
   components: {
     'vue-test-vue-3': 'vue/test-vue-3',
+    'vue-test-vue-3': '@wexample/symfony-design-system::vue/test-vue-3',
   },
 
   data() {

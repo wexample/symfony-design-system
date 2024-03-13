@@ -27,7 +27,7 @@ class VueService
 
     public function isRenderPassInVueContext(RenderPass $renderPass): bool
     {
-        return ComponentService::COMPONENT_NAME_VUE === $renderPass->getCurrentContextRenderNode()->getTemplateAbstractPath();
+        return ComponentService::buildCoreComponentName(ComponentService::COMPONENT_NAME_VUE) === $renderPass->getCurrentContextRenderNode()->getView();
     }
 
     /**
@@ -49,9 +49,8 @@ class VueService
         if (!$twig->getLoader()->exists($pathWithExtension)) {
             throw new Exception('Unable to find template: '.$pathWithExtension);
         }
-
         $vueTemplateAbstractPath = $vue->getTemplateAbstractPath();
-        $vueDomId = $vue->getDomId();
+        $vueDomId = DomHelper::buildStringIdentifier($vueTemplateAbstractPath);
 
         $options = [
             'domId' => $vueDomId,
@@ -80,7 +79,7 @@ class VueService
 
             $contextCurrent = RenderingHelper::buildRenderContextKey(
                 RenderingHelper::CONTEXT_COMPONENT,
-                $componentName
+                $rootComponent->getTemplateAbstractPath()
             );
 
             if ($rootComponent->getContextRenderNodeKey() !== $contextCurrent) {
@@ -135,7 +134,7 @@ class VueService
         }
 
         return DomHelper::buildTag(
-            $vueTemplateAbstractPath,
+            $vueDomId,
             [
                 'class' => $vueDomId,
             ],

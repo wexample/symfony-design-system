@@ -3,11 +3,13 @@
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
 use Exception;
-use Wexample\SymfonyDesignSystem\Rendering\Traits\WithDomIdFromTemplateAbstractPathTrait;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithDomId;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithTemplateAbstractPathTrait;
 
 class Vue
 {
-    use WithDomIdFromTemplateAbstractPathTrait;
+    use WithTemplateAbstractPathTrait;
+    use WithDomId;
 
     /**
      * @throws Exception
@@ -15,10 +17,5 @@ class Vue
     public function __construct(string $templateAbstractPath)
     {
         $this->setTemplateAbstractPath($templateAbstractPath);
-    }
-
-    public function getDomPrefix(): string
-    {
-        return 'vue';
     }
 }

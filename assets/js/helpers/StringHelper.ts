@@ -32,3 +32,13 @@ export function toScreamingSnake(string: string): string {
 export function pathToTagName(string: string): string {
   return string.split('/').join('-').toLowerCase();
 }
+
+export function buildStringIdentifier(inputString: string): string {
+  // First replace any character that is not a letter, number, or dash with a dash,
+  // then replace multiple dashes with a single dash,
+  // and finally trim leading or trailing dashes.
+  return inputString
+    .replace(/[^a-zA-Z0-9-]/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^[-]+|[-]+$/g, '');
+}

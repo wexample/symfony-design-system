@@ -6,7 +6,7 @@ import { appendInnerHtml } from '../helpers/DomHelper';
 import Component from '../class/Component';
 import App from '../class/App';
 import ComponentInterface from '../interfaces/RenderData/ComponentInterface';
-import { pathToTagName } from '../helpers/StringHelper';
+import { buildStringIdentifier, pathToTagName } from '../helpers/StringHelper';
 
 export default class VueService extends AppService {
   protected componentRegistered: { [key: string]: object } = {};
@@ -70,21 +70,46 @@ export default class VueService extends AppService {
   }
 
   inherit(vueComponent, rootComponent: Component) {
+    let componentsFinal = vueComponent.components || {};
+    let extend = {components: {}};
+
+    if (vueComponent.extends) {
+      extend = this.inherit(vueComponent.extends, rootComponent);
+    }
+
+    let componentsStrings = {
+      ...extend.components,
+      ...componentsFinal,
+    };
+
+    // Convert initial strings to initialized component.
+    Object.entries(componentsStrings).forEach((data) => {
+      // Prevent to initialize already converted object.
+      if (typeof data[1] === 'string') {
+        vueComponent.components[data[0]] = this.initComponent(
+          data[1],
+          rootComponent
+        );
+      }
+    });
 
     return vueComponent;
   }
 
   createVueAppForComponent(component: Component) {
-    let vue = this.initComponent(component, component);
-    let app = this.createApp(vue, component.renderData.options.props);
-
-    return app;
+    return this.createApp(
+      this.initComponent(
+        component.renderData.options.name,
+        component
+      ),
+      component.renderData.options.props);
   }
 
-  initComponent(vueComponent: Component, rootComponent: Component): object {
-    const name = vueComponent.renderData.options.name
+  initComponent(name: string, rootComponent: Component): object {
+    const vueName = buildStringIdentifier(name);
 
-    if (!this.componentRegistered[name]) {
+    if (!this.componentRegistered[vueName]) {
+      const domId = 'vue-template-'+vueName;
       let vueClassDefinition = this.app.getBundleClassDefinition(name) as any;
 
       if (!vueClassDefinition) {
@@ -96,9 +121,7 @@ export default class VueService extends AppService {
         );
       } else {
         let comName = pathToTagName(name);
-        let id = `vue-template-${vueComponent.renderData.options.domId}`;
-
-        vueClassDefinition.template = document.getElementById(id);
+        vueClassDefinition.template = document.getElementById(domId);
 
         vueClassDefinition.props = {
           ...vueClassDefinition.props,
@@ -109,7 +132,7 @@ export default class VueService extends AppService {
             },
             translations: {
               type: Object,
-              default: rootComponent.translations[`INCLUDE|${comName}`],
+              default: rootComponent.translations[`INCLUDE|${domId}`],
             },
           },
         };
@@ -122,20 +145,20 @@ export default class VueService extends AppService {
           this.app.services.prompt.systemError(
             `Unable to load vue component as template item #:id has not been found.`,
             {
-              ':id': id
+              ':id': domId
             },
             undefined,
             true
           );
         }
 
-        this.componentRegistered[name] = vueClassDefinition;
+        this.componentRegistered[vueName] = vueClassDefinition;
 
         this.inherit(vueClassDefinition, rootComponent);
       }
     }
 
-    return this.componentRegistered[name];
+    return this.componentRegistered[vueName];
   }
 
   addTemplatesHtml(renderedTemplates: string[]) {
