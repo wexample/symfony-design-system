@@ -25,7 +25,7 @@ export default abstract class RenderNode extends AppChild {
   public translations: {} = {};
   public usages: {} = {};
   public view: string;
-  public vars: any = {};
+  public vars: {[key: string]: any} = {};
 
   constructor(
     public renderRequestId: string,

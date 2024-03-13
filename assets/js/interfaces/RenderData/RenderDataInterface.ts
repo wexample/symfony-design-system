@@ -11,7 +11,7 @@ export default interface RenderDataInterface {
   renderRequestId?: string;
   requestOptions?: RequestOptionsInterface;
   translations: {};
-  vars: {};
+  vars: {[key: string]: any};
   view: string;
   usages: {};
 }
