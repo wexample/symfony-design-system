@@ -58,6 +58,11 @@ class LayoutService extends RenderNodeService
             $layoutRenderNode->getView(),
         );
 
+        $this->translator->setDomainFromPath(
+            $layoutRenderNode->getContextType(),
+            $layoutRenderNode->getView(),
+        );
+
         $this->pageService->pageInit(
             $renderPass,
             $layoutRenderNode->createLayoutPageInstance(),
