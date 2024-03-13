@@ -3,6 +3,7 @@ const glob = require('glob');
 const fs = require('fs');
 const execSync = require('child_process').execSync;
 const path = require('path');
+const {toClass} = require("../../../../assets/js/helpers/StringHelper");
 
 let entries = {};
 
@@ -31,8 +32,17 @@ module.exports = {
 
   forEachFrontPath(callback) {
     Object.entries(this.getFrontPaths()).forEach((entry) => {
-      const bundle = entry[0]
-      callback(this.isBundleAlias(bundle) ? bundle : 'app', entry[1])
+      let bundle = entry[0]
+
+      if (this.isBundleAlias(bundle)) {
+        bundle = '@' + toClass(
+          bundle
+            .replaceAll('/','-')
+            .substring(1))
+          + 'Bundle';
+      }
+
+      callback(this.isBundleAlias(bundle) ? bundle : '@App', entry[1])
     });
   },
 
@@ -91,7 +101,7 @@ module.exports = {
     callback
   ) => {
     let files = glob.sync(srcAssetsDir + srcSubDir + '**/*.' + srcExt);
-    bundle = module.exports.isBundleAlias(bundle) ? bundle : 'app';
+    bundle = module.exports.isBundleAlias(bundle) ? bundle : '@App';
 
     for (let file of files) {
       let srcFile = {
@@ -254,9 +264,7 @@ module.exports = {
         let assetPathRelative = exp.join('/') + '/';
         let assetPathTemp = module.exports.tempPath + assetPathRelative;
         let templateContent = templateContentBase;
-        let className = pathWithoutExt.split('/');
-        className.push(module.exports.camelCaseToDash(className.pop()));
-        className = bundle + '::' + className.join('/');
+        const className = bundle + '/' + pathWithoutExt;
 
         fs.mkdirSync(assetPathTemp, {recursive: true});
 

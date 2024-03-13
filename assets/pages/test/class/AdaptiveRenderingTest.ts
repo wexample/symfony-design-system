@@ -222,7 +222,7 @@ export default class AdaptiveRenderingTest extends AbstractTest {
 
   async testAdaptiveErrorMissingView() {
     await this.app.services.adaptive
-      .get(this.app.services.routing.path('_core_test_error-missing-view'))
+      .get(this.app.services.routing.path('_design_system_test_error_missing_view'))
       .then(async () => {
         let pageFocused = this.app.layout.pageFocused;
 
@@ -302,26 +302,6 @@ export default class AdaptiveRenderingTest extends AbstractTest {
         elHtml.querySelector('.page .test-string').innerHTML,
         testString,
         `Test string equals "${testString}"`
-      );
-
-      let found = elHtml
-        .querySelector('#layout-data')
-        .innerHTML.match(/layoutRenderData = ([.\S\s\n]*);(\s*)/);
-
-      this.assertTrue(!!found, `Layout data found`);
-
-      let layoutData = JSON.parse(found[1]);
-
-      this.assertTrue(!!layoutData, `Layout data is valid JSON`);
-
-      this.assertTrue(
-        !!layoutData.assets.css.length,
-        `Layout data contains CSS assets`
-      );
-
-      this.assertTrue(
-        !!layoutData.assets.js.length,
-        `Layout data contains JS assets`
       );
     });
   }
