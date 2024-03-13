@@ -86,6 +86,16 @@ export default abstract class RenderNode extends AppChild {
     delete this.childRenderNodes[renderNode.id];
   }
 
+  findChildRenderNodeByTemplateAbstractPath(templateAbstractPath: string): RenderNode {
+    for (let node of this.eachChildRenderNode()) {
+      if (node.templateAbstractPath === templateAbstractPath) {
+        return node;
+      }
+    }
+
+    return null;
+  }
+
   eachChildRenderNode(): RenderNode[] {
     return Object.values(this.childRenderNodes);
   }
@@ -113,11 +123,15 @@ export default abstract class RenderNode extends AppChild {
     this.updateElSize();
     await this.activateListeners();
 
+    if (this.parentRenderNode) {
+      this.parentRenderNode.childMounted(this);
+    }
+
     await this.mounted();
   }
 
   async unmount() {
-    if (!this.isMounted === false) {
+    if (this.isMounted === false) {
       return;
     }
 
@@ -153,6 +167,14 @@ export default abstract class RenderNode extends AppChild {
     }
 
     this.elements = {};
+  }
+
+  public async updateMounting() {
+    if (this.el && !this.el.isConnected) {
+      await this.unmount();
+    } else if (!this.el) {
+      await this.mount();
+    }
   }
 
   async forEachTreeRenderNode(callback?: Function) {
@@ -198,6 +220,9 @@ export default abstract class RenderNode extends AppChild {
   }
 
   protected async unmounted(): Promise<void> {
+    if (this.parentRenderNode) {
+      this.parentRenderNode.childUnmounted(this);
+    }
 
     await this.app.services.mixins.invokeUntilComplete(
       'hookUnmounted',
@@ -208,6 +233,17 @@ export default abstract class RenderNode extends AppChild {
 
   public async renderNodeReady(): Promise<void> {
     await this.readyComplete();
+  }
+
+  childMounted(renderNode: RenderNode) {
+    // When mounting child render node,
+    // it size may change or turn accessible,
+    // it will be used to chose proper responsive assets.
+    this.updateElSize();
+  }
+
+  protected childUnmounted(renderNode: RenderNode) {
+    // To override.
   }
 
   async setUsage(

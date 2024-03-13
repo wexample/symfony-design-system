@@ -1,8 +1,8 @@
 import ModalComponent from '../../../components/modal';
-
+import LayoutInterface from '../../../js/interfaces/RenderData/LayoutInterface';
+import { sleep } from '../../../js/helpers/Time';
 import { toScreamingSnake } from '../../../js/helpers/StringHelper';
 import AbstractTest from "./AbstractTest";
-import LayoutInterface from "../../../js/interfaces/RenderData/LayoutInterface";
 
 export default class AdaptiveRenderingTest extends AbstractTest {
   public getTestMethods() {
@@ -100,6 +100,10 @@ export default class AdaptiveRenderingTest extends AbstractTest {
       this.assertTestComponentAssets(elComponent, 'test-component');
 
       this.assertTestComponentAssets(elComponent, 'test-component', '-2');
+
+      // Test twice to ensure stability.
+      await this.assertVueUpdateSupportedByComponent();
+      await this.assertVueUpdateSupportedByComponent();
     });
   }
 
@@ -150,6 +154,47 @@ export default class AdaptiveRenderingTest extends AbstractTest {
       `Test client side translation`
     );
   };
+
+  async assertVueUpdateSupportedByComponent() {
+    // Event changes vue content.
+    this.app.services.events.trigger('test-vue-event', {
+      hidePartOfDomContainingComponent: true,
+    });
+
+    // Need to wait for dom to break up.
+    await sleep();
+
+    let testComponent = this.app.layout.pageFocused
+      .findChildRenderNodeByTemplateAbstractPath('@wexample/symfony-design-system::components/vue')
+      .findChildRenderNodeByTemplateAbstractPath('@wexample/symfony-design-system::components/test-component');
+
+    this.assertFalse(
+      testComponent.isMounted,
+      'The vue dom has been hidden, then component is unmounted'
+    );
+
+    this.assertTrue(
+      testComponent.el === undefined,
+      'The vue dom has been hidden, then component el is empty'
+    );
+
+    this.app.services.events.trigger('test-vue-event', {
+      hidePartOfDomContainingComponent: false,
+    });
+
+    // Wait for remounting dom.
+    await sleep();
+
+    this.assertTrue(
+      testComponent.isMounted,
+      'The vue dom has been hidden, then component is mounted back'
+    );
+
+    this.assertFalse(
+      testComponent.el === undefined,
+      'The vue dom has been hidden, then component el is not empty'
+    );
+  }
 
   private fetchTestPageAdaptiveAjax() {
     // Load in json.

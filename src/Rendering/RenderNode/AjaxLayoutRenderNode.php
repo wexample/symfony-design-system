@@ -10,11 +10,14 @@ class AjaxLayoutRenderNode extends AbstractLayoutRenderNode
 
     public bool $hasAssets = false;
 
+    public array $vueTemplates = [];
+
     public function toRenderData(): array
     {
         return parent::toRenderData()
             + $this->serializeVariables([
                 'body',
+                'vueTemplates',
             ]);
     }
 }

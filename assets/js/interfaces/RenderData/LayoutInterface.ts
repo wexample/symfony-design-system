@@ -5,4 +5,5 @@ export default interface LayoutInterface extends RenderDataInterface {
   body?: null | string;
   templates: string;
   page: PageInterface;
+  vueTemplates?: string[];
 }

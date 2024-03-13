@@ -130,6 +130,10 @@ class VueService
             $this->renderedTemplates[$vueTemplateAbstractPath] = $template;
         }
 
+        if ($renderPass->isJsonRequest()) {
+            $renderPass->layoutRenderNode->vueTemplates = $this->renderedTemplates;
+        }
+
         return DomHelper::buildTag(
             $vueTemplateAbstractPath,
             [

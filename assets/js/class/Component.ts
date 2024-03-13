@@ -76,6 +76,14 @@ export default abstract class Component extends RenderNode {
     this.el = el;
   }
 
+  public async exit() {
+    await super.exit();
+
+    await this.deactivateListeners();
+
+    this.el.remove();
+  }
+
   mergeRenderData(renderData: ComponentInterface) {
     super.mergeRenderData(renderData);
 

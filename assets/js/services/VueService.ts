@@ -1,6 +1,8 @@
 import { createApp } from 'vue/dist/vue.esm-bundler';
 import AppService from '../class/AppService';
-
+import MixinsAppService from '../class/MixinsAppService';
+import LayoutInterface from '../interfaces/RenderData/LayoutInterface';
+import { appendInnerHtml } from '../helpers/DomHelper';
 import Component from '../class/Component';
 import App from '../class/App';
 import ComponentInterface from '../interfaces/RenderData/ComponentInterface';
@@ -32,6 +34,29 @@ export default class VueService extends AppService {
     super(app);
 
     this.elTemplates = document.getElementById('vue-templates');
+  }
+
+  registerHooks(): { app?: {}; page?: {} } {
+    return {
+      app: {
+        hookInit(registry) {
+          // Wait for vue to be loaded.
+          if (
+            registry.assets === MixinsAppService.LOAD_STATUS_COMPLETE &&
+            registry.pages === MixinsAppService.LOAD_STATUS_COMPLETE
+          ) {
+            this.app.services.mixins.applyMethods(this.globalMixin, 'vue');
+
+            return;
+          }
+          return MixinsAppService.LOAD_STATUS_WAIT;
+        },
+
+        hookLoadLayoutRenderData(renderData: LayoutInterface) {
+          this.app.services.vue.addTemplatesHtml(renderData.vueTemplates);
+        },
+      },
+    };
   }
 
   createApp(config, options: any = {}) {
@@ -111,5 +136,16 @@ export default class VueService extends AppService {
     }
 
     return this.componentRegistered[name];
+  }
+
+  addTemplatesHtml(renderedTemplates: string[]) {
+    let elContainer = this.elTemplates;
+
+    for (let name in renderedTemplates) {
+      if (!this.renderedTemplates[name]) {
+        appendInnerHtml(elContainer, renderedTemplates[name]);
+        this.renderedTemplates[name] = true;
+      }
+    }
   }
 }
