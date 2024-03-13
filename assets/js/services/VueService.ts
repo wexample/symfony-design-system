@@ -20,7 +20,7 @@ export default class VueService extends AppService {
     props: {},
 
     methods: {},
-	
+
     async updated() {
       await this.rootComponent.forEachTreeRenderNode((renderNode) => {
         if (this === this.$root) {
@@ -119,10 +119,9 @@ export default class VueService extends AppService {
   }
 
   createVueAppForComponent(component: Component) {
-    let vue = this.initComponent(component, component);
-    let app = this.createApp(vue, component.renderData.options.props);
-
-    return app;
+    return this.createApp(
+      this.initComponent(component, component),
+      component.renderData.options.props);
   }
 
   initComponent(vueComponent: Component, rootComponent: Component): object {

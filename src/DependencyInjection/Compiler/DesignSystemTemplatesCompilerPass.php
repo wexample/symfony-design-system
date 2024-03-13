@@ -4,7 +4,7 @@ namespace Wexample\SymfonyDesignSystem\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Wexample\SymfonyHelpers\AbstractBundle;
+use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class DesignSystemTemplatesCompilerPass implements CompilerPassInterface

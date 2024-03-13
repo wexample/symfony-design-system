@@ -1,4 +1,4 @@
-{{- trans_js('@vue::string.client_side') -}}
+{{- trans_js(render_pass, '@vue::string.client_side') -}}
 
 <ul>
     <li>
@@ -19,8 +19,8 @@
         <span class="test-vue-string-translated-client">{{ 'translatedStringClientSide' | vue_key }}</span>
     </li>
     <li v-if="!hidePartOfDomContainingComponent">
-        {{ component('components/test-component') }}
+        {{ component(render_pass, 'components/test-component') }}
     </li>
-    <li>{{ vue('vue/test-vue-2') }}</li>
-    <li>{{ vue('vue/test-vue-2') }}</li>
+    <li>{{ vue(render_pass, 'vue/test-vue-2') }}</li>
+    <li>{{ vue(render_pass, 'vue/test-vue-2') }}</li>
 </ul>

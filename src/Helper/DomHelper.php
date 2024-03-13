@@ -57,7 +57,7 @@ class DomHelper
         return $output;
     }
 
-    public static function buildCssClassName(string $string): string
+    public static function buildStringIdentifier(string $string): string
     {
         // Remove leading or trailing dash.
         return trim(

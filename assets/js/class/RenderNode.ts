@@ -101,9 +101,9 @@ export default abstract class RenderNode extends AppChild {
     delete this.childRenderNodes[renderNode.id];
   }
 
-  findChildRenderNodeByName(name: string): RenderNode {
+  findChildRenderNodeByTemplateAbstractPath(templateAbstractPath: string): RenderNode {
     for (let node of this.eachChildRenderNode()) {
-      if (node.name === name) {
+      if (node.templateAbstractPath === templateAbstractPath) {
         return node;
       }
     }
