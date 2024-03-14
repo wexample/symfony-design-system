@@ -59,6 +59,22 @@ export default class VueService extends AppService {
     };
   }
 
+  registerMethods() {
+    let app = this.app;
+
+    return {
+      vue: {
+        props: {
+          app: {
+            default: () => {
+              return app;
+            },
+          },
+        },
+      },
+    };
+  }
+
   createApp(config, options: any = {}) {
     let app = createApp(config, options);
 

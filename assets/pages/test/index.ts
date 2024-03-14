@@ -14,6 +14,7 @@ import UsageTest from './class/UsageTest';
 import VariablesTest from './class/VariablesTest';
 import TestManagerPage from '../../js/class/TestManagerPage';
 import LayoutTest from "./class/LayoutTest";
+import VueTest from "./class/VueTest";
 
 
 export default class extends TestManagerPage {
@@ -34,6 +35,7 @@ export default class extends TestManagerPage {
       // TranslationTest,
       // UsageTest,
       // VariablesTest,
+      VueTest,
     });
 
     // Run test without aggregation.
