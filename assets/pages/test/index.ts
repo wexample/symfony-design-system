@@ -21,7 +21,7 @@ export default class extends TestManagerPage {
   async pageReady() {
     await this.runTests({
       // AggregationTest,
-      AdaptiveRenderingTest,
+      // AdaptiveRenderingTest,
       // AppTest,
       // IconTest,
       // HelperTest,
