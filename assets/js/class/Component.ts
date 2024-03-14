@@ -9,7 +9,6 @@ export default abstract class Component extends RenderNode {
   protected listenKeyboardKey: string[] = [];
   protected onKeyUpProxy: Function;
   public options: any = {};
-  public renderData: ComponentInterface;
   protected readonly services: ServicesRegistryInterface;
 
   public static INIT_MODE_CLASS: string = 'class';
@@ -40,9 +39,10 @@ export default abstract class Component extends RenderNode {
 
     if (!elPlaceholder) {
       this.app.services.prompt.systemError(
-        'Placeholder missing for component ":name"',
+        'Placeholder missing for component ":name" using CSS selector .:selector',
         {
-          ':name': this.templateAbstractPath
+          ':name': this.view,
+          ':selector': this.cssClassName
         },
         this,
         true
@@ -72,7 +72,7 @@ export default abstract class Component extends RenderNode {
       this.app.services.prompt.systemError(
         'Unable to find element ":name" using ":init_mode" init mode',
         {
-          ':name': this.templateAbstractPath,
+          ':name': this.view,
           ':init_mode': this.initMode
         },
         this
@@ -94,10 +94,7 @@ export default abstract class Component extends RenderNode {
     super.mergeRenderData(renderData);
 
     this.initMode = renderData.initMode;
-    this.cssClassName = renderData.cssClassName;
     this.options = {...this.options, ...renderData.options};
-    this.callerPage = renderData.requestOptions.callerPage;
-    this.initMode = renderData.initMode;
   }
 
   public getRenderNodeType(): string {

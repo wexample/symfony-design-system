@@ -19,8 +19,9 @@
         <span class="test-vue-string-translated-client">{{ 'translatedStringClientSide' | vue_key }}</span>
     </li>
     <li v-if="!hidePartOfDomContainingComponent">
-        {{ component(render_pass, 'components/test-component') }}
+        PART_CONTAINING_COMPONENT
+        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/test-component') }}
     </li>
-    <li>{{ vue(render_pass, 'vue/test-vue-2') }}</li>
-    <li>{{ vue(render_pass, 'vue/test-vue-2') }}</li>
+    <li>{{ vue(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/test-vue-2') }}</li>
+    <li>{{ vue(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/test-vue-2') }}</li>
 </ul>

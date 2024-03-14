@@ -2,6 +2,7 @@ import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
 import AppChild from './AppChild';
 import App from './App';
 import Component from './Component';
+import { toKebab } from "../helpers/StringHelper";
 import Page from './Page';
 import { ComponentsServiceEvents } from '../services/AbstractRenderNodeService';
 
@@ -9,36 +10,26 @@ export default abstract class RenderNode extends AppChild {
   public callerPage: Page;
   public childRenderNodes: { [key: string]: RenderNode } = {};
   public components: Component[] = [];
+  public cssClassName: string;
   public el: HTMLElement;
   public elements: { [key: string]: HTMLElement } = {};
   public elHeight: number = 0;
   public elWidth: number = 0;
   public id: string;
   public isMounted: null | boolean = null;
-  public templateAbstractPath: string;
   public parentRenderNode: RenderNode;
   public renderData: RenderDataInterface;
   public translations: {} = {};
-  public vars: any = {};
-  // Mixed functions from services.
-  public assetsUpdate?: Function;
-  public activeColorScheme?: string;
-  public colorSchemeSet?: Function;
-  public colorSchemeUpdate?: Function;
-  public colorSchemeForced?: boolean;
-  public trans?: Function;
-  public responsiveBreakpointIsSupported?: Function;
-  public responsiveDetect?: Function;
-  public responsiveSet?: Function;
-  public responsiveSizeCurrent?: string;
-  public responsiveSizePrevious?: string;
-  public responsiveUpdate?: Function;
-  public responsiveUpdateTree?: Function;
-  public colorSchemeActivePrint: boolean = false;
+  public usages: {} = {};
+  public view: string;
+  public vars: {[key: string]: any} = {};
 
-  constructor(app: App, parentRenderNode?: RenderNode) {
+  constructor(
+    public renderRequestId: string,
+    app: App,
+    parentRenderNode?: RenderNode
+  ) {
     super(app);
-
     this.parentRenderNode = parentRenderNode;
   }
 
@@ -80,8 +71,9 @@ export default abstract class RenderNode extends AppChild {
   }
 
   mergeRenderData(renderData: RenderDataInterface) {
+    this.cssClassName = renderData.cssClassName;
     this.id = renderData.id;
-    this.templateAbstractPath = renderData.templateAbstractPath;
+    this.view = renderData.view;
     this.callerPage = renderData.requestOptions.callerPage;
 
     this.translations = {
@@ -90,6 +82,7 @@ export default abstract class RenderNode extends AppChild {
     };
 
     this.vars = {...this.vars, ...renderData.vars};
+    this.usages = {...this.usages, ...renderData.usages};
   }
 
   appendChildRenderNode(renderNode: RenderNode) {
@@ -101,9 +94,9 @@ export default abstract class RenderNode extends AppChild {
     delete this.childRenderNodes[renderNode.id];
   }
 
-  findChildRenderNodeByTemplateAbstractPath(templateAbstractPath: string): RenderNode {
+  findChildRenderNodeByView(view: string): RenderNode {
     for (let node of this.eachChildRenderNode()) {
-      if (node.templateAbstractPath === templateAbstractPath) {
+      if (node.view === view) {
         return node;
       }
     }
@@ -146,7 +139,7 @@ export default abstract class RenderNode extends AppChild {
   }
 
   async unmount() {
-    if (!this.isMounted === false) {
+    if (this.isMounted === false) {
       return;
     }
 
@@ -269,6 +262,44 @@ export default abstract class RenderNode extends AppChild {
 
   protected childUnmounted(renderNode: RenderNode) {
     // To override.
+  }
+
+  async setUsage(
+    usageName: string,
+    usageValue: string,
+    initial: boolean = false
+  ) {
+    if (!initial && this.app.layout.vars['usagesConfig'][usageName]['list'][usageValue]['allow_switch'] == false) {
+      this.app.services.prompt.systemError(
+        'Switching is not allowed for usage ":usage" and value ":value"',
+        {
+          ':usage': usageName,
+          ':value': usageValue,
+        });
+      return;
+    }
+
+    let classList = document.body.classList;
+    let usageKebab = toKebab(usageName)
+
+    this.usages[usageName] = usageValue;
+
+    classList.forEach((className: string) => {
+      if (className.startsWith(`usage-${usageKebab}-`)) {
+        classList.remove(className);
+      }
+    });
+
+    classList.add(`usage-${usageKebab}-${usageValue}`);
+
+    // Propagate
+    this.forEachTreeChildRenderNode((renderNode: RenderNode) => {
+      renderNode.setUsage(
+        usageName,
+        usageValue,
+        initial
+      )
+    })
   }
 
   public abstract getRenderNodeType(): string;

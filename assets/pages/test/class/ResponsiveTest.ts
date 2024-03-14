@@ -1,18 +1,26 @@
-import UnitTest from '../../../../js/class/UnitTest';
-import { sleep } from '../../../../js/helpers/Time';
-import { appendInnerHtml } from '../../../../js/helpers/DomHelper';
-import RenderNode from '../../../../js/class/RenderNode';
-import Component from '../../../../js/class/Component';
+import AbstractTest from "./AbstractTest";
+import { sleep } from '../../../js/helpers/Time';
+import { appendInnerHtml } from '../../../js/helpers/DomHelper';
+import RenderNode from '../../../js/class/RenderNode';
+import Component from '../../../js/class/Component';
+import { RenderNodeResponsiveType } from "../../../js/services/ResponsiveService";
+import Page from "../../../js/class/Page";
 
-export default class ResponsiveTest extends UnitTest {
+export default class ResponsiveTest extends AbstractTest {
   responsiveActivationWaitDuration: number = 20;
   responsiveSizes: string[];
 
   public getTestMethods() {
-    return [this.testDefault, this.testModale, this.testDisplays];
+    return [
+      this.testDefault,
+      this.testModale,
+      this.testDisplays
+    ];
   }
 
   public init() {
+    super.init()
+
     this.responsiveSizes = Object.keys(this.app.layout.vars.displayBreakpoints);
   }
 
@@ -36,18 +44,18 @@ export default class ResponsiveTest extends UnitTest {
     await this.assertResponsiveSwitchWorks(
       this.app.layout,
       '#test-playground',
-      this.app.layout.page.findChildRenderNodeByName(
-        'components/test-component'
-      ) as Component,
+      this.app.layout.page.findChildRenderNodeByView(
+        '@WexampleSymfonyDesignSystemBundle/components/test-component'
+      ) as Component & RenderNodeResponsiveType,
       'background-color',
       'rgb(0, 128, 0)'
     );
   }
 
   async assertResponsiveSwitchWorks(
-    mainRenderNode: RenderNode,
+    mainRenderNode: RenderNode & RenderNodeResponsiveType,
     mainPlaygroundSelector: string,
-    component: Component,
+    component: Component & RenderNodeResponsiveType,
     mainResponsiveStyle: string,
     mainResponsiveColor: string
   ) {
@@ -99,8 +107,7 @@ export default class ResponsiveTest extends UnitTest {
   }
 
   async testModale() {
-    return await this.app.services.pages
-      .get(this.app.services.routing.path('_core_test_adaptive'))
+    return await this.fetchAdaptiveAjaxPage()
       .then(async () => {
         let elPlayground = this.app.layout.el.querySelector(
           '#test-playground'
@@ -121,11 +128,11 @@ export default class ResponsiveTest extends UnitTest {
           );
 
           await this.assertResponsiveSwitchWorks(
-            this.app.layout.pageFocused,
+            (this.app.layout.pageFocused) as Page & RenderNodeResponsiveType,
             '.adaptive-page-playground',
-            this.app.layout.pageFocused.findChildRenderNodeByName(
-              'components/test-component'
-            ) as Component,
+            this.app.layout.pageFocused.findChildRenderNodeByView(
+              '@WexampleSymfonyDesignSystemBundle/components/test-component'
+            ) as Component & RenderNodeResponsiveType,
             'border-color',
             'rgb(0, 255, 0)'
           );
@@ -137,17 +144,18 @@ export default class ResponsiveTest extends UnitTest {
 
   async testDisplays() {
     let breakPoints = this.responsiveSizes;
+    const page = this.app.layout.page as Page & RenderNodeResponsiveType
 
     this.resetPageResponsiveSizesCounters();
-    this.app.layout.page.vars.responsiveSizesCounters[
-      this.app.layout.page.responsiveSizeCurrent
+    page.vars.responsiveSizesCounters[
+      page.responsiveSizeCurrent
       ]++;
 
     for (let responsiveSize of breakPoints) {
       await this.app.layout.responsiveSet(responsiveSize, true);
 
       this.assertEquals(
-        this.app.layout.page.vars.responsiveSizesCounters[responsiveSize],
+        page.vars.responsiveSizesCounters[responsiveSize],
         1,
         `Size ${responsiveSize} display set 1`
       );
@@ -162,10 +170,15 @@ export default class ResponsiveTest extends UnitTest {
     property: string,
     expectedColorValue: string
   ) {
+    const computedStyle = getComputedStyle(elTestZone)[property];
+    if (computedStyle !== expectedColorValue) {
+      console.log(elTestZone);
+    }
+
     this.assertEquals(
-      getComputedStyle(elTestZone)[property],
+      computedStyle,
       expectedColorValue,
-      `The test zone ${elTestZoneName} has value ${expectedColorValue}`
+      ` property "${property}" for size "${elTestZoneName}" has value ${expectedColorValue}`
     );
   }
 

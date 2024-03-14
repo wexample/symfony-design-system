@@ -1,32 +1,26 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/layouts/demo/layout.html.twig' -%}
 
 {%- block page_body -%}
-    <h2>{{ '@page::color_schemes.title' | trans }}</h2>
-    <div class="block">
-        {{ '@page::color_schemes.body' | trans | raw }}
-    </div>
-    <h2>{{ '@page::themes.title' | trans }}</h2>
-    <div class="blocks">
-        <div class="block blocks-col color-scheme-light">
-            {{ component('components/button', {
-                attr:{'data-color-scheme':'dark'},
-                class:'demo-button-switch-color-scheme',
-                text:'Thème sombre'
-            }) }}
+    {% set usages = ['animations', 'margins', 'color_scheme', 'fonts'] %}
+    {% for usage in usages %}
+        <h2>{{ ('@page::' ~ usage ~ '.title') | trans }}</h2>
+        <div class="block">
+            {{ ('@page::' ~ usage ~ '.body') | trans | raw }}
         </div>
-        <div class="block blocks-col color-scheme-light">
-            {{ component('components/button', {
-                attr:{'data-color-scheme':'light'},
-                class:'demo-button-switch-color-scheme',
-                text:'Thème clair'
-            }) }}
+        <div class="blocks">
+            {% for key, config in render_pass.usagesConfig[usage].list %}
+                <div class="block blocks-col">
+                    {{ component(
+                        render_pass,
+                        '@WexampleSymfonyDesignSystemBundle/components/button',
+                        {
+                            text: key,
+                            icon:'fa:solid/play',
+                            class: 'demo-button-switch-usage',
+                            attr: {'data-usage-name': usage, 'data-usage-value': key}
+                        }) }}
+                </div>
+            {% endfor %}
         </div>
-        <div class="block blocks-col color-scheme-light">
-            {{ component('components/button', {
-                attr:{'data-color-scheme':'default'},
-                class:'demo-button-switch-color-scheme',
-                text:'Thème par défaut'
-            }) }}
-        </div>
-    </div>
+    {% endfor %}
 {%- endblock -%}

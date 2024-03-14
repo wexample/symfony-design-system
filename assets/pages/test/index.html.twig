@@ -2,25 +2,26 @@
 
 {%- block layout_config -%}
     {{ parent() }}
-    {{- var_js('initialLayoutVar', true) -}}
-    {{- var_js('enableAggregation', render_pass.enableAggregation) -}}
-    {{- trans_js('@layout::string.client_side') -}}
+    {{- var_js(render_pass, 'initialLayoutVar', true) -}}
+    {{- var_js(render_pass, 'enableAggregation', render_pass.enableAggregation) -}}
+    {{- trans_js(render_pass, '@layout::string.client_side') -}}
 {%- endblock -%}
 
 {%- block page_config -%}
     {{ parent() }}
-    {{- var_js('initialPageVar', true) -}}
-    {{- var_js('demoVariableBoolean', true) -}}
-    {{- var_js('demoVariableInteger', 123) -}}
-    {{- var_js('demoVariableFloat', 12.3) -}}
-    {{- var_js('demoVariableObject', {testVar:'test'}) -}}
-    {{- trans_js('@page::firstGroup.*') -}}
-    {{- trans_js('@page::secondGroup.first') -}}
+    {{- var_js(render_pass, 'initialPageVar', true) -}}
+    {{- var_js(render_pass, 'demoVariableBoolean', true) -}}
+    {{- var_js(render_pass, 'demoVariableInteger', 123) -}}
+    {{- var_js(render_pass, 'demoVariableFloat', 12.3) -}}
+    {{- var_js(render_pass, 'demoVariableObject', {testVar:'test'}) -}}
+    {{- trans_js(render_pass, '@page::firstGroup.*') -}}
+    {{- trans_js(render_pass, '@page::secondGroup.first') -}}
 {%- endblock -%}
 
 {%- block page_body -%}
+    <div class="tests-results"></div>
     <div class="test-string">TESTS PAGE</div>
     <div id="test-layout-translation">{{ '@layout::secondGroup.first' | trans }}</div>
-    <div id="test-layout-component">{{ component('components/test-component', {testOption:true}) }}</div>
+    <div id="test-layout-component">{{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/test-component', {testOption:true}) }}</div>
     <div id="test-playground"></div>
-{%- endblock -%}
+{% endblock %}

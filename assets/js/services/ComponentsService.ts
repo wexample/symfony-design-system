@@ -1,7 +1,6 @@
 import MixinsAppService from '../class/MixinsAppService';
 import Page from '../class/Page';
 import PromptService from './PromptsService';
-import App from '../class/App';
 import LayoutInterface from '../interfaces/RenderData/LayoutInterface';
 import PageManagerComponent from '../class/PageManagerComponent';
 import Component from '../class/Component';
@@ -13,8 +12,6 @@ import AppService from '../class/AppService';
 
 export default class ComponentsService extends AbstractRenderNodeService {
   private elLayoutComponents: HTMLElement;
-
-  pageHandlerRegistry: { [key: string]: PageManagerComponent } = {};
 
   public static dependencies: typeof AppService[] = [PromptService];
 
@@ -43,6 +40,7 @@ export default class ComponentsService extends AbstractRenderNodeService {
       component: {
         async hookInitComponent(component: Component) {
           await this.createRenderDataComponents(
+            component.renderRequestId,
             component,
             component.renderData,
           );
@@ -51,28 +49,13 @@ export default class ComponentsService extends AbstractRenderNodeService {
 
       page: {
         async hookInitPage(page: Page) {
-          await this.createRenderDataComponents(page.renderData, page);
+          await this.createRenderDataComponents(
+            page.renderRequestId,
+            page,
+            page.renderData
+          );
         },
       },
-    };
-  }
-
-  createRenderNodeInstance(
-    classDefinition: any,
-    parentRenderNode: RenderNode
-  ): RenderNode | null {
-    // Prevent multiple alerts for the same component.
-    if (!classDefinition) {
-      this.app.services.prompt.systemError(
-        'page_message.error.com_missing',
-        {},
-        classDefinition
-      );
-    } else {
-      return super.createRenderNodeInstance(
-        classDefinition,
-        parentRenderNode
-      ) as Component;
     }
   }
 
@@ -82,10 +65,17 @@ export default class ComponentsService extends AbstractRenderNodeService {
       appendInnerHtml(this.elLayoutComponents, renderData.templates);
     }
 
-    await this.createRenderDataComponents(renderData, this.app.layout);
+    // Layout components are always child nodes of main layout,
+    // but they keep the original render request id.
+    await this.createRenderDataComponents(
+      renderData.renderRequestId,
+      this.app.layout,
+      renderData
+    );
   }
 
   async createRenderDataComponents(
+    renderRequestId,
     parentRenderNode: RenderNode,
     renderData: RenderDataInterface | null = null,
   ) {
@@ -96,7 +86,8 @@ export default class ComponentsService extends AbstractRenderNodeService {
       renderDataComponent.requestOptions = renderData.requestOptions;
 
       let component = (await this.createRenderNode(
-        renderDataComponent.name,
+        renderRequestId,
+        renderDataComponent.view,
         renderDataComponent,
         parentRenderNode
       )) as Component;

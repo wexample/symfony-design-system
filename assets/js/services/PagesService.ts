@@ -1,14 +1,13 @@
 import AdaptiveService from './AdaptiveService';
 import LocaleService from './LocaleService';
 import MixinsAppService from '../class/MixinsAppService';
-import RenderDataPageInterface from '../interfaces/RenderData/PageInterface';
 import LayoutInterface from '../interfaces/RenderData/LayoutInterface';
-import RequestOptionsPageInterface from '../interfaces/RequestOptions/PageInterface';
 import AbstractRenderNodeService from './AbstractRenderNodeService';
 import Page from '../class/Page';
 import RenderNode from '../class/RenderNode';
 import AppService from '../class/AppService';
 import ResponsiveService from "./ResponsiveService";
+import PageManagerComponent from "../class/PageManagerComponent";
 
 export default class PagesService extends AbstractRenderNodeService {
   public static dependencies: typeof AppService[] = [
@@ -16,6 +15,9 @@ export default class PagesService extends AbstractRenderNodeService {
     ResponsiveService,
     LocaleService,
   ];
+
+  public pageHandlerRegistry: { [key: string]: PageManagerComponent } = {};
+
   public static serviceName: string = 'pages';
 
   registerHooks() {
@@ -31,7 +33,7 @@ export default class PagesService extends AbstractRenderNodeService {
             registry.locale === MixinsAppService.LOAD_STATUS_COMPLETE
           ) {
             if (renderData.page) {
-              await this.app.services.pages.createPage(renderData.page);
+              await this.app.services.pages.createPageFromLayoutRenderData(renderData, renderData.page);
             }
             return;
           }
@@ -42,38 +44,40 @@ export default class PagesService extends AbstractRenderNodeService {
     };
   }
 
-  async createPage(renderData: RenderDataPageInterface) {
+  async createPageFromLayoutRenderData(renderData: LayoutInterface) {
     let parentNode: RenderNode;
 
-    if (renderData.isInitialPage) {
+    if (renderData.page.isInitialPage) {
       parentNode = this.app.layout;
     }
 
-    let pageHandler =
-      this.app.services.components.pageHandlerRegistry[renderData.renderRequestId];
+    const registry = this.app.services.pages.pageHandlerRegistry;
+    let pageHandler = registry[renderData.renderRequestId];
 
     if (pageHandler) {
       parentNode = pageHandler;
+      pageHandler.setLayoutBody(renderData.body)
 
-      delete this.app.services.components.pageHandlerRegistry[
-        renderData.renderRequestId
-        ];
+      delete registry[renderData.renderRequestId];
     }
 
-    await this.createRenderNode(renderData.name, renderData, parentNode);
+    await this.createRenderNode(
+      renderData.renderRequestId,
+      renderData.page.view,
+      renderData.page,
+      parentNode
+    );
   }
 
   createRenderNodeInstance(
+    renderRequestId: string,
     classDefinition: any,
     parentRenderNode: RenderNode
   ): RenderNode | null {
     return super.createRenderNodeInstance(
+      renderRequestId,
       classDefinition || this.app.getClassPage(),
       parentRenderNode
     ) as Page;
-  }
-
-  get(path: string, options: RequestOptionsPageInterface = {}): Promise<any> {
-    return this.app.services.adaptive.get(path, options);
   }
 }

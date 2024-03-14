@@ -7,6 +7,7 @@ import ModalInModalTest from './class/ModalInModalTest';
 import NoJsTest from './class/NoJsTest';
 import OverlayTest from './class/OverlayTest';
 import ResponsiveTest from './class/ResponsiveTest';
+import RoutingTest from './class/RoutingTest';
 import TestTest from './class/TestTest';
 import TranslationTest from './class/TranslationTest';
 import UsageTest from './class/UsageTest';
@@ -25,6 +26,7 @@ export default class extends TestManagerPage {
       ModalInModalTest,
       NoJsTest,
       OverlayTest,
+      RoutingTest,
       ResponsiveTest,
       TestTest,
       TranslationTest,
@@ -33,9 +35,10 @@ export default class extends TestManagerPage {
     });
 
     // Run test without aggregation.
-    if (this.app.layout.vars.enableAggregation) {
-      document.location.replace(
-        `${document.location.origin}${document.location.pathname}?no-aggregation=1`
+    const location = window.location;
+    if (!this.app.layout.vars.enableAggregation && !(new URLSearchParams(location.search)).get('no-test-aggregation')) {
+      location.replace(
+        `${location.origin}${location.pathname}?test-aggregation=1`
       );
     }
   }

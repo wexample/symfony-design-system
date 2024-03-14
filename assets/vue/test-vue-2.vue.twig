@@ -7,9 +7,9 @@
         <span class="test-vue-string-translated-client-2">{{ 'translatedStringClientSide2' | vue_key }}</span>
     </li>
     <li>
-        {{ vue('vue/test-vue-3') }}
+        {{ vue(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/test-vue-3') }}
     </li>
     <li>
-        {{ component('components/test-component') }}
+        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/test-component') }}
     </li>
 </ul>

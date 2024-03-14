@@ -32,10 +32,7 @@ export default class AdaptiveService extends AppService {
 
     return this.fetch(path, requestOptions)
       .then((response: Response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        // TODO ERRORS HANDLING
+        return response.json();
       })
       .then(async (renderData: RenderDataInterface) => {
         renderData.requestOptions = requestOptions;

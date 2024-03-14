@@ -1,9 +1,10 @@
-import ComponentInterface from '../interfaces/RenderData/ComponentInterface';
 import Component from './Component';
 import Page from './Page';
+import ComponentInterface from "../interfaces/RenderData/ComponentInterface";
 
 export default abstract class PageManagerComponent extends Component {
   public page: Page;
+  public layoutBody: string;
 
   mergeRenderData(renderData: ComponentInterface) {
     super.mergeRenderData(renderData);
@@ -13,7 +14,7 @@ export default abstract class PageManagerComponent extends Component {
     // Basically a modal or a panel (layout level).
     if (renderData.options.adaptiveResponsePageManager) {
       // Save component in registry allowing rendered page to append body to current component.
-      this.app.services.components.pageHandlerRegistry[this.renderRequestId] =
+      this.app.services.pages.pageHandlerRegistry[this.renderRequestId] =
         this;
     }
   }
@@ -21,7 +22,9 @@ export default abstract class PageManagerComponent extends Component {
   /**
    * Used by page handlers (modal / panels).
    */
-  public abstract renderPageEl(page: Page): HTMLElement;
+  public setLayoutBody(body: string) {
+    this.layoutBody = body;
+  }
 
   public abstract getPageEl(): HTMLElement;
 

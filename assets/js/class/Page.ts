@@ -42,7 +42,7 @@ export default class extends RenderNode {
       this.app.services.prompt.systemError('Unable to find DOM HTMLElement for page');
     }
 
-    this.el.classList.add(`page-${pathToTagName(this.name)}`);
+    this.el.classList.add(`page-${buildStringIdentifier(this.view)}`);
 
     this.elOverlay = this.el.querySelector('.page-overlay');
   }
@@ -62,16 +62,22 @@ export default class extends RenderNode {
 
     await this.app.loadAndInitServices(this.getPageLevelMixins());
 
-    // The initial layout is not a page manager component.
+    // The initial layout is a page manager component.
     if (this.parentRenderNode instanceof PageManagerComponent) {
       this.parentRenderNode.setPage(this);
     }
 
-    await this.app.services.mixins.invokeUntilComplete('hookInitPage', 'page', [
-      this,
-    ]);
+    await this.app.services.mixins.invokeUntilComplete(
+      'hookInitPage',
+      'page',
+      [
+        this,
+      ]
+    );
 
-    await this.updateLayoutColorScheme(this.activeColorScheme);
+    if (!this.app.layout.pageFocused) {
+      this.focus();
+    }
   }
 
   public async mounted() {
@@ -147,16 +153,6 @@ export default class extends RenderNode {
     return this.isInitialPage
       ? this.app.layout.getElWidth()
       : super.getElWidth();
-  }
-
-  async onChangeColorScheme(event) {
-    if (event.detail.renderNode === this) {
-      await this.updateLayoutColorScheme(event.theme);
-    }
-  }
-
-  async updateLayoutColorScheme(theme: string) {
-    // To override.
   }
 
   loadingStart() {

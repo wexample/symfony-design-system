@@ -6,10 +6,18 @@ import RenderNode from '../class/RenderNode';
 import AssetUsage from '../class/AssetUsage';
 import Page from "../class/Page";
 import { callPrototypeMethodIfExists } from "../helpers/Objects";
+import PageResponsiveDisplay from "../class/PageResponsiveDisplay";
 
 export class ResponsiveServiceEvents {
   public static RESPONSIVE_CHANGE_SIZE: string = 'responsive-change-size';
 }
+
+export type RenderNodeResponsiveType = {
+  responsiveSizeCurrent?: string;
+  responsiveSizePrevious?: string;
+  responsiveDisplays: PageResponsiveDisplay[];
+  responsiveSet: Function;
+};
 
 export default class ResponsiveService extends AppService {
   public static dependencies: typeof AppService[] = [AssetsService, EventsService];
@@ -45,11 +53,13 @@ export default class ResponsiveService extends AppService {
         },
 
         responsiveDetect() {
-          if (!Object.values(this.responsiveBreakpointSupported()).length) {
+          const supported = this.responsiveBreakpointSupported();
+          if (!Object.values(supported).length) {
             this.el.style.display = 'block';
+            return;
           }
 
-          return Object.entries(this.responsiveBreakpointSupported()).reduce(
+          return Object.entries(supported).reduce(
             (prev, current) => {
               // Return the greater one.
               return current[1] > prev[1] ? current : prev;
@@ -154,7 +164,7 @@ export default class ResponsiveService extends AppService {
           if (previous !== current) {
             if (displays[current] === undefined) {
               let display = this.app.getBundleClassDefinition(
-                `${this.name}-${current}`,
+                `${this.view}-${current}`,
                 true
               );
 

@@ -1,4 +1,4 @@
-{%- extends '@front/layouts/public/layout.html.twig' -%}
+{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/demo/layout.html.twig' -%}
 
 {%- block layout_config -%}
     {{ parent() }}
@@ -8,37 +8,13 @@
 {%- block page_body -%}
     <div class="inline-infos">
         <div class="info">
-            {{ '@page::infos.layout_name' | trans }} : <b>{{ layout_path }}</b>
-        </div>
-    </div>
-    <h2>{{ '@page::themes.title' | trans }}</h2>
-    <div class="blocks">
-        <div class="block blocks-col color-scheme-light">
-            {{ component('components/button', {
-                attr:{'data-color-scheme':'dark'},
-                class:'demo-button-switch-color-scheme',
-                text:'Thème sombre'
-            }) }}
-        </div>
-        <div class="block blocks-col color-scheme-light">
-            {{ component('components/button', {
-                attr:{'data-color-scheme':'light'},
-                class:'demo-button-switch-color-scheme',
-                text:'Thème clair'
-            }) }}
-        </div>
-        <div class="block blocks-col color-scheme-light">
-            {{ component('components/button', {
-                attr:{'data-color-scheme':'default'},
-                class:'demo-button-switch-color-scheme',
-                text:'Thème par défaut'
-            }) }}
+            {{ '@page::infos.layout_name' | trans }} : <b>{{ render_pass.layoutRenderNode.templateName }}</b>
         </div>
     </div>
     <h2>{{ '@page::breakpoints.title' | trans }}</h2>
     <div class="blocks blocks-no-stretch blocks-side-column-left">
         <div class="blocks-col">
-            {% for name,sizeMin in displayBreakpoints %}
+            {% for name, sizeMin in display_breakpoints %}
                 <div class="inline-infos display-breakpoint display-breakpoint-{{ name }}">
                     <div class="pill size-name">{{ name }}</div>
                     <div class="size-min">{{ sizeMin }}px</div>

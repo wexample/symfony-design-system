@@ -1,17 +1,15 @@
 import { createApp } from 'vue/dist/vue.esm-bundler';
 import AppService from '../class/AppService';
-import PagesService from './PagesService';
 import MixinsAppService from '../class/MixinsAppService';
 import LayoutInterface from '../interfaces/RenderData/LayoutInterface';
 import { appendInnerHtml } from '../helpers/DomHelper';
 import Component from '../class/Component';
 import App from '../class/App';
 import ComponentInterface from '../interfaces/RenderData/ComponentInterface';
-import { pathToTagName } from '../helpers/StringHelper';
+import { buildStringIdentifier, pathToTagName } from '../helpers/StringHelper';
 
 export default class VueService extends AppService {
   protected componentRegistered: { [key: string]: object } = {};
-  public static dependencies: typeof AppService[] = [PagesService];
   protected elTemplates: HTMLElement;
   public vueRenderDataCache: { [key: string]: ComponentInterface } = {};
   public static serviceName: string = 'vue';
@@ -47,7 +45,7 @@ export default class VueService extends AppService {
             registry.assets === MixinsAppService.LOAD_STATUS_COMPLETE &&
             registry.pages === MixinsAppService.LOAD_STATUS_COMPLETE
           ) {
-            this.app.mix(this.globalMixin, 'vue');
+            this.app.services.mixins.applyMethods(this.globalMixin, 'vue');
 
             return;
           }
@@ -104,14 +102,10 @@ export default class VueService extends AppService {
     Object.entries(componentsStrings).forEach((data) => {
       // Prevent to initialize already converted object.
       if (typeof data[1] === 'string') {
-        if (!this.componentRegistered[data[1]]) {
-          vueComponent.components[data[0]] = this.initComponent(
-            data[1],
-            rootComponent
-          );
-        } else {
-          vueComponent.components[data[0]] = this.componentRegistered[data[1]];
-        }
+        vueComponent.components[data[0]] = this.initComponent(
+          data[1],
+          rootComponent
+        );
       }
     });
 
@@ -120,28 +114,30 @@ export default class VueService extends AppService {
 
   createVueAppForComponent(component: Component) {
     return this.createApp(
-      this.initComponent(component, component),
+      this.initComponent(
+        component.renderData.options.name,
+        component
+      ),
       component.renderData.options.props);
   }
 
-  initComponent(vueComponent: Component, rootComponent: Component): object {
-    const name = vueComponent.renderData.options.name
+  initComponent(view: string, rootComponent: Component): object {
+    const vueName = buildStringIdentifier(view);
 
-    if (!this.componentRegistered[name]) {
-      let vueClassDefinition = this.app.getBundleClassDefinition(name) as any;
+    if (!this.componentRegistered[vueName]) {
+      const domId = 'vue-template-'+vueName;
+      let vueClassDefinition = this.app.getBundleClassDefinition(view) as any;
 
       if (!vueClassDefinition) {
         this.app.services.prompt.systemError(
           'Missing vue definition for ":class"',
           {
-            ':class': name,
+            ':class': view,
           }
         );
       } else {
-        let comName = pathToTagName(name);
-        let id = `vue-template-${vueComponent.renderData.options.domId}`;
-
-        vueClassDefinition.template = document.getElementById(id);
+        let comName = pathToTagName(view);
+        vueClassDefinition.template = document.getElementById(domId);
 
         vueClassDefinition.props = {
           ...vueClassDefinition.props,
@@ -152,7 +148,7 @@ export default class VueService extends AppService {
             },
             translations: {
               type: Object,
-              default: rootComponent.translations[`INCLUDE|${comName}`],
+              default: rootComponent.translations[`INCLUDE|${view}`],
             },
           },
         };
@@ -165,20 +161,20 @@ export default class VueService extends AppService {
           this.app.services.prompt.systemError(
             `Unable to load vue component as template item #:id has not been found.`,
             {
-              ':id': id
+              ':id': domId
             },
             undefined,
             true
           );
         }
 
-        this.componentRegistered[name] = vueClassDefinition;
+        this.componentRegistered[vueName] = vueClassDefinition;
 
         this.inherit(vueClassDefinition, rootComponent);
       }
     }
 
-    return this.componentRegistered[name];
+    return this.componentRegistered[vueName];
   }
 
   addTemplatesHtml(renderedTemplates: string[]) {

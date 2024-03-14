@@ -3,7 +3,7 @@
 {% import '@WexampleSymfonyDesignSystemBundle/macros/tabs.html.twig' as macro_tabs %}
 
 {%- block layout_config -%}
-    {{- render_pass.layoutRenderNode.setDefaultTemplateName(_self) -}}
+    {{- render_pass.layoutRenderNode.setDefaultView(_self) -}}
     {{ parent() }}
 {%- endblock -%}
 

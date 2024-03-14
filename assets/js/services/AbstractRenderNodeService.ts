@@ -30,39 +30,55 @@ export default abstract class AbstractRenderNodeService extends AppService {
   }
 
   async createRenderNode(
-    definitionName: string,
+    renderRequestId: string,
+    view: string,
     renderData: RenderDataInterface,
     parentRenderNode?: RenderNode
-  ): Promise<RenderNode> {
+  ): Promise<null | RenderNode> {
     await this.prepareRenderData(renderData);
 
     await this.app.services.mixins.invokeUntilComplete(
       'hookBeforeCreate',
       'renderNode',
-      [definitionName, renderData, parentRenderNode]
+      [view, renderData, parentRenderNode]
     );
 
     let classDefinition = this.app.getBundleClassDefinition(
-      definitionName,
+      view,
       true
     );
 
-    let instance = this.createRenderNodeInstance(
+    const instance: null | RenderNode = this.createRenderNodeInstance(
+      renderRequestId,
       classDefinition,
       parentRenderNode
     );
 
-    instance.loadFirstRenderData(renderData);
+    if (instance) {
+      instance.loadFirstRenderData(renderData);
 
-    await instance.init();
+      await instance.init();
+    }
 
     return instance;
   }
 
   createRenderNodeInstance(
+    renderRequestId: string,
     classDefinition: any,
     parentRenderNode: RenderNode
   ): RenderNode | null {
-    return new classDefinition(this.app, parentRenderNode);
+    try {
+      return new classDefinition(renderRequestId, this.app, parentRenderNode);
+    } catch {
+      this.app.services.prompt.systemError(
+        'Unable to find component with name ":name"',
+        {
+          ":name": classDefinition ? classDefinition.toString() : classDefinition
+        }
+      );
+
+      return null;
+    }
   }
 }

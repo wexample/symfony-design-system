@@ -1,5 +1,9 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/layouts/demo/layout.html.twig' -%}
 
+{%- block page_config -%}
+    {{- trans_js(render_pass, '@page::javascript.*') -}}
+{%- endblock -%}
+
 {%- block page_body -%}
     <h2>{{ '@page::domains.title' | trans }}</h2>
     <div class="block">
@@ -40,5 +44,23 @@
     <h2>{{ '@page::cache.title' | trans }}</h2>
     <div class="block">
         {{ '@page::cache.body' | trans }}
+    </div>
+    <h2>{{ '@page::javascript.title' | trans }}</h2>
+    <div class="block">
+        {{ '@page::javascript.body' | trans }}
+    </div>
+    <div class="block">
+        <code>
+            // template.html.twig<br>
+            trans_js('@page::javascript.*')<br>
+        </code>
+    </div>
+    <div class="block">
+        <code>
+            // Hello Javascript!<br>
+            app.layout.page.trans('@page::javascript.demo_text');<br>
+        </code>
+        <br>
+        <button onclick="alert(app.layout.page.trans('@page::javascript.demo_text'));">{{ '@page::javascript.test_button' | trans }}</button>
     </div>
 {%- endblock -%}

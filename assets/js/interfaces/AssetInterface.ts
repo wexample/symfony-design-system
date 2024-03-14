@@ -3,6 +3,8 @@ export default interface AssetInterface {
   // even the loading process is not finished.
   active: boolean;
   colorScheme?: string;
+  context: string;
+  domId: string;
   filesize: number;
   el: HTMLElement;
   id: string;
@@ -13,7 +15,6 @@ export default interface AssetInterface {
   path: string;
   preload: boolean;
   resolver: Function;
-  renderContext: string;
   responsive?: string;
   // Defines that asset has been fully loaded once,
   // so browser will not load it again
@@ -21,4 +22,6 @@ export default interface AssetInterface {
   rendered: boolean;
   type: string;
   usage: string;
+  usages: any;
+  view: string;
 }
