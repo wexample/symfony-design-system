@@ -82,13 +82,6 @@ class RenderPass
         return $this->getRenderRequestId();
     }
 
-    public function getRenderParameters(): array
-    {
-        return [
-            'document_head_title' => '@page::page_title',
-        ];
-    }
-
     public function registerContextRenderNode(
         AbstractRenderNode $renderNode
     ) {

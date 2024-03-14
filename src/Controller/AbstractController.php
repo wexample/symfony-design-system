@@ -190,7 +190,7 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
             [
                 'debug' => (bool) $this->getParameter('design_system.debug'),
                 'render_pass' => $renderPass,
-            ] + $parameters + $renderPass->getRenderParameters(),
+            ] + $parameters,
             $response
         );
     }
