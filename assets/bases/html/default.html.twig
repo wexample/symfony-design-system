@@ -14,10 +14,7 @@
     <html lang="{{ app.request.locale }}">
     <head>
         <meta charset="utf-8"/>
-        <title>{{ document_head_title ? (document_head_title | trans(document_head_title_args)) ~ ' | ' : '' }}{{ 'app.global::name' | trans }}</title>
-        {%- block styles -%}
-            {{ macro_assets.render_available_css('layout', render_pass.enableAggregation, layout_color_scheme, layout_use_js) }}
-        {%- endblock -%}
+        <title>{{ document_title|default(('@page::page_title' | trans) ~ ' | ' ~ ('app::name' | trans)) }}</title>
         {%- if render_pass.isUseJs() -%}
             <script nonce="layout-init">
               "use strict";
@@ -58,7 +55,7 @@
         {{- constant('\\Wexample\\SymfonyDesignSystem\\Helper\\RenderingHelper::PLACEHOLDER_PRELOAD_TAG') | raw -}}
         {%- block meta -%}
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <meta name="description" content="{{ (meta_description|default('@layout::meta.description')) | trans }}">
+            <meta name="description" content="{{ document_meta_description | default('app::meta.description' | trans) }}">
         {%- endblock -%}
     </head>
     <body class="{{ body_class|default('') }}">
