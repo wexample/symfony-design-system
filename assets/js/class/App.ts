@@ -7,7 +7,6 @@ import MixinsService from '../services/MixinsService';
 import PagesService from '../services/PagesService';
 import { RenderNodeResponsiveType } from '../services/ResponsiveService';
 import RoutingService from '../services/RoutingService';
-
 import { unique as arrayUnique } from '../helpers/ArrayHelper';
 import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
 import LayoutInitial from './LayoutInitial';
@@ -27,6 +26,7 @@ interface AppRegistryInterface {
 export default class extends AsyncConstructor {
   public hasCoreLoaded: boolean = false;
   public layout: LayoutInitial & RenderNodeResponsiveType = null;
+  public lib: object = {};
   public services: ServicesRegistryInterface = {};
   public registry = {} as AppRegistryInterface;
 
@@ -182,5 +182,16 @@ export default class extends AsyncConstructor {
     }
 
     return bundle;
+  }
+
+  addLib(name: string, object: any) {
+    this.lib[name] = object;
+  }
+
+  addLibraries(libraries) {
+    // Initialize preexisting libs.
+    Object.entries(libraries).forEach((data) => {
+      this.addLib(data[0], data[1]);
+    });
   }
 }

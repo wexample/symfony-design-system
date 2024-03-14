@@ -91,4 +91,8 @@ export default abstract class Component extends RenderNode {
     this.initMode = renderData.initMode;
     this.options = {...this.options, ...renderData.options};
   }
+
+  public getRenderNodeType(): string {
+    return 'component';
+  }
 }

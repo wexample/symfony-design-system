@@ -10,6 +10,10 @@ export default class extends RenderNode {
   public renderData: RenderDataPageInterface;
   public services: ServicesRegistryInterface;
 
+  public getRenderNodeType(): string {
+    return 'page';
+  }
+
   attachHtmlElements() {
     let el: HTMLElement;
 
