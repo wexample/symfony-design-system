@@ -54,8 +54,7 @@ export default class extends Component {
   }
 
   isCurrentPageTab(elTab) {
-    let path = locationParseUrl(elTab.getAttribute(Attribute.HREF)).pathname;
-    return path === '/' || path === window.location.pathname;
+    return locationParseUrl(elTab.getAttribute(Attribute.HREF)).pathname === window.location.pathname;
   }
 
   onHistoryChange() {
