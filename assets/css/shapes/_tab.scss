@@ -1,4 +1,4 @@
-
+@import '../mixins/global';
 @import '../mixins/reset';
 
 .tabs {
@@ -8,6 +8,26 @@
   justify-content: center;
 
   a.tab {
+    @include text-ellipsis;
     padding: 0.9rem 1.7rem;
+  }
+
+  &.tabs-vertical {
+    a {
+      width: 100%;
+    }
+
+    a.tab.active {
+      border: 0;
+      padding-bottom: 0.9rem;
+    }
+  }
+}
+
+.tab-content {
+  display: none;
+
+  &.tab-content-active {
+    display: initial;
   }
 }
