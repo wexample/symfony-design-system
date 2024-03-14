@@ -1,15 +1,10 @@
 import ComponentInterface from '../interfaces/RenderData/ComponentInterface';
-import Events from '../helpers/Events';
 import RenderNode from './RenderNode';
 import { findPreviousNode as DomFindPreviousNode } from '../helpers/DomHelper';
-import ServicesRegistryInterface from '../interfaces/ServicesRegistryInterface';
 
 export default abstract class Component extends RenderNode {
   protected initMode: string;
-  protected listenKeyboardKey: string[] = [];
-  protected onKeyUpProxy: Function;
   public options: any = {};
-  protected readonly services: ServicesRegistryInterface;
 
   public static INIT_MODE_CLASS: string = 'class';
 
@@ -99,35 +94,5 @@ export default abstract class Component extends RenderNode {
 
   public getRenderNodeType(): string {
     return 'component';
-  }
-
-  protected onKeyUp(event: KeyboardEvent) {
-    if (this.focused && this.listenKeyboardKey.indexOf(event.key) !== -1) {
-      this.onListenedKeyUp(event);
-    }
-  }
-
-  protected async activateListeners(): Promise<void> {
-    if (this.listenKeyboardKey.length) {
-      this.onKeyUpProxy = this.onKeyUp.bind(this);
-
-      document.addEventListener(
-        Events.KEYUP,
-        this.onKeyUpProxy as EventListenerOrEventListenerObject
-      );
-    }
-  }
-
-  protected async deactivateListeners(): Promise<void> {
-    if (this.listenKeyboardKey.length) {
-      document.removeEventListener(
-        Events.KEYUP,
-        this.onKeyUpProxy as EventListenerOrEventListenerObject
-      );
-    }
-  }
-
-  protected onListenedKeyUp(event: KeyboardEvent) {
-    // To override...
   }
 }

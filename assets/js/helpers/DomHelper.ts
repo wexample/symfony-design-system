@@ -79,3 +79,10 @@ export function toggleMainOverlay(bool = null) {
 
   classList[bool ? 'add' : 'remove']('visible');
 }
+
+export function createHtmlDocumentFromHtml(html: string) {
+  let elHtml = document.createElement('html');
+  elHtml.innerHTML = html;
+
+  return elHtml;
+}

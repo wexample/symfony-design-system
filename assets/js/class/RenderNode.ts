@@ -214,19 +214,9 @@ export default abstract class RenderNode extends AppChild {
   }
 
   protected async activateListeners(): Promise<void> {
-    await this.app.services.mixins.invokeUntilComplete(
-      'hookActivateListener',
-      'renderNode',
-      [this]
-    );
   }
 
   protected async deactivateListeners(): Promise<void> {
-    await this.app.services.mixins.invokeUntilComplete(
-      'hookDeactivateListener',
-      'renderNode',
-      [this]
-    );
   }
 
   protected async mounted(): Promise<void> {

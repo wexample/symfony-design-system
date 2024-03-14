@@ -3,10 +3,6 @@ import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
 import RenderNode from '../class/RenderNode';
 import ServicesRegistryInterface from '../interfaces/ServicesRegistryInterface';
 
-export class ComponentsServiceEvents {
-  public static CREATE_RENDER_NODE: string = 'create-render-node';
-}
-
 export default abstract class AbstractRenderNodeService extends AppService {
   public services: ServicesRegistryInterface;
 
