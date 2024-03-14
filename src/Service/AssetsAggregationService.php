@@ -3,7 +3,6 @@
 namespace Wexample\SymfonyDesignSystem\Service;
 
 use Symfony\Component\HttpKernel\KernelInterface;
-use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\AssetTag;
 use Wexample\SymfonyHelpers\Helper\ArrayHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
@@ -27,19 +26,20 @@ class AssetsAggregationService
 
     public function buildAggregatedTags(
         string $view,
-        array $usagesAssetsCollection,
+        array $baseTags,
     ): array {
-        $aggregated = array_fill_keys(array_keys($usagesAssetsCollection), []);
+        $aggregated = [];
 
-        foreach (Asset::ASSETS_EXTENSIONS as $type) {
+
+        foreach ($baseTags as $type => $contexts) {
             /** @var ?AssetTag $aggregationTag */
             $aggregationTag = null;
             $aggregationContent = '';
             $counter = 0;
 
-            foreach ($usagesAssetsCollection as $usage => $tagsCollection) {
+            foreach ($contexts as $contextTags) {
                 /** @var AssetTag $tag */
-                foreach ($tagsCollection[$type] ?? [] as $tags) {
+                foreach ($contextTags as $usage => $tags) {
                     foreach ($tags as $tag) {
                         // Ignore placeholders.
                         if ($tag->getPath()) {
@@ -85,14 +85,15 @@ class AssetsAggregationService
                                 $aggregationTag = null;
                                 $aggregationContent = '';
 
-                                $aggregated[$usage][$type][$tag->getContext()][] = $tag;
+                                $aggregated[$type][$tag->getContext()][$usage][] = $tag;
                             }
                         } else {
-                            $aggregated[$usage][$type][$tag->getContext()][] = $tag;
+                            $aggregated[$type][$tag->getContext()][$usage][] = $tag;
                         }
                     }
                 }
             }
+
             $this->writeAggregationTag(
                 'extra',
                 $type,
@@ -134,7 +135,7 @@ class AssetsAggregationService
             []
         );
 
-        $aggregated[$usage.'-agg'][$type][$tag->getContext()][] = $tag;
+        $aggregated[$type][$tag->getContext()][$usage.'-agg'][] = $tag;
     }
 
     protected function buildAggregatedPathFromView(

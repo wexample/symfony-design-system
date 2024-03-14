@@ -152,15 +152,13 @@ class AssetsService
     ): array {
         $usages = $this->getAssetsUsages();
         $tags = [];
-        $emptyUsages = array_fill_keys(array_keys($usages), []);
-        $contexts = Asset::CONTEXTS;
         $registry = $this->assetsRegistryService->getRegistry();
 
         foreach (Asset::ASSETS_EXTENSIONS as $type) {
-            $tags[$type] = $emptyUsages;
+            $tags[$type] = array_fill_keys(Asset::CONTEXTS, []);
 
-            foreach ($usages as $usageName => $usageManager) {
-                foreach ($contexts as $context) {
+            foreach (Asset::CONTEXTS as $context) {
+                foreach ($usages as $usageName => $usageManager) {
                     /** @var Asset $asset */
                     foreach ($registry[$type] as $asset) {
                         if ($asset->getUsage() == $usageName && $asset->getContext() == $context) {
@@ -179,18 +177,18 @@ class AssetsService
                                     )
                                 );
 
-                                $tags[$type][$usageName][$context][] = $tag;
+                                $tags[$type][$context][$usageName][] = $tag;
                             }
                         }
                     }
 
-                    if (empty($tags[$type][$usageName][$context])) {
+                    if (empty($tags[$type][$context][$usageName])) {
                         $tag = new AssetTag();
                         $tag->setId($type.'-'.$usageName.'-'.$context.'-placeholder');
                         $tag->setPath(null);
                         $tag->setUsageName($usageName);
                         $tag->setContext($context);
-                        $tags[$type][$usageName][$context][] = $tag;
+                        $tags[$type][$context][$usageName][] = $tag;
                     }
                 }
             }
@@ -200,8 +198,9 @@ class AssetsService
         $tag->setCanAggregate(true);
         $tag->setPath('build/runtime.js');
         $tag->setId('javascript-runtime');
+        $tag->setContext('extra');
 
-        $tags[Asset::EXTENSION_JS]['extra']['runtime'][] = $tag;
+        $tags[Asset::EXTENSION_JS]['runtime']['extra'][] = $tag;
 
         if ($renderPass->enableAggregation) {
             return $this->assetsAggregationService->buildAggregatedTags(
