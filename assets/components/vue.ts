@@ -1,7 +1,10 @@
 import Component from '../js/class/Component';
 import ComponentInterface from '../js/interfaces/RenderData/ComponentInterface';
+import { App as VueApp, createApp } from 'vue/dist/vue.esm-bundler';
 
-export default class extends Component {
+export default class VueComponent extends Component {
+  vue?: VueApp;
+
   loadFirstRenderData(renderData: ComponentInterface) {
     // First component render data is stored into service,
     // in order to reuse sub components definitions
@@ -21,6 +24,6 @@ export default class extends Component {
   attachHtmlElements() {
     super.attachHtmlElements();
 
-    this.app.services.vue.createVueAppForComponent(this).mount(this.el);
+    this.vue = this.app.services.vue.createVueAppForComponent(this).mount(this.el);
   }
 }

@@ -5,13 +5,9 @@ export default interface AssetInterface {
   colorScheme?: string;
   context: string;
   domId: string;
-  filesize: number;
   el: HTMLElement;
-  id: string;
   initialLayout: string;
-  media: string;
   loaded: boolean;
-  name: string;
   path: string;
   preload: boolean;
   resolver: Function;
