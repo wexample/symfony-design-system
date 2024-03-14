@@ -1,7 +1,7 @@
 import AbstractTest from "./AbstractTest";
-import Component from '../../../../js/class/Component';
-import LayoutInterface from '../../../../js/interfaces/RenderData/LayoutInterface';
-import ModalComponent from '../../../../components/modal';
+import Component from '../../../js/class/Component';
+import LayoutInterface from '../../../js/interfaces/RenderData/LayoutInterface';
+import ModalComponent from '../../../components/modal';
 
 export default class VariablesTest extends AbstractTest {
   public getTestMethods() {
@@ -41,8 +41,8 @@ export default class VariablesTest extends AbstractTest {
       'Variable object has proper value type'
     );
 
-    let component = this.app.layout.page.findChildRenderNodeByName(
-      'components/test-component'
+    let component = this.app.layout.page.findChildRenderNodeByView(
+      '@WexampleSymfonyDesignSystemBundle/components/test-component'
     ) as Component;
 
     this.assertTrue(
@@ -50,8 +50,7 @@ export default class VariablesTest extends AbstractTest {
       'Component level var is set'
     );
 
-    this.app.services.pages
-      .get('/_core/test/adaptive')
+    this.fetchAdaptiveAjaxPage()
       .then((renderData: LayoutInterface) => {
         this.assertEquals(
           renderData.page.vars.pageLevelTestVar,
