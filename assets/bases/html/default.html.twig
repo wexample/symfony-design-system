@@ -53,6 +53,10 @@
             </script>
         {%- endif -%}
         {{- constant('\\Wexample\\SymfonyDesignSystem\\Helper\\RenderingHelper::PLACEHOLDER_PRELOAD_TAG') | raw -}}
+        {%- block meta -%}
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta name="description" content="{{ document_meta_description | default('app::meta.description' | trans) }}">
+        {%- endblock -%}
     </head>
     <body class="{{ body_class|default('') }}">
     <div id="layout" class="layout-loading {{ layout_class|default('') }}">

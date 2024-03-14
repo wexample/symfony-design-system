@@ -1,6 +1,7 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/layouts/test/layout.html.twig' -%}
 
 {% set document_title = document_title|default('ADAPTIVE_DOCUMENT_TITLE') %}
+{% set document_meta_description = document_meta_description|default('DOCUMENT_META_DESCRIPTION') %}
 
 {%- block layout_config -%}
     {{ parent() }}

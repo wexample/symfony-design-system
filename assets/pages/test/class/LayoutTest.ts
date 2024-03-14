@@ -16,6 +16,11 @@ export default class LayoutTest extends AbstractTest {
         elHtml.querySelector('head').querySelector('title').innerText,
         'ADAPTIVE_DOCUMENT_TITLE'
       );
+
+      this.assertEquals(
+        (elHtml.querySelector('head').querySelector('meta[name=description]') as HTMLMetaElement).content,
+        'DOCUMENT_META_DESCRIPTION'
+      );
     })
   }
 }
