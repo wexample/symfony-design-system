@@ -4,7 +4,11 @@ import App from './App';
 import Component from './Component';
 import { toKebab } from "../helpers/StringHelper";
 import Page from './Page';
-import { ComponentsServiceEvents } from '../services/AbstractRenderNodeService';
+
+export class RenderNodeServiceEvents {
+  public static CREATE_RENDER_NODE: string = 'create-render-node';
+  public static USAGE_UPDATED: string = 'usage-changed';
+}
 
 export default abstract class RenderNode extends AppChild {
   public callerPage: Page;
@@ -22,7 +26,7 @@ export default abstract class RenderNode extends AppChild {
   public translations: {} = {};
   public usages: {} = {};
   public view: string;
-  public vars: {[key: string]: any} = {};
+  public vars: { [key: string]: any } = {};
 
   constructor(
     public renderRequestId: string,
@@ -36,7 +40,7 @@ export default abstract class RenderNode extends AppChild {
   public async init() {
     this.app.services.mixins.applyMethods(this, 'renderNode');
 
-    this.app.services.events.trigger(ComponentsServiceEvents.CREATE_RENDER_NODE, {
+    this.app.services.events.trigger(RenderNodeServiceEvents.CREATE_RENDER_NODE, {
       component: this,
     });
 
@@ -44,12 +48,6 @@ export default abstract class RenderNode extends AppChild {
     if (this.parentRenderNode) {
       this.parentRenderNode.appendChildRenderNode(this);
     }
-
-    await this.app.services.mixins.invokeUntilComplete(
-      'hookInitRenderNode',
-      'renderNode',
-      [this]
-    );
   }
 
   public async exit() {

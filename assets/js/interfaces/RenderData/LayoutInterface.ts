@@ -6,6 +6,5 @@ export default interface LayoutInterface extends RenderDataInterface {
   components: ComponentInterface[];
   env: string;
   page: PageInterface;
-  translationsDomainSeparator: string;
   vueTemplates?: string[];
 }
