@@ -10,7 +10,6 @@
   a.tab {
     @include text-ellipsis;
     padding: 0.9rem 1.7rem;
-    transition-duration: 0.5s;
   }
 
   &.tabs-vertical {
