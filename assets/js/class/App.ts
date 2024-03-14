@@ -2,20 +2,16 @@ import Page from './Page';
 
 import AppService from './AppService';
 import AssetsService from '../services/AssetsService';
-import ColorSchemeService from '../services/ColorSchemeService';
-import EventsService from '../services/EventsService';
 import LayoutsService from '../services/LayoutsService';
 import MixinsService from '../services/MixinsService';
 import PagesService from '../services/PagesService';
 import { RenderNodeResponsiveType } from '../services/ResponsiveService';
 import RoutingService from '../services/RoutingService';
-
 import { unique as arrayUnique } from '../helpers/ArrayHelper';
 import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
 import LayoutInitial from './LayoutInitial';
 import LayoutInterface from '../interfaces/RenderData/LayoutInterface';
 import AsyncConstructor from './AsyncConstructor';
-import { toCamel } from '../helpers/StringHelper';
 import ServicesRegistryInterface from '../interfaces/ServicesRegistryInterface';
 import AssetsCollectionInterface from "../interfaces/AssetsCollectionInterface";
 
@@ -28,10 +24,8 @@ interface AppRegistryInterface {
 }
 
 export default class extends AsyncConstructor {
-  public bundles: any;
   public hasCoreLoaded: boolean = false;
   public layout: LayoutInitial & RenderNodeResponsiveType = null;
-  public mixins: typeof AppService[] = [];
   public lib: object = {};
   public services: ServicesRegistryInterface = {};
   public registry = {} as AppRegistryInterface;
@@ -120,7 +114,6 @@ export default class extends AsyncConstructor {
   getServices(): typeof AppService[] {
     return [
       AssetsService,
-      ColorSchemeService,
       LayoutsService,
       MixinsService,
       PagesService,

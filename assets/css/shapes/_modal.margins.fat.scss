@@ -1,9 +1,6 @@
-@import 'mixins/modal';
-
 .layout-modal {
   margin: 0 4rem;
   max-width: 50rem;
-  border-radius: $block-border-radius;
 }
 
 .modal-header {
