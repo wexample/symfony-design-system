@@ -6,16 +6,37 @@ import Variables from '../js/helpers/Variables';
 import Events from '../js/helpers/Events';
 import RenderNode from '../js/class/RenderNode';
 import ComponentInterface from '../js/interfaces/RenderData/ComponentInterface';
+import App from "../js/class/App";
+import { WithKeyboardEventListenerRenderNode } from "./mixins/WithKeyboardEventListenerRenderNode";
+
+const listenKeyboardKey = {};
+listenKeyboardKey[Keyboard.KEY_ESCAPE] = async function () {
+  await this.close();
+}
 
 export default class ModalComponent extends PageManagerComponent {
   public closing: boolean = false;
-  public listenKeyboardKey: string[] = [Keyboard.KEY_ESCAPE];
+  public listenKeyboardKey: object = listenKeyboardKey;
   public mouseDownOverlayTarget: EventTarget | null;
   public mouseDownOverlayTimestamp: number | null;
   public onClickCloseProxy: EventListenerObject;
   public onMouseDownOverlayProxy: EventListenerObject;
   public onMouseUpOverlayProxy: EventListenerObject;
   public opened: boolean = false;
+
+  constructor(
+    public renderRequestId: string,
+    app: App,
+    parentRenderNode?: RenderNode
+  ) {
+    super(
+      renderRequestId,
+      app,
+      parentRenderNode
+    );
+
+    this.app.services.mixins.applyMixin(this, WithKeyboardEventListenerRenderNode);
+  }
 
   mergeRenderData(renderData: ComponentInterface) {
     super.mergeRenderData(renderData);
@@ -43,14 +64,9 @@ export default class ModalComponent extends PageManagerComponent {
     return this.elements.content;
   }
 
-  async onListenedKeyUp(event: KeyboardEvent) {
-    if (event.key === Keyboard.KEY_ESCAPE) {
-      await this.close();
-    }
-  }
-
   protected async activateListeners(): Promise<void> {
     await super.activateListeners();
+    await (this as unknown as WithKeyboardEventListenerRenderNode).activateKeyboardListeners();
 
     this.onMouseDownOverlayProxy = this.onMouseDownOverlay.bind(this);
     this.onMouseUpOverlayProxy = this.onMouseUpOverlay.bind(this);
@@ -63,6 +79,7 @@ export default class ModalComponent extends PageManagerComponent {
 
   protected async deactivateListeners(): Promise<void> {
     await super.deactivateListeners();
+    await (this as unknown as WithKeyboardEventListenerRenderNode).deactivateKeyboardListeners();
 
     this.el.removeEventListener(Events.MOUSEDOWN, this.onMouseDownOverlayProxy);
     this.el.removeEventListener(Events.MOUSEUP, this.onMouseUpOverlayProxy);

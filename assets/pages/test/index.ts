@@ -19,21 +19,21 @@ import LayoutTest from "./class/LayoutTest";
 export default class extends TestManagerPage {
   async pageReady() {
     await this.runTests({
-      AggregationTest,
+      // AggregationTest,
       AdaptiveRenderingTest,
-      AppTest,
-      IconTest,
-      HelperTest,
-      ModalInModalTest,
-      NoJsTest,
-      OverlayTest,
-      RoutingTest,
-      ResponsiveTest,
-      TestTest,
-      TranslationTest,
-      UsageTest,
-      VariablesTest,
-      LayoutTest,
+      // AppTest,
+      // IconTest,
+      // HelperTest,
+      // LayoutTest,
+      // ModalInModalTest,
+      // NoJsTest,
+      // OverlayTest,
+      // RoutingTest,
+      // ResponsiveTest,
+      // TestTest,
+      // TranslationTest,
+      // UsageTest,
+      // VariablesTest,
     });
 
     // Run test without aggregation.

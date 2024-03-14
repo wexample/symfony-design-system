@@ -6,6 +6,7 @@ import { toKebab } from "../helpers/StringHelper";
 import Page from './Page';
 
 export class RenderNodeServiceEvents {
+  public static CREATE_RENDER_NODE: string = 'create-render-node';
   public static USAGE_UPDATED: string = 'usage-changed';
 }
 
@@ -25,7 +26,7 @@ export default abstract class RenderNode extends AppChild {
   public translations: {} = {};
   public usages: {} = {};
   public view: string;
-  public vars: {[key: string]: any} = {};
+  public vars: { [key: string]: any } = {};
 
   constructor(
     public renderRequestId: string,
@@ -38,6 +39,11 @@ export default abstract class RenderNode extends AppChild {
 
   public async init() {
     this.app.services.mixins.applyMethods(this, 'renderNode');
+
+    this.app.services.events.trigger(RenderNodeServiceEvents.CREATE_RENDER_NODE, {
+      component: this,
+    });
+
     // Layout can have no parent node.
     if (this.parentRenderNode) {
       this.parentRenderNode.appendChildRenderNode(this);

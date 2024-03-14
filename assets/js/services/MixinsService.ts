@@ -111,4 +111,12 @@ export default class MixinsService extends AppService {
       }
     });
   }
+
+  applyMixin(instance: any, mixin: any) {
+    Object.getOwnPropertyNames(mixin.prototype).forEach(name => {
+      if (name !== 'constructor') {
+        instance[name] = mixin.prototype[name];
+      }
+    });
+  }
 }

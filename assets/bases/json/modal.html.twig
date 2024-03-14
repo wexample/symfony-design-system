@@ -11,6 +11,7 @@
 
 {%- block page_composer_json -%}
     <div class="modal-header">
+        {% set page_title = page_title | default('@page::page_title' | trans) %}
         {% if page_title | default(false) %}
             <h2 class="header-title">{{ page_title | trans }}</h2>
         {% else %}
