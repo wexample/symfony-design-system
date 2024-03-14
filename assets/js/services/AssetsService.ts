@@ -315,8 +315,9 @@ export default class AssetsService extends AppService {
 
   addAssetEl(asset: AssetInterface, assetReplacement?: AssetInterface) {
     const elReplacement = assetReplacement ? assetReplacement.el : document.getElementById(`${asset.type}-${asset.usage}-placeholder`)
+    const usageMarkerKey = `USAGE[${asset.type}-${asset.usage}-${asset.context}]`;
     const elUsageMarker = Array.from(document.head.childNodes)
-      .find(node => node.nodeType === 8 && node.nodeValue === `END_USAGE[${asset.type}-${asset.usage}-${asset.context}]`);
+      .find(node => node.nodeType === 8 && node.nodeValue === `END_${usageMarkerKey}`);
 
     let elParent = elUsageMarker ? elUsageMarker.parentNode : this.app.layout.el.ownerDocument.head;
 
@@ -324,13 +325,20 @@ export default class AssetsService extends AppService {
       if (!elParent.contains(
         elReplacement
       )) {
-        this.app.services.prompt.systemError('The replacement node is not in the expected location in head, ignoring');
+        this.app.services.prompt.systemError(
+          'The replacement node is not in the expected location in head marker :marker, ignoring',
+          {
+            ':marker': usageMarkerKey
+          }, undefined, true);
       }
 
-      elReplacement.parentNode.replaceChild(asset.el, elReplacement);
-    } else {
-      elParent.appendChild(asset.el);
+      if (elReplacement.parentNode) {
+        elReplacement.parentNode.replaceChild(asset.el, elReplacement);
+      }
+      return;
     }
+
+    elParent.appendChild(asset.el);
   }
 
   createStyleLinkElement() {

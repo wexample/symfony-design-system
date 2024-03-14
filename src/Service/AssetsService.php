@@ -4,7 +4,6 @@ namespace Wexample\SymfonyDesignSystem\Service;
 
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\AssetTag;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
@@ -16,7 +15,6 @@ use Wexample\SymfonyDesignSystem\Service\Usage\DefaultAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\FontsAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\MarginsAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
-use Wexample\SymfonyHelpers\Helper\BundleHelper;
 
 class AssetsService
 {
@@ -153,12 +151,15 @@ class AssetsService
         RenderPass $renderPass,
     ): array {
         $usages = $this->getAssetsUsages();
-        $tags = array_fill_keys(array_keys($usages), []);
+        $tags = [];
+        $emptyUsages = array_fill_keys(array_keys($usages), []);
         $contexts = Asset::CONTEXTS;
         $registry = $this->assetsRegistryService->getRegistry();
 
-        foreach ($usages as $usageName => $usageManager) {
-            foreach (Asset::ASSETS_EXTENSIONS as $type) {
+        foreach (Asset::ASSETS_EXTENSIONS as $type) {
+            $tags[$type] = $emptyUsages;
+
+            foreach ($usages as $usageName => $usageManager) {
                 foreach ($contexts as $context) {
                     /** @var Asset $asset */
                     foreach ($registry[$type] as $asset) {
@@ -178,18 +179,18 @@ class AssetsService
                                     )
                                 );
 
-                                $tags[$usageName][$type][$context][] = $tag;
+                                $tags[$type][$usageName][$context][] = $tag;
                             }
                         }
                     }
 
-                    if (empty($tags[$usageName][$type])) {
+                    if (empty($tags[$type][$usageName][$context])) {
                         $tag = new AssetTag();
                         $tag->setId($type.'-'.$usageName.'-'.$context.'-placeholder');
                         $tag->setPath(null);
                         $tag->setUsageName($usageName);
                         $tag->setContext($context);
-                        $tags[$usageName][$type][$context][] = $tag;
+                        $tags[$type][$usageName][$context][] = $tag;
                     }
                 }
             }
@@ -200,7 +201,7 @@ class AssetsService
         $tag->setPath('build/runtime.js');
         $tag->setId('javascript-runtime');
 
-        $tags['extra'][Asset::EXTENSION_JS]['runtime'][] = $tag;
+        $tags[Asset::EXTENSION_JS]['extra']['runtime'][] = $tag;
 
         if ($renderPass->enableAggregation) {
             return $this->assetsAggregationService->buildAggregatedTags(

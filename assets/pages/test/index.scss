@@ -1,4 +1,14 @@
 @use '../../css/shapes/block';
+.responsive-tester {
+  display: flex;
+
+  .test-responsive {
+    background-color: #666666;
+    border: 2px solid #666666;
+    margin: 1rem;
+    padding: 1rem;
+  }
+}
 
 .tests-results {
   @extend .block;

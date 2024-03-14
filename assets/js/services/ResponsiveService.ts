@@ -16,6 +16,7 @@ export type RenderNodeResponsiveType = {
   responsiveSizeCurrent?: string;
   responsiveSizePrevious?: string;
   responsiveDisplays: PageResponsiveDisplay[];
+  responsiveSet: Function;
 };
 
 export default class ResponsiveService extends AppService {
