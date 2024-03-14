@@ -4,6 +4,7 @@ import { appendInnerHtml } from '../../../js/helpers/DomHelper';
 import RenderNode from '../../../js/class/RenderNode';
 import Component from '../../../js/class/Component';
 import { RenderNodeResponsiveType } from "../../../js/services/ResponsiveService";
+import Page from "../../../js/class/Page";
 
 export default class ResponsiveTest extends AbstractTest {
   responsiveActivationWaitDuration: number = 20;
@@ -12,10 +13,14 @@ export default class ResponsiveTest extends AbstractTest {
   public getTestMethods() {
     return [
       this.testDefault,
+      this.testModale,
+      this.testDisplays
     ];
   }
 
   public init() {
+    super.init()
+
     this.responsiveSizes = Object.keys(this.app.layout.vars.displayBreakpoints);
   }
 
@@ -101,16 +106,79 @@ export default class ResponsiveTest extends AbstractTest {
     elTesterComponent.remove();
   }
 
+  async testModale() {
+    return await this.fetchAdaptiveAjaxPage()
+      .then(async () => {
+        let elPlayground = this.app.layout.el.querySelector(
+          '#test-playground'
+        ) as HTMLElement;
+        let elTesterLayout = this.generateResponsiveTester(elPlayground);
+        let breakPoints = this.responsiveSizes;
+
+        for (let responsiveSize of breakPoints) {
+          this.app.layout.responsiveSet(responsiveSize, true);
+
+          await sleep(this.responsiveActivationWaitDuration);
+
+          this.assertMainResponsiveApplyStyle(
+            responsiveSize,
+            elTesterLayout,
+            'background-color',
+            'rgb(0, 128, 0)'
+          );
+
+          await this.assertResponsiveSwitchWorks(
+            (this.app.layout.pageFocused) as Page & RenderNodeResponsiveType,
+            '.adaptive-page-playground',
+            this.app.layout.pageFocused.findChildRenderNodeByView(
+              '@WexampleSymfonyDesignSystemBundle/components/test-component'
+            ) as Component & RenderNodeResponsiveType,
+            'border-color',
+            'rgb(0, 255, 0)'
+          );
+        }
+
+        elTesterLayout.remove();
+      });
+  }
+
+  async testDisplays() {
+    let breakPoints = this.responsiveSizes;
+    const page = this.app.layout.page as Page & RenderNodeResponsiveType
+
+    this.resetPageResponsiveSizesCounters();
+    page.vars.responsiveSizesCounters[
+      page.responsiveSizeCurrent
+      ]++;
+
+    for (let responsiveSize of breakPoints) {
+      await this.app.layout.responsiveSet(responsiveSize, true);
+
+      this.assertEquals(
+        page.vars.responsiveSizesCounters[responsiveSize],
+        1,
+        `Size ${responsiveSize} display set 1`
+      );
+
+      await sleep(this.responsiveActivationWaitDuration * 10);
+    }
+  }
+
   assertTestZoneHaveStyle(
     elTestZoneName: string,
     elTestZone: HTMLElement,
     property: string,
     expectedColorValue: string
   ) {
+    const computedStyle = getComputedStyle(elTestZone)[property];
+    if (computedStyle !== expectedColorValue) {
+      console.log(elTestZone);
+    }
+
     this.assertEquals(
-      getComputedStyle(elTestZone)[property],
+      computedStyle,
       expectedColorValue,
-      `The test zone ${elTestZoneName} has value ${expectedColorValue}`
+      ` property "${property}" for size "${elTestZoneName}" has value ${expectedColorValue}`
     );
   }
 

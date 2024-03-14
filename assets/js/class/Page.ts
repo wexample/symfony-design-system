@@ -2,6 +2,7 @@ import RenderDataPageInterface from '../interfaces/RenderData/PageInterface';
 import RenderNode from './RenderNode';
 import PageManagerComponent from './PageManagerComponent';
 import ServicesRegistryInterface from '../interfaces/ServicesRegistryInterface';
+import { buildStringIdentifier } from "../helpers/StringHelper";
 
 export default class extends RenderNode {
   public isInitialPage: boolean;
@@ -24,7 +25,7 @@ export default class extends RenderNode {
       this.app.services.prompt.systemError('Unable to find DOM HTMLElement for page');
     }
 
-    this.el.classList.add(`page-${this.cssClassName}`);
+    this.el.classList.add(`page-${buildStringIdentifier(this.view)}`);
   }
 
   mergeRenderData(renderData: RenderDataPageInterface) {
