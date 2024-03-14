@@ -17,6 +17,11 @@ abstract class RenderNodeService
     ) {
     }
 
+    /**
+     * Render node path or name are created after class construction,
+     * as layout name is given by the template and so undefined
+     * on layout render node class instanciation.
+     */
     public function initRenderNode(
         RenderPass $renderPass,
         AbstractRenderNode $renderNode,
@@ -40,31 +45,5 @@ abstract class RenderNodeService
                 $useJs,
             );
         }
-    }
-
-    private function buildNodeNameFromPath(string $renderNodePath): string
-    {
-        if (str_ends_with($renderNodePath, TemplateHelper::TEMPLATE_FILE_EXTENSION)) {
-            $renderNodePath = substr(
-                $renderNodePath,
-                0,
-                -strlen(TemplateHelper::TEMPLATE_FILE_EXTENSION)
-            );
-        }
-
-        $layoutNameParts = explode('/', $renderNodePath);
-        $bundleName = ltrim(current($layoutNameParts), '@');
-        array_shift($layoutNameParts);
-        $bundles = $this->kernel->getBundles();
-
-        $nameRight = '::'.implode('/', $layoutNameParts);
-
-        // This is a bundle alias.
-        if (isset($bundles[$bundleName])) {
-            $bundle = $this->kernel->getBundle($bundleName);
-            return BundleHelper::getBundleCssAlias($bundle::class).$nameRight;
-        }
-
-        return 'app' . $nameRight;
     }
 }

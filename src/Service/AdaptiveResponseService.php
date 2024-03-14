@@ -3,37 +3,47 @@
 namespace Wexample\SymfonyDesignSystem\Service;
 
 use Symfony\Component\HttpFoundation\RequestStack;
-use Wexample\SymfonyDesignSystem\Controller\AbstractController;
-use Wexample\SymfonyDesignSystem\Rendering\AdaptiveResponse;
+use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyHelpers\Helper\FileHelper;
 
 class AdaptiveResponseService
 {
-    private ?AdaptiveResponse $currentResponse = null;
+    protected array $allowedBases = [
+        RenderPass::BASE_MODAL,
+        RenderPass::BASE_PAGE,
+        RenderPass::BASE_DEFAULT,
+    ];
 
     public function __construct(
         private readonly RequestStack $requestStack,
     ) {
     }
 
-    public function hasResponse(): bool
+    public function detectOutputType(): string
     {
-        return $this->currentResponse !== null;
+        return $this->requestStack->getCurrentRequest()->isXmlHttpRequest() ?
+            RenderPass::OUTPUT_TYPE_RESPONSE_JSON :
+            RenderPass::OUTPUT_TYPE_RESPONSE_HTML;
     }
 
-    public function createResponse(AbstractController $controller): AdaptiveResponse
+    public function detectLayoutBase(RenderPass $renderPass): string
     {
-        $this->currentResponse = new AdaptiveResponse(
-            $this->requestStack->getMainRequest(),
-            $controller,
-            $this
-        );
+        // Layout not specified in query string.
+        if ($renderPass->isJsonRequest()) {
+            // Use modal as default ajax layout, but might be configurable.
+            return RenderPass::BASE_MODAL;
+        }
 
-        return $this->getResponse();
+        return RenderPass::BASE_DEFAULT;
     }
 
-    public function getResponse(): AdaptiveResponse
+    public function getLayoutBasePath(RenderPass $renderPass): string
     {
-        return $this->currentResponse;
+        return RenderPass::BASES_MAIN_DIR
+            .$renderPass->getOutputType()
+            .FileHelper::FOLDER_SEPARATOR
+            .$renderPass->getLayoutBase()
+            .TemplateHelper::TEMPLATE_FILE_EXTENSION;
     }
 }

@@ -2,19 +2,20 @@
 
 namespace Wexample\SymfonyDesignSystem\Controller;
 
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
-use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
-use Wexample\SymfonyDesignSystem\Service\AssetsService;
-use Wexample\SymfonyHelpers\AbstractBundle;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyHelpers\Attribute\IsSimpleMethodResolver;
+use Wexample\SymfonyHelpers\Class\AbstractBundle;
+use Wexample\SymfonyHelpers\Controller\Traits\HasSimpleRoutesControllerTrait;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 abstract class AbstractPagesController extends AbstractController
 {
+    use HasSimpleRoutesControllerTrait;
+
     protected string $viewPathPrefix = '';
 
     public const NAMESPACE_CONTROLLER = 'App\\Controller\\';
@@ -25,28 +26,12 @@ abstract class AbstractPagesController extends AbstractController
 
     public const BUNDLE_TEMPLATE_SEPARATOR = '::';
 
-    public function __construct(
-        protected AdaptiveResponseService $adaptiveResponseService,
-        protected AssetsService $assetsService,
-        protected Environment $twigEnvironment,
-        protected RequestStack $requestStack
-    ) {
-        parent::__construct(
-            $adaptiveResponseService,
-            $assetsService,
-            $twigEnvironment
-        );
-
-        $mainRequest = $this->requestStack->getMainRequest();
-
-        $this->requestUri = $mainRequest->getRequestUri();
-    }
-
     protected function buildTemplatePath(
         string $view,
         AbstractBundle|string|null $bundleClass = null
     ): string {
         $base = self::RESOURCES_DIR_PAGE;
+        $bundleClass = $bundleClass ?: $this->getControllerBundle();
 
         if (str_contains($view, self::BUNDLE_TEMPLATE_SEPARATOR)) {
             $exp = explode(self::BUNDLE_TEMPLATE_SEPARATOR, $view);
@@ -54,37 +39,31 @@ abstract class AbstractPagesController extends AbstractController
             $view = $exp[1];
         }
 
-        return '@'
+        return BundleHelper::ALIAS_PREFIX
             .($bundleClass ? $bundleClass::getAlias() : 'front').'/'
             .$base.$this->viewPathPrefix.$view.TemplateHelper::TEMPLATE_FILE_EXTENSION;
     }
 
-    protected function render(
-        string $view,
+    protected function renderPage(
+        string $pageName,
         array $parameters = [],
-        Response $response = null
+        Response $response = null,
+        AbstractBundle|string $bundle = null,
+        RenderPass $renderPass = null
     ): Response {
-        if (!is_null($this->requestStack->getMainRequest()->get('no-js'))) {
-            $this->enableJavascript = false;
-        }
-
-        return parent::render(
-            $view,
+        return $this->adaptiveRender(
+            $this->buildTemplatePath($pageName, $bundle),
             $parameters,
-            $response
+            $response,
+            renderPass:$renderPass
         );
     }
 
-    protected function renderPage(
-        string $view,
-        array $parameters = [],
-        Response $response = null,
-        AbstractBundle|string $bundle = null
-    ): Response {
-        return $this->adaptiveRender(
-            $this->buildTemplatePath($view, ($bundle ?: $this->getControllerBundle())),
-            $parameters,
-            $response
+    #[IsSimpleMethodResolver]
+    public function simpleRoutesResolver(string $routeName): Response
+    {
+        return $this->renderPage(
+            $routeName,
         );
     }
 }

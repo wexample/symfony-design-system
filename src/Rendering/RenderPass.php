@@ -67,9 +67,6 @@ class RenderPass
                 'document_head_title' => '@page::page_title',
                 'document_head_title_args' => [],
                 'layout_name' => null,
-                'layout_color_scheme' => ColorSchemeHelper::SCHEME_DEFAULT,
-                'layout_animation' => null,
-                'layout_shape' => null,
                 'layout_use_js' => $this->useJs,
                 'page_name' => $this->pageName,
                 'page_path' => $this->view,
@@ -137,5 +134,87 @@ class RenderPass
     public function revertCurrentContextRenderNode(): void
     {
         array_pop($this->contextRenderNodeStack);
+    }
+
+    public function isUseJs(): bool
+    {
+        return $this->useJs;
+    }
+
+    public function setUseJs(bool $useJs): void
+    {
+        $this->useJs = $useJs;
+    }
+
+    public function getDisplayBreakpoints(): array
+    {
+        $usagesTypes = $this->usagesConfig[ResponsiveAssetUsageService::getName()]['list'];
+        $breakpoints = [];
+
+        foreach ($usagesTypes as $name => $config) {
+            $breakpoints[$name] = $config['breakpoint'];
+        }
+
+        return $breakpoints;
+    }
+
+    public function getUsage(
+        string $usageName,
+    ): ?string {
+        return $this->usages[$usageName];
+    }
+
+    public function setUsage(
+        string $usageName,
+        ?string $usageValue
+    ): void {
+        // Not found
+        if (!isset($this->usagesConfig[$usageName])) {
+            return;
+        }
+
+        $this->usages[$usageName] = $usageValue;
+    }
+
+    public function isDebug(): bool
+    {
+        return $this->debug;
+    }
+
+    public function setDebug(bool $debug): void
+    {
+        $this->debug = $debug;
+    }
+
+    public function setOutputType(string $type): self
+    {
+        $this->outputType = $type;
+
+        return $this;
+    }
+
+    public function getOutputType(): string
+    {
+        return $this->outputType;
+    }
+
+    public function isJsonRequest(): bool
+    {
+        return self::OUTPUT_TYPE_RESPONSE_JSON === $this->getOutputType();
+    }
+
+    public function isHtmlRequest(): bool
+    {
+        return self::OUTPUT_TYPE_RESPONSE_HTML === $this->getOutputType();
+    }
+
+    public function getLayoutBase(): string
+    {
+        return $this->layoutBase;
+    }
+
+    public function setLayoutBase(string $layoutBase): void
+    {
+        $this->layoutBase = $layoutBase;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Helper;
 
+use Wexample\SymfonyHelpers\Helper\TextHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use function implode;
 use function is_null;
@@ -59,17 +60,18 @@ class DomHelper
 
     public static function buildStringIdentifier(string $string): string
     {
-        // Remove leading or trailing dash.
         return trim(
         // Replace double dash.
             preg_replace(
                 '/-+/',
                 '-',
                 // Keep valid chars.
-                preg_replace(
-                    '/[^a-zA-Z0-9-]/',
-                    '-',
-                    $string
+                TextHelper::toKebab(
+                    preg_replace(
+                        '/[^a-zA-Z0-9-]/',
+                        '-',
+                        $string
+                    )
                 )
             ),
             '-'

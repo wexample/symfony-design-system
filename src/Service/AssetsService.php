@@ -4,7 +4,6 @@ namespace Wexample\SymfonyDesignSystem\Service;
 
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\AssetTag;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
@@ -16,7 +15,6 @@ use Wexample\SymfonyDesignSystem\Service\Usage\DefaultAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\FontsAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\MarginsAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
-use Wexample\SymfonyHelpers\Helper\BundleHelper;
 
 class AssetsService
 {
@@ -44,7 +42,8 @@ class AssetsService
         ResponsiveAssetUsageService $responsiveAssetUsageService,
         FontsAssetUsageService $fontsAssetUsageService,
         readonly protected KernelInterface $kernel,
-        readonly protected AssetsAggregationService $assetsAggregationService
+        readonly protected AssetsAggregationService $assetsAggregationService,
+        readonly protected AssetsRegistryService $assetsRegistryService,
     ) {
         foreach ([
                      // Order is important, it defines the order the assets
@@ -81,36 +80,32 @@ class AssetsService
     public function assetsDetect(
         RenderPass $renderPass,
         AbstractRenderNode $renderNode,
+        ?string $view = null
     ): void {
+        if ($view) {
+            $views = [$view];
+        } else {
+            $views = $renderNode->getInheritanceStack();
+        }
+
         foreach (Asset::ASSETS_EXTENSIONS as $ext) {
             foreach ($this->usages as $usage) {
-                $usage->addAssetsForRenderNodeAndType(
-                    $renderPass,
-                    $renderNode,
-                    $ext
-                );
-            }
-        }
-    }
+                // i.e. only first css or js needed for the given usage,
+                // inheritance is managed into asset.
+                $usageFoundForType = false;
 
-    public function assetsFiltered(
-        RenderPass $renderPass,
-        string $contextType,
-        string $usage,
-        string $assetType = null
-    ): array {
-        $assets = [];
-
-        /** @var AbstractRenderNode $renderNode */
-        foreach ($renderPass->registry[$contextType] as $renderNode) {
-            foreach ($renderNode->assets[$assetType] as $asset) {
-                if ($asset->getUsage() === $usage) {
-                    $assets[] = $asset;
+                foreach ($views as $view) {
+                    if (!$usageFoundForType && $usage->addAssetsForRenderNodeAndType(
+                            $renderPass,
+                            $renderNode,
+                            $ext,
+                            $view
+                        )) {
+                        $usageFoundForType = true;
+                    }
                 }
             }
         }
-
-        return $this->sortAssets($assets);
     }
 
     /**
@@ -154,88 +149,67 @@ class AssetsService
 
     public function buildTags(
         RenderPass $renderPass,
-        string $type
     ): array {
-        $tags = [];
-        $contexts = ['layout', 'page'];
         $usages = $this->getAssetsUsages();
+        $tags = [];
+        $emptyUsages = array_fill_keys(array_keys($usages), []);
+        $contexts = Asset::CONTEXTS;
+        $registry = $this->assetsRegistryService->getRegistry();
 
-        foreach ($usages as $name => $usage) {
-            if ($usage->hasAsset()) {
+        foreach (Asset::ASSETS_EXTENSIONS as $type) {
+            $tags[$type] = $emptyUsages;
+
+            foreach ($usages as $usageName => $usageManager) {
                 foreach ($contexts as $context) {
-                    $assets = $this->assetsFiltered(
-                        $renderPass,
-                        $context,
-                        $name,
-                        $type
-                    );
+                    /** @var Asset $asset */
+                    foreach ($registry[$type] as $asset) {
+                        if ($asset->getUsage() == $usageName && $asset->getContext() == $context) {
+                            if ($this->assetNeedsInitialRender(
+                                $asset,
+                                $renderPass,
+                            )) {
+                                $tag = new AssetTag($asset);
 
-                    foreach ($assets as $asset) {
-                        if ($this->assetNeedsInitialRender(
-                            $asset,
-                            $renderPass,
-                        )) {
-                            $tag = new AssetTag($asset);
+                                $asset->setServerSideRendered();
 
-                            $asset->setServerSideRendered();
+                                $tag->setCanAggregate(
+                                    $usageManager->canAggregateAsset(
+                                        $renderPass,
+                                        $asset
+                                    )
+                                );
 
-                            $tag->setCanAggregate(
-                                $usage->canAggregateAsset(
-                                    $renderPass,
-                                    $asset
-                                )
-                            );
-
-                            $tags[] = $tag;
+                                $tags[$type][$usageName][$context][] = $tag;
+                            }
                         }
+                    }
+
+                    if (empty($tags[$type][$usageName][$context])) {
+                        $tag = new AssetTag();
+                        $tag->setId($type.'-'.$usageName.'-'.$context.'-placeholder');
+                        $tag->setPath(null);
+                        $tag->setUsageName($usageName);
+                        $tag->setContext($context);
+                        $tags[$type][$usageName][$context][] = $tag;
                     }
                 }
             }
         }
 
-        if ($type === Asset::EXTENSION_JS) {
-            $tag = new AssetTag();
-            $tag->setCanAggregate(true);
-            $tag->setPath('build/runtime.js');
-            $tag->setId('javascript-runtime');
+        $tag = new AssetTag();
+        $tag->setCanAggregate(true);
+        $tag->setPath('build/runtime.js');
+        $tag->setId('javascript-runtime');
 
-            $tags[] = $tag;
-        }
+        $tags[Asset::EXTENSION_JS]['extra']['runtime'][] = $tag;
 
         if ($renderPass->enableAggregation) {
             return $this->assetsAggregationService->buildAggregatedTags(
-                $this->buildTemplateNameFromPath($renderPass->getView()),
+                $renderPass->getView(),
                 $tags,
-                $type
             );
         }
 
         return $tags;
-    }
-
-    public function buildTemplateNameFromPath(string $renderNodePath): string
-    {
-        if (str_ends_with($renderNodePath, TemplateHelper::TEMPLATE_FILE_EXTENSION)) {
-            $renderNodePath = substr(
-                $renderNodePath,
-                0,
-                -strlen(TemplateHelper::TEMPLATE_FILE_EXTENSION)
-            );
-        }
-
-        $layoutNameParts = explode('/', $renderNodePath);
-        $bundleName = ltrim(current($layoutNameParts), '@');
-        array_shift($layoutNameParts);
-        $bundles = $this->kernel->getBundles();
-
-        $nameRight = '::'.implode('/', $layoutNameParts);
-
-        // This is a bundle alias.
-        if (isset($bundles[$bundleName])) {
-            $bundle = $this->kernel->getBundle($bundleName);
-            return BundleHelper::getBundleCssAlias($bundle::class).$nameRight;
-        }
-
-        return 'app'.$nameRight;
     }
 }

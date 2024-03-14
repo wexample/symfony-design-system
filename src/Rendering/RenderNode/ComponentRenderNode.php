@@ -2,14 +2,20 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering\RenderNode;
 
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
+use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyHelpers\Class\Traits\WithBodyClassTrait;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class ComponentRenderNode extends AbstractRenderNode
 {
-    public string $cssClassName;
+    use WithBodyClassTrait;
 
     public function __construct(
         public string $initMode,
@@ -20,11 +26,9 @@ class ComponentRenderNode extends AbstractRenderNode
 
     public function init(
         RenderPass $renderPass,
-        string $name
+        string $view,
     ): void {
-        parent::init($renderPass, $name);
-
-        $this->cssClassName = DomHelper::buildCssClassName($this->id);
+        parent::init($renderPass, $view);
 
         $renderPass
             ->getCurrentContextRenderNode()
@@ -58,9 +62,26 @@ class ComponentRenderNode extends AbstractRenderNode
     {
         return parent::toRenderData()
             + [
-                'cssClassName' => $this->cssClassName,
                 'initMode' => $this->initMode,
                 'options' => $this->options,
             ];
+    }
+
+    /**
+     * @throws RuntimeError
+     * @throws SyntaxError
+     * @throws LoaderError
+     */
+    public function render(Environment $env, array $parameters = []): void
+    {
+        $this->setBody($env->render(
+            $this->getTemplatePath(),
+            $this->options + $parameters
+        ));
+    }
+
+    public function getTemplatePath(): string
+    {
+        return $this->getView().TemplateHelper::TEMPLATE_FILE_EXTENSION;
     }
 }

@@ -5,18 +5,13 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 use Exception;
 use Twig\Environment;
 use Twig\TwigFunction;
-use Wexample\SymfonyDesignSystem\Helper\PageHelper;
-use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\LayoutService;
-use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
 class LayoutExtension extends AbstractExtension
 {
-    public const LAYOUT_NAME_DEFAULT = VariableHelper::DEFAULT;
-
     public function __construct(
-        private readonly AdaptiveResponseService $adaptiveResponseService,
         private readonly LayoutService $layoutService,
     ) {
     }
@@ -39,9 +34,6 @@ class LayoutExtension extends AbstractExtension
                 [
                     $this,
                     'layoutRenderInitialData',
-                ],
-                [
-                    self::FUNCTION_OPTION_NEEDS_ENVIRONMENT => true,
                 ]
             ),
         ];
@@ -52,23 +44,17 @@ class LayoutExtension extends AbstractExtension
      */
     public function layoutInit(
         Environment $twig,
-        ?string $layoutPath,
-        string $colorScheme,
-        bool $useJs = true,
+        RenderPass $renderPass,
     ): void {
         $this->layoutService->layoutInitInitial(
             $twig,
-            PageHelper::pageNameFromPath($layoutPath),
-            $colorScheme,
-            $useJs
+            $renderPass,
         );
     }
 
-    public function layoutRenderInitialData(): array
+    public function layoutRenderInitialData(RenderPass $renderPass): array
     {
-        return $this
-            ->adaptiveResponseService
-            ->renderPass
+        return $renderPass
             ->layoutRenderNode
             ->toRenderData();
     }

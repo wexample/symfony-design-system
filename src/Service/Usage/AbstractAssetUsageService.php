@@ -7,17 +7,11 @@ use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
-use Wexample\SymfonyDesignSystem\Service\AssetsService;
 use Wexample\SymfonyHelpers\Helper\PathHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
 
 abstract class AbstractAssetUsageService
 {
-    /**
-     * @var array|array[]|\Wexample\SymfonyDesignSystem\Rendering\Asset[][]
-     */
-    protected array $assets = AssetsService::ASSETS_DEFAULT_EMPTY;
-
     public function __construct(
         protected AssetsRegistryService $assetsRegistryService
     ) {
@@ -26,23 +20,32 @@ abstract class AbstractAssetUsageService
 
     abstract public static function getName(): string;
 
-    public function buildBuiltPublicAssetPath(
-        AbstractRenderNode $renderNode,
+    public function buildPublicAssetPathFromView(
+        string $view,
         string $ext
     ): string {
-        $nameParts = explode('::', $renderNode->getName());
+        $nameParts = explode('/', $view);
+        $bundle = array_shift($nameParts);
 
-        return AssetsRegistryService::DIR_BUILD.PathHelper::join([$nameParts[0], $ext, $nameParts[1].'.'.$ext]);
+        return AssetsRegistryService::DIR_BUILD.PathHelper::join(array_merge([$bundle, $ext], $nameParts)).'.'.$ext;
     }
 
     public function addAssetsForRenderNodeAndType(
         RenderPass $renderPass,
         AbstractRenderNode $renderNode,
-        string $ext
-    ): void {
-        $pathInfo = pathinfo($this->buildBuiltPublicAssetPath($renderNode, $ext));
+        string $ext,
+        string $view
+    ): bool {
+        $pathInfo = pathinfo(
+            $this->buildPublicAssetPathFromView(
+                $view,
+                $ext
+            )
+        );
+
         $usage = $this->getName();
         $usageKebab = TextHelper::toKebab($usage);
+        $hasAsset = false;
 
         if (isset($renderPass->usagesConfig[$usage]['list'])) {
             foreach ($renderPass->usagesConfig[$usage]['list'] as $usageValue => $config) {
@@ -52,54 +55,46 @@ abstract class AbstractAssetUsageService
                     $assetPath,
                     $renderNode
                 )) {
+                    $hasAsset = true;
                     $asset->usages[$usage] = $usageValue;
                 }
             }
         }
+
+        return $hasAsset;
     }
 
+    /**
+     * @throws Exception
+     */
     protected function createAssetIfExists(
-        string $pathRelativeToPublic,
+        string $pathInManifest,
         AbstractRenderNode $renderNode,
     ): ?Asset {
-        if (!$this->assetsRegistryService->assetExists($pathRelativeToPublic)) {
+        if (!$this->assetsRegistryService->assetExists($pathInManifest)) {
             return null;
         }
 
-        $realPath = $this->assetsRegistryService->getRealPath($pathRelativeToPublic);
+        $realPath = $this->assetsRegistryService->getRealPath($pathInManifest);
 
         if (!$realPath) {
-            throw new Exception('Unable to find asset "'.$pathRelativeToPublic.'" in manifest.');
+            throw new Exception('Unable to find realpath of asset "'
+                .$pathInManifest.', check build folder content or files permissions.');
         }
 
         $asset = new Asset(
-            $pathRelativeToPublic,
-            $this::getName()
+            $pathInManifest,
+            $this::getName(),
+            $renderNode->getContextType()
         );
 
         $renderNode->assets[$asset->type][] = $asset;
-        $this->assets[$asset->type][] = $asset;
 
         $this->assetsRegistryService->addAsset(
             $asset,
         );
 
         return $asset;
-    }
-
-    public function hasAsset(?string $type = null): bool
-    {
-        if ($type) {
-            return !empty($this->assets[$type]);
-        }
-
-        foreach ($this->assets as $type => $assets) {
-            if ($this->hasAsset($type)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public function assetNeedsInitialRender(
@@ -130,23 +125,5 @@ abstract class AbstractAssetUsageService
         Asset $asset
     ): bool {
         return (!$this->hasExtraSwitchableUsage($renderPass)) && $asset->isServerSideRendered();
-    }
-
-    public function getServerSideRenderedAssets(
-        RenderPass $renderPass,
-        string $type
-    ): array {
-        if ($this->hasExtraSwitchableUsage($renderPass)) {
-            return [];
-        }
-
-        $output = [];
-        foreach ($this->assets[$type] as $asset) {
-            if ($asset->isServerSideRendered()) {
-                $output[] = $asset;
-            }
-        }
-
-        return $output;
     }
 }

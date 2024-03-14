@@ -16,10 +16,14 @@ final class DefaultAssetUsageService extends AbstractAssetUsageService
     public function addAssetsForRenderNodeAndType(
         RenderPass $renderPass,
         AbstractRenderNode $renderNode,
-        string $ext
-    ): void {
-        $this->createAssetIfExists(
-            $this->buildBuiltPublicAssetPath($renderNode, $ext),
+        string $ext,
+        string $view
+    ): bool {
+        return (bool) $this->createAssetIfExists(
+            $this->buildPublicAssetPathFromView(
+                $view,
+                $ext
+            ),
             $renderNode,
         );
     }

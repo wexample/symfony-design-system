@@ -2,51 +2,55 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering\RenderNode;
 
+use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
+use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
+use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderDataGenerator;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithView;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 
 abstract class AbstractRenderNode extends RenderDataGenerator
 {
+    use WithView;
+
     public array $assets = AssetsService::ASSETS_DEFAULT_EMPTY;
 
     public array $components = [];
 
+    public string $cssClassName;
+
     protected string $id;
 
-    public ?AbstractRenderNode $parent = null;
-
     public bool $hasAssets = true;
-
-    public string $renderRequestId;
 
     public array $translations = [];
 
     public array $vars = [];
 
-    public string $name;
+    public array $usages;
+
+    private array $inheritanceStack = [];
 
     abstract public function getContextType(): string;
 
-    public function __construct(
-        protected RenderPass $renderPass
-    ) {
-    }
-
     public function init(
         RenderPass $renderPass,
-        string $name,
+        string $view,
     ): void {
-        $this->parent = $this->renderPass->getCurrentContextRenderNode();
-        $this->renderRequestId = $this->renderPass->getRenderRequestId();
-        $this->name = $name;
-        $this->id = $this->getContextType().'-'
-            .str_replace('/', '-', $this->name)
-            .'-'.uniqid();
+        $this->setDefaultView($view);
+
+        $this->id = implode('-', [
+            $this->getContextType(),
+            str_replace('/', '-', $this->getView()),
+            uniqid(),
+        ]);
+
+        $this->usages = $renderPass->usages;
+        $this->cssClassName = DomHelper::buildStringIdentifier($this->id);
 
         $renderPass->registerContextRenderNode($this);
-
         $renderPass->registerRenderNode($this);
     }
 
@@ -54,47 +58,59 @@ abstract class AbstractRenderNode extends RenderDataGenerator
     {
         return RenderingHelper::buildRenderContextKey(
             $this->getContextType(),
-            $this->getRenderContextName()
+            $this->getView()
         );
     }
 
-    protected function getRenderContextName(): string
+    public function getComponentsTemplates(): ?string
     {
-        return $this->name;
-    }
-
-    public function getComponentsTemplates(): string
-    {
-        $output = '';
+        $output = [];
 
         /** @var ComponentRenderNode $component */
         foreach ($this->components as $component) {
-            $output .= $component->body;
+            if ($body = $component->getBody()) {
+                $output[] = $component->getBody();
+            }
         }
 
-        return $output;
+        return !empty($output) ? implode($output) : null;
     }
 
     public function toRenderData(): array
     {
-        return [
-            'assets' => [
+        $data = [
+            'components' => $this->arrayToRenderData($this->components),
+            'cssClassName' => $this->cssClassName,
+            'id' => $this->id,
+            'translations' => (object) $this->translations,
+            'view' => $this->getView(),
+            'vars' => (object) $this->vars,
+            'usages' => (object) $this->usages,
+        ];
+
+        if ($this->hasAssets) {
+            $data['assets'] = [
                 Asset::EXTENSION_CSS => $this->arrayToRenderData($this->assets[Asset::EXTENSION_CSS]),
                 Asset::EXTENSION_JS => $this->arrayToRenderData($this->assets[Asset::EXTENSION_JS]),
-            ],
-            'components' => $this->arrayToRenderData($this->components),
-            'id' => $this->id,
-            'name' => $this->name,
-            'renderRequestId' => $this->renderRequestId,
-            'translations' => $this->translations,
-            'vars' => $this->vars,
-        ];
+            ];
+        }
+
+        return $data;
     }
 
-    public function buildBuiltPublicAssetPath(string $ext): string
+    public function setDefaultView(string $view): void
     {
-        $nameParts = explode('::', $this->name);
+        $view = TemplateHelper::removeExtension($view);
 
-        return AssetsService::DIR_BUILD . PathHelper::join([$nameParts[0], $ext, $nameParts[1].'.'.$ext]);
+        if (!$this->getView()) {
+            $this->setView($view);
+        }
+
+        $this->inheritanceStack[] = $view;
+    }
+
+    public function getInheritanceStack(): array
+    {
+        return $this->inheritanceStack;
     }
 }

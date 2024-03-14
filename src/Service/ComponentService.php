@@ -3,15 +3,13 @@
 namespace Wexample\SymfonyDesignSystem\Service;
 
 use Exception;
-use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
-use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
-use Wexample\SymfonyDesignSystem\Rendering\ComponentRenderNodeManager;
+use Wexample\SymfonyDesignSystem\Helper\DomHelper;
+use Wexample\SymfonyDesignSystem\Rendering\ComponentManagerLocatorService;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
-use Wexample\SymfonyHelpers\Helper\ClassHelper;
-use Wexample\SymfonyHelpers\Helper\FileHelper;
-use Wexample\SymfonyHelpers\Helper\TextHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use Wexample\SymfonyTranslations\Translation\Translator;
 
@@ -33,94 +31,19 @@ class ComponentService extends RenderNodeService
 
     public const COMPONENT_NAME_MODAL = 'components/modal';
 
-    protected array $componentsClasses = [];
-
-    protected array $componentsManagers = [];
-
     public function __construct(
-        protected AdaptiveResponseService $adaptiveResponseService,
-        protected AssetsService $assetsService,
-        KernelInterface $kernel,
-        protected Translator $translator
+        AssetsService $assetsService,
+        readonly protected ComponentManagerLocatorService $componentManagerLocatorService,
+        readonly protected Translator $translator
     ) {
         parent::__construct(
             $assetsService,
-            $adaptiveResponseService
         );
-
-        $adaptiveResponseService->addRenderEventListener($this);
-
-        $this->componentsClasses = [];
-
-        $locations = [
-            // May be rewritten..
-            'vendor/wexample/symfony-design-system/src/' => 'Wexample\\SymfonyDesignSystem\\',
-            BundleHelper::DIR_SRC => BundleHelper::CLASS_PATH_PREFIX,
-        ];
-
-        foreach ($locations as $location => $classPrefix) {
-            $locationAbsolute = $kernel->getProjectDir().'/'.$location;
-
-            $this->componentsClasses = $this->findComponentClassesInDir(
-                $locationAbsolute,
-                $classPrefix,
-                'Rendering/Component'
-            );
-
-            $managers = $this->findComponentClassesInDir(
-                $locationAbsolute,
-                $classPrefix,
-                'Rendering/ComponentManager',
-                'RenderNodeManager'
-            );
-
-            foreach ($managers as $componentName => $managerClassName) {
-                $this->componentsManagers[VariableHelper::PLURAL_COMPONENT.'/'.$componentName] = new $managerClassName(
-                    $kernel,
-                    $this->adaptiveResponseService
-                );
-            }
-        }
     }
 
-    protected function findComponentClassesInDir(
-        string $location,
-        string $classPrefix,
-        string $classesSubDir,
-        string $unwantedSuffix = '',
-    ): array {
-        $output = [];
-        $componentDir = $location.$classesSubDir;
-
-        if (is_dir($componentDir)) {
-            $componentClasses = scandir($componentDir);
-
-            foreach ($componentClasses as $componentClass) {
-                if ('.' !== $componentClass[0]) {
-                    $componentClassRealPath = $componentDir.FileHelper::FOLDER_SEPARATOR.$componentClass;
-
-                    if (is_file($componentClassRealPath)) {
-                        $componentClass = FileHelper::removeExtension(
-                            $componentClass,
-                            FileHelper::FILE_EXTENSION_PHP
-                        );
-
-                        $output[TextHelper::toKebab(substr($componentClass, 0, -strlen($unwantedSuffix)))] =
-                            $classPrefix.ClassHelper::buildClassNameFromPath(
-                                $classesSubDir.'/'.$componentClass
-                            );
-                    } else {
-                        $output += $this->findComponentClassesInDir(
-                            $location,
-                            $classPrefix,
-                            $classesSubDir.'/'.$componentClass,
-                        );
-                    }
-                }
-            }
-        }
-
-        return $output;
+    public static function buildCoreComponentName(string $shortName): string
+    {
+        return BundleHelper::ALIAS_PREFIX.WexampleSymfonyDesignSystemBundle::getAlias().'/'.$shortName;
     }
 
     /**
@@ -128,45 +51,41 @@ class ComponentService extends RenderNodeService
      */
     public function componentRenderBody(
         RenderPass $renderPass,
-        Environment $env,
+        Environment $twig,
         ComponentRenderNode $component
-    ): ?string {
-        $loader = $env->getLoader();
-        $renderPass = $this->adaptiveResponseService->renderPass;
-        $search = TemplateHelper::buildTemplateInheritanceStack(
-            $component->name
-        );
+    ): string {
+        $loader = $twig->getLoader();
 
         try {
-            foreach ($search as $templatePath) {
-                if ($loader->exists($templatePath)) {
-                    $renderPass->setCurrentContextRenderNode(
-                        $component
-                    );
+            if ($loader->exists($component->getTemplatePath())) {
+                $renderPass->setCurrentContextRenderNode(
+                    $component
+                );
 
-                    $this->translator->setDomainFromPath(
-                        Translator::DOMAIN_TYPE_COMPONENT,
-                        $component->name
-                    );
+                $this->translator->setDomainFromPath(
+                    Translator::DOMAIN_TYPE_COMPONENT,
+                    $component->getView()
+                );
 
-                    $rendered = $env->render(
-                        $templatePath,
-                        $component->options
-                    );
+                $component->render(
+                    $twig,
+                    [
+                        'render_pass' => $renderPass
+                    ]
+                );
 
-                    $this->translator->revertDomain(
-                        Translator::DOMAIN_TYPE_COMPONENT
-                    );
+                $this->translator->revertDomain(
+                    Translator::DOMAIN_TYPE_COMPONENT
+                );
 
-                    $renderPass->revertCurrentContextRenderNode();
-
-                    return $rendered;
-                }
+                $renderPass->revertCurrentContextRenderNode();
+            } else {
+                $component->setBody(null);
             }
 
-            return null;
+            return DomHelper::buildTag(DomHelper::TAG_SPAN);
         } catch (Exception $exception) {
-            throw new Exception('Error during rendering component '.$component->name.' : '.$exception->getMessage(), $exception->getCode(), $exception);
+            throw new Exception('Error during rendering component '.$component->getView().' : '.$exception->getMessage(), $exception->getCode(), $exception);
         }
     }
 
@@ -207,7 +126,9 @@ class ComponentService extends RenderNodeService
             $options
         );
 
-        $component->body .= $component->renderTag();
+        $component->setBody(
+            ($component->getBody() ?: '') . $component->renderTag()
+        );
 
         return $component;
     }
@@ -251,16 +172,6 @@ class ComponentService extends RenderNodeService
         );
     }
 
-    public function findComponentClassName(string $name): string
-    {
-        return $this->componentsClasses[$name] ?? ComponentRenderNode::class;
-    }
-
-    public function getComponentManager(string $name): ?ComponentRenderNodeManager
-    {
-        return $this->componentsManagers[$name] ?? null;
-    }
-
     /**
      * @throws Exception
      */
@@ -271,24 +182,29 @@ class ComponentService extends RenderNodeService
         string $initMode,
         array $options = [],
     ): ComponentRenderNode {
-        $className = $this->findComponentClassName($name);
+        $componentManager = $this
+            ->componentManagerLocatorService
+            ->getComponentService($name);
 
-        /** @var ComponentRenderNode $component */
-        $component = new $className(
+        $component = $componentManager?->createComponent(
             $initMode,
             $options
         );
 
-        $this->getComponentManager($name)
-            ?->createComponent($component);
+        if (!$component) {
+            $component = new ComponentRenderNode(
+                $initMode,
+                $options
+            );
+        }
 
         $this->initRenderNode(
-            $renderPass,
             $component,
+            $renderPass,
             $name,
         );
 
-        $component->body = $this->componentRenderBody(
+        $this->componentRenderBody(
             $renderPass,
             $twig,
             $component
@@ -296,6 +212,8 @@ class ComponentService extends RenderNodeService
 
         return $component;
     }
+    
+
 
     public function renderEventPostRender(array &$options)
     {

@@ -6,20 +6,14 @@ use Exception;
 use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
-use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
-use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
-use Wexample\SymfonyDesignSystem\Service\AssetsService;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\ComponentService;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
-use function array_merge;
-use function trim;
 
 class ComponentsExtension extends AbstractExtension
 {
     public function __construct(
-        private AdaptiveResponseService $adaptiveResponseService,
-        private AssetsService $assetsService,
         protected ComponentService $componentService,
     ) {
     }
@@ -83,16 +77,18 @@ class ComponentsExtension extends AbstractExtension
      */
     public function component(
         Environment $twig,
-        string $name,
+        RenderPass $renderPass,
+        string $path,
         array $options = []
     ): string {
         $component = $this->componentService->componentInitPrevious(
             $twig,
-            $name,
+            $renderPass,
+            $path,
             $options
         );
 
-        return $component->body.$component->renderTag();
+        return $component->getBody().$component->renderTag();
     }
 
     /**
@@ -110,18 +106,6 @@ class ComponentsExtension extends AbstractExtension
             $name,
             $options
         )->renderTag();
-    }
-
-    public function comLoadAssets(
-        ComponentRenderNode $component
-    ): array {
-        return $this
-            ->assetsService
-            ->assetsDetect(
-                $component->name,
-                $this->adaptiveResponseService->renderPass->getCurrentContextRenderNode(),
-                $component->assets
-            );
     }
 
     /**
@@ -174,6 +158,7 @@ class ComponentsExtension extends AbstractExtension
             VariableHelper::ID => $context[VariableHelper::ID] ?? null,
             VariableHelper::CLASS_VAR => '' === $class ? null : $class,
         ], $context['attr'] ?? []);
+
 
         return DomHelper::buildTagAttributes(
             $attributes

@@ -173,14 +173,12 @@ class Asset extends RenderDataGenerator
     {
         return $this->serializeVariables([
             'active',
-            'colorScheme',
             'filesize',
             'id',
             'initialLayout',
             'media',
             'path',
             'preload',
-            'responsive',
             'rendered',
             'type',
             'usage',

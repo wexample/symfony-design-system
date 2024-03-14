@@ -5,24 +5,20 @@ namespace Wexample\SymfonyDesignSystem\Service;
 use Exception;
 use JetBrains\PhpStorm\Pure;
 use Twig\Environment;
-use Wexample\SymfonyDesignSystem\Rendering\AdaptiveResponse;
-use Wexample\SymfonyDesignSystem\Rendering\Asset;
-use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractLayoutRenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyTranslations\Translation\Translator;
-use function array_merge;
 
 class LayoutService extends RenderNodeService
 {
     #[Pure]
     public function __construct(
-        protected AdaptiveResponseService $adaptiveResponseService,
-        protected AssetsService $assetsService,
-        protected ComponentService $componentService,
-        protected Translator $translator
+        AssetsService $assetsService,
+        readonly protected ComponentService $componentService,
+        readonly private PageService $pageService,
+        readonly protected Translator $translator,
     ) {
         parent::__construct(
             $assetsService,
-            $adaptiveResponseService
         );
     }
 
@@ -30,22 +26,22 @@ class LayoutService extends RenderNodeService
      * @throws Exception
      */
     public function layoutInitInitial(
-        RenderPass $renderPass,
         Environment $twig,
-        string $layoutName,
-        string $colorScheme,
-        bool $useJs
+        RenderPass $renderPass,
     ): void {
+        $this->layoutInit($renderPass);
 
-        $renderPass->layoutRenderNode->colorScheme = $colorScheme;
-
-        $this->layoutInit(
-            $renderPass,
-            $twig,
-            $renderPass->layoutRenderNode,
-            $layoutName,
-            $useJs
-        );
+        if ($renderPass->getLayoutBase() === RenderPass::BASE_MODAL) {
+            // Prepare modal component.
+            $this->componentService->componentInitLayout(
+                $twig,
+                $renderPass,
+                ComponentService::buildCoreComponentName(ComponentService::COMPONENT_NAME_MODAL),
+                [
+                    'adaptiveResponsePageManager' => true,
+                ]
+            );
+        }
     }
 
     /**
@@ -53,51 +49,24 @@ class LayoutService extends RenderNodeService
      */
     public function layoutInit(
         RenderPass $renderPass,
-        Environment $twig,
-        AbstractLayoutRenderNode $layoutRenderNode,
-        string $layoutName,
-        bool $useJs
-    ) {
-        $layoutRenderNode->name = $layoutName;
-        $layoutRenderNode->useJs = $useJs;
-        $backEndAssets = $layoutRenderNode->assets;
+    ): void {
+        $layoutRenderNode = $renderPass->layoutRenderNode;
 
         $this->initRenderNode(
             $layoutRenderNode,
-            $layoutName,
-            $useJs
+            $renderPass,
+            $layoutRenderNode->getView(),
         );
 
         $this->translator->setDomainFromPath(
             $layoutRenderNode->getContextType(),
-            $layoutName
+            $layoutRenderNode->getView(),
         );
 
-        // No main js found.
-        if (empty($layoutRenderNode->assets[Asset::EXTENSION_JS])) {
-            // Try to load default js file.
-            // Do not preload JS as it is configured
-            // to wait for dom content loaded anyway.
-            $this->assetsService->assetsDetectForType(
-                'layouts/default/layout',
-                Asset::EXTENSION_JS,
-                $layoutRenderNode,
-                true
-            );
-        }
-
-        $layoutRenderNode->assets[Asset::EXTENSION_JS] = array_merge(
-            $layoutRenderNode->assets[Asset::EXTENSION_JS],
-            $backEndAssets[Asset::EXTENSION_JS]
-        );
-
-        $layoutRenderNode->assets[Asset::EXTENSION_CSS] = array_merge(
-            $layoutRenderNode->assets[Asset::EXTENSION_CSS],
-            $backEndAssets[Asset::EXTENSION_CSS]
-        );
-
-        $this->adaptiveResponseService->renderPass->setCurrentContextRenderNode(
-            $layoutRenderNode
+        $this->pageService->pageInit(
+            $renderPass,
+            $layoutRenderNode->createLayoutPageInstance(),
+            $renderPass->getView(),
         );
     }
 }

@@ -7,13 +7,14 @@ use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
+use Wexample\SymfonyDesignSystem\Rendering\RenderDataGenerator;
 use Wexample\SymfonyHelpers\Helper\JsonHelper;
 
-class AssetsRegistryService
+class AssetsRegistryService extends RenderDataGenerator
 {
     private array $manifest = [];
 
-    private array $registry = [];
+    protected array $registry = [];
 
     private string $pathPublic;
 
@@ -70,19 +71,42 @@ class AssetsRegistryService
         }
     }
 
-    public function assetExists(string $pathRelativeToPublic): bool
+    public function assetExists(string $pathInManifest): bool
     {
-        return isset($this->manifest[$pathRelativeToPublic]);
+        return isset($this->manifest[$pathInManifest]);
     }
 
-    public function getRealPath(string $pathRelativeToPublic): string
+    public function getRealPath(string $pathInManifest): string
     {
-        return realpath($this->pathPublic.$this->manifest[$pathRelativeToPublic]);
+        return realpath($this->pathPublic.$this->manifest[$pathInManifest]);
     }
 
     public function addAsset(Asset $asset): void
     {
         $this->registry[$asset->type] = $this->registry[$asset->type] ?? [];
-        $this->registry[$asset->type][] = $asset;
+        $templateName = $asset->getView();
+
+        if (!isset($this->registry[$asset->type][$templateName])) {
+            $this->registry[$asset->type][$templateName] = $asset;
+        }
+    }
+
+    public function toRenderData(): array
+    {
+        $output = [];
+        foreach ($this->registry as $type => $assets) {
+            $output[$type] = [];
+            /** @var Asset $asset */
+            foreach ($assets as $id => $asset) {
+                $output[$type][$id] = $asset->toRenderData();
+            }
+        }
+
+        return $output;
+    }
+
+    public function getRegistry(): array
+    {
+        return $this->registry;
     }
 }
