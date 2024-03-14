@@ -1,6 +1,6 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/layouts/test/layout.html.twig' -%}
 
-{% set page_title = '@page::page_title' | trans %}
+{% set document_title = document_title|default('ADAPTIVE_DOCUMENT_TITLE') %}
 
 {%- block layout_config -%}
     {{ parent() }}

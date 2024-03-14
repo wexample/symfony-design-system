@@ -3,6 +3,7 @@ import LayoutInterface from '../../../js/interfaces/RenderData/LayoutInterface';
 import { sleep } from '../../../js/helpers/Time';
 import { toScreamingSnake } from '../../../js/helpers/StringHelper';
 import AbstractTest from "./AbstractTest";
+import { createHtmlDocumentFromHtml } from "../../../js/helpers/DomHelper";
 
 export default class AdaptiveRenderingTest extends AbstractTest {
   public getTestMethods() {
@@ -275,17 +276,10 @@ export default class AdaptiveRenderingTest extends AbstractTest {
       });
   }
 
-  protected createElDocument(html: string) {
-    let elHtml = document.createElement('html');
-    elHtml.innerHTML = html;
-
-    return elHtml;
-  }
-
   private fetchTestPageAdaptiveHtml(testString: string, path: string = undefined) {
     // Use normal fetch to fake a non ajax get request.
-    return this.fetchAdaptiveHtmlPage(path).then((html) => {
-      let elHtml = this.createElDocument(html);
+    return this.fetchAdaptiveHtmlPage(path).then((html: string) => {
+      let elHtml = createHtmlDocumentFromHtml(html);
 
       this.assertTrue(
         !!elHtml.querySelector('body'),

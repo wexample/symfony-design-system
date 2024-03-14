@@ -13,6 +13,7 @@ import TranslationTest from './class/TranslationTest';
 import UsageTest from './class/UsageTest';
 import VariablesTest from './class/VariablesTest';
 import TestManagerPage from '../../js/class/TestManagerPage';
+import LayoutTest from "./class/LayoutTest";
 
 
 export default class extends TestManagerPage {
@@ -32,6 +33,7 @@ export default class extends TestManagerPage {
       TranslationTest,
       UsageTest,
       VariablesTest,
+      LayoutTest,
     });
 
     // Run test without aggregation.
