@@ -28,20 +28,13 @@
                     </td>
                     <td class="asset-responsive" v-html="asset.responsive || '·'">
                     </td>
-                    <td class="asset-color-scheme">
-                        <div v-if="asset.colorScheme" v-html="buildColorSchemeIcon(asset)"></div>
-                        <div v-if="!asset.colorScheme">·</div>
-                    </td>
-                    <td class="asset-color-scheme">
+                    <td class="asset-initial">
                         <div v-if="asset.initialLayout">i</div>
                     </td>
                     <td class="asset-path" v-on:click="assetLog(asset)">
                         <div class="table-td-ellipsis-wrapper">
                             {{ 'shortenAssetPath(asset)' | vue_key() }}
                         </div>
-                    </td>
-                    <td class="asset-size">
-                        {{ 'formatSize(asset.filesize)' | vue_key }}
                     </td>
                 </tr>
             </table>

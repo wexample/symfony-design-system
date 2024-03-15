@@ -57,20 +57,12 @@ export default {
       console.log(asset);
     },
 
-    buildColorSchemeIcon(asset) {
-      return 'start-of-life';
-    },
-
     buildCssAsset(asset) {
       return {
         'asset-active': asset.active,
         'asset-loaded': asset.loaded,
         'asset-rendered': asset.rendered,
       };
-    },
-
-    formatSize(size) {
-      return formatBytes(size);
     },
 
     getAssetsTypeList(type) {

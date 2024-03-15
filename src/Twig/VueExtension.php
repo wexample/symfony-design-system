@@ -44,6 +44,10 @@ class VueExtension extends AbstractExtension
                     $this,
                     'vue',
                 ],
+                [
+                    self::FUNCTION_OPTION_NEEDS_ENVIRONMENT => true,
+                    self::FUNCTION_OPTION_IS_SAFE => [self::FUNCTION_OPTION_HTML],
+                ]
             ),
             new TwigFunction(
                 'vue_include',
@@ -109,12 +113,14 @@ class VueExtension extends AbstractExtension
      */
     public function vueRequire(
         Environment $env,
+        RenderPass $renderPass,
         string $path,
         ?array $props = []
     ): void {
         // Same behavior but no output tag.
         $this->vueInclude(
             $env,
+            $renderPass,
             $path,
             $props
         );
@@ -125,12 +131,14 @@ class VueExtension extends AbstractExtension
      */
     public function vueInclude(
         Environment $env,
+        RenderPass $renderPass,
         string $path,
         ?array $props = [],
         ?array $twigContext = []
     ): string {
         return $this->vueService->vueRender(
             $env,
+            $renderPass,
             $path,
             $props,
             $twigContext

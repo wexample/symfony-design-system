@@ -11,9 +11,6 @@ import { pathToTagName } from '../helpers/StringHelper';
 export default class extends RenderNode {
   public elOverlay: HTMLElement;
   public isInitialPage: boolean;
-  public name: string;
-  protected onChangeResponsiveSizeProxy: Function;
-  protected onChangeColorSchemeProxy: Function;
   public parentRenderNode: PageManagerComponent;
   public renderData: RenderDataPageInterface;
   public responsiveDisplayCurrent: PageResponsiveDisplay;
@@ -119,29 +116,6 @@ export default class extends RenderNode {
 
   protected deactivateFocusListeners(): void {
     // To override.
-  }
-
-  protected activateMountedListeners(): void {
-    this.onChangeColorSchemeProxy = this.onChangeColorScheme.bind(this);
-
-
-
-    this.app.services.events.listen(
-      ColorSchemeServiceEvents.COLOR_SCHEME_CHANGE,
-      this.onChangeColorSchemeProxy
-    );
-  }
-
-  protected deactivateMountedListeners(): void {
-    this.app.services.events.forget(
-      ResponsiveServiceEvents.RESPONSIVE_CHANGE_SIZE,
-      this.onChangeResponsiveSizeProxy
-    );
-
-    this.app.services.events.forget(
-      ColorSchemeServiceEvents.COLOR_SCHEME_CHANGE,
-      this.onChangeResponsiveSizeProxy
-    );
   }
 
   getElWidth(): number {

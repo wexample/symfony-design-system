@@ -18,6 +18,7 @@
     }
 
     .explorer-item-name {
+      @include text-ellipsis;
       padding: 0.2rem;
     }
   }
