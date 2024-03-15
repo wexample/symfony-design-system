@@ -2,12 +2,13 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\PageRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyHelpers\Attribute\IsSimpleMethodResolver;
 use Wexample\SymfonyHelpers\Class\AbstractBundle;
+use Wexample\SymfonyHelpers\Controller\Traits\HasSimpleRoutesControllerTrait;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyHelpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Helper\TextHelper;
@@ -51,6 +52,32 @@ class PageService extends RenderNodeService
     {
         $pathParts = array_map([TextHelper::class, 'toSnake'], $pathParts);
         return implode('.', $pathParts);
+    }
+
+    public function buildPageNameFromRoute(string $route): string
+    {
+        $controllerMethodPath = $this
+            ->getControllerClassPathFromRouteName($route);
+
+        if (ClassHelper::hasAttributes(
+            $controllerMethodPath,
+            IsSimpleMethodResolver::class
+        )) {
+            /** @var HasSimpleRoutesControllerTrait $classPath */
+            $classPath = TextHelper::getFirstChunk(
+                $controllerMethodPath,
+                ClassHelper::METHOD_SEPARATOR,
+            );
+
+            $methodAlias = substr($route, strlen($classPath::getControllerRouteAttribute()->getName()));
+
+            /** @var string $classPath */
+            $controllerMethodPath = ($classPath.ClassHelper::METHOD_SEPARATOR.TextHelper::toCamel($methodAlias));
+        }
+
+        return $this->buildPageNameFromClassPath(
+            $controllerMethodPath
+        );
     }
 
     public function buildPageNameFromClassPath(string $classPath): string

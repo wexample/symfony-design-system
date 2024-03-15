@@ -86,19 +86,6 @@ export default {
           },
           [
             renderLineTitle('COL.S'),
-            // ColorSchemeService.COLOR_SCHEMES.map((name: string) => {
-            //   return h(
-            //     TagName.DIV,
-            //     {
-            //       class: {
-            //         active:
-            //           this.app.services.colorScheme.activeColorScheme === name,
-            //         available: this.hasColorSchemeAsset('css', name),
-            //       },
-            //     },
-            //     name.toUpperCase()
-            //   );
-            // }),
           ]
         );
       }
