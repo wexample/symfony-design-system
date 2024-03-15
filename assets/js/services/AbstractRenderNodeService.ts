@@ -3,6 +3,11 @@ import RenderDataInterface from '../interfaces/RenderData/RenderDataInterface';
 import RenderNode from '../class/RenderNode';
 import ServicesRegistryInterface from '../interfaces/ServicesRegistryInterface';
 
+export class RenderNodeServiceEvents {
+  public static CREATE_RENDER_NODE: string = 'create-render-node';
+  public static USAGE_UPDATED: string = 'usage-changed';
+}
+
 export default abstract class AbstractRenderNodeService extends AppService {
   public services: ServicesRegistryInterface;
 

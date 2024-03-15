@@ -4,6 +4,9 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Exception;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
@@ -47,6 +50,28 @@ class VueExtension extends AbstractExtension
                 ]
             ),
             new TwigFunction(
+                'vue_include',
+                [
+                    $this,
+                    'vueInclude',
+                ],
+                [
+                    self::FUNCTION_OPTION_NEEDS_ENVIRONMENT => true,
+                    self::FUNCTION_OPTION_IS_SAFE => [self::FUNCTION_OPTION_HTML],
+                ]
+            ),
+            new TwigFunction(
+                'vue_require',
+                [
+                    $this,
+                    'vueRequire',
+                ],
+                [
+                    self::FUNCTION_OPTION_NEEDS_ENVIRONMENT => true,
+                    self::FUNCTION_OPTION_IS_SAFE => [self::FUNCTION_OPTION_HTML],
+                ]
+            ),
+            new TwigFunction(
                 'vue_render_templates',
                 [
                     $this,
@@ -79,6 +104,45 @@ class VueExtension extends AbstractExtension
     {
         // Add vue js templates.
         return implode('', $this->vueService->renderedTemplates);
+    }
+
+    /**
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError|Exception
+     */
+    public function vueRequire(
+        Environment $env,
+        RenderPass $renderPass,
+        string $path,
+        ?array $props = []
+    ): void {
+        // Same behavior but no output tag.
+        $this->vueInclude(
+            $env,
+            $renderPass,
+            $path,
+            $props
+        );
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function vueInclude(
+        Environment $env,
+        RenderPass $renderPass,
+        string $path,
+        ?array $props = [],
+        ?array $twigContext = []
+    ): string {
+        return $this->vueService->vueRender(
+            $env,
+            $renderPass,
+            $path,
+            $props,
+            $twigContext
+        );
     }
 
     public function vueKey(

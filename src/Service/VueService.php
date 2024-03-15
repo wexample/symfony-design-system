@@ -50,7 +50,8 @@ class VueService
 
         $options = [
             'domId' => $vueDomId,
-            'name' => $view
+            'name' => $view,
+            'isVue' => true,
         ];
 
         $outputBody = '';

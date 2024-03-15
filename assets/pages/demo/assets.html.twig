@@ -26,9 +26,9 @@
     <h2>{{ '@page::resources.title' | trans }}</h2>
     <div class="block">
         {{ ('@page::resources.body_' ~ (render_pass.isUseJs() ? '' : 'no_') ~ 'js') | trans | raw }}
-        {% if render_pass.isUseJs() %}
-
-        {% endif %}
+	    {% if render_pass.isUseJs() %}
+	        {{ vue(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/debug-assets') }}
+	    {% endif %}
     </div>
     <h2>{{ '@page::page.title' | trans }}</h2>
     <div class="block">
