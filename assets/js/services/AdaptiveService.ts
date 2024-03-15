@@ -37,7 +37,7 @@ export default class AdaptiveService extends AppService {
             `Error response : [${response.status}] ${response.statusText}`
           )
 
-          rerrorseturn {ok: false};
+          return {ok: false};
         }
 
         // Attempt to parse the JSON response
