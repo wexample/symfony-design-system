@@ -6,13 +6,16 @@ import ServicesRegistryInterface from'../../js/interfaces/ServicesRegistryInterf
 export default class extends Page {
   services: ServicesRegistryInterface;
 
-  getPageLevelServices(): typeof AppService[] {
+  getPageLevelMixins(): typeof AppService[] {
     return [ModalsService];
   }
 
   async pageReady() {
-    this.el.querySelector('#page-modal-show').addEventListener('click', () => {
-      (this.app.getService(ModalsService) as ModalsService).get('/_design_system/demo/loading-fetch-simple');
-    });
+    this.el
+      .querySelector('.open-another-modal')
+      .addEventListener('click', () => {
+        (this.app.getService(ModalsService) as ModalsService)
+          .get('/_design_system/demo/loading-fetch-simple');
+      });
   }
 }

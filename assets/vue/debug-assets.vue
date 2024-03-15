@@ -5,7 +5,6 @@ import { shallowCopy as ArrayShallowCopy } from '../js/helpers/ArrayHelper';
 import { AssetsServiceType } from '../js/services/AssetsService';
 import Explorer from './explorer';
 import { EventsServiceEvents } from '../js/services/EventsService';
-import { formatBytes } from '../js/helpers/Number';
 import AbstractRenderNodeService from '../js/services/AbstractRenderNodeService';
 
 export default {
@@ -87,7 +86,11 @@ export default {
 
       // Ask for display refresh.
       this.$nextTick(() => {
-        this.app.services.events.trigger(EventsServiceEvents.DISPLAY_CHANGED);
+        // Hotfix to remove errors event using $nextTick,
+        // vue seems not to be mounted on updating debug render node.
+        setTimeout(() => {
+          this.app.services.events.trigger(EventsServiceEvents.DISPLAY_CHANGED);
+        }, 100)
       });
     },
 

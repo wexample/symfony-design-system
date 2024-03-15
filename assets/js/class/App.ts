@@ -184,6 +184,20 @@ export default class extends AsyncConstructor {
     return bundle;
   }
 
+  getService(name: string | object): AppService {
+    name = (typeof name === 'string' ? name : (name as any).serviceName) as string
+    
+    if (!this.services[name]) {
+      this.services.prompt.systemError(
+        'Trying to access undefined service :name',
+        {
+          'name': name
+        }, undefined, true
+      );
+    }
+    return this.services[name];
+  }
+
   addLib(name: string, object: any) {
     this.lib[name] = object;
   }

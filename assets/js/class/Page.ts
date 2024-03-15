@@ -1,19 +1,14 @@
-import PageResponsiveDisplay from './PageResponsiveDisplay';
 import RenderDataPageInterface from '../interfaces/RenderData/PageInterface';
 import RenderNode from './RenderNode';
 import PageManagerComponent from './PageManagerComponent';
-import AppService from './AppService';
-import { ColorSchemeServiceEvents } from '../services/ColorSchemeService';
-import { ResponsiveServiceEvents } from '../services/ResponsiveService';
 import ServicesRegistryInterface from '../interfaces/ServicesRegistryInterface';
-import { pathToTagName } from '../helpers/StringHelper';
+import { buildStringIdentifier } from "../helpers/StringHelper";
+import AppService from "./AppService";
 
 export default class extends RenderNode {
-  public elOverlay: HTMLElement;
   public isInitialPage: boolean;
   public parentRenderNode: PageManagerComponent;
   public renderData: RenderDataPageInterface;
-  public responsiveDisplayCurrent: PageResponsiveDisplay;
   public services: ServicesRegistryInterface;
 
   public getRenderNodeType(): string {
@@ -40,8 +35,6 @@ export default class extends RenderNode {
     }
 
     this.el.classList.add(`page-${buildStringIdentifier(this.view)}`);
-
-    this.elOverlay = this.el.querySelector('.page-overlay');
   }
 
   mergeRenderData(renderData: RenderDataPageInterface) {
@@ -77,22 +70,6 @@ export default class extends RenderNode {
     }
   }
 
-  public async mounted() {
-    this.activateMountedListeners();
-
-    await super.mounted();
-
-    this.focus();
-  }
-
-  public async unmounted() {
-    this.deactivateMountedListeners();
-
-    await super.unmounted();
-
-    this.focus();
-  }
-
   public async renderNodeReady(): Promise<void> {
     await super.renderNodeReady();
 
@@ -123,14 +100,6 @@ export default class extends RenderNode {
     return this.isInitialPage
       ? this.app.layout.getElWidth()
       : super.getElWidth();
-  }
-
-  loadingStart() {
-    this.elOverlay.style.display = 'block';
-  }
-
-  loadingStop() {
-    this.elOverlay.style.display = 'none';
   }
 
   pageReady() {

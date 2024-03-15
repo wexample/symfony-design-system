@@ -32,9 +32,30 @@ export default class AdaptiveService extends AppService {
 
     return this.fetch(path, requestOptions)
       .then((response: Response) => {
-        return response.json();
+        if (!response.ok) {
+          this.app.services.prompt.applicationError(
+            `Error response : [${response.status}] ${response.statusText}`
+          )
+        }
+
+        // Attempt to parse the JSON response
+        return response.json().then(data => {
+          data.ok = true;
+
+          // If the response is valid JSON, return the parsed data.
+          return data;
+        }).catch(error => {
+          // If an error occurs while parsing JSON, log the error and return an empty object.
+          this.app.services.prompt.applicationError("Failed to parse JSON response:", error);
+
+          return {ok: false};
+        });
       })
       .then(async (renderData: RenderDataInterface) => {
+        if (renderData.ok === false) {
+          return renderData;
+        }
+
         renderData.requestOptions = requestOptions;
 
         // Preparing render data is executed in render node creation,

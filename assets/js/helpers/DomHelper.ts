@@ -86,3 +86,12 @@ export function createHtmlDocumentFromHtml(html: string) {
 
   return elHtml;
 }
+
+export function removeAllClasses(el: HTMLElement, classesToRemove: string[]) {
+  classesToRemove.forEach(className => el.classList.remove(className));
+}
+
+export function replaceByOneClass(el: HTMLElement, newState: string, classesToRemove: string[]) {
+  removeAllClasses(el, classesToRemove);
+  el.classList.add(newState);
+}

@@ -236,6 +236,14 @@ export default class AdaptiveRenderingTest extends AbstractTest {
 
         this.assertTrue(pageFocused.vars.hasError, 'Page has error');
 
+        const classList = this.app.services.prompt.elApplicationMessage.classList;
+        this.assertTrue(
+          classList.contains('visible'),
+          'Error message displayed for user'
+        )
+
+        classList.remove('visible');
+
         // Close modal.
         let modal = pageFocused.parentRenderNode as ModalComponent;
 

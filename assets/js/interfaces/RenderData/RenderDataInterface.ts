@@ -7,6 +7,7 @@ export default interface RenderDataInterface {
   components: ComponentInterface[];
   cssClassName: string;
   id: string;
+  ok: false;
   options: any;
   renderRequestId?: string;
   requestOptions?: RequestOptionsInterface;

@@ -1,20 +1,19 @@
-@import '../../css/mixins/global';
-@import '../../css/shapes/icon';
-@import '../../css/shapes/icon_material';
-
-.page-overlay,
-.page-overlay-full {
-  @include full-parent-size;
-  display: none;
-  z-index: 1;
-}
-
-.page-overlay {
-  position: absolute;
-  background: rgba(white, 0.5);
-}
-
-.page-overlay-full {
+#prompt-application-message {
+  background: red;
+  color: black;
   position: fixed;
-  background: rgba(black, 0.5);
+  top: 0;
+  padding: 2em;
+  box-sizing: border-box;
+  $width: 10em;
+  width: $width;
+  margin-left: calc((100% - $width) / 2);
+  margin-right: calc((100% - $width) / 2);
+  border-radius: 1em;
+  margin-top: 1em;
+  display: none;
+
+  &.visible {
+    display: block;
+  }
 }
