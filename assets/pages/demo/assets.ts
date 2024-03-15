@@ -1,4 +1,4 @@
-import Page from '@wexample/symfony-design-system/js/class/Page';
+import Page from '../../js/class/Page';
 
 export default class extends Page {
   async updateCurrentResponsiveDisplay() {

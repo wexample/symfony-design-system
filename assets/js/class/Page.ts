@@ -20,7 +20,7 @@ export default class extends RenderNode {
     return 'page';
   }
 
-  getPageLevelMixins(): typeof AppService[] {
+  getPageLevelServices(): typeof AppService[] {
     return [];
   }
 
@@ -57,7 +57,7 @@ export default class extends RenderNode {
   public async init() {
     await super.init();
 
-    await this.app.loadAndInitServices(this.getPageLevelMixins());
+    await this.app.loadAndInitServices(this.getPageLevelServices());
 
     // The initial layout is a page manager component.
     if (this.parentRenderNode instanceof PageManagerComponent) {
