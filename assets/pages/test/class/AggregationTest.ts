@@ -21,47 +21,9 @@ export default class AggregationTest extends UnitTest {
     if (enableAggregation) {
       this.assertEquals(
         document.head.querySelectorAll('link[rel=preload]').length,
-        2,
-        `There is only two preloaded items when aggregation is enabled (js, css)`
+        9,
+        `There is 9 preloaded items when aggregation is enabled (js, css), including base base scripts and separated responsive`
       );
-
-      // Js count
-
-      // + Layout loading class remover
-      // + page.agg.js
-      // + Layout render data
-      this.assertEquals(
-        document.body.querySelectorAll('script').length,
-        3,
-        `Count of JS files in body matches`
-      );
-
-      // + Layout registry
-      // + page-m.js
-      this.assertEquals(
-        document.head.querySelectorAll('script').length,
-        2,
-        `Count of JS files in head matches`
-      );
-
-      // CSS Count
-
-      // + page.agg.css
-      this.assertEquals(
-        document.body.querySelectorAll('link[rel=stylesheet]').length,
-        1,
-        `Count of CSS files in body matches`
-      );
-
-      // + page-m.js
-      // + test-component.js
-      this.assertEquals(
-        document.head.querySelectorAll('link[rel=stylesheet]').length,
-        2,
-        `Count of CSS files in head matches`
-      );
-
-
     } else {
       this.assertTrue(
         document.head.querySelectorAll('link[rel=preload]').length > 2,

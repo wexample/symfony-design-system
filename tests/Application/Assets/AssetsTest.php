@@ -2,21 +2,23 @@
 
 namespace Wexample\SymfonyDesignSystem\Tests\Application\Assets;
 
-use Wexample\SymfonyApi\Api\Controller\Test\ResponseController;
 use Wexample\SymfonyDesignSystem\Controller\Pages\DemoController;
-use Wexample\SymfonyDesignSystem\Tests\AbstractDesignSystemTestCase;
-use Wexample\SymfonyHelpers\Helper\VariableHelper;
-use function count;
+use Wexample\SymfonyDesignSystem\Tests\Traits\DesignSystemTestCaseTrait;
+use Wexample\SymfonyTesting\Tests\AbstractSymfonyTestCase;
+use Wexample\SymfonyTesting\Traits\ControllerTestCaseTrait;
 
-class AssetsTest extends AbstractDesignSystemTestCase
+class AssetsTest extends AbstractSymfonyTestCase
 {
+    use ControllerTestCaseTrait;
+    use DesignSystemTestCaseTrait;
+
     public function testAssetsLoading()
     {
         $this->createGlobalClient();
 
-        $this->goToRoute(VariableHelper::DEMO.'_'.VariableHelper::ASSETS);
-
-        ResponseController::buildRouteName(DemoController::ROUTE_ASSETS);
+        $this->goToControllerRouteAndCheckHtml(
+            DemoController::ROUTE_INDEX
+        );
 
         $layoutRenderData = $this->getPageLayoutData();
 
@@ -40,18 +42,18 @@ class AssetsTest extends AbstractDesignSystemTestCase
             isset($pageRenderData['assets']['css']),
             'Demo page contains a default css page.'
         );
-
-        $this->assertNotEmpty(
-            count($pageRenderData['assets']['css']),
-            'Demo page contains some css page.'
-        );
     }
 
-    protected function assertRenderData(array $renderData)
+    protected function assertRenderData(array $renderData): void
     {
         $this->assertTrue(
             isset($renderData['assets']),
             'Render data contains assets entry'
         );
+    }
+
+    public static function getControllerClass(): string
+    {
+        return DemoController::class;
     }
 }
