@@ -9,7 +9,6 @@ export default interface AssetInterface {
   initialLayout: string;
   loaded: boolean;
   path: string;
-  preload: boolean;
   resolver: Function;
   responsive?: string;
   // Defines that asset has been fully loaded once,

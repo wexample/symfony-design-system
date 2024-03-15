@@ -20,13 +20,13 @@ export default {
 
   methods: {
     getItemName() {
-      return this.object.name;
+      return this.object.view;
     },
 
     renderItemIcon() {
       let icon;
 
-      if (this.object.name === 'components/vue') {
+      if (this.object.view === '@WexampleSymfonyDesignSystemBundle/components/vue') {
         icon = faVuejs;
       } else {
         icon = {

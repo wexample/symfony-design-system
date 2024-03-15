@@ -103,8 +103,6 @@ export default class extends RenderNode {
   }
 
   public focus() {
-    super.focus();
-
     this.activateFocusListeners();
 
     this.app.layout.pageFocused && this.app.layout.pageFocused.blur();
@@ -112,8 +110,6 @@ export default class extends RenderNode {
   }
 
   public blur() {
-    super.blur();
-
     this.deactivateFocusListeners();
   }
 

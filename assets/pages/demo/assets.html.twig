@@ -1,14 +1,9 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/layouts/demo/layout.html.twig' -%}
 
-{%- block layout_config -%}
-    {{ parent() }}
-    {{ var_js('demoVariableLayout', 'demoVariableLayoutValue') }}
-{%- endblock -%}
-
 {%- block page_body -%}
     <div class="inline-infos">
         <div class="info">
-            {{ '@page::infos.layout_name' | trans }} : <b>{{ render_pass.layoutRenderNode.templateName }}</b>
+            {{ '@page::infos.layout_name' | trans }} : <b>{{ render_pass.layoutRenderNode.view }}</b>
         </div>
     </div>
     <h2>{{ '@page::breakpoints.title' | trans }}</h2>
@@ -32,7 +27,7 @@
     <div class="block">
         {{ ('@page::resources.body_' ~ (render_pass.isUseJs() ? '' : 'no_') ~ 'js') | trans | raw }}
 	    {% if render_pass.isUseJs() %}
-	        {{ vue('vue/debug-assets') }}
+	        {{ vue(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/debug-assets') }}
 	    {% endif %}
     </div>
     <h2>{{ '@page::page.title' | trans }}</h2>

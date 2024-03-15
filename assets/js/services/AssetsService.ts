@@ -286,11 +286,11 @@ export default class AssetsService extends AppService {
     asset.rendered = true;
   }
 
-  jsPendingLoaded(id) {
-    let asset = this.jsAssetsPending[id];
+  jsPendingLoaded(view: string) {
+    let asset = this.jsAssetsPending[view];
     asset.resolver(asset);
 
-    delete this.jsAssetsPending[id];
+    delete this.jsAssetsPending[view];
   }
 
   addScript(asset: AssetInterface, assetReplacement?: AssetInterface) {

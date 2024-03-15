@@ -46,6 +46,17 @@ class VueExtension extends AbstractExtension
                 ],
             ),
             new TwigFunction(
+                'vue_include',
+                [
+                    $this,
+                    'vueInclude',
+                ],
+                [
+                    self::FUNCTION_OPTION_NEEDS_ENVIRONMENT => true,
+                    self::FUNCTION_OPTION_IS_SAFE => [self::FUNCTION_OPTION_HTML],
+                ]
+            ),
+            new TwigFunction(
                 'vue_require',
                 [
                     $this,

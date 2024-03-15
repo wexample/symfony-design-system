@@ -11,7 +11,7 @@ export default {
   },
 
   components: {
-    'explorer-item': 'vue/debug-assets-explorer-item',
+    'explorer-item': '@WexampleSymfonyDesignSystemBundle/vue/debug-assets-explorer-item',
   },
 
   data() {

@@ -4,16 +4,15 @@ import { Attribute, AttributeValue, TagName } from '../js/helpers/DomHelper';
 import { shallowCopy as ArrayShallowCopy } from '../js/helpers/ArrayHelper';
 import { AssetsServiceType } from '../js/services/AssetsService';
 import Explorer from './explorer';
-import ColorSchemeService, { ColorSchemeServiceEvents, } from '../js/services/ColorSchemeService';
 import { EventsServiceEvents } from '../js/services/EventsService';
 import { formatBytes } from '../js/helpers/Number';
-import { ComponentsServiceEvents } from '../js/services/AbstractRenderNodeService';
+import AbstractRenderNodeService from '../js/services/AbstractRenderNodeService';
 
 export default {
   extends: Explorer,
 
   components: {
-    'explorer-item': 'vue/debug-assets-explorer-item',
+    'explorer-item': '@WexampleSymfonyDesignSystemBundle/vue/debug-assets-explorer-item',
   },
 
   data() {
@@ -30,9 +29,8 @@ export default {
       },
       onChangeResponsiveSizeProxy: this.onChangeResponsiveSize.bind(this),
       updateEvents: [
-        ComponentsServiceEvents.CREATE_RENDER_NODE,
+        AbstractRenderNodeService.CREATE_RENDER_NODE,
         ResponsiveServiceEvents.RESPONSIVE_CHANGE_SIZE,
-        ColorSchemeServiceEvents.COLOR_SCHEME_CHANGE,
       ],
       updateTime: 0,
     };
@@ -60,18 +58,6 @@ export default {
     },
 
     buildColorSchemeIcon(asset) {
-      if (asset.colorScheme === ColorSchemeService.COLOR_SCHEME_LIGHT) {
-        return 'moon';
-      }
-
-      if (asset.colorScheme === ColorSchemeService.COLOR_SCHEME_DARK) {
-        return 'sun';
-      }
-
-      if (asset.colorScheme === ColorSchemeService.COLOR_SCHEME_PRINT) {
-        return 'print';
-      }
-
       return 'start-of-life';
     },
 

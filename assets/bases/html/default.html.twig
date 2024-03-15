@@ -25,10 +25,10 @@
               };
 
               AppRegistryBundlesManager.prototype = {
-                add: function add(id, definition) {
+                add: function add(view, definition) {
                     {# Prevent class override. -#}
-                  if (!this.classes[id]) {
-                    this.classes[id] = definition;
+                  if (!this.classes[view]) {
+                    this.classes[view] = definition;
                   }
 
                   var app = window.app;
@@ -41,7 +41,7 @@
                     {# js asset might be preloaded. -#}
                   if (app.hasCoreLoaded) {
                       {# Mark now that class is loaded. -#}
-                    app.services.assets.jsPendingLoaded(id);
+                    app.services.assets.jsPendingLoaded(view);
                   }
 
                     {# Return to allow export or extending class. -#}

@@ -6,8 +6,7 @@ $global-color-scheme-name: 'dark' !default;
 
 @import '../../css/mixins/global.color-scheme.dark';
 
-body.usage-color-scheme-#{$global-color-scheme-name} .display-breakpoint,
-body.usage-color-scheme-default .theme-dark.display-breakpoint {
+.display-breakpoint {
   .size-name {
     background: $color-disabled-background;
     color: $color-disabled-text;
