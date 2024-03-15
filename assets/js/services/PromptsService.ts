@@ -5,10 +5,21 @@ import { format as StringFormat } from '../helpers/StringHelper';
 export default class PromptService extends AppService {
   public static dependencies: typeof AppService[] = [LocaleService];
   protected service: PromptService;
+  protected elApplicationMessage: HTMLElement;
   public static serviceName: string = 'prompt';
 
+  registerHooks() {
+    return {
+      app: {
+        hookInit() {
+          this.elApplicationMessage = document.getElementById('prompt-application-message');
+        },
+      },
+    };
+  };
+
   systemError(
-    message,
+    message: string,
     args: {} = {},
     debugData: any = null,
     fatal: boolean = false
@@ -24,5 +35,29 @@ export default class PromptService extends AppService {
     if (debugData) {
       console.warn(debugData);
     }
+  }
+
+  applicationError(
+    message: string,
+    args: {} = {},
+    debugData: any = null,
+    fatal: boolean = false
+  ) {
+    this.systemError(
+      message,
+      args,
+      debugData,
+      fatal,
+    );
+
+    const el = this.elApplicationMessage;
+
+    el.innerHTML = message;
+    el.classList.add('visible');
+
+    setTimeout(() => {
+      el.innerHTML = '';
+      el.classList.remove('visible');
+    }, 5000);
   }
 }
