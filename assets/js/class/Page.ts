@@ -3,6 +3,7 @@ import RenderNode from './RenderNode';
 import PageManagerComponent from './PageManagerComponent';
 import ServicesRegistryInterface from '../interfaces/ServicesRegistryInterface';
 import { buildStringIdentifier } from "../helpers/StringHelper";
+import AppService from "./AppService";
 
 export default class extends RenderNode {
   public isInitialPage: boolean;
@@ -12,6 +13,10 @@ export default class extends RenderNode {
 
   public getRenderNodeType(): string {
     return 'page';
+  }
+
+  getPageLevelServices(): typeof AppService[] {
+    return [];
   }
 
   attachHtmlElements() {
@@ -44,6 +49,8 @@ export default class extends RenderNode {
 
   public async init() {
     await super.init();
+
+    await this.app.loadAndInitServices(this.getPageLevelServices());
 
     // The initial layout is a page manager component.
     if (this.parentRenderNode instanceof PageManagerComponent) {
