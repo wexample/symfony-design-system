@@ -8,6 +8,7 @@ import RenderNode from '../js/class/RenderNode';
 import ComponentInterface from '../js/interfaces/RenderData/ComponentInterface';
 import App from "../js/class/App";
 import { WithKeyboardEventListenerRenderNode } from "./mixins/WithKeyboardEventListenerRenderNode";
+import { WithOverlayComponent } from "./mixins/WithOverlayComponent";
 
 const listenKeyboardKey = {};
 listenKeyboardKey[Keyboard.KEY_ESCAPE] = async function () {
@@ -36,6 +37,7 @@ export default class ModalComponent extends PageManagerComponent {
     );
 
     this.app.services.mixins.applyMixin(this, WithKeyboardEventListenerRenderNode);
+    this.app.services.mixins.applyMixin(this, WithOverlayComponent);
   }
 
   mergeRenderData(renderData: ComponentInterface) {
@@ -48,6 +50,8 @@ export default class ModalComponent extends PageManagerComponent {
     this.elements.content = this.el.querySelector('.modal-content');
     this.elements.content.innerHTML = this.layoutBody;
     this.elements.close = this.el.querySelector('.modal-close a');
+
+    (this as unknown as WithOverlayComponent).attachElOverlay();
   }
 
   appendChildRenderNode(renderNode: RenderNode) {
@@ -106,6 +110,8 @@ export default class ModalComponent extends PageManagerComponent {
     this.showEl();
 
     this.page.focus();
+
+    (this as unknown as WithOverlayComponent).overlayShow();
   }
 
   close() {
@@ -115,9 +121,13 @@ export default class ModalComponent extends PageManagerComponent {
 
     this.page.blur();
 
+    (this as unknown as WithOverlayComponent).overlayClosing();
+
     return new Promise(async (resolve) => {
       // Sync with CSS animation.
       await setTimeout(async () => {
+        (this as unknown as WithOverlayComponent).overlayClosed();
+        
         this.el.classList.remove(Variables.CLOSED);
         this.opened = this.closing = false;
 

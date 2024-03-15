@@ -18,6 +18,11 @@
   // it should have dimensions to be evaluated.
   visibility: hidden;
 
+  .modal-content {
+    // Before overlay.
+    z-index: 1;
+  }
+
   &.opened {
     display: flex;
     visibility: initial;
