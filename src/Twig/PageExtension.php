@@ -28,10 +28,8 @@ class PageExtension extends AbstractExtension
 
     public function pageNameFromRoute(string $route): string
     {
-        return $this->pageService->buildPageNameFromClassPath(
-            $this->pageService->getControllerClassPathFromRouteName(
-                $route
-            )
+        return $this->pageService->buildPageNameFromRoute(
+            $route
         );
     }
 }

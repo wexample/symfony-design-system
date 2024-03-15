@@ -4,11 +4,7 @@ import App from './App';
 import Component from './Component';
 import { toKebab } from "../helpers/StringHelper";
 import Page from './Page';
-
-export class RenderNodeServiceEvents {
-  public static CREATE_RENDER_NODE: string = 'create-render-node';
-  public static USAGE_UPDATED: string = 'usage-changed';
-}
+import { RenderNodeServiceEvents } from "../services/AbstractRenderNodeService";
 
 export default abstract class RenderNode extends AppChild {
   public callerPage: Page;

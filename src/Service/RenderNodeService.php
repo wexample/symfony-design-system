@@ -2,18 +2,13 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
-use Symfony\Component\HttpKernel\KernelInterface;
-use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
-use Wexample\SymfonyHelpers\Helper\BundleHelper;
 
 abstract class RenderNodeService
 {
     public function __construct(
         protected AssetsService $assetsService,
-        protected AdaptiveResponseService $adaptiveResponseService,
-        protected KernelInterface $kernel,
     ) {
     }
 
@@ -23,26 +18,19 @@ abstract class RenderNodeService
      * on layout render node class instanciation.
      */
     public function initRenderNode(
-        RenderPass $renderPass,
         AbstractRenderNode $renderNode,
-        string $name,
-        string $useJs
-    ) {
+        RenderPass $renderPass,
+        string $view,
+    ): void {
         $renderNode->init(
             $renderPass,
-            $name
+            $view,
         );
 
         if ($renderNode->hasAssets) {
             $this->assetsService->assetsDetect(
+                $renderPass,
                 $renderNode,
-                $renderNode->assets
-            );
-
-            $this->assetsService->assetsPreload(
-                $renderNode->assets['css'],
-                $this->adaptiveResponseService->renderPass->layoutRenderNode->colorScheme,
-                $useJs,
             );
         }
     }

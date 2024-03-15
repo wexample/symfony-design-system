@@ -4,6 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
@@ -11,6 +12,7 @@ class AssetsExtension extends AbstractExtension
 {
     public function __construct(
         protected AssetsService $assetsService,
+        protected AssetsRegistryService $assetsRegistryService
     ) {
     }
 
@@ -18,57 +20,35 @@ class AssetsExtension extends AbstractExtension
     {
         return [
             new TwigFunction(
-                'assets_render_initial_aggregated',
+                'assets_build_tags',
                 [
                     $this,
-                    'assetsRenderInitialAggregated',
+                    'assetsBuildTags',
                 ]
             ),
             new TwigFunction(
-                'assets_type_filtered',
+                'assets_registry',
                 [
                     $this,
-                    'assetsTypeFiltered',
-                ]
-            ),
-            new TwigFunction(
-                'assets_preload_list',
-                [
-                    $this,
-                    'assetsPreloadList',
+                    'assetsRegistry',
                 ]
             ),
         ];
     }
 
-    public function assetsRenderInitialAggregated(
-        string $pageName,
-        string $type
-    ): string {
-        return $this
-            ->assetsService
-            ->aggregateInitialAssets(
-                $pageName,
-                $type
-            );
-    }
-
-    public function assetsTypeFiltered(
+    public function assetsBuildTags(
         RenderPass $renderPass,
-        string $contextType,
-        string $assetType = null
     ): array {
         return $this
             ->assetsService
-            ->assetsFiltered(
+            ->buildTags(
                 $renderPass,
-                $contextType,
-                $assetType
             );
     }
 
-    public function assetsPreloadList(string $ext): array
-    {
-        return $this->assetsService->assetsPreloadList($ext);
+    public function assetsRegistry(): array {
+        return $this
+            ->assetsRegistryService
+            ->toRenderData();
     }
 }

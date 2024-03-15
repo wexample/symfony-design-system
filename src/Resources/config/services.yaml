@@ -1,5 +1,6 @@
 parameters:
     design_system.debug: false
+    design_system.environment: '%env(APP_ENV)%'
     design_system.enable_aggregation: false
 
     design_system.usages.responsive:

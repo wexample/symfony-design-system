@@ -2,7 +2,6 @@
 import RenderNode from '../RenderNode';
 import { h } from 'vue';
 import Page from '../Page';
-import ColorSchemeService from '../../services/ColorSchemeService';
 import { TagName } from '../../helpers/DomHelper';
 import AssetsInterface from '../../interfaces/AssetInterface';
 
@@ -87,19 +86,6 @@ export default {
           },
           [
             renderLineTitle('COL.S'),
-            ColorSchemeService.COLOR_SCHEMES.map((name: string) => {
-              return h(
-                TagName.DIV,
-                {
-                  class: {
-                    active:
-                      this.app.services.colorScheme.activeColorScheme === name,
-                    available: this.hasColorSchemeAsset('css', name),
-                  },
-                },
-                name.toUpperCase()
-              );
-            }),
           ]
         );
       }
@@ -123,7 +109,7 @@ export default {
 
   methods: {
     renderDebugInfo() {
-      return [this.renderNode.name].join('<br>');
+      return [this.renderNode.view].join('<br>');
     },
 
     hasResponsiveAsset(type: string, size: string): boolean {

@@ -2,17 +2,36 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
-use Symfony\Component\HttpFoundation\Request;
-use Wexample\SymfonyDesignSystem\Helper\ColorSchemeHelper;
-use Wexample\SymfonyDesignSystem\Helper\PageHelper;
+use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AjaxLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
-use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithRenderRequestId;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithView;
+use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
+use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class RenderPass
 {
-    private string $currentRequestId;
+    use WithView;
+    use WithRenderRequestId;
+
+    public const BASE_DEFAULT = VariableHelper::DEFAULT;
+
+    public const BASE_MODAL = VariableHelper::MODAL;
+
+    public const BASE_PAGE = VariableHelper::PAGE;
+
+    public const BASES_MAIN_DIR = DesignSystemHelper::FOLDER_FRONT_ALIAS.'bases/';
+
+    public const OUTPUT_TYPE_RESPONSE_HTML = VariableHelper::HTML;
+
+    public const OUTPUT_TYPE_RESPONSE_JSON = VariableHelper::JSON;
+
+    public const RENDER_PARAM_NAME_BASE = 'adaptive_base';
+
+    public const RENDER_PARAM_NAME_OUTPUT_TYPE = 'adaptive_output_type';
 
     public InitialLayoutRenderNode|AjaxLayoutRenderNode $layoutRenderNode;
 
@@ -20,7 +39,20 @@ class RenderPass
 
     protected array $contextRenderNodeStack = [];
 
-    protected AbstractRenderNode $renderDataContextCurrent;
+    public array $usagesConfig = [];
+
+    public ?bool $enableAggregation = null;
+
+    private bool $debug = false;
+
+    private string $outputType;
+
+    protected string $layoutBase;
+
+    /**
+     * @var array<string|null>
+     */
+    public array $usages = [];
 
     public array $registry = [
         RenderingHelper::CONTEXT_COMPONENT => [],
@@ -29,74 +61,25 @@ class RenderPass
         RenderingHelper::CONTEXT_VUE => [],
     ];
 
-    public string $pageName;
+    private bool $useJs = true;
 
     public function __construct(
-        public AdaptiveResponse $adaptiveResponse,
-        private bool $enableAggregation,
-        private Request $request,
-        public bool $useJs,
-        public string $view,
+        string $view,
     ) {
-        $this->pageName = PageHelper::pageNameFromPath($this->view);
-
         $this->createRenderRequestId();
-
-        $this->adaptiveResponse->setRenderPass($this);
-    }
-
-    public function prepare(
-        &$parameters,
-        string $env,
-    ) {
-        $className = InitialLayoutRenderNode::class;
-
-        if (AdaptiveResponse::OUTPUT_TYPE_RESPONSE_JSON === $this->adaptiveResponse->getOutputType()) {
-            $className = AjaxLayoutRenderNode::class;
-        }
-
-        $this->layoutRenderNode = new $className(
-            $this,
-            $this->useJs,
-            $env
-        );
-
-        // Add global variables for rendering.
-        $parameters =
-            [
-                'document_head_title' => '@page::page_title',
-                'document_head_title_args' => [],
-                'layout_name' => null,
-                'layout_use_js' => $this->useJs,
-                'page_name' => $this->pageName,
-                'page_path' => $this->view,
-                'page_title' => '@page::page_title',
-                'render_pass' => $this,
-                'request_uri' => $this->request->getRequestUri(),
-            ] + $parameters;
+        $this->setView($view);
     }
 
     public function registerRenderNode(
         AbstractRenderNode $renderNode
     ) {
-        $this->registry[$renderNode->getContextType()][$renderNode->name] = $renderNode;
+        $this->registry[$renderNode->getContextType()][$renderNode->getView()] = $renderNode;
     }
 
     public function createRenderRequestId(): string
     {
-        $this->currentRequestId = uniqid();
-
+        $this->setRenderRequestId(uniqid());
         return $this->getRenderRequestId();
-    }
-
-    public function getRenderRequestId(): string
-    {
-        return $this->currentRequestId;
-    }
-
-    public function getEnableAggregation(): bool
-    {
-        return $this->enableAggregation;
     }
 
     public function registerContextRenderNode(
@@ -110,7 +93,7 @@ class RenderPass
     ) {
         $this->setCurrentContextRenderNodeByTypeAndName(
             $renderNode->getContextType(),
-            $renderNode->name
+            $renderNode->getView()
         );
     }
 

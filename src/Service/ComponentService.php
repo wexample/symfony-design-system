@@ -212,14 +212,4 @@ class ComponentService extends RenderNodeService
 
         return $component;
     }
-    
-
-
-    public function renderEventPostRender(array &$options)
-    {
-        /** @var ComponentRenderNodeManager $componentsManager */
-        foreach ($this->componentsManagers as $componentsManager) {
-            $componentsManager->postRender();
-        }
-    }
 }

@@ -97,16 +97,10 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
 
         // Store it for post render events.
         $this->renderPassBagService->setRenderPass($renderPass);
-
-        $className = RenderPass::OUTPUT_TYPE_RESPONSE_JSON === $renderPass->getOutputType()
-            ? AjaxLayoutRenderNode::class
-            : InitialLayoutRenderNode::class;
-
-        $renderPass->layoutRenderNode = new $className;
-        $renderPass->setView($view);
+        $env = $this->getParameter('design_system.environment');
 
         if ($renderPass->isJsonRequest()) {
-            $renderPass->layoutRenderNode = new AjaxLayoutRenderNode();
+            $renderPass->layoutRenderNode = new AjaxLayoutRenderNode($env);
 
             $this->layoutService->initRenderNode(
                 $renderPass->layoutRenderNode,
@@ -160,6 +154,8 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
 
                 return new JsonResponse($exception->getMessage());
             }
+        } else {
+            $renderPass->layoutRenderNode = new InitialLayoutRenderNode($env);
         }
 
         return $this->renderRenderPass(
@@ -190,7 +186,7 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
             [
                 'debug' => (bool) $this->getParameter('design_system.debug'),
                 'render_pass' => $renderPass,
-            ] + $parameters + $renderPass->getRenderParameters(),
+            ] + $parameters,
             $response
         );
     }

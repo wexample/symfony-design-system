@@ -2,76 +2,40 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
-use Wexample\SymfonyHelpers\Helper\PathHelper;
-use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
-use Wexample\SymfonyDesignSystem\Service\AssetsService;
+use Wexample\SymfonyDesignSystem\Helper\DomHelper;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithDomId;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithView;
+use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
+use Wexample\SymfonyHelpers\Helper\TextHelper;
 
 class Asset extends RenderDataGenerator
 {
-    public const EXTENSION_CSS = 'css';
-
-    public const EXTENSION_JS = 'js';
-
-    public const EXTENSION_VUE = 'vue';
+    use WithDomId;
+    use WithView;
 
     public const ASSETS_EXTENSIONS = [
         Asset::EXTENSION_CSS,
         Asset::EXTENSION_JS,
     ];
 
-    public const PRELOAD_BY_ASSET_TYPE = [
-        self::EXTENSION_CSS => self::PRELOAD_AS_STYLE,
-        self::EXTENSION_JS => self::PRELOAD_AS_SCRIPT,
+    public const CONTEXT_LAYOUT = 'layout';
+
+    public const CONTEXT_PAGE = 'page';
+
+    public const CONTEXT_COMPONENT = 'component';
+
+    public const CONTEXTS = [
+        self::CONTEXT_LAYOUT,
+        self::CONTEXT_PAGE,
+        self::CONTEXT_COMPONENT,
     ];
 
-    public const PRELOAD_AS_AUDIO = 'audio';
+    public const EXTENSION_CSS = 'css';
 
-    public const PRELOAD_AS_DOCUMENT = 'document';
-
-    public const PRELOAD_AS_EMBED = 'embed';
-
-    public const PRELOAD_AS_FETCH = 'fetch';
-
-    public const PRELOAD_AS_FONT = 'font';
-
-    public const PRELOAD_AS_IMAGE = 'image';
-
-    public const PRELOAD_AS_OBJECT = 'object';
-
-    public const PRELOAD_AS_SCRIPT = 'script';
-
-    public const PRELOAD_AS_STYLE = 'style';
-
-    public const PRELOAD_AS_TRACK = 'track';
-
-    public const PRELOAD_AS_WORKER = 'worker';
-
-    public const PRELOAD_AS_VIDEO = 'video';
-
-    public const PRELOAD_NONE = 'none';
-
-    public const USAGE_ANIMATION = 'animation';
-
-    public const USAGE_COLOR_SCHEME = 'color-scheme';
-
-    public const USAGE_INITIAL = 'initial';
-
-    public const USAGE_RESPONSIVE = 'responsive';
-
-    public const USAGE_SHAPE = 'shape';
-
-    public const USAGES = [
-        self::USAGE_ANIMATION,
-        self::USAGE_COLOR_SCHEME,
-        self::USAGE_INITIAL,
-        self::USAGE_RESPONSIVE,
-        self::USAGE_SHAPE,
-    ];
+    public const EXTENSION_JS = 'js';
 
     public bool $active = false;
-
-    public string $id;
 
     public bool $initialLayout = false;
 
@@ -79,93 +43,58 @@ class Asset extends RenderDataGenerator
 
     public string $path;
 
-    public bool $preload = false;
-
-    public bool $rendered = false;
-
-    public ?string $responsive = null;
-
-    public ?string $colorScheme = null;
-
     public string $type;
 
-    public int $filesize;
+    public array $usages = [];
 
     public function __construct(
-        string $path,
-        public AbstractRenderNode $renderData,
-        string $basePath,
-        public string $usage
+        string $pathInManifest,
+        protected string $usage,
+        protected string $context
     ) {
-        $this->filesize = filesize($path);
-        $info = pathinfo($path);
+        $info = pathinfo($pathInManifest);
         $this->type = $info['extension'];
+        // Add leading slash to load it from frontend.
+        $this->path = FileHelper::FOLDER_SEPARATOR.$pathInManifest;
 
-        $this->path = FileHelper::FOLDER_SEPARATOR.PathHelper::relativeTo(
-                $path,
-                $basePath
-            );
+        // Same as render node id
+        $this->setView(
+            $this->buildView($this->path)
+        );
 
-        // Remove the base part before build/{type}/ folder.
-        $pathWithoutExt = dirname($this->path).FileHelper::FOLDER_SEPARATOR.$info['filename'];
-
-        $this->id = PathHelper::relativeTo(
-            $pathWithoutExt,
-            FileHelper::FOLDER_SEPARATOR.AssetsService::DIR_BUILD.
-            $this->type.FileHelper::FOLDER_SEPARATOR
+        $this->setDomId(
+            $this->type.'-'.DomHelper::buildStringIdentifier($this->getView())
         );
     }
 
-    /**
-     * Used in twig rendering like "asset.preloadAs".
-     */
-    public function getPreloadAs(): ?string
+    private function buildView(string $path): string
     {
-        if ($this->preload) {
-            return self::PRELOAD_BY_ASSET_TYPE[$this->type];
-        }
+        $path = TextHelper::trimFirstChunk(
+            FileHelper::removeExtension($path),
+            AssetsRegistryService::DIR_BUILD
+        );
 
-        return null;
-    }
+        $explode = explode('/', $path);
+        $parts = array_slice($explode, 2);
+        array_unshift($parts, current($explode));
 
-    public function getIsReadyForServerSideRendering(
-        string $colorScheme,
-        bool $useJs
-    ): bool {
-        if ($this->isServerSideRendered()) {
-            return false;
-        }
-
-        if ($this->type === static::EXTENSION_JS) {
-            return $useJs && !$this->responsive;
-        }
-
-        if ($this->type === static::EXTENSION_CSS) {
-            if ($this->responsive) {
-                // Responsive CSS are loaded in page when JS is disabled.
-                return !$useJs;
-            }
-
-            if (null !== $this->colorScheme && $this->colorScheme !== $colorScheme) {
-                // Non-base color schemes CSS are loaded using JS.
-                return false;
-            }
-        }
-
-        return true;
+        return implode('/', $parts);
     }
 
     public function setServerSideRendered(bool $bool = true)
     {
         $this->active =
-        $this->rendered =
         $this->initialLayout = $bool;
+    }
+
+    public function getUsage(): string
+    {
+        return $this->usage;
     }
 
     public function isServerSideRendered(): bool
     {
         return $this->active
-            && $this->rendered
             && $this->initialLayout;
     }
 
@@ -173,15 +102,19 @@ class Asset extends RenderDataGenerator
     {
         return $this->serializeVariables([
             'active',
-            'filesize',
-            'id',
+            'context',
+            'domId',
             'initialLayout',
-            'media',
             'path',
-            'preload',
-            'rendered',
             'type',
             'usage',
+            'usages',
+            'view',
         ]);
+    }
+
+    public function getContext(): string
+    {
+        return $this->context;
     }
 }

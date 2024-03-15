@@ -38,42 +38,6 @@ export default {
     };
   },
 
-  focus: function (
-    methodOriginal: Function,
-    renderNode: RenderNode,
-    debugRenderNode: DebugRenderNode
-  ) {
-    return function () {
-      debugRenderNode.focus();
-
-      renderNode
-        .eachChildRenderNode()
-        .forEach((childRenderNode: RenderNode) => {
-          debugRenderNode.service.debugRenderNodes[childRenderNode.id].focus();
-        });
-
-      methodOriginal.apply(renderNode, arguments);
-    };
-  },
-
-  blur: function (
-    methodOriginal: Function,
-    renderNode: RenderNode,
-    debugRenderNode: DebugRenderNode
-  ) {
-    return function () {
-      debugRenderNode.blur();
-
-      renderNode
-        .eachChildRenderNode()
-        .forEach((childRenderNode: RenderNode) => {
-          debugRenderNode.service.debugRenderNodes[childRenderNode.id].blur();
-        });
-
-      methodOriginal.apply(renderNode, arguments);
-    };
-  },
-
   loadRenderData(
     methodOriginal: Function,
     renderNode: RenderNode,

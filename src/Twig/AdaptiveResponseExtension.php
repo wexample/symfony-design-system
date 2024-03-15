@@ -2,10 +2,9 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig;
 
-use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\TwigFunction;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
-use Wexample\SymfonyDesignSystem\Service\JsService;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
 class AdaptiveResponseExtension extends AbstractExtension
@@ -15,7 +14,6 @@ class AdaptiveResponseExtension extends AbstractExtension
      */
     public function __construct(
         protected AdaptiveResponseService $adaptiveResponseService,
-        protected RequestStack $requestStack,
     ) {
     }
 
@@ -23,34 +21,10 @@ class AdaptiveResponseExtension extends AbstractExtension
     {
         return [
             new TwigFunction(
-                'adaptive_response_revert_context',
-                [
-                    $this,
-                    'adaptiveResponseRevertContext',
-                ]
-            ),
-            new TwigFunction(
-                'adaptive_response_set_page_context',
-                [
-                    $this,
-                    'adaptiveResponseSetPageContext',
-                ]
-            ),
-            new TwigFunction(
                 'adaptive_response_rendering_base_path',
                 [
                     $this,
                     'adaptiveResponseRenderingBasePath',
-                ],
-                [
-                    self::FUNCTION_OPTION_NEEDS_CONTEXT => true,
-                ]
-            ),
-            new TwigFunction(
-                'adaptive_rendering_base',
-                [
-                    $this,
-                    'adaptiveRenderingBase',
                 ]
             ),
         ];
@@ -60,32 +34,12 @@ class AdaptiveResponseExtension extends AbstractExtension
      * Return base layout path regarding request type
      * and template configuration.
      */
-    public function adaptiveResponseRenderingBasePath(array $context): string
-    {
-        return $this
-            ->adaptiveResponseService
-            ->getResponse()
-            ->getRenderingBasePath($context);
-    }
-
-    public function adaptiveRenderingBase(): string
-    {
-        return $this
-            ->adaptiveResponseService
-            ->getResponse()
-            ->getRenderingBase();
-    }
-
-    public function adaptiveResponseSetPageContext(
+    public function adaptiveResponseRenderingBasePath(
         RenderPass $renderPass,
-    ) {
-        $renderPass->setCurrentContextRenderNode(
-            $renderPass->layoutRenderNode->page
-        );
-    }
-
-    public function adaptiveResponseRevertContext(RenderPass $renderPass)
+    ): string
     {
-        $renderPass->revertCurrentContextRenderNode();
+        return $this->adaptiveResponseService->getLayoutBasePath(
+            $renderPass,
+        );
     }
 }

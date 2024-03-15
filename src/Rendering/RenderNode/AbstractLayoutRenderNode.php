@@ -12,6 +12,13 @@ abstract class AbstractLayoutRenderNode extends AbstractRenderNode
 
     public PageRenderNode $page;
 
+    public function __construct(
+        readonly protected string $env
+    )
+    {
+
+    }
+
     public function getContextType(): string
     {
         return RenderingHelper::CONTEXT_LAYOUT;
@@ -21,8 +28,9 @@ abstract class AbstractLayoutRenderNode extends AbstractRenderNode
     {
         return parent::toRenderData()
             + $this->serializeVariables([
+                'env',
                 'renderRequestId',
-                'page'
+                'page',
             ])
             + ['templates' => $this->getComponentsTemplates()];
     }
