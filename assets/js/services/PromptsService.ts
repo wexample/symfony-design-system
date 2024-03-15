@@ -5,7 +5,7 @@ import { format as StringFormat } from '../helpers/StringHelper';
 export default class PromptService extends AppService {
   public static dependencies: typeof AppService[] = [LocaleService];
   protected service: PromptService;
-  protected elApplicationMessage: HTMLElement;
+  public elApplicationMessage: HTMLElement;
   public static serviceName: string = 'prompt';
 
   registerHooks() {

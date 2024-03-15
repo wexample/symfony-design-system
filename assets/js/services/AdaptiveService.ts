@@ -36,8 +36,6 @@ export default class AdaptiveService extends AppService {
           this.app.services.prompt.applicationError(
             `Error response : [${response.status}] ${response.statusText}`
           )
-
-          return {ok: false};
         }
 
         // Attempt to parse the JSON response
