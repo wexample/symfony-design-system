@@ -126,7 +126,6 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
                     $renderPasseResponse->getStatusCode()
                 );
 
-
                 // Prevents browser to display json response when
                 // clicking on back button.
                 $finalResponse->headers->set('Vary', 'Accept');
