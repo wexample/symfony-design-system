@@ -17,18 +17,18 @@ class PageExtension extends AbstractExtension
     {
         return [
             new TwigFunction(
-                'page_name_from_route',
+                'page_translation_path_from_route',
                 [
                     $this,
-                    'pageNameFromRoute',
+                    'pageTranslationPathFromRoute',
                 ]
             ),
         ];
     }
 
-    public function pageNameFromRoute(string $route): string
+    public function pageTranslationPathFromRoute(string $route): string
     {
-        return $this->pageService->buildPageNameFromRoute(
+        return $this->pageService->pageTranslationPathFromRoute(
             $route
         );
     }
