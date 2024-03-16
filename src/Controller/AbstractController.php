@@ -26,22 +26,12 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
     ) {
     }
 
-    protected function createPageRenderPass(
-        string $pageName,
-        string $bundle
-    ): RenderPass {
-        return $this->createRenderPass(
-            $this->buildControllerTemplatePath(
-                $pageName,
-                $bundle
-            ),
-        );
+    protected function createPageRenderPass(): RenderPass {
+        return $this->createRenderPass();
     }
 
-    protected function createRenderPass(
-        string $view
-    ): RenderPass {
-        $renderPass = new RenderPass($view);
+    protected function createRenderPass(): RenderPass {
+        $renderPass = new RenderPass();
 
         /** @var ParameterBagInterface $parameterBag */
         $parameterBag = $this->container->get('parameter_bag');
@@ -102,6 +92,8 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
         // Store it for post render events.
         $this->renderPassBagService->setRenderPass($renderPass);
         $env = $this->getParameter('design_system.environment');
+
+        $renderPass->setView($view);
 
         if ($renderPass->isJsonRequest()) {
             $renderPass->layoutRenderNode = new AjaxLayoutRenderNode($env);

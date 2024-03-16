@@ -8,7 +8,7 @@ use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
 use Wexample\SymfonyDesignSystem\Helper\PageHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\PageRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
-use Wexample\SymfonyHelpers\Attribute\IsSimpleMethodResolver;
+use Wexample\SymfonyHelpers\Attribute\SimpleMethodResolver;
 use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Controller\Traits\HasSimpleRoutesControllerTrait;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
@@ -57,7 +57,7 @@ class PageService extends RenderNodeService
 
         if (ClassHelper::hasAttributes(
             $controllerMethodPath,
-            IsSimpleMethodResolver::class
+            SimpleMethodResolver::class
         )) {
             /** @var HasSimpleRoutesControllerTrait $classPath */
             $classPath = TextHelper::getFirstChunk(

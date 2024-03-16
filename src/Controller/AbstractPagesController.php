@@ -10,12 +10,14 @@ use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyDesignSystem\Service\LayoutService;
 use Wexample\SymfonyDesignSystem\Service\PageService;
 use Wexample\SymfonyDesignSystem\Service\RenderPassBagService;
-use Wexample\SymfonyHelpers\Attribute\IsSimpleMethodResolver;
+use Wexample\SymfonyHelpers\Attribute\SimpleMethodResolver;
 use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Controller\Traits\HasSimpleRoutesControllerTrait;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
+use Wexample\SymfonyHelpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
+use Wexample\SymfonyHelpers\Traits\BundleClassTrait;
 
 abstract class AbstractPagesController extends AbstractController
 {
@@ -63,10 +65,21 @@ abstract class AbstractPagesController extends AbstractController
         string $pageName,
         string $bundle = null
     ): string {
+        $bundle = $bundle ?: $this->getDefaultPageBundleClass();
+
         $parts = PageHelper::explodeControllerNamespaceSubParts(static::class, $bundle);
         $parts[] = $pageName;
 
         return $this->buildTemplatePath(PageHelper::joinNormalizedParts($parts), $bundle);
+    }
+
+    protected function getDefaultPageBundleClass(): ?string
+    {
+        if (ClassHelper::classUsesTrait($this, BundleClassTrait::class)) {
+            return $this::getControllerBundle();
+        }
+        
+        return null;
     }
 
     protected function renderPage(
@@ -84,7 +97,7 @@ abstract class AbstractPagesController extends AbstractController
         );
     }
 
-    #[IsSimpleMethodResolver]
+    #[SimpleMethodResolver]
     public function simpleRoutesResolver(string $routeName): Response
     {
         return $this->renderPage(

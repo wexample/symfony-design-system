@@ -63,11 +63,8 @@ class RenderPass
 
     private bool $useJs = true;
 
-    public function __construct(
-        string $view,
-    ) {
+    public function __construct() {
         $this->createRenderRequestId();
-        $this->setView($view);
     }
 
     public function registerRenderNode(

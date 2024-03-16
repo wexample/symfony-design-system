@@ -8,7 +8,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
 use Wexample\SymfonyDesignSystem\Service\Usage\FontsAssetUsageService;
 use Wexample\SymfonyDesignSystem\Traits\SymfonyDesignSystemBundleClassTrait;
-use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 #[Route(path: '_design_system/test/', name: '_design_system_test_')]
@@ -24,9 +23,7 @@ final class TestController extends AbstractPagesController
     #[Route(path: '', name: self::ROUTE_INDEX)]
     final public function index(Request $request): Response
     {
-        $renderPass = $this->createPageRenderPass(
-            self::ROUTE_INDEX,
-            self::getBundleClassName());
+        $renderPass = $this->createRenderPass();
 
         $renderPass->setUsage(
             FontsAssetUsageService::getName(),
@@ -37,7 +34,6 @@ final class TestController extends AbstractPagesController
 
         return $this->renderPage(
             self::ROUTE_INDEX,
-            bundle: WexampleSymfonyDesignSystemBundle::class,
             renderPass: $renderPass
         );
     }
@@ -45,9 +41,7 @@ final class TestController extends AbstractPagesController
     #[Route(path: self::ROUTE_ADAPTIVE, name: self::ROUTE_ADAPTIVE, options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
     final public function adaptive(Request $request): Response
     {
-        $renderPass = $this->createPageRenderPass(
-            self::ROUTE_ADAPTIVE,
-            self::getBundleClassName());
+        $renderPass = $this->createRenderPass();
 
         if ($request->get('no-js')) {
             $renderPass->setUseJs(false);
@@ -70,6 +64,8 @@ final class TestController extends AbstractPagesController
     #[Route(path: 'error-missing-view', name: self::ROUTE_ERROR_MISSING_VIEW, options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
     public function errorMissingVue(): Response
     {
-        return $this->renderPage(self::ROUTE_ERROR_MISSING_VIEW);
+        return $this->renderPage(
+            self::ROUTE_ERROR_MISSING_VIEW
+        );
     }
 }
