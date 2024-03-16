@@ -3,7 +3,9 @@
 namespace Wexample\SymfonyDesignSystem\Service;
 
 use Symfony\Component\Routing\RouterInterface;
+use Wexample\SymfonyDesignSystem\Controller\AbstractController;
 use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
+use Wexample\SymfonyDesignSystem\Helper\PageHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\PageRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\Attribute\IsSimpleMethodResolver;
@@ -48,13 +50,7 @@ class PageService extends RenderNodeService
         return $this->router->getRouteCollection()->get($routeName)->getDefault('_controller');
     }
 
-    private function convertClassPathToPageName(array $pathParts): string
-    {
-        $pathParts = array_map([TextHelper::class, 'toSnake'], $pathParts);
-        return implode('.', $pathParts);
-    }
-
-    public function buildPageNameFromRoute(string $route): string
+    public function pageTranslationPathFromRoute(string $route): string
     {
         $controllerMethodPath = $this
             ->getControllerClassPathFromRouteName($route);
@@ -75,17 +71,17 @@ class PageService extends RenderNodeService
             $controllerMethodPath = ($classPath.ClassHelper::METHOD_SEPARATOR.TextHelper::toCamel($methodAlias));
         }
 
-        return $this->buildPageNameFromClassPath(
+        return $this->buildTranslationPathFromClassPath(
             $controllerMethodPath
         );
     }
 
-    public function buildPageNameFromClassPath(string $classPath): string
+    public function buildTranslationPathFromClassPath(string $classPath): string
     {
         [$controllerFullPath, $methodName] = explode(ClassHelper::METHOD_SEPARATOR, $classPath);
 
         // Remove useless namespace part.
-        $controllerName = TextHelper::removeSuffix($controllerFullPath, 'Controller');
+        $controllerName = AbstractController::removeSuffix($controllerFullPath);
 
         /** @var AbstractPagesController $controllerFullPath */
         /** @var AbstractBundle $controllerBundle */
@@ -100,8 +96,9 @@ class PageService extends RenderNodeService
             // Append method name.
             $explodeController[] = $methodName;
 
-            return BundleHelper::ALIAS_PREFIX.$controllerBundle::getAlias().'.'.$this->convertClassPathToPageName(
+            return BundleHelper::ALIAS_PREFIX.$controllerBundle::getAlias().'.'.PageHelper::joinNormalizedParts(
                     $explodeController,
+                    '.'
                 );
         }
         // Remove useless namespace part.
@@ -119,9 +116,9 @@ class PageService extends RenderNodeService
         // Append method name.
         $explodeController[] = $methodName;
 
-        return $this->convertClassPathToPageName(
+        return PageHelper::joinNormalizedParts(
             $explodeController,
-            $methodName
+            '.'
         );
     }
 }

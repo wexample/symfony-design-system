@@ -26,8 +26,6 @@ final class DemoController extends AbstractPagesController
     final public const ROUTE_TRANSLATIONS = VariableHelper::TRANSLATIONS;
     final public const ROUTE_COMPONENTS = VariableHelper::PLURAL_COMPONENT;
 
-    protected string $viewPathPrefix = VariableHelper::DEMO.'/';
-
     private bool $useJs = true;
 
     public static function getSimpleRoutes(): array

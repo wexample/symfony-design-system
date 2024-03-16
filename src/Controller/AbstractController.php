@@ -27,10 +27,14 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
     }
 
     protected function createPageRenderPass(
-        string $pageName
+        string $pageName,
+        string $bundle
     ): RenderPass {
         return $this->createRenderPass(
-            $this->buildTemplatePath($pageName),
+            $this->buildControllerTemplatePath(
+                $pageName,
+                $bundle
+            ),
         );
     }
 

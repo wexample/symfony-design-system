@@ -21,12 +21,12 @@ final class TestController extends AbstractPagesController
     final public const ROUTE_INDEX = VariableHelper::INDEX;
     final public const ROUTE_VIEW = VariableHelper::VIEW;
 
-    protected string $viewPathPrefix = VariableHelper::TEST.'/';
-
     #[Route(path: '', name: self::ROUTE_INDEX)]
     final public function index(Request $request): Response
     {
-        $renderPass = $this->createPageRenderPass(self::ROUTE_INDEX);
+        $renderPass = $this->createPageRenderPass(
+            self::ROUTE_INDEX,
+            self::getBundleClassName());
 
         $renderPass->setUsage(
             FontsAssetUsageService::getName(),
@@ -45,7 +45,9 @@ final class TestController extends AbstractPagesController
     #[Route(path: self::ROUTE_ADAPTIVE, name: self::ROUTE_ADAPTIVE, options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
     final public function adaptive(Request $request): Response
     {
-        $renderPass = $this->createPageRenderPass(self::ROUTE_ADAPTIVE);
+        $renderPass = $this->createPageRenderPass(
+            self::ROUTE_ADAPTIVE,
+            self::getBundleClassName());
 
         if ($request->get('no-js')) {
             $renderPass->setUseJs(false);
@@ -60,7 +62,9 @@ final class TestController extends AbstractPagesController
     #[Route(path: self::ROUTE_VIEW, name: self::ROUTE_VIEW, options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]
     public function view(): Response
     {
-        return $this->renderPage(self::ROUTE_VIEW);
+        return $this->renderPage(
+            self::ROUTE_VIEW,
+            bundle: self::getBundleClassName());
     }
 
     #[Route(path: 'error-missing-view', name: self::ROUTE_ERROR_MISSING_VIEW, options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]

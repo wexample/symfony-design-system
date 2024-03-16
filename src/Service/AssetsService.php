@@ -108,30 +108,6 @@ class AssetsService
         }
     }
 
-    /**
-     * Sort assets by usage.
-     * @param array<Asset> $assets
-     * @return array<Asset>
-     */
-    protected function sortAssets(array $assets): array
-    {
-        usort($assets, function(
-            Asset $a,
-            Asset $b
-        ) {
-            $orderA = array_search($a->getUsage(), $this->usages);
-            $orderB = array_search($b->getUsage(), $this->usages);
-
-            if ($orderA === $orderB) {
-                return 0;
-            }
-
-            return $orderA < $orderB ? -1 : 1;
-        });
-
-        return $assets;
-    }
-
     public function assetNeedsInitialRender(
         Asset $asset,
         RenderPass $renderPass,
