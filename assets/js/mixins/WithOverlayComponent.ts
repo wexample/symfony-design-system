@@ -1,5 +1,5 @@
-import Component from "../../js/class/Component";
-import { replaceByOneClass } from "../../js/helpers/DomHelper";
+import Component from "../class/Component";
+import { replaceByOneClass } from "../helpers/DomHelper";
 
 export class WithOverlayComponent {
   component: Component;

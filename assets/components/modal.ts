@@ -7,8 +7,8 @@ import Events from '../js/helpers/Events';
 import RenderNode from '../js/class/RenderNode';
 import ComponentInterface from '../js/interfaces/RenderData/ComponentInterface';
 import App from "../js/class/App";
-import { WithKeyboardEventListenerRenderNode } from "./mixins/WithKeyboardEventListenerRenderNode";
-import { WithOverlayComponent } from "./mixins/WithOverlayComponent";
+import { WithKeyboardEventListenerRenderNode } from "../js/mixins/WithKeyboardEventListenerRenderNode";
+import { WithOverlayComponent } from "../js/mixins/WithOverlayComponent";
 
 const listenKeyboardKey = {};
 listenKeyboardKey[Keyboard.KEY_ESCAPE] = async function () {
