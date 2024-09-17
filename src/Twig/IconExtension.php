@@ -95,27 +95,29 @@ class IconExtension extends AbstractExtension
         $output = [];
         $pathFonts = $this->projectDir.'/node_modules/material-design-icons/';
 
-        foreach (scandir($pathFonts) as $item) {
-            $pathSvg = $pathFonts.$item.'/svg/production/';
-            if ($item[0] !== '.' && is_dir($pathFonts.$item) && file_exists($pathSvg)) {
-                foreach (scandir($pathSvg) as $fileIcon) {
-                    if ($fileIcon[0] !== '.') {
-                        $prefix = 'ic_';
-                        $suffix = '_24px.svg';
-                        if (str_starts_with($fileIcon, $prefix) && str_ends_with($fileIcon, $suffix)) {
-                            $iconName = TextHelper::removePrefix(
-                                TextHelper::removeSuffix(
-                                    $fileIcon,
-                                    $suffix
-                                ),
-                                $prefix
-                            );
+        if (is_dir($pathFonts)) {
+            foreach (scandir($pathFonts) as $item) {
+                $pathSvg = $pathFonts.$item.'/svg/production/';
+                if ($item[0] !== '.' && is_dir($pathFonts.$item) && file_exists($pathSvg)) {
+                    foreach (scandir($pathSvg) as $fileIcon) {
+                        if ($fileIcon[0] !== '.') {
+                            $prefix = 'ic_';
+                            $suffix = '_24px.svg';
+                            if (str_starts_with($fileIcon, $prefix) && str_ends_with($fileIcon, $suffix)) {
+                                $iconName = TextHelper::removePrefix(
+                                    TextHelper::removeSuffix(
+                                        $fileIcon,
+                                        $suffix
+                                    ),
+                                    $prefix
+                                );
 
-                            $output[$iconName] = [
-                                'content' => null,
-                                'file' => $pathSvg.$fileIcon,
-                                'name' => $iconName,
-                            ];
+                                $output[$iconName] = [
+                                    'content' => null,
+                                    'file' => $pathSvg.$fileIcon,
+                                    'name' => $iconName,
+                                ];
+                            }
                         }
                     }
                 }
@@ -128,20 +130,23 @@ class IconExtension extends AbstractExtension
     public function buildIconsListFa(): array
     {
         $pathSvg = $this->projectDir.'/node_modules/@fortawesome/fontawesome-free/svgs/';
-        $groups = scandir($pathSvg);
         $output = [];
 
-        foreach ($groups as $group) {
-            if ('.' !== $group[0]) {
-                $icons = scandir($pathSvg.$group);
-                foreach ($icons as $fileIcon) {
-                    if ('.' !== $fileIcon[0]) {
-                        $iconName = $group.'/'.FileHelper::removeExtension(basename($fileIcon));
-                        $output[$iconName] = [
-                            'name' => $iconName,
-                            'file' => $pathSvg.$group.'/'.$fileIcon,
-                            'content' => null,
-                        ];
+        if (is_dir($pathSvg)) {
+            $groups = scandir($pathSvg);
+
+            foreach ($groups as $group) {
+                if ('.' !== $group[0]) {
+                    $icons = scandir($pathSvg.$group);
+                    foreach ($icons as $fileIcon) {
+                        if ('.' !== $fileIcon[0]) {
+                            $iconName = $group.'/'.FileHelper::removeExtension(basename($fileIcon));
+                            $output[$iconName] = [
+                                'name' => $iconName,
+                                'file' => $pathSvg.$group.'/'.$fileIcon,
+                                'content' => null,
+                            ];
+                        }
                     }
                 }
             }
