@@ -1,5 +1,5 @@
-import Page from'@wexample/symfony-design-system/js/class/Page';
-import Events from'@wexample/symfony-design-system/js/helpers/Events';
+import Page from '../../js/class/Page';
+import Events from '../../js/helpers/Events';
 
 export default class extends Page {
   async pageReady() {
