@@ -42,7 +42,7 @@ module.exports = {
           + 'Bundle';
       }
 
-      callback(this.isBundleAlias(bundle) ? bundle : '@App', entry[1])
+      callback(this.isBundleAlias(bundle) ? bundle : '@front', entry[1])
     });
   },
 
@@ -101,7 +101,7 @@ module.exports = {
     callback
   ) => {
     let files = glob.sync(path.join(srcAssetsDir, srcSubDir, '**/*.' + srcExt));
-    bundle = module.exports.isBundleAlias(bundle) ? bundle : '@App';
+    bundle = module.exports.isBundleAlias(bundle) ? bundle : '@front';
 
     for (let file of files) {
       let srcFile = {
