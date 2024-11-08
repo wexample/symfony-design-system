@@ -36,9 +36,9 @@ module.exports = {
 
       if (this.isBundleAlias(bundle)) {
         bundle = '@' + toClass(
-          bundle
-            .replaceAll('/','-')
-            .substring(1))
+            bundle
+              .replaceAll('/', '-')
+              .substring(1))
           + 'Bundle';
       }
 
@@ -100,19 +100,19 @@ module.exports = {
     command,
     callback
   ) => {
-    let files = glob.sync(srcAssetsDir + srcSubDir + '**/*.' + srcExt);
+    let files = glob.sync(path.join(srcAssetsDir, srcSubDir, '**/*.' + srcExt));
     bundle = module.exports.isBundleAlias(bundle) ? bundle : '@App';
 
     for (let file of files) {
       let srcFile = {
         dir: srcAssetsDir,
-        file: file,
+        file: `./${file}`,
       };
       // Allow callback to filter files to pack.
       srcFile = callback ? callback(srcFile) : srcFile;
 
       if (srcFile) {
-        let basename = srcFile.file.split('/').reverse()[0];
+        let basename = path.basename(srcFile.file);
 
         // Exclude underscores.
         if (basename[0] !== '_') {
