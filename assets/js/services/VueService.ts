@@ -1,4 +1,4 @@
-import { createApp } from 'vue/dist/vue.esm-bundler';
+import { createApp } from "vue/dist/vue.esm-bundler";
 import AppService from '../class/AppService';
 import MixinsAppService from '../class/MixinsAppService';
 import LayoutInterface from '../interfaces/RenderData/LayoutInterface';
@@ -13,6 +13,7 @@ export default class VueService extends AppService {
   protected elTemplates: HTMLElement;
   public vueRenderDataCache: { [key: string]: ComponentInterface } = {};
   public static serviceName: string = 'vue';
+  public globalConfig: object = {}
 
   protected globalMixin: object = {
     props: {},
@@ -30,8 +31,10 @@ export default class VueService extends AppService {
 
   public renderedTemplates: { [key: string]: boolean } = {};
 
-  constructor(app: App) {
+  constructor(app: App, globalConfig: object = {}) {
     super(app);
+
+    this.globalConfig = globalConfig
 
     this.elTemplates = document.getElementById('vue-templates');
   }
@@ -76,7 +79,12 @@ export default class VueService extends AppService {
   }
 
   createApp(config, options: any = {}) {
-    let app = createApp(config, options);
+    console.log(Object.assign({}, config, this.globalConfig))
+
+    let app = createApp(
+      Object.assign({}, config, this.globalConfig),
+      Object.assign({}, options, this.globalConfig),
+    );
 
     Object.entries(this.componentRegistered).forEach((data) => {
       app.component(data[0], data[1]);
@@ -125,7 +133,7 @@ export default class VueService extends AppService {
     const vueName = buildStringIdentifier(view);
 
     if (!this.componentRegistered[vueName]) {
-      const domId = 'vue-template-'+vueName;
+      const domId = 'vue-template-' + vueName;
       let vueClassDefinition = this.app.getBundleClassDefinition(view) as any;
 
       if (!vueClassDefinition) {
