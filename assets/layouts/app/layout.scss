@@ -1,2 +1,20 @@
-// Base extension.
+// Layout.
 @use '../default/layout';
+
+// Base partials.
+@use '../../css/partials/reset_modern';
+
+// Local partials.
+@forward '../../css/mixins/expanded';
+
+html, body, #layout {
+  height: 100%;
+}
+
+.app-layout {
+  @extend .expanded;
+
+  .app-layout-body {
+    @extend .expanded-body;
+  }
+}
