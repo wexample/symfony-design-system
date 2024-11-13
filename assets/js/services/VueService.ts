@@ -6,7 +6,7 @@ import { appendInnerHtml } from '../helpers/DomHelper';
 import Component from '../class/Component';
 import App from '../class/App';
 import ComponentInterface from '../interfaces/RenderData/ComponentInterface';
-import { buildStringIdentifier, pathToTagName } from '../helpers/StringHelper';
+import { buildStringIdentifier, pathToTagName, toKebab } from '../helpers/StringHelper';
 
 export default class VueService extends AppService {
   protected componentRegistered: { [key: string]: object } = {};
@@ -79,16 +79,17 @@ export default class VueService extends AppService {
   }
 
   createApp(config, options: any = {}) {
-    console.log(Object.assign({}, config, this.globalConfig))
-
     let app = createApp(
       Object.assign({}, config, this.globalConfig),
-      Object.assign({}, options, this.globalConfig),
+      options,
     );
+    if (app.config.compilerOptions) {
+      Object.assign(
+        app.config.compilerOptions,
+        this.globalConfig);
+    }
 
-    Object.entries(this.componentRegistered).forEach((data) => {
-      app.component(data[0], data[1]);
-    });
+    this.registerComponentsRecursively(app, this.componentRegistered);
 
     return app;
   }
@@ -118,6 +119,16 @@ export default class VueService extends AppService {
     });
 
     return vueComponent;
+  }
+
+  registerComponentsRecursively(app, componentObj) {
+    for (const [name, value] of Object.entries(componentObj)) {
+      app.component(toKebab(name), value);
+
+      if (value.components) {
+        this.registerComponentsRecursively(app, value.components);
+      }
+    }
   }
 
   createVueAppForComponent(component: Component) {
