@@ -1,6 +1,6 @@
 import Component from '../js/class/Component';
 import ComponentInterface from '../js/interfaces/RenderData/ComponentInterface';
-import { App as VueApp, createApp } from 'vue/dist/vue.esm-bundler';
+import { App as VueApp } from 'vue/dist/vue.esm-bundler';
 
 export default class VueComponent extends Component {
   vue?: VueApp;
