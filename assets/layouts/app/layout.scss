@@ -1,8 +1,8 @@
 // Layout.
 @use '../default/layout';
 
-// Base partials.
-@use '../../css/partials/reset_modern';
+// Base shapes.
+@use '../../css/shapes/layout-reset-modern';
 
 // Local partials.
 @forward '../../css/mixins/expanded';

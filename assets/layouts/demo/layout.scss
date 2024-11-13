@@ -2,10 +2,10 @@
 @use '../../layouts/black/layout';
 
 // Base partials.
-@use '../../css/partials/reset_modern';
 @use '../../css/partials/debug';
 
 // Base shapes.
+@use '../../css/shapes/layout-reset-modern';
 @use '../../css/shapes/container';
 @use '../../css/shapes/pill';
 @use '../../css/shapes/tab';
