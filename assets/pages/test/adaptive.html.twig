@@ -5,12 +5,12 @@
 
 {%- block layout_config -%}
     {{ parent() }}
-    {{- var_js(render_pass, 'layoutLevelTestVar', 'value') -}}
+    {{- var_export(render_pass, 'layoutLevelTestVar', 'value') -}}
 {%- endblock -%}
 
 {%- block page_config -%}
     {{ parent() }}
-    {{- var_js(render_pass, 'pageLevelTestVar', 'value') -}}
+    {{- var_export(render_pass, 'pageLevelTestVar', 'value') -}}
 {%- endblock -%}
 
 {%- block page_body -%}

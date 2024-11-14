@@ -2,18 +2,18 @@
 
 {%- block layout_config -%}
     {{ parent() }}
-    {{- var_js(render_pass, 'initialLayoutVar', true) -}}
-    {{- var_js(render_pass, 'enableAggregation', render_pass.enableAggregation) -}}
+    {{- var_export(render_pass, 'initialLayoutVar', true) -}}
+    {{- var_export(render_pass, 'enableAggregation', render_pass.enableAggregation) -}}
     {{- trans_js(render_pass, '@layout::string.client_side') -}}
 {%- endblock -%}
 
 {%- block page_config -%}
     {{ parent() }}
-    {{- var_js(render_pass, 'initialPageVar', true) -}}
-    {{- var_js(render_pass, 'demoVariableBoolean', true) -}}
-    {{- var_js(render_pass, 'demoVariableInteger', 123) -}}
-    {{- var_js(render_pass, 'demoVariableFloat', 12.3) -}}
-    {{- var_js(render_pass, 'demoVariableObject', {testVar:'test'}) -}}
+    {{- var_export(render_pass, 'initialPageVar', true) -}}
+    {{- var_export(render_pass, 'demoVariableBoolean', true) -}}
+    {{- var_export(render_pass, 'demoVariableInteger', 123) -}}
+    {{- var_export(render_pass, 'demoVariableFloat', 12.3) -}}
+    {{- var_export(render_pass, 'demoVariableObject', {testVar:'test'}) -}}
     {{- trans_js(render_pass, '@page::firstGroup.*') -}}
     {{- trans_js(render_pass, '@page::secondGroup.first') -}}
 {%- endblock -%}

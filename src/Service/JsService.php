@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Service;
 
 use ReflectionClass;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Wexample\SymfonyApi\Api\Dto\EntityDto;
@@ -20,13 +21,28 @@ class JsService
      */
     public function __construct(
         private readonly NormalizerInterface $normalizer,
+        private readonly ParameterBagInterface $parameterBag
     ) {
     }
 
     /**
      * @throws ExceptionInterface
      */
-    public function varJs(
+    public function varEnvExport(
+        RenderPass $renderPass,
+        string $name,
+    ): void {
+        $this->varExport(
+            $renderPass,
+            $name,
+            $this->parameterBag->get($name)
+        );
+    }
+
+    /**
+     * @throws ExceptionInterface
+     */
+    public function varExport(
         RenderPass $renderPass,
         string $name,
         mixed $value,
