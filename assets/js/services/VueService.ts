@@ -79,18 +79,19 @@ export default class VueService extends AppService {
     };
   }
 
-  createApp(config, options: any = {}) {
-    let app = createApp(
-      Object.assign({}, config, this.globalConfig),
-      options,
+  createApp(rootComponent, props: any = {}) {
+    let vueApp = createApp(
+      Object.assign({}, rootComponent, this.globalConfig),
+      props,
     );
+
     deepAssign(
-      app.config,
+      vueApp.config,
       this.globalConfig);
 
-    this.registerComponentsRecursively(app, this.componentRegistered);
+    this.registerComponentsRecursively(vueApp, this.componentRegistered);
 
-    return app;
+    return vueApp;
   }
 
   inherit(vueComponent, rootComponent: Component) {
