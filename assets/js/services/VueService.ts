@@ -64,7 +64,7 @@ export default class VueService extends AppService {
   }
 
   registerMethods() {
-    let app = this.app;
+    const app = this.app;
 
     return {
       vue: {
@@ -80,7 +80,7 @@ export default class VueService extends AppService {
   }
 
   createApp(rootComponent, props: any = {}) {
-    let vueApp = createApp(
+    const vueApp = createApp(
       Object.assign({}, rootComponent, this.globalConfig),
       props,
     );
