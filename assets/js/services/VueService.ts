@@ -121,12 +121,12 @@ export default class VueService extends AppService {
     return vueComponent;
   }
 
-  registerComponentsRecursively(app, componentObj) {
+  registerComponentsRecursively(vueApp, componentObj) {
     for (const [name, value] of Object.entries(componentObj)) {
-      app.component(toKebab(name), value);
+      vueApp.component(toKebab(name), value);
 
       if ((value as any).components) {
-        this.registerComponentsRecursively(app, (value as any).components);
+        this.registerComponentsRecursively(vueApp, (value as any).components);
       }
     }
   }
