@@ -7,6 +7,7 @@ import Component from '../class/Component';
 import App from '../class/App';
 import ComponentInterface from '../interfaces/RenderData/ComponentInterface';
 import { buildStringIdentifier, pathToTagName, toKebab } from '../helpers/StringHelper';
+import { deepAssign } from "../helpers/Objects";
 
 export default class VueService extends AppService {
   protected componentRegistered: { [key: string]: object } = {};
@@ -83,11 +84,9 @@ export default class VueService extends AppService {
       Object.assign({}, config, this.globalConfig),
       options,
     );
-    if (app.config.compilerOptions) {
-      Object.assign(
-        app.config.compilerOptions,
-        this.globalConfig);
-    }
+    deepAssign(
+      app.config,
+      this.globalConfig);
 
     this.registerComponentsRecursively(app, this.componentRegistered);
 
