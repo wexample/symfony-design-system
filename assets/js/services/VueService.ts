@@ -15,6 +15,7 @@ export default class VueService extends AppService {
   public vueRenderDataCache: { [key: string]: ComponentInterface } = {};
   public static serviceName: string = 'vue';
   public globalConfig: object = {}
+  public store: any = null;
 
   protected globalMixin: object = {
     props: {},
@@ -81,13 +82,17 @@ export default class VueService extends AppService {
 
   createApp(rootComponent, props: any = {}) {
     const vueApp = createApp(
-      Object.assign({}, rootComponent, this.globalConfig),
+      rootComponent,
       props,
     );
 
     deepAssign(
       vueApp.config,
       this.globalConfig);
+
+    if (this.store) {
+      vueApp.use(this.store);
+    }
 
     this.registerComponentsRecursively(vueApp, this.componentRegistered);
 
