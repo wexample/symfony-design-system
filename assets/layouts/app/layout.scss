@@ -1,0 +1,20 @@
+// Layout.
+@use '../default/layout';
+
+// Base shapes.
+@use '../../css/shapes/layout-reset-modern';
+
+// Local partials.
+@forward '../../css/mixins/expanded';
+
+html, body, #layout {
+  height: 100%;
+}
+
+.app-layout {
+  @extend .expanded;
+
+  .app-layout-body {
+    @extend .expanded-body;
+  }
+}

@@ -1,0 +1,9 @@
+.expanded {
+  display: flex;
+  height: 100%;
+
+  .expanded-body {
+    flex-grow: 1;
+    width: 0;
+  }
+}

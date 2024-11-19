@@ -1,0 +1,12 @@
+@use '../../css/partials/margin';
+@use '../../css/partials/link';
+
+html, body {
+  margin: 0;
+  padding: 0;
+  @extend .no-margin-or-padding;
+}
+
+a {
+  @extend .no-decoration;
+}
