@@ -87,7 +87,7 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
         Response $response = null,
         RenderPass $renderPass = null
     ): Response {
-        $renderPass = $renderPass ?: $this->createRenderPass($view);
+        $renderPass = $renderPass ?: $this->createRenderPass();
 
         // Store it for post render events.
         $this->renderPassBagService->setRenderPass($renderPass);

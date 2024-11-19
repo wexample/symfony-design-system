@@ -2,7 +2,6 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
-use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -29,9 +28,6 @@ class AssetsRegistryService extends RenderDataGenerator
 
     public const FILE_MANIFEST = 'manifest.json';
 
-    /**
-     * @throws InvalidArgumentException
-     */
     public function __construct(
         KernelInterface $kernel,
         CacheInterface $cache,
@@ -52,22 +48,19 @@ class AssetsRegistryService extends RenderDataGenerator
             }
         }
 
-        if (!$registry) {
-            $cache->get(
-                self::CACHE_KEY_ASSETS_REGISTRY,
-                function() use
-                (
-                    $pathBuild
-                ): array {
-                    $this->manifest = JsonHelper::read(
-                        $pathBuild.self::FILE_MANIFEST,
-                        JSON_OBJECT_AS_ARRAY,
-                        default: $this->manifest
-                    );
-
-                    return $this->manifest;
-                }
+        if (empty($registry)) {
+            $registry = JsonHelper::read(
+                $pathBuild.self::FILE_MANIFEST,
+                JSON_OBJECT_AS_ARRAY,
+                default: $this->manifest
             );
+
+            // Mise en cache du manifest
+            $item = $cache->getItem(self::CACHE_KEY_ASSETS_REGISTRY);
+            $item->set($registry);
+            $cache->save($item);
+
+            $this->manifest = $registry;
         }
     }
 

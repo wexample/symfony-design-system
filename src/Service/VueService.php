@@ -21,7 +21,8 @@ class VueService
         readonly protected AdaptiveResponseService $adaptiveResponseService,
         readonly protected AssetsService $assetsService,
         readonly protected ComponentService $componentsService,
-        readonly protected Translator $translator
+        readonly protected Translator $translator,
+        readonly protected JsService $jsService
     ) {
     }
 
@@ -50,7 +51,8 @@ class VueService
 
         $options = [
             'domId' => $vueDomId,
-            'name' => $view
+            'name' => $view,
+            'props' => $props
         ];
 
         $outputBody = '';
@@ -110,7 +112,7 @@ class VueService
                 ],
                 $twig->render(
                     $pathWithExtension,
-                    $twigContext + $options + ['render_pass' => $renderPass]
+                    $twigContext + $options + $props + ['render_pass' => $renderPass]
                 )
             );
 

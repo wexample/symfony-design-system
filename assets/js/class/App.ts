@@ -94,7 +94,7 @@ export default class extends AsyncConstructor {
   }
 
   async loadLayoutRenderData(renderData: RenderDataInterface): Promise<any> {
-    // These elements can"t be mounted during regular mount pass.
+    // These elements can't be mounted during regular mount pass.
     this.layout.attachCoreHtmlElements();
 
     await this.services.mixins.invokeUntilComplete(
@@ -111,7 +111,7 @@ export default class extends AsyncConstructor {
     return Page;
   }
 
-  getServices(): typeof AppService[] {
+  getServices(): (typeof AppService | [typeof AppService, any[]])[] {
     return [
       AssetsService,
       LayoutsService,
@@ -121,15 +121,24 @@ export default class extends AsyncConstructor {
     ];
   }
 
-  loadServices(services: typeof AppService[]): AppService[] {
+  loadServices(services: (typeof AppService | [typeof AppService, any[]])[]): AppService[] {
     services = this.getServicesAndDependencies(services);
     let instances = [];
 
-    services.forEach((service: any) => {
-      let name = service.serviceName
+    services.forEach((service: (typeof AppService | [typeof AppService, any[]])) => {
+      let serviceClass
+      let serviceArgs: any[] = [];
 
+      if (Array.isArray(service)) {
+        serviceClass = service[0];
+        serviceArgs = service[1];
+      } else {
+        serviceClass = service;
+      }
+
+      let name = serviceClass.serviceName;
       if (!this.services[name]) {
-        this.services[name] = new service(this);
+        this.services[name] = new serviceClass(this, ...serviceArgs);
         instances.push(this.services[name]);
       }
     });
@@ -138,9 +147,9 @@ export default class extends AsyncConstructor {
   }
 
   async loadAndInitServices(
-    ServicesDefinitions: typeof AppService[]
+    services: (typeof AppService | [typeof AppService, any[]])[]
   ): Promise<any> {
-    let services = this.loadServices(ServicesDefinitions);
+    let loadedServices = this.loadServices(services);
 
     // Init mixins.
     return this.services.mixins.invokeUntilComplete(
@@ -148,23 +157,32 @@ export default class extends AsyncConstructor {
       'app',
       [],
       undefined,
-      services
+      loadedServices
     );
   }
 
   getServicesAndDependencies(
-    services: typeof AppService[]
-  ): typeof AppService[] {
-    services.forEach((service: typeof AppService) => {
-      if (service.dependencies) {
+    services: (typeof AppService | [typeof AppService, any[]])[]
+  ): (typeof AppService | [typeof AppService, any[]])[] {
+
+    services.forEach((serviceDef: typeof AppService | [typeof AppService, any[]]) => {
+      let serviceClass: typeof AppService;
+
+      if (Array.isArray(serviceDef)) {
+        serviceClass = serviceDef[0];
+      } else {
+        serviceClass = serviceDef;
+      }
+
+      if (serviceClass.dependencies) {
         services = [
           ...services,
-          ...this.getServicesAndDependencies(service.dependencies),
+          ...this.getServicesAndDependencies(serviceClass.dependencies),
         ];
       }
     });
 
-    return arrayUnique(services) as typeof AppService[];
+    return arrayUnique(services) as (typeof AppService | [typeof AppService, any[]])[];
   }
 
   /**
@@ -186,7 +204,7 @@ export default class extends AsyncConstructor {
 
   getService(name: string | object): AppService {
     name = (typeof name === 'string' ? name : (name as any).serviceName) as string
-    
+
     if (!this.services[name]) {
       this.services.prompt.systemError(
         'Trying to access undefined service :name',

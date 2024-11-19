@@ -1,4 +1,4 @@
-import { createApp } from 'vue/dist/vue.esm-bundler';
+import { createApp } from "vue/dist/vue.esm-bundler";
 import AppService from '../class/AppService';
 import MixinsAppService from '../class/MixinsAppService';
 import LayoutInterface from '../interfaces/RenderData/LayoutInterface';
@@ -6,13 +6,16 @@ import { appendInnerHtml } from '../helpers/DomHelper';
 import Component from '../class/Component';
 import App from '../class/App';
 import ComponentInterface from '../interfaces/RenderData/ComponentInterface';
-import { buildStringIdentifier, pathToTagName } from '../helpers/StringHelper';
+import { buildStringIdentifier, pathToTagName, toKebab } from '../helpers/StringHelper';
+import { deepAssign } from "../helpers/Objects";
 
 export default class VueService extends AppService {
   protected componentRegistered: { [key: string]: object } = {};
   protected elTemplates: HTMLElement;
   public vueRenderDataCache: { [key: string]: ComponentInterface } = {};
   public static serviceName: string = 'vue';
+  public globalConfig: object = {}
+  public store: any = null;
 
   protected globalMixin: object = {
     props: {},
@@ -30,8 +33,10 @@ export default class VueService extends AppService {
 
   public renderedTemplates: { [key: string]: boolean } = {};
 
-  constructor(app: App) {
+  constructor(app: App, globalConfig: object = {}) {
     super(app);
+
+    this.globalConfig = globalConfig
 
     this.elTemplates = document.getElementById('vue-templates');
   }
@@ -60,7 +65,7 @@ export default class VueService extends AppService {
   }
 
   registerMethods() {
-    let app = this.app;
+    const app = this.app;
 
     return {
       vue: {
@@ -75,14 +80,23 @@ export default class VueService extends AppService {
     };
   }
 
-  createApp(config, options: any = {}) {
-    let app = createApp(config, options);
+  createApp(rootComponent, props: any = {}) {
+    const vueApp = createApp(
+      rootComponent,
+      props,
+    );
 
-    Object.entries(this.componentRegistered).forEach((data) => {
-      app.component(data[0], data[1]);
-    });
+    deepAssign(
+      vueApp.config,
+      this.globalConfig);
 
-    return app;
+    if (this.store) {
+      vueApp.use(this.store);
+    }
+
+    this.registerComponentsRecursively(vueApp, this.componentRegistered);
+
+    return vueApp;
   }
 
   inherit(vueComponent, rootComponent: Component) {
@@ -112,6 +126,16 @@ export default class VueService extends AppService {
     return vueComponent;
   }
 
+  registerComponentsRecursively(vueApp, componentObj) {
+    for (const [name, value] of Object.entries(componentObj)) {
+      vueApp.component(toKebab(name), value);
+
+      if ((value as any).components) {
+        this.registerComponentsRecursively(vueApp, (value as any).components);
+      }
+    }
+  }
+
   createVueAppForComponent(component: Component) {
     return this.createApp(
       this.initComponent(
@@ -125,7 +149,7 @@ export default class VueService extends AppService {
     const vueName = buildStringIdentifier(view);
 
     if (!this.componentRegistered[vueName]) {
-      const domId = 'vue-template-'+vueName;
+      const domId = 'vue-template-' + vueName;
       let vueClassDefinition = this.app.getBundleClassDefinition(view) as any;
 
       if (!vueClassDefinition) {

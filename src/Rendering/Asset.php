@@ -54,8 +54,7 @@ class Asset extends RenderDataGenerator
     ) {
         $info = pathinfo($pathInManifest);
         $this->type = $info['extension'];
-        // Add leading slash to load it from frontend.
-        $this->path = FileHelper::FOLDER_SEPARATOR.$pathInManifest;
+        $this->path = $pathInManifest;
 
         // Same as render node id
         $this->setView(

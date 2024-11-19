@@ -18,21 +18,38 @@ class VarExtension extends AbstractExtension
     {
         return [
             new TwigFunction(
-                'var_js',
+                'var_export',
                 [
                     $this,
-                    'varJs',
+                    'varExport',
+                ]
+            ),
+            new TwigFunction(
+                'var_env_export',
+                [
+                    $this,
+                    'varEnvExport',
                 ]
             ),
         ];
     }
 
-    public function varJs(
+    public function varEnvExport(
+        RenderPass $renderPass,
+        string $name,
+    ): void {
+        $this->jsService->varEnvExport(
+            $renderPass,
+            $name,
+        );
+    }
+
+    public function varExport(
         RenderPass $renderPass,
         string $name,
         mixed $value
     ): void {
-        $this->jsService->varJs(
+        $this->jsService->varExport(
             $renderPass,
             $name,
             $value
