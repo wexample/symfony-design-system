@@ -13,6 +13,7 @@ html, body, #layout {
 
 .app-layout {
   @extend .expanded;
+  position: fixed;
 
   .app-layout-body {
     @extend .expanded-body;
