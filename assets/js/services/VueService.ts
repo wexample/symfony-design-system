@@ -36,7 +36,9 @@ export default class VueService extends AppService {
   constructor(app: App, globalConfig: object = {}) {
     super(app);
 
-    this.globalConfig = globalConfig
+    this.globalConfig = Object.assign({}, globalConfig);
+    this.globalConfig['globalProperties'] = this.globalConfig['globalProperties'] ? this.globalConfig['globalProperties']: {};
+    this.globalConfig['globalProperties']['app'] = app;
 
     this.elTemplates = document.getElementById('vue-templates');
   }
@@ -150,7 +152,7 @@ export default class VueService extends AppService {
 
     if (!this.componentRegistered[vueName]) {
       const domId = 'vue-template-' + vueName;
-      let vueClassDefinition = this.app.getBundleClassDefinition(view) as any;
+      const vueClassDefinition = this.app.getBundleClassDefinition(view) as any;
 
       if (!vueClassDefinition) {
         this.app.services.prompt.systemError(
@@ -160,7 +162,6 @@ export default class VueService extends AppService {
           }
         );
       } else {
-        let comName = pathToTagName(view);
         vueClassDefinition.template = document.getElementById(domId);
 
         vueClassDefinition.props = {
