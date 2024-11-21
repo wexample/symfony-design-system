@@ -29,39 +29,17 @@ class AssetsRegistryService extends RenderDataGenerator
     public const FILE_MANIFEST = 'manifest.json';
 
     public function __construct(
-        KernelInterface $kernel,
-        CacheInterface $cache,
+        KernelInterface $kernel
     ) {
         $pathProject = $kernel->getProjectDir().'/';
         $this->pathPublic = $pathProject.self::DIR_PUBLIC;
         $pathBuild = $this->pathPublic.self::DIR_BUILD;
-        $registry = null;
 
-        // Assets registry is cached as manifest file may be unstable.
-        if ($cache->hasItem(self::CACHE_KEY_ASSETS_REGISTRY)) {
-            /** @var CacheItem $item */
-            $item = $cache->getItem(self::CACHE_KEY_ASSETS_REGISTRY);
-            $registry = $item->get();
-
-            if ($registry) {
-                $this->manifest = $registry;
-            }
-        }
-
-        if (empty($registry)) {
-            $registry = JsonHelper::read(
-                $pathBuild.self::FILE_MANIFEST,
-                JSON_OBJECT_AS_ARRAY,
-                default: $this->manifest
-            );
-
-            // Mise en cache du manifest
-            $item = $cache->getItem(self::CACHE_KEY_ASSETS_REGISTRY);
-            $item->set($registry);
-            $cache->save($item);
-
-            $this->manifest = $registry;
-        }
+        $this->manifest = JsonHelper::read(
+            $pathBuild.self::FILE_MANIFEST,
+            JSON_OBJECT_AS_ARRAY,
+            default: $this->manifest
+        );
     }
 
     public function assetExists(string $pathInManifest): bool
