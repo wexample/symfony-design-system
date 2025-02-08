@@ -7,7 +7,7 @@ use Wexample\SymfonyDesignSystem\Rendering\Traits\WithDomId;
 use Wexample\SymfonyDesignSystem\Rendering\Traits\WithView;
 use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
-use Wexample\SymfonyHelpers\Helper\TextHelper;
+use Wexample\Helpers\Helper\TextHelper;
 
 class Asset extends RenderDataGenerator
 {

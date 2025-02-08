@@ -2,7 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
-use Wexample\SymfonyHelpers\Helper\ClassHelper;
+use Wexample\Helpers\Helper\ClassHelper;
 use function is_a;
 use function is_object;
 

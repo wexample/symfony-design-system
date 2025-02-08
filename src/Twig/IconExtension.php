@@ -11,7 +11,7 @@ use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
-use Wexample\SymfonyHelpers\Helper\TextHelper;
+use Wexample\Helpers\Helper\TextHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 

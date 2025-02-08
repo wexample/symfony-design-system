@@ -3,7 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Helper;
 
 use Wexample\SymfonyDesignSystem\Controller\AbstractController;
-use Wexample\SymfonyHelpers\Helper\TextHelper;
+use Wexample\Helpers\Helper\TextHelper;
 
 class PageHelper
 {

@@ -2,7 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Helper;
 
-use Wexample\SymfonyHelpers\Helper\TextHelper;
+use Wexample\Helpers\Helper\TextHelper;
 
 class TemplateHelper
 {

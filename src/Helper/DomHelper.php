@@ -2,7 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Helper;
 
-use Wexample\SymfonyHelpers\Helper\TextHelper;
+use Wexample\Helpers\Helper\TextHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use function implode;
 use function is_null;

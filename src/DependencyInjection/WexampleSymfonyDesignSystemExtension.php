@@ -5,7 +5,7 @@ namespace Wexample\SymfonyDesignSystem\DependencyInjection;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Wexample\SymfonyDesignSystem\Interface\DesignSystemBundleInterface;
 use Wexample\SymfonyHelpers\DependencyInjection\AbstractWexampleSymfonyExtension;
-use Wexample\SymfonyHelpers\Helper\ClassHelper;
+use Wexample\Helpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
