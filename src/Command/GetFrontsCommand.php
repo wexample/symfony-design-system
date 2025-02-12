@@ -9,7 +9,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
-use Wexample\SymfonyHelpers\Helper\PathHelper;
+use Wexample\Helpers\Helper\PathHelper;
 use Wexample\SymfonyDesignSystem\Traits\SymfonyDesignSystemBundleClassTrait;
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Command\AbstractBundleCommand;

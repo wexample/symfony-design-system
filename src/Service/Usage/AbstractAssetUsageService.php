@@ -7,7 +7,7 @@ use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
-use Wexample\SymfonyHelpers\Helper\PathHelper;
+use Wexample\Helpers\Helper\PathHelper;
 use Wexample\Helpers\Helper\TextHelper;
 
 abstract class AbstractAssetUsageService
