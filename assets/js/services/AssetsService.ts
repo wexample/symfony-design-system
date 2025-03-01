@@ -295,7 +295,7 @@ export default class AssetsService extends AppService {
 
   addScript(asset: AssetInterface, assetReplacement?: AssetInterface) {
     let el = document.createElement(TagName.SCRIPT);
-    el.setAttribute(Attribute.SRC, asset.path);
+    el.setAttribute(Attribute.SRC, `/${asset.path}`);
     asset.el = el;
 
     this.addAssetEl(asset, assetReplacement);
@@ -305,7 +305,7 @@ export default class AssetsService extends AppService {
 
   addStyle(asset: AssetInterface, assetReplacement?: AssetInterface) {
     let el = this.createStyleLinkElement();
-    el.setAttribute(Attribute.HREF, asset.path);
+    el.setAttribute(Attribute.HREF, `/${asset.path}`);
     asset.el = el;
 
     this.addAssetEl(asset, assetReplacement);
