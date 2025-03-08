@@ -1,3 +1,5 @@
+@import '../mixins/global';
+
 .container-medium {
   max-width: 60rem;
   margin: 0 auto;
@@ -5,4 +7,12 @@
 
 .container-large {
   margin: 0 2rem;
+}
+
+.container-center {
+  @include full-parent-size;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

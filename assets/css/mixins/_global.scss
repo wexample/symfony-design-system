@@ -1,6 +1,8 @@
+@use "sass:color";
+
 $dark-gray: #2f2f36;
-$medium-gray: lighten($dark-gray, 50);
-$light-gray: lighten($medium-gray, 25);
+$medium-gray: color.scale($dark-gray, $lightness: 50%);
+$light-gray: color.scale($medium-gray, $lightness: 25%);
 
 $color-error: #c40914;
 $color-info: #0e5bce;
