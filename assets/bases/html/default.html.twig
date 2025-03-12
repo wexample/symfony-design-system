@@ -14,7 +14,7 @@
     <html lang="{{ app.request.locale }}">
     <head>
         <meta charset="utf-8"/>
-        <title>{{ document_title|default(('@page::page_title' | trans) ~ ' | ' ~ ('app::name' | trans)) }}</title>
+        <title>{{ document_title|default(('@page::page_title' | trans)) }}</title>
         {%- if render_pass.isUseJs() -%}
             <script nonce="layout-init">
               "use strict";
