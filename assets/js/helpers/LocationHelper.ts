@@ -53,3 +53,41 @@ export function parseUrl(url: string): URL {
   }
   return new URL(url);
 }
+
+
+/**
+ * Detects user's language and redirects to the appropriate URL
+ * @param config - Language redirection configuration
+ *                 Keys are language codes, with '_default' as the fallback value
+ */
+export function detectLanguageAndRedirect(config: { [key: string]: string, _default: string }) {
+  // Get browser language
+  const userLanguage = (navigator.language || (navigator as any).userLanguage || '').toLowerCase();
+
+  // Check if user is already on a page with a language prefix
+  const currentPath = window.location.pathname;
+
+  // Create a regex to check if current path starts with one of the redirect URLs
+  const redirectUrls = Object.values(config);
+  const redirectUrlsPattern = new RegExp(`^(${redirectUrls.map(url => url.replace(/\//g, '\\/')).join('|')})`);
+
+  if (currentPath.match(redirectUrlsPattern)) {
+    // Already on a page with language prefix, don't redirect
+    return;
+  }
+
+  // Determine redirect URL based on language
+  let redirectUrl = config._default; // Default URL
+
+  // Loop through language codes in configuration
+  for (const langCode in config) {
+    if (langCode !== '_default' && userLanguage.startsWith(langCode)) {
+      redirectUrl = config[langCode];
+      break;
+    }
+  }
+
+  // Add the rest of the current path to the redirect URL
+  const restOfPath = currentPath.replace(/^\//, '');
+  window.location.href = redirectUrl + restOfPath;
+}
