@@ -27,18 +27,20 @@ abstract class RenderDataGenerator
         $output = [];
 
         foreach ($variables as $variable) {
-            $reflect = new \ReflectionProperty($this, $variable);
-            if ($reflect->isPrivate()) {
-                // Try to use $this->getVariable().
-                $value = ClassHelper::getFieldGetterValue($this, $variable);
-            } else {
-                $value = $this->$variable;
-            }
+            if (isset($this->$variable)) {
+                $reflect = new \ReflectionProperty($this, $variable);
+                if ($reflect->isPrivate()) {
+                    // Try to use $this->getVariable().
+                    $value = ClassHelper::getFieldGetterValue($this, $variable);
+                } else {
+                    $value = $this->$variable;
+                }
 
-            if (!is_object($value)) {
-                $output[$variable] = $value;
-            } elseif (is_a($value, RenderDataGenerator::class)) {
-                $output[$variable] = $value->toRenderData();
+                if (!is_object($value)) {
+                    $output[$variable] = $value;
+                } elseif (is_a($value, RenderDataGenerator::class)) {
+                    $output[$variable] = $value->toRenderData();
+                }
             }
         }
 

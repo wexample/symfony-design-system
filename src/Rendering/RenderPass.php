@@ -45,9 +45,9 @@ class RenderPass
 
     private bool $debug = false;
 
-    private string $outputType;
+    private string $outputType = self::OUTPUT_TYPE_RESPONSE_HTML;
 
-    protected string $layoutBase;
+    protected string $layoutBase = self::BASE_DEFAULT;
 
     /**
      * @var array<string|null>

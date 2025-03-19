@@ -80,18 +80,18 @@ abstract class AbstractRenderNode extends RenderDataGenerator
     {
         $data = [
             'components' => $this->arrayToRenderData($this->components),
-            'cssClassName' => $this->cssClassName,
-            'id' => $this->id,
+            'cssClassName' => $this->cssClassName ?? null,
+            'id' => $this->id ?? null,
             'translations' => (object) $this->translations,
             'view' => $this->getView(),
             'vars' => (object) $this->vars,
-            'usages' => (object) $this->usages,
+            'usages' => (object) ($this->usages ?? []),
         ];
 
         if ($this->hasAssets) {
             $data['assets'] = [
-                Asset::EXTENSION_CSS => $this->arrayToRenderData($this->assets[Asset::EXTENSION_CSS]),
-                Asset::EXTENSION_JS => $this->arrayToRenderData($this->assets[Asset::EXTENSION_JS]),
+                Asset::EXTENSION_CSS => $this->arrayToRenderData($this->assets[Asset::EXTENSION_CSS] ?? []),
+                Asset::EXTENSION_JS => $this->arrayToRenderData($this->assets[Asset::EXTENSION_JS] ?? []),
             ];
         }
 
