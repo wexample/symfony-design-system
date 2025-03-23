@@ -3,6 +3,8 @@
 namespace Wexample\SymfonyDesignSystem\Service;
 
 use Symfony\Component\Routing\RouterInterface;
+use Wexample\Helpers\Helper\ClassHelper;
+use Wexample\Helpers\Helper\TextHelper;
 use Wexample\SymfonyDesignSystem\Controller\AbstractController;
 use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
 use Wexample\SymfonyDesignSystem\Helper\PageHelper;
@@ -11,9 +13,6 @@ use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\Attribute\SimpleMethodResolver;
 use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Controller\Traits\HasSimpleRoutesControllerTrait;
-use Wexample\SymfonyHelpers\Helper\BundleHelper;
-use Wexample\Helpers\Helper\ClassHelper;
-use Wexample\Helpers\Helper\TextHelper;
 use Wexample\SymfonyTranslations\Translation\Translator;
 
 class PageService extends RenderNodeService
@@ -22,7 +21,8 @@ class PageService extends RenderNodeService
         AssetsService $assetsService,
         protected Translator $translator,
         protected RouterInterface $router
-    ) {
+    )
+    {
         parent::__construct(
             $assetsService,
         );
@@ -32,7 +32,8 @@ class PageService extends RenderNodeService
         RenderPass $renderPass,
         PageRenderNode $page,
         string $view
-    ): void {
+    ): void
+    {
         $this->initRenderNode(
             $page,
             $renderPass,
@@ -52,8 +53,9 @@ class PageService extends RenderNodeService
 
     public function pageTranslationPathFromRoute(string $route): string
     {
-        $controllerMethodPath = $this
-            ->getControllerClassPathFromRouteName($route);
+        $controllerMethodPath = $this->getControllerClassPathFromRouteName($route);
+        $controllerClass = explode('::', $controllerMethodPath)[0];
+        $templateLocationPrefix = $controllerClass::getTemplateLocationPrefix();
 
         if (ClassHelper::hasAttributes(
             $controllerMethodPath,
@@ -68,15 +70,19 @@ class PageService extends RenderNodeService
             $methodAlias = substr($route, strlen($classPath::getControllerRouteAttribute()->getName()));
 
             /** @var string $classPath */
-            $controllerMethodPath = ($classPath.ClassHelper::METHOD_SEPARATOR.TextHelper::toCamel($methodAlias));
+            $controllerMethodPath = ($classPath . ClassHelper::METHOD_SEPARATOR . TextHelper::toCamel($methodAlias));
         }
 
         return $this->buildTranslationPathFromClassPath(
-            $controllerMethodPath
+            $controllerMethodPath,
+            $templateLocationPrefix
         );
     }
 
-    public function buildTranslationPathFromClassPath(string $classPath): string
+    public function buildTranslationPathFromClassPath(
+        string $classPath,
+        string $templateLocationPrefix = null
+    ): string
     {
         [$controllerFullPath, $methodName] = explode(ClassHelper::METHOD_SEPARATOR, $classPath);
 
@@ -85,7 +91,7 @@ class PageService extends RenderNodeService
 
         /** @var AbstractPagesController $controllerFullPath */
         /** @var AbstractBundle $controllerBundle */
-        if ($controllerBundle = $controllerFullPath::getControllerBundle()) {
+        if ($controllerFullPath::getControllerBundle()) {
             $explodeController = explode(
                 ClassHelper::NAMESPACE_SEPARATOR,
                 $controllerName
@@ -96,7 +102,7 @@ class PageService extends RenderNodeService
             // Append method name.
             $explodeController[] = $methodName;
 
-            return BundleHelper::ALIAS_PREFIX.$controllerBundle::getAlias().'.'.PageHelper::joinNormalizedParts(
+            return $templateLocationPrefix . '.' . PageHelper::joinNormalizedParts(
                     $explodeController,
                     '.'
                 );
@@ -116,9 +122,9 @@ class PageService extends RenderNodeService
         // Append method name.
         $explodeController[] = $methodName;
 
-        return PageHelper::joinNormalizedParts(
-            $explodeController,
-            '.'
-        );
+        return $templateLocationPrefix . '.' . PageHelper::joinNormalizedParts(
+                $explodeController,
+                '.'
+            );
     }
 }
