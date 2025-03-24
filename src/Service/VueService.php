@@ -99,7 +99,7 @@ class VueService
                 $rootComponent
             );
 
-            $this->translator->setDomainFromPath(
+            $this->translator->setDomainFromTemplatePath(
                 Translator::DOMAIN_TYPE_VUE,
                 $view
             );

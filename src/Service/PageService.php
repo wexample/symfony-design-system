@@ -40,7 +40,7 @@ class PageService extends RenderNodeService
             $view
         );
 
-        $this->translator->setDomainFromPath(
+        $this->translator->setDomainFromTemplatePath(
             $page->getContextType(),
             $view
         );
