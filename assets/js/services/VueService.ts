@@ -96,6 +96,10 @@ export default class VueService extends AppService {
       vueApp.use(this.store);
     }
 
+    if (rootComponent.vueAppInit) {
+      rootComponent.vueAppInit(vueApp)
+    }
+
     this.registerComponentsRecursively(vueApp, this.componentRegistered);
 
     return vueApp;
