@@ -1,4 +1,5 @@
-@import '../mixins/global.color-scheme.dark';
+@use '../mixins/global' as global;
+@use '../mixins/global.color-scheme.dark' as *;
 
 .usage-color-scheme-dark {
   background: $color-default-background;
@@ -16,7 +17,7 @@
     color: $color-default-link;
   }
 
-  #{$selector-title-all} {
+  #{global.$selector-title-all} {
     color: $color-default-title;
   }
 }

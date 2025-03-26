@@ -1,6 +1,7 @@
 $global-color-scheme-name: 'dark' !default;
 
-@import '../mixins/global.color-scheme.dark';
+@forward '../mixins/global.color-scheme.dark';
+@use '../mixins/global.color-scheme.dark' as *;
 
 $color-block-text: $color-default-text;
 $color-block-background: #111;
@@ -10,3 +11,4 @@ body.usage-color-scheme-default .color-scheme-dark.block {
   background: $color-block-background;
   color: $color-block-text;
 }
+
