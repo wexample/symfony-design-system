@@ -2,6 +2,9 @@ parameters:
     design_system.debug: false
     design_system.environment: '%env(APP_ENV)%'
     design_system.enable_aggregation: false
+    
+    # Design system colors
+    design_system.colors: {}
 
     design_system.usages.responsive:
       list:
@@ -89,3 +92,8 @@ services:
     Wexample\SymfonyDesignSystem\Controller\Pages\DemoController:
         tags:
             - { name: 'has_simple_routes' }
+            
+    # Configuration de l'extension Twig pour les couleurs
+    Wexample\SymfonyDesignSystem\Twig\ColorExtension:
+        arguments:
+            $colors: '%design_system.colors%'
