@@ -61,7 +61,7 @@
             <!-- Open Graph / Facebook -->
             <meta property="og:type" content="website">
             <meta property="og:url" content="{{ app.request.schemeAndHttpHost }}{{ app.request.requestUri }}">
-            <meta property="og:title" content="{{ document_meta_description | default('front.app.global::meta.title' | trans) }}">
+            <meta property="og:title" content="{{ document_meta_description | default('front.app.global::name' | trans) }}">
             <meta property="og:description" content="{{ document_meta_description | default('front.app.global::meta.description' | trans) }}">
             {% if meta_og_image | default(false) %}
                 <meta property="og:image" content="{{ meta_og_image }}">
@@ -70,7 +70,7 @@
             <!-- Twitter -->
             <meta property="twitter:card" content="summary_large_image">
             <meta property="twitter:url" content="{{ app.request.schemeAndHttpHost }}{{ app.request.requestUri }}">
-            <meta property="twitter:title" content="{{ document_meta_description | default('front.app.global::meta.title' | trans) }}">
+            <meta property="twitter:title" content="{{ document_meta_description | default('front.app.global::name' | trans) }}">
             <meta property="twitter:description" content="{{ document_meta_description | default('front.app.global::meta.description' | trans) }}">
             {% if meta_og_image | default(false) %}
                 <meta property="twitter:image" content="{{ meta_og_image }}">
