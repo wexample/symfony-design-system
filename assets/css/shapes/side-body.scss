@@ -1,0 +1,166 @@
+// Flexible Layout Component
+// A minimal, abstract layout system for creating flexible layouts with sidebars and main content
+
+// Variables
+$sidebar-width-default: 250px !default;
+$sidebar-width-small: 200px !default;
+$sidebar-width-large: 300px !default;
+$header-height-default: 60px !default;
+$footer-height-default: 60px !default;
+$gap-default: 1rem !default;
+
+// Base layout container
+.side-body {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  // Horizontal layout (default)
+  &--horizontal {
+    flex-direction: row;
+  }
+
+  // Vertical layout
+  &--vertical {
+    flex-direction: column;
+  }
+
+  // Main content area
+  &__body {
+    flex: 1;
+    overflow: auto;
+    min-width: 0; // Prevent flex items from overflowing
+    min-height: 0; // Prevent flex items from overflowing
+  }
+
+  // Sidebar elements
+  &__sidebar {
+    overflow: auto;
+    flex-shrink: 0;
+
+    // Default width for horizontal layout
+    .side-body--horizontal & {
+      width: $sidebar-width-default;
+    }
+
+    // Default height for vertical layout (header/footer)
+    .side-body--vertical & {
+      height: $header-height-default;
+    }
+
+    // Size variations
+    &--small {
+      .side-body--horizontal & {
+        width: $sidebar-width-small;
+      }
+    }
+
+    &--large {
+      .side-body--horizontal & {
+        width: $sidebar-width-large;
+      }
+    }
+
+    // Position variations for horizontal layout
+    &--start {
+      order: -1;
+    }
+
+    &--end {
+      order: 1;
+    }
+  }
+
+  // Add gap between elements
+  &--with-gap {
+    gap: $gap-default;
+  }
+
+  // Responsive behavior
+  @media (max-width: 768px) {
+    // Stack everything vertically on small screens
+    &--horizontal {
+      flex-direction: column;
+
+      .side-body__sidebar {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
+
+// Helper classes for common layouts
+
+// Left sidebar layout
+.side-body-left-sidebar {
+  @extend .side-body;
+  @extend .side-body--horizontal;
+
+  .side-body__sidebar {
+    @extend .side-body__sidebar--start;
+  }
+}
+
+// Right sidebar layout
+.side-body-right-sidebar {
+  @extend .side-body;
+  @extend .side-body--horizontal;
+
+  .side-body__sidebar {
+    @extend .side-body__sidebar--end;
+  }
+}
+
+// Double sidebar layout
+.side-body-double-sidebar {
+  @extend .side-body;
+  @extend .side-body--horizontal;
+
+  .side-body__sidebar--left {
+    @extend .side-body__sidebar;
+    @extend .side-body__sidebar--start;
+  }
+
+  .side-body__sidebar--right {
+    @extend .side-body__sidebar;
+    @extend .side-body__sidebar--end;
+  }
+}
+
+// Header and content layout
+.side-body-header {
+  @extend .side-body;
+  @extend .side-body--vertical;
+
+  .side-body__sidebar {
+    @extend .side-body__sidebar--start;
+  }
+}
+
+// Content and footer layout
+.side-body-footer {
+  @extend .side-body;
+  @extend .side-body--vertical;
+
+  .side-body__sidebar {
+    @extend .side-body__sidebar--end;
+  }
+}
+
+// Header, content, and footer layout
+.side-body-header-footer {
+  @extend .side-body;
+  @extend .side-body--vertical;
+
+  .side-body__sidebar--header {
+    @extend .side-body__sidebar;
+    @extend .side-body__sidebar--start;
+  }
+
+  .side-body__sidebar--footer {
+    @extend .side-body__sidebar;
+    @extend .side-body__sidebar--end;
+  }
+}

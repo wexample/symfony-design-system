@@ -17,7 +17,7 @@
 @use '../../css/shapes/block';
 
 // Base imports
-@import '../../css/partials/global';
+@use '../../css/partials/global' as *;
 
 body {
   font-family: 'Work Sans Regular', sans-serif;

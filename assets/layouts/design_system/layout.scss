@@ -1,0 +1,11 @@
+// Base extension.
+@use '../default/layout';
+
+@use '../../css/shapes/side-body';
+
+// Import components.
+@forward '../../css/shapes/side-body';
+
+.design-system-layout {
+  @extend .side-body-left-sidebar;
+}
