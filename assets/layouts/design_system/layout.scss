@@ -7,4 +7,8 @@
 
 .design-system-layout {
   @extend .side-body-left-sidebar;
+
+  .design-system-page-content {
+    @extend .side-body__body;
+  }
 }
