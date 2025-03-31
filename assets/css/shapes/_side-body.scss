@@ -4,69 +4,59 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  box-sizing: border-box;
+
+  // Define the body element
+  &--body {
+    flex: 1;
+    overflow: auto;
+    min-width: 0; // Prevent flex items from overflowing
+    min-height: 0; // Prevent flex items from overflowing
+    order: 0; // Keep in the middle
+  }
+  
+  // Define sidebar elements
+  &--sidebar {
+    overflow: auto;
+    flex-shrink: 0;
+  }
   
   // Horizontal layout (default)
-  &.horizontal {
+  &--horizontal {
     flex-direction: row;
     
-    // Auto-positioning for children
-    > * {
-      overflow: auto;
-      
-      // The .body class gets flex:1 and becomes the main content
-      &.body {
-        flex: 1;
-        min-width: 0; // Prevent flex items from overflowing
-        order: 0; // Keep in the middle
-      }
-      
-      // Any non-body element before the body becomes a left sidebar
-      &:not(.body):first-child,
-      &:not(.body) ~ .body {
-        flex-shrink: 0;
-      }
-      
-      // Elements before body get left position
-      &:not(.body):nth-child(-n+1):not(:nth-last-child(1)) {
-        order: -1; // Left side
-      }
-      
-      // Elements after body get right position
-      &:not(.body):nth-last-child(-n+1):not(:nth-child(1)) {
-        order: 1; // Right side
-      }
+    // Position sidebars on left
+    > .side-body--sidebar:first-child,
+    > :not(.side-body--body):first-child {
+      order: -1; // Left side
+    }
+    
+    // Position sidebars on right
+    > .side-body--sidebar:last-child,
+    > :not(.side-body--body):last-child:not(:first-child) {
+      order: 1; // Right side
     }
   }
-  
+
   // Vertical layout
-  &.vertical {
+  &--vertical {
     flex-direction: column;
     
-    // Auto-positioning for children
-    > * {
-      overflow: auto;
-      
-      // The .body class gets flex:1 and becomes the main content
-      &.body {
-        flex: 1;
-        min-height: 0; // Prevent flex items from overflowing
-        order: 0; // Keep in the middle
-      }
-      
-      // Any non-body element becomes header/footer with fixed height
-      &:not(.body) {
-        flex-shrink: 0;
-      }
-      
-      // Elements before body get top position (header)
-      &:not(.body):nth-child(-n+1):not(:nth-last-child(1)) {
-        order: -1; // Top
-      }
-      
-      // Elements after body get bottom position (footer)
-      &:not(.body):nth-last-child(-n+1):not(:nth-child(1)) {
-        order: 1; // Bottom
-      }
+    // Position elements at top
+    > .side-body--sidebar:first-child,
+    > :not(.side-body--body):first-child {
+      order: -1; // Top
+    }
+    
+    // Position elements at bottom
+    > .side-body--sidebar:last-child,
+    > :not(.side-body--body):last-child:not(:first-child) {
+      order: 1; // Bottom
     }
   }
+}
+
+// For backward compatibility
+.body {
+  @extend .side-body--body;
 }
