@@ -1,0 +1,5 @@
+menu:
+  global_level:
+    title: Global level
+  project_level:
+    title: Project level

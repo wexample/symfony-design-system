@@ -9,12 +9,24 @@
     <div class="design-system-layout">
         <div class="design-system-menu">
             <nav class="menu">
+                <div>
+                    {{ '@layout::menu.global_level.title' | trans }}
+                </div>
                 <ul>
                     <li>
                         <a href="{{ path('_design_system_index') }}">{{ 'WexampleSymfonyDesignSystemBundle.config.design_system.index::page_title' | trans }}</a>
                     </li>
                     <li>
                         <a href="{{ path('_design_system_side_body') }}">{{ 'WexampleSymfonyDesignSystemBundle.config.design_system.side_body::page_title' | trans }}</a>
+                    </li>
+                </ul>
+                <hr>
+                <div>
+                    {{ '@layout::menu.project_level.title' | trans }}
+                </div>
+                <ul>
+                    <li>
+                        <a href="{{ path('_design_system_project_logo') }}">{{ 'WexampleSymfonyDesignSystemBundle.config.design_system.project.logo::page_title' | trans }}</a>
                     </li>
                 </ul>
             </nav>
