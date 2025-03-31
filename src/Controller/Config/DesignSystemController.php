@@ -14,12 +14,21 @@ final class DesignSystemController extends AbstractPagesController
     use SymfonyDesignSystemBundleClassTrait;
 
     final public const ROUTE_INDEX = VariableHelper::INDEX;
+    final public const SIDE_BODY = 'side_body';
 
     #[Route(name: self::ROUTE_INDEX)]
     public function index(): Response
     {
         return $this->renderPage(
             self::ROUTE_INDEX,
+        );
+    }
+
+    #[Route('side-body', name: self::SIDE_BODY)]
+    public function sideBody(): Response
+    {
+        return $this->renderPage(
+            self::SIDE_BODY,
         );
     }
 }
