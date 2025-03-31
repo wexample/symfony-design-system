@@ -6,7 +6,7 @@
 @forward '../../css/shapes/vertical-menu';
 
 .design-system-layout {
-  @extend .side-body;
+  @extend .side-body--horizontal;
 
   .design-system-page-content {
     width: 100%;

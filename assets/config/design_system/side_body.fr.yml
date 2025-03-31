@@ -1,5 +1,11 @@
 body: The side body element helps to create block having side columns.
 page_title: 'Side body'
-title_side_left: Left column
-title_side_right: Right column
-title_side_both: Double columns
+title:
+  horizontal:
+    left: Left column
+    right: Right column
+    both: Double columns
+  vertical:
+    top: Header
+    bottom: Footer
+    both: Header and footer
