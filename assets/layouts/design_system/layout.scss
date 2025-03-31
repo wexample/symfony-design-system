@@ -6,9 +6,10 @@
 @forward '../../css/shapes/vertical-menu';
 
 .design-system-layout {
-  @extend .side-body-left-sidebar;
+  @extend .side-body;
 
   .design-system-page-content {
-    @extend .side-body__body;
+    width: 100%;
+    @extend .body;
   }
 }

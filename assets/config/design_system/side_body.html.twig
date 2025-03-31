@@ -5,15 +5,46 @@
     <p>
         {{ '@page::body' | trans }}
     </p>
-    <div class="side-body-left-sidebar">
-        <div class="side-body__sidebar--left">
+    <h2>{{ '@page::title_side_left' | trans }}</h2>
+    <div class="side-body horizontal">
+        <div>
             SIDE ONE
         </div>
-        <div class="side-body__sidebar--left">
+        <div>
             SIDE TWO
         </div>
-        <div class="side-body__body">
+        <div class="body">
             BODY
+        </div>
+    </div>
+    <h2>{{ '@page::title_side_right' | trans }}</h2>
+    <div class="side-body horizontal">
+        <div class="body">
+            BODY
+        </div>
+        <div>
+            SIDE ONE
+        </div>
+        <div>
+            SIDE TWO
+        </div>
+    </div>
+    <h2>{{ '@page::title_side_both' | trans }}</h2>
+    <div class="side-body horizontal">
+        <div>
+            SIDE ONE
+        </div>
+        <div>
+            SIDE TWO
+        </div>
+        <div class="body">
+            BODY
+        </div>
+        <div>
+            SIDE THREE
+        </div>
+        <div>
+            SIDE FOUR
         </div>
     </div>
 {%- endblock -%}
