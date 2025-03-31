@@ -1,12 +1,14 @@
-ul.reset {
+// Simple mixin to reset margin and padding
+@mixin reset-spacing {
   margin: 0;
   padding: 0;
-
-  li {
-    @extend .reset;
-  }
 }
 
-li.reset {
-  list-style: none;
+.reset {
+  @include reset-spacing;
+
+  li {
+    @include reset-spacing;
+    list-style: none;
+  }
 }

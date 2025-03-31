@@ -1,6 +1,9 @@
+// Basic menu shape - only essential resets
+@use '../mixins/reset' as spacing;
 
 .menu {
-  li {
-    list-style: none;
+  ul {
+    @extend .reset;
+    display: block;
   }
 }
