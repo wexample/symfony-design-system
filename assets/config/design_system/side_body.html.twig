@@ -1,5 +1,19 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/layouts/design_system/layout.html.twig' -%}
 
 {%- block page_body -%}
-    {{ '@page::body' | trans }}
+    <h1>{{ '@page::page_title' | trans }}</h1>
+    <p>
+        {{ '@page::body' | trans }}
+    </p>
+    <div class="side-body-left-sidebar">
+        <div class="side-body__sidebar--left">
+            SIDE ONE
+        </div>
+        <div class="side-body__sidebar--left">
+            SIDE TWO
+        </div>
+        <div class="side-body__body">
+            BODY
+        </div>
+    </div>
 {%- endblock -%}

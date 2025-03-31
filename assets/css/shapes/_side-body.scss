@@ -1,14 +1,3 @@
-// Flexible Layout Component
-// A minimal, abstract layout system for creating flexible layouts with sidebars and main content
-
-// Variables
-$sidebar-width-default: 250px !default;
-$sidebar-width-small: 200px !default;
-$sidebar-width-large: 300px !default;
-$header-height-default: 60px !default;
-$footer-height-default: 60px !default;
-$gap-default: 1rem !default;
-
 // Base layout container
 .side-body {
   display: flex;
@@ -39,29 +28,6 @@ $gap-default: 1rem !default;
     overflow: auto;
     flex-shrink: 0;
 
-    // Default width for horizontal layout
-    .side-body--horizontal & {
-      width: $sidebar-width-default;
-    }
-
-    // Default height for vertical layout (header/footer)
-    .side-body--vertical & {
-      height: $header-height-default;
-    }
-
-    // Size variations
-    &--small {
-      .side-body--horizontal & {
-        width: $sidebar-width-small;
-      }
-    }
-
-    &--large {
-      .side-body--horizontal & {
-        width: $sidebar-width-large;
-      }
-    }
-
     // Position variations for horizontal layout
     &--start {
       order: -1;
@@ -71,27 +37,7 @@ $gap-default: 1rem !default;
       order: 1;
     }
   }
-
-  // Add gap between elements
-  &--with-gap {
-    gap: $gap-default;
-  }
-
-  // Responsive behavior
-  @media (max-width: 768px) {
-    // Stack everything vertically on small screens
-    &--horizontal {
-      flex-direction: column;
-
-      .side-body__sidebar {
-        width: 100%;
-        height: auto;
-      }
-    }
-  }
 }
-
-// Helper classes for common layouts
 
 // Left sidebar layout
 .side-body-left-sidebar {

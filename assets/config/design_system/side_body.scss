@@ -4,5 +4,9 @@
   .side-body-left-sidebar {
     border: 1px solid black;
     width: 100%;
+
+    & > div {
+      border: 1px solid rgba(0, 0, 0, .5);
+    }
   }
 }
