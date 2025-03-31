@@ -89,11 +89,18 @@ services:
         resource: '../../{Command,Controller,EventSubscriber,Service,Twig}'
         tags: ['controller.service_arguments']
 
-    Wexample\SymfonyDesignSystem\Controller\Pages\DemoController:
+    Wexample\SymfonyDesignSystem\Controller\Config\DemoController:
         tags:
             - { name: 'has_simple_routes' }
-            
-    # Configuration de l'extension Twig pour les couleurs
+
+    Wexample\SymfonyDesignSystem\Controller\Config\TestController:
+        tags:
+            - { name: 'has_simple_routes' }
+
+    Wexample\SymfonyDesignSystem\Controller\Config\DesignSystemController:
+        tags:
+            - { name: 'has_simple_routes' }
+
     Wexample\SymfonyDesignSystem\Twig\ColorExtension:
         arguments:
             $colors: '%design_system.colors%'

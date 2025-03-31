@@ -2,7 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Tests\Application\Role\Anonymous\Controller\Pages;
 
-use Wexample\SymfonyDesignSystem\Controller\Pages\DemoController;
+use Wexample\SymfonyDesignSystem\Controller\Config\DemoController;
 use Wexample\SymfonyDesignSystem\Traits\SymfonyDesignSystemBundleClassTrait;
 use Wexample\SymfonyTesting\Tests\AbstractRoleControllerTestCase;
 use Wexample\SymfonyTesting\Tests\Traits\RoleAnonymousTestCaseTrait;

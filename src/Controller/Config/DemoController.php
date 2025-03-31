@@ -1,6 +1,6 @@
 <?php
 
-namespace Wexample\SymfonyDesignSystem\Controller\Pages;
+namespace Wexample\SymfonyDesignSystem\Controller\Config;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

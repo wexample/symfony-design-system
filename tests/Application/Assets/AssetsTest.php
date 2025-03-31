@@ -2,7 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Tests\Application\Assets;
 
-use Wexample\SymfonyDesignSystem\Controller\Pages\DemoController;
+use Wexample\SymfonyDesignSystem\Controller\Config\DemoController;
 use Wexample\SymfonyDesignSystem\Tests\Traits\DesignSystemTestCaseTrait;
 use Wexample\SymfonyTesting\Tests\AbstractSymfonyTestCase;
 use Wexample\SymfonyTesting\Traits\ControllerTestCaseTrait;
