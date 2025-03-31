@@ -4,3 +4,13 @@
     {{- render_pass.layoutRenderNode.setDefaultView(_self) -}}
     {{ parent() }}
 {%- endblock -%}
+
+{%- block layout_composer_html -%}
+    <div class="design-system-layout">
+        <div class="design-system-menu">
+        </div>
+        <div class="design-system-page-content">
+            {{ parent() }}
+        </div>
+    </div>
+{%- endblock -%}
