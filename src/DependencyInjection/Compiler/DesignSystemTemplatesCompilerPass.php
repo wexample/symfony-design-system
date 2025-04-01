@@ -9,7 +9,7 @@ use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class DesignSystemTemplatesCompilerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $definition = $container->getDefinition('twig.loader.native_filesystem');
         $bundlesPaths = $container->getParameter('design_system_packages_front_paths');
