@@ -1,0 +1,15 @@
+<div class="container-medium">
+    <h2>{{ 'WexampleSymfonyDesignSystemBundle.config.design_system.app.stripe::page_title' | trans }}</h2>
+</div>
+{% for color_name, color_value in design_system_colors() %}
+    <div class="background-color-{{ color_name }}">
+        <div class="container-medium">
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+    </div>
+{% endfor %}
+<br>
+<br>
