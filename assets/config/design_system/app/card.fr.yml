@@ -1,1 +1,18 @@
 page_title: Cards
+
+section:
+  basic: Cards de base
+
+card:
+  one:
+    title: Titre de la carte
+    content: Contenu de la carte avec du texte standard. Ceci est un exemple de contenu.
+    button: Action
+  two:
+    title: Carte avec image
+    image_alt: Image d'exemple
+    content: Carte avec une image et du texte.
+    button: Voir plus
+  three:
+    title: Carte simple
+    content: Version minimaliste avec seulement du contenu.
