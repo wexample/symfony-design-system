@@ -1,9 +1,8 @@
 @use '../../css/partials/margin';
 @use '../../css/partials/link';
+@use '../../css/partials/global' as *;
 
-html, body {
-  margin: 0;
-  padding: 0;
+html, body, #{$selector-title-all} {
   @extend .no-margin-or-padding;
 }
 

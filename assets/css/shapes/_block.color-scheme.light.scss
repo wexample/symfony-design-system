@@ -1,6 +1,6 @@
 $global-color-scheme-name: 'light' !default;
 
-@import '../mixins/global.color-scheme.light';
+@use '../mixins/global.color-scheme.light' as *;
 
 $color-block-text: $color-default-text;
 $color-block-background: #DDD;

@@ -4,48 +4,4 @@
   ul {
     @extend .no-style-list
   }
-
-  //width: 200px;
-  //background-color: #333;
-  //padding-top: 1rem;
-  //display: flex;
-  //
-  //justify-content: space-between;
-  //
-  //ul {
-  //  list-style: none;
-  //  padding: 0;
-  //  margin: 0;
-  //  flex: 1; // Prend tout l'espace disponible pour étirer le contenu
-  //  display: flex;
-  //  flex-direction: column;
-  //}
-  //
-  //li {
-  //  margin-bottom: 1rem;
-  //
-  //  a {
-  //    color: #fff;
-  //    text-decoration: none;
-  //    padding: 0.5rem 1rem;
-  //    display: block;
-  //    font-weight: bold;
-  //
-  //    &:hover {
-  //      background-color: #444;
-  //      color: #fff;
-  //    }
-  //  }
-  //
-  //  &.logo {
-  //    margin-top: auto; // Force le logo à être aligné en bas
-  //    text-align: center;
-  //
-  //    .syrtis-text {
-  //      font-family: 'Share Tech Mono', monospace;
-  //      color: white;
-  //      font-size: 1.6rem;
-  //    }
-  //  }
-  //}
 }

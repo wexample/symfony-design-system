@@ -42,7 +42,7 @@ class ComponentRenderNode extends AbstractRenderNode
 
     public function renderCssClasses(): string
     {
-        return 'com-class-loaded' . (!empty($cssClassName) ? ' ' . $cssClassName : '');
+        return 'com-class-loaded' . (!empty($this->cssClassName) ? ' ' . $this->cssClassName : '');
     }
 
     public function renderTag(): string

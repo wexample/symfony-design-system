@@ -4,7 +4,8 @@
 
 {%- block layout_config -%}
     {{- render_pass.layoutRenderNode.setDefaultView(_self) -}}
-    {{ parent() }}
+    {{- render_pass.setUsage('color_scheme', 'dark') -}}
+    {{- parent() -}}
 {%- endblock -%}
 
 {# Has a header bar with mobile burger and user menu #}
