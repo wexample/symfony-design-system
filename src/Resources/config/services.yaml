@@ -97,10 +97,6 @@ services:
         tags:
             - { name: 'has_simple_routes' }
 
-    Wexample\SymfonyDesignSystem\Controller\Config\DesignSystemController:
-        tags:
-            - { name: 'has_simple_routes' }
-
     Wexample\SymfonyDesignSystem\Twig\ColorExtension:
         arguments:
             $colors: '%design_system.colors%'
