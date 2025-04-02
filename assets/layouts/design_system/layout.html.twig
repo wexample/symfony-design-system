@@ -6,33 +6,9 @@
 {%- endblock -%}
 
 {%- block layout_composer_html -%}
-    <div class="design-system-layout">
-        <div class="design-system-menu">
-            <nav class="menu">
-                <div>
-                    {{ '@layout::menu.global_level.title' | trans }}
-                </div>
-                <ul>
-                    <li>
-                        <a href="{{ path('_design_system_index') }}">{{ 'WexampleSymfonyDesignSystemBundle.config.design_system.index::page_title' | trans }}</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('_design_system_side_body') }}">{{ 'WexampleSymfonyDesignSystemBundle.config.design_system.side_body::page_title' | trans }}</a>
-                    </li>
-                </ul>
-                <hr>
-                <div>
-                    {{ '@layout::menu.project_level.title' | trans }}
-                </div>
-                <ul>
-                    <li>
-                        <a href="{{ path('_design_system_project_logo') }}">{{ 'WexampleSymfonyDesignSystemBundle.config.design_system.project.logo::page_title' | trans }}</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div class="design-system-page-content">
-            {{ parent() }}
-        </div>
-    </div>
+    {% set page_content %}{{ parent() }}{% endset %}
+
+    {% include '@WexampleSymfonyDesignSystemBundle/layouts/design_system/partials/design_system_layout_inner.html.twig' with {
+        page_content: page_content
+    } %}
 {%- endblock -%}

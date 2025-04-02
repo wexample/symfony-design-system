@@ -1,0 +1,10 @@
+@forward '../../../css/shapes/side-body';
+
+.design-system-layout {
+  @extend .side-body--horizontal;
+
+  .design-system-page-content {
+    width: 100%;
+    @extend .side-body--body;
+  }
+}

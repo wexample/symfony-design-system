@@ -1,0 +1,36 @@
+<div class="design-system-layout">
+    <div class="design-system-menu">
+        <nav class="menu">
+            {% if slots.menu is defined %}
+                {{ slots.menu }}
+            {% else %}
+                <div>
+                    {{ 'WexampleSymfonyDesignSystemBundle.layouts.design_system.layout::menu.project_level.title' | trans }}
+                </div>
+                <ul>
+                    <li>
+                        <a href="{{ path('_design_system_app_logo') }}">{{ 'WexampleSymfonyDesignSystemBundle.config.design_system.project.logo::page_title' | trans }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('_design_system_app_stripe') }}">{{ 'WexampleSymfonyDesignSystemBundle.config.design_system.project.stripe::page_title' | trans }}</a>
+                    </li>
+                </ul>
+                <hr>
+                <div>
+                    {{ 'WexampleSymfonyDesignSystemBundle.layouts.design_system.layout::menu.global_level.title' | trans }}
+                </div>
+                <ul>
+                    {#                    <li> #}
+                    {#                        <a href="{{ path('_design_system_index') }}">{{ 'WexampleSymfonyDesignSystemBundle.config.design_system.index::page_title' | trans }}</a> #}
+                    {#                    </li> #}
+                    {#                    <li> #}
+                    {#                        <a href="{{ path('_design_system_side_body') }}">{{ 'WexampleSymfonyDesignSystemBundle.config.design_system.side_body::page_title' | trans }}</a> #}
+                    {#                    </li> #}
+                </ul>
+            {% endif %}
+        </nav>
+    </div>
+    <div class="design-system-page-content">
+        {{ page_content }}
+    </div>
+</div>

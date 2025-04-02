@@ -2,14 +2,8 @@
 @use '../default/layout';
 
 // Import components.
-@forward '../../css/shapes/side-body';
 @forward '../../css/shapes/vertical-menu';
 
-.design-system-layout {
-  @extend .side-body--horizontal;
+// Local
+@forward 'partials/design_system_layout_inner';
 
-  .design-system-page-content {
-    width: 100%;
-    @extend .side-body--body;
-  }
-}
