@@ -1,7 +1,8 @@
 page_title: Cards
 
 section:
-  basic: Basic Cards
+  three_cards: Three cards
+  two_cards: Two cards
 
 card:
   one:
