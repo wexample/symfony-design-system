@@ -1,0 +1,9 @@
+.card {
+  border-radius: .5rem;
+
+  .card--header,
+  .card--body,
+  .card--footer {
+    padding: 1rem;
+  }
+}
