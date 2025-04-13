@@ -39,6 +39,8 @@ class TemplateBasedRouteLoader extends AbstractRouteLoader
         foreach ($this->taggedControllers as $controller) {
 
             if (ClassHelper::hasAttributes($controller::class, TemplateBasedRoutes::class)) {
+                $reflectionClass = new \ReflectionClass($controller);
+
                 $templatePath = $controller::getControllerTemplateDir();
                 $templatesDir = $this->parameterBag->get('kernel.project_dir') . FileHelper::FOLDER_SEPARATOR . $templatePath;
 
@@ -55,7 +57,7 @@ class TemplateBasedRouteLoader extends AbstractRouteLoader
                     if ($fullPath) {
                         // Create the route
                         $route = new Route($fullPath, [
-                            '_controller' => $controller::class . '::renderTemplate',
+                            '_controller' => $reflectionClass->getName().'::resolveTemplateBasedRoute',
                             'template' => $file->getRelativePathname(),
                         ]);
                         
