@@ -4,8 +4,6 @@ namespace Wexample\SymfonyDesignSystem\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Wexample\Helpers\Helper\ClassHelper;
-use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
-use Wexample\SymfonyDesignSystem\Helper\PageHelper;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
@@ -45,12 +43,6 @@ abstract class AbstractPagesController extends AbstractController
             $renderPassBagService);
     }
 
-    public static function getTemplateLocationPrefix(): string
-    {
-        $bundleClass = static::getControllerBundle();
-        return ($bundleClass ? $bundleClass::getAlias() : DesignSystemHelper::TWIG_NAMESPACE_FRONT);
-    }
-
     public static function buildTemplatePath(
         string $view,
         AbstractBundle|string|null $bundleClass = null
@@ -77,10 +69,10 @@ abstract class AbstractPagesController extends AbstractController
     {
         $bundle = $bundle ?: static::getDefaultPageBundleClass();
 
-        $parts = PageHelper::explodeControllerNamespaceSubParts(static::class, $bundle);
+        $parts = TemplateHelper::explodeControllerNamespaceSubParts(static::class, $bundle);
         $parts[] = $pageName;
 
-        return static::buildTemplatePath(PageHelper::joinNormalizedParts($parts), $bundle);
+        return static::buildTemplatePath(TemplateHelper::joinNormalizedParts($parts), $bundle);
     }
 
     public static function getDefaultPageBundleClass(): ?string

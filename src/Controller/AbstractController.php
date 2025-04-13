@@ -6,6 +6,7 @@ use Exception;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AjaxLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
@@ -183,6 +184,21 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
                 'render_pass' => $renderPass,
             ] + $parameters,
             $response
+        );
+    }
+
+    public static function getTemplateLocationPrefix(): string
+    {
+        $bundleClass = static::getControllerBundle();
+        return ($bundleClass ? $bundleClass::getAlias() : DesignSystemHelper::TWIG_NAMESPACE_FRONT);
+    }
+
+    public static function getControllerTemplateDir(): string {
+        return TemplateHelper::joinNormalizedParts(
+            [
+                self::getTemplateLocationPrefix(),
+                ...TemplateHelper::explodeControllerNamespaceSubParts(static::class)
+            ]
         );
     }
 }

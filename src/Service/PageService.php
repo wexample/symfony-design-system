@@ -7,7 +7,7 @@ use Wexample\Helpers\Helper\ClassHelper;
 use Wexample\Helpers\Helper\TextHelper;
 use Wexample\SymfonyDesignSystem\Controller\AbstractController;
 use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
-use Wexample\SymfonyDesignSystem\Helper\PageHelper;
+use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\PageRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\Attribute\SimpleMethodResolver;
@@ -102,7 +102,7 @@ class PageService extends RenderNodeService
             // Append method name.
             $explodeController[] = $methodName;
 
-            return $templateLocationPrefix . '.' . PageHelper::joinNormalizedParts(
+            return $templateLocationPrefix . '.' . TemplateHelper::joinNormalizedParts(
                     $explodeController,
                     '.'
                 );
@@ -122,7 +122,7 @@ class PageService extends RenderNodeService
         // Append method name.
         $explodeController[] = $methodName;
 
-        return $templateLocationPrefix . '.' . PageHelper::joinNormalizedParts(
+        return $templateLocationPrefix . '.' . TemplateHelper::joinNormalizedParts(
                 $explodeController,
                 '.'
             );
