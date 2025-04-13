@@ -12,6 +12,7 @@ use Wexample\Helpers\Helper\FileHelper;
 use Wexample\SymfonyDesignSystem\Controller\AbstractController;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Routing\Attribute\TemplateBasedRoutes;
+use Wexample\SymfonyHelpers\Controller\Traits\HasSimpleRoutesControllerTrait;
 use Wexample\SymfonyHelpers\Routing\AbstractRouteLoader;
 use Wexample\SymfonyHelpers\Routing\Traits\RoutePathBuilderTrait;
 
@@ -57,8 +58,8 @@ class TemplateBasedRouteLoader extends AbstractRouteLoader
                     if ($fullPath) {
                         // Create the route
                         $route = new Route($fullPath, [
-                            '_controller' => $reflectionClass->getName().'::resolveTemplateBasedRoute',
-                            'template' => $file->getRelativePathname(),
+                            '_controller' => $reflectionClass->getName().'::resolveSimpleRoute',
+                            'routeName' => $filename,
                         ]);
                         
                         $collection->add($routeName, $route);
