@@ -7,7 +7,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\TwigFunction;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
-class NavigationExtension extends AbstractExtension
+class RouteExtension extends AbstractExtension
 {
     protected ?string $currentPath = null;
 
