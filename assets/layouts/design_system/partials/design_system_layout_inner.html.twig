@@ -8,15 +8,11 @@
                     {{ 'WexampleSymfonyDesignSystemBundle.layouts.design_system.layout::menu.project_level.title' | trans }}
                 </div>
                 <ul>
-                    <li>
-                        <a href="{{ path('_design_system_app_logo') }}">{{ 'WexampleSymfonyDesignSystemBundle.config.design_system.app.logo::page_title' | trans }}</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('_design_system_app_stripe') }}">{{ 'WexampleSymfonyDesignSystemBundle.config.design_system.app.stripe::page_title' | trans }}</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('_design_system_app_card') }}">{{ 'WexampleSymfonyDesignSystemBundle.config.design_system.app.card::page_title' | trans }}</a>
-                    </li>
+                    {% for route_name, route in route_get_controller_routes('App\\Controller\\Config\\DesignSystem\\AppController') %}
+                        <li>
+                            <a href="{{ path(route_name) }}">{{ (translation_build_domain_from_template_path(page_translation_path_from_route(route_name)) ~ '::page_title') | trans }}</a>
+                        </li>
+                    {% endfor %}
                 </ul>
                 <hr>
                 <div>
