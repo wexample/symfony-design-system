@@ -4,6 +4,11 @@
             {% if slots.menu is defined %}
                 {{ slots.menu }}
             {% else %}
+                <ul>
+                    <li>
+                        <a href="{{ path('home_index') }}">{{ 'front.pages.home.index::page_title' | trans }}</a>
+                    </li>
+                </ul>
                 <div>
                     {{ 'WexampleSymfonyDesignSystemBundle.layouts.design_system.layout::menu.components.title' | trans }}
                 </div>
