@@ -14,5 +14,9 @@
 
   .card--action {
     text-align: center;
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
   }
 }
