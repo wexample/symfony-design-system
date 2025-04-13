@@ -5,7 +5,7 @@
                 {{ slots.menu }}
             {% else %}
                 <div>
-                    {{ 'WexampleSymfonyDesignSystemBundle.layouts.design_system.layout::menu.project_level.title' | trans }}
+                    {{ 'WexampleSymfonyDesignSystemBundle.layouts.design_system.layout::menu.components.title' | trans }}
                 </div>
                 <ul>
                     {% for route_name, route in route_get_controller_routes('App\\Controller\\Config\\DesignSystem\\AppController') %}
@@ -13,18 +13,6 @@
                             <a href="{{ path(route_name) }}">{{ (translation_build_domain_from_template_path(page_translation_path_from_route(route_name)) ~ '::page_title') | trans }}</a>
                         </li>
                     {% endfor %}
-                </ul>
-                <hr>
-                <div>
-                    {{ 'WexampleSymfonyDesignSystemBundle.layouts.design_system.layout::menu.global_level.title' | trans }}
-                </div>
-                <ul>
-                    {#                    <li> #}
-                    {#                        <a href="{{ path('_design_system_index') }}">{{ 'WexampleSymfonyDesignSystemBundle.config.design_system.index::page_title' | trans }}</a> #}
-                    {#                    </li> #}
-                    {#                    <li> #}
-                    {#                        <a href="{{ path('_design_system_side_body') }}">{{ 'WexampleSymfonyDesignSystemBundle.config.design_system.side_body::page_title' | trans }}</a> #}
-                    {#                    </li> #}
                 </ul>
             {% endif %}
         </nav>

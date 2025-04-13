@@ -1,6 +1,4 @@
-{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/design_system/layout.html.twig' -%}
-
-{%- block page_body -%}
+<div class="container-medium">
     <h1>{{ '@page::page_title' | trans }}</h1>
     <p>
         {{ '@page::body' | trans }}
@@ -47,7 +45,7 @@
             SIDE FOUR
         </div>
     </div>
-    
+
     <h2>{{ '@page::title.vertical.top' | trans }}</h2>
     <div class="side-body--vertical">
         <div>
@@ -80,4 +78,6 @@
             FOOTER
         </div>
     </div>
-{%- endblock -%}
+</div>
+<br>
+<br>
