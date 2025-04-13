@@ -36,7 +36,7 @@ class SystemExtension extends AbstractExtension
         $versionFilePath = $this->kernel->getProjectDir().'/'.$versionFile;
 
         if (is_file($versionFilePath)) {
-            return file_get_contents($versionFilePath);
+            return trim(file_get_contents($versionFilePath));
         }
 
         return null;
