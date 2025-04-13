@@ -1,0 +1,5 @@
+@use '../mixins/pill' as mixin_pill;
+
+.button {
+  border-radius: mixin_pill.$pill-border-radius;
+}
