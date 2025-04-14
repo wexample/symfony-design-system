@@ -49,7 +49,7 @@ abstract class AbstractAssetUsageService
 
         if (isset($renderPass->usagesConfig[$usage]['list'])) {
             foreach ($renderPass->usagesConfig[$usage]['list'] as $usageValue => $config) {
-                $assetPath = $pathInfo['dirname'].'/'.$pathInfo['filename'].'.'.$usageKebab.'.'.$usageValue.'.'.$pathInfo['extension'];
+                $assetPath = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.' . $usageKebab . '.' . $usageValue . '.' . $pathInfo['extension'];
 
                 if ($asset = $this->createAssetIfExists(
                     $assetPath,

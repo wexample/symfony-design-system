@@ -47,9 +47,14 @@ class AssetsRegistryService extends RenderDataGenerator
         return isset($this->manifest[$pathInManifest]);
     }
 
+    public function getBuiltPath(string $pathInManifest): string
+    {
+        return $this->manifest[$pathInManifest];
+    }
+
     public function getRealPath(string $pathInManifest): string
     {
-        return realpath($this->pathPublic.$this->manifest[$pathInManifest]);
+        return realpath($this->pathPublic . $this->getBuiltPath($pathInManifest));
     }
 
     public function addAsset(Asset $asset): void
