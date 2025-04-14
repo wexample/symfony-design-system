@@ -52,7 +52,7 @@ export default class PagesService extends AbstractRenderNodeService {
     }
 
     const registry = this.app.services.pages.pageHandlerRegistry;
-    let pageHandler = registry[renderData.renderRequestId];
+    const pageHandler = registry[renderData.renderRequestId];
 
     if (pageHandler) {
       parentNode = pageHandler;
