@@ -3,18 +3,19 @@
 namespace Wexample\SymfonyDesignSystem\Service\Usage;
 
 use Exception;
+use Wexample\Helpers\Helper\PathHelper;
+use Wexample\Helpers\Helper\TextHelper;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsRegistryService;
-use Wexample\Helpers\Helper\PathHelper;
-use Wexample\Helpers\Helper\TextHelper;
 
 abstract class AbstractAssetUsageService
 {
     public function __construct(
         protected AssetsRegistryService $assetsRegistryService
-    ) {
+    )
+    {
 
     }
 
@@ -23,11 +24,12 @@ abstract class AbstractAssetUsageService
     public function buildPublicAssetPathFromView(
         string $view,
         string $ext
-    ): string {
+    ): string
+    {
         $nameParts = explode('/', $view);
         $bundle = array_shift($nameParts);
 
-        return AssetsRegistryService::DIR_BUILD.PathHelper::join(array_merge([$bundle, $ext], $nameParts)).'.'.$ext;
+        return AssetsRegistryService::DIR_BUILD . PathHelper::join(array_merge([$bundle, $ext], $nameParts)) . '.' . $ext;
     }
 
     public function addAssetsForRenderNodeAndType(
@@ -35,7 +37,8 @@ abstract class AbstractAssetUsageService
         AbstractRenderNode $renderNode,
         string $ext,
         string $view
-    ): bool {
+    ): bool
+    {
         $pathInfo = pathinfo(
             $this->buildPublicAssetPathFromView(
                 $view,
@@ -70,7 +73,8 @@ abstract class AbstractAssetUsageService
     protected function createAssetIfExists(
         string $pathInManifest,
         AbstractRenderNode $renderNode,
-    ): ?Asset {
+    ): ?Asset
+    {
         if (!$this->assetsRegistryService->assetExists($pathInManifest)) {
             return null;
         }
@@ -79,11 +83,11 @@ abstract class AbstractAssetUsageService
 
         if (!$realPath) {
             throw new Exception('Unable to find realpath of asset "'
-                .$pathInManifest.', check build folder content or files permissions.');
+                . $pathInManifest . ', check build folder content or files permissions.');
         }
 
         $asset = new Asset(
-            $pathInManifest,
+            ltrim($this->assetsRegistryService->getBuiltPath($pathInManifest), '/'),
             $this::getName(),
             $renderNode->getContextType()
         );
@@ -100,7 +104,8 @@ abstract class AbstractAssetUsageService
     public function assetNeedsInitialRender(
         Asset $asset,
         RenderPass $renderPass,
-    ): bool {
+    ): bool
+    {
         $usage = $this->getName();
         // This is the base usage (i.e. default).
         return $asset->usages[$usage] == $renderPass->getUsage($usage);
@@ -123,7 +128,8 @@ abstract class AbstractAssetUsageService
     public function canAggregateAsset(
         RenderPass $renderPass,
         Asset $asset
-    ): bool {
+    ): bool
+    {
         return (!$this->hasExtraSwitchableUsage($renderPass)) && $asset->isServerSideRendered();
     }
 }

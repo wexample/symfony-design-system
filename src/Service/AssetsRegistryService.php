@@ -2,9 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
-use Symfony\Component\Cache\CacheItem;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Contracts\Cache\CacheInterface;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderDataGenerator;
 use Wexample\SymfonyHelpers\Helper\JsonHelper;
@@ -30,13 +28,14 @@ class AssetsRegistryService extends RenderDataGenerator
 
     public function __construct(
         KernelInterface $kernel
-    ) {
-        $pathProject = $kernel->getProjectDir().'/';
-        $this->pathPublic = $pathProject.self::DIR_PUBLIC;
-        $pathBuild = $this->pathPublic.self::DIR_BUILD;
+    )
+    {
+        $pathProject = $kernel->getProjectDir() . '/';
+        $this->pathPublic = $pathProject . self::DIR_PUBLIC;
+        $pathBuild = $this->pathPublic . self::DIR_BUILD;
 
         $this->manifest = JsonHelper::read(
-            $pathBuild.self::FILE_MANIFEST,
+            $pathBuild . self::FILE_MANIFEST,
             JSON_OBJECT_AS_ARRAY,
             default: $this->manifest
         );
