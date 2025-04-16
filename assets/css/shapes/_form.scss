@@ -1,3 +1,9 @@
-.form--input {
-  border: 0;
+.form-input--input {
+  box-sizing: border-box;
+
+  input {
+    border: 0;
+    box-sizing: border-box;
+    width: 100%;
+  }
 }
