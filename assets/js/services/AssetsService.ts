@@ -47,7 +47,7 @@ export default class AssetsService extends AppService {
       Fonts
     ].forEach(
       (definition: any) => {
-        let usage = new definition(this.app);
+        const usage = new definition(this.app);
 
         this.usages[usage.usageName] = usage;
       }
@@ -135,7 +135,7 @@ export default class AssetsService extends AppService {
             return MixinsAppService.LOAD_STATUS_WAIT;
           }
 
-          for (let usage in this.usages) {
+          for (const usage in this.usages) {
             await renderNode.setUsage(
               usage,
               renderNode.usages[usage],
@@ -190,13 +190,11 @@ export default class AssetsService extends AppService {
   assetsInCollection(
     assetsCollection: AssetsCollectionInterface
   ): AssetInterface[] {
-    let asset: AssetInterface;
-    let data;
-    let entries = Object.entries(assetsCollection);
-    let output = [];
+    const entries = Object.entries(assetsCollection);
+    const output = [];
 
-    for (data of entries) {
-      for (asset of data[1]) {
+    for (const data of entries) {
+      for (const asset of data[1]) {
         output.push(asset);
       }
     }
@@ -238,7 +236,7 @@ export default class AssetsService extends AppService {
   registerAssetsInCollection(
     assetsCollection: AssetsCollectionInterface
   ): AssetsCollectionInterface {
-    let outputCollection = AssetsService.createEmptyAssetsCollection();
+    const outputCollection = AssetsService.createEmptyAssetsCollection();
 
     this.assetsInCollection(assetsCollection).forEach((asset) =>
       outputCollection[asset.type].push(this.registerAsset(asset))
@@ -288,14 +286,14 @@ export default class AssetsService extends AppService {
   }
 
   jsPendingLoaded(view: string) {
-    let asset = this.jsAssetsPending[view];
+    const asset = this.jsAssetsPending[view];
     asset.resolver(asset);
 
     delete this.jsAssetsPending[view];
   }
 
   addScript(asset: AssetInterface, assetReplacement?: AssetInterface) {
-    let el = document.createElement(TagName.SCRIPT);
+    const el = document.createElement(TagName.SCRIPT);
     el.setAttribute(Attribute.SRC, `/${asset.path}`);
     asset.el = el;
 
@@ -305,7 +303,7 @@ export default class AssetsService extends AppService {
   }
 
   addStyle(asset: AssetInterface, assetReplacement?: AssetInterface) {
-    let el = this.createStyleLinkElement();
+    const el = this.createStyleLinkElement();
     el.setAttribute(Attribute.HREF, `/${asset.path}`);
     asset.el = el;
 
@@ -343,7 +341,7 @@ export default class AssetsService extends AppService {
   }
 
   createStyleLinkElement() {
-    let el = document.createElement(TagName.LINK);
+    const el = document.createElement(TagName.LINK);
     el.setAttribute(Attribute.REL, AttributeValue.STYLESHEET);
     return el;
   }

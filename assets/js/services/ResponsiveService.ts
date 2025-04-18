@@ -68,8 +68,8 @@ export default class ResponsiveService extends AppService {
         },
 
         responsiveBreakpointSupported(): object {
-          let supported = {};
-          let width = this.getElWidth();
+          const supported = {};
+          const width = this.getElWidth();
 
           Object.entries(this.app.layout.vars.displayBreakpoints).forEach(
             (entry) => {
@@ -113,7 +113,7 @@ export default class ResponsiveService extends AppService {
 
         responsiveUpdateClass() {
           // Remove all responsive class names.
-          let classList = this.el.classList;
+          const classList = this.el.classList;
 
           classList.remove(`responsive-${this.responsiveSizePrevious}`);
           classList.add(`responsive-${this.responsiveSizeCurrent}`);
@@ -157,13 +157,13 @@ export default class ResponsiveService extends AppService {
         async updateCurrentResponsiveDisplay(...args) {
           callPrototypeMethodIfExists(this, 'updateCurrentResponsiveDisplay', args);
 
-          let previous = this.responsiveSizePrevious;
-          let current = this.responsiveSizeCurrent;
-          let displays = this.responsiveDisplays;
+          const previous = this.responsiveSizePrevious;
+          const current = this.responsiveSizeCurrent;
+          const displays = this.responsiveDisplays;
 
           if (previous !== current) {
             if (displays[current] === undefined) {
-              let display = this.app.getBundleClassDefinition(
+              const display = this.app.getBundleClassDefinition(
                 `${this.view}-${current}`,
                 true
               );
