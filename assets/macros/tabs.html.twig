@@ -10,7 +10,7 @@
 {% macro tab_to_page(route, routeParameters = {}) %}
     <li>
         <a href="{{ url(route, routeParameters) }}"
-           class="tab tab-internal {{ route_is_current(route, routeParameters) ? 'active' : '' }}">
+           class="tab tab-internal {{ route_is_current(route, routeParameters, 'active', '') }}">
             {{ (translation_build_domain_from_template_path(page_translation_path_from_route(route)) ~ '::page_title') | trans }}
         </a>
     </li>

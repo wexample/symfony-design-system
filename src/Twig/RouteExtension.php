@@ -42,13 +42,15 @@ class RouteExtension extends AbstractExtension
 
     public function routeIsCurrent(
         string $route,
-        array $params
-    ): bool
+        ?array $params = null,
+        mixed $returnValueIfSuccess = true,
+        mixed $returnValueIfFail = false,
+    ): mixed
     {
         return $this->urlGenerator->generate(
-                $route,
-                $params
-            ) === $this->currentPath;
+            $route,
+            $params ?: []
+        ) === $this->currentPath ? $returnValueIfSuccess : $returnValueIfFail;
     }
 
     /**
