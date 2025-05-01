@@ -87,6 +87,7 @@ services:
 
     Wexample\SymfonyDesignSystem\Routing\TemplateBasedRouteLoader:
       arguments:
+        $container: '@service_container'
         $taggedControllers: !tagged_iterator 'has_template_routes'
         $parameterBag: '@parameter_bag'
       tags:
