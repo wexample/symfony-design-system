@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Routing;
 
 use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Routing\Route;
@@ -12,21 +13,21 @@ use Wexample\Helpers\Helper\FileHelper;
 use Wexample\SymfonyDesignSystem\Controller\AbstractController;
 use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Routing\Attribute\TemplateBasedRoutes;
-use Wexample\SymfonyHelpers\Controller\Traits\HasSimpleRoutesControllerTrait;
 use Wexample\SymfonyHelpers\Routing\AbstractRouteLoader;
 use Wexample\SymfonyHelpers\Routing\Traits\RoutePathBuilderTrait;
 
 class TemplateBasedRouteLoader extends AbstractRouteLoader
 {
     use RoutePathBuilderTrait;
-    
+
     public function __construct(
         protected RewindableGenerator $taggedControllers,
         protected ParameterBagInterface $parameterBag,
+        ContainerInterface $container,
         string $env = null
     )
     {
-        parent::__construct($env);
+        parent::__construct($container, $env);
     }
 
     protected function loadOnce(
@@ -54,14 +55,14 @@ class TemplateBasedRouteLoader extends AbstractRouteLoader
                     $filename = $file->getBasename(TemplateHelper::TEMPLATE_FILE_EXTENSION);
                     $routeName = $controller::buildRouteName($filename);
                     $fullPath = $this->buildRoutePathFromController($controller, $filename);
-                    
+
                     if ($fullPath) {
                         // Create the route
                         $route = new Route($fullPath, [
-                            '_controller' => $reflectionClass->getName().'::resolveSimpleRoute',
+                            '_controller' => $reflectionClass->getName() . '::resolveSimpleRoute',
                             'routeName' => $filename,
                         ]);
-                        
+
                         $collection->add($routeName, $route);
                     }
                 }
