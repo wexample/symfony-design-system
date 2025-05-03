@@ -3,9 +3,26 @@
 .breadcrumb {
   ul {
     @include list.no-style-list;
+    display: flex;
+    align-items: center;
 
     li {
-      display: inline-block;
+      display: flex;
+      align-items: center;
+
+      a:hover {
+        text-decoration: underline;
+      }
     }
+
+    li:last-of-type {
+      font-weight: bold;
+    }
+  }
+
+  &--separator {
+    margin: 0 0.5rem;
+    color: #666;
+    font-weight: bold;
   }
 }
