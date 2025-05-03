@@ -1,12 +1,13 @@
 <article
-  class="article-summary"
-  itemscope itemtype="http://schema.org/Article"
+        class="article-summary"
+        itemscope itemtype="http://schema.org/Article"
 >
-    <div class="article-summary--image"{% if image | default(false) %} style="background-image:url('{{ image }}')"{% endif %}>
-        <a class="article-summary--image-click-handler"
-        aria-label="{{ title }}"
-        href="{{ url }}"></a>
-    </div>
+    {% if image | default(false) %}
+        <div class="article-summary--image">
+            <a class="article-summary--image-click-handler" href="{{ url }}"></a>
+            <img alt="{{ title }}" src="{{ image }}">
+        </div>
+    {% endif %}
     <div class="article-summary--content">
         <a href="{{ url }}" itemprop="url">
             <h2>{{ title }}</h2>

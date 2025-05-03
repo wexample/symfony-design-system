@@ -1,3 +1,4 @@
+@use '../shapes/illustration' as illustration;
 @use '../shapes/side-body' as side-body;
 @use '../mixins/thumb' as thumb;
 @use '../mixins/margins-default' as margins;
@@ -9,12 +10,9 @@
   margin-bottom: margins.$margins-default-block-spacing;
 
   .article-summary--image {
-    background-color: colors-grayscales.$color-gray-light;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    @extend .illustration-cover;
     width: thumb.$thumb-width;
-    position: relative;
+    aspect-ratio: 4/3;
 
     a.article-summary--image-click-handler {
       @include global.full-parent-size;
