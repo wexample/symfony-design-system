@@ -1,5 +1,5 @@
-@import '../mixins/global';
-@import '../mixins/reset';
+@use '../mixins/global' as global;
+@use '../mixins/reset' as reset;
 
 .tabs {
   @extend .reset;
@@ -8,7 +8,7 @@
   justify-content: center;
 
   a.tab {
-    @include text-ellipsis;
+    @include global.text-ellipsis;
     padding: 0.9rem 1.7rem;
   }
 

@@ -59,10 +59,14 @@ Encore
   .addPlugin(new FosRouting())
 
   // enables Sass/SCSS support
-  .enableSassLoader()
+  .enableSassLoader((options) => {
+    options.sassOptions = {
+      quietDeps: true
+    };
+  })
 
   // uncomment if you use TypeScript
-  .enableTypeScriptLoader(function (tsConfigLoaderOptions) {
+  .enableTypeScriptLoader((tsConfigLoaderOptions) => {
     // We don't want TypeScript to scan whole app folders for .ts files,
     // as we set it manually.
     tsConfigLoaderOptions.onlyCompileBundledFiles = true;

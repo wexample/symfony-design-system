@@ -1,4 +1,4 @@
-@import './global';
+@use './global' as global;
 
 @mixin table-cell-text-ellipsis {
   position: relative;
@@ -10,6 +10,6 @@
 }
 
 @mixin table-cell-text-ellipsis-body {
-  @include text-ellipsis;
-  @include full-parent-size;
+  @include global.text-ellipsis;
+  @include global.full-parent-size;
 }

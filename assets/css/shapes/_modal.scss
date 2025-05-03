@@ -1,4 +1,4 @@
-@import '../mixins/global';
+@use '../mixins/global' as global;
 
 .layout-modal {
   width: 40rem;
@@ -10,7 +10,7 @@
 }
 
 .modal {
-  @include full-parent-size;
+  @include global.full-parent-size;
   align-items: center;
   justify-content: center;
   position: fixed;
@@ -36,10 +36,10 @@
 
 .modal-header {
   display: flex;
-  border-bottom: 1px solid $medium-gray;
+  border-bottom: 1px solid global.$medium-gray;
 
   .header-title {
-    @include text-ellipsis;
+    @include global.text-ellipsis;
     flex-basis: 100%;
   }
 

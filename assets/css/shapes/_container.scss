@@ -1,4 +1,4 @@
-@import '../mixins/global';
+@use '../mixins/global' as global;
 
 .container-medium {
   max-width: 60rem;
@@ -10,7 +10,7 @@
 }
 
 .container-center {
-  @include full-parent-size;
+  @include global.full-parent-size;
 
   display: flex;
   justify-content: center;

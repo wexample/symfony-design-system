@@ -1,6 +1,9 @@
 // Basic menu shape - only essential resets
 @use '../mixins/reset' as spacing;
 
+$menu-margins-border-radius: 1rem !default;
+$menu-margins-item-spacing: 1rem !default;
+
 .menu {
   ul {
     @extend .reset;
