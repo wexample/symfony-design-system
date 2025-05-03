@@ -1,7 +1,7 @@
-@use '../partials/list';
+@use '../mixins/list' as list;
 
 .navigation {
   ul {
-    @extend .no-style-list
+    @include list.no-style-list
   }
 }

@@ -1,9 +1,9 @@
-@use '../../css/partials/margin';
+@use '../../css/mixins/margin' as margin;
 @use '../../css/partials/link';
 @use '../../css/partials/global' as *;
 
 html, body, #{$selector-title-all} {
-  @extend .no-margin-or-padding;
+  @include margin.no-margin-or-padding;
 }
 
 a {

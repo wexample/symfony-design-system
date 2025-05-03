@@ -1,0 +1,11 @@
+@use '../mixins/list' as list;
+
+.breadcrumb {
+  ul {
+    @include list.no-style-list;
+
+    li {
+      display: inline-block;
+    }
+  }
+}
