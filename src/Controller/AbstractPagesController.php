@@ -48,7 +48,6 @@ abstract class AbstractPagesController extends AbstractController
     ): string
     {
         $base = '';
-        $bundleClass = $bundleClass ?: static::getControllerBundle();
 
         if (str_contains($view, self::BUNDLE_TEMPLATE_SEPARATOR)) {
             $exp = explode(self::BUNDLE_TEMPLATE_SEPARATOR, $view);
