@@ -1,14 +1,14 @@
+@use '../mixins/margins-default' as margins;
 
-.inline-infos {
+.inline-info {
   @import 'block';
 
   align-items: center;
   display: flex;
-  padding: 0.5rem 1rem;
-  margin-bottom: 1rem;
+  padding: margins.$margins-default-block-spacing-half margins.$margins-default-block-spacing;
 
   & > div.info {
-    padding: 0 0 0 1rem;
+    padding: 0 0 0 margins.$margins-default-block-spacing;
 
     &:first-child {
       padding-left: 0;

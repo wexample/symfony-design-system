@@ -13,5 +13,14 @@
 
   .article-summary--content {
     @extend .side-body--body;
+
+    h2 {
+      margin: 0;
+      padding: margins.$margins-default-block-spacing-half margins.$margins-default-block-spacing;
+    }
+
+    .article-summary--body {
+      padding: 0 margins.$margins-default-block-spacing;
+    }
   }
 }
