@@ -1,0 +1,17 @@
+@use '../shapes/side-body' as side-body;
+@use '../mixins/thumb' as thumb;
+@use '../mixins/margins-default' as margins;
+
+.article-summary {
+  @extend .side-body--horizontal;
+  margin-bottom: margins.$margins-default-block-spacing;
+
+  .article-summary--image {
+    background: #DDD;
+    width: thumb.$thumb-width;
+  }
+
+  .article-summary--content {
+    @extend .side-body--body;
+  }
+}
