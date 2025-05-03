@@ -1,0 +1,14 @@
+<div class="article-summary">
+    <div class="article-summary--image"{% if image | default(false) %} style="background-image:url('{{ image }}')"{% endif %}></div>
+    <div class="article-summary--content">
+        <a href="{{ url }}">
+            <h2>{{ title }}</h2>
+            <div class="article-summary--body">{{ body }}</div>
+        </a>
+        <div class="inline-info">
+            {% for info_item in info %}
+                <div class="info">{{ info_item }}</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
