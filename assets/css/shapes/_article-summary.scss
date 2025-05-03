@@ -9,12 +9,12 @@
   @extend .side-body--horizontal;
   margin-bottom: margins.$margins-default-block-spacing;
 
-  .article-summary--image {
+  figure {
     @extend .illustration-cover;
     width: thumb.$thumb-width;
     aspect-ratio: 4/3;
 
-    a.article-summary--image-click-handler {
+    a {
       @include global.full-parent-size;
     }
   }

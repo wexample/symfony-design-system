@@ -1,6 +1,7 @@
 @use '../mixins/colors-grayscales' as colors-grayscales;
 
 .illustration-cover {
+  margin: 0;
   background-color: colors-grayscales.$color-gray-light;
   font-weight: bold;
   position: relative;

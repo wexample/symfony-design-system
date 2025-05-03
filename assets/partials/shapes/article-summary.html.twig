@@ -1,12 +1,14 @@
 <article
         class="article-summary"
-        itemscope itemtype="http://schema.org/Article"
+        itemscope
+        itemtype="http://schema.org/Article"
 >
-    {% if image | default(false) %}
-        <div class="article-summary--image">
-            <a class="article-summary--image-click-handler" href="{{ url }}"></a>
-            <img alt="{{ title }}" src="{{ image }}">
-        </div>
+    {% if image is defined %}
+        {% include '@WexampleSymfonyDesignSystemBundle/partials/shapes/illustration.html.twig' with {
+            url: image,
+            alt: title,
+            href: url,
+        } %}
     {% endif %}
     <div class="article-summary--content">
         <a href="{{ url }}" itemprop="url">
