@@ -1,9 +1,6 @@
 // Base extension.
 @use '../default/layout';
 
-// Import components.
-@forward '../../css/shapes/vertical-menu';
-
 // Local
 @forward 'partials/design_system_layout_inner';
 

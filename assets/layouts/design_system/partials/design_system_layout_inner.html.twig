@@ -1,21 +1,21 @@
 <div class="design-system-layout">
-    <div class="design-system-menu">
+    <div class="design-system-page-side-menu">
         <nav class="menu">
             {% if slots.menu is defined %}
                 {{ slots.menu }}
             {% else %}
                 <ul>
-                    <li>
-                        <a href="{{ path('home_index') }}">{{ 'front.pages.home.index::page_title' | trans }}</a>
+                    <li class="menu-item">
+                        <a href="{{ path('home_index') }}"><span class="icon">I</span>{{ 'front.pages.home.index::page_title' | trans }}</a>
                     </li>
                 </ul>
-                <div>
+                <div class="menu-separator">
                     {{ 'WexampleSymfonyDesignSystemBundle.layouts.design_system.layout::menu.components.title' | trans }}
                 </div>
                 <ul>
                     {% for route_name, route in route_get_controller_routes('App\\Controller\\Config\\DesignSystem\\AppController') %}
-                        <li>
-                            <a href="{{ path(route_name) }}">{{ (translation_build_domain_from_template_path(page_translation_path_from_route(route_name)) ~ '::page_title') | trans }}</a>
+                        <li class="menu-item">
+                            <a href="{{ path(route_name) }}"><span class="icon">I</span>{{ (translation_build_domain_from_template_path(page_translation_path_from_route(route_name)) ~ '::page_title') | trans }}</a>
                         </li>
                     {% endfor %}
                 </ul>
