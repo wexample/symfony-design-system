@@ -2,14 +2,21 @@
 @use '../mixins/thumb' as thumb;
 @use '../mixins/margins-default' as margins;
 @use '../mixins/colors-grayscales' as colors-grayscales;
+@use '../mixins/global' as global;
 
 .article-summary {
   @extend .side-body--horizontal;
   margin-bottom: margins.$margins-default-block-spacing;
 
   .article-summary--image {
-    background: colors-grayscales.$color-gray-light;
+    background-color: colors-grayscales.$color-gray-light;
+    background-repeat: no-repeat;
+    background-size: cover;
     width: thumb.$thumb-width;
+
+    a.article-summary--image-click-handler {
+      @include global.full-parent-size;
+    }
   }
 
   .article-summary--content {
