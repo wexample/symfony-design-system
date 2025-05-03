@@ -1,9 +1,14 @@
-<div class="article-summary">
+<article
+  class="article-summary"
+  itemscope itemtype="http://schema.org/Article"
+>
     <div class="article-summary--image"{% if image | default(false) %} style="background-image:url('{{ image }}')"{% endif %}>
-        <a class="article-summary--image-click-handler" href="{{ url }}"></a>
+        <a class="article-summary--image-click-handler"
+        aria-label="{{ title }}"
+        href="{{ url }}"></a>
     </div>
     <div class="article-summary--content">
-        <a href="{{ url }}">
+        <a href="{{ url }}" itemprop="url">
             <h2>{{ title }}</h2>
             <div class="article-summary--body">{{ body }}</div>
         </a>
@@ -13,4 +18,4 @@
             {% endfor %}
         </div>
     </div>
-</div>
+</article>
