@@ -13,6 +13,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     width: thumb.$thumb-width;
+    position: relative;
 
     a.article-summary--image-click-handler {
       @include global.full-parent-size;
