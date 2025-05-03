@@ -1,8 +1,33 @@
+@use "sass:map";
 @use '../mixins/margins-default' as margins;
-@use '../mixins/colors-grayscales' as colors-grayscales;
+@use '../mixins/colors-grayscales' as grayscales;
 
-.message-info, .message-warn {
+$color-info: #CCE5FF !default;
+$color-success: #D4EDDA !default;
+$color-warning: #FFF3CD !default;
+$color-error: #F8D7DA !default;
+
+$colors-messages: (
+        info: $color-info,
+        success: $color-success,
+        warning: $color-warning,
+        error: $color-error,
+) !default;
+
+@mixin message-variant($type) {
+  $bg: map.get($colors-messages, $type);
+
+  @if $bg == null {
+    @error "Unknown message type `#{$type}` in $colors-messages.";
+  }
+
   padding: margins.$margins-default-block-spacing;
   margin-bottom: margins.$margins-default-block-spacing;
-  background-color: colors-grayscales.$color-gray-light;
+  background-color: $bg;
+}
+
+@each $type, $_color in $colors-messages {
+  .message-#{$type} {
+    @include message-variant($type);
+  }
 }
