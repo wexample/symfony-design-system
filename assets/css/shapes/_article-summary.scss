@@ -1,18 +1,20 @@
 @use '../shapes/side-body' as side-body;
 @use '../mixins/thumb' as thumb;
 @use '../mixins/margins-default' as margins;
+@use '../mixins/colors-grayscales' as colors-grayscales;
 
 .article-summary {
   @extend .side-body--horizontal;
   margin-bottom: margins.$margins-default-block-spacing;
 
   .article-summary--image {
-    background: #DDD;
+    background: colors-grayscales.$color-gray-light;
     width: thumb.$thumb-width;
   }
 
   .article-summary--content {
     @extend .side-body--body;
+    padding: 0.5rem;
 
     h2 {
       margin: 0;
