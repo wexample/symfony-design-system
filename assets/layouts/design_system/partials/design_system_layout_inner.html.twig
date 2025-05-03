@@ -6,7 +6,7 @@
             {% else %}
                 <ul>
                     <li class="menu-item">
-                        <a href="{{ path('home_index') }}"><span class="icon">I</span>{{ 'front.pages.home.index::page_title' | trans }}</a>
+                        <a href="{{ path('home_index') }}"><span class="icon">⋮</span>{{ 'front.pages.home.index::page_title' | trans }}</a>
                     </li>
                 </ul>
                 <div class="menu-separator">
@@ -15,7 +15,7 @@
                 <ul>
                     {% for route_name, route in route_get_controller_routes('App\\Controller\\Config\\DesignSystem\\AppController') %}
                         <li class="menu-item">
-                            <a href="{{ path(route_name) }}"><span class="icon">I</span>{{ (translation_build_domain_from_template_path(page_translation_path_from_route(route_name)) ~ '::page_title') | trans }}</a>
+                            <a href="{{ path(route_name) }}"><span class="icon">⋮</span>{{ (translation_build_domain_from_template_path(page_translation_path_from_route(route_name)) ~ '::page_title') | trans }}</a>
                         </li>
                     {% endfor %}
                 </ul>
