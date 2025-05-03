@@ -1,29 +1,32 @@
 <h2>Logo base</h2>
 <div class="grid-cols-2">
     <div>
-        <img class="logo" src="{{ asset('build/images/logo/logo-fr.svg') }}"
+        <img class="logo" src="{{ asset('build/front/partials/image/logo/logo-fr.svg') }}"
              alt="{{ 'front.app.global::name' | trans }} logo">
     </div>
     <div>
-        <img class="logo" src="{{ asset('build/images/logo/logo-en.svg') }}"
+        <img class="logo" src="{{ asset('build/front/partials/image/logo/logo-en.svg') }}"
              alt="{{ 'front.app.global::name' | trans }} logo">
     </div>
 </div>
-<h2>Logo strip</h2>
+<br>
+<h2>Logo stripe</h2>
 <div class="grid-cols-4">
     {% for color_name, color_value in design_system_colors() %}
         <div class="background-color-{{ color_name }}">
-            <img class="logo" src="{{ asset('build/images/logo/logo-fr-uni.svg') }}"
+            <img class="logo" src="{{ asset('build/front/partials/image/logo/logo-fr-uni.svg') }}"
                  alt="{{ 'front.app.global::name' | trans }} logo">
         </div>
     {% endfor %}
 </div>
+<br>
 <h2>Logo square</h2>
 <div class="grid-cols-4">
     {% for color_name, color_value in design_system_colors() %}
         <div class="background-color-{{ color_name }}">
-            <img class="logo" src="{{ asset('build/images/logo/logo-square.svg') }}"
+            <img class="logo" src="{{ asset('build/front/partials/image/logo/logo-square.svg') }}"
                  alt="{{ 'front.app.global::name' | trans }} logo">
         </div>
     {% endfor %}
 </div>
+<br>
