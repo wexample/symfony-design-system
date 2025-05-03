@@ -1,0 +1,8 @@
+@use '../mixins/margins-default' as margins;
+@use '../mixins/colors-grayscales' as colors-grayscales;
+
+.message-info, .message-warn {
+  padding: margins.$margins-default-block-spacing;
+  margin-bottom: margins.$margins-default-block-spacing;
+  background-color: colors-grayscales.$color-gray-light;
+}
