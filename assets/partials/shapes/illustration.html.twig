@@ -2,11 +2,11 @@
     {% set image_markup %}
         <picture>
             <img
-                src="{{ url }}"
-                alt="{{ alt|e }}"
-                loading="lazy"
-                decoding="async"
-                itemprop="image"
+                    src="{{ url }}"
+                    {{ (alt is defined) ? 'alt="' ~ (alt|e) ~ '"' : '' }}
+                    loading="lazy"
+                    decoding="async"
+                    itemprop="image"
             />
         </picture>
     {% endset %}
