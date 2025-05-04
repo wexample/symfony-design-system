@@ -3,14 +3,14 @@
 @use "../mixins/margins-default" as margins;
 
 @mixin message-variant($type) {
-  $bg: map.get(colors-messages.$colors-messages, $type);
+  $color: map.get(colors-messages.$colors-messages, $type);
 
-  @if $bg == null {
+  @if $color == null {
     @error "Unknown message type “#{$type}”";
   }
 
-  background-color: rgba($bg, colors-messages.$color-bg-opacity);
-  color: darken($bg, 30);
+  background-color: rgba($color, colors-messages.$color-bg-opacity);
+  color: darken($color, 30);
 }
 
 .message {
