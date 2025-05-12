@@ -25,7 +25,8 @@
         "wexample/symfony-testing": "^1.0.44",
         "wexample/symfony-translations": "^1.0.44",
         "friendsofsymfony/jsrouting-bundle": "^3.2.1",
-        "symfony/webpack-encore-bundle": "^2.0.1"
+        "symfony/webpack-encore-bundle": "^2.0.1",
+        "fortawesome/font-awesome": "^6.7"
     },
     "scripts": {
         "post-install-cmd": [
