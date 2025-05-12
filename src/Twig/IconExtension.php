@@ -130,7 +130,8 @@ class IconExtension extends AbstractExtension
 
     public function buildIconsListFa(): array
     {
-        $pathSvg = $this->projectDir . '/node_modules/@fortawesome/fontawesome-free/svgs/';
+        $pathSvg = $this->projectDir . '/vendor/fortawesome/font-awesome/svgs/';
+
         $output = [];
 
         if (is_dir($pathSvg)) {
