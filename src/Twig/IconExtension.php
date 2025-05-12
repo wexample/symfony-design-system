@@ -85,53 +85,49 @@ class IconExtension extends AbstractExtension
      */
     public function icon(
         string $name,
-        string $class = '',
-        string $tagName = 'i',
-        ?string $type = null
-    ): string
-    {
+        $class = '',
+        $tagName = 'i',
+        $type = null
+    ) {
         [$prefix, $icon] = array_pad(explode(self::LIBRARY_SEPARATOR, $name, 2), 2, '');
 
         $lib = $type ?? $prefix;
-        $classes = trim($class);
-        $attrClass = $classes !== ''
-            ? ' class="' . htmlspecialchars($classes, ENT_QUOTES) . ' icon"'
-            : ' class="icon"';
+
+        $class = trim($class);
+        $baseClass = $class !== '' ? $class . ' icon' : 'icon';
 
         // Material Icons
         if (
-            $lib === self::ICONS_LIBRARY_MATERIAL ||
-            ($type === null && isset($this->icons->{self::ICONS_LIBRARY_MATERIAL}[$icon]))
+            self::ICONS_LIBRARY_MATERIAL === $lib ||
+            (null === $type && isset($this->icons->{self::ICONS_LIBRARY_MATERIAL}[$icon]))
         ) {
-            return sprintf(
-                '<%1$s%2$s material-icons">%3$s</%1$s>',
-                htmlspecialchars($tagName, ENT_QUOTES),
-                $attrClass,
-                htmlspecialchars($icon, ENT_QUOTES)
-            );
+            return
+                '<' . $tagName .
+                ' class="' . $baseClass . ' material-icons">' .
+                $icon .
+                '</' . $tagName . '>';
         }
 
         // Font Awesome
         if (
-            $lib === self::ICONS_LIBRARY_FA ||
-            ($type === null && isset($this->icons->{self::ICONS_LIBRARY_FA}[$icon]))
+            self::ICONS_LIBRARY_FA === $lib ||
+            (null === $type && isset($this->icons->{self::ICONS_LIBRARY_FA}[$icon]))
         ) {
-            return sprintf(
-                '<%1$s%2$s">' .
-                '<i class="fa fa-%3$s"></i>' .
-                '</%1$s>',
-                htmlspecialchars($tagName, ENT_QUOTES),
-                $attrClass,
-                htmlspecialchars($icon, ENT_QUOTES)
-            );
+            $classes = $this->icons->{self::ICONS_LIBRARY_FA}[$icon]["name"];
+            $classes = 'fa-' . str_replace('/',' fa-', $classes);
+
+            return
+                '<' . $tagName .
+                ' class="' . $baseClass . '">' .
+                '<i class="fa ' . $classes . '"></i>' .
+                '</' . $tagName . '>';
         }
 
-        // Fallback: display name
-        return sprintf(
-            '<%1$s class="icon">%2$s</%1$s>',
-            htmlspecialchars($tagName, ENT_QUOTES),
-            htmlspecialchars($name, ENT_QUOTES)
-        );
+        return
+            '<' . $tagName .
+            ' class="icon">' .
+            $name .
+            '</' . $tagName . '>';
     }
 
     public function buildIconsListMaterial(): array
