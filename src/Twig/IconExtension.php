@@ -64,14 +64,74 @@ class IconExtension extends AbstractExtension
                     self::FUNCTION_OPTION_NEEDS_ENVIRONMENT => true,
                 ]
             ),
+            new TwigFunction('icon_list', [$this, 'iconList']),
             new TwigFunction(
-                'icon_list',
-                [
-                    $this,
-                    'iconList',
-                ]
+                'icon',
+                [$this, 'icon'],
+                [self::FUNCTION_OPTION_IS_SAFE => self::FUNCTION_OPTION_IS_SAFE_VALUE_HTML]
             ),
         ];
+    }
+
+    /**
+     * Render an icon via tag instead of inline SVG.
+     *
+     * @param string $name Icon name, optionally prefixed with library (e.g. "fa:coffee").
+     * @param string $class CSS classes.
+     * @param string $tagName HTML tag to use.
+     * @param string|null $type Force library ('fa' or 'material'), otherwise auto-detect.
+     *
+     * @return string
+     */
+    public function icon(
+        string $name,
+        string $class = '',
+        string $tagName = 'i',
+        ?string $type = null
+    ): string
+    {
+        [$prefix, $icon] = array_pad(explode(self::LIBRARY_SEPARATOR, $name, 2), 2, '');
+
+        $lib = $type ?? $prefix;
+        $classes = trim($class);
+        $attrClass = $classes !== ''
+            ? ' class="' . htmlspecialchars($classes, ENT_QUOTES) . ' icon"'
+            : ' class="icon"';
+
+        // Material Icons
+        if (
+            $lib === self::ICONS_LIBRARY_MATERIAL ||
+            ($type === null && isset($this->icons->{self::ICONS_LIBRARY_MATERIAL}[$icon]))
+        ) {
+            return sprintf(
+                '<%1$s%2$s material-icons">%3$s</%1$s>',
+                htmlspecialchars($tagName, ENT_QUOTES),
+                $attrClass,
+                htmlspecialchars($icon, ENT_QUOTES)
+            );
+        }
+
+        // Font Awesome
+        if (
+            $lib === self::ICONS_LIBRARY_FA ||
+            ($type === null && isset($this->icons->{self::ICONS_LIBRARY_FA}[$icon]))
+        ) {
+            return sprintf(
+                '<%1$s%2$s">' .
+                '<i class="fa fa-%3$s"></i>' .
+                '</%1$s>',
+                htmlspecialchars($tagName, ENT_QUOTES),
+                $attrClass,
+                htmlspecialchars($icon, ENT_QUOTES)
+            );
+        }
+
+        // Fallback: display name
+        return sprintf(
+            '<%1$s class="icon">%2$s</%1$s>',
+            htmlspecialchars($tagName, ENT_QUOTES),
+            htmlspecialchars($name, ENT_QUOTES)
+        );
     }
 
     public function buildIconsListMaterial(): array
