@@ -1,8 +1,9 @@
-@use '../mixins/global' as global;
-@use '../mixins/reset' as reset;
+@use '../mixins/global';
+@use '../mixins/reset';
 
 .tabs {
-  @extend .reset;
+  @include reset.reset-spacing;
+
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
