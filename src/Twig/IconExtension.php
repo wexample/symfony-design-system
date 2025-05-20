@@ -88,18 +88,19 @@ class IconExtension extends AbstractExtension
         $class = '',
         $tagName = 'i',
         $type = null
-    ) {
+    )
+    {
         [$prefix, $icon] = array_pad(explode(self::LIBRARY_SEPARATOR, $name, 2), 2, '');
 
         $lib = $type ?? $prefix;
-
         $class = trim($class);
         $baseClass = $class !== '' ? $class . ' icon' : 'icon';
 
+
         // Material Icons
         if (
-            self::ICONS_LIBRARY_MATERIAL === $lib ||
-            (null === $type && isset($this->icons->{self::ICONS_LIBRARY_MATERIAL}[$icon]))
+            (self::ICONS_LIBRARY_MATERIAL === $lib || ($lib === null && null === $type)
+                && isset($this->icons->{self::ICONS_LIBRARY_MATERIAL}[$icon]))
         ) {
             return
                 '<' . $tagName .
@@ -110,11 +111,11 @@ class IconExtension extends AbstractExtension
 
         // Font Awesome
         if (
-            self::ICONS_LIBRARY_FA === $lib ||
-            (null === $type && isset($this->icons->{self::ICONS_LIBRARY_FA}[$icon]))
+            (self::ICONS_LIBRARY_FA === $lib || ($lib === null && null === $type))
+            && isset($this->icons->{self::ICONS_LIBRARY_FA}[$icon])
         ) {
             $classes = $this->icons->{self::ICONS_LIBRARY_FA}[$icon]["name"];
-            $classes = 'fa-' . str_replace('/',' fa-', $classes);
+            $classes = 'fa-' . str_replace('/', ' fa-', $classes);
 
             return
                 '<' . $tagName .
