@@ -7,7 +7,6 @@ use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
-use Wexample\SymfonyDesignSystem\Rendering\Vue;
 use Wexample\SymfonyDesignSystem\Twig\VueExtension;
 use Wexample\SymfonyTranslations\Translation\Translator;
 
@@ -16,6 +15,8 @@ class VueService
     public array $renderedTemplates = [];
 
     public array $rootComponents = [];
+
+    public const string TAG_TEMPLATE = 'template';
 
     public function __construct(
         readonly protected AdaptiveResponseService $adaptiveResponseService,
@@ -39,7 +40,8 @@ class VueService
         RenderPass $renderPass,
         string $view,
         ?array $props = [],
-        ?array $twigContext = []
+        ?array $twigContext = [],
+        string $tagName = self::TAG_TEMPLATE
     ): string {
         $pathWithExtension = $view.VueExtension::TEMPLATE_FILE_EXTENSION;
 
@@ -105,7 +107,7 @@ class VueService
             );
 
             $template = DomHelper::buildTag(
-                'template',
+                $tagName,
                 [
                     'class' => 'vue vue-loading',
                     'id' => 'vue-template-'.$vueDomId,

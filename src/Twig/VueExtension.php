@@ -19,7 +19,8 @@ class VueExtension extends AbstractExtension
 
     public function __construct(
         private readonly VueService $vueService
-    ) {
+    )
+    {
     }
 
     public function getFilters(): array
@@ -89,14 +90,17 @@ class VueExtension extends AbstractExtension
         RenderPass $renderPass,
         string $path,
         ?array $props = [],
+        string $tagName = VueService::TAG_TEMPLATE,
         ?array $twigContext = []
-    ): string {
+    ): string
+    {
         return $this->vueService->vueRender(
-            $env,
-            $renderPass,
-            $path,
-            $props,
-            $twigContext
+            twig: $env,
+            renderPass: $renderPass,
+            view: $path,
+            props: $props,
+            twigContext: $twigContext,
+            tagName: $tagName
         );
     }
 
@@ -115,14 +119,17 @@ class VueExtension extends AbstractExtension
         Environment $env,
         RenderPass $renderPass,
         string $path,
-        ?array $props = []
-    ): void {
+        ?array $props = [],
+        string $tagName = VueService::TAG_TEMPLATE,
+    ): void
+    {
         // Same behavior but no output tag.
         $this->vueInclude(
             $env,
             $renderPass,
             $path,
-            $props
+            $props,
+            tagName: $tagName
         );
     }
 
@@ -134,21 +141,25 @@ class VueExtension extends AbstractExtension
         RenderPass $renderPass,
         string $path,
         ?array $props = [],
-        ?array $twigContext = []
-    ): string {
+        string $tagName = VueService::TAG_TEMPLATE,
+        ?array $twigContext = [],
+    ): string
+    {
         return $this->vueService->vueRender(
             $env,
             $renderPass,
             $path,
             $props,
-            $twigContext
+            $twigContext,
+            $tagName
         );
     }
 
     public function vueKey(
         string $key,
         string $filters = null
-    ): string {
-        return '{{ '.$key.($filters ? ' | '.$filters : '').' }}';
+    ): string
+    {
+        return '{{ ' . $key . ($filters ? ' | ' . $filters : '') . ' }}';
     }
 }
