@@ -77,3 +77,32 @@ export function callPrototypeMethodIfExists(self, methodName: string, args = {})
 
   return undefined;
 }
+
+export function getItemByPath(
+  data: any,
+  key: string | string[],
+  defaultValue: any = null,
+  separator: string = '.'
+): any {
+  let keys: string[];
+
+  if (typeof key === 'string') {
+    keys = key.split(separator);
+  } else {
+    keys = key;
+  }
+
+  for (const k of keys) {
+    if (
+      data !== null &&
+      typeof data === 'object' &&
+      k in data
+    ) {
+      data = data[k];
+    } else {
+      return defaultValue;
+    }
+  }
+
+  return data;
+}
