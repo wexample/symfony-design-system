@@ -14,7 +14,7 @@ listenKeyboardKey[Keyboard.KEY_ESCAPE] = async function () {
   await this.close();
 }
 
-export default class ModalComponent extends PageManagerComponent {
+export default class PanelComponent extends PageManagerComponent {
   public closing: boolean = false;
   public listenKeyboardKey: object = listenKeyboardKey;
   public mouseDownOverlayTarget: EventTarget | null;
@@ -42,9 +42,9 @@ export default class ModalComponent extends PageManagerComponent {
   attachHtmlElements() {
     super.attachHtmlElements();
 
-    this.elements.content = this.el.querySelector('.modal-content');
+    this.elements.content = this.el.querySelector('.panel-content');
     this.elements.content.innerHTML = this.layoutBody;
-    this.elements.close = this.el.querySelector('.modal-close a');
+    this.elements.close = this.el.querySelector('.panel-close a');
 
     (this as unknown as WithOverlayComponent).attachElOverlay();
   }
@@ -140,7 +140,7 @@ export default class ModalComponent extends PageManagerComponent {
   }
 
   onMouseDownOverlay(event: MouseEvent) {
-    // Accept closing modal on clicking on the overlay,
+    // Accept closing panel on clicking on the overlay,
     // only if the mousedown is started on the overlay itself.
     if (event.target === event.currentTarget) {
       this.mouseDownOverlayTarget = event.target;
