@@ -33,7 +33,7 @@ export default class PagesService extends AbstractRenderNodeService {
             registry.locale === MixinsAppService.LOAD_STATUS_COMPLETE
           ) {
             if (renderData.page) {
-              await this.app.services.pages.createPageFromLayoutRenderData(renderData, renderData.page);
+              await this.app.services.pages.createPageFromLayoutRenderData(renderData);
             }
             return;
           }
@@ -45,23 +45,30 @@ export default class PagesService extends AbstractRenderNodeService {
   }
 
   async createPageFromLayoutRenderData(renderData: LayoutInterface) {
-    let parentNode: RenderNode;
+    let parentNode: PageManagerComponent | null = null;
 
-    if (renderData.page.isInitialPage) {
-      parentNode = this.app.layout;
+    // Set parent node based on page type
+    if (renderData.page && renderData.page.isInitialPage) {
+      // Cast to unknown first to avoid type errors
+      parentNode = this.app.layout as unknown as PageManagerComponent;
+    } else if (renderData.renderRequestId) {
+      const registry = this.app.services.pages.pageHandlerRegistry;
+      const pageHandler = renderData.renderRequestId in registry ? registry[renderData.renderRequestId] : undefined;
+
+      if (pageHandler) {
+        parentNode = pageHandler;
+        if (renderData.body) {
+          parentNode.setLayoutBody(renderData.body);
+        }
+        
+        // Clean up registry after handling
+        delete registry[renderData.renderRequestId];
+      }
+      // If no page handler found, parentNode remains null
+      // This will be handled by createRenderNode
     }
-
-    const registry = this.app.services.pages.pageHandlerRegistry;
-    const pageHandler = registry[renderData.renderRequestId];
-
-    if (pageHandler) {
-      parentNode = pageHandler;
-      pageHandler.setLayoutBody(renderData.body)
-
-      delete registry[renderData.renderRequestId];
-    }
-
-    await this.createRenderNode(
+    
+    return await this.createRenderNode(
       renderData.renderRequestId,
       renderData.page.view,
       renderData.page,
