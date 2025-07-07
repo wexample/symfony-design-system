@@ -10,6 +10,7 @@ export default class ModalsService extends AppService {
   public static serviceName: string = 'modals';
 
   get(path: string, requestOptions: ModalInterface = {}): Promise<any> {
+    // This define the target layout
     requestOptions.layout = requestOptions.layout || 'modal';
 
     return this.app.services.adaptive.get(path, requestOptions);

@@ -31,6 +31,8 @@ class ComponentService extends RenderNodeService
 
     public const COMPONENT_NAME_MODAL = 'components/modal';
 
+    public const COMPONENT_NAME_PANEL = 'components/panel';
+
     public function __construct(
         AssetsService $assetsService,
         readonly protected ComponentManagerLocatorService $componentManagerLocatorService,

@@ -4,7 +4,6 @@ import ComponentInterface from "../interfaces/RenderData/ComponentInterface";
 
 export default abstract class PageManagerComponent extends Component {
   public page: Page;
-  public layoutBody: string;
 
   mergeRenderData(renderData: ComponentInterface) {
     super.mergeRenderData(renderData);
@@ -19,14 +18,13 @@ export default abstract class PageManagerComponent extends Component {
     }
   }
 
-  /**
-   * Used by page handlers (modal / panels).
-   */
   public setLayoutBody(body: string) {
-    this.layoutBody = body;
+    this.el.innerHTML = body;
   }
 
-  public abstract getPageEl(): HTMLElement;
+  public getPageEl(): HTMLElement {
+    return this.el;
+  }
 
   public setPage(page: Page) {
     this.page = page;

@@ -102,6 +102,23 @@ export default abstract class RenderNode extends AppChild {
     return Object.values(this.childRenderNodes);
   }
 
+  findChildByDomId(domId: string, recursive: boolean = false): RenderNode | null {
+    for (const child of this.eachChildRenderNode()) {
+      if (child.el && child.el.getAttribute('id') === domId) {
+        return child;
+      }
+
+      if (recursive) {
+        const found = child.findChildByDomId(domId);
+        if (found) {
+          return found;
+        }
+      }
+    }
+
+    return null;
+  }
+
   attachHtmlElements() {
   }
 

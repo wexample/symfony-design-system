@@ -43,7 +43,6 @@ export default class ModalComponent extends PageManagerComponent {
     super.attachHtmlElements();
 
     this.elements.content = this.el.querySelector('.modal-content');
-    this.elements.content.innerHTML = this.layoutBody;
     this.elements.close = this.el.querySelector('.modal-close a');
 
     (this as unknown as WithOverlayComponent).attachElOverlay();
@@ -57,6 +56,10 @@ export default class ModalComponent extends PageManagerComponent {
         this.open();
       });
     }
+  }
+
+  public setLayoutBody(body: string) {
+    this.elements.content.innerHTML = body;
   }
 
   public getPageEl(): HTMLElement {

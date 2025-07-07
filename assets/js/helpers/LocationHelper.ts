@@ -28,6 +28,22 @@ export function hashParamSet(
   );
 }
 
+export function appendQueryString(
+  path: string,
+  params: Record<string, string | number | boolean | undefined | null>
+): string {
+  const url = new URL(path, 'http://dummy');
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      url.searchParams.append(key, String(value));
+    }
+  });
+
+  return url.pathname + url.search + url.hash;
+}
+
+
 export function updateLocation(href, ignoreHistory = false) {
   // Cleanup href if no more hash.
   if (href[href.length - 1] === '#') {

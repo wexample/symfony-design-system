@@ -47,27 +47,32 @@ export default class PagesService extends AbstractRenderNodeService {
   async createPageFromLayoutRenderData(renderData: LayoutInterface) {
     let parentNode: PageManagerComponent | null = null;
 
-    // Set parent node based on page type
-    if (renderData.page && renderData.page.isInitialPage) {
+    // If requestOptions.callerPage is defined, use it as parentNode
+    if (renderData.requestOptions?.destPage) {
+      parentNode = renderData.requestOptions.destPage as unknown as PageManagerComponent;
+    }
+    // Otherwise, set parent node based on page type
+    else if (renderData.page && renderData.page.isInitialPage) {
       // Cast to unknown first to avoid type errors
       parentNode = this.app.layout as unknown as PageManagerComponent;
     } else if (renderData.renderRequestId) {
-      const registry = this.app.services.pages.pageHandlerRegistry;
-      const pageHandler = renderData.renderRequestId in registry ? registry[renderData.renderRequestId] : undefined;
+      // S'assurer que l'objet n'est pas undefined
+      const registry = this.app.services?.pages?.pageHandlerRegistry || {};
+      // Utiliser l'opérateur d'accès sécurisé pour éviter les erreurs TypeScript
+      const parentNode = registry?.[renderData.renderRequestId];
 
-      if (pageHandler) {
-        parentNode = pageHandler;
-        if (renderData.body) {
-          parentNode.setLayoutBody(renderData.body);
-        }
-        
+      if (parentNode) {
         // Clean up registry after handling
         delete registry[renderData.renderRequestId];
       }
       // If no page handler found, parentNode remains null
       // This will be handled by createRenderNode
     }
-    
+
+    if (parentNode && renderData.body) {
+      parentNode.setLayoutBody(renderData.body);
+    }
+
     return await this.createRenderNode(
       renderData.renderRequestId,
       renderData.page.view,

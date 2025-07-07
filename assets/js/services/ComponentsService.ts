@@ -2,7 +2,6 @@ import MixinsAppService from '../class/MixinsAppService';
 import Page from '../class/Page';
 import PromptService from './PromptsService';
 import LayoutInterface from '../interfaces/RenderData/LayoutInterface';
-import PageManagerComponent from '../class/PageManagerComponent';
 import Component from '../class/Component';
 import AbstractRenderNodeService from './AbstractRenderNodeService';
 import RenderNode from '../class/RenderNode';
@@ -75,7 +74,7 @@ export default class ComponentsService extends AbstractRenderNodeService {
   }
 
   async createRenderDataComponents(
-    renderRequestId,
+    renderRequestId: string,
     parentRenderNode: RenderNode,
     renderData: RenderDataInterface | null = null,
   ) {
