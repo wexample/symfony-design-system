@@ -22,6 +22,7 @@ export default abstract class RenderNode extends AppChild {
   public translations: {} = {};
   public usages: {} = {};
   public view: string;
+  public destroyed: boolean = false;
   public vars: { [key: string]: any } = {};
 
   constructor(
@@ -50,6 +51,8 @@ export default abstract class RenderNode extends AppChild {
     for (const renderNode of this.eachChildRenderNode()) {
       await renderNode.exit();
     }
+
+    this.destroyed = true;
 
     if (this.parentRenderNode) {
       this.parentRenderNode.removeChildRenderNode(this);
@@ -127,6 +130,7 @@ export default abstract class RenderNode extends AppChild {
     // the whole layout try to mount the newly created render nodes,
     // so we should prevent it to be mounted twice.
     if (this.isMounted === null) {
+      console.log('MOUMOU')
       await this.mount();
     }
   }
@@ -191,7 +195,7 @@ export default abstract class RenderNode extends AppChild {
   public async updateMounting() {
     if (this.el && !this.el.isConnected) {
       await this.unmount();
-    } else if (!this.el) {
+    } else if (!this.el && !this.destroyed) {
       await this.mount();
     }
   }
