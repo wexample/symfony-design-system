@@ -171,9 +171,6 @@ export default class ResponsiveTest extends AbstractTest {
     expectedColorValue: string
   ) {
     const computedStyle = getComputedStyle(elTestZone)[property];
-    if (computedStyle !== expectedColorValue) {
-      console.log(elTestZone);
-    }
 
     this.assertEquals(
       computedStyle,

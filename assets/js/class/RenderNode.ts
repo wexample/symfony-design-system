@@ -130,7 +130,6 @@ export default abstract class RenderNode extends AppChild {
     // the whole layout try to mount the newly created render nodes,
     // so we should prevent it to be mounted twice.
     if (this.isMounted === null) {
-      console.log('MOUMOU')
       await this.mount();
     }
   }
