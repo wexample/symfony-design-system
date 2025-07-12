@@ -37,3 +37,7 @@ export function unique(
     return array.indexOf(value) === index;
   });
 }
+
+export function findByIndex(array: any[], position: number) {
+  return array[position >= 0 ? position : array.length + position];
+}
