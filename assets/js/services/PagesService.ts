@@ -59,7 +59,7 @@ export default class PagesService extends AbstractRenderNodeService {
       // S'assurer que l'objet n'est pas undefined
       const registry = this.app.services?.pages?.pageHandlerRegistry || {};
       // Utiliser l'opérateur d'accès sécurisé pour éviter les erreurs TypeScript
-      const parentNode = registry?.[renderData.renderRequestId];
+      parentNode = registry?.[renderData.renderRequestId];
 
       if (parentNode) {
         // Clean up registry after handling
