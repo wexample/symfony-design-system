@@ -6,7 +6,7 @@ import { appendInnerHtml } from '../helpers/DomHelper';
 import Component from '../class/Component';
 import App from '../class/App';
 import ComponentInterface from '../interfaces/RenderData/ComponentInterface';
-import { buildStringIdentifier, pathToTagName, toKebab } from '../helpers/StringHelper';
+import { buildStringIdentifier, toKebab } from '../helpers/StringHelper';
 import { deepAssign } from "../helpers/Objects";
 
 export default class VueService extends AppService {
@@ -37,7 +37,7 @@ export default class VueService extends AppService {
     super(app);
 
     this.globalConfig = Object.assign({}, globalConfig);
-    this.globalConfig['globalProperties'] = this.globalConfig['globalProperties'] ? this.globalConfig['globalProperties']: {};
+    this.globalConfig['globalProperties'] = this.globalConfig['globalProperties'] ? this.globalConfig['globalProperties'] : {};
     this.globalConfig['globalProperties']['app'] = app;
 
     this.elTemplates = document.getElementById('vue-templates');
@@ -182,9 +182,20 @@ export default class VueService extends AppService {
           },
         };
 
-        vueClassDefinition.mixins = (vueClassDefinition.mixins || []).concat([
-          this.globalMixin,
-        ]);
+        if (vueClassDefinition.mixins) {
+          if (!Array.isArray(vueClassDefinition.mixins)) {
+            console.log(vueClassDefinition);
+            console.log(vueClassDefinition.mixins);
+
+            this.app.services.prompt.systemError(
+              `${vueClassDefinition}.mixins should be an array, ${typeof vueClassDefinition} given.`,
+            );
+          }
+
+          vueClassDefinition.mixins = (vueClassDefinition.mixins).concat([
+            this.globalMixin,
+          ]);
+        }
 
         if (!vueClassDefinition.template) {
           this.app.services.prompt.systemError(
