@@ -4,7 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Rendering\Traits;
 
 trait WithDomId
 {
-    private string $domId;
+    protected string $domId;
 
     public function getDomId(): string
     {
