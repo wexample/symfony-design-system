@@ -79,6 +79,9 @@ export default class ModalComponent extends PageManagerComponent {
 
     this.el.addEventListener(Events.MOUSEDOWN, this.onMouseDownOverlayProxy);
     this.el.addEventListener(Events.MOUSEUP, this.onMouseUpOverlayProxy);
+
+    // TODO Hacky way to help application access to opened overlay.
+    window['currentOpenedOverlay'] = this;
   }
 
   protected async deactivateListeners(): Promise<void> {
@@ -87,7 +90,7 @@ export default class ModalComponent extends PageManagerComponent {
 
     this.el.removeEventListener(Events.MOUSEDOWN, this.onMouseDownOverlayProxy);
     this.el.removeEventListener(Events.MOUSEUP, this.onMouseUpOverlayProxy);
-    this.elements.close.removeEventListener(Events.CLICK, this.onClickCloseProxy);
+    delete window['currentOpenedOverlay'];
   }
 
   showEl() {
