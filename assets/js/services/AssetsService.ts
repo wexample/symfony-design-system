@@ -47,7 +47,7 @@ export default class AssetsService extends AppService {
       Fonts
     ].forEach(
       (definition: any) => {
-        const usage = new definition(this.app);
+        let usage = new definition(this.app);
 
         this.usages[usage.usageName] = usage;
       }
@@ -58,14 +58,10 @@ export default class AssetsService extends AppService {
     return {
       renderNode: {
         async assetsUpdate(usage: string) {
-          try {
-            await this.app.services.assets.loadValidAssetsForRenderNode(
-              this,
-              usage
-            );
-          } catch (error) {
-            throw error;
-          }
+          await this.app.services.assets.loadValidAssetsForRenderNode(
+            this,
+            usage
+          );
         },
 
         async setUsage(
@@ -93,31 +89,19 @@ export default class AssetsService extends AppService {
         hookInit() {
           // Wait for all render node tree to be properly set.
           this.app.ready(async () => {
-            try {
-              // Mark all initially rendered assets in layout as loaded.
-              await this.app.layout.forEachTreeRenderNode(
-                async (renderNode: RenderNode) => {
-                  if (!renderNode.renderData || !renderNode.renderData.assets) {
-                    return;
-                  }
-                  
-                  this.assetsInCollection(renderNode.renderData.assets).forEach(
-                    (asset: AssetInterface) => {
-                      if (asset.initialLayout) {
-                        // Fetch the server-side rendered tag.
-                        const el = document.getElementById(asset.domId);
-                        if (el) {
-                          asset.el = el;
-                          this.setAssetLoaded(asset);
-                        } else {
-                        }
-                      }
+            // Mark all initially rendered assets in layout as loaded.
+            await this.app.layout.forEachTreeRenderNode(
+              async (renderNode: RenderNode) =>
+                this.assetsInCollection(renderNode.renderData.assets).forEach(
+                  (asset: AssetInterface) => {
+                    if (asset.initialLayout) {
+                      // Fetch the server-side rendered tag.
+                      asset.el = document.getElementById(asset.domId);
+                      this.setAssetLoaded(asset);
                     }
-                  );
-                }
-              );
-            } catch (error) {
-            }
+                  }
+                )
+            );
           });
         },
 
@@ -151,7 +135,7 @@ export default class AssetsService extends AppService {
             return MixinsAppService.LOAD_STATUS_WAIT;
           }
 
-          for (const usage in this.usages) {
+          for (let usage in this.usages) {
             await renderNode.setUsage(
               usage,
               renderNode.usages[usage],
@@ -163,8 +147,8 @@ export default class AssetsService extends AppService {
     };
   }
 
-  appendAsset(asset: AssetInterface, assetReplaced?: AssetInterface | null): Promise<AssetInterface> {
-    return new Promise(async (resolve, reject) => {
+  appendAsset(asset: AssetInterface, assetReplaced?: AssetInterface): Promise<AssetInterface> {
+    return new Promise(async (resolve) => {
       // Avoid currently and already loaded.
       if (!asset.active) {
         // Active said that asset should be loaded,
@@ -173,44 +157,46 @@ export default class AssetsService extends AppService {
 
         // Storing resolver allow javascript to be,
         // marked as loaded asynchronously.
-        asset.resolver = resolve as (value: AssetInterface) => void;
+        asset.resolver = resolve;
 
         if (asset.type === 'js') {
           // Browsers does not load twice the JS file content.
-          // We need to check if it's already rendered.
           if (!asset.rendered) {
             this.jsAssetsPending[asset.view] = asset;
-            this.addScript(asset, assetReplaced);
+            this.addScript(
+              asset,
+              assetReplaced);
+
+            // Javascript file will run resolve.
             return;
           }
         } else {
           if (!asset.loaded) {
-            this.addStyle(asset, assetReplaced);
+            this.addStyle(
+              asset,
+              assetReplaced);
           }
         }
       }
 
-      // Resolve immediately if already loaded or active
       resolve(asset);
-    }).then((asset: unknown) => {
-      const typedAsset = asset as AssetInterface;
-      this.setAssetLoaded(typedAsset);
-      return typedAsset;
+    }).then((asset: AssetInterface) => {
+      this.setAssetLoaded(asset);
+
+      return asset;
     });
   }
 
   assetsInCollection(
-    assetsCollection: AssetsCollectionInterface | null
+    assetsCollection: AssetsCollectionInterface
   ): AssetInterface[] {
-    if (!assetsCollection) {
-      return [];
-    }
-    
-    const entries = Object.entries(assetsCollection);
-    const output: AssetInterface[] = [];
+    let asset: AssetInterface;
+    let data;
+    let entries = Object.entries(assetsCollection);
+    let output = [];
 
-    for (const data of entries) {
-      for (const asset of data[1]) {
+    for (data of entries) {
+      for (asset of data[1]) {
         output.push(asset);
       }
     }
@@ -220,9 +206,9 @@ export default class AssetsService extends AppService {
 
   async appendAssets(
     assetsCollection: AssetsCollectionInterface,
-    replacedCollection: AssetsCollectionInterface | null = null
+    replacedCollection: AssetsCollectionInterface
   ) {
-    return new Promise(async (resolveAll, rejectAll) => {
+    return new Promise(async (resolveAll) => {
       // Is empty.
       if (!this.assetsInCollection(assetsCollection).length) {
         this.removeAssets(replacedCollection);
@@ -230,42 +216,20 @@ export default class AssetsService extends AppService {
         return;
       }
 
-      let count = 0;
-      let hasError = false;
-      
-      // Set a timeout to prevent hanging promises
-      const timeoutId = setTimeout(() => {
-        if (count > 0) {
-          rejectAll(new Error(`Timeout loading assets after 10 seconds with ${count} assets still loading`));
-        }
-      }, 10000); // 10 second timeout
-
-      // Load all assets.
-      Object.entries(assetsCollection).forEach(([type, assets]) => {
-        assets.forEach((asset, index) => {
+      let count: number = 0;
+      Object.keys(assetsCollection).forEach((type) => {
+        assetsCollection[type].forEach((asset: AssetInterface, index: number) => {
           count++;
-          
-          // Use type assertion to handle null/undefined cases
-          const replacementAsset = replacedCollection && replacedCollection[type] ? 
-            replacedCollection[type][index] as AssetInterface : undefined;
-          this.appendAsset(asset, replacementAsset)
-            .then(() => {
-              count--;
-              
-              if (count === 0 && !hasError) {
-                clearTimeout(timeoutId);
-                resolveAll(assetsCollection);
-              }
-            })
-            .catch((error: Error) => {
-              count--;
-              hasError = true;
-              
-              if (count === 0) {
-                clearTimeout(timeoutId);
-                rejectAll(error);
-              }
-            });
+
+          this.appendAsset(asset, replacedCollection[type][index]).then(() => {
+            count--;
+
+            if (count === 0) {
+              // Remove replaced and non replaced assets.
+              this.removeAssets(replacedCollection);
+              resolveAll(assetsCollection);
+            }
+          });
         });
       });
     });
@@ -274,7 +238,7 @@ export default class AssetsService extends AppService {
   registerAssetsInCollection(
     assetsCollection: AssetsCollectionInterface
   ): AssetsCollectionInterface {
-    const outputCollection = AssetsService.createEmptyAssetsCollection();
+    let outputCollection = AssetsService.createEmptyAssetsCollection();
 
     this.assetsInCollection(assetsCollection).forEach((asset) =>
       outputCollection[asset.type].push(this.registerAsset(asset))
@@ -287,20 +251,16 @@ export default class AssetsService extends AppService {
     const registry = this.app.registry.assetsRegistry;
 
     // Each asset has a unique reference object shared between all render node.
-    if (registry && registry[asset.type] && !registry[asset.type][asset.view]) {
+    if (!registry[asset.type][asset.view]) {
       registry[asset.type][asset.view] = asset;
     }
     return registry[asset.type][asset.view];
   }
 
-  removeAssets(assetsCollection: AssetsCollectionInterface | null) {
-    if (!assetsCollection) {
-      return;
-    }
-    
-    this.assetsInCollection(assetsCollection).forEach((asset) => {
-      this.removeAsset(asset);
-    });
+  removeAssets(assetsCollection: AssetsCollectionInterface) {
+    this.assetsInCollection(assetsCollection).forEach((asset) =>
+      this.removeAsset(asset)
+    );
   }
 
   removeAsset(asset: AssetInterface) {
@@ -318,8 +278,7 @@ export default class AssetsService extends AppService {
 
       // Remove from document.
       asset.el.remove();
-      // Use undefined instead of null to avoid TypeScript errors
-      asset.el = undefined as unknown as HTMLElement;
+      asset.el = null;
     }
   }
 
@@ -329,92 +288,44 @@ export default class AssetsService extends AppService {
   }
 
   jsPendingLoaded(view: string) {
-    const asset = this.jsAssetsPending[view];
-    if (!asset) {
-      return;
-    }
-    
-    // Resolve the asset if it has a resolver
-    if (asset.resolver && typeof asset.resolver === 'function') {
-      asset.resolver(asset);
-    }
+    let asset = this.jsAssetsPending[view];
+    asset.resolver(asset);
 
     delete this.jsAssetsPending[view];
   }
 
-  addScript(asset: AssetInterface, assetReplacement?: AssetInterface | null): Promise<HTMLElement> {
-    return new Promise((resolve, reject) => {
-      const el = document.createElement(TagName.SCRIPT);
-      
-      // Add event listeners to track script loading
-      const self = this; // Store reference to the service instance
-      el.onload = function() {
-        // If the script doesn't call jsPendingLoaded itself, we'll resolve it here
-        setTimeout(function() {
-          if (self.jsAssetsPending[asset.view]) {
-            self.jsPendingLoaded(asset.view);
-          }
-        }, 1000); // Increased timeout to give more time for script execution
-        resolve(el);
-      };
-      
-      el.onerror = function() {
-        reject(new Error(`Failed to load script: ${asset.path}`));
-      };
-      
-      el.setAttribute(Attribute.SRC, `/${asset.path}`);
-      asset.el = el;
-      
-      this.addAssetEl(asset, assetReplacement);
+  addScript(asset: AssetInterface, assetReplacement?: AssetInterface) {
+    let el = document.createElement(TagName.SCRIPT);
+    el.setAttribute(Attribute.SRC, `/${asset.path}`);
+    asset.el = el;
 
-      return el;
-    });
+    this.addAssetEl(asset, assetReplacement);
+
+    return el;
   }
 
-  addStyle(asset: AssetInterface, assetReplacement?: AssetInterface | null): Promise<HTMLElement> {
-    return new Promise((resolve, reject) => {
-      const el = this.createStyleLinkElement();
-      
-      // Add event listeners to track stylesheet loading
-      el.onload = function() {
-        resolve(el);
-      };
-      
-      el.onerror = function() {
-        reject(new Error(`Failed to load stylesheet: ${asset.path}`));
-      };
-      
-      el.setAttribute(Attribute.HREF, `/${asset.path}`);
-      asset.el = el;
-      
-      this.addAssetEl(asset, assetReplacement);
+  addStyle(asset: AssetInterface, assetReplacement?: AssetInterface) {
+    let el = this.createStyleLinkElement();
+    el.setAttribute(Attribute.HREF, `/${asset.path}`);
+    asset.el = el;
 
-      return el;
-    });
+    this.addAssetEl(asset, assetReplacement);
+
+    return el;
   }
 
-  addAssetEl(asset: AssetInterface, assetReplacement?: AssetInterface | null) {
-    // Make sure asset.el is defined
-    if (!asset.el) {
-      throw new Error(`Asset element is not defined for ${asset.view}`);
-    }
-
-    const usageMarkerKey = `ASSET_${asset.usage}`;
+  addAssetEl(asset: AssetInterface, assetReplacement?: AssetInterface) {
+    const elReplacement = assetReplacement ? assetReplacement.el : document.getElementById(`${asset.type}-${asset.usage}-placeholder`)
+    const usageMarkerKey = `USAGE[${asset.type}-${asset.usage}-${asset.context}]`;
     const elUsageMarker = Array.from(document.head.childNodes)
       .find(node => node.nodeType === 8 && node.nodeValue === `END_${usageMarkerKey}`);
 
-    // Ensure we have a valid parent element
-    const elParent = elUsageMarker?.parentNode || (this.app.layout.el?.ownerDocument?.head || document.head);
-    
-    if (!elParent) {
-      throw new Error(`Could not find parent element for asset ${asset.view}`);
-    }
-
-    // If we have a replacement, handle it
-    const elReplacement = assetReplacement?.el;
+    let elParent = elUsageMarker ? elUsageMarker.parentNode : this.app.layout.el.ownerDocument.head;
 
     if (elReplacement) {
-      if (elParent && elReplacement && !elParent.contains(elReplacement)) {
+      if (!elParent.contains(
+        elReplacement
+      )) {
         this.app.services.prompt.systemError(
           'The replacement node is not in the expected location in head marker :marker, ignoring',
           {
@@ -422,22 +333,17 @@ export default class AssetsService extends AppService {
           }, undefined, true);
       }
 
-      if (elReplacement && elReplacement.parentNode) {
+      if (elReplacement.parentNode) {
         elReplacement.parentNode.replaceChild(asset.el, elReplacement);
-      } else if (elParent && asset.el) {
-        elParent.appendChild(asset.el);
       }
       return;
     }
-    
-    // If no replacement, just append to parent
-    if (elParent && asset.el) {
-      elParent.appendChild(asset.el);
-    }
+
+    elParent.appendChild(asset.el);
   }
 
   createStyleLinkElement() {
-    const el = document.createElement(TagName.LINK);
+    let el = document.createElement(TagName.LINK);
     el.setAttribute(Attribute.REL, AttributeValue.STYLESHEET);
     return el;
   }
@@ -458,16 +364,9 @@ export default class AssetsService extends AppService {
     usage: string,
     renderNode?: RenderNode
   ) {
-    if (!collection) {
-      return;
-    }
-    
+    const toLoad = AssetsService.createEmptyAssetsCollection();
+    const toUnload = AssetsService.createEmptyAssetsCollection();
     const usageManager = this.getAssetUsage(usage);
-    
-    if (!usageManager) {
-      return;
-    }
-      
     let hasChange = false;
 
     this.assetsInCollection(collection).forEach((asset: AssetInterface) => {
@@ -479,19 +378,19 @@ export default class AssetsService extends AppService {
       if (usageManager.assetShouldBeLoaded(asset, renderNode)) {
         if (!asset.active) {
           hasChange = true;
-          type = asset.type;
-          this.appendAsset(asset);
+          toLoad[type].push(asset);
         }
       } else {
         if (asset.active) {
           hasChange = true;
-          this.removeAsset(asset);
+          toUnload[type].push(asset);
         }
       }
     });
 
     if (hasChange) {
-      await this.appendAssets(collection);
+      // Load new assets.
+      await this.appendAssets(toLoad, toUnload);
     }
   }
 
@@ -499,11 +398,7 @@ export default class AssetsService extends AppService {
     renderNode: RenderNode,
     usage: string
   ) {
-    if (!renderNode || !renderNode.renderData || !renderNode.renderData.assets) {
-      return;
-    }
-    
-    return await this.loadValidAssetsInCollection(
+    await this.loadValidAssetsInCollection(
       renderNode.renderData.assets,
       usage,
       renderNode
