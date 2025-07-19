@@ -53,6 +53,17 @@ class LayoutService extends RenderNodeService
                 ]
             );
         }
+        elseif ($renderPass->getLayoutBase() === RenderPass::BASE_OVERLAY) {
+            // Prepare panel component.
+            $this->componentService->componentInitLayout(
+                $twig,
+                $renderPass,
+                ComponentService::buildCoreComponentName(ComponentService::COMPONENT_NAME_OVERLAY),
+                [
+                    'adaptiveResponsePageManager' => true,
+                ]
+            );
+        }
     }
 
     /**

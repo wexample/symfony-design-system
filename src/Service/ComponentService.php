@@ -33,6 +33,8 @@ class ComponentService extends RenderNodeService
 
     public const COMPONENT_NAME_PANEL = 'components/panel';
 
+    public const COMPONENT_NAME_OVERLAY = 'components/overlay';
+
     public function __construct(
         AssetsService $assetsService,
         readonly protected ComponentManagerLocatorService $componentManagerLocatorService,

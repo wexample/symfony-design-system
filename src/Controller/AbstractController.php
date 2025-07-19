@@ -131,8 +131,7 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
             } catch (\Exception $exception) {
                 $errorView = BundleHelper::ALIAS_PREFIX.
                     WexampleSymfonyDesignSystemBundle::getAlias()
-                    .'/'.AbstractPagesController::RESOURCES_DIR_PAGE
-                    .'system/error'
+                    .'/config/system/error'
                     .TemplateHelper::TEMPLATE_FILE_EXTENSION;
 
                 if ($view !== $errorView) {

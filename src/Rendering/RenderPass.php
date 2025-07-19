@@ -23,6 +23,8 @@ class RenderPass
 
     public const BASE_PANEL = 'panel';
 
+    public const BASE_OVERLAY = 'overlay';
+
     public const BASE_PAGE = VariableHelper::PAGE;
 
     public const BASES_MAIN_DIR = DesignSystemHelper::FOLDER_FRONT_ALIAS.'bases/';
