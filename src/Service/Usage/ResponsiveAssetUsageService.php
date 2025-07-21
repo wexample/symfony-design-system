@@ -35,6 +35,7 @@ final class ResponsiveAssetUsageService extends AbstractAssetUsageService
 
             if ($asset = $this->createAssetIfExists(
                 $responsivePath,
+                $view,
                 $renderNode
             )) {
                 $hasAsset = true;

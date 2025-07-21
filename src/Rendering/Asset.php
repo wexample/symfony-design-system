@@ -49,6 +49,7 @@ class Asset extends RenderDataGenerator
 
     public function __construct(
         string $pathInManifest,
+        string $view,
         protected string $usage,
         protected string $context
     ) {
@@ -57,9 +58,7 @@ class Asset extends RenderDataGenerator
         $this->path = $pathInManifest;
 
         // Same as render node id
-        $this->setView(
-            $this->buildView($this->path)
-        );
+        $this->setView($view);
 
         $this->setDomId(
             $this->type.'-'.DomHelper::buildStringIdentifier($this->getView())

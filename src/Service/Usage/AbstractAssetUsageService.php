@@ -56,6 +56,7 @@ abstract class AbstractAssetUsageService
 
                 if ($asset = $this->createAssetIfExists(
                     $assetPath,
+                    $view,
                     $renderNode
                 )) {
                     $hasAsset = true;
@@ -72,6 +73,7 @@ abstract class AbstractAssetUsageService
      */
     protected function createAssetIfExists(
         string $pathInManifest,
+        string $view,
         AbstractRenderNode $renderNode,
     ): ?Asset
     {
@@ -88,6 +90,7 @@ abstract class AbstractAssetUsageService
 
         $asset = new Asset(
             ltrim($this->assetsRegistryService->getBuiltPath($pathInManifest), '/'),
+            $view,
             $this::getName(),
             $renderNode->getContextType()
         );
