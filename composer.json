@@ -22,8 +22,8 @@
     "php": ">=8.2",
     "wexample/symfony-api": "1.0.64",
     "wexample/symfony-helpers": "1.0.69",
-    "wexample/symfony-testing": "1.0.58",
-    "wexample/symfony-translations": "1.0.58",
+    "wexample/symfony-testing": "1.0.59",
+    "wexample/symfony-translations": "1.0.59",
     "friendsofsymfony/jsrouting-bundle": "^3.2.1",
     "symfony/webpack-encore-bundle": "^2.0.1",
     "fortawesome/font-awesome": "^6.7"
