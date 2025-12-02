@@ -1,6 +1,6 @@
 # wexample/symfony-design-system
 
-Version: 1.0.60
+Version: 1.0.62
 
 A dynamic rendering system for Symfony
 
@@ -130,8 +130,8 @@ Refer to each package's documentation for specific version compatibility require
 ## Dependencies
 
 - php: >=8.2
-- wexample/symfony-api: 1.0.61
-- wexample/symfony-helpers: 1.0.67
+- wexample/symfony-api: 1.0.64
+- wexample/symfony-helpers: 1.0.69
 - wexample/symfony-testing: 1.0.58
 - wexample/symfony-translations: 1.0.58
 - friendsofsymfony/jsrouting-bundle: ^3.2.1
