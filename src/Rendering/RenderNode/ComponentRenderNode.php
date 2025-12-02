@@ -42,19 +42,20 @@ class ComponentRenderNode extends AbstractRenderNode
 
     public function renderCssClasses(): string
     {
-        return 'com-class-loaded' . (!empty($this->cssClassName) ? ' ' . $this->cssClassName : '');
+        return 'com-class-loaded' . (! empty($this->cssClassName) ? ' ' . $this->cssClassName : '');
     }
 
     public function renderTag(): string
     {
         $cssClassName = trim($this->cssClassName ?? '');
+
         return DomHelper::buildTag(
             'span',
             [
                 // ID are not used as "id" html attribute,
                 // as component may be embedded into a vue,
                 // so replicated multiple times.
-                VariableHelper::CLASS_VAR => 'com-init' . (!empty($cssClassName) ? ' ' . $cssClassName : ''),
+                VariableHelper::CLASS_VAR => 'com-init' . (! empty($cssClassName) ? ' ' . $cssClassName : ''),
             ]
         );
     }

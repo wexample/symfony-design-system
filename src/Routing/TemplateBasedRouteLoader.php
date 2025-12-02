@@ -25,16 +25,14 @@ class TemplateBasedRouteLoader extends AbstractRouteLoader
         protected ParameterBagInterface $parameterBag,
         ContainerInterface $container,
         string $env = null
-    )
-    {
+    ) {
         parent::__construct($container, $env);
     }
 
     protected function loadOnce(
         $resource,
         string $type = null
-    ): RouteCollection
-    {
+    ): RouteCollection {
         $collection = new RouteCollection();
 
         /** @var AbstractController $controller */

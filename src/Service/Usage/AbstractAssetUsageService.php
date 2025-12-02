@@ -14,8 +14,7 @@ abstract class AbstractAssetUsageService
 {
     public function __construct(
         protected AssetsRegistryService $assetsRegistryService
-    )
-    {
+    ) {
 
     }
 
@@ -24,8 +23,7 @@ abstract class AbstractAssetUsageService
     public function buildPublicAssetPathFromView(
         string $view,
         string $ext
-    ): string
-    {
+    ): string {
         $nameParts = explode('/', $view);
         $bundle = array_shift($nameParts);
 
@@ -37,8 +35,7 @@ abstract class AbstractAssetUsageService
         AbstractRenderNode $renderNode,
         string $ext,
         string $view
-    ): bool
-    {
+    ): bool {
         $pathInfo = pathinfo(
             $this->buildPublicAssetPathFromView(
                 $view,
@@ -75,15 +72,14 @@ abstract class AbstractAssetUsageService
         string $pathInManifest,
         string $view,
         AbstractRenderNode $renderNode,
-    ): ?Asset
-    {
-        if (!$this->assetsRegistryService->assetExists($pathInManifest)) {
+    ): ?Asset {
+        if (! $this->assetsRegistryService->assetExists($pathInManifest)) {
             return null;
         }
 
         $realPath = $this->assetsRegistryService->getRealPath($pathInManifest);
 
-        if (!$realPath) {
+        if (! $realPath) {
             throw new Exception('Unable to find realpath of asset "'
                 . $pathInManifest . ', check build folder content or files permissions.');
         }
@@ -107,9 +103,9 @@ abstract class AbstractAssetUsageService
     public function assetNeedsInitialRender(
         Asset $asset,
         RenderPass $renderPass,
-    ): bool
-    {
+    ): bool {
         $usage = $this->getName();
+
         // This is the base usage (i.e. default).
         return $asset->usages[$usage] == $renderPass->getUsage($usage);
     }
@@ -131,8 +127,7 @@ abstract class AbstractAssetUsageService
     public function canAggregateAsset(
         RenderPass $renderPass,
         Asset $asset
-    ): bool
-    {
-        return (!$this->hasExtraSwitchableUsage($renderPass)) && $asset->isServerSideRendered();
+    ): bool {
+        return (! $this->hasExtraSwitchableUsage($renderPass)) && $asset->isServerSideRendered();
     }
 }

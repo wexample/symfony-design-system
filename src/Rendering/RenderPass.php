@@ -67,7 +67,8 @@ class RenderPass
 
     private bool $useJs = true;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->createRenderRequestId();
     }
 
@@ -80,6 +81,7 @@ class RenderPass
     public function createRenderRequestId(): string
     {
         $this->setRenderRequestId(uniqid());
+
         return $this->getRenderRequestId();
     }
 
@@ -153,7 +155,7 @@ class RenderPass
         ?string $usageValue
     ): void {
         // Not found
-        if (!isset($this->usagesConfig[$usageName])) {
+        if (! isset($this->usagesConfig[$usageName])) {
             return;
         }
 

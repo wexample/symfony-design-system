@@ -24,7 +24,7 @@ trait DesignSystemTestCaseTrait
                 $jsonData = $matches[1];
 
                 // Check if we found and captured JSON data.
-                if (!empty($jsonData)) {
+                if (! empty($jsonData)) {
                     // Decode the JSON data into an associative array and return it.
                     return json_decode($jsonData, true, 512, JSON_OBJECT_AS_ARRAY);
                 }

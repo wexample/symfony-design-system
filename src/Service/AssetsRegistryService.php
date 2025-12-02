@@ -28,8 +28,7 @@ class AssetsRegistryService extends RenderDataGenerator
 
     public function __construct(
         KernelInterface $kernel
-    )
-    {
+    ) {
         $pathProject = $kernel->getProjectDir() . '/';
         $this->pathPublic = $pathProject . self::DIR_PUBLIC;
         $pathBuild = $this->pathPublic . self::DIR_BUILD;
@@ -61,7 +60,7 @@ class AssetsRegistryService extends RenderDataGenerator
         $this->registry[$asset->type] = $this->registry[$asset->type] ?? [];
         $templateName = $asset->getView();
 
-        if (!isset($this->registry[$asset->type][$templateName])) {
+        if (! isset($this->registry[$asset->type][$templateName])) {
             $this->registry[$asset->type][$templateName] = $asset;
         }
     }

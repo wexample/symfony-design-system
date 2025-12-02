@@ -19,8 +19,7 @@ class VueExtension extends AbstractExtension
 
     public function __construct(
         private readonly VueService $vueService
-    )
-    {
+    ) {
     }
 
     public function getFilters(): array
@@ -92,8 +91,7 @@ class VueExtension extends AbstractExtension
         ?array $props = [],
         string $tagName = VueService::TAG_TEMPLATE,
         ?array $twigContext = []
-    ): string
-    {
+    ): string {
         return $this->vueService->vueRender(
             twig: $env,
             renderPass: $renderPass,
@@ -121,8 +119,7 @@ class VueExtension extends AbstractExtension
         string $path,
         ?array $props = [],
         string $tagName = VueService::TAG_TEMPLATE,
-    ): void
-    {
+    ): void {
         // Same behavior but no output tag.
         $this->vueInclude(
             $env,
@@ -143,8 +140,7 @@ class VueExtension extends AbstractExtension
         ?array $props = [],
         string $tagName = VueService::TAG_TEMPLATE,
         ?array $twigContext = [],
-    ): string
-    {
+    ): string {
         return $this->vueService->vueRender(
             $env,
             $renderPass,
@@ -158,8 +154,7 @@ class VueExtension extends AbstractExtension
     public function vueKey(
         string $key,
         string $filters = null
-    ): string
-    {
+    ): string {
         return '{{ ' . $key . ($filters ? ' | ' . $filters : '') . ' }}';
     }
 }

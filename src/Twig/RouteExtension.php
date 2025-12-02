@@ -17,8 +17,7 @@ class RouteExtension extends AbstractExtension
         RequestStack $requestStack,
         public UrlGeneratorInterface $urlGenerator,
         private RouterInterface $router
-    )
-    {
+    ) {
         $request = $requestStack->getCurrentRequest();
 
         if ($request) {
@@ -45,8 +44,7 @@ class RouteExtension extends AbstractExtension
         ?array $params = null,
         mixed $returnValueIfSuccess = true,
         mixed $returnValueIfFail = false,
-    ): mixed
-    {
+    ): mixed {
         return $this->urlGenerator->generate(
             $route,
             $params ?: []

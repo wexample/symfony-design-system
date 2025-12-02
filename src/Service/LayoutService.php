@@ -13,9 +13,9 @@ class LayoutService extends RenderNodeService
     #[Pure]
     public function __construct(
         AssetsService $assetsService,
-        readonly protected ComponentService $componentService,
-        readonly private PageService $pageService,
-        readonly protected Translator $translator,
+        protected readonly ComponentService $componentService,
+        private readonly PageService $pageService,
+        protected readonly Translator $translator,
     ) {
         parent::__construct(
             $assetsService,
@@ -41,8 +41,7 @@ class LayoutService extends RenderNodeService
                     'adaptiveResponsePageManager' => true,
                 ]
             );
-        }
-        elseif ($renderPass->getLayoutBase() === RenderPass::BASE_PANEL) {
+        } elseif ($renderPass->getLayoutBase() === RenderPass::BASE_PANEL) {
             // Prepare panel component.
             $this->componentService->componentInitLayout(
                 $twig,
@@ -52,8 +51,7 @@ class LayoutService extends RenderNodeService
                     'adaptiveResponsePageManager' => true,
                 ]
             );
-        }
-        elseif ($renderPass->getLayoutBase() === RenderPass::BASE_OVERLAY) {
+        } elseif ($renderPass->getLayoutBase() === RenderPass::BASE_OVERLAY) {
             // Prepare panel component.
             $this->componentService->componentInitLayout(
                 $twig,

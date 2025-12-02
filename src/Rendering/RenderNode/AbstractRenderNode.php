@@ -73,7 +73,7 @@ abstract class AbstractRenderNode extends RenderDataGenerator
             }
         }
 
-        return !empty($output) ? implode($output) : null;
+        return ! empty($output) ? implode($output) : null;
     }
 
     public function toRenderData(): array
@@ -102,7 +102,7 @@ abstract class AbstractRenderNode extends RenderDataGenerator
     {
         $view = TemplateHelper::removeExtension($view);
 
-        if (!$this->getView()) {
+        if (! $this->getView()) {
             $this->setView($view);
         }
 

@@ -36,8 +36,7 @@ class AdaptiveResponseExtension extends AbstractExtension
      */
     public function adaptiveResponseRenderingBasePath(
         RenderPass $renderPass,
-    ): string
-    {
+    ): string {
         return $this->adaptiveResponseService->getLayoutBasePath(
             $renderPass,
         );

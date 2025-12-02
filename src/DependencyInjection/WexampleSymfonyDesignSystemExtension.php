@@ -3,9 +3,9 @@
 namespace Wexample\SymfonyDesignSystem\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Wexample\Helpers\Helper\ClassHelper;
 use Wexample\SymfonyDesignSystem\Interface\DesignSystemBundleInterface;
 use Wexample\SymfonyHelpers\DependencyInjection\AbstractWexampleSymfonyExtension;
-use Wexample\Helpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 

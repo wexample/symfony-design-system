@@ -21,17 +21,19 @@ use Wexample\SymfonyHelpers\Helper\BundleHelper;
 abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\AbstractController
 {
     public function __construct(
-        readonly protected AdaptiveResponseService $adaptiveResponseService,
-        readonly protected LayoutService $layoutService,
-        readonly protected RenderPassBagService $renderPassBagService,
+        protected readonly AdaptiveResponseService $adaptiveResponseService,
+        protected readonly LayoutService $layoutService,
+        protected readonly RenderPassBagService $renderPassBagService,
     ) {
     }
 
-    protected function createPageRenderPass(): RenderPass {
+    protected function createPageRenderPass(): RenderPass
+    {
         return $this->createRenderPass();
     }
 
-    protected function createRenderPass(): RenderPass {
+    protected function createRenderPass(): RenderPass
+    {
         $renderPass = new RenderPass();
 
         /** @var ParameterBagInterface $parameterBag */
@@ -117,7 +119,8 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
                 );
 
                 $finalResponse = new JsonResponse(
-                    $renderPass->layoutRenderNode->toRenderData());
+                    $renderPass->layoutRenderNode->toRenderData()
+                );
 
                 $finalResponse->setStatusCode(
                     $renderPasseResponse->getStatusCode()
@@ -172,7 +175,7 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
     ): Response {
         $view = $renderPass->getView();
 
-        if (!$view) {
+        if (! $view) {
             throw new Exception('View must be defined before adaptive rendering');
         }
 
@@ -189,14 +192,16 @@ abstract class AbstractController extends \Wexample\SymfonyHelpers\Controller\Ab
     public static function getTemplateLocationPrefix(): string
     {
         $bundleClass = static::getControllerBundle();
+
         return ($bundleClass ? $bundleClass::getAlias() : DesignSystemHelper::TWIG_NAMESPACE_FRONT);
     }
 
-    public static function getControllerTemplateDir(): string {
+    public static function getControllerTemplateDir(): string
+    {
         return TemplateHelper::joinNormalizedParts(
             [
                 self::getTemplateLocationPrefix(),
-                ...TemplateHelper::explodeControllerNamespaceSubParts(static::class)
+                ...TemplateHelper::explodeControllerNamespaceSubParts(static::class),
             ]
         );
     }

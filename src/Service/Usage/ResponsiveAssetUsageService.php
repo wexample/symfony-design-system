@@ -57,9 +57,10 @@ final class ResponsiveAssetUsageService extends AbstractAssetUsageService
         if ($asset->type === Asset::EXTENSION_CSS) {
             if (isset($asset->usages[$this->getName()])) {
                 // Responsive CSS are loaded in page when JS is disabled.
-                return !$renderPass->isUseJs();
+                return ! $renderPass->isUseJs();
             }
         }
+
         return true;
     }
 }

@@ -4,9 +4,9 @@ namespace Wexample\SymfonyDesignSystem\Rendering;
 
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Wexample\Helpers\Helper\TextHelper;
 use Wexample\SymfonyDesignSystem\Rendering\ComponentManager\AbstractComponentManager;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
-use Wexample\Helpers\Helper\TextHelper;
 
 readonly class ComponentManagerLocatorService
 {

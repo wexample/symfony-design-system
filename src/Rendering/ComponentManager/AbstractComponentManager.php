@@ -3,9 +3,9 @@
 namespace Wexample\SymfonyDesignSystem\Rendering\ComponentManager;
 
 use Symfony\Component\HttpKernel\KernelInterface;
+use Wexample\Helpers\Helper\TextHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\ComponentRenderNode;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
-use Wexample\Helpers\Helper\TextHelper;
 
 abstract class AbstractComponentManager
 {

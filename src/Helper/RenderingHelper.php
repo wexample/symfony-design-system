@@ -2,8 +2,9 @@
 
 namespace Wexample\SymfonyDesignSystem\Helper;
 
-use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use function implode;
+
+use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class RenderingHelper
 {

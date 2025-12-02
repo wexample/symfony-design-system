@@ -58,7 +58,8 @@ final class TestController extends AbstractPagesController
     {
         return $this->renderPage(
             self::ROUTE_VIEW,
-            bundle: self::getBundleClassName());
+            bundle: self::getBundleClassName()
+        );
     }
 
     #[Route(path: 'error-missing-view', name: self::ROUTE_ERROR_MISSING_VIEW, options: self::ROUTE_OPTIONS_ONLY_EXPOSE)]

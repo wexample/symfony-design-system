@@ -30,8 +30,7 @@ class DesignSystemTemplatesCompilerPass implements CompilerPassInterface
                                 $bundleClass::getAlias() : $bundleClass,
                         ]
                     );
-                }
-                else {
+                } else {
                     // Add also to allow find all "front" folder, as in translations extension.
                     $definition->addMethodCall(
                         'addPath',

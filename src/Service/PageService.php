@@ -21,8 +21,7 @@ class PageService extends RenderNodeService
         AssetsService $assetsService,
         protected Translator $translator,
         protected RouterInterface $router
-    )
-    {
+    ) {
         parent::__construct(
             $assetsService,
         );
@@ -32,8 +31,7 @@ class PageService extends RenderNodeService
         RenderPass $renderPass,
         PageRenderNode $page,
         string $view
-    ): void
-    {
+    ): void {
         $this->initRenderNode(
             $page,
             $renderPass,
@@ -82,8 +80,7 @@ class PageService extends RenderNodeService
     public function buildTranslationPathFromClassPath(
         string $classPath,
         string $templateLocationPrefix = null
-    ): string
-    {
+    ): string {
         [$controllerFullPath, $methodName] = explode(ClassHelper::METHOD_SEPARATOR, $classPath);
 
         // Remove useless namespace part.
@@ -103,9 +100,9 @@ class PageService extends RenderNodeService
             $explodeController[] = $methodName;
 
             return $templateLocationPrefix . '.' . TemplateHelper::joinNormalizedParts(
-                    $explodeController,
-                    '.'
-                );
+                $explodeController,
+                '.'
+            );
         }
         // Remove useless namespace part.
         $controllerRelativePath = TextHelper::removePrefix(
@@ -123,8 +120,8 @@ class PageService extends RenderNodeService
         $explodeController[] = $methodName;
 
         return $templateLocationPrefix . '.' . TemplateHelper::joinNormalizedParts(
-                $explodeController,
-                '.'
-            );
+            $explodeController,
+            '.'
+        );
     }
 }

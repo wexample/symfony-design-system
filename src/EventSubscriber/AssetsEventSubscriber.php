@@ -12,8 +12,8 @@ use Wexample\SymfonyDesignSystem\Service\RenderPassBagService;
 class AssetsEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        readonly private Environment $twig,
-        readonly protected RenderPassBagService $renderPassBagService
+        private readonly Environment $twig,
+        protected readonly RenderPassBagService $renderPassBagService
     ) {
     }
 
@@ -31,9 +31,9 @@ class AssetsEventSubscriber implements EventSubscriberInterface
         // Support regular controllers
         $response = $event->getResponse();
         if ($renderPass
-            && !$renderPass->isJsonRequest()
-            && !$response->isServerError()
-            && !$response->isClientError()
+            && ! $renderPass->isJsonRequest()
+            && ! $response->isServerError()
+            && ! $response->isClientError()
         ) {
             $assetsIncludes = $this->twig->render(
                 '@WexampleSymfonyDesignSystemBundle/macros/assets.html.twig',

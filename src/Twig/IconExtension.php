@@ -30,12 +30,11 @@ class IconExtension extends AbstractExtension
         KernelInterface $kernel,
         protected readonly ComponentsExtension $componentsExtension,
         protected readonly CacheItemPoolInterface $cache
-    )
-    {
+    ) {
         $this->projectDir = $kernel->getProjectDir();
         $this->cacheItem = $this->cache->getItem('symfony_design_system_icons_list');
 
-        if (!$this->cacheItem->isHit()) {
+        if (! $this->cacheItem->isHit()) {
             $this->icons = (object) [
                 self::ICONS_LIBRARY_FA => $this->buildIconsListFa(),
                 self::ICONS_LIBRARY_MATERIAL => $this->buildIconsListMaterial(),
@@ -88,8 +87,7 @@ class IconExtension extends AbstractExtension
         $class = '',
         $tagName = 'i',
         $type = null
-    )
-    {
+    ) {
         [$prefix, $icon] = array_pad(explode(self::LIBRARY_SEPARATOR, $name, 2), 2, '');
 
         $lib = $type ?? $prefix;
@@ -203,8 +201,7 @@ class IconExtension extends AbstractExtension
         Environment $twig,
         string $name,
         array $classes = []
-    ): string
-    {
+    ): string {
         $default = DomHelper::buildTag('span');
 
         if ($icon = $this->loadIconSvg(self::ICONS_LIBRARY_MATERIAL, $name, $classes)) {
@@ -222,8 +219,7 @@ class IconExtension extends AbstractExtension
         string $registryType,
         string $name,
         array $classes
-    ): ?string
-    {
+    ): ?string {
         [$type, $name] = explode(
             self::LIBRARY_SEPARATOR,
             $name
@@ -241,7 +237,7 @@ class IconExtension extends AbstractExtension
         );
 
         if (isset($registry[$name])) {
-            if (!isset($registry[$name]['content'][$contentName])) {
+            if (! isset($registry[$name]['content'][$contentName])) {
                 $svgContent = file_get_contents($registry[$name]['file']);
 
                 $dom = new DOMDocument();
@@ -254,8 +250,10 @@ class IconExtension extends AbstractExtension
                     $svg->setAttribute(
                         'class',
                         $existingClass
-                        . implode(' ',
-                            array_merge(['icon'],
+                        . implode(
+                            ' ',
+                            array_merge(
+                                ['icon'],
                                 $classes
                             )
                         )

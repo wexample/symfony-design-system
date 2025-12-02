@@ -8,8 +8,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\Helpers\Helper\PathHelper;
+use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\SymfonyDesignSystem\Traits\SymfonyDesignSystemBundleClassTrait;
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Command\AbstractBundleCommand;
@@ -89,9 +89,9 @@ class GetFrontsCommand extends AbstractBundleCommand
             foreach ($group as $key => $path) {
                 // Return relative to project root.
                 $paths[$key] = './'.substr(
-                        $path,
-                        $rootLen
-                    );
+                    $path,
+                    $rootLen
+                );
             }
         }
 

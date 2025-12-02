@@ -37,8 +37,8 @@ class ComponentService extends RenderNodeService
 
     public function __construct(
         AssetsService $assetsService,
-        readonly protected ComponentManagerLocatorService $componentManagerLocatorService,
-        readonly protected Translator $translator
+        protected readonly ComponentManagerLocatorService $componentManagerLocatorService,
+        protected readonly Translator $translator
     ) {
         parent::__construct(
             $assetsService,
@@ -74,7 +74,7 @@ class ComponentService extends RenderNodeService
                 $component->render(
                     $twig,
                     [
-                        'render_pass' => $renderPass
+                        'render_pass' => $renderPass,
                     ]
                 );
 
@@ -195,7 +195,7 @@ class ComponentService extends RenderNodeService
             $options
         );
 
-        if (!$component) {
+        if (! $component) {
             $component = new ComponentRenderNode(
                 $initMode,
                 $options

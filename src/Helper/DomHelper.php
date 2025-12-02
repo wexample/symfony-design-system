@@ -2,10 +2,11 @@
 
 namespace Wexample\SymfonyDesignSystem\Helper;
 
-use Wexample\Helpers\Helper\TextHelper;
-use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use function implode;
 use function is_null;
+
+use Wexample\Helpers\Helper\TextHelper;
+use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class DomHelper
 {
@@ -49,7 +50,7 @@ class DomHelper
             $allowSingleTag = static::TAG_ALLOWS_AUTO_CLOSING[$tagName] ?? false;
         }
 
-        if ($allowSingleTag && !$body) {
+        if ($allowSingleTag && ! $body) {
             $output .= '/>';
         } else {
             $output .= '>'.$body.'</'.$tagName.'>';
@@ -61,7 +62,7 @@ class DomHelper
     public static function buildStringIdentifier(string $string): string
     {
         return trim(
-        // Replace double dash.
+            // Replace double dash.
             preg_replace(
                 '/-+/',
                 '-',

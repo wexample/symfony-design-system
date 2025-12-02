@@ -66,7 +66,7 @@ final class DemoController extends AbstractPagesController
     )]
     final public function assets(Request $request): Response
     {
-        $this->useJs = !$request->get('no_js');
+        $this->useJs = ! $request->get('no_js');
 
         return $this->renderPage(
             self::ROUTE_ASSETS,

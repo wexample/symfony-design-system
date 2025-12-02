@@ -41,9 +41,9 @@ class AssetsService
         MarginsAssetUsageService $marginsAssetUsageService,
         ResponsiveAssetUsageService $responsiveAssetUsageService,
         FontsAssetUsageService $fontsAssetUsageService,
-        readonly protected KernelInterface $kernel,
-        readonly protected AssetsAggregationService $assetsAggregationService,
-        readonly protected AssetsRegistryService $assetsRegistryService,
+        protected readonly KernelInterface $kernel,
+        protected readonly AssetsAggregationService $assetsAggregationService,
+        protected readonly AssetsRegistryService $assetsRegistryService,
     ) {
         foreach ([
                      // Order is important, it defines the order the assets
@@ -95,16 +95,16 @@ class AssetsService
                 $usageFoundForType = false;
 
                 foreach ($views as $view) {
-                    if (!$usageFoundForType && $usage->addAssetsForRenderNodeAndType(
-                            $renderPass,
-                            $renderNode,
-                            $ext,
-                            $view
-                        )) {
+                    if (! $usageFoundForType && $usage->addAssetsForRenderNodeAndType(
+                        $renderPass,
+                        $renderNode,
+                        $ext,
+                        $view
+                    )) {
                         $usageFoundForType = true;
+                    }
                 }
             }
-        }
         }
     }
 
@@ -132,7 +132,7 @@ class AssetsService
 
         // Ensure registry has entries for all asset types
         foreach (Asset::ASSETS_EXTENSIONS as $type) {
-            if (!isset($registry[$type])) {
+            if (! isset($registry[$type])) {
                 $registry[$type] = [];
             }
             $tags[$type] = array_fill_keys(Asset::CONTEXTS, []);

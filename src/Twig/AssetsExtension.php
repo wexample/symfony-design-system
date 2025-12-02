@@ -46,7 +46,8 @@ class AssetsExtension extends AbstractExtension
             );
     }
 
-    public function assetsRegistry(): array {
+    public function assetsRegistry(): array
+    {
         return $this
             ->assetsRegistryService
             ->toRenderData();

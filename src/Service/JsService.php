@@ -2,6 +2,11 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
+use function class_exists;
+use function is_array;
+use function is_object;
+use function is_subclass_of;
+
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
@@ -9,10 +14,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Wexample\SymfonyApi\Api\Dto\EntityDto;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\Entity\Interfaces\AbstractEntityInterface;
-use function class_exists;
-use function is_array;
-use function is_object;
-use function is_subclass_of;
 
 class JsService
 {
@@ -107,7 +108,7 @@ class JsService
             $dtoClassName = '\\App\\Api\\Dto\\'.
                 (new ReflectionClass($objectValue))->getShortName();
 
-            if (!isset($context['collection_operation_name'])) {
+            if (! isset($context['collection_operation_name'])) {
                 $context['collection_operation_name'] = 'twig_serialize_entity';
             }
 
