@@ -20,8 +20,8 @@
   ],
   "require": {
     "php": ">=8.2",
-    "wexample/symfony-api": "1.0.59",
-    "wexample/symfony-helpers": "1.0.64",
+    "wexample/symfony-api": "1.0.60",
+    "wexample/symfony-helpers": "1.0.66",
     "wexample/symfony-testing": "1.0.58",
     "wexample/symfony-translations": "1.0.58",
     "friendsofsymfony/jsrouting-bundle": "^3.2.1",
