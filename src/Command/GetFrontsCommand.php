@@ -82,16 +82,53 @@ class GetFrontsCommand extends AbstractBundleCommand
     private function getFrontPaths(): array
     {
         $pathsGroups = $this->parameterBag->get('design_system_packages_front_paths');
-        $rootLen = strlen($this->kernel->getProjectDir().FileHelper::FOLDER_SEPARATOR);
+
+        $projectDir = $this->kernel->getProjectDir().FileHelper::FOLDER_SEPARATOR;
+        $rootLen = strlen($projectDir);
 
         $paths = [];
         foreach ($pathsGroups as $group) {
             foreach ($group as $key => $path) {
-                // Return relative to project root.
-                $paths[$key] = './'.substr(
-                    $path,
-                    $rootLen
-                );
+                // Check if the real path corresponds to a symlink in vendor/
+                $relativePath = null;
+                
+                // Check if the path starts with projectDir
+                if (str_starts_with($path, $projectDir)) {
+                    $relativePath = './'.substr($path, $rootLen);
+                } else {
+                    // Path is outside the project (e.g., /var/www/vendor-dev/)
+                    // Look for a corresponding symlink in vendor/
+                    $vendorPath = $projectDir.'vendor/';
+                    
+                    if (is_dir($vendorPath)) {
+                        // Iterate through vendor/ to find a symlink pointing to this path
+                        $iterator = new \RecursiveIteratorIterator(
+                            new \RecursiveDirectoryIterator($vendorPath, \RecursiveDirectoryIterator::SKIP_DOTS),
+                            \RecursiveIteratorIterator::SELF_FIRST
+                        );
+                        
+                        foreach ($iterator as $item) {
+                            if ($item->isLink()) {
+                                $linkTarget = realpath($item->getPathname());
+                                // If the searched path starts with the symlink target
+                                if ($linkTarget && str_starts_with($path, $linkTarget)) {
+                                    // Build the relative path using the symlink
+                                    $symlinkRelative = './'.substr($item->getPathname(), $rootLen);
+                                    $remainingPath = substr($path, strlen($linkTarget));
+                                    $relativePath = $symlinkRelative.$remainingPath;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    
+                    // If no symlink found, use the path as is (fallback)
+                    if ($relativePath === null) {
+                        $relativePath = $path;
+                    }
+                }
+                
+                $paths[$key] = $relativePath;
             }
         }
 
