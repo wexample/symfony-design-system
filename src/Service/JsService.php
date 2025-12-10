@@ -11,7 +11,7 @@ use ReflectionClass;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Wexample\SymfonyApi\Api\Dto\EntityDto;
+use Wexample\SymfonyHelpers\Api\Dto\EntityDto;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\Entity\Interfaces\AbstractEntityInterface;
 
