@@ -4,12 +4,12 @@ namespace Wexample\SymfonyDesignSystem\Rendering\RenderNode;
 
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
-use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderDataGenerator;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Rendering\Traits\WithView;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
+use Wexample\SymfonyHelpers\Helper\TemplateHelper;
 
 abstract class AbstractRenderNode extends RenderDataGenerator
 {

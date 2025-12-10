@@ -11,8 +11,8 @@ use Symfony\Component\Routing\RouteCollection;
 use Wexample\Helpers\Helper\ClassHelper;
 use Wexample\Helpers\Helper\FileHelper;
 use Wexample\SymfonyDesignSystem\Controller\AbstractController;
-use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Routing\Attribute\TemplateBasedRoutes;
+use Wexample\SymfonyHelpers\Helper\TemplateHelper;
 use Wexample\SymfonyHelpers\Routing\AbstractRouteLoader;
 use Wexample\SymfonyHelpers\Routing\Traits\RoutePathBuilderTrait;
 

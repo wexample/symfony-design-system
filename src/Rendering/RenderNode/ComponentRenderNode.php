@@ -8,9 +8,9 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Wexample\SymfonyDesignSystem\Helper\DomHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
-use Wexample\SymfonyDesignSystem\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\Class\Traits\WithBodyClassTrait;
+use Wexample\SymfonyHelpers\Helper\TemplateHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class ComponentRenderNode extends AbstractRenderNode
