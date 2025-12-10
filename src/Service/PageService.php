@@ -7,12 +7,12 @@ use Wexample\Helpers\Helper\ClassHelper;
 use Wexample\Helpers\Helper\TextHelper;
 use Wexample\SymfonyDesignSystem\Controller\AbstractController;
 use Wexample\SymfonyDesignSystem\Controller\AbstractPagesController;
-use Wexample\SymfonyHelpers\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\PageRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\Attribute\SimpleMethodResolver;
 use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Controller\Traits\HasSimpleRoutesControllerTrait;
+use Wexample\SymfonyHelpers\Helper\TemplateHelper;
 use Wexample\SymfonyTranslations\Translation\Translator;
 
 class PageService extends RenderNodeService

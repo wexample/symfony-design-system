@@ -4,7 +4,6 @@ namespace Wexample\SymfonyDesignSystem\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Wexample\Helpers\Helper\ClassHelper;
-use Wexample\SymfonyHelpers\Helper\TemplateHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyDesignSystem\Service\LayoutService;
@@ -14,6 +13,7 @@ use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Controller\Traits\HasSimpleRoutesControllerTrait;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
+use Wexample\SymfonyHelpers\Helper\TemplateHelper;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use Wexample\SymfonyHelpers\Traits\BundleClassTrait;
 

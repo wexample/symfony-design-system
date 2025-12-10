@@ -91,7 +91,7 @@ class GetFrontsCommand extends AbstractBundleCommand
             foreach ($group as $key => $path) {
                 // Check if the real path corresponds to a symlink in vendor/
                 $relativePath = null;
-                
+
                 // Check if the path starts with projectDir
                 if (str_starts_with($path, $projectDir)) {
                     $relativePath = './'.substr($path, $rootLen);
@@ -99,14 +99,14 @@ class GetFrontsCommand extends AbstractBundleCommand
                     // Path is outside the project (e.g., /var/www/vendor-dev/)
                     // Look for a corresponding symlink in vendor/
                     $vendorPath = $projectDir.'vendor/';
-                    
+
                     if (is_dir($vendorPath)) {
                         // Iterate through vendor/ to find a symlink pointing to this path
                         $iterator = new \RecursiveIteratorIterator(
                             new \RecursiveDirectoryIterator($vendorPath, \RecursiveDirectoryIterator::SKIP_DOTS),
                             \RecursiveIteratorIterator::SELF_FIRST
                         );
-                        
+
                         foreach ($iterator as $item) {
                             if ($item->isLink()) {
                                 $linkTarget = realpath($item->getPathname());
@@ -116,18 +116,19 @@ class GetFrontsCommand extends AbstractBundleCommand
                                     $symlinkRelative = './'.substr($item->getPathname(), $rootLen);
                                     $remainingPath = substr($path, strlen($linkTarget));
                                     $relativePath = $symlinkRelative.$remainingPath;
+
                                     break;
                                 }
                             }
                         }
                     }
-                    
+
                     // If no symlink found, use the path as is (fallback)
                     if ($relativePath === null) {
                         $relativePath = $path;
                     }
                 }
-                
+
                 $paths[$key] = $relativePath;
             }
         }
