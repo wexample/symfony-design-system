@@ -23,16 +23,19 @@ class TemplateBasedRouteLoader extends AbstractRouteLoader
     public function __construct(
         protected RewindableGenerator $taggedControllers,
         protected ParameterBagInterface $parameterBag,
+        protected \Symfony\Component\HttpKernel\KernelInterface $kernel,
         ContainerInterface $container,
         string $env = null
-    ) {
+    )
+    {
         parent::__construct($container, $env);
     }
 
     protected function loadOnce(
         $resource,
         string $type = null
-    ): RouteCollection {
+    ): RouteCollection
+    {
         $collection = new RouteCollection();
 
         /** @var AbstractController $controller */
@@ -43,8 +46,20 @@ class TemplateBasedRouteLoader extends AbstractRouteLoader
 
             $reflectionClass = new \ReflectionClass($controller);
 
-            $templatePath = $controller::getControllerTemplateDir();
-            $templatesDir = $this->parameterBag->get('kernel.project_dir') . FileHelper::FOLDER_SEPARATOR . $templatePath;
+            $bundle = $controller::getDefaultPageBundleClass();
+            if ($bundle) {
+                $templatesRoot =
+                    realpath(
+                        dirname(
+                            $this->kernel->getBundle(
+                                ClassHelper::getShortName($bundle)
+                            )->getPath()
+                        )
+                    ) . FileHelper::FOLDER_SEPARATOR;
+            } else {
+                $templatesRoot = $this->parameterBag->get('kernel.project_dir') . FileHelper::FOLDER_SEPARATOR;
+            }
+            $templatesDir = $templatesRoot . $controller::getControllerTemplateDir(bundle: $bundle);
 
             // Use Finder to scan template files
             $finder = new Finder();

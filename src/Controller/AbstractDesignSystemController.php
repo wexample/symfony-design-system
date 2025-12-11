@@ -11,11 +11,11 @@ abstract class AbstractDesignSystemController extends AbstractController
     /**
      * @return string Allow bundle-specific front template directories.
      */
-    public static function getTemplateLocationPrefix(): string
+    public static function getTemplateLocationPrefix(
+        string $bundle = null
+    ): string
     {
-        $bundleClass = static::getControllerBundle();
-
-        return ($bundleClass ? $bundleClass::getAlias() : DesignSystemHelper::TWIG_NAMESPACE_FRONT);
+        return ($bundle ? DesignSystemHelper::TWIG_NAMESPACE_ASSETS : DesignSystemHelper::TWIG_NAMESPACE_FRONT);
     }
 
     /**
@@ -24,14 +24,18 @@ abstract class AbstractDesignSystemController extends AbstractController
      * ex:
      *   - Config/DesignSystem/AppController.php
      *   - config/design_system/app/(index.html.twig)
-     * @return string
      */
-    public static function getControllerTemplateDir(): string
+    public static function getControllerTemplateDir(
+        string $bundle = null
+    ): string
     {
         return TemplateHelper::joinNormalizedParts(
             [
-                self::getTemplateLocationPrefix(),
-                ...TemplateHelper::explodeControllerNamespaceSubParts(static::class),
+                self::getTemplateLocationPrefix(bundle: $bundle),
+                ...TemplateHelper::explodeControllerNamespaceSubParts(
+                    controllerName: static::class,
+                    bundleClassPath: $bundle
+                ),
             ]
         );
     }
