@@ -30,6 +30,7 @@ class TemplateBasedRoutesTagCompilerPass implements CompilerPassInterface
                 continue;
             }
 
+            // Mirror the #[TemplateBasedRoutes] attribute at DI level so the loader can rely on the tag only.
             $definition->addTag('has_template_routes');
         }
     }

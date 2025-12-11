@@ -11,6 +11,7 @@ use Wexample\SymfonyHelpers\Helper\VariableHelper;
 #[TemplateBasedRoutes]
 final class DemoController extends AbstractDesignSystemShowcaseController
 {
+    // Trait exposes the bundle class so the route loader knows where to fetch the templates.
     use SymfonyDesignSystemBundleClassTrait;
 
     final public const ROUTE_INDEX = VariableHelper::INDEX;

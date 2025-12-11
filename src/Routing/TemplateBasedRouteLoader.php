@@ -48,6 +48,7 @@ class TemplateBasedRouteLoader extends AbstractRouteLoader
 
             $bundle = $controller::getDefaultPageBundleClass();
             if ($bundle) {
+                // Controller advertises a bundle: resolve its location to scan the bundle templates.
                 $templatesRoot =
                     realpath(
                         dirname(
@@ -57,6 +58,7 @@ class TemplateBasedRouteLoader extends AbstractRouteLoader
                         )
                     ) . FileHelper::FOLDER_SEPARATOR;
             } else {
+                // Fallback to the project templates when the controller does not target a bundle.
                 $templatesRoot = $this->parameterBag->get('kernel.project_dir') . FileHelper::FOLDER_SEPARATOR;
             }
             $templatesDir = $templatesRoot . $controller::getControllerTemplateDir(bundle: $bundle);
