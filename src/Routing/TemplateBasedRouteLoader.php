@@ -37,32 +37,33 @@ class TemplateBasedRouteLoader extends AbstractRouteLoader
 
         /** @var AbstractController $controller */
         foreach ($this->taggedControllers as $controller) {
+            if (!ClassHelper::hasAttributes($controller::class, TemplateBasedRoutes::class)) {
+                continue;
+            }
 
-            if (ClassHelper::hasAttributes($controller::class, TemplateBasedRoutes::class)) {
-                $reflectionClass = new \ReflectionClass($controller);
+            $reflectionClass = new \ReflectionClass($controller);
 
-                $templatePath = $controller::getControllerTemplateDir();
-                $templatesDir = $this->parameterBag->get('kernel.project_dir') . FileHelper::FOLDER_SEPARATOR . $templatePath;
+            $templatePath = $controller::getControllerTemplateDir();
+            $templatesDir = $this->parameterBag->get('kernel.project_dir') . FileHelper::FOLDER_SEPARATOR . $templatePath;
 
-                // Use Finder to scan template files
-                $finder = new Finder();
-                $finder->files()->in($templatesDir)->name('*' . TemplateHelper::TEMPLATE_FILE_EXTENSION);
+            // Use Finder to scan template files
+            $finder = new Finder();
+            $finder->files()->in($templatesDir)->name('*' . TemplateHelper::TEMPLATE_FILE_EXTENSION);
 
-                foreach ($finder as $file) {
-                    // Extract template name (without extension)
-                    $filename = $file->getBasename(TemplateHelper::TEMPLATE_FILE_EXTENSION);
-                    $routeName = $controller::buildRouteName($filename);
-                    $fullPath = $this->buildRoutePathFromController($controller, $filename);
+            foreach ($finder as $file) {
+                // Extract template name (without extension)
+                $filename = $file->getBasename(TemplateHelper::TEMPLATE_FILE_EXTENSION);
+                $routeName = $controller::buildRouteName($filename);
+                $fullPath = $this->buildRoutePathFromController($controller, $filename);
 
-                    if ($fullPath) {
-                        // Create the route
-                        $route = new Route($fullPath, [
-                            '_controller' => $reflectionClass->getName() . '::resolveSimpleRoute',
-                            'routeName' => $filename,
-                        ]);
+                if ($fullPath) {
+                    // Create the route
+                    $route = new Route($fullPath, [
+                        '_controller' => $reflectionClass->getName() . '::resolveSimpleRoute',
+                        'routeName' => $filename,
+                    ]);
 
-                        $collection->add($routeName, $route);
-                    }
+                    $collection->add($routeName, $route);
                 }
             }
         }
