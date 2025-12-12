@@ -8,12 +8,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
 use Wexample\SymfonyTemplate\Helper\TemplateHelper;
-use Wexample\WebRenderNode\Rendering\RenderNode\InitialLayoutRenderNode;
-use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 
 abstract class AbstractDesignSystemController extends AbstractController
 {
@@ -54,7 +54,7 @@ abstract class AbstractDesignSystemController extends AbstractController
     {
         $renderPass = $renderPass ?: $this->createRenderPass($view);
 
-        $renderPass->layoutRenderNode = new InitialLayoutRenderNode();
+        $renderPass->setLayoutRenderNode(new InitialLayoutRenderNode());
 
         return $this->renderRenderPass(
             $renderPass,
@@ -92,7 +92,8 @@ abstract class AbstractDesignSystemController extends AbstractController
     protected function injectLayoutAssets(
         Response $response,
         RenderPass $renderPass
-    ): Response {
+    ): Response
+    {
         if ($response instanceof JsonResponse
             || $response->isClientError()
             || $response->isServerError()
