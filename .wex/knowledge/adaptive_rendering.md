@@ -12,3 +12,10 @@ render-pass from the view name and hands it to `renderRenderPass()`.
 
 At this stage adaptive rendering basically guarantees that all controllers follow the same rendering pipeline and template
 resolution logic, preparing the ground for future hooks (asset aggregation, layout metadata, etc.).
+
+## Template layers for adaptive output
+
+`RenderPass` exposes the desired output type (HTML for now) and a base name. The Twig function `adaptive_response_rendering_base_path(render_pass)`
+computes the actual template path using `AdaptiveResponseService`, so a layout like `assets/layouts/test/layout.html.twig` can simply extend the
+default layout, which itself extends the base resolved at runtime (`assets/bases/html/default.html.twig`). This ensures bundle layouts stay thin,
+while the HTML base owns the document shell (`<!DOCTYPE html>`, `<html lang="…">`, etc.) and yields block `page_body` from the inherited layouts.
