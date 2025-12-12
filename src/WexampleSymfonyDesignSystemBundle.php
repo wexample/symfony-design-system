@@ -24,6 +24,5 @@ class WexampleSymfonyDesignSystemBundle extends AbstractBundle implements Design
         $container->addCompilerPass(
             new DesignSystemTemplatesCompilerPass()
         );
-
     }
 }

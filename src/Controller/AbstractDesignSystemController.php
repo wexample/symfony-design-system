@@ -6,12 +6,12 @@ namespace Wexample\SymfonyDesignSystem\Controller;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
-use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
-use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
 use Wexample\SymfonyTemplate\Helper\TemplateHelper;
+use Wexample\WebRenderNode\Rendering\RenderNode\InitialLayoutRenderNode;
+use Wexample\WebRenderNode\Rendering\RenderPass;
 
 abstract class AbstractDesignSystemController extends AbstractController
 {
@@ -52,9 +52,7 @@ abstract class AbstractDesignSystemController extends AbstractController
     {
         $renderPass = $renderPass ?: $this->createRenderPass($view);
 
-        $env = $this->getParameter('design_system.environment');
-
-        $renderPass->layoutRenderNode = new InitialLayoutRenderNode($env);
+        $renderPass->layoutRenderNode = new InitialLayoutRenderNode();
 
         return $this->renderRenderPass(
             $renderPass,
