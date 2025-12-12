@@ -118,12 +118,26 @@ function applyManifestEntries(options = {}) {
   logTitle(`Manifest ${path.relative(process.cwd(), manifestPath)}`);
   logPath('  Version', `${manifest.version || '?'}`);
   logPath('  Fronts ', `${manifest.frontCount ?? manifest.fronts?.length ?? 0}`);
+  logFronts(manifest.fronts || []);
 
   addAliasesFromManifest(manifest, encore);
   registerCssEntries(manifest, encore, seenEntries);
   registerJsEntries(manifest, encore, seenEntries, options);
 
   return manifest;
+}
+
+function logFronts(fronts) {
+  if (!fronts.length) {
+    return;
+  }
+
+  logTitle('Front paths', COLORS.yellow);
+  fronts.forEach((front) => {
+    const label = `${front.bundle} (${front.key})`;
+    const rel = front.paths?.relative || front.paths?.absolute || '';
+    logPath(`  ${label}`, rel);
+  });
 }
 
 function loadManifest(filePath = DEFAULT_MANIFEST_PATH) {
