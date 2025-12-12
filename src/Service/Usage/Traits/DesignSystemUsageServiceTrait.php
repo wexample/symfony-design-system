@@ -2,7 +2,9 @@
 
 namespace Wexample\SymfonyDesignSystem\Service\Usage\Traits;
 
+use Exception;
 use Wexample\Helpers\Helper\PathHelper;
+use Wexample\Helpers\Helper\TextHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\Traits\DesignSystemRenderNodeTrait;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
@@ -36,20 +38,45 @@ trait DesignSystemUsageServiceTrait
         string $view
     ): bool
     {
-        $path = $this->buildPublicAssetPathFromView(
-            $view,
-            $ext
+        $pathInfo = pathinfo(
+            $this->buildPublicAssetPathFromView(
+                $view,
+                $ext
+            )
         );
 
-        $asset = new Asset(
-            $path,
-            $view,
-            static::getName(),
-            $renderNode->getContextType()
-        );
+        $usage = $this->getName();
+        $usageKebab = TextHelper::toKebab($usage);
+        $hasAsset = false;
 
-        $renderNode->addAsset($asset);
+        if (isset($renderPass->usagesConfig[$usage]['list'])) {
+            foreach ($renderPass->usagesConfig[$usage]['list'] as $usageValue => $config) {
+                $assetPath = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.' . $usageKebab . '.' . $usageValue . '.' . $pathInfo['extension'];
 
-        return true;
+                if ($asset = $this->createAssetIfExists(
+                    $assetPath,
+                    $view,
+                    $renderNode
+                )) {
+                    $hasAsset = true;
+                    $asset->usages[$usage] = $usageValue;
+                }
+            }
+        }
+
+        return $hasAsset;
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function createAssetIfExists(
+        string $pathInManifest,
+        string $view,
+        AbstractRenderNode $renderNode,
+    ): ?Asset
+    {
+        # TODO
+        return null;
     }
 }

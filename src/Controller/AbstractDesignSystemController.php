@@ -4,6 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Controller;
 
 
 use Exception;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
@@ -11,6 +12,7 @@ use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
+use Wexample\SymfonyDesignSystem\Service\AssetsService;
 use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
 use Wexample\SymfonyTemplate\Helper\TemplateHelper;
@@ -26,6 +28,21 @@ abstract class AbstractDesignSystemController extends AbstractController
     protected function createRenderPass(string $view): RenderPass
     {
         $renderPass = new RenderPass($view);
+
+        /** @var ParameterBagInterface $parameterBag */
+        $parameterBag = $this->container->get('parameter_bag');
+        foreach (AssetsService::getAssetsUsagesStatic() as $usageStatic) {
+            $usageName = $usageStatic::getName();
+            $key = 'design_system.usages.'.$usageName;
+
+            $config = $parameterBag->has($key) ? $this->getParameter($key) : ['list' => []];
+            $renderPass->usagesConfig[$usageName] = $config;
+
+            $renderPass->setUsage(
+                $usageName,
+                $config['default'] ?? null
+            );
+        }
 
         $renderPass->setLayoutBase(
             $this->adaptiveResponseService->detectLayoutBase($renderPass)

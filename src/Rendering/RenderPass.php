@@ -16,15 +16,40 @@ class RenderPass
 
     private AbstractLayoutRenderNode $layoutRenderNode;
 
+    public array $usagesConfig = [];
+
     private string $outputType = self::OUTPUT_TYPE_RESPONSE_HTML;
 
     protected string $layoutBase = self::BASE_DEFAULT;
+
+    /**
+     * @var array<string|null>
+     */
+    public array $usages = [];
 
     public function __construct(
         string $view
     )
     {
         $this->setView($view);
+    }
+
+    public function getUsage(
+        string $usageName,
+    ): ?string {
+        return $this->usages[$usageName];
+    }
+
+    public function setUsage(
+        string $usageName,
+        ?string $usageValue
+    ): void {
+        // Not found
+        if (! isset($this->usagesConfig[$usageName])) {
+            return;
+        }
+
+        $this->usages[$usageName] = $usageValue;
     }
 
     public function getOutputType(): string
