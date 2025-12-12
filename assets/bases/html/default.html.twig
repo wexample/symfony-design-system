@@ -3,10 +3,13 @@
 {%- block layout_base -%}
     {{- parent() -}}
     <!DOCTYPE html>
-    <html>
-
+    <html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="utf-8"/>
+    </head>
     <body class="{{ body_class|default('') }}">
-    TODO -- HTML BASE
+    <div id="initial-layout" class="layout-loading">
+        {{- block('page_body') -}}
     </body>
     </html>
 {%- endblock -%}
