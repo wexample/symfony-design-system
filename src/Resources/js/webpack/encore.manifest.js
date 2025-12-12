@@ -5,6 +5,7 @@ const Encore = require('@symfony/webpack-encore');
 const webpack = require('webpack');
 const FosRouting = require('fos-router/webpack/FosRouting');
 const VirtualModules = require('webpack-virtual-modules');
+const {stringToKebab} = require('@wexample/js-helpers');
 
 const DEFAULT_OUTPUT_PATH = 'public/build/';
 const DEFAULT_PUBLIC_PATH = '/build';
@@ -328,7 +329,7 @@ function buildWrapperVirtualPath(entry, options) {
   const relativeDir = sanitizeRelativeDir(entry.relative);
   const targetDir = path.join(options.virtualWrapperRoot || WRAPPER_VIRTUAL_ROOT, relativeDir);
 
-  return path.join(targetDir, `${toKebab(buildWrapperBaseName(entry))}.js`);
+  return path.join(targetDir, `${stringToKebab(buildWrapperBaseName(entry))}.js`);
 }
 
 function buildWrapperBaseName(entry) {
@@ -359,19 +360,6 @@ function sanitizeRelativeDir(relativePath = '') {
 
   const dir = path.dirname(relativePath);
   return dir === '.' ? '' : dir;
-}
-
-function toKebab(value) {
-  if (!value) {
-    return 'index';
-  }
-
-  return value
-    .replace(/\.[^.]+$/, '')
-    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
-    .replace(/[\s_]+/g, '-')
-    .replace(/-+/g, '-')
-    .toLowerCase();
 }
 
 function toPosix(filePath) {
