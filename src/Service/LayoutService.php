@@ -6,13 +6,14 @@ use Exception;
 use JetBrains\PhpStorm\Pure;
 use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
-
+use Wexample\SymfonyTranslations\Translation\Translator;
 
 class LayoutService extends RenderNodeService
 {
     #[Pure]
     public function __construct(
         private readonly PageService $pageService,
+        protected readonly Translator $translator,
     )
     {
 
@@ -42,6 +43,11 @@ class LayoutService extends RenderNodeService
             $layoutRenderNode,
             $renderPass,
             // The default view should have been defined into the layout template.
+            $layoutRenderNode->getView(),
+        );
+
+        $this->translator->setDomainFromTemplatePath(
+            $layoutRenderNode->getContextType(),
             $layoutRenderNode->getView(),
         );
 
