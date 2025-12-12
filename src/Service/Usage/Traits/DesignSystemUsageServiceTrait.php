@@ -54,6 +54,7 @@ trait DesignSystemUsageServiceTrait
                 $assetPath = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.' . $usageKebab . '.' . $usageValue . '.' . $pathInfo['extension'];
 
                 if ($asset = $this->createAssetIfExists(
+                    $renderPass,
                     $assetPath,
                     $view,
                     $renderNode
@@ -71,6 +72,7 @@ trait DesignSystemUsageServiceTrait
      * @throws Exception
      */
     protected function createAssetIfExists(
+        RenderPass $renderPass,
         string $pathInManifest,
         string $view,
         AbstractRenderNode $renderNode,

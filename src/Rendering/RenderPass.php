@@ -28,7 +28,8 @@ class RenderPass
     public array $usages = [];
 
     public function __construct(
-        string $view
+        string $view,
+        protected AssetsRegistry $assetsRegistry
     )
     {
         $this->setView($view);
