@@ -9,6 +9,7 @@ const VirtualModules = require('webpack-virtual-modules');
 const DEFAULT_OUTPUT_PATH = 'public/build/';
 const DEFAULT_PUBLIC_PATH = '/build';
 const DEFAULT_MANIFEST_PATH = path.resolve(process.cwd(), 'assets', 'encore.manifest.json');
+const DEFAULT_CACHE_PATH = path.resolve(process.cwd(), '.webpack', 'cache');
 const WRAPPER_VIRTUAL_ROOT = path.resolve(process.cwd(), '.encore', 'virtual', 'wrappers');
 const WRAPPER_TEMPLATE = (classPath, className) => `import ClassDefinition from '${classPath}';
 appRegistry.bundles.add('${className}', ClassDefinition);
@@ -57,6 +58,48 @@ function configureEncoreBase(options = {}) {
   }
 
   const isProd = Encore.isProduction();
+  const loaderConfig = mergeDeep({
+    sass: {
+      additionalData: null,
+      sassOptions: {
+        quietDeps: true,
+      },
+    },
+    css: {
+      modules: false,
+      esModule: true,
+    },
+    postcss: {
+      enabled: true,
+      postcssOptions: null,
+    },
+    vue: {
+      runtimeCompilerBuild: true,
+      loaderOptions: {},
+    },
+    ts: {
+      onlyCompileBundledFiles: true,
+      transpileOnly: false,
+      configFile: undefined,
+      compilerOptions: {},
+    },
+  }, options.loaders || {});
+
+  const cacheConfig = mergeDeep({
+    enabled: true,
+    type: 'filesystem',
+    directory: DEFAULT_CACHE_PATH,
+  }, options.cache || {});
+
+  const splitChunksConfig = mergeDeep({
+    enabled: true,
+    options: {
+      chunks: 'all',
+      automaticNameDelimiter: '/',
+      minSize: 20000,
+      cacheGroups: {},
+    },
+  }, options.splitChunks || {});
 
   if (options.dumpFosRoutes !== false) {
     execSync(options.fosCommand || 'php bin/console fos:js-routing:dump', {
@@ -72,32 +115,85 @@ function configureEncoreBase(options = {}) {
     .enableBuildNotifications()
     .enableSourceMaps(options.sourceMaps ?? !isProd)
     .enableVersioning(options.versioning ?? isProd)
-    .enableVueLoader(() => {}, {runtimeCompilerBuild: true})
     .addPlugin(new webpack.DefinePlugin({
       __VUE_OPTIONS_API__: true,
       __VUE_PROD_DEVTOOLS__: false,
     }))
     .addPlugin(new FosRouting())
     .enableSassLoader((loaderOptions) => {
-      loaderOptions.sassOptions = {quietDeps: true};
+      const additionalData = loaderConfig.sass.additionalData;
+
+      if (additionalData) {
+        if (typeof additionalData === 'function') {
+          loaderOptions.additionalData = additionalData(loaderOptions.additionalData || '');
+        } else {
+          loaderOptions.additionalData = `${additionalData}\n${loaderOptions.additionalData || ''}`.trim();
+        }
+      }
+
+      loaderOptions.sassOptions = mergeDeep(
+        loaderOptions.sassOptions || {},
+        loaderConfig.sass.sassOptions || {}
+      );
     })
     .enableTypeScriptLoader((tsOptions) => {
-      tsOptions.onlyCompileBundledFiles = true;
-      const compilerOptions = options.tsCompilerOptions || {};
+      tsOptions.onlyCompileBundledFiles = loaderConfig.ts.onlyCompileBundledFiles !== false;
+      tsOptions.transpileOnly = loaderConfig.ts.transpileOnly === true;
+
+      const compilerOptions = mergeDeep({}, loaderConfig.ts.compilerOptions || {});
 
       if (!isProd && options.enableTsSourceMaps !== false) {
         compilerOptions.sourceMap = true;
       }
 
       tsOptions.compilerOptions = compilerOptions;
+
+      if (loaderConfig.ts.configFile) {
+        tsOptions.configFile = loaderConfig.ts.configFile;
+      }
     })
     .enableIntegrityHashes(options.integrity ?? isProd);
+
+  Encore.configureCssLoader((cssOptions) => {
+    cssOptions.esModule = loaderConfig.css.esModule !== false;
+    cssOptions.modules = loaderConfig.css.modules || false;
+  });
+
+  if (loaderConfig.postcss.enabled !== false) {
+    Encore.enablePostCssLoader((postCssOptions) => {
+      if (loaderConfig.postcss.postcssOptions) {
+        postCssOptions.postcssOptions = loaderConfig.postcss.postcssOptions;
+      }
+    });
+  }
+
+  Encore.enableVueLoader(
+    (vueLoaderOptions) => {
+      Object.assign(vueLoaderOptions, loaderConfig.vue.loaderOptions || {});
+    },
+    {
+      runtimeCompilerBuild: loaderConfig.vue.runtimeCompilerBuild !== false,
+    }
+  );
 
   Encore.configureWatchOptions((watchOptions) => {
     watchOptions.aggregateTimeout = watchOptions.aggregateTimeout ?? 200;
     watchOptions.poll = watchOptions.poll ?? false;
     watchOptions.ignored = watchOptions.ignored ?? /node_modules/;
   });
+
+  if (cacheConfig.enabled !== false) {
+    Encore.configureCache((cacheOptions) => {
+      cacheOptions.type = cacheConfig.type || 'filesystem';
+      cacheOptions.cacheDirectory = cacheConfig.directory || DEFAULT_CACHE_PATH;
+    });
+  }
+
+  if (splitChunksConfig.enabled !== false) {
+    Encore.splitEntryChunks((splitOptions) => {
+      Object.assign(splitOptions, splitChunksConfig.options || {});
+    });
+  }
 
   if (typeof options.configureEncore === 'function') {
     options.configureEncore(Encore);
@@ -292,6 +388,25 @@ function toKebab(value) {
 
 function toPosix(filePath) {
   return filePath.split(path.sep).join('/');
+}
+
+function mergeDeep(target = {}, source = {}) {
+  const initial = {...target};
+
+  Object.entries(source || {}).forEach(([key, value]) => {
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+      initial[key] = mergeDeep(
+        typeof initial[key] === 'object' && initial[key] !== null
+          ? initial[key]
+          : {},
+        value
+      );
+    } else {
+      initial[key] = value;
+    }
+  });
+
+  return initial;
 }
 
 module.exports = {

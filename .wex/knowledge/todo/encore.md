@@ -23,3 +23,9 @@
 - `encore.manifest.js` dépend maintenant de `webpack-virtual-modules`, injecte systématiquement les wrappers en mémoire (chemins `.encore/virtual/wrappers/**`) et ajoute automatiquement le plugin à Encore.
 - Les logs indiquent toujours les wrappers générés (marqués `(virtual)`), ce qui permet de contrôler le chargement sans bruit disque.
 - `webpack-virtual-modules` figure dans les peerDependencies du package ; chaque projet doit donc l’installer (devDependency) pour que le bundle puisse le charger.
+
+### Configuration fine des loaders et optimisations (étape 4)
+
+- `configureEncoreBase()` accepte des options `loaders`, `cache` et `splitChunks` fusionnées avec des valeurs par défaut : Sass (additionalData + quietDeps), CSS modules/esModule, PostCSS (activation explicite), Vue loader (options runtime), TypeScript (transpileOnly, configFile, compilerOptions).
+- Le helper active par défaut le cache filesystem (`.webpack/cache`) et `splitEntryChunks` (chunks `all`, regroupements personnalisables) afin de tirer parti du cache persistant Webpack 5 et de contrôler le découpage.
+- Via ces options, chaque projet peut ajuster précisément les loaders (ex. injecter des variables Sass, activer PostCSS, basculer TS en `transpileOnly`, configurer Vue) sans forker la config partagée.
