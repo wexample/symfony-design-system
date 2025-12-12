@@ -5,3 +5,9 @@
 - Remplacer les wrappers temporairement écrits sur disque par une factory TS (virtual modules ou DynamicEntryPlugin) afin de générer des modules ES propres tout en conservant l’enregistrement automatique des classes.
 - Configurer précisément les loaders (SCSS, Vue, TS) et tirer parti des fonctionnalités actuelles de Webpack 5 (cache persistant, split chunks contrôlés) au lieu de presets implicites.
 - Documenter la convention des fronts et synchroniser `tsconfig.json` (paths) avec le manifest pour que les IDE et TypeScript résolvent les alias de la même façon que Webpack.
+
+### Implémentation du manifest (étape 1)
+
+- Nouvelle commande `design-system:generate-encore-manifest` (voir `src/Command/GenerateEncoreManifestCommand.php`) qui s’appuie sur `EncoreManifestBuilder` pour scanner `design_system_packages_front_paths`, générer un manifest versionné (`assets/encore.manifest.json` par défaut) et consigner alias/bundle, entrées CSS/JS et métadonnées de wrapper.
+- Le manifest contient `{ version, generatedAt, projectDir, aliases, fronts[], entries }` : chaque front conserve sa clé (numérique ou alias), le bundle cible (`@front` ou `@VendorBundle`), les chemins absolu/relatif et les assets catégorisés (`css`, `js.main`, `js.pages`, `js.config`, `js.components`, `js.forms`, `js.vue`) avec nom de sortie (`@bundle/{css|js}/...`) et info de wrapper (`type`, `className`) prête pour une factory TS.
+- L’option `--output` permet de changer le chemin et `--no-pretty` flush un JSON compact pour la CI; la commande crée les dossiers cibles et échoue explicitement si l’écriture du fichier ne fonctionne pas.
