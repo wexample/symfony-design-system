@@ -5,7 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
-use Wexample\WebRenderNode\Rendering\RenderPass;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 
 class AdaptiveResponseExtension extends AbstractExtension
 {

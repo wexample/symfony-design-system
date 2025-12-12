@@ -4,7 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Service;
 
 use Wexample\SymfonyTranslations\Translation\Translator;
 use Wexample\WebRenderNode\Rendering\RenderNode\PageRenderNode;
-use Wexample\WebRenderNode\Rendering\RenderPass;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 
 class PageService extends RenderNodeService
 {

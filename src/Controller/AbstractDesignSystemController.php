@@ -13,7 +13,7 @@ use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
 use Wexample\SymfonyTemplate\Helper\TemplateHelper;
 use Wexample\WebRenderNode\Rendering\RenderNode\InitialLayoutRenderNode;
-use Wexample\WebRenderNode\Rendering\RenderPass;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 
 abstract class AbstractDesignSystemController extends AbstractController
 {

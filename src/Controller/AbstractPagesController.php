@@ -8,7 +8,7 @@ use Wexample\SymfonyHelpers\Controller\Traits\HasSimpleRoutesControllerTrait;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyTemplate\Helper\TemplateHelper;
-use Wexample\WebRenderNode\Rendering\RenderPass;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 
 abstract class AbstractPagesController extends AbstractDesignSystemController
 {

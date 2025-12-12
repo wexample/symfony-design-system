@@ -4,7 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Service;
 
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
-use Wexample\WebRenderNode\Rendering\RenderPass;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyTemplate\Helper\TemplateHelper;
 
 class AdaptiveResponseService

@@ -5,7 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Service;
 use Exception;
 use JetBrains\PhpStorm\Pure;
 use Twig\Environment;
-use Wexample\WebRenderNode\Rendering\RenderPass;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 
 
 class LayoutService extends RenderNodeService

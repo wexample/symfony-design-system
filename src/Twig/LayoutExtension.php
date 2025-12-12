@@ -5,7 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 use Exception;
 use Twig\Environment;
 use Twig\TwigFunction;
-use Wexample\WebRenderNode\Rendering\RenderPass;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\LayoutService;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
