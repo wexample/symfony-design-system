@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Controller\Traits\HasSimpleRoutesControllerTrait;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
@@ -55,9 +56,12 @@ abstract class AbstractPagesController extends AbstractDesignSystemController
         Response $response = null,
         AbstractBundle|string $bundle = null,
         RenderPass $renderPass = null
-    ): Response
-    {
-        # TODO
-        return new Response("TODO");
+    ): Response {
+        return $this->adaptiveRender(
+            $this->buildControllerTemplatePath($pageName, $bundle),
+            $parameters,
+            $response,
+            renderPass: $renderPass
+        );
     }
 }

@@ -2,12 +2,70 @@
 
 namespace Wexample\SymfonyDesignSystem\Controller;
 
+
+use Exception;
+use Symfony\Component\HttpFoundation\Response;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
+use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
 use Wexample\SymfonyTemplate\Helper\TemplateHelper;
 
 abstract class AbstractDesignSystemController extends AbstractController
 {
+
+    protected function createRenderPass(string $view): RenderPass
+    {
+        $renderPass = new RenderPass($view);
+
+        return $this->configureRenderPass($renderPass);
+    }
+
+    protected function configureRenderPass(
+        RenderPass $renderPass
+    ): RenderPass {
+        return $renderPass;
+    }
+
+    /**
+     * Overrides default render, adding some magic.
+     * @throws Exception
+     */
+    protected function adaptiveRender(
+        string $view,
+        array $parameters = [],
+        Response $response = null,
+        RenderPass $renderPass = null
+    ): Response {
+        $renderPass = $renderPass ?: $this->createRenderPass($view);
+
+
+        return $this->renderRenderPass(
+            $renderPass,
+            $parameters + [
+            ],
+            $response,
+        );
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function renderRenderPass(
+        RenderPass $renderPass,
+        array $parameters = [],
+        Response $response = null,
+    ): Response {
+        $view = $renderPass->getView();
+
+        return $this->render(
+            $view,
+            [
+                
+            ] + $parameters,
+            $response
+        );
+    }
+
     /**
      * @return string Allow bundle-specific front template directories.
      */
