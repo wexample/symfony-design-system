@@ -5,7 +5,14 @@ const Encore = require('@symfony/webpack-encore');
 const webpack = require('webpack');
 const FosRouting = require('fos-router/webpack/FosRouting');
 const VirtualModules = require('webpack-virtual-modules');
-const {stringToKebab} = require('@wexample/js-helpers');
+const {
+  stringToKebab,
+  mergeDeep,
+  COLORS,
+  logTitle,
+  logPath,
+  logEntry,
+} = require('@wexample/js-helpers');
 
 const DEFAULT_OUTPUT_PATH = 'public/build/';
 const DEFAULT_PUBLIC_PATH = '/build';
@@ -16,38 +23,6 @@ const WRAPPER_TEMPLATE_PATH = path.resolve(__dirname, 'templates', 'wrapper.js.t
 let virtualModulesInstance = null;
 let pendingVirtualModules = {};
 let wrapperTemplateContent = null;
-
-const COLORS = {
-  blue: '34',
-  cyan: '36',
-  gray: '90',
-  green: '32',
-  magenta: '35',
-  yellow: '33',
-  red: '31',
-};
-
-function color(text, colorCode) {
-  return `\x1b[${colorCode || COLORS.gray}m${text}\x1b[0m`;
-}
-
-function logTitle(title, colorCode = COLORS.cyan) {
-  console.log('');
-  console.log(color(`# ${title.toUpperCase()}`, colorCode));
-}
-
-function logPath(label, value, colorCode = COLORS.gray) {
-  console.log(`${color(label, colorCode)} ${color(value, COLORS.yellow)}`);
-}
-
-function logEntry(action, entry) {
-  console.log(
-    `${color('•', COLORS.green)} ${color(action, COLORS.blue)} ${color(entry.output, COLORS.yellow)}`
-  );
-  console.log(
-    `    ${color('from', COLORS.gray)} ${color(entry.source, COLORS.gray)}`
-  );
-}
 
 function configureEncoreBase(options = {}) {
   const env = options.env || process.env.NODE_ENV || 'dev';
@@ -378,25 +353,6 @@ function renderWrapperTemplate(classPath, className) {
   return getWrapperTemplate()
     .replace(/{classPath}/g, classPath)
     .replace(/{className}/g, className);
-}
-
-function mergeDeep(target = {}, source = {}) {
-  const initial = {...target};
-
-  Object.entries(source || {}).forEach(([key, value]) => {
-    if (value && typeof value === 'object' && !Array.isArray(value)) {
-      initial[key] = mergeDeep(
-        typeof initial[key] === 'object' && initial[key] !== null
-          ? initial[key]
-          : {},
-        value
-      );
-    } else {
-      initial[key] = value;
-    }
-  });
-
-  return initial;
 }
 
 module.exports = {
