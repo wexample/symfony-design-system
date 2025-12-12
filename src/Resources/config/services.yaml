@@ -9,7 +9,7 @@ services:
         autoconfigure: true
         public: false
 
-    Wexample\SymfonyDesignSystem\Routing\TemplateBasedRouteLoader:
+    Wexample\SymfonyRouting\Routing\TemplateBasedRouteLoader:
       arguments:
         $container: '@service_container'
         $taggedControllers: !tagged_iterator 'has_template_routes'
