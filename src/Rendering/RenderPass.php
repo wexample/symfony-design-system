@@ -77,4 +77,9 @@ class RenderPass
     {
         $this->layoutRenderNode = $layoutRenderNode;
     }
+
+    public function getAssetsRegistry(): AssetsRegistry
+    {
+        return $this->assetsRegistry;
+    }
 }

@@ -76,9 +76,29 @@ trait DesignSystemUsageServiceTrait
         string $pathInManifest,
         string $view,
         AbstractRenderNode $renderNode,
-    ): ?Asset
-    {
-        # TODO
-        return null;
+    ): ?Asset {
+        $registry = $renderPass->getAssetsRegistry();
+
+        if (! $registry->assetExists($pathInManifest)) {
+            return null;
+        }
+
+        $builtPath = $registry->getBuiltPath($pathInManifest);
+
+        if (! $builtPath) {
+            return null;
+        }
+
+        $asset = new Asset(
+            ltrim($builtPath, '/'),
+            $view,
+            static::getName(),
+            $renderNode->getContextType()
+        );
+
+        $renderNode->addAsset($asset);
+        $registry->addAsset($asset);
+
+        return $asset;
     }
 }
