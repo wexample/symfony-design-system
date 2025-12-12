@@ -9,9 +9,13 @@ use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 class PageService extends RenderNodeService
 {
     public function __construct(
+        AssetsService $assetsService,
         protected Translator $translator,
     )
     {
+        parent::__construct(
+            $assetsService,
+        );
     }
 
     public function pageInit(

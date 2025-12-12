@@ -106,4 +106,18 @@ class AssetsService extends AssetManager
             }
         }
     }
+
+    public function getAssetsUsages(): array
+    {
+        return $this->usages;
+    }
+
+    public function buildTags(
+        RenderPass $renderPass,
+    ): array {
+        $usages = $this->getAssetsUsages();
+        $tags = [];
+
+        return $tags;
+    }
 }

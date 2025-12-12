@@ -85,7 +85,7 @@ class AssetsRegistry implements JsonSerializable
             $output[$type] = [];
             /** @var Asset $asset */
             foreach ($assets as $id => $asset) {
-                $output[$type][$id] = $asset->toRenderData();
+                $output[$type][$id] = $asset->toArray();
             }
         }
 
