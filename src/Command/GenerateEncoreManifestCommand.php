@@ -11,6 +11,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Wexample\SymfonyDesignSystem\Service\Encore\EncoreManifestBuilder;
+use Wexample\SymfonyDesignSystem\Service\Encore\TsconfigPathsSynchronizer;
 use Wexample\SymfonyDesignSystem\Traits\SymfonyDesignSystemBundleClassTrait;
 use Wexample\SymfonyHelpers\Command\AbstractBundleCommand;
 use Wexample\SymfonyHelpers\Helper\JsonHelper;
@@ -22,11 +23,15 @@ class GenerateEncoreManifestCommand extends AbstractBundleCommand
 
     private const OPTION_OUTPUT = 'output';
     private const OPTION_PRETTY = 'pretty';
+    private const OPTION_SYNC_TSCONFIG = 'sync-tsconfig';
+    private const OPTION_TSCONFIG = 'tsconfig';
     private const DEFAULT_FILENAME = 'assets/encore.manifest.json';
+    private const DEFAULT_TSCONFIG = 'tsconfig.json';
 
     public function __construct(
         BundleService $bundleService,
         private readonly EncoreManifestBuilder $manifestBuilder,
+        private readonly TsconfigPathsSynchronizer $tsconfigPathsSynchronizer,
         private readonly KernelInterface $kernel,
         private readonly Filesystem $filesystem,
         string $name = null,
@@ -56,6 +61,20 @@ class GenerateEncoreManifestCommand extends AbstractBundleCommand
                 InputOption::VALUE_NEGATABLE,
                 'Pretty print the generated JSON manifest',
                 true
+            )
+            ->addOption(
+                self::OPTION_SYNC_TSCONFIG,
+                null,
+                InputOption::VALUE_NEGATABLE,
+                'Synchronize tsconfig paths after manifest generation',
+                true
+            )
+            ->addOption(
+                self::OPTION_TSCONFIG,
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'Path to the tsconfig file to synchronize (relative to project root)',
+                self::DEFAULT_TSCONFIG
             );
     }
 
@@ -90,12 +109,25 @@ class GenerateEncoreManifestCommand extends AbstractBundleCommand
                     throw new RuntimeException(sprintf('Unable to write Encore manifest to %s', $targetPath));
                 }
 
+                $tsconfigMessage = null;
+                if ($input->getOption(self::OPTION_SYNC_TSCONFIG) !== false) {
+                    $tsconfigPath = $input->getOption(self::OPTION_TSCONFIG);
+                    $this->tsconfigPathsSynchronizer->sync(
+                        $tsconfigPath ? (string) $tsconfigPath : null,
+                        $targetPath
+                    );
+                    $tsconfigMessage = sprintf(' tsconfig synced (%s)', $this->formatDisplayPath(
+                        $this->resolveOutputPath($tsconfigPath ?: self::DEFAULT_TSCONFIG)
+                    ));
+                }
+
                 $io->success(sprintf(
-                    'Encore manifest written to %s (%d front%s, version %s)',
+                    'Encore manifest written to %s (%d front%s, version %s)%s',
                     $this->formatDisplayPath($targetPath),
                     $manifest['frontCount'] ?? count($manifest['fronts']),
                     (($manifest['frontCount'] ?? 0) === 1 ? '' : 's'),
-                    $manifest['version'] ?? '?'
+                    $manifest['version'] ?? '?',
+                    $tsconfigMessage ? PHP_EOL.$tsconfigMessage : ''
                 ));
 
                 return Command::SUCCESS;

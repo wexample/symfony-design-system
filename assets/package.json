@@ -2,6 +2,7 @@
   "name": "@wexample/symfony-design-system",
   "version": "0.1.22",
   "peerDependencies": {
-    "webpack-virtual-modules": "^0.6.2"
+    "webpack-virtual-modules": "^0.6.2",
+    "postcss-loader": "^8.2.0"
   }
 }

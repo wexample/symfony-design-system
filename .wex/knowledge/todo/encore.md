@@ -29,3 +29,9 @@
 - `configureEncoreBase()` accepte des options `loaders` et `splitChunks` fusionnées avec des valeurs par défaut : Sass (additionalData + quietDeps), CSS modules/esModule, PostCSS (activation explicite), Vue loader (options runtime), TypeScript (transpileOnly, configFile, compilerOptions).
 - Le helper active `splitEntryChunks` (chunks `all`, regroupements personnalisables) pour profiter au mieux de Webpack 5 ; le cache persistant sera branché via `Encore.configureCache()` dès qu’une version publique l’exposera.
 - Via ces options, chaque projet peut ajuster précisément les loaders (ex. injecter des variables Sass, activer PostCSS, basculer TS en `transpileOnly`, configurer Vue) sans forker la config partagée.
+
+### Alignement IDE / tsconfig (étape 5)
+
+- Nouvelle commande `design-system:sync-tsconfig` (et service `TsconfigPathsSynchronizer`) qui lit le manifest (`aliases`) et synchronise automatiquement `compilerOptions.paths` (ajoute `/*` et normalise les chemins relatifs). Elle est déclenchée automatiquement à la fin de `design-system:generate-encore-manifest` (désactivable via `--no-sync-tsconfig`).
+- Les entrées existantes hors manifest (ex. alias projet) sont conservées, tandis que celles provenant des bundles référencés sont mises à jour de façon déterministe et triées.
+- Pour des besoins spécifiques, la commande accepte `--tsconfig`/`--manifest` et peut être reliée à des scripts npm/yarn si on veut la lancer hors cycle Symfony.
