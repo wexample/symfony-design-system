@@ -2,9 +2,9 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig;
 
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\TwigFunction;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
+use Wexample\SymfonyTranslations\Translation\Translator;
 
 class BaseTemplateExtension extends AbstractExtension
 {
@@ -12,7 +12,7 @@ class BaseTemplateExtension extends AbstractExtension
     final public const DEFAULT_APP_TITLE_TRANSLATION_KEY = 'front.app.global::name';
 
     public function __construct(
-        protected TranslatorInterface $translator,
+        protected Translator $translator,
     ) {
     }
 
