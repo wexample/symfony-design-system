@@ -4,7 +4,6 @@ namespace Wexample\SymfonyDesignSystem;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Wexample\SymfonyDesignSystem\DependencyInjection\Compiler\DesignSystemTemplatesCompilerPass;
-use Wexample\SymfonyRouting\DependencyInjection\Compiler\TemplateBasedRoutesTagCompilerPass;
 use Wexample\SymfonyDesignSystem\Interface\DesignSystemBundleInterface;
 use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
@@ -26,8 +25,5 @@ class WexampleSymfonyDesignSystemBundle extends AbstractBundle implements Design
             new DesignSystemTemplatesCompilerPass()
         );
 
-        $container->addCompilerPass(
-            new TemplateBasedRoutesTagCompilerPass()
-        );
     }
 }
