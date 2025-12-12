@@ -4,8 +4,10 @@ namespace Wexample\SymfonyDesignSystem\Controller;
 
 
 use Exception;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
+use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
@@ -73,13 +75,62 @@ abstract class AbstractDesignSystemController extends AbstractController
     {
         $view = $renderPass->getView();
 
-        return $this->render(
+        $response = $this->render(
             $view,
             [
                 'render_pass' => $renderPass,
             ] + $parameters,
             $response
         );
+
+        return $this->injectLayoutAssets(
+            $response,
+            $renderPass
+        );
+    }
+
+    protected function injectLayoutAssets(
+        Response $response,
+        RenderPass $renderPass
+    ): Response {
+        if ($response instanceof JsonResponse
+            || $response->isClientError()
+            || $response->isServerError()
+        ) {
+            return $response;
+        }
+
+        $assetsIncludes = $this->renderView(
+            '@WexampleSymfonyDesignSystemBundle/macros/assets.html.twig',
+            [
+                'render_pass' => $renderPass,
+            ]
+        );
+
+        $content = $response->getContent();
+
+        if ($content && str_contains($content, RenderingHelper::PLACEHOLDER_PRELOAD_TAG)) {
+            $content = str_replace(
+                RenderingHelper::PLACEHOLDER_PRELOAD_TAG,
+                $assetsIncludes,
+                $content
+            );
+        } else {
+            $content .= $assetsIncludes;
+        }
+
+        if ($this->getParameter('design_system.debug') ?? false) {
+            $content .= $this->renderView(
+                '@WexampleSymfonyDesignSystemBundle/macros/debug.html.twig',
+                [
+                    'render_pass' => $renderPass,
+                ]
+            );
+        }
+
+        $response->setContent($content);
+
+        return $response;
     }
 
     /**

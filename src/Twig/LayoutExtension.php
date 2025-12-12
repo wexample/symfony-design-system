@@ -5,7 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 use Exception;
 use Twig\Environment;
 use Twig\TwigFunction;
-use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\WebRenderNode\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\LayoutService;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
@@ -58,6 +58,6 @@ class LayoutExtension extends AbstractExtension
     {
         return $renderPass
             ->layoutRenderNode
-            ->toRenderData();
+            ->toArray();
     }
 }

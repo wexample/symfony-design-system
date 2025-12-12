@@ -14,9 +14,10 @@
                 app_title_properties|default({}),
             ) -}}
         </title>
+        {{ constant('Wexample\\SymfonyDesignSystem\\Helper\\RenderingHelper::PLACEHOLDER_PRELOAD_TAG')|raw }}
     </head>
     <body class="{{ body_class|default('') }}">
-    <div id="initial-layout" class="layout-loading">
+    <div id="layout-initial" class="layout-loading">
         {{- block('page_body') -}}
     </div>
     </body>
