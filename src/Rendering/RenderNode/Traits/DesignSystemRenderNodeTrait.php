@@ -33,4 +33,9 @@ trait DesignSystemRenderNodeTrait {
 
         $this->inheritanceStack[] = $view;
     }
+
+    public function getInheritanceStack(): array
+    {
+        return $this->inheritanceStack;
+    }
 }
