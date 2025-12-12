@@ -37,4 +37,9 @@ class RenderPass
     {
         return $this->layoutBase;
     }
+
+    public function setLayoutBase(string $layoutBase): void
+    {
+        $this->layoutBase = $layoutBase;
+    }
 }

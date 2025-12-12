@@ -2,13 +2,17 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
-
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyTemplate\Helper\TemplateHelper;
 
 class AdaptiveResponseService
 {
+    public function detectLayoutBase(RenderPass $renderPass): string
+    {
+        return RenderPass::BASE_DEFAULT;
+    }
+
     public function getLayoutBasePath(RenderPass $renderPass): string
     {
         return RenderPass::BASES_MAIN_DIR

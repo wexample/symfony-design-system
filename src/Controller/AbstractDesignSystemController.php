@@ -7,16 +7,26 @@ use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
 use Wexample\SymfonyTemplate\Helper\TemplateHelper;
 
 abstract class AbstractDesignSystemController extends AbstractController
 {
+    public function __construct(
+        protected readonly AdaptiveResponseService $adaptiveResponseService,
+    )
+    {
+    }
 
     protected function createRenderPass(string $view): RenderPass
     {
         $renderPass = new RenderPass($view);
+
+        $renderPass->setLayoutBase(
+            $this->adaptiveResponseService->detectLayoutBase($renderPass)
+        );
 
         return $this->configureRenderPass($renderPass);
     }
