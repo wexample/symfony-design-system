@@ -18,6 +18,10 @@ use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
 
 class AssetsService extends AssetManager
 {
+    public const DIR_BUILD = 'build/';
+
+    public const DIR_PUBLIC = 'public/';
+
     /**
      * @var array<DesignSystemUsageServiceTrait>
      */
