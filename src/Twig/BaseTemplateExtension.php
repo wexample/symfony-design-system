@@ -33,6 +33,7 @@ class BaseTemplateExtension extends AbstractExtension
         ?string $layoutTitle = null,
         array $layoutTitleParameters = [],
         ?string $appTitle = null,
+        array $appTitleParameters = [],
     ): string {
         $resolvedLayoutTitle = $layoutTitle ?: $this->translator->trans(
             self::DEFAULT_LAYOUT_TITLE_TRANSLATION_KEY,
@@ -40,7 +41,8 @@ class BaseTemplateExtension extends AbstractExtension
         );
 
         $resolvedAppTitle = $appTitle ?: $this->translator->trans(
-            self::DEFAULT_APP_TITLE_TRANSLATION_KEY
+            self::DEFAULT_APP_TITLE_TRANSLATION_KEY,
+            $appTitleParameters
         );
 
         $parts = array_filter(
