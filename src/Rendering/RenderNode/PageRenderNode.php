@@ -12,12 +12,4 @@ class PageRenderNode extends AbstractRenderNode
     {
         return RenderingHelper::CONTEXT_PAGE;
     }
-
-    public function toRenderData(): array
-    {
-        return parent::toRenderData()
-            + $this->serializeVariables([
-                'isInitialPage',
-            ]);
-    }
 }

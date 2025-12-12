@@ -4,6 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Rendering;
 
 
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\Traits\WithView;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
@@ -17,6 +18,8 @@ class RenderPass
 
     public const OUTPUT_TYPE_RESPONSE_HTML = VariableHelper::HTML;
 
+    public InitialLayoutRenderNode $layoutRenderNode;
+    
     private string $outputType = self::OUTPUT_TYPE_RESPONSE_HTML;
 
     protected string $layoutBase = self::BASE_DEFAULT;

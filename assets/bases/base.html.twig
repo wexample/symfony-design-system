@@ -1,3 +1,5 @@
 {%- block layout_base -%}
-    {# TODO config #}
+    {%- block layout_config -%}
+        {{- layout_initial_init(render_pass) -}}
+    {%- endblock -%}
 {%- endblock -%}
