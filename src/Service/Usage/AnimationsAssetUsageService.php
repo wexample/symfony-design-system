@@ -2,10 +2,10 @@
 
 namespace Wexample\SymfonyDesignSystem\Service\Usage;
 
-final class AnimationsAssetUsageService extends AbstractAssetUsageService
+use Wexample\SymfonyDesignSystem\Service\Usage\Traits\DesignSystemUsageServiceTrait;
+use Wexample\WebRenderNode\Usage\AnimationsUsage;
+
+final class AnimationsAssetUsageService extends AnimationsUsage
 {
-    public static function getName(): string
-    {
-        return 'animations';
-    }
+    use DesignSystemUsageServiceTrait;
 }

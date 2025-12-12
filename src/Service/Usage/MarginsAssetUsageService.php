@@ -2,10 +2,10 @@
 
 namespace Wexample\SymfonyDesignSystem\Service\Usage;
 
-final class MarginsAssetUsageService extends AbstractAssetUsageService
+use Wexample\SymfonyDesignSystem\Service\Usage\Traits\DesignSystemUsageServiceTrait;
+use Wexample\WebRenderNode\Usage\MarginsUsage;
+
+final class MarginsAssetUsageService extends MarginsUsage
 {
-    public static function getName(): string
-    {
-        return 'margins';
-    }
+    use DesignSystemUsageServiceTrait;
 }

@@ -2,10 +2,10 @@
 
 namespace Wexample\SymfonyDesignSystem\Service\Usage;
 
-final class FontsAssetUsageService extends AbstractAssetUsageService
+use Wexample\SymfonyDesignSystem\Service\Usage\Traits\DesignSystemUsageServiceTrait;
+use Wexample\WebRenderNode\Usage\FontsUsage;
+
+final class FontsAssetUsageService extends FontsUsage
 {
-    public static function getName(): string
-    {
-        return 'fonts';
-    }
+    use DesignSystemUsageServiceTrait;
 }

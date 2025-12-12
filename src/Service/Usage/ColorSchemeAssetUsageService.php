@@ -2,10 +2,10 @@
 
 namespace Wexample\SymfonyDesignSystem\Service\Usage;
 
-final class ColorSchemeAssetUsageService extends AbstractAssetUsageService
+use Wexample\SymfonyDesignSystem\Service\Usage\Traits\DesignSystemUsageServiceTrait;
+use Wexample\WebRenderNode\Usage\ColorSchemeUsage;
+
+final class ColorSchemeAssetUsageService extends ColorSchemeUsage
 {
-    public static function getName(): string
-    {
-        return 'color_scheme';
-    }
+    use DesignSystemUsageServiceTrait;
 }
