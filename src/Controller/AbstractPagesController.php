@@ -3,13 +3,11 @@
 namespace Wexample\SymfonyDesignSystem\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
-use Wexample\Helpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Controller\Traits\HasSimpleRoutesControllerTrait;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyHelpers\Helper\TemplateHelper;
-use Wexample\SymfonyHelpers\Traits\BundleClassTrait;
 
 abstract class AbstractPagesController extends AbstractDesignSystemController
 {
@@ -43,21 +41,12 @@ abstract class AbstractPagesController extends AbstractDesignSystemController
         string $bundle = null
     ): string
     {
-        $bundle = $bundle ?: static::getDefaultPageBundleClass();
+        $bundle = BundleHelper::getRelatedBundle(static::class);
 
         $parts = TemplateHelper::explodeControllerNamespaceSubParts(static::class, $bundle);
         $parts[] = $pageName;
 
         return static::buildTemplatePath(TemplateHelper::joinNormalizedParts($parts), $bundle);
-    }
-
-    public static function getDefaultPageBundleClass(): ?string
-    {
-        if (ClassHelper::classUsesTrait(static::class, BundleClassTrait::class)) {
-            return static::getControllerBundle();
-        }
-
-        return null;
     }
 
     protected function renderPage(

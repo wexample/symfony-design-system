@@ -3,7 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Controller\Config;
 
 use Symfony\Component\Routing\Annotation\Route;
-use Wexample\SymfonyDesignSystem\Routing\Attribute\TemplateBasedRoutes;
+use Wexample\SymfonyRouting\Routing\Attribute\TemplateBasedRoutes;
 use Wexample\SymfonyDesignSystem\Traits\SymfonyDesignSystemBundleClassTrait;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
