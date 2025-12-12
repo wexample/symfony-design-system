@@ -6,12 +6,34 @@ use Wexample\Helpers\Helper\TextHelper;
 use Wexample\Helpers\Traits\WithDomId;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
+use Wexample\SymfonyTemplate\Helper\DomHelper;
 use Wexample\WebRenderNode\Rendering\Traits\WithView;
 
 class Asset extends \Wexample\WebRenderNode\Asset\Asset
 {
     use WithDomId;
     use WithView;
+
+    public function __construct(
+        string $pathInManifest,
+        string $view,
+        protected string $usage,
+        protected string $context
+    )
+    {
+        parent::__construct(
+            $pathInManifest,
+            $usage,
+            $context
+        );
+
+        // Same as render node id
+        $this->setView($view);
+
+        $this->setDomId(
+            $this->type.'-'.DomHelper::buildStringIdentifier($this->getView())
+        );
+    }
 
     private function buildView(string $path): string
     {
