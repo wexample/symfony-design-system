@@ -4,25 +4,17 @@ const {execSync} = require('child_process');
 const Encore = require('@symfony/webpack-encore');
 const webpack = require('webpack');
 const FosRouting = require('fos-router/webpack/FosRouting');
-let VirtualModules;
-try {
-  VirtualModules = require('webpack-virtual-modules');
-} catch (error) {
-  VirtualModules = null;
-}
+const VirtualModules = require('webpack-virtual-modules');
 
 const DEFAULT_OUTPUT_PATH = 'public/build/';
 const DEFAULT_PUBLIC_PATH = '/build';
 const DEFAULT_MANIFEST_PATH = path.resolve(process.cwd(), 'assets', 'encore.manifest.json');
-const WRAPPER_ROOT = path.resolve(process.cwd(), 'var', 'tmp', 'encore-manifest', 'wrappers');
 const WRAPPER_VIRTUAL_ROOT = path.resolve(process.cwd(), '.encore', 'virtual', 'wrappers');
 const WRAPPER_TEMPLATE = (classPath, className) => `import ClassDefinition from '${classPath}';
 appRegistry.bundles.add('${className}', ClassDefinition);
 `;
 
-let wrappersPrepared = false;
 let virtualModulesInstance = null;
-let virtualModulesWarningShown = false;
 let pendingVirtualModules = {};
 
 const COLORS = {
@@ -241,37 +233,11 @@ function resolveSourcePath(source) {
 
 function buildWrapper(entry, absoluteSource, options = {}, encore = Encore) {
   const wrapperContent = WRAPPER_TEMPLATE(toPosix(absoluteSource), entry.wrapper.className);
+  const modulePath = buildWrapperVirtualPath(entry, options);
+  pendingVirtualModules[modulePath] = wrapperContent;
+  logPath('    wrapper (virtual)', modulePath);
 
-  if (VirtualModules && !options.disableVirtualWrappers) {
-    const modulePath = buildWrapperVirtualPath(entry, options);
-    pendingVirtualModules[modulePath] = wrapperContent;
-    logPath('    wrapper (virtual)', modulePath);
-    return modulePath;
-  }
-
-  if (!virtualModulesWarningShown && !VirtualModules) {
-    logTitle('Virtual wrapper module unavailable, falling back to filesystem', COLORS.red);
-    console.log(color('  Install "webpack-virtual-modules" to enable in-memory wrappers.', COLORS.gray));
-    virtualModulesWarningShown = true;
-  }
-
-  prepareWrapperRoot();
-
-  const relativeDir = sanitizeRelativeDir(entry.relative);
-  const targetDir = path.join(options.wrapperRoot || WRAPPER_ROOT, relativeDir);
-  fs.mkdirSync(targetDir, {recursive: true});
-
-  const fileName = `${toKebab(buildWrapperBaseName(entry))}.js`;
-  const wrapperPath = path.join(targetDir, fileName);
-
-  fs.writeFileSync(
-    wrapperPath,
-    wrapperContent
-  );
-
-  logPath('    wrapper (fs)', wrapperPath);
-
-  return wrapperPath;
+  return modulePath;
 }
 
 function buildWrapperVirtualPath(entry, options) {
@@ -297,10 +263,6 @@ function finalizeVirtualModules(encore, options = {}) {
     return;
   }
 
-  if (!VirtualModules || options.disableVirtualWrappers) {
-    return;
-  }
-
   virtualModulesInstance = new VirtualModules(modules);
   encore.addPlugin(virtualModulesInstance);
   logTitle('Virtual wrapper modules enabled', COLORS.green);
@@ -313,15 +275,6 @@ function sanitizeRelativeDir(relativePath = '') {
 
   const dir = path.dirname(relativePath);
   return dir === '.' ? '' : dir;
-}
-
-function prepareWrapperRoot() {
-  if (wrappersPrepared) {
-    return;
-  }
-
-  fs.rmSync(WRAPPER_ROOT, {recursive: true, force: true});
-  wrappersPrepared = true;
 }
 
 function toKebab(value) {

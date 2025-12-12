@@ -15,11 +15,11 @@
 ### Consommation du manifest côté Encore (étape 2)
 
 - Nouveau module `src/Resources/js/webpack/encore.manifest.js` qui expose `configureEncoreBase()` (équivalent moderne du vieux `webpack.config.js` : runtime, options Vue/TS/Sass, intégrité, FOS routing…) et `applyManifestEntries()` pour lire `assets/encore.manifest.json`, appliquer les alias et enregistrer chaque entrée Encore.
-- `applyManifestEntries()` résout les chemins absolus, ignore les doublons, recrée des wrappers JavaScript temporaires dans `var/tmp/encore-manifest/wrappers` pour les entrées `pages/config/components/forms/vue` et inscrit automatiquement la classe dans `appRegistry` comme le faisait `wrapper.js.tpl`.
+- `applyManifestEntries()` résout les chemins absolus, ignore les doublons, recrée des wrappers JavaScript temporaires (via modules virtuels) pour les entrées `pages/config/components/forms/vue` et inscrit automatiquement la classe dans `appRegistry` comme le faisait `wrapper.js.tpl`.
 - Le vendor continue d’exporter un `webpack.config.js` rétro-compatible basé sur ces helpers, mais les apps peuvent désormais piloter leur config directement en important les fonctions (cf. `webpack.config.ts` du projet responsite) pour chaîner leurs propres règles avant/ après `Encore.getWebpackConfig()`.
 
 ### Wrappers virtuels (étape 3)
 
-- `encore.manifest.js` essaie maintenant de charger `webpack-virtual-modules` pour injecter les wrappers directement en mémoire (via un plugin ajouté à Encore) et fournit des chemins virtuels stables (`.encore/virtual/wrappers/**`). Fallback automatique sur l’écriture disque si la dépendance n’est pas dispo (avec log rouge explicite).
-- Les logs affichent toujours chaque wrapper créé, en précisant `(virtual)` ou `(fs)` pour vérifier la stratégie.
-- Pour exploiter l’injection virtuelle partout, ajouter la dépendance npm `webpack-virtual-modules` côté projet (devDependency) afin que le vendor puisse la `require`.
+- `encore.manifest.js` dépend maintenant de `webpack-virtual-modules`, injecte systématiquement les wrappers en mémoire (chemins `.encore/virtual/wrappers/**`) et ajoute automatiquement le plugin à Encore.
+- Les logs indiquent toujours les wrappers générés (marqués `(virtual)`), ce qui permet de contrôler le chargement sans bruit disque.
+- `webpack-virtual-modules` figure dans les peerDependencies du package ; chaque projet doit donc l’installer (devDependency) pour que le bundle puisse le charger.
