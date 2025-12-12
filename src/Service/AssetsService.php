@@ -5,6 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Service;
 use InvalidArgumentException;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\AssetTag;
+use Wexample\SymfonyDesignSystem\Rendering\AssetsRegistry;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\Traits\DesignSystemRenderNodeTrait;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\Usage\AnimationsAssetUsageService;
@@ -131,7 +132,8 @@ class AssetsService extends AssetManager
     {
         $usages = $this->getAssetsUsages();
         $tags = [];
-        $registry = $renderPass->getAssetsRegistry()->getRegistry();
+        $assetsRegistry = $renderPass->getAssetsRegistry();
+        $registry = $assetsRegistry->getRegistry();
 
         // Ensure registry has entries for all asset types
         foreach (Asset::ASSETS_EXTENSIONS as $type) {

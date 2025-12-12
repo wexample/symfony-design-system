@@ -59,16 +59,6 @@ function configureEncoreBase(options = {}) {
     },
   }, options.loaders || {});
 
-  const splitChunksConfig = mergeDeep({
-    enabled: true,
-    options: {
-      chunks: 'all',
-      automaticNameDelimiter: '/',
-      minSize: 20000,
-      cacheGroups: {},
-    },
-  }, options.splitChunks || {});
-
   if (options.dumpFosRoutes !== false) {
     execSync(options.fosCommand || 'php bin/console fos:js-routing:dump', {
       stdio: 'inherit',
@@ -149,12 +139,6 @@ function configureEncoreBase(options = {}) {
     watchOptions.poll = watchOptions.poll ?? false;
     watchOptions.ignored = watchOptions.ignored ?? /node_modules/;
   });
-
-  if (splitChunksConfig.enabled !== false) {
-    Encore.splitEntryChunks((splitOptions) => {
-      Object.assign(splitOptions, splitChunksConfig.options || {});
-    });
-  }
 
   if (typeof options.configureEncore === 'function') {
     options.configureEncore(Encore);

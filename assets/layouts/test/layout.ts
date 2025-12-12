@@ -1,5 +1,2 @@
-import App from '../../js/class/TestApp';
+console.log('TEST LAYOUT');
 
-window["TEST_LAYOUT_ENTRYPOINT_LOADED"] = true;
-
-new App();

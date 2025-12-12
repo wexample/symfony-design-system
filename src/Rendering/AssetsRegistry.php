@@ -103,4 +103,9 @@ class AssetsRegistry implements JsonSerializable
     {
         return $this->registry;
     }
+
+    public function getManifest(): array
+    {
+        return $this->manifest;
+    }
 }
