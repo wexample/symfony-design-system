@@ -4,7 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Controller;
 
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
-use Wexample\SymfonyHelpers\Helper\TemplateHelper;
+use Wexample\SymfonyTemplate\Helper\TemplateHelper;
 
 abstract class AbstractDesignSystemController extends AbstractController
 {
