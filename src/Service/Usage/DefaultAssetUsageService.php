@@ -2,6 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Service\Usage;
 
+use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\Usage\Traits\DesignSystemUsageServiceTrait;
 use Wexample\WebRenderNode\Rendering\RenderNode\AbstractRenderNode;
@@ -27,5 +28,16 @@ final class DefaultAssetUsageService extends DefaultUsage
             view: $view,
             renderNode: $renderNode,
         );
+    }
+
+    public function assetNeedsInitialRender(
+        Asset $asset,
+        RenderPass $renderPass,
+    ): bool {
+        if ($asset->getType() === Asset::EXTENSION_JS) {
+            return true; // TODO $renderPass->isUseJs();
+        }
+
+        return true;
     }
 }

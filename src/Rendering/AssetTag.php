@@ -68,8 +68,8 @@ class AssetTag
 
         if ($asset) {
             $this->setId($asset->getDomId());
-            $this->setPath($asset->path);
-            $this->setMedia($asset->media);
+            $this->setPath($asset->getPath());
+            $this->setMedia($asset->getMedia());
             $this->setUsageName($asset->getUsage());
             $this->setContext($asset->getContext());
         }

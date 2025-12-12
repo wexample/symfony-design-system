@@ -61,7 +61,7 @@ trait DesignSystemUsageServiceTrait
                     $renderNode
                 )) {
                     $hasAsset = true;
-                    $asset->usages[$usage] = $usageValue;
+                    $asset->addUsageValue($usage, $usageValue);
                 }
             }
         }
@@ -106,5 +106,36 @@ trait DesignSystemUsageServiceTrait
         );
 
         return $asset;
+    }
+
+    public function assetNeedsInitialRender(
+        Asset $asset,
+        RenderPass $renderPass,
+    ): bool {
+        $usage = $this->getName();
+
+        // This is the base usage (i.e. default).
+        return $asset->getUsages()[$usage] == $renderPass->getUsage($usage);
+    }
+
+    protected function hasExtraSwitchableUsage(RenderPass $renderPass): bool
+    {
+        $usage = static::getName();
+        foreach (($renderPass->usagesConfig[$usage]['list'] ?? []) as $scheme => $config) {
+            // There is at least one other switchable usage different from default one.
+            if (($config['allow_switch'] ?? false)
+                && $scheme !== $renderPass->getUsage($usage)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function canAggregateAsset(
+        RenderPass $renderPass,
+        Asset $asset
+    ): bool {
+        return (! $this->hasExtraSwitchableUsage($renderPass)) && $asset->isServerSideRendered();
     }
 }

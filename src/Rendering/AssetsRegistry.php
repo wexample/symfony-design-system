@@ -13,6 +13,8 @@ class AssetsRegistry implements JsonSerializable
 
     private array $manifest = [];
 
+    protected array $registry = [];
+
     private string $pathPublic;
 
     public function __construct(
@@ -95,5 +97,10 @@ class AssetsRegistry implements JsonSerializable
     public function jsonSerialize(): array
     {
         return $this->toArray();
+    }
+
+    public function getRegistry(): array
+    {
+        return $this->registry;
     }
 }

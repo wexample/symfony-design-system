@@ -3,18 +3,19 @@
 namespace Wexample\SymfonyDesignSystem\Service;
 
 use InvalidArgumentException;
+use Wexample\SymfonyDesignSystem\Rendering\Asset;
+use Wexample\SymfonyDesignSystem\Rendering\AssetTag;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\Traits\DesignSystemRenderNodeTrait;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
-use Wexample\SymfonyDesignSystem\Service\Usage\Traits\DesignSystemUsageServiceTrait;
-use Wexample\SymfonyDesignSystem\Rendering\Asset;
-use Wexample\WebRenderNode\Asset\AssetManager;
-use Wexample\WebRenderNode\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Service\Usage\AnimationsAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\ColorSchemeAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\DefaultAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\FontsAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\MarginsAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
+use Wexample\SymfonyDesignSystem\Service\Usage\Traits\DesignSystemUsageServiceTrait;
+use Wexample\WebRenderNode\Asset\AssetManager;
+use Wexample\WebRenderNode\Rendering\RenderNode\AbstractRenderNode;
 
 class AssetsService extends AssetManager
 {
@@ -37,7 +38,8 @@ class AssetsService extends AssetManager
         MarginsAssetUsageService $marginsAssetUsageService,
         ResponsiveAssetUsageService $responsiveAssetUsageService,
         FontsAssetUsageService $fontsAssetUsageService,
-    ) {
+    )
+    {
         foreach ([
                      // Order is important, it defines the order the assets
                      // i.e. the order of CSS loading, so responsive or
@@ -80,7 +82,8 @@ class AssetsService extends AssetManager
         RenderPass $renderPass,
         AbstractRenderNode $renderNode,
         ?string $view = null
-    ): void {
+    ): void
+    {
         if ($view) {
             $views = [$view];
         } else {
@@ -94,7 +97,7 @@ class AssetsService extends AssetManager
                 $usageFoundForType = false;
 
                 foreach ($views as $view) {
-                    if (! $usageFoundForType && $usage->addAssetsForRenderNodeAndType(
+                    if (!$usageFoundForType && $usage->addAssetsForRenderNodeAndType(
                             $renderPass,
                             $renderNode,
                             $ext,
@@ -107,6 +110,16 @@ class AssetsService extends AssetManager
         }
     }
 
+    public function assetNeedsInitialRender(
+        Asset $asset,
+        RenderPass $renderPass,
+    ): bool {
+        return $this->usages[$asset->getUsage()]->assetNeedsInitialRender(
+            $asset,
+            $renderPass
+        );
+    }
+
     public function getAssetsUsages(): array
     {
         return $this->usages;
@@ -114,9 +127,63 @@ class AssetsService extends AssetManager
 
     public function buildTags(
         RenderPass $renderPass,
-    ): array {
+    ): array
+    {
         $usages = $this->getAssetsUsages();
         $tags = [];
+        $registry = $renderPass->getAssetsRegistry()->getRegistry();
+
+        // Ensure registry has entries for all asset types
+        foreach (Asset::ASSETS_EXTENSIONS as $type) {
+            if (! isset($registry[$type])) {
+                $registry[$type] = [];
+            }
+            $tags[$type] = array_fill_keys(Asset::CONTEXTS, []);
+
+            foreach (Asset::CONTEXTS as $context) {
+                foreach ($usages as $usageName => $usageManager) {
+                    /** @var Asset $asset */
+                    foreach ($registry[$type] as $asset) {
+                        if ($asset->getUsage() == $usageName && $asset->getContext() == $context) {
+                            if ($this->assetNeedsInitialRender(
+                                $asset,
+                                $renderPass,
+                            )) {
+                                $tag = new AssetTag($asset);
+
+                                $asset->setServerSideRendered();
+
+                                $tag->setCanAggregate(
+                                    $usageManager->canAggregateAsset(
+                                        $renderPass,
+                                        $asset
+                                    )
+                                );
+
+                                $tags[$type][$context][$usageName][] = $tag;
+                            }
+                        }
+                    }
+
+                    if (empty($tags[$type][$context][$usageName])) {
+                        $tag = new AssetTag();
+                        $tag->setId($type.'-'.$usageName.'-'.$context.'-placeholder');
+                        $tag->setPath(null);
+                        $tag->setUsageName($usageName);
+                        $tag->setContext($context);
+                        $tags[$type][$context][$usageName][] = $tag;
+                    }
+                }
+            }
+        }
+
+        $tag = new AssetTag();
+        $tag->setCanAggregate(true);
+        $tag->setPath('build/runtime.js');
+        $tag->setId('javascript-runtime');
+        $tag->setContext('extra');
+
+        $tags[Asset::EXTENSION_JS]['runtime']['extra'][] = $tag;
 
         return $tags;
     }
