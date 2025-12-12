@@ -10,5 +10,5 @@ services:
         public: false
 
     Wexample\SymfonyDesignSystem\:
-        resource: '../../{Command,Controller,Service}'
+        resource: '../../{Command,Controller,Service,Twig}'
         tags: ['controller.service_arguments']

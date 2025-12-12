@@ -64,7 +64,7 @@ abstract class AbstractDesignSystemController extends AbstractController
         return $this->render(
             $view,
             [
-
+                'render_pass' => $renderPass,
             ] + $parameters,
             $response
         );
