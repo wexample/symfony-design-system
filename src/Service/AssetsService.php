@@ -6,7 +6,7 @@ use InvalidArgumentException;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\Traits\DesignSystemRenderNodeTrait;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\Usage\Traits\DesignSystemUsageServiceTrait;
-use Wexample\WebRenderNode\Asset\Asset;
+use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\WebRenderNode\Asset\AssetManager;
 use Wexample\WebRenderNode\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Service\Usage\AnimationsAssetUsageService;

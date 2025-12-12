@@ -8,7 +8,7 @@ use Wexample\Helpers\Helper\TextHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\Traits\DesignSystemRenderNodeTrait;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
-use Wexample\WebRenderNode\Asset\Asset;
+use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\WebRenderNode\Rendering\RenderNode\AbstractRenderNode;
 
 trait DesignSystemUsageServiceTrait
@@ -30,6 +30,7 @@ trait DesignSystemUsageServiceTrait
      * @param string $ext
      * @param string $view
      * @return bool
+     * @throws Exception
      */
     public function addAssetsForRenderNodeAndType(
         RenderPass $renderPass,
@@ -76,28 +77,33 @@ trait DesignSystemUsageServiceTrait
         string $pathInManifest,
         string $view,
         AbstractRenderNode $renderNode,
-    ): ?Asset {
+    ): ?Asset
+    {
         $registry = $renderPass->getAssetsRegistry();
 
-        if (! $registry->assetExists($pathInManifest)) {
+        if (!$registry->assetExists($pathInManifest)) {
             return null;
         }
 
-        $builtPath = $registry->getBuiltPath($pathInManifest);
+        $realPath = $registry->getRealPath($pathInManifest);
 
-        if (! $builtPath) {
-            return null;
+        if (!$realPath) {
+            throw new Exception('Unable to find realpath of asset "'
+                . $pathInManifest . ', check build folder content or files permissions.');
         }
 
         $asset = new Asset(
-            ltrim($builtPath, '/'),
+            ltrim($registry->getBuiltPath($pathInManifest), '/'),
             $view,
-            static::getName(),
+            $this::getName(),
             $renderNode->getContextType()
         );
 
-        $renderNode->addAsset($asset);
-        $registry->addAsset($asset);
+        $renderNode->assets[$asset->getType()][] = $asset;
+
+        $registry->addAsset(
+            $asset,
+        );
 
         return $asset;
     }

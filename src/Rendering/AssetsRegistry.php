@@ -69,11 +69,12 @@ class AssetsRegistry implements JsonSerializable
 
     public function addAsset(Asset $asset): void
     {
-        $this->registry[$asset->type] = $this->registry[$asset->type] ?? [];
+        $type = $asset->getType();
+        $this->registry[$type] = $this->registry[$type] ?? [];
         $templateName = $asset->getView();
 
-        if (! isset($this->registry[$asset->type][$templateName])) {
-            $this->registry[$asset->type][$templateName] = $asset;
+        if (! isset($this->registry[$type][$templateName])) {
+            $this->registry[$type][$templateName] = $asset;
         }
     }
 
