@@ -18,5 +18,5 @@ services:
         - { name: 'routing.loader' }
 
     Wexample\SymfonyDesignSystem\:
-        resource: '../../{Controller,Service}'
+        resource: '../../{Command,Controller,Service}'
         tags: ['controller.service_arguments']
