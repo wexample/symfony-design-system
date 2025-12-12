@@ -21,7 +21,7 @@ abstract class AbstractPagesController extends AbstractDesignSystemController
 
     public static function buildTemplatePath(
         string $view,
-        AbstractBundle|string|null $bundleClass = null
+        AbstractBundle|string|null $bundle = null
     ): string
     {
         $base = '';
@@ -33,17 +33,15 @@ abstract class AbstractPagesController extends AbstractDesignSystemController
         }
 
         return BundleHelper::ALIAS_PREFIX
-            . static::getTemplateLocationPrefix() . '/'
+            . static::getTemplateLocationPrefix(bundle: $bundle) . '/'
             . $base . $view . TemplateHelper::TEMPLATE_FILE_EXTENSION;
     }
 
     public static function buildControllerTemplatePath(
         string $pageName,
-        string $bundle = null
+        AbstractBundle|string|null $bundle = null,
     ): string
     {
-        $bundle = BundleHelper::getRelatedBundle(static::class);
-
         $parts = TemplateHelper::explodeControllerNamespaceSubParts(static::class, $bundle);
         $parts[] = $pageName;
 
@@ -54,9 +52,15 @@ abstract class AbstractPagesController extends AbstractDesignSystemController
         string $pageName,
         array $parameters = [],
         Response $response = null,
-        AbstractBundle|string $bundle = null,
+        AbstractBundle|string|bool|null $bundle = null,
         RenderPass $renderPass = null
-    ): Response {
+    ): Response
+    {
+        # Bundle not set and not explicitly disabled.
+        if ($bundle === null) {
+            $bundle = BundleHelper::getRelatedBundle(static::class);
+        }
+
         return $this->adaptiveRender(
             $this->buildControllerTemplatePath($pageName, $bundle),
             $parameters,

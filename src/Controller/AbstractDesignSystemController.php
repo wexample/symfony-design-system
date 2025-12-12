@@ -7,6 +7,7 @@ use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
 use Wexample\SymfonyTemplate\Helper\TemplateHelper;
 
@@ -22,7 +23,8 @@ abstract class AbstractDesignSystemController extends AbstractController
 
     protected function configureRenderPass(
         RenderPass $renderPass
-    ): RenderPass {
+    ): RenderPass
+    {
         return $renderPass;
     }
 
@@ -35,7 +37,8 @@ abstract class AbstractDesignSystemController extends AbstractController
         array $parameters = [],
         Response $response = null,
         RenderPass $renderPass = null
-    ): Response {
+    ): Response
+    {
         $renderPass = $renderPass ?: $this->createRenderPass($view);
 
 
@@ -54,13 +57,14 @@ abstract class AbstractDesignSystemController extends AbstractController
         RenderPass $renderPass,
         array $parameters = [],
         Response $response = null,
-    ): Response {
+    ): Response
+    {
         $view = $renderPass->getView();
 
         return $this->render(
             $view,
             [
-                
+
             ] + $parameters,
             $response
         );
@@ -70,7 +74,14 @@ abstract class AbstractDesignSystemController extends AbstractController
      * @return string Allow bundle-specific front template directories.
      */
     public static function getTemplateLocationPrefix(
-        string $bundle = null
+        AbstractBundle|string $bundle = null
+    ): string
+    {
+        return ($bundle ? $bundle::getAlias() : DesignSystemHelper::TWIG_NAMESPACE_FRONT);
+    }
+
+    public static function getTemplateFrontDir(
+        AbstractBundle|string $bundle = null
     ): string
     {
         return ($bundle ? DesignSystemHelper::TWIG_NAMESPACE_ASSETS : DesignSystemHelper::TWIG_NAMESPACE_FRONT);
@@ -88,13 +99,10 @@ abstract class AbstractDesignSystemController extends AbstractController
     ): string
     {
         return TemplateHelper::joinNormalizedParts(
-            [
-                self::getTemplateLocationPrefix(bundle: $bundle),
-                ...TemplateHelper::explodeControllerNamespaceSubParts(
-                    controllerName: static::class,
-                    bundleClassPath: $bundle
-                ),
-            ]
+            TemplateHelper::explodeControllerNamespaceSubParts(
+                controllerName: static::class,
+                bundleClassPath: $bundle
+            )
         );
     }
 }
