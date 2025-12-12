@@ -36,7 +36,14 @@ class LayoutService extends RenderNodeService
         RenderPass $renderPass,
     ): void
     {
-        $layoutRenderNode = $renderPass->layoutRenderNode;
+        $layoutRenderNode = $renderPass->getLayoutRenderNode();
+
+        $this->initRenderNode(
+            $layoutRenderNode,
+            $renderPass,
+            // The default view should have been defined into the layout template.
+            $layoutRenderNode->getView(),
+        );
 
         $this->pageService->pageInit(
             $renderPass,

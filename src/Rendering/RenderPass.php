@@ -14,7 +14,7 @@ class RenderPass
 
     public const OUTPUT_TYPE_RESPONSE_HTML = VariableHelper::HTML;
 
-    public AbstractLayoutRenderNode $layoutRenderNode;
+    private AbstractLayoutRenderNode $layoutRenderNode;
 
     private string $outputType = self::OUTPUT_TYPE_RESPONSE_HTML;
 
@@ -40,5 +40,15 @@ class RenderPass
     public function setLayoutBase(string $layoutBase): void
     {
         $this->layoutBase = $layoutBase;
+    }
+
+    public function getLayoutRenderNode(): AbstractLayoutRenderNode
+    {
+        return $this->layoutRenderNode;
+    }
+
+    public function setLayoutRenderNode(AbstractLayoutRenderNode $layoutRenderNode): void
+    {
+        $this->layoutRenderNode = $layoutRenderNode;
     }
 }
