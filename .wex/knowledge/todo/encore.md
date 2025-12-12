@@ -26,6 +26,6 @@
 
 ### Configuration fine des loaders et optimisations (étape 4)
 
-- `configureEncoreBase()` accepte des options `loaders`, `cache` et `splitChunks` fusionnées avec des valeurs par défaut : Sass (additionalData + quietDeps), CSS modules/esModule, PostCSS (activation explicite), Vue loader (options runtime), TypeScript (transpileOnly, configFile, compilerOptions).
-- Le helper active par défaut le cache filesystem (`.webpack/cache`) et `splitEntryChunks` (chunks `all`, regroupements personnalisables) afin de tirer parti du cache persistant Webpack 5 et de contrôler le découpage.
+- `configureEncoreBase()` accepte des options `loaders` et `splitChunks` fusionnées avec des valeurs par défaut : Sass (additionalData + quietDeps), CSS modules/esModule, PostCSS (activation explicite), Vue loader (options runtime), TypeScript (transpileOnly, configFile, compilerOptions).
+- Le helper active `splitEntryChunks` (chunks `all`, regroupements personnalisables) pour profiter au mieux de Webpack 5 ; le cache persistant sera branché via `Encore.configureCache()` dès qu’une version publique l’exposera.
 - Via ces options, chaque projet peut ajuster précisément les loaders (ex. injecter des variables Sass, activer PostCSS, basculer TS en `transpileOnly`, configurer Vue) sans forker la config partagée.
