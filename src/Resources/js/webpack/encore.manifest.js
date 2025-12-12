@@ -1,19 +1,29 @@
 const fs = require('fs');
 const path = require('path');
 const {execSync} = require('child_process');
-const webpack = require('webpack');
 const Encore = require('@symfony/webpack-encore');
+const webpack = require('webpack');
 const FosRouting = require('fos-router/webpack/FosRouting');
+let VirtualModules;
+try {
+  VirtualModules = require('webpack-virtual-modules');
+} catch (error) {
+  VirtualModules = null;
+}
 
 const DEFAULT_OUTPUT_PATH = 'public/build/';
 const DEFAULT_PUBLIC_PATH = '/build';
 const DEFAULT_MANIFEST_PATH = path.resolve(process.cwd(), 'assets', 'encore.manifest.json');
 const WRAPPER_ROOT = path.resolve(process.cwd(), 'var', 'tmp', 'encore-manifest', 'wrappers');
+const WRAPPER_VIRTUAL_ROOT = path.resolve(process.cwd(), '.encore', 'virtual', 'wrappers');
 const WRAPPER_TEMPLATE = (classPath, className) => `import ClassDefinition from '${classPath}';
 appRegistry.bundles.add('${className}', ClassDefinition);
 `;
 
 let wrappersPrepared = false;
+let virtualModulesInstance = null;
+let virtualModulesWarningShown = false;
+let pendingVirtualModules = {};
 
 const COLORS = {
   blue: '34',
@@ -123,6 +133,7 @@ function applyManifestEntries(options = {}) {
   addAliasesFromManifest(manifest, encore);
   registerCssEntries(manifest, encore, seenEntries);
   registerJsEntries(manifest, encore, seenEntries, options);
+  finalizeVirtualModules(encore);
 
   return manifest;
 }
@@ -208,7 +219,7 @@ function registerJsEntries(manifest, encore, seenEntries, options) {
       let entrySource = resolveSourcePath(entry.source);
 
       if (entry.wrapper) {
-        entrySource = buildWrapper(entry, entrySource, options);
+        entrySource = buildWrapper(entry, entrySource, options, encore);
       }
 
       encore.addEntry(entry.output, entrySource);
@@ -228,28 +239,71 @@ function resolveSourcePath(source) {
   return absolutePath;
 }
 
-function buildWrapper(entry, absoluteSource, options = {}) {
+function buildWrapper(entry, absoluteSource, options = {}, encore = Encore) {
+  const wrapperContent = WRAPPER_TEMPLATE(toPosix(absoluteSource), entry.wrapper.className);
+
+  if (VirtualModules && !options.disableVirtualWrappers) {
+    const modulePath = buildWrapperVirtualPath(entry, options);
+    pendingVirtualModules[modulePath] = wrapperContent;
+    logPath('    wrapper (virtual)', modulePath);
+    return modulePath;
+  }
+
+  if (!virtualModulesWarningShown && !VirtualModules) {
+    logTitle('Virtual wrapper module unavailable, falling back to filesystem', COLORS.red);
+    console.log(color('  Install "webpack-virtual-modules" to enable in-memory wrappers.', COLORS.gray));
+    virtualModulesWarningShown = true;
+  }
+
   prepareWrapperRoot();
 
   const relativeDir = sanitizeRelativeDir(entry.relative);
   const targetDir = path.join(options.wrapperRoot || WRAPPER_ROOT, relativeDir);
   fs.mkdirSync(targetDir, {recursive: true});
 
-  const sourceName = entry.relative && entry.relative.length
-    ? path.basename(entry.relative)
-    : entry.output;
-  const fileName = `${toKebab(sourceName)}.js`;
+  const fileName = `${toKebab(buildWrapperBaseName(entry))}.js`;
   const wrapperPath = path.join(targetDir, fileName);
-  const importPath = toPosix(absoluteSource);
 
   fs.writeFileSync(
     wrapperPath,
-    WRAPPER_TEMPLATE(importPath, entry.wrapper.className)
+    wrapperContent
   );
 
-  logPath('    wrapper', wrapperPath);
+  logPath('    wrapper (fs)', wrapperPath);
 
   return wrapperPath;
+}
+
+function buildWrapperVirtualPath(entry, options) {
+  const relativeDir = sanitizeRelativeDir(entry.relative);
+  const targetDir = path.join(options.virtualWrapperRoot || WRAPPER_VIRTUAL_ROOT, relativeDir);
+
+  return path.join(targetDir, `${toKebab(buildWrapperBaseName(entry))}.js`);
+}
+
+function buildWrapperBaseName(entry) {
+  if (entry.relative && entry.relative.length) {
+    return path.basename(entry.relative);
+  }
+
+  return entry.output || 'index';
+}
+
+function finalizeVirtualModules(encore, options = {}) {
+  const modules = pendingVirtualModules;
+  pendingVirtualModules = {};
+
+  if (!Object.keys(modules).length) {
+    return;
+  }
+
+  if (!VirtualModules || options.disableVirtualWrappers) {
+    return;
+  }
+
+  virtualModulesInstance = new VirtualModules(modules);
+  encore.addPlugin(virtualModulesInstance);
+  logTitle('Virtual wrapper modules enabled', COLORS.green);
 }
 
 function sanitizeRelativeDir(relativePath = '') {
