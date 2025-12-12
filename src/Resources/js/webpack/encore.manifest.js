@@ -9,7 +9,6 @@ const VirtualModules = require('webpack-virtual-modules');
 const DEFAULT_OUTPUT_PATH = 'public/build/';
 const DEFAULT_PUBLIC_PATH = '/build';
 const DEFAULT_MANIFEST_PATH = path.resolve(process.cwd(), 'assets', 'encore.manifest.json');
-const DEFAULT_CACHE_PATH = path.resolve(process.cwd(), '.webpack', 'cache');
 const WRAPPER_VIRTUAL_ROOT = path.resolve(process.cwd(), '.encore', 'virtual', 'wrappers');
 const WRAPPER_TEMPLATE = (classPath, className) => `import ClassDefinition from '${classPath}';
 appRegistry.bundles.add('${className}', ClassDefinition);
@@ -84,12 +83,6 @@ function configureEncoreBase(options = {}) {
       compilerOptions: {},
     },
   }, options.loaders || {});
-
-  const cacheConfig = mergeDeep({
-    enabled: true,
-    type: 'filesystem',
-    directory: DEFAULT_CACHE_PATH,
-  }, options.cache || {});
 
   const splitChunksConfig = mergeDeep({
     enabled: true,
@@ -181,13 +174,6 @@ function configureEncoreBase(options = {}) {
     watchOptions.poll = watchOptions.poll ?? false;
     watchOptions.ignored = watchOptions.ignored ?? /node_modules/;
   });
-
-  if (cacheConfig.enabled !== false) {
-    Encore.configureCache((cacheOptions) => {
-      cacheOptions.type = cacheConfig.type || 'filesystem';
-      cacheOptions.cacheDirectory = cacheConfig.directory || DEFAULT_CACHE_PATH;
-    });
-  }
 
   if (splitChunksConfig.enabled !== false) {
     Encore.splitEntryChunks((splitOptions) => {
