@@ -12,11 +12,14 @@ class LayoutService extends RenderNodeService
 {
     #[Pure]
     public function __construct(
+        AssetsService $assetsService,
         private readonly PageService $pageService,
         protected readonly Translator $translator,
     )
     {
-
+        parent::__construct(
+            $assetsService,
+        );
     }
 
     /**
