@@ -22,7 +22,7 @@
 
 - `encore.manifest.js` dépend maintenant de `webpack-virtual-modules`, injecte systématiquement les wrappers en mémoire (chemins `.encore/virtual/wrappers/**`) et ajoute automatiquement le plugin à Encore.
 - Les logs indiquent toujours les wrappers générés (marqués `(virtual)`), ce qui permet de contrôler le chargement sans bruit disque.
-- `webpack-virtual-modules` figure dans les peerDependencies du package ; chaque projet doit donc l’installer (devDependency) pour que le bundle puisse le charger.
+- `webpack-virtual-modules` figure dans les peerDependencies du package ; chaque projet doit donc l’installer (devDependency) pour que le bundle puisse le charger. Le template reste externalisé dans `src/Resources/js/webpack/templates/wrapper.js.tpl` pour être personnalisé facilement.
 
 ### Configuration fine des loaders et optimisations (étape 4)
 

@@ -10,12 +10,11 @@ const DEFAULT_OUTPUT_PATH = 'public/build/';
 const DEFAULT_PUBLIC_PATH = '/build';
 const DEFAULT_MANIFEST_PATH = path.resolve(process.cwd(), 'assets', 'encore.manifest.json');
 const WRAPPER_VIRTUAL_ROOT = path.resolve(process.cwd(), '.encore', 'virtual', 'wrappers');
-const WRAPPER_TEMPLATE = (classPath, className) => `import ClassDefinition from '${classPath}';
-appRegistry.bundles.add('${className}', ClassDefinition);
-`;
+const WRAPPER_TEMPLATE_PATH = path.resolve(__dirname, 'templates', 'wrapper.js.tpl');
 
 let virtualModulesInstance = null;
 let pendingVirtualModules = {};
+let wrapperTemplateContent = null;
 
 const COLORS = {
   blue: '34',
@@ -314,7 +313,10 @@ function resolveSourcePath(source) {
 }
 
 function buildWrapper(entry, absoluteSource, options = {}, encore = Encore) {
-  const wrapperContent = WRAPPER_TEMPLATE(toPosix(absoluteSource), entry.wrapper.className);
+  const wrapperContent = renderWrapperTemplate(
+    toPosix(absoluteSource),
+    entry.wrapper.className
+  );
   const modulePath = buildWrapperVirtualPath(entry, options);
   pendingVirtualModules[modulePath] = wrapperContent;
   logPath('    wrapper (virtual)', modulePath);
@@ -374,6 +376,20 @@ function toKebab(value) {
 
 function toPosix(filePath) {
   return filePath.split(path.sep).join('/');
+}
+
+function getWrapperTemplate() {
+  if (!wrapperTemplateContent) {
+    wrapperTemplateContent = fs.readFileSync(WRAPPER_TEMPLATE_PATH, 'utf8');
+  }
+
+  return wrapperTemplateContent;
+}
+
+function renderWrapperTemplate(classPath, className) {
+  return getWrapperTemplate()
+    .replace(/{classPath}/g, classPath)
+    .replace(/{className}/g, className);
 }
 
 function mergeDeep(target = {}, source = {}) {
