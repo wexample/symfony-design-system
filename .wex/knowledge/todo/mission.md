@@ -2,7 +2,7 @@
 
 ## Mission recap
 - Remaining bundle = minimal Symfony design-system skeleton (controllers + rendering pipeline) with most legacy assets/services removed.
-- Core goal: reimport legacy features cleanly while pushing neutral pieces into shared packages (`php-web-render-node`, futur JS pendant, etc.).
+- Core goal: reimport legacy features cleanly while pushing neutral pieces into shared packages (`php-web-render-node`, future JS counterpart, etc.).
 - Use `packages/PHP/draft/tmp/symfony-design-system` as behaviour reference; destructive changes should lean on that repo.
 
 ### Adaptive rendering snapshot
@@ -22,7 +22,7 @@
 4. Legacy controllers/layouts/assets should be reintroduced progressively, isolating generic logic into shared packages.
 5. Mirror the schema on the frontend (future `js-web-render-node`) so `window.appRegistry.layoutRenderData` consumers converge on one protocol.
 
-## Current status – Dec 12 2025
+## Current status
 
 ### Rendering pipeline
 - `AbstractDesignSystemController::adaptiveRender()` instantiates the DS `RenderPass`, initializes `InitialLayoutRenderNode`, injects assets/debug blocks, then emits the response.
@@ -43,7 +43,7 @@
 - `wexample/php-web-render-node` now includes base render pass/nodes, asset DTOs/registry, usage scaffolding, and schema helpers.
 - The design-system bundle layers DS-specific behaviours (ID generation, translation domain, asset detection) while keeping serialization contract-compliant.
 
-### Outstanding tasks (legacy status)
+### Outstanding tasks
 1. Finish `DesignSystemUsageServiceTrait::createAssetIfExists()` (DOM IDs, SSR flags, registry parity).
 2. Reintroduce the AJAX render path with contract-compliant JSON payloads.
 3. Produce `AssetTag`/contract-compliant bundles to inject `<link>/<script>` tags server-side.
@@ -64,9 +64,10 @@ Outcome: predictable render-node payloads across the stack, simplifying future r
 
 ## Objectives / backlog
 
-- Migrer le code utile depuis `/home/weeger/Desktop/WIP/WEB/WEXAMPLE/PACKAGES/PHP/backup/symfony-design-system`.
-- Réactiver les anciens tests unitaires, puis renforcer le noyau avec de nouveaux tests ciblés.
-- Réimporter ce qui doit rester dans le bundle (extensions, configurations fines, bases panel/modal + JS “core” : bootstrap/app/layout) en les couvrant par des tests.
-- Extraire les parties Demo/Test vers un bundle dédié (`symfony-design-system-demo`) et répartir les thèmes/restes d’assets dans des bundles par thème (`symfony-ds-theme-admin`, `...-tailwind`, `...-black`, etc.).
-- Rendre les “bases” configurables (modal/panel/overlay/page) au lieu de les coder en dur et baliser `assets.html.twig` avec des sections commentées pour manipulation JS.
-- Effectuer plusieurs passes de nettoyage (cohérence, helpers, extraction de méthodes), ajouter une couche de tests, et valider que `php-web-render-node` reste portable pour la future implémentation JS.
+- Migrate the useful legacy code from `/home/weeger/Desktop/WIP/WEB/WEXAMPLE/PACKAGES/PHP/backup/symfony-design-system`.
+- Reactivate historical unit tests and harden the core with new ones (render pass, asset registry, AJAX responses, JS/no-JS switches).
+- Reimport what belongs in this bundle (extensions, nuanced configuration, panel/modal bases + core JS: bootstrap/app/layout) and cover it with tests.
+- Move Demo/Test sections into a dedicated `symfony-design-system-demo` bundle and split theme assets into per-theme bundles (`symfony-ds-theme-admin`, `...-tailwind`, `...-black`, etc.).
+- Make “bases” configurable instead of hard-coded (modal/panel/overlay/page) and annotate `assets.html.twig` sections so JS tooling can hook into them.
+- Run several cleanup passes (consistency, helper extraction, documentation), expand test coverage, and ensure `php-web-render-node` stays fully portable to the upcoming JS implementation (type parity, schema diffs, fixture-based validation).
+- Document how render-request IDs, asset registries, and layout/page context stacks interact so future contributors understand the lifecycle; consider adding diagrams or sequence docs in `.wex/knowledge`.
