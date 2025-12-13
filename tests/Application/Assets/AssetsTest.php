@@ -4,10 +4,10 @@ namespace Wexample\SymfonyDesignSystem\Tests\Application\Assets;
 
 use Wexample\SymfonyDesignSystem\Controller\Config\DemoController;
 use Wexample\SymfonyDesignSystem\Tests\Traits\DesignSystemTestCaseTrait;
-use Wexample\SymfonyTesting\Tests\AbstractSymfonyTestCase;
+use Wexample\SymfonyTesting\Tests\AbstractSymfonyKernelTestCase;
 use Wexample\SymfonyTesting\Traits\ControllerTestCaseTrait;
 
-class AssetsTest extends AbstractSymfonyTestCase
+class AssetsTest extends AbstractSymfonyKernelTestCase
 {
     use ControllerTestCaseTrait;
     use DesignSystemTestCaseTrait;
