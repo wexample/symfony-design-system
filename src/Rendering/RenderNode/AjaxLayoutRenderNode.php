@@ -13,6 +13,7 @@ class AjaxLayoutRenderNode extends \Wexample\WebRenderNode\Rendering\RenderNode\
     public function toArray(): array
     {
         return parent::toArray()
+            + $this->toDesignSystemLayoutArray()
             + [
                 'vueTemplates' => $this->vueTemplates,
             ];

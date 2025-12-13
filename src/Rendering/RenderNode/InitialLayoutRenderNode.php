@@ -8,4 +8,10 @@ use Wexample\SymfonyDesignSystem\Rendering\RenderNode\Traits\DesignSystemLayoutR
 class InitialLayoutRenderNode extends \Wexample\WebRenderNode\Rendering\RenderNode\InitialLayoutRenderNode
 {
     use DesignSystemLayoutRenderNodeTrait;
+
+    public function toArray(): array
+    {
+        return parent::toArray()
+            + $this->toDesignSystemLayoutArray();
+    }
 }

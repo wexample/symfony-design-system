@@ -43,7 +43,7 @@ trait DesignSystemLayoutRenderNodeTrait {
     {
         return [
             'env' => $this->env,
-            'renderRequestId' => $this->renderRequestId
+            'renderRequestId' => $this->renderRequestId,
         ];
     }
 }
