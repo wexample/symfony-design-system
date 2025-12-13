@@ -36,7 +36,9 @@
   "require-dev": {
     "phpunit/phpunit": "*",
     "symfony/twig-bundle": "^7.4",
-    "wexample/symfony-testing": "1.0.61"
+    "wexample/symfony-testing": "1.0.61",
+    "doctrine/doctrine-bundle": "^2.18",
+    "doctrine/orm": "^3.5"
   },
   "repositories": [
     {
