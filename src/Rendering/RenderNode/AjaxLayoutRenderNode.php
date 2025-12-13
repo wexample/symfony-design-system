@@ -2,22 +2,19 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering\RenderNode;
 
-use Wexample\SymfonyHelpers\Class\Traits\WithBodyClassTrait;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\Traits\DesignSystemLayoutRenderNodeTrait;
 
-class AjaxLayoutRenderNode extends AbstractLayoutRenderNode
+class AjaxLayoutRenderNode extends \Wexample\WebRenderNode\Rendering\RenderNode\AjaxLayoutRenderNode
 {
-    use WithBodyClassTrait;
-
-    public bool $hasAssets = false;
+    use DesignSystemLayoutRenderNodeTrait;
 
     public array $vueTemplates = [];
 
-    public function toRenderData(): array
+    public function toArray(): array
     {
-        return parent::toRenderData()
-            + $this->serializeVariables([
-                'body',
-                'vueTemplates',
-            ]);
+        return parent::toArray()
+            + [
+                'vueTemplates' => $this->vueTemplates,
+            ];
     }
 }

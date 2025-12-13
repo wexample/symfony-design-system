@@ -24,6 +24,12 @@ class PageService extends RenderNodeService
         string $view
     ): void
     {
+        $this->initRenderNode(
+            $page,
+            $renderPass,
+            $view
+        );
+	
         $this->translator->setDomainFromTemplatePath(
             $page->getContextType(),
             $view

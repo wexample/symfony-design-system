@@ -11,18 +11,23 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\AssetsRegistry;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AjaxLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
+use Wexample\SymfonyDesignSystem\Service\LayoutService;
+use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
+use Wexample\SymfonyHelpers\Helper\BundleHelper;
 use Wexample\SymfonyTemplate\Helper\TemplateHelper;
 
 abstract class AbstractDesignSystemController extends AbstractController
 {
     public function __construct(
         protected readonly AdaptiveResponseService $adaptiveResponseService,
+        protected readonly LayoutService $layoutService,
         protected readonly KernelInterface $kernel
     )
     {
@@ -64,6 +69,10 @@ abstract class AbstractDesignSystemController extends AbstractController
             )
         );
 
+        $renderPass->setOutputType(
+            $this->adaptiveResponseService->detectOutputType()
+        );
+
         $renderPass->setLayoutBase(
             $this->adaptiveResponseService->detectLayoutBase($renderPass)
         );
@@ -91,7 +100,67 @@ abstract class AbstractDesignSystemController extends AbstractController
     {
         $renderPass = $renderPass ?: $this->createRenderPass($view);
 
-        $renderPass->setLayoutRenderNode(new InitialLayoutRenderNode());
+        $env = $this->getParameter('design_system.environment');
+
+        $renderPass->setView($view);
+
+        if ($renderPass->isJsonRequest()) {
+            $renderPass->setLayoutRenderNode(new AjaxLayoutRenderNode($env));
+
+            $this->layoutService->initRenderNode(
+                $renderPass->layoutRenderNode,
+                $renderPass,
+                $view
+            );
+
+            try {
+                $renderPasseResponse = $this->renderRenderPass(
+                    $renderPass,
+                    $parameters,
+                    $response,
+                );
+
+                $renderPass->layoutRenderNode->setBody(
+                    trim($renderPasseResponse->getContent())
+                );
+
+                $finalResponse = new JsonResponse(
+                    $renderPass->layoutRenderNode->toArray()
+                );
+
+                $finalResponse->setStatusCode(
+                    $renderPasseResponse->getStatusCode()
+                );
+
+                // Prevents browser to display json response when
+                // clicking on back button.
+                $finalResponse->headers->set('Vary', 'Accept');
+
+                return $finalResponse;
+            } catch (\Exception $exception) {
+                $errorView = BundleHelper::ALIAS_PREFIX.
+                    WexampleSymfonyDesignSystemBundle::getAlias()
+                    .'/config/system/error'
+                    .TemplateHelper::TEMPLATE_FILE_EXTENSION;
+
+                if ($view !== $errorView) {
+                    $errorResponse = new JsonResponse();
+                    $errorResponse->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+
+                    return $this->adaptiveRender(
+                        $errorView,
+                        [
+                            'exception' => $exception,
+                        ],
+                        $errorResponse
+                    );
+                }
+
+                return new JsonResponse($exception->getMessage());
+            }
+        } else {
+            $renderPass->setLayoutRenderNode(new InitialLayoutRenderNode());
+        }
 
         return $this->renderRenderPass(
             $renderPass,
@@ -116,6 +185,7 @@ abstract class AbstractDesignSystemController extends AbstractController
         $response = $this->render(
             $view,
             [
+                'debug' => (bool) $this->getParameter('design_system.debug'),
                 'render_pass' => $renderPass,
             ] + $parameters,
             $response

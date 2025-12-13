@@ -2,11 +2,15 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
-use Wexample\WebRenderNode\Rendering\RenderNode\AbstractLayoutRenderNode;
-use Wexample\WebRenderNode\Rendering\Traits\WithView;
 
+use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AjaxLayoutRenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
+use Wexample\WebRenderNode\Rendering\RenderNode\AbstractLayoutRenderNode;
+use Wexample\WebRenderNode\Rendering\RenderNode\AbstractRenderNode;
+use Wexample\WebRenderNode\Rendering\Traits\WithView;
 
 class RenderPass
 {
@@ -14,9 +18,23 @@ class RenderPass
 
     public const BASE_DEFAULT = VariableHelper::DEFAULT;
 
-    public const OUTPUT_TYPE_RESPONSE_HTML = VariableHelper::HTML;
+    public const BASE_MODAL = VariableHelper::MODAL;
 
-    private AbstractLayoutRenderNode $layoutRenderNode;
+    public const BASE_PANEL = 'panel';
+
+    public const BASE_OVERLAY = 'overlay';
+
+    public const BASE_PAGE = VariableHelper::PAGE;
+
+    public const OUTPUT_TYPE_RESPONSE_HTML = VariableHelper::HTML;
+    public const OUTPUT_TYPE_RESPONSE_JSON = VariableHelper::JSON;
+
+    public const OUTPUT_TYPES = [
+        self::OUTPUT_TYPE_RESPONSE_HTML,
+        self::OUTPUT_TYPE_RESPONSE_JSON,
+    ];
+
+    public InitialLayoutRenderNode|AjaxLayoutRenderNode $layoutRenderNode;
 
     public array $usagesConfig = [];
 
@@ -32,14 +50,57 @@ class RenderPass
     public array $usages = [];
 
 
-
     private bool $useJs = true;
+
     public function __construct(
         string $view,
         protected AssetsRegistry $assetsRegistry
     )
     {
         $this->setView($view);
+    }
+
+    public function registerRenderNode(
+        AbstractRenderNode $renderNode
+    ) {
+        $this->registry[$renderNode->getContextType()][$renderNode->getView()] = $renderNode;
+    }
+
+    public function registerContextRenderNode(
+        AbstractRenderNode $renderNode
+    ) {
+        $this->contextRenderNodeRegistry[$renderNode->getContextRenderNodeKey()] = $renderNode;
+    }
+
+    public function setCurrentContextRenderNode(
+        AbstractRenderNode $renderNode
+    ) {
+        $this->setCurrentContextRenderNodeByTypeAndName(
+            $renderNode->getContextType(),
+            $renderNode->getView()
+        );
+    }
+
+    public function setCurrentContextRenderNodeByTypeAndName(
+        string $renderNodeType,
+        string $renderNodeName
+    ) {
+        $key = RenderingHelper::buildRenderContextKey(
+            $renderNodeType,
+            $renderNodeName
+        );
+
+        $this->contextRenderNodeStack[] = $this->contextRenderNodeRegistry[$key];
+    }
+
+    public function getCurrentContextRenderNode(): ?AbstractRenderNode
+    {
+        return empty($this->contextRenderNodeStack) ? null : end($this->contextRenderNodeStack);
+    }
+
+    public function revertCurrentContextRenderNode(): void
+    {
+        array_pop($this->contextRenderNodeStack);
     }
 
     public function isUseJs(): bool
@@ -66,16 +127,18 @@ class RenderPass
 
     public function getUsage(
         string $usageName,
-    ): ?string {
+    ): ?string
+    {
         return $this->usages[$usageName];
     }
 
     public function setUsage(
         string $usageName,
         ?string $usageValue
-    ): void {
+    ): void
+    {
         // Not found
-        if (! isset($this->usagesConfig[$usageName])) {
+        if (!isset($this->usagesConfig[$usageName])) {
             return;
         }
 
@@ -92,9 +155,26 @@ class RenderPass
         $this->debug = $debug;
     }
 
+    public function setOutputType(string $type): self
+    {
+        $this->outputType = $type;
+
+        return $this;
+    }
+
     public function getOutputType(): string
     {
         return $this->outputType;
+    }
+
+    public function isJsonRequest(): bool
+    {
+        return self::OUTPUT_TYPE_RESPONSE_JSON === $this->getOutputType();
+    }
+
+    public function isHtmlRequest(): bool
+    {
+        return self::OUTPUT_TYPE_RESPONSE_HTML === $this->getOutputType();
     }
 
     public function getLayoutBase(): string

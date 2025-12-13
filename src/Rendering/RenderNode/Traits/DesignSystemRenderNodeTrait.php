@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Rendering\RenderNode\Traits;
 
 
+use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyTemplate\Helper\TemplateHelper;
 
@@ -21,6 +22,19 @@ trait DesignSystemRenderNodeTrait {
             str_replace('/', '-', $this->getView()),
             uniqid(),
         ]);
+
+        $this->usages = $renderPass->usages;
+
+        $renderPass->registerContextRenderNode($this);
+        $renderPass->registerRenderNode($this);
+    }
+
+    public function getContextRenderNodeKey(): string
+    {
+        return RenderingHelper::buildRenderContextKey(
+            $this->getContextType(),
+            $this->getView()
+        );
     }
 
     public function setDefaultView(string $view): void

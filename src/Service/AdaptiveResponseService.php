@@ -2,17 +2,73 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
+
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Wexample\SymfonyDesignSystem\Helper\DesignSystemHelper;
-use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
+use Wexample\SymfonyHelpers\Helper\FileHelper;
 use Wexample\SymfonyTemplate\Helper\TemplateHelper;
 
 class AdaptiveResponseService
 {
+    protected array $allowedBases = [
+        RenderPass::BASE_MODAL,
+        RenderPass::BASE_PANEL,
+        RenderPass::BASE_OVERLAY,
+        RenderPass::BASE_PAGE,
+        RenderPass::BASE_DEFAULT,
+    ];
+
+    public const string QUERY_STRING_CONFIG_KEY_LAYOUT = '__layout';
+    public const string QUERY_STRING_CONFIG_KEY_FORMAT = '__format';
     public const BASES_MAIN_DIR = DesignSystemHelper::FOLDER_FRONT_ALIAS . 'bases/';
+
+    public function __construct(
+        private readonly RequestStack $requestStack,
+    )
+    {
+    }
+
+    private function getCurrentRequest(): ?Request
+    {
+        return $this->requestStack->getCurrentRequest();
+    }
+
+    public function detectOutputType(): string
+    {
+        if ($forcedFormat = $this->getQueryStringConfigValue(
+            AdaptiveResponseService::QUERY_STRING_CONFIG_KEY_FORMAT
+        )) {
+            if (in_array($forcedFormat, RenderPass::OUTPUT_TYPES)) {
+                return $forcedFormat;
+            }
+        }
+
+        return $this->getCurrentRequest()->isXmlHttpRequest() ?
+            RenderPass::OUTPUT_TYPE_RESPONSE_JSON :
+            RenderPass::OUTPUT_TYPE_RESPONSE_HTML;
+    }
+
+    private function getQueryStringConfigValue(
+        string $key,
+        ?string $default = null
+    ): ?string
+    {
+        return $this->getCurrentRequest()->query->get($key, $default);
+    }
 
     public function detectLayoutBase(RenderPass $renderPass): string
     {
+        // Layout not specified in query string.
+        if ($renderPass->isJsonRequest()) {
+            // Use modal as default ajax layout, but might be configurable.
+            return $this->getQueryStringConfigValue(
+                AdaptiveResponseService::QUERY_STRING_CONFIG_KEY_LAYOUT,
+                RenderPass::BASE_MODAL
+            );
+        }
+
         return RenderPass::BASE_DEFAULT;
     }
 
