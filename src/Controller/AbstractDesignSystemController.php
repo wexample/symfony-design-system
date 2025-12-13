@@ -96,6 +96,7 @@ abstract class AbstractDesignSystemController extends AbstractController
         return $this->renderRenderPass(
             $renderPass,
             $parameters + [
+                'display_breakpoints' => $renderPass->getDisplayBreakpoints(),
             ],
             $response,
         );

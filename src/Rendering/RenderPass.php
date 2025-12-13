@@ -4,6 +4,8 @@ namespace Wexample\SymfonyDesignSystem\Rendering;
 
 use Wexample\WebRenderNode\Rendering\RenderNode\AbstractLayoutRenderNode;
 use Wexample\WebRenderNode\Rendering\Traits\WithView;
+
+use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 
 class RenderPass
@@ -48,6 +50,18 @@ class RenderPass
     public function setUseJs(bool $useJs): void
     {
         $this->useJs = $useJs;
+    }
+
+    public function getDisplayBreakpoints(): array
+    {
+        $usagesTypes = $this->usagesConfig[ResponsiveAssetUsageService::getName()]['list'];
+        $breakpoints = [];
+
+        foreach ($usagesTypes as $name => $config) {
+            $breakpoints[$name] = $config['breakpoint'];
+        }
+
+        return $breakpoints;
     }
 
     public function getUsage(
