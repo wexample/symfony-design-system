@@ -1,0 +1,6 @@
+- Trouver un moyen de feire des "bases" qui ne soit pas en dur (modal / panel etc..)
+- Valider l'approche de assets.html.twig: des sections de header identifiées avec des commentaires pour les manipuler ensuite en JS
+- Faire plusieurs passes générales du code pour s'assurer de la qualité / cohérence de l'ensemble
+- Rédiger des tests
+- Passer certaine méthode dans des helpers 
+- Faire une pass sur web render node pour s'assurer de la cohérence du package / portabilité vers js
