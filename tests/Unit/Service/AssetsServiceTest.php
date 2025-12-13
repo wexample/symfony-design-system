@@ -8,9 +8,9 @@ use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 use Wexample\SymfonyDesignSystem\Service\Usage\DefaultAssetUsageService;
 use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
-use Wexample\SymfonyTesting\Tests\AbstractSymfonyTestCase;
+use Wexample\SymfonyTesting\Tests\AbstractSymfonyKernelTestCase;
 
-class AssetsServiceTest extends AbstractSymfonyTestCase
+class AssetsServiceTest extends AbstractSymfonyKernelTestCase
 {
     protected function getTestServiceClass(): string
     {
@@ -27,7 +27,7 @@ class AssetsServiceTest extends AbstractSymfonyTestCase
     public function testAssetIsReadyForRender()
     {
         $renderPass = new RenderPass(
-            view:'test',
+            view: 'test',
             assetsRegistry: new AssetsRegistry(
                 projectDir: self::getContainer()->getParameter('kernel.project_dir')
             )
