@@ -29,12 +29,24 @@
     "symfony/webpack-encore-bundle": "^2.0.1",
     "fortawesome/font-awesome": "^6.7"
   },
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../*",
+      "options": {
+        "symlink": true
+      }
+    }
+  ],
   "scripts": {
     "post-install-cmd": [
-      "php bin/console design-system:check-node-install"
+      "[ -f bin/console ] && php bin/console design-system:check-node-install || echo 'Skipping console command (no Symfony app)'"
     ],
     "post-update-cmd": [
-      "php bin/console design-system:check-node-install"
+      "[ -f bin/console ] && php bin/console design-system:check-node-install || echo 'Skipping console command (no Symfony app)'"
     ]
   }
 }
