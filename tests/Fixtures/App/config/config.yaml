@@ -5,3 +5,12 @@ framework:
 wexample_symfony_design_system:
   front_paths:
     - tests/Fixtures/front/
+
+twig:
+  default_path: '%kernel.project_dir%/templates'
+
+services:
+  Wexample\SymfonyHelpers\Service\Entity\EntityNeutralService:
+    autowire: false
+    arguments:
+      - '@?doctrine.orm.entity_manager'

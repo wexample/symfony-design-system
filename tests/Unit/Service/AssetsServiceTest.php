@@ -44,6 +44,7 @@ class AssetsServiceTest extends AbstractSymfonyTestCase
 
         $asset = new Asset(
             'test.css',
+            'test',
             DefaultAssetUsageService::getName(),
             'test'
         );
@@ -62,6 +63,7 @@ class AssetsServiceTest extends AbstractSymfonyTestCase
 
         $asset = new Asset(
             'test.css',
+            'test',
             ResponsiveAssetUsageService::getName(),
             'test'
         );
