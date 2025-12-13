@@ -159,7 +159,7 @@ abstract class AbstractDesignSystemController extends AbstractController
                 return new JsonResponse($exception->getMessage());
             }
         } else {
-            $renderPass->setLayoutRenderNode(new InitialLayoutRenderNode());
+            $renderPass->layoutRenderNode = new InitialLayoutRenderNode($env);
         }
 
         return $this->renderRenderPass(

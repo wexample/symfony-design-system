@@ -6,6 +6,7 @@ namespace Wexample\SymfonyDesignSystem\Rendering;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AjaxLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\Traits\WithRenderRequestId;
 use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
 use Wexample\WebRenderNode\Rendering\RenderNode\AbstractLayoutRenderNode;
@@ -15,6 +16,7 @@ use Wexample\WebRenderNode\Rendering\Traits\WithView;
 class RenderPass
 {
     use WithView;
+    use WithRenderRequestId;
 
     public const BASE_DEFAULT = VariableHelper::DEFAULT;
 
@@ -36,10 +38,16 @@ class RenderPass
 
     public InitialLayoutRenderNode|AjaxLayoutRenderNode $layoutRenderNode;
 
+    protected array $contextRenderNodeRegistry = [];
+
+    protected array $contextRenderNodeStack = [];
+
     public array $usagesConfig = [];
 
-
     public ?bool $enableAggregation = null;
+
+    private bool $debug = false;
+
     private string $outputType = self::OUTPUT_TYPE_RESPONSE_HTML;
 
     protected string $layoutBase = self::BASE_DEFAULT;
@@ -49,6 +57,12 @@ class RenderPass
      */
     public array $usages = [];
 
+    public array $registry = [
+        \Wexample\WebRenderNode\Helper\RenderingHelper::CONTEXT_COMPONENT => [],
+        \Wexample\WebRenderNode\Helper\RenderingHelper::CONTEXT_PAGE => [],
+        \Wexample\WebRenderNode\Helper\RenderingHelper::CONTEXT_LAYOUT => [],
+        \Wexample\WebRenderNode\Helper\RenderingHelper::CONTEXT_VUE => [],
+    ];
 
     private bool $useJs = true;
 
@@ -58,6 +72,7 @@ class RenderPass
     )
     {
         $this->setView($view);
+        $this->createRenderRequestId();
     }
 
     public function registerRenderNode(
@@ -70,6 +85,13 @@ class RenderPass
         }
 
         $this->registry[$contextType][$renderNode->getView()] = $renderNode;
+    }
+
+    public function createRenderRequestId(): string
+    {
+        $this->setRenderRequestId(uniqid());
+
+        return $this->getRenderRequestId();
     }
 
     public function registerContextRenderNode(
