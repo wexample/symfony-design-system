@@ -18,6 +18,8 @@ class RenderPass
 
     public array $usagesConfig = [];
 
+
+    public ?bool $enableAggregation = null;
     private string $outputType = self::OUTPUT_TYPE_RESPONSE_HTML;
 
     protected string $layoutBase = self::BASE_DEFAULT;
@@ -27,12 +29,25 @@ class RenderPass
      */
     public array $usages = [];
 
+
+
+    private bool $useJs = true;
     public function __construct(
         string $view,
         protected AssetsRegistry $assetsRegistry
     )
     {
         $this->setView($view);
+    }
+
+    public function isUseJs(): bool
+    {
+        return $this->useJs;
+    }
+
+    public function setUseJs(bool $useJs): void
+    {
+        $this->useJs = $useJs;
     }
 
     public function getUsage(
@@ -51,6 +66,16 @@ class RenderPass
         }
 
         $this->usages[$usageName] = $usageValue;
+    }
+
+    public function isDebug(): bool
+    {
+        return $this->debug;
+    }
+
+    public function setDebug(bool $debug): void
+    {
+        $this->debug = $debug;
     }
 
     public function getOutputType(): string

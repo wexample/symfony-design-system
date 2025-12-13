@@ -39,6 +39,7 @@ class AssetsService extends AssetManager
         MarginsAssetUsageService $marginsAssetUsageService,
         ResponsiveAssetUsageService $responsiveAssetUsageService,
         FontsAssetUsageService $fontsAssetUsageService,
+        protected readonly AssetsAggregationService $assetsAggregationService,
     )
     {
         foreach ([
@@ -186,6 +187,13 @@ class AssetsService extends AssetManager
         $tag->setContext('extra');
 
         $tags[Asset::EXTENSION_JS]['runtime']['extra'][] = $tag;
+
+        if ($renderPass->enableAggregation) {
+            return $this->assetsAggregationService->buildAggregatedTags(
+                $renderPass->getView(),
+                $tags,
+            );
+        }
 
         return $tags;
     }

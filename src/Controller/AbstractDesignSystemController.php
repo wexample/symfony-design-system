@@ -52,6 +52,18 @@ abstract class AbstractDesignSystemController extends AbstractController
             );
         }
 
+        $renderPass->enableAggregation = $this->getParameterOrDefault(
+            'design_system.enable_aggregation',
+            false
+        );
+
+        $renderPass->setDebug(
+            $this->getParameterOrDefault(
+                'design_system.debug',
+                false
+            )
+        );
+
         $renderPass->setLayoutBase(
             $this->adaptiveResponseService->detectLayoutBase($renderPass)
         );
