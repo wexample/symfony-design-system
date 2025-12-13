@@ -62,8 +62,14 @@ class RenderPass
 
     public function registerRenderNode(
         AbstractRenderNode $renderNode
-    ) {
-        $this->registry[$renderNode->getContextType()][$renderNode->getView()] = $renderNode;
+    ): void {
+        $contextType = $renderNode->getContextType();
+
+        if (!isset($this->registry[$contextType])) {
+            $this->registry[$contextType] = [];
+        }
+
+        $this->registry[$contextType][$renderNode->getView()] = $renderNode;
     }
 
     public function registerContextRenderNode(
