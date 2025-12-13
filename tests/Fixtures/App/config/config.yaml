@@ -1,0 +1,7 @@
+framework:
+  test: true
+  secret: "test"
+
+wexample_symfony_design_system:
+  front_paths:
+    - tests/Fixtures/front/

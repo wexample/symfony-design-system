@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Tests\Unit\Service;
 
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
+use Wexample\SymfonyDesignSystem\Rendering\AssetsRegistry;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
 use Wexample\SymfonyDesignSystem\Service\Usage\DefaultAssetUsageService;
@@ -25,7 +26,12 @@ class AssetsServiceTest extends AbstractSymfonyTestCase
 
     public function testAssetIsReadyForRender()
     {
-        $renderPass = new RenderPass();
+        $renderPass = new RenderPass(
+            view:'test',
+            assetsRegistry: new AssetsRegistry(
+                projectDir: self::getContainer()->getParameter('kernel.project_dir')
+            )
+        );
 
         $this->checkAssetIsReadyForRenderDefault($renderPass);
         $this->checkAssetIsReadyForRenderResponsive($renderPass);
