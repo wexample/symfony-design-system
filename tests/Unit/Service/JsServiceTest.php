@@ -44,7 +44,7 @@ class JsServiceTest extends AbstractSymfonyKernelTestCase
         [$renderPass, $renderNode] = $this->createRenderContext();
 
         $service = new JsService(
-            $this->createMock(NormalizerInterface::class),
+            $this->createStub(NormalizerInterface::class),
             new ParameterBag()
         );
 
@@ -58,7 +58,7 @@ class JsServiceTest extends AbstractSymfonyKernelTestCase
         [$renderPass, $renderNode] = $this->createRenderContext();
 
         $service = new JsService(
-            $this->createMock(NormalizerInterface::class),
+            $this->createStub(NormalizerInterface::class),
             new ParameterBag(['my_param' => 'value-from-parameter'])
         );
 

@@ -70,6 +70,15 @@ Coverage settings are configured in `phpunit.xml`:
 - Test suites: `tests/Unit` and `tests/Integration`
 - Bootstrap: `tests/bootstrap.php`
 
+## Debugging Tests
+
+**View detailed test execution:**
+```bash
+vendor/bin/phpunit tests/ --debug
+```
+
+This shows all PHPUnit notices, warnings, and detailed execution flow.
+
 ## Troubleshooting
 
 **No coverage data generated:**
@@ -79,3 +88,7 @@ Coverage settings are configured in `phpunit.xml`:
 **Tests fail to run:**
 - Ensure dependencies are installed: `composer install`
 - Check test bootstrap file exists: `tests/bootstrap.php`
+
+**PHPUnit notices about mock objects:**
+- Use `createStub()` instead of `createMock()` when no expectations are needed
+- Or add `#[AllowMockObjectsWithoutExpectations]` attribute to test methods
