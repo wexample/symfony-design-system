@@ -122,7 +122,9 @@ class JsServiceTest extends AbstractSymfonyKernelTestCase
 
         $service = new JsService($normalizer, new ParameterBag());
 
-        $this->assertSame(['id' => 21], $service->serializeValue($entity));
+        $context = ['displayFormat' => EntityDto::DISPLAY_FORMAT_DEFAULT];
+
+        $this->assertSame(['id' => 21], $service->serializeValue($entity, $context));
     }
 
     /**
