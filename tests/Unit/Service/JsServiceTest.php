@@ -102,6 +102,29 @@ class JsServiceTest extends AbstractSymfonyKernelTestCase
         $this->assertNull($service->serializeEntity($entity));
     }
 
+    public function testSerializeValueDelegatesToSerializeEntity(): void
+    {
+        $entity = new \Wexample\SymfonyDesignSystem\Tests\Fixtures\Entity\TestEntity(21);
+
+        $normalizer = $this->createMock(NormalizerInterface::class);
+        $normalizer
+            ->expects($this->once())
+            ->method('normalize')
+            ->with(
+                $entity,
+                'jsonld',
+                $this->callback(fn (array $context): bool =>
+                    ($context['displayFormat'] ?? null) === EntityDto::DISPLAY_FORMAT_DEFAULT
+                    && ($context['collection_operation_name'] ?? null) === 'twig_serialize_entity'
+                )
+            )
+            ->willReturn(['id' => 21]);
+
+        $service = new JsService($normalizer, new ParameterBag());
+
+        $this->assertSame(['id' => 21], $service->serializeValue($entity));
+    }
+
     /**
      * @return array{RenderPass, AbstractRenderNode}
      */
