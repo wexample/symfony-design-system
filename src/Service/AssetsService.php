@@ -5,7 +5,6 @@ namespace Wexample\SymfonyDesignSystem\Service;
 use InvalidArgumentException;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\AssetTag;
-use Wexample\SymfonyDesignSystem\Rendering\AssetsRegistry;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\Traits\DesignSystemRenderNodeTrait;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\Usage\AnimationsAssetUsageService;
@@ -115,7 +114,8 @@ class AssetsService extends AssetManager
     public function assetNeedsInitialRender(
         Asset $asset,
         RenderPass $renderPass,
-    ): bool {
+    ): bool
+    {
         return $this->usages[$asset->getUsage()]->assetNeedsInitialRender(
             $asset,
             $renderPass
@@ -138,7 +138,7 @@ class AssetsService extends AssetManager
 
         // Ensure registry has entries for all asset types
         foreach (Asset::ASSETS_EXTENSIONS as $type) {
-            if (! isset($registry[$type])) {
+            if (!isset($registry[$type])) {
                 $registry[$type] = [];
             }
             $tags[$type] = array_fill_keys(Asset::CONTEXTS, []);
@@ -170,7 +170,7 @@ class AssetsService extends AssetManager
 
                     if (empty($tags[$type][$context][$usageName])) {
                         $tag = new AssetTag();
-                        $tag->setId($type.'-'.$usageName.'-'.$context.'-placeholder');
+                        $tag->setId($type . '-' . $usageName . '-' . $context . '-placeholder');
                         $tag->setPath(null);
                         $tag->setUsageName($usageName);
                         $tag->setContext($context);
