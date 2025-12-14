@@ -143,11 +143,11 @@ class RenderPass
 
     public function getDisplayBreakpoints(): array
     {
-        $usagesTypes = $this->usagesConfig[ResponsiveAssetUsageService::getName()]['list'];
+        $usagesTypes = $this->usagesConfig[ResponsiveAssetUsageService::getName()]['list'] ?? [];
         $breakpoints = [];
 
         foreach ($usagesTypes as $name => $config) {
-            $breakpoints[$name] = $config['breakpoint'];
+            $breakpoints[$name] = $config['breakpoint'] ?? null;
         }
 
         return $breakpoints;
