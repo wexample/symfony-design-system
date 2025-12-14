@@ -8,12 +8,12 @@ use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyTranslations\Translation\Translator;
 
-class LayoutService extends RenderNodeService
+class LayoutServiceAbstract extends AbstractRenderNodeService
 {
     #[Pure]
     public function __construct(
         AssetsService $assetsService,
-        private readonly PageService $pageService,
+        private readonly PageServiceAbstract $pageService,
         protected readonly Translator $translator,
     )
     {

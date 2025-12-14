@@ -5,7 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Service;
 use Wexample\WebRenderNode\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 
-abstract class RenderNodeService
+abstract class AbstractRenderNodeService
 {
     public function __construct(
         protected AssetsService $assetsService,

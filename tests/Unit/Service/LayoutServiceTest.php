@@ -8,8 +8,8 @@ use Wexample\SymfonyDesignSystem\Rendering\AssetsRegistry;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
-use Wexample\SymfonyDesignSystem\Service\LayoutService;
-use Wexample\SymfonyDesignSystem\Service\PageService;
+use Wexample\SymfonyDesignSystem\Service\LayoutServiceAbstract;
+use Wexample\SymfonyDesignSystem\Service\PageServiceAbstract;
 use Wexample\SymfonyTranslations\Translation\Translator;
 use Wexample\SymfonyTesting\Tests\AbstractSymfonyKernelTestCase;
 
@@ -19,11 +19,11 @@ class LayoutServiceTest extends AbstractSymfonyKernelTestCase
     {
         $renderPass = $this->createRenderPass();
 
-        /** @var LayoutService&MockObject $service */
-        $service = $this->getMockBuilder(LayoutService::class)
+        /** @var LayoutServiceAbstract&MockObject $service */
+        $service = $this->getMockBuilder(LayoutServiceAbstract::class)
             ->setConstructorArgs([
                 $this->createStub(AssetsService::class),
-                $this->createStub(PageService::class),
+                $this->createStub(PageServiceAbstract::class),
                 $this->createStub(Translator::class),
             ])
             ->onlyMethods(['layoutInit'])
@@ -40,7 +40,7 @@ class LayoutServiceTest extends AbstractSymfonyKernelTestCase
     public function testLayoutInitInitializesLayoutAndPage(): void
     {
         $assetsService = $this->createMock(AssetsService::class);
-        $pageService = $this->createMock(PageService::class);
+        $pageService = $this->createMock(PageServiceAbstract::class);
         $translator = $this->createMock(Translator::class);
 
         $renderPass = $this->createRenderPass();
@@ -73,7 +73,7 @@ class LayoutServiceTest extends AbstractSymfonyKernelTestCase
                 $renderPass->getView()
             );
 
-        $service = new LayoutService(
+        $service = new LayoutServiceAbstract(
             $assetsService,
             $pageService,
             $translator
