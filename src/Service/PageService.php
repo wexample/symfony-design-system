@@ -6,7 +6,7 @@ use Wexample\SymfonyTranslations\Translation\Translator;
 use Wexample\WebRenderNode\Rendering\RenderNode\PageRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 
-class PageServiceAbstract extends AbstractRenderNodeService
+class PageService extends AbstractRenderNodeService
 {
     public function __construct(
         AssetsService $assetsService,

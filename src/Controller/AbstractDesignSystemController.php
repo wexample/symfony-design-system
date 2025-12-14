@@ -16,7 +16,7 @@ use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\AdaptiveResponseService;
 use Wexample\SymfonyDesignSystem\Service\AssetsService;
-use Wexample\SymfonyDesignSystem\Service\LayoutServiceAbstract;
+use Wexample\SymfonyDesignSystem\Service\LayoutService;
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
@@ -27,7 +27,7 @@ abstract class AbstractDesignSystemController extends AbstractController
 {
     public function __construct(
         protected readonly AdaptiveResponseService $adaptiveResponseService,
-        protected readonly LayoutServiceAbstract $layoutService,
+        protected readonly LayoutService $layoutService,
         protected readonly KernelInterface $kernel
     )
     {

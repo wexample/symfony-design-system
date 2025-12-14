@@ -6,13 +6,13 @@ use Exception;
 use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
-use Wexample\SymfonyDesignSystem\Service\LayoutServiceAbstract;
+use Wexample\SymfonyDesignSystem\Service\LayoutService;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
 class LayoutExtension extends AbstractExtension
 {
     public function __construct(
-        private readonly LayoutServiceAbstract $layoutService,
+        private readonly LayoutService $layoutService,
     )
     {
     }
