@@ -178,4 +178,86 @@ class AssetsServiceTest extends AbstractSymfonyKernelTestCase
         $defaultTags = $tags[Asset::EXTENSION_CSS][Asset::CONTEXT_LAYOUT][DefaultAssetUsageService::getName()];
         $this->assertSame('test.css', $defaultTags[0]->getPath());
     }
+
+    public function testAssetsDetectWithExplicitViewRegistersAsset()
+    {
+        $tmp = sys_get_temp_dir() . '/sds-assets-' . uniqid();
+        $manifestDir = $tmp . '/public/build/bundle/css';
+        mkdir($manifestDir, 0777, true);
+        $assetPath = 'build/bundle/css/view.css';
+        file_put_contents($manifestDir . '/view.css', '/* css */');
+        file_put_contents($tmp . '/public/build/manifest.json', json_encode([
+            $assetPath => $assetPath,
+        ]));
+
+        /** @var AssetsService $service */
+        $service = $this->getTestService();
+
+        $assetsRegistry = new AssetsRegistry($tmp);
+        $renderPass = new RenderPass('bundle/view', $assetsRegistry);
+
+        $renderNode = new class extends AbstractRenderNode {
+            public function __construct()
+            {
+                $this->setView('bundle/view');
+            }
+            public function getContextType(): string
+            {
+                return Asset::CONTEXT_PAGE;
+            }
+            public function getInheritanceStack(): array
+            {
+                return [$this->getView()];
+            }
+        };
+
+        $service->assetsDetect($renderPass, $renderNode, 'bundle/view');
+
+        $registry = $renderPass->getAssetsRegistry()->getRegistry();
+        $this->assertArrayHasKey(Asset::EXTENSION_CSS, $registry);
+        $this->assertNotEmpty($registry[Asset::EXTENSION_CSS]);
+    }
+
+    public function testBuildTagsAggregatesWhenEnabled()
+    {
+        $tmp = sys_get_temp_dir() . '/sds-agg-' . uniqid();
+        $manifestDir = $tmp . '/public/build/bundle/css';
+        mkdir($manifestDir, 0777, true);
+        $assetPath = 'build/bundle/css/view.css';
+        file_put_contents($manifestDir . '/view.css', '/* css */');
+        file_put_contents($tmp . '/public/build/manifest.json', json_encode([
+            $assetPath => $assetPath,
+        ]));
+
+        /** @var DefaultAssetUsageService $defaultUsage */
+        $defaultUsage = self::getContainer()->get(DefaultAssetUsageService::class);
+        $aggregation = $this->createMock(AssetsAggregationService::class);
+        $aggregation->expects($this->once())->method('buildAggregatedTags')->willReturn([]);
+
+        $service = new AssetsService(
+            self::getContainer()->get(AnimationsAssetUsageService::class),
+            self::getContainer()->get(ColorSchemeAssetUsageService::class),
+            $defaultUsage,
+            self::getContainer()->get(MarginsAssetUsageService::class),
+            self::getContainer()->get(ResponsiveAssetUsageService::class),
+            self::getContainer()->get(FontsAssetUsageService::class),
+            $aggregation
+        );
+
+        $assetsRegistry = new AssetsRegistry($tmp);
+        $assetsRegistry->addAsset(
+            new Asset(
+                'build/bundle/css/view.css',
+                'bundle/view',
+                $defaultUsage->getName(),
+                Asset::CONTEXT_LAYOUT
+            )
+        );
+
+        $renderPass = new RenderPass('bundle/view', $assetsRegistry);
+        $renderPass->enableAggregation = true;
+        $renderPass->usagesConfig[$defaultUsage->getName()]['list'] = [];
+
+        $service->buildTags($renderPass);
+    }
 }
