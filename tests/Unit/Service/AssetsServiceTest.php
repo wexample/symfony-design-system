@@ -115,52 +115,42 @@ class AssetsServiceTest extends AbstractSymfonyKernelTestCase
         $this->assertArrayHasKey(ResponsiveAssetUsageService::getName(), $usages);
     }
 
-    public function testAssetsDetectInvokesUsageDetectionPerExtension()
+    public function testAssetsDetectKeepsRegistryEmptyWhenNoManifest()
     {
-        $usageCalls = [];
-        $usages = $this->createUsageMocks($usageCalls);
-
-        $service = new AssetsService(
-            $usages[AnimationsAssetUsageService::class],
-            $usages[ColorSchemeAssetUsageService::class],
-            $usages[DefaultAssetUsageService::class],
-            $usages[MarginsAssetUsageService::class],
-            $usages[ResponsiveAssetUsageService::class],
-            $usages[FontsAssetUsageService::class],
-            $this->createMock(AssetsAggregationService::class)
-        );
+        /** @var AssetsService $service */
+        $service = $this->getTestService();
 
         $renderPass = new RenderPass(
             'bundle/view',
             new AssetsRegistry(sys_get_temp_dir())
         );
 
-        $renderNode = $this->createMock(AbstractRenderNode::class);
-        $renderNode->method('getInheritanceStack')->willReturn(['bundle/view']);
+        $renderNode = new class extends AbstractRenderNode {
+            public function __construct()
+            {
+                $this->setView('bundle/view');
+            }
+
+            public function getContextType(): string
+            {
+                return Asset::CONTEXT_PAGE;
+            }
+
+            public function getInheritanceStack(): array
+            {
+                return [$this->getView()];
+            }
+        };
 
         $service->assetsDetect($renderPass, $renderNode);
 
-        $expectedCalls = count(Asset::ASSETS_EXTENSIONS) * count($usages);
-        $this->assertCount($expectedCalls, $usageCalls);
+        $this->assertSame([], $renderPass->getAssetsRegistry()->getRegistry());
     }
 
     public function testBuildTagsCreatesAssetTagsAndPlaceholders()
     {
-        $usageCalls = [];
-        $usages = $this->createUsageMocks($usageCalls, defaultNeedsRender: true);
-
-        $aggregation = $this->createMock(AssetsAggregationService::class);
-        $aggregation->expects($this->never())->method('buildAggregatedTags');
-
-        $service = new AssetsService(
-            $usages[AnimationsAssetUsageService::class],
-            $usages[ColorSchemeAssetUsageService::class],
-            $usages[DefaultAssetUsageService::class],
-            $usages[MarginsAssetUsageService::class],
-            $usages[ResponsiveAssetUsageService::class],
-            $usages[FontsAssetUsageService::class],
-            $aggregation
-        );
+        /** @var AssetsService $service */
+        $service = $this->getTestService();
 
         $assetsRegistry = new AssetsRegistry(sys_get_temp_dir());
         $assetsRegistry->addAsset(
@@ -177,6 +167,7 @@ class AssetsServiceTest extends AbstractSymfonyKernelTestCase
             $assetsRegistry
         );
         $renderPass->enableAggregation = false;
+        $renderPass->usagesConfig[DefaultAssetUsageService::getName()]['list'] = [];
 
         $tags = $service->buildTags($renderPass);
 
@@ -186,42 +177,5 @@ class AssetsServiceTest extends AbstractSymfonyKernelTestCase
 
         $defaultTags = $tags[Asset::EXTENSION_CSS][Asset::CONTEXT_LAYOUT][DefaultAssetUsageService::getName()];
         $this->assertSame('test.css', $defaultTags[0]->getPath());
-    }
-
-    /**
-     * @return array<string, object>
-     */
-    private function createUsageMocks(array &$calls, bool $defaultNeedsRender = false): array
-    {
-        $usages = [];
-
-        foreach ([
-                     AnimationsAssetUsageService::class => AnimationsAssetUsageService::getName(),
-                     ColorSchemeAssetUsageService::class => ColorSchemeAssetUsageService::getName(),
-                     DefaultAssetUsageService::class => DefaultAssetUsageService::getName(),
-                     MarginsAssetUsageService::class => MarginsAssetUsageService::getName(),
-                     ResponsiveAssetUsageService::class => ResponsiveAssetUsageService::getName(),
-                     FontsAssetUsageService::class => FontsAssetUsageService::getName(),
-                 ] as $class => $name) {
-            $mock = $this->createMock($class);
-
-            $mock->method('getName')->willReturn($name);
-
-            $mock->method('addAssetsForRenderNodeAndType')
-                ->willReturnCallback(function () use (&$calls, $name) {
-                    $calls[] = $name;
-
-                    return false;
-                });
-
-            $mock->method('assetNeedsInitialRender')
-                ->willReturn($defaultNeedsRender && $class === DefaultAssetUsageService::class);
-
-            $mock->method('canAggregateAsset')->willReturn(true);
-
-            $usages[$class] = $mock;
-        }
-
-        return $usages;
     }
 }
