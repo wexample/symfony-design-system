@@ -1,27 +1,81 @@
-Test coverage cheatsheet (run from host with Docker)
----------------------------------------------------
+# Testing Guide
 
-ok
-> apk add --no-cache php82-pecl-xdebug
+## Prerequisites
 
-ok
-apk add --no-cache \
---repository=https://dl-cdn.alpinelinux.org/alpine/edge/main \
---repository=https://dl-cdn.alpinelinux.org/alpine/edge/community \
-php83 php83-dev php83-pear php83-xml php83-pecl-xdebug
+### Coverage Engine Installation
 
----
+The package uses **PCOV** for code coverage (lightweight alternative to Xdebug).
 
-Prereqs
-- Inside the container, PHP must have a coverage engine (Xdebug or pcov). Check: `docker exec -ti responsite_local_symfony php -m | grep -E 'xdebug|pcov'`.
-- With Xdebug, enable coverage per run: prefix commands with `XDEBUG_MODE=coverage`. With pcov, set `PCOV_ENABLED=1`.
+**Install PCOV (Alpine Linux):**
+```bash
+apk add --no-cache php83-dev autoconf g++ make
+pecl install pcov
+echo 'extension=pcov.so' > /usr/local/etc/php/conf.d/pcov.ini
+```
 
-Run tests with coverage (container)
-- Text report: `docker exec -ti responsite_local_symfony bash -c "cd /var/www/html/vendor/wexample/symfony-design-system && XDEBUG_MODE=coverage vendor/bin/phpunit tests/ --coverage-text"`
-- HTML report: `docker exec -ti responsite_local_symfony bash -c "cd /var/www/html/vendor/wexample/symfony-design-system && XDEBUG_MODE=coverage vendor/bin/phpunit tests/ --coverage-html var/coverage"`
-  - Open `var/coverage/index.html` to inspect.
-- Clover (CI): `docker exec -ti responsite_local_symfony bash -c "cd /var/www/html/vendor/wexample/symfony-design-system && XDEBUG_MODE=coverage vendor/bin/phpunit tests/ --coverage-clover var/coverage/clover.xml"`
+**Verify installation:**
+```bash
+php -m | grep pcov
+```
 
-Notes
-- The Docker daemon must be accessible from the host to run `docker exec`.
-- If coverage flags are ignored, the PHP build in the container likely lacks Xdebug/pcov or the engine is disabled. Install/enable it, then rerun with the commands above.
+## Running Tests
+
+All commands below should be executed **inside the container** in the package directory:
+```bash
+cd /var/www/html/vendor/wexample/symfony-design-system/
+```
+
+### Basic Test Execution
+
+**Run all tests:**
+```bash
+vendor/bin/phpunit tests/
+```
+
+**Run specific test suite:**
+```bash
+vendor/bin/phpunit tests/Unit
+vendor/bin/phpunit tests/Integration
+```
+
+## Code Coverage
+
+### HTML Report (Recommended)
+
+Generate an interactive HTML coverage report:
+```bash
+vendor/bin/phpunit tests/ --coverage-html var/coverage
+```
+
+View the report by opening `var/coverage/index.html` in your browser.
+
+### Text Report
+
+Quick coverage summary in terminal:
+```bash
+vendor/bin/phpunit tests/ --coverage-text
+```
+
+### Clover XML (CI/CD)
+
+Generate coverage report for CI tools:
+```bash
+vendor/bin/phpunit tests/ --coverage-clover var/coverage/clover.xml
+```
+
+## Configuration
+
+Coverage settings are configured in `phpunit.xml`:
+- Source directory: `src/`
+- Test suites: `tests/Unit` and `tests/Integration`
+- Bootstrap: `tests/bootstrap.php`
+
+## Troubleshooting
+
+**No coverage data generated:**
+- Verify PCOV is installed: `php -m | grep pcov`
+- Check `phpunit.xml` has `<source>` section configured
+
+**Tests fail to run:**
+- Ensure dependencies are installed: `composer install`
+- Check test bootstrap file exists: `tests/bootstrap.php`
