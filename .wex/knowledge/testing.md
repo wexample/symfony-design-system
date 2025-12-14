@@ -44,7 +44,7 @@ vendor/bin/phpunit tests/Integration
 
 Generate an interactive HTML coverage report:
 ```bash
-vendor/bin/phpunit tests/ --coverage-html var/coverage
+vendor/bin/phpunit tests/ --coverage-html var/coverage --display-warnings
 ```
 
 View the report by opening `var/coverage/index.html` in your browser.
