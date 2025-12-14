@@ -181,19 +181,10 @@ class AssetsServiceTest extends AbstractSymfonyKernelTestCase
 
     public function testAssetsDetectWithExplicitViewRegistersAsset()
     {
-        $tmp = sys_get_temp_dir() . '/sds-assets-' . uniqid();
-        $manifestDir = $tmp . '/public/build/bundle/css';
-        mkdir($manifestDir, 0777, true);
-        $assetPath = 'build/bundle/css/view.css';
-        file_put_contents($manifestDir . '/view.css', '/* css */');
-        file_put_contents($tmp . '/public/build/manifest.json', json_encode([
-            $assetPath => $assetPath,
-        ]));
-
         /** @var AssetsService $service */
         $service = $this->getTestService();
 
-        $assetsRegistry = new AssetsRegistry($tmp);
+        $assetsRegistry = new AssetsRegistry($this->getFixtureProjectDir());
         $renderPass = new RenderPass('bundle/view', $assetsRegistry);
 
         $renderNode = new class extends AbstractRenderNode {
@@ -220,15 +211,6 @@ class AssetsServiceTest extends AbstractSymfonyKernelTestCase
 
     public function testBuildTagsAggregatesWhenEnabled()
     {
-        $tmp = sys_get_temp_dir() . '/sds-agg-' . uniqid();
-        $manifestDir = $tmp . '/public/build/bundle/css';
-        mkdir($manifestDir, 0777, true);
-        $assetPath = 'build/bundle/css/view.css';
-        file_put_contents($manifestDir . '/view.css', '/* css */');
-        file_put_contents($tmp . '/public/build/manifest.json', json_encode([
-            $assetPath => $assetPath,
-        ]));
-
         /** @var DefaultAssetUsageService $defaultUsage */
         $defaultUsage = self::getContainer()->get(DefaultAssetUsageService::class);
         $aggregation = $this->createMock(AssetsAggregationService::class);
@@ -244,7 +226,7 @@ class AssetsServiceTest extends AbstractSymfonyKernelTestCase
             $aggregation
         );
 
-        $assetsRegistry = new AssetsRegistry($tmp);
+        $assetsRegistry = new AssetsRegistry($this->getFixtureProjectDir());
         $assetsRegistry->addAsset(
             new Asset(
                 'build/bundle/css/view.css',
@@ -259,5 +241,10 @@ class AssetsServiceTest extends AbstractSymfonyKernelTestCase
         $renderPass->usagesConfig[$defaultUsage->getName()]['list'] = [];
 
         $service->buildTags($renderPass);
+    }
+
+    private function getFixtureProjectDir(): string
+    {
+        return __DIR__.'/../../Fixtures/assets';
     }
 }
