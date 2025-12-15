@@ -97,4 +97,69 @@ class GenerateEncoreManifestCommandTest extends TestCase
         $this->assertFileExists($customPath);
         $this->assertSame($manifest, json_decode(file_get_contents($customPath), true));
     }
+
+    public function testExecuteFailsWhenJsonWriteFails(): void
+    {
+        // json_encode will return false with NAN values.
+        $manifest = ['fronts' => [NAN]];
+        $outputPath = $this->tmpDir.'/assets/manifest.json';
+
+        $builder = $this->createStub(EncoreManifestBuilder::class);
+        $builder->method('build')->willReturn($manifest);
+
+        $tsconfig = $this->createStub(TsconfigPathsSynchronizer::class);
+
+        $kernel = $this->createStub(KernelInterface::class);
+        $kernel->method('getProjectDir')->willReturn($this->tmpDir);
+
+        $command = new GenerateEncoreManifestCommand(
+            $this->createStub(BundleService::class),
+            $builder,
+            $tsconfig,
+            $kernel,
+            new Filesystem()
+        );
+
+        $tester = new CommandTester($command);
+        $status = $tester->execute(['--output' => $outputPath]);
+
+        $this->assertSame(\Symfony\Component\Console\Command\Command::FAILURE, $status);
+        $this->assertFileDoesNotExist($outputPath);
+    }
+
+    public function testExecuteWithAbsolutePathOutsideProjectDisplaysAbsolute(): void
+    {
+        $projectDir = $this->tmpDir.'/projectA';
+        $outsideDir = $this->tmpDir.'/projectB';
+        (new Filesystem())->mkdir([$projectDir, $outsideDir]);
+
+        $manifest = ['fronts' => [], 'version' => 'x'];
+        $outputPath = $outsideDir.'/custom-manifest.json';
+
+        $builder = $this->createStub(EncoreManifestBuilder::class);
+        $builder->method('build')->willReturn($manifest);
+
+        $tsconfig = $this->createMock(TsconfigPathsSynchronizer::class);
+        $tsconfig->expects($this->never())->method('sync');
+
+        $kernel = $this->createStub(KernelInterface::class);
+        $kernel->method('getProjectDir')->willReturn($projectDir);
+
+        $command = new GenerateEncoreManifestCommand(
+            $this->createStub(BundleService::class),
+            $builder,
+            $tsconfig,
+            $kernel,
+            new Filesystem()
+        );
+
+        $tester = new CommandTester($command);
+        $tester->execute([
+            '--output' => $outputPath,
+            '--sync-tsconfig' => false,
+        ]);
+
+        $this->assertFileExists($outputPath);
+        $this->assertStringContainsString($outputPath, $tester->getDisplay());
+    }
 }
