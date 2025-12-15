@@ -86,6 +86,8 @@ class EncoreManifestBuilderTest extends TestCase
         file_put_contents($frontDir.'/components/button.ts', '// component');
         file_put_contents($frontDir.'/forms/form.ts', '// form');
         file_put_contents($frontDir.'/vue/foo.vue', '<template></template>');
+        // Ignored underscore file
+        file_put_contents($frontDir.'/components/_ignore.ts', '// ignore');
 
         $kernel = $this->createStub(KernelInterface::class);
         $kernel->method('getProjectDir')->willReturn($this->tmpDir);
@@ -125,6 +127,10 @@ class EncoreManifestBuilderTest extends TestCase
         $this->assertNotNull($pageWrapper);
         $this->assertSame('pages', $pageWrapper['type']);
         $this->assertSame('@AppBundle/pages/home', $pageWrapper['className']);
+
+        // Ensure ignored file is not present
+        $componentPaths = array_column($entries['js']['components'], 'relative');
+        $this->assertNotContains('components/_ignore.ts', $componentPaths);
     }
 
     public function testBuildProjectRelativePathUsesVendorSymlink(): void
@@ -164,6 +170,68 @@ class EncoreManifestBuilderTest extends TestCase
         $result = $this->invokePrivate($builder, 'ensureTrailingSeparatorIfDirectory', [$dir]);
 
         $this->assertStringEndsWith(DIRECTORY_SEPARATOR, $result);
+    }
+
+    public function testBuildProjectRelativePathReturnsAbsoluteWhenOutside(): void
+    {
+        $kernel = $this->createStub(KernelInterface::class);
+        $kernel->method('getProjectDir')->willReturn($this->tmpDir.'/project-no-vendor');
+
+        $builder = new EncoreManifestBuilder($kernel, new ParameterBag([]));
+
+        $absolute = $this->tmpDir.'/outside/file.js';
+        $this->fs->dumpFile($absolute, '//');
+
+        $relative = $this->invokePrivate($builder, 'buildProjectRelativePath', [$absolute]);
+
+        $this->assertSame($absolute, $relative);
+    }
+
+    public function testVendorSymlinkCacheSkipsNonLinksAndBrokenLinks(): void
+    {
+        $projectDir = $this->tmpDir.'/proj2';
+        $vendorDir = $projectDir.'/vendor';
+        $this->fs->mkdir($vendorDir);
+
+        // Non-link file
+        $this->fs->dumpFile($vendorDir.'/file.txt', 'x');
+        // Broken symlink
+        @symlink($projectDir.'/missing', $vendorDir.'/broken');
+
+        $kernel = $this->createStub(KernelInterface::class);
+        $kernel->method('getProjectDir')->willReturn($projectDir);
+
+        $builder = new EncoreManifestBuilder($kernel, new ParameterBag([]));
+
+        $cache = $this->invokePrivate($builder, 'getVendorSymlinkCache', []);
+        // Second call hits cached branch.
+        $cache = $this->invokePrivate($builder, 'getVendorSymlinkCache', []);
+
+        $this->assertSame([], $cache);
+    }
+
+    public function testMergeEntriesCreatesMissingCategories(): void
+    {
+        $kernel = $this->createStub(KernelInterface::class);
+        $kernel->method('getProjectDir')->willReturn($this->tmpDir);
+        $builder = new EncoreManifestBuilder($kernel, new ParameterBag([]));
+
+        $target = [
+            'css' => [],
+            'js' => ['main' => []],
+        ];
+
+        $assets = [
+            'css' => [],
+            'js' => [
+                'newcat' => [['relative' => 'file.js']],
+            ],
+        ];
+
+        $this->invokePrivate($builder, 'mergeEntries', [&$target, $assets]);
+
+        $this->assertArrayHasKey('newcat', $target['js']);
+        $this->assertSame('file.js', $target['js']['newcat'][0]['relative']);
     }
 
     /**
