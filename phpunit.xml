@@ -26,11 +26,11 @@
             <directory suffix=".php">src</directory>
         </include>
         <exclude>
+            <directory prefix="Abstract">src/Controller</directory>
+            <directory suffix=".php">src/DependencyInjection</directory>
             <file>src/Command/CheckNodeInstallCommand.php</file>
-            <file>src/Controller/Config/AbstractDesignSystemShowcaseController.php</file>
-            <file>src/Controller/AbstractDesignSystemController.php</file>
-            <file>src/Controller/AbstractPagesController.php</file>
             <file>src/Interface/DesignSystemBundleInterface.php</file>
+            <file>src/WexampleSymfonyDesignSystemBundle.php</file>
         </exclude>
     </source>
 
