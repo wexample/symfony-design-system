@@ -243,6 +243,43 @@ class AssetsServiceTest extends AbstractSymfonyKernelTestCase
         $service->buildTags($renderPass);
     }
 
+    public function testAssetsDetectLoadsAssetsForAllUsages()
+    {
+        /** @var AssetsService $service */
+        $service = $this->getTestService();
+
+        $renderPass = new RenderPass(
+            'bundle/view',
+            new AssetsRegistry($this->getFixtureProjectDir())
+        );
+
+        $renderPass->usagesConfig = [
+            ColorSchemeAssetUsageService::getName() => ['list' => ['dark' => []]],
+            ResponsiveAssetUsageService::getName() => ['list' => ['m' => ['breakpoint' => 768]]],
+            MarginsAssetUsageService::getName() => ['list' => ['default' => []]],
+            AnimationsAssetUsageService::getName() => ['list' => ['none' => []]],
+            FontsAssetUsageService::getName() => ['list' => ['none' => []]],
+        ];
+
+        $renderNode = new class extends AbstractRenderNode {
+            use \Wexample\SymfonyDesignSystem\Rendering\RenderNode\Traits\DesignSystemRenderNodeTrait;
+            public function __construct() { $this->setView('bundle/view'); }
+            public function getContextType(): string { return Asset::CONTEXT_PAGE; }
+        };
+
+        $service->assetsDetect($renderPass, $renderNode);
+
+        $cssAssets = $renderNode->getAssets()[Asset::EXTENSION_CSS] ?? [];
+        $paths = array_map(static fn(Asset $asset) => $asset->getPath(), $cssAssets);
+
+        $this->assertContains('build/bundle/css/view.css', $paths);
+        $this->assertContains('build/bundle/css/view.color-scheme.dark.css', $paths);
+        $this->assertContains('build/bundle/css/view.responsive.m.css', $paths);
+        $this->assertContains('build/bundle/css/view.margins.default.css', $paths);
+        $this->assertContains('build/bundle/css/view.animations.none.css', $paths);
+        $this->assertContains('build/bundle/css/view.fonts.none.css', $paths);
+    }
+
     private function getFixtureProjectDir(): string
     {
         return __DIR__.'/../../Fixtures/assets';

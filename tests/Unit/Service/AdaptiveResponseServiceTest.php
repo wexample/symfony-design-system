@@ -45,7 +45,7 @@ class AdaptiveResponseServiceTest extends AbstractSymfonyKernelTestCase
         $stack = new RequestStack();
         $stack->push(new Request());
 
-        $renderPass = $this->createMock(RenderPass::class);
+        $renderPass = $this->createStub(RenderPass::class);
         $renderPass->method('isJsonRequest')->willReturn(true);
 
         $service = new AdaptiveResponseService($stack);
@@ -61,7 +61,7 @@ class AdaptiveResponseServiceTest extends AbstractSymfonyKernelTestCase
         $stack = new RequestStack();
         $stack->push(new Request());
 
-        $renderPass = $this->createMock(RenderPass::class);
+        $renderPass = $this->createStub(RenderPass::class);
         $renderPass->method('isJsonRequest')->willReturn(false);
 
         $service = new AdaptiveResponseService($stack);
@@ -77,7 +77,7 @@ class AdaptiveResponseServiceTest extends AbstractSymfonyKernelTestCase
         $stack = new RequestStack();
         $stack->push(new Request());
 
-        $renderPass = $this->createMock(RenderPass::class);
+        $renderPass = $this->createStub(RenderPass::class);
         $renderPass->method('getOutputType')->willReturn(RenderPass::OUTPUT_TYPE_RESPONSE_HTML);
         $renderPass->method('getLayoutBase')->willReturn(RenderPass::BASE_DEFAULT);
 
