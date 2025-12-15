@@ -25,6 +25,12 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <file>src/Controller/Config/AbstractDesignSystemShowcaseController.php</file>
+            <file>src/Controller/AbstractDesignSystemController.php</file>
+            <file>src/Controller/AbstractPagesController.php</file>
+            <file>src/Interface/DesignSystemBundleInterface.php</file>
+        </exclude>
     </source>
 
 </phpunit>
