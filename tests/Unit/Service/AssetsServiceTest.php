@@ -255,7 +255,10 @@ class AssetsServiceTest extends AbstractSymfonyKernelTestCase
 
         $renderPass->usagesConfig = [
             ColorSchemeAssetUsageService::getName() => ['list' => ['dark' => []]],
-            ResponsiveAssetUsageService::getName() => ['list' => ['m' => ['breakpoint' => 768]]],
+            ResponsiveAssetUsageService::getName() => [
+                'default' => 'm',
+                'list' => ['m' => ['breakpoint' => 768, 'allow_switch' => false]]
+            ],
             MarginsAssetUsageService::getName() => ['list' => ['default' => []]],
             AnimationsAssetUsageService::getName() => ['list' => ['none' => []]],
             FontsAssetUsageService::getName() => ['list' => ['none' => []]],
@@ -266,6 +269,7 @@ class AssetsServiceTest extends AbstractSymfonyKernelTestCase
             public function __construct() { $this->setView('bundle/view'); }
             public function getContextType(): string { return Asset::CONTEXT_PAGE; }
         };
+        $renderNode->setDefaultView('bundle/view');
 
         $service->assetsDetect($renderPass, $renderNode);
 
@@ -274,7 +278,7 @@ class AssetsServiceTest extends AbstractSymfonyKernelTestCase
 
         $this->assertContains('build/bundle/css/view.css', $paths);
         $this->assertContains('build/bundle/css/view.color-scheme.dark.css', $paths);
-        $this->assertContains('build/bundle/css/view.responsive.m.css', $paths);
+        $this->assertContains('build/bundle/css/view-m.css', $paths);
         $this->assertContains('build/bundle/css/view.margins.default.css', $paths);
         $this->assertContains('build/bundle/css/view.animations.none.css', $paths);
         $this->assertContains('build/bundle/css/view.fonts.none.css', $paths);
