@@ -27,6 +27,43 @@ class EncoreManifestBuilderTest extends TestCase
         parent::tearDown();
     }
 
+    public function testBuildWithNoFrontPathsReturnsEmpty(): void
+    {
+        $kernel = $this->createStub(KernelInterface::class);
+        $kernel->method('getProjectDir')->willReturn($this->tmpDir);
+
+        $builder = new EncoreManifestBuilder($kernel, new ParameterBag([]));
+
+        $manifest = $builder->build();
+
+        $this->assertSame(0, $manifest['frontCount']);
+        $this->assertSame([], $manifest['fronts']);
+    }
+
+    public function testBuildBundleTagDefaultsToFrontForNumericKey(): void
+    {
+        $frontDir = $this->tmpDir.'/front-num';
+        $this->fs->mkdir($frontDir);
+
+        $kernel = $this->createStub(KernelInterface::class);
+        $kernel->method('getProjectDir')->willReturn($this->tmpDir);
+
+        $builder = new EncoreManifestBuilder(
+            $kernel,
+            new ParameterBag([
+                'design_system_packages_front_paths' => [
+                    'app' => [
+                        0 => $frontDir,
+                    ],
+                ],
+            ])
+        );
+
+        $manifest = $builder->build();
+
+        $this->assertSame('@front', $manifest['fronts'][0]['bundle']);
+    }
+
     public function testBuildGeneratesEntriesForFrontPaths(): void
     {
         $frontDir = $this->tmpDir.'/front';
@@ -88,5 +125,57 @@ class EncoreManifestBuilderTest extends TestCase
         $this->assertNotNull($pageWrapper);
         $this->assertSame('pages', $pageWrapper['type']);
         $this->assertSame('@AppBundle/pages/home', $pageWrapper['className']);
+    }
+
+    public function testBuildProjectRelativePathUsesVendorSymlink(): void
+    {
+        $projectDir = $this->tmpDir.'/project';
+        $vendorDir = $projectDir.'/vendor';
+        $targetDir = $this->tmpDir.'/linked/pkg/';
+        $this->fs->mkdir($targetDir);
+        $this->fs->mkdir($vendorDir);
+
+        $filePath = $targetDir.'file.js';
+        file_put_contents($filePath, '//');
+
+        // Create symlink inside vendor pointing to targetDir.
+        $vendorSymlink = $vendorDir.'/pkg';
+        $this->fs->symlink($targetDir, $vendorSymlink);
+
+        $kernel = $this->createStub(KernelInterface::class);
+        $kernel->method('getProjectDir')->willReturn($projectDir);
+
+        $builder = new EncoreManifestBuilder($kernel, new ParameterBag([]));
+
+        $relative = $this->invokePrivate($builder, 'buildProjectRelativePath', [$filePath]);
+
+        $this->assertSame('./vendor/pkg/file.js', $relative);
+    }
+
+    public function testEnsureTrailingSeparatorIfDirectoryAppendsSlash(): void
+    {
+        $dir = $this->tmpDir.'/dir-without-slash';
+        $this->fs->mkdir($dir);
+
+        $kernel = $this->createStub(KernelInterface::class);
+        $kernel->method('getProjectDir')->willReturn($this->tmpDir);
+        $builder = new EncoreManifestBuilder($kernel, new ParameterBag([]));
+
+        $result = $this->invokePrivate($builder, 'ensureTrailingSeparatorIfDirectory', [$dir]);
+
+        $this->assertStringEndsWith(DIRECTORY_SEPARATOR, $result);
+    }
+
+    /**
+     * @param object $object
+     * @param string $method
+     * @param array<int,mixed> $args
+     */
+    private function invokePrivate(object $object, string $method, array $args)
+    {
+        $refMethod = new \ReflectionMethod($object, $method);
+        $refMethod->setAccessible(true);
+
+        return $refMethod->invokeArgs($object, $args);
     }
 }
