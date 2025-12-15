@@ -70,7 +70,7 @@ class GenerateEncoreManifestCommandTest extends TestCase
         $manifest = ['fronts' => [], 'version' => 'x'];
         $customPath = $this->tmpDir.'/custom/manifest.json';
 
-        $builder = $this->createMock(EncoreManifestBuilder::class);
+        $builder = $this->createStub(EncoreManifestBuilder::class);
         $builder->method('build')->willReturn($manifest);
 
         $tsconfig = $this->createMock(TsconfigPathsSynchronizer::class);
