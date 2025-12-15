@@ -284,6 +284,55 @@ class AssetsServiceTest extends AbstractSymfonyKernelTestCase
         $this->assertContains('build/bundle/css/view.fonts.none.css', $paths);
     }
 
+    public function testDefaultAssetNeedsInitialRenderFollowsUseJsFlag()
+    {
+        /** @var DefaultAssetUsageService $defaultUsage */
+        $defaultUsage = self::getContainer()->get(DefaultAssetUsageService::class);
+
+        $renderPass = new RenderPass(
+            'bundle/view',
+            new AssetsRegistry($this->getFixtureProjectDir())
+        );
+
+        $asset = new Asset(
+            'test.js',
+            'bundle/view',
+            $defaultUsage->getName(),
+            Asset::CONTEXT_PAGE
+        );
+
+        $renderPass->setUseJs(false);
+        $this->assertFalse($defaultUsage->assetNeedsInitialRender($asset, $renderPass));
+
+        $renderPass->setUseJs(true);
+        $this->assertTrue($defaultUsage->assetNeedsInitialRender($asset, $renderPass));
+    }
+
+    public function testResponsiveAssetNeedsInitialRenderWhenJsDisabled()
+    {
+        /** @var ResponsiveAssetUsageService $responsiveUsage */
+        $responsiveUsage = self::getContainer()->get(ResponsiveAssetUsageService::class);
+
+        $renderPass = new RenderPass(
+            'bundle/view',
+            new AssetsRegistry($this->getFixtureProjectDir())
+        );
+
+        $asset = new Asset(
+            'test.css',
+            'bundle/view',
+            $responsiveUsage->getName(),
+            Asset::CONTEXT_PAGE
+        );
+        $asset->addUsageValue($responsiveUsage->getName(), 'm');
+
+        $renderPass->setUseJs(true);
+        $this->assertFalse($responsiveUsage->assetNeedsInitialRender($asset, $renderPass));
+
+        $renderPass->setUseJs(false);
+        $this->assertTrue($responsiveUsage->assetNeedsInitialRender($asset, $renderPass));
+    }
+
     private function getFixtureProjectDir(): string
     {
         return __DIR__.'/../../Fixtures/assets';
