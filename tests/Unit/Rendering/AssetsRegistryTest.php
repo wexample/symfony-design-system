@@ -6,6 +6,22 @@ use PHPUnit\Framework\TestCase;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\AssetsRegistry;
 
+class FailStreamWrapper
+{
+    public function stream_open(): bool
+    {
+        return false;
+    }
+
+    public function url_stat(): array
+    {
+        // Regular file mode to make is_file() return true.
+        return [
+            'mode' => 0100000,
+        ];
+    }
+}
+
 class AssetsRegistryTest extends TestCase
 {
     public function testLoadManifestErrors(): void
@@ -18,6 +34,21 @@ class AssetsRegistryTest extends TestCase
 
         $this->expectException(\RuntimeException::class);
         new AssetsRegistry($tmp);
+    }
+
+    public function testLoadManifestReadFailureThrows(): void
+    {
+        $protocol = 'fail'.uniqid();
+
+        stream_wrapper_register($protocol, FailStreamWrapper::class);
+
+        try {
+            $projectDir = $protocol.'://root';
+            $this->expectException(\RuntimeException::class);
+            new AssetsRegistry($projectDir);
+        } finally {
+            stream_wrapper_unregister($protocol);
+        }
     }
 
     public function testManifestAccessorsAndRealPath(): void
@@ -35,6 +66,8 @@ class AssetsRegistryTest extends TestCase
         $this->assertTrue($registry->assetExists('entry.js'));
         $this->assertSame('build/main.js', $registry->getBuiltPath('entry.js'));
         $this->assertNotNull($registry->getRealPath('entry.js'));
+        $this->assertNull($registry->getRealPath('missing.js'));
+        $this->assertSame(['entry.js' => 'build/main.js'], $registry->getManifest());
     }
 
     public function testAddAssetToArrayAndJsonSerialize(): void
