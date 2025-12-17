@@ -7,8 +7,10 @@ use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyTemplate\Helper\TemplateHelper;
 
-trait DesignSystemRenderNodeTrait {
+trait DesignSystemRenderNodeTrait
+{
     private array $inheritanceStack = [];
+    private bool $init = false;
 
     public function init(
         RenderPass $renderPass,
@@ -27,6 +29,8 @@ trait DesignSystemRenderNodeTrait {
 
         $renderPass->registerContextRenderNode($this);
         $renderPass->registerRenderNode($this);
+
+        $this->setInit(true);
     }
 
     public function getContextRenderNodeKey(): string
@@ -41,7 +45,7 @@ trait DesignSystemRenderNodeTrait {
     {
         $view = TemplateHelper::removeExtension($view);
 
-        if (! $this->getView()) {
+        if (!$this->getView()) {
             $this->setView($view);
         }
 
@@ -51,5 +55,15 @@ trait DesignSystemRenderNodeTrait {
     public function getInheritanceStack(): array
     {
         return $this->inheritanceStack;
+    }
+
+    public function isInit(): bool
+    {
+        return $this->init;
+    }
+
+    public function setInit(bool $init): void
+    {
+        $this->init = $init;
     }
 }

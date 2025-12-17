@@ -56,8 +56,14 @@ class LayoutExtension extends AbstractExtension
 
     public function layoutRenderInitialData(RenderPass $renderPass): array
     {
-        return $renderPass
-            ->getLayoutRenderNode()
-            ->toArray();
+        $layoutRenderNode = $renderPass->getLayoutRenderNode();
+
+        if (!$layoutRenderNode->isInit()) {
+            return [
+                'error' => 'Layout has not been initialized with layout_initial_init(render_pass) function'
+            ];
+        }
+
+        return $layoutRenderNode->toArray();
     }
 }

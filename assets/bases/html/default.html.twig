@@ -28,7 +28,9 @@
     </head>
     <body class="{{ body_class|default('') }}">
     <div id="layout-initial" class="layout-loading">
-        {{- block('page_body') -}}
+        {%- if block('page_body') is defined -%}
+            {{- block('page_body') -}}
+        {%- endif -%}
     </div>
     </body>
     </html>

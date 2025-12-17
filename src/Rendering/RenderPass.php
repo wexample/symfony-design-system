@@ -6,6 +6,7 @@ namespace Wexample\SymfonyDesignSystem\Rendering;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\AjaxLayoutRenderNode;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\InitialLayoutRenderNode;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\Traits\DesignSystemRenderNodeTrait;
 use Wexample\SymfonyDesignSystem\Rendering\Traits\WithRenderRequestId;
 use Wexample\SymfonyDesignSystem\Service\Usage\ResponsiveAssetUsageService;
 use Wexample\SymfonyHelpers\Helper\VariableHelper;
@@ -215,6 +216,9 @@ class RenderPass
         $this->layoutBase = $layoutBase;
     }
 
+    /**
+     * @return AbstractLayoutRenderNode|DesignSystemRenderNodeTrait
+     */
     public function getLayoutRenderNode(): AbstractLayoutRenderNode
     {
         return $this->layoutRenderNode;
