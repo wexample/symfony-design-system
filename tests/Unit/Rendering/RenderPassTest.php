@@ -9,6 +9,7 @@ use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\WebRenderNode\Helper\RenderingHelper as BaseRenderingHelper;
 use Wexample\WebRenderNode\Rendering\RenderNode\AbstractRenderNode;
 use Wexample\SymfonyDesignSystem\Helper\RenderingHelper as DsRenderingHelper;
+use Wexample\SymfonyDesignSystem\Rendering\RenderNode\Traits\DesignSystemRenderNodeTrait;
 
 class RenderPassTest extends TestCase
 {
@@ -149,5 +150,26 @@ class RenderPassTest extends TestCase
         $renderPass->usagesConfig = ['known' => ['list' => []]];
         $renderPass->setUsage('known', 'val');
         $this->assertSame('val', $renderPass->getUsage('known'));
+    }
+
+    public function testDesignSystemRenderNodeTraitInitSetsFlag(): void
+    {
+        $registry = new AssetsRegistry(sys_get_temp_dir());
+        $renderPass = new RenderPass('view', $registry);
+
+        $node = new class extends AbstractRenderNode {
+            use DesignSystemRenderNodeTrait;
+            public function getContextType(): string
+            {
+                return BaseRenderingHelper::CONTEXT_PAGE;
+            }
+        };
+
+        $node->init($renderPass, 'bundle/view.twig');
+
+        $this->assertTrue($node->isInit());
+        $this->assertSame('bundle/view.twig', $node->getView());
+        $this->assertNotEmpty($node->getInheritanceStack());
+        $this->assertNotNull($node->getId());
     }
 }
