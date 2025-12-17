@@ -8,7 +8,9 @@ use Wexample\SymfonyDesignSystem\Rendering\AssetsRegistry;
 
 class FailStreamWrapper
 {
-    public function stream_open(): bool
+    public $context;
+
+    public function stream_open(string $path, string $mode, int $options, ?string &$opened_path = null): bool
     {
         return false;
     }
@@ -45,8 +47,10 @@ class AssetsRegistryTest extends TestCase
         try {
             $projectDir = $protocol.'://root';
             $this->expectException(\RuntimeException::class);
+            set_error_handler(static fn() => true);
             new AssetsRegistry($projectDir);
         } finally {
+            restore_error_handler();
             stream_wrapper_unregister($protocol);
         }
     }
