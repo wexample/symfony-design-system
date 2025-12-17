@@ -4,7 +4,6 @@ namespace Wexample\SymfonyDesignSystem\Service;
 
 use InvalidArgumentException;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
-use Wexample\SymfonyDesignSystem\Rendering\AssetTag;
 use Wexample\SymfonyDesignSystem\Rendering\CssAssetTag;
 use Wexample\SymfonyDesignSystem\Rendering\JsAssetTag;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\Traits\DesignSystemRenderNodeTrait;

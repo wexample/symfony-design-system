@@ -3,7 +3,9 @@
 namespace Wexample\SymfonyDesignSystem\Service;
 
 use Symfony\Component\HttpKernel\KernelInterface;
-use Wexample\SymfonyDesignSystem\Rendering\AssetTag;
+use Wexample\SymfonyDesignSystem\Rendering\AssetTagInterface;
+use Wexample\SymfonyDesignSystem\Rendering\CssAssetTag;
+use Wexample\SymfonyDesignSystem\Rendering\JsAssetTag;
 use Wexample\SymfonyHelpers\Helper\ArrayHelper;
 use Wexample\SymfonyHelpers\Helper\FileHelper;
 
@@ -30,43 +32,57 @@ class AssetsAggregationService
     ): array {
         $aggregated = [];
 
+        $classes = [
+            'css' => CssAssetTag::class,
+            'js' => JsAssetTag::class,
+        ];
+
         foreach ($baseTags as $type => $contexts) {
-            /** @var ?AssetTag $aggregationTag */
+            $tagClass = $classes[$type] ?? null;
+
+            if (!$tagClass) {
+                $aggregated[$type] = $contexts;
+                continue;
+            }
+
+            /** @var ?AssetTagInterface $aggregationTag */
             $aggregationTag = null;
             $aggregationContent = '';
             $counter = 0;
 
             foreach ($contexts as $contextTags) {
-                /** @var AssetTag $tag */
+                /** @var AssetTagInterface $tag */
                 foreach ($contextTags as $usage => $tags) {
                     foreach ($tags as $tag) {
                         // Ignore placeholders.
                         if ($tag->getPath()) {
                             if ($tag->canAggregate()) {
                                 if (! $aggregationTag) {
-                                    $aggregationTag = new CssAssetTag();
+                                    $aggregationTag = $tagClass ? new $tagClass() : null;
 
-                                    $aggregationTag->setId(
-                                        $view.'-'.$counter
-                                    );
+                                    if ($aggregationTag) {
+                                        $aggregationTag->setId(
+                                            $view.'-'.$counter
+                                        );
 
-                                    $aggregationTag->setMedia(
-                                        $tag->getMedia()
-                                    );
+                                        $aggregationTag->setMedia(
+                                            $tag->getMedia()
+                                        );
 
-                                    $aggregationTag->setContext(
-                                        $tag->getContext()
-                                    );
+                                        $aggregationTag->setContext(
+                                            $tag->getContext()
+                                        );
 
-                                    $aggregationTag->setPath(
-                                        $this->buildAggregatedPathFromView(
-                                            $view,
-                                            $type,
-                                            $counter,
-                                        )
-                                    );
+                                        $aggregationTag->setPath(
+                                            $this->buildAggregatedPathFromView(
+                                                $view,
+                                                $type,
+                                                $counter,
+                                            )
+                                        );
 
-                                    $counter++;
+                                        $counter++;
+                                    }
                                 }
 
                                 $tagPath = $tag->getPath();
@@ -108,7 +124,7 @@ class AssetsAggregationService
     private function writeAggregationTag(
         string $usage,
         string $type,
-        ?AssetTag $tag,
+        ?AssetTagInterface $tag,
         string $body,
         &$aggregated
     ): void {

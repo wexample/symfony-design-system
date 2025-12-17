@@ -4,7 +4,6 @@ namespace Wexample\SymfonyDesignSystem\Tests\Unit\Service;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
-use Wexample\SymfonyDesignSystem\Rendering\AssetTag;
 use Wexample\SymfonyDesignSystem\Rendering\CssAssetTag;
 use Wexample\SymfonyDesignSystem\Service\AssetsAggregationService;
 use Wexample\SymfonyTesting\Tests\AbstractSymfonyKernelTestCase;
