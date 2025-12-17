@@ -6,9 +6,9 @@ use PHPUnit\Framework\TestCase;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\AssetsRegistry;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
-use Wexample\SymfonyDesignSystem\Helper\RenderingHelper as DsRenderingHelper;
 use Wexample\WebRenderNode\Helper\RenderingHelper as BaseRenderingHelper;
 use Wexample\WebRenderNode\Rendering\RenderNode\AbstractRenderNode;
+use Wexample\SymfonyDesignSystem\Helper\RenderingHelper as DsRenderingHelper;
 
 class RenderPassTest extends TestCase
 {
@@ -17,17 +17,31 @@ class RenderPassTest extends TestCase
         $registry = new AssetsRegistry(sys_get_temp_dir());
         $renderPass = new RenderPass('view', $registry);
 
-        $nodeA = $this->createConfiguredMock(AbstractRenderNode::class, [
-            'getContextType' => BaseRenderingHelper::CONTEXT_LAYOUT,
-            'getView' => 'view-a',
-            'getContextRenderNodeKey' => DsRenderingHelper::buildRenderContextKey(BaseRenderingHelper::CONTEXT_LAYOUT, 'view-a'),
-        ]);
+        $nodeA = new class extends AbstractRenderNode {
+            public function getContextType(): string
+            {
+                return BaseRenderingHelper::CONTEXT_LAYOUT;
+            }
 
-        $nodeB = $this->createConfiguredMock(AbstractRenderNode::class, [
-            'getContextType' => BaseRenderingHelper::CONTEXT_LAYOUT,
-            'getView' => 'view-b',
-            'getContextRenderNodeKey' => DsRenderingHelper::buildRenderContextKey(BaseRenderingHelper::CONTEXT_LAYOUT, 'view-b'),
-        ]);
+            public function getContextRenderNodeKey(): string
+            {
+                return DsRenderingHelper::buildRenderContextKey($this->getContextType(), $this->getView());
+            }
+        };
+        $nodeA->setView('view-a');
+
+        $nodeB = new class extends AbstractRenderNode {
+            public function getContextType(): string
+            {
+                return BaseRenderingHelper::CONTEXT_LAYOUT;
+            }
+
+            public function getContextRenderNodeKey(): string
+            {
+                return DsRenderingHelper::buildRenderContextKey($this->getContextType(), $this->getView());
+            }
+        };
+        $nodeB->setView('view-b');
 
         // Register nodes so lookups succeed.
         $renderPass->registerContextRenderNode($nodeA);
