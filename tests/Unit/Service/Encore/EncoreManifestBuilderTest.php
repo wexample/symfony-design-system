@@ -133,6 +133,32 @@ class EncoreManifestBuilderTest extends TestCase
         $this->assertNotContains('components/_ignore.ts', $componentPaths);
     }
 
+    public function testScanFilesSkipsNonFiles(): void
+    {
+        $frontDir = $this->tmpDir.'/front-empty';
+        $this->fs->mkdir($frontDir.'/layouts/empty-dir');
+        // Broken symlink with .js extension: iterator yields item, isFile() returns false.
+        @symlink($frontDir.'/missing-target', $frontDir.'/layouts/broken.js');
+
+        $kernel = $this->createStub(KernelInterface::class);
+        $kernel->method('getProjectDir')->willReturn($this->tmpDir);
+
+        $builder = new EncoreManifestBuilder($kernel, new ParameterBag([]));
+
+        $descriptor = [
+            'pathAbsolute' => $frontDir.'/',
+            'bundle' => '@AppBundle',
+        ];
+
+        $files = $this->invokePrivate($builder, 'scanFiles', [
+            $descriptor,
+            '',
+            ['js'],
+        ]);
+
+        $this->assertSame([], $files);
+    }
+
     public function testBuildProjectRelativePathUsesVendorSymlink(): void
     {
         $projectDir = $this->tmpDir.'/project';
