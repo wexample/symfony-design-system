@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Tests\Unit\Rendering;
 
 use PHPUnit\Framework\TestCase;
+use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\JsAssetTag;
 
 class JsAssetTagTest extends TestCase
@@ -21,6 +22,25 @@ class JsAssetTagTest extends TestCase
 
         $tag->setSrc(null);
         $this->assertNull($tag->getSrc());
+    }
+
+    public function testAssetAndUsageContextAccessors(): void
+    {
+        $asset = new Asset('build/app.js', 'bundle/view', 'usage', Asset::CONTEXT_PAGE);
+        $tag = new JsAssetTag();
+
+        $this->assertNull($tag->getAsset());
+
+        $tag->setUsageName('custom');
+        $tag->setContext(Asset::CONTEXT_COMPONENT);
+        $this->assertSame('custom', $tag->getUsageName());
+        $this->assertSame(Asset::CONTEXT_COMPONENT, $tag->getContext());
+
+        $tag->setAsset($asset);
+
+        $this->assertSame($asset, $tag->getAsset());
+        $this->assertSame($asset->getUsage(), $tag->getUsageName());
+        $this->assertSame($asset->getContext(), $tag->getContext());
     }
 
     private function invokeGetDestinationPath(JsAssetTag $tag): ?string
