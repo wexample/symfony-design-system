@@ -15,8 +15,28 @@ class CssAssetTag extends LinkTag implements AssetTagInterface
         $this->initAssetTag($asset);
     }
 
-    protected function pathAttribute(): string
+    public function getHref(): ?string
     {
-        return 'href';
+        return $this->getAttribute('href');
+    }
+
+    public function setHref(?string $href): static
+    {
+        if ($href === null) {
+            unset($this->attributes['href']);
+            return $this;
+        }
+
+        return $this->setHref($href);
+    }
+
+    protected function setDestinationPath(?string $path): static
+    {
+        return $this->setHref($path);
+    }
+
+    protected function getDestinationPath(): ?string
+    {
+        return $this->getHref();
     }
 }

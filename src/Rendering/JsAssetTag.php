@@ -14,8 +14,28 @@ class JsAssetTag extends ScriptTag implements AssetTagInterface
         $this->initAssetTag($asset);
     }
 
-    protected function pathAttribute(): string
+    public function getSrc(): ?string
     {
-        return 'src';
+        return $this->getAttribute('src');
+    }
+
+    public function setSrc(?string $src): static
+    {
+        if ($src === null) {
+            unset($this->attributes['src']);
+            return $this;
+        }
+
+        return parent::setSrc($src);
+    }
+
+    protected function setDestinationPath(?string $path): static
+    {
+        return $this->setSrc($path);
+    }
+
+    protected function getDestinationPath(): ?string
+    {
+        return $this->getSrc();
     }
 }
