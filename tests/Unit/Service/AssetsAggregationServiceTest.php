@@ -68,4 +68,53 @@ class AssetsAggregationServiceTest extends AbstractSymfonyKernelTestCase
         $defaultEntries = $result[Asset::EXTENSION_CSS][Asset::CONTEXT_LAYOUT]['default'] ?? [];
         $this->assertSame('build/c.css', $defaultEntries[0]->getPath());
     }
+
+    public function testBuildAggregatedTagsKeepsUnsupportedTypesUntouched(): void
+    {
+        $kernel = $this->createStub(KernelInterface::class);
+        $kernel->method('getProjectDir')->willReturn(sys_get_temp_dir());
+
+        $service = new AssetsAggregationService($kernel);
+
+        $baseTags = [
+            'svg' => [
+                Asset::CONTEXT_LAYOUT => [
+                    'default' => ['noop'],
+                ],
+            ],
+        ];
+
+        $result = $service->buildAggregatedTags('bundle/view', $baseTags);
+
+        $this->assertSame($baseTags['svg'], $result['svg']);
+    }
+
+    public function testBuildAggregatedTagsKeepsPlaceholders(): void
+    {
+        $kernel = $this->createStub(KernelInterface::class);
+        $kernel->method('getProjectDir')->willReturn(sys_get_temp_dir() . '/sds-placeholder-' . uniqid());
+
+        $service = new AssetsAggregationService($kernel);
+
+        $placeholder = new CssAssetTag();
+        $placeholder->setPath(null);
+        $placeholder->setContext(Asset::CONTEXT_LAYOUT);
+        $placeholder->setUsageName('default');
+
+        $baseTags = [
+            Asset::EXTENSION_CSS => [
+                Asset::CONTEXT_LAYOUT => [
+                    'default' => [$placeholder],
+                ],
+            ],
+        ];
+
+        $result = $service->buildAggregatedTags('bundle/view', $baseTags);
+
+        $this->assertArrayHasKey(Asset::EXTENSION_CSS, $result);
+        $this->assertSame(
+            $placeholder,
+            $result[Asset::EXTENSION_CSS][Asset::CONTEXT_LAYOUT]['default'][0]
+        );
+    }
 }
