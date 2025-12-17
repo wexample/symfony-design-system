@@ -91,4 +91,26 @@ class RenderPassTest extends TestCase
         $renderPass->setLayoutBase(RenderPass::BASE_MODAL);
         $this->assertSame(RenderPass::BASE_MODAL, $renderPass->getLayoutBase());
     }
+
+    public function testRegisterRenderNodeCreatesContextBucket(): void
+    {
+        $registry = new AssetsRegistry(sys_get_temp_dir());
+        $renderPass = new RenderPass('view', $registry);
+
+        $node = new class extends AbstractRenderNode {
+            public function getContextType(): string
+            {
+                return BaseRenderingHelper::CONTEXT_VUE;
+            }
+        };
+        $node->setView('foo');
+
+        $renderPass->registerRenderNode($node);
+
+        $ref = new \ReflectionProperty(RenderPass::class, 'registry');
+        $ref->setAccessible(true);
+        $registryProperty = $ref->getValue($renderPass);
+
+        $this->assertSame($node, $registryProperty[BaseRenderingHelper::CONTEXT_VUE]['foo']);
+    }
 }
