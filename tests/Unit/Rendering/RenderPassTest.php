@@ -113,4 +113,41 @@ class RenderPassTest extends TestCase
 
         $this->assertSame($node, $registryProperty[BaseRenderingHelper::CONTEXT_VUE]['foo']);
     }
+
+    public function testRegisterRenderNodeCreatesUnknownContextBucket(): void
+    {
+        $registry = new AssetsRegistry(sys_get_temp_dir());
+        $renderPass = new RenderPass('view', $registry);
+
+        $node = new class extends AbstractRenderNode {
+            public function getContextType(): string
+            {
+                return 'custom-context';
+            }
+        };
+        $node->setView('bar');
+
+        $renderPass->registerRenderNode($node);
+
+        $ref = new \ReflectionProperty(RenderPass::class, 'registry');
+        $ref->setAccessible(true);
+        $registryProperty = $ref->getValue($renderPass);
+
+        $this->assertSame($node, $registryProperty['custom-context']['bar']);
+    }
+
+    public function testSetUsageSkipsUnknownUsage(): void
+    {
+        $registry = new AssetsRegistry(sys_get_temp_dir());
+        $renderPass = new RenderPass('view', $registry);
+
+        // No config => should not set.
+        $renderPass->setUsage('unknown', 'value');
+        $this->assertArrayNotHasKey('unknown', $renderPass->usages);
+
+        // With config => should set.
+        $renderPass->usagesConfig = ['known' => ['list' => []]];
+        $renderPass->setUsage('known', 'val');
+        $this->assertSame('val', $renderPass->getUsage('known'));
+    }
 }
