@@ -30,7 +30,6 @@ class AssetsAggregationService
     ): array {
         $aggregated = [];
 
-
         foreach ($baseTags as $type => $contexts) {
             /** @var ?AssetTag $aggregationTag */
             $aggregationTag = null;
@@ -45,7 +44,7 @@ class AssetsAggregationService
                         if ($tag->getPath()) {
                             if ($tag->canAggregate()) {
                                 if (! $aggregationTag) {
-                                    $aggregationTag = new AssetTag();
+                                    $aggregationTag = new CssAssetTag();
 
                                     $aggregationTag->setId(
                                         $view.'-'.$counter

@@ -5,6 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Tests\Unit\Service;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\AssetTag;
+use Wexample\SymfonyDesignSystem\Rendering\CssAssetTag;
 use Wexample\SymfonyDesignSystem\Service\AssetsAggregationService;
 use Wexample\SymfonyTesting\Tests\AbstractSymfonyKernelTestCase;
 
@@ -26,19 +27,19 @@ class AssetsAggregationServiceTest extends AbstractSymfonyKernelTestCase
 
         $service = new AssetsAggregationService($kernel);
 
-        $aggTag1 = new AssetTag();
+        $aggTag1 = new CssAssetTag();
         $aggTag1->setPath('build/a.css');
         $aggTag1->setContext(Asset::CONTEXT_LAYOUT);
         $aggTag1->setUsageName('default');
         $aggTag1->setCanAggregate(true);
 
-        $aggTag2 = new AssetTag();
+        $aggTag2 = new CssAssetTag();
         $aggTag2->setPath('build/b.css');
         $aggTag2->setContext(Asset::CONTEXT_LAYOUT);
         $aggTag2->setUsageName('default');
         $aggTag2->setCanAggregate(true);
 
-        $nonAggTag = new AssetTag();
+        $nonAggTag = new CssAssetTag();
         $nonAggTag->setPath('build/c.css');
         $nonAggTag->setContext(Asset::CONTEXT_LAYOUT);
         $nonAggTag->setUsageName('default');

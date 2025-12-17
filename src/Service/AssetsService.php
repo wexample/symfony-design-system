@@ -5,6 +5,8 @@ namespace Wexample\SymfonyDesignSystem\Service;
 use InvalidArgumentException;
 use Wexample\SymfonyDesignSystem\Rendering\Asset;
 use Wexample\SymfonyDesignSystem\Rendering\AssetTag;
+use Wexample\SymfonyDesignSystem\Rendering\CssAssetTag;
+use Wexample\SymfonyDesignSystem\Rendering\JsAssetTag;
 use Wexample\SymfonyDesignSystem\Rendering\RenderNode\Traits\DesignSystemRenderNodeTrait;
 use Wexample\SymfonyDesignSystem\Rendering\RenderPass;
 use Wexample\SymfonyDesignSystem\Service\Usage\AnimationsAssetUsageService;
@@ -136,6 +138,11 @@ class AssetsService extends AssetManager
         $assetsRegistry = $renderPass->getAssetsRegistry();
         $registry = $assetsRegistry->getRegistry();
 
+        $classes = [
+          'css' => CssAssetTag::class,
+          'js' => JsAssetTag::class
+        ];
+
         // Ensure registry has entries for all asset types
         foreach (Asset::ASSETS_EXTENSIONS as $type) {
             if (!isset($registry[$type])) {
@@ -152,7 +159,7 @@ class AssetsService extends AssetManager
                                 $asset,
                                 $renderPass,
                             )) {
-                                $tag = new AssetTag($asset);
+                                $tag = new ($classes[$type])($asset);
 
                                 $asset->setServerSideRendered();
 
@@ -169,7 +176,7 @@ class AssetsService extends AssetManager
                     }
 
                     if (empty($tags[$type][$context][$usageName])) {
-                        $tag = new AssetTag();
+                        $tag = new ($classes[$type])();
                         $tag->setId($type . '-' . $usageName . '-' . $context . '-placeholder');
                         $tag->setPath(null);
                         $tag->setUsageName($usageName);
@@ -180,7 +187,7 @@ class AssetsService extends AssetManager
             }
         }
 
-        $tag = new AssetTag();
+        $tag = new JsAssetTag();
         $tag->setCanAggregate(true);
         $tag->setPath('build/runtime.js');
         $tag->setId('javascript-runtime');

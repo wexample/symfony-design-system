@@ -2,77 +2,82 @@
 
 namespace Wexample\SymfonyDesignSystem\Rendering;
 
-class AssetTag
+use Wexample\PhpHtml\Dom\HtmlTag;
+
+// TODO Should disappear, if some shared property are used across CssAsset and JsAsset, create a trait in Rendering\Traits
+
+class AssetTag extends HtmlTag
 {
-    private ?Asset $asset = null;
-    private bool $canAggregate = false;
-    private string $id;
-    private ?string $media = null;
-    private ?string $path;
-    private string $usageName;
-    private string $context;
+    protected ?Asset $asset = null;
+    protected bool $canAggregate = false;
+    protected string $usageName;
+    protected string $context;
 
     public function __construct(?Asset $asset = null)
     {
-        $this->setAsset($asset);
+        if ($asset) {
+            $this->fromAsset($asset);
+        }
     }
+
+    public function fromAsset(Asset $asset): static
+    {
+        $this->asset = $asset;
+
+        $this->id($asset->getDomId())
+            ->attr('media', $asset->getMedia())
+            ->attr($this->pathAttribute(), $asset->getPath());
+
+        $this->usageName = $asset->getUsage();
+        $this->context = $asset->getContext();
+
+        return $this;
+    }
+
+    abstract protected function pathAttribute(): string;
 
     public function canAggregate(): bool
     {
         return $this->canAggregate;
     }
 
-    public function setCanAggregate(bool $canAggregate): void
+    public function setCanAggregate(bool $canAggregate): static
     {
         $this->canAggregate = $canAggregate;
-    }
-
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
-    public function setId(string $id): void
-    {
-        $this->id = $id;
+        return $this;
     }
 
     public function getMedia(): ?string
     {
-        return $this->media;
+        return $this->getAttribute('media');
     }
 
-    public function setMedia(?string $media): void
+    public function setMedia(?string $media): static
     {
-        $this->media = $media;
+        return $this->attr('media', $media);
     }
 
     public function getPath(): ?string
     {
-        return $this->path;
+        return $this->getAttribute($this->pathAttribute());
     }
 
-    public function setPath(?string $path): void
+    public function setPath(?string $path): static
     {
-        $this->path = $path;
+        return $this->attr($this->pathAttribute(), $path);
     }
 
-    public function getAsset(): Asset
+    public function getAsset(): ?Asset
     {
         return $this->asset;
     }
 
-    public function setAsset(?Asset $asset): void
+    public function setAsset(?Asset $asset): static
     {
-        $this->asset = $asset;
-
         if ($asset) {
-            $this->setId($asset->getDomId());
-            $this->setPath($asset->getPath());
-            $this->setMedia($asset->getMedia());
-            $this->setUsageName($asset->getUsage());
-            $this->setContext($asset->getContext());
+            $this->fromAsset($asset);
         }
+        return $this;
     }
 
     public function getUsageName(): string
@@ -80,9 +85,10 @@ class AssetTag
         return $this->usageName;
     }
 
-    public function setUsageName(string $usageName): void
+    public function setUsageName(string $usageName): static
     {
         $this->usageName = $usageName;
+        return $this;
     }
 
     public function getContext(): string
@@ -90,8 +96,9 @@ class AssetTag
         return $this->context;
     }
 
-    public function setContext(string $context): void
+    public function setContext(string $context): static
     {
         $this->context = $context;
+        return $this;
     }
 }
