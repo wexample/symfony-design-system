@@ -64,4 +64,31 @@ class RenderPassTest extends TestCase
         $renderPass->revertCurrentContextRenderNode();
         $this->assertNull($renderPass->getCurrentContextRenderNode());
     }
+
+    public function testFlagsAndOutputTypeHelpers(): void
+    {
+        $registry = new AssetsRegistry(sys_get_temp_dir());
+        $renderPass = new RenderPass('view', $registry);
+
+        $this->assertFalse($renderPass->isDebug());
+        $renderPass->setDebug(true);
+        $this->assertTrue($renderPass->isDebug());
+
+        // Default is HTML.
+        $this->assertTrue($renderPass->isHtmlRequest());
+        $this->assertFalse($renderPass->isJsonRequest());
+
+        $renderPass->setOutputType(RenderPass::OUTPUT_TYPE_RESPONSE_JSON);
+        $this->assertTrue($renderPass->isJsonRequest());
+        $this->assertFalse($renderPass->isHtmlRequest());
+
+        $this->assertTrue($renderPass->isUseJs());
+        $renderPass->setUseJs(false);
+        $this->assertFalse($renderPass->isUseJs());
+
+        // Layout base getter/setter.
+        $this->assertSame(RenderPass::BASE_DEFAULT, $renderPass->getLayoutBase());
+        $renderPass->setLayoutBase(RenderPass::BASE_MODAL);
+        $this->assertSame(RenderPass::BASE_MODAL, $renderPass->getLayoutBase());
+    }
 }
