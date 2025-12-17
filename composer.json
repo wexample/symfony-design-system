@@ -28,6 +28,7 @@
     "wexample/symfony-helpers": "1.0.72",
     "wexample/php-web-render-node": "0.0.1",
     "wexample/symfony-routing": "0.0.1",
+    "wexample/symfony-translations": "1.0.61",
     "wexample/php-html": "^0.0.1",
     "friendsofsymfony/jsrouting-bundle": "^3.2.1",
     "symfony/webpack-encore-bundle": "^2.0.1",
