@@ -26,7 +26,7 @@ trait AssetTagTrait
     {
         $this->asset = $asset;
 
-        $this->id($asset->getDomId())
+        $this->setId($asset->getDomId())
             ->setMedia($asset->getMedia())
             ->setPath($asset->getPath());
 
@@ -49,17 +49,12 @@ trait AssetTagTrait
 
     public function getMedia(): ?string
     {
-        return $this->getAttribute('media');
+        return $this->getAttr('media');
     }
 
     public function setMedia(?string $media): static
     {
-        if ($media === null) {
-            unset($this->attributes['media']);
-            return $this;
-        }
-
-        return $this->attr('media', $media);
+        return $this->setAttr('media', $media);
     }
 
     public function getPath(): ?string

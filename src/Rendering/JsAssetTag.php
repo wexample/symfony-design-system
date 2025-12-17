@@ -16,7 +16,7 @@ class JsAssetTag extends ScriptTag implements AssetTagInterface
 
     public function getSrc(): ?string
     {
-        return $this->getAttribute('src');
+        return $this->getAttr('src');
     }
 
     public function setSrc(?string $src): static
