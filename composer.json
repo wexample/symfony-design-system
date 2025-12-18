@@ -1,6 +1,6 @@
 {
   "name": "wexample/symfony-design-system",
-  "description": "A dynamic rendering system for Symfony",
+  "description": "Design system assets for Symfony",
   "type": "library",
   "license": "MIT",
   "version": "1.0.64",
@@ -12,11 +12,6 @@
       "Wexample\\SymfonyDesignSystem\\": "src/"
     }
   },
-  "autoload-dev": {
-    "psr-4": {
-      "Wexample\\SymfonyDesignSystem\\Tests\\": "tests/"
-    }
-  },
   "authors": [
     {
       "name": "weeger",
@@ -26,21 +21,7 @@
   "require": {
     "php": ">=8.2",
     "wexample/symfony-helpers": "1.0.72",
-    "wexample/php-web-render-node": "0.0.1",
-    "wexample/symfony-routing": "0.0.1",
-    "wexample/symfony-translations": "1.0.61",
-    "wexample/php-html": "^0.0.1",
-    "friendsofsymfony/jsrouting-bundle": "^3.2.1",
-    "symfony/webpack-encore-bundle": "^2.0.1",
-    "fortawesome/font-awesome": "^6.7"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "*",
-    "symfony/twig-bundle": "^7.4",
-    "wexample/symfony-testing": "1.0.61",
-    "doctrine/doctrine-bundle": "^2.18",
-    "doctrine/orm": "^3.5",
-    "symfony/browser-kit": "^7.4"
+    "wexample/symfony-loader": "1.0.64"
   },
   "repositories": [
     {
@@ -50,13 +31,5 @@
         "symlink": true
       }
     }
-  ],
-  "scripts": {
-    "post-install-cmd": [
-      "[ -f bin/console ] && php bin/console design-system:check-node-install || echo 'Skipping console command (no Symfony app)'"
-    ],
-    "post-update-cmd": [
-      "[ -f bin/console ] && php bin/console design-system:check-node-install || echo 'Skipping console command (no Symfony app)'"
-    ]
-  }
+  ]
 }

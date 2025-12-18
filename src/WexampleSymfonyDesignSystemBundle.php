@@ -2,27 +2,16 @@
 
 namespace Wexample\SymfonyDesignSystem;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Wexample\SymfonyDesignSystem\DependencyInjection\Compiler\DesignSystemTemplatesCompilerPass;
-use Wexample\SymfonyDesignSystem\Interface\DesignSystemBundleInterface;
+use Wexample\SymfonyLoader\Interface\LoaderBundleInterface;
 use Wexample\SymfonyHelpers\Class\AbstractBundle;
 use Wexample\SymfonyHelpers\Helper\BundleHelper;
 
-class WexampleSymfonyDesignSystemBundle extends AbstractBundle implements DesignSystemBundleInterface
+class WexampleSymfonyDesignSystemBundle extends AbstractBundle implements LoaderBundleInterface
 {
-    public static function getDesignSystemFrontPaths(): array
+    public static function getLoaderFrontPaths(): array
     {
         return [
             BundleHelper::getBundleCssAlias(static::class) => __DIR__.'/../assets/',
         ];
-    }
-
-    public function build(ContainerBuilder $container): void
-    {
-        parent::build($container);
-
-        $container->addCompilerPass(
-            new DesignSystemTemplatesCompilerPass()
-        );
     }
 }
