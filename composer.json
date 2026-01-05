@@ -1,9 +1,9 @@
 {
   "name": "wexample/symfony-design-system",
-  "description": "A dynamic rendering system for Symfony",
+  "description": "Design system assets for Symfony",
   "type": "library",
   "license": "MIT",
-  "version": "1.0.64",
+  "version": "1.0.65",
   "keywords": [
     "symfony-ux"
   ],
@@ -20,19 +20,15 @@
   ],
   "require": {
     "php": ">=8.2",
-    "wexample/symfony-helpers": "1.0.72",
-    "wexample/symfony-testing": "1.0.61",
-    "wexample/symfony-translations": "1.0.61",
-    "friendsofsymfony/jsrouting-bundle": "^3.2.1",
-    "symfony/webpack-encore-bundle": "^2.0.1",
-    "fortawesome/font-awesome": "^6.7"
+    "wexample/symfony-loader": "0.0.3"
   },
-  "scripts": {
-    "post-install-cmd": [
-      "php bin/console api:check-node-install"
-    ],
-    "post-update-cmd": [
-      "php bin/console api:check-node-install"
-    ]
-  }
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../*",
+      "options": {
+        "symlink": true
+      }
+    }
+  ]
 }
