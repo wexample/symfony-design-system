@@ -1,4 +1,5 @@
 @use '../../css/mixins/margin' as margin;
+@use '../../css/mixins/list' as list;
 @use '../../css/partials/global' as global;
 
 html,
@@ -17,4 +18,9 @@ figure {
 
 a {
   text-decoration: none;
+}
+
+ul,
+ol {
+  @include list.no-list-style;
 }
