@@ -1,3 +1,12 @@
-* {
-  background: blue;
+@use '../../css/partials/color-scheme-dark' as color_scheme;
+
+// Applied on layout / body
+.usage-color-scheme-dark {
+  background: color_scheme.$color-default-background;
+}
+
+// Applied on body / sub-layouts
+.usage-color-scheme-dark,
+.usage-color-scheme-default .usage-color-scheme-dark {
+  color: color_scheme.$color-default-text;
 }
