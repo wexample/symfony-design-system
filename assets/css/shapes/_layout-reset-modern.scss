@@ -1,6 +1,16 @@
 @use '../../css/mixins/margin' as margin;
 @use '../../css/partials/global' as global;
 
-html, body, #{global.$selector-title-all}, p, ul, ol {
+html,
+body,
+#{global.$selector-title-all},
+p,
+ul,
+ol,
+dl,
+dt,
+dd,
+blockquote,
+figure {
   @include margin.no-margin-or-padding;
 }
