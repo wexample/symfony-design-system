@@ -14,3 +14,7 @@ blockquote,
 figure {
   @include margin.no-margin-or-padding;
 }
+
+a {
+  text-decoration: none;
+}
