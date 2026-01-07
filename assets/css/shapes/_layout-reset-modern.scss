@@ -21,6 +21,7 @@ a {
 }
 
 ul,
-ol {
+ol,
+menu {
   @include list.no-list-style;
 }
