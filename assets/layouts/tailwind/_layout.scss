@@ -1,0 +1,9 @@
+// Base extension.
+@use '@wexample/symfony-loader/layouts/default/layout';
+
+// Tailwind.
+@import "tailwindcss";
+
+* {
+  background:rosybrown;
+}
