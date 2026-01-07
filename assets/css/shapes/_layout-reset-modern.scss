@@ -2,12 +2,14 @@
 @use '../../css/mixins/list' as list;
 @use '../../css/partials/global' as global;
 
+// Predictable box model for all elements.
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+// Remove default spacing on common text blocks.
 html,
 body,
 #{global.$selector-title-all},
@@ -22,16 +24,19 @@ figure {
   @include margin.no-margin-or-padding;
 }
 
+// Default link styling is handled elsewhere.
 a {
   text-decoration: none;
 }
 
+// No bullets/markers by default.
 ul,
 ol,
 menu {
   @include list.no-list-style;
 }
 
+// Media is block-level and responsive by default.
 img,
 svg,
 video {
@@ -39,6 +44,7 @@ video {
   max-width: 100%;
 }
 
+// Form controls inherit typography.
 button,
 input,
 select,
