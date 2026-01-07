@@ -2,6 +2,12 @@
 @use '../../css/mixins/list' as list;
 @use '../../css/partials/global' as global;
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
 body,
 #{global.$selector-title-all},
@@ -24,4 +30,18 @@ ul,
 ol,
 menu {
   @include list.no-list-style;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
