@@ -1,0 +1,8 @@
+$color-scheme-default-color-dark: #000 !default;
+$color-scheme-default-color-light: #FFF !default;
+
+$color-default-background: $color-scheme-default-color-dark !default;
+$color-default-background-invert: $color-scheme-default-color-light !default;
+
+$color-default-text: $color-scheme-default-color-light;
+$color-default-text-invert: $color-scheme-default-color-dark;
