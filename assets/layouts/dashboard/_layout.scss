@@ -1,3 +1,7 @@
+@use './font' as font;
+
 // Base extension.
-@use '../default/layout';
+@use '../default/layout' with (
+  $font-family-base:font.$font-family-base
+);
 

@@ -3,3 +3,11 @@
 
 // Base shapes.
 @use '../../css/shapes/layout-reset-modern';
+
+// Local variables
+$font-family-base: Arial !default;
+
+html,
+body {
+  font-family: $font-family-base;
+}
