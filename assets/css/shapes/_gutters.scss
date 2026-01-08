@@ -8,14 +8,14 @@
   .gutters--body {
     @include gutters.gutters-body;
   }
+}
 
-  // Horizontal layout
-  &.gutters--horizontal {
-    @include gutters.gutters-horizontal;
-  }
+// Horizontal layout
+.gutters--horizontal {
+  @include gutters.gutters-horizontal;
+}
 
-  // Vertical layout
-  &.gutters--vertical {
-    @include gutters.gutters-vertical;
-  }
+// Vertical layout
+.gutters--vertical {
+  @include gutters.gutters-vertical;
 }
