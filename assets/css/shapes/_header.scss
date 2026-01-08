@@ -13,10 +13,14 @@
     display: flex;
     align-items: center;
 
-    a {
+    .header--menu-item {
       display: inline-flex;
       align-items: center;
       padding: spacing.$space-1;
+    }
+
+    .header--menu-item--icon {
+      padding-inline: spacing.$space-2;
     }
   }
 }
