@@ -1,0 +1,15 @@
+@use '../../css/mixins/gutters' as gutters;
+@use '../../css/tokens/spacing' as spacing;
+
+.header {
+  @include gutters.gutters-horizontal;
+  padding: spacing.$space-4;
+
+  .header--body {
+    @include gutters.gutters-body;
+  }
+
+  .header--menu {
+
+  }
+}
