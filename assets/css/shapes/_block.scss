@@ -1,5 +1,3 @@
-@use '../../css/mixins/spacing' as spacing_vars;
-
 .block {
   --block-padding: var(--space-4);
   padding: var(--block-padding);
