@@ -3,10 +3,10 @@
 
 // Base shapes.
 @use '../../css/shapes/layout-reset-modern';
-@use '../../css/partials/font-stack' as font_stack;
+@use '../../css/fonts/system_sans' as system_sans;
 
 // Local variables
-$font-family-base: font_stack.$font-stack-sans !default;
+$font-family-base: system_sans.$font-stack-sans !default;
 $font-family-heading: $font-family-base !default;
 $font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
   'Liberation Mono', 'Courier New', monospace !default;
