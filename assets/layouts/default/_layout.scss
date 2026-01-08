@@ -5,6 +5,7 @@
 @use '../../css/shapes/layout-reset-modern';
 @use '../../css/fonts/system_sans' as system_sans;
 @use '../../css/mixins/radius' as radius;
+@use '../../css/mixins/type-scale' as type_scale;
 
 // Local variables
 $font-family-base: system_sans.$font-stack-sans !default;
@@ -16,4 +17,5 @@ html,
 body {
   font-family: $font-family-base;
   @include radius.radius-vars;
+  @include type_scale.type-scale;
 }
