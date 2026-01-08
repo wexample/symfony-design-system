@@ -1,4 +1,8 @@
+$color-scheme-default-color-dark: #333;
+$color-scheme-default-color-light: #CCC;
+
 // Base extension.
 @use '../default/layout.color-scheme.dark' as default_layout_color_scheme with (
-  $test:red
+  $color-scheme-default-color-dark:$color-scheme-default-color-dark,
+  $color-scheme-default-color-light:$color-scheme-default-color-light
 );

@@ -1,7 +1,9 @@
-$test: blue !default;
+$color-scheme-default-color-dark: #000 !default;
+$color-scheme-default-color-light: #FFF !default;
 
 @use '../../css/partials/color-scheme-dark' as color_scheme with (
-  $color-scheme-default-color-dark:$test
+  $color-scheme-default-color-dark:$color-scheme-default-color-dark,
+  $color-scheme-default-color-light:$color-scheme-default-color-light
 );
 
 // Applied on layout / body
