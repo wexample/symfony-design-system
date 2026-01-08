@@ -7,6 +7,7 @@
 @use '../../css/mixins/radius' as radius;
 @use '../../css/mixins/type-scale' as type_scale;
 @use '../../css/mixins/content-size' as content_size;
+@use '../../css/mixins/shadow' as shadow;
 
 // Local variables
 $font-family-base: system_sans.$font-stack-sans !default;
@@ -20,5 +21,6 @@ body {
   @include radius.radius-vars;
   @include type_scale.type-scale;
   @include content_size.content-size-vars;
+  @include shadow.shadow-vars;
   color-scheme: light dark;
 }
