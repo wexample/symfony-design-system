@@ -16,5 +16,7 @@ $color-scheme-default-color-light: palette.$color-light !default;
 // Applied on body / sub-layouts
 .usage-color-scheme-light,
 .usage-color-scheme-default .usage-color-scheme-light {
-  color: color_scheme.$color-default-text;
+  &, a {
+    color: color_scheme.$color-default-text;
+  }
 }
