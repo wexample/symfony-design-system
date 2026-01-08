@@ -1,7 +1,7 @@
 @use '../../css/mixins/gutters' as gutters;
 
 // Base gutters class
-.gutters {
+.gutters, .gutters--horizontal, .gutters--vertical {
   @include gutters.gutters-base;
 
   // Define the body element
