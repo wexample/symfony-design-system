@@ -3,11 +3,10 @@
 
 // Base shapes.
 @use '../../css/shapes/layout-reset-modern';
+@use '../../css/partials/font-stack' as font_stack;
 
 // Local variables
-$font-family-base: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
-  'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif,
-  'Apple Color Emoji', 'Segoe UI Emoji' !default;
+$font-family-base: font_stack.$font-stack-sans !default;
 $font-family-heading: $font-family-base !default;
 $font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
   'Liberation Mono', 'Courier New', monospace !default;

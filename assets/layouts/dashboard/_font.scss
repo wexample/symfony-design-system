@@ -1,2 +1,3 @@
-$font-family-base: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
-"Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji" !default;
+@use '../../css/partials/font-stack' as font_stack;
+
+$font-family-base: font_stack.$font-stack-sans !default;
