@@ -10,6 +10,12 @@
   }
 
   .header--menu {
+    display: flex;
+    align-items: center;
 
+    a {
+      display: inline-flex;
+      align-items: center;
+    }
   }
 }
