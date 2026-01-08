@@ -1,0 +1,6 @@
+@mixin color-scheme($background, $foreground) {
+  --color-default-background: #{$background};
+  --color-default-background-invert: #{$foreground};
+  --color-default-text: #{$foreground};
+  --color-default-text-invert: #{$background};
+}
