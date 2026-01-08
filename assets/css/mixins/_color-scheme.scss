@@ -3,4 +3,15 @@
   --color-default-background-invert: #{$foreground};
   --color-default-text: #{$foreground};
   --color-default-text-invert: #{$background};
+
+  @include color-scheme-invert-levels($foreground);
+}
+
+@mixin color-scheme-invert-levels($foreground) {
+  $levels: (0.04, 0.08, 0.12, 0.16, 0.24, 0.32, 0.48, 0.64);
+
+  @for $i from 1 through length($levels) {
+    $alpha: nth($levels, $i);
+    --color-invert-#{$i}: #{rgba($foreground, $alpha)};
+  }
 }
