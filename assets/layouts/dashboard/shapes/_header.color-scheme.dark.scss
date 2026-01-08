@@ -1,0 +1,7 @@
+@use '../palette' as palette;
+
+@use '../../../css/partials/color-scheme-dark' as color_scheme;
+
+.header {
+  background: rgba(color_scheme.$color-default-background-invert, 0.1);
+}
