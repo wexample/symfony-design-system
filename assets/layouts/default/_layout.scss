@@ -6,6 +6,7 @@
 @use '../../css/fonts/system_sans' as system_sans;
 @use '../../css/mixins/radius' as radius;
 @use '../../css/mixins/type-scale' as type_scale;
+@use '../../css/mixins/content-size' as content_size;
 
 // Local variables
 $font-family-base: system_sans.$font-stack-sans !default;
@@ -18,4 +19,5 @@ body {
   font-family: $font-family-base;
   @include radius.radius-vars;
   @include type_scale.type-scale;
+  @include content_size.content-size-vars;
 }

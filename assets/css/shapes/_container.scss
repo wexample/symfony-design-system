@@ -1,18 +1,22 @@
 @use '../../css/tokens/spacing' as spacing;
 
 .container {
-  --container-max: 60rem;
+  --content-size: var(--content-size-m);
   --container-padding: #{spacing.$space-4};
-  max-width: var(--container-max);
+  max-width: var(--content-size);
   margin-inline: auto;
   padding-inline: var(--container-padding);
 }
 
 .container--medium {
-  --container-max: 60rem;
+  --content-size: var(--content-size-m);
 }
 
 .container--large {
-  --container-max: none;
+  --content-size: var(--content-size-l);
   --container-padding: #{spacing.$space-6};
+}
+
+.container--full {
+  --content-size: none;
 }
