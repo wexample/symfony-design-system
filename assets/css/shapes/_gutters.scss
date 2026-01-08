@@ -1,34 +1,21 @@
-// Common layout styles mixin
-@mixin gutters-base {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  box-sizing: border-box;
+@use '../../css/mixins/gutters' as gutters;
+
+// Base gutters class
+.gutters {
+  @include gutters.gutters-base;
 }
 
 // Define the body element
 .gutters--body {
-  flex: 1;
-  overflow: auto;
-  min-width: 0; // Prevent flex items from overflowing
-  min-height: 0; // Prevent flex items from overflowing
-  order: 0; // Keep in the middle
-}
-
-// Base gutters class (for backward compatibility)
-.gutters {
-  @include gutters-base;
+  @include gutters.gutters-body;
 }
 
 // Horizontal layout
 .gutters--horizontal {
-  @include gutters-base;
-  flex-direction: row;
+  @include gutters.gutters-horizontal;
 }
 
 // Vertical layout
 .gutters--vertical {
-  @include gutters-base;
-  flex-direction: column;
+  @include gutters.gutters-vertical;
 }
