@@ -1,0 +1,21 @@
+@use '../../css/mixins/gutters' as gutters;
+
+// Base gutters class
+.gutters, .gutters--horizontal, .gutters--vertical {
+  @include gutters.gutters-base;
+
+  // Define the body element
+  .gutters--body {
+    @include gutters.gutters-body;
+  }
+}
+
+// Horizontal layout
+.gutters--horizontal {
+  @include gutters.gutters-horizontal;
+}
+
+// Vertical layout
+.gutters--vertical {
+  @include gutters.gutters-vertical;
+}

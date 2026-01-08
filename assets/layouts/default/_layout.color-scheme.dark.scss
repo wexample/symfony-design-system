@@ -1,0 +1,19 @@
+@use './palette' as palette;
+@use '../../css/mixins/color-scheme' as color_scheme;
+
+// Applied on layout / body
+.usage-color-scheme-dark {
+  @include color_scheme.color-scheme(
+    palette.$color-dark,
+    palette.$color-light
+  );
+  background: var(--color-default-background);
+}
+
+// Applied on body / sub-layouts
+.usage-color-scheme-dark,
+.usage-color-scheme-default .usage-color-scheme-dark {
+  &, a {
+    color: var(--color-default-text);
+  }
+}

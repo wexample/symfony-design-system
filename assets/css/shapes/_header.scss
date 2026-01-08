@@ -1,0 +1,34 @@
+@use '../../css/mixins/gutters' as gutters;
+
+.header {
+  @include gutters.gutters-horizontal;
+
+  .header--body {
+    @include gutters.gutters-body;
+    padding: var(--space-4);
+  }
+
+  .header--title {
+    font-size: var(--font-size-5);
+    font-weight: 600;
+  }
+
+  .header--menu {
+    display: flex;
+    align-items: center;
+
+    .header--menu-item {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-1);
+    }
+
+    .header--menu-item--icon {
+      padding-inline: var(--space-4);
+    }
+
+    .header--menu-item--icon:last-child {
+      margin-right: var(--space-2);
+    }
+  }
+}

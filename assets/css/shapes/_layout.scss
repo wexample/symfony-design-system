@@ -1,0 +1,22 @@
+@use '../../css/mixins/gutters' as gutters;
+
+.layout,
+.layout--horizontal,
+.layout--vertical {
+  @include gutters.gutters-base;
+
+  .layout--body {
+    @include gutters.gutters-body;
+    padding: var(--space-4);
+  }
+}
+
+// Horizontal layout
+.layout--horizontal {
+  @include gutters.gutters-horizontal;
+}
+
+// Vertical layout
+.layout--vertical {
+  @include gutters.gutters-vertical;
+}

@@ -1,0 +1,3 @@
+@use '../../css/fonts/system_sans' as system_sans;
+
+$font-family-base: system_sans.$font-stack-sans !default;
