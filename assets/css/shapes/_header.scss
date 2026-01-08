@@ -3,10 +3,10 @@
 
 .header {
   @include gutters.gutters-horizontal;
-  padding: spacing.$space-4;
 
   .header--body {
     @include gutters.gutters-body;
+    padding: spacing.$space-4;
   }
 
   .header--menu {
@@ -20,11 +20,11 @@
     }
 
     .header--menu-item--icon {
-      padding-inline: spacing.$space-2;
+      padding-inline: spacing.$space-4;
     }
 
     .header--menu-item--icon:last-child {
-      padding-right: spacing.$space-1;
+      margin-right: spacing.$space-2;
     }
   }
 }
