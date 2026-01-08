@@ -1,3 +1,6 @@
+@use '@wexample/symfony-design-system/css/shapes/header';
+
 .header {
-  background: var(--color-invert-2, rgba(255, 255, 255, 0.08));
+  background: var(--color-invert-2);
+  border-bottom: 1px solid var(--color-invert-3);
 }
