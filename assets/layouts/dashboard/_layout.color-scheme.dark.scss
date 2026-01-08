@@ -1,8 +1,7 @@
-$color-scheme-default-color-dark: #333;
-$color-scheme-default-color-light: #CCC;
+@use './palette' as palette;
 
 // Base extension.
 @use '../default/layout.color-scheme.dark' as default_layout_color_scheme with (
-  $color-scheme-default-color-dark:$color-scheme-default-color-dark,
-  $color-scheme-default-color-light:$color-scheme-default-color-light
+  $color-scheme-default-color-dark:palette.$color-dark,
+  $color-scheme-default-color-light:palette.$color-light
 );

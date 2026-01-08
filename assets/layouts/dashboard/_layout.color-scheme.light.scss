@@ -1,3 +1,7 @@
-// Base extension.
-@use '../default/layout.color-scheme.light';
+@use './palette' as palette;
 
+// Base extension.
+@use '../default/layout.color-scheme.light' as default_layout_color_scheme with (
+  $color-scheme-default-color-dark:palette.$color-dark,
+  $color-scheme-default-color-light:palette.$color-light
+);

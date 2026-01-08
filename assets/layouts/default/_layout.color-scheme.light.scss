@@ -1,4 +1,12 @@
-@use '../../css/partials/color-scheme-light' as color_scheme;
+@use './palette' as palette;
+
+$color-scheme-default-color-dark: palette.$color-dark !default;
+$color-scheme-default-color-light: palette.$color-light !default;
+
+@use '../../css/partials/color-scheme-light' as color_scheme with (
+  $color-scheme-default-color-dark:$color-scheme-default-color-dark,
+  $color-scheme-default-color-light:$color-scheme-default-color-light
+);
 
 // Applied on layout / body
 .usage-color-scheme-light {
