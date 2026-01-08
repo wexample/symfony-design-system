@@ -1,4 +1,8 @@
-@use '../../css/partials/color-scheme-dark' as color_scheme;
+$test: blue !default;
+
+@use '../../css/partials/color-scheme-dark' as color_scheme with (
+  $color-scheme-default-color-dark:$test
+);
 
 // Applied on layout / body
 .usage-color-scheme-dark {

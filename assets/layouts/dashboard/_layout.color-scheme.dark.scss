@@ -1,3 +1,4 @@
 // Base extension.
-@use '../default/layout.color-scheme.dark';
-
+@use '../default/layout.color-scheme.dark' as default_layout_color_scheme with (
+  $test:red
+);
