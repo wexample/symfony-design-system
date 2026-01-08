@@ -9,6 +9,17 @@
   box-sizing: border-box;
 }
 
+html {
+  text-size-adjust: 100%;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 // Remove default spacing on common text blocks.
 html,
 body,

@@ -20,4 +20,5 @@ body {
   @include radius.radius-vars;
   @include type_scale.type-scale;
   @include content_size.content-size-vars;
+  color-scheme: light dark;
 }
