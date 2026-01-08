@@ -1,6 +1,8 @@
 @use './palette' as palette;
 @use '../../css/mixins/color-scheme' as color_scheme;
 
+@use '../default/layout.color-scheme.light';
+
 // Applied on layout / body
 .usage-color-scheme-light {
   @include color_scheme.color-scheme(
@@ -8,13 +10,4 @@
     palette.$color-dark
   );
   --color-surface-soft: #{rgba(palette.$color-dark, 0.06)};
-  background: var(--color-default-background);
-}
-
-// Applied on body / sub-layouts
-.usage-color-scheme-light,
-.usage-color-scheme-default .usage-color-scheme-light {
-  &, a {
-    color: var(--color-default-text);
-  }
 }
