@@ -9,6 +9,7 @@
 @use '../../css/mixins/content-size' as content_size;
 @use '../../css/mixins/shadow' as shadow;
 @use '../../css/mixins/opacity' as opacity;
+@use '../../css/mixins/spacing' as spacing;
 
 // Local variables
 $font-family-base: system_sans.$font-stack-sans !default;
@@ -24,5 +25,6 @@ body {
   @include content_size.content-size-vars;
   @include shadow.shadow-vars;
   @include opacity.opacity-vars;
+  @include spacing.spacing-vars;
   color-scheme: light dark;
 }

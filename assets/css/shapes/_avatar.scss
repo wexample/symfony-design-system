@@ -1,7 +1,5 @@
-@use '../../css/tokens/spacing' as spacing;
-
 .avatar {
-  --avatar-size: #{spacing.$space-6};
+  --avatar-size: var(--space-6);
   width: var(--avatar-size);
   height: var(--avatar-size);
   display: inline-flex;

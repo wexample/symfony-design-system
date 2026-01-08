@@ -1,8 +1,7 @@
-@use '../../css/tokens/spacing' as spacing;
-
 %grid-base {
   --grid-columns: 12;
-  --grid-gap: #{spacing.$space-4};
+  --grid-gap: var(--space-4);
+  --grid-min: 14rem;
   display: grid;
   width: 100%;
   gap: var(--grid-gap);
@@ -15,7 +14,7 @@
 
 .grid--auto {
   @extend %grid-base;
-  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min, 14rem), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min), 1fr));
 }
 
 .grid--columns-2 {
