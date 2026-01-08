@@ -22,5 +22,9 @@
     .header--menu-item--icon {
       padding-inline: spacing.$space-2;
     }
+
+    .header--menu-item--icon:last-child {
+      padding-right: spacing.$space-1;
+    }
   }
 }
