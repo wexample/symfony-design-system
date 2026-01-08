@@ -2,9 +2,8 @@
 
 .card {
   --card-padding: #{spacing.$space-4};
-  --card-radius: var(--radius-2, 0.5rem);
   padding: var(--card-padding);
-  border-radius: var(--card-radius);
+  border-radius: var(--radius-block);
   background: var(--color-invert-1);
   border: var(--border-default);
 }

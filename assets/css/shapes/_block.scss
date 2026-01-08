@@ -2,9 +2,8 @@
 
 .block {
   --block-padding: #{spacing.$space-4};
-  --block-radius: var(--radius-2, 0.5rem);
   padding: var(--block-padding);
-  border-radius: var(--block-radius);
+  border-radius: var(--radius-block);
   background: var(--color-invert-1);
   border: var(--border-default);
 }
