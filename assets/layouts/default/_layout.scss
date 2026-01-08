@@ -4,6 +4,7 @@
 // Base shapes.
 @use '../../css/shapes/layout-reset-modern';
 @use '../../css/fonts/system_sans' as system_sans;
+@use '../../css/mixins/radius' as radius;
 
 // Local variables
 $font-family-base: system_sans.$font-stack-sans !default;
@@ -14,4 +15,5 @@ $font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
 html,
 body {
   font-family: $font-family-base;
+  @include radius.radius-vars;
 }

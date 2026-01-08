@@ -7,7 +7,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 9999px;
+  border-radius: var(--radius-pill, 9999px);
   overflow: hidden;
   background: var(--color-invert-2);
   color: var(--color-default-text);
