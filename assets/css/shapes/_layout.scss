@@ -1,10 +1,14 @@
 @use '../../css/mixins/gutters' as gutters;
+@use '../../css/tokens/spacing' as spacing;
 
-.layout, .layout-horizontal, .layout-vertical {
+.layout,
+.layout--horizontal,
+.layout--vertical {
   @include gutters.gutters-base;
 
   .layout--body {
     @include gutters.gutters-body;
+    padding: 1rem;
   }
 }
 
