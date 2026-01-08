@@ -19,13 +19,16 @@
 }
 
 .grid--columns-2 {
+  @extend %grid-base;
   --grid-columns: 2;
 }
 
 .grid--columns-3 {
+  @extend %grid-base;
   --grid-columns: 3;
 }
 
 .grid--columns-4 {
+  @extend %grid-base;
   --grid-columns: 4;
 }
