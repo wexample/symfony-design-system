@@ -1,5 +1,6 @@
 @use './palette' as palette;
 @use '../../css/mixins/color-scheme' as color_scheme;
+@use '../../css/mixins/border' as border;
 
 // Applied on layout / body
 .usage-color-scheme-dark {
@@ -7,6 +8,7 @@
     palette.$color-dark,
     palette.$color-light
   );
+  @include border.border-vars;
   background: var(--color-default-background);
 }
 
