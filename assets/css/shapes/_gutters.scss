@@ -14,9 +14,7 @@
   @include gutters.gutters-body;
 }
 
-.gutters--collapsible {
-  background: blue;
-}
+.gutters--collapsible {}
 
 .gutters--collapsible--collapsed {
   overflow: hidden;
