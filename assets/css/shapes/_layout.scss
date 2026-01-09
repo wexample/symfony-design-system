@@ -1,26 +1,17 @@
-@use '../../css/mixins/gutters' as gutters;
+@use '../../css/shapes/gutters';
 
-.layout,
-.layout--horizontal,
-.layout--vertical {
-  @include gutters.gutters;
-  width: 100%;
-  height: 100%;
+.layout {
+  @extend .gutters;
 }
 
-// Define the body element
-.layout .layout--body,
-.layout--horizontal .layout--body,
-.layout--vertical .layout--body {
-  @include gutters.gutters-body;
-}
-
-// Horizontal layout
 .layout--horizontal {
-  @include gutters.gutters-horizontal;
+  @extend .gutters--horizontal;
 }
 
-// Vertical layout
 .layout--vertical {
-  @include gutters.gutters-vertical;
+  @extend .gutters--vertical;
+}
+
+.layout--body {
+  @extend .gutters--body;
 }

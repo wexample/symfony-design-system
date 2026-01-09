@@ -25,9 +25,17 @@
 // Horizontal layout
 .gutters--horizontal {
   @include gutters.gutters-horizontal;
+
+  .gutters--collapsible--collapsed {
+    width: 3px;
+  }
 }
 
 // Vertical layout
 .gutters--vertical {
   @include gutters.gutters-vertical;
+
+  .gutters--collapsible--collapsed {
+    height: 3px;
+  }
 }
