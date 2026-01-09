@@ -1,0 +1,8 @@
+.disk-item-explorer {
+  --disk-item-width: 14rem;
+  --disk-item-gap: var(--space-3);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--disk-item-width), var(--disk-item-width)));
+  gap: var(--disk-item-gap);
+  justify-content: start;
+}
