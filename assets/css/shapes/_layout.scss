@@ -2,16 +2,16 @@
 
 .layout {
   @extend .gutters;
-  width: 100%;
-  height: 100%;
 }
 
 .layout--horizontal {
   @extend .gutters--horizontal;
+  height: 100%;
 }
 
 .layout--vertical {
   @extend .gutters--vertical;
+  width: 100%;
 }
 
 .layout--body {
