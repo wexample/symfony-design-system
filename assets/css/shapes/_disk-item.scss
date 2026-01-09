@@ -1,6 +1,4 @@
 %disk-item-base {
-  --disk-item-min-height: 9rem;
-  --disk-item-icon-size: 2.5rem;
   padding: var(--space-4);
   border-radius: var(--radius-1);
   background: var(--color-invert-1);
@@ -9,7 +7,7 @@
   align-items: flex-start;
   justify-content: center;
   gap: var(--space-3);
-  min-height: var(--disk-item-min-height);
+  min-height: var(--font-size-8);
   color: inherit;
   text-decoration: none;
 }
@@ -27,7 +25,7 @@
 }
 
 .disk-item--icon {
-  font-size: var(--disk-item-icon-size);
+  font-size: var(--font-size-8);
   line-height: 1;
   align-self: center;
 }
