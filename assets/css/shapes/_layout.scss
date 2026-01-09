@@ -6,10 +6,13 @@
   @include gutters.gutters;
   width: 100%;
   height: 100%;
+}
 
-  .layout--body {
-    @include gutters.gutters-body;
-  }
+// Define the body element
+.layout .layout--body,
+.layout--horizontal .layout--body,
+.layout--vertical .layout--body {
+  @include gutters.gutters-body;
 }
 
 // Horizontal layout

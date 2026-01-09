@@ -1,13 +1,25 @@
 @use '../../css/mixins/gutters' as gutters;
 
 // Base gutters class
-.gutters, .gutters--horizontal, .gutters--vertical {
+.gutters,
+.gutters--horizontal,
+.gutters--vertical {
   @include gutters.gutters;
+}
 
-  // Define the body element
-  .gutters--body {
-    @include gutters.gutters-body;
-  }
+// Define the body element
+.gutters .gutters--body,
+.gutters--horizontal .gutters--body,
+.gutters--vertical .gutters--body {
+  @include gutters.gutters-body;
+}
+
+.gutters--collapsible {
+  background: blue;
+}
+
+.gutters--collapsible--collapsed {
+  overflow: hidden;
 }
 
 // Horizontal layout
