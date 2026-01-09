@@ -4,13 +4,12 @@
   padding: var(--space-4);
   border-radius: var(--radius-1);
   background: var(--color-invert-1);
-  border: var(--border-default);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: center;
   gap: var(--space-3);
   min-height: var(--disk-item-min-height);
-  text-align: center;
   color: inherit;
   text-decoration: none;
 }
@@ -30,8 +29,10 @@
 .disk-item--icon {
   font-size: var(--disk-item-icon-size);
   line-height: 1;
+  align-self: center;
 }
 
 .disk-item--title {
   font-size: var(--font-size-3);
+  align-self: center;
 }

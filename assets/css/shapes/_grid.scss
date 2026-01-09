@@ -2,6 +2,7 @@
   --grid-columns: 12;
   --grid-gap: var(--space-4);
   --grid-min: 14rem;
+  --grid-item-width: 14rem;
   display: grid;
   width: 100%;
   gap: var(--grid-gap);
@@ -15,6 +16,12 @@
 .grid--auto {
   @extend %grid-base;
   grid-template-columns: repeat(auto-fit, minmax(var(--grid-min), 1fr));
+}
+
+.grid--fixed {
+  @extend %grid-base;
+  grid-template-columns: repeat(auto-fill, minmax(var(--grid-item-width), var(--grid-item-width)));
+  justify-content: start;
 }
 
 .grid--columns-2 {
