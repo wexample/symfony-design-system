@@ -2,7 +2,7 @@
 
 // Base gutters class
 .gutters, .gutters--horizontal, .gutters--vertical {
-  @include gutters.gutters-base;
+  @include gutters.gutters;
 
   // Define the body element
   .gutters--body {

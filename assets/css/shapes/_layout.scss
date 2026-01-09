@@ -3,7 +3,7 @@
 .layout,
 .layout--horizontal,
 .layout--vertical {
-  @include gutters.gutters-base;
+  @include gutters.gutters;
 
   .layout--body {
     @include gutters.gutters-body;
