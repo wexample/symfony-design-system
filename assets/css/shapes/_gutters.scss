@@ -27,7 +27,7 @@
   @include gutters.gutters-horizontal;
 
   .gutters--collapsible--collapsed {
-    width: 3px;
+    width: 0;
   }
 }
 
@@ -36,6 +36,6 @@
   @include gutters.gutters-vertical;
 
   .gutters--collapsible--collapsed {
-    height: 3px;
+    height: 0;
   }
 }
