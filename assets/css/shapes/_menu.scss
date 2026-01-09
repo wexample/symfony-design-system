@@ -1,0 +1,10 @@
+.menu {
+  --menu-width: var(--size-6);
+  width: var(--menu-width);
+}
+
+.menu--vertical {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}

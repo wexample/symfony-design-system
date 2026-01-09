@@ -12,6 +12,7 @@
 @use '../../css/mixins/shadow' as shadow;
 @use '../../css/mixins/opacity' as opacity;
 @use '../../css/mixins/spacing' as spacing;
+@use '../../css/mixins/sizes' as sizes;
 @use '../../css/fonts/system_sans' as system_sans;
 
 // Local variables
@@ -28,9 +29,9 @@ body {
   @include shadow.shadow-vars;
   @include opacity.opacity-vars;
   @include spacing.spacing-vars;
+  @include sizes.size-vars;
 }
 
 #layout-initial {
   height: 100%;
 }
-
