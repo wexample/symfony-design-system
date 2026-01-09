@@ -1,0 +1,21 @@
+%disk-item-base {
+  padding: var(--space-4);
+  border-radius: var(--radius-1);
+  background: var(--color-invert-1);
+  border: var(--border-default);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.disk-item {
+  @extend %disk-item-base;
+}
+
+.disk-item--file {
+  @extend %disk-item-base;
+}
+
+.disk-item--directory {
+  @extend %disk-item-base;
+}
