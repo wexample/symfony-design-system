@@ -4,10 +4,11 @@
 .layout--horizontal,
 .layout--vertical {
   @include gutters.gutters;
+  width: 100%;
+  height: 100%;
 
   .layout--body {
     @include gutters.gutters-body;
-    padding: var(--space-4);
   }
 }
 
