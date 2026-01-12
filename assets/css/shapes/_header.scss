@@ -2,15 +2,20 @@
 
 .header {
   @include gutters.gutters-horizontal;
+  height: var(--size-3);
 
   .header--body {
     @include gutters.gutters-body;
-    padding: var(--space-4);
+    display: flex;
   }
 
   .header--title {
     font-size: var(--font-size-5);
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4);
   }
 
   .header--menu {
