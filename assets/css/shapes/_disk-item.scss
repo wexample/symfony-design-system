@@ -36,6 +36,7 @@
 .disk-item--title-ellipsis {
   font-size: var(--font-size-3);
   align-self: center;
+  max-width: 100%;
 
   &.disk-item--title-ellipsis {
     @include text.text-ellipsis
