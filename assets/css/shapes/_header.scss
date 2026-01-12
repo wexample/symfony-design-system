@@ -1,4 +1,5 @@
 @use '../../css/mixins/gutters' as gutters;
+@use '../../css/mixins/flex' as flex;
 
 .header {
   @include gutters.gutters-horizontal;
@@ -12,9 +13,7 @@
   .header--title {
     font-size: var(--font-size-5);
     font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex.flex-center;
     padding: var(--space-4);
   }
 
