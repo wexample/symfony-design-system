@@ -15,11 +15,6 @@
     font-weight: 600;
     @include flex.flex-center;
     padding: var(--space-4);
-    padding-left: 0;
-  }
-
-  & > .header--title:first-child {
-    padding-left: var(--space-4);
   }
 
   .header--menu {
