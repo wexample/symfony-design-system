@@ -13,10 +13,19 @@
   height: 100%;
 
   li a {
-    display: inline-flex;
+    display: block;
     align-items: center;
     gap: var(--space-2);
     padding: var(--space-4);
+
+    &:hover {
+      background: var(--color-invert-2);
+    }
+
+    &.active {
+      font-weight: bold;
+      background: var(--color-invert-2);
+    }
   }
 }
 
