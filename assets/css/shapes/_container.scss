@@ -6,10 +6,6 @@
   padding-inline: var(--container-padding);
 }
 
-.container--medium {
-  --content-size: var(--content-size-m);
-}
-
 .container--large {
   --content-size: var(--content-size-l);
   --container-padding: var(--space-6);
