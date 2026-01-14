@@ -1,0 +1,27 @@
+@use '../../css/mixins/flex' as flex;
+
+.table {
+  border-radius: var(--radius-1);
+  background: var(--color-invert-1);
+  border: var(--border-default);
+  overflow: hidden;
+  display: grid;
+  gap: 1px;
+}
+
+.table--row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-default-background);
+}
+
+.table--cell {
+  font-size: var(--font-size-3);
+}
+
+.table--cell--muted {
+  font-size: var(--font-size-2);
+  color: var(--color-invert-6);
+}
