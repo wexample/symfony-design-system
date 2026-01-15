@@ -17,6 +17,10 @@
   gap: var(--space-2);
 }
 
+.toolbar--link {
+  margin-inline: var(--space-2);
+}
+
 .toolbar--surface {
   background: var(--color-invert-1);
 }
