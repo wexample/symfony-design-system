@@ -6,16 +6,25 @@ use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
-class DesignSystemExtension extends AbstractExtension
+abstract class AbstractTemplateExtension extends AbstractExtension
 {
+    abstract protected function getFunctionName(): string;
+
+    abstract protected function getTemplatePath(): string;
+
+    protected function getDefaultOptions(): array
+    {
+        return [];
+    }
+
     public function getFunctions(): array
     {
         return [
             new TwigFunction(
-                'button',
+                $this->getFunctionName(),
                 [
                     $this,
-                    'button',
+                    'renderTemplate',
                 ],
                 [
                     self::FUNCTION_OPTION_IS_SAFE => self::FUNCTION_OPTION_IS_SAFE_VALUE_HTML,
@@ -25,16 +34,19 @@ class DesignSystemExtension extends AbstractExtension
         ];
     }
 
-    public function button(
+    public function renderTemplate(
         Environment $twig,
         string $icon,
         string $label,
         array $options = []
     ): string {
-        return $twig->render('@WexampleSymfonyDesignSystemBundle/components/button.html.twig', [
-            'icon' => $icon,
-            'label' => $label,
-            'options' => $options,
-        ]);
+        return $twig->render(
+            $this->getTemplatePath(),
+            array_merge($this->getDefaultOptions(), [
+                'icon' => $icon,
+                'label' => $label,
+                'options' => $options,
+            ])
+        );
     }
 }
