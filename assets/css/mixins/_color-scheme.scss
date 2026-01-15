@@ -3,6 +3,8 @@
   --color-default-background-invert: #{$foreground};
   --color-default-text: #{$foreground};
   --color-default-text-invert: #{$background};
+  --color-link: var(--color-invert-7);
+  --color-link-hover: var(--color-invert-8);
 
   @include color-scheme-invert-levels($foreground);
 }

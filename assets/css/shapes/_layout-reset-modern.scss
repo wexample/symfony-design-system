@@ -42,6 +42,11 @@ figure {
 // Default link styling is handled elsewhere.
 a {
   text-decoration: none;
+  color: var(--color-link);
+}
+
+a:hover {
+  color: var(--color-link-hover);
 }
 
 // No bullets/markers by default.
