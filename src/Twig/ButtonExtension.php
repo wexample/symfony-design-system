@@ -4,13 +4,10 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 
 class ButtonExtension extends AbstractTemplateExtension
 {
-    protected function getFunctionName(): string
+    protected function getTemplateMap(): array
     {
-        return 'button';
-    }
-
-    protected function getTemplatePath(): string
-    {
-        return '@WexampleSymfonyDesignSystemBundle/components/button.html.twig';
+        return [
+            'button' => '@WexampleSymfonyDesignSystemBundle/components/button.html.twig',
+        ];
     }
 }
