@@ -1,6 +1,8 @@
 @use '../../css/mixins/flex' as flex;
 
 .toolbar {
+  --toolbar-padding: var(--space-3);
+  padding: var(--toolbar-padding);
   display: flex;
   align-items: center;
   justify-content: space-between;
