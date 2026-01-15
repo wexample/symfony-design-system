@@ -1,4 +1,5 @@
 import AbstractDesignSystemVueMixin from './AbstractDesignSystemVueMixin';
+import ApiService from '@wexample/symfony-loader/js/Services/ApiService';
 
 const AbstractEntityManipulatorVueMixin = {
   mixins: [AbstractDesignSystemVueMixin],
@@ -9,19 +10,7 @@ const AbstractEntityManipulatorVueMixin = {
     },
 
     getApiClient() {
-      if (this.app?.syrtis) {
-        return this.app.syrtis;
-      }
-
-      if (this.$apiClient) {
-        return this.$apiClient;
-      }
-
-      if (this.app?.apiClient) {
-        return this.app.apiClient;
-      }
-
-      throw new Error('API client is missing. Override getApiClient() or provide app.syrtis.');
+      return this.app.getService(ApiService).getClient();
     },
 
     getEntityRepository(entityType = null) {
