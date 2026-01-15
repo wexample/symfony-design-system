@@ -1,0 +1,11 @@
+.upload-handler {
+  position: relative;
+  display: inline-flex;
+}
+
+.upload-handler__input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
