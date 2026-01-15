@@ -35,7 +35,7 @@
     color: var(--color-invert-6);
     text-decoration: none;
 
-    &:hover, &:hover {
+    &:hover {
       color: var(--color-invert-8);
     }
   }
@@ -48,6 +48,7 @@
       display: inline-flex;
       align-items: center;
       padding: var(--space-1);
+      color: var(--color-default-text);
     }
 
     .header--menu-item--icon {
