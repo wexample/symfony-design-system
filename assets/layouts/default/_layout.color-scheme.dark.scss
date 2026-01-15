@@ -13,7 +13,5 @@
 // Applied on body / sub-layouts
 .usage-color-scheme-dark,
 .usage-color-scheme-default .usage-color-scheme-dark {
-  &, a {
-    color: var(--color-default-text);
-  }
+  color: var(--color-default-text);
 }
