@@ -10,6 +10,10 @@
   flex-wrap: nowrap;
 }
 
+.stack--horizontal > * {
+  flex: 1 1 0;
+}
+
 .stack--vertical {
   @extend %stack-base;
   flex-direction: column;
