@@ -1,0 +1,8 @@
+<a class="{{ options.class|default('') }}"
+   href="{{ href }}"
+   {{ component_render_tag_attributes(options.attr|default({})) }}>
+    <span class="menu--item--icon">
+        {{ icon(icon) }}
+    </span>
+    <span class="menu--item--label">{{ label }}</span>
+</a>
