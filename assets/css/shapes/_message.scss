@@ -1,0 +1,33 @@
+.message {
+  --message-color: var(--color-invert-6);
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: var(--border-default);
+  border-left: 3px solid var(--message-color);
+  border-radius: var(--radius-1);
+  background: var(--color-invert-1);
+  color: var(--color-default-text);
+}
+
+.message--title {
+  font-size: var(--font-size-3);
+  font-weight: 600;
+  color: var(--message-color);
+}
+
+.message--info {
+  --message-color: var(--color-primary-5, var(--color-invert-7));
+}
+
+.message--success {
+  --message-color: var(--color-success-5, var(--color-invert-7));
+}
+
+.message--warning {
+  --message-color: var(--color-warning-5, var(--color-invert-7));
+}
+
+.message--error {
+  --message-color: var(--color-error-5, var(--color-danger-5, var(--color-invert-7)));
+}
