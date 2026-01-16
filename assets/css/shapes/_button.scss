@@ -12,6 +12,11 @@
   cursor: pointer;
 }
 
+.button--invert {
+  background: var(--color-default-background-invert);
+  color: var(--color-default-text-invert);
+}
+
 .button--icon {
   display: inline-flex;
   align-items: center;

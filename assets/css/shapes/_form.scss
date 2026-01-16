@@ -43,3 +43,8 @@
   border-radius: var(--radius-1);
   background: var(--color-default-background);
 }
+
+.form button[type='submit'],
+.form input[type='submit'] {
+  @extend .button--invert;
+}
