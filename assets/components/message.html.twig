@@ -1,0 +1,9 @@
+<div class="message message--{{ type }}{% if options.class is defined %} {{ options.class }}{% endif %}"
+     {{ component_render_tag_attributes(options.attr|default({})) }}>
+    {% if title is not empty %}
+        <div class="message--title">{{ title }}</div>
+    {% endif %}
+    {% if body is not empty %}
+        <p>{{ body }}</p>
+    {% endif %}
+</div>
