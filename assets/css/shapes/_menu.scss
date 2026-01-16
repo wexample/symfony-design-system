@@ -1,4 +1,5 @@
 @use '../../css/mixins/border' as border;
+@use '../../css/mixins/text' as text;
 
 .menu {
   --menu-width: var(--size-6);
@@ -34,6 +35,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  margin-right: var(--space-2);
+}
+
+.menu--item--label {
+  @include text.text-ellipsis;
 }
 
 .menu--vertical--left {

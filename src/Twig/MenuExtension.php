@@ -7,7 +7,7 @@ use Twig\TwigFunction;
 
 class MenuExtension extends AbstractTemplateExtension
 {
-    protected function getTemplateFunctions(): array
+    public function getFunctions(): array
     {
         return [
             new TwigFunction(

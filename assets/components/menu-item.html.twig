@@ -1,8 +1,8 @@
-<a class="{{ options.class|default('') }}"
+<a class="{{ options.class|default('') }} {{ route_is_current(options.route|default(''), null, 'active') }}"
    href="{{ href }}"
    {{ component_render_tag_attributes(options.attr|default({})) }}>
     <span class="menu--item--icon">
         {{ icon(icon) }}
     </span>
-    <span class="menu--item--label">{{ label }}</span>
+    <span class="menu--item--label">{{ label | trans }}</span>
 </a>
