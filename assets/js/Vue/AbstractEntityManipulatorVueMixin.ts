@@ -1,5 +1,6 @@
 import AbstractDesignSystemVueMixin from './AbstractDesignSystemVueMixin';
 import ApiService from '@wexample/symfony-loader/js/Services/ApiService';
+import EntityService from '@wexample/symfony-loader/js/Services/EntityService';
 
 const AbstractEntityManipulatorVueMixin = {
   mixins: [AbstractDesignSystemVueMixin],
@@ -29,6 +30,10 @@ const AbstractEntityManipulatorVueMixin = {
       }
 
       throw new Error('Unable to resolve entity repository from API client.');
+    },
+
+    buildEntityPath(options: { entity: unknown; action?: string; params?: Record<string, unknown> }) {
+      return this.app.getService(EntityService).entityPath(options);
     },
   },
 };
