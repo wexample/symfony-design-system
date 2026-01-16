@@ -13,6 +13,7 @@ class MessageExtension extends AbstractTemplateExtension
             new TwigFunction(
                 'message_info',
                 function (Environment $twig, string $title, ?string $body = null, array $options = []) {
+                    $options['icon'] = $options['icon'] ?? 'ph:bold/info';
                     return $this->renderTemplate(
                         $twig,
                         '@WexampleSymfonyDesignSystemBundle/components/message.html.twig',
@@ -29,6 +30,7 @@ class MessageExtension extends AbstractTemplateExtension
             new TwigFunction(
                 'message_success',
                 function (Environment $twig, string $title, ?string $body = null, array $options = []) {
+                    $options['icon'] = $options['icon'] ?? 'ph:bold/check-circle';
                     return $this->renderTemplate(
                         $twig,
                         '@WexampleSymfonyDesignSystemBundle/components/message.html.twig',
@@ -45,6 +47,7 @@ class MessageExtension extends AbstractTemplateExtension
             new TwigFunction(
                 'message_warning',
                 function (Environment $twig, string $title, ?string $body = null, array $options = []) {
+                    $options['icon'] = $options['icon'] ?? 'ph:bold/warning';
                     return $this->renderTemplate(
                         $twig,
                         '@WexampleSymfonyDesignSystemBundle/components/message.html.twig',
@@ -61,6 +64,7 @@ class MessageExtension extends AbstractTemplateExtension
             new TwigFunction(
                 'message_error',
                 function (Environment $twig, string $title, ?string $body = null, array $options = []) {
+                    $options['icon'] = $options['icon'] ?? 'ph:bold/x-circle';
                     return $this->renderTemplate(
                         $twig,
                         '@WexampleSymfonyDesignSystemBundle/components/message.html.twig',
