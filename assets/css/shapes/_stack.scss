@@ -1,0 +1,16 @@
+%stack-base {
+  display: flex;
+  width: 100%;
+  gap: var(--space-4);
+}
+
+.stack--horizontal {
+  @extend %stack-base;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.stack--vertical {
+  @extend %stack-base;
+  flex-direction: column;
+}
