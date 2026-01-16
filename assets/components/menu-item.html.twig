@@ -1,4 +1,5 @@
-<a class="{{ options.class|default('') }} {{ route_is_current(options.route|default(''), null, 'active') }}"
+{% set active_class = route is defined and route ? route_is_current(route, route_params|default({}), 'active') : '' %}
+<a class="{{ options.class|default('') }} {{ active_class }}"
    href="{{ href }}"
    {{ component_render_tag_attributes(options.attr|default({})) }}>
     <span class="menu--item--icon">

@@ -12,6 +12,31 @@ class MenuExtension extends AbstractTemplateExtension
         return [
             new TwigFunction(
                 'menu_item',
+                function (
+                    Environment $twig,
+                    string $icon,
+                    string $label,
+                    string $route,
+                    array $routeParams = [],
+                    array $options = []
+                ) {
+                    return $this->renderTemplate(
+                        $twig,
+                        '@WexampleSymfonyDesignSystemBundle/components/menu-item.html.twig',
+                        [
+                            'icon' => $icon,
+                            'label' => $label,
+                            'route' => $route,
+                            'route_params' => $routeParams,
+                            'href' => $twig->getFunction('path')->getCallable()($route, $routeParams),
+                            'options' => $options,
+                        ]
+                    );
+                },
+                self::TEMPLATE_FUNCTION_OPTIONS
+            ),
+            new TwigFunction(
+                'menu_item_link',
                 function (Environment $twig, string $icon, string $label, string $href, array $options = []) {
                     return $this->renderTemplate(
                         $twig,
