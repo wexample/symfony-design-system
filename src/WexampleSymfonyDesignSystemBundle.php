@@ -11,7 +11,7 @@ class WexampleSymfonyDesignSystemBundle extends AbstractBundle implements Loader
     public static function getLoaderFrontPaths(): array
     {
         return [
-            BundleHelper::getBundleCssAlias(static::class) => __DIR__.'/../assets/',
+            BundleHelper::getBundleCssAlias(static::class) => __DIR__ . '/../assets/',
         ];
     }
 }
