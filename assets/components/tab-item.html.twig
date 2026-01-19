@@ -1,5 +1,5 @@
 <a class="tabs--item{% if active %} tabs--item--active{% endif %}{% if options.class is defined %} {{ options.class }}{% endif %}"
    href="{{ href }}"
    {{ component_render_tag_attributes(options.attr|default({})) }}>
-    {{ label }}
+    {{ label | trans }}
 </a>
