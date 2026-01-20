@@ -23,8 +23,24 @@ export default {
   },
 
   methods: {
-    formatDateTime(value) {
+    cellFormatterDateTime(value) {
       return this.app.getService(DateService).formatDateTime(value);
+    },
+
+    cellFormatterDateTimeFull(value) {
+      return this.app.getService(DateService).formatDateTimeFull(value);
+    },
+
+    cellFormatterDateOnly(value) {
+      return this.app.getService(DateService).formatDateOnly(value);
+    },
+
+    cellFormatterDateShort(value) {
+      return this.app.getService(DateService).formatDateShort(value);
+    },
+
+    cellFormatterMonthYear(value) {
+      return this.app.getService(DateService).formatMonthYear(value);
     },
 
     getEntityValue(entity, propertyPath) {
