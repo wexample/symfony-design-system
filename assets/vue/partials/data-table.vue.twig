@@ -1,0 +1,41 @@
+<div class="table">
+    <div
+        v-if="showHeader && columns.length"
+        class="table--row"
+        :style="getRowStyle()"
+    >
+        <slot name="header" :columns="columns">
+            <div
+                v-for="column in columns"
+                :key="getColumnKey(column)"
+                class="table--cell"
+            >
+                [[ getColumnLabel(column) ]]
+            </div>
+        </slot>
+    </div>
+
+    <div
+        v-for="(row, index) in rows"
+        :key="index"
+        class="table--row"
+        :style="getRowStyle()"
+    >
+        <slot name="row" v-bind="{ row, columns }">
+            <div
+                v-for="column in columns"
+                :key="getColumnKey(column)"
+                class="table--cell"
+            >
+                <slot
+                    name="cell"
+                    v-bind="{ row, column, value: getCellValue(row, column) }"
+                >
+                    [[ getCellValue(row, column) ]]
+                </slot>
+            </div>
+        </slot>
+    </div>
+
+    <slot name="footer" v-bind="{ columns }"></slot>
+</div>
