@@ -1,6 +1,6 @@
 <script>
 export default {
-  template: '#vue-template-design-system-data-table',
+  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-data-table',
 
   props: {
     rows: {
