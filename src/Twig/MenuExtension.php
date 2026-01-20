@@ -2,11 +2,17 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig;
 
+use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 use Twig\TwigFunction;
 
 class MenuExtension extends AbstractTemplateExtension
 {
+    public function __construct(
+        private readonly RouterInterface $router
+    ) {
+    }
+
     public function getFunctions(): array
     {
         return [
@@ -51,6 +57,30 @@ class MenuExtension extends AbstractTemplateExtension
                 },
                 self::TEMPLATE_FUNCTION_OPTIONS
             ),
+            new TwigFunction(
+                'menu_get_routes_from_controller_namespace',
+                [$this, 'getRoutesFromControllerNamespace']
+            ),
         ];
+    }
+
+    public function getRoutesFromControllerNamespace(string $namespace): array
+    {
+        $routes = [];
+        $prefix = rtrim($namespace, '\\').'\\';
+
+        foreach ($this->router->getRouteCollection() as $name => $route) {
+            $defaults = $route->getDefaults();
+            if (! isset($defaults['_controller'])) {
+                continue;
+            }
+
+            $controller = explode('::', $defaults['_controller'])[0] ?? null;
+            if ($controller && str_starts_with($controller, $prefix)) {
+                $routes[$name] = $route;
+            }
+        }
+
+        return $routes;
     }
 }
