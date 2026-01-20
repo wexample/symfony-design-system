@@ -77,11 +77,30 @@ class MenuExtension extends AbstractTemplateExtension
             }
 
             $controller = ClassHelper::getClassPath($defaults['_controller']);
-            if ($controller && str_starts_with($controller, $prefix)) {
+            if (! $controller || ! str_starts_with($controller, $prefix)) {
+                continue;
+            }
+
+            if ($this->isEntryPointRoute($controller, $defaults, $prefix)) {
                 $routes[$name] = $route;
             }
         }
 
         return $routes;
+    }
+
+    private function isEntryPointRoute(
+        string $controller,
+        array $defaults,
+        string $prefix
+    ): bool {
+        $controllerPath = substr($controller, strlen($prefix));
+        $depth = substr_count($controllerPath, '\\');
+
+        if ($depth === 0) {
+            return true;
+        }
+
+        return ($defaults['routeName'] ?? null) === 'index';
     }
 }
