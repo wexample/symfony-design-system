@@ -67,6 +67,8 @@ class MenuExtension extends AbstractTemplateExtension
 
     public function menuGetRoutesFromControllerNamespace(string $namespace): array
     {
+        // Build a top-level menu from a controller namespace by keeping only root routes
+        // and the "index" entrypoint of nested controllers.
         $routes = [];
         $prefix = ClassHelper::normalizeNamespacePrefix($namespace);
 
@@ -94,8 +96,7 @@ class MenuExtension extends AbstractTemplateExtension
         array $defaults,
         string $prefix
     ): bool {
-        $controllerPath = substr($controller, strlen($prefix));
-        $depth = substr_count($controllerPath, '\\');
+        $depth = ClassHelper::getNamespaceDepth($controller, $prefix);
 
         if ($depth === 0) {
             return true;
