@@ -47,17 +47,6 @@ export default {
       }
 
       return row[key] ?? '';
-    },
-
-    getRowStyle() {
-      const columnsCount = this.columns?.length ?? 0;
-      if (columnsCount <= 1) {
-        return {};
-      }
-
-      return {
-        gridTemplateColumns: `repeat(${columnsCount - 1}, minmax(0, 1fr)) auto`
-      };
     }
   }
 };

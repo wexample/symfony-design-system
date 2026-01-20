@@ -1,41 +1,43 @@
-<div class="table">
-    <div
-        v-if="showHeader && columns.length"
-        class="table--row"
-        :style="getRowStyle()"
-    >
-        <slot name="header" :columns="columns">
-            <div
-                v-for="column in columns"
-                :key="getColumnKey(column)"
-                class="table--cell"
-            >
-                [[ getColumnLabel(column) ]]
-            </div>
-        </slot>
-    </div>
-
-    <div
-        v-for="(row, index) in rows"
-        :key="index"
-        class="table--row"
-        :style="getRowStyle()"
-    >
-        <slot name="row" v-bind="{ row, columns }">
-            <div
-                v-for="column in columns"
-                :key="getColumnKey(column)"
-                class="table--cell"
-            >
-                <slot
-                    name="cell"
-                    v-bind="{ row, column, value: getCellValue(row, column) }"
+<table class="table">
+    <thead v-if="showHeader && columns.length">
+        <tr class="table--row">
+            <slot name="header" :columns="columns">
+                <th
+                    v-for="column in columns"
+                    :key="getColumnKey(column)"
+                    class="table--cell"
+                    scope="col"
                 >
-                    [[ getCellValue(row, column) ]]
-                </slot>
-            </div>
-        </slot>
-    </div>
-
-    <slot name="footer" v-bind="{ columns }"></slot>
-</div>
+                    [[ getColumnLabel(column) ]]
+                </th>
+            </slot>
+        </tr>
+    </thead>
+    <tbody>
+        <tr
+            v-for="(row, index) in rows"
+            :key="index"
+            class="table--row"
+        >
+            <slot name="row" v-bind="{ row, columns }">
+                <td
+                    v-for="column in columns"
+                    :key="getColumnKey(column)"
+                    class="table--cell"
+                >
+                    <slot
+                        name="cell"
+                        v-bind="{ row, column, value: getCellValue(row, column) }"
+                    >
+                        [[ getCellValue(row, column) ]]
+                    </slot>
+                </td>
+            </slot>
+        </tr>
+    </tbody>
+    <tfoot v-if="$slots.footer">
+        <tr class="table--row">
+            <slot name="footer" v-bind="{ columns }"></slot>
+        </tr>
+    </tfoot>
+</table>
