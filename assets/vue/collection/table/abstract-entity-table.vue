@@ -1,6 +1,7 @@
 <script>
 import DataTable from "../../partials/data-table.vue";
 import AbstractEntityCollectionVueMixin from "../../../js/Vue/AbstractEntityCollectionVueMixin";
+import DateService from "@wexample/symfony-loader/js/Services/DateService";
 
 export default {
   template: "#vue-template-wexample-symfony-design-system-bundle-vue-collection-table-abstract-entity-table",
@@ -22,6 +23,10 @@ export default {
   },
 
   methods: {
+    formatDateTime(value) {
+      return this.app.getService(DateService).formatDateTime(value);
+    },
+
     getEntityValue(entity, propertyPath) {
       if (!entity || !propertyPath) {
         return '';
