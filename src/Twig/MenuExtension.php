@@ -5,6 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 use Twig\TwigFunction;
+use Wexample\Helpers\Helper\ClassHelper;
 
 class MenuExtension extends AbstractTemplateExtension
 {
@@ -75,7 +76,7 @@ class MenuExtension extends AbstractTemplateExtension
                 continue;
             }
 
-            $controller = explode('::', $defaults['_controller'])[0] ?? null;
+            $controller = explode(ClassHelper::METHOD_SEPARATOR, $defaults['_controller'])[0] ?? null;
             if ($controller && str_starts_with($controller, $prefix)) {
                 $routes[$name] = $route;
             }
