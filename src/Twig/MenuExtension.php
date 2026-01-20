@@ -59,12 +59,12 @@ class MenuExtension extends AbstractTemplateExtension
             ),
             new TwigFunction(
                 'menu_get_routes_from_controller_namespace',
-                [$this, 'getRoutesFromControllerNamespace']
+                [$this, 'menuGetRoutesFromControllerNamespace']
             ),
         ];
     }
 
-    public function getRoutesFromControllerNamespace(string $namespace): array
+    public function menuGetRoutesFromControllerNamespace(string $namespace): array
     {
         $routes = [];
         $prefix = rtrim($namespace, '\\').'\\';
