@@ -46,7 +46,13 @@ export default {
         }, row) ?? '';
       }
 
-      return row[key] ?? '';
+      const value = row[key] ?? '';
+
+      if (typeof column?.format === 'function') {
+        return column.format(value, row, column);
+      }
+
+      return value;
     }
   }
 };
