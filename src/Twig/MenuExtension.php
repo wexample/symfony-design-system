@@ -68,7 +68,7 @@ class MenuExtension extends AbstractTemplateExtension
     public function menuGetRoutesFromControllerNamespace(string $namespace): array
     {
         $routes = [];
-        $prefix = rtrim($namespace, '\\').'\\';
+        $prefix = ClassHelper::normalizeNamespacePrefix($namespace);
 
         foreach ($this->router->getRouteCollection() as $name => $route) {
             $defaults = $route->getDefaults();
