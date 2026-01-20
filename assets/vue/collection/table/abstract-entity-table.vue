@@ -43,6 +43,10 @@ export default {
       return this.app.getService(DateService).formatMonthYear(value);
     },
 
+    cellFormatterRelative(value, options = {}) {
+      return this.app.getService(DateService).formatRelative(value, options);
+    },
+
     getEntityValue(entity, propertyPath) {
       if (!entity || !propertyPath) {
         return '';
