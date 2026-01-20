@@ -19,20 +19,26 @@
             :key="index"
             class="table--row"
         >
-            <slot name="row" v-bind="{ row, columns }">
+            <template v-if="$slots.row">
+                <slot name="row" v-bind="{ row, columns }"></slot>
+            </template>
+            <template v-else>
                 <td
                     v-for="column in columns"
                     :key="getColumnKey(column)"
                     class="table--cell"
                 >
-                    <slot
-                        name="cell"
-                        v-bind="{ row, column, value: getCellValue(row, column) }"
-                    >
+                    <template v-if="$slots.cell">
+                        <slot
+                            name="cell"
+                            v-bind="{ row, column, value: getCellValue(row, column) }"
+                        ></slot>
+                    </template>
+                    <template v-else>
                         [[ getCellValue(row, column) ]]
-                    </slot>
+                    </template>
                 </td>
-            </slot>
+            </template>
         </tr>
     </tbody>
     <tfoot v-if="$slots.footer">
