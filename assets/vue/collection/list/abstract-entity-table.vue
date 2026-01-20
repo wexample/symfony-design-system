@@ -3,7 +3,7 @@ import DataTable from "../../partials/data-table.vue";
 import AbstractEntityCollectionVueMixin from "../../../js/Vue/AbstractEntityCollectionVueMixin";
 
 export default {
-  template: "#vue-template-design-system-abstract-entity-list",
+  template: "#vue-template-design-system-abstract-entity-table",
 
   mixins: [AbstractEntityCollectionVueMixin],
   components: {
