@@ -20,8 +20,15 @@ const AbstractEntityCollectionVueMixin = {
   },
 
   methods: {
+    getEntitiesFetchParams() {
+      return undefined;
+    },
+
     async refreshEntitiesCollection() {
-      this.entities = await this.getEntityRepository().fetchList();
+      const fetchParams = this.getEntitiesFetchParams();
+      this.entities = fetchParams
+        ? await this.getEntityRepository().fetchList(fetchParams)
+        : await this.getEntityRepository().fetchList();
     },
 
     getCollectionRefreshEvents() {

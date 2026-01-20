@@ -6,6 +6,7 @@
                     v-for="column in columns"
                     :key="getColumnKey(column)"
                     class="table--cell"
+                    :class="column.className"
                     scope="col"
                 >
                     [[ getColumnLabel(column) ]]
@@ -27,6 +28,7 @@
                     v-for="column in columns"
                     :key="getColumnKey(column)"
                     class="table--cell"
+                    :class="column.className"
                 >
                     <template v-if="$slots.cell">
                         <slot
