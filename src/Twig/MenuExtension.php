@@ -76,7 +76,7 @@ class MenuExtension extends AbstractTemplateExtension
                 continue;
             }
 
-            $controller = explode(ClassHelper::METHOD_SEPARATOR, $defaults['_controller'])[0] ?? null;
+            $controller = ClassHelper::getClassPath($defaults['_controller']);
             if ($controller && str_starts_with($controller, $prefix)) {
                 $routes[$name] = $route;
             }
