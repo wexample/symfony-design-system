@@ -53,6 +53,23 @@ export default {
       }
 
       return value;
+    },
+
+    getCellHref(row, column) {
+      const href = column?.href;
+      if (!href) {
+        return '';
+      }
+
+      if (typeof href === 'function') {
+        return href(row, column);
+      }
+
+      if (typeof href === 'string') {
+        return row?.[href] ?? '';
+      }
+
+      return '';
     }
   }
 };
