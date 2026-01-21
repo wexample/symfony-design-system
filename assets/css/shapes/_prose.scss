@@ -1,0 +1,29 @@
+.prose {
+  line-height: 1.6;
+}
+
+.prose > * + * {
+  margin-top: var(--space-3);
+}
+
+.prose p {
+  margin: 0;
+}
+
+.prose ul,
+.prose ol {
+  margin: 0;
+  padding-left: var(--space-5);
+}
+
+.prose li + li {
+  margin-top: var(--space-1);
+}
+
+.prose a {
+  color: var(--color-link);
+}
+
+.prose a:hover {
+  color: var(--color-link-hover);
+}
