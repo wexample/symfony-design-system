@@ -29,6 +29,16 @@
       background: var(--color-invert-2);
     }
   }
+
+  .menu--separator {
+    padding: var(--space-3) var(--space-4);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: var(--font-size-1);
+    color: var(--color-invert-6);
+    border-top: var(--border-separator);
+    border-bottom: var(--border-separator);
+  }
 }
 
 .menu--item--icon {

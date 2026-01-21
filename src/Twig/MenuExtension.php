@@ -43,6 +43,20 @@ class MenuExtension extends AbstractTemplateExtension
                 self::TEMPLATE_FUNCTION_OPTIONS
             ),
             new TwigFunction(
+                'menu_separator',
+                function (Environment $twig, string $label, array $options = []) {
+                    return $this->renderTemplate(
+                        $twig,
+                        '@WexampleSymfonyDesignSystemBundle/components/menu-separator.html.twig',
+                        [
+                            'label' => $label,
+                            'options' => $options,
+                        ]
+                    );
+                },
+                self::TEMPLATE_FUNCTION_OPTIONS
+            ),
+            new TwigFunction(
                 'menu_item_link',
                 function (Environment $twig, string $icon, string $label, string $href, array $options = []) {
                     return $this->renderTemplate(
