@@ -2,10 +2,10 @@
   line-height: 1.6;
 }
 
-.prose > * + * {
-  margin-top: var(--space-3);
+.prose > p:first-child {
+  margin-top: 0;
 }
 
-.prose p {
-  margin: 0;
+.prose > p:last-child {
+  margin-bottom: 0;
 }
