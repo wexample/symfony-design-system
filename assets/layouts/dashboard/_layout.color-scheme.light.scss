@@ -7,6 +7,10 @@
 .usage-color-scheme-light {
   @include color_scheme.color-scheme(
     palette.$color-light,
-    palette.$color-dark
+    palette.$color-dark,
+    palette.$color-info,
+    palette.$color-success,
+    palette.$color-warning,
+    palette.$color-error
   );
 }

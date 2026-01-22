@@ -1,16 +1,43 @@
 @use '../../css/mixins/gutters' as gutters;
+@use '../../css/mixins/flex' as flex;
 
 .header {
   @include gutters.gutters-horizontal;
+  height: var(--size-3);
 
   .header--body {
     @include gutters.gutters-body;
-    padding: var(--space-4);
+    display: flex;
   }
 
   .header--title {
     font-size: var(--font-size-5);
     font-weight: 600;
+    @include flex.flex-center;
+    padding: var(--space-4);
+  }
+
+  .header--title-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-1);
+    padding: var(--space-4);
+  }
+
+  .header--title-block .header--title {
+    padding: 0;
+    justify-content: flex-start;
+  }
+
+  .header--subtitle {
+    font-size: var(--font-size-2);
+    color: var(--color-invert-6);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--color-invert-8);
+    }
   }
 
   .header--menu {
@@ -21,6 +48,7 @@
       display: inline-flex;
       align-items: center;
       padding: var(--space-1);
+      color: var(--color-default-text);
     }
 
     .header--menu-item--icon {

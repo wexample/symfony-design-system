@@ -1,0 +1,11 @@
+{% set active_class = '' %}
+{% if route is defined and route %}
+    {% set active_class = route_is_current(route, route_params|default({}), 'tabs--item--active') %}
+{% elseif options.active is defined and options.active %}
+    {% set active_class = 'tabs--item--active' %}
+{% endif %}
+<a class="tabs--item {{ active_class }}{% if options.class is defined %} {{ options.class }}{% endif %}"
+   href="{{ href }}"
+   {{ component_render_tag_attributes(options.attr|default({})) }}>
+    {{ label | trans }}
+</a>

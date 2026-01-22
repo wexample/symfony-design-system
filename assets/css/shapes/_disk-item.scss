@@ -1,0 +1,44 @@
+@use '../../css/mixins/text' as text;
+
+%disk-item-base {
+  padding: var(--space-4);
+  border-radius: var(--radius-1);
+  background: var(--color-invert-1);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--space-3);
+  min-height: var(--font-size-8);
+  color: inherit;
+  text-decoration: none;
+}
+
+.disk-item {
+  @extend %disk-item-base;
+}
+
+.disk-item--file {
+  @extend %disk-item-base;
+}
+
+.disk-item--directory {
+  @extend %disk-item-base;
+}
+
+.disk-item--icon {
+  font-size: var(--font-size-8);
+  line-height: 1;
+  align-self: center;
+}
+
+.disk-item--title,
+.disk-item--title-ellipsis {
+  font-size: var(--font-size-3);
+  align-self: center;
+  max-width: 100%;
+
+  &.disk-item--title-ellipsis {
+    @include text.text-ellipsis
+  }
+}

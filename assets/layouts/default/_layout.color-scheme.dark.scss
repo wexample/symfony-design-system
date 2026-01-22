@@ -5,7 +5,11 @@
 .usage-color-scheme-dark {
   @include color_scheme.color-scheme(
     palette.$color-dark,
-    palette.$color-light
+    palette.$color-light,
+    palette.$color-info,
+    palette.$color-success,
+    palette.$color-warning,
+    palette.$color-error
   );
   background: var(--color-default-background);
 }
@@ -13,7 +17,5 @@
 // Applied on body / sub-layouts
 .usage-color-scheme-dark,
 .usage-color-scheme-default .usage-color-scheme-dark {
-  &, a {
-    color: var(--color-default-text);
-  }
+  color: var(--color-default-text);
 }

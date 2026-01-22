@@ -11,6 +11,8 @@
 
 html {
   text-size-adjust: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 body {
@@ -18,13 +20,14 @@ body {
   font-kerning: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100%;
 }
 
 // Remove default spacing on common text blocks.
 html,
 body,
 #{global.$selector-title-all},
-p,
 ul,
 ol,
 dl,
@@ -38,6 +41,11 @@ figure {
 // Default link styling is handled elsewhere.
 a {
   text-decoration: none;
+  color: var(--color-link);
+}
+
+a:hover {
+  color: var(--color-link-hover);
 }
 
 // No bullets/markers by default.

@@ -1,10 +1,23 @@
-@mixin color-scheme($background, $foreground) {
+@mixin color-scheme(
+  $background,
+  $foreground,
+  $info,
+  $success,
+  $warning,
+  $error
+) {
   --color-default-background: #{$background};
   --color-default-background-invert: #{$foreground};
   --color-default-text: #{$foreground};
   --color-default-text-invert: #{$background};
+  --color-link: var(--color-invert-7);
+  --color-link-hover: var(--color-invert-8);
 
   @include color-scheme-invert-levels($foreground);
+  @include color-scheme-semantic-levels(info, $info, $background, $foreground);
+  @include color-scheme-semantic-levels(success, $success, $background, $foreground);
+  @include color-scheme-semantic-levels(warning, $warning, $background, $foreground);
+  @include color-scheme-semantic-levels(error, $error, $background, $foreground);
 }
 
 @mixin color-scheme-invert-levels($foreground) {
@@ -13,5 +26,23 @@
   @for $i from 1 through length($levels) {
     $alpha: nth($levels, $i);
     --color-invert-#{$i}: #{rgba($foreground, $alpha)};
+  }
+}
+
+@mixin color-scheme-semantic-levels($name, $color, $background, $foreground) {
+  $low-weights: (15, 30, 45, 60);
+  $high-weights: (70, 80, 90, 95);
+
+  @for $i from 1 through 4 {
+    $weight: nth($low-weights, $i);
+    --color-#{$name}-#{$i}: #{mix($color, $background, $weight)};
+  }
+
+  --color-#{$name}-5: #{$color};
+
+  @for $i from 1 through 4 {
+    $level: $i + 5;
+    $weight: nth($high-weights, $i);
+    --color-#{$name}-#{$level}: #{mix($color, $foreground, $weight)};
   }
 }

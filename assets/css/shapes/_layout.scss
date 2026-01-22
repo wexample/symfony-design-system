@@ -1,22 +1,25 @@
-@use '../../css/mixins/gutters' as gutters;
+@use '../../css/shapes/gutters';
 
-.layout,
-.layout--horizontal,
-.layout--vertical {
-  @include gutters.gutters-base;
-
-  .layout--body {
-    @include gutters.gutters-body;
-    padding: var(--space-4);
-  }
+.layout {
+  @extend .gutters;
 }
 
-// Horizontal layout
 .layout--horizontal {
-  @include gutters.gutters-horizontal;
+  @extend .gutters--horizontal;
+  height: 100%;
 }
 
-// Vertical layout
 .layout--vertical {
-  @include gutters.gutters-vertical;
+  @extend .gutters--vertical;
+  width: 100%;
 }
+
+.layout--body,
+.layout--body--scrollable {
+  @extend .gutters--body;
+}
+
+.layout--body--scrollable {
+  overflow: auto;
+}
+

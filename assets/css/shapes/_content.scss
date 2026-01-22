@@ -1,4 +1,6 @@
 .content {
+  padding: var(--space-4);
+
   h1,
   h2,
   h3,
@@ -16,12 +18,4 @@
   h4 { font-size: var(--font-size-3); }
   h5 { font-size: var(--font-size-2); }
   h6 { font-size: var(--font-size-2); }
-
-  p {
-    margin: 0 0 var(--space-3);
-  }
-
-  > :last-child {
-    margin-bottom: 0;
-  }
 }

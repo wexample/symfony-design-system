@@ -1,0 +1,15 @@
+.prose {
+  line-height: 1.6;
+  
+  > * + * {
+    margin-top: var(--space-3);
+  }
+
+  > p:first-child {
+    margin-top: 0;
+  }
+
+  > p:last-child {
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,8 @@
+<a class="button{% if options.class is defined %} {{ options.class }}{% endif %}"
+   href="{{ href }}"
+   {{ component_render_tag_attributes(options.attr|default({})) }}>
+    <span class="button--icon">
+        {{ icon(icon) }}
+    </span>
+    <span>{{ label }}</span>
+</a>

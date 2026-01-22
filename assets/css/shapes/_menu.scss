@@ -1,0 +1,62 @@
+@use '../../css/mixins/border' as border;
+@use '../../css/mixins/text' as text;
+
+.menu {
+  --menu-width: var(--size-6);
+  width: var(--menu-width);
+  background: var(--color-invert-1);
+}
+
+.menu--vertical {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  height: 100%;
+
+  li a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    color: var(--color-default-text);
+
+    &:hover {
+      background: var(--color-invert-2);
+    }
+
+    &.active {
+      font-weight: bold;
+      background: var(--color-invert-2);
+    }
+  }
+
+  .menu--separator {
+    padding: var(--space-3) var(--space-4);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: var(--font-size-1);
+    color: var(--color-invert-6);
+    border-top: var(--border-separator);
+    border-bottom: var(--border-separator);
+  }
+}
+
+.menu--item--icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: var(--space-2);
+  overflow: hidden;
+}
+
+.menu--item--label {
+  @include text.text-ellipsis;
+}
+
+.menu--vertical--left {
+  border-right: var(--border-separator);
+}
+
+.menu--vertical--right {
+  border-left: var(--border-separator);
+}

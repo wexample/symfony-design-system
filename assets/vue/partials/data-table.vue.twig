@@ -1,0 +1,56 @@
+<table class="table">
+    <thead v-if="showHeader && columns.length">
+        <tr class="table--row">
+            <slot name="header" :columns="columns">
+                <th
+                    v-for="column in columns"
+                    :key="getColumnKey(column)"
+                    class="table--cell"
+                    :class="column.className"
+                    scope="col"
+                >
+                    [[ getColumnLabel(column) ]]
+                </th>
+            </slot>
+        </tr>
+    </thead>
+    <tbody>
+        <tr
+            v-for="(row, index) in rows"
+            :key="index"
+            class="table--row"
+        >
+            <template v-if="$slots.row">
+                <slot name="row" v-bind="{ row, columns }"></slot>
+            </template>
+            <template v-else>
+                <td
+                    v-for="column in columns"
+                    :key="getColumnKey(column)"
+                    class="table--cell"
+                    :class="column.className"
+                >
+                    <template v-if="$slots.cell">
+                        <slot
+                            name="cell"
+                            v-bind="{ row, column, value: getCellValue(row, column) }"
+                        ></slot>
+                    </template>
+                    <template v-else>
+                        <template v-if="getCellHref(row, column)">
+                            <a :href="getCellHref(row, column)">[[ getCellValue(row, column) ]]</a>
+                        </template>
+                        <template v-else>
+                            [[ getCellValue(row, column) ]]
+                        </template>
+                    </template>
+                </td>
+            </template>
+        </tr>
+    </tbody>
+    <tfoot v-if="$slots.footer">
+        <tr class="table--row">
+            <slot name="footer" v-bind="{ columns }"></slot>
+        </tr>
+    </tfoot>
+</table>

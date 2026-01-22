@@ -1,0 +1,35 @@
+@use '../../css/mixins/flex' as flex;
+
+.table {
+  width: 100%;
+  border-radius: var(--radius-1);
+  background: var(--color-invert-1);
+  border: var(--border-default);
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.table--row {
+  align-items: center;
+  background: var(--color-default-background);
+}
+
+.table--cell {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-3);
+  border-bottom: var(--border-default);
+}
+
+.table--cell--secondary {
+  font-size: var(--font-size-2);
+  color: var(--color-invert-6);
+}
+
+.table thead .table--cell {
+  font-weight: 600;
+}
+
+.table tbody tr:last-child .table--cell {
+  border-bottom: 0;
+}

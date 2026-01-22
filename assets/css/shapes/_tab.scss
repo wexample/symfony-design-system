@@ -1,0 +1,25 @@
+.tabs {
+  display: flex;
+}
+
+.tabs--item {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-4) var(--space-6);
+  border-radius: 0;
+  color: var(--color-default-text);
+  text-decoration: none;
+}
+
+.tabs--item:hover {
+  background: var(--color-invert-1);
+}
+
+.tabs--item--active {
+  background: var(--color-invert-1);
+  border-color: var(--color-invert-3);
+}
+
+.tabs--surface {
+  background: var(--color-invert-1);
+}

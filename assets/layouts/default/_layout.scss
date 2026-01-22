@@ -3,19 +3,23 @@
 
 // Base shapes.
 @use '../../css/shapes/layout-reset-modern';
-@use '../../css/fonts/system_sans' as system_sans;
+@use '../../css/shapes/page';
+
+// Base mixins.
 @use '../../css/mixins/radius' as radius;
 @use '../../css/mixins/type-scale' as type_scale;
 @use '../../css/mixins/content-size' as content_size;
 @use '../../css/mixins/shadow' as shadow;
 @use '../../css/mixins/opacity' as opacity;
 @use '../../css/mixins/spacing' as spacing;
+@use '../../css/mixins/sizes' as sizes;
+@use '../../css/mixins/border' as border;
+@use '../../css/fonts/system_sans' as system_sans;
 
 // Local variables
 $font-family-base: system_sans.$font-stack-sans !default;
 $font-family-heading: $font-family-base !default;
-$font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-  'Liberation Mono', 'Courier New', monospace !default;
+$font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
 
 html,
 body {
@@ -26,5 +30,10 @@ body {
   @include shadow.shadow-vars;
   @include opacity.opacity-vars;
   @include spacing.spacing-vars;
-  color-scheme: light dark;
+  @include sizes.size-vars;
+  @include border.border-vars;
+}
+
+#layout-initial {
+  height: 100%;
 }

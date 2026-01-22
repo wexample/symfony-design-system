@@ -1,7 +1,6 @@
 .block {
-  --block-padding: var(--space-4);
-  padding: var(--block-padding);
-  border-radius: var(--radius-1);
+  display: block;
   background: var(--color-invert-1);
-  border: var(--border-default);
+  border-radius: var(--radius-1);
+  padding: var(--space-4);
 }
