@@ -1,0 +1,18 @@
+.stage {
+  display: block;
+}
+
+.stage--center {
+  display: grid;
+  place-items: center;
+}
+
+.stage--center--vertical {
+  display: grid;
+  align-items: center;
+}
+
+.stage--center--horizontal {
+  display: grid;
+  justify-items: center;
+}
