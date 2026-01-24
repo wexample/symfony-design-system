@@ -12,7 +12,7 @@
 @use '../../css/mixins/shadow' as shadow;
 @use '../../css/mixins/opacity' as opacity;
 @use '../../css/mixins/spacing' as spacing;
-@use '../../css/mixins/sizes' as sizes;
+@use '../../css/mixins/size' as size;
 @use '../../css/mixins/border' as border;
 @use '../../css/fonts/system_sans' as system_sans;
 
@@ -30,7 +30,7 @@ body {
   @include shadow.shadow-vars;
   @include opacity.opacity-vars;
   @include spacing.spacing-vars;
-  @include sizes.size-vars;
+  @include size.size-vars;
   @include border.border-vars;
 }
 

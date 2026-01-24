@@ -9,3 +9,17 @@
   --size-8: 64rem;
   --size-9: 128rem;
 }
+
+@mixin size-expanded {
+  width: 100%;
+  height: 100%;
+}
+
+@mixin size-full-parent {
+  @include size-expanded;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
