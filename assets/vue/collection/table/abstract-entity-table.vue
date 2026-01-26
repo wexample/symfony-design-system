@@ -66,6 +66,10 @@ export default {
     },
 
     getColumnLabel(columnKey) {
+      if (columnKey === false) {
+        return '';
+      }
+
       return columnKey ?? '';
     },
 
