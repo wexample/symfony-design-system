@@ -42,11 +42,13 @@
 .form--textarea:focus {
   outline: none;
   box-shadow: 0 0 0 var(--border-focus-width) var(--color-invert-2);
+  transition: box-shadow 160ms ease, border-color 160ms ease;
 }
 
 .form--group.has-error .form--input:focus,
 .form--group.has-error .form--textarea:focus {
   box-shadow: 0 0 0 var(--border-focus-width) var(--color-error-5);
+  transition: box-shadow 160ms ease, border-color 160ms ease;
 }
 
 .form--actions {
