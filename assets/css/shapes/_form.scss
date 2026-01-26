@@ -9,14 +9,14 @@
 
 .form.is-assisted .form--input,
 .form.is-assisted .form--textarea {
-  outline: var(--border-focus-width) solid var(--color-assist-4, var(--color-info-4));
+  outline: var(--border-focus-width) solid var(--color-assist-6, var(--color-info-4));
   outline-offset: 2px;
   animation: assisted-pulse 1600ms ease-in-out infinite;
 }
 
 .form.is-assisted .form--input:focus,
 .form.is-assisted .form--textarea:focus {
-  outline: var(--border-focus-width) solid var(--color-assist-4, var(--color-info-4));
+  outline: var(--border-focus-width) solid var(--color-assist-6, var(--color-info-4));
   outline-offset: 2px;
   animation: assisted-pulse 1600ms ease-in-out infinite;
 }
