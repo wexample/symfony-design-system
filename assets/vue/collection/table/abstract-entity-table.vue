@@ -86,7 +86,11 @@ export default {
           };
         }
 
-        if (typeof column === 'object' && column.key && !column.label) {
+        if (
+          typeof column === 'object' &&
+          column.key &&
+          (column.label === undefined || column.label === null)
+        ) {
           return {
             ...column,
             label: this.getColumnLabel(column.key)

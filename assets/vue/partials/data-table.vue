@@ -32,6 +32,10 @@ export default {
         return column;
       }
 
+      if (column?.label === false) {
+        return '';
+      }
+
       return column?.label ?? column?.key ?? '';
     },
 
