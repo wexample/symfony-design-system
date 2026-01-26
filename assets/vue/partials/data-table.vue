@@ -70,6 +70,10 @@ export default {
       }
 
       return '';
+    },
+
+    isHtmlCell(column) {
+      return column?.html === true || column?.cell === 'html';
     }
   }
 };
