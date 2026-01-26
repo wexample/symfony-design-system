@@ -1,4 +1,4 @@
 <li class="menu--separator{% if options.class is defined %} {{ options.class }}{% endif %}"
     {{ component_render_tag_attributes(options.attr|default({})) }}>
-    {{ label }}
+    {{ label | trans }}
 </li>
