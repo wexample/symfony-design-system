@@ -1,5 +1,6 @@
 @use '../../css/mixins/flex' as flex;
 @use 'button' as button;
+@use '../../css/mixins/message' as message;
 
 .form {
   display: grid;
@@ -38,6 +39,17 @@
   gap: var(--space-3);
   align-items: center;
   justify-content: flex-end;
+}
+
+.form--errors {
+  @include message.message-base;
+  @include message.message-error;
+  padding: var(--space-3);
+}
+
+.form--errors ul {
+  margin: 0;
+  padding-left: var(--space-4);
 }
 
 .form--surface {
