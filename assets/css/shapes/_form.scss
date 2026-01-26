@@ -41,12 +41,12 @@
 .form--input:focus,
 .form--textarea:focus {
   outline: none;
-  box-shadow: 0 0 0 4px var(--color-invert-2);
+  box-shadow: 0 0 0 var(--border-focus-width) var(--color-invert-2);
 }
 
 .form--group.has-error .form--input:focus,
 .form--group.has-error .form--textarea:focus {
-  box-shadow: 0 0 0 4px var(--color-error-5);
+  box-shadow: 0 0 0 var(--border-focus-width) var(--color-error-5);
 }
 
 .form--actions {
