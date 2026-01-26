@@ -29,14 +29,22 @@ export default {
 
     getColumnLabel(column) {
       if (typeof column === 'string') {
-        return column;
+        return this.trans(`@vue::table.column.${column}.title`);
       }
 
       if (column?.label === false) {
         return '';
       }
 
-      return column?.label ?? column?.key ?? '';
+      if (column?.label !== undefined && column?.label !== null) {
+        return column.label;
+      }
+
+      if (column?.key) {
+        return this.trans(`@vue::table.column.${column.key}.title`);
+      }
+
+      return column?.key ?? '';
     },
 
     getCellValue(row, column) {

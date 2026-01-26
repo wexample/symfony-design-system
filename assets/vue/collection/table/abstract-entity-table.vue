@@ -70,7 +70,7 @@ export default {
         return '';
       }
 
-      return columnKey ?? '';
+      return this.trans(`@vue::table.column.${columnKey}.title`);
     },
 
     processColumns(rawColumns) {
