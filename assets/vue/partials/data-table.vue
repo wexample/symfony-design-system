@@ -12,6 +12,10 @@ export default {
       type: Array,
       default: () => []
     },
+    app: {
+      type: Object,
+      default: null
+    },
     showHeader: {
       type: Boolean,
       default: false
@@ -66,7 +70,16 @@ export default {
       }
 
       if (typeof href === 'string') {
-        return row?.[href] ?? '';
+        return href;
+      }
+
+      if (typeof href === 'object' && href.route && this.app?.services?.routing) {
+        const parameters =
+          typeof href.parameters === 'function'
+            ? href.parameters(row, column)
+            : href.parameters ?? {};
+
+        return this.app.services.routing.path(href.route, parameters);
       }
 
       return '';
