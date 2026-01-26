@@ -25,9 +25,11 @@
   0%,
   100% {
     outline-offset: 2px;
+    outline-color: var(--color-assist-3, var(--color-info-3));
   }
   50% {
     outline-offset: 6px;
+    outline-color: var(--color-assist-6, var(--color-info-6));
   }
 }
 
