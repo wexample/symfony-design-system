@@ -9,14 +9,14 @@
 
 .form.is-assisted .form--input,
 .form.is-assisted .form--textarea {
-  outline: var(--border-focus-width) solid var(--color-assist-6, var(--color-info-4));
+  outline: var(--border-focus-width) solid var(--color-assist-6);
   outline-offset: 2px;
   animation: assisted-pulse 1600ms ease-in-out infinite;
 }
 
 .form.is-assisted .form--input:focus,
 .form.is-assisted .form--textarea:focus {
-  outline: var(--border-focus-width) solid var(--color-assist-6, var(--color-info-4));
+  outline: var(--border-focus-width) solid var(--color-assist-6);
   outline-offset: 2px;
   animation: assisted-pulse 1600ms ease-in-out infinite;
 }
@@ -25,11 +25,11 @@
   0%,
   100% {
     outline-offset: 2px;
-    outline-color: var(--color-assist-3, var(--color-info-3));
+    outline-color: var(--color-assist-3);
   }
   50% {
     outline-offset: 6px;
-    outline-color: var(--color-assist-6, var(--color-info-6));
+    outline-color: var(--color-assist-6);
   }
 }
 
