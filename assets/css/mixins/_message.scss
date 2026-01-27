@@ -1,0 +1,39 @@
+@mixin message-base {
+  --message-color: var(--color-invert-6);
+  --message-bg: var(--color-invert-1);
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: 0;
+  border-left: 3px solid var(--message-color);
+  border-radius: var(--radius-1);
+  background: var(--message-bg);
+  color: var(--color-default-text);
+  box-shadow: var(--shadow-1);
+}
+
+@mixin message-title {
+  font-size: var(--font-size-3);
+  font-weight: 600;
+  color: var(--message-color);
+}
+
+@mixin message-info {
+  --message-color: var(--color-info-5);
+  --message-bg: var(--color-info-1);
+}
+
+@mixin message-success {
+  --message-color: var(--color-success-5);
+  --message-bg: var(--color-success-1);
+}
+
+@mixin message-warning {
+  --message-color: var(--color-warning-5);
+  --message-bg: var(--color-warning-1);
+}
+
+@mixin message-error {
+  --message-color: var(--color-error-5);
+  --message-bg: var(--color-error-1);
+}

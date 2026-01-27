@@ -4,7 +4,8 @@
   $info,
   $success,
   $warning,
-  $error
+  $error,
+  $assist: $info
 ) {
   --color-default-background: #{$background};
   --color-default-background-invert: #{$foreground};
@@ -15,6 +16,7 @@
 
   @include color-scheme-invert-levels($foreground);
   @include color-scheme-semantic-levels(info, $info, $background, $foreground);
+  @include color-scheme-semantic-levels(assist, $assist, $background, $foreground);
   @include color-scheme-semantic-levels(success, $success, $background, $foreground);
   @include color-scheme-semantic-levels(warning, $warning, $background, $foreground);
   @include color-scheme-semantic-levels(error, $error, $background, $foreground);

@@ -37,7 +37,10 @@
                         ></slot>
                     </template>
                     <template v-else>
-                        <template v-if="getCellHref(row, column)">
+                        <template v-if="isHtmlCell(column)">
+                            <span v-html="getCellValue(row, column)"></span>
+                        </template>
+                        <template v-else-if="getCellHref(row, column)">
                             <a :href="getCellHref(row, column)">[[ getCellValue(row, column) ]]</a>
                         </template>
                         <template v-else>

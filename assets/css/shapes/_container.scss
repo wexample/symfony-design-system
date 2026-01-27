@@ -2,6 +2,8 @@
   --content-size: var(--content-size-m);
   --container-padding: var(--space-4);
   max-width: var(--content-size);
+  width: 100%;
+  margin-inline: auto;
   padding-inline: var(--container-padding);
 }
 
@@ -18,6 +20,18 @@
 .container--large {
   --content-size: var(--content-size-l);
   --container-padding: var(--space-6);
+}
+
+.container--small {
+  --content-size: var(--content-size-s);
+}
+
+.container--xsmall {
+  --content-size: var(--content-size-xs);
+}
+
+.container--xxsmall {
+  --content-size: var(--content-size-xxs);
 }
 
 .container--full {

@@ -66,7 +66,11 @@ export default {
     },
 
     getColumnLabel(columnKey) {
-      return columnKey ?? '';
+      if (columnKey === false) {
+        return '';
+      }
+
+      return this.trans(`@vue::table.column.${columnKey}.title`);
     },
 
     processColumns(rawColumns) {
@@ -82,7 +86,11 @@ export default {
           };
         }
 
-        if (typeof column === 'object' && column.key && !column.label) {
+        if (
+          typeof column === 'object' &&
+          column.key &&
+          (column.label === undefined || column.label === null)
+        ) {
           return {
             ...column,
             label: this.getColumnLabel(column.key)

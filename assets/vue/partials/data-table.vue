@@ -12,6 +12,10 @@ export default {
       type: Array,
       default: () => []
     },
+    app: {
+      type: Object,
+      default: null
+    },
     showHeader: {
       type: Boolean,
       default: false
@@ -25,10 +29,22 @@ export default {
 
     getColumnLabel(column) {
       if (typeof column === 'string') {
-        return column;
+        return this.trans(`@vue::table.column.${column}.title`);
       }
 
-      return column?.label ?? column?.key ?? '';
+      if (column?.label === false) {
+        return '';
+      }
+
+      if (column?.label !== undefined && column?.label !== null) {
+        return column.label;
+      }
+
+      if (column?.key) {
+        return this.trans(`@vue::table.column.${column.key}.title`);
+      }
+
+      return column?.key ?? '';
     },
 
     getCellValue(row, column) {
@@ -66,10 +82,23 @@ export default {
       }
 
       if (typeof href === 'string') {
-        return row?.[href] ?? '';
+        return href;
+      }
+
+      if (typeof href === 'object' && href.route && this.app?.services?.routing) {
+        const parameters =
+          typeof href.parameters === 'function'
+            ? href.parameters(row, column)
+            : href.parameters ?? {};
+
+        return this.app.services.routing.path(href.route, parameters);
       }
 
       return '';
+    },
+
+    isHtmlCell(column) {
+      return column?.html === true || column?.cell === 'html';
     }
   }
 };
