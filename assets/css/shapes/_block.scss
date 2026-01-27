@@ -2,5 +2,20 @@
   display: block;
   background: var(--color-invert-1);
   border-radius: var(--radius-1);
+}
+
+.block--padded {
+  padding: var(--space-4);
+}
+
+.block--title {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-3);
+  font-weight: 600;
+  border-bottom: var(--border-default);
+  color: var(--color-default-text);
+}
+
+.block--body {
   padding: var(--space-4);
 }
