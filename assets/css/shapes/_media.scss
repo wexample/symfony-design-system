@@ -1,6 +1,7 @@
 .media {
   display: block;
   overflow: hidden;
+  position: relative;
 }
 
 .media img,
@@ -22,4 +23,15 @@
 .media--cover video {
   height: 100%;
   object-fit: cover;
+}
+
+.media--bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.media--fg {
+  position: relative;
+  z-index: 1;
 }
