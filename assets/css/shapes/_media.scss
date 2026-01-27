@@ -1,0 +1,25 @@
+.media {
+  display: block;
+  overflow: hidden;
+}
+
+.media img,
+.media video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.media--round {
+  border-radius: 50%;
+}
+
+.media--square {
+  border-radius: var(--radius-1);
+}
+
+.media--cover img,
+.media--cover video {
+  height: 100%;
+  object-fit: cover;
+}
