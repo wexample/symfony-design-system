@@ -1,6 +1,6 @@
 # wexample/symfony-design-system
 
-Version: 1.0.77
+Version: 1.0.78
 
 Design system assets for Symfony
 
@@ -130,7 +130,7 @@ Refer to each package's documentation for specific version compatibility require
 ## Dependencies
 
 - php: >=8.2
-- wexample/symfony-loader: 0.0.15
+- wexample/symfony-loader: 0.0.16
 
 
 # About us
