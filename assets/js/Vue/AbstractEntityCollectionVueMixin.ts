@@ -1,4 +1,5 @@
 import AbstractEntityManipulatorVueMixin from './AbstractEntityManipulatorVueMixin';
+import EventsService from '@wexample/symfony-loader/js/Services/EventsService';
 
 const AbstractEntityCollectionVueMixin = {
   mixins: [AbstractEntityManipulatorVueMixin],
@@ -43,7 +44,7 @@ const AbstractEntityCollectionVueMixin = {
 
       this.collectionRefreshHandlers = events.map((eventName) => {
         const handler = () => this.refreshEntitiesCollection();
-        this.app.services.events.listen(eventName, handler);
+        this.app.getServiceOrFail(EventsService).listen(eventName, handler);
         return { eventName, handler };
       });
     },
@@ -54,7 +55,7 @@ const AbstractEntityCollectionVueMixin = {
       }
 
       this.collectionRefreshHandlers.forEach(({ eventName, handler }) => {
-        this.app.services.events.forget(eventName, handler);
+        this.app.getServiceOrFail(EventsService).forget(eventName, handler);
       });
 
       this.collectionRefreshHandlers = [];

@@ -1,4 +1,5 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
+import EventsService from '@wexample/symfony-loader/js/Services/EventsService';
 
 export default class extends Component {
   private inputEl?: HTMLInputElement;
@@ -11,7 +12,7 @@ export default class extends Component {
       return;
     }
 
-    this.app.services.events.trigger(
+    this.app.getServiceOrFail(EventsService).trigger(
       this.getEventName(),
       {
         component: this,
