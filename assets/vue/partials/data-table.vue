@@ -24,7 +24,7 @@ export default {
 
   methods: {
     getCellIcon(row, column) {
-      if (!column?.icon || !this.app?.services?.icon) {
+      if (!column?.icon || !this.app) {
         return '';
       }
 
@@ -36,7 +36,8 @@ export default {
         return '';
       }
 
-      return this.app.services.icon.icon(icon);
+      const iconService = this.app.getServiceOrFail('icon');
+      return iconService.icon(icon);
     },
 
     getColumnKey(column) {
@@ -101,13 +102,14 @@ export default {
         return href;
       }
 
-      if (typeof href === 'object' && href.route && this.app?.services?.routing) {
+      if (typeof href === 'object' && href.route && this.app) {
         const parameters =
           typeof href.parameters === 'function'
             ? href.parameters(row, column)
             : href.parameters ?? {};
 
-        return this.app.services.routing.path(href.route, parameters);
+        const routingService = this.app.getServiceOrFail('routing');
+        return routingService.path(href.route, parameters);
       }
 
       return '';
