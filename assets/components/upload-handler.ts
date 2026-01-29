@@ -12,7 +12,7 @@ export default class extends Component {
       return;
     }
 
-    this.app.getServiceOrFail(EventsService).trigger(
+    (this.app.getServiceOrFail(EventsService) as EventsService).trigger(
       this.getEventName(),
       {
         component: this,

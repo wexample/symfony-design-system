@@ -3,8 +3,8 @@
         <tr class="table--row">
             <slot name="header" :columns="columns">
                 <th
-                    v-for="column in columns"
-                    :key="getColumnKey(column)"
+                    v-for="(column, columnIndex) in columns"
+                    :key="getColumnKey(column, columnIndex)"
                     class="table--cell"
                     :class="column.className"
                     scope="col"
@@ -25,8 +25,8 @@
             </template>
             <template v-else>
                 <td
-                    v-for="column in columns"
-                    :key="getColumnKey(column)"
+                    v-for="(column, columnIndex) in columns"
+                    :key="getColumnKey(column, columnIndex)"
                     class="table--cell"
                     :class="column.className"
                 >
@@ -39,6 +39,25 @@
                     <template v-else>
                         <template v-if="isHtmlCell(column)">
                             <span v-html="getCellValue(row, column)"></span>
+                        </template>
+                        <template v-else-if="hasCellActions(column)">
+                            <span class="table--actions">
+                                <template v-for="(action, actionIndex) in getCellActions(row, column)">
+                                    <a
+                                        v-if="action.href"
+                                        :key="`action-${actionIndex}`"
+                                        :href="action.href"
+                                        class="table--icon-link"
+                                        v-html="action.icon"
+                                    ></a>
+                                    <span
+                                        v-else
+                                        :key="`action-${actionIndex}`"
+                                        class="table--icon"
+                                        v-html="action.icon"
+                                    ></span>
+                                </template>
+                            </span>
                         </template>
                         <template v-else-if="column.icon">
                             <a

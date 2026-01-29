@@ -23,6 +23,66 @@ export default {
   },
 
   methods: {
+    hasCellActions(column) {
+      return Boolean(column?.action || (Array.isArray(column?.actions) && column.actions.length));
+    },
+
+    getCellActions(row, column) {
+      if (!this.app) {
+        return [];
+      }
+
+      const actions = column?.actions
+        ? (Array.isArray(column.actions) ? column.actions : [column.actions])
+        : (column?.action ? [column.action] : []);
+
+      if (!actions.length) {
+        return [];
+      }
+
+      const iconService = this.app.getServiceOrFail('icon');
+      const routingService = this.app.getServiceOrFail('routing');
+      const defaultIcons = {
+        show: 'ph:bold/eye',
+        edit: 'ph:bold/pencil-simple',
+      };
+
+      return actions.map((action) => {
+        const actionName = typeof action === 'string'
+          ? action
+          : (action?.name || action?.action);
+
+        const iconName = typeof action === 'object'
+          ? (action.icon || defaultIcons[actionName])
+          : defaultIcons[actionName];
+
+        const route = typeof action === 'object'
+          ? action.route
+          : undefined;
+
+        const routeName = route || (column?.routePrefix && actionName
+          ? `${column.routePrefix}_${actionName}`
+          : undefined);
+
+        const params = typeof action === 'object'
+          ? action.params
+          : column?.params;
+
+        const parameters = typeof params === 'function'
+          ? params(row, column, action)
+          : (params ?? {});
+
+        const href = routeName
+          ? routingService.path(routeName, parameters)
+          : '';
+
+        return {
+          href,
+          icon: iconName ? iconService.icon(iconName) : '',
+        };
+      }).filter((entry) => entry.icon);
+    },
+
     getCellIcon(row, column) {
       if (!column?.icon || !this.app) {
         return '';
@@ -40,8 +100,24 @@ export default {
       return iconService.icon(icon);
     },
 
-    getColumnKey(column) {
-      return typeof column === 'string' ? column : column?.key;
+    getColumnKey(column, index) {
+      if (typeof column === 'string') {
+        return column;
+      }
+
+      if (column?.key) {
+        return column.key;
+      }
+
+      if (column?.action) {
+        return `action-${column.action}`;
+      }
+
+      if (Array.isArray(column?.actions)) {
+        return `actions-${column.actions.join('-')}`;
+      }
+
+      return `column-${index}`;
     },
 
     getColumnLabel(column) {
