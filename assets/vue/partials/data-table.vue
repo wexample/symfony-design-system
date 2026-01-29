@@ -23,6 +23,22 @@ export default {
   },
 
   methods: {
+    getCellIcon(row, column) {
+      if (!column?.icon || !this.app?.services?.icon) {
+        return '';
+      }
+
+      const icon = typeof column.icon === 'function'
+        ? column.icon(row, column)
+        : column.icon;
+
+      if (!icon) {
+        return '';
+      }
+
+      return this.app.services.icon.icon(icon);
+    },
+
     getColumnKey(column) {
       return typeof column === 'string' ? column : column?.key;
     },

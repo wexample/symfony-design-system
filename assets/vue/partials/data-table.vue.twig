@@ -40,6 +40,19 @@
                         <template v-if="isHtmlCell(column)">
                             <span v-html="getCellValue(row, column)"></span>
                         </template>
+                        <template v-else-if="column.icon">
+                            <a
+                                v-if="getCellHref(row, column)"
+                                :href="getCellHref(row, column)"
+                                class="table--icon-link"
+                                v-html="getCellIcon(row, column)"
+                            ></a>
+                            <span
+                                v-else
+                                class="table--icon"
+                                v-html="getCellIcon(row, column)"
+                            ></span>
+                        </template>
                         <template v-else-if="getCellHref(row, column)">
                             <a :href="getCellHref(row, column)">[[ getCellValue(row, column) ]]</a>
                         </template>
