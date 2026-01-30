@@ -1,8 +1,13 @@
 {% set active_class = route is defined and route ? route_is_current(route, route_params|default({}), 'active') : '' %}
+{% set new_window = options.new_window|default(false) %}
+{% set attr = options.attr|default({}) %}
+{% if new_window %}
+    {% set attr = attr|merge({'target': '_blank', 'rel': 'noopener noreferrer'}) %}
+{% endif %}
 <li>
     <a class="{{ options.class|default('') }} {{ active_class }}"
        href="{{ href }}"
-       {{ component_render_tag_attributes(options.attr|default({})) }}>
+       {{ component_render_tag_attributes(attr) }}>
         <span class="menu--item--icon">
             {{ icon(icon) }}
         </span>
