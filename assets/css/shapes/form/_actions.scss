@@ -1,0 +1,14 @@
+@use '../button' as button;
+
+.form--actions {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.form button[type='submit'],
+.form input[type='submit'] {
+  @extend .button;
+  @extend .button--invert;
+}

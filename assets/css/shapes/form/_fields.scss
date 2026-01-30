@@ -1,0 +1,29 @@
+.form--input,
+.form--textarea {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-default);
+  border-radius: var(--radius-1);
+  background: var(--color-invert-1);
+  color: inherit;
+  font-size: var(--font-size-3);
+}
+
+.form--group.has-error .form--input,
+.form--group.has-error .form--textarea {
+  border: var(--border-focus);
+  border-color: var(--color-error-5);
+}
+
+.form--input:focus,
+.form--textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 var(--border-focus-width) var(--color-invert-2);
+  transition: box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.form--group.has-error .form--input:focus,
+.form--group.has-error .form--textarea:focus {
+  box-shadow: 0 0 0 var(--border-focus-width) var(--color-invert-2);
+  transition: box-shadow 160ms ease, border-color 160ms ease;
+}
