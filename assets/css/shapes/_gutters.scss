@@ -14,12 +14,6 @@
   @include gutters.gutters-body;
 }
 
-.gutters--collapsible {}
-
-.gutters--collapsible--collapsed {
-  overflow: hidden;
-}
-
 // Horizontal layout
 .gutters--horizontal {
   @include gutters.gutters-horizontal;
