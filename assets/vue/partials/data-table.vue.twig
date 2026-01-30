@@ -45,14 +45,14 @@
                                 <template v-for="(action, actionIndex) in getCellActions(row, column)">
                                     <a
                                         v-if="action.href"
-                                        :key="`action-${actionIndex}`"
+                                        :key="`action-link-${actionIndex}`"
                                         :href="action.href"
                                         class="table--icon-link"
                                         v-html="action.icon"
                                     ></a>
                                     <span
                                         v-else
-                                        :key="`action-${actionIndex}`"
+                                        :key="`action-icon-${actionIndex}`"
                                         class="table--icon"
                                         v-html="action.icon"
                                     ></span>
