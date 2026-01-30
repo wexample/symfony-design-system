@@ -1,4 +1,4 @@
-@use '../../css/mixins/message' as message;
+@use '../../../css/mixins/message' as message;
 
 .form--errors {
   @include message.message-base;
