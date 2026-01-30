@@ -9,6 +9,11 @@
   font-size: var(--font-size-3);
 }
 
+select.form--input * {
+  color: initial;
+  background: initial;
+}
+
 .form--group.has-error .form--input,
 .form--group.has-error .form--textarea {
   border: var(--border-focus);
