@@ -4,9 +4,15 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Twig\Environment;
 use Twig\TwigFunction;
+use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 class ButtonExtension extends AbstractTemplateExtension
 {
+    public function __construct(
+        private readonly ComponentsExtension $componentsExtension,
+    ) {
+    }
+
     public function getFunctions(): array
     {
         $options = [
@@ -18,11 +24,10 @@ class ButtonExtension extends AbstractTemplateExtension
         return [
             new TwigFunction(
                 'button',
-                function (Environment $twig, array $context, string $icon, string $label, array $options = []) {
+                function (Environment $twig, $context, string $icon, string $label, array $options = []) {
+                    $context = is_array($context) ? $context : [];
                     $renderPass = $context['render_pass'] ?? null;
-                    $component = $twig->getFunction('component')->getCallable();
-
-                    return $component(
+                    return $this->componentsExtension->component(
                         $twig,
                         $renderPass,
                         '@WexampleSymfonyDesignSystemBundle/components/button',
@@ -39,16 +44,15 @@ class ButtonExtension extends AbstractTemplateExtension
                 'button_link',
                 function (
                     Environment $twig,
-                    array $context,
+                    $context,
                     string $icon,
                     string $label,
                     string $href,
                     array $options = []
                 ) {
+                    $context = is_array($context) ? $context : [];
                     $renderPass = $context['render_pass'] ?? null;
-                    $component = $twig->getFunction('component')->getCallable();
-
-                    return $component(
+                    return $this->componentsExtension->component(
                         $twig,
                         $renderPass,
                         '@WexampleSymfonyDesignSystemBundle/components/button-link',
