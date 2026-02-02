@@ -1,39 +1,18 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
 
 export default class extends Component {
+  protected overlayEnabled: boolean = true;
   private buttonEl?: HTMLButtonElement;
   private panelEl?: HTMLElement;
   private itemLinks: HTMLElement[] = [];
 
   private onButtonClick = (event: Event) => {
     event.preventDefault();
-    this.toggle();
-  };
-
-  private onDocumentClick = (event: Event) => {
-    let target = event.target as Node;
-    if (!this.el || !target) {
-      return;
-    }
-
-    if (!this.el.contains(target)) {
-      this.close();
-    }
-  };
-
-  private onDocumentKeydown = (event: KeyboardEvent) => {
-    if (event.key !== 'Escape') {
-      return;
-    }
-
-    if (this.isOpen()) {
-      this.close();
-      this.buttonEl?.focus();
-    }
+    this.overlayToggle(event);
   };
 
   private onItemClick = () => {
-    this.close();
+    this.overlayClose();
   };
 
   protected async activateListeners(): Promise<void> {
@@ -48,8 +27,6 @@ export default class extends Component {
     }
 
     this.buttonEl.addEventListener('click', this.onButtonClick);
-    document.addEventListener('click', this.onDocumentClick);
-    document.addEventListener('keydown', this.onDocumentKeydown);
 
     this.itemLinks.forEach((link) => {
       link.addEventListener('click', this.onItemClick);
@@ -61,24 +38,12 @@ export default class extends Component {
       this.buttonEl.removeEventListener('click', this.onButtonClick);
     }
 
-    document.removeEventListener('click', this.onDocumentClick);
-    document.removeEventListener('keydown', this.onDocumentKeydown);
-
     this.itemLinks.forEach((link) => {
       link.removeEventListener('click', this.onItemClick);
     });
   }
 
-  private isOpen(): boolean {
-    return this.el.classList.contains('is-open');
-  }
-
-  private open(): void {
-    if (this.isOpen()) {
-      return;
-    }
-
-    this.el.classList.add('is-open');
+  overlayOnOpen(): void {
     if (this.buttonEl) {
       this.buttonEl.setAttribute('aria-expanded', 'true');
     }
@@ -87,12 +52,7 @@ export default class extends Component {
     }
   }
 
-  private close(): void {
-    if (!this.isOpen()) {
-      return;
-    }
-
-    this.el.classList.remove('is-open');
+  overlayOnClose(): void {
     if (this.buttonEl) {
       this.buttonEl.setAttribute('aria-expanded', 'false');
     }
@@ -101,11 +61,8 @@ export default class extends Component {
     }
   }
 
-  private toggle(): void {
-    if (this.isOpen()) {
-      this.close();
-    } else {
-      this.open();
-    }
+  overlayOnEscape(): void {
+    this.overlayClose();
+    this.buttonEl?.focus();
   }
 }
