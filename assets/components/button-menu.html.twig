@@ -1,0 +1,50 @@
+{% set menu_align = options.menu_align|default('left') %}
+{% set items_align = options.items_align|default('left') %}
+{% set wrapper_class = options.wrapper_class|default('') %}
+{% set wrapper_attr = options.wrapper_attr|default({}) %}
+{% set button_attr = options.attr|default({}) %}
+<div class="button-menu{% if wrapper_class %} {{ wrapper_class }}{% endif %}"
+     {{ component_render_tag_attributes(wrapper_attr) }}>
+    <button class="button button--menu{% if options.class is defined %} {{ options.class }}{% endif %}"
+            type="{{ options.type|default('button') }}"
+            aria-haspopup="menu"
+            aria-expanded="false"
+            {{ component_render_tag_attributes(button_attr) }}>
+        <span class="button--icon">
+            {{ icon(icon) }}
+        </span>
+        <span class="button-menu__label">{{ label }}</span>
+        <span class="button-menu__caret" aria-hidden="true"></span>
+    </button>
+    <div class="button-menu__panel button-menu__panel--{{ menu_align }}" role="menu" hidden="hidden">
+        <ul class="button-menu__list button-menu__list--items-{{ items_align }}">
+            {% for item in items %}
+                {% set item_attr = item.attr|default({}) %}
+                {% if item.new_window|default(false) %}
+                    {% set item_attr = item_attr|merge({'target': '_blank', 'rel': 'noopener noreferrer'}) %}
+                {% endif %}
+                {% set item_href = item.href|default(null) %}
+                {% if item_href is not defined or item_href is empty %}
+                    {% if item.route is defined and item.route %}
+                        {% set item_href = path(item.route, item.route_params|default({})) %}
+                    {% else %}
+                        {% set item_href = '#' %}
+                    {% endif %}
+                {% endif %}
+                <li class="button-menu__item" role="none">
+                    <a class="button-menu__link{% if item.class is defined %} {{ item.class }}{% endif %}"
+                       href="{{ item_href }}"
+                       role="menuitem"
+                       {{ component_render_tag_attributes(item_attr) }}>
+                        {% if item.icon is defined and item.icon %}
+                            <span class="button-menu__item-icon">
+                                {{ icon(item.icon) }}
+                            </span>
+                        {% endif %}
+                        <span class="button-menu__item-label">{{ item.label | trans }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

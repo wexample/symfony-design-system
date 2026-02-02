@@ -41,6 +41,32 @@ class ButtonExtension extends AbstractTemplateExtension
                 $options
             ),
             new TwigFunction(
+                'button_menu',
+                function (
+                    Environment $twig,
+                    $context,
+                    string $icon,
+                    string $label,
+                    array $items = [],
+                    array $options = []
+                ) {
+                    $context = is_array($context) ? $context : [];
+                    $renderPass = $context['render_pass'] ?? null;
+                    return $this->componentsExtension->component(
+                        $twig,
+                        $renderPass,
+                        '@WexampleSymfonyDesignSystemBundle/components/button-menu',
+                        [
+                            'icon' => $icon,
+                            'label' => $label,
+                            'items' => $items,
+                            'options' => $options,
+                        ]
+                    );
+                },
+                $options
+            ),
+            new TwigFunction(
                 'button_link',
                 function (
                     Environment $twig,

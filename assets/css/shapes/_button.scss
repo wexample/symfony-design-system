@@ -22,3 +22,115 @@
   align-items: center;
   line-height: 1;
 }
+
+.button-menu {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.button--menu {
+  gap: var(--space-2);
+}
+
+.button-menu.is-open .button--menu {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.button-menu__label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.button-menu__caret {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: var(--space-2);
+  padding-left: var(--space-2);
+  border-left: var(--border-separator);
+}
+
+.button-menu__caret::before {
+  content: '';
+  width: 0.45em;
+  height: 0.45em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.button-menu.is-open .button-menu__caret::before {
+  transform: rotate(225deg);
+}
+
+.button-menu__panel {
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 0;
+  min-width: 100%;
+  width: max-content;
+  background: var(--color-invert-1);
+  box-shadow: var(--shadow-1);
+  border-radius: 0 0 var(--radius-1) var(--radius-1);
+  border: var(--border-separator);
+  border-top: 0;
+  z-index: 10;
+}
+
+.button-menu__panel--right {
+  right: 0;
+  left: auto;
+}
+
+.button-menu__panel--left {
+  left: 0;
+  right: auto;
+}
+
+.button-menu__list {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-2) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.button-menu__item {
+  margin: 0;
+  padding: 0;
+}
+
+.button-menu__link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-default-text);
+  text-decoration: none;
+}
+
+.button-menu__link:hover,
+.button-menu__link:focus-visible {
+  background: var(--color-invert-2);
+}
+
+.button-menu__list--items-right .button-menu__link {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.button-menu__item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.button-menu__item-label {
+  display: inline-flex;
+  align-items: center;
+}
