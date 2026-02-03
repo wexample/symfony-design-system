@@ -39,12 +39,12 @@
   border-bottom-right-radius: 0;
 }
 
-.button-menu__label {
+.button-menu--label {
   display: inline-flex;
   align-items: center;
 }
 
-.button-menu__caret {
+.button-menu--caret {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -53,7 +53,7 @@
   border-left: var(--border-separator);
 }
 
-.button-menu__caret::before {
+.button-menu--caret::before {
   content: '';
   width: 0.45em;
   height: 0.45em;
@@ -62,35 +62,34 @@
   transform: rotate(45deg);
 }
 
-.button-menu.is-open .button-menu__caret::before {
+.button-menu.is-open .button-menu--caret::before {
   transform: rotate(225deg);
 }
 
-.button-menu__panel {
+.button-menu--panel {
   position: absolute;
   top: calc(100% - 1px);
   left: 0;
   min-width: 100%;
   width: max-content;
-  background: var(--color-invert-1);
+  background: var(--color-invert-opaque-1, var(--color-invert-1));
   box-shadow: var(--shadow-1);
   border-radius: 0 0 var(--radius-1) var(--radius-1);
-  border: var(--border-separator);
   border-top: 0;
   z-index: 10;
 }
 
-.button-menu__panel--right {
+.button-menu--panel--right {
   right: 0;
   left: auto;
 }
 
-.button-menu__panel--left {
+.button-menu--panel--left {
   left: 0;
   right: auto;
 }
 
-.button-menu__list {
+.button-menu--list {
   list-style: none;
   margin: 0;
   padding: var(--space-2) 0;
@@ -99,38 +98,39 @@
   gap: var(--space-1);
 }
 
-.button-menu__item {
+.button-menu--item {
   margin: 0;
   padding: 0;
 }
 
-.button-menu__link {
+.button-menu--link {
   display: flex;
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   color: var(--color-default-text);
   text-decoration: none;
+  width: 100%;
 }
 
-.button-menu__link:hover,
-.button-menu__link:focus-visible {
+.button-menu--link:hover,
+.button-menu--link:focus-visible {
   background: var(--color-invert-2);
 }
 
-.button-menu__list--items-right .button-menu__link {
-  justify-content: flex-end;
-  text-align: right;
+.button-menu--list--items-right .button-menu--link {
+  justify-content: flex-start;
+  flex-direction: row-reverse;
 }
 
-.button-menu__item-icon {
+.button-menu--item-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
 }
 
-.button-menu__item-label {
+.button-menu--item-label {
   display: inline-flex;
   align-items: center;
 }

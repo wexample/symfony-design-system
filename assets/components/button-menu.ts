@@ -1,10 +1,16 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
+import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
 
 export default class extends Component {
   protected overlayEnabled: boolean = true;
   private buttonEl?: HTMLButtonElement;
   private panelEl?: HTMLElement;
   private itemLinks: HTMLElement[] = [];
+
+  async init() {
+    OverlayMixin.apply(this);
+    await super.init();
+  }
 
   private onButtonClick = (event: Event) => {
     event.preventDefault();
@@ -17,9 +23,9 @@ export default class extends Component {
 
   protected async activateListeners(): Promise<void> {
     this.buttonEl = this.el.querySelector('.button--menu') as HTMLButtonElement;
-    this.panelEl = this.el.querySelector('.button-menu__panel') as HTMLElement;
+    this.panelEl = this.el.querySelector('.button-menu--panel') as HTMLElement;
     this.itemLinks = Array.from(
-      this.el.querySelectorAll('.button-menu__link')
+      this.el.querySelectorAll('.button-menu--link')
     ) as HTMLElement[];
 
     if (!this.buttonEl || !this.panelEl) {

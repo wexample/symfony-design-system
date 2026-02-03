@@ -13,11 +13,11 @@
         <span class="button--icon">
             {{ icon(icon) }}
         </span>
-        <span class="button-menu__label">{{ label }}</span>
-        <span class="button-menu__caret" aria-hidden="true"></span>
+        <span class="button-menu--label">{{ label }}</span>
+        <span class="button-menu--caret" aria-hidden="true"></span>
     </button>
-    <div class="button-menu__panel button-menu__panel--{{ menu_align }}" role="menu" hidden="hidden">
-        <ul class="button-menu__list button-menu__list--items-{{ items_align }}">
+    <div class="button-menu--panel button-menu--panel--{{ menu_align }}" role="menu" hidden="hidden">
+        <ul class="button-menu--list button-menu--list--items-{{ items_align }}">
             {% for item in items %}
                 {% set item_attr = item.attr|default({}) %}
                 {% if item.new_window|default(false) %}
@@ -31,17 +31,17 @@
                         {% set item_href = '#' %}
                     {% endif %}
                 {% endif %}
-                <li class="button-menu__item" role="none">
-                    <a class="button-menu__link{% if item.class is defined %} {{ item.class }}{% endif %}"
+                <li class="button-menu--item" role="none">
+                    <a class="button-menu--link{% if item.class is defined %} {{ item.class }}{% endif %}"
                        href="{{ item_href }}"
                        role="menuitem"
                        {{ component_render_tag_attributes(item_attr) }}>
                         {% if item.icon is defined and item.icon %}
-                            <span class="button-menu__item-icon">
+                            <span class="button-menu--item-icon">
                                 {{ icon(item.icon) }}
                             </span>
                         {% endif %}
-                        <span class="button-menu__item-label">{{ item.label | trans }}</span>
+                        <span class="button-menu--item-label">{{ item.label | trans }}</span>
                     </a>
                 </li>
             {% endfor %}
