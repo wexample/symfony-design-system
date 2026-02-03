@@ -8,11 +8,11 @@ export default class extends Component {
 
   private onButtonClick = (event: Event) => {
     event.preventDefault();
-    this.overlayToggle(event);
+    (this as any).overlayToggle(event);
   };
 
   private onItemClick = () => {
-    this.overlayClose();
+    (this as any).overlayClose();
   };
 
   protected async activateListeners(): Promise<void> {
@@ -62,7 +62,7 @@ export default class extends Component {
   }
 
   overlayOnEscape(): void {
-    this.overlayClose();
+    (this as any).overlayClose();
     this.buttonEl?.focus();
   }
 }
