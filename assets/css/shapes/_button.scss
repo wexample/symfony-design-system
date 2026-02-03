@@ -39,6 +39,25 @@
   border-bottom-right-radius: 0;
 }
 
+.button-menu--invert .button--menu {
+  background: var(--color-default-background-invert);
+  color: var(--color-default-text-invert);
+}
+
+.button-menu--invert .button-menu--panel {
+  background: var(--color-default-background-invert);
+  color: var(--color-default-text-invert);
+}
+
+.button-menu--invert .button-menu--link {
+  color: var(--color-default-text-invert);
+}
+
+.button-menu--invert .button-menu--link:hover,
+.button-menu--invert .button-menu--link:focus-visible {
+  background: var(--color-invert-7);
+}
+
 .button-menu--label {
   display: inline-flex;
   align-items: center;
