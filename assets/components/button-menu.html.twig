@@ -1,4 +1,5 @@
 {% set menu_align = options.menu_align|default('left') %}
+{% set menu_vertical = options.menu_vertical|default('bottom') %}
 {% set items_align = options.items_align|default('left') %}
 {% set wrapper_class = options.wrapper_class|default('') %}
 {% set wrapper_attr = options.wrapper_attr|default({}) %}
@@ -16,7 +17,9 @@
         <span class="button-menu--label">{{ label }}</span>
         <span class="button-menu--caret" aria-hidden="true"></span>
     </button>
-    <div class="button-menu--panel button-menu--panel--{{ menu_align }}" role="menu" hidden="hidden">
+    <div class="button-menu--panel button-menu--panel--{{ menu_align }}{% if menu_vertical == 'top' %} button-menu--panel--top{% endif %}"
+         role="menu"
+         hidden="hidden">
         <ul class="button-menu--list button-menu--list--items-{{ items_align }}">
             {% for item in items %}
                 {% set item_attr = item.attr|default({}) %}

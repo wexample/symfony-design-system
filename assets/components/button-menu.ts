@@ -37,6 +37,9 @@ export default class extends Component {
     this.defaultAlign = this.panelEl.classList.contains('button-menu--panel--right')
       ? 'right'
       : 'left';
+    this.defaultVertical = this.panelEl.classList.contains('button-menu--panel--top')
+      ? 'top'
+      : 'bottom';
 
     this.buttonEl.addEventListener('click', this.onButtonClick);
 
