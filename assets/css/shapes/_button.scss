@@ -94,16 +94,12 @@
   background: var(--color-invert-opaque-1, var(--color-invert-1));
   box-shadow: var(--shadow-1);
   border-radius: 0 0 var(--radius-1) var(--radius-1);
-  border: var(--border-separator);
-  border-top: 0;
   z-index: 10;
 }
 
 .button-menu--panel--top {
   top: auto;
   bottom: calc(100% - 1px);
-  border-top: var(--border-separator);
-  border-bottom: 0;
   border-radius: var(--radius-1) var(--radius-1) 0 0;
 }
 
