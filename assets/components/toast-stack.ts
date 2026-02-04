@@ -83,10 +83,11 @@ export default class extends Component {
         return;
       }
       const toastEl = result.el;
-      toastEl.classList.add('toast-stack--item');
-      toastEl.classList.add(`toast--${type}`);
-      toastEl.setAttribute('data-toast-id', id);
-      this.appendToast(toastEl, maxToasts);
+      const toastBody = (toastEl.querySelector('.toast') as HTMLElement) || toastEl;
+      toastBody.classList.add('toast-stack--item');
+      toastBody.classList.add(`toast--${type}`);
+      toastBody.setAttribute('data-toast-id', id);
+      this.appendToast(toastBody, maxToasts);
     });
   }
 
