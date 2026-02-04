@@ -1,0 +1,8 @@
+<div class="toast">
+    {% if title is defined and title %}
+        <div class="toast--title">{{ title }}</div>
+    {% endif %}
+    {% if message is defined and message %}
+        <div class="toast--message">{{ message }}</div>
+    {% endif %}
+</div>
