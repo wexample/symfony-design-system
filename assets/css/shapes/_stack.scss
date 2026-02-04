@@ -14,6 +14,16 @@
   flex: 1 1 0;
 }
 
+.stack--split {
+  @extend %stack-base;
+  flex-direction: row;
+  align-items: center;
+}
+
+.stack--split > :first-child {
+  flex: 1 1 auto;
+}
+
 .stack--vertical {
   @extend %stack-base;
   flex-direction: column;
