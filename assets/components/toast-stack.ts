@@ -2,6 +2,7 @@ import Component from '@wexample/symfony-loader/js/Class/Component';
 
 export default class extends Component {
   private itemsEl?: HTMLElement;
+  private templateEl?: HTMLTemplateElement | null;
   private onToastShowProxy?: EventListener;
   private onToastDismissProxy?: EventListener;
   private onToastClearProxy?: EventListener;
@@ -9,6 +10,7 @@ export default class extends Component {
   attachHtmlElements() {
     super.attachHtmlElements();
     this.itemsEl = this.el.querySelector('.toast-stack--items') as HTMLElement;
+    this.templateEl = document.querySelector('template[data-component-template="@WexampleSymfonyDesignSystemBundle/components/toast"]');
   }
 
   protected async activateListeners(): Promise<void> {
@@ -74,25 +76,38 @@ export default class extends Component {
     message: string,
     allowHtml: boolean
   ): HTMLElement {
-    const toastEl = document.createElement('div');
-    toastEl.className = `toast-stack--item toast--${type}`;
+    if (!this.templateEl) {
+      throw new Error('Toast template not found in DOM.');
+    }
+
+    const fragment = this.templateEl.content.cloneNode(true) as DocumentFragment;
+    const toastEl = fragment.firstElementChild as HTMLElement;
+    if (!toastEl) {
+      throw new Error('Toast template is empty.');
+    }
+
+    toastEl.classList.add('toast-stack--item');
+    toastEl.classList.add(`toast--${type}`);
     toastEl.setAttribute('data-toast-id', id);
 
-    if (title) {
-      const titleEl = document.createElement('div');
-      titleEl.className = 'toast--title';
-      titleEl.textContent = title;
-      toastEl.appendChild(titleEl);
+    const titleEl = toastEl.querySelector('[data-toast-title]') as HTMLElement;
+    if (titleEl) {
+      if (title) {
+        titleEl.textContent = title;
+        titleEl.removeAttribute('hidden');
+      } else {
+        titleEl.setAttribute('hidden', 'hidden');
+      }
     }
 
-    const messageEl = document.createElement('div');
-    messageEl.className = 'toast--message';
-    if (allowHtml) {
-      messageEl.innerHTML = message;
-    } else {
-      messageEl.textContent = message;
+    const messageEl = toastEl.querySelector('[data-toast-message]') as HTMLElement;
+    if (messageEl) {
+      if (allowHtml) {
+        messageEl.innerHTML = message;
+      } else {
+        messageEl.textContent = message;
+      }
     }
-    toastEl.appendChild(messageEl);
 
     return toastEl;
   }
@@ -126,14 +141,4 @@ export default class extends Component {
     }
   }
 
-  addToast(html: string) {
-    if (!this.itemsEl) {
-      return;
-    }
-
-    const item = document.createElement('div');
-    item.className = 'toast-stack--item';
-    item.innerHTML = html;
-    this.itemsEl.appendChild(item);
-  }
 }
