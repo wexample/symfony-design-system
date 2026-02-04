@@ -44,6 +44,7 @@
 
 .toast {
   @include message.message-base;
+  box-shadow: var(--shadow-3);
 }
 
 .toast--title {
