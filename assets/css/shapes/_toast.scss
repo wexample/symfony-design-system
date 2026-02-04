@@ -1,4 +1,5 @@
 @use '../mixins/size' as size;
+@use '../mixins/message' as message;
 
 .toast-stack {
   position: fixed;
@@ -41,11 +42,30 @@
   gap: var(--space-2);
 }
 
+.toast {
+  @include message.message-base;
+}
+
+.toast--title {
+  @include message.message-title;
+}
+
+.toast--info {
+  @include message.message-info;
+}
+
+.toast--success {
+  @include message.message-success;
+}
+
+.toast--warning {
+  @include message.message-warning;
+}
+
+.toast--error {
+  @include message.message-error;
+}
+
 .toast-stack--item {
-  background: #00d4ff;
-  color: #0b0b0b;
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-1);
-  box-shadow: var(--shadow-1);
   pointer-events: auto;
 }

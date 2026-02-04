@@ -1,4 +1,4 @@
-<div class="toast">
+<div class="toast{% if type is defined and type %} toast--{{ type }}{% endif %}">
     <div class="toast--title" data-toast-title hidden="hidden"></div>
     <div class="toast--message" data-toast-message></div>
 </div>

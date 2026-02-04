@@ -36,6 +36,10 @@ export default class extends Component {
 
   private onToastShow(event: Event) {
     const detail = (event as CustomEvent).detail || {};
+    const stackId = detail.stackId || 'default';
+    if (this.options?.stackId && this.options.stackId !== stackId) {
+      return;
+    }
     const id = detail.id || `toast-${Date.now()}`;
     const type = detail.type || 'default';
     const title = detail.title;
@@ -44,10 +48,15 @@ export default class extends Component {
     const timeout = detail.timeout ?? 4000;
     const sticky = detail.sticky === true;
     const maxToasts = detail.maxToasts ?? 6;
+    const position = detail.position;
 
     const mountTarget = this.itemsEl;
     if (!mountTarget) {
       return;
+    }
+
+    if (position) {
+      this.applyPosition(position);
     }
 
     const created = this.app.services.components.createComponentFromTemplate(
@@ -81,8 +90,8 @@ export default class extends Component {
     });
   }
 
-  private applyPosition() {
-    const position = this.options?.position || 'br';
+  private applyPosition(forcedPosition?: string) {
+    const position = forcedPosition || this.options?.position || 'br';
     const top = position.startsWith('t');
     const right = position.endsWith('r');
 
