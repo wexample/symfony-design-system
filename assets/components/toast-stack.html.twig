@@ -1,4 +1,6 @@
+{% set toast_template_name = toast_template_name|default('@WexampleSymfonyDesignSystemBundle/components/toast') %}
+{{ component.setOptionValue('toastTemplateName', toast_template_name) }}
 <div class="toast-stack">
     <div class="toast-stack--items"></div>
 </div>
-{{ component_frontend(render_pass, '@WexampleSymfonyDesignSystemBundle/components/toast') }}
+{{ component_frontend(render_pass, toast_template_name) }}

@@ -10,7 +10,7 @@ export default class extends Component {
   attachHtmlElements() {
     super.attachHtmlElements();
     this.itemsEl = this.el.querySelector('.toast-stack--items') as HTMLElement;
-    this.templateEl = document.querySelector('template[data-component-template="@WexampleSymfonyDesignSystemBundle/components/toast"]');
+    this.templateEl = document.querySelector('template[data-component-template="' + this.options.toastTemplateName + '"]');
   }
 
   protected async activateListeners(): Promise<void> {
