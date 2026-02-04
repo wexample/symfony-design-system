@@ -1,4 +1,8 @@
-<div class="toast toast--{{ type }}">
-    <div class="toast--title" data-toast-title hidden="hidden"></div>
-    <div class="toast--message" data-toast-message></div>
+<div class="toast{% if type is defined and type %} toast--{{ type }}{% endif %}">
+    {% if title is defined and title %}
+        <div class="toast--title">{{ title }}</div>
+    {% endif %}
+    {% if message is defined and message %}
+        <div class="toast--message">{{ message }}</div>
+    {% endif %}
 </div>
