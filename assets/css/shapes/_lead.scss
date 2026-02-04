@@ -1,0 +1,11 @@
+.lead {
+  color: var(--color-default-text-soft);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-1);
+  background: var(--color-invert-1);
+}
+
+.lead--subtle {
+  background: var(--color-invert-0);
+  color: var(--color-default-text-soft);
+}
