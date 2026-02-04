@@ -9,6 +9,7 @@ export default class extends Component {
   attachHtmlElements() {
     super.attachHtmlElements();
     this.itemsEl = this.el.querySelector('.toast-stack--items') as HTMLElement;
+    this.applyPosition();
   }
 
   protected async activateListeners(): Promise<void> {
@@ -78,6 +79,17 @@ export default class extends Component {
       toastEl.setAttribute('data-toast-id', id);
       this.appendToast(toastEl, maxToasts);
     });
+  }
+
+  private applyPosition() {
+    const position = this.options?.position || 'br';
+    const top = position.startsWith('t');
+    const right = position.endsWith('r');
+
+    this.el.classList.toggle('toast-stack--top', top);
+    this.el.classList.toggle('toast-stack--bottom', !top);
+    this.el.classList.toggle('toast-stack--right', right);
+    this.el.classList.toggle('toast-stack--left', !right);
   }
 
   private onToastDismiss(event: Event) {
