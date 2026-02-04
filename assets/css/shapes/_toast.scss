@@ -1,0 +1,29 @@
+@use '../mixins/size' as size;
+
+.toast-stack {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: var(--size-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: #ff2dbf;
+  z-index: 9999;
+}
+
+.toast-stack--items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.toast-stack--item {
+  background: #00d4ff;
+  color: #0b0b0b;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-1);
+  box-shadow: var(--shadow-1);
+}
