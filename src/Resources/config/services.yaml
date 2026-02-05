@@ -1,3 +1,8 @@
+parameters:
+    wexample_symfony_design_system.loader.layout_bases:
+        modal:
+            page_manager_component: '@@WexampleSymfonyDesignSystemBundle/components/modal'
+
 services:
     _defaults:
         autowire: true
