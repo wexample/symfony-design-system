@@ -43,10 +43,12 @@ export default class extends PageManagerComponent {
     await super.activateListeners();
 
     this.overlayEl?.addEventListener('click', this.onClickOverlay);
+    this.contentEl?.addEventListener('click', this.onClickContent);
   }
 
   protected async deactivateListeners(): Promise<void> {
     this.overlayEl?.removeEventListener('click', this.onClickOverlay);
+    this.contentEl?.removeEventListener('click', this.onClickContent);
 
     await super.deactivateListeners();
   }
@@ -68,6 +70,21 @@ export default class extends PageManagerComponent {
   }
 
   private onClickOverlay = async () => {
+    await this.close();
+  };
+
+  private onClickContent = async (event: Event) => {
+    const target = event.target as HTMLElement | null;
+    if (!target) {
+      return;
+    }
+
+    const closeLink = target.closest('.modal-close a') as HTMLElement | null;
+    if (!closeLink) {
+      return;
+    }
+
+    event.preventDefault();
     await this.close();
   };
 }
