@@ -1,10 +1,16 @@
 import Page from '@wexample/symfony-loader/js/Class/Page';
 import PageManagerComponent from '@wexample/symfony-loader/js/Class/PageManagerComponent';
 import RenderNode from '@wexample/symfony-loader/js/Class/RenderNode';
+import FocusableComponentMixin from '@wexample/symfony-loader/js/Class/Mixins/FocusableComponentMixin';
 
 export default class extends PageManagerComponent {
   private overlayEl?: HTMLElement;
   private contentEl?: HTMLElement;
+
+  async init() {
+    FocusableComponentMixin.apply(this);
+    await super.init();
+  }
 
   attachHtmlElements() {
     super.attachHtmlElements();
@@ -87,4 +93,8 @@ export default class extends PageManagerComponent {
     event.preventDefault();
     await this.close();
   };
+
+  focusableShouldHandleEscape(): boolean {
+    return this.el.classList.contains('is-open');
+  }
 }
