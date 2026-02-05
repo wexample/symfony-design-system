@@ -52,12 +52,14 @@ export default class extends PageManagerComponent {
   }
 
   private open() {
+    this.el.removeAttribute('hidden');
     this.el.classList.add('is-open');
     this.page?.focus();
   }
 
   private async close() {
     this.el.classList.remove('is-open');
+    this.el.setAttribute('hidden', 'hidden');
     this.page?.blur();
     await this.exit();
     this.callerPage?.focus();
