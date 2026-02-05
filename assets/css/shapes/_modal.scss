@@ -24,8 +24,47 @@
   z-index: 1;
   width: min(92vw, var(--size-6));
   max-height: 90vh;
-  overflow: auto;
-  border-radius: var(--radius-1);
-  background: var(--color-invert-0);
+  overflow: hidden;
   box-shadow: var(--shadow-2);
+}
+
+.layout-modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 90vh;
+  background: var(--color-invert-1);
+  border-radius: var(--radius-1);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--border-separator);
+}
+
+.modal-header .header-title {
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: var(--font-size-3);
+  font-weight: 600;
+  color: var(--color-default-text);
+}
+
+.modal-close a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  color: var(--color-default-text-soft);
+  text-decoration: none;
+}
+
+.modal-body {
+  padding: var(--space-4);
+  overflow: auto;
 }
