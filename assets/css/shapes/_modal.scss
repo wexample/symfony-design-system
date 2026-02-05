@@ -1,6 +1,7 @@
+@use '../mixins/size' as size;
+
 .modal {
-  position: fixed;
-  inset: 0;
+  @include size.size-full-viewport;
   display: none;
   align-items: center;
   justify-content: center;
@@ -12,8 +13,7 @@
 }
 
 .modal--overlay {
-  position: absolute;
-  inset: 0;
+  @include size.size-full-parent;
   border: 0;
   background: rgba(0, 0, 0, 0.45);
   cursor: pointer;
@@ -22,7 +22,7 @@
 .modal--content {
   position: relative;
   z-index: 1;
-  width: min(92vw, var(--size-6));
+  width: min(92vw, var(--size-8));
   max-height: 90vh;
   overflow: hidden;
   box-shadow: var(--shadow-2);
