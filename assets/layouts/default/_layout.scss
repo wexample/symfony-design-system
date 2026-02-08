@@ -5,6 +5,10 @@
 @use '../../css/shapes/layout-reset-modern';
 @use '../../css/shapes/page';
 
+// Common styles.
+@use '../../css/partials/scrollbar';
+@use '../../css/partials/text';
+
 // Base mixins.
 @use '../../css/mixins/radius' as radius;
 @use '../../css/mixins/type-scale' as type_scale;

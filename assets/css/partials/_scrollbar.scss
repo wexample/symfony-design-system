@@ -1,0 +1,27 @@
+html,
+body,
+.scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-invert-6) var(--color-invert-2);
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.scrollbar::-webkit-scrollbar {
+  width: var(--space-2);
+  height: var(--space-2);
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+.scrollbar::-webkit-scrollbar-track {
+  background: var(--color-invert-2);
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+.scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-invert-6);
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--color-invert-2);
+}

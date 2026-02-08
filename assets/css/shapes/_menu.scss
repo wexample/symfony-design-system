@@ -59,16 +59,6 @@
   min-width: 0;
 }
 
-.menu--footer--name {
-  font-weight: 600;
-  @include text.text-ellipsis;
-}
-
-.menu--footer--email {
-  color: var(--color-invert-6);
-  @include text.text-ellipsis;
-}
-
 .menu--body {
   flex: 1 1 auto;
   min-height: 0;
