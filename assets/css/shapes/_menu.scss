@@ -11,6 +11,10 @@
   background: var(--color-invert-1);
 }
 
+.menu--header {
+  justify-content: space-between;
+}
+
 .menu--header,
 .menu--footer {
   display: flex;
@@ -28,11 +32,41 @@
 .menu--footer {
   border-top: var(--border-separator);
   border-bottom: 0;
+  gap: var(--space-4);
 }
 
 .menu--header a,
 .menu--footer a {
   color: inherit;
+}
+
+.menu--header--logo img {
+  display: block;
+  height: var(--space-6);
+  width: auto;
+}
+
+.menu--header--action {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2);
+}
+
+.menu--footer--meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.menu--footer--name {
+  font-weight: 600;
+  @include text.text-ellipsis;
+}
+
+.menu--footer--email {
+  color: var(--color-invert-6);
+  @include text.text-ellipsis;
 }
 
 .menu--body {
