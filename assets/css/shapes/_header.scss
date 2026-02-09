@@ -47,8 +47,13 @@
     .header--menu-item {
       display: inline-flex;
       align-items: center;
+      height: 100%;
       padding: var(--space-1);
       color: var(--color-default-text);
+    }
+
+    .header--menu-item[hidden] {
+      display: none;
     }
 
     .header--menu-item--icon {
@@ -58,5 +63,9 @@
     .header--menu-item--icon:last-child {
       margin-right: var(--space-2);
     }
+  }
+
+  .header--menu.is-visible + .header--body .header--title {
+    padding-left: 0;
   }
 }
