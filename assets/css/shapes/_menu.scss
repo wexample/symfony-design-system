@@ -37,17 +37,17 @@
   gap: var(--space-4);
 }
 
-.menu--bar--content--space {
+.menu--bar--content--spaced {
   justify-content: space-between;
 }
 
-.menu--icon {
+.menu--bar--icon {
   display: inline-flex;
   align-items: center;
   padding: var(--space-2);
 }
 
-.menu--bar-title-block {
+.menu--bar--title-block {
   @include bar.bar-title-block;
 }
 
