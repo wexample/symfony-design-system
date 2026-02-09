@@ -41,7 +41,8 @@
 
   .header--menu {
     display: flex;
-    align-items: center;
+    align-items: stretch;
+    height: 100%;
 
     .header--menu-item {
       display: inline-flex;
