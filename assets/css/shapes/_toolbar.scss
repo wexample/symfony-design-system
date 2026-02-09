@@ -18,7 +18,9 @@
 }
 
 .toolbar--link {
-  margin-inline: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
 }
 
 .toolbar--surface {
