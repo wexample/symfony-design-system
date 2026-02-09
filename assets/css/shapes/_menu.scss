@@ -1,5 +1,6 @@
 @use '../../css/mixins/border' as border;
 @use '../../css/mixins/text' as text;
+@use '../../css/mixins/bar' as bar;
 
 .menu {
   --menu-width: var(--size-6);
@@ -47,10 +48,7 @@
 }
 
 .menu--footer--meta {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  min-width: 0;
+  @include bar.bar-title-block;
 }
 
 .menu--body {

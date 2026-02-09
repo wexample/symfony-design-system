@@ -1,5 +1,6 @@
 @use '../../css/mixins/gutters' as gutters;
 @use '../../css/mixins/flex' as flex;
+@use '../../css/mixins/bar' as bar;
 
 .header {
   @include gutters.gutters-horizontal;
@@ -18,10 +19,7 @@
   }
 
   .header--title-block {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: var(--space-1);
+    @include bar.bar-title-block;
     padding: var(--space-4);
   }
 
