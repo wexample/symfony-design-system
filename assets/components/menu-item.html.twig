@@ -9,8 +9,8 @@
        href="{{ href }}"
        {{ component_render_tag_attributes(attr) }}>
         <span class="menu--item--icon">
-            {{ icon(icon) }}
+            {{ icon((translation_build_domain_from_template_path(page_translation_path_from_route(route)) ~ '::page_icon') | trans) }}
         </span>
-        <span class="menu--item--label">{{ label | trans }}</span>
+        <span class="menu--item--label">{{ (translation_build_domain_from_template_path(page_translation_path_from_route(route)) ~ '::page_title') | trans }}</span>
     </a>
 </li>
