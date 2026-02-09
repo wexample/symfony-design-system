@@ -2,12 +2,15 @@
 
 .footer {
   @include gutters.gutters-horizontal;
-  padding: var(--space-1);
   background: var(--color-invert-2);
   border-top: var(--border-separator);
 
   .footer--body {
     @include gutters.gutters-body;
     display: flex;
+  }
+
+  .footer-item {
+    padding: var(--space-2);
   }
 }
