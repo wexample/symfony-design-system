@@ -4,6 +4,7 @@ import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAni
 export default class extends Component {
   private timeoutId?: number;
   protected fadeOpen?: () => void;
+  protected closeWithAnimation?: () => Promise<void>;
 
   async init() {
     FadeAnimationMixin.apply(this);
@@ -60,6 +61,10 @@ export default class extends Component {
   };
 
   private async close() {
+    if (this.closeWithAnimation) {
+      await this.closeWithAnimation();
+      return;
+    }
     await this.exit();
   }
 }

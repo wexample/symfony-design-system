@@ -13,6 +13,7 @@ type ConfirmAction = {
 
 export default class extends Component {
   protected fadeOpen?: () => void;
+  protected closeWithAnimation?: (event?: Event) => Promise<void>;
   async init() {
     FadeAnimationMixin.apply(this);
     if (this.options?.variant !== 'toast') {

@@ -9,6 +9,7 @@ import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAni
 export default class extends PageManagerComponent {
   private contentEl?: HTMLElement;
   protected fadeOpen?: () => void;
+  protected closeWithAnimation?: (event?: Event) => Promise<void>;
 
   async init() {
     FadeAnimationMixin.apply(this);
