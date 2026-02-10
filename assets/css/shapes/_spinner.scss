@@ -49,7 +49,7 @@
   display: block;
   width: var(--spinner-size);
   height: var(--spinner-size);
-  animation: spinner-rotate 0.8s linear infinite;
+  animation: spinner-rotate 1.1s linear infinite;
   box-sizing: border-box;
 }
 
@@ -62,22 +62,22 @@
 
 .spinner--align-inline .spinner {
   --spinner-size: 1rem;
-  --spinner-stroke: 2px;
+  --spinner-stroke: 4px;
 }
 
 .spinner--sm {
   --spinner-size: 1.4rem;
-  --spinner-stroke: 2px;
+  --spinner-stroke: 4px;
 }
 
 .spinner--md {
   --spinner-size: 2.2rem;
-  --spinner-stroke: 2px;
+  --spinner-stroke: 4px;
 }
 
 .spinner--lg {
   --spinner-size: 3.2rem;
-  --spinner-stroke: 3px;
+  --spinner-stroke: 6px;
 }
 
 .spinner--invert {
