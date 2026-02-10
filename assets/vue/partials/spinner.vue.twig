@@ -1,8 +1,13 @@
-<div
-    :class="spinnerClass"
-    :role="hasLabel ? 'status' : null"
-    :aria-label="hasLabel ? label : null"
-    :aria-hidden="hasLabel ? null : 'true'"
->
-    <span class="spinner__circle"></span>
+<div :class="wrapperClass">
+    <div
+        :class="spinnerClass"
+        :role="hasLabel ? 'status' : null"
+        :aria-label="hasLabel ? label : null"
+        :aria-hidden="hasLabel ? null : 'true'"
+    >
+        <svg class="spinner--circle" viewBox="0 0 50 50" aria-hidden="true" focusable="false">
+            <circle class="spinner--circle-trail" cx="25" cy="25" r="20" fill="none"></circle>
+            <circle class="spinner--circle-path" cx="25" cy="25" r="20" fill="none"></circle>
+        </svg>
+    </div>
 </div>

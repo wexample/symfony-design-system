@@ -55,9 +55,9 @@
 
 .spinner--circle-trail {
   stroke: currentColor;
-  stroke-width: calc(var(--spinner-stroke) + 4px);
+  stroke-width: calc(var(--spinner-stroke) - 1px);
   stroke-linecap: round;
-  stroke-dasharray: 0 128;
+  stroke-dasharray: 10 128;
   transform-box: view-box;
   transform-origin: 50% 50%;
   animation: spinner-rotate 2s linear infinite;
