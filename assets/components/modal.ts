@@ -2,20 +2,20 @@ import Page from '@wexample/symfony-loader/js/Class/Page';
 import PageManagerComponent from '@wexample/symfony-loader/js/Class/PageManagerComponent';
 import RenderNode from '@wexample/symfony-loader/js/Class/RenderNode';
 import FocusableComponentMixin from '@wexample/symfony-loader/js/Class/Mixins/FocusableComponentMixin';
+import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
 
 export default class extends PageManagerComponent {
-  private overlayEl?: HTMLElement;
   private contentEl?: HTMLElement;
 
   async init() {
     FocusableComponentMixin.apply(this);
+    OverlayMixin.apply(this);
     await super.init();
   }
 
   attachHtmlElements() {
     super.attachHtmlElements();
 
-    this.overlayEl = this.el.querySelector('[data-modal-overlay]') as HTMLElement;
     this.contentEl = this.el.querySelector('.modal--content') as HTMLElement;
 
     if (this.contentEl && this.layoutBody) {
@@ -48,36 +48,22 @@ export default class extends PageManagerComponent {
   protected async activateListeners(): Promise<void> {
     await super.activateListeners();
 
-    this.overlayEl?.addEventListener('click', this.onClickOverlay);
     this.contentEl?.addEventListener('click', this.onClickContent);
   }
 
   protected async deactivateListeners(): Promise<void> {
-    this.overlayEl?.removeEventListener('click', this.onClickOverlay);
     this.contentEl?.removeEventListener('click', this.onClickContent);
 
     await super.deactivateListeners();
   }
 
   private open() {
-    this.el.removeAttribute('hidden');
-    this.el.style.display = 'flex';
-    this.el.classList.add('is-open');
-    this.page?.focus();
+    (this as any).overlayOpen();
   }
 
   private async close() {
-    this.el.classList.remove('is-open');
-    this.el.style.display = 'none';
-    this.el.setAttribute('hidden', 'hidden');
-    this.page?.blur();
-    await this.exit();
-    this.callerPage?.focus();
+    (this as any).overlayClose();
   }
-
-  private onClickOverlay = async () => {
-    await this.close();
-  };
 
   private onClickContent = async (event: Event) => {
     const target = event.target as HTMLElement | null;
@@ -96,5 +82,21 @@ export default class extends PageManagerComponent {
 
   focusableShouldHandleEscape(): boolean {
     return this.el.classList.contains('is-open');
+  }
+
+  overlayOnOpen(): void {
+    this.el.removeAttribute('hidden');
+    this.el.style.display = 'flex';
+    this.el.classList.add('is-open');
+    this.page?.focus();
+  }
+
+  async overlayOnClose(): Promise<void> {
+    this.el.classList.remove('is-open');
+    this.el.style.display = 'none';
+    this.el.setAttribute('hidden', 'hidden');
+    this.page?.blur();
+    await this.exit();
+    this.callerPage?.focus();
   }
 }

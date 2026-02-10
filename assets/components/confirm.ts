@@ -1,4 +1,5 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
+import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
 
 type ConfirmAction = {
   key: string;
@@ -18,6 +19,13 @@ export default class extends Component {
   }
 
   protected async mounted(): Promise<void> {
+    if (this.options?.variant !== 'toast') {
+      this.overlayEnabled = true;
+      OverlayMixin.apply(this);
+    } else {
+      this.overlayEnabled = false;
+    }
+
     if (this.options?.variant) {
       this.el.classList.add(`confirm--${this.options.variant}`);
     }
@@ -73,5 +81,14 @@ export default class extends Component {
     if (this.options?.onResolve) {
       this.options.onResolve(value);
     }
+  }
+
+  overlayOnOpen(): void {
+    this.el.classList.add('is-open');
+  }
+
+  async overlayOnClose(): Promise<void> {
+    this.el.classList.remove('is-open');
+    await this.exit();
   }
 }
