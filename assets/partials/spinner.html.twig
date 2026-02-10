@@ -10,6 +10,8 @@
     <div class="spinner{% if size_class %} spinner--{{ size_class }}{% endif %}{% if variant and variant != 'default' %} spinner--{{ variant }}{% endif %}"
          {% if aria_label %}role="status" aria-label="{{ aria_label }}"{% else %}aria-hidden="true"{% endif %}
          {{ component_render_tag_attributes(spinner_attr) }}>
-        <span class="spinner--circle"></span>
+        <svg class="spinner--circle" viewBox="0 0 50 50" aria-hidden="true" focusable="false">
+            <circle class="spinner--circle-path" cx="25" cy="25" r="20" fill="none"></circle>
+        </svg>
     </div>
 </div>

@@ -49,12 +49,15 @@
   display: block;
   width: var(--spinner-size);
   height: var(--spinner-size);
-  border: var(--spinner-stroke) solid currentColor;
-  border-right-color: transparent;
-  border-top-color: transparent;
-  border-radius: 999px;
   animation: spinner-rotate 0.8s linear infinite;
   box-sizing: border-box;
+}
+
+.spinner--circle-path {
+  stroke: currentColor;
+  stroke-width: var(--spinner-stroke);
+  stroke-linecap: round;
+  stroke-dasharray: 80 60;
 }
 
 .spinner--align-inline .spinner,
