@@ -1,4 +1,7 @@
 <div class="toast{% if type is defined and type %} toast--{{ type }}{% endif %}">
+    <button class="toast--close" type="button" data-toast-close>
+        {{ icon('ph:bold/x') }}
+    </button>
     {% if title is defined and title %}
         <div class="toast--title">{{ title }}</div>
     {% endif %}

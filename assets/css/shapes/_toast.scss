@@ -44,7 +44,9 @@
 
 .toast {
   @include message.message-base;
+  position: relative;
   box-shadow: var(--shadow-3);
+  --message-bg: var(--color-invert-1);
 }
 
 .toast--title {
@@ -52,19 +54,42 @@
 }
 
 .toast--info {
-  @include message.message-info;
+  --message-color: var(--color-info-5);
 }
 
 .toast--success {
-  @include message.message-success;
+  --message-color: var(--color-success-5);
 }
 
 .toast--warning {
-  @include message.message-warning;
+  --message-color: var(--color-warning-5);
 }
 
 .toast--error {
-  @include message.message-error;
+  --message-color: var(--color-error-5);
+}
+
+.toast--close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-6);
+  height: var(--space-6);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-default-text);
+  opacity: 0;
+  pointer-events: none;
+  cursor: pointer;
+}
+
+.toast:hover .toast--close {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .toast-stack--item {

@@ -6,6 +6,7 @@ export default class extends Component {
   protected async mounted(): Promise<void> {
     const titleEl = this.el.querySelector('[data-toast-title]') as HTMLElement;
     const messageEl = this.el.querySelector('[data-toast-message]') as HTMLElement;
+    const closeEl = this.el.querySelector('[data-toast-close]') as HTMLElement | null;
 
     if (titleEl) {
       if (this.options?.title) {
@@ -31,12 +32,13 @@ export default class extends Component {
       }, timeout);
     }
 
-    this.el.addEventListener('click', this.onClickClose);
+    closeEl?.addEventListener('click', this.onClickClose);
     await super.mounted();
   }
 
   protected async unmounted(): Promise<void> {
-    this.el.removeEventListener('click', this.onClickClose);
+    const closeEl = this.el.querySelector('[data-toast-close]') as HTMLElement | null;
+    closeEl?.removeEventListener('click', this.onClickClose);
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
     }
