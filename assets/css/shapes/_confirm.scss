@@ -1,0 +1,60 @@
+@use '../mixins/message' as message;
+
+.confirm {
+  @include message.message-base;
+  position: relative;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+  padding: var(--space-4);
+}
+
+.confirm--overlay {
+  max-width: var(--size-6);
+  width: 100%;
+}
+
+.confirm--title {
+  @include message.message-title;
+  color: var(--color-default-text);
+}
+
+.confirm--message {
+  color: var(--color-default-text);
+}
+
+.confirm--actions {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.confirm--action {
+  border: var(--border-default);
+  background: var(--color-invert-1);
+  color: var(--color-default-text);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-1);
+  cursor: pointer;
+}
+
+.confirm--action--primary {
+  background: var(--color-invert-2);
+  font-weight: 600;
+}
+
+.confirm--action--destructive {
+  background: var(--color-error-1);
+  border-color: var(--color-error-5);
+  color: var(--color-error-7);
+}
