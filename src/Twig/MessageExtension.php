@@ -17,7 +17,7 @@ class MessageExtension extends AbstractTemplateExtension
 
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/message.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/partials/message.html.twig',
                         [
                             'type' => 'info',
                             'title' => $title,
@@ -35,7 +35,7 @@ class MessageExtension extends AbstractTemplateExtension
 
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/message.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/partials/message.html.twig',
                         [
                             'type' => 'success',
                             'title' => $title,
@@ -53,7 +53,7 @@ class MessageExtension extends AbstractTemplateExtension
 
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/message.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/partials/message.html.twig',
                         [
                             'type' => 'warning',
                             'title' => $title,
@@ -71,7 +71,7 @@ class MessageExtension extends AbstractTemplateExtension
 
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/message.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/partials/message.html.twig',
                         [
                             'type' => 'error',
                             'title' => $title,

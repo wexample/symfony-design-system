@@ -28,7 +28,7 @@ class BreadcrumbExtension extends AbstractTemplateExtension
                 ) {
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/breadcrumb.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/partials/breadcrumb.html.twig',
                         [
                             'items' => $this->normalizeItems($items),
                             'options' => $options,
@@ -50,7 +50,7 @@ class BreadcrumbExtension extends AbstractTemplateExtension
                 function (Environment $twig, array $options = []) {
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/breadcrumb.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/partials/breadcrumb.html.twig',
                         [
                             'items' => $this->normalizeItems($this->buildStackWithCurrentRoute()),
                             'options' => $options,

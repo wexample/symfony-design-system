@@ -21,7 +21,7 @@ class TabExtension extends AbstractTemplateExtension
                 ) {
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/tab-item.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/partials/tab-item.html.twig',
                         [
                             'label' => $label,
                             'route' => $route,
@@ -38,7 +38,7 @@ class TabExtension extends AbstractTemplateExtension
                 function (Environment $twig, string $label, string $href, array $options = []) {
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/tab-item.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/partials/tab-item.html.twig',
                         [
                             'label' => $label,
                             'href' => $href,
