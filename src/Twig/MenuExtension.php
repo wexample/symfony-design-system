@@ -27,7 +27,7 @@ class MenuExtension extends AbstractTemplateExtension
                 ) {
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/menu-item.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/partials/menu-item.html.twig',
                         [
                             'route' => $route,
                             'route_params' => $routeParams,
@@ -43,7 +43,7 @@ class MenuExtension extends AbstractTemplateExtension
                 function (Environment $twig, string $label, array $options = []) {
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/menu-separator.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/partials/menu-separator.html.twig',
                         [
                             'label' => $label,
                             'options' => $options,
@@ -57,7 +57,7 @@ class MenuExtension extends AbstractTemplateExtension
                 function (Environment $twig, string $icon, string $label, string $href, array $options = []) {
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/menu-item-link.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/partials/menu-item-link.html.twig',
                         [
                             'icon' => $icon,
                             'label' => $label,
