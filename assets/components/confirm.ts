@@ -11,6 +11,36 @@ type ConfirmAction = {
 };
 
 export default class extends Component {
+  protected async activateListeners(): Promise<void> {
+    await super.activateListeners();
+
+    if (this.options?.variant === 'toast') {
+      return;
+    }
+
+    this.app.services.keyboard.registerKeyDown(
+      this,
+      'Enter',
+      (event: KeyboardEvent) => {
+        if (!this.shouldHandleEnter(event)) {
+          return false;
+        }
+
+        const action = this.findPrimaryAction();
+        if (!action) {
+          return false;
+        }
+
+        this.resolve({ ...action, keepOpen: false });
+      },
+      {
+        priority: 150,
+        preventDefault: true,
+        enabled: () => this.isActiveOverlay(),
+      }
+    );
+  }
+
   attachHtmlElements() {
     super.attachHtmlElements();
     this.attachHtmlElementsMap({
@@ -85,6 +115,67 @@ export default class extends Component {
     if (this.options?.onResolve) {
       this.options.onResolve(action);
     }
+  }
+
+  overlayOnEscape(): void {
+    const action = this.findCancelAction();
+    if (action) {
+      this.resolve({ ...action, keepOpen: false });
+      return;
+    }
+
+    if ((this as any).overlayClose) {
+      (this as any).overlayClose();
+    }
+  }
+
+  private isActiveOverlay(): boolean {
+    const activeOverlay = this.app.services.overlay.getActiveOverlay?.();
+    return activeOverlay === this && this.el?.classList.contains('is-open');
+  }
+
+  private shouldHandleEnter(event: KeyboardEvent): boolean {
+    if (!this.isActiveOverlay()) {
+      return false;
+    }
+
+    const target = event.target as HTMLElement | null;
+    if (!target) {
+      return true;
+    }
+
+    const tag = target.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || target.isContentEditable) {
+      return false;
+    }
+
+    return true;
+  }
+
+  private findPrimaryAction(): ConfirmAction | null {
+    const actions: ConfirmAction[] = this.options?.actions || [];
+    if (!actions.length) {
+      return null;
+    }
+
+    return (
+      actions.find((action) => action.role === 'primary') ||
+      actions[0]
+    );
+  }
+
+  private findCancelAction(): ConfirmAction | null {
+    const actions: ConfirmAction[] = this.options?.actions || [];
+    if (!actions.length) {
+      return null;
+    }
+
+    return (
+      actions.find((action) => ['cancel', 'no'].includes(action.value)) ||
+      actions.find((action) => action.key === 'n') ||
+      actions.find((action) => action.role === 'secondary') ||
+      actions[actions.length - 1]
+    );
   }
 
 }
