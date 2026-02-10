@@ -121,11 +121,7 @@ export default class extends Component {
       const role = action.role || 'secondary';
       const buttonClasses = ['button', 'confirm--action'];
       if (role === 'primary') {
-        buttonClasses.push('button--primary');
-      } else if (role === 'destructive') {
-        buttonClasses.push('button--danger');
-      } else {
-        buttonClasses.push('button--secondary');
+        buttonClasses.push('button--invert');
       }
       button.className = buttonClasses.join(' ');
       button.textContent = action.label;
