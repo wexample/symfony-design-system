@@ -60,19 +60,23 @@
   stroke-dasharray: 80 60;
 }
 
-.spinner--align-inline .spinner,
-.spinner--sm {
+.spinner--align-inline .spinner {
   --spinner-size: 1rem;
   --spinner-stroke: 2px;
 }
 
+.spinner--sm {
+  --spinner-size: 1.4rem;
+  --spinner-stroke: 2px;
+}
+
 .spinner--md {
-  --spinner-size: 1.5rem;
+  --spinner-size: 2.2rem;
   --spinner-stroke: 2px;
 }
 
 .spinner--lg {
-  --spinner-size: 2.25rem;
+  --spinner-size: 3.2rem;
   --spinner-stroke: 3px;
 }
 
