@@ -7,6 +7,7 @@ type ConfirmAction = {
   value: string;
   label: string;
   role?: 'primary' | 'secondary' | 'destructive';
+  keepOpen?: boolean;
 };
 
 export default class extends Component {
@@ -75,14 +76,14 @@ export default class extends Component {
       button.textContent = action.label;
       button.dataset.confirmValue = action.value;
       button.dataset.confirmKey = action.key;
-      button.addEventListener('click', () => this.resolve(action.value));
+      button.addEventListener('click', () => this.resolve(action));
       actionsEl.appendChild(button);
     });
   }
 
-  private resolve(value: string) {
+  private resolve(action: ConfirmAction) {
     if (this.options?.onResolve) {
-      this.options.onResolve(value);
+      this.options.onResolve(action);
     }
   }
 

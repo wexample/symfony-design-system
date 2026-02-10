@@ -1,4 +1,5 @@
 @use '../mixins/size' as size;
+@use '../mixins/animation' as animation;
 
 .modal {
   @include size.size-full-viewport;
@@ -13,6 +14,7 @@
 }
 
 .modal--content {
+  @include animation.enter(2);
   position: relative;
   z-index: 1;
   width: min(92vw, var(--size-8));

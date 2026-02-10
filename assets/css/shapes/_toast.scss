@@ -1,5 +1,6 @@
 @use '../mixins/size' as size;
 @use '../mixins/message' as message;
+@use '../mixins/animation' as animation;
 
 .toast-stack {
   position: fixed;
@@ -44,6 +45,7 @@
 
 .toast {
   @include message.message-base;
+  @include animation.enter(1);
   position: relative;
   box-shadow: var(--shadow-3);
   --message-bg: var(--color-invert-1);
