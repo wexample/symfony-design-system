@@ -67,5 +67,7 @@
 }
 
 .modal-body {
+  padding: var(--space-4);
+  background: var(--color-default-background);
   overflow: auto;
 }
