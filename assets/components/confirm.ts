@@ -20,6 +20,7 @@ export default class extends Component {
       applyOverlayDialogLifecycle(this, {
         setHiddenOnOpen: false,
         setHiddenOnClose: false,
+        animateClose: true,
       });
     }
 
