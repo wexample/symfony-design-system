@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 @mixin enter($level: 2) {
   $durations: (
     1: 120ms,
@@ -5,7 +7,7 @@
     3: 260ms
   );
 
-  $duration: map-get($durations, $level);
+  $duration: map.get($durations, $level);
   animation: ds-fade-up $duration ease-out;
 
   @media (prefers-reduced-motion: reduce) {
@@ -20,7 +22,7 @@
     3: 260ms
   );
 
-  $duration: map-get($durations, $level);
+  $duration: map.get($durations, $level);
   animation: ds-fade-up-centered $duration ease-out;
 
   @media (prefers-reduced-motion: reduce) {
