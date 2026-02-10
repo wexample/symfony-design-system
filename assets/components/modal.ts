@@ -8,6 +8,7 @@ import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAni
 
 export default class extends PageManagerComponent {
   private contentEl?: HTMLElement;
+  protected fadeOpen?: () => void;
 
   async init() {
     FadeAnimationMixin.apply(this);
@@ -16,6 +17,7 @@ export default class extends PageManagerComponent {
     applyOverlayDialogLifecycle(this, {
       setHiddenOnOpen: false,
       setHiddenOnClose: false,
+      exitOnClose: false,
       onOpen: () => {
         if (this.fadeOpen) {
           this.fadeOpen();
@@ -101,8 +103,26 @@ export default class extends PageManagerComponent {
     return this.el.classList.contains('is-open');
   }
   
-  fadeExitGetElement(): HTMLElement {
+  
+  fadeAnimationGetElement(): HTMLElement {
     return this.contentEl || this.el;
+  }
+
+  async overlayClose(event?: Event) {
+    if (!this.el.classList.contains('is-open')) {
+      return;
+    }
+
+    if ((this as any).fadeAnimationClosing) {
+      return;
+    }
+
+    if ((this as any).overlayOnClose) {
+      await (this as any).overlayOnClose(event);
+    }
+
+    this.app.services.overlay.clearActive(this);
+    await this.exit();
   }
 
 }

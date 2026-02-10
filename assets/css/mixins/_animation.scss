@@ -59,19 +59,3 @@
     animation: none;
   }
 }
-
-@mixin fade($level: 2) {
-  @include enter($level);
-
-  &.is-closing {
-    @include exit($level);
-  }
-}
-
-@mixin fade-centered($level: 2) {
-  @include enter-centered($level);
-
-  &.is-closing {
-    @include exit-centered($level);
-  }
-}

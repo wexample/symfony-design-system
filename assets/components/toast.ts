@@ -3,6 +3,7 @@ import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAni
 
 export default class extends Component {
   private timeoutId?: number;
+  protected fadeOpen?: () => void;
 
   async init() {
     FadeAnimationMixin.apply(this);
