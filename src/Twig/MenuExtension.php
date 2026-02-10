@@ -57,7 +57,7 @@ class MenuExtension extends AbstractTemplateExtension
                 function (Environment $twig, string $icon, string $label, string $href, array $options = []) {
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/menu-item.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/components/menu-item-link.html.twig',
                         [
                             'icon' => $icon,
                             'label' => $label,
