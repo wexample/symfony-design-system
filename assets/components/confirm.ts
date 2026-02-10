@@ -8,16 +8,23 @@ type ConfirmAction = {
 };
 
 export default class extends Component {
-  private actionsEl?: HTMLElement;
+  attachHtmlElements() {
+    super.attachHtmlElements();
+    this.attachHtmlElementsMap({
+      title: '[data-confirm-title]',
+      message: '[data-confirm-message]',
+      actions: '[data-confirm-actions]',
+    });
+  }
 
   protected async mounted(): Promise<void> {
     if (this.options?.variant) {
       this.el.classList.add(`confirm--${this.options.variant}`);
     }
 
-    const titleEl = this.el.querySelector('[data-confirm-title]') as HTMLElement | null;
-    const messageEl = this.el.querySelector('[data-confirm-message]') as HTMLElement | null;
-    this.actionsEl = this.el.querySelector('[data-confirm-actions]') as HTMLElement | null;
+    const titleEl = this.elements.title as HTMLElement | undefined;
+    const messageEl = this.elements.message as HTMLElement | undefined;
+    const actionsEl = this.elements.actions as HTMLElement | undefined;
 
     if (titleEl) {
       if (this.options?.title) {
@@ -37,17 +44,17 @@ export default class extends Component {
       }
     }
 
-    this.renderActions();
+    this.renderActions(actionsEl);
 
     await super.mounted();
   }
 
-  private renderActions() {
-    if (!this.actionsEl) {
+  private renderActions(actionsEl?: HTMLElement) {
+    if (!actionsEl) {
       return;
     }
 
-    this.actionsEl.innerHTML = '';
+    actionsEl.innerHTML = '';
 
     const actions: ConfirmAction[] = this.options?.actions || [];
     actions.forEach((action) => {
@@ -58,7 +65,7 @@ export default class extends Component {
       button.dataset.confirmValue = action.value;
       button.dataset.confirmKey = action.key;
       button.addEventListener('click', () => this.resolve(action.value));
-      this.actionsEl?.appendChild(button);
+      actionsEl.appendChild(button);
     });
   }
 
