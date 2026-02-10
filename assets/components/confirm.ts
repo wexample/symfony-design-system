@@ -26,8 +26,10 @@ export default class extends Component {
       this.overlayEnabled = false;
     }
 
-    if (this.options?.variant) {
-      this.el.classList.add(`confirm--${this.options.variant}`);
+    if (this.options?.variant === 'toast') {
+      this.el.classList.add('confirm--toast');
+      // Ensure the toast variant can receive pointer events within the toast stack.
+      this.el.classList.add('toast-stack--item');
     }
 
     const titleEl = this.elements.title as HTMLElement | undefined;

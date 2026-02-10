@@ -7,13 +7,8 @@
   gap: var(--space-3);
 }
 
-.confirm--overlay {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: var(--size-6);
-  width: calc(100% - (var(--space-4) * 2));
+.confirm--toast {
+  pointer-events: auto;
 }
 
 .confirm--title {
