@@ -9,6 +9,18 @@ export default class extends Component {
   private itemLinks: HTMLElement[] = [];
   private defaultAlign: 'left' | 'right' = 'left';
   private defaultVertical: 'bottom' | 'top' = 'bottom';
+  private onDocumentMouseDown = (event: MouseEvent) => {
+    const target = event.target as Node | null;
+    if (!target || !this.el) {
+      return;
+    }
+
+    if (this.el.contains(target)) {
+      return;
+    }
+
+    (this as any).overlayClose();
+  };
 
   async init() {
     OverlayMixin.apply(this);
@@ -67,6 +79,7 @@ export default class extends Component {
       this.panelEl.removeAttribute('hidden');
     }
 
+    document.addEventListener('mousedown', this.onDocumentMouseDown);
     this.updatePlacement();
   }
 
@@ -78,6 +91,7 @@ export default class extends Component {
       this.panelEl.setAttribute('hidden', 'hidden');
     }
 
+    document.removeEventListener('mousedown', this.onDocumentMouseDown);
     this.resetPlacement();
   }
 
