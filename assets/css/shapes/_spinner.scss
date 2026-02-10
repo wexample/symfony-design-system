@@ -13,12 +13,25 @@
   justify-content: center;
   width: var(--spinner-size);
   height: var(--spinner-size);
+  flex: 0 0 var(--spinner-size);
+  align-self: center;
+  vertical-align: middle;
+  line-height: 0;
   color: var(--color-default-text);
 }
 
-.spinner__circle {
-  width: 100%;
-  height: 100%;
+.spinner--wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  align-self: center;
+}
+
+.spinner--circle {
+  display: block;
+  width: var(--spinner-size);
+  height: var(--spinner-size);
   border: var(--spinner-stroke) solid currentColor;
   border-right-color: transparent;
   border-top-color: transparent;
