@@ -1,0 +1,11 @@
+{% set size = size|default('md') %}
+{% set variant = variant|default('default') %}
+{% set extra_class = class|default('') %}
+{% set spinner_attr = attr|default({}) %}
+{% set aria_label = label|default(null) %}
+
+<div class="spinner spinner--{{ size }}{% if variant and variant != 'default' %} spinner--{{ variant }}{% endif %}{% if extra_class %} {{ extra_class }}{% endif %}"
+     {% if aria_label %}role="status" aria-label="{{ aria_label }}"{% else %}aria-hidden="true"{% endif %}
+     {{ component_render_tag_attributes(spinner_attr) }}>
+    <span class="spinner__circle"></span>
+</div>
