@@ -35,6 +35,7 @@
 .spinner {
   --spinner-size: 1.5rem;
   --spinner-stroke: 2px;
+  --spinner-trail-color: var(--color-invert-6);
 
   display: inline-flex;
   align-items: center;
@@ -49,8 +50,17 @@
   display: block;
   width: var(--spinner-size);
   height: var(--spinner-size);
-  animation: spinner-rotate 1.1s linear infinite;
   box-sizing: border-box;
+}
+
+.spinner--circle-trail {
+  stroke: currentColor;
+  stroke-width: calc(var(--spinner-stroke) + 4px);
+  stroke-linecap: round;
+  stroke-dasharray: 0 128;
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: spinner-rotate 2s linear infinite;
 }
 
 .spinner--circle-path {
@@ -58,6 +68,9 @@
   stroke-width: var(--spinner-stroke);
   stroke-linecap: round;
   stroke-dasharray: 80 60;
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: spinner-rotate 3s linear infinite;
 }
 
 .spinner--align-inline .spinner {
