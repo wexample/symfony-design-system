@@ -1,6 +1,7 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
 import { applyOverlayDialogLifecycle } from '@wexample/symfony-loader/js/Utils/OverlayDialogHelper';
+import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAnimationMixin';
 
 type ConfirmAction = {
   key: string;
@@ -11,6 +12,24 @@ type ConfirmAction = {
 };
 
 export default class extends Component {
+  async init() {
+    FadeAnimationMixin.apply(this);
+    if (this.options?.variant !== 'toast') {
+      OverlayMixin.apply(this);
+      applyOverlayDialogLifecycle(this, {
+        setHiddenOnOpen: false,
+        setHiddenOnClose: false,
+        onOpen: () => {
+          if (this.fadeOpen) {
+            this.fadeOpen();
+          }
+        }
+      });
+    }
+
+    await super.init();
+  }
+
   protected async activateListeners(): Promise<void> {
     await super.activateListeners();
 
@@ -51,15 +70,13 @@ export default class extends Component {
   }
 
   protected async mounted(): Promise<void> {
-    if (this.options?.variant !== 'toast') {
-      OverlayMixin.apply(this);
-      applyOverlayDialogLifecycle(this);
-    }
-
     if (this.options?.variant === 'toast') {
       this.el.classList.add('confirm--toast');
       // Ensure the toast variant can receive pointer events within the toast stack.
       this.el.classList.add('toast-stack--item');
+      if (this.fadeOpen) {
+        this.fadeOpen();
+      }
     } else {
       this.el.classList.add('confirm--center');
     }

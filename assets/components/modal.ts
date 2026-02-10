@@ -4,15 +4,22 @@ import RenderNode from '@wexample/symfony-loader/js/Class/RenderNode';
 import FocusableComponentMixin from '@wexample/symfony-loader/js/Class/Mixins/FocusableComponentMixin';
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
 import { applyOverlayDialogLifecycle } from '@wexample/symfony-loader/js/Utils/OverlayDialogHelper';
+import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAnimationMixin';
 
 export default class extends PageManagerComponent {
   private contentEl?: HTMLElement;
 
   async init() {
+    FadeAnimationMixin.apply(this);
     FocusableComponentMixin.apply(this);
     OverlayMixin.apply(this);
     applyOverlayDialogLifecycle(this, {
+      setHiddenOnOpen: false,
+      setHiddenOnClose: false,
       onOpen: () => {
+        if (this.fadeOpen) {
+          this.fadeOpen();
+        }
         this.page?.focus();
       },
       onClose: async () => {
@@ -92,6 +99,10 @@ export default class extends PageManagerComponent {
 
   focusableShouldHandleEscape(): boolean {
     return this.el.classList.contains('is-open');
+  }
+  
+  fadeExitGetElement(): HTMLElement {
+    return this.contentEl || this.el;
   }
 
 }

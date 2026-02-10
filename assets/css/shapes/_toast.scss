@@ -45,10 +45,17 @@
 
 .toast {
   @include message.message-base;
-  @include animation.enter(1);
   position: relative;
   box-shadow: var(--shadow-3);
   --message-bg: var(--color-invert-1);
+}
+
+.toast.is-opening {
+  @include animation.enter(1);
+}
+
+.toast.is-closing {
+  @include animation.exit(1);
 }
 
 .toast--title {

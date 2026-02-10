@@ -14,13 +14,20 @@
 }
 
 .modal--content {
-  @include animation.enter(2);
   position: relative;
   z-index: 1;
   width: min(92vw, var(--size-8));
   max-height: 90vh;
   overflow: hidden;
   box-shadow: var(--shadow-2);
+}
+
+.modal--content.is-opening {
+  @include animation.enter(2);
+}
+
+.modal--content.is-closing {
+  @include animation.exit(2);
 }
 
 .layout-modal {

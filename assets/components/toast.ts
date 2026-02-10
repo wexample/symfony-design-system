@@ -1,7 +1,13 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
+import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAnimationMixin';
 
 export default class extends Component {
   private timeoutId?: number;
+
+  async init() {
+    FadeAnimationMixin.apply(this);
+    await super.init();
+  }
 
   protected async mounted(): Promise<void> {
     const titleEl = this.el.querySelector('[data-toast-title]') as HTMLElement;
@@ -33,6 +39,9 @@ export default class extends Component {
     }
 
     closeEl?.addEventListener('click', this.onClickClose);
+    if (this.fadeOpen) {
+      this.fadeOpen();
+    }
     await super.mounted();
   }
 
