@@ -1,0 +1,6 @@
+{%- set prompt_class = prompt_class|default('') -%}
+<div class="prompt{{ prompt_class ? ' ' ~ prompt_class : '' }}">
+    <div class="prompt--title" data-prompt-title hidden="hidden"></div>
+    <div class="prompt--message" data-prompt-message hidden="hidden"></div>
+    <div class="prompt--actions" data-prompt-actions></div>
+</div>
