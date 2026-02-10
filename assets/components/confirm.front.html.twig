@@ -1,5 +1,3 @@
-<div class="confirm">
-    <div class="confirm--title" data-confirm-title hidden="hidden"></div>
-    <div class="confirm--message" data-confirm-message hidden="hidden"></div>
-    <div class="confirm--actions" data-confirm-actions></div>
-</div>
+{% include '@WexampleSymfonyDesignSystemBundle/partials/prompt.html.twig' with {
+    prompt_class: 'confirm'
+} %}

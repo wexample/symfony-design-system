@@ -2,14 +2,7 @@ import Component from '@wexample/symfony-loader/js/Class/Component';
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
 import { applyOverlayDialogLifecycle } from '@wexample/symfony-loader/js/Utils/OverlayDialogHelper';
 import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAnimationMixin';
-
-type ConfirmAction = {
-  key: string;
-  value: string;
-  label: string;
-  role?: 'primary' | 'secondary' | 'destructive';
-  keepOpen?: boolean;
-};
+import { renderPromptActions, PromptAction } from '../js/Helper/PromptActionsHelper';
 
 export default class extends Component {
   protected fadeOpen?: () => void;
@@ -61,9 +54,9 @@ export default class extends Component {
   attachHtmlElements() {
     super.attachHtmlElements();
     this.attachHtmlElementsMap({
-      title: '[data-confirm-title]',
-      message: '[data-confirm-message]',
-      actions: '[data-confirm-actions]',
+      title: '[data-prompt-title]',
+      message: '[data-prompt-message]',
+      actions: '[data-prompt-actions]',
     });
   }
 
@@ -112,27 +105,18 @@ export default class extends Component {
       return;
     }
 
-    actionsEl.innerHTML = '';
-
-    const actions: ConfirmAction[] = this.options?.actions || [];
-    actions.forEach((action) => {
-      const button = document.createElement('button');
-      button.type = 'button';
-      const role = action.role || 'secondary';
-      const buttonClasses = ['button', 'confirm--action'];
-      if (role === 'primary') {
-        buttonClasses.push('button--invert');
+    const actions: PromptAction[] = this.options?.actions || [];
+    renderPromptActions(
+      actionsEl,
+      actions,
+      (action) => this.resolve(action),
+      {
+        buttonClass: 'confirm--action'
       }
-      button.className = buttonClasses.join(' ');
-      button.textContent = action.label;
-      button.dataset.confirmValue = action.value;
-      button.dataset.confirmKey = action.key;
-      button.addEventListener('click', () => this.resolve(action));
-      actionsEl.appendChild(button);
-    });
+    );
   }
 
-  private resolve(action: ConfirmAction) {
+  private resolve(action: PromptAction) {
     if (this.options?.onResolve) {
       this.options.onResolve(action);
     }
@@ -173,8 +157,8 @@ export default class extends Component {
     return true;
   }
 
-  private findPrimaryAction(): ConfirmAction | null {
-    const actions: ConfirmAction[] = this.options?.actions || [];
+  private findPrimaryAction(): PromptAction | null {
+    const actions: PromptAction[] = this.options?.actions || [];
     if (!actions.length) {
       return null;
     }
@@ -185,8 +169,8 @@ export default class extends Component {
     );
   }
 
-  private findCancelAction(): ConfirmAction | null {
-    const actions: ConfirmAction[] = this.options?.actions || [];
+  private findCancelAction(): PromptAction | null {
+    const actions: PromptAction[] = this.options?.actions || [];
     if (!actions.length) {
       return null;
     }

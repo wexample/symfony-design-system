@@ -1,0 +1,25 @@
+@use '../mixins/message' as message;
+
+.prompt {
+  @include message.message-base;
+  position: relative;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.prompt--title {
+  @include message.message-title;
+  color: var(--color-default-text);
+}
+
+.prompt--message {
+  color: var(--color-default-text);
+}
+
+.prompt--actions {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+}
