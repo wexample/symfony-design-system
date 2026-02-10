@@ -118,7 +118,16 @@ export default class extends Component {
     actions.forEach((action) => {
       const button = document.createElement('button');
       button.type = 'button';
-      button.className = `confirm--action confirm--action--${action.role || 'secondary'}`;
+      const role = action.role || 'secondary';
+      const buttonClasses = ['button', 'confirm--action'];
+      if (role === 'primary') {
+        buttonClasses.push('button--primary');
+      } else if (role === 'destructive') {
+        buttonClasses.push('button--danger');
+      } else {
+        buttonClasses.push('button--secondary');
+      }
+      button.className = buttonClasses.join(' ');
       button.textContent = action.label;
       button.dataset.confirmValue = action.value;
       button.dataset.confirmKey = action.key;
