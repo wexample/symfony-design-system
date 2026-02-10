@@ -1,5 +1,6 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
+import { applyOverlayDialogLifecycle } from '@wexample/symfony-loader/js/Utils/OverlayDialogHelper';
 
 type ConfirmAction = {
   key: string;
@@ -21,6 +22,7 @@ export default class extends Component {
   protected async mounted(): Promise<void> {
     if (this.options?.variant !== 'toast') {
       OverlayMixin.apply(this);
+      applyOverlayDialogLifecycle(this);
     }
 
     if (this.options?.variant === 'toast') {
@@ -84,12 +86,4 @@ export default class extends Component {
     }
   }
 
-  overlayOnOpen(): void {
-    this.el.classList.add('is-open');
-  }
-
-  async overlayOnClose(): Promise<void> {
-    this.el.classList.remove('is-open');
-    await this.exit();
-  }
 }

@@ -3,6 +3,7 @@ import PageManagerComponent from '@wexample/symfony-loader/js/Class/PageManagerC
 import RenderNode from '@wexample/symfony-loader/js/Class/RenderNode';
 import FocusableComponentMixin from '@wexample/symfony-loader/js/Class/Mixins/FocusableComponentMixin';
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
+import { applyOverlayDialogLifecycle } from '@wexample/symfony-loader/js/Utils/OverlayDialogHelper';
 
 export default class extends PageManagerComponent {
   private contentEl?: HTMLElement;
@@ -10,6 +11,15 @@ export default class extends PageManagerComponent {
   async init() {
     FocusableComponentMixin.apply(this);
     OverlayMixin.apply(this);
+    applyOverlayDialogLifecycle(this, {
+      onOpen: () => {
+        this.page?.focus();
+      },
+      onClose: async () => {
+        this.page?.blur();
+        this.callerPage?.focus();
+      },
+    });
     await super.init();
   }
 
@@ -84,19 +94,4 @@ export default class extends PageManagerComponent {
     return this.el.classList.contains('is-open');
   }
 
-  overlayOnOpen(): void {
-    this.el.removeAttribute('hidden');
-    this.el.style.display = 'flex';
-    this.el.classList.add('is-open');
-    this.page?.focus();
-  }
-
-  async overlayOnClose(): Promise<void> {
-    this.el.classList.remove('is-open');
-    this.el.style.display = 'none';
-    this.el.setAttribute('hidden', 'hidden');
-    this.page?.blur();
-    await this.exit();
-    this.callerPage?.focus();
-  }
 }
