@@ -18,8 +18,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: var(--size-6);
-  width: calc(100% - (var(--space-4) * 2));
+  width: clamp(20rem, 60vw, var(--size-7));
+  max-width: calc(100% - (var(--space-4) * 2));
 }
 
 .confirm--title {
@@ -36,6 +36,7 @@
   gap: var(--space-2);
   justify-content: flex-end;
   flex-wrap: wrap;
+  margin-top:var(--space-4)
 }
 
 .confirm--action {
