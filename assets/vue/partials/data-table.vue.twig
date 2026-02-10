@@ -1,39 +1,47 @@
-<table class="table">
-    <thead v-if="showHeader && columns.length">
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/partials/vue.vue.twig' -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/spinner') -}}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <spinner></spinner>
+    <table class="table">
+        <thead v-if="showHeader && columns.length">
         <tr class="table--row">
             <slot name="header" :columns="columns">
                 <th
-                    v-for="(column, columnIndex) in columns"
-                    :key="getColumnKey(column, columnIndex)"
-                    class="table--cell"
-                    :class="column.className"
-                    scope="col"
+                        v-for="(column, columnIndex) in columns"
+                        :key="getColumnKey(column, columnIndex)"
+                        class="table--cell"
+                        :class="column.className"
+                        scope="col"
                 >
                     [[ getColumnLabel(column) ]]
                 </th>
             </slot>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         <tr
-            v-for="(row, index) in rows"
-            :key="index"
-            class="table--row"
+                v-for="(row, index) in rows"
+                :key="index"
+                class="table--row"
         >
             <template v-if="$slots.row">
                 <slot name="row" v-bind="{ row, columns }"></slot>
             </template>
             <template v-else>
                 <td
-                    v-for="(column, columnIndex) in columns"
-                    :key="getColumnKey(column, columnIndex)"
-                    class="table--cell"
-                    :class="column.className"
+                        v-for="(column, columnIndex) in columns"
+                        :key="getColumnKey(column, columnIndex)"
+                        class="table--cell"
+                        :class="column.className"
                 >
                     <template v-if="$slots.cell">
                         <slot
-                            name="cell"
-                            v-bind="{ row, column, value: getCellValue(row, column) }"
+                                name="cell"
+                                v-bind="{ row, column, value: getCellValue(row, column) }"
                         ></slot>
                     </template>
                     <template v-else>
@@ -44,32 +52,32 @@
                             <span class="table--actions">
                                 <template v-for="(action, actionIndex) in getCellActions(row, column)">
                                     <a
-                                        v-if="action.href"
-                                        :key="`action-link-${actionIndex}`"
-                                        :href="action.href"
-                                        class="table--icon-link"
-                                        v-html="action.icon"
+                                            v-if="action.href"
+                                            :key="`action-link-${actionIndex}`"
+                                            :href="action.href"
+                                            class="table--icon-link"
+                                            v-html="action.icon"
                                     ></a>
                                     <span
-                                        v-else
-                                        :key="`action-icon-${actionIndex}`"
-                                        class="table--icon"
-                                        v-html="action.icon"
+                                            v-else
+                                            :key="`action-icon-${actionIndex}`"
+                                            class="table--icon"
+                                            v-html="action.icon"
                                     ></span>
                                 </template>
                             </span>
                         </template>
                         <template v-else-if="column.icon">
                             <a
-                                v-if="getCellHref(row, column)"
-                                :href="getCellHref(row, column)"
-                                class="table--icon-link"
-                                v-html="getCellIcon(row, column)"
+                                    v-if="getCellHref(row, column)"
+                                    :href="getCellHref(row, column)"
+                                    class="table--icon-link"
+                                    v-html="getCellIcon(row, column)"
                             ></a>
                             <span
-                                v-else
-                                class="table--icon"
-                                v-html="getCellIcon(row, column)"
+                                    v-else
+                                    class="table--icon"
+                                    v-html="getCellIcon(row, column)"
                             ></span>
                         </template>
                         <template v-else-if="getCellHref(row, column)">
@@ -82,10 +90,11 @@
                 </td>
             </template>
         </tr>
-    </tbody>
-    <tfoot v-if="$slots.footer">
+        </tbody>
+        <tfoot v-if="$slots.footer">
         <tr class="table--row">
             <slot name="footer" v-bind="{ columns }"></slot>
         </tr>
-    </tfoot>
-</table>
+        </tfoot>
+    </table>
+{%- endblock -%}

@@ -1,6 +1,12 @@
 <script>
+import Spinner from './spinner.vue';
+
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-data-table',
+
+  components: {
+    Spinner
+  },
 
   props: {
     rows: {
@@ -33,8 +39,8 @@ export default {
       }
 
       const actions = column?.actions
-        ? (Array.isArray(column.actions) ? column.actions : [column.actions])
-        : (column?.action ? [column.action] : []);
+          ? (Array.isArray(column.actions) ? column.actions : [column.actions])
+          : (column?.action ? [column.action] : []);
 
       if (!actions.length) {
         return [];
@@ -49,32 +55,32 @@ export default {
 
       return actions.map((action) => {
         const actionName = typeof action === 'string'
-          ? action
-          : (action?.name || action?.action);
+            ? action
+            : (action?.name || action?.action);
 
         const iconName = typeof action === 'object'
-          ? (action.icon || defaultIcons[actionName])
-          : defaultIcons[actionName];
+            ? (action.icon || defaultIcons[actionName])
+            : defaultIcons[actionName];
 
         const route = typeof action === 'object'
-          ? action.route
-          : undefined;
+            ? action.route
+            : undefined;
 
         const routeName = route || (column?.routePrefix && actionName
-          ? `${column.routePrefix}_${actionName}`
-          : undefined);
+            ? `${column.routePrefix}_${actionName}`
+            : undefined);
 
         const params = typeof action === 'object'
-          ? action.params
-          : column?.params;
+            ? action.params
+            : column?.params;
 
         const parameters = typeof params === 'function'
-          ? params(row, column, action)
-          : (params ?? {});
+            ? params(row, column, action)
+            : (params ?? {});
 
         const href = routeName
-          ? routingService.path(routeName, parameters)
-          : '';
+            ? routingService.path(routeName, parameters)
+            : '';
 
         return {
           href,
@@ -89,8 +95,8 @@ export default {
       }
 
       const icon = typeof column.icon === 'function'
-        ? column.icon(row, column)
-        : column.icon;
+          ? column.icon(row, column)
+          : column.icon;
 
       if (!icon) {
         return '';
@@ -180,9 +186,9 @@ export default {
 
       if (typeof href === 'object' && href.route && this.app) {
         const parameters =
-          typeof href.parameters === 'function'
-            ? href.parameters(row, column)
-            : href.parameters ?? {};
+            typeof href.parameters === 'function'
+                ? href.parameters(row, column)
+                : href.parameters ?? {};
 
         const routingService = this.app.getServiceOrFail('routing');
         return routingService.path(href.route, parameters);
