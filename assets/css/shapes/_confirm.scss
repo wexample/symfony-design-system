@@ -11,6 +11,15 @@
   pointer-events: auto;
 }
 
+.confirm--center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: var(--size-6);
+  width: calc(100% - (var(--space-4) * 2));
+}
+
 .confirm--title {
   @include message.message-title;
   color: var(--color-default-text);

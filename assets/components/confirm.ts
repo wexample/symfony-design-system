@@ -20,16 +20,15 @@ export default class extends Component {
 
   protected async mounted(): Promise<void> {
     if (this.options?.variant !== 'toast') {
-      this.overlayEnabled = true;
       OverlayMixin.apply(this);
-    } else {
-      this.overlayEnabled = false;
     }
 
     if (this.options?.variant === 'toast') {
       this.el.classList.add('confirm--toast');
       // Ensure the toast variant can receive pointer events within the toast stack.
       this.el.classList.add('toast-stack--item');
+    } else {
+      this.el.classList.add('confirm--center');
     }
 
     const titleEl = this.elements.title as HTMLElement | undefined;
