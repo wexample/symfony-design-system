@@ -3,6 +3,7 @@ import Component from '@wexample/symfony-loader/js/Class/Component';
 export default class extends Component {
   private textareaEl: HTMLTextAreaElement | null = null;
   private onInputProxy: EventListener | null = null;
+  private needsDeferredResize = false;
 
   attachHtmlElements() {
     super.attachHtmlElements();
@@ -17,6 +18,7 @@ export default class extends Component {
       this.onInputProxy = this.onInput.bind(this);
       this.textareaEl.addEventListener('input', this.onInputProxy);
       this.resizeToContent();
+      this.needsDeferredResize = true;
     }
   }
 
@@ -25,6 +27,13 @@ export default class extends Component {
 
     if (this.textareaEl && this.onInputProxy) {
       this.textareaEl.removeEventListener('input', this.onInputProxy);
+    }
+  }
+
+  protected async afterVisible(): Promise<void> {
+    if (this.needsDeferredResize) {
+      this.resizeToContent();
+      this.needsDeferredResize = false;
     }
   }
 
