@@ -1,5 +1,6 @@
 .rail {
-  display: block;
+  display: flex;
+  flex-direction: column;
   overflow: auto;
   height: 100%;
   width: 100%;
@@ -9,6 +10,10 @@
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: var(--size-7);
+  min-height: 0;
+  flex: 1;
+  box-sizing: border-box;
+  padding: var(--space-2);
 }
 
 .rail--item {
@@ -22,8 +27,7 @@
     gap: var(--space-2);
 
     .rail--item {
-      background: pink;
-      margin: var(--space-2) 0;
+      margin: 0;
     }
   }
 }
