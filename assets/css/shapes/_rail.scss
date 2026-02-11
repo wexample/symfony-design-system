@@ -4,7 +4,6 @@
   overflow: auto;
   height: 100%;
   width: 100%;
-  background: #ff6a00;
   box-sizing: border-box;
   padding: var(--space-2);
 }
@@ -19,13 +18,11 @@
   flex: 1;
   box-sizing: border-box;
   padding: 0;
-  background: #ff00cc;
 }
 
 .rail--item {
   position: relative;
   height: 100%;
-  background: #00d5ff;
 }
 
 .rail--spaced {
