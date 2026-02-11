@@ -8,9 +8,22 @@
 .rail--track {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: var(--rail-column-width, 18rem);
+  grid-auto-columns: var(--size-7);
 }
 
 .rail--item {
   position: relative;
+}
+
+.rail--spaced {
+  margin: 0 var(--space-2);
+
+  .rail--track {
+    gap: var(--space-2);
+
+    .rail--item {
+      background: pink;
+      margin: var(--space-2) 0;
+    }
+  }
 }
