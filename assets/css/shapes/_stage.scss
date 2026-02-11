@@ -1,21 +1,12 @@
 @use '../../css/mixins/size' as size;
 
 .stage {
+  position: absolute;
+  inset: 0;
   display: block;
   @include size.size-expanded;
 }
 
-.stage--center {
-  display: grid;
-  place-items: center;
-}
-
-.stage--center--vertical {
-  display: grid;
-  align-items: center;
-}
-
-.stage--center--horizontal {
-  display: grid;
-  justify-items: center;
+.stage--root {
+  position: relative;
 }

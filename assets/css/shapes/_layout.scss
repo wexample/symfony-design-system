@@ -1,4 +1,6 @@
 @use '../../css/shapes/gutters';
+@use '../../css/shapes/container';
+@use '../../css/shapes/content';
 
 .layout {
   @extend .gutters;
@@ -24,3 +26,11 @@
   overflow: auto;
 }
 
+.layout--body--container {
+  @extend .container;
+  @extend .content;
+}
+
+.layout--body--wide {
+  position: relative;
+}
