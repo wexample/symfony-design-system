@@ -1,0 +1,10 @@
+<a class="button{% if options.class is defined %} {{ options.class }}{% endif %}"
+   href="{{ options.href|default('#') }}"
+   data-modal="true"
+   data-modal-route="{{ options.href|default('#') }}"
+        {{ component_render_tag_attributes(options.attr|default({})) }}>
+    <span class="button--icon">
+        {{ icon(icon) }}
+    </span>
+    <span>{{ label | trans }}</span>
+</a>
