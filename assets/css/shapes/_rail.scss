@@ -1,0 +1,16 @@
+.rail {
+  display: block;
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+}
+
+.rail--track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--rail-column-width, 18rem);
+}
+
+.rail--item {
+  position: relative;
+}
