@@ -1,11 +1,10 @@
-{%- extends '@WexampleSymfonyDesignSystemBundle/vue/partials/vue.vue.twig' -%}
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
 
 {%- block vue_require -%}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/spinner') -}}
 {%- endblock -%}
 
 {%- block vue_body -%}
-    <spinner></spinner>
     <table class="table">
         <thead v-if="showHeader && columns.length">
         <tr class="table--row">
@@ -23,6 +22,11 @@
         </tr>
         </thead>
         <tbody>
+        <tr v-if="loading" class="table--row table--row--loading">
+            <td class="table--cell table--cell--loading" :colspan="getLoadingColspan()">
+                <spinner size="sm" :label="loadingLabel"></spinner>
+            </td>
+        </tr>
         <tr
                 v-for="(row, index) in rows"
                 :key="index"

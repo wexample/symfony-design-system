@@ -14,6 +14,14 @@ export default {
       required: true,
       default: () => []
     },
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    loadingLabel: {
+      type: String,
+      default: ''
+    },
     columns: {
       type: Array,
       default: () => []
@@ -29,6 +37,9 @@ export default {
   },
 
   methods: {
+    getLoadingColspan() {
+      return this.columns && this.columns.length ? this.columns.length : 1;
+    },
     hasCellActions(column) {
       return Boolean(column?.action || (Array.isArray(column?.actions) && column.actions.length));
     },
