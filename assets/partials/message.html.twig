@@ -5,10 +5,10 @@
             {% if options.icon is defined and options.icon %}
                 {{ icon(options.icon) }}
             {% endif %}
-            {{ title }}
+            {{ title | trans }}
         </div>
     {% endif %}
     {% if body is not empty %}
-        <p>{{ body }}</p>
+        <p>{{ body | trans }}</p>
     {% endif %}
 </div>
