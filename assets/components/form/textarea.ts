@@ -1,4 +1,5 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
+import { waitForElementVisible } from '@wexample/js-helpers/Helper/ElementSize';
 
 export default class extends Component {
   private textareaEl: HTMLTextAreaElement | null = null;
@@ -17,7 +18,6 @@ export default class extends Component {
     if (this.options?.auto_resize) {
       this.onInputProxy = this.onInput.bind(this);
       this.textareaEl.addEventListener('input', this.onInputProxy);
-      this.resizeToContent();
       this.needsDeferredResize = true;
     }
   }
@@ -32,8 +32,13 @@ export default class extends Component {
 
   protected async afterVisible(): Promise<void> {
     if (this.needsDeferredResize) {
-      this.resizeToContent();
-      this.needsDeferredResize = false;
+      const target = this.textareaEl;
+      if (target) {
+        void waitForElementVisible(target, 2000).then(() => {
+          this.resizeToContent();
+          this.needsDeferredResize = false;
+        });
+      }
     }
   }
 

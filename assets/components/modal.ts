@@ -19,11 +19,12 @@ export default class extends PageManagerComponent {
       setHiddenOnOpen: false,
       setHiddenOnClose: false,
       animateClose: true,
-      onOpen: () => {
+      onOpen: async () => {
         if (this.fadeOpen) {
-          this.fadeOpen();
+          await this.fadeOpen();
         }
         this.page?.focus();
+        this.page?.notifyTreeVisible();
       },
       onClose: async () => {
         this.page?.blur();
