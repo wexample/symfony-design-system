@@ -5,11 +5,13 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ButtonExtension extends AbstractTemplateExtension
 {
     public function __construct(
         private readonly ComponentsExtension $componentsExtension,
+        private readonly UrlGeneratorInterface $urlGenerator,
     ) {
     }
 
@@ -86,6 +88,35 @@ class ButtonExtension extends AbstractTemplateExtension
                             'icon' => $icon,
                             'label' => $label,
                             'href' => $href,
+                            'options' => $options,
+                        ]
+                    );
+                },
+                $options
+            ),
+            new TwigFunction(
+                'button_modal',
+                function (
+                    Environment $twig,
+                    $context,
+                    string $icon,
+                    string $label,
+                    string $routeName,
+                    array $routeParams = [],
+                    array $options = []
+                ) {
+                    $context = is_array($context) ? $context : [];
+                    $renderPass = $context['render_pass'] ?? null;
+                    $options['href'] = $this->urlGenerator->generate($routeName, $routeParams);
+                    $options['modal'] = true;
+
+                    return $this->componentsExtension->component(
+                        $twig,
+                        $renderPass,
+                        '@WexampleSymfonyDesignSystemBundle/components/button-modal',
+                        [
+                            'icon' => $icon,
+                            'label' => $label,
                             'options' => $options,
                         ]
                     );
