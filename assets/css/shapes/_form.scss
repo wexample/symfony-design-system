@@ -1,5 +1,7 @@
 @use 'form/layout';
-@use 'form/fields';
+@use 'form/fields/base';
+@use 'form/fields/password';
+@use 'form/fields/state';
 @use 'form/actions';
 @use 'form/messages';
 @use 'form/surface';
