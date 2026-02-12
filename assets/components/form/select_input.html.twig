@@ -1,7 +1,7 @@
 <div {{ component_render_tag_attributes({class:'form--group'}) }}>
     <label class="form--label" for="{{ id }}">{{ label }}</label>
     <select
-        class="form--input"
+        class="form--input form--input--select"
         id="{{ id }}"
         {% if name is defined %}name="{{ name }}"{% endif %}
         {% if required is defined and required %}required{% endif %}
