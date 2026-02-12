@@ -1,5 +1,5 @@
 <div {{ component_render_tag_attributes({class:'form--group'}) }}>
-    <label class="form--label" for="{{ id }}">{{ label }}</label>
+    <label class="form--label" for="{{ id }}">{{ label|trans }}</label>
     <select
         class="form--input form--input--select"
         id="{{ id }}"
@@ -13,19 +13,19 @@
 
         {% for choice in choices %}
             {% if choice.options is defined %}
-                <optgroup label="{{ choice.label }}">
+                <optgroup label="{{ choice.label|trans }}">
                     {% for option in choice.options %}
                         <option
                             value="{{ option.value }}"
                             {% if selected is iterable and option.value in selected %}selected{% elseif selected is not iterable and option.value == selected %}selected{% endif %}
-                        >{{ option.label }}</option>
+                        >{{ option.label|trans }}</option>
                     {% endfor %}
                 </optgroup>
             {% else %}
                 <option
                     value="{{ choice.value }}"
                     {% if selected is iterable and choice.value in selected %}selected{% elseif selected is not iterable and choice.value == selected %}selected{% endif %}
-                >{{ choice.label }}</option>
+                >{{ choice.label|trans }}</option>
             {% endif %}
         {% endfor %}
     </select>
