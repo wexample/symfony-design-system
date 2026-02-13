@@ -1,6 +1,5 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
-import { applyOverlayDialogLifecycle } from '@wexample/symfony-loader/js/Utils/OverlayDialogHelper';
 import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAnimationMixin';
 import { renderPromptActions, PromptAction } from '../js/Helper/PromptActionsHelper';
 
@@ -9,14 +8,7 @@ export default class extends Component {
   protected closeWithAnimation?: (event?: Event) => Promise<void>;
   async init() {
     FadeAnimationMixin.apply(this);
-    if (this.options?.variant !== 'toast') {
-      OverlayMixin.apply(this);
-      applyOverlayDialogLifecycle(this, {
-        setHiddenOnOpen: false,
-        setHiddenOnClose: false,
-        animateClose: true,
-      });
-    }
+    OverlayMixin.apply(this);
 
     await super.init();
   }
@@ -93,11 +85,13 @@ export default class extends Component {
 
     this.renderActions(actionsEl);
 
-    if (this.fadeOpen) {
-      this.fadeOpen();
-    }
-
     await super.mounted();
+  }
+
+  async overlayOnOpen(): Promise<void> {
+    if (this.fadeOpen) {
+      await this.fadeOpen();
+    }
   }
 
   private renderActions(actionsEl?: HTMLElement) {

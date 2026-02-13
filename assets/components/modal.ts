@@ -3,7 +3,6 @@ import PageManagerComponent from '@wexample/symfony-loader/js/Class/PageManagerC
 import RenderNode from '@wexample/symfony-loader/js/Class/RenderNode';
 import FocusableComponentMixin from '@wexample/symfony-loader/js/Class/Mixins/FocusableComponentMixin';
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
-import { applyOverlayDialogLifecycle } from '@wexample/symfony-loader/js/Utils/OverlayDialogHelper';
 import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAnimationMixin';
 
 export default class extends PageManagerComponent {
@@ -15,22 +14,6 @@ export default class extends PageManagerComponent {
     FadeAnimationMixin.apply(this);
     FocusableComponentMixin.apply(this);
     OverlayMixin.apply(this);
-    applyOverlayDialogLifecycle(this, {
-      setHiddenOnOpen: false,
-      setHiddenOnClose: false,
-      animateClose: true,
-      onOpen: async () => {
-        if (this.fadeOpen) {
-          await this.fadeOpen();
-        }
-        this.page?.focus();
-        this.page?.notifyTreeVisible();
-      },
-      onClose: async () => {
-        this.page?.blur();
-        this.callerPage?.focus();
-      },
-    });
     await super.init();
   }
 
@@ -49,7 +32,9 @@ export default class extends PageManagerComponent {
 
     if (renderNode instanceof Page) {
       renderNode.ready(() => {
-        this.open();
+        this.open({
+          instant: this.renderData.requestOptions['instant']
+        });
       });
     }
   }
@@ -78,12 +63,12 @@ export default class extends PageManagerComponent {
     await super.deactivateListeners();
   }
 
-  public async open() {
-    (this as any).overlayOpen();
+  public async open(options: { instant?: boolean } = {}) {
+    (this as any).overlayOpen(options.instant);
   }
 
-  public async close() {
-    (this as any).overlayClose();
+  public async close(options: { instant?: boolean } = {}) {
+    (this as any).overlayClose(options.instant);
   }
 
   private onClickContent = async (event: Event) => {
@@ -108,6 +93,19 @@ export default class extends PageManagerComponent {
   
   fadeAnimationGetElement(): HTMLElement {
     return this.contentEl || this.el;
+  }
+
+  async overlayOnOpen(): Promise<void> {
+    if (this.fadeOpen) {
+      await this.fadeOpen();
+    }
+    this.page?.focus();
+    this.page?.notifyTreeVisible();
+  }
+
+  async overlayOnClose(): Promise<void> {
+    this.page?.blur();
+    this.callerPage?.focus();
   }
 
 }

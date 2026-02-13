@@ -9,6 +9,16 @@
   z-index: 1000;
 }
 
+.modal.is-instant .modal--content {
+  animation: none !important;
+  transition: none !important;
+}
+
+.modal.is-instant .modal--content.is-opening,
+.modal.is-instant .modal--content.is-closing {
+  animation: none !important;
+}
+
 .modal.is-open {
   display: flex;
 }
