@@ -78,11 +78,11 @@ export default class extends PageManagerComponent {
     await super.deactivateListeners();
   }
 
-  private open() {
+  public async open() {
     (this as any).overlayOpen();
   }
 
-  private async close() {
+  public async close() {
     (this as any).overlayClose();
   }
 
