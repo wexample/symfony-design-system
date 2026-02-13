@@ -64,11 +64,11 @@ export default class extends PageManagerComponent {
   }
 
   public async open(options: { instant?: boolean } = {}) {
-    (this as any).overlayOpen({ instant: options.instant === true });
+    (this as any).overlayOpen(options.instant);
   }
 
   public async close(options: { instant?: boolean } = {}) {
-    (this as any).overlayClose({ instant: options.instant === true });
+    (this as any).overlayClose(options.instant);
   }
 
   private onClickContent = async (event: Event) => {
