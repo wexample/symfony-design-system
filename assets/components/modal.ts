@@ -64,11 +64,11 @@ export default class extends PageManagerComponent {
   }
 
   public async open(options: { instant?: boolean } = {}) {
-    (this as any).overlayOpen(options.instant);
+    (this as any).overlayOpen({ instant: options.instant === true });
   }
 
   public async close(options: { instant?: boolean } = {}) {
-    (this as any).overlayClose(options.instant);
+    (this as any).overlayClose({ instant: options.instant === true });
   }
 
   private onClickContent = async (event: Event) => {
@@ -107,5 +107,4 @@ export default class extends PageManagerComponent {
     this.page?.blur();
     this.callerPage?.focus();
   }
-
 }

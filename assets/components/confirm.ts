@@ -144,11 +144,7 @@ export default class extends Component {
     }
 
     const tag = target.tagName;
-    if (tag === 'INPUT' || tag === 'TEXTAREA' || target.isContentEditable) {
-      return false;
-    }
-
-    return true;
+    return !(tag === 'INPUT' || tag === 'TEXTAREA' || target.isContentEditable);
   }
 
   private findPrimaryAction(): PromptAction | null {
@@ -176,5 +172,4 @@ export default class extends Component {
       actions[actions.length - 1]
     );
   }
-
 }

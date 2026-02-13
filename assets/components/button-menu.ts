@@ -4,6 +4,9 @@ import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin'
 export default class extends Component {
   protected overlayUseBackdrop: boolean = false;
   protected overlayUseStack: boolean = false;
+  protected overlaySetHiddenOnOpen: boolean = false;
+  protected overlaySetHiddenOnClose: boolean = false;
+  protected overlayExitOnClose: boolean = false;
   private buttonEl?: HTMLButtonElement;
   private panelEl?: HTMLElement;
   private itemLinks: HTMLElement[] = [];
