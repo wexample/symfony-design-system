@@ -64,8 +64,9 @@
 
 .modal-loading-bar {
   height: 100%;
-  width: 30%;
+  width: 0%;
   background: var(--color-info-5);
+  transition: width 180ms ease;
 }
 
 .modal-header .header-title {
