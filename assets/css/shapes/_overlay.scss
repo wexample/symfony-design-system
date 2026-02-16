@@ -1,7 +1,7 @@
 .page-overlay-full {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--color-default-transparent-8);
   z-index: 1000;
 }
 

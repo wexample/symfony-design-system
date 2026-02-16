@@ -15,6 +15,7 @@
   --color-link-hover: var(--color-invert-8);
 
   @include color-scheme-invert-levels($foreground, $background);
+  @include color-scheme-default-levels($background, $foreground);
   @include color-scheme-semantic-levels(info, $info, $background, $foreground);
   @include color-scheme-semantic-levels(assist, $assist, $background, $foreground);
   @include color-scheme-semantic-levels(success, $success, $background, $foreground);
@@ -29,8 +30,16 @@
     $level: nth($levels, $i);
     --color-invert-#{$i}: #{mix($foreground, $background, $level * 100)};
     --color-invert-transparent-#{$i}: #{rgba($foreground, $level)};
-    // Keep a stable alias for current usages.
-    --color-invert-opaque-#{$i}: var(--color-invert-#{$i});
+  }
+}
+
+@mixin color-scheme-default-levels($background, $foreground) {
+  $levels: (0.04, 0.08, 0.12, 0.16, 0.24, 0.32, 0.48, 0.64);
+
+  @for $i from 1 through length($levels) {
+    $level: nth($levels, $i);
+    --color-default-#{$i}: #{mix($background, $foreground, $level * 100)};
+    --color-default-transparent-#{$i}: #{rgba($background, $level)};
   }
 }
 
