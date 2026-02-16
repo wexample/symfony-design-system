@@ -66,7 +66,19 @@
   height: 100%;
   width: 0%;
   background: var(--color-info-5);
-  transition: width 180ms ease;
+  opacity: 0;
+  transition: width 180ms ease, opacity 220ms ease;
+}
+
+.modal.is-loading .modal-loading-bar {
+  width: 10%;
+  opacity: 1;
+}
+
+.modal.is-loaded .modal-loading-bar {
+  width: 100%;
+  opacity: 0;
+  transition-delay: 0ms, 160ms;
 }
 
 .modal-header .header-title {
