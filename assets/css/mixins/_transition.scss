@@ -1,0 +1,16 @@
+@use 'sass:map';
+
+@mixin smooth($level: 2) {
+  $durations: (
+    1: 120ms,
+    2: 180ms,
+    3: 260ms
+  );
+
+  $duration: map.get($durations, $level);
+  transition: all $duration ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
