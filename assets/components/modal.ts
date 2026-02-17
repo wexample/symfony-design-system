@@ -13,6 +13,7 @@ interface ModalRequestOptionsInterface extends RequestOptionsInterface {
   confirmOnClose?: boolean;
   confirmOnCloseMessage?: string;
   confirmOnCloseTitle?: string;
+  confirmOnCloseDirtyMessage?: string;
   confirmOnCloseWhenDirty?: boolean;
 }
 
@@ -24,6 +25,7 @@ export default class extends PageManagerComponent {
   private confirmOnClose = false;
   private confirmOnCloseMessage = '@page::frontend.embed.closing_confirmation.message';
   private confirmOnCloseTitle = 'WexampleSymfonyLoaderBundle.common.system::frontend.confirm.title';
+  private confirmOnCloseDirtyMessage = 'WexampleSymfonyLoaderBundle.common.system::frontend.embed.confirm.form_leave';
   private onClickOverlayProxy?: EventListener;
   private confirmOnCloseWhenDirty = false;
   private isDirty = false;
@@ -78,6 +80,7 @@ export default class extends PageManagerComponent {
     this.confirmOnClose = options?.confirmOnClose === true;
     this.confirmOnCloseMessage = options?.confirmOnCloseMessage || this.confirmOnCloseMessage;
     this.confirmOnCloseTitle = options?.confirmOnCloseTitle || this.confirmOnCloseTitle;
+    this.confirmOnCloseDirtyMessage = options?.confirmOnCloseDirtyMessage || this.confirmOnCloseDirtyMessage;
     this.confirmOnCloseWhenDirty = options?.confirmOnCloseWhenDirty === true;
 
     this.contentEl?.addEventListener('click', this.onClickContent);
@@ -111,9 +114,12 @@ export default class extends PageManagerComponent {
       const title = this.page['trans'](this.confirmOnCloseTitle);
       const confirmService = this.app.getServiceOrFail(ConfirmService) as ConfirmService;
 
+      const messageKey = (this.confirmOnCloseWhenDirty && this.isDirty)
+        ? this.confirmOnCloseDirtyMessage
+        : this.confirmOnCloseMessage;
       const result = await confirmService.confirm({
         title: title || undefined,
-        message: this.page['trans'](this.confirmOnCloseMessage),
+        message: this.page['trans'](messageKey),
         preset: 'ok_cancel',
       });
       if (result !== 'ok') {
