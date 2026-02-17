@@ -22,6 +22,8 @@ export default class extends Component {
     }
 
     event.preventDefault();
-    (this.app.getService(ModalService) as ModalService).get(href);
+    const optionsRaw = this.linkEl?.getAttribute('data-modal-options');
+    const options = optionsRaw ? JSON.parse(optionsRaw) : {};
+    (this.app.getService(ModalService) as ModalService).get(href, options);
   };
 }
