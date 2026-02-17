@@ -23,6 +23,10 @@ export default class extends Component {
     if (className) {
       this.el.classList.add(className);
     }
+
+    if (this.options?.overlayBackdropTarget) {
+      (this as any).overlayBackdropTarget = this.options.overlayBackdropTarget;
+    }
   }
 
   async open(options: { instant?: boolean } = {}) {

@@ -26,6 +26,10 @@
   overflow: auto;
 }
 
+.layout--body--overlay-scope {
+  position: relative;
+}
+
 .layout--body--container {
   @extend .container;
   @extend .content;

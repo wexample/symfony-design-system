@@ -5,6 +5,10 @@
   z-index: 1000;
 }
 
+.page-overlay-full--scoped {
+  position: absolute;
+}
+
 .page-overlay-full[hidden] {
   display: none;
 }
