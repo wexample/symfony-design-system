@@ -4,3 +4,14 @@
   border-radius: var(--radius-1);
   background: var(--color-default-background);
 }
+
+.lead ul,
+.lead ol {
+  margin: var(--space-2) 0 0;
+  padding-left: var(--space-4);
+  list-style: initial;
+}
+
+.lead li + li {
+  margin-top: var(--space-1);
+}
