@@ -19,7 +19,6 @@ interface ModalRequestOptionsInterface extends RequestOptionsInterface {
 
 export default class extends PageManagerComponent {
   private contentEl?: HTMLElement;
-  protected fadeOpen?: () => void;
 
   private closeOnOverlayClick = true;
   private confirmOnClose = false;
@@ -190,9 +189,7 @@ export default class extends PageManagerComponent {
   }
 
   async overlayOnOpen(): Promise<void> {
-    if (this.fadeOpen) {
-      await this.fadeOpen();
-    }
+    await (this as FadeAnimationMixin).fadeOpen();
     this.page?.focus();
     this.page?.notifyTreeVisible();
   }

@@ -3,8 +3,6 @@ import ActionLinksMixin from '@wexample/symfony-loader/js/Class/Mixins/ActionLin
 import { collapseHeight, expandHeight } from '@wexample/js-helpers/Helper/Height';
 
 export default class extends Component {
-  protected fadeOpen?: () => void;
-
   async init() {
     ActionLinksMixin.apply(this);
     await super.init();
@@ -34,7 +32,7 @@ export default class extends Component {
         | ((rootEl: HTMLElement, actions: Record<string, () => void>) => void)
         | undefined;
 
-      if (actions && Object.keys(actions).length && buildActionLinksHtml && bindActionLinks) {
+      if (actions && Object.keys(actions).length) {
         messageEl.innerHTML = buildActionLinksHtml(message);
         bindActionLinks(messageEl, actions);
       } else if (this.options?.allowHtml) {
@@ -44,17 +42,11 @@ export default class extends Component {
       }
     }
 
-    if (this.fadeOpen) {
-      this.fadeOpen();
-    }
     await super.mounted();
   }
 
   protected async unmounted(): Promise<void> {
-    const unbindActionLinks = (this as any).unbindActionLinks as (() => void) | undefined;
-    if (unbindActionLinks) {
-      unbindActionLinks();
-    }
+    (this as any).unbindActionLinks();
     await super.unmounted();
   }
 }

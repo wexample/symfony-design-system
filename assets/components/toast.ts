@@ -4,8 +4,6 @@ import AutoCloseMixin from '@wexample/symfony-loader/js/Class/Mixins/AutoCloseMi
 import ActionLinksMixin from '@wexample/symfony-loader/js/Class/Mixins/ActionLinksMixin';
 
 export default class extends Component {
-  protected fadeOpen?: () => void;
-
   async init() {
     FadeAnimationMixin.apply(this);
     AutoCloseMixin.apply(this);
@@ -36,14 +34,14 @@ export default class extends Component {
       const bindActionLinks = (this as any).bindActionLinks as
         | ((rootEl: HTMLElement, actions: Record<string, () => void>) => void)
         | undefined;
-      if (actions && Object.keys(actions).length && buildActionLinksHtml && bindActionLinks) {
-        messageEl.innerHTML = buildActionLinksHtml(message);
-        bindActionLinks(messageEl, actions);
-      } else if (this.options?.allowHtml) {
-        messageEl.innerHTML = message;
-      } else {
-        messageEl.textContent = message;
-      }
+    if (actions && Object.keys(actions).length) {
+      messageEl.innerHTML = buildActionLinksHtml(message);
+      bindActionLinks(messageEl, actions);
+    } else if (this.options?.allowHtml) {
+      messageEl.innerHTML = message;
+    } else {
+      messageEl.textContent = message;
+    }
     }
 
     if (!this.options?.sticky) {
@@ -52,19 +50,14 @@ export default class extends Component {
     }
 
     closeEl?.addEventListener('click', this.onClickClose);
-    if (this.fadeOpen) {
-      this.fadeOpen();
-    }
+    await (this as FadeAnimationMixin).fadeOpen();
     await super.mounted();
   }
 
   protected async unmounted(): Promise<void> {
     const closeEl = this.el.querySelector('[data-toast-close]') as HTMLElement | null;
     closeEl?.removeEventListener('click', this.onClickClose);
-    const unbindActionLinks = (this as any).unbindActionLinks as (() => void) | undefined;
-    if (unbindActionLinks) {
-      unbindActionLinks();
-    }
+    (this as any).unbindActionLinks();
     (this as any).clearAutoClose();
     await super.unmounted();
   }

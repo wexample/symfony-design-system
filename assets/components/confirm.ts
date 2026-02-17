@@ -4,8 +4,6 @@ import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAni
 import { renderPromptActions, PromptAction } from '../js/Helper/PromptActionsHelper';
 
 export default class extends Component {
-  protected fadeOpen?: () => void;
-
   async init() {
     FadeAnimationMixin.apply(this);
     OverlayMixin.apply(this);
@@ -89,9 +87,7 @@ export default class extends Component {
   }
 
   async overlayOnOpen(): Promise<void> {
-    if (this.fadeOpen) {
-      await this.fadeOpen();
-    }
+    await (this as FadeAnimationMixin).fadeOpen();
   }
 
   overlayOnClickOutside(): void {
