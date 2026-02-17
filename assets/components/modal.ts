@@ -44,9 +44,9 @@ export default class extends PageManagerComponent {
     this.contentEl = this.el.querySelector('.modal--content') as HTMLElement;
     if ((this as any).overlayBackdropTarget === 'main') {
       this.el.classList.add('is-scoped-main');
-      const scopeOverlayEl = document.getElementById('overlay-layer-main');
-      const scopeContainer = scopeOverlayEl?.parentElement as HTMLElement | null;
-      if (scopeContainer && this.el.parentElement !== scopeContainer) {
+      const scopeOverlayEl = document.getElementById('overlay-layer-main') as HTMLElement;
+      const scopeContainer = scopeOverlayEl.parentElement as HTMLElement;
+      if (this.el.parentElement !== scopeContainer) {
         scopeContainer.appendChild(this.el);
       }
     } else {
