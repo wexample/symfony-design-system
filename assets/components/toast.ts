@@ -1,14 +1,15 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
 import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAnimationMixin';
+import AutoCloseMixin from '@wexample/symfony-loader/js/Class/Mixins/AutoCloseMixin';
 import ActionLinksMixin from '@wexample/symfony-loader/js/Class/Mixins/ActionLinksMixin';
 
 export default class extends Component {
-  private timeoutId?: number;
   protected fadeOpen?: () => void;
   protected closeWithAnimation?: () => Promise<void>;
 
   async init() {
     FadeAnimationMixin.apply(this);
+    AutoCloseMixin.apply(this);
     ActionLinksMixin.apply(this);
     await super.init();
   }
@@ -48,9 +49,12 @@ export default class extends Component {
 
     if (!this.options?.sticky) {
       const timeout = this.options?.timeout ?? 4000;
-      this.timeoutId = window.setTimeout(() => {
-        this.close();
-      }, timeout);
+      const startAutoClose = (this as any).startAutoClose as
+        | ((value: number, onClose: () => void) => void)
+        | undefined;
+      if (startAutoClose) {
+        startAutoClose(timeout, () => this.close());
+      }
     }
 
     closeEl?.addEventListener('click', this.onClickClose);
@@ -67,8 +71,9 @@ export default class extends Component {
     if (unbindActionLinks) {
       unbindActionLinks();
     }
-    if (this.timeoutId) {
-      clearTimeout(this.timeoutId);
+    const clearAutoClose = (this as any).clearAutoClose as (() => void) | undefined;
+    if (clearAutoClose) {
+      clearAutoClose();
     }
     await super.unmounted();
   }
