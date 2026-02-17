@@ -12,9 +12,19 @@
   --color-default-text: #{$foreground};
   --color-default-text-invert: #{$background};
   --color-absolute-dark: #000;
-  --color-absolute-dark-soft: #111;
   --color-absolute-light: #fff;
-  --color-absolute-light-soft: #f7f7f7;
+  --color-absolute-dark-transparent-1: #{rgba(#000, 0.08)};
+  --color-absolute-dark-transparent-2: #{rgba(#000, 0.16)};
+  --color-absolute-dark-transparent-3: #{rgba(#000, 0.24)};
+  --color-absolute-dark-transparent-4: #{rgba(#000, 0.32)};
+  --color-absolute-dark-transparent-5: #{rgba(#000, 0.48)};
+  --color-absolute-dark-transparent-6: #{rgba(#000, 0.64)};
+  --color-absolute-light-transparent-1: #{rgba(#fff, 0.08)};
+  --color-absolute-light-transparent-2: #{rgba(#fff, 0.16)};
+  --color-absolute-light-transparent-3: #{rgba(#fff, 0.24)};
+  --color-absolute-light-transparent-4: #{rgba(#fff, 0.32)};
+  --color-absolute-light-transparent-5: #{rgba(#fff, 0.48)};
+  --color-absolute-light-transparent-6: #{rgba(#fff, 0.64)};
   --color-link: var(--color-invert-7);
   --color-link-hover: var(--color-invert-8);
 

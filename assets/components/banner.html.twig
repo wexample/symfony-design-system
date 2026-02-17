@@ -1,5 +1,5 @@
 <div class="banner{% if type is defined and type %} banner--{{ type }}{% endif %}{% if class is defined and class %} {{ class }}{% endif %}">
     {% if message is defined and message %}
-        <div class="banner--message">{{ message }}</div>
+        <div class="banner--message">{{ message | trans }}</div>
     {% endif %}
 </div>

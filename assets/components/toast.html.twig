@@ -3,9 +3,9 @@
         {{ icon('ph:bold/x') }}
     </button>
     {% if title is defined and title %}
-        <div class="toast--title">{{ title }}</div>
+        <div class="toast--title">{{ title | trans }}</div>
     {% endif %}
     {% if message is defined and message %}
-        <div class="toast--message">{{ message }}</div>
+        <div class="toast--message">{{ message | trans }}</div>
     {% endif %}
 </div>
