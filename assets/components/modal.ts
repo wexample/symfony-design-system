@@ -5,6 +5,7 @@ import FocusableComponentMixin from '@wexample/symfony-loader/js/Class/Mixins/Fo
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
 import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAnimationMixin';
 import RequestOptionsInterface from '@wexample/symfony-loader/js/Interfaces/RequestOptions/RequestOptionsInterface';
+import ConfirmService from '@wexample/symfony-loader/js/Services/ConfirmService';
 
 interface ModalRequestOptionsInterface extends RequestOptionsInterface {
   closeOnEscape?: boolean;
@@ -94,7 +95,13 @@ export default class extends PageManagerComponent {
   public async close(options: { instant?: boolean } = {}) {
     if (this.confirmOnClose) {
       const message = this['trans']?.(this.confirmOnCloseMessage) || this.confirmOnCloseMessage;
-      if (!window.confirm(message)) {
+      const confirmService = this.app.getServiceOrFail(ConfirmService) as ConfirmService;
+
+      const result = await confirmService.confirm({
+        message: this.page['trans'](message),
+        preset: 'ok_cancel',
+      });
+      if (result !== 'ok') {
         return;
       }
     }
