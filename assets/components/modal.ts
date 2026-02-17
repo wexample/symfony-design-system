@@ -18,6 +18,10 @@ export default class extends PageManagerComponent {
   private contentEl?: HTMLElement;
   protected fadeOpen?: () => void;
   protected closeWithAnimation?: (event?: Event) => Promise<void>;
+  private closeOnOverlayClick = true;
+  private confirmOnClose = false;
+  private confirmOnCloseMessage = '@page::embed.closing_confirmation';
+  private onClickOverlayProxy?: EventListener;
 
   async init() {
     FadeAnimationMixin.apply(this);
@@ -63,11 +67,22 @@ export default class extends PageManagerComponent {
   protected async activateListeners(): Promise<void> {
     await super.activateListeners();
 
+    const options = this.renderData?.requestOptions as ModalRequestOptionsInterface | undefined;
+    this.closeOnOverlayClick = options?.closeOnOverlayClick !== false;
+    this.confirmOnClose = options?.confirmOnClose === true;
+    this.confirmOnCloseMessage = options?.confirmOnCloseMessage
+      || '@page::embed.closing_confirmation';
+
     this.contentEl?.addEventListener('click', this.onClickContent);
+    this.onClickOverlayProxy = this.onClickOverlay.bind(this) as EventListener;
+    this.el.addEventListener('click', this.onClickOverlayProxy);
   }
 
   protected async deactivateListeners(): Promise<void> {
     this.contentEl?.removeEventListener('click', this.onClickContent);
+    if (this.onClickOverlayProxy) {
+      this.el.removeEventListener('click', this.onClickOverlayProxy);
+    }
 
     await super.deactivateListeners();
   }
@@ -77,6 +92,13 @@ export default class extends PageManagerComponent {
   }
 
   public async close(options: { instant?: boolean } = {}) {
+    if (this.confirmOnClose) {
+      const message = this['trans']?.(this.confirmOnCloseMessage) || this.confirmOnCloseMessage;
+      if (!window.confirm(message)) {
+        return;
+      }
+    }
+
     (this as any).overlayClose(options.instant);
   }
 
@@ -94,6 +116,26 @@ export default class extends PageManagerComponent {
     event.preventDefault();
     await this.close();
   };
+
+  private onClickOverlay = async (event: Event) => {
+    if (!this.closeOnOverlayClick) {
+      return;
+    }
+
+    if (event.target !== this.el) {
+      return;
+    }
+
+    await this.close();
+  };
+
+  overlayOnClickOutside(): void {
+    if (!this.closeOnOverlayClick) {
+      return;
+    }
+
+    this.close();
+  }
 
   focusableShouldHandleEscape(): boolean {
     const options = this.renderData?.requestOptions as ModalRequestOptionsInterface | undefined;
