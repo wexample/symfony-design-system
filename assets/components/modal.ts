@@ -137,6 +137,10 @@ export default class extends PageManagerComponent {
     this.close();
   }
 
+  overlayOnEscape(): void {
+    this.close();
+  }
+
   focusableShouldHandleEscape(): boolean {
     const options = this.renderData?.requestOptions as ModalRequestOptionsInterface | undefined;
     if (options?.closeOnEscape === false) {
