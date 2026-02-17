@@ -3,15 +3,11 @@
 
 .banner {
   @include message.message-base;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   border-left: 0;
   border-radius: 0;
-  border-top: 3px solid var(--message-color);
+  border-top: 0;
   box-shadow: var(--shadow-2);
-  z-index: 9998;
+  text-align: center;
 }
 
 .banner.is-opening {
@@ -20,10 +16,6 @@
 
 .banner.is-closing {
   @include animation.exit(1);
-}
-
-.banner--title {
-  @include message.message-title;
 }
 
 .banner--info {
@@ -40,20 +32,4 @@
 
 .banner--error {
   @include message.message-error;
-}
-
-.banner--close {
-  position: absolute;
-  top: var(--space-2);
-  right: var(--space-3);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--space-6);
-  height: var(--space-6);
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--color-default-text);
-  cursor: pointer;
 }

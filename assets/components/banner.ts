@@ -38,18 +38,7 @@ export default class extends Component {
   }
 
   protected async mounted(): Promise<void> {
-    const titleEl = this.el.querySelector('[data-banner-title]') as HTMLElement;
     const messageEl = this.el.querySelector('[data-banner-message]') as HTMLElement;
-    const closeEl = this.el.querySelector('[data-banner-close]') as HTMLElement | null;
-
-    if (titleEl) {
-      if (this.options?.title) {
-        titleEl.textContent = this.options.title;
-        titleEl.removeAttribute('hidden');
-      } else {
-        titleEl.setAttribute('hidden', 'hidden');
-      }
-    }
 
     if (messageEl) {
       const message = this.options?.message || '';
@@ -71,7 +60,6 @@ export default class extends Component {
       }
     }
 
-    closeEl?.addEventListener('click', this.onClickClose);
     if (this.fadeOpen) {
       this.fadeOpen();
     }
@@ -79,18 +67,12 @@ export default class extends Component {
   }
 
   protected async unmounted(): Promise<void> {
-    const closeEl = this.el.querySelector('[data-banner-close]') as HTMLElement | null;
-    closeEl?.removeEventListener('click', this.onClickClose);
     const unbindActionLinks = (this as any).unbindActionLinks as (() => void) | undefined;
     if (unbindActionLinks) {
       unbindActionLinks();
     }
     await super.unmounted();
   }
-
-  private onClickClose = () => {
-    this.close();
-  };
 
   private onBannerShow(event: Event) {
     const detail = (event as CustomEvent).detail || {};
@@ -119,16 +101,6 @@ export default class extends Component {
     this.el.setAttribute('data-banner-id', detail.id || `banner-${Date.now()}`);
     this.el.classList.remove('banner--default', 'banner--info', 'banner--success', 'banner--warning', 'banner--error');
     this.el.classList.add(`banner--${type}`);
-
-    const titleEl = this.el.querySelector('[data-banner-title]') as HTMLElement;
-    if (titleEl) {
-      if (title) {
-        titleEl.textContent = title;
-        titleEl.removeAttribute('hidden');
-      } else {
-        titleEl.setAttribute('hidden', 'hidden');
-      }
-    }
 
     const messageEl = this.el.querySelector('[data-banner-message]') as HTMLElement;
     if (messageEl) {
