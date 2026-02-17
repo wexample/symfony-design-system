@@ -1,0 +1,20 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+
+  .component-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--color-default-transparent-8);
+  }
+
+  .overlay-content {
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100%;
+  }
+}
