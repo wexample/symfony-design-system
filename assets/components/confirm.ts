@@ -124,9 +124,7 @@ export default class extends Component {
       return;
     }
 
-    if ((this as any).overlayClose) {
-      (this as any).overlayClose();
-    }
+    (this as any).overlayClose();
   }
 
   private isActiveOverlay(): boolean {
