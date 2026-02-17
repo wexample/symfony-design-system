@@ -1,5 +1,6 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
 import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAnimationMixin';
+import ActionLinksMixin from '@wexample/symfony-loader/js/Class/Mixins/ActionLinksMixin';
 
 export default class extends Component {
   private timeoutId?: number;
@@ -8,6 +9,7 @@ export default class extends Component {
 
   async init() {
     FadeAnimationMixin.apply(this);
+    ActionLinksMixin.apply(this);
     await super.init();
   }
 
@@ -26,10 +28,21 @@ export default class extends Component {
     }
 
     if (messageEl) {
-      if (this.options?.allowHtml) {
-        messageEl.innerHTML = this.options?.message || '';
+      const message = this.options?.message || '';
+      const actions = this.options?.actions as Record<string, () => void> | undefined;
+      const buildActionLinksHtml = (this as any).buildActionLinksHtml as
+        | ((value: string) => string)
+        | undefined;
+      const bindActionLinks = (this as any).bindActionLinks as
+        | ((rootEl: HTMLElement, actions: Record<string, () => void>) => void)
+        | undefined;
+      if (actions && Object.keys(actions).length && buildActionLinksHtml && bindActionLinks) {
+        messageEl.innerHTML = buildActionLinksHtml(message);
+        bindActionLinks(messageEl, actions);
+      } else if (this.options?.allowHtml) {
+        messageEl.innerHTML = message;
       } else {
-        messageEl.textContent = this.options?.message || '';
+        messageEl.textContent = message;
       }
     }
 
@@ -50,6 +63,10 @@ export default class extends Component {
   protected async unmounted(): Promise<void> {
     const closeEl = this.el.querySelector('[data-toast-close]') as HTMLElement | null;
     closeEl?.removeEventListener('click', this.onClickClose);
+    const unbindActionLinks = (this as any).unbindActionLinks as (() => void) | undefined;
+    if (unbindActionLinks) {
+      unbindActionLinks();
+    }
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
     }
