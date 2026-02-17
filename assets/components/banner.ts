@@ -53,12 +53,7 @@ export default class extends Component {
     }
     if (!this.options?.sticky) {
       const timeout = this.options?.timeout ?? 4000;
-      const startAutoClose = (this as any).startAutoClose as
-        | ((value: number, onClose: () => void) => void)
-        | undefined;
-      if (startAutoClose) {
-        startAutoClose(timeout, () => this.exit());
-      }
+      (this as any).startAutoClose(timeout, () => this.exit());
     }
     await super.mounted();
   }
@@ -68,10 +63,7 @@ export default class extends Component {
     if (unbindActionLinks) {
       unbindActionLinks();
     }
-    const clearAutoClose = (this as any).clearAutoClose as (() => void) | undefined;
-    if (clearAutoClose) {
-      clearAutoClose();
-    }
+    (this as any).clearAutoClose();
     await super.unmounted();
   }
 }
