@@ -23,7 +23,7 @@ export default class extends PageManagerComponent {
   private closeOnOverlayClick = true;
   private confirmOnClose = false;
   private confirmOnCloseMessage = '@page::frontend.embed.closing_confirmation.message';
-  private confirmOnCloseTitle = '@page::frontend.embed.closing_confirmation.title';
+  private confirmOnCloseTitle = 'WexampleSymfonyLoaderBundle.common.system::frontend.confirm.title';
   private onClickOverlayProxy?: EventListener;
 
   async init() {
@@ -73,10 +73,8 @@ export default class extends PageManagerComponent {
     const options = this.renderData?.requestOptions as ModalRequestOptionsInterface | undefined;
     this.closeOnOverlayClick = options?.closeOnOverlayClick !== false;
     this.confirmOnClose = options?.confirmOnClose === true;
-    this.confirmOnCloseMessage = options?.confirmOnCloseMessage
-      || '@page::frontend.embed.closing_confirmation.message';
-    this.confirmOnCloseTitle = options?.confirmOnCloseTitle
-      || '@page::frontend.embed.closing_confirmation.title';
+    this.confirmOnCloseMessage = options?.confirmOnCloseMessage || this.confirmOnCloseMessage;
+    this.confirmOnCloseTitle = options?.confirmOnCloseTitle || this.confirmOnCloseTitle;
 
     this.contentEl?.addEventListener('click', this.onClickContent);
     this.onClickOverlayProxy = this.onClickOverlay.bind(this) as EventListener;
@@ -96,15 +94,14 @@ export default class extends PageManagerComponent {
     (this as any).overlayOpen(options.instant);
   }
 
-  public async close(options: { instant?: boolean } = {}) {
-    if (this.confirmOnClose) {
-      const message = this['trans']?.(this.confirmOnCloseMessage) || this.confirmOnCloseMessage;
-      const title = this['trans']?.(this.confirmOnCloseTitle);
+  public async close(options: { instant?: boolean; userInitiated?: boolean } = {}) {
+    if (options.userInitiated && this.confirmOnClose) {
+      const title = this.page['trans'](this.confirmOnCloseTitle);
       const confirmService = this.app.getServiceOrFail(ConfirmService) as ConfirmService;
 
       const result = await confirmService.confirm({
         title: title || undefined,
-        message: this.page['trans'](message),
+        message: this.page['trans'](this.confirmOnCloseMessage),
         preset: 'ok_cancel',
       });
       if (result !== 'ok') {
@@ -127,7 +124,7 @@ export default class extends PageManagerComponent {
     }
 
     event.preventDefault();
-    await this.close();
+    await this.close({ userInitiated: true });
   };
 
   private onClickOverlay = async (event: Event) => {
@@ -139,7 +136,7 @@ export default class extends PageManagerComponent {
       return;
     }
 
-    await this.close();
+    await this.close({ userInitiated: true });
   };
 
   overlayOnClickOutside(): void {
@@ -147,11 +144,11 @@ export default class extends PageManagerComponent {
       return;
     }
 
-    this.close();
+    this.close({ userInitiated: true });
   }
 
   overlayOnEscape(): void {
-    this.close();
+    this.close({ userInitiated: true });
   }
 
   focusableShouldHandleEscape(): boolean {
