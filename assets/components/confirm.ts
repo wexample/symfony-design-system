@@ -94,6 +94,10 @@ export default class extends Component {
     }
   }
 
+  overlayOnClickOutside(): void {
+    // Do not close confirms when clicking outside (box variant).
+  }
+
   private renderActions(actionsEl?: HTMLElement) {
     if (!actionsEl) {
       return;
@@ -105,7 +109,8 @@ export default class extends Component {
       actions,
       (action) => this.resolve(action),
       {
-        buttonClass: 'confirm--action'
+        buttonClass: 'confirm--action',
+        roleClasses: this.options?.variant === 'toast' ? { primary: '' } : undefined,
       }
     );
   }
