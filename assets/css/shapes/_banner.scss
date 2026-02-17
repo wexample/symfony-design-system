@@ -11,6 +11,14 @@
   color: var(--message-color);
 }
 
+.banner--floating {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9998;
+}
+
 .banner.is-opening {
   @include animation.enter(1);
 }

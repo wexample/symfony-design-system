@@ -13,6 +13,17 @@ export default class extends Component {
   }
 
   protected async mounted(): Promise<void> {
+    const type = (this.options?.type as string | undefined) || 'default';
+    if (type) {
+      this.el.classList.add(`banner--${type}`);
+    }
+    if (this.options?.class) {
+      this.el.classList.add(this.options.class as string);
+    }
+    if (this.options?.floating) {
+      this.el.classList.add('banner--floating');
+    }
+
     const messageEl = this.el.querySelector('[data-banner-message]') as HTMLElement;
 
     if (messageEl) {
