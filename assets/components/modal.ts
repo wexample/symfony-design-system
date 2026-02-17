@@ -12,6 +12,7 @@ interface ModalRequestOptionsInterface extends RequestOptionsInterface {
   closeOnOverlayClick?: boolean;
   confirmOnClose?: boolean;
   confirmOnCloseMessage?: string;
+  confirmOnCloseTitle?: string;
   confirmOnCloseWhenDirty?: boolean;
 }
 
