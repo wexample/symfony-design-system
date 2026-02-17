@@ -1,4 +1,4 @@
-{% set active_class = route is defined and route ? route_is_current(route, route_params|default({}), 'active') : '' %}
+{% set active_class = route is defined and route ? route_is_current_or_related(route, route_params|default({}), 'active') : '' %}
 {% set new_window = options.new_window|default(false) %}
 {% set attr = options.attr|default({}) %}
 {% if new_window %}
