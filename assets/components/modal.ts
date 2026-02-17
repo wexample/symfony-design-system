@@ -34,6 +34,7 @@ export default class extends PageManagerComponent {
     FadeAnimationMixin.apply(this);
     FocusableComponentMixin.apply(this);
     OverlayMixin.apply(this);
+    (this as any).overlayBackdropTarget = 'main';
     await super.init();
   }
 
