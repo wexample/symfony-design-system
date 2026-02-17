@@ -34,3 +34,23 @@
 .banner--error {
   @include message.message-error;
 }
+
+.banner--flash {
+  --message-color: var(--color-absolute-dark-soft);
+}
+
+.banner--flash.banner--info {
+  --message-bg: var(--color-info-5);
+}
+
+.banner--flash.banner--success {
+  --message-bg: var(--color-success-5);
+}
+
+.banner--flash.banner--warning {
+  --message-bg: var(--color-warning-5);
+}
+
+.banner--flash.banner--error {
+  --message-bg: var(--color-error-5);
+}

@@ -11,6 +11,10 @@
   --color-default-background-invert: #{$foreground};
   --color-default-text: #{$foreground};
   --color-default-text-invert: #{$background};
+  --color-absolute-dark: #000;
+  --color-absolute-dark-soft: #111;
+  --color-absolute-light: #fff;
+  --color-absolute-light-soft: #f7f7f7;
   --color-link: var(--color-invert-7);
   --color-link-hover: var(--color-invert-8);
 
