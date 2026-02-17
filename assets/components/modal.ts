@@ -25,6 +25,9 @@ export default class extends PageManagerComponent {
   private confirmOnCloseMessage = '@page::frontend.embed.closing_confirmation.message';
   private confirmOnCloseTitle = 'WexampleSymfonyLoaderBundle.common.system::frontend.confirm.title';
   private onClickOverlayProxy?: EventListener;
+  private confirmOnCloseWhenDirty = false;
+  private isDirty = false;
+  private onFormDirtyProxy?: EventListener;
 
   async init() {
     FadeAnimationMixin.apply(this);
@@ -75,16 +78,22 @@ export default class extends PageManagerComponent {
     this.confirmOnClose = options?.confirmOnClose === true;
     this.confirmOnCloseMessage = options?.confirmOnCloseMessage || this.confirmOnCloseMessage;
     this.confirmOnCloseTitle = options?.confirmOnCloseTitle || this.confirmOnCloseTitle;
+    this.confirmOnCloseWhenDirty = options?.confirmOnCloseWhenDirty === true;
 
     this.contentEl?.addEventListener('click', this.onClickContent);
     this.onClickOverlayProxy = this.onClickOverlay.bind(this) as EventListener;
     this.el.addEventListener('click', this.onClickOverlayProxy);
+    this.onFormDirtyProxy = this.onFormDirty.bind(this) as EventListener;
+    this.el.addEventListener('form:dirty', this.onFormDirtyProxy);
   }
 
   protected async deactivateListeners(): Promise<void> {
     this.contentEl?.removeEventListener('click', this.onClickContent);
     if (this.onClickOverlayProxy) {
       this.el.removeEventListener('click', this.onClickOverlayProxy);
+    }
+    if (this.onFormDirtyProxy) {
+      this.el.removeEventListener('form:dirty', this.onFormDirtyProxy);
     }
 
     await super.deactivateListeners();
@@ -95,7 +104,10 @@ export default class extends PageManagerComponent {
   }
 
   public async close(options: { instant?: boolean; userInitiated?: boolean } = {}) {
-    if (options.userInitiated && this.confirmOnClose) {
+    const shouldConfirm = options.userInitiated
+      && (this.confirmOnClose || (this.confirmOnCloseWhenDirty && this.isDirty));
+
+    if (shouldConfirm) {
       const title = this.page['trans'](this.confirmOnCloseTitle);
       const confirmService = this.app.getServiceOrFail(ConfirmService) as ConfirmService;
 
@@ -138,6 +150,12 @@ export default class extends PageManagerComponent {
 
     await this.close({ userInitiated: true });
   };
+
+  private onFormDirty(event: CustomEvent) {
+    if (event.detail?.dirty === true) {
+      this.isDirty = true;
+    }
+  }
 
   overlayOnClickOutside(): void {
     if (!this.closeOnOverlayClick) {
