@@ -20,7 +20,7 @@ interface ModalRequestOptionsInterface extends RequestOptionsInterface {
 export default class extends PageManagerComponent {
   private contentEl?: HTMLElement;
   protected fadeOpen?: () => void;
-  protected closeWithAnimation?: (event?: Event) => Promise<void>;
+
   private closeOnOverlayClick = true;
   private confirmOnClose = false;
   private confirmOnCloseMessage = '@page::frontend.embed.closing_confirmation.message';

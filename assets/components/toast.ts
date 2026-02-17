@@ -5,7 +5,6 @@ import ActionLinksMixin from '@wexample/symfony-loader/js/Class/Mixins/ActionLin
 
 export default class extends Component {
   protected fadeOpen?: () => void;
-  protected closeWithAnimation?: () => Promise<void>;
 
   async init() {
     FadeAnimationMixin.apply(this);
@@ -75,10 +74,6 @@ export default class extends Component {
   };
 
   private async close() {
-    if (this.closeWithAnimation) {
-      await this.closeWithAnimation();
-      return;
-    }
-    await this.exit();
+    await (this as FadeAnimationMixin).closeWithAnimation();
   }
 }

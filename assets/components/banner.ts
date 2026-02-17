@@ -1,14 +1,12 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
-import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAnimationMixin';
 import AutoCloseMixin from '@wexample/symfony-loader/js/Class/Mixins/AutoCloseMixin';
 import ActionLinksMixin from '@wexample/symfony-loader/js/Class/Mixins/ActionLinksMixin';
+import { collapseHeight, expandHeight } from '@wexample/js-helpers/Helper/Height';
 
 export default class extends Component {
   protected fadeOpen?: () => void;
-  protected closeWithAnimation?: () => Promise<void>;
 
   async init() {
-    FadeAnimationMixin.apply(this);
     AutoCloseMixin.apply(this);
     ActionLinksMixin.apply(this);
     await super.init();

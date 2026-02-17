@@ -5,7 +5,7 @@ import { renderPromptActions, PromptAction } from '../js/Helper/PromptActionsHel
 
 export default class extends Component {
   protected fadeOpen?: () => void;
-  protected closeWithAnimation?: (event?: Event) => Promise<void>;
+
   async init() {
     FadeAnimationMixin.apply(this);
     OverlayMixin.apply(this);
