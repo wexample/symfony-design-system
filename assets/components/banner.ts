@@ -1,5 +1,4 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
-import AutoCloseMixin from '@wexample/symfony-loader/js/Class/Mixins/AutoCloseMixin';
 import ActionLinksMixin from '@wexample/symfony-loader/js/Class/Mixins/ActionLinksMixin';
 import { collapseHeight, expandHeight } from '@wexample/js-helpers/Helper/Height';
 
@@ -7,7 +6,6 @@ export default class extends Component {
   protected fadeOpen?: () => void;
 
   async init() {
-    AutoCloseMixin.apply(this);
     ActionLinksMixin.apply(this);
     await super.init();
   }
@@ -49,10 +47,6 @@ export default class extends Component {
     if (this.fadeOpen) {
       this.fadeOpen();
     }
-    if (!this.options?.sticky) {
-      const timeout = this.options?.timeout ?? 4000;
-      (this as any).startAutoClose(timeout, () => this.exit());
-    }
     await super.mounted();
   }
 
@@ -61,7 +55,6 @@ export default class extends Component {
     if (unbindActionLinks) {
       unbindActionLinks();
     }
-    (this as any).clearAutoClose();
     await super.unmounted();
   }
 }
