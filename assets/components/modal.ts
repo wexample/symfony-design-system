@@ -4,6 +4,15 @@ import RenderNode from '@wexample/symfony-loader/js/Class/RenderNode';
 import FocusableComponentMixin from '@wexample/symfony-loader/js/Class/Mixins/FocusableComponentMixin';
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
 import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAnimationMixin';
+import RequestOptionsInterface from '@wexample/symfony-loader/js/Interfaces/RequestOptions/RequestOptionsInterface';
+
+interface ModalRequestOptionsInterface extends RequestOptionsInterface {
+  closeOnEscape?: boolean;
+  closeOnOverlayClick?: boolean;
+  confirmOnClose?: boolean;
+  confirmOnCloseMessage?: string;
+  confirmOnCloseWhenDirty?: boolean;
+}
 
 export default class extends PageManagerComponent {
   private contentEl?: HTMLElement;
@@ -87,6 +96,11 @@ export default class extends PageManagerComponent {
   };
 
   focusableShouldHandleEscape(): boolean {
+    const options = this.renderData?.requestOptions as ModalRequestOptionsInterface | undefined;
+    if (options?.closeOnEscape === false) {
+      return false;
+    }
+
     return this.el.classList.contains('is-open');
   }
   
