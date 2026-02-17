@@ -21,7 +21,8 @@ export default class extends PageManagerComponent {
   protected closeWithAnimation?: (event?: Event) => Promise<void>;
   private closeOnOverlayClick = true;
   private confirmOnClose = false;
-  private confirmOnCloseMessage = '@page::embed.closing_confirmation';
+  private confirmOnCloseMessage = '@page::frontend.embed.closing_confirmation.message';
+  private confirmOnCloseTitle = '@page::frontend.embed.closing_confirmation.title';
   private onClickOverlayProxy?: EventListener;
 
   async init() {
@@ -72,7 +73,9 @@ export default class extends PageManagerComponent {
     this.closeOnOverlayClick = options?.closeOnOverlayClick !== false;
     this.confirmOnClose = options?.confirmOnClose === true;
     this.confirmOnCloseMessage = options?.confirmOnCloseMessage
-      || '@page::embed.closing_confirmation';
+      || '@page::frontend.embed.closing_confirmation.message';
+    this.confirmOnCloseTitle = options?.confirmOnCloseTitle
+      || '@page::frontend.embed.closing_confirmation.title';
 
     this.contentEl?.addEventListener('click', this.onClickContent);
     this.onClickOverlayProxy = this.onClickOverlay.bind(this) as EventListener;
@@ -95,9 +98,11 @@ export default class extends PageManagerComponent {
   public async close(options: { instant?: boolean } = {}) {
     if (this.confirmOnClose) {
       const message = this['trans']?.(this.confirmOnCloseMessage) || this.confirmOnCloseMessage;
+      const title = this['trans']?.(this.confirmOnCloseTitle);
       const confirmService = this.app.getServiceOrFail(ConfirmService) as ConfirmService;
 
       const result = await confirmService.confirm({
+        title: title || undefined,
         message: this.page['trans'](message),
         preset: 'ok_cancel',
       });

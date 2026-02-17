@@ -45,6 +45,7 @@ export default class extends Component {
     const title = detail.title;
     const message = detail.message || '';
     const allowHtml = detail.allowHtml === true;
+    const actions = detail.actions;
     const timeout = detail.timeout ?? 4000;
     const sticky = detail.sticky === true;
     const maxToasts = detail.maxToasts ?? 6;
@@ -67,6 +68,7 @@ export default class extends Component {
         title,
         message,
         allowHtml,
+        actions,
         timeout,
         sticky
       },
