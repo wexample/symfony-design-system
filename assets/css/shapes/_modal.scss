@@ -9,6 +9,11 @@
   z-index: 1000;
 }
 
+.modal.is-scoped-main {
+  position: absolute;
+  inset: 0;
+}
+
 .modal.is-instant .modal--content {
   animation: none !important;
   transition: none !important;
