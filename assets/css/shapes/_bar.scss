@@ -1,0 +1,11 @@
+@use '../../css/mixins/bar' as bar;
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.bar--title-block {
+  @include bar.bar-title-block;
+}

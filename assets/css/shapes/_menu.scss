@@ -1,6 +1,6 @@
 @use '../../css/mixins/border' as border;
 @use '../../css/mixins/text' as text;
-@use '../../css/mixins/bar' as bar;
+@use '../../css/shapes/bar';
 
 .menu {
   --menu-width: var(--size-6);
@@ -56,7 +56,7 @@
 }
 
 .menu--bar--title-block {
-  @include bar.bar-title-block;
+  @extend .bar--title-block;
 }
 
 .menu--body {
