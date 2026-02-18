@@ -33,7 +33,7 @@ export default {
     },
     app: {
       type: Object,
-      default: null
+      required: true
     },
     showHeader: {
       type: Boolean,
@@ -52,7 +52,7 @@ export default {
       return Array.isArray(this.rows) && this.rows.length > 0;
     },
     getEmptyLabel() {
-      return this.app.getServiceOrFail(LocaleService).trans(this.emptyLabel || 'WexampleSymfonyDesignSystemBundle.common.system::frontend.label.empty');
+      return this.app.getServiceOrFail(LocaleService).trans(this.emptyLabel || 'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.empty');
     },
     hasCellActions(column) {
       return Boolean(column?.action || (Array.isArray(column?.actions) && column.actions.length));
@@ -111,7 +111,7 @@ export default {
     },
 
     getCellIcon(row, column) {
-      if (!column?.icon || !this.app) {
+      if (!column?.icon) {
         return '';
       }
 
@@ -205,7 +205,7 @@ export default {
         return href;
       }
 
-      if (typeof href === 'object' && href.route && this.app) {
+      if (typeof href === 'object' && href.route) {
         const parameters =
             typeof href.parameters === 'function'
                 ? href.parameters(row, column)
