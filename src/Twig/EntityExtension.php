@@ -4,7 +4,6 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Twig\Environment;
 use Twig\TwigFunction;
-use Wexample\Helpers\Class\Traits\HasSnakeShortClassNameClassTrait;
 use Wexample\SymfonyLoader\Rendering\RenderPass;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
@@ -32,15 +31,6 @@ class EntityExtension extends AbstractTemplateExtension
         ];
     }
 
-    /**
-     * @param Environment $twig
-     * @param array $context
-     * @param HasSnakeShortClassNameClassTrait $entity
-     * @param string $format
-     * @param array $options
-     * @return string
-     * @throws \Exception
-     */
     public function entity(
         Environment $twig,
         RenderPass $renderPass,
