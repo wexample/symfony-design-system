@@ -28,6 +28,7 @@ export default class extends Component {
     this.onToggleProxy = this.onToggle.bind(this);
     this.toggleEl.addEventListener('click', this.onToggleProxy);
     this.onDocumentClickProxy = this.onDocumentClick.bind(this);
+    this.syncToggleLabel();
   }
 
   protected async deactivateListeners(): Promise<void> {
@@ -111,8 +112,18 @@ export default class extends Component {
     }
 
     this.inputEl.value = emoji.native;
+    this.syncToggleLabel();
     this.inputEl.dispatchEvent(new Event('input', { bubbles: true }));
     this.inputEl.dispatchEvent(new Event('change', { bubbles: true }));
     this.closePanel();
+  }
+
+  private syncToggleLabel() {
+    if (!this.inputEl || !this.toggleEl) {
+      return;
+    }
+
+    const value = this.inputEl.value?.trim();
+    this.toggleEl.textContent = value || '😀';
   }
 }
