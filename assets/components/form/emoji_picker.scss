@@ -1,0 +1,36 @@
+/* Component: form/emoji_picker */
+
+.form--emoji-picker-control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form--input-emoji-picker {
+  max-width: 96px;
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.form--emoji-picker-toggle {
+  border: 1px solid #c9ccd6;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+  padding: 0.45rem 0.6rem;
+  line-height: 1;
+  font-size: 1.1rem;
+}
+
+.form--emoji-picker-toggle:hover {
+  border-color: #9ea4b5;
+}
+
+.form--emoji-picker-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 40;
+}
