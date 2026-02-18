@@ -7,6 +7,19 @@
   @include gutters.gutters;
 }
 
+// Add spacing between direct children while keeping gutters behavior.
+.gutters--padded {
+  gap: var(--space-4);
+}
+
+.gutters--padded--small {
+  gap: var(--space-2);
+}
+
+.gutters--padded--large {
+  gap: var(--space-6);
+}
+
 // Define the body element
 .gutters .gutters--body,
 .gutters--horizontal .gutters--body,
