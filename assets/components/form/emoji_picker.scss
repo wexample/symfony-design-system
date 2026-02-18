@@ -2,8 +2,7 @@
 
 .form--emoji-picker-control {
   position: relative;
-  display: grid;
-  justify-content: start;
+  display: inline-block;
 }
 
 .form--input-emoji-picker {
@@ -14,32 +13,8 @@
 }
 
 .form--emoji-picker-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: calc(var(--space-6) + var(--space-2));
-  min-height: calc(var(--space-6) + var(--space-2));
-  padding: var(--space-2);
-  border: var(--border-default);
-  border-radius: var(--radius-1);
-  background: var(--color-invert-2);
-  color: var(--color-default-text);
-  box-shadow: var(--shadow-1);
-  cursor: pointer;
   line-height: 1;
   font-size: var(--font-size-5);
-  transition: box-shadow 160ms ease, border-color 160ms ease, background-color 160ms ease;
-}
-
-.form--emoji-picker-toggle:hover {
-  border-color: var(--color-invert-5);
-}
-
-.form--emoji-picker-toggle[aria-expanded='true'],
-.form--emoji-picker-toggle:focus-visible {
-  outline: none;
-  border-color: var(--color-invert-5);
-  box-shadow: 0 0 0 var(--border-focus-width) var(--color-invert-2);
 }
 
 .form--emoji-picker-panel {
@@ -47,9 +22,4 @@
   top: calc(100% + var(--space-2));
   left: 0;
   z-index: 50;
-  background: var(--color-default-background);
-  border: var(--border-default);
-  border-radius: var(--radius-1);
-  box-shadow: var(--shadow-2);
-  overflow: hidden;
 }
