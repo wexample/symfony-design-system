@@ -45,3 +45,24 @@
     min-height: 0;
   }
 }
+
+%layout--center-base {
+  width: 100%;
+  min-height: 100%;
+  display: grid;
+}
+
+.layout--center {
+  @extend %layout--center-base;
+  place-items: center;
+}
+
+.layout--center--vertical {
+  @extend %layout--center-base;
+  align-items: center;
+}
+
+.layout--center--horizontal {
+  @extend %layout--center-base;
+  justify-items: center;
+}
