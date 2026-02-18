@@ -45,23 +45,20 @@ class EntityExtension extends AbstractTemplateExtension
         Environment $twig,
         RenderPass $renderPass,
         mixed $entity,
-        string $format = 'bar',
+        string $format,
         array $options = []
     ): string
     {
-        $componentPath = $options['component'] ?? sprintf(
-            '@front/components/entity/%s/%s',
-            $entity::getSnakeShortClassName(),
-            strtolower(trim($format))
-        );
-
         return $this->componentsExtension->component(
-            $twig,
-            $renderPass,
-            $componentPath,
-            [
-                'entity' => $entity,
-                'options' => $options['component_options'] ?? [],
+            twig: $twig,
+            renderPass: $renderPass,
+            path: sprintf(
+                '@front/components/entity/%s/%s',
+                $entity::getSnakeShortClassName(),
+                $format
+            ),
+            options: $options + [
+                'entity' => $entity
             ]
         );
     }
