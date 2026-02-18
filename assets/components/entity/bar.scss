@@ -1,0 +1,30 @@
+@use '../entity';
+@use '../../css/shapes/bar';
+@use '../../css/shapes/avatar';
+@use '../../css/partials/text';
+
+.entity--leading,
+.entity--trailing {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.entity--main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.entity--leading:empty,
+.entity--trailing:empty {
+  display: none;
+}
+
+.entity.bar.is-clickable {
+  cursor: pointer;
+}
+
+.entity.bar.is-disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}

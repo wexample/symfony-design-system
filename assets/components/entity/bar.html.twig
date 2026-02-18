@@ -1,0 +1,16 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/entity.html.twig' -%}
+
+{%- block entity_variant_class -%}bar{%- endblock -%}
+
+{%- block entity_body -%}
+    <div class="entity--leading">
+        {% block entity_leading %}{% endblock %}
+    </div>
+    <div class="entity--main">
+        {% block entity_main %}{% endblock %}
+    </div>
+    <div class="entity--trailing">
+        {% block entity_trailing %}{% endblock %}
+    </div>
+{%- endblock -%}
+
