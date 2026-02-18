@@ -1,0 +1,6 @@
+{%- extends '@WexampleSymfonyLoaderBundle/layouts/default/layout.html.twig' -%}
+
+{%- block layout_config -%}
+    {{ parent() }}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::*') }}
+{%- endblock -%}

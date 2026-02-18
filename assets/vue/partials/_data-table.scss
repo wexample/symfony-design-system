@@ -8,3 +8,9 @@
 .table--row--loading .spinner {
   margin-inline: auto;
 }
+
+.table--row--empty .table--cell--empty {
+  text-align: center;
+  color: var(--color-invert-6);
+  font-style: italic;
+}

@@ -1,5 +1,6 @@
 <script>
 import Spinner from './spinner.vue';
+import LocaleService from "@wexample/symfony-loader/js/Services/LocaleService";
 
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-data-table',
@@ -22,6 +23,10 @@ export default {
       type: String,
       default: ''
     },
+    emptyLabel: {
+      type: String,
+      default: ''
+    },
     columns: {
       type: Array,
       default: () => []
@@ -40,15 +45,20 @@ export default {
     getLoadingColspan() {
       return this.columns && this.columns.length ? this.columns.length : 1;
     },
+    getEmptyColspan() {
+      return this.getLoadingColspan();
+    },
+    hasRows() {
+      return Array.isArray(this.rows) && this.rows.length > 0;
+    },
+    getEmptyLabel() {
+      return this.app.getServiceOrFail(LocaleService).trans(this.emptyLabel || 'WexampleSymfonyDesignSystemBundle.common.system::frontend.label.empty');
+    },
     hasCellActions(column) {
       return Boolean(column?.action || (Array.isArray(column?.actions) && column.actions.length));
     },
 
     getCellActions(row, column) {
-      if (!this.app) {
-        return [];
-      }
-
       const actions = column?.actions
           ? (Array.isArray(column.actions) ? column.actions : [column.actions])
           : (column?.action ? [column.action] : []);
