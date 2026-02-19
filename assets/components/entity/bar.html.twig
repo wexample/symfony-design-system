@@ -3,13 +3,13 @@
 {%- block entity_variant_class -%}bar{%- endblock -%}
 
 {%- block entity_body -%}
-    <div class="entity--display--bar--column">
-        {% block entity_display_bar_gutters_leading %}{% endblock %}
-    </div>
+    {% if block('entity_display_bar_columns_leading')|trim is not empty %}
+        {% block entity_display_bar_columns_leading %}{% endblock %}
+    {% endif %}
     <div class="entity--display--bar--body">
         {% block entity_display_bar_body %}{% endblock %}
     </div>
-    <div class="entity--display--bar--column text-secondary">
-        {% block entity_display_bar_gutters_trailing %}{% endblock %}
-    </div>
+    {% if block('entity_display_bar_columns_trailing')|trim is not empty %}
+        {% block entity_display_bar_columns_trailing %}{% endblock %}
+    {% endif %}
 {%- endblock -%}
