@@ -1,34 +1,20 @@
-@use '../entity';
 @use '../../css/shapes/bar';
-@use '../../css/shapes/avatar';
-@use '../../css/partials/text';
 
-.entity--leading,
-.entity--trailing,
-.entity--display--bar--leading,
-.entity--display--bar--trailing {
-  align-items: center;
-  flex: 0 0 auto;
-}
+.entity--display--bar {
+  @extend .bar;
 
-.entity--main,
-.entity--display--bar--main {
-  flex: 1 1 auto;
-  min-width: 0;
-}
+  .entity--display--bar--column {
+    align-items: center;
+    flex: 0 0 auto;
+  }
 
-.entity--leading:empty,
-.entity--trailing:empty,
-.entity--display--bar--leading:empty,
-.entity--display--bar--trailing:empty {
-  display: none;
-}
+  .entity--display--bar--body {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
 
-.entity.bar.is-clickable {
-  cursor: pointer;
-}
-
-.entity.bar.is-disabled {
-  opacity: 0.6;
-  pointer-events: none;
+  ul {
+    border-left: 1px dashed rgba(255, 255, 255, .2);
+    padding-left: 0.7rem;
+  }
 }

@@ -1,7 +1,7 @@
 {% set options = options|default({}) %}
 {% set attr = options.attr|default({}) %}
 {% set entity_variant_class %}{% block entity_variant_class %}{% endblock %}{% endset %}
-{% set class = ('entity ' ~ entity_variant_class ~ ' ' ~ options.class|default('') ~ ' ' ~ attr.class|default(''))|trim %}
+{% set class = ('entity entity--display--' ~ entity_variant_class ~ ' ' ~ options.class|default('') ~ ' ' ~ attr.class|default(''))|trim %}
 {% set attr = attr|merge({ class: class }) %}
 
 <div {{ component_render_tag_attributes(attr) }}>
