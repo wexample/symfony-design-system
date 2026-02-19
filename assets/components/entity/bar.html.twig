@@ -3,14 +3,17 @@
 {%- block entity_variant_class -%}bar{%- endblock -%}
 
 {%- block entity_body -%}
-    <div class="entity--leading">
+    <div class="entity--leading entity--display--bar--leading">
         {% block entity_leading %}{% endblock %}
     </div>
-    <div class="entity--main">
+    <div class="entity--main entity--display--bar--main">
         {% block entity_main %}{% endblock %}
     </div>
-    <div class="entity--trailing">
-        {% block entity_trailing %}{% endblock %}
+    <div class="entity--trailing entity--display--bar--trailing">
+        <div class="entity--display--bar--trailing-items text-secondary">
+            {% block entity_trailing_items %}
+                {% block entity_trailing %}{% endblock %}
+            {% endblock %}
+        </div>
     </div>
 {%- endblock -%}
-

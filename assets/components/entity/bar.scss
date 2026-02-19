@@ -4,18 +4,23 @@
 @use '../../css/partials/text';
 
 .entity--leading,
-.entity--trailing {
+.entity--trailing,
+.entity--display--bar--leading,
+.entity--display--bar--trailing {
   align-items: center;
   flex: 0 0 auto;
 }
 
-.entity--main {
+.entity--main,
+.entity--display--bar--main {
   flex: 1 1 auto;
   min-width: 0;
 }
 
 .entity--leading:empty,
-.entity--trailing:empty {
+.entity--trailing:empty,
+.entity--display--bar--leading:empty,
+.entity--display--bar--trailing:empty {
   display: none;
 }
 
