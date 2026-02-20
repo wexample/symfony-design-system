@@ -4,7 +4,6 @@ export default {
       asyncComponentLoaded: false,
       asyncComponentLoading: false,
       asyncComponentError: null as unknown,
-      asyncComponentData: {} as Record<string, unknown>,
     };
   },
 
@@ -13,19 +12,8 @@ export default {
   },
 
   methods: {
-    async asyncComponentLoadMap(): Promise<Record<string, unknown>> {
-      return {};
-    },
-
     async asyncComponentLoad(): Promise<void> {
-      const data = await this.asyncComponentLoadMap();
-
-      if (data && typeof data === 'object' && !Array.isArray(data)) {
-        this.asyncComponentData = {
-          ...this.asyncComponentData,
-          ...data,
-        };
-      }
+      // Override in component to load required async data.
     },
 
     async loadAsyncComponent(forceRefresh: boolean = false): Promise<void> {
@@ -56,7 +44,6 @@ export default {
       this.asyncComponentLoaded = false;
       this.asyncComponentLoading = false;
       this.asyncComponentError = null;
-      this.asyncComponentData = {};
     },
   },
 };
