@@ -1,9 +1,11 @@
-{%- block vue_require -%}{%- endblock -%}
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
 
-<data-table
-    :rows="entities"
-    :columns="columns"
-    :app="app"
-    :show-header="showHeader"
-    :loading="isLoading"
-></data-table>
+{%- block vue_body -%}
+    <data-table
+            :rows="entities"
+            :columns="columns"
+            :app="app"
+            :show-header="showHeader"
+            :loading="isLoading"
+    ></data-table>
+{%- endblock -%}
