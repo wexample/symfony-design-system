@@ -3,6 +3,7 @@
   background: var(--color-invert-1);
   border-radius: var(--radius-1);
   width: 100%;
+  min-width: 0;
 }
 
 .block--padded {
