@@ -1,7 +1,6 @@
 .rail {
   display: flex;
   flex-direction: column;
-  overflow: auto;
   height: 100%;
   width: 100%;
   box-sizing: border-box;
@@ -9,12 +8,8 @@
 }
 
 .rail--track {
-  width: max-content;
-  min-width: 100%;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: var(--size-7);
   min-height: 0;
+  min-width: 0;
   flex: 1;
   box-sizing: border-box;
   padding: 0;
@@ -22,7 +17,36 @@
 
 .rail--item {
   position: relative;
-  height: 100%;
+  min-width: 0;
+}
+
+.rail.rail--horizontal {
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  .rail--track {
+    width: max-content;
+    min-width: 100%;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--rail-column-size);
+  }
+
+  .rail--item {
+    height: 100%;
+  }
+}
+
+.rail.rail--vertical {
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .rail--track {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .rail--spaced {
