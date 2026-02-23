@@ -1,0 +1,24 @@
+@use '../entity';
+@use '../bar';
+
+.entity--display--bar {
+  @extend .bar;
+
+  .entity--display--bar--column {
+    align-items: center;
+    flex: 0 0 auto;
+  }
+
+  .entity--display--bar--body {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .entity--display--bar--column,
+  .entity--display--bar--body {
+    ul.entity--display--bar--list {
+      border-left: 1px dashed rgba(255, 255, 255, .2);
+      padding-left: 0.7rem;
+    }
+  }
+}
