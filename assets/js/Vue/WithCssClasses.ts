@@ -31,12 +31,18 @@ export default {
   },
 
   methods: {
-    getWrapperCssClassDeclarations(): CssClassDeclaration[] {
+    getWrapperCssClassDeclarations(): CssClassDeclaration {
       return [];
     },
 
     buildWrapperClasses(): CssClassFlagMap {
-      return this.buildCssClasses(this.getWrapperCssClassDeclarations());
+      const declarations = this.getWrapperCssClassDeclarations();
+
+      if (Array.isArray(declarations) && !isCssClassTuple(declarations)) {
+        return this.buildCssClasses(...declarations);
+      }
+
+      return this.buildCssClasses(declarations);
     },
 
     buildCssClasses(...declarations: CssClassDeclaration[]): CssClassFlagMap {
