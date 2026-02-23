@@ -1,6 +1,6 @@
-<script lang="ts">
+<script>
 
-import Entity from "../Entity";
+import Entity from "./entity.vue";
 
 export default {
   extends: Entity,

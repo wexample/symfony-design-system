@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 
 import WithCssClasses from "../../js/Vue/WithCssClasses";
 
