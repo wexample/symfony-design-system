@@ -1,4 +1,5 @@
 @mixin border-vars {
+  --border-discreed: 1px solid var(--color-invert-2);
   --border-default: 1px solid var(--color-invert-4);
   --border-focus: 2px solid var(--color-invert-5);
   --border-focus-width: 4px;

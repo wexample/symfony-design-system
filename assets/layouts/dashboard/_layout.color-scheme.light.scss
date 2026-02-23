@@ -3,11 +3,14 @@
 
 @use '../default/layout.color-scheme.light';
 
+$color-dark: #000 !default;
+$color-light: #fff !default;
+
 // Applied on layout / body
 .usage-color-scheme-light {
   @include color_scheme.color-scheme(
-    palette.$color-light,
-    palette.$color-dark,
+    $color-light,
+    $color-dark,
     palette.$color-info,
     palette.$color-success,
     palette.$color-warning,
