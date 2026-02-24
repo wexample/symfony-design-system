@@ -6,14 +6,16 @@
 {%- endblock -%}
 
 {%- block vue_body -%}
-    <div class="list-expanded">
+    <div class="list-expanded" @keydown="onRootKeydown">
         <div v-if="showHeader" class="list-expanded--header">
             <input
+                    ref="searchInput"
                     class="form--input list-expanded--search"
                     type="text"
                     :placeholder="resolvedSearchPlaceholder"
                     :value="searchValue"
                     @input="onSearchInput"
+                    @keydown.tab="onSearchTab"
             >
             <button
                     v-if="showFilterButton"
@@ -25,7 +27,9 @@
             </button>
         </div>
 
-        <slot v-if="hasItems"></slot>
+        <div v-if="hasItems" ref="itemsContainer" class="list-expanded--items">
+            <slot></slot>
+        </div>
         <div v-else class="text-empty">[[ resolvedEmptyLabel ]]</div>
     </div>
 {%- endblock -%}
