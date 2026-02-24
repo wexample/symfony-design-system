@@ -1,0 +1,26 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <div class="list-expanded">
+        <div v-if="showHeader" class="list-expanded--header">
+            <input
+                    class="form--input list-expanded--search"
+                    type="text"
+                    :placeholder="searchPlaceholder"
+                    :value="searchValue"
+                    @input="onSearchInput"
+            >
+            <button
+                    v-if="showFilterButton"
+                    type="button"
+                    class="button"
+                    @click="onFilterClick"
+            >
+                [[ filterLabel ]]
+            </button>
+        </div>
+
+        <slot v-if="hasItems"></slot>
+        <div v-else class="text-empty">[[ emptyLabel ]]</div>
+    </div>
+{%- endblock -%}
