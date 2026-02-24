@@ -5,22 +5,7 @@
   --border-focus-width: 4px;
   --border-separator: 1px solid var(--color-default-background);
   --border-focus-floating-color: #ff4fa3;
-  --border-focus-floating-color-soft: #ff9bc9;
   --border-focus-floating-offset: 2px;
-}
-
-@mixin border-focus-floating-pulse-keyframes {
-  @keyframes border-focus-floating-pulse {
-    0%,
-    100% {
-      outline-offset: 2px;
-      outline-color: var(--border-focus-floating-color-soft);
-    }
-    50% {
-      outline-offset: 6px;
-      outline-color: var(--border-focus-floating-color);
-    }
-  }
 }
 
 @mixin border-focus-floating($animated: false) {
