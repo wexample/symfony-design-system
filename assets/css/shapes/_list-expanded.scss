@@ -4,7 +4,7 @@
   border: var(--border-default);
   border-radius: var(--radius-1);
   background: var(--color-invert-1);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .list-expanded--header {
@@ -38,6 +38,9 @@
 
 .list-expanded--items > [data-list-expanded-item]:focus,
 .list-expanded--items > [data-list-expanded-item]:focus-visible {
+  position: relative;
+  z-index: 1;
+  border-radius: var(--radius-1);
   @include border.border-focus-floating;
 }
 

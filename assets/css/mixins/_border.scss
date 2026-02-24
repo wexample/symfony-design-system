@@ -6,6 +6,7 @@
   --border-separator: 1px solid var(--color-default-background);
   --border-focus-floating-color: #ff4fa3;
   --border-focus-floating-color-soft: #ff9bc9;
+  --border-focus-floating-offset: 2px;
 }
 
 @mixin border-focus-floating-pulse-keyframes {
@@ -23,10 +24,5 @@
 }
 
 @mixin border-focus-floating($animated: false) {
-  outline: var(--border-focus-width) solid var(--border-focus-floating-color);
-  outline-offset: 2px;
-
-  @if $animated {
-    animation: border-focus-floating-pulse 1600ms ease-in-out infinite;
-  }
+  position: relative;
 }
