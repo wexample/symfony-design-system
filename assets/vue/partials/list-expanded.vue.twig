@@ -11,7 +11,7 @@
             <input
                     class="form--input list-expanded--search"
                     type="text"
-                    :placeholder="getSearchPlaceholder()"
+                    :placeholder="resolvedSearchPlaceholder"
                     :value="searchValue"
                     @input="onSearchInput"
             >
@@ -21,11 +21,11 @@
                     class="button"
                     @click="onFilterClick"
             >
-                [[ filterLabel ]]
+                [[ resolvedFilterLabel ]]
             </button>
         </div>
 
         <slot v-if="hasItems"></slot>
-        <div v-else class="text-empty">[[ emptyLabel ]]</div>
+        <div v-else class="text-empty">[[ resolvedEmptyLabel ]]</div>
     </div>
 {%- endblock -%}

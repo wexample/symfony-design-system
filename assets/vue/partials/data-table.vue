@@ -1,6 +1,17 @@
 <script>
 import Spinner from './spinner.vue';
-import LocaleService from "@wexample/symfony-loader/js/Services/LocaleService";
+import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
+
+const translated = buildTranslatedBindings({
+  resolvedLoadingLabel: [
+    'loadingLabel',
+    'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.loading'
+  ],
+  resolvedEmptyLabel: [
+    'emptyLabel',
+    'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.empty'
+  ]
+});
 
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-data-table',
@@ -19,14 +30,7 @@ export default {
       type: Boolean,
       default: false
     },
-    loadingLabel: {
-      type: String,
-      default: ''
-    },
-    emptyLabel: {
-      type: String,
-      default: ''
-    },
+    ...translated.props,
     columns: {
       type: Array,
       default: () => []
@@ -41,6 +45,10 @@ export default {
     }
   },
 
+  computed: {
+    ...translated.computed
+  },
+
   methods: {
     getLoadingColspan() {
       return this.columns && this.columns.length ? this.columns.length : 1;
@@ -50,9 +58,6 @@ export default {
     },
     hasRows() {
       return Array.isArray(this.rows) && this.rows.length > 0;
-    },
-    getEmptyLabel() {
-      return this.app.getServiceOrFail(LocaleService).trans(this.emptyLabel || 'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.empty');
     },
     hasCellActions(column) {
       return Boolean(column?.action || (Array.isArray(column?.actions) && column.actions.length));

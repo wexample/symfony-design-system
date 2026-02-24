@@ -1,5 +1,20 @@
 <script>
-import LocaleService from "@wexample/symfony-loader/js/Services/LocaleService";
+import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
+
+const translated = buildTranslatedBindings({
+  resolvedSearchPlaceholder: [
+    'searchPlaceholder',
+    'WexampleSymfonyDesignSystemBundle.vue.partials.list-expanded::search.placeholder'
+  ],
+  resolvedFilterLabel: [
+    'filterLabel',
+    'WexampleSymfonyDesignSystemBundle.vue.partials.list-expanded::filter.label'
+  ],
+  resolvedEmptyLabel: [
+    'emptyLabel',
+    'WexampleSymfonyDesignSystemBundle.vue.partials.list-expanded::empty.label'
+  ]
+});
 
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-list-expanded',
@@ -13,19 +28,7 @@ export default {
       type: Boolean,
       default: false
     },
-    searchPlaceholder: {
-      type: String,
-      required: false,
-      default: 'WexampleSymfonyDesignSystemBundle.vue.partials.list-expanded::search.placeholder'
-    },
-    filterLabel: {
-      type: String,
-      required: true
-    },
-    emptyLabel: {
-      type: String,
-      required: true
-    },
+    ...translated.props,
     hasItems: {
       type: Boolean,
       required: true
@@ -36,12 +39,13 @@ export default {
     }
   },
 
+  computed: {
+    ...translated.computed
+  },
+
   methods: {
     onSearchInput(event) {
       this.$emit('search', event.target.value);
-    },
-    getSearchPlaceholder() {
-      return this.trans(this.searchPlaceholder);
     },
     onFilterClick() {
       this.$emit('filter-click');
