@@ -5,11 +5,11 @@ import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
 const translated = buildTranslatedBindings({
   resolvedLoadingLabel: [
     'loadingLabel',
-    'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.loading'
+    'WexampleSymfonyDesignSystemBundle.common.system::frontend.loading'
   ],
   resolvedEmptyLabel: [
     'emptyLabel',
-    'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.empty'
+    'WexampleSymfonyDesignSystemBundle.common.system::frontend.no_data'
   ]
 });
 

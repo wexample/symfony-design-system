@@ -1,4 +1,3 @@
 frontend:
-  table:
-    loading: Loading...
-    empty: No data
+  loading: Loading...
+  no_data: No data
