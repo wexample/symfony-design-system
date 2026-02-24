@@ -1,6 +1,7 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
 import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAnimationMixin';
+import KeyboardService from '@wexample/symfony-loader/js/Services/KeyboardService';
 import { renderPromptActions, PromptAction } from '../js/Helper/PromptActionsHelper';
 
 export default class extends Component {
@@ -20,7 +21,7 @@ export default class extends Component {
 
     this.app.services.keyboard.registerKeyDown(
       this,
-      'Enter',
+      KeyboardService.KEY_ENTER,
       (event: KeyboardEvent) => {
         if (!this.shouldHandleEnter(event)) {
           return false;

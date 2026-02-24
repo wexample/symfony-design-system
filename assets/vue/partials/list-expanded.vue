@@ -1,5 +1,7 @@
 <script>
 import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
+import FocusableVueMixin from "../../js/Vue/FocusableVueMixin";
+import KeyboardService from "@wexample/symfony-loader/js/Services/KeyboardService";
 
 const translated = buildTranslatedBindings({
   resolvedSearchPlaceholder: [
@@ -20,6 +22,9 @@ const ITEM_SELECTOR = '[data-list-expanded-item]';
 
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-list-expanded',
+  mixins: [
+    FocusableVueMixin
+  ],
 
   props: {
     showHeader: {
@@ -41,11 +46,68 @@ export default {
     }
   },
 
+  data() {
+    return {
+      activeItemIndex: -1
+    };
+  },
+
+  mounted() {
+    this.$nextTick(() => {
+      this.syncFocusableItems();
+    });
+  },
+
+  updated() {
+    this.syncFocusableItems();
+  },
+
   computed: {
     ...translated.computed
   },
 
   methods: {
+    keyboardPriority() {
+      return 10;
+    },
+
+    keyboardBindings() {
+      return [
+        {
+          key: KeyboardService.KEY_ARROW_DOWN,
+          callback: this.onArrowDownKey,
+          options: {
+            preventDefault: true
+          }
+        },
+        {
+          key: KeyboardService.KEY_ARROW_UP,
+          callback: this.onArrowUpKey,
+          options: {
+            preventDefault: true
+          }
+        },
+        {
+          key: KeyboardService.KEY_HOME,
+          callback: this.onHomeKey,
+          options: {
+            preventDefault: true
+          }
+        },
+        {
+          key: KeyboardService.KEY_END,
+          callback: this.onEndKey,
+          options: {
+            preventDefault: true
+          }
+        },
+        {
+          key: KeyboardService.KEY_ENTER,
+          callback: this.onEnterKey
+        }
+      ];
+    },
+
     getItemElements() {
       const container = this.$refs.itemsContainer;
       if (!container) {
@@ -55,17 +117,71 @@ export default {
       return Array.from(container.querySelectorAll(ITEM_SELECTOR));
     },
 
-    focusFirstItem() {
-      const firstItem = this.getItemElements()[0];
-      if (!firstItem) {
+    syncFocusableItems() {
+      const items = this.getItemElements();
+      if (!items.length) {
+        this.activeItemIndex = -1;
         return;
       }
 
-      if (!this.isNaturallyFocusable(firstItem) && !firstItem.hasAttribute('tabindex')) {
-        firstItem.setAttribute('tabindex', '-1');
+      if (this.activeItemIndex < 0 || this.activeItemIndex >= items.length) {
+        this.activeItemIndex = 0;
       }
 
-      firstItem.focus();
+      this.applyRovingTabIndex(items);
+    },
+
+    applyRovingTabIndex(items = this.getItemElements()) {
+      for (let index = 0; index < items.length; index++) {
+        items[index].setAttribute('tabindex', index === this.activeItemIndex ? '0' : '-1');
+      }
+    },
+
+    getItemFromEvent(event) {
+      if (!event.target || !(event.target instanceof Element)) {
+        return null;
+      }
+
+      return event.target.closest(ITEM_SELECTOR);
+    },
+
+    focusItemAt(index) {
+      const items = this.getItemElements();
+      if (!items.length) {
+        return false;
+      }
+
+      if (index < 0 || index >= items.length) {
+        return false;
+      }
+
+      this.activeItemIndex = index;
+      this.applyRovingTabIndex(items);
+      items[index].focus();
+
+      return true;
+    },
+
+    focusNextItem(step) {
+      const items = this.getItemElements();
+      if (!items.length) {
+        return false;
+      }
+
+      let nextIndex = this.activeItemIndex;
+      if (nextIndex < 0 || nextIndex >= items.length) {
+        nextIndex = 0;
+      } else {
+        nextIndex += step;
+      }
+
+      nextIndex = Math.max(0, Math.min(nextIndex, items.length - 1));
+
+      return this.focusItemAt(nextIndex);
+    },
+
+    focusFirstItem() {
+      this.focusItemAt(0);
     },
 
     onSearchTab(event) {
@@ -86,6 +202,22 @@ export default {
       this.focusFirstItem();
     },
 
+    onItemFocus(event) {
+      const item = this.getItemFromEvent(event);
+      if (!item) {
+        return;
+      }
+
+      const items = this.getItemElements();
+      const index = items.indexOf(item);
+      if (index < 0) {
+        return;
+      }
+
+      this.activeItemIndex = index;
+      this.applyRovingTabIndex(items);
+    },
+
     isNaturallyFocusable(element) {
       const tagName = element.tagName.toLowerCase();
       return ['a', 'button', 'input', 'select', 'textarea', 'summary'].includes(tagName);
@@ -95,27 +227,71 @@ export default {
       return !this.isNaturallyFocusable(element);
     },
 
-    onRootKeydown(event) {
-      if (event.key !== 'Enter') {
-        return;
+    getActiveItem(event) {
+      const directItem = this.getItemFromEvent(event);
+      if (directItem) {
+        return directItem;
       }
 
-      const target = event.target;
-      if (!target) {
-        return;
+      const items = this.getItemElements();
+      if (this.activeItemIndex >= 0 && this.activeItemIndex < items.length) {
+        return items[this.activeItemIndex];
       }
 
-      const item = target.closest(ITEM_SELECTOR);
+      return null;
+    },
+
+    onArrowDownKey() {
+      if (!this.hasItems) {
+        return false;
+      }
+
+      return this.focusNextItem(1);
+    },
+
+    onArrowUpKey() {
+      if (!this.hasItems) {
+        return false;
+      }
+
+      return this.focusNextItem(-1);
+    },
+
+    onHomeKey() {
+      if (!this.hasItems) {
+        return false;
+      }
+
+      return this.focusItemAt(0);
+    },
+
+    onEndKey() {
+      if (!this.hasItems) {
+        return false;
+      }
+
+      const items = this.getItemElements();
+      if (!items.length) {
+        return false;
+      }
+
+      return this.focusItemAt(items.length - 1);
+    },
+
+    onEnterKey(event) {
+      const item = this.getActiveItem(event);
       if (!item) {
-        return;
+        return false;
       }
 
       if (!this.shouldHandleEnterActivation(item)) {
-        return;
+        return false;
       }
 
       event.preventDefault();
       item.click();
+
+      return true;
     },
 
     onSearchInput(event) {

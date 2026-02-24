@@ -6,7 +6,7 @@
 {%- endblock -%}
 
 {%- block vue_body -%}
-    <div class="list-expanded" @keydown="onRootKeydown">
+    <div ref="focusableRoot" class="list-expanded">
         <div v-if="showHeader" class="list-expanded--header">
             <input
                     ref="searchInput"
@@ -27,7 +27,7 @@
             </button>
         </div>
 
-        <div v-if="hasItems" ref="itemsContainer" class="list-expanded--items">
+        <div v-if="hasItems" ref="itemsContainer" class="list-expanded--items" @focusin="onItemFocus">
             <slot></slot>
         </div>
         <div v-else class="text-empty">[[ resolvedEmptyLabel ]]</div>
