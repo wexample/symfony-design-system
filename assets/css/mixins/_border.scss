@@ -4,4 +4,29 @@
   --border-focus: 2px solid var(--color-invert-5);
   --border-focus-width: 4px;
   --border-separator: 1px solid var(--color-default-background);
+  --border-focus-floating-color: #ff4fa3;
+  --border-focus-floating-color-soft: #ff9bc9;
+}
+
+@mixin border-focus-floating-pulse-keyframes {
+  @keyframes border-focus-floating-pulse {
+    0%,
+    100% {
+      outline-offset: 2px;
+      outline-color: var(--border-focus-floating-color-soft);
+    }
+    50% {
+      outline-offset: 6px;
+      outline-color: var(--border-focus-floating-color);
+    }
+  }
+}
+
+@mixin border-focus-floating($animated: false) {
+  outline: var(--border-focus-width) solid var(--border-focus-floating-color);
+  outline-offset: 2px;
+
+  @if $animated {
+    animation: border-focus-floating-pulse 1600ms ease-in-out infinite;
+  }
 }
