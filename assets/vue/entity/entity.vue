@@ -1,10 +1,10 @@
 <script>
 
-import WithCssClasses from "../../js/Vue/WithCssClasses";
+import WithCssClassesVueMixin from "../../js/Vue/WithCssClassesVueMixin";
 
 export default {
   mixins: [
-    WithCssClasses
+    WithCssClassesVueMixin
   ],
   props: {
     entity: {
