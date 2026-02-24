@@ -1,4 +1,6 @@
 <script>
+import LocaleService from "@wexample/symfony-loader/js/Services/LocaleService";
+
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-list-expanded',
 
@@ -13,7 +15,8 @@ export default {
     },
     searchPlaceholder: {
       type: String,
-      required: true
+      required: false,
+      default: 'WexampleSymfonyDesignSystemBundle.vue.partials.list-expanded::search.placeholder'
     },
     filterLabel: {
       type: String,
@@ -37,7 +40,9 @@ export default {
     onSearchInput(event) {
       this.$emit('search', event.target.value);
     },
-
+    getSearchPlaceholder() {
+      return this.trans(this.searchPlaceholder);
+    },
     onFilterClick() {
       this.$emit('filter-click');
     }

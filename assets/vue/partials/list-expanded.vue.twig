@@ -1,12 +1,17 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
 
+{%- block vue_config -%}
+    {{ parent() }}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.vue.partials.list-expanded::*') }}
+{%- endblock -%}
+
 {%- block vue_body -%}
     <div class="list-expanded">
         <div v-if="showHeader" class="list-expanded--header">
             <input
                     class="form--input list-expanded--search"
                     type="text"
-                    :placeholder="searchPlaceholder"
+                    :placeholder="getSearchPlaceholder()"
                     :value="searchValue"
                     @input="onSearchInput"
             >
