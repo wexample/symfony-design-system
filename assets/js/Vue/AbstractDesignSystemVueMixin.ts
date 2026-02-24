@@ -1,8 +1,4 @@
 const AbstractDesignSystemVueMixin = {
-  props: {
-    app: Object,
-  },
-
   data() {
     return {
       appReadyPromise: undefined as Promise<void> | undefined,
