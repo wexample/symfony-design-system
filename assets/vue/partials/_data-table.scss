@@ -1,14 +1,1 @@
-@use 'spinner';
-
-.table--row--loading .table--cell--loading {
-  padding: var(--space-3);
-  text-align: center;
-}
-
-.table--row--loading .spinner {
-  margin-inline: auto;
-}
-
-.table .table--cell.text-empty {
-  text-align: center;
-}
+@use '../../css/shapes/table';

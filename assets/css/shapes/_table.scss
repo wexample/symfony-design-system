@@ -1,4 +1,5 @@
 @use '../../css/mixins/flex' as flex;
+@use 'spinner';
 
 .table {
   width: 100%;
@@ -51,4 +52,17 @@
 
 .table tbody tr:last-child .table--cell {
   border-bottom: 0;
+}
+
+.table--row--loading .table--cell--loading {
+  padding: var(--space-3);
+  text-align: center;
+}
+
+.table--row--loading .spinner {
+  margin-inline: auto;
+}
+
+.table .table--cell.text-empty {
+  text-align: center;
 }
