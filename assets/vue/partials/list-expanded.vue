@@ -78,7 +78,7 @@ export default {
           callback: this.onArrowDownKey,
           options: {
             preventDefault: true,
-            enabled: this.shouldHandleListNavigationKey
+            enabled: this.shouldHandleDirectionalNavigationKey
           }
         },
         {
@@ -86,7 +86,7 @@ export default {
           callback: this.onArrowUpKey,
           options: {
             preventDefault: true,
-            enabled: this.shouldHandleListNavigationKey
+            enabled: this.shouldHandleDirectionalNavigationKey
           }
         },
         {
@@ -94,7 +94,7 @@ export default {
           callback: this.onHomeKey,
           options: {
             preventDefault: true,
-            enabled: this.shouldHandleListNavigationKey
+            enabled: this.shouldHandleDirectionalNavigationKey
           }
         },
         {
@@ -102,14 +102,14 @@ export default {
           callback: this.onEndKey,
           options: {
             preventDefault: true,
-            enabled: this.shouldHandleListNavigationKey
+            enabled: this.shouldHandleDirectionalNavigationKey
           }
         },
         {
           key: KeyboardService.KEY_ENTER,
           callback: this.onEnterKey,
           options: {
-            enabled: this.shouldHandleListNavigationKey
+            enabled: this.shouldHandleListActivationKey
           }
         }
       ];
@@ -249,17 +249,30 @@ export default {
       return element.isContentEditable;
     },
 
-    shouldHandleListNavigationKey(event) {
+    isSearchInputElement(element) {
+      return element instanceof HTMLElement && element === this.$refs.searchInput;
+    },
+
+    shouldHandleDirectionalNavigationKey(event) {
       const target = event.target;
       if (!(target instanceof HTMLElement)) {
         return false;
       }
 
-      if (this.isTextInputElement(target)) {
+      if (!this.isTextInputElement(target)) {
+        return true;
+      }
+
+      return this.isSearchInputElement(target);
+    },
+
+    shouldHandleListActivationKey(event) {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
         return false;
       }
 
-      return true;
+      return !this.isTextInputElement(target);
     },
 
     shouldHandleEnterActivation(element) {
@@ -280,23 +293,36 @@ export default {
       return null;
     },
 
-    onArrowDownKey() {
+    onArrowDownKey(event) {
       if (!this.hasItems) {
         return false;
+      }
+
+      if (this.isSearchInputElement(event?.target)) {
+        return this.focusItemAt(0);
       }
 
       return this.focusNextItem(1);
     },
 
-    onArrowUpKey() {
+    onArrowUpKey(event) {
       if (!this.hasItems) {
         return false;
+      }
+
+      if (this.isSearchInputElement(event?.target)) {
+        const items = this.getItemElements();
+        if (!items.length) {
+          return false;
+        }
+
+        return this.focusItemAt(items.length - 1);
       }
 
       return this.focusNextItem(-1);
     },
 
-    onHomeKey() {
+    onHomeKey(_event) {
       if (!this.hasItems) {
         return false;
       }
@@ -304,7 +330,7 @@ export default {
       return this.focusItemAt(0);
     },
 
-    onEndKey() {
+    onEndKey(_event) {
       if (!this.hasItems) {
         return false;
       }
