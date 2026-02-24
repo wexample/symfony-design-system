@@ -82,8 +82,6 @@
   color: var(--color-invert-6);
 }
 
-.list-expanded--empty {
+.list-expanded .text-empty {
   padding: var(--space-4);
-  color: var(--color-invert-6);
-  font-style: italic;
 }

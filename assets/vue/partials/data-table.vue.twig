@@ -27,8 +27,8 @@
                 <spinner size="sm" :label="loadingLabel"></spinner>
             </td>
         </tr>
-        <tr v-else-if="!hasRows()" class="table--row table--row--empty">
-            <td class="table--cell table--cell--empty" :colspan="getEmptyColspan()">
+        <tr v-else-if="!hasRows()" class="table--row">
+            <td class="table--cell text-empty" :colspan="getEmptyColspan()">
                 [[ getEmptyLabel() ]]
             </td>
         </tr>

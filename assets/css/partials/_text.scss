@@ -9,6 +9,11 @@
   color: var(--color-invert-6);
 }
 
+.text-empty {
+  color: var(--color-invert-6);
+  font-style: italic;
+}
+
 .text-ellipsis {
   @include text.text-ellipsis;
 }
