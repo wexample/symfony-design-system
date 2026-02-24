@@ -77,33 +77,40 @@ export default {
           key: KeyboardService.KEY_ARROW_DOWN,
           callback: this.onArrowDownKey,
           options: {
-            preventDefault: true
+            preventDefault: true,
+            enabled: this.shouldHandleListNavigationKey
           }
         },
         {
           key: KeyboardService.KEY_ARROW_UP,
           callback: this.onArrowUpKey,
           options: {
-            preventDefault: true
+            preventDefault: true,
+            enabled: this.shouldHandleListNavigationKey
           }
         },
         {
           key: KeyboardService.KEY_HOME,
           callback: this.onHomeKey,
           options: {
-            preventDefault: true
+            preventDefault: true,
+            enabled: this.shouldHandleListNavigationKey
           }
         },
         {
           key: KeyboardService.KEY_END,
           callback: this.onEndKey,
           options: {
-            preventDefault: true
+            preventDefault: true,
+            enabled: this.shouldHandleListNavigationKey
           }
         },
         {
           key: KeyboardService.KEY_ENTER,
-          callback: this.onEnterKey
+          callback: this.onEnterKey,
+          options: {
+            enabled: this.shouldHandleListNavigationKey
+          }
         }
       ];
     },
@@ -221,6 +228,38 @@ export default {
     isNaturallyFocusable(element) {
       const tagName = element.tagName.toLowerCase();
       return ['a', 'button', 'input', 'select', 'textarea', 'summary'].includes(tagName);
+    },
+
+    isTextInputElement(element) {
+      if (!(element instanceof HTMLElement)) {
+        return false;
+      }
+
+      const tagName = element.tagName.toLowerCase();
+      if (tagName === 'textarea') {
+        return true;
+      }
+
+      if (tagName === 'input') {
+        const input = element;
+        const type = (input.getAttribute('type') || 'text').toLowerCase();
+        return type !== 'checkbox' && type !== 'radio' && type !== 'button' && type !== 'submit';
+      }
+
+      return element.isContentEditable;
+    },
+
+    shouldHandleListNavigationKey(event) {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) {
+        return false;
+      }
+
+      if (this.isTextInputElement(target)) {
+        return false;
+      }
+
+      return true;
     },
 
     shouldHandleEnterActivation(element) {
