@@ -1,0 +1,25 @@
+.zone {
+  width: 100%;
+  min-width: 0;
+}
+
+.zone--split {
+  display: grid;
+  grid-template-columns: var(--zone-split-template, 1fr 1fr);
+}
+
+.zone--split > .zone--panel {
+  min-width: 0;
+}
+
+.zone--split > .zone--panel + .zone--panel {
+  border-left: var(--border-discreet);
+}
+
+.zone--panel {
+  padding: var(--space-4);
+}
+
+.zone--panel--muted {
+  background: var(--color-invert-1);
+}
