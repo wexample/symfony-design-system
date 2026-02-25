@@ -7,5 +7,8 @@
 <a class="tabs--item {{ active_class }}{% if options.class is defined %} {{ options.class }}{% endif %}"
    href="{{ href }}"
    {{ component_render_tag_attributes(options.attr|default({})) }}>
-    {{ label | trans }}
+    {% if options.icon is defined and options.icon %}
+        <span class="tabs--item-icon">{{ icon(options.icon) }}</span>
+    {% endif %}
+    <span class="tabs--item-label">{{ label | trans }}</span>
 </a>
