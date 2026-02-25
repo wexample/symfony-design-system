@@ -11,6 +11,11 @@
   padding: var(--space-4);
 }
 
+.block--placeholder {
+  background: transparent;
+  border: var(--border-placeholder);
+}
+
 .block--title {
   display: flex;
   align-items: center;
@@ -63,8 +68,7 @@
 }
 
 .block--action-link:hover {
-  background: var(--color-invert-2);
-  transition: .5s;
+  background: var(--color-invert-1);
 }
 
 .block--action-icon {
