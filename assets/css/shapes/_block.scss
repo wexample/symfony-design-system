@@ -1,5 +1,6 @@
 .block {
-  display: block;
+  display: flex;
+  flex-direction: column;
   background: var(--color-invert-1);
   border-radius: var(--radius-1);
   width: 100%;
@@ -40,6 +41,7 @@
 
 .block--body {
   padding: var(--space-4);
+  height: 100%;
 }
 
 .block--action {
