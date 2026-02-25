@@ -34,16 +34,15 @@
   gap: var(--space-2);
 }
 
-.form--group + .form--group {
-  border-top: var(--form-group-separator, 0);
-  padding-top: var(--form-group-separator-spacing, 0);
+.form--row {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
 }
 
-.surface .form--group + .form--group {
-  --form-group-separator: var(--border-discreet);
-  --form-group-separator-spacing: var(--space-4);
+.surface .form--row + .form--row {
+  border-top: var(--border-separator);
 }
-
 .form--group.has-error {
   gap: var(--space-1);
 }

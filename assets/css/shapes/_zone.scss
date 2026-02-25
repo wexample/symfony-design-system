@@ -24,3 +24,7 @@
 .zone--panel {
   padding: var(--space-4);
 }
+
+.zone--panel.zone--panel--flush {
+  padding: 0;
+}
