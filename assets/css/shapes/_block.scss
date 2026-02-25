@@ -21,6 +21,21 @@
   border: var(--border-discreet);
 }
 
+.block--zones {
+  width: 100%;
+  min-width: 0;
+}
+
+@supports selector(.block--title:has(+ .block--zones)) {
+  .block--title:has(+ .block--zones) {
+    border-bottom: var(--border-discreet);
+  }
+}
+
+.block--zones + .block--footer {
+  border-top: var(--border-discreet);
+}
+
 .block--title {
   display: flex;
   align-items: center;
@@ -52,6 +67,15 @@
 .block--body {
   padding: var(--space-4);
   height: 100%;
+}
+
+.block--footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-top: var(--border-separator);
 }
 
 .block--action-link {

@@ -4,8 +4,9 @@
 }
 
 .zone--split {
+  --zone-split-template: 1fr 1fr;
   display: grid;
-  grid-template-columns: var(--zone-split-template, 1fr 1fr);
+  grid-template-columns: var(--zone-split-template);
 }
 
 .zone--split > .zone--panel {
@@ -22,4 +23,8 @@
 
 .zone--panel--muted {
   background: var(--color-invert-1);
+}
+
+.zone--split--three-panels {
+  --zone-split-template: 14rem 1fr 14rem;
 }
