@@ -12,8 +12,13 @@
 }
 
 .block--placeholder {
-  background: transparent;
+  background: var(--color-default-0);
   border: var(--border-placeholder);
+}
+
+.block--layout {
+  background: var(--color-default-0);
+  border: var(--border-discreet);
 }
 
 .block--title {
@@ -47,11 +52,6 @@
 .block--body {
   padding: var(--space-4);
   height: 100%;
-}
-
-.block--action {
-  padding: 0;
-  overflow: hidden;
 }
 
 .block--action-link {
