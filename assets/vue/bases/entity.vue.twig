@@ -1,7 +1,18 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
 
 {%- block vue_body -%}
-    <template v-if="entity">
-        {%- block entity_body -%}{%- endblock -%}
+    <template v-if="asyncComponentLoading">
+        {%- block entity_loading -%}{%- endblock -%}
+    </template>
+    <template v-else-if="asyncComponentError">
+        {%- block entity_error -%}{%- endblock -%}
+    </template>
+    <template v-else-if="!entity">
+        {%- block entity_empty -%}{%- endblock -%}
+    </template>
+    <template v-else>
+        {%- block entity_ready -%}
+            {%- block entity_body -%}{%- endblock -%}
+        {%- endblock -%}
     </template>
 {%- endblock -%}
