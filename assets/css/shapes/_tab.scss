@@ -1,3 +1,5 @@
+@use './surface';
+
 .tabs {
   display: flex;
   border-bottom: var(--border-separator);
@@ -19,8 +21,4 @@
 .tabs--item--active {
   background: var(--color-invert-2);
   border-color: var(--color-invert-3);
-}
-
-.tabs--surface {
-  background: var(--color-invert-1);
 }

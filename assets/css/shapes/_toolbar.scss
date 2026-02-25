@@ -1,4 +1,5 @@
 @use '../../css/mixins/flex' as flex;
+@use './surface';
 
 .toolbar {
   --toolbar-padding: var(--space-3);
@@ -23,22 +24,18 @@
   gap: var(--space-1);
 }
 
-.toolbar--surface {
-  background: var(--color-invert-1);
-}
-
-.toolbar--surface.toolbar--top {
+.toolbar.surface.toolbar--top {
   border-bottom: var(--border-separator);
 }
 
-.toolbar--surface.toolbar--bottom {
+.toolbar.surface.toolbar--bottom {
   border-top: var(--border-separator);
 }
 
-.toolbar--surface.toolbar--left {
+.toolbar.surface.toolbar--left {
   border-right: var(--border-separator);
 }
 
-.toolbar--surface.toolbar--right {
+.toolbar.surface.toolbar--right {
   border-left: var(--border-separator);
 }
