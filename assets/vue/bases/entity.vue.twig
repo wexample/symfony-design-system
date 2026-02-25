@@ -1,0 +1,7 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <template v-if="entity">
+        {%- block entity_body -%}{%- endblock -%}
+    </template>
+{%- endblock -%}
