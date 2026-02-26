@@ -7,6 +7,10 @@
   min-width: 0;
 }
 
+.block--zones {
+  border: var(--border-discreet);
+}
+
 .block--padded {
   padding: var(--space-4);
 }
@@ -14,13 +18,6 @@
 .block--placeholder {
   background: var(--color-default-0);
   border: var(--border-placeholder);
-}
-
-.block--zones {
-  background: var(--color-default-0);
-  border: var(--border-discreet);
-  width: 100%;
-  min-width: 0;
 }
 
 @supports selector(.block--zones .block--title:has(+ .zone)) {

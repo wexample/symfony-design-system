@@ -18,11 +18,21 @@
 .tabs--item {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-4) var(--space-6);
+  justify-content: center;
+  padding-block: var(--space-3);
+  padding-inline: var(--space-3);
   border-radius: 0;
   color: var(--color-default-text);
   text-decoration: none;
+  min-width: 0;
+}
+
+.tabs--item-content {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+  max-width: 100%;
 }
 
 .tabs--item-icon {
@@ -30,12 +40,13 @@
   align-items: center;
   line-height: 1;
   flex-shrink: 0;
-  margin-left: calc(0 - var(--space-2));
-  margin-right: var(--space-2);
 }
 
 .tabs--item-label {
   min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .tabs--item:not(.tabs--item--active):hover {
