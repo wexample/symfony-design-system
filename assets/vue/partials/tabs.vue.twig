@@ -1,0 +1,25 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <div class="tabs flow" :class="resolvedTabsClass">
+        <a
+                v-for="item in resolvedItems"
+                :key="item.key"
+                href="#"
+                class="tabs--item"
+                :class="{ 'tabs--item--active': isActive(item) }"
+                :aria-current="isActive(item) ? 'page' : null"
+                :aria-disabled="item.disabled ? 'true' : null"
+                @click="onClickTab($event, item)"
+        >
+            <span class="tabs--item-content">
+                <span
+                        v-if="item.icon"
+                        class="tabs--item-icon"
+                        v-html="getItemIcon(item)"
+                ></span>
+                <span class="tabs--item-label">[[ item.label ]]</span>
+            </span>
+        </a>
+    </div>
+{%- endblock -%}
