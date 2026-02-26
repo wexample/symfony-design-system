@@ -5,6 +5,16 @@
   border-bottom: var(--border-separator);
 }
 
+.tabs--fill {
+  width: 100%;
+}
+
+.tabs--fill .tabs--item {
+  flex: 1 1 0;
+  justify-content: center;
+  min-width: 0;
+}
+
 .tabs--item {
   display: inline-flex;
   align-items: center;
