@@ -7,10 +7,6 @@
   min-width: 0;
 }
 
-.block--zones {
-  border: var(--border-discreet);
-}
-
 .block--padded {
   padding: var(--space-4);
 }
@@ -18,16 +14,6 @@
 .block--placeholder {
   background: var(--color-default-0);
   border: var(--border-placeholder);
-}
-
-@supports selector(.block--zones .block--title:has(+ .zone)) {
-  .block--zones .block--title:has(+ .zone) {
-    border-bottom: var(--border-discreet);
-  }
-}
-
-.block--zones .zone + .block--footer {
-  border-top: var(--border-discreet);
 }
 
 .block--title {
