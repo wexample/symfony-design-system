@@ -3,6 +3,7 @@
 .tabs {
   display: flex;
   border-bottom: var(--border-separator);
+  background: var(--color-invert-1);
 }
 
 .tabs--fill {
