@@ -1,6 +1,6 @@
 @use 'sass:math';
 
-$color-scheme-level-count: 12 !default;
+$color-scheme-level-count: 24 !default;
 
 @function color-scheme-level-step($count) {
   $slice: math.div(1, $count);
