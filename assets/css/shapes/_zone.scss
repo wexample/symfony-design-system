@@ -17,7 +17,9 @@
   min-width: 0;
 }
 
-.zone--split > .zone--panel + .zone--panel {
+.zone--split > .zone--panel + .zone--panel,
+.zone--split > .zone + .zone--panel,
+.zone--split > .zone--panel + .zone {
   border-left: var(--border-separator);
 }
 
