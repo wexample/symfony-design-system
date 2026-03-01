@@ -1,5 +1,5 @@
 import { stringToKebab } from '@wexample/js-helpers/Helper/String';
-import LiveUpdatesService from '@wexample/symfony-loader/js/Services/LiveUpdatesService.ts';
+import LiveUpdatesService from '@wexample/symfony-loader/js/Services/LiveUpdatesService';
 import AbstractEntityManipulatorVueMixin from './AbstractEntityManipulatorVueMixin';
 
 const AbstractEntityLiveUpdatesVueMixin = {
