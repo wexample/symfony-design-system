@@ -1,7 +1,38 @@
 @use './form/fields/base';
 
+.chat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+}
+
 .chat--textarea {
   @extend .form--textarea;
+  flex: 1 1 auto;
+  min-width: 0;
   resize: none;
-  min-height: 2.75rem;
+}
+
+.chat--textarea--multiline {
+}
+
+.chat--submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: var(--space-6);
+  height: var(--space-6);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-1);
+  background: transparent;
+  color: var(--color-default-text);
+  cursor: pointer;
+}
+
+.chat--submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
