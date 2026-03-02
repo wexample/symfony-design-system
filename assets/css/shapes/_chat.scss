@@ -115,3 +115,20 @@
   flex: 0 0 var(--avatar-size);
   flex-shrink: 0;
 }
+
+.chat--message-meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.chat--message-author {
+  font-weight: 700;
+}
+
+.chat--message-date {
+  color: var(--color-default-text);
+  opacity: var(--opacity-7);
+  font-size: 0.875rem;
+}
