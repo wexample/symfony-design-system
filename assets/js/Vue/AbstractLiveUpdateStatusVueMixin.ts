@@ -1,4 +1,4 @@
-import { LiveUpdatesServiceEvents } from '@wexample/symfony-loader/js/Services/LiveUpdatesService.ts';
+import { LiveUpdatesServiceEvents } from '@wexample/symfony-loader/js/Services/LiveUpdatesService';
 
 const AbstractLiveUpdateStatusVueMixin = {
   data() {
