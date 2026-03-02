@@ -27,21 +27,21 @@
 }
 
 @mixin message-info {
-  --message-color: var(--color-info-8);
-  --message-bg: var(--color-info-4);
+  --message-color: var(--color-info-16);
+  --message-bg: var(--color-info-8);
 }
 
 @mixin message-success {
-  --message-color: var(--color-success-8);
-  --message-bg: var(--color-success-4);
+  --message-color: var(--color-success-16);
+  --message-bg: var(--color-success-8);
 }
 
 @mixin message-warning {
-  --message-color: var(--color-warning-8);
-  --message-bg: var(--color-warning-4);
+  --message-color: var(--color-warning-16);
+  --message-bg: var(--color-warning-8);
 }
 
 @mixin message-error {
-  --message-color: var(--color-error-8);
-  --message-bg: var(--color-error-4);
+  --message-color: var(--color-error-16);
+  --message-bg: var(--color-error-8);
 }

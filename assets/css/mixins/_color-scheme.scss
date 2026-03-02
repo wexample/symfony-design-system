@@ -44,6 +44,9 @@ $color-scheme-level-count: 32 !default;
 
   --color-link: var(--color-invert-7);
   --color-link-hover: var(--color-invert-8);
+  --color-activity-default: var(--color-default-16);
+  --color-activity-input: var(--color-success-16);
+  --color-activity-output: var(--color-info-16);
 
   @include color-scheme-invert-levels($foreground, $background);
   @include color-scheme-default-levels($background, $foreground);

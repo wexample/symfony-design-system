@@ -28,16 +28,16 @@ const AbstractLiveUpdateStatusVueMixin = {
   },
 
   computed: {
-    liveActivityColor() {
+    liveActivityClass() {
       if (this.liveActivityState === 'sending') {
-        return '#2563eb';
+        return 'is-sending';
       }
 
       if (this.liveActivityState === 'receiving') {
-        return '#16a34a';
+        return 'is-receiving';
       }
 
-      return '#9ca3af';
+      return 'is-idle';
     },
   },
 
