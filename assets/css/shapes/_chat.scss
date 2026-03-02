@@ -1,6 +1,6 @@
 @use './form/fields/base';
 
-.chat-composer__textarea {
+.chat--textarea {
   @extend .form--textarea;
   resize: none;
   min-height: 2.75rem;
