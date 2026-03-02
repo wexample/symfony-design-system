@@ -16,6 +16,10 @@
     padding: var(--space-3);
     color: var(--color-default-text);
     outline: none;
+    white-space: nowrap;
+    text-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
   }
 
   button {
@@ -25,6 +29,7 @@
     cursor: pointer;
     opacity: var(--opacity-7);
     font-size: 1.2rem;
+    display: flex;
   }
 
   button:hover {
@@ -58,6 +63,9 @@
       grid-area: textarea;
       min-height: calc(var(--space-6) + var(--space-4));
       line-height: 1.4;
+      white-space: pre-wrap;
+      text-wrap: wrap;
+      overflow-x: hidden;
     }
 
     .chat-textarea--actions {
@@ -70,7 +78,7 @@
     }
 
     button {
-      margin-bottom: 1.2rem;
+      margin-bottom: 0.4rem;
     }
   }
 }
