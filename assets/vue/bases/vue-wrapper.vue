@@ -6,12 +6,7 @@ export default {
   mixins: [
     WithCssClassesVueMixin
   ],
-  props: {
-    entity: {
-      type: Object,
-      required: true
-    }
-  },
-}
+  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-vue-wrapper',
+};
 
 </script>
