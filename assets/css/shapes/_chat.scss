@@ -15,11 +15,6 @@
     outline: none;
   }
 
-  &.chat-textarea--multiline textarea {
-    min-height: calc(var(--space-6) + var(--space-4));
-    line-height: 1.4;
-  }
-
   button {
     background: transparent;
     border: 0;
@@ -30,5 +25,14 @@
 
   button:hover {
     opacity: var(--opacity-8);
+  }
+
+  &.chat-textarea--multiline {
+    flex-direction: column;
+    
+    textarea {
+      min-height: calc(var(--space-6) + var(--space-4));
+      line-height: 1.4;
+    }
   }
 }
