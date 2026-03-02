@@ -18,7 +18,7 @@
     outline: none;
     white-space: nowrap;
     text-wrap: nowrap;
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: hidden;
   }
 
@@ -62,10 +62,12 @@
     textarea {
       grid-area: textarea;
       min-height: calc(var(--space-6) + var(--space-4));
+      max-height: var(--size-5);
       line-height: 1.4;
       white-space: pre-wrap;
       text-wrap: wrap;
       overflow-x: hidden;
+      overflow-y: auto;
     }
 
     .chat-textarea--actions {

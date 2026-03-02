@@ -1,8 +1,10 @@
 .lead {
-  color: var(--color-default-text-soft);
+  color: var(--color-invert-16);
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-1);
-  background: var(--color-default-background);
+  font-style: italic;
+  line-height: var(--space-5);
+  border: 2px dashed var(--color-invert-2);
 }
 
 .lead ul,
