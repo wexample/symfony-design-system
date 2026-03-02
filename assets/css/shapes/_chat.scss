@@ -4,9 +4,12 @@
   @extend .form--textarea;
   padding: 0;
   display: flex;
+  align-items: center;
+  gap: var(--space-1);
 
   textarea {
     width: 100%;
+    flex: 1 1 auto;
     resize: none;
     border: 0;
     background: transparent;
@@ -26,13 +29,43 @@
   button:hover {
     opacity: var(--opacity-8);
   }
+}
 
-  &.chat-textarea--multiline {
-    flex-direction: column;
-    
-    textarea {
-      min-height: calc(var(--space-6) + var(--space-4));
-      line-height: 1.4;
-    }
-  }
+.chat-textarea--actions {
+  display: inline-flex;
+  align-items: center;
+  padding-left: var(--space-1);
+}
+
+.chat--action {
+  background: transparent;
+  border: 0;
+  color: var(--color-default-text);
+  cursor: pointer;
+  opacity: var(--opacity-7);
+}
+
+.chat-textarea--demo.chat-textarea--multiline {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    "textarea textarea textarea"
+    "actions . submit";
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.chat-textarea--demo.chat-textarea--multiline textarea {
+  grid-area: textarea;
+  min-height: calc(var(--space-6) + var(--space-4));
+  line-height: 1.4;
+}
+
+.chat-textarea--demo.chat-textarea--multiline .chat-textarea--actions {
+  grid-area: actions;
+  padding-left: var(--space-2);
+}
+
+.chat-textarea--demo.chat-textarea--multiline .chat--submit {
+  grid-area: submit;
 }
