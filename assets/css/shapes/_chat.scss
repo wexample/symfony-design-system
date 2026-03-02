@@ -13,7 +13,7 @@
     resize: none;
     border: 0;
     background: transparent;
-    padding: var(--space-2) var(--space-3);
+    padding: var(--space-3);
     color: var(--color-default-text);
     outline: none;
   }
@@ -24,48 +24,53 @@
     color: var(--color-default-text);
     cursor: pointer;
     opacity: var(--opacity-7);
+    font-size: 1.2rem;
   }
 
   button:hover {
     opacity: var(--opacity-8);
   }
-}
 
-.chat-textarea--actions {
-  display: inline-flex;
-  align-items: center;
-  padding-left: var(--space-1);
-}
+  .chat-textarea--actions {
+    display: inline-flex;
+    align-items: center;
+    padding-left: var(--space-1);
+  }
 
-.chat--action {
-  background: transparent;
-  border: 0;
-  color: var(--color-default-text);
-  cursor: pointer;
-  opacity: var(--opacity-7);
-}
+  .chat--action {
+    background: transparent;
+    border: 0;
+    color: var(--color-default-text);
+    cursor: pointer;
+    opacity: var(--opacity-7);
+  }
 
-.chat-textarea--demo.chat-textarea--multiline {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  grid-template-areas:
-    "textarea textarea textarea"
-    "actions . submit";
-  align-items: center;
-  gap: var(--space-2);
-}
+  &.chat-textarea--multiline {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "textarea textarea textarea"
+      "actions . submit";
+    align-items: center;
+    gap: var(--space-2);
 
-.chat-textarea--demo.chat-textarea--multiline textarea {
-  grid-area: textarea;
-  min-height: calc(var(--space-6) + var(--space-4));
-  line-height: 1.4;
-}
+    textarea {
+      grid-area: textarea;
+      min-height: calc(var(--space-6) + var(--space-4));
+      line-height: 1.4;
+    }
 
-.chat-textarea--demo.chat-textarea--multiline .chat-textarea--actions {
-  grid-area: actions;
-  padding-left: var(--space-2);
-}
+    .chat-textarea--actions {
+      grid-area: actions;
+      padding-left: var(--space-2);
+    }
 
-.chat-textarea--demo.chat-textarea--multiline .chat--submit {
-  grid-area: submit;
+    .chat--submit {
+      grid-area: submit;
+    }
+
+    button {
+      margin-bottom: 1.2rem;
+    }
+  }
 }
