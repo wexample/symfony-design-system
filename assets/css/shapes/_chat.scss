@@ -15,6 +15,11 @@
     outline: none;
   }
 
+  &.chat-textarea--multiline textarea {
+    min-height: calc(var(--space-6) + var(--space-4));
+    line-height: 1.4;
+  }
+
   button {
     background: transparent;
     border: 0;
@@ -27,4 +32,3 @@
     opacity: var(--opacity-8);
   }
 }
-
