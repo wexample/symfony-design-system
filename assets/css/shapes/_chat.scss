@@ -88,8 +88,7 @@
 .chat-thread {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  max-height: 22rem;
+  gap: var(--space-4);
   overflow-y: auto;
   padding: var(--space-2);
 }
@@ -97,5 +96,22 @@
 .chat--message {
   border: 1px solid var(--color-default-border);
   border-radius: var(--space-2);
-  padding: var(--space-3);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.chat--message-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.chat--message-row .avatar {
+  --avatar-size: var(--space-5);
+  width: var(--avatar-size);
+  min-width: var(--avatar-size);
+  height: var(--avatar-size);
+  aspect-ratio: 1 / 1;
+  flex: 0 0 var(--avatar-size);
+  flex-shrink: 0;
 }
