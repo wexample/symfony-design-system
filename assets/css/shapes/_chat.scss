@@ -2,6 +2,6 @@
 
 .chat-composer__textarea {
   @extend .form--textarea;
-  resize: vertical;
+  resize: none;
   min-height: 2.75rem;
 }
