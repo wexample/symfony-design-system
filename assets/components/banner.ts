@@ -46,10 +46,12 @@ export default class extends Component {
     await super.mounted();
     if (this.options?.animate) {
       await (this as FadeAnimationMixin).fadeOpen();
-      const timeout = this.options?.timeout ?? 4000;
-      window.setTimeout(async () => {
-        await (this as FadeAnimationMixin).closeWithAnimation();
-      }, timeout);
+      if (!this.options?.sticky) {
+        const timeout = this.options?.timeout ?? 4000;
+        window.setTimeout(async () => {
+          await (this as FadeAnimationMixin).closeWithAnimation();
+        }, timeout);
+      }
     }
   }
 
