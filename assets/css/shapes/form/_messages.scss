@@ -1,8 +1,9 @@
-@use '../../../css/mixins/message' as message;
+@use '../../../css/primitives/feedback' as feedback;
+@use '../../../css/semantic/feedback' as feedback_semantic;
 
 .form--errors {
-  @include message.message-base;
-  @include message.message-error;
+  @include feedback.feedback-surface;
+  @include feedback_semantic.feedback-error;
   padding: var(--space-3);
 }
 

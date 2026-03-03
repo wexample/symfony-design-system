@@ -1,14 +1,14 @@
-@use '../mixins/message' as message;
+@use '../primitives/feedback' as feedback;
 
 .prompt {
-  @include message.message-base;
+  @include feedback.feedback-surface;
   position: relative;
   display: grid;
   gap: var(--space-3);
 }
 
 .prompt--title {
-  @include message.message-title;
+  @include feedback.feedback-title;
   color: var(--color-default-text);
 }
 

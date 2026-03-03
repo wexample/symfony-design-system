@@ -1,14 +1,13 @@
-@use '../mixins/message' as message;
 @use '../mixins/animation' as animation;
+@use '../semantic/feedback' as feedback_semantic;
 
 .banner {
-  @include message.message-base;
-  border-left: 0;
-  border-radius: 0;
-  border-top: 0;
+  @include feedback_semantic.feedback-base;
+  padding: var(--space-4);
   box-shadow: var(--shadow-2);
   text-align: center;
-  color: var(--message-color);
+  color: var(--feedback-color);
+  background: var(--feedback-bg);
 }
 
 .banner--floating {
@@ -28,37 +27,37 @@
 }
 
 .banner--info {
-  @include message.message-info;
+  @include feedback_semantic.feedback-info;
 }
 
 .banner--success {
-  @include message.message-success;
+  @include feedback_semantic.feedback-success;
 }
 
 .banner--warning {
-  @include message.message-warning;
+  @include feedback_semantic.feedback-warning;
 }
 
 .banner--error {
-  @include message.message-error;
+  @include feedback_semantic.feedback-error;
 }
 
 .banner--flash {
-  --message-color: var(--color-absolute-dark);
+  --feedback-color: var(--color-absolute-dark);
 }
 
 .banner--flash.banner--info {
-  --message-bg: var(--color-info-5);
+  --feedback-bg: var(--color-info-16);
 }
 
 .banner--flash.banner--success {
-  --message-bg: var(--color-success-5);
+  --feedback-bg: var(--color-success-16);
 }
 
 .banner--flash.banner--warning {
-  --message-bg: var(--color-warning-5);
+  --feedback-bg: var(--color-warning-16);
 }
 
 .banner--flash.banner--error {
-  --message-bg: var(--color-error-5);
+  --feedback-bg: var(--color-error-16);
 }

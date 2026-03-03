@@ -1,0 +1,29 @@
+@mixin feedback-base {
+  --feedback-color: var(--color-invert-6);
+  --feedback-bg: var(--color-invert-1);
+  --feedback-border-color: var(--feedback-color);
+}
+
+@mixin feedback-info {
+  --feedback-color: var(--color-info-16);
+  --feedback-bg: var(--color-info-8);
+  --feedback-border-color: var(--feedback-color);
+}
+
+@mixin feedback-success {
+  --feedback-color: var(--color-success-16);
+  --feedback-bg: var(--color-success-8);
+  --feedback-border-color: var(--feedback-color);
+}
+
+@mixin feedback-warning {
+  --feedback-color: var(--color-warning-16);
+  --feedback-bg: var(--color-warning-8);
+  --feedback-border-color: var(--feedback-color);
+}
+
+@mixin feedback-error {
+  --feedback-color: var(--color-error-16);
+  --feedback-bg: var(--color-error-8);
+  --feedback-border-color: var(--feedback-color);
+}

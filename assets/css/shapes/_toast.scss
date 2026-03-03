@@ -1,6 +1,6 @@
 @use '../mixins/size' as size;
-@use '../mixins/message' as message;
 @use '../mixins/animation' as animation;
+@use '../primitives/feedback' as feedback;
 
 .toast-stack {
   position: fixed;
@@ -44,10 +44,9 @@
 }
 
 .toast {
-  @include message.message-base;
+  @include feedback.feedback-surface;
   position: relative;
-  box-shadow: var(--shadow-3);
-  --message-bg: var(--color-invert-1);
+  --feedback-bg: var(--color-invert-1);
 }
 
 .toast.is-opening {
@@ -59,23 +58,27 @@
 }
 
 .toast--title {
-  @include message.message-title;
+  @include feedback.feedback-title;
 }
 
 .toast--info {
-  --message-color: var(--color-info-5);
+  --feedback-color: var(--color-info-16);
+  --feedback-border-color: var(--feedback-color);
 }
 
 .toast--success {
-  --message-color: var(--color-success-5);
+  --feedback-color: var(--color-success-16);
+  --feedback-border-color: var(--feedback-color);
 }
 
 .toast--warning {
-  --message-color: var(--color-warning-5);
+  --feedback-color: var(--color-warning-16);
+  --feedback-border-color: var(--feedback-color);
 }
 
 .toast--error {
-  --message-color: var(--color-error-5);
+  --feedback-color: var(--color-error-16);
+  --feedback-border-color: var(--feedback-color);
 }
 
 .toast--close {
