@@ -7,13 +7,16 @@ export default {
 
   data() {
     return {
-      name: ''
+      name: '',
+      submitEndpoint: 'test/simple-error',
     };
   },
 
   methods: {
-    onSubmit() {
-      console.log('SUBMIT!');
+    buildSubmitPayload() {
+      return {
+        text: this.name,
+      };
     }
   }
 }

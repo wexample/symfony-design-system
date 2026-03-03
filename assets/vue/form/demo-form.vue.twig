@@ -9,6 +9,8 @@
                 v-model="name"
                 placeholder="Type something"
         >
+        {% set form_field_error_path = 'text' %}
+        {{ block('form_field_errors') }}
     </div>
 
     <div class="form--actions">

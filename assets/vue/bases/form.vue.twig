@@ -20,6 +20,16 @@
     {%- endblock -%}
 {%- endblock -%}
 
+{%- block form_field_errors -%}
+    {%- if form_field_error_path is defined and form_field_error_path is not empty -%}
+        <div class="form--field-errors" v-if="getFieldErrors('{{ form_field_error_path }}').length">
+            <ul>
+                <li v-for="(error, index) in getFieldErrors('{{ form_field_error_path }}')" :key="index">[[ error ]]</li>
+            </ul>
+        </div>
+    {%- endif -%}
+{%- endblock -%}
+
 {%- block form_ready -%}
     <form class="form flow" @submit.prevent="onSubmit">
         {%- block form_body -%}{%- endblock -%}
