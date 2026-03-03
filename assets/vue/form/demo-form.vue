@@ -15,7 +15,7 @@ export default {
   methods: {
     buildSubmitPayload() {
       return {
-        text: this.name,
+        text_simple: this.name,
       };
     }
   }
