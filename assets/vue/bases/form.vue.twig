@@ -1,7 +1,39 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
 
+{%- block form_state_default -%}
+    {% include '@WexampleSymfonyDesignSystemBundle/partials/spinner.html.twig' %}
+{%- endblock -%}
+
+{%- block form_loading -%}
+    {%- block form_loading_default -%}
+        {{ block('form_state_default') }}
+    {%- endblock -%}
+{%- endblock -%}
+
+{%- block form_errors -%}
+    {%- block form_errors_default -%}
+        <div class="form--errors" v-if="formErrors && formErrors.length">
+            <ul>
+                <li v-for="(error, index) in formErrors" :key="index">[[ error ]]</li>
+            </ul>
+        </div>
+    {%- endblock -%}
+{%- endblock -%}
+
+{%- block form_ready -%}
+    <form class="form flow" @submit.prevent="onSubmit">
+        {%- block form_body -%}{%- endblock -%}
+    </form>
+{%- endblock -%}
+
 {%- block vue_body -%}
     <div class="form">
-        {%- block form_body -%}{%- endblock -%}
+        <template v-if="formIsSubmitting">
+            {{ block('form_loading') }}
+        </template>
+        <template v-else>
+            {{ block('form_errors') }}
+            {{ block('form_ready') }}
+        </template>
     </div>
 {%- endblock -%}
