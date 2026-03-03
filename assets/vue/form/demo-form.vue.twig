@@ -1,5 +1,20 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/form.vue.twig' -%}
 
 {%- block form_body -%}
-    TODO INPUT
+    <form class="form flow" @submit.prevent="onSubmit">
+        <div class="form--group">
+            <label class="form--label" for="demo-form-name">Demo input</label>
+            <input
+                    id="demo-form-name"
+                    class="form--input"
+                    type="text"
+                    v-model="name"
+                    placeholder="Type something"
+            >
+        </div>
+
+        <div class="form--actions">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
 {%- endblock -%}
