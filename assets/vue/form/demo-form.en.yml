@@ -1,3 +1,13 @@
-error:
-  ERR_FIELD_TEXT_INVALID: Field invalid
-  ERR_FORM_TEST: Form invalid
+field:
+  text_simple:
+    label: Demo input
+    placeholder: Type something
+    error:
+      ERR_FIELD_TEXT_INVALID: Field invalid
+
+form:
+  error:
+    ERR_FORM_TEST: Form invalid
+
+action:
+  submit: Submit

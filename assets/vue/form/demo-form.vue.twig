@@ -1,19 +1,22 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/form.vue.twig' -%}
+{%- set demo_form_translation_domain = translationDomain|default('WexampleSymfonyDesignSystemBundle.vue.form.demo-form') -%}
+{%- set form_errors_translation_prefix = demo_form_translation_domain ~ '::form.error.' -%}
+{%- set form_field_error_translation_prefix = demo_form_translation_domain ~ '::field.text_simple.error.' -%}
 
 {%- block form_body -%}
     <div class="form--group" :class="{ 'has-error': fieldErrors['text_simple'] && fieldErrors['text_simple'].length }">
-        <label class="form--label">Demo input</label>
+        <label class="form--label">{{ (demo_form_translation_domain ~ '::field.text_simple.label')|trans }}</label>
         <input
                 class="form--input"
                 type="text"
                 v-model="name"
-                placeholder="Type something"
+                placeholder="{{ (demo_form_translation_domain ~ '::field.text_simple.placeholder')|trans }}"
         >
         {% set form_field_error_path = 'text_simple' %}
         {{ block('form_field_errors') }}
     </div>
 
     <div class="form--actions">
-        <button type="submit">Submit</button>
+        <button type="submit">{{ (demo_form_translation_domain ~ '::action.submit')|trans }}</button>
     </div>
 {%- endblock -%}
