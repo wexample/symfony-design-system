@@ -1,0 +1,30 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
+
+{%- block field_label -%}
+    <label v-if="hasLabel" class="form--label" :for="resolvedId">[[ resolveLabel(label) ]]</label>
+{%- endblock -%}
+
+{%- block field_control -%}{%- endblock -%}
+
+{%- block field_errors -%}
+    <div class="form--field-errors" v-if="hasErrors">
+        <ul>
+            <li v-for="(error, index) in errors" :key="index">
+                <template v-if="hasErrorTranslationPrefix">
+                    [[ trans(errorTranslationPrefix + error) ]]
+                </template>
+                <template v-else>
+                    [[ error ]]
+                </template>
+            </li>
+        </ul>
+    </div>
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <div class="form--group" :class="{ 'has-error': hasErrors }">
+        {{ block('field_label') }}
+        {{ block('field_control') }}
+        {{ block('field_errors') }}
+    </div>
+{%- endblock -%}

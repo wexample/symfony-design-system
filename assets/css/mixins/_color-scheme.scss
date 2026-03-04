@@ -42,8 +42,8 @@ $color-scheme-level-count: 32 !default;
     --color-absolute-light-transparent-#{$i}: #{rgba(#fff, $level)};
   }
 
-  --color-link: var(--color-invert-7);
-  --color-link-hover: var(--color-invert-8);
+  --color-link: var(--color-invert-14);
+  --color-link-hover: var(--color-invert-16);
   --color-activity-default: var(--color-default-16);
   --color-activity-input: var(--color-success-16);
   --color-activity-output: var(--color-info-16);

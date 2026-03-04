@@ -1,31 +1,16 @@
-{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/form/fields/base-field.vue.twig' -%}
 
-{%- block vue_body -%}
-    <div class="form--group" :class="{ 'has-error': hasErrors }">
-        <label v-if="hasLabel" class="form--label" :for="resolvedId">[[ label ]]</label>
-        <input
-                class="form--input"
-                :type="type"
-                :name="name || null"
-                :id="resolvedId"
-                :value="value"
-                :placeholder="placeholder || null"
-                :required="required ? true : null"
-                :disabled="disabled ? true : null"
-                :autocomplete="autocomplete || null"
-                @input="onInput"
-        >
-        <div class="form--field-errors" v-if="hasErrors">
-            <ul>
-                <li v-for="(error, index) in errors" :key="index">
-                    <template v-if="hasErrorTranslationPrefix">
-                        [[ trans(errorTranslationPrefix + error) ]]
-                    </template>
-                    <template v-else>
-                        [[ error ]]
-                    </template>
-                </li>
-            </ul>
-        </div>
-    </div>
+{%- block field_control -%}
+    <input
+            class="form--input"
+            :type="type"
+            :name="name || null"
+            :id="resolvedId"
+            :value="value"
+            :placeholder="placeholder || null"
+            :required="required ? true : null"
+            :disabled="disabled ? true : null"
+            :autocomplete="autocomplete || null"
+            @input="onInput"
+    >
 {%- endblock -%}
