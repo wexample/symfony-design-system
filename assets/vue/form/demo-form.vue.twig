@@ -5,6 +5,8 @@
 {%- block vue_require -%}
     {{ parent() }}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/text-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/textarea-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/select-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/submit-button') -}}
 {%- endblock -%}
 
@@ -13,13 +15,29 @@
         {{ '@vue::description' | trans }}
     </div>
     <text-input
-            v-model="name"
+            v-model="textSimple"
             name="text_simple"
             :errors="fieldErrors['text_simple'] || []"
             label="{{ (demo_form_translation_domain ~ '::field.text_simple.label')|trans }}"
-            placeholder="{{ (demo_form_translation_domain ~ '::field.text_simple.placeholder')|trans }}"
             error-translation-prefix="{{ demo_form_translation_domain ~ '::field.text_simple.error.' }}"
     ></text-input>
+    <textarea-input
+            v-model="textArea"
+            name="text_area"
+            :rows="4"
+            :errors="fieldErrors['text_area'] || []"
+            label="{{ (demo_form_translation_domain ~ '::field.text_area.label')|trans }}"
+            placeholder="{{ (demo_form_translation_domain ~ '::field.text_area.placeholder')|trans }}"
+            error-translation-prefix="{{ demo_form_translation_domain ~ '::field.text_area.error.' }}"
+    ></textarea-input>
+    <select-input
+            v-model="behavior"
+            name="behavior"
+            :options="behaviorOptions"
+            :errors="fieldErrors['behavior'] || []"
+            label="{{ (demo_form_translation_domain ~ '::field.behavior.label')|trans }}"
+            error-translation-prefix="{{ demo_form_translation_domain ~ '::field.behavior.error.' }}"
+    ></select-input>
 
     <div class="form--actions">
         <submit-button :label="'{{ demo_form_translation_domain ~ '::action.submit' }}'"></submit-button>

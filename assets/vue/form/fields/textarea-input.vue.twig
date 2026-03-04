@@ -6,10 +6,11 @@
             :name="name || null"
             :id="resolvedId"
             :rows="rows"
+            :value="value"
             :placeholder="placeholder || null"
             :required="required ? true : null"
             :disabled="disabled ? true : null"
             :autocomplete="autocomplete || null"
             @input="onInput"
-    >[[ value ]]</textarea>
+    ></textarea>
 {%- endblock -%}
