@@ -11,3 +11,6 @@ form:
 
 action:
   submit: Submit
+
+description: |
+  Use this form to test submit behaviors. This demo is in a Vue component.
