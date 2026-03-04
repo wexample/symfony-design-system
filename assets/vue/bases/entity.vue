@@ -1,13 +1,12 @@
 <script>
 
 import VueWrapper from "./vue-wrapper";
-import WithCssClassesVueMixin from "../../js/Vue/WithCssClassesVueMixin";
+import AbstractEntitySingleMixin from "@wexample/js-api/Vue/AbstractEntitySingleMixin";
 
 export default {
   extends: VueWrapper,
 
   mixins: [
-    WithCssClassesVueMixin,
     AbstractEntitySingleMixin
   ]
 }
