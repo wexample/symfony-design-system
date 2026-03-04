@@ -1,0 +1,15 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/form/fields/base-field.vue.twig' -%}
+
+{%- block field_control -%}
+    <textarea
+            class="form--input"
+            :name="name || null"
+            :id="resolvedId"
+            :rows="rows"
+            :placeholder="placeholder || null"
+            :required="required ? true : null"
+            :disabled="disabled ? true : null"
+            :autocomplete="autocomplete || null"
+            @input="onInput"
+    >[[ value ]]</textarea>
+{%- endblock -%}

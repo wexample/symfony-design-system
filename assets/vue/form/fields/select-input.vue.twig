@@ -1,0 +1,19 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/form/fields/base-field.vue.twig' -%}
+
+{%- block field_control -%}
+    <select
+            class="form--input"
+            :name="name || null"
+            :id="resolvedId"
+            :value="value"
+            :required="required ? true : null"
+            :disabled="disabled ? true : null"
+            @change="onChange"
+    >
+        <option
+                v-for="(option, index) in options"
+                :key="index"
+                :value="resolveOptionValue(option)"
+        >[[ resolveOptionLabel(option) ]]</option>
+    </select>
+{%- endblock -%}
