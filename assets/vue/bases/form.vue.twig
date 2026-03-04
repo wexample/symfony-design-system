@@ -22,9 +22,16 @@
 
 {%- block form_field_errors -%}
     {%- if form_field_error_path is defined and form_field_error_path is not empty -%}
+        {%- set form_field_error_translation_prefix = form_field_error_translation_prefix|default('') -%}
         <div class="form--field-errors" v-if="fieldErrors['{{ form_field_error_path }}'] && fieldErrors['{{ form_field_error_path }}'].length">
             <ul>
-                <li v-for="(error, index) in fieldErrors['{{ form_field_error_path }}']" :key="index">[[ error ]]</li>
+                <li v-for="(error, index) in fieldErrors['{{ form_field_error_path }}']" :key="index">
+                    {%- if form_field_error_translation_prefix is not empty -%}
+                        [[ trans('{{ form_field_error_translation_prefix }}' + error) ]]
+                    {%- else -%}
+                        [[ error ]]
+                    {%- endif -%}
+                </li>
             </ul>
         </div>
     {%- endif -%}

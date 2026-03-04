@@ -10,6 +10,7 @@
                 placeholder="Type something"
         >
         {% set form_field_error_path = 'text_simple' %}
+        {% set form_field_error_translation_prefix = 'WexampleSymfonyDesignSystemBundle.vue.form.demo-form::error.' %}
         {{ block('form_field_errors') }}
     </div>
 
