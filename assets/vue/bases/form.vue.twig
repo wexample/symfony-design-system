@@ -12,9 +12,19 @@
 
 {%- block form_errors -%}
     {%- block form_errors_default -%}
+        {%- set form_errors_translation_prefix = form_errors_translation_prefix|default('') -%}
+        {%- if form_errors_translation_prefix is empty and translationDomain is defined and translationDomain is not empty -%}
+            {%- set form_errors_translation_prefix = translationDomain ~ '::error.' -%}
+        {%- endif -%}
         <div class="form--errors" v-if="formErrors && formErrors.length">
             <ul>
-                <li v-for="(error, index) in formErrors" :key="index">[[ error ]]</li>
+                <li v-for="(error, index) in formErrors" :key="index">
+                    {%- if form_errors_translation_prefix is not empty -%}
+                        [[ trans('{{ form_errors_translation_prefix }}' + error) ]]
+                    {%- else -%}
+                        [[ error ]]
+                    {%- endif -%}
+                </li>
             </ul>
         </div>
     {%- endblock -%}
