@@ -1,11 +1,11 @@
-{%- extends '@WexampleSymfonyDesignSystemBundle/vue/form/fields/base-field.vue.twig' -%}
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/form-field.vue.twig' -%}
 
 {%- block field_control -%}
     <select
-            class="form--input"
+            class="form--input form--input--select"
             :name="name || null"
             :id="resolvedId"
-            :value="value"
+            :value="resolvedValue"
             :required="required ? true : null"
             :disabled="disabled ? true : null"
             @change="onChange"

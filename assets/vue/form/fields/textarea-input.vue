@@ -1,5 +1,5 @@
 <script>
-import BaseField from './base-field.vue';
+import BaseField from '../../bases/form-field.vue';
 
 export default {
   extends: BaseField,

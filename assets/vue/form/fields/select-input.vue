@@ -1,5 +1,5 @@
 <script>
-import BaseField from './base-field.vue';
+import BaseField from '../../bases/form-field.vue';
 
 export default {
   extends: BaseField,
@@ -16,6 +16,25 @@ export default {
     }
   },
 
+  computed: {
+    resolvedValue() {
+      const current = this.value === undefined || this.value === null
+        ? ''
+        : String(this.value);
+      const hasCurrent = this.options.some((option) => this.resolveOptionValue(option) === current);
+
+      if (hasCurrent) {
+        return current;
+      }
+
+      if (!this.options.length) {
+        return current;
+      }
+
+      return this.resolveOptionValue(this.options[0]);
+    }
+  },
+
   methods: {
     onChange(event) {
       this.$emit('input', event?.target?.value ?? '');
@@ -28,7 +47,7 @@ export default {
 
     resolveOptionValue(option) {
       const value = option?.value;
-      return value === undefined || value === null ? '' : value;
+      return value === undefined || value === null ? '' : String(value);
     }
   }
 };
