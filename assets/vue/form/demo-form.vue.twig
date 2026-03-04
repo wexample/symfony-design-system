@@ -1,7 +1,7 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/form.vue.twig' -%}
 
 {%- block form_body -%}
-    <div class="form--group">
+    <div class="form--group" :class="{ 'has-error': fieldErrors['text_simple'] && fieldErrors['text_simple'].length }">
         <label class="form--label">Demo input</label>
         <input
                 class="form--input"
