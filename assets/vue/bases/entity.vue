@@ -8,7 +8,7 @@ export default {
 
   mixins: [
     AbstractEntitySingleMixin
-  ]
+  ],
 }
 
 </script>
