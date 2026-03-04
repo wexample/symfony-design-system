@@ -1,25 +1,27 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/form.vue.twig' -%}
 {%- set demo_form_translation_domain = translationDomain|default('WexampleSymfonyDesignSystemBundle.vue.form.demo-form') -%}
 {%- set form_errors_translation_prefix = demo_form_translation_domain ~ '::form.error.' -%}
-{%- set form_field_error_translation_prefix = demo_form_translation_domain ~ '::field.text_simple.error.' -%}
+
+{%- block vue_require -%}
+    {{ parent() }}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/text-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/submit-button') -}}
+{%- endblock -%}
 
 {%- block form_body -%}
     <div class="lead">
         {{ '@vue::description' | trans }}
     </div>
-    <div class="form--group" :class="{ 'has-error': fieldErrors['text_simple'] && fieldErrors['text_simple'].length }">
-        <label class="form--label">{{ (demo_form_translation_domain ~ '::field.text_simple.label')|trans }}</label>
-        <input
-                class="form--input"
-                type="text"
-                v-model="name"
-                placeholder="{{ (demo_form_translation_domain ~ '::field.text_simple.placeholder')|trans }}"
-        >
-        {% set form_field_error_path = 'text_simple' %}
-        {{ block('form_field_errors') }}
-    </div>
+    <text-input
+            v-model="name"
+            name="text_simple"
+            :errors="fieldErrors['text_simple'] || []"
+            label="{{ (demo_form_translation_domain ~ '::field.text_simple.label')|trans }}"
+            placeholder="{{ (demo_form_translation_domain ~ '::field.text_simple.placeholder')|trans }}"
+            error-translation-prefix="{{ demo_form_translation_domain ~ '::field.text_simple.error.' }}"
+    ></text-input>
 
     <div class="form--actions">
-        <button type="submit">{{ (demo_form_translation_domain ~ '::action.submit')|trans }}</button>
+        <submit-button :label="'{{ demo_form_translation_domain ~ '::action.submit' }}'"></submit-button>
     </div>
 {%- endblock -%}

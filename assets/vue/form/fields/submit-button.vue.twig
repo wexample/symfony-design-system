@@ -1,0 +1,5 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <button :type="type" :disabled="disabled ? true : null">[[ resolvedLabel ]]</button>
+{%- endblock -%}
