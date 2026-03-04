@@ -1,4 +1,4 @@
-{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue-wrapper.vue.twig' -%}
 
 {%- block entity_state_default -%}
     {% include '@WexampleSymfonyDesignSystemBundle/partials/spinner.html.twig' %}
@@ -16,7 +16,7 @@
     {%- endblock -%}
 {%- endblock -%}
 
-{%- block vue_body -%}
+{%- block vue_wrapper_body -%}
     <template v-if="asyncComponentSleeping"></template>
     <template v-else-if="asyncComponentLoading">
         {{ block('entity_loading') }}
