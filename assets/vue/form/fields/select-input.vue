@@ -4,9 +4,10 @@ import BaseField from '../../bases/form-field.vue';
 export default {
   extends: BaseField,
   template: '#vue-template-wexample-symfony-design-system-bundle-vue-form-fields-select-input',
+  emits: ['update:modelValue'],
 
   props: {
-    value: {
+    modelValue: {
       type: String,
       default: ''
     },
@@ -18,9 +19,9 @@ export default {
 
   computed: {
     resolvedValue() {
-      const current = this.value === undefined || this.value === null
+      const current = this.modelValue === undefined || this.modelValue === null
         ? ''
-        : String(this.value);
+        : String(this.modelValue);
       const hasCurrent = this.options.some((option) => this.resolveOptionValue(option) === current);
 
       if (hasCurrent) {
@@ -37,7 +38,7 @@ export default {
 
   methods: {
     onChange(event) {
-      this.$emit('input', event?.target?.value ?? '');
+      this.$emit('update:modelValue', event?.target?.value ?? '');
     },
 
     resolveOptionLabel(option) {

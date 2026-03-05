@@ -4,9 +4,10 @@ import BaseField from '../../bases/form-field.vue';
 export default {
   extends: BaseField,
   template: '#vue-template-wexample-symfony-design-system-bundle-vue-form-fields-textarea-input',
+  emits: ['update:modelValue'],
 
   props: {
-    value: {
+    modelValue: {
       type: String,
       default: ''
     },
@@ -22,7 +23,7 @@ export default {
 
   methods: {
     onInput(event) {
-      this.$emit('input', event?.target?.value ?? '');
+      this.$emit('update:modelValue', event?.target?.value ?? '');
     }
   }
 };
