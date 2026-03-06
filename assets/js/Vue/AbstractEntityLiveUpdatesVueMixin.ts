@@ -9,7 +9,7 @@ const AbstractEntityLiveUpdatesVueMixin = {
   },
 
   mounted() {
-    this.connectEntityLiveUpdates();
+    this.syncEntityLiveUpdatesConnection();
   },
 
   beforeDestroy() {
@@ -26,7 +26,7 @@ const AbstractEntityLiveUpdatesVueMixin = {
       const previousSecureId = previousEntity ? previousEntity.secureId : null;
 
       if (currentSecureId && currentSecureId !== previousSecureId) {
-        this.connectEntityLiveUpdates();
+        this.syncEntityLiveUpdatesConnection();
       }
     },
   },
@@ -64,9 +64,33 @@ const AbstractEntityLiveUpdatesVueMixin = {
       return {};
     },
 
+    shouldConnectEntityLiveUpdates() {
+      return !!this.getLiveUpdateEntitySecureId();
+    },
+
+    syncEntityLiveUpdatesConnection() {
+      if (this.shouldConnectEntityLiveUpdates()) {
+        this.connectEntityLiveUpdates();
+        return;
+      }
+
+      this.disconnectEntityLiveUpdates();
+    },
+
+    // Backward compatibility with previous API name.
+    syncLiveUpdatesConnection() {
+      this.syncEntityLiveUpdatesConnection();
+    },
+
     connectEntityLiveUpdates() {
+      if (!this.shouldConnectEntityLiveUpdates()) {
+        this.disconnectEntityLiveUpdates();
+        return;
+      }
+
       const topic = this.getLiveUpdateTopic();
       if (!topic) {
+        this.disconnectEntityLiveUpdates();
         return;
       }
 
