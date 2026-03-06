@@ -1,7 +1,10 @@
 import { stringToKebab } from '@wexample/js-helpers/Helper/String';
 import LiveUpdatesService from '@wexample/symfony-loader/js/Services/LiveUpdatesService';
+import AbstractEntityManipulatorMixin from "@wexample/js-api/Vue/AbstractEntityManipulatorMixin";
 
 const AbstractEntityLiveUpdatesVueMixin = {
+  mixins: [AbstractEntityManipulatorMixin],
+
   data() {
     return {
       liveConnection: null,
