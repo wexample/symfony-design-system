@@ -3,4 +3,4 @@ search:
 filter:
   label: Filter
 empty:
-  label: Nothing available...
+  label: ~ Empty ~
