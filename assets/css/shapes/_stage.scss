@@ -10,7 +10,7 @@
   --stage-dot-size: 1px;
   --stage-dot-gap: 20px;
   --stage-dot-color: var(--color-invert-6);
-
+  background: var(--color-default-background);
   background-image: radial-gradient(
                   circle,
                   var(--stage-dot-color) 0 var(--stage-dot-size),
