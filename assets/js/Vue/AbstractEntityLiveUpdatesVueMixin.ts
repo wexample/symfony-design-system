@@ -43,8 +43,8 @@ const AbstractEntityLiveUpdatesVueMixin = {
       return stringToKebab(this.getEntityRepository().constructor.getEntityName());
     },
 
-    getLiveUpdateEntityAction() {
-      return 'show';
+    getLiveUpdateEntityAction(): string {
+      throw new Error(`${this.$options.name || 'Component'} must implement getLiveUpdateEntityAction()`);
     },
 
     getLiveUpdateTopic() {
@@ -127,7 +127,7 @@ const AbstractEntityLiveUpdatesVueMixin = {
     onEntityLiveMessage(payload) {
       const eventName = this.resolveLiveUpdateEventName(payload);
       const handlers = this.getLiveUpdateHandlers();
-      handlers[eventName].call(this, payload);
+      handlers[eventName]?.call(this, payload);
     },
   },
 };
