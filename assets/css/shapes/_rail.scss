@@ -36,17 +36,24 @@
   .rail--track {
     width: max-content;
     min-width: 100%;
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: var(--rail-column-size);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
   }
 
   .rail--track.rail--track--centered {
-    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .rail--item {
+    flex: 0 0 var(--rail-column-size, auto);
     height: 100%;
+  }
+
+  .rail--item--shrink {
+    flex: 0 0 auto;
   }
 }
 
