@@ -11,23 +11,21 @@
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(0, 1fr);
+
+  > * {
+    min-width: 0;
+  }
+
+  > .zone--bordered:not(:first-child) {
+    border-left: var(--border-separator);
+  }
 }
 
-.zone--split > .zone--panel {
-  min-width: 0;
-}
-
-.zone--split > .zone--panel + .zone--panel,
-.zone--split > .zone + .zone--panel,
-.zone--split > .zone--panel + .zone {
-  border-left: var(--border-separator);
-}
-
-.zone--panel {
+.zone--padded {
   padding: var(--space-4);
   height: 100%;
 }
 
-.zone--panel.zone--panel--flush {
-  padding: 0;
+.zone--bordered {
+  height: 100%;
 }

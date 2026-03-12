@@ -18,7 +18,7 @@
 
 {%- block vue_wrapper_body -%}
     <template v-if="asyncComponentSleeping"></template>
-    <template v-else-if="asyncComponentLoading">
+    <template v-else-if="asyncComponentLoading || !asyncComponentLoaded">
         {{ block('entity_loading') }}
     </template>
     <template v-else-if="asyncComponentError">
