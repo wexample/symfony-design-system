@@ -48,7 +48,9 @@ class EntityExtension extends AbstractTemplateExtension
                 $format
             ),
             options: $options + [
-                'entity' => $entity
+                'entity' => $entity,
+                'entity_name' => str_replace('_', '-', $entity::getSnakeShortClassName()),
+                'entity_format' => $format,
             ]
         );
     }

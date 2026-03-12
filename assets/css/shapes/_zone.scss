@@ -10,7 +10,6 @@
 .zone--split {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(0, 1fr);
 
   > * {
     min-width: 0;
@@ -21,6 +20,10 @@
   }
 }
 
+.zone--split.zone--split--equal {
+  grid-auto-columns: minmax(0, 1fr);
+}
+
 .zone--padded {
   padding: var(--space-4);
   height: 100%;
@@ -28,4 +31,8 @@
 
 .zone--bordered {
   height: 100%;
+}
+
+.zone--narrow {
+  width: fit-content;
 }
