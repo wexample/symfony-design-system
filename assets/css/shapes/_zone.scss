@@ -8,11 +8,19 @@
 }
 
 .zone--split {
-  display: grid;
-  grid-auto-flow: column;
+  display: flex;
 
   > * {
     min-width: 0;
+  }
+
+  > .zone {
+    flex: 1 1 0;
+    width: auto;
+  }
+
+  > .zone--narrow {
+    flex: 0 0 auto;
   }
 
   > .zone--bordered:not(:first-child) {
@@ -21,7 +29,9 @@
 }
 
 .zone--split.zone--split--equal {
+  display: grid;
   grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
 }
 
 .zone--padded {
