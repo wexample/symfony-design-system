@@ -31,3 +31,7 @@
   @extend %stack-base;
   flex-direction: column;
 }
+
+.stack--no-gap {
+  gap: 0;
+}
