@@ -36,7 +36,12 @@
 
 .zone--padded {
   padding: var(--space-4);
-  height: 100%;
+}
+
+.zone--scrollable {
+  overflow-y: auto;
+  min-height: 0;
+  flex: 1;
 }
 
 .zone--bordered {

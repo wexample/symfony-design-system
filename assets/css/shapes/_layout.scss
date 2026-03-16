@@ -26,6 +26,12 @@
   overflow: auto;
 }
 
+.layout--body--no-scroll {
+  @extend .gutters--body;
+  display: flex;
+  flex-direction: column;
+}
+
 .layout--body--overlay-scope {
   position: relative;
 }

@@ -2,6 +2,8 @@
   display: flex;
   width: 100%;
   gap: var(--space-4);
+  min-height: 0;
+  min-width: 0;
 }
 
 .stack--horizontal {
