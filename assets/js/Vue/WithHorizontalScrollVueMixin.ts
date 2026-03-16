@@ -1,7 +1,7 @@
 export default {
   mounted() {
     this._onHorizontalScrollWheel = (event: WheelEvent) => {
-      if (event.deltaY !== 0 && event.deltaX === 0) {
+      if (event.ctrlKey && event.deltaY !== 0) {
         event.preventDefault();
         this.$el.scrollLeft += event.deltaY;
       }
