@@ -2,10 +2,10 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig;
 
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ButtonExtension extends AbstractTemplateExtension
 {
@@ -29,6 +29,7 @@ class ButtonExtension extends AbstractTemplateExtension
                 function (Environment $twig, $context, string $icon, string $label, array $options = []) {
                     $context = is_array($context) ? $context : [];
                     $renderPass = $context['render_pass'] ?? null;
+
                     return $this->componentsExtension->component(
                         $twig,
                         $renderPass,
@@ -54,6 +55,7 @@ class ButtonExtension extends AbstractTemplateExtension
                 ) {
                     $context = is_array($context) ? $context : [];
                     $renderPass = $context['render_pass'] ?? null;
+
                     return $this->componentsExtension->component(
                         $twig,
                         $renderPass,
@@ -80,6 +82,7 @@ class ButtonExtension extends AbstractTemplateExtension
                 ) {
                     $context = is_array($context) ? $context : [];
                     $renderPass = $context['render_pass'] ?? null;
+
                     return $this->componentsExtension->component(
                         $twig,
                         $renderPass,

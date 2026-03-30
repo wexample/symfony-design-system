@@ -136,6 +136,7 @@ class BreadcrumbExtension extends AbstractTemplateExtension
                     'route' => $item,
                     'params' => [],
                 ];
+
                 continue;
             }
 
