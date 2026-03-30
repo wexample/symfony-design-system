@@ -11,8 +11,7 @@ class EntityExtension extends AbstractTemplateExtension
 {
     public function __construct(
         private readonly ComponentsExtension $componentsExtension
-    )
-    {
+    ) {
     }
 
     public function getFunctions(): array
@@ -37,8 +36,7 @@ class EntityExtension extends AbstractTemplateExtension
         mixed $entity,
         string $format,
         array $options = []
-    ): string
-    {
+    ): string {
         return $this->componentsExtension->component(
             twig: $twig,
             renderPass: $renderPass,
