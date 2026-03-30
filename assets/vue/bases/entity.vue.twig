@@ -1,0 +1,35 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue-wrapper.vue.twig' -%}
+
+{%- block entity_state_default -%}
+    {% include '@WexampleSymfonyDesignSystemBundle/partials/spinner.html.twig' %}
+{%- endblock -%}
+
+{%- block entity_loading -%}
+    {%- block entity_loading_default -%}
+        {{ block('entity_state_default') }}
+    {%- endblock -%}
+{%- endblock -%}
+
+{%- block entity_empty -%}
+    {%- block entity_empty_default -%}
+        {{ block('entity_state_default') }}
+    {%- endblock -%}
+{%- endblock -%}
+
+{%- block vue_wrapper_body -%}
+    <template v-if="asyncComponentSleeping"></template>
+    <template v-else-if="asyncComponentLoading || !asyncComponentLoaded">
+        {{ block('entity_loading') }}
+    </template>
+    <template v-else-if="asyncComponentError">
+        {%- block entity_error -%}{%- endblock -%}
+    </template>
+    <template v-else-if="!entity">
+        {{ block('entity_empty') }}
+    </template>
+    <template v-else>
+        {%- block entity_ready -%}
+            {%- block entity_body -%}{%- endblock -%}
+        {%- endblock -%}
+    </template>
+{%- endblock -%}

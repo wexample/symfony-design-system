@@ -1,0 +1,8 @@
+@mixin bar-title-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-1);
+  flex: 1;
+  min-width: 0;
+}

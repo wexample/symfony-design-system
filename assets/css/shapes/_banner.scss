@@ -1,0 +1,82 @@
+@use '../semantic/feedback' as feedback_semantic;
+
+.banner {
+  @include feedback_semantic.feedback-base;
+  --banner-padding-y: var(--space-4);
+  --banner-padding-x: var(--space-4);
+  padding: var(--banner-padding-y) var(--banner-padding-x);
+  box-shadow: var(--shadow-2);
+  text-align: center;
+  color: var(--color-absolute-dark);
+  background: var(--feedback-bg);
+  overflow: hidden;
+}
+
+.banner--floating {
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9998;
+}
+
+.banner.is-opening {
+  animation: ds-banner-open 180ms ease-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+.banner.is-closing {
+  animation: ds-banner-close 180ms ease-in;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+.banner--info {
+  @include feedback_semantic.feedback-info;
+  --feedback-bg: var(--color-info-17);
+}
+
+.banner--success {
+  @include feedback_semantic.feedback-success;
+  --feedback-bg: var(--color-success-17);
+}
+
+.banner--warning {
+  @include feedback_semantic.feedback-warning;
+  --feedback-bg: var(--color-warning-17);
+}
+
+.banner--error {
+  @include feedback_semantic.feedback-error;
+  --feedback-bg: var(--color-error-17);
+}
+
+@keyframes ds-banner-open {
+  from {
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+  }
+  to {
+    padding-top: var(--banner-padding-y);
+    padding-bottom: var(--banner-padding-y);
+    opacity: 1;
+  }
+}
+
+@keyframes ds-banner-close {
+  from {
+    padding-top: var(--banner-padding-y);
+    padding-bottom: var(--banner-padding-y);
+    opacity: 1;
+  }
+  to {
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+  }
+}

@@ -1,0 +1,9 @@
+<div class="overlay" hidden="hidden">
+    <div class="component-overlay"></div>
+    <div class="overlay-content">
+        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/spinner', {
+            align: 'center',
+            label: '@page::label.loading' | trans
+        }) }}
+    </div>
+</div>

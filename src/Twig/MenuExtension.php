@@ -21,18 +21,14 @@ class MenuExtension extends AbstractTemplateExtension
                 'menu_item',
                 function (
                     Environment $twig,
-                    string $icon,
-                    string $label,
                     string $route,
                     array $routeParams = [],
-                    array $options = []
+                    array $options = [],
                 ) {
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/menu-item.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/partials/menu-item.html.twig',
                         [
-                            'icon' => $icon,
-                            'label' => $label,
                             'route' => $route,
                             'route_params' => $routeParams,
                             'href' => $twig->getFunction('path')->getCallable()($route, $routeParams),
@@ -47,7 +43,7 @@ class MenuExtension extends AbstractTemplateExtension
                 function (Environment $twig, string $label, array $options = []) {
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/menu-separator.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/partials/menu-separator.html.twig',
                         [
                             'label' => $label,
                             'options' => $options,
@@ -61,7 +57,7 @@ class MenuExtension extends AbstractTemplateExtension
                 function (Environment $twig, string $icon, string $label, string $href, array $options = []) {
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/menu-item.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/partials/menu-item-link.html.twig',
                         [
                             'icon' => $icon,
                             'label' => $label,

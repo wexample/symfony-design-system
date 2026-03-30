@@ -1,0 +1,25 @@
+/* Component: form/emoji_picker */
+
+.form--emoji-picker-control {
+  position: relative;
+  display: inline-block;
+}
+
+.form--input-emoji-picker {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.form--emoji-picker-toggle {
+  line-height: 1;
+  font-size: var(--font-size-5);
+}
+
+.form--emoji-picker-panel {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  left: 0;
+  z-index: 50;
+}

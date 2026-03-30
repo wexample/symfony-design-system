@@ -1,3 +1,23 @@
+@use 'sass:math';
+
+$color-scheme-level-count: 32 !default;
+
+@function color-scheme-level-step($count) {
+  $slice: math.div(1, $count);
+  @return math.div(1 - $slice, $count);
+}
+
+@function color-scheme-levels($count) {
+  $step: color-scheme-level-step($count);
+  $levels: ();
+
+  @for $i from 1 through $count {
+    $levels: append($levels, $i * $step, comma);
+  }
+
+  @return $levels;
+}
+
 @mixin color-scheme(
   $background,
   $foreground,
@@ -7,14 +27,29 @@
   $error,
   $assist: $info
 ) {
+  $levels: color-scheme-levels($color-scheme-level-count);
+
   --color-default-background: #{$background};
   --color-default-background-invert: #{$foreground};
   --color-default-text: #{$foreground};
   --color-default-text-invert: #{$background};
-  --color-link: var(--color-invert-7);
-  --color-link-hover: var(--color-invert-8);
+  --color-absolute-dark: #000;
+  --color-absolute-light: #fff;
 
-  @include color-scheme-invert-levels($foreground);
+  @for $i from 1 through length($levels) {
+    $level: nth($levels, $i);
+    --color-absolute-dark-transparent-#{$i}: #{rgba(#000, $level)};
+    --color-absolute-light-transparent-#{$i}: #{rgba(#fff, $level)};
+  }
+
+  --color-link: var(--color-invert-14);
+  --color-link-hover: var(--color-invert-16);
+  --color-activity-default: var(--color-default-16);
+  --color-activity-input: var(--color-success-16);
+  --color-activity-output: var(--color-info-16);
+
+  @include color-scheme-invert-levels($foreground, $background);
+  @include color-scheme-default-levels($background, $foreground);
   @include color-scheme-semantic-levels(info, $info, $background, $foreground);
   @include color-scheme-semantic-levels(assist, $assist, $background, $foreground);
   @include color-scheme-semantic-levels(success, $success, $background, $foreground);
@@ -22,29 +57,39 @@
   @include color-scheme-semantic-levels(error, $error, $background, $foreground);
 }
 
-@mixin color-scheme-invert-levels($foreground) {
-  $levels: (0.04, 0.08, 0.12, 0.16, 0.24, 0.32, 0.48, 0.64);
+@mixin color-scheme-invert-levels($foreground, $background) {
+  $levels: color-scheme-levels($color-scheme-level-count);
 
   @for $i from 1 through length($levels) {
-    $alpha: nth($levels, $i);
-    --color-invert-#{$i}: #{rgba($foreground, $alpha)};
+    $level: nth($levels, $i);
+    --color-invert-#{$i}: #{mix($foreground, $background, $level * 100)};
+    --color-invert-transparent-#{$i}: #{rgba($foreground, $level)};
+  }
+}
+
+@mixin color-scheme-default-levels($background, $foreground) {
+  $levels: color-scheme-levels($color-scheme-level-count);
+
+  @for $i from 1 through length($levels) {
+    $level: nth($levels, $i);
+    --color-default-#{$i}: #{mix($background, $foreground, $level * 100)};
+    --color-default-transparent-#{$i}: #{rgba($background, $level)};
   }
 }
 
 @mixin color-scheme-semantic-levels($name, $color, $background, $foreground) {
-  $low-weights: (15, 30, 45, 60);
-  $high-weights: (70, 80, 90, 95);
+  $levels: color-scheme-levels($color-scheme-level-count);
+  $middle-index: math.floor(math.div($color-scheme-level-count, 2)) + 1;
 
-  @for $i from 1 through 4 {
-    $weight: nth($low-weights, $i);
-    --color-#{$name}-#{$i}: #{mix($color, $background, $weight)};
-  }
-
-  --color-#{$name}-5: #{$color};
-
-  @for $i from 1 through 4 {
-    $level: $i + 5;
-    $weight: nth($high-weights, $i);
-    --color-#{$name}-#{$level}: #{mix($color, $foreground, $weight)};
+  @for $i from 1 through $color-scheme-level-count {
+    @if $i < $middle-index {
+      $weight: nth($levels, $i) * 100;
+      --color-#{$name}-#{$i}: #{mix($color, $background, $weight)};
+    } @else if $i == $middle-index {
+      --color-#{$name}-#{$i}: #{$color};
+    } @else {
+      $weight: nth($levels, $i) * 100;
+      --color-#{$name}-#{$i}: #{mix($color, $foreground, $weight)};
+    }
   }
 }

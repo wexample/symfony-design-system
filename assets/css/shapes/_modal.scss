@@ -1,0 +1,113 @@
+@use '../mixins/size' as size;
+@use '../mixins/animation' as animation;
+
+.modal {
+  @include size.size-full-viewport;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.is-scoped-main {
+  position: absolute;
+  inset: 0;
+}
+
+.modal.is-instant .modal--content {
+  animation: none !important;
+  transition: none !important;
+}
+
+.modal.is-instant .modal--content.is-opening,
+.modal.is-instant .modal--content.is-closing {
+  animation: none !important;
+}
+
+.modal.is-open {
+  display: flex;
+}
+
+.modal--content {
+  position: relative;
+  z-index: 1;
+  width: min(92vw, var(--size-8));
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: var(--shadow-2);
+}
+
+.modal--content.is-opening {
+  @include animation.enter(2);
+}
+
+.modal--content.is-closing {
+  @include animation.exit(2);
+}
+
+.layout-modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 90vh;
+  background: var(--color-invert-1);
+  border-radius: var(--radius-1);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--border-separator);
+}
+
+.modal-loading {
+  height: 3px;
+  background: var(--color-invert-2);
+}
+
+.modal-loading-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--color-info-5);
+  opacity: 0;
+  transition: width 180ms ease, opacity 220ms ease;
+}
+
+.modal.is-loading .modal-loading-bar {
+  width: 10%;
+  opacity: 1;
+}
+
+.modal.is-loaded .modal-loading-bar {
+  width: 100%;
+  opacity: 0;
+  transition-delay: 0ms, 160ms;
+}
+
+.modal-header .header-title {
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: var(--font-size-3);
+  font-weight: 600;
+  color: var(--color-default-text);
+}
+
+.modal-close a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  color: var(--color-default-text-soft);
+  text-decoration: none;
+}
+
+.modal-body {
+  padding: var(--space-4);
+  background: var(--color-default-background);
+  overflow: auto;
+  border-radius: 0 0 var(--radius-1) var(--radius-1);
+}

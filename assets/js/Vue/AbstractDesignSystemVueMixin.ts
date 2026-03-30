@@ -1,51 +1,31 @@
+const appReadyPromiseByInstance = new WeakMap<object, Promise<void>>();
+
 const AbstractDesignSystemVueMixin = {
-  props: {
-    app: Object,
-  },
-
-  data() {
-    return {
-      appReadyPromise: undefined as Promise<void> | undefined,
-    };
-  },
-
-  beforeCreate() {
-    const options = this.$options as {
-      mounted?: Array<() => unknown> | (() => unknown);
-      _appReadyWrapped?: boolean;
-    };
-
-    if (options._appReadyWrapped) {
-      return;
-    }
-
-    const originalMounted = options.mounted
-      ? Array.isArray(options.mounted)
-        ? options.mounted
-        : [options.mounted]
-      : [];
-
-    options.mounted = [
-      async () => {
-        await this.waitForAppReady();
-        for (const hook of originalMounted) {
-          await hook.call(this);
-        }
-      },
-    ];
-
-    options._appReadyWrapped = true;
-  },
-
   methods: {
+    asyncComponentPromisesLoad() {
+      return [
+        this.waitForAppReady(),
+      ];
+    },
+
     waitForAppReady(): Promise<void> {
-      if (!this.appReadyPromise) {
-        this.appReadyPromise = new Promise<void>((resolve) => {
-          this.app.ready(() => resolve());
-        });
+      const instance = this as object;
+      const cached = appReadyPromiseByInstance.get(instance);
+      if (cached) {
+        return cached;
       }
 
-      return this.appReadyPromise;
+      const promise = new Promise<void>((resolve) => {
+        this.app.ready(() => resolve());
+      });
+
+      appReadyPromiseByInstance.set(instance, promise);
+      return promise;
+    },
+
+    async runWhenAppReady(callback: () => unknown | Promise<unknown>) {
+      await this.waitForAppReady();
+      return callback.call(this);
     },
   },
 };

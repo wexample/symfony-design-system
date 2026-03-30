@@ -2,6 +2,8 @@
   display: flex;
   width: 100%;
   gap: var(--space-4);
+  min-height: 0;
+  min-width: 0;
 }
 
 .stack--horizontal {
@@ -12,9 +14,24 @@
 
 .stack--horizontal > * {
   flex: 1 1 0;
+  min-width: 0;
+}
+
+.stack--split {
+  @extend %stack-base;
+  flex-direction: row;
+  align-items: center;
+}
+
+.stack--split > :first-child {
+  flex: 1 1 auto;
 }
 
 .stack--vertical {
   @extend %stack-base;
   flex-direction: column;
+}
+
+.stack--no-gap {
+  gap: 0;
 }

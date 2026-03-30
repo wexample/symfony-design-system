@@ -1,0 +1,6 @@
+search:
+  placeholder: Filter the list...
+filter:
+  label: Filter
+empty:
+  label: ~ Empty ~

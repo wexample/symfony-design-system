@@ -1,0 +1,69 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
+
+{%- block form_state_default -%}
+    {% include '@WexampleSymfonyDesignSystemBundle/partials/spinner.html.twig' %}
+{%- endblock -%}
+
+{%- block form_loading -%}
+    {%- block form_loading_default -%}
+        {{ block('form_state_default') }}
+    {%- endblock -%}
+{%- endblock -%}
+
+{%- block form_errors -%}
+    {%- block form_errors_default -%}
+        {%- set form_errors_translation_prefix = form_errors_translation_prefix|default('') -%}
+        {%- if form_errors_translation_prefix is empty and translationDomain is defined and translationDomain is not empty -%}
+            {%- set form_errors_translation_prefix = translationDomain ~ '::error.' -%}
+        {%- endif -%}
+        <div class="form--errors" v-if="formErrors && formErrors.length">
+            <ul>
+                <li v-for="(error, index) in formErrors" :key="index">
+                    {%- if form_errors_translation_prefix is not empty -%}
+                        [[ trans('{{ form_errors_translation_prefix }}' + error) ]]
+                    {%- else -%}
+                        [[ error ]]
+                    {%- endif -%}
+                </li>
+            </ul>
+        </div>
+    {%- endblock -%}
+{%- endblock -%}
+
+{%- block form_field_errors -%}
+    {%- if form_field_error_path is defined and form_field_error_path is not empty -%}
+        {%- set form_field_error_translation_prefix = form_field_error_translation_prefix|default('') -%}
+        {%- if form_field_error_translation_prefix is empty and translationDomain is defined and translationDomain is not empty -%}
+            {%- set form_field_error_translation_prefix = translationDomain ~ '::error.' -%}
+        {%- endif -%}
+        <div class="form--field-errors" v-if="fieldErrors['{{ form_field_error_path }}'] && fieldErrors['{{ form_field_error_path }}'].length">
+            <ul>
+                <li v-for="(error, index) in fieldErrors['{{ form_field_error_path }}']" :key="index">
+                    {%- if form_field_error_translation_prefix is not empty -%}
+                        [[ trans('{{ form_field_error_translation_prefix }}' + error) ]]
+                    {%- else -%}
+                        [[ error ]]
+                    {%- endif -%}
+                </li>
+            </ul>
+        </div>
+    {%- endif -%}
+{%- endblock -%}
+
+{%- block form_ready -%}
+    <form class="form flow" @submit.prevent="onSubmit">
+        {%- block form_body -%}{%- endblock -%}
+    </form>
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <div class="form">
+        <template v-if="formIsSubmitting">
+            {{ block('form_loading') }}
+        </template>
+        <template v-else>
+            {{ block('form_errors') }}
+            {{ block('form_ready') }}
+        </template>
+    </div>
+{%- endblock -%}

@@ -1,0 +1,28 @@
+@use '../../../css/primitives/feedback' as feedback;
+@use '../../../css/semantic/feedback' as feedback_semantic;
+
+.form--errors {
+  @include feedback.feedback-surface;
+  @include feedback_semantic.feedback-error;
+  padding: var(--space-3);
+}
+
+.form--field-errors {
+  @include feedback_semantic.feedback-error;
+  font-size: var(--font-size-2);
+  color: var(--feedback-color);
+}
+
+.form--field-errors li {
+  color: var(--feedback-color);
+}
+
+.form--field-errors ul {
+  margin: 0;
+  padding-left: var(--space-4);
+}
+
+.form--errors ul {
+  margin: 0;
+  padding-left: var(--space-4);
+}

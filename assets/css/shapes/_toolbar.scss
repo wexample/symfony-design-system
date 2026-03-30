@@ -9,6 +9,11 @@
   justify-content: space-between;
   gap: var(--space-3);
   font-size: var(--toolbar-font-size);
+  background: var(--color-invert-1);
+}
+
+.toolbar--transparent {
+  background: transparent;
 }
 
 .toolbar--group {
@@ -18,25 +23,7 @@
 }
 
 .toolbar--link {
-  margin-inline: var(--space-2);
-}
-
-.toolbar--surface {
-  background: var(--color-invert-1);
-}
-
-.toolbar--surface.toolbar--top {
-  border-bottom: var(--border-separator);
-}
-
-.toolbar--surface.toolbar--bottom {
-  border-top: var(--border-separator);
-}
-
-.toolbar--surface.toolbar--left {
-  border-right: var(--border-separator);
-}
-
-.toolbar--surface.toolbar--right {
-  border-left: var(--border-separator);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
 }

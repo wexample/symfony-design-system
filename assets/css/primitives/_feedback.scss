@@ -1,0 +1,38 @@
+@use '../semantic/feedback' as feedback_semantic;
+
+@mixin feedback-surface {
+  @include feedback_semantic.feedback-base;
+  --feedback-border-width: 0.1875rem;
+  --feedback-radius: 1rem;
+  --feedback-shadow-x: 0;
+  --feedback-shadow-y: 0.4375rem;
+  --feedback-shadow-blur: 0;
+  --feedback-shadow-spread: 0;
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: var(--feedback-border-width) solid var(--feedback-border-color);
+  border-radius: var(--feedback-radius);
+  background: var(--feedback-bg);
+  color: var(--color-default-text);
+  box-shadow:
+    var(--feedback-shadow-x)
+    var(--feedback-shadow-y)
+    var(--feedback-shadow-blur)
+    var(--feedback-shadow-spread)
+    var(--feedback-border-color);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+
+  > * {
+    min-width: 0;
+  }
+}
+
+@mixin feedback-title {
+  font-size: var(--font-size-3);
+  font-weight: 600;
+  color: var(--feedback-color);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}

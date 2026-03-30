@@ -15,7 +15,7 @@ class FormExtension extends AbstractTemplateExtension
                 function (Environment $twig, string $icon, string $label, array $options = []) {
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/button.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/partials/button.html.twig',
                         [
                             'icon' => $icon,
                             'label' => $label,

@@ -1,6 +1,14 @@
 @mixin border-vars {
+  --border-placeholder: 1px dashed var(--color-invert-5);
+  --border-discreet: 1px solid var(--color-invert-3);
   --border-default: 1px solid var(--color-invert-3);
-  --border-focus: 2px solid var(--color-invert-5);
+  --border-focus: 2px solid var(--color-invert-6);
   --border-focus-width: 4px;
   --border-separator: 1px solid var(--color-default-background);
+  --border-focus-floating-color: #ff4fa3;
+  --border-focus-floating-offset: 2px;
+}
+
+@mixin border-focus-floating($animated: false) {
+  position: relative;
 }

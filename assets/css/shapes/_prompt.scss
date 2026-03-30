@@ -1,0 +1,25 @@
+@use '../primitives/feedback' as feedback;
+
+.prompt {
+  @include feedback.feedback-surface;
+  position: relative;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.prompt--title {
+  @include feedback.feedback-title;
+  color: var(--color-default-text);
+}
+
+.prompt--message {
+  color: var(--color-default-text);
+}
+
+.prompt--actions {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+}

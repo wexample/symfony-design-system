@@ -1,0 +1,22 @@
+{% set separator_icon = options.separator_icon|default('ph:bold/caret-right') %}
+
+<nav class="breadcrumb">
+    {% for item in items %}
+        {% set is_current = item.current|default(false) or loop.last %}
+        {% set label = item.label|default((translation_build_domain_from_template_path(page_translation_path_from_route(item.route)) ~ '::page_title') | trans) %}
+
+        {% if not is_current and item.route is defined %}
+            <a class="breadcrumb--item" href="{{ path(item.route, item.params|default({})) }}">
+                <span class="breadcrumb--label">{{ label }}</span>
+            </a>
+        {% else %}
+            <span class="breadcrumb--item breadcrumb--item--current">
+                <span class="breadcrumb--label">{{ label }}</span>
+            </span>
+        {% endif %}
+
+        {% if not loop.last %}
+            <span class="breadcrumb--separator">{{ icon(separator_icon) }}</span>
+        {% endif %}
+    {% endfor %}
+</nav>

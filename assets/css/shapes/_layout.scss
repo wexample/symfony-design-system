@@ -1,4 +1,6 @@
 @use '../../css/shapes/gutters';
+@use '../../css/shapes/container';
+@use '../../css/shapes/content';
 
 .layout {
   @extend .gutters;
@@ -12,6 +14,7 @@
 .layout--vertical {
   @extend .gutters--vertical;
   width: 100%;
+  min-height: 100%;
 }
 
 .layout--body,
@@ -23,3 +26,49 @@
   overflow: auto;
 }
 
+.layout--body--no-scroll {
+  @extend .gutters--body;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout--body--overlay-scope {
+  position: relative;
+}
+
+.layout--body--container {
+  @extend .container;
+  @extend .content;
+}
+
+.layout--body--wide {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  & > * {
+    flex: 1;
+    min-height: 0;
+  }
+}
+
+%layout--center-base {
+  width: 100%;
+  min-height: 100%;
+  display: grid;
+}
+
+.layout--center {
+  @extend %layout--center-base;
+  place-items: center;
+}
+
+.layout--center--vertical {
+  @extend %layout--center-base;
+  align-items: center;
+}
+
+.layout--center--horizontal {
+  @extend %layout--center-base;
+  justify-items: center;
+}

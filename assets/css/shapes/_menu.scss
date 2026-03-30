@@ -1,19 +1,77 @@
 @use '../../css/mixins/border' as border;
 @use '../../css/mixins/text' as text;
+@use '../../css/shapes/bar';
 
 .menu {
   --menu-width: var(--size-6);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100%;
   width: var(--menu-width);
-  background: var(--color-invert-1);
+  background: var(--color-invert-2);
+}
+
+.menu--closed {
+  display: none;
+}
+
+.menu--bar {
+  display: flex;
+  align-items: center;
+  color: var(--color-default-text);
+  border-bottom: var(--border-separator);
 }
 
 .menu--vertical {
+  height: 100%;
+}
+
+.menu--large {
+  --menu-width: calc(var(--size-6) + var(--size-4));
+}
+
+.menu--footer {
+  margin-top: auto;
+  border-top: var(--border-separator);
+  border-bottom: 0;
+}
+
+.menu--bar--content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--space-4);
+  gap: var(--space-4);
+}
+
+.menu--bar--content--spaced {
+  justify-content: space-between;
+}
+
+.menu--bar--icon {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2);
+}
+
+.menu--bar--title-block {
+  @extend .bar--title-block;
+}
+
+.menu--body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+.menu--items {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  height: 100%;
+  width: 100%;
 
   li a {
+    width: 100%;
     display: flex;
     align-items: center;
     gap: var(--space-2);

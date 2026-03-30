@@ -1,0 +1,19 @@
+.lead {
+  color: var(--color-invert-16);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-1);
+  font-style: italic;
+  line-height: var(--space-5);
+  border: 2px dashed var(--color-invert-4);
+}
+
+.lead ul,
+.lead ol {
+  margin: var(--space-2) 0 0;
+  padding-left: var(--space-4);
+  list-style: initial;
+}
+
+.lead li + li {
+  margin-top: var(--space-1);
+}

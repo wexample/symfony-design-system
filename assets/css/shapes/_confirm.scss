@@ -1,0 +1,30 @@
+@use '../mixins/animation' as animation;
+
+.confirm--toast {
+  pointer-events: auto;
+}
+
+.confirm--center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(20rem, 60vw, var(--size-7));
+  max-width: calc(100% - (var(--space-4) * 2));
+}
+
+.confirm--toast.is-opening {
+  @include animation.enter(1);
+}
+
+.confirm--toast.is-closing {
+  @include animation.exit(1);
+}
+
+.confirm--center.is-opening {
+  @include animation.enter-centered(2);
+}
+
+.confirm--center.is-closing {
+  @include animation.exit-centered(2);
+}

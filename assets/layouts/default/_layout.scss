@@ -4,6 +4,12 @@
 // Base shapes.
 @use '../../css/shapes/layout-reset-modern';
 @use '../../css/shapes/page';
+@use '../../css/shapes/overlay';
+
+// Common styles.
+@use '../../css/partials/scrollbar';
+@use '../../css/partials/text';
+@use '../../css/partials/animation';
 
 // Base mixins.
 @use '../../css/mixins/radius' as radius;

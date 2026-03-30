@@ -1,0 +1,33 @@
+field:
+  text_simple:
+    label: Text
+    error:
+      ERR_FIELD_TEXT_SIMPLE_INVALID: Text is invalid for test purpose.
+  text_area:
+    label: Long text
+    placeholder: Type whatever you want...
+    error:
+      ERR_FIELD_TEXT_AREA_INVALID: Long text is invalid for test purpose.
+  behavior:
+    label: Behavior
+    error:
+      ERR_FIELD_BEHAVIOR_INVALID: Behavior selection is invalid for test purpose.
+    choice:
+      error:
+        label: Show errors
+      js:
+        label: JS action (toast)
+      redirect:
+        label: Redirect
+      default:
+        label: Default
+
+form:
+  error:
+    ERR_FORM_TEST: Global error for test purpose.
+
+action:
+  submit: Submit
+
+description: |
+  Use this form to test submit behaviors. This demo is in a Vue component.

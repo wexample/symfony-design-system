@@ -1,0 +1,16 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/form-field.vue.twig' -%}
+
+{%- block field_control -%}
+    <input
+            class="form--input"
+            :type="type"
+            :name="name || null"
+            :id="resolvedId"
+            :value="modelValue"
+            :placeholder="placeholder || null"
+            :required="required ? true : null"
+            :disabled="disabled ? true : null"
+            :autocomplete="autocomplete || null"
+            @input="onInput"
+    >
+{%- endblock -%}

@@ -1,0 +1,14 @@
+.page-overlay-full {
+  position: fixed;
+  inset: 0;
+  background: var(--color-invert-transparent-2);
+  z-index: 1000;
+}
+
+.page-overlay-full--scoped {
+  position: absolute;
+}
+
+.page-overlay-full[hidden] {
+  display: none;
+}

@@ -1,0 +1,98 @@
+@keyframes spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner--wrapper {
+  display: flex;
+}
+
+.spinner--align-horizontal {
+  justify-content: center;
+  width: 100%;
+}
+
+.spinner--align-center {
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: var(--spinner-size);
+}
+
+.spinner--align-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-height: 0;
+  vertical-align: bottom;
+  line-height: 0;
+  flex: 0 0 auto;
+}
+
+.spinner {
+  --spinner-size: 1.5rem;
+  --spinner-stroke: 2px;
+  --spinner-trail-color: var(--color-invert-6);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spinner-size);
+  height: var(--spinner-size);
+  flex: 0 0 var(--spinner-size);
+  color: var(--color-default-text);
+}
+
+.spinner--circle {
+  display: block;
+  width: var(--spinner-size);
+  height: var(--spinner-size);
+  box-sizing: border-box;
+}
+
+.spinner--circle-trail {
+  stroke: currentColor;
+  stroke-width: calc(var(--spinner-stroke) - 1px);
+  stroke-linecap: round;
+  stroke-dasharray: 10 128;
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: spinner-rotate 2s linear infinite;
+}
+
+.spinner--circle-path {
+  stroke: currentColor;
+  stroke-width: var(--spinner-stroke);
+  stroke-linecap: round;
+  stroke-dasharray: 80 60;
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: spinner-rotate 3s linear infinite;
+}
+
+.spinner--align-inline .spinner {
+  --spinner-size: 1rem;
+  --spinner-stroke: 4px;
+}
+
+.spinner--sm {
+  --spinner-size: 1.4rem;
+  --spinner-stroke: 4px;
+}
+
+.spinner--md {
+  --spinner-size: 2.2rem;
+  --spinner-stroke: 4px;
+}
+
+.spinner--lg {
+  --spinner-size: 3.2rem;
+  --spinner-stroke: 6px;
+}
+
+.spinner--invert {
+  color: var(--color-default-text-invert);
+}

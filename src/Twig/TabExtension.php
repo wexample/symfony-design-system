@@ -17,11 +17,16 @@ class TabExtension extends AbstractTemplateExtension
                     string $label,
                     string $route,
                     array $routeParams = [],
-                    array $options = []
+                    array $options = [],
+                    ?string $icon = null
                 ) {
+                    if (null !== $icon) {
+                        $options['icon'] = $icon;
+                    }
+
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/tab-item.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/partials/tab-item.html.twig',
                         [
                             'label' => $label,
                             'route' => $route,
@@ -35,10 +40,14 @@ class TabExtension extends AbstractTemplateExtension
             ),
             new TwigFunction(
                 'tab_item_link',
-                function (Environment $twig, string $label, string $href, array $options = []) {
+                function (Environment $twig, string $label, string $href, array $options = [], ?string $icon = null) {
+                    if (null !== $icon) {
+                        $options['icon'] = $icon;
+                    }
+
                     return $this->renderTemplate(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/components/tab-item.html.twig',
+                        '@WexampleSymfonyDesignSystemBundle/partials/tab-item.html.twig',
                         [
                             'label' => $label,
                             'href' => $href,

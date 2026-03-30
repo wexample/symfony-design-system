@@ -1,0 +1,20 @@
+{% if options.active is defined %}
+    {% set active_class = options.active ? 'active' : '' %}
+{% else %}
+    {% set active_class = route is defined and route ? route_is_current_or_related(route, route_params|default({}), 'active') : '' %}
+{% endif %}
+{% set new_window = options.new_window|default(false) %}
+{% set attr = options.attr|default({}) %}
+{% if new_window %}
+    {% set attr = attr|merge({'target': '_blank', 'rel': 'noopener noreferrer'}) %}
+{% endif %}
+<li>
+    <a class="{{ options.class|default('') }} {{ active_class }}"
+       href="{{ href }}"
+       {{ component_render_tag_attributes(attr) }}>
+        <span class="menu--item--icon">
+            {{ icon((translation_build_domain_from_template_path(page_translation_path_from_route(route)) ~ '::page_icon') | trans) }}
+        </span>
+        <span class="menu--item--label">{{ (translation_build_domain_from_template_path(page_translation_path_from_route(route)) ~ '::page_title') | trans }}</span>
+    </a>
+</li>

@@ -1,25 +1,26 @@
-@use '../../css/mixins/message' as message;
+@use '../primitives/feedback' as feedback;
+@use '../semantic/feedback' as feedback_semantic;
 
 .message {
-  @include message.message-base;
+  @include feedback.feedback-surface;
 }
 
 .message--title {
-  @include message.message-title;
+  @include feedback.feedback-title;
 }
 
 .message--info {
-  @include message.message-info;
+  @include feedback_semantic.feedback-info;
 }
 
 .message--success {
-  @include message.message-success;
+  @include feedback_semantic.feedback-success;
 }
 
 .message--warning {
-  @include message.message-warning;
+  @include feedback_semantic.feedback-warning;
 }
 
 .message--error {
-  @include message.message-error;
+  @include feedback_semantic.feedback-error;
 }

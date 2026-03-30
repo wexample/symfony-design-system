@@ -1,0 +1,80 @@
+.rail {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--space-2);
+}
+
+.rail--track {
+  min-height: 0;
+  min-width: 0;
+  flex: 1;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.rail--track.rail--track--centered {
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rail--item {
+  position: relative;
+  min-width: 0;
+}
+
+.rail.rail--horizontal {
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  .rail--track {
+    width: max-content;
+    min-width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
+
+  .rail--track.rail--track--centered {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rail--item {
+    flex: 0 0 auto;
+  }
+
+  .rail--item--shrink {
+    flex: 0 0 auto;
+  }
+}
+
+.rail.rail--vertical {
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .rail--track {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.rail--spaced {
+  > .rail--track {
+    gap: var(--space-2);
+
+    > .rail--item {
+      margin: 0;
+    }
+  }
+}

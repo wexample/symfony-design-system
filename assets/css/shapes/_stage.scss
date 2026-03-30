@@ -1,21 +1,25 @@
 @use '../../css/mixins/size' as size;
 
 .stage {
+  position: absolute;
+  inset: 0;
   display: block;
+  border-radius: var(--radius-1);
+  border: var(--border-discreet);
   @include size.size-expanded;
+  --stage-dot-size: 1px;
+  --stage-dot-gap: 20px;
+  --stage-dot-color: var(--color-invert-6);
+  background: var(--color-default-background);
+  background-image: radial-gradient(
+                  circle,
+                  var(--stage-dot-color) 0 var(--stage-dot-size),
+                  transparent calc(var(--stage-dot-size) + 0.5px)
+  );
+  background-size: var(--stage-dot-gap) var(--stage-dot-gap);
+  background-position: center;
 }
 
-.stage--center {
-  display: grid;
-  place-items: center;
-}
-
-.stage--center--vertical {
-  display: grid;
-  align-items: center;
-}
-
-.stage--center--horizontal {
-  display: grid;
-  justify-items: center;
+.stage--root {
+  position: relative;
 }

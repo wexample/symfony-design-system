@@ -1,9 +1,12 @@
 @use '../../css/mixins/gutters' as gutters;
 @use '../../css/mixins/flex' as flex;
+@use '../../css/shapes/bar';
 
 .header {
   @include gutters.gutters-horizontal;
   height: var(--size-3);
+  background: var(--color-invert-2);
+  border-bottom: var(--border-separator);
 
   .header--body {
     @include gutters.gutters-body;
@@ -18,10 +21,7 @@
   }
 
   .header--title-block {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: var(--space-1);
+    @extend .bar--title-block;
     padding: var(--space-4);
   }
 
@@ -32,6 +32,7 @@
 
   .header--subtitle {
     font-size: var(--font-size-2);
+    color: var(--color-invert-6);
 
     &:hover {
       color: var(--color-invert-8);
@@ -40,13 +41,19 @@
 
   .header--menu {
     display: flex;
-    align-items: center;
+    align-items: stretch;
+    height: 100%;
 
     .header--menu-item {
       display: inline-flex;
       align-items: center;
+      height: 100%;
       padding: var(--space-1);
       color: var(--color-default-text);
+    }
+
+    .header--menu-item[hidden] {
+      display: none;
     }
 
     .header--menu-item--icon {
@@ -56,5 +63,9 @@
     .header--menu-item--icon:last-child {
       margin-right: var(--space-2);
     }
+  }
+
+  .header--menu.is-visible + .header--body .header--title {
+    padding-left: 0;
   }
 }

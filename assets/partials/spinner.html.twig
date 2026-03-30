@@ -1,0 +1,18 @@
+{% set size = size|default(null) %}
+{% set variant = variant|default('default') %}
+{% set align = align|default('center') %}
+{% set extra_class = class|default('') %}
+{% set spinner_attr = attr|default({}) %}
+{% set aria_label = label|default(null) %}
+{% set size_class = size ?? (align == 'inline' ? null : 'md') %}
+
+<div class="spinner--wrapper spinner--align-{{ align }}{% if extra_class %} {{ extra_class }}{% endif %}">
+    <div class="spinner{% if size_class %} spinner--{{ size_class }}{% endif %}{% if variant and variant != 'default' %} spinner--{{ variant }}{% endif %}"
+         {% if aria_label %}role="status" aria-label="{{ aria_label }}"{% else %}aria-hidden="true"{% endif %}
+         {{ component_render_tag_attributes(spinner_attr) }}>
+        <svg class="spinner--circle" viewBox="0 0 50 50" aria-hidden="true" focusable="false">
+            <circle class="spinner--circle-trail" cx="25" cy="25" r="20" fill="none"></circle>
+            <circle class="spinner--circle-path" cx="25" cy="25" r="20" fill="none"></circle>
+        </svg>
+    </div>
+</div>

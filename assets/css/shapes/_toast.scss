@@ -1,0 +1,109 @@
+@use '../mixins/size' as size;
+@use '../mixins/animation' as animation;
+@use '../primitives/feedback' as feedback;
+
+.toast-stack {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: var(--size-6);
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.toast-stack--top {
+  top: 0;
+  bottom: auto;
+  flex-direction: column;
+}
+
+.toast-stack--bottom {
+  bottom: 0;
+  top: auto;
+  flex-direction: column-reverse;
+}
+
+.toast-stack--left {
+  left: 0;
+  right: auto;
+}
+
+.toast-stack--right {
+  right: 0;
+  left: auto;
+}
+
+.toast-stack--items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.toast {
+  @include feedback.feedback-surface;
+  position: relative;
+  --feedback-bg: var(--color-invert-1);
+}
+
+.toast.is-opening {
+  @include animation.enter(1);
+}
+
+.toast.is-closing {
+  @include animation.exit(1);
+}
+
+.toast--title {
+  @include feedback.feedback-title;
+}
+
+.toast--info {
+  --feedback-color: var(--color-info-16);
+  --feedback-border-color: var(--feedback-color);
+}
+
+.toast--success {
+  --feedback-color: var(--color-success-16);
+  --feedback-border-color: var(--feedback-color);
+}
+
+.toast--warning {
+  --feedback-color: var(--color-warning-16);
+  --feedback-border-color: var(--feedback-color);
+}
+
+.toast--error {
+  --feedback-color: var(--color-error-16);
+  --feedback-border-color: var(--feedback-color);
+}
+
+.toast--close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-6);
+  height: var(--space-6);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-default-text);
+  opacity: 0;
+  pointer-events: none;
+  cursor: pointer;
+}
+
+.toast:hover .toast--close {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.toast-stack--item {
+  pointer-events: auto;
+}

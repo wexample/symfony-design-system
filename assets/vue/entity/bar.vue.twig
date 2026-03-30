@@ -1,0 +1,13 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/entity.vue.twig' -%}
+
+{%- block entity_body -%}
+    {% if block('entity_display_bar_columns_leading')|trim is not empty %}
+        {% block entity_display_bar_columns_leading %}{% endblock %}
+    {% endif %}
+    <div class="entity--display--bar--body">
+        {% block entity_display_bar_body %}{% endblock %}
+    </div>
+    {% if block('entity_display_bar_columns_trailing')|trim is not empty %}
+        {% block entity_display_bar_columns_trailing %}{% endblock %}
+    {% endif %}
+{%- endblock -%}

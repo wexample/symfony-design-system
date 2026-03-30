@@ -1,0 +1,21 @@
+.grid {
+  --grid-min: 14rem;
+  --grid-max: 18rem;
+  --grid-gap: var(--space-4);
+  display: grid;
+  gap: var(--grid-gap);
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min), 1fr));
+}
+
+@for $i from 1 through 12 {
+  .grid-cols-#{$i} {
+    @extend .grid;
+    grid-template-columns: repeat($i, 1fr);
+  }
+}
+
+.grid--fixed {
+  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min), var(--grid-max)));
+  justify-content: start;
+}

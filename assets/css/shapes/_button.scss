@@ -1,3 +1,5 @@
+@use '../mixins/transition' as transition;
+
 .button {
   display: inline-flex;
   align-items: center;
@@ -5,11 +7,20 @@
   padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-1);
   border: 0;
-  background: var(--color-invert-1);
+  background: var(--color-invert-4);
   color: var(--color-default-text);
   font-size: var(--font-size-3);
   box-shadow: var(--shadow-1);
   cursor: pointer;
+  @include transition.smooth(2);
+}
+
+.button:disabled,
+.button.is-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+  pointer-events: none;
 }
 
 .button--invert {
@@ -21,4 +32,140 @@
   display: inline-flex;
   align-items: center;
   line-height: 1;
+}
+
+.button-menu {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.button--menu {
+  gap: var(--space-2);
+}
+
+.button-menu.is-open .button--menu {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.button-menu--invert .button--menu {
+  background: var(--color-default-background-invert);
+  color: var(--color-default-text-invert);
+}
+
+.button-menu--invert .button-menu--panel {
+  background: var(--color-default-background-invert);
+  color: var(--color-default-text-invert);
+}
+
+.button-menu--invert .button-menu--link {
+  color: var(--color-default-text-invert);
+}
+
+.button-menu--invert .button-menu--link:hover,
+.button-menu--invert .button-menu--link:focus-visible {
+  background: var(--color-invert-7);
+}
+
+.button-menu--label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.button-menu--caret {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: var(--space-2);
+  padding-left: var(--space-2);
+  border-left: var(--border-separator);
+}
+
+.button-menu--caret::before {
+  content: '';
+  width: 0.45em;
+  height: 0.45em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.button-menu.is-open .button-menu--caret::before {
+  transform: rotate(225deg);
+}
+
+.button-menu--panel {
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 0;
+  min-width: 100%;
+  width: max-content;
+  background: var(--color-invert-1);
+  box-shadow: var(--shadow-1);
+  border-radius: 0 0 var(--radius-1) var(--radius-1);
+  z-index: 10;
+}
+
+.button-menu--panel--top {
+  top: auto;
+  bottom: calc(100% - 1px);
+  border-radius: var(--radius-1) var(--radius-1) 0 0;
+}
+
+.button-menu--panel--right {
+  right: 0;
+  left: auto;
+}
+
+.button-menu--panel--left {
+  left: 0;
+  right: auto;
+}
+
+.button-menu--list {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-2) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.button-menu--item {
+  margin: 0;
+  padding: 0;
+}
+
+.button-menu--link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-default-text);
+  text-decoration: none;
+  width: 100%;
+}
+
+.button-menu--link:hover,
+.button-menu--link:focus-visible {
+  background: var(--color-invert-2);
+}
+
+.button-menu--list--items-right .button-menu--link {
+  justify-content: flex-start;
+  flex-direction: row-reverse;
+}
+
+.button-menu--item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.button-menu--item-label {
+  display: inline-flex;
+  align-items: center;
 }
