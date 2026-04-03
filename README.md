@@ -1,6 +1,6 @@
 # wexample/symfony-design-system
 
-Version: 1.0.81
+Version: 1.0.82
 
 Design system assets for Symfony
 
