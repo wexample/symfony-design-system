@@ -10,4 +10,5 @@ services:
         public: false
 
     Wexample\SymfonyDesignSystem\:
-        resource: '../../{Twig}'
+        resource: '../../{Controller,Twig}'
+        exclude: '../../Controller/**/Abstract*.php'
