@@ -9,6 +9,9 @@ services:
         autoconfigure: true
         public: false
 
-    Wexample\SymfonyDesignSystem\:
-        resource: '../../{Controller,Twig}'
+    Wexample\SymfonyDesignSystem\Controller\:
+        resource: '../../Controller/'
         exclude: '../../Controller/**/Abstract*.php'
+
+    Wexample\SymfonyDesignSystem\Twig\:
+        resource: '../../Twig/'
