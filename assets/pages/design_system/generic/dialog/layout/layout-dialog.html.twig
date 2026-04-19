@@ -1,0 +1,10 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/design_system/layout.html.twig' -%}
+
+{%- block page_header -%}
+    {{ parent() }}
+    <div class="tabs">
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.dialog.layout.layout-dialog::tab.index', 'wexample_design_system_generic_dialog_index') }}
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.dialog.layout.layout-dialog::tab.confirm', 'wexample_design_system_generic_dialog_confirm') }}
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.dialog.layout.layout-dialog::tab.overlays', 'wexample_design_system_generic_dialog_overlays') }}
+    </div>
+{%- endblock -%}

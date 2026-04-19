@@ -1,0 +1,17 @@
+@use './layout/layout-content';
+@use '@wexample/symfony-design-system/css/shapes/media';
+@use '@wexample/symfony-design-system/css/shapes/stack';
+@use '@wexample/symfony-design-system/css/shapes/block';
+@use '../../../../css/partials/palette' as palette;
+
+.media-demo--bg-primary {
+  background: palette.$colorPrimary;
+}
+
+.media-demo--bg-secondary {
+  background: palette.$colorSecondary;
+}
+
+.media-demo--bg-accent {
+  background: palette.$colorAccent;
+}

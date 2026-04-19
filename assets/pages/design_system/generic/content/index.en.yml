@@ -1,0 +1,24 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Content
+page_icon: ph:bold/textbox
+
+title:
+  h1:
+    title: This is the main page title
+    description: Short intro text under the main title.
+  h2:
+    title: This is the second level title
+    description: Brief supporting text for this section.
+  h3:
+    title: This is the third level title
+    description: Short description for this subsection.
+  h4:
+    title: This is the fourth level title
+    description: Quick note to clarify this block.
+  h5:
+    title: This is the fifth level title
+    description: Small helper text under the heading.
+  h6:
+    title: This is the sixth level title
+    description: Tiny caption-like description text.

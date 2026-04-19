@@ -1,0 +1,10 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Stacks
+page_icon: ph:bold/list
+
+item:
+  one: One
+  two: Two
+  three: Three
+  four: Four

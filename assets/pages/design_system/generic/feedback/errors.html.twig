@@ -1,0 +1,30 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/feedback/layout/layout-feedback.html.twig' -%}
+
+{%- block page_body -%}
+    <div class="container align-center content stack--vertical">
+        <div class="block block--padded stack--split">
+            <div class="lead">
+                {{ '@page::section.trigger.description' | trans }}
+            </div>
+            {{ button('ph:bold/warning-circle', '@page::section.trigger.button', {
+                class: 'error-trigger-button'
+            }) }}
+        </div>
+        <div class="block block--padded stack--split">
+            <div class="lead">
+                {{ '@page::section.frontend_throw.description' | trans }}
+            </div>
+            {{ button('ph:bold/bug', '@page::section.frontend_throw.button', {
+                class: 'frontend-throw-button'
+            }) }}
+        </div>
+        <div class="block block--padded stack--split">
+            <div class="lead">
+                {{ '@page::section.internet_probe.description' | trans }}
+            </div>
+            {{ button('ph:bold/globe', '@page::section.internet_probe.button', {
+                class: 'internet-probe-button'
+            }) }}
+        </div>
+    </div>
+{%- endblock -%}

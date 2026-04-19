@@ -1,0 +1,11 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Article
+page_icon: ph:bold/article
+
+article:
+  title: A simple article title
+  section_one:
+    title: First section title
+  section_two:
+    title: Second section title

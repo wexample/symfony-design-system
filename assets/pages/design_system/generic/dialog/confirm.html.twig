@@ -1,0 +1,110 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/dialog/layout/layout-dialog.html.twig' -%}
+
+{%- block page_body -%}
+    <div class="container align-center content stack--vertical">
+        <div class="block block--padded stack--split">
+            <div class="lead">
+                {{ '@page::section.short.description' | trans }}
+            </div>
+            {{ button('ph:bold/app-window', '@page::section.short.button' | trans, {
+                class: 'confirm-demo-button',
+                attr: {
+                    'data-confirm-message': '@page::section.short.message' | trans,
+                    'data-confirm-preset': 'yes_no',
+                    'data-result-title': '@page::section.short.result_title' | trans,
+                    'data-result-prefix': '@page::section.short.result_prefix' | trans
+                }
+            }) }}
+        </div>
+        <div class="block block--padded stack--split">
+            <div class="lead">
+                {{ '@page::section.toast_short.description' | trans }}
+            </div>
+            {{ button('ph:bold/app-window', '@page::section.toast_short.button' | trans, {
+                class: 'confirm-demo-toast-button',
+                attr: {
+                    'data-confirm-title': '@page::section.toast_short.title' | trans,
+                    'data-confirm-message': '@page::section.toast_short.message' | trans,
+                    'data-confirm-preset': 'ok_cancel',
+                    'data-result-title': '@page::section.toast_short.result_title' | trans,
+                    'data-result-prefix': '@page::section.toast_short.result_prefix' | trans
+                }
+            }) }}
+        </div>
+        <div class="block block--padded stack--split">
+            <div class="lead">
+                {{ '@page::section.medium.description' | trans }}
+            </div>
+            {{ button('ph:bold/app-window', '@page::section.medium.button' | trans, {
+                class: 'confirm-demo-medium-button',
+                attr: {
+                    'data-confirm-title': '@page::section.medium.title' | trans,
+                    'data-confirm-message': lorem_ipsum(120),
+                    'data-confirm-preset': 'yes_no',
+                    'data-result-title': '@page::section.short.result_title' | trans,
+                    'data-result-prefix': '@page::section.short.result_prefix' | trans
+                }
+            }) }}
+        </div>
+        <div class="block block--padded stack--split">
+            <div class="lead">
+                {{ '@page::section.long.description' | trans }}
+            </div>
+            {{ button('ph:bold/app-window', '@page::section.long.button' | trans, {
+                class: 'confirm-demo-long-button',
+                attr: {
+                    'data-confirm-title': '@page::section.long.title' | trans,
+                    'data-confirm-message': lorem_ipsum(600),
+                    'data-confirm-preset': 'yes_no',
+                    'data-result-title': '@page::section.short.result_title' | trans,
+                    'data-result-prefix': '@page::section.short.result_prefix' | trans
+                }
+            }) }}
+        </div>
+        <div class="block block--padded stack--split">
+            <div class="lead">
+                {{ '@page::section.toast_medium.description' | trans }}
+            </div>
+            {{ button('ph:bold/app-window', '@page::section.toast_medium.button' | trans, {
+                class: 'confirm-demo-toast-medium-button',
+                attr: {
+                    'data-confirm-title': '@page::section.toast_medium.title' | trans,
+                    'data-confirm-message': lorem_ipsum(120),
+                    'data-confirm-preset': 'ok_cancel',
+                    'data-result-title': '@page::section.toast_short.result_title' | trans,
+                    'data-result-prefix': '@page::section.toast_short.result_prefix' | trans
+                }
+            }) }}
+        </div>
+        <div class="block block--padded stack--split">
+            <div class="lead">
+                {{ '@page::section.toast_long.description' | trans }}
+            </div>
+            {{ button('ph:bold/app-window', '@page::section.toast_long.button' | trans, {
+                class: 'confirm-demo-toast-long-button',
+                attr: {
+                    'data-confirm-title': '@page::section.toast_long.title' | trans,
+                    'data-confirm-message': lorem_ipsum(600),
+                    'data-confirm-preset': 'ok_cancel',
+                    'data-result-title': '@page::section.toast_short.result_title' | trans,
+                    'data-result-prefix': '@page::section.toast_short.result_prefix' | trans
+                }
+            }) }}
+        </div>
+        <div class="block block--padded stack--split">
+            <div class="lead">
+                {{ '@page::section.custom.description' | trans }}
+            </div>
+            {{ button('ph:bold/app-window', '@page::section.custom.button' | trans, {
+                class: 'confirm-demo-custom-button',
+                attr: {
+                    'data-confirm-title': '@page::section.custom.title' | trans,
+                    'data-confirm-message': '@page::section.custom.message' | trans,
+                    'data-action-new': '@page::section.custom.action.new' | trans,
+                    'data-action-close': '@page::section.custom.action.close_all' | trans,
+                    'data-action-cancel': '@page::section.custom.action.cancel' | trans
+                }
+            }) }}
+        </div>
+    </div>
+{%- endblock -%}

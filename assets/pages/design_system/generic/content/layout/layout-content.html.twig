@@ -1,0 +1,11 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/design_system/layout.html.twig' -%}
+
+{%- block page_header -%}
+    {{ parent() }}
+    <div class="tabs">
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.content.layout.layout-content::tab.index', 'wexample_design_system_generic_content_index') }}
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.content.layout.layout-content::tab.article', 'wexample_design_system_generic_content_article') }}
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.content.layout.layout-content::tab.media', 'wexample_design_system_generic_content_media') }}
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.content.layout.layout-content::tab.chat', 'wexample_design_system_generic_content_chat') }}
+    </div>
+{%- endblock -%}

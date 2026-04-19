@@ -1,0 +1,7 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/stage/layout/layout-stage.html.twig' -%}
+
+{%- set page_body_mode = 'wide' -%}
+
+{%- block page_body -%}
+    {{ vue(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/stage') }}
+{%- endblock -%}

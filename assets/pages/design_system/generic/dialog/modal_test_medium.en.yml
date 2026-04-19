@@ -1,0 +1,6 @@
+page_title: Modal test - medium
+intro: This modal uses a medium-length body text.
+frontend:
+  embed:
+    closing_confirmation:
+      message: Are you sure you want to close this modal?

@@ -1,0 +1,24 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/content/layout/layout-content.html.twig' -%}
+
+{%- block page_body -%}
+    <div class="container align-center content">
+        <h2>{{ '@page::section.default.title' | trans }}</h2>
+        <div class="stack--horizontal">
+            <div class="block block--padded">
+                <div class="media media--square media-demo--bg-primary">
+                    <img src="/image/syrtis-logo-single-cutout.svg" alt="">
+                </div>
+            </div>
+            <div class="block block--padded">
+                <div class="media media--round media-demo--bg-secondary">
+                    <img src="/image/syrtis-logo-single-cutout.svg" alt="">
+                </div>
+            </div>
+            <div class="block block--padded">
+                <div class="media media--square media--cover media-demo--bg-accent">
+                    <img src="/image/syrtis-logo-single-cutout.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+{%- endblock -%}

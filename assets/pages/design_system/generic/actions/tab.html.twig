@@ -1,0 +1,51 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/actions/layout/layout-actions.html.twig' -%}
+
+{% macro render_tabs(id_prefix, options) %}
+    {% set classes = ['tabs', 'flow'] %}
+    {% if options.fill %}
+        {% set classes = classes|merge(['tabs--fill']) %}
+    {% endif %}
+    {% if options.compact %}
+        {% set classes = classes|merge(['tabs--compact']) %}
+    {% endif %}
+
+    <div class="{{ classes|join(' ') }}">
+        {{ tab_item_link('@page::tab.one' | trans, '#' ~ id_prefix ~ '-one', { active: true, icon: options.icons ? 'ph:bold/squares-four' : null }) }}
+        {{ tab_item_link('@page::tab.two' | trans, '#' ~ id_prefix ~ '-two', { icon: options.icons ? 'ph:bold/activity' : null }) }}
+        {{ tab_item_link('@page::tab.three' | trans, '#' ~ id_prefix ~ '-three', { icon: options.icons ? 'ph:bold/gear-six' : null }) }}
+    </div>
+{% endmacro %}
+
+{%- block page_body -%}
+    {% import _self as tabs %}
+
+    <div class="container align-center content">
+        <h2>{{ '@page::section.default.normal.title' | trans }}</h2>
+        {{ tabs.render_tabs('tab-default-normal', { icons: false, fill: false, compact: false }) }}
+
+        <h2>{{ '@page::section.default.full.title' | trans }}</h2>
+        {{ tabs.render_tabs('tab-default-full', { icons: false, fill: true, compact: false }) }}
+
+        <h2>{{ '@page::section.default.half.title' | trans }}</h2>
+        <div class="stack--horizontal">
+            <div>
+                {{ tabs.render_tabs('tab-default-half', { icons: false, fill: true, compact: true }) }}
+            </div>
+            <div></div>
+        </div>
+
+        <h2>{{ '@page::section.icons.normal.title' | trans }}</h2>
+        {{ tabs.render_tabs('tab-icons-normal', { icons: true, fill: false, compact: false }) }}
+
+        <h2>{{ '@page::section.icons.full.title' | trans }}</h2>
+        {{ tabs.render_tabs('tab-icons-full', { icons: true, fill: true, compact: false }) }}
+
+        <h2>{{ '@page::section.icons.half.title' | trans }}</h2>
+        <div class="stack--horizontal">
+            <div>
+                {{ tabs.render_tabs('tab-icons-half', { icons: true, fill: true, compact: true }) }}
+            </div>
+            <div></div>
+        </div>
+    </div>
+{%- endblock -%}

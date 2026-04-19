@@ -1,0 +1,15 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Errors
+page_icon: ph:bold/warning-circle
+
+section:
+  trigger:
+    description: Trigger a frontend error for catch handling tests.
+    button: Trigger error
+  frontend_throw:
+    description: Trigger an uncaught frontend exception in JavaScript.
+    button: Throw frontend error
+  internet_probe:
+    description: Trigger an external request to test internet connectivity handling.
+    button: Probe internet

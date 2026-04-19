@@ -1,0 +1,20 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/layout/layout/layout-generic.html.twig' -%}
+
+{%- block page_body -%}
+    <div class="container align-center content">
+        <div class="stack--horizontal">
+            <div class="block block--card">
+                <div class="block--body">{{ '@page::item.one' | trans }}</div>
+            </div>
+            <div class="block block--card">
+                <div class="block--body">{{ '@page::item.two' | trans }}</div>
+            </div>
+            <div class="block block--card">
+                <div class="block--body">{{ '@page::item.three' | trans }}</div>
+            </div>
+            <div class="block block--card">
+                <div class="block--body">{{ '@page::item.four' | trans }}</div>
+            </div>
+        </div>
+    </div>
+{%- endblock -%}

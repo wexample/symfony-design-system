@@ -1,0 +1,20 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/form/layout/layout-form.html.twig' -%}
+
+{%- set form_template = form_template | default('@front/forms/demo/form_submit_behavior_demo_form.html.twig') -%}
+
+{%- block page_body -%}
+    <div class="container align-center content">
+        <div class="block block--padded">
+            <h2>{{ '@page::page_title' | trans }}</h2>
+            {% if form_submit_behavior_submitted %}
+                <div class="flow">
+                    {{ message_success(
+                        '@page::message.form_submit_behavior_submitted.title',
+                        '@page::message.form_submit_behavior_submitted.body',
+                    ) }}
+                </div>
+            {% endif %}
+            {{ form_load(render_pass, form_submit_behavior_demo, form_template) }}
+        </div>
+    </div>
+{% endblock %}

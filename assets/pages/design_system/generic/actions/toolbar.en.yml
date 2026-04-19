@@ -1,0 +1,19 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Toolbars
+page_icon: ph:bold/hammer
+
+button:
+  one: Button one
+  two: Button two
+  three: Button three
+  four: Button four
+
+link:
+  default: This is a link >>
+
+section:
+  default:
+    title: Default toolbar
+  transparent:
+    title: Transparent toolbar

@@ -1,0 +1,41 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/design_system/layout.html.twig' -%}
+
+{%- block page_body -%}
+    <div class="block block--padded stack--vertical">
+        <div class="lead flow">
+            {{ '@page::intro' | trans }}
+        </div>
+        <div class="stack--horizontal">
+            {% set menu_items = [
+                {
+                    icon: 'ph:bold/clipboard-text',
+                    label: '@page::menu.item.report',
+                    href: path('home_index')
+                },
+                {
+                    icon: 'ph:bold/gear',
+                    label: '@page::menu.item.settings',
+                    href: path('home_index')
+                },
+                {
+                    icon: 'ph:bold/sign-out',
+                    label: '@page::menu.item.logout',
+                    href: path('home_index')
+                }
+            ] %}
+            {{ button_menu('ph:bold/list', '@page::menu.label' | trans, menu_items) }}
+            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/upload-handler', {
+                slots: {
+                    button: button('ph:bold/upload-simple', '@page::upload_button' | trans)
+                }
+            }) }}
+        </div>
+        {{ button('ph:bold/bell', '@page::toast_button' | trans, {
+            class: 'modal-components-toast-button',
+            attr: {
+                'data-toast-title': '@page::toast_title' | trans,
+                'data-toast-message': '@page::toast_message' | trans
+            }
+        }) }}
+    </div>
+{%- endblock -%}

@@ -1,0 +1,11 @@
+page_title: Advanced forms
+
+message:
+  form_submit_behavior_submitted:
+    title: Submission success
+    body: Submit behavior demo form submitted successfully.
+
+frontend:
+  embed:
+    closing_confirmation:
+      message: Are you sure you want to leave this custom form ?

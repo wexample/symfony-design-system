@@ -1,0 +1,10 @@
+page_title: Overlays
+page_icon: ph:bold/square-half-bottom
+
+section:
+  simple_overlay:
+    description: Display a simple overlay during 3 seconds.
+    button: Show overlay
+  spinner_overlay:
+    description: Display an overlay with a loading spinner for 3 seconds.
+    button: Show overlay + spinner

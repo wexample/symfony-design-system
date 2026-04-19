@@ -1,0 +1,58 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/form/layout/layout-form.html.twig' -%}
+
+{%- block page_body -%}
+    <div class="container align-center content">
+        <h2>{{ '@page::section.default.title' | trans }}</h2>
+        <form class="form flow">
+            <div class="form--group">
+                <label class="form--label" for="form-title">{{ '@page::field.title.label' | trans }}</label>
+                <input class="form--input" id="form-title" type="text"
+                       placeholder="{{ '@page::field.title.placeholder' | trans }}">
+            </div>
+            <div class="form--group">
+                <label class="form--label" for="form-message">{{ '@page::field.message.label' | trans }}</label>
+                <textarea class="form--textarea" id="form-message" rows="4"
+                          placeholder="{{ '@page::field.message.placeholder' | trans }}"></textarea>
+            </div>
+            <div class="form--actions">
+                <a href="#">{{ '@page::action.link' | trans }}</a>
+                {{ button('ph:bold/island', '@page::action.secondary' | trans) }}
+                {{ form_submit('ph:bold/paper-plane-tilt', '@page::action.submit' | trans) }}
+            </div>
+        </form>
+        <h2>{{ '@page::section.block.title' | trans }}</h2>
+        <div class="block block--padded flow">
+            <form class="form">
+                <div class="stack--horizontal">
+                    <div class="form--group">
+                        <label class="form--label" for="form-title">{{ '@page::field.title.label' | trans }}</label>
+                        <input class="form--input" id="form-title" type="text"
+                               placeholder="{{ '@page::field.title.placeholder' | trans }}">
+                    </div>
+                    <div class="form--group">
+                        <label class="form--label" for="form-title">{{ '@page::field.title.label' | trans }}</label>
+                        <input class="form--input" id="form-title" type="text"
+                               placeholder="{{ '@page::field.title.placeholder' | trans }}">
+                    </div>
+                </div>
+                <div class="form--actions">
+                    <input type="submit" value="{{ '@page::action.raw_submit' | trans }}">
+                </div>
+            </form>
+        </div>
+        <div class="block block--padded flow">
+            <h2>{{ '@page::section.assisted.title' | trans }}</h2>
+            <form class="form flow is-assisted">
+                <div class="form--group">
+                    <label class="form--label"
+                           for="form-assisted-title">{{ '@page::field.title.label' | trans }}</label>
+                    <input class="form--input" id="form-assisted-title" type="text"
+                           placeholder="{{ '@page::field.title.placeholder' | trans }}">
+                </div>
+                <div class="form--actions">
+                    {{ form_submit('ph:bold/paper-plane-tilt', '@page::action.submit' | trans) }}
+                </div>
+            </form>
+        </div>
+    </div>
+{%- endblock -%}

@@ -1,0 +1,11 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/design_system/layout.html.twig' -%}
+
+{%- block page_header -%}
+    {{ parent() }}
+    <div class="tabs">
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.form.layout.layout-form::tab.index', 'wexample_design_system_generic_form_index') }}
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.form.layout.layout-form::tab.rendered', 'wexample_design_system_generic_form_rendered') }}
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.form.layout.layout-form::tab.ajax', 'wexample_design_system_generic_form_ajax') }}
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.form.layout.layout-form::tab.vue', 'wexample_design_system_generic_form_vue') }}
+    </div>
+{%- endblock -%}

@@ -1,0 +1,33 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/feedback/layout/layout-feedback.html.twig' -%}
+
+{%- block page_body -%}
+    <div class="container align-center content stack--vertical">
+        {% set banner_types = [
+            { key: 'neutral', type: null },
+            { key: 'info', type: 'info' },
+            { key: 'warning', type: 'warning' },
+            { key: 'error', type: 'error' },
+            { key: 'success', type: 'success' }
+        ] %}
+        {% for banner in banner_types %}
+            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/banner', {
+                type: banner.type,
+                message: '@page::section.banners.' ~ banner.key
+            }) }}
+        {% endfor %}
+        <div class="block block--padded stack--split">
+            <div class="lead">
+                {{ '@page::section.layout_banner.description' | trans }}
+            </div>
+            {{ button('ph:bold/upload-simple', '@page::section.layout_banner.button', {
+                class: 'layout-banner-button',
+                attr: {
+                    'data-banner-message-info': '@page::section.layout_banner.messages.info' | trans,
+                    'data-banner-message-success': '@page::section.layout_banner.messages.success' | trans,
+                    'data-banner-message-warning': '@page::section.layout_banner.messages.warning' | trans,
+                    'data-banner-message-error': '@page::section.layout_banner.messages.error' | trans
+                }
+            }) }}
+        </div>
+    </div>
+{%- endblock -%}

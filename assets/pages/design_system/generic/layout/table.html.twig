@@ -1,0 +1,76 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/layout/layout/layout-generic.html.twig' -%}
+
+{%- block page_body -%}
+    <div class="container align-center content stack stack--vertical">
+        <section>
+            <h2>{{ '@page::section.default.title' | trans }}</h2>
+            <table class="table">
+                <thead>
+                <tr class="table--row">
+                    <th class="table--cell" scope="col">{{ '@page::column.default.name' | trans }}</th>
+                    <th class="table--cell" scope="col">{{ '@page::column.default.date' | trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table--row">
+                    <td class="table--cell">{{ '@page::row.one.title' | trans }}</td>
+                    <td class="table--cell table--cell--secondary">{{ '@page::row.one.meta' | trans }}</td>
+                </tr>
+                <tr class="table--row">
+                    <td class="table--cell">{{ '@page::row.two.title' | trans }}</td>
+                    <td class="table--cell table--cell--secondary">{{ '@page::row.two.meta' | trans }}</td>
+                </tr>
+                <tr class="table--row">
+                    <td class="table--cell">{{ '@page::row.three.title' | trans }}</td>
+                    <td class="table--cell table--cell--secondary">{{ '@page::row.three.meta' | trans }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>{{ '@page::section.actions.title' | trans }}</h2>
+            <table class="table">
+                <thead>
+                <tr class="table--row">
+                    <th class="table--cell" scope="col">{{ '@page::column.actions.name' | trans }}</th>
+                    <th class="table--cell" scope="col">{{ '@page::column.actions.date' | trans }}</th>
+                    <th class="table--cell table--cell--fit" scope="col">{{ '@page::column.actions.operations' | trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table--row">
+                    <td class="table--cell">{{ '@page::row.action.one.title' | trans }}</td>
+                    <td class="table--cell table--cell--secondary">{{ '@page::row.action.one.meta' | trans }}</td>
+                    <td class="table--cell table--cell--fit">
+                        <span class="table--actions">
+                            <a href="#" class="table--icon-link">{{ icon('ph:bold/eye') }}</a>
+                            <a href="#" class="table--icon-link">{{ icon('ph:bold/pencil-simple') }}</a>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="table--row">
+                    <td class="table--cell">{{ '@page::row.action.two.title' | trans }}</td>
+                    <td class="table--cell table--cell--secondary">{{ '@page::row.action.two.meta' | trans }}</td>
+                    <td class="table--cell table--cell--fit">
+                        <span class="table--actions">
+                            <a href="#" class="table--icon-link">{{ icon('ph:bold/eye') }}</a>
+                            <a href="#" class="table--icon-link">{{ icon('ph:bold/pencil-simple') }}</a>
+                        </span>
+                    </td>
+                </tr>
+                <tr class="table--row table--row--loading">
+                    <td class="table--cell table--cell--loading" colspan="3">
+                        {% include '@WexampleSymfonyDesignSystemBundle/partials/spinner.html.twig' with {
+                            label: '@page::row.action.loading.label' | trans
+                        } only %}
+                    </td>
+                </tr>
+                <tr class="table--row">
+                    <td class="table--cell text-empty text-align-center" colspan="3">{{ '@page::row.action.empty.label' | trans }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+{%- endblock -%}

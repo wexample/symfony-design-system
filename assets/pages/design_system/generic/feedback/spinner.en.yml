@@ -1,0 +1,15 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Spinner
+page_icon: ph:bold/spinner-gap
+section:
+  sizes:
+    title: Sizes
+    description: Three sizes for the classic spinner.
+  inline:
+    title: Inline usage
+    description: Spinner aligned with text.
+label:
+  loading: Loading
+inline:
+  text: Processing data

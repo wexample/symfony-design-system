@@ -1,0 +1,41 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Tables
+page_icon: ph:bold/table
+
+section:
+  default:
+    title: Simple table
+  actions:
+    title: Table with actions
+
+column:
+  default:
+    name: Name
+    date: Date
+  actions:
+    name: Source
+    date: Updated at
+    operations: Actions
+
+row:
+  one:
+    title: Project Alpha
+    meta: "2026-01-10"
+  two:
+    title: Project Beta
+    meta: "2026-02-18"
+  three:
+    title: Project Gamma
+    meta: "2026-03-25"
+  action:
+    one:
+      title: Source Alpha
+      meta: "2026-01-12"
+    two:
+      title: Source Beta
+      meta: "2026-02-20"
+    loading:
+      label: Loading rows
+    empty:
+      label: No data available.

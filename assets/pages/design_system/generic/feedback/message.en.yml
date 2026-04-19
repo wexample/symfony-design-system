@@ -1,0 +1,24 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Messages
+page_icon: ph:bold/notification
+
+section:
+  block:
+    title: Block messages
+  default:
+    title: Message types
+
+message:
+  info:
+    title: Info message
+    body: This is a short informational message.
+  success:
+    title: Success message
+    body: The action completed successfully.
+  warning:
+    title: Warning message
+    body: Something needs your attention.
+  error:
+    title: Error message
+    body: An error occurred while processing the request.

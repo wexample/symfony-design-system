@@ -1,0 +1,37 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/feedback/layout/layout-feedback.html.twig' -%}
+
+{% import _self as message_macro %}
+
+{% macro render_messages() %}
+    <div class="stack--vertical">
+        {{ message_info(
+            '@page::message.info.title' | trans,
+            '@page::message.info.body' | trans
+        ) }}
+        {{ message_success(
+            '@page::message.success.title' | trans,
+            '@page::message.success.body' | trans
+        ) }}
+        {{ message_warning(
+            '@page::message.warning.title' | trans,
+            '@page::message.warning.body' | trans
+        ) }}
+        {{ message_error(
+            '@page::message.error.title' | trans,
+            '@page::message.error.body' | trans
+        ) }}
+    </div>
+{% endmacro %}
+
+{%- block page_body -%}
+    <div class="container align-center content">
+        <h2>{{ '@page::section.default.title' | trans }}</h2>
+        <div class="flow">
+        {{ message_macro.render_messages() | raw }}
+        </div>
+        <h2>{{ '@page::section.block.title' | trans }}</h2>
+        <div class="block block--padded">
+            {{ message_macro.render_messages() | raw }}
+        </div>
+    </div>
+{%- endblock -%}

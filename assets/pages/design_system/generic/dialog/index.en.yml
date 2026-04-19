@@ -1,0 +1,30 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Dialog
+page_icon: ph:bold/app-window
+
+section:
+  modal:
+    description: Modal and panel demos will be added here.
+    button: Open modal demo
+  modal_test_simple:
+    description: Show a simple modal. You can close it with Escape or by clicking outside the modal.
+    button: Show modal
+  modal_test_components:
+    description: Show a modal with components and a toast trigger. Escape is disabled, but you can still click outside to close it.
+    button: Show modal with components
+  modal_test_medium:
+    description: Show a modal with medium-length text. Clicking outside will not close it.
+    button: Show modal (medium)
+  modal_test_long:
+    description: Show a modal with long text. It asks for confirmation before closing.
+    button: Show modal (long)
+  modal_test_recursive:
+    description: Open the main modal page inside a modal using the default close behavior.
+    button: Open modal (recursive)
+  modal_test_form_rendered:
+    description: Show a rendered demo form inside a modal. Escape and outside click are disabled, and it asks before closing if the form was modified.
+    button: Show rendered form modal
+  modal_test_form_ajax:
+    description: Show a rendered demo form inside a modal using AJAX. Escape and outside click are disabled, and it asks before closing if the form was modified.
+    button: Show ajax form modal

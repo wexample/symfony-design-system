@@ -1,0 +1,41 @@
+page_title: Confirm
+section:
+  short:
+    description: Confirm with short text (overlay).
+    button: Open short confirm
+    title: Please confirm
+    message: Do you want to continue?
+    result_title: Confirm result
+    result_prefix: Result:
+  toast_short:
+    description: Confirm with short text (toast).
+    button: Open short confirm toast
+    title: Confirm toast
+    message: Continue with toast?
+    result_title: Toast confirm result
+    result_prefix: Result:
+  medium:
+    description: Confirm with medium text (overlay).
+    button: Open medium confirm
+    title: Medium confirm
+  long:
+    description: Confirm with long text (overlay).
+    button: Open long confirm
+    title: Long confirm
+  toast_medium:
+    description: Confirm with medium text (toast).
+    button: Open medium confirm toast
+    title: Medium confirm toast
+  toast_long:
+    description: Confirm with long text (toast).
+    button: Open long confirm toast
+    title: Long confirm toast
+  custom:
+    description: Custom confirm actions (stacking).
+    button: Open custom confirm
+    title: Stacking confirm
+    message: Open another confirm or close them all?
+    action:
+      new: New confirm
+      close_all: Close all confirm
+      cancel: Cancel

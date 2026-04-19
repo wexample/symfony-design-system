@@ -1,0 +1,8 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Media
+page_icon: ph:bold/image
+
+section:
+  default:
+    title: Media shapes

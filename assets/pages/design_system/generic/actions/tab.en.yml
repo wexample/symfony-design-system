@@ -1,0 +1,25 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Tabs
+page_icon: ph:bold/tabs
+
+section:
+  default:
+    normal:
+      title: Basic tabs
+    full:
+      title: Basic tabs (full width)
+    half:
+      title: Basic tabs (half width zone)
+  icons:
+    normal:
+      title: Tabs with icons
+    full:
+      title: Tabs with icons (full width)
+    half:
+      title: Tabs with icons (half width zone)
+
+tab:
+  one: Overview
+  two: Activity
+  three: Settings

@@ -1,0 +1,82 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/actions/layout/layout-actions.html.twig' -%}
+
+{%- block page_body -%}
+    <div class="container align-center content">
+        <h2>{{ '@page::section.default.title' | trans }}</h2>
+        <div class="flow">
+            {{ button('ph:bold/plus', '@page::button.primary' | trans) }}
+            {{ button('ph:bold/check', '@page::button.success' | trans) }}
+            {{ button('ph:bold/trash', '@page::button.danger' | trans) }}
+            {{ button('ph:bold/sun', '@page::button.invert' | trans, { class: 'button--invert' }) }}
+        </div>
+        <h2>{{ '@page::section.select.title' | trans }}</h2>
+        <div class="flow">
+            <select class="form--input form--input--select">
+                <option>{{ '@page::select.option_one' | trans }}</option>
+                <option>{{ '@page::select.option_two' | trans }}</option>
+                <option>{{ '@page::select.option_three' | trans }}</option>
+            </select>
+        </div>
+        {% set menu_items = [
+            {
+                icon: 'ph:bold/clipboard-text',
+                label: '@page::menu.item.report',
+                href: path('home_index')
+            },
+            {
+                icon: 'ph:bold/gear',
+                label: '@page::menu.item.settings',
+                href: path('home_index')
+            },
+            {
+                icon: 'ph:bold/sign-out',
+                label: '@page::menu.item.logout',
+                href: path('home_index')
+            },
+            {
+                icon: 'ph:bold/text-aa',
+                label: '@page::menu.item.long',
+                href: path('home_index')
+            }
+        ] %}
+        <h2>{{ '@page::section.menu.title' | trans }}</h2>
+        <div class="flow">
+            {{ button_menu('ph:bold/list', '@page::menu.primary' | trans, menu_items) }}
+            {{ button_menu('ph:bold/dots-three-outline', '@page::menu.more' | trans, menu_items, { menu_align: 'right', items_align: 'right' }) }}
+        </div>
+        <div class="flow">
+            {{ button_menu('ph:bold/moon', '@page::menu.invert' | trans, menu_items, { wrapper_class: 'button-menu--invert' }) }}
+        </div>
+        <h3>{{ '@page::section.menu_options.title' | trans }}</h3>
+        <div class="flow">
+            {{ button_menu('ph:bold/caret-up', '@page::menu.options.top_left' | trans, menu_items, { menu_vertical: 'top', menu_align: 'left' }) }}
+            {{ button_menu('ph:bold/caret-up', '@page::menu.options.top_right' | trans, menu_items, { menu_vertical: 'top', menu_align: 'right', items_align: 'right' }) }}
+        </div>
+        <h2>{{ '@page::section.toolbar.title' | trans }}</h2>
+        <div class="toolbar flow">
+            {{ button('ph:bold/plus', '@page::button.primary' | trans) }}
+            <select class="form--input form--input--select">
+                <option>{{ '@page::select.option_one' | trans }}</option>
+                <option>{{ '@page::select.option_two' | trans }}</option>
+                <option>{{ '@page::select.option_three' | trans }}</option>
+            </select>
+            {{ button_menu('ph:bold/list', '@page::menu.primary' | trans, menu_items, { menu_align: 'right' }) }}
+            {{ button_link('ph:bold/arrow-up-right', '@page::link.external' | trans, 'https://example.com') }}
+        </div>
+        <h2>{{ '@page::section.link.title' | trans }}</h2>
+        <div class="flow">
+            {{ button_link('ph:bold/arrow-right', '@page::link.more' | trans, path('home_index')) }}
+            {{ button_link('ph:bold/arrow-up-right', '@page::link.external' | trans, 'https://example.com') }}
+        </div>
+        <h3>{{ '@page::section.list_expanded.title' | trans }}</h3>
+        <div class="flow">
+            <div class="list-expanded">
+                <div class="list-expanded--header">
+                    <input class="form--input list-expanded--search" type="text" placeholder="{{ '@page::list_expanded.search.placeholder' | trans }}">
+                    {{ button('ph:bold/funnel', '@page::list_expanded.header.filter' | trans) }}
+                </div>
+                <div class="text-empty">{{ '@page::list_expanded.empty' | trans }}</div>
+            </div>
+        </div>
+    </div>
+{%- endblock -%}

@@ -1,0 +1,12 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/design_system/layout.html.twig' -%}
+
+{%- block page_header -%}
+    {{ parent() }}
+    <div class="tabs">
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.feedback.layout.layout-feedback::tab.index', 'wexample_design_system_generic_feedback_index') }}
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.feedback.layout.layout-feedback::tab.banners', 'wexample_design_system_generic_feedback_banners') }}
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.feedback.layout.layout-feedback::tab.message', 'wexample_design_system_generic_feedback_message') }}
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.feedback.layout.layout-feedback::tab.spinner', 'wexample_design_system_generic_feedback_spinner') }}
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.feedback.layout.layout-feedback::tab.errors', 'wexample_design_system_generic_feedback_errors') }}
+    </div>
+{%- endblock -%}

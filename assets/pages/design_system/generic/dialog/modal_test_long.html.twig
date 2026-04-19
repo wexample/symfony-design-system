@@ -1,0 +1,12 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/design_system/layout.html.twig' -%}
+
+{%- block page_body -%}
+    <div class="block block--padded stack--vertical">
+        <div class="lead flow">
+            {{ '@page::intro' | trans }}
+        </div>
+        <div class="flow">
+            {{ lorem_ipsum(160) }}
+        </div>
+    </div>
+{%- endblock -%}

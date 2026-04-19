@@ -1,0 +1,65 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Actions
+page_icon: ph:bold/cursor-click
+
+section:
+  default:
+    title: Default buttons
+  select:
+    title: Selects
+  menu:
+    title: Menu buttons
+  menu_options:
+    title: Menu options
+  link:
+    title: Button links
+  toolbar:
+    title: Toolbar buttons
+  list_expanded:
+    title: List expanded
+
+button:
+  primary: Primary button
+  success: Success button
+  danger: Danger button
+  invert: Invert button
+
+select:
+  option_one: Option one
+  option_two: Option two
+  option_three: Option three
+
+menu:
+  primary: Menu button
+  more: More actions
+  invert: Invert menu
+  options:
+    top_left: Top left
+    top_right: Top right
+  item:
+    report: Report
+    settings: Settings
+    logout: Log out
+    long: With a quite, quite, quite, quite long title
+
+link:
+  more: Learn more
+  external: External link
+
+list_expanded:
+  empty: Nothing available...
+  header:
+    filter: Filter
+  search:
+    placeholder: Filter the list...
+  items:
+    postgres:
+      title: PostgreSQL
+      body: Managed SQL connection for transactional workloads
+    s3:
+      title: Amazon S3
+      body: Object storage connector for imports and exports
+    webhook:
+      title: Webhook
+      body: Trigger and receive events from external systems

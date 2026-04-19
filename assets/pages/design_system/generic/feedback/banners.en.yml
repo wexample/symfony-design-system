@@ -1,0 +1,20 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Banners
+page_icon: ph:bold/notification
+
+section:
+  banners:
+    neutral: This is a neutral banner message.
+    info: This is an info banner message.
+    warning: This is a warning banner message.
+    error: This is an error banner message.
+    success: This is a success banner message.
+  layout_banner:
+    description: Banners are mainly used at layout level to display background activity important messages like Internet connexion status.
+    button: Show banner
+    messages:
+      info: Layout banner info message.
+      success: Layout banner success message.
+      warning: Layout banner warning message.
+      error: Layout banner error message.

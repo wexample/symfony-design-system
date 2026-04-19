@@ -1,0 +1,41 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Chat
+page_icon: ph:bold/chats-circle
+
+chat:
+  title: Chat example
+
+description:
+  body: >
+    This chat playground is used to validate message rhythm, spacing, and vertical density before final UI styling.
+    Keep this block intentionally verbose so the layout has enough height to simulate realistic conversation flow,
+    including medium and long lines, wrapping behavior, and natural reading pauses across multiple sentences.
+    The goal is to provide a stable visual baseline that future chat components can follow, so measurements remain
+    consistent when replacing this text with real user and assistant messages.
+
+composer:
+  placeholder: Write a message...
+  submit_label: Send message
+  action_plus_label: Add content
+  action_smiley_label: Insert emoji
+  multiline_value: >
+    This is a longer chat draft used to preview the multiline state.
+    It wraps across multiple lines so the visual difference with the one-line field is obvious.
+
+messages:
+  user_1: >
+    Can you summarize the action items from yesterday's sync and keep only decisions we can execute this week?
+  user_2: >
+    Also keep the output short because this will be copied into the manager sidebar.
+  assistant_1: >
+    Sure. I can provide a concise summary with priorities, owners, and next checkpoints.
+  assistant_2: >
+    I will only keep validated decisions and remove open questions that still need discovery.
+  assistant_3: >
+    Proposed structure:
+    1. Immediate actions.
+    2. Dependencies.
+    3. Risks to monitor.
+  assistant_4: >
+    Once validated, this structure can become the default template for the chat menu in manager.

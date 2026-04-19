@@ -1,0 +1,7 @@
+~extends: '@front.layouts.private.layout'
+
+menu_design_system:
+  navigation:
+    group:
+      generic:
+        title: Generic components

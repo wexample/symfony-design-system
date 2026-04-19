@@ -1,0 +1,22 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/dialog/layout/layout-dialog.html.twig' -%}
+
+{%- block page_body -%}
+    <div class="container align-center content stack--vertical">
+        <div class="block block--padded stack--split">
+            <div class="lead">
+                {{ '@page::section.simple_overlay.description' | trans }}
+            </div>
+            {{ button('ph:bold/upload-simple', '@page::section.simple_overlay.button', {
+                class: 'layout-banner-button'
+            }) }}
+        </div>
+        <div class="block block--padded stack--split">
+            <div class="lead">
+                {{ '@page::section.spinner_overlay.description' | trans }}
+            </div>
+            {{ button('ph:bold/spinner-gap', '@page::section.spinner_overlay.button', {
+                class: 'layout-spinner-button'
+            }) }}
+        </div>
+    </div>
+{%- endblock -%}

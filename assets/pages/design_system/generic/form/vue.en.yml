@@ -1,0 +1,8 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Vue forms
+page_icon: ph:bold/file-vue
+
+section:
+  vue:
+    title: Submit behavior (page + modal)

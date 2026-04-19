@@ -1,0 +1,66 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Layout
+page_icon: ph:bold/squares-four
+
+section:
+  default:
+    title: Basic blocks
+  advanced:
+    title: Advanced blocks
+
+block:
+  title: Block title
+  no_padding: Block without padding (using block--body).
+  one:
+    title: Primary block
+    description: A block with a title and body text.
+  two:
+    title: Secondary block
+    description: Another block to demonstrate spacing.
+  three:
+    title: Tertiary block
+    description: A third block in the row.
+  four:
+    title: Quaternary block
+    description: A fourth block for the layout demo.
+  advanced:
+    title: Pipeline projection
+    status: Ready
+    description: This block combines title slots and content in a single reusable structure.
+    details: Operators can be added without leaving the current context.
+  zones:
+    main:
+      title: Main zone
+      description: Main content can grow naturally with standard spacing.
+    aside:
+      title: Aside zone
+      description: This side zone uses a light background to highlight complementary content.
+  zones_three:
+    title: Three-zone layout
+    status: Draft
+    left:
+      title: Left panel
+      description: Secondary navigation or metadata can live here.
+    main:
+      title: Main content
+      description: Primary information stays centered for readability.
+    right:
+      title: Right panel
+      description: Contextual actions and insights can be grouped on this side.
+    footer:
+      meta: Updated 2 minutes ago
+      action: Open details
+
+tab:
+  one: Overview
+  two: Activity
+  three: Settings
+
+button:
+  create: Create projection
+  refresh: Refresh data
+  export: Export
+
+action:
+  add_projection: Add projection

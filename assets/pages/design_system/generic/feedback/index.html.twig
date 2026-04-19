@@ -1,0 +1,81 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/feedback/layout/layout-feedback.html.twig' -%}
+
+{%- block page_body -%}
+    <div class="container align-center content stack--vertical">
+        <h2>{{ '@page::title.toasts' | trans }}</h2>
+        <div class="block block--padded stack--split">
+            <div class="lead">
+                {{ '@page::section.simple_toast.description' | trans }}
+            </div>
+            {{ button('ph:bold/upload-simple', '@page::section.simple_toast.button' | trans, {
+                class: 'toast-demo-button',
+                attr: {
+                    'data-toast-title': '@page::section.simple_toast.title' | trans,
+                    'data-toast-message': '@page::section.simple_toast.message' | trans
+                }
+            }) }}
+        </div>
+        <div class="block block--padded stack--split">
+            <div class="lead">
+                {{ '@page::section.tl_toast.description' | trans }}
+            </div>
+            {{ button('ph:bold/upload-simple', '@page::section.tl_toast.button', {
+                class: 'toast-demo-button-tl',
+                attr: {
+                    'data-toast-title': '@page::section.tl_toast.title' | trans,
+                    'data-toast-message': '@page::section.tl_toast.message' | trans
+                }
+            }) }}
+        </div>
+        <div class="block block--padded stack--split">
+            <div class="lead">
+                {{ '@page::section.medium_toast.description' | trans }}
+            </div>
+            {{ button('ph:bold/upload-simple', '@page::section.medium_toast.button' | trans, {
+                class: 'toast-demo-button-medium',
+                attr: {
+                    'data-toast-title': '@page::section.medium_toast.title' | trans,
+                    'data-toast-message': '@page::section.medium_toast.message' | trans
+                }
+            }) }}
+        </div>
+        <div class="block block--padded stack--split">
+            <div class="lead">
+                {{ '@page::section.long_toast.description' | trans }}
+            </div>
+            {{ button('ph:bold/upload-simple', '@page::section.long_toast.button', {
+                class: 'toast-demo-button-long',
+                attr: {
+                    'data-toast-title': '@page::section.long_toast.title' | trans,
+                    'data-toast-message': '@page::section.long_toast.message' | trans
+                }
+            }) }}
+        </div>
+        <div class="block block--padded">
+            <div class="lead flow">
+                {{ '@page::section.horizontal_toasts.description' | trans }}
+            </div>
+            <div class="stack--horizontal">
+                {% set horizontal_toasts = ['info', 'success', 'warning', 'error'] %}
+                {% for type in horizontal_toasts %}
+                    <div class="stack--vertical">
+                        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/toast', {
+                            type: type,
+                            title: '@page::section.horizontal_toasts.' ~ type ~ '.title',
+                            message: '@page::section.horizontal_toasts.' ~ type ~ '.message',
+                            sticky: true
+                        }) }}
+                        {{ button('ph:bold/arrow-circle-up-right', '@page::section.horizontal_toasts.' ~ type ~ '.button', {
+                            class: 'toast-demo-popup',
+                            attr: { 'data-toast-type': type }
+                        }) }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/toast-stack', {
+        position: 'tl',
+        toast_stack_id: 'demo-tl'
+    }) }}
+{%- endblock -%}

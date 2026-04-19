@@ -1,0 +1,149 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/layout/layout/layout-generic.html.twig' -%}
+
+{%- block page_body -%}
+    <div class="container align-center content">
+        <h2>{{ '@page::section.default.title' | trans }}</h2>
+        <div class="stack--vertical flow">
+            <div class="block block--padded">
+                <h3>{{ '@page::block.one.title' | trans }}</h3>
+                <p>{{ '@page::block.one.description' | trans }}</p>
+            </div>
+            <div class="block">
+                <div class="block--body">
+                    <p>{{ '@page::block.no_padding' | trans }}</p>
+                </div>
+            </div>
+            <div class="block">
+                <div class="block--title">{{ '@page::block.title' | trans }}</div>
+                <div class="block--body">
+                    <p>{{ '@page::block.one.description' | trans }}</p>
+                </div>
+            </div>
+            <div class="stack--horizontal">
+                <div class="block block--padded">
+                    <h3>{{ '@page::block.one.title' | trans }}</h3>
+                    <p>{{ '@page::block.one.description' | trans }}</p>
+                </div>
+                <div class="block block--padded">
+                    <h3>{{ '@page::block.two.title' | trans }}</h3>
+                    <p>{{ '@page::block.two.description' | trans }}</p>
+                </div>
+            </div>
+            <div class="stack--horizontal">
+                <div class="block block--padded">
+                    <h3>{{ '@page::block.one.title' | trans }}</h3>
+                    <p>{{ '@page::block.one.description' | trans }}</p>
+                </div>
+                <div class="block block--padded">
+                    <h3>{{ '@page::block.two.title' | trans }}</h3>
+                    <p>{{ '@page::block.two.description' | trans }}</p>
+                </div>
+                <div class="block block--padded">
+                    <h3>{{ '@page::block.three.title' | trans }}</h3>
+                    <p>{{ '@page::block.three.description' | trans }}</p>
+                </div>
+            </div>
+            <div class="stack--horizontal">
+                <div class="block block--padded">
+                    <h3>{{ '@page::block.one.title' | trans }}</h3>
+                    <p>{{ '@page::block.one.description' | trans }}</p>
+                </div>
+                <div class="block block--padded">
+                    <h3>{{ '@page::block.two.title' | trans }}</h3>
+                    <p>{{ '@page::block.two.description' | trans }}</p>
+                </div>
+                <div class="block block--padded">
+                    <h3>{{ '@page::block.three.title' | trans }}</h3>
+                    <p>{{ '@page::block.three.description' | trans }}</p>
+                </div>
+                <div class="block block--padded">
+                    <h3>{{ '@page::block.four.title' | trans }}</h3>
+                    <p>{{ '@page::block.four.description' | trans }}</p>
+                </div>
+            </div>
+            <div class="block block--padded">
+                <h3>{{ '@page::block.two.title' | trans }}</h3>
+                <p>{{ '@page::block.two.description' | trans }}</p>
+            </div>
+            <div class="stack--horizontal">
+                <div class="block block--placeholder">
+                    <a
+                            href="#"
+                            class="block--action-link"
+                            title="{{ '@page::action.add_projection' | trans }}"
+                            aria-label="{{ '@page::action.add_projection' | trans }}"
+                    >
+                        <span class="block--action-icon">{{ icon('ph:bold/plus-circle') }}</span>
+                    </a>
+                </div>
+                <div class="block">
+                    {% include '@WexampleSymfonyDesignSystemBundle/partials/spinner.html.twig' %}
+                </div>
+            </div>
+
+            <h2>{{ '@page::section.advanced.title' | trans }}</h2>
+            <div class="block">
+                <div class="block--title">
+                    <span class="block--title-leading">{{ icon('ph:bold/sliders-horizontal') }}</span>
+                    <span class="block--title-label">{{ '@page::block.advanced.title' | trans }}</span>
+                    <span class="block--title-trailing">{{ '@page::block.advanced.status' | trans }}</span>
+                </div>
+                <div class="tabs">
+                    {{ tab_item_link('@page::tab.one' | trans, '#tab-one', { active: true }) }}
+                    {{ tab_item_link('@page::tab.two' | trans, '#tab-two') }}
+                    {{ tab_item_link('@page::tab.three' | trans, '#tab-three') }}
+                </div>
+                <div class="toolbar">
+                    <div class="toolbar--group">
+                        {{ button('ph:bold/plus', '@page::button.create' | trans) }}
+                        {{ button('ph:bold/arrows-clockwise', '@page::button.refresh' | trans) }}
+                    </div>
+                    <div class="toolbar--group align-right">
+                        {{ button('ph:bold/export', '@page::button.export' | trans) }}
+                    </div>
+                </div>
+                <div class="block--body">
+                    <p>{{ '@page::block.advanced.description' | trans }}</p>
+                    <p>{{ '@page::block.advanced.details' | trans }}</p>
+                </div>
+            </div>
+            <div class="block">
+                <div class="zone zone--split zone--split--equal">
+                    <div class="zone--padded zone--bordered">
+                        <h3>{{ '@page::block.zones.main.title' | trans }}</h3>
+                        <p>{{ '@page::block.zones.main.description' | trans }}</p>
+                    </div>
+                    <div class="zone--padded zone--bordered surface">
+                        <h3>{{ '@page::block.zones.aside.title' | trans }}</h3>
+                        <p>{{ '@page::block.zones.aside.description' | trans }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="block">
+                <div class="block--title">
+                    <span class="block--title-leading">{{ icon('ph:bold/layout') }}</span>
+                    <span class="block--title-label">{{ '@page::block.zones_three.title' | trans }}</span>
+                    <span class="block--title-trailing">{{ '@page::block.zones_three.status' | trans }}</span>
+                </div>
+                <div class="zone zone--split zone--split--equal">
+                    <div class="zone--padded zone--bordered surface zone--alt">
+                        <h3>{{ '@page::block.zones_three.left.title' | trans }}</h3>
+                        <p>{{ '@page::block.zones_three.left.description' | trans }}</p>
+                    </div>
+                    <div class="zone--padded zone--bordered">
+                        <h3>{{ '@page::block.zones_three.main.title' | trans }}</h3>
+                        <p>{{ '@page::block.zones_three.main.description' | trans }}</p>
+                    </div>
+                    <div class="zone--padded zone--bordered surface zone--alt">
+                        <h3>{{ '@page::block.zones_three.right.title' | trans }}</h3>
+                        <p>{{ '@page::block.zones_three.right.description' | trans }}</p>
+                    </div>
+                </div>
+                <div class="block--footer">
+                    <small>{{ '@page::block.zones_three.footer.meta' | trans }}</small>
+                    <a href="#">{{ '@page::block.zones_three.footer.action' | trans }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{%- endblock -%}

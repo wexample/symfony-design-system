@@ -1,0 +1,26 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/actions/layout/layout-actions.html.twig' -%}
+
+{% import _self as toolbar_macro %}
+
+{% macro render_toolbar(extra_classes) %}
+    <div class="toolbar{% if extra_classes %} {{ extra_classes }}{% endif %}">
+        <div class="toolbar--group">
+            {{ button('ph:bold/plus', '@page::button.one' | trans) }}
+            {{ button('ph:bold/plus', '@page::button.two' | trans) }}
+        </div>
+        <div class="toolbar--group align-right">
+            {{ button('ph:bold/plus', '@page::button.three' | trans) }}
+            <a href="{{ path('home_index') }}">{{ '@page::link.default' | trans }}</a>
+        </div>
+    </div>
+{% endmacro %}
+
+{%- block page_body -%}
+    <div class="container align-center content">
+        <h2>{{ '@page::section.default.title' | trans }}</h2>
+        {{ toolbar_macro.render_toolbar(null) | raw }}
+
+        <h2>{{ '@page::section.transparent.title' | trans }}</h2>
+        {{ toolbar_macro.render_toolbar('toolbar--transparent') | raw }}
+    </div>
+{%- endblock -%}

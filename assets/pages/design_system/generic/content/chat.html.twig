@@ -1,0 +1,121 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/content/layout/layout-content.html.twig' -%}
+{% import _self as chat_macro %}
+
+{% macro composer(wrapper_class, rows, placeholder, submit_label, action_plus_label, action_smiley_label, content = '') %}
+    <div class="{{ wrapper_class }}">
+        <div class="chat-textarea--actions">
+            <button
+                class="chat--action"
+                type="button"
+                aria-label="{{ action_plus_label }}"
+                title="{{ action_plus_label }}"
+            >
+                {{ icon('ph:bold/plus') }}
+            </button>
+            <button
+                class="chat--action"
+                type="button"
+                aria-label="{{ action_smiley_label }}"
+                title="{{ action_smiley_label }}"
+            >
+                {{ icon('ph:bold/smiley') }}
+            </button>
+        </div>
+        <textarea
+            rows="{{ rows }}"
+            class="chat--textarea"
+            placeholder="{{ placeholder }}"
+        >{{ content }}</textarea>
+        <button
+            class="chat--submit"
+            type="button"
+            aria-label="{{ submit_label }}"
+            title="{{ submit_label }}"
+        >
+            {{ icon('ph:bold/paper-plane-right') }}
+        </button>
+    </div>
+{% endmacro %}
+
+{% macro message(author, date, content) %}
+    <div class="chat--message-row">
+        <div class="avatar">
+            {{ icon('ph:bold/user') }}
+        </div>
+        <div class="chat--message">
+            <div class="chat--message-meta">
+                <span class="chat--message-author">{{ author }}</span>
+                <span class="chat--message-date">{{ date }}</span>
+            </div>
+            <div class="chat--message-content">
+                {{ content }}
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{%- block page_body -%}
+    <div class="container align-center content stack--vertical">
+        <div class="stack--horizontal">
+            <div class="block">
+                <div class="block--title">{{ '@page::chat.title' | trans }}</div>
+                <div class="zone">
+                    <div class="chat-thread">
+                        {{ chat_macro.message('Assistant', '9h20', '@page::messages.assistant_1' | trans) }}
+                        {{ chat_macro.message('Maya', '9h21', '@page::messages.user_1' | trans) }}
+                        {{ chat_macro.message('Assistant', '9h22', '@page::messages.assistant_2' | trans) }}
+                        {{ chat_macro.message('Maya', '9h23', '@page::messages.user_2' | trans) }}
+                        {{ chat_macro.message('Assistant', '9h24', '@page::messages.assistant_3' | trans) }}
+                        {{ chat_macro.message('Assistant', '9h25', '@page::messages.assistant_4' | trans) }}
+                    </div>
+                </div>
+                <div class="block--footer">
+                    {{
+                        chat_macro.composer(
+                            'chat-textarea',
+                            1,
+                            '@page::composer.placeholder' | trans,
+                            '@page::composer.submit_label' | trans,
+                            '@page::composer.action_plus_label' | trans,
+                            '@page::composer.action_smiley_label' | trans
+                        )
+                    }}
+                </div>
+                <div class="block--footer">
+                    {{
+                        chat_macro.composer(
+                            'chat-textarea chat-textarea--multiline',
+                            4,
+                            '@page::composer.placeholder' | trans,
+                            '@page::composer.submit_label' | trans,
+                            '@page::composer.action_plus_label' | trans,
+                            '@page::composer.action_smiley_label' | trans,
+                            '@page::composer.multiline_value' | trans
+                        )
+                    }}
+                </div>
+            </div>
+            <div class="block block--padded">
+                <div class="lead">
+                    {{ '@page::description.body' | trans }}
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+{%- endblock -%}

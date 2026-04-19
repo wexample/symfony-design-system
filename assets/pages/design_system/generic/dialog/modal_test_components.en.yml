@@ -1,0 +1,16 @@
+page_title: Modal test - components
+intro: This modal contains components and interactions.
+menu:
+  label: Actions menu
+  item:
+    report: Report issue
+    settings: Settings
+    logout: Sign out
+upload_button: Upload a file
+toast_button: Show toast from modal
+toast_title: Modal toast
+toast_message: Hello from inside the modal.
+frontend:
+  embed:
+    closing_confirmation:
+      message: Are you sure you want to close this modal?

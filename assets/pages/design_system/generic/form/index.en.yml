@@ -1,0 +1,26 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Forms
+page_icon: ph:bold/rows
+
+section:
+  default:
+    title: Basic form
+  block:
+    title: Block forms
+  assisted:
+    title: Assisted
+
+field:
+  title:
+    label: Title
+    placeholder: Enter a title
+  message:
+    label: Message
+    placeholder: Write a short message
+
+action:
+  submit: Submit
+  secondary: Secondary action
+  raw_submit: Raw submit
+  link: Simple link

@@ -1,0 +1,56 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/feedback/layout/layout-feedback.html.twig' -%}
+
+{%- set page_body_mode = 'container' -%}
+
+{%- block page_body -%}
+    <div class="stack--vertical">
+        <div class="block block--padded">
+            <h2>{{ '@page::section.sizes.title' | trans }}</h2>
+            <div class="lead">
+                {{ '@page::section.sizes.description' | trans }}
+            </div>
+        </div>
+        <div class="stack--horizontal">
+                <div class="block block--padded">
+                    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/spinner', {
+                        size: 'sm',
+                        align: 'center',
+                        label: '@page::label.loading' | trans
+                    }) }}
+                </div>
+                <div class="block block--padded">
+                    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/spinner', {
+                        align: 'center',
+                        label: '@page::label.loading' | trans
+                    }) }}
+                </div>
+                <div class="block block--padded">
+                    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/spinner', {
+                        size: 'lg',
+                        align: 'center',
+                        label: '@page::label.loading' | trans
+                    }) }}
+                </div>
+            </div>
+        <div class="block block--padded flow">
+            <h2>{{ '@page::section.inline.title' | trans }}</h2>
+            <div class="lead">
+                {{ '@page::section.inline.description' | trans }}
+            </div>
+        </div>
+        <div class="block block--padded">
+            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/spinner', {
+                align: 'inline',
+                label: '@page::label.loading' | trans
+            }) }}
+            <span>{{ '@page::inline.text' | trans }}</span>
+        </div>
+        <div class="block block--padded">
+            {{ vue(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/spinner', {
+                size: 'lg',
+                align: 'center',
+                label: '@page::label.loading' | trans
+            }) }}
+        </div>
+    </div>
+{%- endblock -%}

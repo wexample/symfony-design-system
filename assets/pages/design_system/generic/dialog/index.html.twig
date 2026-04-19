@@ -1,0 +1,30 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/dialog/layout/layout-dialog.html.twig' -%}
+
+{%- set page_body_mode = 'container' -%}
+
+{%- block layout_config -%}
+    {{ parent() }}
+{%- endblock -%}
+
+{%- block page_body -%}
+    {% set modal_tests = [
+        { key: 'modal_test_simple', route: 'wexample_design_system_generic_dialog_modal_test_simple', class: 'modal-test-simple-button', options: { closeOnEscape: true, closeOnOverlayClick: true, confirmOnClose: false, confirmOnCloseWhenDirty: false } },
+        { key: 'modal_test_components', route: 'wexample_design_system_generic_dialog_modal_test_components', class: 'modal-test-components-button', options: { closeOnEscape: false, closeOnOverlayClick: true, confirmOnClose: false, confirmOnCloseWhenDirty: false } },
+        { key: 'modal_test_medium', route: 'wexample_design_system_generic_dialog_modal_test_medium', class: 'modal-test-medium-button', options: { closeOnEscape: true, closeOnOverlayClick: false, confirmOnClose: false, confirmOnCloseWhenDirty: false } },
+        { key: 'modal_test_long', route: 'wexample_design_system_generic_dialog_modal_test_long', class: 'modal-test-long-button', options: { closeOnEscape: true, closeOnOverlayClick: true, confirmOnClose: true, confirmOnCloseWhenDirty: false } },
+        { key: 'modal_test_recursive', route: 'wexample_design_system_generic_dialog_index', class: 'modal-test-recursive-button', options: { closeOnEscape: true, closeOnOverlayClick: true, confirmOnClose: false, confirmOnCloseWhenDirty: false } },
+        { key: 'modal_test_form_rendered', route: 'wexample_design_system_generic_form_rendered', class: 'modal-test-form-rendered-button', options: { closeOnEscape: true, closeOnOverlayClick: true, confirmOnClose: true } },
+        { key: 'modal_test_form_ajax', route: 'wexample_design_system_generic_form_ajax', class: 'modal-test-form-rendered-button', options: { closeOnEscape: false, closeOnOverlayClick: false, confirmOnCloseWhenDirty: true } },
+    ] %}
+
+    {% for test in modal_tests %}
+        <div class="flow block block--padded">
+            <div class="stack--split">
+                <div class="lead">
+                    {{ ('@page::section.' ~ test.key ~ '.description') | trans }}
+                </div>
+                {{ button_modal('ph:bold/app-window', '@page::section.' ~ test.key ~ '.button', test.route, [], { class: test.class, modal_options: test.options }) }}
+            </div>
+        </div>
+    {% endfor %}
+{%- endblock -%}

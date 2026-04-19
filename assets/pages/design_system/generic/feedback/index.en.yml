@@ -1,0 +1,46 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Feedback
+page_icon: ph:bold/notification
+
+section:
+  simple_toast:
+    description: Display a simple toast
+    button: Open simple toast
+    title: Toast demo
+    message: Hello from ToastService + ToastStack. You can also define action links like @action:demo(this one) inside a message.
+  tl_toast:
+    description: Display a top-left toast stack
+    button: Open top-left toast
+    title: Top-left toast
+    message: Hello from ToastService + ToastStack (TL).
+  medium_toast:
+    description: Display a medium-length toast message
+    button: Open medium toast
+    title: Medium toast
+    message: This is a medium-length toast message for the demo.
+  long_toast:
+    description: Display a long toast message
+    button: Open long toast
+    title: Long toast
+    message: This is a longer toast message for the demo. It contains more text so you can preview how the component behaves with bigger content.
+  horizontal_toasts:
+    description: Display four toasts in a horizontal stack
+    info:
+      title: Info toast
+      message: A horizontal toast preview.
+      button: Popup info toast
+    success:
+      title: Success toast
+      message: Everything looks good here.
+      button: Popup success toast
+    warning:
+      title: Warning toast
+      message: Double-check this action.
+      button: Popup warning toast
+    error:
+      title: Error toast
+      message: Something went wrong.
+      button: Popup error toast
+title:
+  toasts: Toasts

@@ -1,0 +1,6 @@
+page_title: Modal test - simple
+message: This is a simple modal.
+frontend:
+  embed:
+    closing_confirmation:
+      message: Are you sure you want to close this modal?

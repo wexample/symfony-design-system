@@ -1,0 +1,9 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/design_system/layout.html.twig' -%}
+
+{%- block page_header -%}
+    {{ parent() }}
+    <div class="tabs">
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.stage.layout.layout-stage::tab.index', 'wexample_design_system_generic_stage_index') }}
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.stage.layout.layout-stage::tab.pipeline', 'wexample_design_system_generic_stage_pipeline') }}
+    </div>
+{%- endblock -%}

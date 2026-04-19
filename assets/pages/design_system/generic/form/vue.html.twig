@@ -1,0 +1,10 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/form/layout/layout-form.html.twig' -%}
+
+{%- block page_body -%}
+    <div class="container align-center content">
+        <h2>{{ '@page::page_title' | trans }}</h2>
+        <div class="block block--padded">
+            {{ vue(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/demo-form') }}
+        </div>
+    </div>
+{%- endblock -%}
