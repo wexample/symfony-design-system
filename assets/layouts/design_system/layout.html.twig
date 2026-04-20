@@ -2,7 +2,6 @@
 
 {%- block layout_config -%}
     {{- render_pass.layoutRenderNode.setDefaultView(_self) -}}
-    {{ breadcrumb_append_route('home_general') }}
     {{ parent() }}
 {%- endblock -%}
 

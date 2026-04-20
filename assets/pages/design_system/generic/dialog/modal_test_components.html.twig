@@ -10,17 +10,17 @@
                 {
                     icon: 'ph:bold/clipboard-text',
                     label: '@page::menu.item.report',
-                    href: path('home_index')
+                    href: app_home_url()
                 },
                 {
                     icon: 'ph:bold/gear',
                     label: '@page::menu.item.settings',
-                    href: path('home_index')
+                    href: app_home_url()
                 },
                 {
                     icon: 'ph:bold/sign-out',
                     label: '@page::menu.item.logout',
-                    href: path('home_index')
+                    href: app_home_url()
                 }
             ] %}
             {{ button_menu('ph:bold/list', '@page::menu.label' | trans, menu_items) }}

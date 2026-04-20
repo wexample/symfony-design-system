@@ -1,5 +1,9 @@
 {
   "name": "@wexample/symfony-design-system",
   "version": "1.0.68",
-  "peerDependencies": {}
+  "peerDependencies": {
+    "@emoji-mart/data": "^1.2.1",
+    "@wexample/js-api": "*",
+    "emoji-mart": "^5.6.0"
+  }
 }

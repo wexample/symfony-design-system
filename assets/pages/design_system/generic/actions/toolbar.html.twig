@@ -10,7 +10,7 @@
         </div>
         <div class="toolbar--group align-right">
             {{ button('ph:bold/plus', '@page::button.three' | trans) }}
-            <a href="{{ path('home_index') }}">{{ '@page::link.default' | trans }}</a>
+            <a href="{{ app_home_url() }}">{{ '@page::link.default' | trans }}</a>
         </div>
     </div>
 {% endmacro %}

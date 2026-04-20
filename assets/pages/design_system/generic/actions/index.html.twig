@@ -21,22 +21,22 @@
             {
                 icon: 'ph:bold/clipboard-text',
                 label: '@page::menu.item.report',
-                href: path('home_index')
+                href: app_home_url()
             },
             {
                 icon: 'ph:bold/gear',
                 label: '@page::menu.item.settings',
-                href: path('home_index')
+                href: app_home_url()
             },
             {
                 icon: 'ph:bold/sign-out',
                 label: '@page::menu.item.logout',
-                href: path('home_index')
+                href: app_home_url()
             },
             {
                 icon: 'ph:bold/text-aa',
                 label: '@page::menu.item.long',
-                href: path('home_index')
+                href: app_home_url()
             }
         ] %}
         <h2>{{ '@page::section.menu.title' | trans }}</h2>
@@ -65,7 +65,7 @@
         </div>
         <h2>{{ '@page::section.link.title' | trans }}</h2>
         <div class="flow">
-            {{ button_link('ph:bold/arrow-right', '@page::link.more' | trans, path('home_index')) }}
+            {{ button_link('ph:bold/arrow-right', '@page::link.more' | trans, app_home_url()) }}
             {{ button_link('ph:bold/arrow-up-right', '@page::link.external' | trans, 'https://example.com') }}
         </div>
         <h3>{{ '@page::section.list_expanded.title' | trans }}</h3>
