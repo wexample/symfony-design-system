@@ -25,7 +25,7 @@ class AppExtension extends AbstractTemplateExtension
     {
         $route = $this->appHomeRoute;
 
-        if (!$route) {
+        if (! $route) {
             return '#';
         }
 
