@@ -4,7 +4,6 @@ import { reconnectBackoffAttempt } from '@wexample/js-helpers/Helper/Reconnect';
 
 export default class extends Page {
   pageReady() {
-    const client = (this.app as any).getClient();
     const connectionStatusService = this.app.getService(ConnectionStatusService) as ConnectionStatusService;
     const INTERNET_PROBE_SOURCE = 'internet-probe';
     const INTERNET_PROBE_URL = 'https://jsonplaceholder.typicode.com/todos/1';
@@ -21,12 +20,7 @@ export default class extends Page {
       reconnectProbeRunning = true;
       void reconnectBackoffAttempt(
         async () => {
-          await client.getAbsolute({
-            url: INTERNET_PROBE_URL,
-            options: {
-              retry: 0,
-            },
-          }).text();
+          await fetch(INTERNET_PROBE_URL);
         },
         {
           initialDelayMs: 1000,
@@ -55,9 +49,7 @@ export default class extends Page {
     };
 
     attachClick(ERROR_TRIGGER_SELECTOR, async () => {
-      await client.get({
-        path: 'test/fatal-error',
-      });
+      await fetch('/test/fatal-error');
     });
 
     attachClick(FRONTEND_THROW_SELECTOR, () => {
@@ -66,16 +58,7 @@ export default class extends Page {
 
     attachClick(INTERNET_PROBE_SELECTOR, async () => {
       try {
-        await client.getAbsolute({
-          url: INTERNET_PROBE_URL,
-          options: {
-            retry: {
-              limit: 3,
-              methods: ['get'],
-              statusCodes: [],
-            },
-          },
-        }).text();
+        await fetch(INTERNET_PROBE_URL);
         connectionStatusService.markSourceReconnected(INTERNET_PROBE_SOURCE);
       } catch (error) {
         connectionStatusService.markSourceDisconnected(INTERNET_PROBE_SOURCE, {
