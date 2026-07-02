@@ -17,6 +17,7 @@ $color-light: #f2f2f2 !default;
     palette.$color-error
   );
   background: var(--color-default-background);
+  color-scheme: dark;
 }
 
 // Applied on body / sub-layouts
