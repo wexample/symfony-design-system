@@ -1,6 +1,6 @@
 # symfony_design_system
 
-Version: 3.0.4
+Version: 3.0.5
 
 Design system assets for Symfony
 
