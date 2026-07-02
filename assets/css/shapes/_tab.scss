@@ -3,7 +3,7 @@
 .tabs {
   display: flex;
   border-bottom: var(--border-separator);
-  background: var(--color-invert-1);
+  background: var(--surface-1);
 }
 
 .tabs--fill {
@@ -58,10 +58,10 @@
 }
 
 .tabs--item:not(.tabs--item--active):hover {
-  background: var(--color-invert-1);
+  background: var(--surface-2);
 }
 
 .tabs--item--active {
-  background: var(--color-invert-2);
-  border-color: var(--color-invert-3);
+  background: var(--surface-3);
+  border-color: var(--border-color-default);
 }

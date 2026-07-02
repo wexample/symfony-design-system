@@ -1,8 +1,10 @@
 @use './palette' as palette;
 @use '../../css/mixins/color-scheme' as color_scheme;
 
-$color-dark: #000 !default;
-$color-light: #fff !default;
+// Light face of the theme: slightly off-white background, near-black text.
+// Not the exact mirror of the dark face — each face tunes its own anchors.
+$color-dark: #1c1c1c !default;
+$color-light: #fafafa !default;
 
 // Applied on layout / body
 .usage-color-scheme-light {

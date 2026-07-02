@@ -40,3 +40,12 @@ tests/Fixtures/App/config/reference.php
 .phpunit.result.cache
 build/
 .yarn-metadata.json
+/logs/
+/log/
+/.cache/
+/cache/
+/tmp/
+/temp/
+/dist/
+/out/
+/coverage/

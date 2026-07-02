@@ -48,6 +48,30 @@ $color-scheme-level-count: 32 !default;
   --color-activity-input: var(--color-success-16);
   --color-activity-output: var(--color-info-16);
 
+  // Semantic tokens — components must use these instead of raw levels.
+  // Both faces of a theme share these mappings; a face can override any of
+  // them after including the mixin to nuance dark vs light independently.
+
+  // Surfaces: elevation ladder above the page background.
+  --surface-page: var(--color-default-background);
+  --surface-1: var(--color-invert-2); // subtle: inputs, toolbars, list panels
+  --surface-2: var(--color-invert-4); // raised: menu, block, header, footer
+  --surface-3: var(--color-invert-6); // elevated: modal, floating panel, media
+
+  // Interaction states: always readable above any surface level.
+  --state-hover: var(--color-invert-8);
+  --state-active: var(--color-invert-10);
+
+  // Borders.
+  --border-color-discreet: var(--color-invert-4);
+  --border-color-default: var(--color-invert-6);
+  --border-color-strong: var(--color-invert-10);
+
+  // Text.
+  --text-color-default: var(--color-default-text);
+  --text-color-muted: var(--color-invert-20); // secondary: labels, meta, subtitles
+  --text-color-subtle: var(--color-invert-14); // tertiary: separators, empty states
+
   @include color-scheme-invert-levels($foreground, $background);
   @include color-scheme-default-levels($background, $foreground);
   @include color-scheme-semantic-levels(info, $info, $background, $foreground);

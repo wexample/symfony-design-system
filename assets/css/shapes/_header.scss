@@ -5,7 +5,7 @@
 .header {
   @include gutters.gutters-horizontal;
   height: var(--size-3);
-  background: var(--color-invert-2);
+  background: var(--surface-2);
   border-bottom: var(--border-separator);
 
   .header--body {
@@ -32,10 +32,10 @@
 
   .header--subtitle {
     font-size: var(--font-size-2);
-    color: var(--color-invert-6);
+    color: var(--text-color-muted);
 
     &:hover {
-      color: var(--color-invert-8);
+      color: var(--text-color-default);
     }
   }
 

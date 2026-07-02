@@ -46,7 +46,7 @@
 .toast {
   @include feedback.feedback-surface;
   position: relative;
-  --feedback-bg: var(--color-invert-1);
+  --feedback-bg: var(--surface-3);
 }
 
 .toast.is-opening {

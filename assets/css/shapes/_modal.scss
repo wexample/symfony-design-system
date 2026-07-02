@@ -50,7 +50,7 @@
   flex-direction: column;
   width: 100%;
   max-height: 90vh;
-  background: var(--color-invert-1);
+  background: var(--surface-3);
   border-radius: var(--radius-1);
 }
 
@@ -64,7 +64,7 @@
 
 .modal-loading {
   height: 3px;
-  background: var(--color-invert-2);
+  background: var(--surface-1);
 }
 
 .modal-loading-bar {
@@ -101,7 +101,7 @@
   width: 1.75rem;
   height: 1.75rem;
   border-radius: 999px;
-  color: var(--color-default-text-soft);
+  color: var(--text-color-muted);
   text-decoration: none;
 }
 

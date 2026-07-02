@@ -1,6 +1,6 @@
 @mixin feedback-base {
-  --feedback-color: var(--color-invert-6);
-  --feedback-bg: var(--color-invert-1);
+  --feedback-color: var(--text-color-muted);
+  --feedback-bg: var(--surface-1);
   --feedback-border-color: var(--feedback-color);
 }
 

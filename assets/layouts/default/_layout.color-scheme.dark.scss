@@ -1,8 +1,10 @@
 @use './palette' as palette;
 @use '../../css/mixins/color-scheme' as color_scheme;
 
-$color-dark: #000 !default;
-$color-light: #fff !default;
+// Dark face of the theme: softened background (no pure black) so raised
+// surfaces have room to separate, near-white text keeps the high contrast.
+$color-dark: #141414 !default;
+$color-light: #f2f2f2 !default;
 
 // Applied on layout / body
 .usage-color-scheme-dark {
