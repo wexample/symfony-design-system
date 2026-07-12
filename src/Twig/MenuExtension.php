@@ -2,6 +2,7 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig;
 
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 use Twig\TwigFunction;
@@ -10,7 +11,8 @@ use Wexample\Helpers\Helper\ClassHelper;
 class MenuExtension extends AbstractTemplateExtension
 {
     public function __construct(
-        private readonly RouterInterface $router
+        private readonly RouterInterface $router,
+        private readonly RequestStack $requestStack,
     ) {
     }
 
@@ -63,6 +65,82 @@ class MenuExtension extends AbstractTemplateExtension
                             'label' => $label,
                             'href' => $href,
                             'options' => $options,
+                        ]
+                    );
+                },
+                self::TEMPLATE_FUNCTION_OPTIONS
+            ),
+            new TwigFunction(
+                'menu_item_collapsible_from_controller',
+                function (
+                    Environment $twig,
+                    mixed $renderPass,
+                    string $iconName,
+                    string $label,
+                    string $href,
+                    string $controllerNamespace,
+                ) {
+                    $routes = $this->menuGetRoutesFromControllerNamespace($controllerNamespace);
+
+                    $currentRoute = $this->requestStack->getCurrentRequest()?->attributes->get('_route', '');
+                    $prefix = ClassHelper::normalizeNamespacePrefix($controllerNamespace);
+                    $isOpen = false;
+
+                    foreach ($this->router->getRouteCollection() as $name => $route) {
+                        if ($name !== $currentRoute) {
+                            continue;
+                        }
+                        $controller = ClassHelper::getClassPath($route->getDefaults()['_controller'] ?? '');
+                        if ($controller && str_starts_with($controller, $prefix)) {
+                            $isOpen = true;
+                        }
+                        break;
+                    }
+
+                    $pathFn = $twig->getFunction('path')->getCallable();
+                    $items = '';
+                    foreach ($routes as $routeName => $route) {
+                        $routeHref = $pathFn($routeName);
+                        if ($routeHref === $href) {
+                            continue;
+                        }
+                        $items .= $this->renderTemplate(
+                            $twig,
+                            '@WexampleSymfonyDesignSystemBundle/partials/menu-item.html.twig',
+                            [
+                                'route' => $routeName,
+                                'route_params' => [],
+                                'href' => $routeHref,
+                                'options' => [],
+                            ]
+                        );
+                    }
+
+                    $content = $items ? '<ul class="menu--sub-items">'.$items.'</ul>' : '';
+
+                    if ($content === '') {
+                        return $this->renderTemplate(
+                            $twig,
+                            '@WexampleSymfonyDesignSystemBundle/partials/menu-item-link.html.twig',
+                            [
+                                'icon' => $iconName,
+                                'label' => $label,
+                                'href' => $href,
+                                'options' => [],
+                            ]
+                        );
+                    }
+
+                    return $this->renderTemplate(
+                        $twig,
+                        '@WexampleSymfonyDesignSystemBundle/partials/menu-item-collapsible.html.twig',
+                        [
+                            'render_pass' => $renderPass,
+                            'icon_name' => $iconName,
+                            'label' => $label,
+                            'href' => $href,
+                            'content' => $content,
+                            'is_open' => $isOpen,
                         ]
                     );
                 },
