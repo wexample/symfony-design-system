@@ -5,12 +5,12 @@
     {{ parent() }}
 {%- endblock -%}
 
-{% block page_menu_links %}
-    {% block ds_app_menu %}{% endblock %}
-    {{ menu_separator('@layout::menu_design_system.navigation.group.generic.title') }}
-    {% for route_name, route in menu_get_routes_from_controller_namespace('Wexample\\SymfonyDesignSystem\\Controller\\Pages\\DesignSystem') %}
-        {% if route_name starts with 'wexample_design_system_generic_' and not (route_name ends with '_') %}
-            {{ menu_item(route_name) }}
-        {% endif %}
-    {% endfor %}
-{%- endblock -%}
+{% block page_menu_sub_design_system %}
+    <ul class="menu--sub-items">
+        {% for route_name, route in menu_get_routes_from_controller_namespace('Wexample\\SymfonyDesignSystem\\Controller\\Pages\\DesignSystem') %}
+            {% if route_name starts with 'wexample_design_system_generic_' and not (route_name ends with '_') %}
+                {{ menu_item(route_name) }}
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endblock %}
