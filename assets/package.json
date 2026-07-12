@@ -4,6 +4,7 @@
   "peerDependencies": {
     "@emoji-mart/data": "^1.2.1",
     "@wexample/js-api": "*",
-    "emoji-mart": "^5.6.0"
+    "emoji-mart": "^5.6.0",
+    "shiki": "^1.0.0"
   }
 }

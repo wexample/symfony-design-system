@@ -2,6 +2,7 @@
 @use '@wexample/symfony-loader/layouts/default/layout';
 
 // Base shapes.
+@use '../../css/shapes/code-block';
 @use '../../css/shapes/layout-reset-modern';
 @use '../../css/shapes/page';
 @use '../../css/shapes/overlay';
