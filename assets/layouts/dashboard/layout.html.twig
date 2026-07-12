@@ -1,1 +1,65 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/layouts/default/layout.html.twig' -%}
+
+{%- block page_composer_html -%}
+    <div class="layout--horizontal">
+        <div class="gutters--body layout--body--overlay-scope">
+            <div class="layout--horizontal">
+                <div class="gutters--collapsible">
+                    {% block page_menu %}
+                        <nav class="menu menu--vertical menu--vertical--left">
+                            <div class="menu--body">
+                                <ul class="menu--items">
+                                    {% block page_menu_links %}{% endblock %}
+                                </ul>
+                            </div>
+                        </nav>
+                    {% endblock %}
+                </div>
+                <div class="layout--body--scrollable">
+                    <div class="layout--vertical">
+                        {% block page_header %}
+                            <header class="header">
+                                <div class="header--body">
+                                    {% block header_body %}
+                                        {%- if not (page_show_title|default(false)) -%}
+                                            <h1 class="visually-hidden">{{ '@page::page_title' | trans }}</h1>
+                                        {%- endif -%}
+                                        <div class="header--title">
+                                            {{ '@page::page_title' | trans }}
+                                        </div>
+                                    {% endblock %}
+                                </div>
+                            </header>
+                        {% endblock %}
+                        {% block page_toolbar %}
+                            {% set toolbarLeft %}{% block page_toolbar_left %}{% endblock %}{% endset %}
+                            {% set toolbarRight %}{% block page_toolbar_right %}{% endblock %}{% endset %}
+                            {% set toolbarLeft = toolbarLeft|trim %}
+                            {% set toolbarRight = toolbarRight|trim %}
+                            {% if toolbarLeft is not empty or toolbarRight is not empty %}
+                                <div class="toolbar toolbar--top">
+                                    <div class="toolbar--group">{{ toolbarLeft|raw }}</div>
+                                    <div class="toolbar--group align-right">{{ toolbarRight|raw }}</div>
+                                </div>
+                            {% endif %}
+                        {% endblock %}
+                        <section class="layout--body layout--body--{{ page_body_mode|default('defaut') }}">
+                            {{- block('page_body_container') -}}
+                        </section>
+                        <footer class="footer">
+                            <div class="footer--body">
+                                {% block footer_body %}
+                                    {{ breadcrumb_render() }}
+                                {% endblock %}
+                            </div>
+                        </footer>
+                    </div>
+                    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/toast-stack') }}
+                    {{ component_frontend(render_pass, '@WexampleSymfonyDesignSystemBundle/components/confirm') }}
+                    {{ component_frontend(render_pass, '@WexampleSymfonyDesignSystemBundle/components/banner') }}
+                    {{ component_frontend(render_pass, '@WexampleSymfonyDesignSystemBundle/components/overlay') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{%- endblock -%}
