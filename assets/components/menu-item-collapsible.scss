@@ -29,7 +29,6 @@
     border: none;
     cursor: pointer;
     color: var(--color-default-text);
-    transition: opacity 0.15s ease;
 
     svg {
       transition: transform 0.2s ease;
@@ -45,6 +44,10 @@
       min-height: 0;
       overflow: hidden;
     }
+  }
+
+  .menu--items &--link:hover {
+    background: none;
   }
 
   &.is-open {
