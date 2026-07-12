@@ -1,7 +1,7 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/feedback/layout/layout-feedback.html.twig' -%}
 
+{%- block page_body_container_class -%}container align-center content stack--vertical{%- endblock -%}
 {%- block page_body -%}
-    <div class="container align-center content stack--vertical">
         <div class="block block--padded stack--split">
             <div class="lead">
                 {{ '@page::section.trigger.description' | trans }}
@@ -26,5 +26,4 @@
                 class: 'internet-probe-button'
             }) }}
         </div>
-    </div>
 {%- endblock -%}

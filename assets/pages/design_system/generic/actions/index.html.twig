@@ -1,7 +1,6 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/actions/layout/layout-actions.html.twig' -%}
 
 {%- block page_body -%}
-    <div class="container align-center content">
         <h2>{{ '@page::section.default.title' | trans }}</h2>
         <div class="flow">
             {{ button('ph:bold/plus', '@page::button.primary' | trans) }}
@@ -78,5 +77,4 @@
                 <div class="text-empty">{{ '@page::list_expanded.empty' | trans }}</div>
             </div>
         </div>
-    </div>
 {%- endblock -%}

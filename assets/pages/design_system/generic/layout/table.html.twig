@@ -1,7 +1,7 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/layout/layout/layout-generic.html.twig' -%}
 
+{%- block page_body_container_class -%}container align-center content stack stack--vertical{%- endblock -%}
 {%- block page_body -%}
-    <div class="container align-center content stack stack--vertical">
         <section>
             <h2>{{ '@page::section.default.title' | trans }}</h2>
             <table class="table">
@@ -72,5 +72,4 @@
                 </tbody>
             </table>
         </section>
-    </div>
 {%- endblock -%}

@@ -1,7 +1,6 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/content/layout/layout-content.html.twig' -%}
 
 {%- block page_body -%}
-    <div class="container align-center content">
         <h1>{{ '@page::article.title' | trans }}</h1>
         <div class="article block block--padded prose">
             <p>{{ lorem_ipsum(180) }}</p>
@@ -11,5 +10,4 @@
             <h2>{{ '@page::article.section_two.title' | trans }}</h2>
             <p>{{ lorem_ipsum(300) }}</p>
         </div>
-    </div>
 {%- endblock -%}

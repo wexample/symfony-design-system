@@ -54,8 +54,8 @@
     </div>
 {% endmacro %}
 
+{%- block page_body_container_class -%}container align-center content stack--vertical{%- endblock -%}
 {%- block page_body -%}
-    <div class="container align-center content stack--vertical">
         <div class="stack--horizontal">
             <div class="block">
                 <div class="block--title">{{ '@page::chat.title' | trans }}</div>
@@ -117,5 +117,4 @@
                 </div>
             </div>
         </div>
-    </div>
 {%- endblock -%}

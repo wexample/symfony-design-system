@@ -19,7 +19,6 @@
 {%- block page_body -%}
     {% import _self as tabs %}
 
-    <div class="container align-center content">
         <h2>{{ '@page::section.default.normal.title' | trans }}</h2>
         {{ tabs.render_tabs('tab-default-normal', { icons: false, fill: false, compact: false }) }}
 
@@ -47,5 +46,4 @@
             </div>
             <div></div>
         </div>
-    </div>
 {%- endblock -%}

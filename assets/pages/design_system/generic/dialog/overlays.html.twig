@@ -1,7 +1,7 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/dialog/layout/layout-dialog.html.twig' -%}
 
+{%- block page_body_container_class -%}container align-center content stack--vertical{%- endblock -%}
 {%- block page_body -%}
-    <div class="container align-center content stack--vertical">
         <div class="block block--padded stack--split">
             <div class="lead">
                 {{ '@page::section.simple_overlay.description' | trans }}
@@ -18,5 +18,4 @@
                 class: 'layout-spinner-button'
             }) }}
         </div>
-    </div>
 {%- endblock -%}

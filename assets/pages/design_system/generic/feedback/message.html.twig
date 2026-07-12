@@ -24,7 +24,6 @@
 {% endmacro %}
 
 {%- block page_body -%}
-    <div class="container align-center content">
         <h2>{{ '@page::section.default.title' | trans }}</h2>
         <div class="flow">
         {{ message_macro.render_messages() | raw }}
@@ -33,5 +32,4 @@
         <div class="block block--padded">
             {{ message_macro.render_messages() | raw }}
         </div>
-    </div>
 {%- endblock -%}

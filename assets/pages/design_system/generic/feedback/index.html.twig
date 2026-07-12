@@ -1,7 +1,7 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/feedback/layout/layout-feedback.html.twig' -%}
 
+{%- block page_body_container_class -%}container align-center content stack--vertical{%- endblock -%}
 {%- block page_body -%}
-    <div class="container align-center content stack--vertical">
         <h2>{{ '@page::title.toasts' | trans }}</h2>
         <div class="block block--padded stack--split">
             <div class="lead">
@@ -73,7 +73,6 @@
                 {% endfor %}
             </div>
         </div>
-    </div>
     {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/toast-stack', {
         position: 'tl',
         toast_stack_id: 'demo-tl'

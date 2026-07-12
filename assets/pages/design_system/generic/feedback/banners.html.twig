@@ -1,7 +1,7 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/feedback/layout/layout-feedback.html.twig' -%}
 
+{%- block page_body_container_class -%}container align-center content stack--vertical{%- endblock -%}
 {%- block page_body -%}
-    <div class="container align-center content stack--vertical">
         {% set banner_types = [
             { key: 'neutral', type: null },
             { key: 'info', type: 'info' },
@@ -29,5 +29,4 @@
                 }
             }) }}
         </div>
-    </div>
 {%- endblock -%}
