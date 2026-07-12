@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Symfony\Component\HttpFoundation\RequestStack;
+use Wexample\SymfonyLoader\Controller\AbstractPagesController;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 use Twig\TwigFunction;
@@ -75,12 +76,10 @@ class MenuExtension extends AbstractTemplateExtension
                 function (
                     Environment $twig,
                     mixed $renderPass,
-                    string $iconName,
-                    string $label,
-                    string $href,
                     string $controllerNamespace,
                 ) {
                     $routes = $this->menuGetRoutesFromControllerNamespace($controllerNamespace);
+                    $indexRoute = AbstractPagesController::findIndexRoute($this->router, $controllerNamespace);
 
                     $currentRoute = $this->requestStack->getCurrentRequest()?->attributes->get('_route', '');
                     $prefix = ClassHelper::normalizeNamespacePrefix($controllerNamespace);
@@ -98,6 +97,8 @@ class MenuExtension extends AbstractTemplateExtension
                     }
 
                     $pathFn = $twig->getFunction('path')->getCallable();
+                    $href = $pathFn($indexRoute);
+
                     $items = '';
                     foreach ($routes as $routeName => $route) {
                         $routeHref = $pathFn($routeName);
@@ -121,10 +122,10 @@ class MenuExtension extends AbstractTemplateExtension
                     if ($content === '') {
                         return $this->renderTemplate(
                             $twig,
-                            '@WexampleSymfonyDesignSystemBundle/partials/menu-item-link.html.twig',
+                            '@WexampleSymfonyDesignSystemBundle/partials/menu-item.html.twig',
                             [
-                                'icon' => $iconName,
-                                'label' => $label,
+                                'route' => $indexRoute,
+                                'route_params' => [],
                                 'href' => $href,
                                 'options' => [],
                             ]
@@ -136,8 +137,7 @@ class MenuExtension extends AbstractTemplateExtension
                         '@WexampleSymfonyDesignSystemBundle/partials/menu-item-collapsible.html.twig',
                         [
                             'render_pass' => $renderPass,
-                            'icon_name' => $iconName,
-                            'label' => $label,
+                            'route' => $indexRoute,
                             'href' => $href,
                             'content' => $content,
                             'is_open' => $isOpen,
