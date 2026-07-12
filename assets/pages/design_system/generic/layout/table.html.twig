@@ -1,6 +1,6 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/layout/layout/layout-generic.html.twig' -%}
 
-{%- block page_body_container_class -%}container align-center content stack stack--vertical{%- endblock -%}
+{%- set page_body_container_class = 'container align-center content stack stack--vertical' -%}
 {%- block page_body -%}
         <section>
             <h2>{{ '@page::section.default.title' | trans }}</h2>

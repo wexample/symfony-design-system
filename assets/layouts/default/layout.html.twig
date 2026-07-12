@@ -6,7 +6,7 @@
 {%- endblock -%}
 
 {%- block page_body_container -%}
-    <div class="{% block page_body_container_class %}container align-center content{% endblock %}">
+    <div class="{{ page_body_container_class|default('container align-center content') }}">
         {{- block('page_body') -}}
     </div>
 {%- endblock -%}
