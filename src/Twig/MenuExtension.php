@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\Route;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
@@ -210,7 +211,7 @@ class MenuExtension extends AbstractTemplateExtension
                 continue;
             }
 
-            if ($this->isEntryPointRoute($controller, $defaults, $prefix)) {
+            if ($this->isEntryPointRoute($controller, $defaults, $prefix, $name, $route)) {
                 $routes[$name] = $route;
             }
         }
@@ -221,7 +222,9 @@ class MenuExtension extends AbstractTemplateExtension
     private function isEntryPointRoute(
         string $controller,
         array $defaults,
-        string $prefix
+        string $prefix,
+        string $routeName,
+        Route $route,
     ): bool {
         $depth = ClassHelper::getNamespaceDepth($controller, $prefix);
 
@@ -229,6 +232,6 @@ class MenuExtension extends AbstractTemplateExtension
             return true;
         }
 
-        return ($defaults['routeName'] ?? null) === 'index';
+        return ($defaults['routeName'] ?? null) === AbstractController::DEFAULT_ROUTE_NAME_INDEX;
     }
 }
