@@ -3,7 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Symfony\Component\HttpFoundation\RequestStack;
-use Wexample\SymfonyLoader\Controller\AbstractPagesController;
+use Wexample\SymfonyHelpers\Controller\AbstractController;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 use Twig\TwigFunction;
@@ -79,7 +79,7 @@ class MenuExtension extends AbstractTemplateExtension
                     string $controllerNamespace,
                 ) {
                     $routes = $this->menuGetRoutesFromControllerNamespace($controllerNamespace);
-                    $indexRoute = AbstractPagesController::findIndexRoute($this->router, $controllerNamespace);
+                    $indexRoute = AbstractController::findIndexRoute($this->router, $controllerNamespace);
 
                     $currentRoute = $this->requestStack->getCurrentRequest()?->attributes->get('_route', '');
                     $prefix = ClassHelper::normalizeNamespacePrefix($controllerNamespace);
