@@ -91,7 +91,7 @@ class MenuExtension extends AbstractTemplateExtension
                             continue;
                         }
                         $controller = ClassHelper::getClassPath($route->getDefaults()['_controller'] ?? '');
-                        if ($controller && str_starts_with($controller, $prefix)) {
+                        if ($controller && ClassHelper::classPathMatchesPrefix($controller, $prefix)) {
                             $isOpen = true;
                         }
                         break;
@@ -207,7 +207,7 @@ class MenuExtension extends AbstractTemplateExtension
             }
 
             $controller = ClassHelper::getClassPath($defaults['_controller']);
-            if (! $controller || ! str_starts_with($controller, $prefix)) {
+            if (! $controller || ! ClassHelper::classPathMatchesPrefix($controller, $prefix)) {
                 continue;
             }
 
