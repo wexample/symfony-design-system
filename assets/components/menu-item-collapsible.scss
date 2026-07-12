@@ -30,7 +30,7 @@
     cursor: pointer;
     color: var(--color-default-text);
 
-    svg {
+    i {
       transition: transform 0.2s ease;
     }
   }
@@ -51,7 +51,7 @@
   }
 
   &.is-open {
-    .menu-item-collapsible--toggle svg {
+    .menu-item-collapsible--toggle i {
       transform: rotate(180deg);
     }
 
