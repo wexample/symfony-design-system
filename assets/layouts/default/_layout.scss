@@ -6,6 +6,9 @@
 @use '../../css/shapes/page';
 @use '../../css/shapes/overlay';
 
+// Utilities.
+@use '../../css/utilities/visually-hidden';
+
 // Common styles.
 @use '../../css/partials/scrollbar';
 @use '../../css/partials/text';
