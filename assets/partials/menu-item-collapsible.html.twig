@@ -1,0 +1,10 @@
+<li class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-item-collapsible') }} menu-item-collapsible{{ is_open ? ' is-open' : '' }}">
+    <div class="menu-item-collapsible--header">
+        <a href="{{ href }}" class="menu-item-collapsible--link">
+            <span class="menu--item--icon">{{ icon(icon_name) }}</span>
+            <span class="menu--item--label">{{ label }}</span>
+        </a>
+        <button class="menu-item-collapsible--toggle" type="button">{{ icon('ph:bold/caret-down') }}</button>
+    </div>
+    <div class="menu-item-collapsible--sub">{{ content | raw }}</div>
+</li>

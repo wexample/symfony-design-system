@@ -69,6 +69,45 @@ class MenuExtension extends AbstractTemplateExtension
                 self::TEMPLATE_FUNCTION_OPTIONS
             ),
             new TwigFunction(
+                'menu_item_collapsible',
+                function (
+                    Environment $twig,
+                    mixed $renderPass,
+                    string $iconName,
+                    string $label,
+                    string $href,
+                    string $content,
+                    bool $isOpen = false,
+                ) {
+                    if (trim($content) === '') {
+                        return $this->renderTemplate(
+                            $twig,
+                            '@WexampleSymfonyDesignSystemBundle/partials/menu-item-link.html.twig',
+                            [
+                                'icon' => $iconName,
+                                'label' => $label,
+                                'href' => $href,
+                                'options' => [],
+                            ]
+                        );
+                    }
+
+                    return $this->renderTemplate(
+                        $twig,
+                        '@WexampleSymfonyDesignSystemBundle/partials/menu-item-collapsible.html.twig',
+                        [
+                            'render_pass' => $renderPass,
+                            'icon_name' => $iconName,
+                            'label' => $label,
+                            'href' => $href,
+                            'content' => $content,
+                            'is_open' => $isOpen,
+                        ]
+                    );
+                },
+                self::TEMPLATE_FUNCTION_OPTIONS
+            ),
+            new TwigFunction(
                 'menu_get_routes_from_controller_namespace',
                 [$this, 'menuGetRoutesFromControllerNamespace']
             ),
