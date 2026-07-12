@@ -1,21 +1,7 @@
-import Component from '@wexample/symfony-loader/js/Class/Component';
+import AbstractCollapsibleComponent from '../js/Class/AbstractCollapsibleComponent';
 
-export default class extends Component {
-  private toggleEl?: HTMLButtonElement;
-
-  protected async activateListeners(): Promise<void> {
-    this.toggleEl = this.el.querySelector(
-      '.menu-item-collapsible--toggle'
-    ) as HTMLButtonElement;
-
-    this.toggleEl?.addEventListener('click', this.onToggleClick);
+export default class extends AbstractCollapsibleComponent {
+  protected getToggleSelector(): string {
+    return '.menu-item-collapsible--toggle';
   }
-
-  protected async deactivateListeners(): Promise<void> {
-    this.toggleEl?.removeEventListener('click', this.onToggleClick);
-  }
-
-  private onToggleClick = () => {
-    this.el.classList.toggle('is-open');
-  };
 }
