@@ -25,9 +25,7 @@
 
 {%- block page_body -%}
         <h2>{{ '@page::section.default.title' | trans }}</h2>
-        <div class="flow">
         {{ message_macro.render_messages() | raw }}
-        </div>
         <h2>{{ '@page::section.block.title' | trans }}</h2>
         <div class="block block--padded">
             {{ message_macro.render_messages() | raw }}

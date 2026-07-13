@@ -6,7 +6,7 @@
 {%- endblock -%}
 
 {%- block page_body_container -%}
-    <div class="{{ page_body_container_class|default('container align-center content') }}">
+    <div class="{{ page_body_container_class|default('container align-center stack--vertical') }}">
         {%- if page_show_title|default(false) -%}
             <h1 class="page--title">{{ '@page::page_title' | trans }}</h1>
         {%- endif -%}

@@ -2,7 +2,7 @@
 
 {%- block page_body -%}
         <h2>{{ '@page::section.default.title' | trans }}</h2>
-        <form class="form flow">
+        <form class="form">
             <div class="form--group">
                 <label class="form--label" for="form-title">{{ '@page::field.title.label' | trans }}</label>
                 <input class="form--input" id="form-title" type="text"
@@ -20,7 +20,7 @@
             </div>
         </form>
         <h2>{{ '@page::section.block.title' | trans }}</h2>
-        <div class="block block--padded flow">
+        <div class="block block--padded">
             <form class="form">
                 <div class="stack--horizontal">
                     <div class="form--group">
@@ -39,9 +39,9 @@
                 </div>
             </form>
         </div>
-        <div class="block block--padded flow">
+        <div class="block block--padded">
             <h2>{{ '@page::section.assisted.title' | trans }}</h2>
-            <form class="form flow is-assisted">
+            <form class="form is-assisted">
                 <div class="form--group">
                     <label class="form--label"
                            for="form-assisted-title">{{ '@page::field.title.label' | trans }}</label>

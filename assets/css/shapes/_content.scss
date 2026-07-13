@@ -1,5 +1,8 @@
 .content {
-  padding: var(--space-4);
+
+  > * + * { margin-top: var(--space-4); }
+  > :is(h1, h2, h3, h4, h5, h6) + * { margin-top: var(--space-2); }
+  > * + :is(h2, h3, h4, h5, h6) { margin-top: var(--space-6); }
 
   h1,
   h2,
@@ -9,10 +12,10 @@
   h6 {
     font-weight: 600;
     line-height: 1.2;
-    margin: 0 0 var(--space-3);
+    margin: 0;
   }
 
-  h1 { font-size: var(--font-size-6); }
+  h1 { font-size: var(--font-size-7); }
   h2 { font-size: var(--font-size-5); }
   h3 { font-size: var(--font-size-4); }
   h4 { font-size: var(--font-size-3); }
