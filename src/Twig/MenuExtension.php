@@ -4,11 +4,11 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Route;
-use Wexample\SymfonyHelpers\Controller\AbstractController;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\Helpers\Helper\ClassHelper;
+use Wexample\SymfonyHelpers\Controller\AbstractController;
 
 class MenuExtension extends AbstractTemplateExtension
 {
@@ -94,6 +94,7 @@ class MenuExtension extends AbstractTemplateExtension
                         if ($controller && ClassHelper::classPathMatchesPrefix($controller, $prefix)) {
                             $isOpen = true;
                         }
+
                         break;
                     }
 

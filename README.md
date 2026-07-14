@@ -1,6 +1,6 @@
 # symfony_design_system
 
-Version: 3.0.5
+Version: 4.0.0
 
 Design system assets for Symfony
 
@@ -28,7 +28,7 @@ Visit the [Wexample Suite documentation](https://docs.wexample.com) for the comp
 ## Dependencies
 
 - php: >=8.2
-- wexample/symfony-loader: *
+- wexample/symfony-loader: >=1.0.0
 
 ## Versioning & Compatibility Policy
 
