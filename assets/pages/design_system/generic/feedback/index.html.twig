@@ -7,13 +7,14 @@
             <div class="lead">
                 {{ '@page::section.simple_toast.description' | trans }}
             </div>
-            {{ button('ph:bold/upload-simple', '@page::section.simple_toast.button' | trans, {
-                class: 'toast-demo-button',
-                attr: {
-                    'data-toast-title': '@page::section.simple_toast.title' | trans,
-                    'data-toast-message': '@page::section.simple_toast.message' | trans
-                }
-            }) }}
+            {{ button_modal('ph:bold/app-window', 'cdscdscds', 'home_index') }}
+{#            {{ button('ph:bold/upload-simple', '@page::section.simple_toast.button' | trans, {#}
+{#                class: 'toast-demo-button',#}
+{#                attr: {#}
+{#                    'data-toast-title': '@page::section.simple_toast.title' | trans,#}
+{#                    'data-toast-message': '@page::section.simple_toast.message' | trans#}
+{#                }#}
+{#            }) }}#}
         </div>
         <div class="block block--padded stack--split">
             <div class="lead">
