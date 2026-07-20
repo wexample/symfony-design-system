@@ -1,5 +1,7 @@
-import { LiveUpdatesServiceEvents } from '@wexample/symfony-loader/js/Services/LiveUpdatesService';
-
+// Consumes the live-updates connection registry exposed by the client
+// (js-api Common/LiveUpdates/LiveUpdatesConnectionRegistry). The mixin maps
+// the registry's native contract to the widget's state — no legacy loader
+// event nomenclature leaks into the library.
 const AbstractLiveUpdateStatusVueMixin = {
   data() {
     return {
@@ -7,17 +9,14 @@ const AbstractLiveUpdateStatusVueMixin = {
       liveStatus: {
         total: 0,
         connecting: 0,
+        reconnecting: 0,
         open: 0,
         error: 0,
+        reconnectStopped: 0,
         hasActiveConnection: false,
       },
-      liveStatusHandler: null,
-      liveReconnectingHandler: null,
-      liveReconnectedHandler: null,
-      liveReconnectStoppedHandler: null,
-      liveIsReconnecting: false,
+      liveRegistryUnsubscribe: null,
       sendStartHandler: null,
-      receiveHandler: null,
       liveActivityState: 'idle',
       liveActivityTimeout: null,
     };
@@ -56,7 +55,7 @@ const AbstractLiveUpdateStatusVueMixin = {
     },
 
     liveConnectionState() {
-      if (this.liveIsReconnecting) {
+      if (this.liveStatus.reconnecting > 0) {
         return 'offline';
       }
 
@@ -64,7 +63,7 @@ const AbstractLiveUpdateStatusVueMixin = {
         return 'online';
       }
 
-      if (this.liveStatus.error > 0) {
+      if (this.liveStatus.error > 0 || this.liveStatus.reconnectStopped > 0) {
         return 'offline';
       }
 
@@ -81,99 +80,61 @@ const AbstractLiveUpdateStatusVueMixin = {
       return 600;
     },
 
+    // Feature-detected: apps without the modern client (or before its
+    // publication) simply get no registry and the widget stays idle at 0.
+    getLiveUpdatesRegistry() {
+      const client = typeof this.app.getClient === 'function' ? this.app.getClient() : null;
+
+      return client && typeof client.getLiveUpdatesRegistry === 'function'
+        ? client.getLiveUpdatesRegistry()
+        : null;
+    },
+
     registerLiveStatusListener() {
-      if (this.liveStatusHandler) {
+      if (this.liveRegistryUnsubscribe) {
         return;
       }
 
-      const eventsService = this.app.services.events;
-      this.updateLiveStatus(this.app.getService('liveUpdates').getStatus());
-      this.liveStatusHandler = (event) => {
-        this.updateLiveStatus(event.detail.status);
-      };
+      const registry = this.getLiveUpdatesRegistry();
+      if (!registry) {
+        return;
+      }
 
-      this.liveReconnectingHandler = () => {
-        this.liveIsReconnecting = true;
-      };
-      this.liveReconnectedHandler = () => {
-        this.liveIsReconnecting = false;
-      };
-      this.liveReconnectStoppedHandler = () => {
-        this.liveIsReconnecting = false;
-      };
+      this.updateLiveStatus(registry.getAggregatedStatus());
 
-      eventsService.listen(LiveUpdatesServiceEvents.STATUS_CHANGED, this.liveStatusHandler);
-      eventsService.listen(
-        LiveUpdatesServiceEvents.CONNECTION_RECONNECTING,
-        this.liveReconnectingHandler
-      );
-      eventsService.listen(
-        LiveUpdatesServiceEvents.CONNECTION_RECONNECTED,
-        this.liveReconnectedHandler
-      );
-      eventsService.listen(
-        LiveUpdatesServiceEvents.CONNECTION_RECONNECT_STOPPED,
-        this.liveReconnectStoppedHandler
-      );
+      this.liveRegistryUnsubscribe = registry.onEvent((event) => {
+        this.updateLiveStatus(event.aggregated);
+
+        if (event.type === 'connection-message') {
+          this.setLiveActivityState('receiving');
+        }
+      });
     },
 
     unregisterLiveStatusListener() {
-      if (!this.liveStatusHandler) {
-        return;
+      if (this.liveRegistryUnsubscribe) {
+        this.liveRegistryUnsubscribe();
+        this.liveRegistryUnsubscribe = null;
       }
-
-      this.app.services.events.forget(LiveUpdatesServiceEvents.STATUS_CHANGED, this.liveStatusHandler);
-      if (this.liveReconnectingHandler) {
-        this.app.services.events.forget(
-          LiveUpdatesServiceEvents.CONNECTION_RECONNECTING,
-          this.liveReconnectingHandler
-        );
-      }
-      if (this.liveReconnectedHandler) {
-        this.app.services.events.forget(
-          LiveUpdatesServiceEvents.CONNECTION_RECONNECTED,
-          this.liveReconnectedHandler
-        );
-      }
-      if (this.liveReconnectStoppedHandler) {
-        this.app.services.events.forget(
-          LiveUpdatesServiceEvents.CONNECTION_RECONNECT_STOPPED,
-          this.liveReconnectStoppedHandler
-        );
-      }
-      this.liveStatusHandler = null;
-      this.liveReconnectingHandler = null;
-      this.liveReconnectedHandler = null;
-      this.liveReconnectStoppedHandler = null;
-      this.liveIsReconnecting = false;
     },
 
     registerLiveActivityListeners() {
-      if (this.sendStartHandler || this.receiveHandler) {
+      if (this.sendStartHandler) {
         return;
       }
 
+      // 'sending' is a composer/UI signal, not a connection event.
       this.sendStartHandler = () => {
         this.setLiveActivityState('sending');
       };
 
-      this.receiveHandler = () => {
-        this.setLiveActivityState('receiving');
-      };
-
       this.app.services.events.listen(this.getLiveUpdateSendStartEventName(), this.sendStartHandler);
-      this.app.services.events.listen(LiveUpdatesServiceEvents.CONNECTION_MESSAGE, this.receiveHandler);
     },
 
     unregisterLiveActivityListeners() {
       if (this.sendStartHandler) {
         this.app.services.events.forget(this.getLiveUpdateSendStartEventName(), this.sendStartHandler);
         this.sendStartHandler = null;
-      }
-
-      if (this.receiveHandler) {
-        this.app.services.events.forget(LiveUpdatesServiceEvents.CONNECTION_MESSAGE, this.receiveHandler);
-        this.receiveHandler = null;
       }
 
       if (this.liveActivityTimeout) {
@@ -199,8 +160,10 @@ const AbstractLiveUpdateStatusVueMixin = {
       this.liveStatus = {
         total: status?.total || 0,
         connecting: status?.connecting || 0,
+        reconnecting: status?.reconnecting || 0,
         open: status?.open || 0,
         error: status?.error || 0,
+        reconnectStopped: status?.reconnectStopped || 0,
         hasActiveConnection: !!status?.hasActiveConnection,
       };
       // Expose only healthy active streams in the UI count.
