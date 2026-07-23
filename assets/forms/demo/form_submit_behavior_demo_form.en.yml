@@ -1,0 +1,48 @@
+field:
+  text_simple:
+    label: Text
+    error:
+      ERR_FIELD_TEXT_SIMPLE_INVALID: Text is invalid for test purpose.
+  text_area:
+    label: Long text
+    placeholder: Type whatever you want...
+    error:
+      ERR_FIELD_TEXT_AREA_INVALID: Long text is invalid for test purpose.
+  behavior:
+    label: Behavior
+    error:
+      ERR_FIELD_BEHAVIOR_INVALID: Behavior selection is invalid for test purpose.
+    choice:
+      error:
+        label: Show errors
+        description: closes the embed (or does nothing in-page).
+      js:
+        label: JS action (toast)
+        description: returns validation errors.
+      redirect:
+        label: Redirect
+        description: triggers a toast without submitting.
+      default:
+        label: Default
+        description: navigates the full page, or close the modal.
+      embed_stay:
+        label: Keep embed open (modal / panel)
+        description: stays open in modal/panel.
+      embed_redirect:
+        label: Redirect in embed (modal / panel)
+        description: navigates inside the modal/panel.
+
+action:
+  submit: Submit
+
+error:
+  ERR_FORM_TEST:
+    message: Global error for test purpose.
+
+description: |
+  Use this form to test submit behaviors. This demo is available in page, ajax, and modal contexts. Pick a behavior below and submit:
+
+toast:
+  success:
+    title: JS action
+    message: Form submitted successfully (JS).

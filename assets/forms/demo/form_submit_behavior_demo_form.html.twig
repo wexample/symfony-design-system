@@ -1,0 +1,20 @@
+{%- extends '@WexampleSymfonyLoaderBundle/bases/form.html.twig' -%}
+
+{% block form_body %}
+    <div class="lead">
+        {{ '@form::description' | trans }}
+        <ul class="lead--list">
+            {% for choice in form.behavior.vars.choices %}
+                <li>
+                    <strong>{{ choice.label | trans }}</strong>: {{ ('@form::field.behavior.choice.' ~ choice.value ~ '.description') | trans }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {{ form_row(form.text_simple) }}
+    {{ form_row(form.text_area) }}
+    {{ form_row(form.behavior) }}
+    <div class="form--actions">
+        {{ form_widget(form.submit) }}
+    </div>
+{% endblock %}

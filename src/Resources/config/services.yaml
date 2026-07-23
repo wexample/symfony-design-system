@@ -15,6 +15,12 @@ services:
         resource: '../../Controller/'
         exclude: '../../Controller/**/Abstract*.php'
 
+    Wexample\SymfonyDesignSystem\Form\:
+        resource: '../../Form/'
+
+    Wexample\SymfonyDesignSystem\Service\:
+        resource: '../../Service/'
+
     Wexample\SymfonyDesignSystem\Twig\:
         resource: '../../Twig/'
         exclude: '../../Twig/AppExtension.php'

@@ -2,34 +2,28 @@
 
 {%- set page_body_container_class = 'container align-center content' -%}
 {%- block page_body -%}
-        <div class="block block--padded">
-            <div class="stack--split">
-                <div class="lead">
-                    {{ '@page::section.trigger.description' | trans }}
-                </div>
-                {{ button('ph:bold/warning-circle', '@page::section.trigger.button', {
-                    class: 'error-trigger-button'
-                }) }}
+        <div class="block block--padded block--split">
+            <div class="lead">
+                {{ '@page::section.trigger.description' | trans }}
             </div>
+            {{ button('ph:bold/warning-circle', '@page::section.trigger.button', {
+                class: 'error-trigger-button'
+            }) }}
         </div>
-        <div class="block block--padded">
-            <div class="stack--split">
-                <div class="lead">
-                    {{ '@page::section.frontend_throw.description' | trans }}
-                </div>
-                {{ button('ph:bold/bug', '@page::section.frontend_throw.button', {
-                    class: 'frontend-throw-button'
-                }) }}
+        <div class="block block--padded block--split">
+            <div class="lead">
+                {{ '@page::section.frontend_throw.description' | trans }}
             </div>
+            {{ button('ph:bold/bug', '@page::section.frontend_throw.button', {
+                class: 'frontend-throw-button'
+            }) }}
         </div>
-        <div class="block block--padded">
-            <div class="stack--split">
-                <div class="lead">
-                    {{ '@page::section.internet_probe.description' | trans }}
-                </div>
-                {{ button('ph:bold/globe', '@page::section.internet_probe.button', {
-                    class: 'internet-probe-button'
-                }) }}
+        <div class="block block--padded block--split">
+            <div class="lead">
+                {{ '@page::section.internet_probe.description' | trans }}
             </div>
+            {{ button('ph:bold/globe', '@page::section.internet_probe.button', {
+                class: 'internet-probe-button'
+            }) }}
         </div>
 {%- endblock -%}

@@ -1,0 +1,1 @@
+~extends: '@WexampleSymfonyDesignSystemBundle.forms.demo.form_submit_behavior_demo_form'
