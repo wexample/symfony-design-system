@@ -2,18 +2,18 @@ import Component from '@wexample/symfony-loader/js/Class/Component';
 import AssetUsage from '@wexample/symfony-loader/js/Class/AssetUsage';
 
 export default class extends Component {
-  private scheme: string = 'light';
+  private checked: boolean = false;
 
   private onToggle = async () => {
-    this.scheme = this.scheme === 'dark' ? 'light' : 'dark';
-    this.el.setAttribute('data-scheme', this.scheme);
-    await (this.app.layout as any).setUsage(AssetUsage.USAGE_COLOR_SCHEME, this.scheme, true);
+    this.checked = !this.checked;
+    this.el.setAttribute('data-checked', String(this.checked));
+    const scheme = this.checked ? 'light' : 'dark';
+    await (this.app.layout as any).setUsage(AssetUsage.USAGE_COLOR_SCHEME, scheme, true);
   };
 
   protected async activateListeners(): Promise<void> {
-    const layoutEl = this.app.layout.el;
-    this.scheme = layoutEl.classList.contains('usage-color-scheme-dark') ? 'dark' : 'light';
-    this.el.setAttribute('data-scheme', this.scheme);
+    this.checked = this.app.layout.el.classList.contains('usage-color-scheme-light');
+    this.el.setAttribute('data-checked', String(this.checked));
     this.el.addEventListener('click', this.onToggle);
   }
 
