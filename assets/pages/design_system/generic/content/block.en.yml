@@ -16,5 +16,6 @@ article:
     title: "Why tokens matter"
     body_one: "Without tokens, a change to the primary brand color requires hunting through hundreds of files. With tokens, one variable update propagates everywhere — from buttons to alerts to navigation bars."
     body_two: "Tokens also bridge the gap between design tools and code. A designer names a color <strong>surface-brand</strong> in Figma; a developer uses <code>var(--surface-brand)</code> in CSS. They speak the same language."
+    body_three: "For a deeper dive, read <a href=\"#\">the complete token specification</a> or explore how other teams have <a href=\"#\">adopted this approach</a> in production."
   quote: "Good design is as little design as possible. Tokens make restraint systematic."
   quote_author: "After Dieter Rams"
