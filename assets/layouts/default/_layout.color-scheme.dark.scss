@@ -16,7 +16,7 @@ $color-light: #f2f2f2 !default;
     palette.$color-warning,
     palette.$color-error
   );
-  background: var(--color-default-background);
+  background: var(--surface-page);
   color-scheme: dark;
 }
 

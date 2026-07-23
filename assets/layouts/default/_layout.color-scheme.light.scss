@@ -16,7 +16,7 @@ $color-light: #fafafa !default;
     palette.$color-warning,
     palette.$color-error
   );
-  background: var(--color-default-background);
+  background: var(--surface-page);
   color-scheme: light;
 }
 

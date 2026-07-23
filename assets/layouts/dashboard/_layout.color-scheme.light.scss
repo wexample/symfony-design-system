@@ -18,4 +18,11 @@ $color-light: #fafafa !default;
     palette.$color-warning,
     palette.$color-error
   );
+
+  // Light face: gray page + white elevation.
+  // Surfaces go toward white (opposite of invert direction) so we override here.
+  --surface-page: #f0f0f0;                      // gray base
+  --surface-1: var(--color-default-background); // near-white #fafafa
+  --surface-2: var(--color-absolute-light);     // pure white #fff
+  --surface-3: var(--color-absolute-light);     // same for now
 }
