@@ -4,15 +4,15 @@
     <div class="layout--horizontal">
         <div class="gutters--body layout--body--overlay-scope">
             <div class="layout--horizontal">
-                <div class="gutters--collapsible">
+                <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible" data-menu-id="left">
                     {% block page_menu %}
-                        <nav class="menu menu--vertical menu--vertical--left" data-el="menuNavigation">
+                        <nav class="menu menu--vertical menu--vertical--left">
                             {% block page_menu_header %}
                                 <div class="menu--header menu--bar">
                                     <div class="menu--bar--content menu--bar--content--end">
                                         {% block page_menu_logo %}{% endblock %}
                                         {% block page_menu_toggle_close %}
-                                            <a class="menu--bar--icon" href="#" data-el="menuNavigationToggleClose" aria-disabled="true" tabindex="-1">
+                                            <a class="menu--bar--icon menu--toggle-close" href="#">
                                                 {{ icon('ph:bold/text-outdent') }}
                                             </a>
                                         {% endblock %}
@@ -24,9 +24,10 @@
                                     {% block page_menu_links %}{% endblock %}
                                 </ul>
                             </div>
-                            {% block page_menu_footer %}{% endblock %}
+                                    {% block page_menu_footer %}{% endblock %}
                         </nav>
                     {% endblock %}
+                    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }}
                 </div>
                 <div class="layout--body--scrollable">
                     <div class="layout--vertical">
@@ -34,7 +35,7 @@
                             <header class="header">
                                 {% block page_header_menu_left %}
                                     <nav class="header--menu">
-                                        <a class="header--menu-item header--menu-item--icon" href="#" data-el="menuNavigationToggleOpen">
+                                        <a class="header--menu-item header--menu-item--icon" href="#" data-menu-target="left">
                                             {{ icon('ph:bold/list') }}
                                         </a>
                                     </nav>
