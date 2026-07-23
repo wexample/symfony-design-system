@@ -32,6 +32,13 @@
                     <div class="layout--vertical">
                         {% block page_header %}
                             <header class="header">
+                                {% block page_header_menu_left %}
+                                    <nav class="header--menu">
+                                        <a class="header--menu-item header--menu-item--icon" href="#" data-el="menuNavigationToggleOpen">
+                                            {{ icon('ph:bold/list') }}
+                                        </a>
+                                    </nav>
+                                {% endblock %}
                                 <div class="header--body">
                                     {% block header_body %}
                                         {%- if not (page_show_title|default(false)) -%}
@@ -42,6 +49,7 @@
                                         </div>
                                     {% endblock %}
                                 </div>
+                                {% block page_header_menu_right %}{% endblock %}
                             </header>
                         {% endblock %}
                         {% block page_toolbar %}
@@ -74,5 +82,6 @@
                 </div>
             </div>
         </div>
+        {% block page_menu_right %}{% endblock %}
     </div>
 {%- endblock -%}

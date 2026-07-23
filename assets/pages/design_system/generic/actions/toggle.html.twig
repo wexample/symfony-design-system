@@ -1,9 +1,0 @@
-{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/actions/layout/layout-actions.html.twig' -%}
-
-{%- block page_body -%}
-    <h2>{{ '@page::section.color_scheme.title' | trans }}</h2>
-    <div class="block block--padded block--split">
-        <div class="lead">{{ '@page::section.color_scheme.description' | trans }}</div>
-        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/color-scheme-switch') }}
-    </div>
-{%- endblock -%}
