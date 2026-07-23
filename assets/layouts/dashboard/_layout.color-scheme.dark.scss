@@ -18,4 +18,6 @@ $color-light: #f2f2f2 !default;
     palette.$color-warning,
     palette.$color-error
   );
+  --state-hover: var(--color-invert-2);
+  --state-active: var(--color-invert-1);
 }

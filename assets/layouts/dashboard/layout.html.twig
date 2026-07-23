@@ -4,7 +4,7 @@
     <div class="layout--horizontal">
         <div class="gutters--body layout--body--overlay-scope">
             <div class="layout--horizontal">
-                <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible" data-menu-id="left">
+                <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible{% if not ui_state_get('ui.layout.menu.left', true) %} gutters--collapsible--collapsed{% endif %}" data-menu-id="left">
                     {% block page_menu %}
                         <nav class="menu menu--vertical menu--vertical--left">
                             {% block page_menu_header %}
