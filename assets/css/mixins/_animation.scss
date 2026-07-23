@@ -59,3 +59,33 @@
     animation: none;
   }
 }
+
+@mixin enter-from-right($level: 2) {
+  $durations: (
+    1: 120ms,
+    2: 220ms,
+    3: 300ms
+  );
+
+  $duration: map.get($durations, $level);
+  animation: ds-slide-in-right $duration ease-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@mixin exit-to-right($level: 2) {
+  $durations: (
+    1: 100ms,
+    2: 180ms,
+    3: 240ms
+  );
+
+  $duration: map.get($durations, $level);
+  animation: ds-slide-out-right $duration ease-in;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}

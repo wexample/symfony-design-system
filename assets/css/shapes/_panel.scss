@@ -1,3 +1,5 @@
+@use '../mixins/animation' as animation;
+
 .panel {
   position: fixed;
   inset: 0;
@@ -21,7 +23,7 @@
 .panel--content {
   position: relative;
   z-index: 1;
-  width: min(92vw, var(--size-9));
+  width: min(92vw, var(--size-8));
   height: 100%;
   overflow: hidden;
   box-shadow: var(--shadow-3);
@@ -30,21 +32,11 @@
 }
 
 .panel--content.is-opening {
-  animation: ds-panel-open 220ms ease-out;
+  @include animation.enter-from-right(2);
 }
 
 .panel--content.is-closing {
-  animation: ds-panel-close 180ms ease-in;
-}
-
-@keyframes ds-panel-open {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
-}
-
-@keyframes ds-panel-close {
-  from { transform: translateX(0); }
-  to { transform: translateX(100%); }
+  @include animation.exit-to-right(2);
 }
 
 .layout-panel {

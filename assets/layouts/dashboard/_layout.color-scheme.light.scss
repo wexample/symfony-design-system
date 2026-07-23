@@ -19,12 +19,13 @@ $color-light: #fafafa !default;
     palette.$color-error
   );
 
-  // Light face: gray page + white elevation.
+  // Light face: gray page, gray chrome, white elevation.
   // Surfaces go toward white (opposite of invert direction) so we override here.
-  --surface-page: #f0f0f0;                      // gray base
-  --surface-1: var(--color-default-background); // near-white #fafafa
-  --surface-2: var(--color-absolute-light);     // pure white #fff
-  --surface-3: var(--color-absolute-light);     // same for now
-  --state-hover: var(--color-invert-1);
-  --state-active: var(--color-invert-2);
+  --surface-page: #f0f0f0; // gray base
+  --surface-1: #fafafa;    // near-white (inputs, toolbars)
+  --surface-2: #ececec;    // gray chrome (menu, header, plain blocks)
+  --surface-3: #ffffff;    // white (cards, modals — highest elevation)
+  --state-hover: var(--color-invert-2);
+  --state-active: var(--color-invert-4);
+  --border-color-discreet: #cccccc;
 }
