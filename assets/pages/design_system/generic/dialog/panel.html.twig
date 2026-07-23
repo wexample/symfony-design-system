@@ -1,0 +1,25 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/dialog/layout/layout-dialog.html.twig' -%}
+
+{%- set page_body_mode = 'container' -%}
+
+{%- block page_body -%}
+    {% set panel_tests = [
+        { key: 'simple', route: 'wexample_design_system_generic_dialog_modal_test_simple', class: 'panel-test-simple-button', options: { closeOnEscape: true, closeOnOverlayClick: true } },
+        { key: 'components', route: 'wexample_design_system_generic_dialog_modal_test_components', class: 'panel-test-components-button', options: { closeOnEscape: false, closeOnOverlayClick: true } },
+        { key: 'medium', route: 'wexample_design_system_generic_dialog_modal_test_medium', class: 'panel-test-medium-button', options: { closeOnEscape: true, closeOnOverlayClick: false } },
+        { key: 'long', route: 'wexample_design_system_generic_dialog_modal_test_long', class: 'panel-test-long-button', options: { closeOnEscape: true, closeOnOverlayClick: true, confirmOnClose: true } },
+        { key: 'form_rendered', route: 'wexample_design_system_generic_form_rendered', class: 'panel-test-form-rendered-button', options: { closeOnEscape: true, closeOnOverlayClick: true, confirmOnClose: true } },
+        { key: 'form_ajax', route: 'wexample_design_system_generic_form_ajax', class: 'panel-test-form-ajax-button', options: { closeOnEscape: false, closeOnOverlayClick: false, confirmOnCloseWhenDirty: true } },
+    ] %}
+
+    {% for test in panel_tests %}
+        <div class="block block--padded">
+            <div class="stack--split">
+                <div class="lead">
+                    {{ ('@page::section.' ~ test.key ~ '.description') | trans }}
+                </div>
+                {{ button_panel('ph:bold/sidebar-simple-duotone', '@page::section.' ~ test.key ~ '.button', test.route, [], { class: test.class, panel_options: test.options }) }}
+            </div>
+        </div>
+    {% endfor %}
+{%- endblock -%}

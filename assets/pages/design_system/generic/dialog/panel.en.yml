@@ -1,0 +1,22 @@
+page_title: Panel
+page_icon: ph:bold/sidebar-simple-duotone
+
+section:
+  simple:
+    description: Simple panel with a short message.
+    button: Open panel
+  components:
+    description: Panel with components and interactions.
+    button: Open panel
+  medium:
+    description: Panel with medium content.
+    button: Open panel
+  long:
+    description: Panel with long scrollable content (confirm on close).
+    button: Open panel
+  form_rendered:
+    description: Panel containing a standard form (confirm on close).
+    button: Open panel
+  form_ajax:
+    description: Panel with AJAX form (confirm on close when dirty).
+    button: Open panel

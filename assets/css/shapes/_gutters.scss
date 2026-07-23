@@ -38,19 +38,17 @@
 }
 
 // Collapsible children
-.gutters--collapsible {
-  overflow: hidden;
-}
-
 .gutters--horizontal,
 .layout--horizontal {
   .gutters--collapsible--collapsed {
     width: 0;
+    overflow: hidden;
   }
 }
 
 .gutters--vertical {
   .gutters--collapsible--collapsed {
     height: 0;
+    overflow: hidden;
   }
 }

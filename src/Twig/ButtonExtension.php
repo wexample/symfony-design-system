@@ -126,6 +126,35 @@ class ButtonExtension extends AbstractTemplateExtension
                 },
                 $options
             ),
+            new TwigFunction(
+                'button_panel',
+                function (
+                    Environment $twig,
+                    $context,
+                    string $icon,
+                    string $label,
+                    string $routeName,
+                    array $routeParams = [],
+                    array $options = []
+                ) {
+                    $context = is_array($context) ? $context : [];
+                    $renderPass = $context['render_pass'] ?? null;
+                    $options['href'] = $this->urlGenerator->generate($routeName, $routeParams);
+                    $options['panel'] = true;
+
+                    return $this->componentsExtension->component(
+                        $twig,
+                        $renderPass,
+                        '@WexampleSymfonyDesignSystemBundle/components/button-panel',
+                        [
+                            'icon' => $icon,
+                            'label' => $label,
+                            'options' => $options,
+                        ]
+                    );
+                },
+                $options
+            ),
         ];
     }
 }
