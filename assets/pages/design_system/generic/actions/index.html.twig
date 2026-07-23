@@ -67,6 +67,14 @@
             {{ button_link('ph:bold/arrow-right', '@page::link.more' | trans, app_home_url()) }}
             {{ button_link('ph:bold/arrow-up-right', '@page::link.external' | trans, 'https://example.com') }}
         </div>
+        <h2>{{ '@page::section.switch.title' | trans }}</h2>
+        <div class="stack--vertical" style="align-items: flex-start;">
+            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch') }}
+            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { label: '@page::switch.label_right' }) }}
+            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { label: '@page::switch.label_left', label_position: 'left' }) }}
+            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { off_inner: '🌙', on_inner: '☀️' }) }}
+            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { off_inner: 'OFF', on_inner: 'ON', label: '@page::switch.label_right', checked: true }) }}
+        </div>
         <h3>{{ '@page::section.list_expanded.title' | trans }}</h3>
         <div class="list-expanded">
             <div class="list-expanded--header">

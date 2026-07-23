@@ -1,0 +1,74 @@
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.switch--label {
+  font-size: inherit;
+  color: var(--color-default-text);
+}
+
+.switch--pill {
+  --travel: 1.25rem;
+  position: relative;
+  display: inline-block;
+  width: 2.75rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background: var(--surface-3);
+  flex-shrink: 0;
+  transition: background 0.2s;
+
+  &:has(.switch--inner) {
+    --travel: 2rem;
+    width: 3.5rem;
+  }
+}
+
+.switch--knob {
+  position: absolute;
+  top: 0.1875rem;
+  left: 0.1875rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 50%;
+  background: var(--surface-page);
+  box-shadow: var(--shadow-1);
+  transition: transform 0.2s ease;
+  z-index: 1;
+}
+
+.switch--inner {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+  line-height: 1;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+
+.switch--off-inner {
+  right: 0.375rem;
+  color: var(--text-color-muted);
+  opacity: 1;
+}
+
+.switch--on-inner {
+  left: 0.375rem;
+  color: var(--surface-page);
+  opacity: 0;
+}
+
+// Active state
+.switch[data-checked="true"] {
+  .switch--pill { background: var(--color-link); }
+  .switch--knob { transform: translateX(var(--travel)); }
+  .switch--off-inner { opacity: 0; }
+  .switch--on-inner  { opacity: 1; }
+}

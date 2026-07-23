@@ -6,6 +6,8 @@ page_icon: ph:bold/cursor-click
 section:
   default:
     title: Default buttons
+  switch:
+    title: Switches
   select:
     title: Selects
   menu:
@@ -18,6 +20,10 @@ section:
     title: Toolbar buttons
   list_expanded:
     title: List expanded
+
+switch:
+  label_right: Enable feature
+  label_left: Enable feature
 
 button:
   primary: Primary button

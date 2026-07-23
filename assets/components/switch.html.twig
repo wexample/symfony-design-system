@@ -1,0 +1,17 @@
+<div class="switch{% if label_position is defined and label_position == 'left' %} switch--label-left{% endif %}" data-checked="{{ checked | default(false) ? 'true' : 'false' }}">
+    {%- if label is defined and label_position is defined and label_position == 'left' -%}
+        <span class="switch--label">{{ label | trans }}</span>
+    {%- endif -%}
+    <span class="switch--pill">
+        <span class="switch--knob"></span>
+        {%- if off_inner is defined -%}
+            <span class="switch--inner switch--off-inner">{{ off_inner | raw }}</span>
+        {%- endif -%}
+        {%- if on_inner is defined -%}
+            <span class="switch--inner switch--on-inner">{{ on_inner | raw }}</span>
+        {%- endif -%}
+    </span>
+    {%- if label is defined and (label_position is not defined or label_position != 'left') -%}
+        <span class="switch--label">{{ label | trans }}</span>
+    {%- endif -%}
+</div>
