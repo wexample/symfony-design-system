@@ -6,13 +6,25 @@
             <div class="layout--horizontal">
                 <div class="gutters--collapsible">
                     {% block page_menu %}
-                        <nav class="menu menu--vertical menu--vertical--left">
-                            {% block page_menu_header %}{% endblock %}
+                        <nav class="menu menu--vertical menu--vertical--left" data-el="menuNavigation">
+                            {% block page_menu_header %}
+                                <div class="menu--header menu--bar">
+                                    <div class="menu--bar--content menu--bar--content--spaced">
+                                        {% block page_menu_logo %}{% endblock %}
+                                        {% block page_menu_toggle_close %}
+                                            <a class="menu--bar--icon" href="#" data-el="menuNavigationToggleClose" aria-disabled="true" tabindex="-1">
+                                                {{ icon('ph:bold/text-outdent') }}
+                                            </a>
+                                        {% endblock %}
+                                    </div>
+                                </div>
+                            {% endblock %}
                             <div class="menu--body">
                                 <ul class="menu--items">
                                     {% block page_menu_links %}{% endblock %}
                                 </ul>
                             </div>
+                            {% block page_menu_footer %}{% endblock %}
                         </nav>
                     {% endblock %}
                 </div>

@@ -1,0 +1,9 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Toggle
+page_icon: ph:bold/toggle-right
+
+section:
+  color_scheme:
+    title: Color scheme
+    description: Switch between light and dark mode. The change applies to the entire interface immediately.
