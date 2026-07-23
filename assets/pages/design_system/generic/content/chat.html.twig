@@ -57,9 +57,9 @@
 {%- set page_body_container_class = 'container align-center stack--vertical' -%}
 {%- block page_body -%}
         <div class="stack--horizontal">
-            <div class="block">
+            <div class="block block--fill">
                 <div class="block--title">{{ '@page::chat.title' | trans }}</div>
-                <div class="zone">
+                <div class="zone--scrollable">
                     <div class="chat-thread">
                         {{ chat_macro.message('Assistant', '9h20', '@page::messages.assistant_1' | trans) }}
                         {{ chat_macro.message('Maya', '9h21', '@page::messages.user_1' | trans) }}

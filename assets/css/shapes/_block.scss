@@ -31,6 +31,11 @@
   gap: var(--space-4);
 }
 
+.block--fill {
+  display: flex;
+  flex-direction: column;
+}
+
 .block--placeholder {
   background: var(--surface-page);
   border: var(--border-placeholder);
