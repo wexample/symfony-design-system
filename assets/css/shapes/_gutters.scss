@@ -38,6 +38,10 @@
 }
 
 // Collapsible children
+.gutters--collapsible {
+  overflow: hidden;
+}
+
 .gutters--horizontal,
 .layout--horizontal {
   .gutters--collapsible--collapsed {
