@@ -11,6 +11,10 @@ services:
         autoconfigure: true
         public: false
 
+    _instanceof:
+        Wexample\SymfonyForms\Service\FormProcessor\AbstractFormProcessor:
+            tags: ['wexample.symfony_forms.form_processor']
+
     Wexample\SymfonyDesignSystem\Controller\:
         resource: '../../Controller/'
         exclude: '../../Controller/**/Abstract*.php'

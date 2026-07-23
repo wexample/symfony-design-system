@@ -1,22 +1,45 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/content/layout/layout-content.html.twig' -%}
 
+{%- set placeholder_svg -%}
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 100">
+    <rect width="100" height="100" fill="none"/>
+    <line x1="0" y1="0" x2="100" y2="100" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+    <line x1="100" y1="0" x2="0" y2="100" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+</svg>
+{%- endset -%}
+
 {%- block page_body -%}
-        <h2>{{ '@page::section.default.title' | trans }}</h2>
-        <div class="stack--horizontal">
-            <div class="block block--padded">
-                <div class="media media--square media-demo--bg-primary">
-                    <img src="/image/syrtis-logo-single-cutout.svg" alt="">
-                </div>
+    <h2>{{ '@page::section.shapes.title' | trans }}</h2>
+    <div class="stack--horizontal">
+        <div class="block block--padded">
+            <div class="media media--square media-demo--bg-primary">
+                {{ placeholder_svg | raw }}
             </div>
-            <div class="block block--padded">
-                <div class="media media--round media-demo--bg-secondary">
-                    <img src="/image/syrtis-logo-single-cutout.svg" alt="">
-                </div>
+            <p>square</p>
+        </div>
+        <div class="block block--padded">
+            <div class="media media--round media-demo--bg-secondary">
+                {{ placeholder_svg | raw }}
             </div>
-            <div class="block block--padded">
-                <div class="media media--square media--cover media-demo--bg-accent">
-                    <img src="/image/syrtis-logo-single-cutout.svg" alt="">
+            <p>round</p>
+        </div>
+        <div class="block block--padded">
+            <div class="media media--square media--cover media-demo--bg-accent" style="height: 8rem;">
+                {{ placeholder_svg | raw }}
+            </div>
+            <p>cover</p>
+        </div>
+    </div>
+
+    <h2>{{ '@page::section.overlay.title' | trans }}</h2>
+    <div class="stack--horizontal">
+        <div class="block block--padded">
+            <div class="media media--square media-demo--bg-primary" style="height: 8rem;">
+                <div class="media--bg media-demo--bg-secondary" style="opacity: 0.5;"></div>
+                <div class="media--fg" style="display: flex; align-items: center; justify-content: center; height: 100%; color: white;">
+                    media--bg / media--fg
                 </div>
             </div>
         </div>
+    </div>
 {%- endblock -%}

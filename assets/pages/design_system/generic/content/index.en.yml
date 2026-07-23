@@ -3,22 +3,50 @@
 page_title: Content
 page_icon: ph:bold/textbox
 
+section:
+  typography:
+    title: Type scale
+  prose:
+    title: Prose article
+
 title:
   h1:
-    title: This is the main page title
-    description: Short intro text under the main title.
+    title: "Design System — Building blocks for great interfaces"
+    description: "Used once per page. Sets the primary context. Paired with a short lead paragraph."
   h2:
-    title: This is the second level title
-    description: Brief supporting text for this section.
+    title: "Typography establishes hierarchy and rhythm"
+    description: "Section-level heading. Groups related content. Usually followed by body text or sub-sections."
   h3:
-    title: This is the third level title
-    description: Short description for this subsection.
+    title: "Spacing and proportion shape readability"
+    description: "Sub-section heading. Introduces a focused topic within a section."
   h4:
-    title: This is the fourth level title
-    description: Quick note to clarify this block.
+    title: "Color and contrast guide the eye"
+    description: "Used for card titles, sidebar sections, or minor groupings."
   h5:
-    title: This is the fifth level title
-    description: Small helper text under the heading.
+    title: "Interactive states need to be obvious"
+    description: "Labels, metadata headers, small groupings. Subtle but distinct from body text."
   h6:
-    title: This is the sixth level title
-    description: Tiny caption-like description text.
+    title: "Accessibility is a feature, not an afterthought"
+    description: "The smallest heading level. Use sparingly — for footnotes, legal blocks, or auxiliary labels."
+
+article:
+  title: "Understanding design tokens"
+  intro: "Design tokens are the single source of truth for visual decisions across a product. They encode color, spacing, typography, and motion into named variables that components consume."
+  section_one:
+    title: "Why tokens matter"
+    body_one: "Without tokens, a change to the primary brand color requires hunting through hundreds of files. With tokens, one variable update propagates everywhere — from buttons to alerts to navigation bars."
+    body_two: "Tokens also bridge the gap between design tools and code. A designer names a color <strong>surface-brand</strong> in Figma; a developer uses <code>var(--surface-brand)</code> in CSS. They speak the same language."
+  section_two:
+    title: "Practical examples"
+    body: "Consider a component that needs a background, a border, and text. Instead of hardcoding <code>#1a56db</code>, <code>#e1effe</code>, and <code>#1e429f</code>, the component references <code>--color-primary</code>, <code>--surface-primary-subtle</code>, and <code>--text-primary-strong</code>. When the brand evolves, the palette changes — the component does not."
+  list_title: "Token categories"
+  list:
+    - "Color — brand, semantic, and neutral palettes"
+    - "Spacing — a consistent scale from 2px to 64px"
+    - "Typography — font sizes, weights, and line heights"
+    - "Radius — from sharp corners to fully rounded"
+    - "Shadow — elevation levels for depth and hierarchy"
+    - "Motion — easing curves and duration steps"
+  quote: "Good design is as little design as possible. Tokens make restraint systematic."
+  quote_author: "After Dieter Rams"
+  cta: "Read the full token reference"

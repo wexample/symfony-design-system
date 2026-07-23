@@ -4,6 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Form\Demo;
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wexample\SymfonyForms\Form\AbstractForm;
 use Wexample\SymfonyForms\Form\Type\SelectInputType;
 use Wexample\SymfonyForms\Form\Type\TextareaInputType;
@@ -13,6 +14,14 @@ use Wexample\SymfonyLoader\Helper\AdaptiveRequestHelper;
 class FormSubmitBehaviorDemoForm extends AbstractForm
 {
     public static bool $ajax = false;
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        parent::configureOptions($resolver);
+        $resolver->setDefaults([
+            'translation_domain' => 'WexampleSymfonyDesignSystemBundle.forms.demo.form_submit_behavior_demo_form',
+        ]);
+    }
 
     public function __construct(
         private readonly RequestStack $requestStack

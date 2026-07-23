@@ -21,4 +21,50 @@
   h4 { font-size: var(--font-size-3); }
   h5 { font-size: var(--font-size-2); }
   h6 { font-size: var(--font-size-2); }
+
+  a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    &:hover { opacity: var(--opacity-3); }
+  }
+
+  strong { font-weight: 600; }
+  em { font-style: italic; }
+
+  code {
+    font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    font-size: 0.875em;
+    background: var(--surface-3);
+    padding: 0.1em 0.4em;
+    border-radius: var(--radius-1);
+  }
+
+  ul, ol {
+    padding-left: var(--space-5);
+    li + li { margin-top: var(--space-2); }
+  }
+
+  ul { list-style: disc; }
+  ol { list-style: decimal; }
+
+  blockquote {
+    border-left: 3px solid var(--color-primary);
+    padding-left: var(--space-4);
+    color: var(--text-color-muted);
+    font-style: italic;
+  }
+
+  cite {
+    display: block;
+    margin-top: var(--space-2);
+    font-size: var(--font-size-2);
+    font-style: normal;
+    color: var(--text-color-muted);
+  }
+
+  hr {
+    border: none;
+    border-top: var(--border-separator);
+  }
 }

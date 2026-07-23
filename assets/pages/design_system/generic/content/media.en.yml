@@ -4,5 +4,7 @@ page_title: Media
 page_icon: ph:bold/image
 
 section:
-  default:
-    title: Media shapes
+  shapes:
+    title: Shapes
+  overlay:
+    title: Overlay
