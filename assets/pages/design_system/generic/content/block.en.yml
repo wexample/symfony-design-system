@@ -1,0 +1,20 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Block
+page_icon: ph:bold/squares-four
+
+section:
+  default:
+    title: Content in a block
+  card:
+    title: Content in a card
+
+article:
+  title: "Understanding design tokens"
+  intro: "Design tokens are the single source of truth for visual decisions across a product. They encode color, spacing, typography, and motion into named variables that components consume."
+  section_one:
+    title: "Why tokens matter"
+    body_one: "Without tokens, a change to the primary brand color requires hunting through hundreds of files. With tokens, one variable update propagates everywhere — from buttons to alerts to navigation bars."
+    body_two: "Tokens also bridge the gap between design tools and code. A designer names a color <strong>surface-brand</strong> in Figma; a developer uses <code>var(--surface-brand)</code> in CSS. They speak the same language."
+  quote: "Good design is as little design as possible. Tokens make restraint systematic."
+  quote_author: "After Dieter Rams"

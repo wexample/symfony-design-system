@@ -3,5 +3,7 @@
 menu_design_system:
   navigation:
     group:
+      app:
+        title: App components
       generic:
         title: Generic components
