@@ -15,18 +15,20 @@
                 message: '@page::section.banners.' ~ banner.key
             }) }}
         {% endfor %}
-        <div class="block block--padded stack--split">
-            <div class="lead">
-                {{ '@page::section.layout_banner.description' | trans }}
+        <div class="block block--padded">
+            <div class="stack--split">
+                <div class="lead">
+                    {{ '@page::section.layout_banner.description' | trans }}
+                </div>
+                {{ button('ph:bold/upload-simple', '@page::section.layout_banner.button', {
+                    class: 'layout-banner-button',
+                    attr: {
+                        'data-banner-message-info': '@page::section.layout_banner.messages.info' | trans,
+                        'data-banner-message-success': '@page::section.layout_banner.messages.success' | trans,
+                        'data-banner-message-warning': '@page::section.layout_banner.messages.warning' | trans,
+                        'data-banner-message-error': '@page::section.layout_banner.messages.error' | trans
+                    }
+                }) }}
             </div>
-            {{ button('ph:bold/upload-simple', '@page::section.layout_banner.button', {
-                class: 'layout-banner-button',
-                attr: {
-                    'data-banner-message-info': '@page::section.layout_banner.messages.info' | trans,
-                    'data-banner-message-success': '@page::section.layout_banner.messages.success' | trans,
-                    'data-banner-message-warning': '@page::section.layout_banner.messages.warning' | trans,
-                    'data-banner-message-error': '@page::section.layout_banner.messages.error' | trans
-                }
-            }) }}
         </div>
 {%- endblock -%}

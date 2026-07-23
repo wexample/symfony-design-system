@@ -3,54 +3,55 @@
 {%- set page_body_container_class = 'container align-center content' -%}
 {%- block page_body -%}
         <h2>{{ '@page::title.toasts' | trans }}</h2>
-        <div class="block block--padded stack--split">
-            <div class="lead">
-                {{ '@page::section.simple_toast.description' | trans }}
+        <div class="block block--padded">
+            <div class="stack--split">
+                <div class="lead">
+                    {{ '@page::section.simple_toast.description' | trans }}
+                </div>
+                {{ button_modal('ph:bold/app-window', 'cdscdscds', 'home_index') }}
             </div>
-            {{ button_modal('ph:bold/app-window', 'cdscdscds', 'home_index') }}
-{#            {{ button('ph:bold/upload-simple', '@page::section.simple_toast.button' | trans, {#}
-{#                class: 'toast-demo-button',#}
-{#                attr: {#}
-{#                    'data-toast-title': '@page::section.simple_toast.title' | trans,#}
-{#                    'data-toast-message': '@page::section.simple_toast.message' | trans#}
-{#                }#}
-{#            }) }}#}
         </div>
-        <div class="block block--padded stack--split">
-            <div class="lead">
-                {{ '@page::section.tl_toast.description' | trans }}
+        <div class="block block--padded">
+            <div class="stack--split">
+                <div class="lead">
+                    {{ '@page::section.tl_toast.description' | trans }}
+                </div>
+                {{ button('ph:bold/upload-simple', '@page::section.tl_toast.button', {
+                    class: 'toast-demo-button-tl',
+                    attr: {
+                        'data-toast-title': '@page::section.tl_toast.title' | trans,
+                        'data-toast-message': '@page::section.tl_toast.message' | trans
+                    }
+                }) }}
             </div>
-            {{ button('ph:bold/upload-simple', '@page::section.tl_toast.button', {
-                class: 'toast-demo-button-tl',
-                attr: {
-                    'data-toast-title': '@page::section.tl_toast.title' | trans,
-                    'data-toast-message': '@page::section.tl_toast.message' | trans
-                }
-            }) }}
         </div>
-        <div class="block block--padded stack--split">
-            <div class="lead">
-                {{ '@page::section.medium_toast.description' | trans }}
+        <div class="block block--padded">
+            <div class="stack--split">
+                <div class="lead">
+                    {{ '@page::section.medium_toast.description' | trans }}
+                </div>
+                {{ button('ph:bold/upload-simple', '@page::section.medium_toast.button' | trans, {
+                    class: 'toast-demo-button-medium',
+                    attr: {
+                        'data-toast-title': '@page::section.medium_toast.title' | trans,
+                        'data-toast-message': '@page::section.medium_toast.message' | trans
+                    }
+                }) }}
             </div>
-            {{ button('ph:bold/upload-simple', '@page::section.medium_toast.button' | trans, {
-                class: 'toast-demo-button-medium',
-                attr: {
-                    'data-toast-title': '@page::section.medium_toast.title' | trans,
-                    'data-toast-message': '@page::section.medium_toast.message' | trans
-                }
-            }) }}
         </div>
-        <div class="block block--padded stack--split">
-            <div class="lead">
-                {{ '@page::section.long_toast.description' | trans }}
+        <div class="block block--padded">
+            <div class="stack--split">
+                <div class="lead">
+                    {{ '@page::section.long_toast.description' | trans }}
+                </div>
+                {{ button('ph:bold/upload-simple', '@page::section.long_toast.button', {
+                    class: 'toast-demo-button-long',
+                    attr: {
+                        'data-toast-title': '@page::section.long_toast.title' | trans,
+                        'data-toast-message': '@page::section.long_toast.message' | trans
+                    }
+                }) }}
             </div>
-            {{ button('ph:bold/upload-simple', '@page::section.long_toast.button', {
-                class: 'toast-demo-button-long',
-                attr: {
-                    'data-toast-title': '@page::section.long_toast.title' | trans,
-                    'data-toast-message': '@page::section.long_toast.message' | trans
-                }
-            }) }}
         </div>
         <div class="block block--padded">
             <div class="lead">

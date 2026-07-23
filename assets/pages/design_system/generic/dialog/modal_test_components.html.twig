@@ -1,7 +1,8 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/layouts/design_system/layout.html.twig' -%}
 
 {%- block page_body -%}
-    <div class="block block--padded stack--vertical">
+    <div class="block block--padded">
+        <div class="stack--vertical">
         <div class="lead">
             {{ '@page::intro' | trans }}
         </div>
@@ -37,5 +38,6 @@
                 'data-toast-message': '@page::toast_message' | trans
             }
         }) }}
+        </div>
     </div>
 {%- endblock -%}
