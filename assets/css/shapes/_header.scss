@@ -44,6 +44,10 @@
     align-items: stretch;
     height: 100%;
 
+    &.is-hidden {
+      display: none;
+    }
+
     .header--menu-item {
       display: inline-flex;
       align-items: center;

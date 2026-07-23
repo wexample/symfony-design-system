@@ -12,7 +12,7 @@ export default class extends Component {
   };
 
   protected async activateListeners(): Promise<void> {
-    this.checked = this.app.layout.el.classList.contains('usage-color-scheme-light');
+    this.checked = !this.app.layout.el.classList.contains('usage-color-scheme-dark');
     this.el.setAttribute('data-checked', String(this.checked));
     this.el.addEventListener('click', this.onToggle);
   }

@@ -1,0 +1,12 @@
+@use '../../css/mixins/size' as size;
+
+.stage {
+  position: absolute;
+  inset: 0;
+  display: block;
+  @include size.size-expanded;
+}
+
+.stage--root {
+  position: relative;
+}
