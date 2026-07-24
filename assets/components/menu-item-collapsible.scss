@@ -5,6 +5,17 @@
     width: 100%;
   }
 
+  &--header {
+    &.active {
+      font-weight: bold;
+      background: var(--state-active);
+
+      .menu-item-collapsible--link {
+        color: var(--text-color-default);
+      }
+    }
+  }
+
   &--link {
     flex: 1;
     display: flex;
@@ -13,11 +24,6 @@
     padding: var(--menu-item-padding);
     color: var(--color-default-text);
     text-decoration: none;
-
-    &.active {
-      font-weight: bold;
-      background: var(--state-active);
-    }
   }
 
   &--toggle {
@@ -48,6 +54,10 @@
 
   .menu--items &--link:hover {
     background: none;
+  }
+
+  .menu--items &--header:not(.active):hover {
+    background: var(--state-hover);
   }
 
   &.is-open {

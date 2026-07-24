@@ -26,10 +26,6 @@
     list-style: decimal;
   }
 
-  li + li {
-    margin-top: var(--space-2);
-  }
-
   li > ul,
   li > ol {
     margin-top: var(--space-2);

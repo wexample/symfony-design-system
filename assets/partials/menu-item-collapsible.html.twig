@@ -2,15 +2,15 @@
     {% set _trans_domain = translation_build_domain_from_template_path(page_translation_path_from_route(route)) %}
     {% set _icon_name = (_trans_domain ~ '::page_icon') | trans %}
     {% set _label = (_trans_domain ~ '::page_title') | trans %}
-    {% set active_class = route_is_current_or_related(route, route_params|default({}), 'active') %}
+    {% set active_class = route_is_current(route, route_params|default({}), 'active') %}
 {% else %}
     {% set _icon_name = icon_name %}
     {% set _label = label %}
     {% set active_class = '' %}
 {% endif %}
 <li class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-item-collapsible') }} menu-item-collapsible{{ is_open ? ' is-open' : '' }}">
-    <div class="menu-item-collapsible--header">
-        <a href="{{ href }}" class="menu-item-collapsible--link{{ active_class ? ' ' ~ active_class : '' }}">
+    <div class="menu-item-collapsible--header{{ active_class ? ' ' ~ active_class : '' }}">
+        <a href="{{ href }}" class="menu-item-collapsible--link">
             <span class="menu--item--icon">{{ icon(_icon_name) }}</span>
             <span class="menu--item--label">{{ _label }}</span>
         </a>
