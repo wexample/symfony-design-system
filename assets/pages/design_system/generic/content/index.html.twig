@@ -41,9 +41,18 @@
     <div class="content">
         <p>{{ '@page::image.intro' | trans }}</p>
         <p>{{ '@page::image.simple.label' | trans }}</p>
-        {{ content_image('/fixtures/placeholder.svg', '@page::image.simple.alt' | trans) }}
+        {{ content_image('{{ path('wexample_design_system_fixtures_placeholder_svg') }}', '@page::image.simple.alt' | trans) }}
         <p>{{ '@page::image.captioned.label' | trans }}</p>
-        {{ content_image('/fixtures/placeholder.svg', '@page::image.captioned.alt' | trans, { caption: '@page::image.captioned.caption' | trans }) }}
+        {{ content_image('{{ path('wexample_design_system_fixtures_placeholder_svg') }}', '@page::image.captioned.alt' | trans, { caption: '@page::image.captioned.caption' | trans }) }}
+    </div>
+
+    <h2>{{ '@page::section.media.title' | trans }}</h2>
+    <div class="content content--media">
+        {{ content_image('{{ path('wexample_design_system_fixtures_placeholder_svg') }}', '@page::media.alt' | trans, { caption: '@page::media.caption' | trans }) }}
+        <div>
+            <p>{{ '@page::media.body_one' | trans }}</p>
+            <p>{{ '@page::media.body_two' | trans }}</p>
+        </div>
     </div>
 
     <h2>{{ '@page::section.dropcap.title' | trans }}</h2>

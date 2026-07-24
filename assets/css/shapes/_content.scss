@@ -94,6 +94,15 @@
     border-top: 1px solid var(--color-invert-9);
   }
 
+  &--media {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-6);
+    align-items: start;
+
+    > * + * { margin-top: 0; }
+  }
+
   &--dropcap > p:first-of-type::first-letter {
     float: left;
     font-size: 4.2em;
