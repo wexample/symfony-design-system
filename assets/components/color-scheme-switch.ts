@@ -9,10 +9,11 @@ export default class extends Component {
     this.el.setAttribute('data-checked', String(this.checked));
     const scheme = this.checked ? 'light' : 'dark';
     await (this.app.layout as any).setUsage(AssetUsage.USAGE_COLOR_SCHEME, scheme, true);
+    this.app.persistUiState('ui.color_scheme', scheme);
   };
 
   protected async activateListeners(): Promise<void> {
-    this.checked = !this.app.layout.el.classList.contains('usage-color-scheme-dark');
+    this.checked = !document.body.classList.contains('usage-color-scheme-dark');
     this.el.setAttribute('data-checked', String(this.checked));
     this.el.addEventListener('click', this.onToggle);
   }
