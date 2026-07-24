@@ -8,6 +8,7 @@
 
 {%- block page_body -%}
     {% set modal_tests = [
+        { key: 'modal_test_persist', route: 'wexample_design_system_generic_dialog_modal_test_persist', class: 'modal-test-persist-button', options: { closeOnEscape: true, closeOnOverlayClick: true } },
         { key: 'modal_test_simple', route: 'wexample_design_system_generic_dialog_modal_test_simple', class: 'modal-test-simple-button', options: { closeOnEscape: true, closeOnOverlayClick: true, confirmOnClose: false, confirmOnCloseWhenDirty: false } },
         { key: 'modal_test_components', route: 'wexample_design_system_generic_dialog_modal_test_components', class: 'modal-test-components-button', options: { closeOnEscape: false, closeOnOverlayClick: true, confirmOnClose: false, confirmOnCloseWhenDirty: false } },
         { key: 'modal_test_medium', route: 'wexample_design_system_generic_dialog_modal_test_medium', class: 'modal-test-medium-button', options: { closeOnEscape: true, closeOnOverlayClick: false, confirmOnClose: false, confirmOnCloseWhenDirty: false } },

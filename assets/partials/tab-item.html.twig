@@ -6,6 +6,7 @@
 {% endif %}
 <a class="tabs--item {{ active_class }}{% if options.class is defined %} {{ options.class }}{% endif %}"
    href="{{ href }}"
+   {% if options.tab_name is defined %}data-tab="{{ options.tab_name }}"{% endif %}
    {{ component_render_tag_attributes(options.attr|default({})) }}>
     <span class="tabs--item-content">
         {% if options.icon is defined and options.icon %}

@@ -1,0 +1,11 @@
+page_title: Tabs with persistence
+
+tab:
+  overview: Overview
+  details: Details
+  settings: Settings
+
+content:
+  overview: "This is the Overview tab. Switch tabs then press F5 — this tab will still be active when the overlay reopens."
+  details: "This is the Details tab. The active tab is stored in the URL hash, so it survives page reloads."
+  settings: "This is the Settings tab. Both the overlay (modal/panel) and the active tab are restored from the URL hash."

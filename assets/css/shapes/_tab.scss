@@ -67,3 +67,11 @@
   border-color: var(--border-color-default);
   color: var(--text-color-default);
 }
+
+.tabs-panels {
+  width: 100%;
+}
+
+.tabs-panels [data-tab] {
+  width: 100%;
+}

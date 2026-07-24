@@ -4,6 +4,9 @@ page_title: Dialog
 page_icon: ph:bold/app-window
 
 section:
+  modal_test_persist:
+    description: "Modal with tabs. Open it, switch tabs, press F5 — the modal reopens on the same tab."
+    button: Open persistent modal
   modal:
     description: Modal and panel demos will be added here.
     button: Open modal demo

@@ -4,6 +4,7 @@
 
 {%- block page_body -%}
     {% set panel_tests = [
+        { key: 'persist', route: 'wexample_design_system_generic_dialog_modal_test_persist', class: 'panel-test-persist-button', options: { closeOnEscape: true, closeOnOverlayClick: true } },
         { key: 'simple', route: 'wexample_design_system_generic_dialog_modal_test_simple', class: 'panel-test-simple-button', options: { closeOnEscape: true, closeOnOverlayClick: true } },
         { key: 'components', route: 'wexample_design_system_generic_dialog_modal_test_components', class: 'panel-test-components-button', options: { closeOnEscape: false, closeOnOverlayClick: true } },
         { key: 'medium', route: 'wexample_design_system_generic_dialog_modal_test_medium', class: 'panel-test-medium-button', options: { closeOnEscape: true, closeOnOverlayClick: false } },

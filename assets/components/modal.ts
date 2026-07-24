@@ -6,6 +6,8 @@ import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin'
 import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAnimationMixin';
 import RequestOptionsInterface from '@wexample/symfony-loader/js/Interfaces/RequestOptions/RequestOptionsInterface';
 import ConfirmService from '@wexample/symfony-loader/js/Services/ConfirmService';
+import { hashParamDelete } from '../js/Helper/HashStateHelper';
+import { HASH_KEY_MODAL, HASH_KEY_MODAL_OPTS, HASH_KEY_MODAL_PAGE } from './button-modal';
 
 interface ModalRequestOptionsInterface extends RequestOptionsInterface {
   closeOnEscape?: boolean;
@@ -206,6 +208,7 @@ export default class extends PageManagerComponent {
   }
 
   async overlayOnClose(): Promise<void> {
+    hashParamDelete(HASH_KEY_MODAL, HASH_KEY_MODAL_OPTS, HASH_KEY_MODAL_PAGE);
     this.page?.blur();
     this.callerPage?.focus();
   }

@@ -20,6 +20,7 @@ final class DialogController extends AbstractDesignSystemGenericController
     final public const ROUTE_MODAL_TEST_COMPONENTS = 'modal_test_components';
     final public const ROUTE_MODAL_TEST_MEDIUM = 'modal_test_medium';
     final public const ROUTE_MODAL_TEST_LONG = 'modal_test_long';
+    final public const ROUTE_MODAL_TEST_PERSIST = 'modal_test_persist';
 
     #[Route(path: 'modal-test-simple', name: self::ROUTE_MODAL_TEST_SIMPLE, options: AbstractController::ROUTE_OPTIONS_ONLY_EXPOSE)]
     public function modalTestSimple(): Response
@@ -43,5 +44,11 @@ final class DialogController extends AbstractDesignSystemGenericController
     public function modalTestLong(): Response
     {
         return $this->renderPage(self::ROUTE_MODAL_TEST_LONG);
+    }
+
+    #[Route(path: 'modal-test-persist', name: self::ROUTE_MODAL_TEST_PERSIST, options: AbstractController::ROUTE_OPTIONS_ONLY_EXPOSE)]
+    public function modalTestPersist(): Response
+    {
+        return $this->renderPage(self::ROUTE_MODAL_TEST_PERSIST);
     }
 }
