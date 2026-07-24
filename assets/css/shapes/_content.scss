@@ -34,11 +34,6 @@
     &:hover { color: var(--color-primary); }
   }
 
-  hr {
-    border: none;
-    border-top: 1px solid var(--border-color-default);
-  }
-
   strong { font-weight: 600; }
   em { font-style: italic; }
 
@@ -82,6 +77,18 @@
     font-size: var(--font-size-2);
     font-style: normal;
     color: var(--text-color-muted);
+  }
+
+  figure {
+    margin: 0;
+
+    figcaption {
+      margin-top: var(--space-2);
+      font-size: var(--font-size-2);
+      color: var(--text-color-muted);
+      font-style: italic;
+      text-align: center;
+    }
   }
 
   hr {

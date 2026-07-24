@@ -1,0 +1,8 @@
+{% if caption is defined and caption %}
+<figure{% if class is defined and class %} class="{{ class }}"{% endif %}>
+    <img src="{{ src }}" alt="{{ alt }}" loading="{{ loading }}"{% if width is defined %} width="{{ width }}"{% endif %}{% if height is defined %} height="{{ height }}"{% endif %}>
+    <figcaption>{{ caption }}</figcaption>
+</figure>
+{% else %}
+<img src="{{ src }}" alt="{{ alt }}" loading="{{ loading }}"{% if class is defined and class %} class="{{ class }}"{% endif %}{% if width is defined %} width="{{ width }}"{% endif %}{% if height is defined %} height="{{ height }}"{% endif %}>
+{% endif %}
