@@ -16,7 +16,7 @@
   }
 
   h1 { font-size: var(--font-size-7); }
-  h2 { font-size: var(--font-size-5); }
+  h2 { font-size: var(--font-size-6); }
   h3 { font-size: var(--font-size-4); }
   h4 { font-size: var(--font-size-3); }
   h5 { font-size: var(--font-size-2); }
@@ -33,21 +33,32 @@
   strong { font-weight: 600; }
   em { font-style: italic; }
 
-  code {
+  :not(pre) > code {
     font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
     font-size: 0.875em;
-    background: var(--surface-3);
+    color: var(--color-default-text);
+    background: var(--border-color-default);
     padding: 0.1em 0.4em;
     border-radius: var(--radius-1);
   }
 
+  > p:first-child { margin-top: 0; }
+  > p:last-child { margin-bottom: 0; }
+
   ul, ol {
     padding-left: var(--space-5);
+    margin-block: var(--space-5);
     li + li { margin-top: var(--space-2); }
   }
 
   ul { list-style: disc; }
   ol { list-style: decimal; }
+
+  li > ul,
+  li > ol {
+    margin-top: var(--space-2);
+    list-style: circle;
+  }
 
   blockquote {
     border-left: 3px solid var(--color-primary);
