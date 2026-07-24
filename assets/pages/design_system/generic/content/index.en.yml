@@ -46,6 +46,8 @@ title:
     description: "The smallest heading level. Use sparingly — for footnotes, legal blocks, or auxiliary labels."
 
 article:
+  toc:
+    label: "In this article"
   title: "Understanding design tokens"
   intro: "Design tokens are the single source of truth for visual decisions across a product. They encode color, spacing, typography, and motion into named variables that components consume."
   section_one:

@@ -12,14 +12,22 @@
 
     <h2>{{ '@page::section.prose.title' | trans }}</h2>
     <article class="content">
-        <h2>{{ '@page::article.title' | trans }}</h2>
+        <nav aria-label="{{ '@page::article.toc.label' | trans }}">
+            <ul>
+                <li><a href="#article-intro">{{ '@page::article.title' | trans }}</a></li>
+                <li><a href="#article-why-tokens">{{ '@page::article.section_one.title' | trans }}</a></li>
+                <li><a href="#article-practical">{{ '@page::article.section_two.title' | trans }}</a></li>
+            </ul>
+        </nav>
+
+        <h2 id="article-intro">{{ '@page::article.title' | trans }}</h2>
         <p>{{ '@page::article.intro' | trans }}</p>
 
-        <h3>{{ '@page::article.section_one.title' | trans }}</h3>
+        <h3 id="article-why-tokens">{{ '@page::article.section_one.title' | trans }}</h3>
         <p>{{ '@page::article.section_one.body_one' | trans | raw }}</p>
         <p>{{ '@page::article.section_one.body_two' | trans | raw }}</p>
 
-        <h3>{{ '@page::article.section_two.title' | trans }}</h3>
+        <h3 id="article-practical">{{ '@page::article.section_two.title' | trans }}</h3>
         <p>{{ '@page::article.section_two.body' | trans | raw }}</p>
 
         <h4>{{ '@page::article.list_title' | trans }}</h4>
