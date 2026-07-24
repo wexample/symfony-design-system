@@ -3,11 +3,11 @@
 {%- block page_body -%}
     <h2>{{ '@page::section.typography.title' | trans }}</h2>
     <div class="block block--padded content">
-        {% for level in ['h1','h2','h3','h4','h5','h6'] %}
-            {% set base = '@page::title.' ~ level %}
-            <{{ level }}>{{ (base ~ '.title') | trans }}</{{ level }}>
-            <p>{{ (base ~ '.description') | trans }}</p>
-        {% endfor %}
+    {% for level in ['h1','h2','h3','h4','h5','h6'] %}
+        {% set base = '@page::title.' ~ level %}
+        <{{ level }}>{{ (base ~ '.title') | trans }}</{{ level }}>
+        <p>{{ (base ~ '.description') | trans }}</p>
+    {% endfor %}
     </div>
 
     <h2>{{ '@page::section.prose.title' | trans }}</h2>
@@ -35,5 +35,13 @@
         </blockquote>
 
         <p><a href="#">{{ '@page::article.cta' | trans }}</a></p>
+
+        <hr>
+        <h2>{{ '@page::section.dropcap.title' | trans }}</h2>
+        <div class="block block--padded content content--dropcap">
+            <p>{{ '@page::dropcap.paragraph_one' | trans }}</p>
+            <p>{{ '@page::dropcap.paragraph_two' | trans }}</p>
+        </div>
     </div>
+
 {%- endblock -%}
