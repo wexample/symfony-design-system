@@ -16,8 +16,10 @@ section:
 image:
   intro: "The content_image() function renders an img with loading=\"lazy\" by default, and wraps it in a figure element when a caption is provided."
   simple:
+    label: "Without caption — a plain img, full-width."
     alt: "Placeholder image — no caption"
   captioned:
+    label: "With caption — wrapped in a figure with a figcaption."
     alt: "Placeholder image — with caption"
     caption: "A figure with a figcaption — use it to credit sources or add context to visual content."
 
