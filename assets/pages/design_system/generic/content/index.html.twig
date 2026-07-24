@@ -37,7 +37,14 @@
         <p><a href="#">{{ '@page::article.cta' | trans }}</a></p>
 
         <hr>
-        <h2>{{ '@page::section.dropcap.title' | trans }}</h2>
+        <h2>{{ '@page::section.image.title' | trans }}</h2>
+    <div class="content">
+        <p>{{ '@page::image.intro' | trans }}</p>
+        {{ content_image('/fixtures/placeholder.svg', '@page::image.simple.alt' | trans) }}
+        {{ content_image('/fixtures/placeholder.svg', '@page::image.captioned.alt' | trans, { caption: '@page::image.captioned.caption' | trans }) }}
+    </div>
+
+    <h2>{{ '@page::section.dropcap.title' | trans }}</h2>
         <div class="content content--dropcap">
             <p>{{ '@page::dropcap.paragraph_one' | trans }}</p>
             <p>{{ '@page::dropcap.paragraph_two' | trans }}</p>

@@ -1,3 +1,5 @@
+@use '../mixins/figure' as figure;
+
 .content {
   font-size: var(--font-size-4);
   line-height: 1.6;
@@ -32,6 +34,12 @@
     text-underline-offset: 0.2em;
     text-underline-position: under;
     &:hover { color: var(--color-primary); }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-2);
   }
 
   strong { font-weight: 600; }
@@ -79,17 +87,7 @@
     color: var(--text-color-muted);
   }
 
-  figure {
-    margin: 0;
-
-    figcaption {
-      margin-top: var(--space-2);
-      font-size: var(--font-size-2);
-      color: var(--text-color-muted);
-      font-style: italic;
-      text-align: center;
-    }
-  }
+  @include figure.figure-styles;
 
   hr {
     border: none;
