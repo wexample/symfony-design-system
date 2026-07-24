@@ -7,29 +7,21 @@ section:
   inline:
     title: Inline labels
     description: Pills are compact inline badges used to annotate text — statuses, tags, counts.
-  colors:
-    title: Color variants
-  sizes:
-    title: Size variants
+  palette:
+    title: Color palette
+  combined:
+    title: In context
 
 example:
-  status:
+  sentence:
     released: "Version 2.4 is"
-    deprecated: "This method is"
-    beta: "This feature is"
+    deprecated: "This API is"
+  item:
+    prefix: "This item is categorised as"
+    suffix: "in the current taxonomy."
 
 pill:
+  neutral: Neutral
   released: Released
   deprecated: Deprecated
-  beta: Beta
-  default: Default
-  success: Success
-  warning: Warning
-  danger: Danger
-  info: Info
-  neutral: Neutral
-  size:
-    xs: Extra small
-    s: Small
-    default: Default
-    l: Large
+  tag: Tag

@@ -5,30 +5,25 @@
     <div class="block block--padded">
         <p>{{ '@page::section.inline.description' | trans }}</p>
         <p>
-            {{ '@page::example.status.released' | trans }}
+            {{ '@page::example.sentence.released' | trans }}
             <span class="pill">{{ '@page::pill.released' | trans }}</span>
-            {{ '@page::example.status.deprecated' | trans }}
+            {{ '@page::example.sentence.deprecated' | trans }}
             <span class="pill">{{ '@page::pill.deprecated' | trans }}</span>
-            {{ '@page::example.status.beta' | trans }}
-            <span class="pill">{{ '@page::pill.beta' | trans }}</span>
         </p>
     </div>
 
-    <h2>{{ '@page::section.colors.title' | trans }}</h2>
+    <h2>{{ '@page::section.palette.title' | trans }}</h2>
     <div class="block block--padded stack--horizontal stack--wrap">
-        {% for variant in ['', 'success', 'warning', 'danger', 'info', 'neutral'] %}
-            <span class="pill{{ variant ? ' pill--' ~ variant : '' }}">
-                {{ ('@page::pill.' ~ (variant ?: 'default')) | trans }}
-            </span>
+        <span class="pill">{{ '@page::pill.neutral' | trans }}</span>
+        {% for i in 1..6 %}
+            <span class="pill tag-{{ i }}">{{ '@page::pill.tag' | trans }} {{ i }}</span>
         {% endfor %}
     </div>
 
-    <h2>{{ '@page::section.sizes.title' | trans }}</h2>
-    <div class="block block--padded stack--horizontal stack--wrap align-center">
-        {% for size in ['xs', 's', '', 'l'] %}
-            <span class="pill{{ size ? ' pill--' ~ size : '' }}">
-                {{ ('@page::pill.size.' ~ (size ?: 'default')) | trans }}
-            </span>
+    <h2>{{ '@page::section.combined.title' | trans }}</h2>
+    <div class="block block--padded stack--vertical">
+        {% for i in 1..6 %}
+            <p>{{ '@page::example.item.prefix' | trans }} <span class="pill tag-{{ i }}">{{ '@page::pill.tag' | trans }} {{ i }}</span> {{ '@page::example.item.suffix' | trans }}</p>
         {% endfor %}
     </div>
 {%- endblock -%}
