@@ -1,0 +1,14 @@
+pre:has(> code[class*='language-']) {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  font-size: 0.875rem;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  background: #1e1e1e;
+  color: #d4d4d4;
+
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    line-height: 1.6;
+  }
+}
