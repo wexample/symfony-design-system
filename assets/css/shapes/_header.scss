@@ -53,7 +53,6 @@
       align-items: center;
       height: 100%;
       padding: var(--space-1);
-      color: var(--color-default-text);
     }
 
     .header--menu-item[hidden] {
@@ -61,6 +60,7 @@
     }
 
     .header--menu-item--icon {
+      @extend .bar--icon;
       padding-inline: var(--space-4);
     }
 

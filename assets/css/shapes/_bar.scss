@@ -10,3 +10,7 @@
 .bar--title-block {
   @include bar.bar-title-block;
 }
+
+.bar--icon {
+  color: var(--text-color-muted);
+}
