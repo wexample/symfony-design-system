@@ -1,10 +1,12 @@
 import Page from '@wexample/symfony-loader/js/Class/Page';
 import ConnectionStatusService from '@wexample/symfony-loader/js/Services/ConnectionStatusService';
+import ErrorService from '@wexample/symfony-loader/js/Services/ErrorService';
 import { reconnectBackoffAttempt } from '@wexample/js-helpers/Helper/Reconnect';
 
 export default class extends Page {
   pageReady() {
     const connectionStatusService = this.app.getService(ConnectionStatusService) as ConnectionStatusService;
+    const errorService = this.app.getService(ErrorService) as ErrorService;
     const INTERNET_PROBE_SOURCE = 'internet-probe';
     const INTERNET_PROBE_URL = 'https://jsonplaceholder.typicode.com/todos/1';
     const ERROR_TRIGGER_SELECTOR = '.error-trigger-button';
@@ -49,7 +51,13 @@ export default class extends Page {
     };
 
     attachClick(ERROR_TRIGGER_SELECTOR, async () => {
-      await fetch('/test/fatal-error');
+      const response = await fetch('/test/fatal-error');
+      if (!response.ok) {
+        errorService.error(`Server error: ${response.status} ${response.statusText}`, {
+          source: 'error-trigger-demo',
+          code: String(response.status),
+        });
+      }
     });
 
     attachClick(FRONTEND_THROW_SELECTOR, () => {
