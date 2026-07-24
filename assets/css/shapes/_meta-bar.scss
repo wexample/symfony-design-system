@@ -1,0 +1,17 @@
+.meta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-2) var(--spacing-3);
+  gap: var(--spacing-3);
+  background: var(--surface-2);
+  border-top: 1px solid var(--border-color-discreet);
+  font-size: 0.875rem;
+  color: var(--color-text-secondary, inherit);
+}
+
+.meta-bar--group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}

@@ -1,0 +1,27 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Meta bar
+page_icon: ph:bold/info
+
+section:
+  article:
+    title: Article footer
+  minimal:
+    title: Minimal variant
+    description: Works equally as a compact info row — category, tags, view count.
+
+article:
+  title: "The art of progressive disclosure"
+  intro: "Good interfaces reveal complexity gradually. Show what users need when they need it — no more, no less."
+
+meta:
+  author: "Alice Martin"
+  date: "July 18, 2026"
+  read_time: "4 min read"
+  likes: "142 likes"
+  category: "UX Design"
+  tag: "In progress"
+  views: "3 847 views"
+
+action:
+  share: Share

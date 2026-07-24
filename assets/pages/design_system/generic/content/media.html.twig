@@ -11,14 +11,14 @@
 {%- block page_body -%}
     <h2>{{ '@page::section.shapes.title' | trans }}</h2>
     <div class="stack--horizontal">
-        <div class="block block--padded">
-            <div class="media media--square media-demo--bg-primary" style="width: 6rem;">
+        <div class="block block--padded" style="flex: 1">
+            <div class="media media--square media-demo--bg-primary">
                 {{ placeholder_svg | raw }}
             </div>
             <p>square</p>
         </div>
-        <div class="block block--padded">
-            <div class="media media--round media-demo--bg-secondary" style="width: 6rem;">
+        <div class="block block--padded" style="flex: 1">
+            <div class="media media--round media-demo--bg-secondary">
                 {{ placeholder_svg | raw }}
             </div>
             <p>round</p>
