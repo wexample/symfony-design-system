@@ -25,6 +25,11 @@
   object-fit: cover;
 }
 
+.media--16-9 {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+
 .media--bg {
   position: absolute;
   inset: 0;

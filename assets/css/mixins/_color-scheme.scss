@@ -101,6 +101,12 @@ $color-scheme-level-count: 32 !default;
   }
 }
 
+@mixin color-scheme-tags($background, $foreground, $tags...) {
+  @for $i from 1 through length($tags) {
+    @include color-scheme-semantic-levels('tag-#{$i}', nth($tags, $i), $background, $foreground);
+  }
+}
+
 @mixin color-scheme-semantic-levels($name, $color, $background, $foreground) {
   $levels: color-scheme-levels($color-scheme-level-count);
   $middle-index: math.floor(math.div($color-scheme-level-count, 2)) + 1;

@@ -1,0 +1,8 @@
+@for $i from 1 through 6 {
+  .tag-#{$i} {
+    --tag-bg: var(--color-tag-#{$i}-6);
+    --tag-color: var(--color-tag-#{$i}-20);
+    background: var(--tag-bg);
+    color: var(--tag-color);
+  }
+}

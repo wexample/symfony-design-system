@@ -8,3 +8,5 @@ section:
     title: Shapes
   overlay:
     title: Overlay
+  aspect_ratio:
+    title: Aspect Ratio

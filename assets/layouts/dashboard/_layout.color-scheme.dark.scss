@@ -21,4 +21,10 @@ $color-light: #f2f2f2 !default;
   --state-hover: var(--color-invert-2);
   --state-active: var(--color-invert-1);
   --border-color-discreet: var(--color-default-background);
+
+  @include color_scheme.color-scheme-tags(
+    $color-dark, $color-light,
+    palette.$color-tag-1, palette.$color-tag-2, palette.$color-tag-3,
+    palette.$color-tag-4, palette.$color-tag-5, palette.$color-tag-6
+  );
 }

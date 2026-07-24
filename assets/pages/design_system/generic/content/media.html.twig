@@ -31,6 +31,16 @@
         </div>
     </div>
 
+    <h2>{{ '@page::section.aspect_ratio.title' | trans }}</h2>
+    <div class="stack--horizontal">
+        <div class="block block--padded" style="flex: 1">
+            <div class="media media--cover media--16-9 media-demo--bg-primary">
+                {{ placeholder_svg | raw }}
+            </div>
+            <p>cover + 16-9</p>
+        </div>
+    </div>
+
     <h2>{{ '@page::section.overlay.title' | trans }}</h2>
     <div class="stack--horizontal">
         <div class="block block--padded">
