@@ -1,6 +1,6 @@
 <?php
 
-namespace Wexample\SymfonyDesignSystem\Controller\Pages\DesignSystem;
+namespace Wexample\SymfonyDesignSystem\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +13,7 @@ use Wexample\SymfonyLoader\Controller\Pages\AbstractDesignSystemController;
 )]
 class FixturesController extends AbstractController
 {
-    private string $assetsDir = __DIR__ . '/../../../../assets/fixtures/';
+    private string $assetsDir = __DIR__ . '/../../../assets/fixtures/';
 
     #[Route('placeholder.svg', name: 'placeholder_svg')]
     public function placeholderSvg(): Response
