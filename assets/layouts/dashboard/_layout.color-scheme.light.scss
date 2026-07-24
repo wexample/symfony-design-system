@@ -31,7 +31,7 @@ $color-light: #fafafa !default;
 
   // surface-layer context: recalibrate tokens for children on a raised surface.
   // .block is implicitly a surface-layer in this theme.
-  &.surface-layer, .surface-layer, .block {
+  &.surface-layer, .surface-layer, .block, .modal--content, .panel--content {
     --surface-2: #fafafa;
     --border-color-discreet: #e8e8e8;
   }
