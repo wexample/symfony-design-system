@@ -43,6 +43,14 @@ export default class extends PageManagerComponent {
 
     this.contentEl = this.el.querySelector('.panel--content') as HTMLElement;
 
+    if ((this as any).overlayBackdropTarget === 'main') {
+      const scopeOverlayEl = document.getElementById('overlay-layer-main') as HTMLElement;
+      const scopeContainer = scopeOverlayEl?.parentElement as HTMLElement;
+      if (scopeContainer && this.el.parentElement !== scopeContainer) {
+        scopeContainer.appendChild(this.el);
+      }
+    }
+
     if (this.contentEl && this.layoutBody) {
       this.contentEl.innerHTML = this.layoutBody;
     }

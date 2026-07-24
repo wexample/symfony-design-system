@@ -17,7 +17,6 @@ export default class extends Component {
     this.closeEl?.addEventListener('click', this.onClose);
     this.openEl?.addEventListener('click', this.onOpen);
 
-    // set initial state
     const isCollapsed = this.el.classList.contains('gutters--collapsible--collapsed');
     this.headerMenuEl?.classList.toggle('is-hidden', !isCollapsed);
   }

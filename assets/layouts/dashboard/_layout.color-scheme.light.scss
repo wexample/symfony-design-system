@@ -28,4 +28,11 @@ $color-light: #fafafa !default;
   --state-hover: var(--color-invert-2);
   --state-active: var(--color-invert-4);
   --border-color-discreet: #cccccc;
+
+  // surface-layer context: recalibrate tokens for children on a raised surface.
+  // .block is implicitly a surface-layer in this theme.
+  &.surface-layer, .surface-layer, .block {
+    --surface-2: #fafafa;
+    --border-color-discreet: #e8e8e8;
+  }
 }

@@ -1,3 +1,8 @@
 .surface {
   background: var(--surface-2);
 }
+
+// Context class: signals that children live on a raised surface.
+// Apply on any container with a non-page background (white block, card, panel).
+// Theme faces override tokens below as needed — dark face does nothing by default.
+.surface-layer {}

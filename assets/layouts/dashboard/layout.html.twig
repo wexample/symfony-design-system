@@ -89,7 +89,25 @@
             </div>
         </div>
         <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible gutters--collapsible--collapsed" data-menu-id="right">
-            {% block page_menu_right %}{% endblock %}
+            {% block page_menu_right %}
+                <nav class="menu menu--vertical menu--vertical--right">
+                    {% block page_menu_right_header %}
+                        <div class="menu--header menu--bar">
+                            <div class="menu--bar--content menu--bar--content--start">
+                                {% block page_menu_right_toggle_close %}
+                                    <a class="menu--bar--icon menu--toggle-close" href="#">
+                                        {{ icon('ph:bold/text-indent') }}
+                                    </a>
+                                {% endblock %}
+                            </div>
+                        </div>
+                    {% endblock %}
+                    <div class="menu--body">
+                        {% block page_menu_right_body %}{% endblock %}
+                    </div>
+                    {% block page_menu_right_footer %}{% endblock %}
+                </nav>
+            {% endblock %}
         </div>
     </div>
 {%- endblock -%}
