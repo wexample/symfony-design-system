@@ -108,21 +108,10 @@ class ButtonExtension extends AbstractTemplateExtension
                     array $routeParams = [],
                     array $options = []
                 ) {
-                    $context = is_array($context) ? $context : [];
-                    $renderPass = $context['render_pass'] ?? null;
                     $options['href'] = $this->urlGenerator->generate($routeName, $routeParams);
                     $options['modal'] = true;
 
-                    return $this->componentsExtension->component(
-                        $twig,
-                        $renderPass,
-                        '@WexampleSymfonyDesignSystemBundle/components/button-modal',
-                        [
-                            'icon' => $icon,
-                            'label' => $label,
-                            'options' => $options,
-                        ]
-                    );
+                    return $this->renderOverlayButton($twig, $context, 'button-modal', $icon, $label, $options);
                 },
                 $options
             ),
@@ -137,24 +126,36 @@ class ButtonExtension extends AbstractTemplateExtension
                     array $routeParams = [],
                     array $options = []
                 ) {
-                    $context = is_array($context) ? $context : [];
-                    $renderPass = $context['render_pass'] ?? null;
                     $options['href'] = $this->urlGenerator->generate($routeName, $routeParams);
                     $options['panel'] = true;
 
-                    return $this->componentsExtension->component(
-                        $twig,
-                        $renderPass,
-                        '@WexampleSymfonyDesignSystemBundle/components/button-panel',
-                        [
-                            'icon' => $icon,
-                            'label' => $label,
-                            'options' => $options,
-                        ]
-                    );
+                    return $this->renderOverlayButton($twig, $context, 'button-panel', $icon, $label, $options);
                 },
                 $options
             ),
         ];
+    }
+
+    private function renderOverlayButton(
+        Environment $twig,
+        mixed $context,
+        string $componentName,
+        string $icon,
+        string $label,
+        array $options
+    ): string {
+        $context = is_array($context) ? $context : [];
+        $renderPass = $context['render_pass'] ?? null;
+
+        return $this->componentsExtension->component(
+            $twig,
+            $renderPass,
+            "@WexampleSymfonyDesignSystemBundle/components/{$componentName}",
+            [
+                'icon' => $icon,
+                'label' => $label,
+                'options' => $options,
+            ]
+        );
     }
 }
