@@ -12,11 +12,25 @@
 }
 
 .media--round {
+  aspect-ratio: 1;
   border-radius: 50%;
 }
 
+.media--round img,
+.media--round video {
+  height: 100%;
+  object-fit: cover;
+}
+
 .media--square {
+  aspect-ratio: 1;
   border-radius: var(--radius-1);
+}
+
+.media--square img,
+.media--square video {
+  height: 100%;
+  object-fit: cover;
 }
 
 .media--cover img,
