@@ -5,7 +5,8 @@
 }
 
 .form--input:focus,
-.form--textarea:focus {
+.form--textarea:focus,
+.select--input:focus {
   outline: none;
   box-shadow: 0 0 0 var(--border-focus-width) var(--color-invert-transparent-2);
   transition: box-shadow 160ms ease, border-color 160ms ease;

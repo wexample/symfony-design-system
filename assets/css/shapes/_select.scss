@@ -1,23 +1,16 @@
+@use '../mixins/field' as field;
+
 .select {
   position: relative;
   display: inline-flex;
   align-items: center;
 
   .select--input {
+    @include field.field-base;
     appearance: none;
     padding: var(--space-2) var(--space-6) var(--space-2) var(--space-3);
-    border: var(--border-default);
-    border-radius: var(--radius-1);
-    background: var(--surface-1);
-    color: inherit;
-    font-size: var(--font-size-3);
     cursor: pointer;
     width: 100%;
-
-    &:focus {
-      outline: 2px solid var(--color-link);
-      outline-offset: 1px;
-    }
 
     option {
       color: initial;
