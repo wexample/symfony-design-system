@@ -33,6 +33,12 @@ export default class extends Component {
       }
       return false;
     });
+
+    // Sync custom UI from native select's current value (handles browser auto-selection of first option).
+    const initialValue = this.hiddenEl?.value;
+    if (initialValue) {
+      this.applySelection(initialValue);
+    }
   }
 
   protected async deactivateListeners(): Promise<void> {
@@ -87,21 +93,24 @@ export default class extends Component {
     if (!option) return;
 
     const value = option.dataset.value ?? '';
-    const label = option.textContent?.trim() ?? '';
+    this.applySelection(value);
+    this.el.dispatchEvent(new CustomEvent('select:change', { bubbles: true, detail: { value } }));
+    this.close();
+  };
 
-    this.listEl?.querySelectorAll('.select--option').forEach((opt) => {
-      opt.classList.remove('select--option--selected');
-      opt.setAttribute('aria-selected', 'false');
+  private applySelection(value: string): void {
+    this.listEl?.querySelectorAll<HTMLElement>('.select--option').forEach((opt) => {
+      const isSelected = opt.dataset.value === value;
+      opt.classList.toggle('select--option--selected', isSelected);
+      opt.setAttribute('aria-selected', isSelected ? 'true' : 'false');
     });
-    option.classList.add('select--option--selected');
-    option.setAttribute('aria-selected', 'true');
+
+    const selectedOpt = this.listEl?.querySelector<HTMLElement>(`.select--option[data-value="${CSS.escape(value)}"]`);
+    const label = selectedOpt?.textContent?.trim() ?? '';
 
     const labelEl = this.triggerEl?.querySelector('.select--trigger-label');
     if (labelEl) labelEl.textContent = label;
     if (this.hiddenEl) this.hiddenEl.value = value;
     this.el.dataset.value = value;
-
-    this.el.dispatchEvent(new CustomEvent('select:change', { bubbles: true, detail: { value } }));
-    this.close();
-  };
+  }
 }
