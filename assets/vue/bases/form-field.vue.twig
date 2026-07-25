@@ -9,7 +9,7 @@
 {%- block field_errors -%}
     <div class="form--field-errors" v-if="hasErrors">
         <ul>
-            <li v-for="(error, index) in errors" :key="index">
+            <li v-for="(error, index) in resolvedErrors" :key="index">
                 <template v-if="hasErrorTranslationPrefix">
                     [[ trans(errorTranslationPrefix + error) ]]
                 </template>
@@ -22,7 +22,7 @@
 {%- endblock -%}
 
 {%- block vue_body -%}
-    <div class="form--group" :class="{ 'has-error': hasErrors }">
+    <div class="form--group" :class="{ 'has-error': hasErrors, 'is-disabled': controllerDisabled }">
         {{ block('field_label') }}
         {{ block('field_control') }}
         {{ block('field_errors') }}
