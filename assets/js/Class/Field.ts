@@ -8,16 +8,22 @@ export default abstract class Field extends Component {
 
     this.formEl = this.el.closest('form');
     this.formEl?.addEventListener('submit', this.onFormSubmit);
+    this.formEl?.addEventListener('loading:end', this.onFormLoadingEnd);
   }
 
   protected async deactivateListeners(): Promise<void> {
     await super.deactivateListeners();
 
     this.formEl?.removeEventListener('submit', this.onFormSubmit);
+    this.formEl?.removeEventListener('loading:end', this.onFormLoadingEnd);
   }
 
   private onFormSubmit = (): void => {
     this.disable();
+  };
+
+  private onFormLoadingEnd = (): void => {
+    this.enable();
   };
 
   public disable(): void {

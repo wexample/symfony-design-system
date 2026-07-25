@@ -26,7 +26,8 @@ export default {
         { value: 'error', label: '@vue::field.behavior.choice.error.label' },
         { value: 'redirect', label: '@vue::field.behavior.choice.redirect.label' }
       ],
-      submitEndpoint: 'test/simple-error',
+      submitEndpoint: 'test',
+      formSubmitted: false,
     };
   },
 
@@ -37,7 +38,38 @@ export default {
         text_area: this.textArea,
         behavior: this.behavior,
       };
-    }
+    },
+
+    onBeforeSubmit() {
+      if (this.behavior === 'js') {
+        const toastService = this.app?.getService?.('toast');
+        if (toastService) {
+          toastService.show({
+            type: 'info',
+            sticky: true,
+            title: this.trans('@vue::toast.js_action.title'),
+            message: this.trans('@vue::toast.js_action.message'),
+            actions: {
+              [this.trans('@vue::toast.js_action.reactivate')]: () => {},
+              [this.trans('@vue::toast.js_action.dismiss')]: () => {},
+            },
+          });
+        }
+        return false;
+      }
+      return true;
+    },
+
+    onApiSubmitSuccess(response) {
+      if (response?.type === 'redirect' && response?.url) {
+        window.location.href = response.url;
+        return;
+      }
+
+      if (response?.type === 'success') {
+        this.formSubmitted = true;
+      }
+    },
   }
 }
 

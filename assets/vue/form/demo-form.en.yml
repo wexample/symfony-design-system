@@ -29,5 +29,15 @@ form:
 action:
   submit: Submit
 
+toast:
+  success:
+    title: Success
+    message: Form submitted successfully.
+  js_action:
+    title: JS action
+    message: Do you want to reactivate the form?
+    reactivate: Reactivate
+    dismiss: Dismiss
+
 description: |
   Use this form to test submit behaviors. This demo is in a Vue component.

@@ -76,5 +76,8 @@ description: |
 
 toast:
   success:
+    title: Success
+    message: Form submitted successfully.
+  js_action:
     title: JS action
-    message: Form submitted successfully (JS).
+    message: "Do you want to reactivate the form? @action:reactivate(Reactivate) @action:dismiss(Dismiss)"

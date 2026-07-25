@@ -10,6 +10,16 @@
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/submit-button') -}}
 {%- endblock -%}
 
+{%- block form_ready -%}
+    <div v-if="formSubmitted" class="message message--success">
+        <strong>{{ (demo_form_translation_domain ~ '::toast.success.title')|trans }}</strong>
+        {{ (demo_form_translation_domain ~ '::toast.success.message')|trans }}
+    </div>
+    <template v-else>
+        {{ parent() }}
+    </template>
+{%- endblock -%}
+
 {%- block form_body -%}
     <div class="lead">
         {{ '@vue::description' | trans }}

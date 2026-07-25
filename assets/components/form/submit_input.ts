@@ -6,13 +6,19 @@ export default class extends Component {
   protected async activateListeners(): Promise<void> {
     this.formEl = this.el.closest('form');
     this.formEl?.addEventListener('submit', this.onFormSubmit);
+    this.formEl?.addEventListener('loading:end', this.onFormLoadingEnd);
   }
 
   protected async deactivateListeners(): Promise<void> {
     this.formEl?.removeEventListener('submit', this.onFormSubmit);
+    this.formEl?.removeEventListener('loading:end', this.onFormLoadingEnd);
   }
 
   private onFormSubmit = (): void => {
     this.el.classList.add('is-loading');
+  };
+
+  private onFormLoadingEnd = (): void => {
+    this.el.classList.remove('is-loading');
   };
 }
