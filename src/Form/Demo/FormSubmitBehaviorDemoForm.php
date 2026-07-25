@@ -74,7 +74,8 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_LABEL => true,
                     self::FIELD_OPTION_NAME_REQUIRED => false,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => 'field.{name}.help',
+                    'help' => true,
+                    'data' => 'demo-password',
                 ]
             )
             ->add(
@@ -82,9 +83,10 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                 EmojiPickerType::class,
                 [
                     self::FIELD_OPTION_NAME_LABEL => true,
-                    self::FIELD_OPTION_NAME_REQUIRED => false,
+                    self::FIELD_OPTION_NAME_REQUIRED => true,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => 'field.{name}.help',
+                    'help' => true,
+                    'data' => '😊',
                 ]
             )
             ->add(
@@ -92,9 +94,10 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                 TextInputType::class,
                 [
                     self::FIELD_OPTION_NAME_LABEL => true,
-                    self::FIELD_OPTION_NAME_REQUIRED => false,
+                    self::FIELD_OPTION_NAME_REQUIRED => true,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => 'field.{name}.help',
+                    'help' => true,
+                    'data' => 'Demo text',
                 ]
             )
             ->add(
@@ -102,12 +105,13 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                 TextareaInputType::class,
                 [
                     self::FIELD_OPTION_NAME_LABEL => true,
-                    self::FIELD_OPTION_NAME_REQUIRED => false,
+                    self::FIELD_OPTION_NAME_REQUIRED => true,
                     self::FIELD_OPTION_NAME_MAPPED => false,
                     'rows' => 4,
                     'max_rows' => 12,
                     'auto_resize' => true,
-                    'help' => 'field.{name}.help',
+                    'help' => true,
+                    'data' => 'Demo long text for the textarea field.',
                     'attr' => [
                         'placeholder' => true,
                     ],
@@ -118,10 +122,11 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                 RadioInputType::class,
                 [
                     self::FIELD_OPTION_NAME_LABEL => true,
-                    self::FIELD_OPTION_NAME_REQUIRED => false,
+                    self::FIELD_OPTION_NAME_REQUIRED => true,
                     self::FIELD_OPTION_NAME_MAPPED => false,
                     'choices' => ['option_a', 'option_b', 'option_c'],
-                    'help' => 'field.{name}.help',
+                    'help' => true,
+                    'data' => 'option_a',
                 ]
             )
             ->add(
@@ -129,9 +134,10 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                 SwitchInputType::class,
                 [
                     self::FIELD_OPTION_NAME_LABEL => true,
-                    self::FIELD_OPTION_NAME_REQUIRED => false,
+                    self::FIELD_OPTION_NAME_REQUIRED => true,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => 'field.{name}.help',
+                    'help' => true,
+                    'data' => true,
                 ]
             )
             ->add(
@@ -139,9 +145,10 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                 DateInputType::class,
                 [
                     self::FIELD_OPTION_NAME_LABEL => true,
-                    self::FIELD_OPTION_NAME_REQUIRED => false,
+                    self::FIELD_OPTION_NAME_REQUIRED => true,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => 'field.{name}.help',
+                    'help' => true,
+                    'data' => new \DateTime('2000-01-15'),
                 ]
             )
             ->add(
@@ -149,9 +156,10 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                 DatetimeInputType::class,
                 [
                     self::FIELD_OPTION_NAME_LABEL => true,
-                    self::FIELD_OPTION_NAME_REQUIRED => false,
+                    self::FIELD_OPTION_NAME_REQUIRED => true,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => 'field.{name}.help',
+                    'help' => true,
+                    'data' => new \DateTime('2000-01-15 09:00:00'),
                 ]
             )
             ->add(
@@ -159,9 +167,10 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                 TimeInputType::class,
                 [
                     self::FIELD_OPTION_NAME_LABEL => true,
-                    self::FIELD_OPTION_NAME_REQUIRED => false,
+                    self::FIELD_OPTION_NAME_REQUIRED => true,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => 'field.{name}.help',
+                    'help' => true,
+                    'data' => new \DateTime('1970-01-01 09:00:00'),
                 ]
             )
             ->add(
@@ -171,7 +180,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_LABEL => true,
                     self::FIELD_OPTION_NAME_REQUIRED => false,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => 'field.{name}.help',
+                    'help' => true,
                 ]
             )
             ->add(
@@ -179,9 +188,10 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                 EmailInputType::class,
                 [
                     self::FIELD_OPTION_NAME_LABEL => true,
-                    self::FIELD_OPTION_NAME_REQUIRED => false,
+                    self::FIELD_OPTION_NAME_REQUIRED => true,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => 'field.{name}.help',
+                    'help' => true,
+                    'data' => 'demo@example.com',
                     'attr' => ['placeholder' => true],
                 ]
             )
@@ -190,9 +200,10 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                 NumberInputType::class,
                 [
                     self::FIELD_OPTION_NAME_LABEL => true,
-                    self::FIELD_OPTION_NAME_REQUIRED => false,
+                    self::FIELD_OPTION_NAME_REQUIRED => true,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => 'field.{name}.help',
+                    'help' => true,
+                    'data' => 42,
                 ]
             )
             ->add(
@@ -200,9 +211,10 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                 UrlInputType::class,
                 [
                     self::FIELD_OPTION_NAME_LABEL => true,
-                    self::FIELD_OPTION_NAME_REQUIRED => false,
+                    self::FIELD_OPTION_NAME_REQUIRED => true,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => 'field.{name}.help',
+                    'help' => true,
+                    'data' => 'https://example.com',
                     'attr' => ['placeholder' => true],
                 ]
             )
@@ -215,7 +227,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_MAPPED => false,
                     'choices' => $behaviorChoices,
                     'placeholder' => false,
-                    'help' => 'field.{name}.help',
+                    'help' => true,
                 ]
             )
         ;

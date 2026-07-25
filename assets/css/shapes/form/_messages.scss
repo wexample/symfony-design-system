@@ -3,7 +3,9 @@
 
 .form--help {
   font-size: var(--font-size-2);
-  color: var(--text-color-muted);
+  color: var(--text-color-subtle);
+  margin: -0.3rem 0;
+  padding-left: var(--space-4);
 }
 
 .form--errors {

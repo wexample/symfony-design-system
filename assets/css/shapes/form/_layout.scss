@@ -41,3 +41,9 @@ fieldset.form--fieldset {
   content: ' *';
   color: var(--color-error);
 }
+
+.form--group.is-optional .form--label::after {
+  content: ' (optional)';
+  color: var(--text-color-subtle);
+  font-size: var(--font-size-2);
+}
