@@ -1,4 +1,4 @@
-{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/actions/layout/layout-actions.html.twig' -%}
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/controls/layout/layout-controls.html.twig' -%}
 
 {%- macro render_compound(render_pass, options, menu_items) -%}
     {{ button('ph:bold/plus', '@page::button.primary' | trans) }}
@@ -32,6 +32,6 @@
 
     <h2>{{ '@page::section.compound.title' | trans }}</h2>
     <div class="cluster">{{ macros.render_compound(render_pass, select_options, menu_items) }}</div>
-    <div class="block block--padded cluster">{{ macros.render_compound(render_pass, select_options, menu_items) }}</div>
+    <div class="cluster">{{ macros.render_compound(render_pass, select_options, menu_items) }}</div>
     <div class="toolbar">{{ macros.render_compound(render_pass, select_options, menu_items) }}</div>
 {%- endblock -%}

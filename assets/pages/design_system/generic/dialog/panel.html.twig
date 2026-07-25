@@ -11,7 +11,6 @@
         { key: 'long', route: 'wexample_design_system_generic_dialog_modal_test_long', class: 'panel-test-long-button', options: { closeOnEscape: true, closeOnOverlayClick: true, confirmOnClose: true } },
         { key: 'form_rendered', route: 'wexample_design_system_generic_form_rendered', class: 'panel-test-form-rendered-button', options: { closeOnEscape: true, closeOnOverlayClick: true, confirmOnClose: true } },
         { key: 'form_ajax', route: 'wexample_design_system_generic_form_ajax', class: 'panel-test-form-ajax-button', options: { closeOnEscape: false, closeOnOverlayClick: false, confirmOnCloseWhenDirty: true } },
-        { key: 'recursive', route: 'wexample_design_system_generic_dialog_panel', class: 'panel-test-recursive-button', options: { closeOnEscape: true, closeOnOverlayClick: true, confirmOnClose: false, confirmOnCloseWhenDirty: false } },
     ] %}
 
     {% for test in panel_tests %}
@@ -22,4 +21,12 @@
             {{ button_panel('ph:bold/sidebar-simple-duotone', '@page::section.' ~ test.key ~ '.button', test.route, [], { class: test.class, panel_options: test.options }) }}
         </div>
     {% endfor %}
+
+    <div class="block block--padded block--split">
+        <div class="lead">
+            {{ '@page::section.recursive.description' | trans }}
+        </div>
+        {{ button_modal('ph:bold/app-window', '@page::section.recursive.button_modal', 'wexample_design_system_generic_dialog_index', [], { class: 'panel-test-recursive-modal-button', modal_options: { closeOnEscape: true, closeOnOverlayClick: true } }) }}
+        {{ button_panel('ph:bold/sidebar-simple-duotone', '@page::section.recursive.button_panel', 'wexample_design_system_generic_dialog_panel', [], { class: 'panel-test-recursive-panel-button', panel_options: { closeOnEscape: true, closeOnOverlayClick: true } }) }}
+    </div>
 {%- endblock -%}

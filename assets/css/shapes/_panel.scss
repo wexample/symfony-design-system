@@ -95,7 +95,8 @@
   color: var(--color-default-text);
 }
 
-.panel-close a {
+.panel-close a,
+.panel-external-link a {
   display: inline-flex;
   align-items: center;
   justify-content: center;

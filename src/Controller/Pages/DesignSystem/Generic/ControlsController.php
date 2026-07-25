@@ -8,10 +8,10 @@ use Wexample\SymfonyLoader\Controller\Pages\AbstractDesignSystemController;
 use Wexample\SymfonyRouting\Attribute\TemplateBasedRoutes;
 
 #[Route(
-    name: 'wexample_design_system_generic_actions_',
-    path: AbstractDesignSystemController::CONTROLLER_BASE_ROUTE . '/generic/actions/',
+    name: 'wexample_design_system_generic_controls_',
+    path: AbstractDesignSystemController::CONTROLLER_BASE_ROUTE . '/generic/controls/',
 )]
 #[TemplateBasedRoutes]
-final class ActionsController extends AbstractDesignSystemGenericController
+final class ControlsController extends AbstractDesignSystemGenericController
 {
 }

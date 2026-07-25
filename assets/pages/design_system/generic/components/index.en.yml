@@ -6,8 +6,8 @@ page_icon: ph:bold/puzzle-piece
 intro: "Higher-order patterns built from primitives. Lists and chat views go beyond single elements — they define interaction patterns, data browsing conventions, and communication flows that recur across application features."
 
 section:
-  compound:
-    title: Compound usage
+  example:
+    title: Example
 
 compound:
   title: Connected services

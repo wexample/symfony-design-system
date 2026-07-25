@@ -101,7 +101,8 @@
   color: var(--color-default-text);
 }
 
-.modal-close a {
+.modal-close a,
+.modal-external-link a {
   display: inline-flex;
   align-items: center;
   justify-content: center;

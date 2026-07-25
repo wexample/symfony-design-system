@@ -4,28 +4,19 @@
     <p class="lead">{{ '@page::intro' | trans }}</p>
 
     <h2>{{ '@page::section.compound.title' | trans }}</h2>
-    <div class="block">
-        <div class="block--title">
-            <span class="block--title-leading">{{ icon('ph:bold/sliders-horizontal') }}</span>
-            <span class="block--title-label">{{ '@page::compound.block.title' | trans }}</span>
-            <span class="block--title-trailing">{{ '@page::compound.block.status' | trans }}</span>
+    <div class="tabs">
+        {{ tab_item_link('@page::compound.tab.one' | trans, '#', { active: true }) }}
+        {{ tab_item_link('@page::compound.tab.two' | trans, '#') }}
+        {{ tab_item_link('@page::compound.tab.three' | trans, '#') }}
+    </div>
+    <div class="toolbar">
+        <div class="toolbar--group">
+            {{ button('ph:bold/plus', '@page::compound.button.create' | trans) }}
+            {{ button('ph:bold/arrows-clockwise', '@page::compound.button.refresh' | trans) }}
         </div>
-        <div class="tabs">
-            {{ tab_item_link('@page::compound.tab.one' | trans, '#', { active: true }) }}
-            {{ tab_item_link('@page::compound.tab.two' | trans, '#') }}
-            {{ tab_item_link('@page::compound.tab.three' | trans, '#') }}
-        </div>
-        <div class="toolbar">
-            <div class="toolbar--group">
-                {{ button('ph:bold/plus', '@page::compound.button.create' | trans) }}
-                {{ button('ph:bold/arrows-clockwise', '@page::compound.button.refresh' | trans) }}
-            </div>
-            <div class="toolbar--group align-right">
-                {{ button('ph:bold/export', '@page::compound.button.export' | trans) }}
-            </div>
-        </div>
-        <div class="block--body">
-            <p>{{ '@page::compound.block.description' | trans }}</p>
+        <div class="toolbar--group align-right">
+            {{ button('ph:bold/export', '@page::compound.button.export' | trans) }}
         </div>
     </div>
+    <p>{{ '@page::compound.block.description' | trans }}</p>
 {%- endblock -%}

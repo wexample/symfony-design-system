@@ -3,30 +3,25 @@
 {%- block page_body -%}
     <p class="lead">{{ '@page::intro' | trans }}</p>
 
-    <h2>{{ '@page::section.compound.title' | trans }}</h2>
-    <div class="block">
-        <div class="block--title">
-            <span class="block--title-label">{{ '@page::compound.title' | trans }}</span>
+    <h2>{{ '@page::section.example.title' | trans }}</h2>
+    <div class="list-expanded">
+        <div class="list-expanded--header">
+            <input class="form--input list-expanded--search" type="text" placeholder="{{ '@page::compound.search' | trans }}">
+            {{ button('ph:bold/funnel', '@page::compound.filter' | trans) }}
         </div>
-        <div class="list-expanded">
-            <div class="list-expanded--header">
-                <input class="form--input list-expanded--search" type="text" placeholder="{{ '@page::compound.search' | trans }}">
-                {{ button('ph:bold/funnel', '@page::compound.filter' | trans) }}
-            </div>
-            <div class="list-expanded--items">
-                <a class="list-expanded--item" href="#" data-list-expanded-item>
-                    <strong>{{ '@page::compound.item.one.title' | trans }}</strong>
-                    <span>{{ '@page::compound.item.one.body' | trans }}</span>
-                </a>
-                <a class="list-expanded--item" href="#" data-list-expanded-item>
-                    <strong>{{ '@page::compound.item.two.title' | trans }}</strong>
-                    <span>{{ '@page::compound.item.two.body' | trans }}</span>
-                </a>
-                <a class="list-expanded--item" href="#" data-list-expanded-item>
-                    <strong>{{ '@page::compound.item.three.title' | trans }}</strong>
-                    <span>{{ '@page::compound.item.three.body' | trans }}</span>
-                </a>
-            </div>
+        <div class="list-expanded--items">
+            <a class="list-expanded--item" href="#" data-list-expanded-item>
+                <strong>{{ '@page::compound.item.one.title' | trans }}</strong>
+                <span>{{ '@page::compound.item.one.body' | trans }}</span>
+            </a>
+            <a class="list-expanded--item" href="#" data-list-expanded-item>
+                <strong>{{ '@page::compound.item.two.title' | trans }}</strong>
+                <span>{{ '@page::compound.item.two.body' | trans }}</span>
+            </a>
+            <a class="list-expanded--item" href="#" data-list-expanded-item>
+                <strong>{{ '@page::compound.item.three.title' | trans }}</strong>
+                <span>{{ '@page::compound.item.three.body' | trans }}</span>
+            </a>
         </div>
     </div>
 {%- endblock -%}

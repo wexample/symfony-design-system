@@ -24,5 +24,6 @@ section:
     description: Show a rendered demo form inside a panel using AJAX. Escape and outside click are disabled, and it asks before closing if the form was modified.
     button: Open panel
   recursive:
-    description: Open the main panel page inside a panel using the default close behavior.
-    button: Open panel
+    description: Open a dialog page inside another dialog — choose modal or panel.
+    button_modal: Open in modal
+    button_panel: Open in panel
