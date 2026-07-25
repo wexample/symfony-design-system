@@ -23,9 +23,14 @@ class FormSubmitBehaviorDemoFormProcessor extends AbstractFormProcessor
 
     public function onValid(FormInterface $form): void
     {
-        $behavior = $form->has('behavior')
-            ? $form->get('behavior')->getData()
-            : null;
+        $behavior = match(true) {
+            $form->has('submit_error') && $form->get('submit_error')->isClicked() => 'error',
+            $form->has('submit_js') && $form->get('submit_js')->isClicked() => 'js',
+            $form->has('submit_redirect') && $form->get('submit_redirect')->isClicked() => 'redirect',
+            $form->has('submit_embed_stay') && $form->get('submit_embed_stay')->isClicked() => self::ACTION_EMBED_STAY,
+            $form->has('submit_embed_redirect') && $form->get('submit_embed_redirect')->isClicked() => self::ACTION_EMBED_REDIRECT,
+            default => 'default',
+        };
 
         switch ($behavior) {
             case 'error':
@@ -43,7 +48,6 @@ class FormSubmitBehaviorDemoFormProcessor extends AbstractFormProcessor
                 $form->get('file')->addError(new FormError('@form::field.file.error.ERR_FIELD_FILE_INVALID'));
                 $form->get('radio_choice')->addError(new FormError('@form::field.radio_choice.error.ERR_FIELD_RADIO_CHOICE_INVALID'));
                 $form->get('switch')->addError(new FormError('@form::field.switch.error.ERR_FIELD_SWITCH_INVALID'));
-                $form->get('behavior')->addError(new FormError('@form::field.behavior.error.ERR_FIELD_BEHAVIOR_INVALID'));
 
                 break;
             case self::ACTION_REDIRECT:

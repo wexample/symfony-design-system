@@ -101,7 +101,12 @@ field:
         label: Option C
 
 action:
-  submit: Submit
+  submit_default: Submit
+  submit_error: Show errors
+  submit_js: JS action
+  submit_redirect: Redirect
+  submit_embed_stay: Keep embed open
+  submit_embed_redirect: Redirect in embed
 
 error:
   ERR_FORM_TEST:

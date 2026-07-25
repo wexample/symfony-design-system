@@ -17,7 +17,7 @@ use Wexample\SymfonyForms\Form\Type\NumberInputType;
 use Wexample\SymfonyForms\Form\Type\TimeInputType;
 use Wexample\SymfonyForms\Form\Type\UrlInputType;
 use Wexample\SymfonyForms\Form\Type\RadioInputType;
-use Wexample\SymfonyForms\Form\Type\SelectInputType;
+use Wexample\SymfonyForms\Form\Type\SubmitInputType;
 use Wexample\SymfonyForms\Form\Type\SwitchInputType;
 use Wexample\SymfonyForms\Form\Type\TextareaInputType;
 use Wexample\SymfonyForms\Form\Type\TextInputType;
@@ -46,17 +46,6 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
     ): void {
         $request = $this->requestStack->getCurrentRequest();
         $isEmbedded = $request ? AdaptiveRequestHelper::isEmbedded($request) : false;
-        $behaviorChoices = [
-            'default',
-            'js',
-            'error',
-            'redirect',
-        ];
-
-        if ($isEmbedded) {
-            $behaviorChoices[] = 'embed_stay';
-            $behaviorChoices[] = 'embed_redirect';
-        }
 
         $builder
             ->add(
@@ -218,20 +207,20 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     'attr' => ['placeholder' => true],
                 ]
             )
-            ->add(
-                'behavior',
-                SelectInputType::class,
-                [
-                    self::FIELD_OPTION_NAME_LABEL => 'field.behavior.label',
-                    self::FIELD_OPTION_NAME_REQUIRED => true,
-                    self::FIELD_OPTION_NAME_MAPPED => false,
-                    'choices' => $behaviorChoices,
-                    'placeholder' => false,
-                    'help' => true,
-                ]
-            )
         ;
 
-        $this->builderAddSubmit($builder, 'action.submit');
+        $builder
+            ->add('submit_default', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_default'])
+            ->add('submit_error', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_error'])
+            ->add('submit_js', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_js'])
+            ->add('submit_redirect', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_redirect'])
+        ;
+
+        if ($isEmbedded) {
+            $builder
+                ->add('submit_embed_stay', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_embed_stay'])
+                ->add('submit_embed_redirect', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_embed_redirect'])
+            ;
+        }
     }
 }

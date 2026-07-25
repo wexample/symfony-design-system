@@ -1,16 +1,7 @@
 {%- extends '@WexampleSymfonyLoaderBundle/bases/form.html.twig' -%}
 
 {% block form_body %}
-    <div class="lead">
-        {{ '@form::description' | trans }}
-        <ul class="lead--list">
-            {% for choice in form.behavior.vars.choices %}
-                <li>
-                    <strong>{{ choice.label | trans }}</strong>: {{ ('@form::field.behavior.choice.' ~ choice.value ~ '.description') | trans }}
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+    <div class="lead">{{ '@form::description' | trans }}</div>
     {{ form_row(form.hidden_demo) }}
     <div class="grid grid--2">
         {{ form_row(form.text_simple) }}
@@ -33,8 +24,16 @@
         {{ form_row(form.radio_choice) }}
         {{ form_row(form.switch) }}
     </div>
-    {{ form_row(form.behavior) }}
     <div class="form--actions">
-        {{ form_widget(form.submit) }}
+        {{ form_widget(form.submit_default) }}
+        {{ form_widget(form.submit_error) }}
+        {{ form_widget(form.submit_js) }}
+        {{ form_widget(form.submit_redirect) }}
+        {% if form.submit_embed_stay is defined %}
+            {{ form_widget(form.submit_embed_stay) }}
+        {% endif %}
+        {% if form.submit_embed_redirect is defined %}
+            {{ form_widget(form.submit_embed_redirect) }}
+        {% endif %}
     </div>
 {% endblock %}
