@@ -1,6 +1,7 @@
 @use '../mixins/size' as size;
 @use '../mixins/animation' as animation;
 @use '../mixins/surface-layer' as surface;
+@use '../mixins/overlay-shell' as shell;
 
 .modal {
   @include size.size-full-viewport;
@@ -39,6 +40,7 @@
     calc(var(--overlay-depth, 0) * -12px)
   );
   transition: transform 250ms ease;
+  @include surface.surface-layer;
 }
 
 .modal--content.is-opening {
@@ -62,58 +64,8 @@
   overflow: hidden;
 }
 
-.modal-header {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
-  border-bottom: var(--border-separator);
-}
-
-.modal-loading {
-  height: 3px;
-  background: var(--color-invert-5);
-}
-
-.modal-loading-bar {
-  height: 100%;
-  width: 0%;
-  background: var(--color-info-12);
-  opacity: 0;
-  transition: width 180ms ease, opacity 220ms ease;
-}
-
-.modal.is-loading .modal-loading-bar {
-  width: 10%;
-  opacity: 1;
-}
-
-.modal.is-loaded .modal-loading-bar {
-  width: 100%;
-  opacity: 0;
-  transition-delay: 0ms, 160ms;
-}
-
-.modal--content {
-  @include surface.surface-layer;
-}
-
-.modal-header .header-title {
-  flex: 1 1 auto;
-  margin: 0;
-  font-size: var(--font-size-3);
-  font-weight: 600;
-  color: var(--color-default-text);
-}
-
-.modal-close,
-.modal-external-link {
-  line-height: 0;
-}
+@include shell.overlay-shell('modal');
 
 .modal-body {
-  padding: var(--space-4);
-  background: var(--color-default-background);
-  overflow: auto;
   border-radius: 0 0 var(--radius-1) var(--radius-1);
 }

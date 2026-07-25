@@ -1,0 +1,58 @@
+@mixin overlay-shell($name, $shrink-chrome: false) {
+  .#{$name}-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: var(--border-separator);
+    @if $shrink-chrome {
+      flex-shrink: 0;
+    }
+  }
+
+  .#{$name}-header .header-title {
+    flex: 1 1 auto;
+    margin: 0;
+    font-size: var(--font-size-3);
+    font-weight: 600;
+    color: var(--color-default-text);
+  }
+
+  .#{$name}-close,
+  .#{$name}-external-link {
+    line-height: 0;
+  }
+
+  .#{$name}-loading {
+    height: 3px;
+    background: var(--color-invert-5);
+    @if $shrink-chrome {
+      flex-shrink: 0;
+    }
+  }
+
+  .#{$name}-loading-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--color-info-12);
+    opacity: 0;
+    transition: width 180ms ease, opacity 220ms ease;
+  }
+
+  .#{$name}.is-loading .#{$name}-loading-bar {
+    width: 10%;
+    opacity: 1;
+  }
+
+  .#{$name}.is-loaded .#{$name}-loading-bar {
+    width: 100%;
+    opacity: 0;
+    transition-delay: 0ms, 160ms;
+  }
+
+  .#{$name}-body {
+    padding: var(--space-4);
+    background: var(--color-default-background);
+    overflow: auto;
+  }
+}
