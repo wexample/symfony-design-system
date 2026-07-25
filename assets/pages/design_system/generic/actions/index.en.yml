@@ -1,6 +1,6 @@
 ~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
 
-page_title: Actions
+page_title: Controls
 page_icon: ph:bold/cursor-click
 
 section:
