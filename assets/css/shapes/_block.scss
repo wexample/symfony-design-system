@@ -1,4 +1,7 @@
+@use '../mixins/surface-layer' as surface;
+
 .block {
+  @include surface.surface-layer;
   background: var(--surface-3);
   border-radius: var(--radius-1);
   width: 100%;

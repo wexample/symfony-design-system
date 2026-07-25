@@ -1,4 +1,5 @@
 @use '../mixins/animation' as animation;
+@use '../mixins/surface-layer' as surface;
 
 .panel {
   position: fixed;
@@ -64,7 +65,7 @@
 
 .panel-loading {
   height: 3px;
-  background: var(--surface-1);
+  background: var(--color-invert-5);
   flex-shrink: 0;
 }
 
@@ -87,11 +88,8 @@
   transition-delay: 0ms, 160ms;
 }
 
-.panel {
-  --tabs-bg: transparent;
-  --tabs-item-hover-bg: var(--surface-3);
-  --tabs-item-active-bg: var(--surface-3);
-  --toolbar-bg: var(--surface-2);
+.panel--content {
+  @include surface.surface-layer;
 }
 
 .panel-header .header-title {

@@ -1,0 +1,7 @@
+// Applied to elements that establish a new surface context (block, modal, panel).
+// Remaps --surface-shell to the layer's own elevation (surface-3) so that
+// chrome components (tabs, toolbar, header) inherit the right background
+// without component-specific overrides. Works in both light and dark.
+@mixin surface-layer {
+  --surface-shell: var(--surface-3);
+}

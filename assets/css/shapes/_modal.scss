@@ -1,5 +1,6 @@
 @use '../mixins/size' as size;
 @use '../mixins/animation' as animation;
+@use '../mixins/surface-layer' as surface;
 
 .modal {
   @include size.size-full-viewport;
@@ -71,7 +72,7 @@
 
 .modal-loading {
   height: 3px;
-  background: var(--surface-1);
+  background: var(--color-invert-5);
 }
 
 .modal-loading-bar {
@@ -93,11 +94,8 @@
   transition-delay: 0ms, 160ms;
 }
 
-.modal {
-  --tabs-bg: transparent;
-  --tabs-item-hover-bg: var(--surface-3);
-  --tabs-item-active-bg: var(--surface-3);
-  --toolbar-bg: var(--surface-2);
+.modal--content {
+  @include surface.surface-layer;
 }
 
 .modal-header .header-title {
