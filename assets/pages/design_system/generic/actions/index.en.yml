@@ -12,14 +12,12 @@ section:
     title: Selects
   menu:
     title: Menu buttons
-  menu_options:
-    title: Menu options
   link:
     title: Button links
-  toolbar:
-    title: Toolbar buttons
   list_expanded:
     title: List expanded
+  compound:
+    title: Compound usage
 
 switch:
   label_right: Enable feature
