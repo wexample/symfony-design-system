@@ -19,17 +19,15 @@
   }
 
   .select--icon {
+    @include field.icon-muted;
     position: absolute;
     right: var(--space-2);
-    pointer-events: none;
-    display: flex;
-    align-items: center;
-    color: var(--text-color-muted);
   }
 }
 
 .select--search {
   display: inline-block;
+  position: relative;
 
   .select--trigger {
     @include field.field-base;
@@ -42,12 +40,8 @@
     text-align: left;
 
     .select--icon {
-      position: static;
+      @include field.icon-muted;
       margin-left: auto;
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      color: var(--text-color-muted);
     }
   }
 

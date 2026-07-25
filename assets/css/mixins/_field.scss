@@ -1,3 +1,10 @@
+@mixin icon-muted {
+  display: flex;
+  align-items: center;
+  color: var(--text-color-muted);
+  pointer-events: none;
+}
+
 @mixin field-base {
   border: var(--border-default);
   border-radius: var(--radius-1);
