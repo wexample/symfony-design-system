@@ -1,2 +1,4 @@
 tab:
-  index: Controls
+  index: Buttons
+  inputs: Inputs
+  menus: Menus

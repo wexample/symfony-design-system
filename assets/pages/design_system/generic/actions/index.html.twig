@@ -20,36 +20,6 @@
     {{ button_link('ph:bold/arrow-right', '@page::link.more' | trans, '#', { class: 'is-assisted' }) }}
 {%- endmacro -%}
 
-{%- macro render_menus(menu_items) -%}
-    {{ button_menu('ph:bold/list', '@page::menu.primary' | trans, menu_items) }}
-    {{ button_menu('ph:bold/dots-three-outline', '@page::menu.more' | trans, menu_items, { menu_align: 'right', items_align: 'right' }) }}
-    {{ button_menu('ph:bold/moon', '@page::menu.invert' | trans, menu_items, { wrapper_class: 'button-menu--invert' }) }}
-    {{ button_menu('ph:bold/caret-up', '@page::menu.options.top_left' | trans, menu_items, { menu_vertical: 'top', menu_align: 'left' }) }}
-    {{ button_menu('ph:bold/caret-up', '@page::menu.options.top_right' | trans, menu_items, { menu_vertical: 'top', menu_align: 'right', items_align: 'right' }) }}
-    {{ button_menu('ph:bold/list', '@page::menu.primary' | trans, menu_items, { wrapper_class: 'is-assisted' }) }}
-{%- endmacro -%}
-
-{%- macro render_selects(render_pass, options) -%}
-    <select class="form--input form--input--select form--input--inline">
-        <option>{{ '@page::select.option_one' | trans }}</option>
-        <option>{{ '@page::select.option_two' | trans }}</option>
-        <option>{{ '@page::select.option_three' | trans }}</option>
-    </select>
-    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select', {}, { options: options, value: 'one' }) }}
-    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select-search', {}, { options: options, value: 'one' }) }}
-    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select', {}, { options: options, value: 'one', class: 'is-assisted' }) }}
-    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select-search', {}, { options: options, value: 'one', class: 'is-assisted' }) }}
-{%- endmacro -%}
-
-{%- macro render_switches(render_pass, icon_moon, icon_sun) -%}
-    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch') }}
-    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { label: '@page::switch.label_right' }) }}
-    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { label: '@page::switch.label_left', label_position: 'left' }) }}
-    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { off_inner: icon_moon, on_inner: icon_sun }) }}
-    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { off_inner: 'OFF', on_inner: 'ON', label: '@page::switch.label_right', checked: true }) }}
-    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { label: '@page::switch.label_right', class: 'is-assisted' }) }}
-{%- endmacro -%}
-
 {%- macro render_compound(render_pass, options, menu_items) -%}
     {{ button('ph:bold/plus', '@page::button.primary' | trans) }}
     <select class="form--input form--input--select form--input--inline">
@@ -78,7 +48,7 @@
         { icon: 'ph:bold/text-aa',        label: '@page::menu.item.long',     href: app_home_url() }
     ] %}
 
-    <h2>{{ '@page::section.default.title' | trans }}</h2>
+    <h2>{{ '@page::section.buttons.title' | trans }}</h2>
     <div class="cluster">{{ macros.render_buttons() }}</div>
     <div class="block block--padded cluster">{{ macros.render_buttons() }}</div>
     <div class="toolbar">{{ macros.render_buttons() }}</div>
@@ -92,23 +62,6 @@
     <div class="cluster">{{ macros.render_links() }}</div>
     <div class="block block--padded cluster">{{ macros.render_links() }}</div>
     <div class="toolbar">{{ macros.render_links() }}</div>
-
-    <h2>{{ '@page::section.menu.title' | trans }}</h2>
-    <div class="cluster">{{ macros.render_menus(menu_items) }}</div>
-    <div class="block block--padded cluster">{{ macros.render_menus(menu_items) }}</div>
-    <div class="toolbar">{{ macros.render_menus(menu_items) }}</div>
-
-    <h2>{{ '@page::section.select.title' | trans }}</h2>
-    <div class="cluster">{{ macros.render_selects(render_pass, select_options) }}</div>
-    <div class="block block--padded cluster">{{ macros.render_selects(render_pass, select_options) }}</div>
-    <div class="toolbar">{{ macros.render_selects(render_pass, select_options) }}</div>
-
-    <h2>{{ '@page::section.switch.title' | trans }}</h2>
-    {% set icon_sun %}{{ icon('ph:bold/sun') }}{% endset %}
-    {% set icon_moon %}{{ icon('ph:bold/moon') }}{% endset %}
-    <div class="cluster">{{ macros.render_switches(render_pass, icon_moon, icon_sun) }}</div>
-    <div class="block block--padded cluster">{{ macros.render_switches(render_pass, icon_moon, icon_sun) }}</div>
-    <div class="toolbar">{{ macros.render_switches(render_pass, icon_moon, icon_sun) }}</div>
 
     <h2>{{ '@page::section.compound.title' | trans }}</h2>
     <div class="cluster">{{ macros.render_compound(render_pass, select_options, menu_items) }}</div>

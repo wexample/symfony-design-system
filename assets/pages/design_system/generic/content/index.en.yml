@@ -6,26 +6,6 @@ page_icon: ph:bold/article
 section:
   typography:
     title: Type scale
-  prose:
-    title: Prose article
-  image:
-    title: Images
-  media:
-    title: Media with text
-  dropcap:
-    title: Drop cap
-  meta_bar:
-    title: Meta bar
-
-image:
-  intro: "The content_image() function renders an img with loading=\"lazy\" by default, and wraps it in a figure element when a caption is provided."
-  simple:
-    label: "Without caption — a plain img, full-width."
-    alt: "Placeholder image — no caption"
-  captioned:
-    label: "With caption — wrapped in a figure with a figcaption."
-    alt: "Placeholder image — with caption"
-    caption: "A figure with a figcaption — use it to credit sources or add context to visual content."
 
 title:
   h1:
@@ -47,48 +27,3 @@ title:
     title: "Accessibility is a feature, not an afterthought"
     description: "The smallest heading level. Use sparingly — for footnotes, legal blocks, or auxiliary labels."
 
-article:
-  toc:
-    label: "In this article"
-  title: "Understanding design tokens"
-  intro: "Design tokens are the single source of truth for visual decisions across a product. They encode color, spacing, typography, and motion into named variables that components consume."
-  section_one:
-    title: "Why tokens matter"
-    body_one: "Without tokens, a change to the primary brand color requires hunting through hundreds of files. With tokens, one variable update propagates everywhere — from buttons to alerts to navigation bars."
-    body_two: "Tokens also bridge the gap between design tools and code. A designer names a color <strong>surface-brand</strong> in Figma; a developer uses <code>var(--surface-brand)</code> in CSS. They speak the same language."
-  section_two:
-    title: "Practical examples"
-    body: "Consider a component that needs a background, a border, and text. Instead of hardcoding <code>#1a56db</code>, <code>#e1effe</code>, and <code>#1e429f</code>, the component references <code>--color-primary</code>, <code>--surface-primary-subtle</code>, and <code>--text-primary-strong</code>. When the brand evolves, the palette changes — the component does not."
-  list_title: "Token categories"
-  list:
-    - "Color — brand, semantic, and neutral palettes"
-    - "Spacing — a consistent scale from 2px to 64px"
-    - "Typography — font sizes, weights, and line heights"
-    - "Radius — from sharp corners to fully rounded"
-    - "Shadow — elevation levels for depth and hierarchy"
-    - "Motion — easing curves and duration steps"
-  quote: "Everything should be made as simple as possible, but not simpler."
-  quote_author: "Albert Einstein"
-  cta: "Read the full token reference"
-
-media:
-  alt: "Placeholder image alongside text"
-  caption: "Image occupying one third of the layout."
-  body_one: "Use content--media to place an image and text side by side. The image takes one third of the width, the text two thirds."
-  body_two: "This layout suits pull quotes, illustrated definitions, or any short editorial block where the image reinforces the copy without dominating it."
-
-dropcap:
-  paragraph_one: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  paragraph_two: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
-meta:
-  author: "Alice Martin"
-  date: "July 18, 2026"
-  read_time: "4 min read"
-  likes: "142 likes"
-  category: "UX Design"
-  tag: "In progress"
-  views: "3 847 views"
-
-action:
-  share: Share
