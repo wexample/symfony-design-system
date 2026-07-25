@@ -18,6 +18,7 @@ $color-light: #f2f2f2 !default;
     palette.$color-warning,
     palette.$color-error
   );
+  --surface-shell: var(--surface-1); // dark: shell slightly elevated above page
   --state-hover: var(--color-invert-2);
   --state-active: var(--color-invert-1);
   --border-color-discreet: var(--color-default-background);

@@ -2,7 +2,7 @@
 
 .footer {
   @include gutters.gutters-horizontal;
-  background: var(--surface-2);
+  background: var(--surface-shell);
   border-top: var(--border-separator);
 
   .footer--body {

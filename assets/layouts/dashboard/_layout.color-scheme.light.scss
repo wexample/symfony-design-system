@@ -19,12 +19,11 @@ $color-light: #fafafa !default;
     palette.$color-error
   );
 
-  // Light face: gray page, gray chrome, white elevation.
-  // Surfaces go toward white (opposite of invert direction) so we override here.
-  --surface-page: #f0f0f0; // gray base
-  --surface-1: #fafafa;    // near-white (inputs, toolbars)
-  --surface-2: #ececec;    // gray chrome (menu, header, plain blocks)
-  --surface-3: #ffffff;    // white (cards, modals — highest elevation)
+  // Light face: ordered elevation — each surface level lighter than the one below.
+  --surface-page: #f0f0f0; // base gray (page, nav, header)
+  --surface-1:    #f5f5f5; // subtle lift (inputs, fields)
+  --surface-2:    #fafafa; // raised interactive (buttons, toolbar)
+  --surface-3:    #ffffff; // elevated content (blocks, cards, modals)
   --state-hover: var(--color-invert-2);
   --state-active: var(--color-invert-4);
   --border-color-discreet: #cccccc;
@@ -34,11 +33,4 @@ $color-light: #fafafa !default;
     palette.$color-tag-1, palette.$color-tag-2, palette.$color-tag-3,
     palette.$color-tag-4, palette.$color-tag-5, palette.$color-tag-6
   );
-
-  // surface-layer context: recalibrate tokens for children on a raised surface.
-  // .block is implicitly a surface-layer in this theme.
-  &.surface-layer, .surface-layer, .block, .modal--content, .panel--content {
-    --surface-2: #fafafa;
-    --border-color-discreet: #e8e8e8;
-  }
 }

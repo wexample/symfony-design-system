@@ -21,7 +21,9 @@ export default abstract class AbstractOverlayButton extends Component {
     if (savedUrl && href && savedUrl === href && savedPage === window.location.pathname) {
       const savedOptsRaw = locationHashParamGet(hashOptsKey);
       const opts = savedOptsRaw ? JSON.parse(savedOptsRaw) : {};
-      this.openWithPersistence(href, opts);
+      if (opts.persistent && savedUrl !== window.location.pathname) {
+        this.openWithPersistence(href, opts);
+      }
     }
   }
 
@@ -32,10 +34,12 @@ export default abstract class AbstractOverlayButton extends Component {
 
   private openWithPersistence(href: string, options: Record<string, any>): void {
     const [hashKey, hashOptsKey, hashPageKey] = this.getHashKeys();
-    locationHashParamSet(hashKey, href, true);
-    locationHashParamSet(hashPageKey, window.location.pathname, true);
-    if (Object.keys(options).length) {
-      locationHashParamSet(hashOptsKey, JSON.stringify(options), true);
+    if (options.persistent) {
+      locationHashParamSet(hashKey, href, true);
+      locationHashParamSet(hashPageKey, window.location.pathname, true);
+      if (Object.keys(options).length) {
+        locationHashParamSet(hashOptsKey, JSON.stringify(options), true);
+      }
     }
     this.openOverlay(href, options);
   }
