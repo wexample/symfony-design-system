@@ -11,7 +11,8 @@
   width: auto;
 }
 
-select.form--input * {
-  color: initial;
-  background: initial;
+select.form--input option,
+select.form--input optgroup {
+  color: var(--color-default-text);
+  background: var(--color-default-background);
 }

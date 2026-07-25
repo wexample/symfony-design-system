@@ -1,9 +1,16 @@
+select.form--input,
 .form--input--select {
+  appearance: none;
+  padding-right: var(--space-6);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23808080' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-2) center;
+  background-size: 1.25rem;
   cursor: pointer;
 }
 
 .form--input--select option,
 .form--input--select optgroup {
-  color: initial;
-  background: white;
+  color: var(--color-default-text);
+  background: var(--color-default-background);
 }
