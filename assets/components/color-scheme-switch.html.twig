@@ -1,4 +1,4 @@
-<div class="switch color-scheme-switch" data-checked="false">
+<div class="switch color-scheme-switch" data-checked="{{ render_pass.usages['color_scheme']|default('light') != 'dark' ? 'true' : 'false' }}">
     <span class="switch--pill">
         <span class="switch--knob"></span>
         <span class="switch--inner switch--off-inner">{{ icon('ph:bold/moon') }}</span>

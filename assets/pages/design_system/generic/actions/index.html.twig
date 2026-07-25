@@ -2,7 +2,13 @@
 
 {%- block page_body -%}
         <h2>{{ '@page::section.default.title' | trans }}</h2>
-        <div>
+        <div class="cluster">
+            {{ button('ph:bold/plus', '@page::button.primary' | trans) }}
+            {{ button('ph:bold/check', '@page::button.success' | trans) }}
+            {{ button('ph:bold/trash', '@page::button.danger' | trans) }}
+            {{ button('ph:bold/sun', '@page::button.invert' | trans, { class: 'button--invert' }) }}
+        </div>
+        <div class="block block--padded cluster">
             {{ button('ph:bold/plus', '@page::button.primary' | trans) }}
             {{ button('ph:bold/check', '@page::button.success' | trans) }}
             {{ button('ph:bold/trash', '@page::button.danger' | trans) }}
