@@ -143,5 +143,58 @@
                     <a href="#">{{ '@page::block.zones_three.footer.action' | trans }}</a>
                 </div>
             </div>
+
+            <h2>{{ '@page::section.card.title' | trans }}</h2>
+            <div class="stack--horizontal">
+                <div class="block block--card block--padded">
+                    <h3>{{ '@page::block.one.title' | trans }}</h3>
+                    <p>{{ '@page::block.one.description' | trans }}</p>
+                </div>
+                <div class="block block--card block--padded">
+                    <h3>{{ '@page::block.two.title' | trans }}</h3>
+                    <p>{{ '@page::block.two.description' | trans }}</p>
+                </div>
+                <div class="block block--card block--padded">
+                    <h3>{{ '@page::block.three.title' | trans }}</h3>
+                    <p>{{ '@page::block.three.description' | trans }}</p>
+                </div>
+            </div>
+
+            <h2>{{ '@page::section.stacks.title' | trans }}</h2>
+
+            <h3>{{ '@page::section.stack_horizontal.title' | trans }}</h3>
+            <div class="lead">{{ '@page::section.stack_horizontal.description' | trans }}</div>
+            <div class="stack--horizontal">
+                {% for key in ['one', 'two', 'three', 'four'] %}
+                    <div class="block block--padded">{{ ('@page::stack.item.' ~ key) | trans }}</div>
+                {% endfor %}
+            </div>
+
+            <h3>{{ '@page::section.stack_vertical.title' | trans }}</h3>
+            <div class="lead">{{ '@page::section.stack_vertical.description' | trans }}</div>
+            <div class="stack--vertical">
+                {% for key in ['one', 'two', 'three'] %}
+                    <div class="block block--padded">{{ ('@page::stack.item.' ~ key) | trans }}</div>
+                {% endfor %}
+            </div>
+
+            <h3>{{ '@page::section.stack_split.title' | trans }}</h3>
+            <div class="lead">{{ '@page::section.stack_split.description' | trans }}</div>
+            <div class="block block--padded block--split">
+                <div class="lead">{{ '@page::stack.item.lead' | trans }}</div>
+                {{ button('ph:bold/arrow-right', '@page::stack.item.action' | trans) }}
+            </div>
+
+            <h3>{{ '@page::section.stack_nested.title' | trans }}</h3>
+            <div class="lead">{{ '@page::section.stack_nested.description' | trans }}</div>
+            <div class="stack--horizontal">
+                {% for key in ['one', 'two', 'three'] %}
+                    <div class="stack--vertical">
+                        {% for sub in ['one', 'two', 'three'] %}
+                            <div class="block block--padded">{{ key | upper ~ sub | upper }}</div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
         </div>
 {%- endblock -%}

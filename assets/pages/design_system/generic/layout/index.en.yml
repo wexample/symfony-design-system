@@ -8,6 +8,31 @@ section:
     title: Basic blocks
   advanced:
     title: Advanced blocks
+  card:
+    title: Cards
+  stacks:
+    title: Stacks
+  stack_horizontal:
+    title: Horizontal
+    description: Equal columns, full width, wraps on overflow.
+  stack_vertical:
+    title: Vertical
+    description: Stacked rows, full width, uniform gap.
+  stack_split:
+    title: Split
+    description: First child grows, last child stays fixed — used for lead + action rows.
+  stack_nested:
+    title: Nested
+    description: Horizontal stack containing vertical stacks — typical dashboard grid.
+
+stack:
+  item:
+    one: One
+    two: Two
+    three: Three
+    four: Four
+    lead: Describe the action in this lead text.
+    action: Action
 
 block:
   title: Block title

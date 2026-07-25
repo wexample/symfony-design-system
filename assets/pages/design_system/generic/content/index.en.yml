@@ -1,7 +1,7 @@
 ~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
 
-page_title: Content
-page_icon: ph:bold/textbox
+page_title: Article
+page_icon: ph:bold/article
 
 section:
   typography:
@@ -14,6 +14,8 @@ section:
     title: Media with text
   dropcap:
     title: Drop cap
+  meta_bar:
+    title: Meta bar
 
 image:
   intro: "The content_image() function renders an img with loading=\"lazy\" by default, and wraps it in a figure element when a caption is provided."
@@ -78,3 +80,15 @@ media:
 dropcap:
   paragraph_one: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
   paragraph_two: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+
+meta:
+  author: "Alice Martin"
+  date: "July 18, 2026"
+  read_time: "4 min read"
+  likes: "142 likes"
+  category: "UX Design"
+  tag: "In progress"
+  views: "3 847 views"
+
+action:
+  share: Share

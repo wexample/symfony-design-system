@@ -1,6 +1,3 @@
 tab:
   index: Article
-  block: Block
-  media: Media
   pill: Pill
-  meta_bar: Meta bar

@@ -68,4 +68,38 @@
         <p>{{ '@page::dropcap.paragraph_one' | trans }}</p>
         <p>{{ '@page::dropcap.paragraph_two' | trans }}</p>
     </div>
+
+    <h2>{{ '@page::section.meta_bar.title' | trans }}</h2>
+    <div class="block block--padded content">
+        <h2>{{ '@page::article.title' | trans }}</h2>
+        <p>{{ '@page::article.intro' | trans }}</p>
+    </div>
+    <div class="meta-bar">
+        <div class="meta-bar--group">
+            {{ icon('ph:bold/user') }}
+            <span>{{ '@page::meta.author' | trans }}</span>
+            {{ icon('ph:bold/dot') }}
+            {{ icon('ph:bold/calendar-blank') }}
+            <span>{{ '@page::meta.date' | trans }}</span>
+            {{ icon('ph:bold/dot') }}
+            {{ icon('ph:bold/clock') }}
+            <span>{{ '@page::meta.read_time' | trans }}</span>
+        </div>
+        <div class="meta-bar--group">
+            {{ icon('ph:bold/heart') }}
+            <span>{{ '@page::meta.likes' | trans }}</span>
+            {{ button_link('ph:bold/share-network', '@page::action.share' | trans, '#') }}
+        </div>
+    </div>
+    <div class="meta-bar">
+        <div class="meta-bar--group">
+            {{ icon('ph:bold/folder') }}
+            <span>{{ '@page::meta.category' | trans }}</span>
+            <span class="pill tag-3">{{ '@page::meta.tag' | trans }}</span>
+        </div>
+        <div class="meta-bar--group">
+            {{ icon('ph:bold/eye') }}
+            <span>{{ '@page::meta.views' | trans }}</span>
+        </div>
+    </div>
 {%- endblock -%}
