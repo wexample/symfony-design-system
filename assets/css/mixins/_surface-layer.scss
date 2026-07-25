@@ -4,4 +4,6 @@
 // without component-specific overrides. Works in both light and dark.
 @mixin surface-layer {
   --surface-shell: var(--surface-3);
+  --block-shadow: var(--shadow-1);
+  --border-color-discreet: var(--border-color-default);
 }

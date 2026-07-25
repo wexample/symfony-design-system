@@ -3,6 +3,7 @@
 .block {
   @include surface.surface-layer;
   background: var(--surface-3);
+  box-shadow: var(--block-shadow, none);
   border-radius: var(--radius-1);
   width: 100%;
 }
