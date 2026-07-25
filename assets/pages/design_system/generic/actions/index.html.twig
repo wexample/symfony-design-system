@@ -11,11 +11,13 @@
     {{ button('ph:bold/plus', '@page::button.state.default' | trans) }}
     {{ button('ph:bold/plus', '@page::button.state.loading' | trans, { class: 'is-loading' }) }}
     {{ button('ph:bold/plus', '@page::button.state.disabled' | trans, { disabled: true }) }}
+    {{ button('ph:bold/plus', '@page::button.state.assisted' | trans, { class: 'is-assisted' }) }}
 {%- endmacro -%}
 
 {%- macro render_links() -%}
     {{ button_link('ph:bold/arrow-right', '@page::link.more' | trans, app_home_url()) }}
     {{ button_link('ph:bold/arrow-up-right', '@page::link.external' | trans, 'https://example.com', { attr: { target: '_blank', rel: 'noopener noreferrer' } }) }}
+    {{ button_link('ph:bold/arrow-right', '@page::link.more' | trans, '#', { class: 'is-assisted' }) }}
 {%- endmacro -%}
 
 {%- macro render_menus(menu_items) -%}
@@ -24,6 +26,7 @@
     {{ button_menu('ph:bold/moon', '@page::menu.invert' | trans, menu_items, { wrapper_class: 'button-menu--invert' }) }}
     {{ button_menu('ph:bold/caret-up', '@page::menu.options.top_left' | trans, menu_items, { menu_vertical: 'top', menu_align: 'left' }) }}
     {{ button_menu('ph:bold/caret-up', '@page::menu.options.top_right' | trans, menu_items, { menu_vertical: 'top', menu_align: 'right', items_align: 'right' }) }}
+    {{ button_menu('ph:bold/list', '@page::menu.primary' | trans, menu_items, { wrapper_class: 'is-assisted' }) }}
 {%- endmacro -%}
 
 {%- macro render_selects(render_pass, options) -%}
@@ -34,6 +37,8 @@
     </select>
     {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select', {}, { options: options, value: 'one' }) }}
     {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select-search', {}, { options: options, value: 'one' }) }}
+    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select', {}, { options: options, value: 'one', class: 'is-assisted' }) }}
+    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select-search', {}, { options: options, value: 'one', class: 'is-assisted' }) }}
 {%- endmacro -%}
 
 {%- macro render_switches(render_pass, icon_moon, icon_sun) -%}
@@ -42,14 +47,6 @@
     {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { label: '@page::switch.label_left', label_position: 'left' }) }}
     {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { off_inner: icon_moon, on_inner: icon_sun }) }}
     {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { off_inner: 'OFF', on_inner: 'ON', label: '@page::switch.label_right', checked: true }) }}
-{%- endmacro -%}
-
-{%- macro render_assisted(render_pass, options, menu_items) -%}
-    {{ button('ph:bold/plus', '@page::button.primary' | trans, { class: 'is-assisted' }) }}
-    {{ button_link('ph:bold/arrow-right', '@page::link.more' | trans, '#', { class: 'is-assisted' }) }}
-    {{ button_menu('ph:bold/list', '@page::menu.primary' | trans, menu_items, { wrapper_class: 'is-assisted' }) }}
-    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select', {}, { options: options, value: 'one', class: 'is-assisted' }) }}
-    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select-search', {}, { options: options, value: 'one', class: 'is-assisted' }) }}
     {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { label: '@page::switch.label_right', class: 'is-assisted' }) }}
 {%- endmacro -%}
 
@@ -117,9 +114,4 @@
     <div class="cluster">{{ macros.render_compound(render_pass, select_options, menu_items) }}</div>
     <div class="block block--padded cluster">{{ macros.render_compound(render_pass, select_options, menu_items) }}</div>
     <div class="toolbar">{{ macros.render_compound(render_pass, select_options, menu_items) }}</div>
-
-    <h2>{{ '@page::section.assisted.title' | trans }}</h2>
-    <div class="cluster">{{ macros.render_assisted(render_pass, select_options, menu_items) }}</div>
-    <div class="block block--padded cluster">{{ macros.render_assisted(render_pass, select_options, menu_items) }}</div>
-    <div class="toolbar">{{ macros.render_assisted(render_pass, select_options, menu_items) }}</div>
 {%- endblock -%}
