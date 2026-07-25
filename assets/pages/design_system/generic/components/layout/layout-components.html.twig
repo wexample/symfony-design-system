@@ -1,0 +1,11 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/design_system/layout.html.twig' -%}
+
+{%- set page_show_title = true -%}
+
+{%- block page_header -%}
+    {{ parent() }}
+    <div class="tabs">
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.components.layout.layout-components::tab.index', 'wexample_design_system_generic_components_index') }}
+        {{ tab_item('WexampleSymfonyDesignSystemBundle.pages.design_system.generic.components.layout.layout-components::tab.chat', 'wexample_design_system_generic_components_chat') }}
+    </div>
+{%- endblock -%}

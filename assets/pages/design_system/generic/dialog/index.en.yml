@@ -7,9 +7,6 @@ section:
   modal_test_persist:
     description: "Modal with tabs. Open it, switch tabs, press F5 — the modal reopens on the same tab."
     button: Open modal
-  modal:
-    description: Modal and panel demos will be added here.
-    button: Open modal
   modal_test_simple:
     description: Show a simple modal. You can close it with Escape or by clicking outside the modal.
     button: Open modal

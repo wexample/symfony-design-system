@@ -6,20 +6,23 @@ section:
     description: "Panel with tabs. Open it, switch tabs, press F5 — the panel reopens on the same tab."
     button: Open panel
   simple:
-    description: Simple panel with a short message.
+    description: Show a simple panel. You can close it with Escape or by clicking outside the panel.
     button: Open panel
   components:
-    description: Panel with components and interactions.
+    description: Show a panel with components and a toast trigger. Escape is disabled, but you can still click outside to close it.
     button: Open panel
   medium:
-    description: Panel with medium content.
+    description: Show a panel with medium-length text. Clicking outside will not close it.
     button: Open panel
   long:
-    description: Panel with long scrollable content (confirm on close).
+    description: Show a panel with long text. It asks for confirmation before closing.
     button: Open panel
   form_rendered:
-    description: Panel containing a standard form (confirm on close).
+    description: Show a rendered demo form inside a panel. Escape and outside click are disabled, and it asks before closing if the form was modified.
     button: Open panel
   form_ajax:
-    description: Panel with AJAX form (confirm on close when dirty).
+    description: Show a rendered demo form inside a panel using AJAX. Escape and outside click are disabled, and it asks before closing if the form was modified.
+    button: Open panel
+  recursive:
+    description: Open the main panel page inside a panel using the default close behavior.
     button: Open panel

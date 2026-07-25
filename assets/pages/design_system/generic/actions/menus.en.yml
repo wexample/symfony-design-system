@@ -1,0 +1,21 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Menus
+page_icon: ph:bold/list
+
+section:
+  menu:
+    title: Menu buttons
+
+menu:
+  primary: Menu button
+  more: More actions
+  invert: Invert menu
+  options:
+    top_left: Top left
+    top_right: Top right
+  item:
+    report: Report
+    settings: Settings
+    logout: Log out
+    long: With a quite, quite, quite, quite long title

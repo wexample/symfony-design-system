@@ -1,0 +1,26 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/actions/layout/layout-actions.html.twig' -%}
+
+{%- macro render_menus(menu_items) -%}
+    {{ button_menu('ph:bold/list', '@page::menu.primary' | trans, menu_items) }}
+    {{ button_menu('ph:bold/dots-three-outline', '@page::menu.more' | trans, menu_items, { menu_align: 'right', items_align: 'right' }) }}
+    {{ button_menu('ph:bold/moon', '@page::menu.invert' | trans, menu_items, { wrapper_class: 'button-menu--invert' }) }}
+    {{ button_menu('ph:bold/caret-up', '@page::menu.options.top_left' | trans, menu_items, { menu_vertical: 'top', menu_align: 'left' }) }}
+    {{ button_menu('ph:bold/caret-up', '@page::menu.options.top_right' | trans, menu_items, { menu_vertical: 'top', menu_align: 'right', items_align: 'right' }) }}
+    {{ button_menu('ph:bold/list', '@page::menu.primary' | trans, menu_items, { wrapper_class: 'is-assisted' }) }}
+{%- endmacro -%}
+
+{%- block page_body -%}
+    {% import _self as macros %}
+
+    {% set menu_items = [
+        { icon: 'ph:bold/clipboard-text', label: '@page::menu.item.report',   href: app_home_url() },
+        { icon: 'ph:bold/gear',           label: '@page::menu.item.settings', href: app_home_url() },
+        { icon: 'ph:bold/sign-out',       label: '@page::menu.item.logout',   href: app_home_url() },
+        { icon: 'ph:bold/text-aa',        label: '@page::menu.item.long',     href: app_home_url() }
+    ] %}
+
+    <h2>{{ '@page::section.menu.title' | trans }}</h2>
+    <div class="cluster">{{ macros.render_menus(menu_items) }}</div>
+    <div class="block block--padded cluster">{{ macros.render_menus(menu_items) }}</div>
+    <div class="toolbar">{{ macros.render_menus(menu_items) }}</div>
+{%- endblock -%}

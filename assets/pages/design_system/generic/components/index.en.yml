@@ -1,7 +1,7 @@
 ~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
 
-page_title: Lists
-page_icon: ph:bold/list-bullets
+page_title: Components
+page_icon: ph:bold/puzzle-piece
 
 section:
   default:

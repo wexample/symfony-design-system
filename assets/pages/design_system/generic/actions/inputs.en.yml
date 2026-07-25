@@ -1,0 +1,19 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Inputs
+page_icon: ph:bold/sliders
+
+section:
+  select:
+    title: Selects
+  switch:
+    title: Switches
+
+select:
+  option_one: Option one
+  option_two: Option two
+  option_three: Option three
+
+switch:
+  label_right: Enable feature
+  label_left: Enable feature
