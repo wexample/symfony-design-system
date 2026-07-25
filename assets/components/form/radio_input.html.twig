@@ -1,0 +1,19 @@
+<div {{ component_render_tag_attributes({class:'form--group'}) }}>
+    <label class="form--label">{{ label }}</label>
+    <div class="radio-group">
+        {%- for choice in choices | default([]) -%}
+            {%- set choice_id = id ~ '_' ~ loop.index0 -%}
+            <div class="radio-option">
+                <input
+                    class="form--radio"
+                    type="radio"
+                    id="{{ choice_id }}"
+                    {% if name is defined %}name="{{ name }}"{% endif %}
+                    value="{{ choice.value }}"
+                    {% if value is defined and value == choice.value %}checked{% endif %}
+                >
+                <label class="form--radio-label" for="{{ choice_id }}">{{ choice.label | trans }}</label>
+            </div>
+        {%- endfor -%}
+    </div>
+</div>

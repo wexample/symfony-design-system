@@ -32,6 +32,16 @@ field:
         label: Redirect in embed (modal / panel)
         description: navigates inside the modal/panel.
 
+  radio_choice:
+    label: Radio choice
+    choice:
+      option_a:
+        label: Option A
+      option_b:
+        label: Option B
+      option_c:
+        label: Option C
+
 action:
   submit: Submit
 
