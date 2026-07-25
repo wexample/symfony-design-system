@@ -24,12 +24,14 @@
         <div data-tab="settings" class="block block--padded" hidden>
             {{ '@page::content.settings' | trans }}
         </div>
-        <div data-tab="loading" class="block block--padded stack--vertical" hidden>
+        <div data-tab="loading" class="block block--padded" hidden>
+            <div class="stack--vertical">
             <p>{{ '@page::content.loading' | trans }}</p>
             <div class="cluster">
                 <a href="#" class="button loading-demo-start">{{ '@page::loading.start' | trans }}</a>
                 <a href="#" class="button loading-demo-end">{{ '@page::loading.end' | trans }}</a>
                 <a href="#" class="button button--primary loading-demo-simulate">{{ '@page::loading.simulate' | trans }}</a>
+            </div>
             </div>
         </div>
     </div>

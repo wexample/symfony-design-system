@@ -87,6 +87,13 @@
   transition-delay: 0ms, 160ms;
 }
 
+.panel {
+  --tabs-bg: transparent;
+  --tabs-item-hover-bg: var(--surface-3);
+  --tabs-item-active-bg: var(--surface-3);
+  --toolbar-bg: var(--surface-2);
+}
+
 .panel-header .header-title {
   flex: 1 1 auto;
   margin: 0;

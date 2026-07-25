@@ -77,7 +77,7 @@
 .modal-loading-bar {
   height: 100%;
   width: 0%;
-  background: var(--color-info-5);
+  background: var(--color-info-12);
   opacity: 0;
   transition: width 180ms ease, opacity 220ms ease;
 }
@@ -91,6 +91,13 @@
   width: 100%;
   opacity: 0;
   transition-delay: 0ms, 160ms;
+}
+
+.modal {
+  --tabs-bg: transparent;
+  --tabs-item-hover-bg: var(--surface-3);
+  --tabs-item-active-bg: var(--surface-3);
+  --toolbar-bg: var(--surface-2);
 }
 
 .modal-header .header-title {

@@ -2,8 +2,8 @@
 
 {%- macro render_buttons() -%}
     {{ button('ph:bold/plus', '@page::button.primary' | trans) }}
-    {{ button('ph:bold/check', '@page::button.success' | trans) }}
-    {{ button('ph:bold/trash', '@page::button.danger' | trans) }}
+    {{ button('ph:bold/check', '@page::button.success' | trans, { class: 'button--success' }) }}
+    {{ button('ph:bold/trash', '@page::button.danger' | trans, { class: 'button--danger' }) }}
     {{ button('ph:bold/sun', '@page::button.invert' | trans, { class: 'button--invert' }) }}
 {%- endmacro -%}
 
