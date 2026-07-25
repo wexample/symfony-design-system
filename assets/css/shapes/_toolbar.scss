@@ -9,11 +9,7 @@
   justify-content: space-between;
   gap: var(--space-3);
   font-size: var(--toolbar-font-size);
-  background: var(--surface-1);
-}
-
-.toolbar--transparent {
-  background: transparent;
+  background: var(--surface-shell);
 }
 
 .toolbar--group {

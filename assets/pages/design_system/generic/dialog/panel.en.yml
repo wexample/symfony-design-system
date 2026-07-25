@@ -4,7 +4,7 @@ page_icon: ph:bold/sidebar-simple-duotone
 section:
   persist:
     description: "Panel with tabs. Open it, switch tabs, press F5 — the panel reopens on the same tab."
-    button: Open persistent panel
+    button: Open panel
   simple:
     description: Simple panel with a short message.
     button: Open panel

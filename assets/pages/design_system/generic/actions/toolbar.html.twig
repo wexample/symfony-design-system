@@ -18,7 +18,4 @@
 {%- block page_body -%}
         <h2>{{ '@page::section.default.title' | trans }}</h2>
         {{ toolbar_macro.render_toolbar(null) | raw }}
-
-        <h2>{{ '@page::section.transparent.title' | trans }}</h2>
-        {{ toolbar_macro.render_toolbar('toolbar--transparent') | raw }}
 {%- endblock -%}

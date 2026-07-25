@@ -1,136 +1,97 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/actions/layout/layout-actions.html.twig' -%}
 
+{%- macro render_buttons() -%}
+    {{ button('ph:bold/plus', '@page::button.primary' | trans) }}
+    {{ button('ph:bold/check', '@page::button.success' | trans) }}
+    {{ button('ph:bold/trash', '@page::button.danger' | trans) }}
+    {{ button('ph:bold/sun', '@page::button.invert' | trans, { class: 'button--invert' }) }}
+{%- endmacro -%}
+
+{%- macro render_selects(render_pass, options) -%}
+    <select class="form--input form--input--select form--input--inline">
+        <option>{{ '@page::select.option_one' | trans }}</option>
+        <option>{{ '@page::select.option_two' | trans }}</option>
+        <option>{{ '@page::select.option_three' | trans }}</option>
+    </select>
+    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select', {}, { options: options, value: 'one' }) }}
+    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select-search', {}, { options: options, value: 'one' }) }}
+{%- endmacro -%}
+
+{%- macro render_menus(menu_items) -%}
+    {{ button_menu('ph:bold/list', '@page::menu.primary' | trans, menu_items) }}
+    {{ button_menu('ph:bold/dots-three-outline', '@page::menu.more' | trans, menu_items, { menu_align: 'right', items_align: 'right' }) }}
+    {{ button_menu('ph:bold/moon', '@page::menu.invert' | trans, menu_items, { wrapper_class: 'button-menu--invert' }) }}
+    {{ button_menu('ph:bold/caret-up', '@page::menu.options.top_left' | trans, menu_items, { menu_vertical: 'top', menu_align: 'left' }) }}
+    {{ button_menu('ph:bold/caret-up', '@page::menu.options.top_right' | trans, menu_items, { menu_vertical: 'top', menu_align: 'right', items_align: 'right' }) }}
+{%- endmacro -%}
+
 {%- block page_body -%}
-        <h2>{{ '@page::section.default.title' | trans }}</h2>
-        <div class="cluster">
-            {{ button('ph:bold/plus', '@page::button.primary' | trans) }}
-            {{ button('ph:bold/check', '@page::button.success' | trans) }}
-            {{ button('ph:bold/trash', '@page::button.danger' | trans) }}
-            {{ button('ph:bold/sun', '@page::button.invert' | trans, { class: 'button--invert' }) }}
+    {% import _self as macros %}
+
+    {% set select_options = [
+        { value: 'one',   label: '@page::select.option_one' },
+        { value: 'two',   label: '@page::select.option_two' },
+        { value: 'three', label: '@page::select.option_three' }
+    ] %}
+
+    {% set menu_items = [
+        { icon: 'ph:bold/clipboard-text', label: '@page::menu.item.report',   href: app_home_url() },
+        { icon: 'ph:bold/gear',           label: '@page::menu.item.settings', href: app_home_url() },
+        { icon: 'ph:bold/sign-out',       label: '@page::menu.item.logout',   href: app_home_url() },
+        { icon: 'ph:bold/text-aa',        label: '@page::menu.item.long',     href: app_home_url() }
+    ] %}
+
+    <h2>{{ '@page::section.default.title' | trans }}</h2>
+    <div class="cluster">{{ macros.render_buttons() }}</div>
+    <div class="block block--padded cluster">{{ macros.render_buttons() }}</div>
+    <div class="toolbar">{{ macros.render_buttons() }}</div>
+
+    <h2>{{ '@page::section.select.title' | trans }}</h2>
+    <div class="cluster">{{ macros.render_selects(render_pass, select_options) }}</div>
+    <div class="block block--padded cluster">{{ macros.render_selects(render_pass, select_options) }}</div>
+    <div class="toolbar">{{ macros.render_selects(render_pass, select_options) }}</div>
+
+    <h2>{{ '@page::section.menu.title' | trans }}</h2>
+    <div class="cluster">{{ macros.render_menus(menu_items) }}</div>
+    <div class="block block--padded cluster">{{ macros.render_menus(menu_items) }}</div>
+    <div class="toolbar">{{ macros.render_menus(menu_items) }}</div>
+
+    <h2>{{ '@page::section.toolbar.title' | trans }}</h2>
+    <div class="toolbar">
+        {{ button('ph:bold/plus', '@page::button.primary' | trans) }}
+        <select class="form--input form--input--select">
+            <option>{{ '@page::select.option_one' | trans }}</option>
+            <option>{{ '@page::select.option_two' | trans }}</option>
+            <option>{{ '@page::select.option_three' | trans }}</option>
+        </select>
+        {{ button_menu('ph:bold/list', '@page::menu.primary' | trans, menu_items, { menu_align: 'right' }) }}
+        {{ button_link('ph:bold/arrow-up-right', '@page::link.external' | trans, 'https://example.com') }}
+    </div>
+
+    <h2>{{ '@page::section.link.title' | trans }}</h2>
+    <div>
+        {{ button_link('ph:bold/arrow-right', '@page::link.more' | trans, app_home_url()) }}
+        {{ button_link('ph:bold/arrow-up-right', '@page::link.external' | trans, 'https://example.com') }}
+    </div>
+
+    <h2>{{ '@page::section.switch.title' | trans }}</h2>
+    {% set icon_sun %}{{ icon('ph:bold/sun') }}{% endset %}
+    {% set icon_moon %}{{ icon('ph:bold/moon') }}{% endset %}
+    <div class="stack--vertical" style="align-items: flex-start;">
+        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch') }}
+        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { label: '@page::switch.label_right' }) }}
+        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { label: '@page::switch.label_left', label_position: 'left' }) }}
+        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { off_inner: '🌙', on_inner: '☀️' }) }}
+        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { off_inner: icon_moon, on_inner: icon_sun }) }}
+        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { off_inner: 'OFF', on_inner: 'ON', label: '@page::switch.label_right', checked: true }) }}
+    </div>
+
+    <h3>{{ '@page::section.list_expanded.title' | trans }}</h3>
+    <div class="list-expanded">
+        <div class="list-expanded--header">
+            <input class="form--input list-expanded--search" type="text" placeholder="{{ '@page::list_expanded.search.placeholder' | trans }}">
+            {{ button('ph:bold/funnel', '@page::list_expanded.header.filter' | trans) }}
         </div>
-        <div class="block block--padded cluster">
-            {{ button('ph:bold/plus', '@page::button.primary' | trans) }}
-            {{ button('ph:bold/check', '@page::button.success' | trans) }}
-            {{ button('ph:bold/trash', '@page::button.danger' | trans) }}
-            {{ button('ph:bold/sun', '@page::button.invert' | trans, { class: 'button--invert' }) }}
-        </div>
-        <h2>{{ '@page::section.select.title' | trans }}</h2>
-        <div class="cluster">
-            <select class="form--input form--input--select form--input--inline">
-                <option>{{ '@page::select.option_one' | trans }}</option>
-                <option>{{ '@page::select.option_two' | trans }}</option>
-                <option>{{ '@page::select.option_three' | trans }}</option>
-            </select>
-            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select', {}, {
-                options: [
-                    { value: 'one',   label: '@page::select.option_one' },
-                    { value: 'two',   label: '@page::select.option_two' },
-                    { value: 'three', label: '@page::select.option_three' }
-                ],
-                value: 'one'
-            }) }}
-            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select-search', {}, {
-                options: [
-                    { value: 'one',   label: '@page::select.option_one' },
-                    { value: 'two',   label: '@page::select.option_two' },
-                    { value: 'three', label: '@page::select.option_three' }
-                ],
-                value: 'one'
-            }) }}
-        </div>
-        <div class="block block--padded cluster">
-            <select class="form--input form--input--select form--input--inline">
-                <option>{{ '@page::select.option_one' | trans }}</option>
-                <option>{{ '@page::select.option_two' | trans }}</option>
-                <option>{{ '@page::select.option_three' | trans }}</option>
-            </select>
-            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select', {}, {
-                options: [
-                    { value: 'one',   label: '@page::select.option_one' },
-                    { value: 'two',   label: '@page::select.option_two' },
-                    { value: 'three', label: '@page::select.option_three' }
-                ],
-                value: 'one'
-            }) }}
-            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select-search', {}, {
-                options: [
-                    { value: 'one',   label: '@page::select.option_one' },
-                    { value: 'two',   label: '@page::select.option_two' },
-                    { value: 'three', label: '@page::select.option_three' }
-                ],
-                value: 'one'
-            }) }}
-        </div>
-        {% set menu_items = [
-            {
-                icon: 'ph:bold/clipboard-text',
-                label: '@page::menu.item.report',
-                href: app_home_url()
-            },
-            {
-                icon: 'ph:bold/gear',
-                label: '@page::menu.item.settings',
-                href: app_home_url()
-            },
-            {
-                icon: 'ph:bold/sign-out',
-                label: '@page::menu.item.logout',
-                href: app_home_url()
-            },
-            {
-                icon: 'ph:bold/text-aa',
-                label: '@page::menu.item.long',
-                href: app_home_url()
-            }
-        ] %}
-        <h2>{{ '@page::section.menu.title' | trans }}</h2>
-        <div class="cluster">
-            {{ button_menu('ph:bold/list', '@page::menu.primary' | trans, menu_items) }}
-            {{ button_menu('ph:bold/dots-three-outline', '@page::menu.more' | trans, menu_items, { menu_align: 'right', items_align: 'right' }) }}
-            {{ button_menu('ph:bold/moon', '@page::menu.invert' | trans, menu_items, { wrapper_class: 'button-menu--invert' }) }}
-            {{ button_menu('ph:bold/caret-up', '@page::menu.options.top_left' | trans, menu_items, { menu_vertical: 'top', menu_align: 'left' }) }}
-            {{ button_menu('ph:bold/caret-up', '@page::menu.options.top_right' | trans, menu_items, { menu_vertical: 'top', menu_align: 'right', items_align: 'right' }) }}
-        </div>
-        <div class="block block--padded cluster">
-            {{ button_menu('ph:bold/list', '@page::menu.primary' | trans, menu_items) }}
-            {{ button_menu('ph:bold/dots-three-outline', '@page::menu.more' | trans, menu_items, { menu_align: 'right', items_align: 'right' }) }}
-            {{ button_menu('ph:bold/moon', '@page::menu.invert' | trans, menu_items, { wrapper_class: 'button-menu--invert' }) }}
-            {{ button_menu('ph:bold/caret-up', '@page::menu.options.top_left' | trans, menu_items, { menu_vertical: 'top', menu_align: 'left' }) }}
-            {{ button_menu('ph:bold/caret-up', '@page::menu.options.top_right' | trans, menu_items, { menu_vertical: 'top', menu_align: 'right', items_align: 'right' }) }}
-        </div>
-        <h2>{{ '@page::section.toolbar.title' | trans }}</h2>
-        <div class="toolbar">
-            {{ button('ph:bold/plus', '@page::button.primary' | trans) }}
-            <select class="form--input form--input--select">
-                <option>{{ '@page::select.option_one' | trans }}</option>
-                <option>{{ '@page::select.option_two' | trans }}</option>
-                <option>{{ '@page::select.option_three' | trans }}</option>
-            </select>
-            {{ button_menu('ph:bold/list', '@page::menu.primary' | trans, menu_items, { menu_align: 'right' }) }}
-            {{ button_link('ph:bold/arrow-up-right', '@page::link.external' | trans, 'https://example.com') }}
-        </div>
-        <h2>{{ '@page::section.link.title' | trans }}</h2>
-        <div>
-            {{ button_link('ph:bold/arrow-right', '@page::link.more' | trans, app_home_url()) }}
-            {{ button_link('ph:bold/arrow-up-right', '@page::link.external' | trans, 'https://example.com') }}
-        </div>
-        <h2>{{ '@page::section.switch.title' | trans }}</h2>
-        {% set icon_sun %}{{ icon('ph:bold/sun') }}{% endset %}
-        {% set icon_moon %}{{ icon('ph:bold/moon') }}{% endset %}
-        <div class="stack--vertical" style="align-items: flex-start;">
-            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch') }}
-            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { label: '@page::switch.label_right' }) }}
-            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { label: '@page::switch.label_left', label_position: 'left' }) }}
-            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { off_inner: '🌙', on_inner: '☀️' }) }}
-            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { off_inner: icon_moon, on_inner: icon_sun }) }}
-            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { off_inner: 'OFF', on_inner: 'ON', label: '@page::switch.label_right', checked: true }) }}
-        </div>
-        <h3>{{ '@page::section.list_expanded.title' | trans }}</h3>
-        <div class="list-expanded">
-            <div class="list-expanded--header">
-                <input class="form--input list-expanded--search" type="text" placeholder="{{ '@page::list_expanded.search.placeholder' | trans }}">
-                {{ button('ph:bold/funnel', '@page::list_expanded.header.filter' | trans) }}
-            </div>
-            <div class="text-empty">{{ '@page::list_expanded.empty' | trans }}</div>
-        </div>
+        <div class="text-empty">{{ '@page::list_expanded.empty' | trans }}</div>
+    </div>
 {%- endblock -%}

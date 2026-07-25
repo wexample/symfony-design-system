@@ -6,28 +6,28 @@ page_icon: ph:bold/app-window
 section:
   modal_test_persist:
     description: "Modal with tabs. Open it, switch tabs, press F5 — the modal reopens on the same tab."
-    button: Open persistent modal
+    button: Open modal
   modal:
     description: Modal and panel demos will be added here.
-    button: Open modal demo
+    button: Open modal
   modal_test_simple:
     description: Show a simple modal. You can close it with Escape or by clicking outside the modal.
-    button: Show modal
+    button: Open modal
   modal_test_components:
     description: Show a modal with components and a toast trigger. Escape is disabled, but you can still click outside to close it.
-    button: Show modal with components
+    button: Open modal
   modal_test_medium:
     description: Show a modal with medium-length text. Clicking outside will not close it.
-    button: Show modal (medium)
+    button: Open modal
   modal_test_long:
     description: Show a modal with long text. It asks for confirmation before closing.
-    button: Show modal (long)
+    button: Open modal
   modal_test_recursive:
     description: Open the main modal page inside a modal using the default close behavior.
-    button: Open modal (recursive)
+    button: Open modal
   modal_test_form_rendered:
     description: Show a rendered demo form inside a modal. Escape and outside click are disabled, and it asks before closing if the form was modified.
-    button: Show rendered form modal
+    button: Open modal
   modal_test_form_ajax:
     description: Show a rendered demo form inside a modal using AJAX. Escape and outside click are disabled, and it asks before closing if the form was modified.
-    button: Show ajax form modal
+    button: Open modal
