@@ -1,6 +1,13 @@
+@use '../../../mixins/icons' as icons;
+
 .form--input--select {
   appearance: none;
   cursor: pointer;
+  padding-right: var(--space-6);
+  background-image: url(#{icons.$caret-down});
+  background-repeat: no-repeat;
+  background-position: right var(--space-2) center;
+  background-size: 1rem;
 }
 
 .form--input--select option,
