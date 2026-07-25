@@ -110,17 +110,6 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                 ]
             )
             ->add(
-                'behavior',
-                SelectInputType::class,
-                [
-                    self::FIELD_OPTION_NAME_LABEL => 'field.behavior.label',
-                    self::FIELD_OPTION_NAME_REQUIRED => true,
-                    self::FIELD_OPTION_NAME_MAPPED => false,
-                    'choices' => $behaviorChoices,
-                    'placeholder' => false,
-                ]
-            )
-            ->add(
                 'radio_choice',
                 RadioInputType::class,
                 [
@@ -202,6 +191,17 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_REQUIRED => false,
                     self::FIELD_OPTION_NAME_MAPPED => false,
                     'attr' => ['placeholder' => true],
+                ]
+            )
+            ->add(
+                'behavior',
+                SelectInputType::class,
+                [
+                    self::FIELD_OPTION_NAME_LABEL => 'field.behavior.label',
+                    self::FIELD_OPTION_NAME_REQUIRED => true,
+                    self::FIELD_OPTION_NAME_MAPPED => false,
+                    'choices' => $behaviorChoices,
+                    'placeholder' => false,
                 ]
             )
         ;

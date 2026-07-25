@@ -80,4 +80,6 @@ toast:
     message: Form submitted successfully.
   js_action:
     title: JS action
-    message: "Do you want to reactivate the form? @action:reactivate(Reactivate) @action:dismiss(Dismiss)"
+    message: Do you want to reactivate the form?
+    reactivate: Reactivate
+    dismiss: Dismiss

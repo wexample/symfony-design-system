@@ -58,12 +58,10 @@
 
 {%- block vue_body -%}
     <div class="form">
-        <template v-if="formIsSubmitting">
-            {{ block('form_loading') }}
-        </template>
-        <template v-else>
-            {{ block('form_errors') }}
+        {%- block form_notification -%}{%- endblock -%}
+        {{ block('form_errors') }}
+        <fieldset :disabled="formIsSubmitting" class="form--fieldset">
             {{ block('form_ready') }}
-        </template>
+        </fieldset>
     </div>
 {%- endblock -%}

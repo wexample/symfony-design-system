@@ -1,5 +1,6 @@
 import Form from '@wexample/symfony-loader/js/Class/Form';
 import ToastService from '@wexample/symfony-loader/js/Services/ToastService';
+import ConfirmService from '@wexample/symfony-loader/js/Services/ConfirmService';
 import { ACTION_DEFAULT, ACTION_EMBED_STAY } from '@wexample/symfony-loader/js/Constants/FormActions';
 
 export default class extends Form {
@@ -29,18 +30,18 @@ export default class extends Form {
     ) as HTMLSelectElement | null;
 
     if (behaviorSelect.value === 'js') {
-      const toastService = this.app.getServiceOrFail(ToastService) as ToastService;
-      toastService.show({
-        type: 'info',
-        sticky: true,
+      const confirmService = this.app.getServiceOrFail(ConfirmService) as ConfirmService;
+      confirmService.confirmToast({
         title: this['trans']('@form::toast.js_action.title'),
         message: this['trans']('@form::toast.js_action.message'),
-        actions: {
-          reactivate: () => {
-            this.trigger('loading:end', { source: this });
-          },
-          dismiss: () => {},
-        },
+        actions: [
+          { key: 'r', value: 'reactivate', label: this['trans']('@form::toast.js_action.reactivate'), role: 'primary' },
+          { key: 'd', value: 'dismiss', label: this['trans']('@form::toast.js_action.dismiss'), role: 'secondary' },
+        ],
+      }).then((response) => {
+        if (response === 'reactivate') {
+          this.trigger('loading:end', { source: this });
+        }
       });
 
       return false;
