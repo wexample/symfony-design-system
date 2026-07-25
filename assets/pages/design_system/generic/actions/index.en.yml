@@ -14,8 +14,6 @@ section:
     title: Menu buttons
   link:
     title: Button links
-  list_expanded:
-    title: List expanded
   compound:
     title: Compound usage
 
@@ -50,20 +48,3 @@ menu:
 link:
   more: Learn more
   external: External link
-
-list_expanded:
-  empty: Nothing available...
-  header:
-    filter: Filter
-  search:
-    placeholder: Filter the list...
-  items:
-    postgres:
-      title: PostgreSQL
-      body: Managed SQL connection for transactional workloads
-    s3:
-      title: Amazon S3
-      body: Object storage connector for imports and exports
-    webhook:
-      title: Webhook
-      body: Trigger and receive events from external systems

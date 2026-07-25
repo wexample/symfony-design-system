@@ -1,0 +1,33 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Lists
+page_icon: ph:bold/list-bullets
+
+section:
+  default:
+    title: Default
+  empty:
+    title: Empty state
+
+search:
+  placeholder: Filter the list...
+
+header:
+  filter: Filter
+
+item:
+  postgres:
+    title: PostgreSQL
+    body: Managed SQL connection for transactional workloads
+  s3:
+    title: Amazon S3
+    body: Object storage connector for imports and exports
+  webhook:
+    title: Webhook
+    body: Trigger and receive events from external systems
+  redis:
+    title: Redis
+    body: In-memory cache and pub/sub messaging
+  mongo:
+    title: MongoDB
+    body: Document store for flexible schema workloads
