@@ -24,8 +24,6 @@ field:
     label: Date & time
   time:
     label: Time
-  month:
-    label: Month
 
 action:
   submit: Submit

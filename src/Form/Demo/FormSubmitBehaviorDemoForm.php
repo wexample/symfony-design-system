@@ -8,7 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wexample\SymfonyForms\Form\AbstractForm;
 use Wexample\SymfonyForms\Form\Type\DateInputType;
 use Wexample\SymfonyForms\Form\Type\DatetimeInputType;
-use Wexample\SymfonyForms\Form\Type\MonthInputType;
 use Wexample\SymfonyForms\Form\Type\TimeInputType;
 use Wexample\SymfonyForms\Form\Type\RadioInputType;
 use Wexample\SymfonyForms\Form\Type\SelectInputType;
@@ -124,15 +123,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_MAPPED => false,
                 ]
             )
-            ->add(
-                'month',
-                MonthInputType::class,
-                [
-                    self::FIELD_OPTION_NAME_LABEL => true,
-                    self::FIELD_OPTION_NAME_REQUIRED => false,
-                    self::FIELD_OPTION_NAME_MAPPED => false,
-                ]
-            );
+        ;
 
         $this->builderAddSubmit($builder, 'action.submit');
     }
