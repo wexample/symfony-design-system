@@ -1,7 +1,12 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
+import type { FieldControllerInterface } from '@wexample/js-api/Vue/FieldControllerInterface';
 
-export default abstract class Field extends Component {
+export default abstract class Field extends Component implements FieldControllerInterface {
   private formEl: HTMLFormElement | null = null;
+
+  get fieldName(): string {
+    return (this.el.querySelector<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[name]'))?.name ?? '';
+  }
 
   protected async activateListeners(): Promise<void> {
     await super.activateListeners();
@@ -19,7 +24,7 @@ export default abstract class Field extends Component {
   }
 
   private onFormSubmit = (): void => {
-    this.disable();
+    this.el.classList.add('is-disabled');
   };
 
   private onFormLoadingEnd = (): void => {
@@ -42,5 +47,29 @@ export default abstract class Field extends Component {
         (el as HTMLInputElement).disabled = false;
       });
     this.el.classList.remove('is-disabled');
+  }
+
+  public setErrors(errors: string[]): void {
+    this.clearErrors();
+    if (!errors.length) {
+      return;
+    }
+
+    const container = document.createElement('div');
+    container.className = 'form--field-errors';
+    const list = document.createElement('ul');
+    errors.forEach((message) => {
+      const item = document.createElement('li');
+      item.textContent = message;
+      list.appendChild(item);
+    });
+    container.appendChild(list);
+    this.el.appendChild(container);
+    this.el.classList.add('has-error');
+  }
+
+  public clearErrors(): void {
+    this.el.querySelectorAll('.form--field-errors').forEach((el) => el.remove());
+    this.el.classList.remove('has-error');
   }
 }

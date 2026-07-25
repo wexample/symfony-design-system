@@ -42,17 +42,19 @@ export default {
 
     onBeforeSubmit() {
       if (this.behavior === 'js') {
-        const toastService = this.app?.getService?.('toast');
-        if (toastService) {
-          toastService.show({
-            type: 'info',
-            sticky: true,
+        const confirmService = this.app?.getService?.('confirm');
+        if (confirmService) {
+          confirmService.confirmToast({
             title: this.trans('@vue::toast.js_action.title'),
             message: this.trans('@vue::toast.js_action.message'),
-            actions: {
-              [this.trans('@vue::toast.js_action.reactivate')]: () => {},
-              [this.trans('@vue::toast.js_action.dismiss')]: () => {},
-            },
+            actions: [
+              { key: 'r', value: 'reactivate', label: this.trans('@vue::toast.js_action.reactivate'), role: 'primary' },
+              { key: 'd', value: 'dismiss', label: this.trans('@vue::toast.js_action.dismiss'), role: 'secondary' },
+            ],
+          }).then((response) => {
+            if (response === 'reactivate') {
+              this.formController.endSubmit();
+            }
           });
         }
         return false;
