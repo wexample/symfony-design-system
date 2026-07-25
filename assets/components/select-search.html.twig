@@ -1,0 +1,29 @@
+{% set selected_label = '' %}
+{% for option in options | default([]) %}
+    {% if value is defined and option.value == value %}
+        {% set selected_label = option.label | trans %}
+    {% endif %}
+{% endfor %}
+
+<div class="select select--search" data-value="{{ value | default('') }}">
+    <button class="select--trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+        <span class="select--trigger-label">{{ selected_label ?: (placeholder is defined ? placeholder | trans : '@component::placeholder' | trans) }}</span>
+        <span class="select--icon" aria-hidden="true">{{ icon('ph:bold/caret-down') }}</span>
+    </button>
+    <div class="select--dropdown" hidden>
+        <div class="select--search-wrap">
+            <input class="select--search-input" type="search" autocomplete="off" placeholder="{{ '@component::search_placeholder' | trans }}">
+        </div>
+        <ul class="select--list" role="listbox">
+            {% for option in options | default([]) %}
+                <li class="select--option{% if value is defined and option.value == value %} select--option--selected{% endif %}"
+                    role="option"
+                    data-value="{{ option.value }}"
+                    aria-selected="{{ (value is defined and option.value == value) ? 'true' : 'false' }}">
+                    {{ option.label | trans }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <input type="hidden" name="{{ name | default('') }}" value="{{ value | default('') }}">
+</div>

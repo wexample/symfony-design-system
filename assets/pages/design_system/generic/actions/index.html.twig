@@ -29,6 +29,14 @@
                 ],
                 value: 'one'
             }) }}
+            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select-search', {}, {
+                options: [
+                    { value: 'one',   label: '@page::select.option_one' },
+                    { value: 'two',   label: '@page::select.option_two' },
+                    { value: 'three', label: '@page::select.option_three' }
+                ],
+                value: 'one'
+            }) }}
         </div>
         <div class="block block--padded cluster">
             <select class="form--input form--input--select form--input--inline">
@@ -37,6 +45,14 @@
                 <option>{{ '@page::select.option_three' | trans }}</option>
             </select>
             {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select', {}, {
+                options: [
+                    { value: 'one',   label: '@page::select.option_one' },
+                    { value: 'two',   label: '@page::select.option_two' },
+                    { value: 'three', label: '@page::select.option_three' }
+                ],
+                value: 'one'
+            }) }}
+            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/select-search', {}, {
                 options: [
                     { value: 'one',   label: '@page::select.option_one' },
                     { value: 'two',   label: '@page::select.option_two' },
