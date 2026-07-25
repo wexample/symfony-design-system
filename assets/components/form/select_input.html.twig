@@ -1,32 +1,49 @@
-<div {{ component_render_tag_attributes({class:'form--group'}) }}>
-    <label class="form--label" for="{{ id }}">{{ label|trans }}</label>
-    <select
-        class="form--input form--input--select"
-        id="{{ id }}"
-        {% if name is defined %}name="{{ name }}"{% endif %}
-        {% if required is defined and required %}required{% endif %}
-        {% if multiple is defined and multiple %}multiple{% endif %}
-    >
-        {% if placeholder is defined and placeholder is not same as(false) and placeholder is not null %}
-            <option value="">{{ placeholder }}</option>
-        {% endif %}
-
-        {% for choice in choices %}
-            {% if choice.options is defined %}
-                <optgroup label="{{ choice.label|trans }}">
-                    {% for option in choice.options %}
-                        <option
-                            value="{{ option.value }}"
-                            {% if selected is iterable and option.value in selected %}selected{% elseif selected is not iterable and option.value == selected %}selected{% endif %}
-                        >{{ option.label|trans }}</option>
-                    {% endfor %}
-                </optgroup>
-            {% else %}
-                <option
-                    value="{{ choice.value }}"
-                    {% if selected is iterable and choice.value in selected %}selected{% elseif selected is not iterable and choice.value == selected %}selected{% endif %}
-                >{{ choice.label|trans }}</option>
-            {% endif %}
+{% set selected_label = '' %}
+{% for choice in choices | default([]) %}
+    {% if choice.options is defined %}
+        {% for option in choice.options %}
+            {% if option.value == selected %}{% set selected_label = option.label | trans %}{% endif %}
         {% endfor %}
-    </select>
+    {% else %}
+        {% if choice.value == selected %}{% set selected_label = choice.label | trans %}{% endif %}
+    {% endif %}
+{% endfor %}
+
+<div {{ component_render_tag_attributes({class:'form--group'}) }}>
+    <label class="form--label" for="{{ id }}">{{ label }}</label>
+    <div class="select" data-value="{{ selected | default('') }}">
+        <button class="select--trigger" id="{{ id }}" type="button" aria-haspopup="listbox" aria-expanded="false">
+            <span class="select--trigger-label">{{ selected_label ?: (placeholder is defined and placeholder is not null ? placeholder : '') }}</span>
+            <span class="select--icon" aria-hidden="true">{{ icon('ph:bold/caret-down') }}</span>
+        </button>
+        <div class="select--dropdown" hidden>
+            <ul class="select--list" role="listbox">
+                {%- if placeholder is defined and placeholder is not null -%}
+                    <li class="select--option{% if selected is not defined or selected == '' %} select--option--selected{% endif %}"
+                        role="option" data-value="" aria-selected="{{ (selected is not defined or selected == '') ? 'true' : 'false' }}">
+                        {{ placeholder }}
+                    </li>
+                {%- endif -%}
+                {%- for choice in choices | default([]) -%}
+                    {%- if choice.options is defined -%}
+                        <li class="select--group-label" aria-disabled="true">{{ choice.label | trans }}</li>
+                        {%- for option in choice.options -%}
+                            <li class="select--option{% if option.value == selected %} select--option--selected{% endif %}"
+                                role="option" data-value="{{ option.value }}"
+                                aria-selected="{{ option.value == selected ? 'true' : 'false' }}">
+                                {{ option.label | trans }}
+                            </li>
+                        {%- endfor -%}
+                    {%- else -%}
+                        <li class="select--option{% if choice.value == selected %} select--option--selected{% endif %}"
+                            role="option" data-value="{{ choice.value }}"
+                            aria-selected="{{ choice.value == selected ? 'true' : 'false' }}">
+                            {{ choice.label | trans }}
+                        </li>
+                    {%- endif -%}
+                {%- endfor -%}
+            </ul>
+        </div>
+        <input type="hidden" name="{{ name }}" value="{{ selected | default('') }}">
+    </div>
 </div>

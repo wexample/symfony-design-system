@@ -54,6 +54,16 @@
   overflow-y: auto;
 }
 
+.select--group-label {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--font-size-1);
+  font-weight: 600;
+  color: var(--text-color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+}
+
 .select--option {
   padding: var(--space-2) var(--space-3);
   cursor: pointer;

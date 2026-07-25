@@ -83,7 +83,13 @@ const AbstractLiveUpdateStatusVueMixin = {
     // Feature-detected: apps without the modern client (or before its
     // publication) simply get no registry and the widget stays idle at 0.
     getLiveUpdatesRegistry() {
-      const client = typeof this.app.getClient === 'function' ? this.app.getClient() : null;
+      let client = null;
+      try {
+        const apiService = this.app.getService('api');
+        client = typeof apiService.getClient === 'function' ? apiService.getClient() : null;
+      } catch {
+        // api service not registered
+      }
 
       return client && typeof client.getLiveUpdatesRegistry === 'function'
         ? client.getLiveUpdatesRegistry()
