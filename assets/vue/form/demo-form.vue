@@ -42,6 +42,9 @@ export default {
 
     onBeforeSubmit() {
       if (this.behavior === 'js') {
+        this.formIsSubmitting = true;
+        this.formController.beginSubmit();
+
         const confirmService = this.app?.getService?.('confirm');
         if (confirmService) {
           confirmService.confirmToast({
@@ -53,6 +56,7 @@ export default {
             ],
           }).then((response) => {
             if (response === 'reactivate') {
+              this.formIsSubmitting = false;
               this.formController.endSubmit();
             }
           });

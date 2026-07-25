@@ -15,6 +15,10 @@ export default {
   computed: {
     resolvedLabel() {
       return this.resolveLabel(this.label);
+    },
+
+    isSubmitting() {
+      return this.formController?.isSubmitting ?? false;
     }
   }
 };

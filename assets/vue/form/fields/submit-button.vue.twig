@@ -1,5 +1,16 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/form-field.vue.twig' -%}
 
 {%- block vue_body -%}
-    <button :type="type" :disabled="disabled ? true : null">[[ resolvedLabel ]]</button>
+    <button
+            class="button"
+            :type="type"
+            :class="{ 'is-loading': isSubmitting, 'is-disabled': isDisabled }"
+            :disabled="isDisabled ? true : null"
+    >
+        <span class="button--icon"></span>
+        <span class="button--spinner" aria-hidden="true">
+            {%- include '@WexampleSymfonyDesignSystemBundle/partials/spinner.html.twig' with { align: 'inline' } only -%}
+        </span>
+        [[ resolvedLabel ]]
+    </button>
 {%- endblock -%}
