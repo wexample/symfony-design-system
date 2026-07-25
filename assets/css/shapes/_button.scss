@@ -12,6 +12,7 @@
   font-size: var(--font-size-3);
   box-shadow: var(--shadow-1);
   cursor: pointer;
+  white-space: nowrap;
   @include transition.smooth(2);
 }
 
