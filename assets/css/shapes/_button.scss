@@ -1,4 +1,5 @@
 @use '../mixins/transition' as transition;
+@use '../mixins/assisted' as assisted;
 @use 'spinner';
 
 .button {
@@ -185,4 +186,19 @@
 .button-menu--item-label {
   display: inline-flex;
   align-items: center;
+}
+
+.button.is-assisted {
+  @include assisted.assisted-outline;
+  pointer-events: none;
+  user-select: none;
+}
+
+.button-menu.is-assisted {
+  pointer-events: none;
+  user-select: none;
+
+  .button--menu {
+    @include assisted.assisted-outline;
+  }
 }

@@ -1,4 +1,4 @@
-<div class="select">
+<div class="select{% if class is defined %} {{ class }}{% endif %}">
     <select class="select--input"{% if disabled is defined and disabled %} disabled{% endif %}>
         {%- if placeholder is defined and placeholder is not null -%}
             <option value="">{{ placeholder | trans }}</option>

@@ -1,4 +1,5 @@
 @use '../mixins/field' as field;
+@use '../mixins/assisted' as assisted;
 
 .select {
   position: relative;
@@ -88,5 +89,23 @@
       color: var(--color-primary);
       font-weight: 600;
     }
+  }
+}
+
+.select.is-assisted {
+  pointer-events: none;
+  user-select: none;
+
+  .select--input {
+    @include assisted.assisted-outline;
+  }
+}
+
+.select--search.is-assisted {
+  pointer-events: none;
+  user-select: none;
+
+  .select--trigger {
+    @include assisted.assisted-outline;
   }
 }

@@ -18,6 +18,8 @@ section:
     title: Button links
   compound:
     title: Compound usage
+  assisted:
+    title: Assisted
 
 switch:
   label_right: Enable feature

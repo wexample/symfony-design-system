@@ -1,3 +1,5 @@
+@use '../mixins/assisted' as assisted;
+
 .switch {
   display: inline-flex;
   align-items: center;
@@ -71,4 +73,13 @@
   .switch--knob { transform: translateX(var(--travel)); }
   .switch--off-inner { opacity: 0; }
   .switch--on-inner  { opacity: 1; }
+}
+
+.switch.is-assisted {
+  pointer-events: none;
+  user-select: none;
+
+  .switch--pill {
+    @include assisted.assisted-outline;
+  }
 }
