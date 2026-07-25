@@ -26,7 +26,7 @@ export default class extends Page {
       });
     };
 
-    attachToastButton('.toast-demo-button', {
+    attachToastButton('.toast-demo-button-simple', {
       timeout: 4000,
       stackId: 'default',
       allowHtml: true,

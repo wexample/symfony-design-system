@@ -40,7 +40,7 @@ section:
       button: Show toast
     error:
       title: Error toast
-      message: Something went wrong.
+      message: Something went wrong here.
       button: Show toast
 title:
   toasts: Toasts

@@ -12,6 +12,10 @@ export default class extends Component {
   }
 
   protected async mounted(): Promise<void> {
+    if (this.options?.type) {
+      this.el.classList.add(`toast--${this.options.type}`);
+    }
+
     const titleEl = this.el.querySelector('[data-toast-title]') as HTMLElement;
     const messageEl = this.el.querySelector('[data-toast-message]') as HTMLElement;
     const closeEl = this.el.querySelector('[data-toast-close]') as HTMLElement | null;

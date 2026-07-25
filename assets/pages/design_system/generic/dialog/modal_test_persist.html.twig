@@ -1,14 +1,17 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/layouts/design_system/layout.html.twig' -%}
 
-{%- block page_header -%}
-    {{ parent() }}
+{%- set export_navigation = true -%}
+
+{%- block page_navigation -%}
     <div class="tabs">
         {{ component_init_parent(render_pass, '@WexampleSymfonyDesignSystemBundle/components/tabs', { group: 'persist-demo' }) }}
         {{ tab_item_link('@page::tab.overview' | trans, '#', { tab_name: 'overview', active: true }) }}
         {{ tab_item_link('@page::tab.details' | trans, '#', { tab_name: 'details' }) }}
         {{ tab_item_link('@page::tab.settings' | trans, '#', { tab_name: 'settings' }) }}
+        {{ tab_item_link('@page::tab.loading' | trans, '#', { tab_name: 'loading' }) }}
     </div>
 {%- endblock -%}
+
 
 {%- block page_body -%}
     <div class="tabs-panels">
@@ -20,6 +23,14 @@
         </div>
         <div data-tab="settings" class="block block--padded" hidden>
             {{ '@page::content.settings' | trans }}
+        </div>
+        <div data-tab="loading" class="block block--padded stack--vertical" hidden>
+            <p>{{ '@page::content.loading' | trans }}</p>
+            <div class="cluster">
+                <a href="#" class="button loading-demo-start">{{ '@page::loading.start' | trans }}</a>
+                <a href="#" class="button loading-demo-end">{{ '@page::loading.end' | trans }}</a>
+                <a href="#" class="button button--primary loading-demo-simulate">{{ '@page::loading.simulate' | trans }}</a>
+            </div>
         </div>
     </div>
 {%- endblock -%}

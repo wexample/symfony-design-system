@@ -1,7 +1,7 @@
 .page-overlay-full {
   position: fixed;
   inset: 0;
-  background: var(--color-invert-transparent-12);
+  background: rgba(0, 0, 0, 0.36);
   z-index: var(--z-modal);
 }
 
