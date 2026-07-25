@@ -1,0 +1,28 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Typography
+page_icon: ph:bold/text-aa
+
+section:
+  typography:
+    title: Type scale
+
+title:
+  h1:
+    title: "Design System — Building blocks for great interfaces"
+    description: "Used once per page. Sets the primary context. Paired with a short lead paragraph."
+  h2:
+    title: "Typography establishes hierarchy and rhythm"
+    description: "Section-level heading. Groups related content. Usually followed by body text or sub-sections."
+  h3:
+    title: "Spacing and proportion shape readability"
+    description: "Sub-section heading. Introduces a focused topic within a section."
+  h4:
+    title: "Color and contrast guide the eye"
+    description: "Used for card titles, sidebar sections, or minor groupings."
+  h5:
+    title: "Interactive states need to be obvious"
+    description: "Labels, metadata headers, small groupings. Subtle but distinct from body text."
+  h6:
+    title: "Accessibility is a feature, not an afterthought"
+    description: "The smallest heading level. Use sparingly — for footnotes, legal blocks, or auxiliary labels."

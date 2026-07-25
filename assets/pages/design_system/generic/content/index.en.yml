@@ -3,27 +3,17 @@
 page_title: Article
 page_icon: ph:bold/article
 
+intro: "Editorial elements for rendering readable, structured information. Typography establishes hierarchy, prose and images carry the message, meta bars add context, and pills annotate inline — together they form the vocabulary of any content-heavy interface."
+
 section:
-  typography:
-    title: Type scale
+  compound:
+    title: Compound usage
 
-title:
-  h1:
-    title: "Design System — Building blocks for great interfaces"
-    description: "Used once per page. Sets the primary context. Paired with a short lead paragraph."
-  h2:
-    title: "Typography establishes hierarchy and rhythm"
-    description: "Section-level heading. Groups related content. Usually followed by body text or sub-sections."
-  h3:
-    title: "Spacing and proportion shape readability"
-    description: "Sub-section heading. Introduces a focused topic within a section."
-  h4:
-    title: "Color and contrast guide the eye"
-    description: "Used for card titles, sidebar sections, or minor groupings."
-  h5:
-    title: "Interactive states need to be obvious"
-    description: "Labels, metadata headers, small groupings. Subtle but distinct from body text."
-  h6:
-    title: "Accessibility is a feature, not an afterthought"
-    description: "The smallest heading level. Use sparingly — for footnotes, legal blocks, or auxiliary labels."
-
+compound:
+  heading: "Understanding design tokens"
+  body: "Design tokens are the single source of truth for visual decisions across a product — from color and spacing to motion and typography."
+  tag_sentence: "Status:"
+  pill: "Stable"
+  author: "Alice Martin"
+  date: "July 18, 2026"
+  share: Share

@@ -1,0 +1,42 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/components/layout/layout-components.html.twig' -%}
+
+{%- block page_body -%}
+    <h2>{{ '@page::section.default.title' | trans }}</h2>
+    <div class="list-expanded">
+        <div class="list-expanded--header">
+            <input class="form--input list-expanded--search" type="text" placeholder="{{ '@page::search.placeholder' | trans }}">
+            {{ button('ph:bold/funnel', '@page::header.filter' | trans) }}
+        </div>
+        <div class="list-expanded--items">
+            <a class="list-expanded--item" href="#" data-list-expanded-item>
+                <strong>{{ '@page::item.postgres.title' | trans }}</strong>
+                <span>{{ '@page::item.postgres.body' | trans }}</span>
+            </a>
+            <a class="list-expanded--item" href="#" data-list-expanded-item>
+                <strong>{{ '@page::item.s3.title' | trans }}</strong>
+                <span>{{ '@page::item.s3.body' | trans }}</span>
+            </a>
+            <a class="list-expanded--item" href="#" data-list-expanded-item>
+                <strong>{{ '@page::item.webhook.title' | trans }}</strong>
+                <span>{{ '@page::item.webhook.body' | trans }}</span>
+            </a>
+            <a class="list-expanded--item" href="#" data-list-expanded-item>
+                <strong>{{ '@page::item.redis.title' | trans }}</strong>
+                <span>{{ '@page::item.redis.body' | trans }}</span>
+            </a>
+            <a class="list-expanded--item" href="#" data-list-expanded-item>
+                <strong>{{ '@page::item.mongo.title' | trans }}</strong>
+                <span>{{ '@page::item.mongo.body' | trans }}</span>
+            </a>
+        </div>
+    </div>
+
+    <h2>{{ '@page::section.empty.title' | trans }}</h2>
+    <div class="list-expanded">
+        <div class="list-expanded--header">
+            <input class="form--input list-expanded--search" type="text" placeholder="{{ '@page::search.placeholder' | trans }}">
+            {{ button('ph:bold/funnel', '@page::header.filter' | trans) }}
+        </div>
+        <div class="text-empty">{{ 'No items available.' }}</div>
+    </div>
+{%- endblock -%}

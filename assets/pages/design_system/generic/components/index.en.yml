@@ -3,31 +3,23 @@
 page_title: Components
 page_icon: ph:bold/puzzle-piece
 
+intro: "Higher-order patterns built from primitives. Lists and chat views go beyond single elements — they define interaction patterns, data browsing conventions, and communication flows that recur across application features."
+
 section:
-  default:
-    title: Default
-  empty:
-    title: Empty state
+  compound:
+    title: Compound usage
 
-search:
-  placeholder: Filter the list...
-
-header:
+compound:
+  title: Connected services
+  search: Filter the list...
   filter: Filter
-
-item:
-  postgres:
-    title: PostgreSQL
-    body: Managed SQL connection for transactional workloads
-  s3:
-    title: Amazon S3
-    body: Object storage connector for imports and exports
-  webhook:
-    title: Webhook
-    body: Trigger and receive events from external systems
-  redis:
-    title: Redis
-    body: In-memory cache and pub/sub messaging
-  mongo:
-    title: MongoDB
-    body: Document store for flexible schema workloads
+  item:
+    one:
+      title: PostgreSQL
+      body: Managed SQL connection for transactional workloads
+    two:
+      title: Amazon S3
+      body: Object storage connector for imports and exports
+    three:
+      title: Webhook
+      body: Trigger and receive events from external systems

@@ -1,5 +1,6 @@
 tab:
-  index: Blocks
+  index: Overview
+  blocks: Blocks
   table: Tables
   tab: Tabs
   media: Media

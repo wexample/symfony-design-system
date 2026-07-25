@@ -40,6 +40,16 @@
     calc(var(--overlay-depth, 0) * -12px)
   );
   transition: transform 250ms ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, calc(var(--overlay-depth, 0) * 0.3));
+    pointer-events: none;
+    border-radius: inherit;
+    transition: background 250ms ease;
+  }
 }
 
 .modal--content.is-opening {

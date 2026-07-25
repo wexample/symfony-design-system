@@ -1,0 +1,12 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/content/layout/layout-content.html.twig' -%}
+
+{%- block page_body -%}
+    <h2>{{ '@page::section.typography.title' | trans }}</h2>
+    <div class="content">
+        {% for level in ['h1','h2','h3','h4','h5','h6'] %}
+            {% set base = '@page::title.' ~ level %}
+            <{{ level }}>{{ (base ~ '.title') | trans }}</{{ level }}>
+            <p>{{ (base ~ '.description') | trans }}</p>
+        {% endfor %}
+    </div>
+{%- endblock -%}

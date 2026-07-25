@@ -3,30 +3,14 @@
 page_title: Controls
 page_icon: ph:bold/cursor-click
 
+intro: "Interactive controls for triggering operations and capturing user input. Buttons, links, menus, selects, and switches cover the full spectrum of actions — from primary calls-to-action to assistive inputs that adapt to context, state, and layout."
+
 section:
-  buttons:
-    title: Default buttons
-  button_states:
-    title: Button states
-  link:
-    title: Button links
   compound:
     title: Compound usage
 
-switch:
-  label_right: Enable feature
-  label_left: Enable feature
-
 button:
   primary: Primary button
-  success: Success button
-  danger: Danger button
-  invert: Invert button
-  state:
-    default: Default
-    loading: Loading
-    disabled: Disabled
-    assisted: Assisted
 
 select:
   option_one: Option one
@@ -35,17 +19,14 @@ select:
 
 menu:
   primary: Menu button
-  more: More actions
-  invert: Invert menu
-  options:
-    top_left: Top left
-    top_right: Top right
   item:
     report: Report
     settings: Settings
     logout: Log out
     long: With a quite, quite, quite, quite long title
 
+switch:
+  label_right: Enable feature
+
 link:
-  more: Learn more
   external: External link

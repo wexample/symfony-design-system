@@ -1,13 +1,24 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/content/layout/layout-content.html.twig' -%}
 
 {%- block page_body -%}
-    <h2>{{ '@page::section.typography.title' | trans }}</h2>
-    <div class="content">
-        {% for level in ['h1','h2','h3','h4','h5','h6'] %}
-            {% set base = '@page::title.' ~ level %}
-            <{{ level }}>{{ (base ~ '.title') | trans }}</{{ level }}>
-            <p>{{ (base ~ '.description') | trans }}</p>
-        {% endfor %}
-    </div>
+    <p class="lead">{{ '@page::intro' | trans }}</p>
 
+    <h2>{{ '@page::section.compound.title' | trans }}</h2>
+    <div class="block block--padded content">
+        <h3>{{ '@page::compound.heading' | trans }}</h3>
+        <p>{{ '@page::compound.body' | trans }}</p>
+        <p>{{ '@page::compound.tag_sentence' | trans }} <span class="pill tag-2">{{ '@page::compound.pill' | trans }}</span></p>
+    </div>
+    <div class="meta-bar">
+        <div class="meta-bar--group">
+            {{ icon('ph:bold/user') }}
+            <span>{{ '@page::compound.author' | trans }}</span>
+            {{ icon('ph:bold/dot') }}
+            {{ icon('ph:bold/calendar-blank') }}
+            <span>{{ '@page::compound.date' | trans }}</span>
+        </div>
+        <div class="meta-bar--group">
+            {{ button_link('ph:bold/share-network', '@page::compound.share' | trans, '#') }}
+        </div>
+    </div>
 {%- endblock -%}

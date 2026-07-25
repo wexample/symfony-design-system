@@ -1,4 +1,5 @@
 tab:
-  index: Buttons
+  index: Overview
+  buttons: Buttons
   inputs: Inputs
   menus: Menus
