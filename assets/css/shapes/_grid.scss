@@ -15,6 +15,14 @@
   }
 }
 
+.grid--2 {
+  --grid-min: 20rem;
+}
+
+.grid--3 {
+  --grid-min: 16rem;
+}
+
 .grid--fixed {
   grid-template-columns: repeat(auto-fit, minmax(var(--grid-min), var(--grid-max)));
   justify-content: start;

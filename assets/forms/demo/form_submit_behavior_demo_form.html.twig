@@ -12,19 +12,27 @@
         </ul>
     </div>
     {{ form_row(form.hidden_demo) }}
-    {{ form_row(form.text_simple) }}
-    {{ form_row(form.password) }}
+    <div class="grid grid--2">
+        {{ form_row(form.text_simple) }}
+        {{ form_row(form.password) }}
+    </div>
     {{ form_row(form.text_area) }}
     {{ form_row(form.emoji) }}
-    {{ form_row(form.number) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.url) }}
-    {{ form_row(form.date) }}
-    {{ form_row(form.datetime) }}
-    {{ form_row(form.time) }}
+    <div class="grid grid--3">
+        {{ form_row(form.number) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.url) }}
+    </div>
+    <div class="grid grid--3">
+        {{ form_row(form.date) }}
+        {{ form_row(form.datetime) }}
+        {{ form_row(form.time) }}
+    </div>
     {{ form_row(form.file) }}
-    {{ form_row(form.radio_choice) }}
-    {{ form_row(form.switch) }}
+    <div class="grid grid--2">
+        {{ form_row(form.radio_choice) }}
+        {{ form_row(form.switch) }}
+    </div>
     {{ form_row(form.behavior) }}
     <div class="form--actions">
         {{ form_widget(form.submit) }}
