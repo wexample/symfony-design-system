@@ -1,7 +1,6 @@
 tab:
-  index: Titles
+  index: Article
   block: Block
   media: Media
-  chat: Chat
   pill: Pill
   meta_bar: Meta bar
