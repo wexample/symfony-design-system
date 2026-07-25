@@ -48,7 +48,7 @@
 .list-expanded--items > [data-list-expanded-item]:focus,
 .list-expanded--items > [data-list-expanded-item]:focus-visible {
   position: relative;
-  z-index: 1;
+  z-index: var(--z-raised);
   border-radius: var(--radius-1);
   @include border.border-focus-floating;
 }

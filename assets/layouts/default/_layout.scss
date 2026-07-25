@@ -25,6 +25,7 @@
 @use '../../css/mixins/spacing' as spacing;
 @use '../../css/mixins/size' as size;
 @use '../../css/mixins/border' as border;
+@use '../../css/mixins/z-index' as z_index;
 @use '../../css/fonts/system_sans' as system_sans;
 
 // Local variables
@@ -43,6 +44,7 @@ body {
   @include spacing.spacing-vars;
   @include size.size-vars;
   @include border.border-vars;
+  @include z_index.z-index-vars;
 }
 
 #layout-initial {

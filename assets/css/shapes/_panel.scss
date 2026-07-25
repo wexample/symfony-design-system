@@ -6,7 +6,7 @@
   display: none;
   align-items: stretch;
   justify-content: flex-end;
-  z-index: 1000;
+  z-index: var(--z-modal);
 }
 
 .panel.is-open {
@@ -22,7 +22,7 @@
 
 .panel--content {
   position: relative;
-  z-index: 1;
+  z-index: var(--z-raised);
   width: min(92vw, var(--size-8));
   height: 100%;
   overflow: hidden;

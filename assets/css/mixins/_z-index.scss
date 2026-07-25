@@ -1,0 +1,7 @@
+@mixin z-index-vars {
+  --z-raised: 1;
+  --z-dropdown: 200;
+  --z-modal: 1000;
+  --z-banner: 9998;
+  --z-toast: 9999;
+}

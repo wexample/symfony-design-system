@@ -54,7 +54,7 @@
     border: var(--border-default);
     border-radius: var(--radius-1);
     box-shadow: var(--shadow-2);
-    z-index: 100;
+    z-index: var(--z-dropdown);
   }
 
   .select--search-wrap {
