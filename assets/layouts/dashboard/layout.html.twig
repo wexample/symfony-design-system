@@ -89,7 +89,7 @@
                 </div>
             </div>
         </div>
-        <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible gutters--collapsible--collapsed" data-menu-id="right">
+        <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible{% if not ui_state_get('ui.layout.menu.right', false) %} gutters--collapsible--collapsed{% endif %}" data-menu-id="right">
             {% block page_menu_right %}
                 <nav class="menu menu--vertical menu--vertical--right">
                     {% block page_menu_right_header %}
