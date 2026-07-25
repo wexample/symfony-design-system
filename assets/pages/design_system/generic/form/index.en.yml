@@ -24,6 +24,8 @@ field:
     label: Date & time
   time:
     label: Time
+  email:
+    label: Email
   number:
     label: Number
   url:

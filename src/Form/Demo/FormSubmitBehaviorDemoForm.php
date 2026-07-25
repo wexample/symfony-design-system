@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wexample\SymfonyForms\Form\AbstractForm;
 use Wexample\SymfonyForms\Form\Type\DateInputType;
 use Wexample\SymfonyForms\Form\Type\DatetimeInputType;
+use Wexample\SymfonyForms\Form\Type\EmailInputType;
 use Wexample\SymfonyForms\Form\Type\NumberInputType;
 use Wexample\SymfonyForms\Form\Type\TimeInputType;
 use Wexample\SymfonyForms\Form\Type\UrlInputType;
@@ -123,6 +124,16 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_LABEL => true,
                     self::FIELD_OPTION_NAME_REQUIRED => false,
                     self::FIELD_OPTION_NAME_MAPPED => false,
+                ]
+            )
+            ->add(
+                'email',
+                EmailInputType::class,
+                [
+                    self::FIELD_OPTION_NAME_LABEL => true,
+                    self::FIELD_OPTION_NAME_REQUIRED => false,
+                    self::FIELD_OPTION_NAME_MAPPED => false,
+                    'attr' => ['placeholder' => true],
                 ]
             )
             ->add(

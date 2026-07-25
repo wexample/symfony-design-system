@@ -38,6 +38,9 @@ field:
     label: Date & time
   time:
     label: Time
+  email:
+    label: Email
+    placeholder: you@example.com
   number:
     label: Number
   url:
