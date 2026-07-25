@@ -1,0 +1,11 @@
+<div {{ component_render_tag_attributes({class:'form--group'}) }}>
+    <input class="switch--checkbox" type="checkbox" id="{{ id }}"
+        name="{{ name }}" value="{{ value | default('1') }}"
+        {% if checked | default(false) %}checked{% endif %}>
+    <label class="switch" for="{{ id }}" data-checked="{{ checked | default(false) ? 'true' : 'false' }}">
+        <span class="switch--pill">
+            <span class="switch--knob"></span>
+        </span>
+        <span class="switch--label">{{ label }}</span>
+    </label>
+</div>

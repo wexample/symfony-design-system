@@ -48,6 +48,8 @@ field:
   url:
     label: URL
     placeholder: https://
+  switch:
+    label: Switch
   radio_choice:
     label: Radio choice
     choice:
