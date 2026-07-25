@@ -38,6 +38,9 @@ field:
     label: Date & time
   time:
     label: Time
+  url:
+    label: URL
+    placeholder: https://
   radio_choice:
     label: Radio choice
     choice:

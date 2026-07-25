@@ -24,6 +24,8 @@ field:
     label: Date & time
   time:
     label: Time
+  url:
+    label: URL
 
 action:
   submit: Submit
