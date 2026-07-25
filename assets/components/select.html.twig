@@ -1,16 +1,31 @@
-<div class="select{% if class is defined %} {{ class }}{% endif %}">
-    <select class="select--input"{% if disabled is defined and disabled %} disabled{% endif %}>
-        {%- if placeholder is defined and placeholder is not null -%}
-            <option value="">{{ placeholder | trans }}</option>
-        {%- endif -%}
-        {%- for option in options | default([]) -%}
-            <option
-                value="{{ option.value }}"
-                {%- if value is defined and option.value == value %} selected{%- endif -%}
-            >{{ option.label | trans }}</option>
-        {%- endfor -%}
-    </select>
-    <span class="select--icon" aria-hidden="true">
-        {{ icon('ph:bold/caret-down') }}
-    </span>
+{% set selected_label = '' %}
+{% for option in options | default([]) %}
+    {% if value is defined and option.value == value %}
+        {% set selected_label = option.label | trans %}
+    {% endif %}
+{% endfor %}
+
+<div class="select{% if class is defined %} {{ class }}{% endif %}" data-value="{{ value | default('') }}">
+    <button class="select--trigger" type="button" aria-haspopup="listbox" aria-expanded="false"{% if disabled is defined and disabled %} disabled{% endif %}>
+        <span class="select--trigger-label">{{ selected_label ?: (placeholder is defined and placeholder is not null ? placeholder | trans : '') }}</span>
+        <span class="select--icon" aria-hidden="true">{{ icon('ph:bold/caret-down') }}</span>
+    </button>
+    <div class="select--dropdown" hidden>
+        <ul class="select--list" role="listbox">
+            {%- if placeholder is defined and placeholder is not null -%}
+                <li class="select--option{% if value is not defined or value == '' %} select--option--selected{% endif %}"
+                    role="option" data-value="" aria-selected="{{ (value is not defined or value == '') ? 'true' : 'false' }}">
+                    {{ placeholder | trans }}
+                </li>
+            {%- endif -%}
+            {%- for option in options | default([]) -%}
+                <li class="select--option{% if value is defined and option.value == value %} select--option--selected{% endif %}"
+                    role="option" data-value="{{ option.value }}"
+                    aria-selected="{{ (value is defined and option.value == value) ? 'true' : 'false' }}">
+                    {{ option.label | trans }}
+                </li>
+            {%- endfor -%}
+        </ul>
+    </div>
+    {% if name is defined %}<input type="hidden" name="{{ name }}" value="{{ value | default('') }}">{% endif %}
 </div>
