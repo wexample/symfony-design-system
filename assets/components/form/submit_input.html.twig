@@ -1,21 +1,15 @@
-{% if icon is defined and icon %}
-    <button
-        type="submit"
-        {% if name is defined %}name="{{ name }}"{% endif %}
-        {% if id is defined %}id="{{ id }}"{% endif %}
-        {% if value is defined and value != '' %}value="{{ value }}"{% endif %}
-    >
-        {{ icon(icon) }} {% if label is defined %}{{ label }}{% endif %}
-    </button>
-{% else %}
-    <input
-        type="submit"
-        {% if name is defined %}name="{{ name }}"{% endif %}
-        {% if id is defined %}id="{{ id }}"{% endif %}
-        {% if value is defined and value != '' %}
-            value="{{ value }}"
-        {% elseif label is defined %}
-            value="{{ label }}"
-        {% endif %}
-    >
-{% endif %}
+<button
+    {{ component_render_tag_attributes({class: 'button'}) }}
+    type="submit"
+    {% if name is defined %}name="{{ name }}"{% endif %}
+    {% if id is defined %}id="{{ id }}"{% endif %}
+    {% if value is defined and value != '' %}value="{{ value }}"{% endif %}
+>
+    <span class="button--icon">
+        {% if icon is defined and icon %}{{ icon(icon) }}{% endif %}
+    </span>
+    <span class="button--spinner" aria-hidden="true">
+        {% include '@WexampleSymfonyDesignSystemBundle/partials/spinner.html.twig' with { align: 'inline' } only %}
+    </span>
+    <span>{% if label is defined %}{{ label }}{% endif %}</span>
+</button>
