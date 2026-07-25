@@ -1,3 +1,3 @@
-import Component from '@wexample/symfony-loader/js/Class/Component';
+import Field from '../../js/Class/Field';
 
-export default class extends Component {}
+export default class extends Field {}

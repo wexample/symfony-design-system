@@ -1,7 +1,7 @@
-import Component from '@wexample/symfony-loader/js/Class/Component';
+import Field from '../../js/Class/Field';
 import { waitForElementSize } from '@wexample/js-helpers/Helper/ElementSize';
 
-export default class extends Component {
+export default class extends Field {
   private textareaEl: HTMLTextAreaElement | null = null;
   private onInputProxy: EventListener | null = null;
   private needsDeferredResize = false;

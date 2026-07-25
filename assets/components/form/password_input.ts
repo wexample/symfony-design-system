@@ -1,6 +1,6 @@
-import Component from '@wexample/symfony-loader/js/Class/Component';
+import Field from '../../js/Class/Field';
 
-export default class extends Component {
+export default class extends Field {
   private inputEl: HTMLInputElement | null = null;
   private toggleEl: HTMLButtonElement | null = null;
   private onToggleProxy: EventListener | null = null;

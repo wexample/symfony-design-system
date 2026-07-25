@@ -1,8 +1,8 @@
-import Component from '@wexample/symfony-loader/js/Class/Component';
+import Field from '../js/Class/Field';
 import OverlayService from '@wexample/symfony-loader/js/Services/OverlayService';
 import KeyboardService from '@wexample/symfony-loader/js/Services/KeyboardService';
 
-export default class extends Component {
+export default class extends Field {
   public overlayUseBackdrop = false;
 
   private triggerEl?: HTMLButtonElement;
@@ -13,6 +13,8 @@ export default class extends Component {
   private keyboardService?: KeyboardService;
 
   protected async activateListeners(): Promise<void> {
+    await super.activateListeners();
+
     this.triggerEl  = this.el.querySelector('.select--trigger') as HTMLButtonElement;
     this.dropdownEl = this.el.querySelector('.select--dropdown') as HTMLElement;
     this.listEl     = this.el.querySelector('.select--list') as HTMLElement;

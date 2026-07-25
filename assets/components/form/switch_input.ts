@@ -1,10 +1,11 @@
-import Component from '@wexample/symfony-loader/js/Class/Component';
+import Field from '../../js/Class/Field';
 
-export default class extends Component {
+export default class extends Field {
   private checkboxEl?: HTMLInputElement;
   private switchEl?: HTMLElement;
 
   protected async activateListeners(): Promise<void> {
+    await super.activateListeners();
     this.checkboxEl = this.el.querySelector('.switch--checkbox') as HTMLInputElement;
     this.switchEl = this.el.querySelector('.switch') as HTMLElement;
 

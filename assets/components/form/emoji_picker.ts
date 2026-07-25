@@ -1,12 +1,12 @@
 import data from '@emoji-mart/data';
 import { Picker } from 'emoji-mart';
-import Component from '@wexample/symfony-loader/js/Class/Component';
+import Field from '../../js/Class/Field';
 
 type EmojiSelection = {
   native?: string;
 };
 
-export default class extends Component {
+export default class extends Field {
   private inputEl: HTMLInputElement | null = null;
   private toggleEl: HTMLButtonElement | null = null;
   private panelEl: HTMLElement | null = null;
