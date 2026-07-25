@@ -33,23 +33,11 @@
   z-index: var(--z-raised);
   width: min(92vw, var(--size-8));
   max-height: 90vh;
-  overflow: hidden;
-  box-shadow: var(--shadow-3);
   transform: translate(
     calc(var(--overlay-depth, 0) * -12px),
     calc(var(--overlay-depth, 0) * -12px)
   );
   transition: transform 250ms ease;
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, calc(var(--overlay-depth, 0) * 0.3));
-    pointer-events: none;
-    border-radius: inherit;
-    transition: background 250ms ease;
-  }
 }
 
 .modal--content.is-opening {
@@ -69,6 +57,8 @@
   max-height: 90vh;
   background: var(--surface-3);
   border-radius: var(--radius-1);
+  box-shadow: var(--shadow-3);
+  overflow: hidden;
 }
 
 .modal-header {
