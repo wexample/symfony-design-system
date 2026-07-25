@@ -94,6 +94,24 @@
             <span>{{ '@page::meta.views' | trans }}</span>
         </div>
     </div>
+    <p>{{ '@page::section.meta_bar.action_link_note' | trans }}</p>
+    <div class="meta-bar">
+        <div class="meta-bar--group">
+            {{ icon('ph:bold/user') }}
+            <span>{{ '@page::meta.author' | trans }}</span>
+            {{ icon('ph:bold/dot') }}
+            {{ icon('ph:bold/calendar-blank') }}
+            <span>{{ '@page::meta.date' | trans }}</span>
+        </div>
+        <div class="meta-bar--group">
+            {{ icon('ph:bold/heart') }}
+            <span>{{ '@page::meta.likes' | trans }}</span>
+            <a class="action-link" href="#">
+                {{ icon('ph:bold/share-network') }}
+                {{ '@page::action.share' | trans }}
+            </a>
+        </div>
+    </div>
 
     <h2>{{ '@page::section.pills.title' | trans }}</h2>
 

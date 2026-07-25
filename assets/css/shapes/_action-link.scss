@@ -1,0 +1,12 @@
+.action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--text-color-muted);
+  text-decoration: none;
+  font-size: inherit;
+}
+
+.action-link:hover {
+  color: var(--color-default-text);
+}

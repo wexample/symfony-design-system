@@ -15,6 +15,7 @@ section:
   meta_bar:
     title: Meta bar
     stack_note: "A second bar can stack below to group a different category of metadata — here, taxonomy and analytics."
+    action_link_note: "Use action-link for interactive items that should blend into the bar — no background, no shadow, muted color."
   pills:
     title: Pills
   pill_inline:

@@ -1,12 +1,16 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/layouts/design_system/layout.html.twig' -%}
 
-{%- block page_body -%}
+{%- block page_header -%}
+    {{ parent() }}
     <div class="tabs">
         {{ component_init_parent(render_pass, '@WexampleSymfonyDesignSystemBundle/components/tabs', { group: 'persist-demo' }) }}
         {{ tab_item_link('@page::tab.overview' | trans, '#', { tab_name: 'overview', active: true }) }}
         {{ tab_item_link('@page::tab.details' | trans, '#', { tab_name: 'details' }) }}
         {{ tab_item_link('@page::tab.settings' | trans, '#', { tab_name: 'settings' }) }}
     </div>
+{%- endblock -%}
+
+{%- block page_body -%}
     <div class="tabs-panels">
         <div data-tab="overview" class="block block--padded">
             {{ '@page::content.overview' | trans }}
