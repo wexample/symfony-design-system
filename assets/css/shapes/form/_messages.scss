@@ -1,10 +1,10 @@
+@use '../../../css/primitives/feedback' as feedback;
+@use '../../../css/semantic/feedback' as feedback_semantic;
+
 .form--help {
   font-size: var(--font-size-2);
   color: var(--text-color-muted);
 }
-
-@use '../../../css/primitives/feedback' as feedback;
-@use '../../../css/semantic/feedback' as feedback_semantic;
 
 .form--errors {
   @include feedback.feedback-surface;

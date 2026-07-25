@@ -74,7 +74,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_LABEL => true,
                     self::FIELD_OPTION_NAME_REQUIRED => false,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => true,
+                    'help' => 'field.{name}.help',
                 ]
             )
             ->add(
@@ -84,7 +84,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_LABEL => true,
                     self::FIELD_OPTION_NAME_REQUIRED => false,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => true,
+                    'help' => 'field.{name}.help',
                 ]
             )
             ->add(
@@ -94,7 +94,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_LABEL => true,
                     self::FIELD_OPTION_NAME_REQUIRED => false,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => true,
+                    'help' => 'field.{name}.help',
                 ]
             )
             ->add(
@@ -107,7 +107,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     'rows' => 4,
                     'max_rows' => 12,
                     'auto_resize' => true,
-                    'help' => true,
+                    'help' => 'field.{name}.help',
                     'attr' => [
                         'placeholder' => true,
                     ],
@@ -121,7 +121,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_REQUIRED => false,
                     self::FIELD_OPTION_NAME_MAPPED => false,
                     'choices' => ['option_a', 'option_b', 'option_c'],
-                    'help' => true,
+                    'help' => 'field.{name}.help',
                 ]
             )
             ->add(
@@ -131,7 +131,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_LABEL => true,
                     self::FIELD_OPTION_NAME_REQUIRED => false,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => true,
+                    'help' => 'field.{name}.help',
                 ]
             )
             ->add(
@@ -141,7 +141,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_LABEL => true,
                     self::FIELD_OPTION_NAME_REQUIRED => false,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => true,
+                    'help' => 'field.{name}.help',
                 ]
             )
             ->add(
@@ -151,7 +151,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_LABEL => true,
                     self::FIELD_OPTION_NAME_REQUIRED => false,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => true,
+                    'help' => 'field.{name}.help',
                 ]
             )
             ->add(
@@ -161,7 +161,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_LABEL => true,
                     self::FIELD_OPTION_NAME_REQUIRED => false,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => true,
+                    'help' => 'field.{name}.help',
                 ]
             )
             ->add(
@@ -171,7 +171,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_LABEL => true,
                     self::FIELD_OPTION_NAME_REQUIRED => false,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => true,
+                    'help' => 'field.{name}.help',
                 ]
             )
             ->add(
@@ -181,7 +181,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_LABEL => true,
                     self::FIELD_OPTION_NAME_REQUIRED => false,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => true,
+                    'help' => 'field.{name}.help',
                     'attr' => ['placeholder' => true],
                 ]
             )
@@ -192,7 +192,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_LABEL => true,
                     self::FIELD_OPTION_NAME_REQUIRED => false,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => true,
+                    'help' => 'field.{name}.help',
                 ]
             )
             ->add(
@@ -202,7 +202,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_LABEL => true,
                     self::FIELD_OPTION_NAME_REQUIRED => false,
                     self::FIELD_OPTION_NAME_MAPPED => false,
-                    'help' => true,
+                    'help' => 'field.{name}.help',
                     'attr' => ['placeholder' => true],
                 ]
             )
@@ -215,7 +215,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_MAPPED => false,
                     'choices' => $behaviorChoices,
                     'placeholder' => false,
-                    'help' => true,
+                    'help' => 'field.{name}.help',
                 ]
             )
         ;

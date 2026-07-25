@@ -1,4 +1,12 @@
 field:
+  password:
+    label: Password
+    error:
+      ERR_FIELD_PASSWORD_INVALID: Password is invalid for test purpose.
+  emoji:
+    label: Emoji
+    error:
+      ERR_FIELD_EMOJI_INVALID: Emoji is invalid for test purpose.
   text_simple:
     label: Text
     error:
@@ -8,6 +16,51 @@ field:
     placeholder: Type whatever you want...
     error:
       ERR_FIELD_TEXT_AREA_INVALID: Long text is invalid for test purpose.
+  number:
+    label: Number
+    error:
+      ERR_FIELD_NUMBER_INVALID: Number is invalid for test purpose.
+  email:
+    label: Email
+    placeholder: you@example.com
+    error:
+      ERR_FIELD_EMAIL_INVALID: Email is invalid for test purpose.
+  url:
+    label: URL
+    placeholder: https://
+    error:
+      ERR_FIELD_URL_INVALID: URL is invalid for test purpose.
+  date:
+    label: Date
+    error:
+      ERR_FIELD_DATE_INVALID: Date is invalid for test purpose.
+  datetime:
+    label: Date & time
+    error:
+      ERR_FIELD_DATETIME_INVALID: Date & time is invalid for test purpose.
+  time:
+    label: Time
+    error:
+      ERR_FIELD_TIME_INVALID: Time is invalid for test purpose.
+  file:
+    label: File
+    error:
+      ERR_FIELD_FILE_INVALID: File is invalid for test purpose.
+  radio_choice:
+    label: Radio choice
+    error:
+      ERR_FIELD_RADIO_CHOICE_INVALID: Radio choice is invalid for test purpose.
+    choice:
+      option_a:
+        label: Option A
+      option_b:
+        label: Option B
+      option_c:
+        label: Option C
+  switch:
+    label: Switch
+    error:
+      ERR_FIELD_SWITCH_INVALID: Switch is invalid for test purpose.
   behavior:
     label: Behavior
     error:

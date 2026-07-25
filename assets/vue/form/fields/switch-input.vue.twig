@@ -1,0 +1,25 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/form-field.vue.twig' -%}
+
+{%- block field_label -%}{%- endblock -%}
+
+{%- block field_control -%}
+    <input
+            class="switch--checkbox"
+            type="checkbox"
+            :id="resolvedId"
+            :name="name || null"
+            :checked="modelValue"
+            :disabled="isDisabled ? true : null"
+            @change="onChange"
+    >
+    <label
+            class="switch"
+            :for="resolvedId"
+            :data-checked="modelValue ? 'true' : 'false'"
+    >
+        <span class="switch--pill">
+            <span class="switch--knob"></span>
+        </span>
+        <span class="switch--label">[[ resolveLabel(label) ]]</span>
+    </label>
+{%- endblock -%}

@@ -1,52 +1,156 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/form.vue.twig' -%}
-{%- set demo_form_translation_domain = translationDomain|default('WexampleSymfonyDesignSystemBundle.vue.form.demo-form') -%}
-{%- set form_errors_translation_prefix = demo_form_translation_domain ~ '::form.error.' -%}
+{%- set td = translationDomain|default('WexampleSymfonyDesignSystemBundle.vue.form.demo-form') -%}
+{%- set form_errors_translation_prefix = td ~ '::form.error.' -%}
 
 {%- block vue_require -%}
     {{ parent() }}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/text-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/textarea-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/select-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/radio-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/switch-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/submit-button') -}}
 {%- endblock -%}
 
 {%- block form_notification -%}
     <div v-if="formSubmitted" class="message message--success">
-        <strong>{{ (demo_form_translation_domain ~ '::toast.success.title')|trans }}</strong>
-        {{ (demo_form_translation_domain ~ '::toast.success.message')|trans }}
+        <strong>{{ (td ~ '::toast.success.title')|trans }}</strong>
+        {{ (td ~ '::toast.success.message')|trans }}
     </div>
 {%- endblock -%}
 
 {%- block form_body -%}
-    <div class="lead">
-        {{ '@vue::description' | trans }}
+    <div class="lead">{{ (td ~ '::description')|trans }}</div>
+
+    <div class="grid grid--2">
+        <text-input
+                v-model="textSimple"
+                name="text_simple"
+                :errors="fieldErrors['text_simple'] || []"
+                label="{{ (td ~ '::field.text_simple.label')|trans }}"
+                error-translation-prefix="{{ td ~ '::field.text_simple.error.' }}"
+        ></text-input>
+        <text-input
+                v-model="password"
+                name="password"
+                type="password"
+                :errors="fieldErrors['password'] || []"
+                label="{{ (td ~ '::field.password.label')|trans }}"
+                error-translation-prefix="{{ td ~ '::field.password.error.' }}"
+        ></text-input>
     </div>
-    <text-input
-            v-model="textSimple"
-            name="text_simple"
-            :errors="fieldErrors['text_simple'] || []"
-            label="{{ (demo_form_translation_domain ~ '::field.text_simple.label')|trans }}"
-            error-translation-prefix="{{ demo_form_translation_domain ~ '::field.text_simple.error.' }}"
-    ></text-input>
+
     <textarea-input
             v-model="textArea"
             name="text_area"
             :rows="4"
             :errors="fieldErrors['text_area'] || []"
-            label="{{ (demo_form_translation_domain ~ '::field.text_area.label')|trans }}"
-            placeholder="{{ (demo_form_translation_domain ~ '::field.text_area.placeholder')|trans }}"
-            error-translation-prefix="{{ demo_form_translation_domain ~ '::field.text_area.error.' }}"
+            label="{{ (td ~ '::field.text_area.label')|trans }}"
+            placeholder="{{ (td ~ '::field.text_area.placeholder')|trans }}"
+            error-translation-prefix="{{ td ~ '::field.text_area.error.' }}"
     ></textarea-input>
+
+    <text-input
+            v-model="emoji"
+            name="emoji"
+            :errors="fieldErrors['emoji'] || []"
+            label="{{ (td ~ '::field.emoji.label')|trans }}"
+            error-translation-prefix="{{ td ~ '::field.emoji.error.' }}"
+    ></text-input>
+
+    <div class="grid grid--3">
+        <text-input
+                v-model="number"
+                name="number"
+                type="number"
+                :errors="fieldErrors['number'] || []"
+                label="{{ (td ~ '::field.number.label')|trans }}"
+                error-translation-prefix="{{ td ~ '::field.number.error.' }}"
+        ></text-input>
+        <text-input
+                v-model="email"
+                name="email"
+                type="email"
+                placeholder="{{ (td ~ '::field.email.placeholder')|trans }}"
+                :errors="fieldErrors['email'] || []"
+                label="{{ (td ~ '::field.email.label')|trans }}"
+                error-translation-prefix="{{ td ~ '::field.email.error.' }}"
+        ></text-input>
+        <text-input
+                v-model="url"
+                name="url"
+                type="url"
+                placeholder="{{ (td ~ '::field.url.placeholder')|trans }}"
+                :errors="fieldErrors['url'] || []"
+                label="{{ (td ~ '::field.url.label')|trans }}"
+                error-translation-prefix="{{ td ~ '::field.url.error.' }}"
+        ></text-input>
+    </div>
+
+    <div class="grid grid--3">
+        <text-input
+                v-model="date"
+                name="date"
+                type="date"
+                :errors="fieldErrors['date'] || []"
+                label="{{ (td ~ '::field.date.label')|trans }}"
+                error-translation-prefix="{{ td ~ '::field.date.error.' }}"
+        ></text-input>
+        <text-input
+                v-model="datetime"
+                name="datetime"
+                type="datetime-local"
+                :errors="fieldErrors['datetime'] || []"
+                label="{{ (td ~ '::field.datetime.label')|trans }}"
+                error-translation-prefix="{{ td ~ '::field.datetime.error.' }}"
+        ></text-input>
+        <text-input
+                v-model="time"
+                name="time"
+                type="time"
+                :errors="fieldErrors['time'] || []"
+                label="{{ (td ~ '::field.time.label')|trans }}"
+                error-translation-prefix="{{ td ~ '::field.time.error.' }}"
+        ></text-input>
+    </div>
+
+    <text-input
+            v-model="file"
+            name="file"
+            type="file"
+            :errors="fieldErrors['file'] || []"
+            label="{{ (td ~ '::field.file.label')|trans }}"
+            error-translation-prefix="{{ td ~ '::field.file.error.' }}"
+    ></text-input>
+
+    <div class="grid grid--2">
+        <radio-input
+                v-model="radioChoice"
+                name="radio_choice"
+                :options="radioChoiceOptions"
+                :errors="fieldErrors['radio_choice'] || []"
+                label="{{ (td ~ '::field.radio_choice.label')|trans }}"
+                error-translation-prefix="{{ td ~ '::field.radio_choice.error.' }}"
+        ></radio-input>
+        <switch-input
+                v-model="switchValue"
+                name="switch"
+                :errors="fieldErrors['switch'] || []"
+                label="{{ (td ~ '::field.switch.label')|trans }}"
+                error-translation-prefix="{{ td ~ '::field.switch.error.' }}"
+        ></switch-input>
+    </div>
+
     <select-input
             v-model="behavior"
             name="behavior"
             :options="behaviorOptions"
             :errors="fieldErrors['behavior'] || []"
-            label="{{ (demo_form_translation_domain ~ '::field.behavior.label')|trans }}"
-            error-translation-prefix="{{ demo_form_translation_domain ~ '::field.behavior.error.' }}"
+            label="{{ (td ~ '::field.behavior.label')|trans }}"
+            error-translation-prefix="{{ td ~ '::field.behavior.error.' }}"
     ></select-input>
 
     <div class="form--actions">
-        <submit-button :label="'{{ demo_form_translation_domain ~ '::action.submit' }}'"></submit-button>
+        <submit-button :label="'{{ td ~ '::action.submit' }}'"></submit-button>
     </div>
 {%- endblock -%}
