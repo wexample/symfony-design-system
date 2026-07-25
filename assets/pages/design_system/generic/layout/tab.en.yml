@@ -1,9 +1,14 @@
 ~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
 
-page_title: Tabs
-page_icon: ph:bold/tabs
+page_title: Navigation
+page_icon: ph:bold/signpost
 
 section:
+  breadcrumb:
+    title: Breadcrumb
+    description: "Shows the user's location within the hierarchy. Use the breadcrumb partial — pass items with route and label; the last item is always rendered as current."
+  tabs:
+    title: Tabs
   default:
     normal:
       title: Basic tabs
@@ -18,6 +23,16 @@ section:
       title: Tabs with icons (full width)
     half:
       title: Tabs with icons (half width zone)
+
+breadcrumb:
+  example:
+    two_levels: Two levels
+    three_levels: Three levels
+  item:
+    home: Home
+    layout: Layout
+    section: Blocks
+    current: Navigation
 
 tab:
   one: Overview

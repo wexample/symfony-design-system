@@ -95,16 +95,9 @@
   color: var(--color-default-text);
 }
 
-.panel-close a,
-.panel-external-link a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: 999px;
-  color: var(--text-color-muted);
-  text-decoration: none;
+.panel-close,
+.panel-external-link {
+  line-height: 0;
 }
 
 .panel-body {

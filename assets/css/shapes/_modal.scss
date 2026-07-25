@@ -101,16 +101,9 @@
   color: var(--color-default-text);
 }
 
-.modal-close a,
-.modal-external-link a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  border-radius: 999px;
-  color: var(--text-color-muted);
-  text-decoration: none;
+.modal-close,
+.modal-external-link {
+  line-height: 0;
 }
 
 .modal-body {
