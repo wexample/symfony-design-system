@@ -8,7 +8,7 @@ export default class extends Component {
   private triggerEl?: HTMLButtonElement;
   private dropdownEl?: HTMLElement;
   private listEl?: HTMLElement;
-  private hiddenEl?: HTMLInputElement;
+  private hiddenEl?: HTMLSelectElement;
   private overlayService?: OverlayService;
   private keyboardService?: KeyboardService;
 
@@ -16,7 +16,7 @@ export default class extends Component {
     this.triggerEl  = this.el.querySelector('.select--trigger') as HTMLButtonElement;
     this.dropdownEl = this.el.querySelector('.select--dropdown') as HTMLElement;
     this.listEl     = this.el.querySelector('.select--list') as HTMLElement;
-    this.hiddenEl   = this.el.querySelector('input[type="hidden"]') as HTMLInputElement;
+    this.hiddenEl   = this.el.querySelector('select.select--native') as HTMLSelectElement;
 
     this.overlayService  = this.app.getServiceOrFail(OverlayService) as OverlayService;
     this.keyboardService = this.app.getServiceOrFail(KeyboardService) as KeyboardService;

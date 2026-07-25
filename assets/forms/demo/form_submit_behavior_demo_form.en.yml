@@ -32,6 +32,10 @@ field:
         label: Redirect in embed (modal / panel)
         description: navigates inside the modal/panel.
 
+  date:
+    label: Date
+  datetime:
+    label: Date & time
   radio_choice:
     label: Radio choice
     choice:

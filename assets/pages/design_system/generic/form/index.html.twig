@@ -13,6 +13,14 @@
                 <textarea class="form--textarea" id="form-message" rows="4"
                           placeholder="{{ '@page::field.message.placeholder' | trans }}"></textarea>
             </div>
+            <div class="form--group">
+                <label class="form--label" for="form-date">{{ '@page::field.date.label' | trans }}</label>
+                <input class="form--input" id="form-date" type="date">
+            </div>
+            <div class="form--group">
+                <label class="form--label" for="form-datetime">{{ '@page::field.datetime.label' | trans }}</label>
+                <input class="form--input" id="form-datetime" type="datetime-local">
+            </div>
             <div class="form--actions">
                 <a href="#">{{ '@page::action.link' | trans }}</a>
                 {{ button('ph:bold/island', '@page::action.secondary' | trans) }}

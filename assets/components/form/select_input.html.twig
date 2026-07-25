@@ -44,6 +44,13 @@
                 {%- endfor -%}
             </ul>
         </div>
-        <input type="hidden" name="{{ name }}" value="{{ selected | default('') }}">
+        <select class="select--native" name="{{ name }}" tabindex="-1" aria-hidden="true">
+            {%- for choice in choices | default([]) -%}
+                <option
+                    value="{{ choice.value }}"
+                    {% if selected is defined and selected == choice.value %}selected{% endif %}
+                >{{ choice.label | trans }}</option>
+            {%- endfor -%}
+        </select>
     </div>
 </div>

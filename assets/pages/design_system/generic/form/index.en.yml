@@ -18,6 +18,10 @@ field:
   message:
     label: Message
     placeholder: Write a short message
+  date:
+    label: Date
+  datetime:
+    label: Date & time
 
 action:
   submit: Submit
