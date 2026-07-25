@@ -7,4 +7,4 @@ section:
     button: Show overlay
   spinner_overlay:
     description: Display an overlay with a loading spinner for 3 seconds.
-    button: Show overlay + spinner
+    button: Show overlay
