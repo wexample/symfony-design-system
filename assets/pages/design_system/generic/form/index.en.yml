@@ -22,6 +22,10 @@ field:
     label: Date
   datetime:
     label: Date & time
+  time:
+    label: Time
+  month:
+    label: Month
 
 action:
   submit: Submit

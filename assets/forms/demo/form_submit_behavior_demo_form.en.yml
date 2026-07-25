@@ -36,6 +36,10 @@ field:
     label: Date
   datetime:
     label: Date & time
+  time:
+    label: Time
+  month:
+    label: Month
   radio_choice:
     label: Radio choice
     choice:
