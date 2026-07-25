@@ -1,4 +1,5 @@
 @use '../../css/mixins/border' as border;
+@use '@wexample/symfony-design-system/css/shapes/form';
 
 .list-expanded {
   border-radius: var(--radius-1);
