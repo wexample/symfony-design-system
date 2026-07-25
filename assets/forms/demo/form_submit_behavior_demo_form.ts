@@ -21,15 +21,11 @@ export default class extends Form {
 
   protected onBeforeSubmit(
     _event: SubmitEvent,
-    form: HTMLFormElement,
+    _form: HTMLFormElement,
     _formData: FormData,
-    _submitter: HTMLInputElement | HTMLButtonElement | null
+    submitter: HTMLInputElement | HTMLButtonElement | null
   ): boolean {
-    const behaviorSelect = form.querySelector(
-      'select[name$="[behavior]"]'
-    ) as HTMLSelectElement | null;
-
-    if (behaviorSelect.value === 'js') {
+    if (submitter?.name?.endsWith('[submit_js]')) {
       const confirmService = this.app.getServiceOrFail(ConfirmService) as ConfirmService;
       confirmService.confirmToast({
         title: this['trans']('@form::toast.js_action.title'),

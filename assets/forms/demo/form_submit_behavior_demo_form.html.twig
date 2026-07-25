@@ -25,7 +25,6 @@
         {{ form_row(form.switch) }}
     </div>
     <div class="form--actions">
-        {{ form_widget(form.submit_default) }}
         {{ form_widget(form.submit_error) }}
         {{ form_widget(form.submit_js) }}
         {{ form_widget(form.submit_redirect) }}
@@ -35,5 +34,6 @@
         {% if form.submit_embed_redirect is defined %}
             {{ form_widget(form.submit_embed_redirect) }}
         {% endif %}
+        {{ form_widget(form.submit_default) }}
     </div>
 {% endblock %}
