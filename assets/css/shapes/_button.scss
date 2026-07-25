@@ -1,4 +1,5 @@
 @use '../mixins/transition' as transition;
+@use 'spinner';
 
 .button {
   display: inline-flex;
@@ -22,6 +23,23 @@
   cursor: not-allowed;
   box-shadow: none;
   pointer-events: none;
+}
+
+.button--spinner {
+  display: none;
+}
+
+.button.is-loading {
+  pointer-events: none;
+  opacity: 0.8;
+
+  .button--icon {
+    display: none;
+  }
+
+  .button--spinner {
+    display: inline-flex;
+  }
 }
 
 .button--invert {

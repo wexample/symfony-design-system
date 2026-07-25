@@ -1,10 +1,11 @@
 <button class="button{% if options.class is defined %} {{ options.class }}{% endif %}"
         type="{{ options.type|default('button') }}"
         {{ component_render_tag_attributes(options) }}>
-    {% if icon is defined and icon %}
-        <span class="button--icon">
-            {{ icon(icon) }}
-        </span>
-    {% endif %}
+    <span class="button--icon">
+        {% if icon is defined and icon %}{{ icon(icon) }}{% endif %}
+    </span>
+    <span class="button--spinner" aria-hidden="true">
+        {% include '@WexampleSymfonyDesignSystemBundle/partials/spinner.html.twig' with { align: 'inline' } only %}
+    </span>
     <span>{{ label | trans }}</span>
 </button>
