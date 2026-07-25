@@ -6,22 +6,22 @@ page_icon: ph:bold/notification
 section:
   simple_toast:
     description: Display a simple toast
-    button: Open simple toast
+    button: Open toast
     title: Toast demo
     message: Hello from ToastService + ToastStack. You can also define action links like @action:demo(this one) inside a message.
   tl_toast:
     description: Display a top-left toast stack
-    button: Open top-left toast
+    button: Open toast
     title: Top-left toast
     message: Hello from ToastService + ToastStack (TL).
   medium_toast:
     description: Display a medium-length toast message
-    button: Open medium toast
+    button: Open toast
     title: Medium toast
     message: This is a medium-length toast message for the demo.
   long_toast:
     description: Display a long toast message
-    button: Open long toast
+    button: Open toast
     title: Long toast
     message: This is a longer toast message for the demo. It contains more text so you can preview how the component behaves with bigger content.
   horizontal_toasts:
@@ -29,18 +29,18 @@ section:
     info:
       title: Info toast
       message: A horizontal toast preview.
-      button: Popup info toast
+      button: Show toast
     success:
       title: Success toast
       message: Everything looks good here.
-      button: Popup success toast
+      button: Show toast
     warning:
       title: Warning toast
       message: Double-check this action.
-      button: Popup warning toast
+      button: Show toast
     error:
       title: Error toast
       message: Something went wrong.
-      button: Popup error toast
+      button: Show toast
 title:
   toasts: Toasts

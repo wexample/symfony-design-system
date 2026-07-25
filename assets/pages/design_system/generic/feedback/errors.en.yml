@@ -9,7 +9,7 @@ section:
     button: Trigger error
   frontend_throw:
     description: Trigger an uncaught frontend exception in JavaScript.
-    button: Throw frontend error
+    button: Throw error
   internet_probe:
     description: Trigger an external request to test internet connectivity handling.
-    button: Probe internet
+    button: Probe
