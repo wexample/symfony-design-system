@@ -15,8 +15,8 @@
             {{ button('ph:bold/sun', '@page::button.invert' | trans, { class: 'button--invert' }) }}
         </div>
         <h2>{{ '@page::section.select.title' | trans }}</h2>
-        <div class="stack--vertical" style="align-items: flex-start;">
-            <select class="form--input form--input--select">
+        <div class="cluster">
+            <select class="form--input form--input--select form--input--inline">
                 <option>{{ '@page::select.option_one' | trans }}</option>
                 <option>{{ '@page::select.option_two' | trans }}</option>
                 <option>{{ '@page::select.option_three' | trans }}</option>

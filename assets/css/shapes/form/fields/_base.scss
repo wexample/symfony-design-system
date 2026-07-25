@@ -9,6 +9,10 @@
   font-size: var(--font-size-3);
 }
 
+.form--input--inline {
+  width: auto;
+}
+
 select.form--input * {
   color: initial;
   background: initial;
