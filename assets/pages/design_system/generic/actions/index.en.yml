@@ -6,6 +6,8 @@ page_icon: ph:bold/cursor-click
 section:
   default:
     title: Default buttons
+  button_states:
+    title: Button states
   switch:
     title: Switches
   select:
@@ -26,6 +28,10 @@ button:
   success: Success button
   danger: Danger button
   invert: Invert button
+  state:
+    default: Default
+    loading: Loading
+    disabled: Disabled
 
 select:
   option_one: Option one

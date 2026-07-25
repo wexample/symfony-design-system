@@ -7,6 +7,12 @@
     {{ button('ph:bold/sun', '@page::button.invert' | trans, { class: 'button--invert' }) }}
 {%- endmacro -%}
 
+{%- macro render_button_states() -%}
+    {{ button('ph:bold/plus', '@page::button.state.default' | trans) }}
+    {{ button('ph:bold/plus', '@page::button.state.loading' | trans, { class: 'is-loading' }) }}
+    {{ button('ph:bold/plus', '@page::button.state.disabled' | trans, { disabled: true }) }}
+{%- endmacro -%}
+
 {%- macro render_links() -%}
     {{ button_link('ph:bold/arrow-right', '@page::link.more' | trans, app_home_url()) }}
     {{ button_link('ph:bold/arrow-up-right', '@page::link.external' | trans, 'https://example.com', { attr: { target: '_blank', rel: 'noopener noreferrer' } }) }}
@@ -70,6 +76,11 @@
     <div class="cluster">{{ macros.render_buttons() }}</div>
     <div class="block block--padded cluster">{{ macros.render_buttons() }}</div>
     <div class="toolbar">{{ macros.render_buttons() }}</div>
+
+    <h2>{{ '@page::section.button_states.title' | trans }}</h2>
+    <div class="cluster">{{ macros.render_button_states() }}</div>
+    <div class="block block--padded cluster">{{ macros.render_button_states() }}</div>
+    <div class="toolbar">{{ macros.render_button_states() }}</div>
 
     <h2>{{ '@page::section.link.title' | trans }}</h2>
     <div class="cluster">{{ macros.render_links() }}</div>
