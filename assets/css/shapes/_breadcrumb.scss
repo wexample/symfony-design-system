@@ -27,3 +27,21 @@
     @include text.text-ellipsis;
   }
 }
+
+.breadcrumb--page {
+  padding: var(--space-2) 0;
+
+  .breadcrumb--item {
+    color: var(--text-color-muted);
+    text-decoration: none;
+
+    &:is(a):hover {
+      color: var(--color-default-text);
+    }
+  }
+
+  .breadcrumb--item--current {
+    color: var(--color-default-text);
+    font-weight: 500;
+  }
+}

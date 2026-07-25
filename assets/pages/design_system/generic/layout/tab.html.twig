@@ -19,6 +19,30 @@
 {%- block page_body -%}
     {% import _self as tabs %}
 
+    <h2>{{ '@page::section.breadcrumb.title' | trans }}</h2>
+    <p>{{ '@page::section.breadcrumb.description' | trans }}</p>
+
+    <h3>{{ '@page::breadcrumb.example.two_levels' | trans }}</h3>
+    {% include '@WexampleSymfonyDesignSystemBundle/partials/breadcrumb.html.twig' with {
+        items: [
+            { route: 'wexample_design_system_generic_layout_index', label: '@page::breadcrumb.item.layout' | trans },
+            { label: '@page::breadcrumb.item.current' | trans }
+        ],
+        options: { class: 'breadcrumb--page' }
+    } %}
+
+    <h3>{{ '@page::breadcrumb.example.three_levels' | trans }}</h3>
+    {% include '@WexampleSymfonyDesignSystemBundle/partials/breadcrumb.html.twig' with {
+        items: [
+            { route: 'wexample_design_system_generic_layout_index',  label: '@page::breadcrumb.item.home'    | trans },
+            { route: 'wexample_design_system_generic_layout_blocks', label: '@page::breadcrumb.item.section' | trans },
+            { label: '@page::breadcrumb.item.current' | trans }
+        ],
+        options: { class: 'breadcrumb--page' }
+    } %}
+
+    <h2>{{ '@page::section.tabs.title' | trans }}</h2>
+
     <h2>{{ '@page::section.default.normal.title' | trans }}</h2>
     {{ tabs.render_tabs('tab-default-normal', { icons: false, fill: false, compact: false }) }}
 
