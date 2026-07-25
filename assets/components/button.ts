@@ -1,8 +1,8 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
 
 export default class extends Component {
-  activateListeners(): void {
-    super.activateListeners();
+  async activateListeners(): Promise<void> {
+    await super.activateListeners();
 
     const button = this.el as HTMLButtonElement;
     if (button.type === 'submit' && button.form) {
