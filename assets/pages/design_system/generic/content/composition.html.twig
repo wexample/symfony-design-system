@@ -114,11 +114,4 @@
             <span class="pill tag-{{ i }}">{{ '@page::pill.tag' | trans }} {{ i }}</span>
         {% endfor %}
     </div>
-
-    <h3>{{ '@page::section.pill_combined.title' | trans }}</h3>
-    <div class="block block--padded stack--vertical">
-        {% for i in 1..6 %}
-            <p>{{ '@page::example.item.prefix' | trans }} <span class="pill tag-{{ i }}">{{ '@page::pill.tag' | trans }} {{ i }}</span> {{ '@page::example.item.suffix' | trans }}</p>
-        {% endfor %}
-    </div>
 {%- endblock -%}

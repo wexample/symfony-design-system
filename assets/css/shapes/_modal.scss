@@ -35,14 +35,21 @@
   max-height: 90vh;
   overflow: hidden;
   box-shadow: var(--shadow-3);
+  transform: translate(
+    calc(var(--overlay-depth, 0) * -12px),
+    calc(var(--overlay-depth, 0) * -12px)
+  );
+  transition: transform 250ms ease;
 }
 
 .modal--content.is-opening {
   @include animation.enter(2);
+  transition: none !important;
 }
 
 .modal--content.is-closing {
   @include animation.exit(2);
+  transition: none !important;
 }
 
 .layout-modal {

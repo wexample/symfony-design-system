@@ -20,15 +20,21 @@
   transition: none !important;
 }
 
+.panel--content.is-opening,
+.panel--content.is-closing {
+  transition: none !important;
+}
+
 .panel--content {
   position: relative;
   z-index: var(--z-raised);
-  width: min(92vw, var(--size-8));
+  width: calc(min(92vw, var(--size-8)) + var(--overlay-depth, 0) * 16px);
   height: 100%;
   overflow: hidden;
   box-shadow: var(--shadow-3);
   display: flex;
   flex-direction: column;
+  transition: width 250ms ease;
 }
 
 .panel--content.is-opening {
