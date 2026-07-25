@@ -1,6 +1,8 @@
 field:
   password:
     label: Password
+  emoji:
+    label: Emoji
   text_simple:
     label: Text
     error:

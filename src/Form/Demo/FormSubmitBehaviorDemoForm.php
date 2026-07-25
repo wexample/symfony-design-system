@@ -9,8 +9,10 @@ use Wexample\SymfonyForms\Form\AbstractForm;
 use Wexample\SymfonyForms\Form\Type\DateInputType;
 use Wexample\SymfonyForms\Form\Type\DatetimeInputType;
 use Wexample\SymfonyForms\Form\Type\EmailInputType;
+use Wexample\SymfonyForms\Form\Type\EmojiPickerType;
 use Wexample\SymfonyForms\Form\Type\FileInputType;
 use Wexample\SymfonyForms\Form\Type\PasswordInputType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Wexample\SymfonyForms\Form\Type\NumberInputType;
 use Wexample\SymfonyForms\Form\Type\TimeInputType;
 use Wexample\SymfonyForms\Form\Type\UrlInputType;
@@ -58,8 +60,25 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
 
         $builder
             ->add(
+                'hidden_demo',
+                HiddenType::class,
+                [
+                    self::FIELD_OPTION_NAME_MAPPED => false,
+                    'data' => 'hidden_value',
+                ]
+            )
+            ->add(
                 'password',
                 PasswordInputType::class,
+                [
+                    self::FIELD_OPTION_NAME_LABEL => true,
+                    self::FIELD_OPTION_NAME_REQUIRED => false,
+                    self::FIELD_OPTION_NAME_MAPPED => false,
+                ]
+            )
+            ->add(
+                'emoji',
+                EmojiPickerType::class,
                 [
                     self::FIELD_OPTION_NAME_LABEL => true,
                     self::FIELD_OPTION_NAME_REQUIRED => false,
