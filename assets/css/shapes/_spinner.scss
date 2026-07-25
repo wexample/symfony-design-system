@@ -53,16 +53,6 @@
   box-sizing: border-box;
 }
 
-.spinner--circle-trail {
-  stroke: currentColor;
-  stroke-width: calc(var(--spinner-stroke) - 1px);
-  stroke-linecap: round;
-  stroke-dasharray: 10 128;
-  transform-box: view-box;
-  transform-origin: 50% 50%;
-  animation: spinner-rotate 2s linear infinite;
-}
-
 .spinner--circle-path {
   stroke: currentColor;
   stroke-width: var(--spinner-stroke);
@@ -75,22 +65,22 @@
 
 .spinner--align-inline .spinner {
   --spinner-size: 1rem;
-  --spinner-stroke: 4px;
+  --spinner-stroke: 8px;
 }
 
 .spinner--sm {
   --spinner-size: 1.4rem;
-  --spinner-stroke: 4px;
+  --spinner-stroke: 8px;
 }
 
 .spinner--md {
   --spinner-size: 2.2rem;
-  --spinner-stroke: 4px;
+  --spinner-stroke: 8px;
 }
 
 .spinner--lg {
   --spinner-size: 3.2rem;
-  --spinner-stroke: 6px;
+  --spinner-stroke: 12px;
 }
 
 .spinner--invert {

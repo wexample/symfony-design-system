@@ -1,0 +1,12 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Media
+page_icon: ph:bold/image
+
+section:
+  shapes:
+    title: Shapes
+  overlay:
+    title: Overlay
+  aspect_ratio:
+    title: Aspect Ratio
