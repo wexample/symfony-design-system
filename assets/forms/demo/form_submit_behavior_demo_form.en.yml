@@ -1,4 +1,6 @@
 field:
+  password:
+    label: Password
   text_simple:
     label: Text
     error:

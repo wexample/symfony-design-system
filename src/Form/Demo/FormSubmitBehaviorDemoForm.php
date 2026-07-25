@@ -10,6 +10,7 @@ use Wexample\SymfonyForms\Form\Type\DateInputType;
 use Wexample\SymfonyForms\Form\Type\DatetimeInputType;
 use Wexample\SymfonyForms\Form\Type\EmailInputType;
 use Wexample\SymfonyForms\Form\Type\FileInputType;
+use Wexample\SymfonyForms\Form\Type\PasswordInputType;
 use Wexample\SymfonyForms\Form\Type\NumberInputType;
 use Wexample\SymfonyForms\Form\Type\TimeInputType;
 use Wexample\SymfonyForms\Form\Type\UrlInputType;
@@ -56,6 +57,15 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
         }
 
         $builder
+            ->add(
+                'password',
+                PasswordInputType::class,
+                [
+                    self::FIELD_OPTION_NAME_LABEL => true,
+                    self::FIELD_OPTION_NAME_REQUIRED => false,
+                    self::FIELD_OPTION_NAME_MAPPED => false,
+                ]
+            )
             ->add(
                 'text_simple',
                 TextInputType::class,
