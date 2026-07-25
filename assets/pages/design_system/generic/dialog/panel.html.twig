@@ -14,13 +14,11 @@
     ] %}
 
     {% for test in panel_tests %}
-        <div class="block block--padded">
-            <div class="stack--split">
-                <div class="lead">
-                    {{ ('@page::section.' ~ test.key ~ '.description') | trans }}
-                </div>
-                {{ button_panel('ph:bold/sidebar-simple-duotone', '@page::section.' ~ test.key ~ '.button', test.route, [], { class: test.class, panel_options: test.options }) }}
+        <div class="block block--padded block--split">
+            <div class="lead">
+                {{ ('@page::section.' ~ test.key ~ '.description') | trans }}
             </div>
+            {{ button_panel('ph:bold/sidebar-simple-duotone', '@page::section.' ~ test.key ~ '.button', test.route, [], { class: test.class, panel_options: test.options }) }}
         </div>
     {% endfor %}
 {%- endblock -%}

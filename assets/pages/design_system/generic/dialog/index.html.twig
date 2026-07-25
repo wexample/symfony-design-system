@@ -19,13 +19,11 @@
     ] %}
 
     {% for test in modal_tests %}
-        <div class="block block--padded">
-            <div class="stack--split">
-                <div class="lead">
-                    {{ ('@page::section.' ~ test.key ~ '.description') | trans }}
-                </div>
-                {{ button_modal('ph:bold/app-window', '@page::section.' ~ test.key ~ '.button', test.route, [], { class: test.class, modal_options: test.options }) }}
+        <div class="block block--padded block--split">
+            <div class="lead">
+                {{ ('@page::section.' ~ test.key ~ '.description') | trans }}
             </div>
+            {{ button_modal('ph:bold/app-window', '@page::section.' ~ test.key ~ '.button', test.route, [], { class: test.class, modal_options: test.options }) }}
         </div>
     {% endfor %}
 {%- endblock -%}
