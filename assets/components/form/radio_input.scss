@@ -1,1 +1,17 @@
-/* Component: form/radio_input */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+
+  .form--radio,
+  .form--radio-label {
+    cursor: pointer;
+  }
+}

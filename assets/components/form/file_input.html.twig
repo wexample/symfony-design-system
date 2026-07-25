@@ -1,0 +1,13 @@
+<div {{ component_render_tag_attributes({class:'form--group'}) }}>
+    <label class="form--label" for="{{ id }}">{{ label }}</label>
+    <input
+        class="form--input form--input-file"
+        id="{{ id }}"
+        type="file"
+        {% if name is defined %}name="{{ name }}"{% endif %}
+        {% if required is defined and required %}required{% endif %}
+        {% if multiple is defined and multiple %}multiple{% endif %}
+        {% if accept is defined %}accept="{{ accept }}"{% endif %}
+        {% if input_attr is defined %}{{ input_attr|raw }}{% endif %}
+    >
+</div>

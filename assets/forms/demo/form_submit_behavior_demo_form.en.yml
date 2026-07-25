@@ -38,6 +38,8 @@ field:
     label: Date & time
   time:
     label: Time
+  file:
+    label: File
   email:
     label: Email
     placeholder: you@example.com
