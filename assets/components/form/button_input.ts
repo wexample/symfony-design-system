@@ -1,7 +1,7 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
 
 export default class extends Component {
-  private formEl: HTMLFormElement | null = null;
+  protected formEl: HTMLFormElement | null = null;
   private isClicked = false;
 
   protected async activateListeners(): Promise<void> {

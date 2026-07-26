@@ -44,5 +44,7 @@ export default class extends Form {
 
       return false;
     }
+
+    return true;
   }
 }
