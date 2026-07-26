@@ -217,16 +217,16 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
         ;
 
         $builder
-            ->add('submit_error', ButtonInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_error', 'icon' => 'ph:bold/warning'])
-            ->add('submit_js', ButtonInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_js', 'icon' => 'ph:bold/code'])
-            ->add('submit_redirect', ButtonInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_redirect', 'icon' => 'ph:bold/arrow-bend-up-right'])
-            ->add('submit_default', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_default'])
+            ->add('submit_error', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_error', 'icon' => 'ph:bold/warning'])
+            ->add('submit_js', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_js', 'icon' => 'ph:bold/code'])
+            ->add('submit_redirect', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_redirect', 'icon' => 'ph:bold/arrow-bend-up-right'])
+            ->add('submit_default', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_default', 'primary' => true])
         ;
 
         if ($isEmbedded) {
             $builder
-                ->add('submit_embed_stay', ButtonInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_embed_stay', 'icon' => 'ph:bold/arrow-u-up-left'])
-                ->add('submit_embed_redirect', ButtonInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_embed_redirect', 'icon' => 'ph:bold/arrow-square-out'])
+                ->add('submit_embed_stay', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_embed_stay', 'icon' => 'ph:bold/arrow-u-up-left'])
+                ->add('submit_embed_redirect', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_embed_redirect', 'icon' => 'ph:bold/arrow-square-out'])
             ;
         }
     }

@@ -21,10 +21,15 @@
     </div>
 {%- endblock -%}
 
+{%- block field_help -%}
+    <div class="form--help" v-if="help">[[ help ]]</div>
+{%- endblock -%}
+
 {%- block vue_body -%}
     <div class="form--group" :class="{ 'has-error': hasErrors, 'is-disabled': controllerDisabled }">
         {{ block('field_label') }}
         {{ block('field_control') }}
         {{ block('field_errors') }}
+        {{ block('field_help') }}
     </div>
 {%- endblock -%}

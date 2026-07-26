@@ -1,5 +1,5 @@
 <button
-    {{ component_render_tag_attributes({class: 'button'}) }}
+    {{ component_render_tag_attributes({class: 'button' ~ (primary is defined and primary ? ' button--invert' : '')}) }}
     type="submit"
     {% if name is defined %}name="{{ name }}"{% endif %}
     {% if id is defined %}id="{{ id }}"{% endif %}

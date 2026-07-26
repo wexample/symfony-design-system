@@ -37,6 +37,10 @@ export default {
       type: String,
       default: ''
     },
+    help: {
+      type: String,
+      default: ''
+    },
     translate: {
       type: Boolean,
       default: true

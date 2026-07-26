@@ -10,5 +10,4 @@
 .form button[type='submit'],
 .form input[type='submit'] {
   @extend .button;
-  @extend .button--invert;
 }

@@ -27,6 +27,7 @@
                 name="text_simple"
                 :errors="fieldErrors['text_simple'] || []"
                 label="{{ (td ~ '::field.text_simple.label')|trans }}"
+                help="{{ (td ~ '::field.text_simple.help')|trans }}"
                 error-translation-prefix="{{ td ~ '::field.text_simple.error.' }}"
         ></text-input>
         <text-input
@@ -35,6 +36,7 @@
                 type="password"
                 :errors="fieldErrors['password'] || []"
                 label="{{ (td ~ '::field.password.label')|trans }}"
+                help="{{ (td ~ '::field.password.help')|trans }}"
                 error-translation-prefix="{{ td ~ '::field.password.error.' }}"
         ></text-input>
     </div>
@@ -45,6 +47,7 @@
             :rows="4"
             :errors="fieldErrors['text_area'] || []"
             label="{{ (td ~ '::field.text_area.label')|trans }}"
+            help="{{ (td ~ '::field.text_area.help')|trans }}"
             placeholder="{{ (td ~ '::field.text_area.placeholder')|trans }}"
             error-translation-prefix="{{ td ~ '::field.text_area.error.' }}"
     ></textarea-input>
@@ -54,6 +57,7 @@
             name="emoji"
             :errors="fieldErrors['emoji'] || []"
             label="{{ (td ~ '::field.emoji.label')|trans }}"
+            help="{{ (td ~ '::field.emoji.help')|trans }}"
             error-translation-prefix="{{ td ~ '::field.emoji.error.' }}"
     ></text-input>
 
@@ -64,6 +68,7 @@
                 type="number"
                 :errors="fieldErrors['number'] || []"
                 label="{{ (td ~ '::field.number.label')|trans }}"
+                help="{{ (td ~ '::field.number.help')|trans }}"
                 error-translation-prefix="{{ td ~ '::field.number.error.' }}"
         ></text-input>
         <text-input
@@ -73,6 +78,7 @@
                 placeholder="{{ (td ~ '::field.email.placeholder')|trans }}"
                 :errors="fieldErrors['email'] || []"
                 label="{{ (td ~ '::field.email.label')|trans }}"
+                help="{{ (td ~ '::field.email.help')|trans }}"
                 error-translation-prefix="{{ td ~ '::field.email.error.' }}"
         ></text-input>
         <text-input
@@ -82,6 +88,7 @@
                 placeholder="{{ (td ~ '::field.url.placeholder')|trans }}"
                 :errors="fieldErrors['url'] || []"
                 label="{{ (td ~ '::field.url.label')|trans }}"
+                help="{{ (td ~ '::field.url.help')|trans }}"
                 error-translation-prefix="{{ td ~ '::field.url.error.' }}"
         ></text-input>
     </div>
@@ -93,6 +100,7 @@
                 type="date"
                 :errors="fieldErrors['date'] || []"
                 label="{{ (td ~ '::field.date.label')|trans }}"
+                help="{{ (td ~ '::field.date.help')|trans }}"
                 error-translation-prefix="{{ td ~ '::field.date.error.' }}"
         ></text-input>
         <text-input
@@ -101,6 +109,7 @@
                 type="datetime-local"
                 :errors="fieldErrors['datetime'] || []"
                 label="{{ (td ~ '::field.datetime.label')|trans }}"
+                help="{{ (td ~ '::field.datetime.help')|trans }}"
                 error-translation-prefix="{{ td ~ '::field.datetime.error.' }}"
         ></text-input>
         <text-input
@@ -109,6 +118,7 @@
                 type="time"
                 :errors="fieldErrors['time'] || []"
                 label="{{ (td ~ '::field.time.label')|trans }}"
+                help="{{ (td ~ '::field.time.help')|trans }}"
                 error-translation-prefix="{{ td ~ '::field.time.error.' }}"
         ></text-input>
     </div>
@@ -119,6 +129,7 @@
             type="file"
             :errors="fieldErrors['file'] || []"
             label="{{ (td ~ '::field.file.label')|trans }}"
+            help="{{ (td ~ '::field.file.help')|trans }}"
             error-translation-prefix="{{ td ~ '::field.file.error.' }}"
     ></text-input>
 
@@ -129,6 +140,7 @@
                 :options="radioChoiceOptions"
                 :errors="fieldErrors['radio_choice'] || []"
                 label="{{ (td ~ '::field.radio_choice.label')|trans }}"
+                help="{{ (td ~ '::field.radio_choice.help')|trans }}"
                 error-translation-prefix="{{ td ~ '::field.radio_choice.error.' }}"
         ></radio-input>
         <switch-input
@@ -136,6 +148,7 @@
                 name="switch"
                 :errors="fieldErrors['switch'] || []"
                 label="{{ (td ~ '::field.switch.label')|trans }}"
+                help="{{ (td ~ '::field.switch.help')|trans }}"
                 error-translation-prefix="{{ td ~ '::field.switch.error.' }}"
         ></switch-input>
     </div>
