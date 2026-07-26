@@ -1,0 +1,15 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/form-field.vue.twig' -%}
+
+{%- block field_control -%}
+    <input
+            class="form--input"
+            type="file"
+            :name="name || null"
+            :id="resolvedId"
+            :multiple="multiple ? true : null"
+            :accept="accept || null"
+            :required="required ? true : null"
+            :disabled="disabled ? true : null"
+            @change="onChange"
+    >
+{%- endblock -%}
