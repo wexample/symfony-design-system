@@ -24,7 +24,10 @@ export default abstract class Field extends Component implements FieldController
   }
 
   private onFormSubmit = (): void => {
-    this.disable();
+    // Must be deferred so the browser collects native form data
+    // before inputs are disabled. Disabled fields are excluded from form
+    // submission — calling disable() synchronously here empties the POST.
+    Promise.resolve().then(() => this.disable());
   };
 
   private onFormLoadingEnd = (): void => {
