@@ -4,5 +4,5 @@
         <span class="switch--inner switch--off-inner">{{ icon('ph:bold/moon') }}</span>
         <span class="switch--inner switch--on-inner">{{ icon('ph:bold/sun') }}</span>
     </span>
-    <span class="switch--label">{{ label | default('@component::label' | trans) }}</span>
+    {% if label is not defined or label is not same as(false) %}<span class="switch--label">{{ label | default('@component::label' | trans) }}</span>{% endif %}
 </div>
