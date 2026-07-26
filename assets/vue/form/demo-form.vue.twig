@@ -6,7 +6,6 @@
     {{ parent() }}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/text-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/textarea-input') -}}
-    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/select-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/radio-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/switch-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/form/fields/submit-button') -}}
@@ -141,16 +140,12 @@
         ></switch-input>
     </div>
 
-    <select-input
-            v-model="behavior"
-            name="behavior"
-            :options="behaviorOptions"
-            :errors="fieldErrors['behavior'] || []"
-            label="{{ (td ~ '::field.behavior.label')|trans }}"
-            error-translation-prefix="{{ td ~ '::field.behavior.error.' }}"
-    ></select-input>
+    <submit-button :type="'button'" :label="'{{ td ~ '::action.button_demo' }}'"></submit-button>
 
     <div class="form--actions">
-        <submit-button :label="'{{ td ~ '::action.submit' }}'"></submit-button>
+        <submit-button @click="behavior = 'error'" :label="'{{ td ~ '::action.submit_error' }}'"></submit-button>
+        <submit-button @click="behavior = 'js'" :label="'{{ td ~ '::action.submit_js' }}'"></submit-button>
+        <submit-button @click="behavior = 'redirect'" :label="'{{ td ~ '::action.submit_redirect' }}'"></submit-button>
+        <submit-button @click="behavior = 'default'" :label="'{{ td ~ '::action.submit_default' }}'"></submit-button>
     </div>
 {%- endblock -%}

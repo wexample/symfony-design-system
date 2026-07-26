@@ -26,6 +26,8 @@ export default class extends Form {
     submitter: HTMLInputElement | HTMLButtonElement | null
   ): boolean {
     if (submitter?.name?.endsWith('[submit_js]')) {
+      this.beginSubmit(_form, submitter);
+
       const confirmService = this.app.getServiceOrFail(ConfirmService) as ConfirmService;
       confirmService.confirmToast({
         title: this['trans']('@form::toast.js_action.title'),
@@ -36,7 +38,7 @@ export default class extends Form {
         ],
       }).then((response) => {
         if (response === 'reactivate') {
-          this.trigger('loading:end', { source: this });
+          this.endSubmit();
         }
       });
 

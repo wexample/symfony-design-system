@@ -2,6 +2,8 @@
 @use 'form/fields/base';
 @use 'form/fields/select';
 @use 'form/fields/password';
+@use 'form/fields/radio';
+@use 'form/fields/switch';
 @use 'form/fields/state';
 @use 'form/actions';
 @use 'form/messages';
