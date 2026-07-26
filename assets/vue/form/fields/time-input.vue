@@ -1,22 +1,11 @@
 <script>
-import BaseField from '../../bases/form-field.vue';
+import TextInput from './text-input.vue';
 
 export default {
-  extends: BaseField,
+  extends: TextInput,
   template: '#vue-template-wexample-symfony-design-system-bundle-vue-form-fields-time-input',
-  emits: ['update:modelValue'],
-
   props: {
-    modelValue: {
-      type: String,
-      default: ''
-    }
-  },
-
-  methods: {
-    onInput(event) {
-      this.$emit('update:modelValue', event?.target?.value ?? '');
-    }
+    type: { default: 'time' }
   }
 };
 </script>
