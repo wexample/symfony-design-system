@@ -208,19 +208,27 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     'attr' => ['placeholder' => true],
                 ]
             )
+            ->add(
+                'button_demo',
+                ButtonInputType::class,
+                [
+                    self::FIELD_OPTION_NAME_LABEL => 'action.button_demo',
+                    self::FIELD_OPTION_NAME_MAPPED => false,
+                ]
+            )
         ;
 
         $builder
-            ->add('submit_error', ButtonInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_error'])
-            ->add('submit_js', ButtonInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_js'])
-            ->add('submit_redirect', ButtonInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_redirect'])
+            ->add('submit_error', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_error'])
+            ->add('submit_js', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_js'])
+            ->add('submit_redirect', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_redirect'])
             ->add('submit_default', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_default'])
         ;
 
         if ($isEmbedded) {
             $builder
-                ->add('submit_embed_stay', ButtonInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_embed_stay'])
-                ->add('submit_embed_redirect', ButtonInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_embed_redirect'])
+                ->add('submit_embed_stay', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_embed_stay'])
+                ->add('submit_embed_redirect', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_embed_redirect'])
             ;
         }
     }
