@@ -21,8 +21,11 @@
 }
 
 fieldset.form--fieldset {
-  display: contents;
-}+
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
 
 .surface .form--row + .form--row {
   border-top: var(--border-separator);

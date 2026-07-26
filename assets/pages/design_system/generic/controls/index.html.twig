@@ -9,7 +9,7 @@
     </select>
     {{ button_menu('ph:bold/list', '@page::menu.primary' | trans, menu_items, { menu_align: 'right' }) }}
     {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/switch', { label: '@page::switch.label_right' }) }}
-    {{ button_link('ph:bold/arrow-up-right', '@page::link.external' | trans, 'https://example.com', { attr: { target: '_blank', rel: 'noopener noreferrer' } }) }}
+    {{ button_link('ph:bold/arrow-up-right', '@page::link.external' | trans, constant('Wexample\\Helpers\\Helper\\PlaceholderHelper::DEMO_URL'), { attr: { target: '_blank', rel: 'noopener noreferrer' } }) }}
 {%- endmacro -%}
 
 {%- block page_body -%}

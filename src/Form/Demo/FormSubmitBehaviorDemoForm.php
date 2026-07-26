@@ -22,6 +22,7 @@ use Wexample\SymfonyForms\Form\Type\SubmitInputType;
 use Wexample\SymfonyForms\Form\Type\SwitchInputType;
 use Wexample\SymfonyForms\Form\Type\TextareaInputType;
 use Wexample\SymfonyForms\Form\Type\TextInputType;
+use Wexample\Helpers\Helper\PlaceholderHelper;
 use Wexample\SymfonyLoader\Helper\AdaptiveRequestHelper;
 
 class FormSubmitBehaviorDemoForm extends AbstractForm
@@ -181,7 +182,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_REQUIRED => true,
                     self::FIELD_OPTION_NAME_MAPPED => false,
                     'help' => true,
-                    'data' => 'demo@example.com',
+                    'data' => PlaceholderHelper::DEMO_EMAIL,
                     'attr' => ['placeholder' => true],
                 ]
             )
@@ -204,7 +205,7 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                     self::FIELD_OPTION_NAME_REQUIRED => true,
                     self::FIELD_OPTION_NAME_MAPPED => false,
                     'help' => true,
-                    'data' => 'https://example.com',
+                    'data' => PlaceholderHelper::DEMO_URL,
                     'attr' => ['placeholder' => true],
                 ]
             )
@@ -213,7 +214,6 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
                 ButtonInputType::class,
                 [
                     self::FIELD_OPTION_NAME_LABEL => 'action.button_demo',
-                    self::FIELD_OPTION_NAME_MAPPED => false,
                 ]
             )
         ;

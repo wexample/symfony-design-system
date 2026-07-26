@@ -101,6 +101,7 @@ field:
         label: Option C
 
 action:
+  button_demo: Do nothing
   submit_default: Submit
   submit_error: Show errors
   submit_js: JS action
