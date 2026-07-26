@@ -24,7 +24,7 @@ export default abstract class Field extends Component implements FieldController
   }
 
   private onFormSubmit = (): void => {
-    this.el.classList.add('is-disabled');
+    this.disable();
   };
 
   private onFormLoadingEnd = (): void => {
