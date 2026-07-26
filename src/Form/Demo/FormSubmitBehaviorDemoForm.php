@@ -17,6 +17,7 @@ use Wexample\SymfonyForms\Form\Type\NumberInputType;
 use Wexample\SymfonyForms\Form\Type\TimeInputType;
 use Wexample\SymfonyForms\Form\Type\UrlInputType;
 use Wexample\SymfonyForms\Form\Type\RadioInputType;
+use Wexample\SymfonyForms\Form\Type\ButtonInputType;
 use Wexample\SymfonyForms\Form\Type\SubmitInputType;
 use Wexample\SymfonyForms\Form\Type\SwitchInputType;
 use Wexample\SymfonyForms\Form\Type\TextareaInputType;
@@ -210,16 +211,16 @@ class FormSubmitBehaviorDemoForm extends AbstractForm
         ;
 
         $builder
+            ->add('submit_error', ButtonInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_error'])
+            ->add('submit_js', ButtonInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_js'])
+            ->add('submit_redirect', ButtonInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_redirect'])
             ->add('submit_default', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_default'])
-            ->add('submit_error', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_error'])
-            ->add('submit_js', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_js'])
-            ->add('submit_redirect', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_redirect'])
         ;
 
         if ($isEmbedded) {
             $builder
-                ->add('submit_embed_stay', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_embed_stay'])
-                ->add('submit_embed_redirect', SubmitInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_embed_redirect'])
+                ->add('submit_embed_stay', ButtonInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_embed_stay'])
+                ->add('submit_embed_redirect', ButtonInputType::class, [self::FIELD_OPTION_NAME_LABEL => 'action.submit_embed_redirect'])
             ;
         }
     }
