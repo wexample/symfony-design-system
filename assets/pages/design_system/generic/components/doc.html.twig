@@ -17,7 +17,7 @@
             </div>
             <div class="doc-section--code block block--body">
                 {%- set code -%}
-                    {%- verbatim -%}<div class="doc">
+                    {%- verbatim %}<div class="doc">
   <div class="doc-section">
     <div class="doc-section--description">
       <h3>Title</h3>
@@ -43,7 +43,7 @@
             </div>
             <div class="doc-section--code block block--body">
                 {%- set code -%}
-                    {%- verbatim -%}{{ include('@Bundle/partials/code-block.html.twig', {
+                    {%- verbatim %}{{ include('@Bundle/partials/code-block.html.twig', {
   lang: 'bash',
   code: 'curl https://api.example.com/resource'
 }) }}{%- endverbatim -%}
