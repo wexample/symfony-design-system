@@ -12,22 +12,22 @@ export default abstract class Field extends Component implements FieldController
     await super.activateListeners();
 
     this.formEl = this.el.closest('form');
-    this.formEl?.addEventListener('submit', this.onFormSubmit);
+    // Listen to loading:start (not submit) so inputs are disabled
+    // after the POST is already sent. Disabled fields are excluded from form
+    // data — disabling on submit would empty the POST.
+    this.formEl?.addEventListener('loading:start', this.onFormLoadingStart);
     this.formEl?.addEventListener('loading:end', this.onFormLoadingEnd);
   }
 
   protected async deactivateListeners(): Promise<void> {
     await super.deactivateListeners();
 
-    this.formEl?.removeEventListener('submit', this.onFormSubmit);
+    this.formEl?.removeEventListener('loading:start', this.onFormLoadingStart);
     this.formEl?.removeEventListener('loading:end', this.onFormLoadingEnd);
   }
 
-  private onFormSubmit = (): void => {
-    // Must be deferred so the browser collects native form data
-    // before inputs are disabled. Disabled fields are excluded from form
-    // submission — calling disable() synchronously here empties the POST.
-    Promise.resolve().then(() => this.disable());
+  private onFormLoadingStart = (): void => {
+    this.disable();
   };
 
   private onFormLoadingEnd = (): void => {
