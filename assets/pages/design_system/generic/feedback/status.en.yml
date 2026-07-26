@@ -1,0 +1,14 @@
+page_title: Status
+page_icon: ph:bold/seal-check
+
+section:
+  variants:
+    title: Variants
+  code:
+    title: Usage
+
+status:
+  success: Operation successful
+  error: An error occurred
+  warning: Proceed with caution
+  info: For your information

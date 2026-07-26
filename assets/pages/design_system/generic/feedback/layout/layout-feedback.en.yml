@@ -4,3 +4,4 @@ tab:
   message: Messages
   spinner: Spinner
   errors: Errors
+  status: Status

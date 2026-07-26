@@ -1,0 +1,32 @@
+@use '../semantic/feedback' as feedback;
+
+.status {
+  @include feedback.feedback-base;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: 100px;
+  background: var(--feedback-bg);
+  color: var(--feedback-color);
+  border: 1px solid var(--feedback-border-color);
+  font-weight: 600;
+  font-size: var(--font-size-2);
+  line-height: 1;
+}
+
+.status--success {
+  @include feedback.feedback-success;
+}
+
+.status--error {
+  @include feedback.feedback-error;
+}
+
+.status--warning {
+  @include feedback.feedback-warning;
+}
+
+.status--info {
+  @include feedback.feedback-info;
+}
