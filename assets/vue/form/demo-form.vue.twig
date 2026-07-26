@@ -165,6 +165,8 @@
         <submit-button @click="behavior = 'redirect'" :label="'{{ td ~ '::action.submit_redirect' }}'">
             <template #icon>{{ icon('ph:bold/arrow-bend-up-right') }}</template>
         </submit-button>
-        <submit-button @click="behavior = 'default'" :primary="true" :label="'{{ td ~ '::action.submit_default' }}'"></submit-button>
+        <submit-button @click="behavior = 'default'" :primary="true" :label="'{{ td ~ '::action.submit_default' }}'">
+            <template #icon>{{ icon('ph:bold/paper-plane-tilt') }}</template>
+        </submit-button>
     </div>
 {%- endblock -%}

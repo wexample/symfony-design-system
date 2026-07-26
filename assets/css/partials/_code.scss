@@ -5,11 +5,14 @@ pre.code-block {
   font-size: 0.875rem;
   padding: 1rem 1.25rem;
   overflow-x: auto;
+  white-space: pre;
   background: #1e1e1e;
   color: #d4d4d4;
 
   code {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
     line-height: 1.6;
+    white-space: pre;
+    tab-size: 2;
   }
 }

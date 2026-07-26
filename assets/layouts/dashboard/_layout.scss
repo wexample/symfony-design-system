@@ -3,3 +3,6 @@
 // Base extension.
 @use '../default/layout';
 
+// Code blocks available on all dashboard pages.
+@use '../../css/partials/code';
+
