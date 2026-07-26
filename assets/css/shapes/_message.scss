@@ -1,5 +1,5 @@
 @use '../primitives/feedback' as feedback;
-@use '../semantic/feedback' as feedback_semantic;
+@use '../mixins/feedback' as feedback_semantic;
 
 .message {
   @include feedback.feedback-surface;

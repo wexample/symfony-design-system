@@ -1,4 +1,4 @@
-@use '../semantic/feedback' as feedback;
+@use '../mixins/feedback' as feedback;
 
 .status {
   @include feedback.feedback-base;

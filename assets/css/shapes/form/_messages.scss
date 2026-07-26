@@ -1,5 +1,5 @@
 @use '../../../css/primitives/feedback' as feedback;
-@use '../../../css/semantic/feedback' as feedback_semantic;
+@use '../../../css/mixins/feedback' as feedback_semantic;
 
 .form--help {
   font-size: var(--font-size-2);

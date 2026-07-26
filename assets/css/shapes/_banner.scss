@@ -1,4 +1,4 @@
-@use '../semantic/feedback' as feedback_semantic;
+@use '../mixins/feedback' as feedback_semantic;
 
 .banner {
   @include feedback_semantic.feedback-base;
