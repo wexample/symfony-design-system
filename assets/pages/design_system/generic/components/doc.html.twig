@@ -1,0 +1,55 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/components/layout/layout-components.html.twig' -%}
+
+{%- block page_body -%}
+    <p class="lead">{{ '@page::intro' | trans }}</p>
+
+    <h2>{{ '@page::section.structure.title' | trans }}</h2>
+    <p>{{ '@page::section.structure.body' | trans }}</p>
+
+    <div class="doc">
+        <div class="doc-section">
+            <div class="doc-section--description">
+                <h3>{{ '@page::example.one.title' | trans }}</h3>
+                <p>{{ '@page::example.one.body' | trans }}</p>
+                <div class="block block--body block--placeholder">
+                    {{ '@page::example.demo_placeholder' | trans }}
+                </div>
+            </div>
+            <div class="doc-section--code block block--body">
+                {%- set code -%}
+                    {%- verbatim -%}<div class="doc">
+  <div class="doc-section">
+    <div class="doc-section--description">
+      <h3>Title</h3>
+      <p>Description</p>
+    </div>
+    <div class="doc-section--code">
+      <!-- code snippet -->
+    </div>
+  </div>
+</div>{%- endverbatim -%}
+                {%- endset -%}
+                {{ include('@WexampleSymfonyDesignSystemBundle/partials/code-block.html.twig', {lang: 'html', code: code}) }}
+            </div>
+        </div>
+
+        <div class="doc-section">
+            <div class="doc-section--description">
+                <h3>{{ '@page::example.two.title' | trans }}</h3>
+                <p>{{ '@page::example.two.body' | trans }}</p>
+                <div class="block block--body block--placeholder">
+                    {{ '@page::example.demo_placeholder' | trans }}
+                </div>
+            </div>
+            <div class="doc-section--code block block--body">
+                {%- set code -%}
+                    {%- verbatim -%}{{ include('@Bundle/partials/code-block.html.twig', {
+  lang: 'bash',
+  code: 'curl https://api.example.com/resource'
+}) }}{%- endverbatim -%}
+                {%- endset -%}
+                {{ include('@WexampleSymfonyDesignSystemBundle/partials/code-block.html.twig', {lang: 'twig', code: code}) }}
+            </div>
+        </div>
+    </div>
+{%- endblock -%}

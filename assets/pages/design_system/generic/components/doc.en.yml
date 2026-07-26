@@ -1,0 +1,18 @@
+page_title: Doc layout
+page_icon: ph:bold/book-open
+
+intro: The doc layout is a two-column pattern for documentation pages — description on the left, code on the right — that collapses to a single column on mobile.
+
+section:
+  structure:
+    title: Structure
+    body: Use .doc as the outer wrapper and .doc-section for each row. Each section has a .doc-section--description and a .doc-section--code column.
+
+example:
+  demo_placeholder: Demo content
+  one:
+    title: Basic section
+    body: A typical section pairs a description block with a code snippet.
+  two:
+    title: With a code block
+    body: Use the code-block partial inside .doc-section--code for syntax-highlighted examples.
