@@ -2,12 +2,12 @@
 
 {%- block vue_body -%}
     <button
-            class="button"
+            :class="['button', primary ? 'button--invert' : '', { 'is-loading': isSubmitting, 'is-disabled': isDisabled }]"
             :type="type"
-            :class="{ 'is-loading': isSubmitting, 'is-disabled': isDisabled }"
             :disabled="isDisabled ? true : null"
+            @click="onButtonClick"
     >
-        <span class="button--icon"></span>
+        <span class="button--icon"><slot name="icon"></slot></span>
         <span class="button--spinner" aria-hidden="true">
             {%- include '@WexampleSymfonyDesignSystemBundle/partials/spinner.html.twig' with { align: 'inline' } only -%}
         </span>

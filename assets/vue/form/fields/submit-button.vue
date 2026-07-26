@@ -9,7 +9,21 @@ export default {
     type: {
       type: String,
       default: 'submit'
+    },
+    icon: {
+      type: String,
+      default: ''
+    },
+    primary: {
+      type: Boolean,
+      default: false
     }
+  },
+
+  data() {
+    return {
+      thisIsSubmitting: false,
+    };
   },
 
   computed: {
@@ -18,7 +32,23 @@ export default {
     },
 
     isSubmitting() {
-      return this.formController?.isSubmitting ?? false;
+      return this.thisIsSubmitting;
+    }
+  },
+
+  watch: {
+    'formController.isSubmitting'(val) {
+      if (!val) {
+        this.thisIsSubmitting = false;
+      }
+    }
+  },
+
+  methods: {
+    onButtonClick() {
+      if (this.type === 'submit') {
+        this.thisIsSubmitting = true;
+      }
     }
   }
 };

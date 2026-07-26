@@ -156,9 +156,15 @@
     <submit-button :type="'button'" :label="'{{ td ~ '::action.button_demo' }}'"></submit-button>
 
     <div class="form--actions">
-        <submit-button @click="behavior = 'error'" :label="'{{ td ~ '::action.submit_error' }}'"></submit-button>
-        <submit-button @click="behavior = 'js'" :label="'{{ td ~ '::action.submit_js' }}'"></submit-button>
-        <submit-button @click="behavior = 'redirect'" :label="'{{ td ~ '::action.submit_redirect' }}'"></submit-button>
-        <submit-button @click="behavior = 'default'" :label="'{{ td ~ '::action.submit_default' }}'"></submit-button>
+        <submit-button @click="behavior = 'error'" :label="'{{ td ~ '::action.submit_error' }}'">
+            <template #icon>{{ icon('ph:bold/warning') }}</template>
+        </submit-button>
+        <submit-button @click="behavior = 'js'" :label="'{{ td ~ '::action.submit_js' }}'">
+            <template #icon>{{ icon('ph:bold/code') }}</template>
+        </submit-button>
+        <submit-button @click="behavior = 'redirect'" :label="'{{ td ~ '::action.submit_redirect' }}'">
+            <template #icon>{{ icon('ph:bold/arrow-bend-up-right') }}</template>
+        </submit-button>
+        <submit-button @click="behavior = 'default'" :primary="true" :label="'{{ td ~ '::action.submit_default' }}'"></submit-button>
     </div>
 {%- endblock -%}
