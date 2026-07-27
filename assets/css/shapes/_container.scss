@@ -18,6 +18,15 @@
   margin-right: 0;
 }
 
+.container--border-right {
+  flex: 1;
+  border-right: var(--border-discreet);
+}
+
+.container--border-left {
+  border-left: var(--border-discreet);
+}
+
 .container--large {
   --content-size: var(--content-size-l);
   --container-padding: var(--space-6);

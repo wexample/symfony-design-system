@@ -22,6 +22,11 @@
   @extend .gutters--body;
 }
 
+.layout--body {
+  display: flex;
+  flex-direction: column;
+}
+
 .layout--body--scrollable {
   overflow: auto;
 }
