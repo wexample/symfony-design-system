@@ -1,0 +1,11 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <data-table
+            :rows="entities"
+            :columns="columns"
+            :app="app"
+            :show-header="showHeader"
+            :loading="isLoading"
+    ></data-table>
+{%- endblock -%}

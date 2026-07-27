@@ -10,6 +10,8 @@ section:
     title: Table with actions
   alignment:
     title: Column alignment
+  vue:
+    title: Vue entity table
 
 column:
   default:
