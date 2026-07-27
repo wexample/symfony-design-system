@@ -71,4 +71,34 @@
                 </tbody>
             </table>
         </section>
+
+        <section>
+            <h2>{{ '@page::section.alignment.title' | trans }}</h2>
+            <table class="table">
+                <thead>
+                <tr class="table--row">
+                    <th class="table--cell" scope="col">{{ '@page::column.alignment.left' | trans }}</th>
+                    <th class="table--cell table--cell--center" scope="col">{{ '@page::column.alignment.center' | trans }}</th>
+                    <th class="table--cell table--cell--right" scope="col">{{ '@page::column.alignment.right' | trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table--row">
+                    <td class="table--cell">Alpha</td>
+                    <td class="table--cell table--cell--center">Centered</td>
+                    <td class="table--cell table--cell--right">42.00 €</td>
+                </tr>
+                <tr class="table--row">
+                    <td class="table--cell">Beta</td>
+                    <td class="table--cell table--cell--center">Centered</td>
+                    <td class="table--cell table--cell--right">128.50 €</td>
+                </tr>
+                <tr class="table--row">
+                    <td class="table--cell">Gamma</td>
+                    <td class="table--cell table--cell--center">Centered</td>
+                    <td class="table--cell table--cell--right">7.99 €</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
 {%- endblock -%}

@@ -8,6 +8,8 @@ section:
     title: Simple table
   actions:
     title: Table with actions
+  alignment:
+    title: Column alignment
 
 column:
   default:
@@ -17,6 +19,10 @@ column:
     name: Source
     date: Updated at
     operations: Actions
+  alignment:
+    left: Name (left)
+    center: Status (center)
+    right: Amount (right)
 
 row:
   one:
