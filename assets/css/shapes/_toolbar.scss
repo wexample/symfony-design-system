@@ -1,4 +1,5 @@
 @use '../../css/mixins/flex' as flex;
+@use '../mixins/surface-layer' as surface;
 
 .toolbar {
   --toolbar-padding: var(--space-3);
@@ -12,7 +13,8 @@
 }
 
 .toolbar--shaded {
-  background: var(--surface-shell);
+  @include surface.surface-layer;
+  background: var(--surface-3);
 }
 
 .toolbar--group {
@@ -34,8 +36,3 @@
   }
 }
 
-.toolbar--title {
-  font-size: var(--font-size-5);
-  font-weight: 600;
-  margin: 0;
-}
