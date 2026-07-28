@@ -13,9 +13,9 @@ export default {
 
     async refreshEntitiesCollection() {
       this.entities = [
-        { name: 'Alpha', status: 'Active',   amount: '42.00 €',  created: '2026-01-10' },
-        { name: 'Beta',  status: 'Pending',  amount: '128.50 €', created: '2026-02-18' },
-        { name: 'Gamma', status: 'Inactive', amount: '7.99 €',   created: '2026-03-25' },
+        { name: 'Alpha', status: 'Active',   amount: '42.00 €',  created: '2026-01-10T08:30:00' },
+        { name: 'Beta',  status: 'Pending',  amount: '128.50 €', created: '2026-02-18T14:15:00' },
+        { name: 'Gamma', status: 'Inactive', amount: '7.99 €',   created: '2026-03-25T09:45:00' },
       ];
     },
 
@@ -24,7 +24,7 @@ export default {
         { key: 'name',    label: 'Name' },
         { key: 'status',  label: 'Status', align: 'center' },
         { key: 'amount',  label: 'Amount', align: 'right' },
-        { key: 'created', label: 'Created', secondary: true },
+        { key: 'created', label: 'Created', secondary: true, format: (v) => this.cellFormatterDateOnly(v) },
       ];
     },
   },

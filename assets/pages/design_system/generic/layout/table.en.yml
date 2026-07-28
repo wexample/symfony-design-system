@@ -12,6 +12,8 @@ section:
     title: Column alignment
   vue:
     title: Vue entity table
+  vue_dates:
+    title: Vue date formatters
 
 column:
   default:

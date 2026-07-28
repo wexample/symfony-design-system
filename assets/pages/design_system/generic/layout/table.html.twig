@@ -106,4 +106,9 @@
             <h2>{{ '@page::section.vue.title' | trans }}</h2>
             {{ vue_include(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/collection/table/demo-entity-table') }}
         </section>
+
+        <section>
+            <h2>{{ '@page::section.vue_dates.title' | trans }}</h2>
+            {{ vue_include(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/collection/table/demo-dates-table') }}
+        </section>
 {%- endblock -%}
