@@ -1,0 +1,44 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/layout/layout/layout-generic.html.twig' -%}
+
+{%- block page_title_actions -%}
+    {{ button('ph:bold/pencil-simple', '@page::button.edit' | trans) }}
+    {{ button('ph:bold/trash', '@page::button.delete' | trans) }}
+{%- endblock -%}
+
+{%- block page_body -%}
+        <section>
+            <h2>{{ '@page::section.default.title' | trans }}</h2>
+            <div class="toolbar">
+                <div class="toolbar--group">
+                    {{ button('ph:bold/plus', '@page::button.create' | trans) }}
+                    {{ button('ph:bold/arrows-clockwise', '@page::button.refresh' | trans) }}
+                </div>
+                <div class="toolbar--group align-right">
+                    {{ button('ph:bold/export', '@page::button.export' | trans) }}
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>{{ '@page::section.title.title' | trans }}</h2>
+            <div class="toolbar">
+                <h1 class="toolbar--title">{{ '@page::title.example' | trans }}</h1>
+                <div class="toolbar--group">
+                    {{ button('ph:bold/pencil-simple', '@page::button.edit' | trans) }}
+                    {{ button('ph:bold/trash', '@page::button.delete' | trans) }}
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>{{ '@page::section.title_multi.title' | trans }}</h2>
+            <div class="toolbar">
+                <h2 class="toolbar--title">{{ '@page::title.section' | trans }}</h2>
+                <div class="toolbar--group">
+                    {{ button('ph:bold/plus', '@page::button.create' | trans) }}
+                    {{ button('ph:bold/export', '@page::button.export' | trans) }}
+                    {{ button('ph:bold/arrows-clockwise', '@page::button.refresh' | trans) }}
+                </div>
+            </div>
+        </section>
+{%- endblock -%}

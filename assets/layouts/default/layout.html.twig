@@ -8,7 +8,16 @@
 {%- block page_body_container -%}
     <div class="{{ page_body_container_class|default('container container--left container--border-right stack--vertical') }}">
         {%- if page_show_title|default(false) -%}
-            <h1 class="page--title">{{ '@page::page_title' | trans }}</h1>
+            {%- set pageTitleActions %}{% block page_title_actions %}{% endblock %}{%- endset -%}
+            {%- set pageTitleActions = pageTitleActions|trim -%}
+            {%- if pageTitleActions is not empty -%}
+                <div class="toolbar">
+                    <h1 class="toolbar--title">{{ '@page::page_title' | trans }}</h1>
+                    <div class="toolbar--group">{{- pageTitleActions|raw -}}</div>
+                </div>
+            {%- else -%}
+                <h1 class="page--title">{{ '@page::page_title' | trans }}</h1>
+            {%- endif -%}
         {%- endif -%}
         {{- block('page_body') -}}
     </div>
