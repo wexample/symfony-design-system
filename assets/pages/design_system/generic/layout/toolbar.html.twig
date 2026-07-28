@@ -1,8 +1,9 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/pages/design_system/generic/layout/layout/layout-generic.html.twig' -%}
 
 {%- block page_title_actions -%}
+    <a href="#" class="toolbar--link" title="{{ '@page::button.history' | trans }}">{{ icon('ph:bold/clock-clockwise') }}</a>
+    <a href="#" class="toolbar--link" title="{{ '@page::button.share' | trans }}">{{ icon('ph:bold/share-network') }}</a>
     {{ button('ph:bold/pencil-simple', '@page::button.edit' | trans) }}
-    {{ button('ph:bold/trash', '@page::button.delete' | trans) }}
 {%- endblock -%}
 
 {%- block page_body -%}
@@ -24,6 +25,8 @@
             <div class="toolbar">
                 <h1 class="toolbar--title">{{ '@page::title.example' | trans }}</h1>
                 <div class="toolbar--group">
+                    <a href="#" class="toolbar--link" title="{{ '@page::button.history' | trans }}">{{ icon('ph:bold/clock-clockwise') }}</a>
+                    <a href="#" class="toolbar--link" title="{{ '@page::button.share' | trans }}">{{ icon('ph:bold/share-network') }}</a>
                     {{ button('ph:bold/pencil-simple', '@page::button.edit' | trans) }}
                     {{ button('ph:bold/trash', '@page::button.delete' | trans) }}
                 </div>

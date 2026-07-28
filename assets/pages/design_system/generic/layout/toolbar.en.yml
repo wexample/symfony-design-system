@@ -21,3 +21,5 @@ button:
   export: Export
   edit: Edit
   delete: Delete
+  history: History
+  share: Share
