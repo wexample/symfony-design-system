@@ -13,16 +13,17 @@ export default {
 
     async refreshEntitiesCollection() {
       this.entities = [
-        { name: 'Alpha', status: 'Active', created: '2026-01-10' },
-        { name: 'Beta', status: 'Pending', created: '2026-02-18' },
-        { name: 'Gamma', status: 'Inactive', created: '2026-03-25' },
+        { name: 'Alpha', status: 'Active',   amount: '42.00 €',  created: '2026-01-10' },
+        { name: 'Beta',  status: 'Pending',  amount: '128.50 €', created: '2026-02-18' },
+        { name: 'Gamma', status: 'Inactive', amount: '7.99 €',   created: '2026-03-25' },
       ];
     },
 
     getColumnsConfiguration() {
       return [
         { key: 'name',    label: 'Name' },
-        { key: 'status',  label: 'Status' },
+        { key: 'status',  label: 'Status', align: 'center' },
+        { key: 'amount',  label: 'Amount', align: 'right' },
         { key: 'created', label: 'Created' },
       ];
     },

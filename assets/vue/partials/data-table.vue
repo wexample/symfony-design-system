@@ -225,6 +225,13 @@ export default {
 
     isHtmlCell(column) {
       return column?.html === true || column?.cell === 'html';
+    },
+
+    getColumnClass(column) {
+      const classes = [];
+      if (column?.className) classes.push(column.className);
+      if (column?.align) classes.push(`table--cell--${column.align}`);
+      return classes.length ? classes.join(' ') : undefined;
     }
   }
 };
