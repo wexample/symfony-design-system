@@ -24,7 +24,7 @@ export default {
         { key: 'name',    label: 'Name' },
         { key: 'status',  label: 'Status', align: 'center' },
         { key: 'amount',  label: 'Amount', align: 'right' },
-        { key: 'created', label: 'Created' },
+        { key: 'created', label: 'Created', secondary: true },
       ];
     },
   },
