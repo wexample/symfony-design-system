@@ -9,6 +9,9 @@
   justify-content: space-between;
   gap: var(--space-3);
   font-size: var(--toolbar-font-size);
+}
+
+.toolbar--shaded {
   background: var(--surface-shell);
 }
 
@@ -22,6 +25,13 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
+  padding: var(--space-2);
+  border-radius: var(--radius-1);
+  transition: background 0.15s;
+
+  &:hover {
+    background: color-mix(in srgb, currentColor 8%, transparent);
+  }
 }
 
 .toolbar--title {
