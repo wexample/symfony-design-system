@@ -65,9 +65,18 @@ export default {
       return value ?? '';
     },
 
+    getEntityName() {
+      return this.getEntityClass?.()?.entityName ?? null;
+    },
+
     getColumnLabel(columnKey) {
       if (columnKey === false) {
         return '';
+      }
+
+      const entityName = this.getEntityName();
+      if (entityName) {
+        return this.trans(`front.entity.${entityName}::field.${columnKey}`);
       }
 
       return this.trans(`@vue::table.column.${columnKey}.title`);

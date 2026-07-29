@@ -4,6 +4,14 @@
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/data-table') -}}
 {%- endblock -%}
 
+{%- block vue_config -%}
+    {%- set entityName %}{% block vue_entity_name %}{% endblock %}{%- endset -%}
+    {%- set entityName = entityName|trim -%}
+    {%- if entityName is not empty -%}
+        {{- trans_js(render_pass, 'front.entity.' ~ entityName ~ '::field.*') -}}
+    {%- endif -%}
+{%- endblock -%}
+
 {%- block vue_body -%}
     <data-table
             :rows="entities"
