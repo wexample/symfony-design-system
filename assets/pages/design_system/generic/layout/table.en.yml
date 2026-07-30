@@ -12,6 +12,9 @@ section:
     title: Column alignment
   vue:
     title: Vue entity table
+  vue_compact:
+    title: Pagination without a total
+    description: When the API does not return a total, the pager falls back to previous/next.
   vue_dates:
     title: Vue date formatters
 

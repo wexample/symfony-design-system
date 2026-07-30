@@ -2,6 +2,7 @@
 
 {%- block vue_require -%}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/data-table') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/pagination') -}}
 {%- endblock -%}
 
 {%- block vue_config -%}
@@ -11,11 +12,23 @@
 {%- endblock -%}
 
 {%- block vue_body -%}
-    <data-table
-            :rows="entities"
-            :columns="columns"
-            :app="app"
-            :show-header="showHeader"
-            :loading="isLoading"
-    ></data-table>
+    <div class="entity-table">
+        <data-table
+                :rows="entities"
+                :columns="columns"
+                :app="app"
+                :show-header="showHeader"
+                :loading="isLoading"
+        ></data-table>
+
+        <pagination
+                v-if="pagination"
+                :page="pagination.page"
+                :pages-count="pagination.pagesCount"
+                :has-more="pagination.hasMore"
+                :compact="compactPagination"
+                :disabled="isLoading"
+                @change="goToPage"
+        ></pagination>
+    </div>
 {%- endblock -%}

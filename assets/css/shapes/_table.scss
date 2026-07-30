@@ -1,5 +1,6 @@
 @use '../../css/mixins/flex' as flex;
 @use '../utilities/text-align';
+@use 'pagination';
 @use 'spinner';
 
 .table {

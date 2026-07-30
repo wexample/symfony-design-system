@@ -1,6 +1,14 @@
 <script>
 import AbstractEntityTable from './abstract-entity-table.vue';
 
+const STATUSES = ['Active', 'Pending', 'Inactive'];
+const DEMO_ROWS = Array.from({ length: 37 }, (value, index) => ({
+  name: `Item ${String(index + 1).padStart(2, '0')}`,
+  status: STATUSES[index % STATUSES.length],
+  amount: `${(index + 1) * 7.5} €`,
+  created: `2026-${String((index % 12) + 1).padStart(2, '0')}-15T09:45:00`,
+}));
+
 export default {
   extends: AbstractEntityTable,
 
@@ -11,12 +19,20 @@ export default {
       return null;
     },
 
+    // Stands in for the API: slices a fixed dataset and reports the same
+    // pagination meta a paginated endpoint would return.
     async refreshEntitiesCollection() {
-      this.entities = [
-        { name: 'Alpha', status: 'Active',   amount: '42.00 €',  created: '2026-01-10T08:30:00' },
-        { name: 'Beta',  status: 'Pending',  amount: '128.50 €', created: '2026-02-18T14:15:00' },
-        { name: 'Gamma', status: 'Inactive', amount: '7.99 €',   created: '2026-03-25T09:45:00' },
-      ];
+      const length = this.getPageLength();
+      const offset = this.page * length;
+
+      this.entities = DEMO_ROWS.slice(offset, offset + length);
+      this.pagination = {
+        page: this.page,
+        length,
+        total: DEMO_ROWS.length,
+        pagesCount: Math.ceil(DEMO_ROWS.length / length),
+        hasMore: offset + length < DEMO_ROWS.length,
+      };
     },
 
     getColumnsConfiguration() {

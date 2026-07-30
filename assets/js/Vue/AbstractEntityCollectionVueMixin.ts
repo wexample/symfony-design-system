@@ -9,6 +9,8 @@ const AbstractEntityCollectionVueMixin = {
       entities: [],
       collectionRefreshHandlers: [],
       isLoading: false,
+      page: 0,
+      pagination: null,
     };
   },
 
@@ -26,16 +28,58 @@ const AbstractEntityCollectionVueMixin = {
       return undefined;
     },
 
+    // Null disables pagination: the collection is fetched in a single request.
+    getPageLength() {
+      return null;
+    },
+
     async refreshEntitiesCollection() {
       this.isLoading = true;
       try {
-        const fetchParams = this.getEntitiesFetchParams();
-        this.entities = fetchParams
-          ? await this.getEntityRepository().fetchList(fetchParams)
-          : await this.getEntityRepository().fetchList();
+        const length = this.getPageLength();
+        const fetchParams = {
+          ...(this.getEntitiesFetchParams() ?? {}),
+          ...(length ? { page: this.page, length } : {}),
+        };
+
+        const result = await this.getEntityRepository().fetchListPaginated(fetchParams);
+
+        this.entities = result.items;
+        this.pagination = result.pagination;
       } finally {
         this.isLoading = false;
       }
+
+      await this.clampPageToAvailableResults();
+    },
+
+    // Deleting the last rows of a page can leave us past the end: fall back to
+    // the last page that still holds results.
+    async clampPageToAvailableResults() {
+      if (this.entities.length || this.page === 0) {
+        return;
+      }
+
+      const target = Math.max(0, (this.pagination?.pagesCount ?? 1) - 1);
+
+      if (target >= this.page) {
+        return;
+      }
+
+      this.page = target;
+      await this.refreshEntitiesCollection();
+    },
+
+    async goToPage(page) {
+      const target = Math.max(0, Number(page) || 0);
+
+      if (target === this.page) {
+        return;
+      }
+
+      this.page = target;
+
+      await this.refreshEntitiesCollection();
     },
 
     getCollectionRefreshEvents() {

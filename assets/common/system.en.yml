@@ -1,3 +1,9 @@
 frontend:
   loading: Loading...
   no_data: No data
+  pagination:
+    label: Pagination
+    previous: Previous
+    next: Next
+    page: Page
+    ellipsis: "…"

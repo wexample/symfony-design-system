@@ -1,5 +1,6 @@
 <script>
 import DataTable from "../../partials/data-table.vue";
+import Pagination from "../../partials/pagination.vue";
 import AbstractEntityCollectionVueMixin from "../../../js/Vue/AbstractEntityCollectionVueMixin";
 import DateService from "@wexample/symfony-loader/js/Services/DateService";
 
@@ -8,13 +9,17 @@ export default {
 
   mixins: [AbstractEntityCollectionVueMixin],
   components: {
-    DataTable
+    DataTable,
+    Pagination
   },
 
   data() {
     return {
       columns: [],
-      showHeader: true
+      showHeader: true,
+      // Set to null to fetch the whole collection in a single request.
+      pageLength: 10,
+      compactPagination: false
     };
   },
 
@@ -23,6 +28,10 @@ export default {
   },
 
   methods: {
+    getPageLength() {
+      return this.pageLength;
+    },
+
     cellFormatterDateTime(value) {
       return this.app.getService(DateService).formatDateTime(value);
     },
