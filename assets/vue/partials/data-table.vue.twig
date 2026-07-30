@@ -10,7 +10,7 @@
 {%- endblock -%}
 
 {%- block vue_body -%}
-    <table class="table">
+    <table class="table" :class="{ 'table--refreshing': loading && hasRows() }">
         <thead v-if="showHeader && columns.length">
         <tr class="table--row">
             <slot name="header" :columns="columns">
@@ -27,8 +27,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-if="loading" class="table--row table--row--loading">
-            <td class="table--cell table--cell--loading" :colspan="getLoadingColspan()">
+        {# Out of flow, so it adds no height and stays anchored to the rows area. #}
+        <tr v-if="loading && hasRows()" class="table--row--overlay">
+            <td class="table--overlay">
+                <spinner size="sm" :label="resolvedLoadingLabel"></spinner>
+            </td>
+        </tr>
+        <tr v-if="loading && !hasRows()" class="table--row table--row--loading">
+            <td class="table--cell table--cell--loading" :colspan="getEmptyColspan()">
                 <spinner size="sm" :label="resolvedLoadingLabel"></spinner>
             </td>
         </tr>

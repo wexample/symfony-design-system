@@ -50,11 +50,8 @@ export default {
   },
 
   methods: {
-    getLoadingColspan() {
-      return this.columns && this.columns.length ? this.columns.length : 1;
-    },
     getEmptyColspan() {
-      return this.getLoadingColspan();
+      return this.columns && this.columns.length ? this.columns.length : 1;
     },
     hasRows() {
       return Array.isArray(this.rows) && this.rows.length > 0;
