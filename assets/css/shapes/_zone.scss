@@ -30,6 +30,22 @@
   }
 }
 
+// Without a floor, the flexible zones shrink to nothing instead of wrapping.
+// Below that floor the body claims a full line and the narrow column moves above it.
+.zone--split.zone--split--wrap {
+  flex-wrap: wrap;
+
+  > .zone {
+    flex-basis: var(--zone-body-min, 20rem);
+    min-width: min(100%, var(--zone-body-min, 20rem));
+  }
+
+  > .zone--narrow {
+    flex-basis: auto;
+    min-width: 0;
+  }
+}
+
 .zone--split.zone--split--equal {
   display: grid;
   grid-auto-columns: minmax(0, 1fr);
@@ -56,6 +72,7 @@
 
 .zone--narrow {
   width: var(--zone-width, fit-content);
+  max-width: 100%;
 }
 
 @for $i from 1 through 9 {
