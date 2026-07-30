@@ -42,10 +42,10 @@
                                 <div class="header--body">
                                     {% block header_body %}
                                         {%- if not (page_show_title|default(false)) -%}
-                                            <h1 class="visually-hidden">{{ '@page::page_title' | trans }}</h1>
+                                            <h1 class="visually-hidden">{{ page_title | default('@page::page_title' | trans) }}</h1>
                                         {%- endif -%}
                                         <div class="header--title">
-                                            {{ '@page::page_title' | trans }}
+                                            {{ page_title | default('@page::page_title' | trans) }}
                                         </div>
                                     {% endblock %}
                                 </div>
