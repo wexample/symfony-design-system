@@ -144,6 +144,29 @@
                 </div>
             </div>
 
+            <h3>{{ '@page::section.aside.title' | trans }}</h3>
+            <div class="lead">{{ '@page::section.aside.description' | trans }}</div>
+            <div class="zone zone--split zone--gap">
+                <div class="zone zone--narrow zone--size-5">
+                    <div class="block block--square">
+                        <div class="block--figure">
+                            <span class="block--figure-value">128</span>
+                            <span class="block--figure-label">{{ '@page::figure.projections' | trans }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="zone stack--vertical">
+                    <div class="block block--padded">
+                        <h3>{{ '@page::block.one.title' | trans }}</h3>
+                        <p>{{ '@page::block.one.description' | trans }}</p>
+                    </div>
+                    <div class="block block--padded">
+                        <h3>{{ '@page::block.two.title' | trans }}</h3>
+                        <p>{{ '@page::block.two.description' | trans }}</p>
+                    </div>
+                </div>
+            </div>
+
             <h2>{{ '@page::section.card.title' | trans }}</h2>
             <div class="stack--horizontal">
                 <div class="block block--card block--padded">

@@ -19,8 +19,10 @@
     width: auto;
   }
 
+  // Repeated here to outweigh the width reset of the sibling rule above.
   > .zone--narrow {
     flex: 0 0 auto;
+    width: var(--zone-width, fit-content);
   }
 
   > .zone--bordered:not(:first-child) {
@@ -38,6 +40,10 @@
   padding: var(--space-4);
 }
 
+.zone--gap {
+  gap: var(--space-4);
+}
+
 .zone--scrollable {
   overflow-y: auto;
   min-height: 0;
@@ -49,7 +55,13 @@
 }
 
 .zone--narrow {
-  width: fit-content;
+  width: var(--zone-width, fit-content);
+}
+
+@for $i from 1 through 9 {
+  .zone--size-#{$i} {
+    --zone-width: var(--size-#{$i});
+  }
 }
 
 .zone--alt {

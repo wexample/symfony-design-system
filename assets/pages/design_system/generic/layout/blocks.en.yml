@@ -8,6 +8,9 @@ section:
     title: Basic blocks
   advanced:
     title: Advanced blocks
+  aside:
+    title: Fixed aside column
+    description: A narrow column sized on the --size scale, next to a body that absorbs the remaining width.
   card:
     title: Cards
   figure:

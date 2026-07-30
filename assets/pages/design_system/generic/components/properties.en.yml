@@ -1,0 +1,65 @@
+~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
+
+page_title: Properties
+page_icon: ph:bold/list-dashes
+
+intro: "Key / value pairs rendered as a definition list. Rows are subgrids of the list, so keys stay aligned in a single column while each row remains a real box that can carry a separator."
+
+section:
+  default:
+    title: Default
+    description: The key column sizes itself on the longest label. Override --properties-key-width to pin it.
+  bordered:
+    title: Bordered
+    description: A separator between rows, for dense records inside a block body.
+    block_title: Connection details
+  split:
+    title: Split
+    description: Values pushed to the right edge — totals, balances, anything read as a column of figures.
+  compact:
+    title: Compact
+    description: Tighter rows when the list is secondary to the rest of the block.
+  stacked:
+    title: Stacked
+    description: Key above value, for narrow columns where two columns would wrap badly.
+    aside: The body keeps the remaining width while the aside column stays fixed.
+
+field:
+  name:
+    key: Name
+    value: Pipeline projection
+  identifier:
+    key: Identifier
+    value: prj_8f21c4a7
+  description:
+    key: Description
+    value: Aggregates incoming events and exposes them as a queryable projection.
+  status:
+    key: Status
+    value: Ready
+  owner:
+    key: Owner
+    value: Platform team
+  created:
+    key: Created
+    value: March 14, 2026
+  region:
+    key: Region
+    value: eu-west-1
+  runtime:
+    key: Runtime
+    value: PHP 8.3
+  version:
+    key: Version
+    value: 1.4.2
+
+amount:
+  subtotal:
+    key: Subtotal
+    value: 1,240.00 €
+  tax:
+    key: Tax
+    value: 248.00 €
+  total:
+    key: Total
+    value: 1,488.00 €

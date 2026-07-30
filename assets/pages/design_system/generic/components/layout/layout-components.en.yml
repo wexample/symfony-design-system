@@ -1,5 +1,6 @@
 tab:
   index: Overview
   lists: Lists
+  properties: Properties
   chat: Chat
   doc: Doc layout
