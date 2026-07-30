@@ -12,13 +12,16 @@
   font-size: var(--toolbar-font-size);
 }
 
+// A toolbar holding a heading acts as that heading's own line: no padding, and a
+// neutral font-size context so the heading keeps its natural em-based size.
+.toolbar:has(> :is(h1, h2, h3, h4, h5, h6)) {
+  --toolbar-padding: 0;
+  --toolbar-font-size: 1rem;
+}
+
 .toolbar--shaded {
   @include surface.surface-layer;
   background: var(--surface-3);
-}
-
-.toolbar--title {
-  font-size: var(--font-size-7);
 }
 
 .toolbar--group {
