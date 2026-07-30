@@ -3,12 +3,11 @@
 {{ component.setOptionValue('toastTemplateName', toast_template_name) }}
 {{ component.setOptionValue('stackId', toast_stack_id) }}
 {% set pending_notifications = [] %}
-{% for type, messages in app.flashes(['success', 'error', 'warning', 'info']) %}
-    {% for message in messages %}
-        {% set pending_notifications = pending_notifications|merge([{
-            type: type,
-            message: message|trans
-        }]) %}
+{% for notifications in app.flashes(['success', 'error', 'warning', 'info']) %}
+    {% for notification in notifications %}
+        {% set pending_notifications = pending_notifications|merge([
+            notification|merge({message: notification.message|trans})
+        ]) %}
     {% endfor %}
 {% endfor %}
 {{ component.setOptionValue('pendingNotifications', pending_notifications) }}
