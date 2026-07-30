@@ -17,6 +17,10 @@
   background: var(--surface-3);
 }
 
+.toolbar--title {
+  font-size: var(--font-size-7);
+}
+
 .toolbar--group {
   display: flex;
   align-items: center;
