@@ -3,7 +3,11 @@
 <nav class="breadcrumb{{ options.class is defined ? ' ' ~ options.class : '' }}">
     {% for item in items %}
         {% set is_current = item.current|default(false) or loop.last %}
-        {% set label = item.label ? item.label : (translation_build_domain_from_template_path(page_translation_path_from_route(item.route)) ~ '::page_title') | trans %}
+        {% set label = item.label ? item.label : (
+            is_current and options.current_label|default(null)
+                ? options.current_label
+                : (translation_build_domain_from_template_path(page_translation_path_from_route(item.route)) ~ '::page_title') | trans
+        ) %}
 
         {% if not is_current and item.route is defined %}
             <a class="breadcrumb--item" href="{{ path(item.route, item.params|default({})) }}">
