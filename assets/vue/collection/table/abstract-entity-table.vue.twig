@@ -8,7 +8,7 @@
     {%- set entityName %}{% block vue_entity_name %}{% endblock %}{%- endset -%}
     {%- set entityName = entityName|trim -%}
     {%- if entityName is not empty -%}
-        {{- trans_js(render_pass, 'front.entity.' ~ entityName ~ '::field.*') -}}
+        {{- trans_js(render_pass, '@entity.' ~ entityName ~ '::field.*') -}}
     {%- endif -%}
 {%- endblock -%}
 

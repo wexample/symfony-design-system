@@ -76,7 +76,7 @@ export default {
 
       const entityName = this.getEntityName();
       if (entityName) {
-        return this.trans(`front.entity.${entityName}::field.${columnKey}`);
+        return this.trans(`@entity.${entityName}::field.${columnKey}`);
       }
 
       return this.trans(`@vue::table.column.${columnKey}.title`);
