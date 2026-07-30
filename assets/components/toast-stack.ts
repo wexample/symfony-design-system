@@ -1,4 +1,10 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
+import ToastService from '@wexample/symfony-loader/js/Services/ToastService';
+
+type PendingNotification = {
+  type: 'success' | 'error' | 'warning' | 'info';
+  message: string;
+};
 
 export default class extends Component {
   private itemsEl?: HTMLElement;
@@ -20,6 +26,20 @@ export default class extends Component {
     document.addEventListener('toast:show', this.onToastShowProxy);
     document.addEventListener('toast:dismiss', this.onToastDismissProxy);
     document.addEventListener('toast:clear', this.onToastClearProxy);
+
+    this.showPendingNotifications();
+  }
+
+  private showPendingNotifications(): void {
+    const pending = this.options?.pendingNotifications as PendingNotification[];
+
+    if (!pending?.length) {
+      return;
+    }
+
+    const toastService = this.app.getServiceOrFail(ToastService) as ToastService;
+
+    pending.forEach((notification) => toastService.show(notification));
   }
 
   protected async deactivateListeners(): Promise<void> {

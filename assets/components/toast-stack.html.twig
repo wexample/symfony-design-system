@@ -2,6 +2,16 @@
 {% set toast_stack_id = toast_stack_id|default('default') %}
 {{ component.setOptionValue('toastTemplateName', toast_template_name) }}
 {{ component.setOptionValue('stackId', toast_stack_id) }}
+{% set pending_notifications = [] %}
+{% for type, messages in app.flashes(['success', 'error', 'warning', 'info']) %}
+    {% for message in messages %}
+        {% set pending_notifications = pending_notifications|merge([{
+            type: type,
+            message: message|trans
+        }]) %}
+    {% endfor %}
+{% endfor %}
+{{ component.setOptionValue('pendingNotifications', pending_notifications) }}
 <div class="toast-stack">
     <div class="toast-stack--items"></div>
 </div>
