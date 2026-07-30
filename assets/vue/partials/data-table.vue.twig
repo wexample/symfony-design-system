@@ -71,6 +71,7 @@
                                             :href="action.href"
                                             class="table--icon-link"
                                             v-html="action.icon"
+                                            @click="onActionClick(action, $event)"
                                     ></a>
                                     <span
                                             v-else

@@ -25,6 +25,20 @@ export default {
         { key: 'status',  label: 'Status', align: 'center' },
         { key: 'amount',  label: 'Amount', align: 'right' },
         { key: 'created', label: 'Created', secondary: true, format: (v) => this.cellFormatterDateOnly(v) },
+        {
+          label: false,
+          align: 'center',
+          embed: 'modal',
+          embedOptions: { closeOnEscape: true, closeOnOverlayClick: true },
+          actions: [
+            { name: 'show', route: 'wexample_design_system_generic_dialog_modal_test_simple' },
+            {
+              name: 'edit',
+              route: 'wexample_design_system_generic_dialog_modal_test_medium',
+              embed: 'panel',
+            },
+          ],
+        },
       ];
     },
   },

@@ -30,6 +30,13 @@
   text-align: center;
 }
 
+// An actions cell shrinks to its icons instead of claiming an equal share of the
+// table width. Alignment is left to the column's own align option.
+.table--cell:has(> .table--actions) {
+  width: 1%;
+  white-space: nowrap;
+}
+
 .table--cell--center {
   text-align: center;
 }
