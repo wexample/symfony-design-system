@@ -4,7 +4,6 @@ namespace Wexample\SymfonyDesignSystem\Service\FormProcessor\Demo;
 
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Wexample\SymfonyDesignSystem\Form\Demo\FormSubmitBehaviorDemoForm;
 use Wexample\SymfonyForms\Service\FormProcessor\AbstractFormProcessor;
 use Wexample\SymfonyHelpers\Helper\RoleHelper;
@@ -77,15 +76,5 @@ class FormSubmitBehaviorDemoFormProcessor extends AbstractFormProcessor
 
                 break;
         }
-    }
-
-    public function handleSubmissionResponseFromForm(FormInterface $form): ?Response
-    {
-        $action = $this->getSuccessAction();
-        if (is_array($action) && ($action['type'] ?? null) === self::ACTION_EMBED_STAY) {
-            return null;
-        }
-
-        return parent::handleSubmissionResponseFromForm($form);
     }
 }
