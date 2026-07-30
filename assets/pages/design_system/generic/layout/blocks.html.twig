@@ -160,6 +160,49 @@
                 </div>
             </div>
 
+            <h2>{{ '@page::section.figure.title' | trans }}</h2>
+            <div class="lead">{{ '@page::section.figure.description' | trans }}</div>
+            <div class="stack--horizontal">
+                <div class="block block--square">
+                    <div class="block--figure">
+                        <span class="block--figure-value">128</span>
+                        <span class="block--figure-label">{{ '@page::figure.projections' | trans }}</span>
+                    </div>
+                </div>
+                <div class="block block--square">
+                    <div class="block--figure">
+                        <span class="block--figure-value">99.9%</span>
+                        <span class="block--figure-label">{{ '@page::figure.uptime' | trans }}</span>
+                    </div>
+                </div>
+                <div class="block block--square">
+                    <div class="block--figure">
+                        <span class="block--figure-value">{{ icon('ph:bold/lightning') }}</span>
+                        <span class="block--figure-label">{{ '@page::figure.status' | trans }}</span>
+                    </div>
+                </div>
+                <div class="block block--placeholder block--square">
+                    <a
+                            href="#"
+                            class="block--action-link"
+                            title="{{ '@page::action.add_projection' | trans }}"
+                            aria-label="{{ '@page::action.add_projection' | trans }}"
+                    >
+                        <span class="block--action-icon">{{ icon('ph:bold/plus-circle') }}</span>
+                    </a>
+                </div>
+            </div>
+            <div class="block block--card">
+                <div class="block--title">
+                    <span class="block--title-leading">{{ icon('ph:bold/gauge') }}</span>
+                    <span class="block--title-label">{{ '@page::figure.framed.title' | trans }}</span>
+                </div>
+                <div class="block--figure">
+                    <span class="block--figure-value">42</span>
+                    <span class="block--figure-label">{{ '@page::figure.framed.label' | trans }}</span>
+                </div>
+            </div>
+
             <h2>{{ '@page::section.stacks.title' | trans }}</h2>
 
             <h3>{{ '@page::section.stack_horizontal.title' | trans }}</h3>

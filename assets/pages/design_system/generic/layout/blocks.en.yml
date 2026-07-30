@@ -10,6 +10,9 @@ section:
     title: Advanced blocks
   card:
     title: Cards
+  figure:
+    title: Figures
+    description: A single oversized value or icon, centered. Used for dashboard counters and status tiles — add block--square to keep the tile square whatever its width.
   stacks:
     title: Stacks
   stack_horizontal:
@@ -76,6 +79,14 @@ block:
     footer:
       meta: Updated 2 minutes ago
       action: Open details
+
+figure:
+  projections: Projections
+  uptime: Uptime
+  status: Live
+  framed:
+    title: Throughput
+    label: Events per second
 
 tab:
   one: Overview
