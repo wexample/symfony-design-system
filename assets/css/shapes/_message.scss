@@ -9,6 +9,10 @@
   @include feedback.feedback-title;
 }
 
+.message--icon {
+  color: var(--feedback-color);
+}
+
 .message--info {
   @include feedback_semantic.feedback-info;
 }
@@ -26,11 +30,11 @@
 }
 
 // States a standing rule rather than reporting an event: the framing goes away
-// and the semantic color moves from the border to the text itself.
+// and the icon is left to carry the semantic color, so the sentence stays as
+// readable as any body text.
 .message--compact {
   --feedback-border-width: 0;
   --feedback-radius: var(--radius-1);
   padding: var(--space-3) var(--space-4);
   box-shadow: none;
-  color: var(--feedback-color);
 }

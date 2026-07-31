@@ -4,7 +4,7 @@
         {# Compact states a single sentence: it reads as plain text, not as a heading. #}
         <div{% if not options.compact|default(false) %} class="message--title"{% endif %}>
             {% if options.icon is defined and options.icon %}
-                {{ icon(options.icon) }}
+                {{ icon(options.icon, 'message--icon') }}
             {% endif %}
             {{ title | trans }}
         </div>
