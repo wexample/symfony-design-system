@@ -19,7 +19,9 @@ export default {
       showHeader: true,
       // Set to null to fetch the whole collection in a single request.
       pageLength: 10,
-      compactPagination: false
+      compactPagination: false,
+      // bottom, top or both.
+      paginationPosition: 'bottom'
     };
   },
 
@@ -27,7 +29,24 @@ export default {
     this.columns = this.processColumns(this.getColumnsConfiguration());
   },
 
+  computed: {
+    paginationProps() {
+      return {
+        page: this.pagination?.page,
+        pagesCount: this.pagination?.pagesCount,
+        hasMore: this.pagination?.hasMore,
+        compact: this.compactPagination,
+        disabled: this.isLoading
+      };
+    }
+  },
+
   methods: {
+    hasPaginationAt(position) {
+      return Boolean(this.pagination)
+          && (this.paginationPosition === position || this.paginationPosition === 'both');
+    },
+
     getPageLength() {
       return this.pageLength;
     },

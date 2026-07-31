@@ -93,7 +93,7 @@ export default {
             ? `${column.routePrefix}_${actionName}`
             : undefined);
 
-        const params = typeof action === 'object'
+        const params = typeof action === 'object' && action.params !== undefined
             ? action.params
             : column?.params;
 

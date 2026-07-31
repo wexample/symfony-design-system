@@ -13,6 +13,12 @@
 
 {%- block vue_body -%}
     <div class="entity-table">
+        <pagination
+                v-if="hasPaginationAt('top')"
+                v-bind="paginationProps"
+                @change="goToPage"
+        ></pagination>
+
         <data-table
                 :rows="entities"
                 :columns="columns"
@@ -22,12 +28,8 @@
         ></data-table>
 
         <pagination
-                v-if="pagination"
-                :page="pagination.page"
-                :pages-count="pagination.pagesCount"
-                :has-more="pagination.hasMore"
-                :compact="compactPagination"
-                :disabled="isLoading"
+                v-if="hasPaginationAt('bottom')"
+                v-bind="paginationProps"
                 @change="goToPage"
         ></pagination>
     </div>

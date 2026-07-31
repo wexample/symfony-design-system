@@ -28,7 +28,7 @@
         </thead>
         <tbody>
         {# Out of flow, so it adds no height and stays anchored to the rows area. #}
-        <tr v-if="loading && hasRows()" class="table--row--overlay">
+        <tr v-if="loading && hasRows()">
             <td class="table--overlay">
                 <spinner size="sm" :label="resolvedLoadingLabel"></spinner>
             </td>
