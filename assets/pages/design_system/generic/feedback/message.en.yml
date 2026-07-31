@@ -6,8 +6,17 @@ page_icon: ph:bold/notification
 section:
   block:
     title: Block messages
+  compact:
+    title: Compact messages
+    description: Unframed variant, for stating standing rules rather than reporting an event. Pass compact to the options.
   default:
     title: Message types
+
+compact:
+  rule:
+    one: An outgoing invoice must be linked to an incoming one, unless it is a sale.
+    two: Outgoing invoices must be created by an administrator.
+    three: The whole amount has to be allocated before the invoice can be issued.
 
 message:
   info:

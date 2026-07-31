@@ -23,9 +23,20 @@
     </div>
 {% endmacro %}
 
+{% macro render_compact_messages() %}
+    <div class="stack--vertical">
+        {{ message_warning('@page::compact.rule.one' | trans, null, { compact: true }) }}
+        {{ message_warning('@page::compact.rule.two' | trans, null, { compact: true }) }}
+        {{ message_info('@page::compact.rule.three' | trans, null, { compact: true }) }}
+    </div>
+{% endmacro %}
+
 {%- block page_body -%}
         <h2>{{ '@page::section.default.title' | trans }}</h2>
         {{ message_macro.render_messages() | raw }}
+        <h2>{{ '@page::section.compact.title' | trans }}</h2>
+        <div class="lead">{{ '@page::section.compact.description' | trans }}</div>
+        {{ message_macro.render_compact_messages() | raw }}
         <h2>{{ '@page::section.block.title' | trans }}</h2>
         <div class="block block--padded">
             {{ message_macro.render_messages() | raw }}

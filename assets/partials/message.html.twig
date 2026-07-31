@@ -1,7 +1,8 @@
-<div class="message message--{{ type }}{% if options.class is defined %} {{ options.class }}{% endif %}"
+<div class="message message--{{ type }}{% if options.compact|default(false) %} message--compact{% endif %}{% if options.class is defined %} {{ options.class }}{% endif %}"
      {{ component_render_tag_attributes(options.attr|default({})) }}>
     {% if title is not empty %}
-        <div class="message--title">
+        {# Compact states a single sentence: it reads as plain text, not as a heading. #}
+        <div{% if not options.compact|default(false) %} class="message--title"{% endif %}>
             {% if options.icon is defined and options.icon %}
                 {{ icon(options.icon) }}
             {% endif %}
