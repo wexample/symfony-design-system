@@ -1,4 +1,0 @@
-~extends: "@WexampleSymfonyLoaderBundle.config.design_system.app.index"
-
-page_title: Design System
-page_icon: ph:bold/palette
