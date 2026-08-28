@@ -1,0 +1,83 @@
+## Architecture
+
+The bundle is a Symfony library (`wexample/symfony-design-system`) that adds a ready-made design system on top of `wexample/symfony-loader`. It ships PHP services (Twig extensions, controllers), layout templates, component triads (Twig + TypeScript + SCSS), and shared CSS and Vue primitives. Nothing here is an application; every piece is meant to be extended or overridden by the host app.
+
+### Bundle registration and service wiring
+
+{{ path("src/WexampleSymfonyDesignSystemBundle.php") }} extends `AbstractBundle` and implements `LoaderBundleInterface`. Its only runtime responsibility is to tell the loader where the bundle's front-end assets live:
+
+```php
+public static function getLoaderFrontPaths(): array
+{
+    return [
+        BundleHelper::getBundleCssAlias(static::class) => __DIR__ . '/../assets/',
+    ];
+}
+```
+
+{{ path("src/DependencyInjection/WexampleSymfonyDesignSystemExtension.php") }} calls `loadConfig()` (which reads {{ path("src/Resources/config/services.yaml") }}) and then merges two layout bases — `modal` and `panel` — into the loader's parameter `wexample_symfony_loader.layout_bases`. That parameter tells the loader which component to use as the container when a page is embedded inside an overlay.
+
+`services.yaml` registers every class under `Controller\`, `Form\`, `Service\`, and `Twig\` with autowiring and autoconfigure. `AppExtension` is excluded from the wildcard scan and registered separately so its `$appHomeRoute` constructor argument can be injected from the `wexample_ds_app_home_route` parameter.
+
+### Twig layer
+
+All Twig extensions extend {{ path("src/Twig/AbstractTemplateExtension.php") }}, which wraps `twig->render()` in `renderTemplate()` and declares `TEMPLATE_FUNCTION_OPTIONS` (`is_safe: html`, `needs_environment: true`). Each extension owns one visual concern:
+
+| Extension | Functions registered |
+|---|---|
+| {{ path("src/Twig/AppExtension.php") }} | `app_home_url()` — resolves `wexample_ds_app_home_route`, returns `#` when absent or unroutable |
+| {{ path("src/Twig/BreadcrumbExtension.php") }} | `breadcrumb()`, `breadcrumb_render()`, `breadcrumb_append_route()`, `breadcrumb_stack()` — trail is accumulated in `Request::attributes` under `_breadcrumb_stack` |
+| {{ path("src/Twig/ButtonExtension.php") }} | `button()`, `button_menu()`, `button_link()`, `button_modal()`, `button_panel()` — delegate to the loader's `ComponentsExtension::component()` |
+| {{ path("src/Twig/EntityExtension.php") }} | `entity($renderPass, $entity, $format)` — resolves `@front/components/entity/{snake_name}/{format}` via `ComponentsExtension` |
+| {{ path("src/Twig/FormExtension.php") }} | `form_submit()` — renders `partials/button.html.twig` with `type: submit` injected |
+| {{ path("src/Twig/ImageExtension.php") }} | `content_image()` — renders `partials/content-image.html.twig` with `loading: lazy` as default |
+| {{ path("src/Twig/MenuExtension.php") }} | `menu_item()`, `menu_separator()`, `menu_item_link()`, `menu_item_collapsible()`, `menu_item_collapsible_from_controller()` |
+| {{ path("src/Twig/MessageExtension.php") }} | `message_info()`, `message_success()`, `message_warning()`, `message_error()` — all render `partials/message.html.twig` with a type and a default icon |
+| {{ path("src/Twig/TabExtension.php") }} | `tab_item()`, `tab_item_link()` — render `partials/tab-item.html.twig` |
+| {{ path("src/Twig/UiStateExtension.php") }} | `ui_state_get($key, $default)` — reads from `session['ui_state.{key}']` |
+
+`button_modal()` and `button_panel()` compute the target URL with `UrlGeneratorInterface`, merge it into `$options`, and then call `renderOverlayButton()`, which delegates to `ComponentsExtension`. The component name maps to `@WexampleSymfonyDesignSystemBundle/components/button-modal` or `button-panel`.
+
+`menu_item_collapsible_from_controller()` builds the submenu automatically: it scans `RouterInterface::getRouteCollection()` for routes whose `_controller` class path shares a namespace prefix with the given controller namespace, keeps only the top-level or index routes (using `ClassHelper`), then compares each against the current request route to decide whether the group is open.
+
+### Controllers
+
+{{ path("src/Controller/UiStateController.php") }} exposes `POST /ui-state/set`. It reads `{key, value}` from the JSON body and writes `session['ui_state.{key}'] = value`. This is the default persistence target for menu-collapse state; apps that need server-side persistence override `App::persistUiState` on the JS side instead of calling this endpoint.
+
+{{ path("src/Controller/FixturesController.php") }} serves `placeholder.svg` from `assets/fixtures/` at the design-system base route.
+
+{{ path("src/Traits/SymfonyDesignSystemBundleClassTrait.php") }} returns `WexampleSymfonyDesignSystemBundle::class` as the bundle class name. A controller mixing it in tells the loader which bundle to resolve template namespaces and translation paths against; the preview controllers that do so live in the `symfony-design-system-demo` package, not here.
+
+### Helper
+
+{{ path("src/Helper/EntityDisplay.php") }} is a value-object holding the three standard entity display identifiers (`bar`, `card`, `list-item`) that the `entity()` Twig function uses to resolve component paths. Custom formats beyond these are valid; the class documents the standard set rather than enforcing it.
+
+### Asset layout
+
+Assets live in `assets/` and are divided into five directories.
+
+**`layouts/`** defines the two provided HTML layouts. {{ path("assets/layouts/default/layout.html.twig") }} extends the loader's base layout and adds the `page_body_container` block (wraps the body in a container with an optional `h1`). {{ path("assets/layouts/dashboard/layout.html.twig") }} extends `default` and renders a two-sidebar shell: a left `menu-collapsible-panel`, a scrollable main content column, and a right `menu-collapsible-panel`. The left panel reads its initial collapsed state from `ui_state_get('ui.layout.menu.left', true)`. Host apps extend `dashboard/layout.html.twig` to inject `page_menu_links` and other blocks.
+
+**`components/`** holds interactive units. Each component is a triad: a `.html.twig` template rendered server-side, a `.ts` file that attaches client behaviour, and a `.scss` file for component-scoped styles. Notable components:
+
+- `modal` and `panel` both extend `AbstractOverlayPageManager` ({{ path("assets/js/Class/AbstractOverlayPageManager.ts") }}), which layers `FadeAnimationMixin`, `FocusableComponentMixin`, and `OverlayMixin` from the loader. It handles open/close with optional confirm-on-close and dirty-form detection.
+- `button-modal` ({{ path("assets/components/button-modal.ts") }}) and `button-panel` ({{ path("assets/components/button-panel.ts") }}) extend `AbstractOverlayButton` ({{ path("assets/js/Class/AbstractOverlayButton.ts") }}), which intercepts clicks, reads options from a `data-*` attribute, and calls into `ModalService` or `PanelService` from the loader. Both use URL hash params to restore persistent overlays on page reload.
+- `menu-collapsible-panel` ({{ path("assets/components/menu-collapsible-panel.ts") }}) toggles `gutters--collapsible--collapsed` on its element and calls `app.onMenuStateChange(menuId, open)` on every toggle, which is the point where the host app or the default `UiStateController` persist the state to the session.
+- `toast` applies `FadeAnimationMixin`, `AutoCloseMixin`, and `ActionLinksMixin`; it self-removes after 4 s unless `sticky` is set.
+
+**`js/`** contains shared TypeScript classes and Vue mixins.
+
+- `AbstractCollapsibleComponent` ({{ path("assets/js/Class/AbstractCollapsibleComponent.ts") }}) listens for a click on a selector returned by `getToggleSelector()` and toggles `is-open` on the element.
+- `AbstractDesignSystemVueMixin` ({{ path("assets/js/Vue/AbstractDesignSystemVueMixin.ts") }}) adds `waitForAppReady()` to any Vue component that must wait for the JS app to finish bootstrapping before performing async work.
+
+**`vue/`** holds Vue 3 single-file components and their `.vue.twig` server-side wrappers. `bases/entity.vue` and `bases/form.vue` are the root Vue components for entity and form contexts; field components under `vue/form/fields/` map one-to-one to the Symfony form types declared in `src/Form/Demo/`.
+
+**`css/`** is organised into: `mixins/` (SCSS mixins for layout, spacing, typography, overlays), `shapes/` (one file per UI shape such as `_button.scss`, `_modal.scss`, `_menu.scss`), `partials/` (palette, global variables, colour-scheme overrides), `utilities/` (alignment, text-align, visually-hidden), and `primitives/` (feedback). The palette file `assets/css/partials/_palette.scss` declares colour variables with `!default` so host apps can override them by importing their own palette first.
+
+### Call path through the stack
+
+A typical page request arrives at a controller that calls `renderPage('index')`. The loader's `AbstractPagesController` builds a `RenderPass` (tracking the bundle, view name, and layout bases), passes it through `adaptiveRender()`, and ultimately calls `twig->render()`. The template extends `dashboard/layout.html.twig` → `default/layout.html.twig` → the loader's HTML base, which owns the `<!DOCTYPE html>` shell.
+
+Inside a template, calling `{{ "{{ button_modal(...) }}" }}` invokes `ButtonExtension`, which generates the URL and calls the loader's `ComponentsExtension::component()`. That function renders `components/button-modal.html.twig` server-side and registers the component with the render pass so the loader emits the correct JS bootstrap data. When the browser executes that bootstrap data, `button-modal.ts` mounts, listens for clicks, and delegates to `ModalService`, which fetches the target page and hands it to `modal.ts` — an `AbstractOverlayPageManager` — to display.
+
+UI state flows in the reverse direction: `menu-collapsible-panel.ts` fires `app.onMenuStateChange(id, open)` → `App::persistUiState` POSTs to `/ui-state/set` → `UiStateController` writes to the session → on the next page load `ui_state_get('ui.layout.menu.left')` returns the saved value and `dashboard/layout.html.twig` renders the panel pre-collapsed or pre-open.
