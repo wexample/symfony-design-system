@@ -44,17 +44,19 @@
     align-items: stretch;
     height: 100%;
 
-    // Carried by the nav rather than by its last icon: that icon gets hidden
-    // when its panel opens, and `:last-child` keeps matching it.
-    &:has(.header--menu-item--icon) {
-      margin-right: var(--space-2);
-    }
+    // Spacing comes from the container, like `.toolbar` and `.bar`: a gap never
+    // doubles between neighbours and never vanishes with the item that carried
+    // it — the sidebar toggle is hidden while its panel is open. The inline
+    // padding is `gap + item padding` so the ends match the in-between.
+    gap: var(--space-2);
+    padding-inline: var(--space-4);
 
     .header--menu-item {
       display: inline-flex;
       align-items: center;
       height: 100%;
-      padding: var(--space-1);
+      padding-block: var(--space-1);
+      padding-inline: var(--space-2);
     }
 
     .header--menu-item[hidden] {
@@ -63,7 +65,6 @@
 
     .header--menu-item--icon {
       @extend .bar--icon;
-      padding-inline: var(--space-4);
     }
   }
 

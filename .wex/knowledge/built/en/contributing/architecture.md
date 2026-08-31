@@ -33,12 +33,32 @@ All Twig extensions extend src/Twig/AbstractTemplateExtension.php, which wraps `
 | src/Twig/ImageExtension.php | `content_image()` — renders `partials/content-image.html.twig` with `loading: lazy` as default |
 | src/Twig/MenuExtension.php | `menu_item()`, `menu_separator()`, `menu_item_link()`, `menu_item_collapsible()`, `menu_item_collapsible_from_controller()` |
 | src/Twig/MessageExtension.php | `message_info()`, `message_success()`, `message_warning()`, `message_error()` — all render `partials/message.html.twig` with a type and a default icon |
+| src/Twig/PropertiesExtension.php | `properties($items, $options)` — key/value list, options `bordered`, `split`, `compact`, `stacked` map to `properties--*` modifiers |
 | src/Twig/TabExtension.php | `tab_item()`, `tab_item_link()` — render `partials/tab-item.html.twig` |
+| src/Twig/TableExtension.php | `table($columns, $rows, $options)` — normalizes the column definitions, renders `partials/table.html.twig` |
 | src/Twig/UiStateExtension.php | `ui_state_get($key, $default)` — reads from `session['ui_state.{key}']` |
 
 `button_modal()` and `button_panel()` compute the target URL with `UrlGeneratorInterface`, merge it into `$options`, and then call `renderOverlayButton()`, which delegates to `ComponentsExtension`. The component name maps to `@WexampleSymfonyDesignSystemBundle/components/button-modal` or `button-panel`.
 
 `menu_item_collapsible_from_controller()` builds the submenu automatically: it scans `RouterInterface::getRouteCollection()` for routes whose `_controller` class path shares a namespace prefix with the given controller namespace, keeps only the top-level or index routes (using `ClassHelper`), then compares each against the current request route to decide whether the group is open.
+
+### Tables: two implementations of one contract
+
+A table can be rendered on either side of the wire, and the bundle ships both. They are cousins and must be kept in step — a column option added to one, a class renamed in the CSS, a row state introduced, all belong in both files at once.
+
+| | Server | Client |
+|---|---|---|
+| Entry point | `table()` from src/Twig/TableExtension.php | `<data-table>` |
+| Markup | assets/partials/table.html.twig | assets/vue/partials/data-table.vue.twig |
+| Logic | `TableExtension::normalizeColumns()` | assets/vue/partials/data-table.vue |
+
+Both take a list of column definitions and a list of rows, and emit the same `.table` markup from assets/css/shapes/_table.scss. Shared column options: `key`, `label`, `align`, `secondary`, `class` (`className` in Vue), and `cell` for the cell kind — `text`, `html`, `icon`, `link`, `actions`.
+
+Where they part company is unavoidable, and worth knowing before trying to unify them:
+
+- The Vue side accepts functions for `format`, `href`, `icon` and `params`, and resolves routes through the `routing` service. Twig has no closures and the URLs are already known at render time, so the Twig side takes the computed result in the row: a `link` cell reads `{ label, href }`, an `icon` cell `{ icon, href }`, an `actions` cell a list of `{ icon, href }`.
+- `secondary` is applied to header and body cells by the Vue component, to body cells only by the partial.
+- The Vue component has a refreshing state — rows dimmed under an overlay while new ones load — which a server-rendered table cannot have. The Twig `loading` option only replaces the body with the spinner row.
 
 ### Controllers
 
