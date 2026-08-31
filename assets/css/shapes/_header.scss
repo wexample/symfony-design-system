@@ -44,8 +44,10 @@
     align-items: stretch;
     height: 100%;
 
-    &.is-hidden {
-      display: none;
+    // Carried by the nav rather than by its last icon: that icon gets hidden
+    // when its panel opens, and `:last-child` keeps matching it.
+    &:has(.header--menu-item--icon) {
+      margin-right: var(--space-2);
     }
 
     .header--menu-item {
@@ -62,10 +64,6 @@
     .header--menu-item--icon {
       @extend .bar--icon;
       padding-inline: var(--space-4);
-    }
-
-    .header--menu-item--icon:last-child {
-      margin-right: var(--space-2);
     }
   }
 

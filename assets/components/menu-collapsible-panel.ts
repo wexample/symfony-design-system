@@ -4,7 +4,6 @@ export default class extends Component {
   private menuId?: string;
   private closeEl?: HTMLElement;
   private openEl?: HTMLElement;
-  private headerMenuEl?: HTMLElement;
 
   protected async activateListeners(): Promise<void> {
     this.menuId = this.el.dataset.menuId;
@@ -12,13 +11,14 @@ export default class extends Component {
     this.openEl = this.menuId
       ? (document.querySelector(`[data-menu-target="${this.menuId}"]`) as HTMLElement)
       : undefined;
-    this.headerMenuEl = this.openEl?.closest('.header--menu') as HTMLElement ?? undefined;
 
     this.closeEl?.addEventListener('click', this.onClose);
     this.openEl?.addEventListener('click', this.onOpen);
 
     const isCollapsed = this.el.classList.contains('gutters--collapsible--collapsed');
-    this.headerMenuEl?.classList.toggle('is-hidden', !isCollapsed);
+    if (this.openEl) {
+      this.openEl.hidden = !isCollapsed;
+    }
   }
 
   protected async deactivateListeners(): Promise<void> {
@@ -29,14 +29,18 @@ export default class extends Component {
   private onClose = (e: Event): void => {
     e.preventDefault();
     this.el.classList.add('gutters--collapsible--collapsed');
-    this.headerMenuEl?.classList.remove('is-hidden');
+    if (this.openEl) {
+      this.openEl.hidden = false;
+    }
     this.app.onMenuStateChange(this.menuId, false);
   };
 
   private onOpen = (e: Event): void => {
     e.preventDefault();
     this.el.classList.remove('gutters--collapsible--collapsed');
-    this.headerMenuEl?.classList.add('is-hidden');
+    if (this.openEl) {
+      this.openEl.hidden = true;
+    }
     this.app.onMenuStateChange(this.menuId, true);
   };
 }
