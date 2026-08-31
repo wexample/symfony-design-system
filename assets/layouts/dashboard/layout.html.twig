@@ -1,6 +1,11 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/layouts/default/layout.html.twig' -%}
 
 {%- block page_composer_html -%}
+    {# Rendered up front so the header toggle and the panel itself can both tell
+       whether the page has anything to put in the right menu. #}
+    {% set menuRight %}{% block page_menu_right_body %}{% endblock %}{% endset %}
+    {% set menuRight = menuRight|trim %}
+
     <div class="layout--horizontal">
         <div class="gutters--body layout--body--overlay-scope">
             <div class="layout--horizontal">
@@ -50,12 +55,14 @@
                                     {% endblock %}
                                 </div>
                                 {% block page_header_menu_right %}
-                    <nav class="header--menu">
-                        <a class="header--menu-item header--menu-item--icon" href="#" data-menu-target="right">
-                            {{ icon('ph:bold/sidebar-simple') }}
-                        </a>
-                    </nav>
-                {% endblock %}
+                                    {% if menuRight is not empty %}
+                                        <nav class="header--menu">
+                                            <a class="header--menu-item header--menu-item--icon" href="#" data-menu-target="right">
+                                                {{ icon('ph:bold/sidebar-simple') }}
+                                            </a>
+                                        </nav>
+                                    {% endif %}
+                                {% endblock %}
                             </header>
                         {% endblock %}
                         {% block page_navigation %}{% endblock %}
@@ -89,26 +96,28 @@
                 </div>
             </div>
         </div>
-        <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible{% if not ui_state_get('ui.layout.menu.right', false) %} gutters--collapsible--collapsed{% endif %}" data-menu-id="right">
-            {% block page_menu_right %}
-                <nav class="menu menu--vertical menu--vertical--right">
-                    {% block page_menu_right_header %}
-                        <div class="menu--header menu--bar">
-                            <div class="menu--bar--content menu--bar--content--start">
-                                {% block page_menu_right_toggle_close %}
-                                    <a class="menu--bar--icon menu--toggle-close" href="#">
-                                        {{ icon('ph:bold/text-indent') }}
-                                    </a>
-                                {% endblock %}
+        {% if menuRight is not empty %}
+            <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible{% if not ui_state_get('ui.layout.menu.right', false) %} gutters--collapsible--collapsed{% endif %}" data-menu-id="right">
+                {% block page_menu_right %}
+                    <nav class="menu menu--vertical menu--vertical--right">
+                        {% block page_menu_right_header %}
+                            <div class="menu--header menu--bar">
+                                <div class="menu--bar--content menu--bar--content--start">
+                                    {% block page_menu_right_toggle_close %}
+                                        <a class="menu--bar--icon menu--toggle-close" href="#">
+                                            {{ icon('ph:bold/text-indent') }}
+                                        </a>
+                                    {% endblock %}
+                                </div>
                             </div>
+                        {% endblock %}
+                        <div class="menu--body">
+                            {{ menuRight|raw }}
                         </div>
-                    {% endblock %}
-                    <div class="menu--body">
-                        {% block page_menu_right_body %}{% endblock %}
-                    </div>
-                    {% block page_menu_right_footer %}{% endblock %}
-                </nav>
-            {% endblock %}
-        </div>
+                        {% block page_menu_right_footer %}{% endblock %}
+                    </nav>
+                {% endblock %}
+            </div>
+        {% endif %}
     </div>
 {%- endblock -%}

@@ -1,0 +1,14 @@
+<dl class="{{ class }}">
+    {% for item in items %}
+        <div class="properties--row">
+            <dt class="properties--key">{{ item.key }}</dt>
+            <dd class="properties--value">
+                {%- if item.html -%}
+                    {{- item.value|raw -}}
+                {%- else -%}
+                    {{- item.value -}}
+                {%- endif -%}
+            </dd>
+        </div>
+    {% endfor %}
+</dl>

@@ -33,6 +33,7 @@ All Twig extensions extend {{ path("src/Twig/AbstractTemplateExtension.php") }},
 | {{ path("src/Twig/ImageExtension.php") }} | `content_image()` — renders `partials/content-image.html.twig` with `loading: lazy` as default |
 | {{ path("src/Twig/MenuExtension.php") }} | `menu_item()`, `menu_separator()`, `menu_item_link()`, `menu_item_collapsible()`, `menu_item_collapsible_from_controller()` |
 | {{ path("src/Twig/MessageExtension.php") }} | `message_info()`, `message_success()`, `message_warning()`, `message_error()` — all render `partials/message.html.twig` with a type and a default icon |
+| {{ path("src/Twig/PropertiesExtension.php") }} | `properties($items, $options)` — key/value list, options `bordered`, `split`, `compact`, `stacked` map to `properties--*` modifiers |
 | {{ path("src/Twig/TabExtension.php") }} | `tab_item()`, `tab_item_link()` — render `partials/tab-item.html.twig` |
 | {{ path("src/Twig/TableExtension.php") }} | `table($columns, $rows, $options)` — normalizes the column definitions, renders `partials/table.html.twig` |
 | {{ path("src/Twig/UiStateExtension.php") }} | `ui_state_get($key, $default)` — reads from `session['ui_state.{key}']` |
