@@ -10,6 +10,8 @@
 {%- endblock -%}
 
 {%- block vue_body -%}
+    {# Client-side twin of partials/table.html.twig: same column contract, same
+       markup. A change to either is a change to both. #}
     <table class="table" :class="{ 'table--refreshing': loading && hasRows() }">
         <thead v-if="showHeader && columns.length">
         <tr class="table--row">

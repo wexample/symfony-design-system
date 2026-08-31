@@ -1,3 +1,5 @@
+{# Server-side twin of vue/partials/data-table.vue: same column contract, same
+   markup. A change to either is a change to both. #}
 {% set columns_count = columns|length ?: 1 %}
 
 <table class="table{{ options.class is defined ? ' ' ~ options.class }}">
@@ -38,6 +40,18 @@
                                     <a class="table--icon-link" href="{{ action.href|default('#') }}">{{ icon(action.icon) }}</a>
                                 {%- endfor -%}
                             </span>
+                        {%- elseif column.cell == 'icon' -%}
+                            {%- if value.href|default(null) -%}
+                                <a class="table--icon-link" href="{{ value.href }}">{{ icon(value.icon) }}</a>
+                            {%- else -%}
+                                <span class="table--icon">{{ icon(value.icon) }}</span>
+                            {%- endif -%}
+                        {%- elseif column.cell == 'link' -%}
+                            {%- if value.href|default(null) -%}
+                                <a href="{{ value.href }}">{{ value.label }}</a>
+                            {%- else -%}
+                                {{- value.label -}}
+                            {%- endif -%}
                         {%- elseif column.cell == 'html' -%}
                             {{- value|raw -}}
                         {%- else -%}
