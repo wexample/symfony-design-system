@@ -13,18 +13,19 @@
                     v-if="rowComponent"
                     :is="rowComponent"
                     :item="item"
+                    :label="label"
                     :is-open="isOpen"
                     @action="$emit('action', $event)"
             ></component>
             <template v-else>
                 <span class="tree--caret" v-html="caretHtml"></span>
                 <span v-if="item.icon" class="tree--icon" v-html="iconHtml"></span>
-                <span class="tree--label">[[ item.label ]]</span>
+                <span class="tree--label">[[ label ]]</span>
             </template>
         </component>
         <ul v-if="hasChildren" class="tree--children">
             <tree-node
-                    v-for="(child, index) in item.children"
+                    v-for="(child, index) in children"
                     :key="index"
                     :item="child"
                     :depth="depth + 1"

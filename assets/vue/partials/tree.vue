@@ -23,6 +23,13 @@ export default {
     rowComponents: {
       type: Object,
       default: () => ({})
+    },
+
+    // Called with a node the first time it opens, and answers the level below.
+    // Left out, the tree only shows the children it was handed.
+    loadChildren: {
+      type: Function,
+      default: null
     }
   },
 
@@ -30,7 +37,8 @@ export default {
     // Passed down rather than drilled: every depth needs it and the recursion has
     // no business carrying it.
     return {
-      treeRowComponents: this.rowComponents
+      treeRowComponents: this.rowComponents,
+      treeLoadChildren: this.loadChildren
     };
   }
 };
