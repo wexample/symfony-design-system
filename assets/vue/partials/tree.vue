@@ -16,7 +16,22 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+
+    // Maps an item type to the component rendering its row. Names, not component
+    // objects, so the map survives the JSON transport props take from Twig.
+    rowComponents: {
+      type: Object,
+      default: () => ({})
     }
+  },
+
+  provide() {
+    // Passed down rather than drilled: every depth needs it and the recursion has
+    // no business carrying it.
+    return {
+      treeRowComponents: this.rowComponents
+    };
   }
 };
 </script>

@@ -13,6 +13,7 @@
                 :item="item"
                 :depth="0"
                 @select="$emit('select', $event)"
+                @action="$emit('action', $event)"
         ></tree-node>
     </ul>
 {%- endblock -%}

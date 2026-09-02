@@ -32,6 +32,9 @@
   );
   color: var(--text-color-muted);
   text-decoration: none;
+  // A row answers to a click whether it is a link, a folder that folds or an item
+  // the host listens to, so it says so — the same reason it lights up on hover.
+  cursor: pointer;
 
   &:hover {
     background: var(--state-hover);

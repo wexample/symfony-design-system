@@ -2,6 +2,12 @@
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-tree-node',
 
+  inject: {
+    treeRowComponents: {
+      default: () => ({})
+    }
+  },
+
   props: {
     item: {
       type: Object,
@@ -32,6 +38,10 @@ export default {
 
     iconHtml() {
       return this.item.icon ? this.renderIcon(this.item.icon) : '';
+    },
+
+    rowComponent() {
+      return this.treeRowComponents[this.item.type] || null;
     }
   },
 

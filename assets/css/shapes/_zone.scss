@@ -16,7 +16,11 @@
 
   > .zone {
     flex: 1 1 0;
+    // A zone on its own is 100% of its parent, but in a split the parent is what
+    // sizes it: the main axis by flex, the cross axis by stretch — and stretch only
+    // reaches a child that asks for no size of its own. Both are given back here.
     width: auto;
+    height: auto;
   }
 
   // Repeated here to outweigh the width reset of the sibling rule above.
@@ -81,10 +85,6 @@
   overflow-y: auto;
   min-height: 0;
   flex: 1;
-}
-
-.zone--bordered {
-  height: 100%;
 }
 
 .zone--narrow {

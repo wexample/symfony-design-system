@@ -9,9 +9,18 @@
                 :style="{ '--tree-depth': depth }"
                 @click="onRowClick"
         >
-            <span class="tree--caret" v-html="caretHtml"></span>
-            <span v-if="item.icon" class="tree--icon" v-html="iconHtml"></span>
-            <span class="tree--label">[[ item.label ]]</span>
+            <component
+                    v-if="rowComponent"
+                    :is="rowComponent"
+                    :item="item"
+                    :is-open="isOpen"
+                    @action="$emit('action', $event)"
+            ></component>
+            <template v-else>
+                <span class="tree--caret" v-html="caretHtml"></span>
+                <span v-if="item.icon" class="tree--icon" v-html="iconHtml"></span>
+                <span class="tree--label">[[ item.label ]]</span>
+            </template>
         </component>
         <ul v-if="hasChildren" class="tree--children">
             <tree-node
@@ -20,6 +29,7 @@
                     :item="child"
                     :depth="depth + 1"
                     @select="$emit('select', $event)"
+                    @action="$emit('action', $event)"
             ></tree-node>
         </ul>
     </li>
