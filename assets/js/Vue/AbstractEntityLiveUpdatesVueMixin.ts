@@ -25,18 +25,18 @@ const AbstractEntityLiveUpdatesVueMixin = {
 
   watch: {
     entity(currentEntity, previousEntity) {
-      const currentSecureId = currentEntity ? currentEntity.secureId : null;
-      const previousSecureId = previousEntity ? previousEntity.secureId : null;
+      const currentId = currentEntity ? currentEntity.id : null;
+      const previousId = previousEntity ? previousEntity.id : null;
 
-      if (currentSecureId && currentSecureId !== previousSecureId) {
+      if (currentId && currentId !== previousId) {
         this.syncEntityLiveUpdatesConnection();
       }
     },
   },
 
   methods: {
-    getLiveUpdateEntitySecureId() {
-      return this.entity ? this.entity.secureId : this.entitySecureId;
+    getLiveUpdateEntityId() {
+      return this.entity ? this.entity.id : this.entityId;
     },
 
     getLiveUpdateEntityName() {
@@ -48,8 +48,8 @@ const AbstractEntityLiveUpdatesVueMixin = {
     },
 
     getLiveUpdateTopic() {
-      const secureId = this.getLiveUpdateEntitySecureId();
-      if (!secureId) {
+      const id = this.getLiveUpdateEntityId();
+      if (!id) {
         return null;
       }
 
@@ -59,7 +59,7 @@ const AbstractEntityLiveUpdatesVueMixin = {
           'entity',
           this.getLiveUpdateEntityName(),
           this.getLiveUpdateEntityAction(),
-          secureId
+          id
         );
     },
 
@@ -68,7 +68,7 @@ const AbstractEntityLiveUpdatesVueMixin = {
     },
 
     shouldConnectEntityLiveUpdates() {
-      return !!this.getLiveUpdateEntitySecureId();
+      return !!this.getLiveUpdateEntityId();
     },
 
     syncEntityLiveUpdatesConnection() {
@@ -104,7 +104,7 @@ const AbstractEntityLiveUpdatesVueMixin = {
         topics: topic,
         metadata: {
           entityName: this.getLiveUpdateEntityName(),
-          secureId: this.getLiveUpdateEntitySecureId(),
+          id: this.getLiveUpdateEntityId(),
           action: this.getLiveUpdateEntityAction(),
         },
         onMessage: (_connection, payload) => this.onEntityLiveMessage(payload),
