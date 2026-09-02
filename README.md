@@ -1,6 +1,6 @@
 # symfony_design_system
 
-Version: 8.0.1
+Version: 9.0.0
 
 A Symfony bundle that ships a ready-made design system for web applications: Twig components (buttons, modals, toasts, forms, entity bars), SCSS layouts (`dashboard` and `default`), Vue mixins, and a suite of Twig extensions that wire them together. Every page flows through a `RenderPass` object managed by `AbstractDesignSystemController`, which handles template resolution, per-layout asset loading, and render-node–scoped translations. It targets Symfony developers who want consistent UI primitives and a structured front-end pipeline without building one from scratch.
 
@@ -44,6 +44,7 @@ All Twig extensions extend src/Twig/AbstractTemplateExtension.php, which wraps `
 | src/Twig/AppExtension.php | `app_home_url()` — resolves `wexample_ds_app_home_route`, returns `#` when absent or unroutable |
 | src/Twig/BreadcrumbExtension.php | `breadcrumb()`, `breadcrumb_render()`, `breadcrumb_append_route()`, `breadcrumb_stack()` — trail is accumulated in `Request::attributes` under `_breadcrumb_stack` |
 | src/Twig/ButtonExtension.php | `button()`, `button_menu()`, `button_link()`, `button_modal()`, `button_panel()` — delegate to the loader's `ComponentsExtension::component()` |
+| src/Twig/DocumentExtension.php | `document_embed($src, $title, $options)` — an `iframe` inside a `.media` box; option `ratio` picks the modifier, `media--fill` otherwise. The `$title` is positional because an untitled iframe is an accessibility failure |
 | src/Twig/EntityExtension.php | `entity($renderPass, $entity, $format)` — resolves `@front/components/entity/{snake_name}/{format}` via `ComponentsExtension` |
 | src/Twig/FormExtension.php | `form_submit()` — renders `partials/button.html.twig` with `type: submit` injected |
 | src/Twig/ImageExtension.php | `content_image()` — renders `partials/content-image.html.twig` with `loading: lazy` as default |

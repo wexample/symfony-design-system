@@ -27,4 +27,17 @@ class FixturesController extends AbstractController
             ]
         );
     }
+
+    #[Route('placeholder.pdf', name: 'placeholder_pdf')]
+    public function placeholderPdf(): Response
+    {
+        return new Response(
+            file_get_contents($this->assetsDir . 'placeholder.pdf'),
+            Response::HTTP_OK,
+            [
+                'Content-Type' => 'application/pdf',
+                'Cache-Control' => 'public, max-age=86400',
+            ]
+        );
+    }
 }
