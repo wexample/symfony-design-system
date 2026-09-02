@@ -1,0 +1,18 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
+
+{%- block vue_require -%}
+    {{ parent() }}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/tree-node') -}}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <ul class="tree">
+        <tree-node
+                v-for="(item, index) in items"
+                :key="index"
+                :item="item"
+                :depth="0"
+                @select="$emit('select', $event)"
+        ></tree-node>
+    </ul>
+{%- endblock -%}

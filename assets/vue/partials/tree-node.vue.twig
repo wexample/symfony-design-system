@@ -1,0 +1,26 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <li class="tree--item" :class="{ 'is-open': isOpen, 'is-selected': item.selected }">
+        <component
+                :is="item.href ? 'a' : 'span'"
+                class="tree--row"
+                :href="item.href || null"
+                :style="{ '--tree-depth': depth }"
+                @click="onRowClick"
+        >
+            <span class="tree--caret" v-html="caretHtml"></span>
+            <span v-if="item.icon" class="tree--icon" v-html="iconHtml"></span>
+            <span class="tree--label">[[ item.label ]]</span>
+        </component>
+        <ul v-if="hasChildren" class="tree--children">
+            <tree-node
+                    v-for="(child, index) in item.children"
+                    :key="index"
+                    :item="child"
+                    :depth="depth + 1"
+                    @select="$emit('select', $event)"
+            ></tree-node>
+        </ul>
+    </li>
+{%- endblock -%}
