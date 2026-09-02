@@ -22,7 +22,7 @@
   // Repeated here to outweigh the width reset of the sibling rule above.
   > .zone--narrow {
     flex: 0 0 auto;
-    width: var(--zone-width, fit-content);
+    width: var(--zone-size, fit-content);
   }
 
   > .zone--bordered:not(:first-child) {
@@ -43,6 +43,23 @@
   > .zone--narrow {
     flex-basis: auto;
     min-width: 0;
+  }
+}
+
+// A split is an axis, not a direction. Turned vertical it keeps the same reading:
+// a plain zone takes what is free, a narrow one is sized, and `--zone-size` is
+// that size along whichever axis the split runs on.
+.zone--split.zone--split--vertical {
+  flex-direction: column;
+
+  > .zone--narrow {
+    width: auto;
+    height: var(--zone-size, fit-content);
+  }
+
+  > .zone--bordered:not(:first-child) {
+    border-left: 0;
+    border-top: var(--border-separator);
   }
 }
 
@@ -71,13 +88,13 @@
 }
 
 .zone--narrow {
-  width: var(--zone-width, fit-content);
+  width: var(--zone-size, fit-content);
   max-width: 100%;
 }
 
 @for $i from 1 through 9 {
   .zone--size-#{$i} {
-    --zone-width: var(--size-#{$i});
+    --zone-size: var(--size-#{$i});
   }
 }
 
