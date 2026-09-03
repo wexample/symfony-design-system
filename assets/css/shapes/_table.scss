@@ -51,16 +51,44 @@
 }
 
 .table--icon-link,
+.table--icon-button,
 .table--icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
+// An action that changes state is a form submit, not a link, and it is the only
+// difference the row should show: the button drops its own chrome to sit next to
+// the icon links.
+.table--icon-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
 .table--actions {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
+}
+
+// A form is only there to carry the method and the token, so it must not break
+// the row of actions it sits in.
+.table--actions form {
+  display: contents;
+}
+
+// A cell holding an address rather than a word: it gives up its overflow instead
+// of stretching the column.
+.table--cell--truncate {
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .table--cell--secondary {

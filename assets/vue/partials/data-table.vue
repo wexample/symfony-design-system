@@ -113,10 +113,17 @@ export default {
             ? action.embedOptions
             : column?.embedOptions;
 
+        const method = typeof action === 'object' && action.method
+            ? String(action.method).toLowerCase()
+            : 'get';
+
         return {
           href,
           embed,
           embedOptions: embedOptions ?? {},
+          method,
+          token: typeof action === 'object' ? action.token : undefined,
+          label: typeof action === 'object' ? action.label : undefined,
           icon: iconName ? iconService.icon(iconName) : '',
         };
       }).filter((entry) => entry.icon);

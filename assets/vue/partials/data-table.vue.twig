@@ -73,8 +73,22 @@
                         <template v-else-if="hasCellActions(column)">
                             <span class="table--actions">
                                 <template v-for="(action, actionIndex) in getCellActions(row, column)">
+                                    <form
+                                            v-if="action.method === 'post' && action.href"
+                                            :key="`action-form-${actionIndex}`"
+                                            :action="action.href"
+                                            method="post"
+                                    >
+                                        <input v-if="action.token" type="hidden" name="_token" :value="action.token">
+                                        <button
+                                                class="table--icon-button"
+                                                type="submit"
+                                                :title="action.label"
+                                                v-html="action.icon"
+                                        ></button>
+                                    </form>
                                     <a
-                                            v-if="action.href"
+                                            v-else-if="action.href"
                                             :key="`action-link-${actionIndex}`"
                                             :href="action.href"
                                             class="table--icon-link"
