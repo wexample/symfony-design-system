@@ -10,6 +10,11 @@ export default {
     // children it was handed.
     treeLoadChildren: {
       default: null
+    },
+    // Held by the tree, read by every depth: one item is selected across the
+    // whole thing, so no node can own that state.
+    treeSelection: {
+      default: () => ({ item: null })
     }
   },
 
@@ -49,6 +54,14 @@ export default {
     // opened. One written by hand is judged on the children it came with.
     canOpen() {
       return this.item.hasChildren ?? this.hasLoadedChildren;
+    },
+
+    // Until something is clicked, the items themselves say which one is selected;
+    // from the first click on, the tree does and the flags no longer apply.
+    isSelected() {
+      return this.treeSelection.item
+        ? this.treeSelection.item === this.item
+        : this.item.selected === true;
     },
 
     // What the level holds beyond what was loaded. Zero when the source gave no
@@ -92,7 +105,13 @@ export default {
       return this.app.getServiceOrFail('icon').icon(name);
     },
 
-    async onRowClick() {
+    // Folding is the caret's business alone. A row that both opened and acted
+    // would have no way to act on a directory without opening it too.
+    async onCaretClick() {
+      if (!this.canOpen) {
+        return;
+      }
+
       this.isOpen = !this.isOpen;
 
       if (!this.isOpen) {
@@ -100,7 +119,9 @@ export default {
       } else if (this.children === null && this.treeLoadChildren) {
         await this.loadPage(0);
       }
+    },
 
+    onRowClick() {
       this.$emit('select', this.item);
     },
 

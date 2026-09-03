@@ -12,7 +12,7 @@
                 :key="index"
                 :item="item"
                 :depth="0"
-                @select="$emit('select', $event)"
+                @select="onSelect"
                 @action="$emit('action', $event)"
         ></tree-node>
     </ul>

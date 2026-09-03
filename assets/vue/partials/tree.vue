@@ -35,13 +35,35 @@ export default {
     }
   },
 
+  emits: ['select', 'action'],
+
+  data() {
+    return {
+      // An object rather than the item itself: what goes down the provide stays
+      // the same reference, and every depth sees it change.
+      selection: {
+        item: null
+      }
+    };
+  },
+
   provide() {
     // Passed down rather than drilled: every depth needs it and the recursion has
     // no business carrying it.
     return {
       treeRowComponents: this.rowComponents,
-      treeLoadChildren: this.loadChildren
+      treeLoadChildren: this.loadChildren,
+      treeSelection: this.selection
     };
+  },
+
+  methods: {
+    // Clicking a row selects it and says so. What that means is the caller's to
+    // decide — the tree only holds which one it is.
+    onSelect(item) {
+      this.selection.item = item;
+      this.$emit('select', item);
+    }
   }
 };
 </script>
