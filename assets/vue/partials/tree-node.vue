@@ -11,10 +11,18 @@ export default {
     treeLoadChildren: {
       default: null
     },
-    // Held by the tree, read by every depth: one item is selected across the
-    // whole thing, so no node can own that state.
+    // Held by the tree, read by every depth: what is selected spans the whole
+    // thing, so no node can own that state.
     treeSelection: {
-      default: () => ({ item: null })
+      default: () => ({ items: [], anchor: null })
+    },
+    // A range runs over the rows in the order they are drawn, which only the tree
+    // can see: each node says which item its own row stands for.
+    treeRegisterRow: {
+      default: null
+    },
+    treeUnregisterRow: {
+      default: null
     }
   },
 
@@ -56,11 +64,12 @@ export default {
       return this.item.hasChildren ?? this.hasLoadedChildren;
     },
 
-    // Until something is clicked, the items themselves say which one is selected;
-    // from the first click on, the tree does and the flags no longer apply.
+    // Until something is clicked, the items themselves say which ones are
+    // selected; from the first click on, the tree does and the flags no longer
+    // apply.
     isSelected() {
-      return this.treeSelection.item
-        ? this.treeSelection.item === this.item
+      return this.treeSelection.items.length
+        ? this.treeSelection.items.includes(this.item)
         : this.item.selected === true;
     },
 
@@ -100,6 +109,14 @@ export default {
     }
   },
 
+  mounted() {
+    this.treeRegisterRow?.(this.$refs.row, this.item);
+  },
+
+  beforeUnmount() {
+    this.treeUnregisterRow?.(this.$refs.row);
+  },
+
   methods: {
     renderIcon(name) {
       return this.app.getServiceOrFail('icon').icon(name);
@@ -121,8 +138,14 @@ export default {
       }
     },
 
-    onRowClick() {
-      this.$emit('select', this.item);
+    // The keys travel as what they mean and not as what they are: the tree
+    // decides whether it honours them, and on a mac the command key is ctrl.
+    onRowClick(event) {
+      this.$emit('select', {
+        item: this.item,
+        range: event.shiftKey,
+        toggle: event.ctrlKey || event.metaKey
+      });
     },
 
     // A closed branch keeps nothing: folding the root folds everything under it,

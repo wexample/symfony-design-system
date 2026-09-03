@@ -32,6 +32,13 @@ export default {
     loadChildren: {
       type: Function,
       default: null
+    },
+
+    // Whether shift and ctrl extend the selection. Left off, a click replaces
+    // what was selected whatever is held down.
+    allowSelectMultiple: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -39,12 +46,22 @@ export default {
 
   data() {
     return {
-      // An object rather than the item itself: what goes down the provide stays
-      // the same reference, and every depth sees it change.
+      // An object rather than the items themselves: what goes down the provide
+      // stays the same reference, and every depth sees it change.
       selection: {
-        item: null
+        items: [],
+        // Where a range starts. The last click that was not a range, so that
+        // shifting twice from the same place widens instead of walking.
+        anchor: null
       }
     };
+  },
+
+  created() {
+    // Which item each drawn row stands for, held outside data: it is read when a
+    // range is asked for, and making it reactive would redraw the tree on every
+    // node that mounts.
+    this.rowItems = new Map();
   },
 
   provide() {
@@ -53,16 +70,61 @@ export default {
     return {
       treeRowComponents: this.rowComponents,
       treeLoadChildren: this.loadChildren,
-      treeSelection: this.selection
+      treeSelection: this.selection,
+      treeRegisterRow: this.registerRow,
+      treeUnregisterRow: this.unregisterRow
     };
   },
 
   methods: {
+    registerRow(el, item) {
+      this.rowItems.set(el, item);
+    },
+
+    unregisterRow(el) {
+      this.rowItems.delete(el);
+    },
+
     // Clicking a row selects it and says so. What that means is the caller's to
-    // decide — the tree only holds which one it is.
-    onSelect(item) {
-      this.selection.item = item;
-      this.$emit('select', item);
+    // decide — the tree only holds which ones they are.
+    onSelect({ item, range, toggle }) {
+      if (this.allowSelectMultiple && range) {
+        this.selection.items = this.itemsBetweenAnchorAnd(item);
+      } else if (this.allowSelectMultiple && toggle) {
+        this.selection.items = this.selection.items.includes(item)
+          ? this.selection.items.filter(selected => selected !== item)
+          : [...this.selection.items, item];
+        this.selection.anchor = item;
+      } else {
+        this.selection.items = [item];
+        this.selection.anchor = item;
+      }
+
+      this.$emit('select', this.selection.items);
+    },
+
+    itemsBetweenAnchorAnd(item) {
+      const visible = this.visibleItems();
+      const from = visible.indexOf(this.selection.anchor);
+      const to = visible.indexOf(item);
+
+      // No anchor, or one that has since been folded away: the range has nothing
+      // to stretch from and the click stands on its own.
+      if (-1 === from || -1 === to) {
+        return [item];
+      }
+
+      return visible.slice(Math.min(from, to), Math.max(from, to) + 1);
+    },
+
+    // Display order is the only order a range can mean, and the DOM is where it
+    // is written: a node knows neither its siblings nor the levels unfolded above
+    // it. Rows carrying no item, such as the one offering the rest of a level,
+    // fall out on their own.
+    visibleItems() {
+      return Array.from(this.$el.querySelectorAll('.tree--row'))
+        .map(el => this.rowItems.get(el))
+        .filter(item => undefined !== item);
     }
   }
 };
