@@ -1,8 +1,16 @@
-@use '../../css/mixins/text' as text;
-
 .tree {
   --tree-indent: var(--space-4);
   --tree-row-padding: var(--space-2);
+  // Depth costs width, and a name cut in half is a name nobody can read: the tree
+  // scrolls rather than truncate. Grid because its single column then takes the
+  // width of the deepest row and stretches every item to it, so the highlight keeps
+  // spanning the whole width instead of stopping where the scroll started.
+  display: grid;
+  overflow: auto;
+  // Filling the column is what puts the horizontal bar at its floor rather than
+  // under the last row. Where nothing gives a height — a tree dropped in a block —
+  // this resolves to auto and the tree grows as before.
+  height: 100%;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -68,5 +76,5 @@
 }
 
 .tree--label {
-  @include text.text-ellipsis;
+  white-space: nowrap;
 }
