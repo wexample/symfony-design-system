@@ -6,6 +6,10 @@
   // width of the deepest row and stretches every item to it, so the highlight keeps
   // spanning the whole width instead of stopping where the scroll started.
   display: grid;
+  // Rows keep their own height and stack from the top: a grid given a height
+  // would otherwise share it out between them, spreading two roots half a screen
+  // apart.
+  align-content: start;
   overflow: auto;
   // Filling the column is what puts the horizontal bar at its floor rather than
   // under the last row. Where nothing gives a height — a tree dropped in a block —
