@@ -78,3 +78,10 @@
 .tree--label {
   white-space: nowrap;
 }
+
+// Not an item of the level but what is missing from it: it reads as an aside,
+// and takes the caret slot to stay aligned with the names above.
+.tree--row--more {
+  color: var(--text-color-subtle);
+  font-style: italic;
+}

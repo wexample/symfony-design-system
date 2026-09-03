@@ -32,17 +32,44 @@ export default {
       // Null means "never asked": what tells a level yet to load from one that
       // loaded and came back empty.
       children: this.item.children ?? null,
-      isLoading: false
+      isLoading: false,
+      // A level arrives page by page: the last page asked for, and how many items
+      // the source says the level holds in all.
+      page: 0,
+      childrenTotal: null
     };
   },
 
   computed: {
-    hasChildren() {
+    hasLoadedChildren() {
       return Array.isArray(this.children) && this.children.length > 0;
     },
 
+    // An item that knows the answer is believed — an entity says so before being
+    // opened. One written by hand is judged on the children it came with.
+    canOpen() {
+      return this.item.hasChildren ?? this.hasLoadedChildren;
+    },
+
+    // What the level holds beyond what was loaded. Zero when the source gave no
+    // total, which reads as nothing left to offer.
+    remainingCount() {
+      if (null === this.childrenTotal || !Array.isArray(this.children)) {
+        return 0;
+      }
+
+      return Math.max(0, this.childrenTotal - this.children.length);
+    },
+
+    moreLabel() {
+      return this.trans(
+        'WexampleSymfonyDesignSystemBundle.vue.partials.tree-node::more.label',
+        { '%count%': this.remainingCount }
+      );
+    },
+
     caretHtml() {
-      return this.hasChildren ? this.renderIcon('ph:bold/caret-right') : '';
+      return this.canOpen ? this.renderIcon('ph:bold/caret-right') : '';
     },
 
     iconHtml() {
@@ -68,17 +95,45 @@ export default {
     async onRowClick() {
       this.isOpen = !this.isOpen;
 
-      if (this.isOpen && this.children === null && this.treeLoadChildren) {
-        this.isLoading = true;
-
-        try {
-          this.children = await this.treeLoadChildren(this.item);
-        } finally {
-          this.isLoading = false;
-        }
+      if (!this.isOpen) {
+        this.forgetChildren();
+      } else if (this.children === null && this.treeLoadChildren) {
+        await this.loadPage(0);
       }
 
       this.$emit('select', this.item);
+    },
+
+    // A closed branch keeps nothing: folding the root folds everything under it,
+    // and reopening asks the source again, which is the only refresh the tree
+    // needs. A node handed its children has no way to ask for them again, so it
+    // holds on to them.
+    forgetChildren() {
+      if (!this.treeLoadChildren) {
+        return;
+      }
+
+      this.children = null;
+      this.page = 0;
+      this.childrenTotal = null;
+    },
+
+    async loadPage(page) {
+      this.isLoading = true;
+
+      try {
+        const level = await this.treeLoadChildren(this.item, page);
+
+        this.children = page > 0 ? [...this.children, ...level.items] : level.items;
+        this.childrenTotal = level.total ?? null;
+        this.page = page;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    async loadMore() {
+      await this.loadPage(this.page + 1);
     }
   }
 };

@@ -25,8 +25,10 @@ export default {
       default: () => ({})
     },
 
-    // Called with a node the first time it opens, and answers the level below.
-    // Left out, the tree only shows the children it was handed.
+    // Called with a node and a page number when that node opens, and answers the
+    // level below as { items, total } — total being what the level holds in all,
+    // which is how the tree knows there is a rest to offer. Left out, the tree
+    // only shows the children it was handed.
     loadChildren: {
       type: Function,
       default: null

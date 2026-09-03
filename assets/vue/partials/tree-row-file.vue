@@ -5,6 +5,10 @@ export default {
   // The row is where a per-type action is raised, and the node relays it up.
   emits: ['action'],
 
+  // The node hands every row the same set, and a file uses none of the ones that
+  // describe an opening. Nothing to fall through onto a fragment root either.
+  inheritAttrs: false,
+
   props: {
     item: {
       type: Object,

@@ -1,5 +1,10 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
 
+{%- block vue_config -%}
+    {{ parent() }}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.vue.partials.tree-node::*') }}
+{%- endblock -%}
+
 {%- block vue_body -%}
     <li class="tree--item" :class="{ 'is-open': isOpen, 'is-selected': item.selected }">
         <component
@@ -15,6 +20,7 @@
                     :item="item"
                     :label="label"
                     :is-open="isOpen"
+                    :can-open="canOpen"
                     @action="$emit('action', $event)"
             ></component>
             <template v-else>
@@ -23,7 +29,7 @@
                 <span class="tree--label">[[ label ]]</span>
             </template>
         </component>
-        <ul v-if="hasChildren" class="tree--children">
+        <ul v-if="hasLoadedChildren" class="tree--children">
             <tree-node
                     v-for="(child, index) in children"
                     :key="index"
@@ -32,6 +38,18 @@
                     @select="$emit('select', $event)"
                     @action="$emit('action', $event)"
             ></tree-node>
+            {# What the level still holds is offered where the level ends, at its
+               own indentation, and not as a control hanging outside the tree. #}
+            <li v-if="remainingCount" class="tree--item">
+                <span
+                        class="tree--row tree--row--more"
+                        :style="{ '--tree-depth': depth + 1 }"
+                        @click="loadMore"
+                >
+                    <span class="tree--caret"></span>
+                    <span class="tree--label">[[ moreLabel ]]</span>
+                </span>
+            </li>
         </ul>
     </li>
 {%- endblock -%}

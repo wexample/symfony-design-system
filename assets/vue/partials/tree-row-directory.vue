@@ -17,12 +17,20 @@ export default {
     isOpen: {
       type: Boolean,
       default: false
+    },
+    // A directory known to be empty keeps the caret slot, so its name stays
+    // aligned with its siblings, but is not promised an opening it cannot honour.
+    canOpen: {
+      type: Boolean,
+      default: true
     }
   },
 
   computed: {
     caretHtml() {
-      return this.app.getServiceOrFail('icon').icon('ph:bold/caret-right');
+      return this.canOpen
+        ? this.app.getServiceOrFail('icon').icon('ph:bold/caret-right')
+        : '';
     },
 
     iconHtml() {
