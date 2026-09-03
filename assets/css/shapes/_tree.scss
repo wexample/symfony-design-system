@@ -32,6 +32,8 @@
   align-items: center;
   gap: var(--space-2);
   width: 100%;
+  // Shift picking a range would otherwise highlight every label it runs over.
+  user-select: none;
   padding: var(--tree-row-padding);
   // The row spans the whole width and pays its depth in padding, so the highlight
   // reaches both edges however deep the item sits.

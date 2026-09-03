@@ -22,6 +22,9 @@ $color-light: #f2f2f2 !default;
   --state-hover: var(--color-invert-2);
   --state-active: var(--color-invert-1);
   --border-color-discreet: var(--color-default-background);
+  // A line reads much further on a near-black page than the same level does on
+  // white, so the dark face takes the region border well below the shared value.
+  --border-color-region: var(--color-invert-3);
 
   @include color_scheme.color-scheme-tags(
     $color-dark, $color-light,

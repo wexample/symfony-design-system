@@ -67,6 +67,9 @@ $color-scheme-level-count: 32 !default;
   --border-color-discreet: var(--color-invert-4);
   --border-color-default: var(--color-invert-6);
   --border-color-strong: var(--color-invert-10);
+  // Between two regions of the page, and not inside one: nothing else tells them
+  // apart, so this line has to be seen where a discreet one only has to be felt.
+  --border-color-region: var(--color-invert-8);
 
   // Text.
   --text-color-default: var(--color-default-text);

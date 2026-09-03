@@ -29,11 +29,8 @@
     width: var(--zone-size, fit-content);
   }
 
-  // Not the discreet separator: two zones sit at the same elevation, so nothing
-  // else tells them apart, and the dark face paints the discreet one in the page
-  // background where it would vanish outright.
   > .zone--bordered:not(:first-child) {
-    border-left: var(--border-default);
+    border-left: var(--border-region);
   }
 }
 
@@ -66,7 +63,7 @@
 
   > .zone--bordered:not(:first-child) {
     border-left: 0;
-    border-top: var(--border-default);
+    border-top: var(--border-region);
   }
 }
 

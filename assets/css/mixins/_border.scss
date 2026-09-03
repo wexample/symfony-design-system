@@ -5,6 +5,7 @@
   --border-focus: 2px solid var(--border-color-strong);
   --border-focus-width: 4px;
   --border-separator: 1px solid var(--border-color-discreet);
+  --border-region: 1px solid var(--border-color-region);
 }
 
 @mixin border-focus-floating($animated: false) {

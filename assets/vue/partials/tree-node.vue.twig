@@ -9,6 +9,7 @@
     <li class="tree--item" :class="{ 'is-open': isOpen, 'is-selected': isSelected }">
         <component
                 :is="item.href ? 'a' : 'span'"
+                ref="row"
                 class="tree--row"
                 :href="item.href || null"
                 :style="{ '--tree-depth': depth }"
