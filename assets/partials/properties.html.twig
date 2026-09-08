@@ -3,7 +3,7 @@
         <div class="properties--row">
             <dt class="properties--key">{{ item.key }}</dt>
             <dd class="properties--value">
-                {%- if item.html -%}
+                {%- if item.html ?? false -%}
                     {{- item.value|raw -}}
                 {%- else -%}
                     {{- item.value -}}
