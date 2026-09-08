@@ -1,0 +1,16 @@
+{# Client-side twin of vue/partials/button-target.vue: same options, same markup.
+   A change to either is a change to both. #}
+<a class="{{ options.class|default('button') }}"
+   href="{{ options.href|default('#') }}"
+   data-target="{{ options.target }}"
+   {% if options.target_options is defined %}data-target-options="{{ options.target_options|json_encode|e('html_attr') }}"{% endif %}
+        {{ component_render_tag_attributes(options.attr|default({})) }}>
+    {%- if label -%}
+        <span class="button--icon">{{ icon(icon) }}</span>
+        <span>{{ label | trans }}</span>
+    {%- else -%}
+        {#- Without a label the icon is the button, and wrapping it would only
+            reserve room for the words that are not there. -#}
+        {{- icon(icon) -}}
+    {%- endif -%}
+</a>

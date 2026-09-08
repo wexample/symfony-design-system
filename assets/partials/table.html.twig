@@ -44,6 +44,11 @@
                                             {%- endif -%}
                                             <button class="table--icon-button" type="submit" title="{{ action.label|default('') }}">{{ icon(action.icon) }}</button>
                                         </form>
+                                    {%- elseif action.target|default(null) -%}
+                                        {{ button_target(action.icon, '', action.href|default('#'), action.target, {
+                                            class: 'table--icon-link',
+                                            target_options: action.target_options|default({}),
+                                        }) }}
                                     {%- else -%}
                                         <a class="table--icon-link" href="{{ action.href|default('#') }}">{{ icon(action.icon) }}</a>
                                     {%- endif -%}

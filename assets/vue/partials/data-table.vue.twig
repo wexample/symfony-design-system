@@ -7,6 +7,7 @@
 
 {%- block vue_require -%}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/spinner') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/button-target') -}}
 {%- endblock -%}
 
 {%- block vue_body -%}
@@ -84,22 +85,24 @@
                                                 class="table--icon-button"
                                                 type="submit"
                                                 :title="action.label"
-                                                v-html="action.icon"
+                                                v-html="renderIcon(action.icon)"
                                         ></button>
                                     </form>
-                                    <a
+                                    <button-target
                                             v-else-if="action.href"
                                             :key="`action-link-${actionIndex}`"
+                                            :app="app"
                                             :href="action.href"
-                                            class="table--icon-link"
-                                            v-html="action.icon"
-                                            @click="onActionClick(action, $event)"
-                                    ></a>
+                                            :target="action.target"
+                                            :target-options="action.targetOptions"
+                                            :icon="action.icon"
+                                            class-name="table--icon-link"
+                                    ></button-target>
                                     <span
                                             v-else
                                             :key="`action-icon-${actionIndex}`"
                                             class="table--icon"
-                                            v-html="action.icon"
+                                            v-html="renderIcon(action.icon)"
                                     ></span>
                                 </template>
                             </span>

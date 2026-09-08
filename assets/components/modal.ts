@@ -1,10 +1,10 @@
 import AbstractOverlayPageManager from '../js/Class/AbstractOverlayPageManager';
-import { HASH_KEY_MODAL, HASH_KEY_MODAL_OPTS, HASH_KEY_MODAL_PAGE } from './button-modal';
+import { TARGET_HASH_KEYS, TARGET_MODAL } from '../js/Helper/TargetHelper';
 
 export default class extends AbstractOverlayPageManager {
   public overlayDepthGroup = 'modal';
   protected getContentSelector() { return '.modal--content'; }
   protected getCloseLinkSelector() { return '.modal-close a'; }
-  protected getHashKeys(): [string, string, string] { return [HASH_KEY_MODAL, HASH_KEY_MODAL_OPTS, HASH_KEY_MODAL_PAGE]; }
+  protected getHashKeys(): [string, string, string] { return TARGET_HASH_KEYS[TARGET_MODAL]; }
   protected get useScopedMainClass() { return true; }
 }

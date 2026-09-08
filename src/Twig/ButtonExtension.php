@@ -2,7 +2,6 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig;
 
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
@@ -11,7 +10,6 @@ class ButtonExtension extends AbstractTemplateExtension
 {
     public function __construct(
         private readonly ComponentsExtension $componentsExtension,
-        private readonly UrlGeneratorInterface $urlGenerator,
     ) {
     }
 
@@ -97,65 +95,36 @@ class ButtonExtension extends AbstractTemplateExtension
                 },
                 $options
             ),
+            // Same signature as button_link, plus where the page it points at is
+            // loaded: 'modal', 'panel', or the name of an embed the page holds.
             new TwigFunction(
-                'button_modal',
+                'button_target',
                 function (
                     Environment $twig,
                     $context,
                     string $icon,
                     string $label,
-                    string $routeName,
-                    array $routeParams = [],
+                    string $href,
+                    string $target,
                     array $options = []
                 ) {
-                    $options['href'] = $this->urlGenerator->generate($routeName, $routeParams);
-                    $options['modal'] = true;
+                    $context = is_array($context) ? $context : [];
+                    $options['href'] = $href;
+                    $options['target'] = $target;
 
-                    return $this->renderOverlayButton($twig, $context, 'button-modal', $icon, $label, $options);
-                },
-                $options
-            ),
-            new TwigFunction(
-                'button_panel',
-                function (
-                    Environment $twig,
-                    $context,
-                    string $icon,
-                    string $label,
-                    string $routeName,
-                    array $routeParams = [],
-                    array $options = []
-                ) {
-                    $options['href'] = $this->urlGenerator->generate($routeName, $routeParams);
-                    $options['panel'] = true;
-
-                    return $this->renderOverlayButton($twig, $context, 'button-panel', $icon, $label, $options);
+                    return $this->componentsExtension->component(
+                        $twig,
+                        $context['render_pass'] ?? null,
+                        '@WexampleSymfonyDesignSystemBundle/components/button-target',
+                        [
+                            'icon' => $icon,
+                            'label' => $label,
+                            'options' => $options,
+                        ]
+                    );
                 },
                 $options
             ),
         ];
-    }
-
-    private function renderOverlayButton(
-        Environment $twig,
-        mixed $context,
-        string $componentName,
-        string $icon,
-        string $label,
-        array $options
-    ): string {
-        $context = is_array($context) ? $context : [];
-        $renderPass = $context['render_pass'] ?? null;
-
-        return $this->componentsExtension->component(
-            $twig,
-            $renderPass,
-            "@WexampleSymfonyDesignSystemBundle/components/{$componentName}",
-            [
-                'icon' => $icon,
-                'label' => $label,
-                'options' => $options,
-            ]
-        );
     }
 }

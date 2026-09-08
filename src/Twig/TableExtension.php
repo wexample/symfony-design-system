@@ -14,21 +14,27 @@ class TableExtension extends AbstractTemplateExtension
                 'table',
                 function (
                     Environment $twig,
+                    $context,
                     array $columns,
                     array $rows,
                     array $options = [],
                 ) {
+                    $context = is_array($context) ? $context : [];
+
                     return $this->renderTemplate(
                         $twig,
                         '@WexampleSymfonyDesignSystemBundle/partials/table.html.twig',
                         [
+                            // An actions cell may render a target button, and a
+                            // component cannot be registered without the pass.
+                            'render_pass' => $context['render_pass'] ?? null,
                             'columns' => $this->normalizeColumns($columns),
                             'rows' => $rows,
                             'options' => $options,
                         ]
                     );
                 },
-                self::TEMPLATE_FUNCTION_OPTIONS
+                self::TEMPLATE_FUNCTION_OPTIONS + [self::FUNCTION_OPTION_NEEDS_CONTEXT => true]
             ),
         ];
     }

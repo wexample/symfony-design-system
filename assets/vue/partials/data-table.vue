@@ -1,5 +1,6 @@
 <script>
 import Spinner from './spinner.vue';
+import ButtonTarget from './button-target.vue';
 import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
 
 const translated = buildTranslatedBindings({
@@ -17,6 +18,7 @@ export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-data-table',
 
   components: {
+    ButtonTarget,
     Spinner
   },
 
@@ -69,7 +71,6 @@ export default {
         return [];
       }
 
-      const iconService = this.app.getServiceOrFail('icon');
       const routingService = this.app.getServiceOrFail('routing');
       const defaultIcons = {
         show: 'ph:bold/eye',
@@ -105,13 +106,13 @@ export default {
             ? routingService.path(routeName, parameters)
             : '';
 
-        const embed = typeof action === 'object' && action.embed !== undefined
-            ? action.embed
-            : column?.embed;
+        const target = typeof action === 'object' && action.target !== undefined
+            ? action.target
+            : column?.target;
 
-        const embedOptions = typeof action === 'object' && action.embedOptions !== undefined
-            ? action.embedOptions
-            : column?.embedOptions;
+        const targetOptions = typeof action === 'object' && action.targetOptions !== undefined
+            ? action.targetOptions
+            : column?.targetOptions;
 
         const method = typeof action === 'object' && action.method
             ? String(action.method).toLowerCase()
@@ -119,31 +120,18 @@ export default {
 
         return {
           href,
-          embed,
-          embedOptions: embedOptions ?? {},
+          target: target ?? '',
+          targetOptions: targetOptions ?? {},
           method,
           token: typeof action === 'object' ? action.token : undefined,
           label: typeof action === 'object' ? action.label : undefined,
-          icon: iconName ? iconService.icon(iconName) : '',
+          icon: iconName ?? '',
         };
       }).filter((entry) => entry.icon);
     },
 
-    onActionClick(action, event) {
-      if (!action.embed || !action.href) {
-        return;
-      }
-
-      // Let the browser handle modified clicks so the target stays openable as a full page.
-      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) {
-        return;
-      }
-
-      event.preventDefault();
-
-      const serviceName = { modal: 'modals', panel: 'panels' }[action.embed];
-
-      this.app.getServiceOrFail(serviceName).get(action.href, { ...action.embedOptions });
+    renderIcon(name) {
+      return name ? this.app.getServiceOrFail('icon').icon(name) : '';
     },
 
     getCellIcon(row, column) {
