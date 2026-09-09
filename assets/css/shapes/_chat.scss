@@ -98,6 +98,12 @@
     flex: 1 1 auto;
     min-height: 0;
   }
+
+  // The thread pads itself, the composer does not: holding the two is what
+  // makes the gap between them somebody's job.
+  > .chat-textarea {
+    margin: 0 var(--space-4) var(--space-4);
+  }
 }
 
 .chat-thread {

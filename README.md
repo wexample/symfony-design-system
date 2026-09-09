@@ -43,7 +43,7 @@ All Twig extensions extend src/Twig/AbstractTemplateExtension.php, which wraps `
 |---|---|
 | src/Twig/AppExtension.php | `app_home_url()` — resolves `wexample_ds_app_home_route`, returns `#` when absent or unroutable |
 | src/Twig/BreadcrumbExtension.php | `breadcrumb()`, `breadcrumb_render()`, `breadcrumb_append_route()`, `breadcrumb_stack()` — trail is accumulated in `Request::attributes` under `_breadcrumb_stack` |
-| src/Twig/ButtonExtension.php | `button()`, `button_menu()`, `button_link()`, `button_modal()`, `button_panel()` — delegate to the loader's `ComponentsExtension::component()` |
+| src/Twig/ButtonExtension.php | `button()`, `button_menu()`, `button_link()`, `button_target()` — delegate to the loader's `ComponentsExtension::component()` |
 | src/Twig/DocumentExtension.php | `document_embed($src, $title, $options)` — an `iframe` inside a `.media` box; option `ratio` picks the modifier, `media--fill` otherwise. The `$title` is positional because an untitled iframe is an accessibility failure |
 | src/Twig/EntityExtension.php | `entity($renderPass, $entity, $format)` — resolves `@front/components/entity/{snake_name}/{format}` via `ComponentsExtension` |
 | src/Twig/FormExtension.php | `form_submit()` — renders `partials/button.html.twig` with `type: submit` injected |
@@ -55,27 +55,40 @@ All Twig extensions extend src/Twig/AbstractTemplateExtension.php, which wraps `
 | src/Twig/TableExtension.php | `table($columns, $rows, $options)` — normalizes the column definitions, renders `partials/table.html.twig` |
 | src/Twig/UiStateExtension.php | `ui_state_get($key, $default)` — reads from `session['ui_state.{key}']` |
 
-`button_modal()` and `button_panel()` compute the target URL with `UrlGeneratorInterface`, merge it into `$options`, and then call `renderOverlayButton()`, which delegates to `ComponentsExtension`. The component name maps to `@WexampleSymfonyDesignSystemBundle/components/button-modal` or `button-panel`.
+`button_target($icon, $label, $href, $target, $options)` takes the same first three arguments as `button_link()`, plus where the page it points at is loaded: `modal`, `panel`, or the name of an embed the page holds. It merges `href` and `target` into `$options` and renders `components/button-target`. The class list is the caller's — `options.class` replaces it entirely, defaulting to `button` — because the same behaviour has to sit on a `.button` and on a `.table--icon-link`.
 
 `menu_item_collapsible_from_controller()` builds the submenu automatically: it scans `RouterInterface::getRouteCollection()` for routes whose `_controller` class path shares a namespace prefix with the given controller namespace, keeps only the top-level or index routes (using `ClassHelper`), then compares each against the current request route to decide whether the group is open.
 
-### Tables: two implementations of one contract
+### Double rendering
 
-A table can be rendered on either side of the wire, and the bundle ships both. They are cousins and must be kept in step — a column option added to one, a class renamed in the CSS, a row state introduced, all belong in both files at once.
+An element of the design system is rendered on the server by Twig, or in the browser by Vue, and the choice belongs to the page, not to the element. So an element that a Vue-rendered page may need exists **twice**: a Twig triad and a Vue twin, emitting the same markup and taking the same options.
 
-| | Server | Client |
+This is not duplication for its own sake. A Twig component binds its behaviour through the loader's `.com-init` placeholder, which resolves the element from the previous DOM node — a mechanism that cannot reach markup Vue produced. A table drawn by `data-table.vue` therefore cannot host `components/button-target.html.twig`, however much both would like it to.
+
+The rule that keeps the pair honest:
+
+- Twin files say so, at the top, both ways: *"Client-side twin of X: same options, same markup. A change to either is a change to both."*
+- The markup is identical, class for class. Where Vue needs an extra element for `v-html` or a `v-if`, the twin is restructured until the output matches.
+- The behaviour is shared by a module both import — assets/js/Helper/TargetHelper.ts for the target buttons — so a rule about *what happens* lives in one place even when *what is drawn* lives in two.
+- Options carry the same names on both sides. Where the language forces a difference, it is the mechanical one only: `class` becomes `className`, snake_case Twig option keys become camelCase Vue props.
+
+The principle is being deployed progressively; the elements that already have their twin:
+
+| Element | Server | Client |
 |---|---|---|
-| Entry point | `table()` from src/Twig/TableExtension.php | `<data-table>` |
-| Markup | assets/partials/table.html.twig | assets/vue/partials/data-table.vue.twig |
-| Logic | `TableExtension::normalizeColumns()` | assets/vue/partials/data-table.vue |
+| Table | `table()` from src/Twig/TableExtension.php, assets/partials/table.html.twig | `<data-table>`, assets/vue/partials/data-table.vue.twig |
+| Target button | `button_target()` from src/Twig/ButtonExtension.php, assets/components/button-target.html.twig | `<button-target>`, assets/vue/partials/button-target.vue.twig |
+| Spinner | assets/partials/spinner.html.twig | assets/vue/partials/spinner.vue.twig |
 
-Both take a list of column definitions and a list of rows, and emit the same `.table` markup from assets/css/shapes/_table.scss. Shared column options: `key`, `label`, `align`, `secondary`, `class` (`className` in Vue), and `cell` for the cell kind — `text`, `html`, `icon`, `link`, `actions`.
+#### Tables: where the twins part company
 
-Where they part company is unavoidable, and worth knowing before trying to unify them:
+The table pair is the oldest and the one with the most divergence. It is unavoidable, and worth knowing before trying to unify them:
 
 - The Vue side accepts functions for `format`, `href`, `icon` and `params`, and resolves routes through the `routing` service. Twig has no closures and the URLs are already known at render time, so the Twig side takes the computed result in the row: a `link` cell reads `{ label, href }`, an `icon` cell `{ icon, href }`, an `actions` cell a list of `{ icon, href }`.
 - `secondary` is applied to header and body cells by the Vue component, to body cells only by the partial.
 - The Vue component has a refreshing state — rows dimmed under an overlay while new ones load — which a server-rendered table cannot have. The Twig `loading` option only replaces the body with the spinner row.
+
+Shared column options: `key`, `label`, `align`, `secondary`, `class` (`className` in Vue), and `cell` for the cell kind — `text`, `html`, `icon`, `link`, `actions`. An `actions` cell entry may carry `target` and `target_options` (`targetOptions` in Vue), which both sides hand to the target button.
 
 ### Controllers
 
@@ -98,7 +111,7 @@ Assets live in `assets/` and are divided into five directories.
 **`components/`** holds interactive units. Each component is a triad: a `.html.twig` template rendered server-side, a `.ts` file that attaches client behaviour, and a `.scss` file for component-scoped styles. Notable components:
 
 - `modal` and `panel` both extend `AbstractOverlayPageManager` (assets/js/Class/AbstractOverlayPageManager.ts), which layers `FadeAnimationMixin`, `FocusableComponentMixin`, and `OverlayMixin` from the loader. It handles open/close with optional confirm-on-close and dirty-form detection.
-- `button-modal` (assets/components/button-modal.ts) and `button-panel` (assets/components/button-panel.ts) extend `AbstractOverlayButton` (assets/js/Class/AbstractOverlayButton.ts), which intercepts clicks, reads options from a `data-*` attribute, and calls into `ModalService` or `PanelService` from the loader. Both use URL hash params to restore persistent overlays on page reload.
+- `button-target` (assets/components/button-target.ts) intercepts clicks on its anchor, reads `data-target` and `data-target-options`, and hands the href to `loadIntoTarget()` from assets/js/Helper/TargetHelper.ts, which dispatches to `ModalService`, `PanelService` or `EmbedService`. The two overlays keep their place in URL hash params, so a persistent one reopens on reload; an embed does not, belonging to the page that placed it. A modified click is left to the browser, so every target stays openable as a full page.
 - `menu-collapsible-panel` (assets/components/menu-collapsible-panel.ts) toggles `gutters--collapsible--collapsed` on its element and calls `app.onMenuStateChange(menuId, open)` on every toggle, which is the point where the host app or the default `UiStateController` persist the state to the session.
 - `toast` applies `FadeAnimationMixin`, `AutoCloseMixin`, and `ActionLinksMixin`; it self-removes after 4 s unless `sticky` is set.
 
@@ -115,7 +128,7 @@ Assets live in `assets/` and are divided into five directories.
 
 A typical page request arrives at a controller that calls `renderPage('index')`. The loader's `AbstractPagesController` builds a `RenderPass` (tracking the bundle, view name, and layout bases), passes it through `adaptiveRender()`, and ultimately calls `twig->render()`. The template extends `dashboard/layout.html.twig` → `default/layout.html.twig` → the loader's HTML base, which owns the `<!DOCTYPE html>` shell.
 
-Inside a template, calling `{{ button_modal(...) }}` invokes `ButtonExtension`, which generates the URL and calls the loader's `ComponentsExtension::component()`. That function renders `components/button-modal.html.twig` server-side and registers the component with the render pass so the loader emits the correct JS bootstrap data. When the browser executes that bootstrap data, `button-modal.ts` mounts, listens for clicks, and delegates to `ModalService`, which fetches the target page and hands it to `modal.ts` — an `AbstractOverlayPageManager` — to display.
+Inside a template, calling `{{ button_target(..., 'modal') }}` invokes `ButtonExtension`, which calls the loader's `ComponentsExtension::component()`. That function renders `components/button-target.html.twig` server-side and registers the component with the render pass so the loader emits the correct JS bootstrap data. When the browser executes that bootstrap data, `button-target.ts` mounts, listens for clicks, and delegates to `ModalService`, which fetches the target page and hands it to `modal.ts` — an `AbstractOverlayPageManager` — to display.
 
 UI state flows in the reverse direction: `menu-collapsible-panel.ts` fires `app.onMenuStateChange(id, open)` → `App::persistUiState` POSTs to `/ui-state/set` → `UiStateController` writes to the session → on the next page load `ui_state_get('ui.layout.menu.left')` returns the saved value and `dashboard/layout.html.twig` renders the panel pre-collapsed or pre-open.
 
