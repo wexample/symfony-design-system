@@ -17,6 +17,10 @@ services:
         resource: '../../Controller/'
         exclude: '../../Controller/**/Abstract*.php'
 
+    Wexample\SymfonyDesignSystem\Chat\SlashCommand\SlashCommandRegistry:
+        arguments:
+            $commands: !tagged_iterator wexample.symfony_design_system.slash_command
+
     Wexample\SymfonyDesignSystem\Twig\:
         resource: '../../Twig/'
         exclude: '../../Twig/AppExtension.php'

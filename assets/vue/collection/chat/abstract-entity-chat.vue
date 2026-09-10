@@ -29,7 +29,20 @@ export default {
   },
 
   props: {
-    ...translated.props
+    ...translated.props,
+
+    // Both are handed over by slash_commands_js() from the chat's vue_config:
+    // what the composer accepts besides text is declared on the server, and the
+    // browser only receives the list.
+    slashCommandGroup: {
+      type: String,
+      default: null
+    },
+
+    slashCommands: {
+      type: Array,
+      default: () => []
+    }
   },
 
   data() {
@@ -122,11 +135,16 @@ export default {
       }
 
       const content = this.draft.trim();
-      const command = this.parseSlashCommand(content);
+      const frontCommand = this.findFrontSlashCommand(content);
       this.isSubmitting = true;
 
       try {
-        if (!command || !await this.runSlashCommand(command)) {
+        if (frontCommand) {
+          await this.runFrontSlashCommand(frontCommand.command, frontCommand.text);
+        } else {
+          // A command running on the server travels as the message it was typed
+          // in: the endpoint reads the slash and answers it, so the composer has
+          // one way out and only one.
           await this.getEntityRepository().createEntity(this.buildMessageEntity(content));
         }
 
@@ -137,14 +155,9 @@ export default {
       }
     },
 
-    // What the composer accepts besides text, by name and without the slash.
-    // Each value is called with whatever text was left around the command.
-    getSlashCommands() {
-      return {};
-    },
-
     // A command stands either first or last in the message, and is separated
     // from the text by a space. A slash in the middle of a sentence is text.
+    // The server parses the same way, on the message it receives.
     parseSlashCommand(content) {
       const leading = content.match(/^\/([\w-]+)(?:\s+([\s\S]+))?$/);
 
@@ -157,18 +170,32 @@ export default {
       return trailing ? {name: trailing[2], text: trailing[1].trim()} : null;
     },
 
-    // False when nothing answers to that name, and the message is then sent as
-    // it was typed: an unknown command is text like any other.
-    async runSlashCommand(command) {
-      const handler = this.getSlashCommands()[command.name];
+    // The only thing the browser does with the list: recognise what it must
+    // keep for itself. Everything else is sent and answered server-side.
+    findFrontSlashCommand(content) {
+      const parsed = this.parseSlashCommand(content);
 
-      if (!handler) {
-        return false;
+      if (!parsed) {
+        return null;
       }
 
-      await handler.call(this, command.text);
+      const command = this.slashCommands.find(
+        (candidate) => candidate.name === parsed.name && candidate.frontOnly
+      );
 
-      return true;
+      return command ? {command, text: parsed.text} : null;
+    },
+
+    // A front-only command names the class that runs it, resolved the same way
+    // a render node resolves its own: by the asset name it was bundled under.
+    async runFrontSlashCommand(command, text) {
+      const definition = this.app.getBundleClassDefinition(command.handler);
+
+      if (!definition) {
+        throw new Error(`Slash command "${command.name}" points at an unknown class: ${command.handler}.`);
+      }
+
+      await new definition().run(this, text);
     },
 
     // Older messages are added above what is being read, so the thread must stay
