@@ -119,30 +119,11 @@
   padding: var(--space-4);
 }
 
-// What is above the oldest message held: the way back up the thread.
+// What sits above the oldest message held: the way back up the thread.
 .chat--thread-head {
   display: flex;
   justify-content: center;
   flex: 0 0 auto;
-}
-
-.chat--load-older {
-  background: transparent;
-  border: 1px solid var(--color-default-border);
-  border-radius: var(--space-2);
-  color: var(--color-default-text);
-  cursor: pointer;
-  opacity: var(--opacity-7);
-  padding: var(--space-2) var(--space-4);
-}
-
-.chat--load-older:hover:not(:disabled) {
-  opacity: var(--opacity-8);
-}
-
-.chat--load-older:disabled {
-  cursor: default;
-  opacity: var(--opacity-5);
 }
 
 .chat--message {

@@ -1,0 +1,86 @@
+// The other way of saying "wait": three dots taking their turn. A spinner says
+// a machine is busy, dots say something is about to be said — which is why the
+// same shape serves a loading button and a correspondent who is typing.
+@keyframes dots-pulse {
+  0%,
+  60%,
+  100% {
+    opacity: var(--opacity-3);
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(calc(var(--dots-size) * -0.6));
+  }
+}
+
+.dots--wrapper {
+  display: flex;
+}
+
+.dots--align-horizontal {
+  justify-content: center;
+  width: 100%;
+}
+
+.dots--align-center {
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.dots--align-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  vertical-align: bottom;
+  line-height: 0;
+  flex: 0 0 auto;
+}
+
+.dots {
+  --dots-size: 0.4rem;
+  --dots-gap: 0.25rem;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dots-gap);
+  color: var(--color-default-text);
+}
+
+.dots--dot {
+  width: var(--dots-size);
+  height: var(--dots-size);
+  border-radius: 50%;
+  background: currentColor;
+  animation: dots-pulse 1.2s ease-in-out infinite;
+}
+
+.dots--dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.dots--dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.dots--sm {
+  --dots-size: 0.3rem;
+  --dots-gap: 0.2rem;
+}
+
+.dots--md {
+  --dots-size: 0.45rem;
+  --dots-gap: 0.3rem;
+}
+
+.dots--lg {
+  --dots-size: 0.6rem;
+  --dots-gap: 0.4rem;
+}
+
+.dots--invert {
+  color: var(--color-default-text-invert);
+}

@@ -2,6 +2,7 @@
 import AbstractEntityCollectionVueMixin from "../../../js/Vue/AbstractEntityCollectionVueMixin";
 import buildTranslatedBindings from "../../../js/Helper/TranslationHelper";
 import DateService from "@wexample/symfony-loader/js/Services/DateService";
+import LoadMore from "../../partials/load-more.vue";
 
 const translated = buildTranslatedBindings({
   resolvedPlaceholder: [
@@ -22,6 +23,10 @@ export default {
   template: "#vue-template-wexample-symfony-design-system-bundle-vue-collection-chat-abstract-entity-chat",
 
   mixins: [AbstractEntityCollectionVueMixin],
+
+  components: {
+    LoadMore
+  },
 
   props: {
     ...translated.props
