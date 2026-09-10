@@ -122,15 +122,53 @@ export default {
       }
 
       const content = this.draft.trim();
+      const command = this.parseSlashCommand(content);
       this.isSubmitting = true;
 
       try {
-        await this.getEntityRepository().createEntity(this.buildMessageEntity(content));
+        if (!command || !await this.runSlashCommand(command)) {
+          await this.getEntityRepository().createEntity(this.buildMessageEntity(content));
+        }
+
         this.draft = '';
         await this.refreshEntitiesCollection();
       } finally {
         this.isSubmitting = false;
       }
+    },
+
+    // What the composer accepts besides text, by name and without the slash.
+    // Each value is called with whatever text was left around the command.
+    getSlashCommands() {
+      return {};
+    },
+
+    // A command stands either first or last in the message, and is separated
+    // from the text by a space. A slash in the middle of a sentence is text.
+    parseSlashCommand(content) {
+      const leading = content.match(/^\/([\w-]+)(?:\s+([\s\S]+))?$/);
+
+      if (leading) {
+        return {name: leading[1], text: (leading[2] ?? '').trim()};
+      }
+
+      const trailing = content.match(/^([\s\S]+?)\s+\/([\w-]+)$/);
+
+      return trailing ? {name: trailing[2], text: trailing[1].trim()} : null;
+    },
+
+    // False when nothing answers to that name, and the message is then sent as
+    // it was typed: an unknown command is text like any other.
+    async runSlashCommand(command) {
+      const handler = this.getSlashCommands()[command.name];
+
+      if (!handler) {
+        return false;
+      }
+
+      await handler.call(this, command.text);
+
+      return true;
     },
 
     // Older messages are added above what is being read, so the thread must stay
