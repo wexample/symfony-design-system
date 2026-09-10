@@ -39,7 +39,10 @@ const AbstractEntityCollectionVueMixin = {
         const length = this.getPageLength();
         const fetchParams = {
           ...(this.getEntitiesFetchParams() ?? {}),
-          ...(length ? { page: this.page, length } : {}),
+          // A zero length is how the api is told to drop its own limit. Saying
+          // nothing would leave the server's default in force, and a collection
+          // that believes it holds everything would silently hold a first page.
+          ...(length ? { page: this.page, length } : { length: 0 }),
         };
 
         const result = await this.getEntityRepository().fetchListPaginated(fetchParams);
