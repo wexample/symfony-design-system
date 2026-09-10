@@ -20,25 +20,27 @@
             </div>
         </div>
 
-        <div class="chat-textarea">
-            <textarea
-                    ref="input"
-                    rows="1"
-                    class="chat--textarea"
-                    :placeholder="resolvedPlaceholder"
-                    :disabled="isSubmitting"
-                    v-model="draft"
-                    @keydown.enter.exact.prevent="submitMessage"
-            ></textarea>
-            <button
-                    class="chat--submit"
-                    type="button"
-                    :disabled="!canSubmit"
-                    :aria-label="resolvedSubmitLabel"
-                    :title="resolvedSubmitLabel"
-                    v-html="submitIconHtml"
-                    @click="submitMessage"
-            ></button>
+        <div class="chat--footer">
+            <div class="chat-textarea">
+                <textarea
+                        ref="input"
+                        rows="1"
+                        class="chat--textarea"
+                        :placeholder="resolvedPlaceholder"
+                        :disabled="isSubmitting"
+                        v-model="draft"
+                        @keydown.enter.exact.prevent="submitMessage"
+                ></textarea>
+                <button
+                        class="chat--submit"
+                        type="button"
+                        :disabled="!canSubmit"
+                        :aria-label="resolvedSubmitLabel"
+                        :title="resolvedSubmitLabel"
+                        v-html="submitIconHtml"
+                        @click="submitMessage"
+                ></button>
+            </div>
         </div>
     </div>
 {%- endblock -%}

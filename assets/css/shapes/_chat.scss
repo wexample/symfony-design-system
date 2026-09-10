@@ -91,6 +91,7 @@
 .chat {
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
   height: 100%;
   min-height: 0;
 
@@ -98,12 +99,16 @@
     flex: 1 1 auto;
     min-height: 0;
   }
+}
 
-  // The thread pads itself, the composer does not: holding the two is what
-  // makes the gap between them somebody's job.
-  > .chat-textarea {
-    margin: 0 var(--space-4) var(--space-4);
-  }
+// The thread insets itself because it is what scrolls — the scrollbar hugs the
+// edge while the messages stay in from it. The composer insets nothing because
+// it is the field, border included. So the room around the composer, and the
+// line that parts it from the thread, are the assembly's to give.
+.chat--footer {
+  flex: 0 0 auto;
+  padding: var(--space-3) var(--space-4);
+  border-top: var(--border-separator);
 }
 
 .chat-thread {

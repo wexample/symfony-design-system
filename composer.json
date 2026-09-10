@@ -20,6 +20,7 @@
   ],
   "require": {
     "php": ">=8.2",
+    "wexample/symfony-live": ">=2.0.0",
     "wexample/symfony-loader": ">=5.0.0"
   },
   "repositories": [
