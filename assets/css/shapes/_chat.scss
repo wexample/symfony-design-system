@@ -158,3 +158,52 @@
   opacity: var(--opacity-7);
   font-size: 0.875rem;
 }
+
+// A tool call is machine talk: the row keeps its avatar but the body is read as
+// code, so it never competes with a spoken turn for attention.
+.chat--message-row--tool {
+  .chat--message-content {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
+
+// A system line is not somebody speaking: no avatar, no frame, centered and
+// dimmed, so the eye reads it as a break between turns rather than a turn.
+.chat--message-row--system {
+  justify-content: center;
+
+  .avatar {
+    display: none;
+  }
+
+  .chat--message {
+    border: 0;
+    flex: 0 1 auto;
+    text-align: center;
+  }
+
+  .chat--message-meta {
+    justify-content: center;
+  }
+
+  .chat--message-content {
+    opacity: var(--opacity-7);
+    font-size: 0.875rem;
+  }
+}
+
+// A failed turn holds the place a message would have had, so the thread does not
+// jump when it is replaced by the answer that finally comes.
+.chat--message-row--error {
+  .chat--message {
+    border-color: var(--color-error);
+  }
+
+  .chat--message-author,
+  .chat--message-content {
+    color: var(--color-error);
+  }
+}

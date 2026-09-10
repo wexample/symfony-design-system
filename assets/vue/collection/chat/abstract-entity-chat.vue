@@ -41,7 +41,8 @@ export default {
         author: this.getMessageAuthor(entity),
         content: this.getMessageContent(entity),
         date: this.formatMessageDate(this.getMessageDate(entity)),
-        iconHtml: this.renderIcon(this.getMessageIcon(entity))
+        iconHtml: this.renderIcon(this.getMessageIcon(entity)),
+        variant: this.getMessageVariant(entity)
       }));
     },
 
@@ -81,6 +82,12 @@ export default {
 
     getMessageIcon() {
       return 'ph:bold/user';
+    },
+
+    // Names the kind of line this is, so the thread can draw a tool call or a
+    // system notice differently from a spoken turn. Null keeps the plain row.
+    getMessageVariant() {
+      return null;
     },
 
     formatMessageDate(value) {

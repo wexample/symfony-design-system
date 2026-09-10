@@ -8,7 +8,12 @@
 {%- block vue_body -%}
     <div class="chat">
         <div ref="thread" class="chat-thread">
-            <div v-for="message in messages" :key="message.key" class="chat--message-row">
+            <div
+                    v-for="message in messages"
+                    :key="message.key"
+                    class="chat--message-row"
+                    :class="message.variant ? 'chat--message-row--' + message.variant : null"
+            >
                 <div class="avatar" v-html="message.iconHtml"></div>
                 <div class="chat--message">
                     <div class="chat--message-meta">
