@@ -9,9 +9,19 @@ const AbstractEntityCollectionVueMixin = {
       entities: [],
       collectionRefreshHandlers: [],
       isLoading: false,
+      isLoadingOlder: false,
       page: 0,
+      // Read backwards, which page is the topmost one displayed. Null until the
+      // first read, since that is what says how many pages there are.
+      oldestLoadedPage: null,
       pagination: null,
     };
+  },
+
+  computed: {
+    hasOlderEntities() {
+      return this.oldestLoadedPage !== null && this.oldestLoadedPage > 0;
+    },
   },
 
   mounted() {
@@ -33,27 +43,92 @@ const AbstractEntityCollectionVueMixin = {
       return null;
     },
 
+    // A collection read backwards opens on its last page and grows upwards, so
+    // "more" means older. The order the api answers in does not change: what
+    // changes is where the reading starts and which way it walks.
+    startsAtLastPage() {
+      return false;
+    },
+
+    getEntityKey(entity) {
+      return entity?.id ?? entity?.secureId ?? entity;
+    },
+
+    // Two reads can overlap when the collection grew in between: what is already
+    // held wins, and only the unknown is kept.
+    filterUnknownEntities(items) {
+      const known = new Set(this.entities.map((entity) => this.getEntityKey(entity)));
+
+      return items.filter((entity) => !known.has(this.getEntityKey(entity)));
+    },
+
+    async fetchEntitiesPage(page) {
+      const length = this.getPageLength();
+
+      return this.getEntityRepository().fetchListPaginated({
+        ...(this.getEntitiesFetchParams() ?? {}),
+        // A zero length is how the api is told to drop its own limit. Saying
+        // nothing would leave the server's default in force, and a collection
+        // that believes it holds everything would silently hold a first page.
+        ...(length ? { page, length } : { length: 0 }),
+      });
+    },
+
     async refreshEntitiesCollection() {
+      const reversed = this.startsAtLastPage();
+
       this.isLoading = true;
       try {
-        const length = this.getPageLength();
-        const fetchParams = {
-          ...(this.getEntitiesFetchParams() ?? {}),
-          // A zero length is how the api is told to drop its own limit. Saying
-          // nothing would leave the server's default in force, and a collection
-          // that believes it holds everything would silently hold a first page.
-          ...(length ? { page: this.page, length } : { length: 0 }),
-        };
+        // A negative page is read by the api as counted back from the end, which
+        // is the only way to ask for the freshest slice without first asking how
+        // many there are.
+        const result = await this.fetchEntitiesPage(reversed ? -1 : this.page);
 
-        const result = await this.getEntityRepository().fetchListPaginated(fetchParams);
-
-        this.entities = result.items;
         this.pagination = result.pagination;
+
+        if (reversed) {
+          this.receiveLastPage(result.items, result.pagination.page);
+        } else {
+          this.entities = result.items;
+        }
       } finally {
         this.isLoading = false;
       }
 
-      await this.clampPageToAvailableResults();
+      if (!reversed) {
+        await this.clampPageToAvailableResults();
+      }
+    },
+
+    // Refreshing a collection read backwards must not throw away the pages the
+    // reader has scrolled back to: what the last page brings is added to them.
+    receiveLastPage(items, page) {
+      if (this.oldestLoadedPage === null || page < this.oldestLoadedPage) {
+        this.oldestLoadedPage = page;
+        this.entities = items;
+
+        return;
+      }
+
+      this.entities = [...this.entities, ...this.filterUnknownEntities(items)];
+    },
+
+    async loadOlderEntities() {
+      if (this.isLoadingOlder || !this.hasOlderEntities) {
+        return;
+      }
+
+      const target = this.oldestLoadedPage - 1;
+
+      this.isLoadingOlder = true;
+      try {
+        const result = await this.fetchEntitiesPage(target);
+
+        this.oldestLoadedPage = target;
+        this.entities = [...this.filterUnknownEntities(result.items), ...this.entities];
+      } finally {
+        this.isLoadingOlder = false;
+      }
     },
 
     // Deleting the last rows of a page can leave us past the end: fall back to

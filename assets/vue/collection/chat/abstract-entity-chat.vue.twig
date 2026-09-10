@@ -8,6 +8,15 @@
 {%- block vue_body -%}
     <div class="chat">
         <div ref="thread" class="chat-thread">
+            <div v-if="hasOlderEntities" class="chat--thread-head">
+                <button
+                        class="chat--load-older"
+                        type="button"
+                        :disabled="isLoadingOlder"
+                        @click="loadOlderMessages"
+                >[[ resolvedLoadOlderLabel ]]</button>
+            </div>
+
             <div
                     v-for="message in messages"
                     :key="message.key"

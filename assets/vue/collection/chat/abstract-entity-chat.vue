@@ -11,6 +11,10 @@ const translated = buildTranslatedBindings({
   resolvedSubmitLabel: [
     'submitLabel',
     'WexampleSymfonyDesignSystemBundle.vue.collection.chat.abstract-entity-chat::composer.submit'
+  ],
+  resolvedLoadOlderLabel: [
+    'loadOlderLabel',
+    'WexampleSymfonyDesignSystemBundle.vue.collection.chat.abstract-entity-chat::thread.load_older'
   ]
 });
 
@@ -26,7 +30,10 @@ export default {
   data() {
     return {
       draft: '',
-      isSubmitting: false
+      isSubmitting: false,
+      // How far the thread was from its bottom when older messages were asked
+      // for. Null means the thread should simply go to the bottom.
+      threadScrollAnchor: null
     };
   },
 
@@ -57,7 +64,7 @@ export default {
 
   watch: {
     entities() {
-      this.$nextTick(() => this.scrollThreadToBottom());
+      this.$nextTick(() => this.settleThreadScroll());
     }
   },
 
@@ -121,12 +128,32 @@ export default {
       }
     },
 
-    scrollThreadToBottom() {
+    // Older messages are added above what is being read, so the thread must stay
+    // on the same line: what is held constant is the distance to the bottom,
+    // since everything that appeared is higher up.
+    async loadOlderMessages() {
       const thread = this.$refs.thread;
 
-      if (thread) {
-        thread.scrollTop = thread.scrollHeight;
+      this.threadScrollAnchor = thread ? thread.scrollHeight - thread.scrollTop : null;
+
+      await this.loadOlderEntities();
+    },
+
+    settleThreadScroll() {
+      const thread = this.$refs.thread;
+
+      if (!thread) {
+        return;
       }
+
+      if (this.threadScrollAnchor === null) {
+        thread.scrollTop = thread.scrollHeight;
+
+        return;
+      }
+
+      thread.scrollTop = thread.scrollHeight - this.threadScrollAnchor;
+      this.threadScrollAnchor = null;
     }
   }
 };
