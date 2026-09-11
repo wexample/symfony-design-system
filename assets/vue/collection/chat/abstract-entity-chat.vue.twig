@@ -6,6 +6,7 @@
 {%- endblock -%}
 
 {%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/date-display') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/load-more') -}}
 {%- endblock -%}
 
@@ -31,7 +32,11 @@
                 <div class="chat--message">
                     <div class="chat--message-meta">
                         <span class="chat--message-author">[[ message.author ]]</span>
-                        <span class="chat--message-date">[[ message.date ]]</span>
+                        <date-display
+                                v-if="message.date"
+                                class="chat--message-date"
+                                :value="message.date"
+                        ></date-display>
                     </div>
                     <div class="chat--message-content">[[ message.content ]]</div>
                 </div>

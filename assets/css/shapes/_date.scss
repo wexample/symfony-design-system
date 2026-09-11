@@ -1,0 +1,13 @@
+// A date carries a tooltip, and a cursor saying so is the only thing that makes
+// it discoverable — the text itself is plain.
+.date {
+  white-space: nowrap;
+
+  &[title] {
+    cursor: help;
+  }
+}
+
+.date--muted {
+  color: var(--text-color-muted);
+}

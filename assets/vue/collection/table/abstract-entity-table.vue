@@ -51,28 +51,34 @@ export default {
       return this.pageLength;
     },
 
+    // `format` is one of the names the PHP and JavaScript date services share,
+    // so a column reads the same whichever side rendered it.
+    cellFormatterDate(value, format) {
+      return this.app.getService(DateService).format(value, format);
+    },
+
     cellFormatterDateTime(value) {
-      return this.app.getService(DateService).formatDateTime(value);
+      return this.cellFormatterDate(value, 'date_time');
     },
 
     cellFormatterDateTimeFull(value) {
-      return this.app.getService(DateService).formatDateTimeFull(value);
+      return this.cellFormatterDate(value, 'date_time_full');
     },
 
     cellFormatterDateOnly(value) {
-      return this.app.getService(DateService).formatDateOnly(value);
+      return this.cellFormatterDate(value, 'date');
     },
 
     cellFormatterDateShort(value) {
-      return this.app.getService(DateService).formatDateShort(value);
+      return this.cellFormatterDate(value, 'date_short');
     },
 
     cellFormatterMonthYear(value) {
-      return this.app.getService(DateService).formatMonthYear(value);
+      return this.cellFormatterDate(value, 'month_year');
     },
 
-    cellFormatterRelative(value, options = {}) {
-      return this.app.getService(DateService).formatRelative(value, options);
+    cellFormatterRelative(value) {
+      return this.cellFormatterDate(value, 'relative');
     },
 
     getEntityValue(entity, propertyPath) {

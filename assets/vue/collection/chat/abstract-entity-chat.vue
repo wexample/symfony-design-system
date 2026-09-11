@@ -1,7 +1,7 @@
 <script>
 import AbstractEntityCollectionVueMixin from "../../../js/Vue/AbstractEntityCollectionVueMixin";
 import buildTranslatedBindings from "../../../js/Helper/TranslationHelper";
-import DateService from "@wexample/symfony-loader/js/Services/DateService";
+import DateDisplay from "../../partials/date-display.vue";
 import LiveUpdatesService from "@wexample/symfony-loader/js/Services/LiveUpdatesService";
 import LoadMore from "../../partials/load-more.vue";
 
@@ -26,6 +26,7 @@ export default {
   mixins: [AbstractEntityCollectionVueMixin],
 
   components: {
+    DateDisplay,
     LoadMore
   },
 
@@ -76,7 +77,7 @@ export default {
         key: this.getMessageKey(entity, index),
         author: this.getMessageAuthor(entity),
         content: this.getMessageContent(entity),
-        date: this.formatMessageDate(this.getMessageDate(entity)),
+        date: this.getMessageDate(entity),
         iconHtml: this.renderIcon(this.getMessageIcon(entity)),
         variant: this.getMessageVariant(entity)
       }));
@@ -124,10 +125,6 @@ export default {
     // system notice differently from a spoken turn. Null keeps the plain row.
     getMessageVariant() {
       return null;
-    },
-
-    formatMessageDate(value) {
-      return value ? this.app.getService(DateService).formatDateTime(value) : '';
     },
 
     renderIcon(name) {
