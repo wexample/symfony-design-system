@@ -152,6 +152,10 @@ export default {
         await this.refreshEntitiesCollection();
       } finally {
         this.isSubmitting = false;
+        // The field was disabled while the message travelled, which took the
+        // caret out of it, and whoever just wrote a line is about to write the
+        // next one.
+        this.$nextTick(() => this.$refs.input?.focus());
       }
     },
 

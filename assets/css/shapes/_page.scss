@@ -1,3 +1,28 @@
 .page {
   height: 100%;
 }
+
+// The part of a page sized by the room it is given rather than by what it holds
+// — a conversation, an editor, a map. The body of a page is a column, so this
+// takes what the headings above it leave, and hands it down in turn: what fills
+// it is often a component mounted in an element of its own, which the page has
+// no name for.
+.page--fill {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    flex: 1;
+    min-height: 0;
+  }
+}
+
+// A page holding a fill is a page that fills: its layout wrapper trades its
+// minimum for a definite height, so the room is handed down to the fill instead
+// of the wrapper growing with the content. The page declares nothing else.
+.layout--vertical:has(.page--fill) {
+  height: 100%;
+  min-height: 0;
+}
