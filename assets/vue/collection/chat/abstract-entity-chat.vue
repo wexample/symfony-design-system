@@ -2,6 +2,7 @@
 import AbstractEntityCollectionVueMixin from "../../../js/Vue/AbstractEntityCollectionVueMixin";
 import buildTranslatedBindings from "../../../js/Helper/TranslationHelper";
 import DateService from "@wexample/symfony-loader/js/Services/DateService";
+import LiveUpdatesService from "@wexample/symfony-loader/js/Services/LiveUpdatesService";
 import LoadMore from "../../partials/load-more.vue";
 
 const translated = buildTranslatedBindings({
@@ -51,8 +52,18 @@ export default {
       isSubmitting: false,
       // How far the thread was from its bottom when older messages were asked
       // for. Null means the thread should simply go to the bottom.
-      threadScrollAnchor: null
+      threadScrollAnchor: null,
+      liveConnection: null
     };
+  },
+
+  mounted() {
+    this.runWhenAppReady(() => this.connectToLiveThread());
+  },
+
+  beforeUnmount() {
+    this.liveConnection?.close();
+    this.liveConnection = null;
   },
 
   computed: {
@@ -127,6 +138,39 @@ export default {
     // which entity that is and which of its fields carries the text.
     buildMessageEntity() {
       throw new Error('buildMessageEntity(content) must be implemented.');
+    },
+
+    // What the thread hangs from, since a browser opens the page before a single
+    // message exists: the only name it can subscribe to is the one already there.
+    // `{entityName, id, event}`, the event being what the server publishes on it
+    // when a message is written. Null leaves the thread without live updates.
+    getLiveThread() {
+      return null;
+    },
+
+    async connectToLiveThread() {
+      const thread = this.getLiveThread();
+
+      if (!thread) {
+        return;
+      }
+
+      this.liveConnection = await this.app
+        .getServiceOrFail(LiveUpdatesService)
+        .connectToEntity({
+          entityName: thread.entityName,
+          id: thread.id,
+          onMessage: (connection, payload) => this.onLiveThreadMessage(payload, thread)
+        });
+    },
+
+    // The thread is refetched rather than appended to: the message just
+    // published is also the one the sender already has, and asking again is
+    // shorter than telling the two apart.
+    onLiveThreadMessage(payload, thread) {
+      if (payload?.event === thread.event) {
+        this.refreshEntitiesCollection();
+      }
     },
 
     async submitMessage() {
