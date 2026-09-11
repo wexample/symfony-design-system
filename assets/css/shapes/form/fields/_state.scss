@@ -1,3 +1,5 @@
+@use '../../../mixins/field' as field;
+
 .form--group.has-error .form--input,
 .form--group.has-error .form--textarea {
   border: var(--border-focus);
@@ -9,13 +11,10 @@
 .select--input:focus,
 .select--trigger:focus,
 .select--search-input:focus {
-  outline: none;
-  box-shadow: 0 0 0 var(--border-focus-width) var(--color-invert-transparent-2);
-  transition: box-shadow 160ms ease, border-color 160ms ease;
+  @include field.field-focus;
 }
 
 .form--group.has-error .form--input:focus,
 .form--group.has-error .form--textarea:focus {
-  box-shadow: 0 0 0 var(--border-focus-width) var(--color-invert-transparent-2);
-  transition: box-shadow 160ms ease, border-color 160ms ease;
+  @include field.field-focus;
 }

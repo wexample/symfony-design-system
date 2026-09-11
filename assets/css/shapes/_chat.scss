@@ -1,13 +1,17 @@
+@use '../mixins/field' as field;
 @use './form/fields/base';
 // The thread head holds a load-more, which is a button showing dots while it waits.
 @use 'button';
+// A message dates itself, and the date carries its own tooltip cursor.
+@use 'date';
 @use 'dots';
 
 .chat-textarea {
   @extend .form--textarea;
   padding: 0;
   display: flex;
-  align-items: center;
+  // The field grows downwards, so what stands beside it follows the last line.
+  align-items: flex-end;
   gap: var(--space-1);
 
   textarea {
@@ -19,10 +23,15 @@
     padding: var(--space-3);
     color: var(--color-default-text);
     outline: none;
-    white-space: nowrap;
-    text-wrap: nowrap;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    // One line until a second one is typed, then as tall as what it holds.
+    field-sizing: content;
+    // Twenty lines at most, and never more than a slice of the window: the
+    // thread above has to stay in sight on a short screen.
+    max-height: min(20lh, 40dvh);
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: auto;
   }
 
   button {
@@ -33,6 +42,8 @@
     opacity: var(--opacity-7);
     font-size: 1.2rem;
     display: flex;
+    // Sitting on the last line of the field, off its edge as the text is.
+    padding-bottom: var(--space-3);
   }
 
   button:hover {
@@ -52,40 +63,12 @@
     cursor: pointer;
     opacity: var(--opacity-7);
   }
+}
 
-  &.chat-textarea--multiline {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    grid-template-areas:
-      "textarea textarea textarea"
-      "actions . submit";
-    align-items: center;
-    gap: var(--space-2);
-
-    textarea {
-      grid-area: textarea;
-      min-height: calc(var(--space-6) + var(--space-4));
-      max-height: var(--size-5);
-      line-height: 1.4;
-      white-space: pre-wrap;
-      text-wrap: wrap;
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-
-    .chat-textarea--actions {
-      grid-area: actions;
-      padding-left: var(--space-2);
-    }
-
-    .chat--submit {
-      grid-area: submit;
-    }
-
-    button {
-      margin-bottom: 0.4rem;
-    }
-  }
+// The focus ring of a field, given to the wrapper: the border is drawn here,
+// while the focus is taken by the textarea inside.
+.chat-textarea:focus-within {
+  @include field.field-focus;
 }
 
 // A thread and a composer stacked: the thread takes what is left and scrolls,

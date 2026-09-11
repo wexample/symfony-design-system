@@ -12,3 +12,12 @@
   color: inherit;
   font-size: var(--font-size-3);
 }
+
+// How a field says it is the one being written in. Applied on `:focus` where the
+// field is the element itself, on `:focus-within` where it is a wrapper holding
+// the control.
+@mixin field-focus {
+  outline: none;
+  box-shadow: 0 0 0 var(--border-focus-width) var(--color-invert-transparent-2);
+  transition: box-shadow 160ms ease, border-color 160ms ease;
+}
