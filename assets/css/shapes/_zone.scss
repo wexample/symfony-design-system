@@ -1,5 +1,15 @@
 @use './surface';
 
+// The size a zone is given is its own and never its children's. Left to inherit,
+// a narrow zone nested in a sized one silently takes that size — a header inside
+// a 16rem column becomes 16rem tall instead of as tall as its content. Declared
+// with the universal syntax and no initial value, so a zone that sets nothing
+// still falls back to `fit-content` where the variable is read.
+@property --zone-size {
+  syntax: '*';
+  inherits: false;
+}
+
 .zone {
   width: 100%;
   height: 100%;

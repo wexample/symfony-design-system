@@ -1,0 +1,28 @@
+// How tightly a region is packed.
+//
+// Compactness is a property of a region and not of a widget: a bar declared
+// compact holds compact buttons, without either of them knowing where it stands.
+// The carrier is a custom property, because those inherit — a class would only
+// reach the children a selector was written for.
+//
+// The pattern, which every shape follows:
+//
+//   .thing--compact {
+//     @include density.density-compact;   // what the region becomes
+//     --thing-padding: var(--space-2);    // what the shape itself does
+//   }
+//
+// and a shape that answers to a compact region reads a token with its own roomy
+// value as the fallback, so nothing changes anywhere the density was never
+// declared:
+//
+//   padding: var(--density-padding-block, var(--space-2));
+//
+// The values below are those of a control — a button, an icon action, a field.
+// A shape built to a larger scale, a tab bar for one, keeps its own judgment of
+// what one notch down means for it and only passes the density on.
+@mixin density-compact {
+  --density-padding-block: var(--space-1);
+  --density-padding-inline: var(--space-2);
+  --density-gap: var(--space-1);
+}

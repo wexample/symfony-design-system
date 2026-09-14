@@ -46,8 +46,11 @@ class ButtonExtension extends AbstractTemplateExtension
                 function (
                     Environment $twig,
                     $context,
-                    string $icon,
-                    string $label,
+                    // A menu button standing in a bar often has only one of the
+                    // two: an icon where the shape is enough, a word where the
+                    // menu says what is being looked at.
+                    ?string $icon,
+                    ?string $label,
                     array $items = [],
                     array $options = []
                 ) {

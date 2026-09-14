@@ -1,3 +1,4 @@
+@use '../mixins/density' as density;
 @use './surface';
 
 .tabs {
@@ -15,6 +16,13 @@
   justify-content: center;
   min-width: 0;
   max-width: none;
+}
+
+// A tab is a bigger target than a button and does not give up the same
+// millimetres: it keeps its own idea of one notch down, and only declares the
+// region compact for whatever else the bar holds.
+.tabs--compact {
+  @include density.density-compact;
 }
 
 .tabs--compact .tabs--item {

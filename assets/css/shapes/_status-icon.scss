@@ -1,0 +1,121 @@
+// A state told by a circle instead of by a word: the ring carries the colour and
+// the glyph inside says which state it is. Where the state is something under
+// way, the ring is drawn only as far as it has got — the same circle read as a
+// gauge, which is why every variant shares one geometry.
+.status-icon {
+  --status-icon-size: 1.5rem;
+  // In viewBox units, so the ring keeps its weight at every size.
+  --status-icon-stroke: 2;
+  // Circumference of the circle the markup draws: r = 7 in a 16 viewBox.
+  --status-icon-circumference: 43.98;
+  // How much of the ring is drawn, 0 to 1. Whole unless a state says otherwise.
+  --status-icon-progress: 1;
+  --status-icon-color: var(--text-color-muted);
+  // What the undrawn part of the ring shows. Nothing, unless the state is one
+  // whose remainder means something.
+  --status-icon-track-color: transparent;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--status-icon-size);
+  height: var(--status-icon-size);
+  flex: 0 0 var(--status-icon-size);
+  color: var(--status-icon-color);
+  line-height: 0;
+  vertical-align: middle;
+}
+
+.status-icon--ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.status-icon--ring-track,
+.status-icon--ring-arc {
+  fill: none;
+  stroke-width: var(--status-icon-stroke);
+}
+
+.status-icon--ring-track {
+  stroke: var(--status-icon-track-color);
+}
+
+// Drawn from twelve o'clock, clockwise, which is where a reader expects a gauge
+// to start. The transition is what lets a value move without the change being
+// seen as a redraw — and it costs nothing where the value never moves.
+.status-icon--ring-arc {
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-dasharray: var(--status-icon-circumference);
+  stroke-dashoffset: calc(
+    var(--status-icon-circumference) * (1 - var(--status-icon-progress))
+  );
+  transform: rotate(-90deg);
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 300ms ease;
+}
+
+// Held to a share of the circle rather than to a size of its own, so the glyph
+// never grows into the ring.
+.status-icon--glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--status-icon-size) * 0.5);
+}
+
+.status-icon--sm {
+  --status-icon-size: 1rem;
+}
+
+.status-icon--lg {
+  --status-icon-size: 2.25rem;
+}
+
+.status-icon--success {
+  --status-icon-color: var(--color-success-16);
+}
+
+.status-icon--error {
+  --status-icon-color: var(--color-error-16);
+}
+
+.status-icon--warning {
+  --status-icon-color: var(--color-warning-16);
+}
+
+// The one state that is a quantity: what is left to do is shown rather than
+// left blank, otherwise an early run reads as an empty circle.
+.status-icon--running {
+  --status-icon-color: var(--color-info-16);
+  --status-icon-track-color: color-mix(in srgb, currentColor 25%, transparent);
+}
+
+.status-icon--pending {
+  --status-icon-color: var(--text-color-muted);
+}
+
+.status-icon--paused {
+  --status-icon-color: var(--color-warning-16);
+}
+
+// Waiting for somebody to start it, which is an invitation and not a failure.
+.status-icon--play {
+  --status-icon-color: var(--color-info-16);
+}
+
+.status-icon--skipped {
+  --status-icon-color: var(--text-color-subtle);
+}
+
+// Not a state it is in but one it cannot reach: dimmed as a whole, since the
+// colour alone would still read as something to wait for.
+.status-icon--disabled {
+  --status-icon-color: var(--text-color-subtle);
+  opacity: var(--opacity-6);
+}

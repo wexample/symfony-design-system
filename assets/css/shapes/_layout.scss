@@ -17,6 +17,17 @@
   min-height: 100%;
 }
 
+// A wide body asks for the leftover height and nothing else, and `flex: 1 1 0%`
+// only says that inside a column whose height is definite. With a floor alone
+// the column grows with its content once the window is shorter than it, the
+// basis degrades to the content's own height, and the body stands as tall as
+// what it holds — nothing inside it has anything left to scroll. So a column
+// holding a wide body is the viewport's height; every other page keeps growing
+// and lets the scrollable wrapper scroll it.
+.layout--vertical:has(> .layout--body--wide) {
+  height: 100%;
+}
+
 .layout--body,
 .layout--body--scrollable {
   @extend .gutters--body;

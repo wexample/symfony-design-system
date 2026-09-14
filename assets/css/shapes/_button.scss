@@ -1,3 +1,4 @@
+@use '../mixins/density' as density;
 @use '../mixins/transition' as transition;
 @use '../mixins/assisted' as assisted;
 @use 'spinner';
@@ -5,8 +6,10 @@
 .button {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
+  // Given up where the region it stands in is packed tight, kept everywhere
+  // else — see mixins/density.
+  gap: var(--density-gap, var(--space-2));
+  padding: var(--density-padding-block, var(--space-2)) var(--density-padding-inline, var(--space-3));
   border-radius: var(--radius-1);
   border: 0;
   background: var(--surface-2);
@@ -41,6 +44,30 @@
   .button--spinner {
     display: inline-flex;
   }
+}
+
+// A button that sits in a bar rather than on a surface: it drops its own
+// background and shadow, and only shows a frame under the pointer. What names it
+// is its label, and the bar around it is what gives it its place.
+.button--flat {
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-color-muted);
+}
+
+.button--flat:hover,
+.button--flat:focus-visible {
+  background: var(--state-hover);
+  color: var(--text-color-default);
+}
+
+.button-menu.is-open .button--flat {
+  background: var(--state-hover);
+  color: var(--text-color-default);
+}
+
+.button--compact {
+  @include density.density-compact;
 }
 
 .button--invert {
@@ -127,6 +154,10 @@
 }
 
 .button-menu--panel {
+  // A menu reads at its own size. Left to inherit it would take the size of
+  // whatever it opens in — a toolbar raises the font to size its icons, and the
+  // items would come out at 20px while the button that opened them is at 16.
+  font-size: var(--font-size-3);
   position: absolute;
   top: calc(100% - 1px);
   left: 0;

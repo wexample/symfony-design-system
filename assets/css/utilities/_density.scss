@@ -1,0 +1,7 @@
+@use '../mixins/density' as density;
+
+// Declares a compact region without being a shape of its own: what it wraps is
+// packed tighter, whatever that turns out to be.
+.is-compact {
+  @include density.density-compact;
+}

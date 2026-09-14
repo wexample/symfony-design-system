@@ -11,11 +11,19 @@
             aria-haspopup="menu"
             aria-expanded="false"
             {{ component_render_tag_attributes(button_attr) }}>
-        <span class="button--icon">
-            {{ icon(icon) }}
-        </span>
-        <span class="button-menu--label">{{ label }}</span>
-        <span class="button-menu--caret" aria-hidden="true"></span>
+        {%- if icon -%}
+            <span class="button--icon">
+                {{ icon(icon) }}
+            </span>
+        {%- endif -%}
+        {%- if label -%}
+            <span class="button-menu--label">{{ label }}</span>
+        {%- endif -%}
+        {#- An icon on its own says it opens something by what it is — a caret
+            beside it is noise. Anything with a word keeps one. -#}
+        {%- if options.caret|default(label is not empty) -%}
+            <span class="button-menu--caret" aria-hidden="true"></span>
+        {%- endif -%}
     </button>
     <div class="button-menu--panel button-menu--panel--{{ menu_align }}{% if menu_vertical == 'top' %} button-menu--panel--top{% endif %}"
          role="menu"

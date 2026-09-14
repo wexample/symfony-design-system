@@ -1,4 +1,5 @@
 @use '../../css/mixins/flex' as flex;
+@use '../mixins/density' as density;
 @use '../mixins/surface-layer' as surface;
 
 .toolbar {
@@ -17,6 +18,16 @@
 .toolbar:has(> :is(h1, h2, h3, h4, h5, h6)) {
   --toolbar-padding: 0;
   --toolbar-font-size: 1rem;
+}
+
+// A bar that is the header of a panel rather than the head of a page: it gives
+// up its room, and what it holds gives up its own along with it.
+.toolbar--compact {
+  @include density.density-compact;
+  --toolbar-padding: var(--space-2);
+  // The font is what sizes the icons a bar is mostly made of, so it comes down
+  // a notch too — far enough to be read as chrome, not so far as to be missed.
+  --toolbar-font-size: var(--font-size-4);
 }
 
 .toolbar--shaded {
@@ -43,3 +54,35 @@
   }
 }
 
+// An action with no word to it: a bar of icons is read by its shapes, so the
+// frame only appears under the pointer. A button and not a link, since what it
+// does happens here rather than elsewhere.
+.toolbar--action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--density-padding-block, var(--space-2));
+  border: 0;
+  border-radius: var(--radius-1);
+  background: transparent;
+  color: var(--text-color-muted);
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--state-hover);
+    color: var(--text-color-default);
+  }
+}
+
+// Between two runs of actions that have nothing to do with each other. It takes
+// the height of what stands beside it rather than a size of its own.
+.toolbar--separator {
+  align-self: stretch;
+  width: 1px;
+  margin-inline: var(--space-1);
+  background: var(--border-color-discreet);
+}

@@ -1,0 +1,32 @@
+{#- Server-side twin of vue/partials/status-icon.vue: same types, same glyphs,
+    same markup. A change to either is a change to both — what the browser can
+    do beyond this is move the arc, which needs a value that changes. -#}
+{% set glyphs = {
+    success: 'ph:bold/check',
+    error: 'ph:bold/x',
+    warning: 'ph:bold/warning',
+    running: null,
+    pending: 'ph:bold/clock',
+    paused: 'ph:bold/pause',
+    play: 'ph:bold/play',
+    skipped: 'ph:bold/caret-double-right',
+    disabled: 'ph:bold/minus'
+} %}
+{% set type = type|default('pending') %}
+{% set glyph = glyph_name|default(glyphs[type]|default(null)) %}
+{% set progress = progress|default(null) %}
+{% set size = size|default(null) %}
+{% set label = label|default(null) %}
+
+<span class="status-icon status-icon--{{ type }}{% if size %} status-icon--{{ size }}{% endif %}{% if class|default('') %} {{ class }}{% endif %}"
+      {% if progress is not null %}style="--status-icon-progress: {{ progress }};"{% endif %}
+      {% if label %}role="img" aria-label="{{ label }}"{% else %}aria-hidden="true"{% endif %}
+      {{ component_render_tag_attributes(attr|default({})) }}>
+    <svg class="status-icon--ring" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+        <circle class="status-icon--ring-track" cx="8" cy="8" r="7"></circle>
+        <circle class="status-icon--ring-arc" cx="8" cy="8" r="7"></circle>
+    </svg>
+    {%- if glyph -%}
+        <span class="status-icon--glyph">{{ icon(glyph) }}</span>
+    {%- endif -%}
+</span>
