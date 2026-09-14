@@ -85,6 +85,14 @@
   display: contents;
 }
 
+// A cell holding a name: it takes the width of what it says and no more, and it
+// says it on one line. `--fit` does the same for a figure, and centres it, which
+// is what a name must not do.
+.table--cell--nowrap {
+  width: 1%;
+  white-space: nowrap;
+}
+
 // A cell holding an address rather than a word: it gives up its overflow instead
 // of stretching the column.
 .table--cell--truncate {
