@@ -1,7 +1,9 @@
-// Consumes the live-updates connection registry exposed by the client
-// (js-api Common/LiveUpdates/LiveUpdatesConnectionRegistry). The mixin maps
-// the registry's native contract to the widget's state — no legacy loader
-// event nomenclature leaks into the library.
+import LiveUpdatesService from '@wexample/symfony-loader/js/Services/LiveUpdatesService';
+
+// Consumes the live-updates connection registry held by the loader's
+// LiveUpdatesService (js-api Common/LiveUpdates/LiveUpdatesConnectionRegistry),
+// which is where every live connection of an app is declared. The mixin maps
+// the registry's native contract to the widget's state and owns nothing.
 const AbstractLiveUpdateStatusVueMixin = {
   data() {
     return {
@@ -80,20 +82,12 @@ const AbstractLiveUpdateStatusVueMixin = {
       return 600;
     },
 
-    // Feature-detected: apps without the modern client (or before its
-    // publication) simply get no registry and the widget stays idle at 0.
+    // Feature-detected: an app not running the live updates service simply
+    // gets no registry, and the widget stays idle at 0.
     getLiveUpdatesRegistry() {
-      let client = null;
-      try {
-        const apiService = this.app.getService('api');
-        client = typeof apiService.getClient === 'function' ? apiService.getClient() : null;
-      } catch {
-        // api service not registered
-      }
+      const service = this.app.services[LiveUpdatesService.serviceName];
 
-      return client && typeof client.getLiveUpdatesRegistry === 'function'
-        ? client.getLiveUpdatesRegistry()
-        : null;
+      return service ? service.getRegistry() : null;
     },
 
     registerLiveStatusListener() {

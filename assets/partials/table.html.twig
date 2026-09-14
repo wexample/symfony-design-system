@@ -66,6 +66,12 @@
                             {%- else -%}
                                 {{- value.label -}}
                             {%- endif -%}
+                        {%- elseif column.cell == 'date' -%}
+                            {#- The browser keeps it up to date afterwards, which is
+                                what the vue twin does with its date-display. -#}
+                            {%- if value is not empty -%}
+                                {{- date_display(value, column.date_format) -}}
+                            {%- endif -%}
                         {%- elseif column.cell == 'html' -%}
                             {{- value|raw -}}
                         {%- else -%}

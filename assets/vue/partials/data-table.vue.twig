@@ -6,6 +6,7 @@
 {%- endblock -%}
 
 {%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/date-display') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/spinner') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/button-target') -}}
 {%- endblock -%}
@@ -70,6 +71,14 @@
                     <template v-else>
                         <template v-if="isHtmlCell(column)">
                             <span v-html="getCellValue(row, column)"></span>
+                        </template>
+                        <template v-else-if="isDateCell(column)">
+                            <date-display
+                                    v-if="getCellValue(row, column)"
+                                    :value="getCellValue(row, column)"
+                                    :format="getDateFormat(column)"
+                                    :title-format="getDateTitleFormat(column)"
+                            ></date-display>
                         </template>
                         <template v-else-if="hasCellActions(column)">
                             <span class="table--actions">

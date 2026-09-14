@@ -1,4 +1,5 @@
 <script>
+import DateDisplay from './date-display.vue';
 import Spinner from './spinner.vue';
 import ButtonTarget from './button-target.vue';
 import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
@@ -19,6 +20,7 @@ export default {
 
   components: {
     ButtonTarget,
+    DateDisplay,
     Spinner
   },
 
@@ -244,6 +246,21 @@ export default {
 
     isHtmlCell(column) {
       return column?.html === true || column?.cell === 'html';
+    },
+
+    // A date the reader is meant to situate rather than read: the cell hands it
+    // to the component that owns its own redraw, so "2 min ago" stays true while
+    // the page is left open — which a formatted string cannot.
+    isDateCell(column) {
+      return column?.cell === 'date';
+    },
+
+    getDateFormat(column) {
+      return column?.dateFormat ?? 'auto';
+    },
+
+    getDateTitleFormat(column) {
+      return column?.dateTitleFormat ?? 'date_time_full';
     },
 
     getColumnClass(column) {

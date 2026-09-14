@@ -1,0 +1,11 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/vue/bases/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <span class="live-update-status">
+        <span
+                class="live-update-status--dot"
+                :class="liveActivityClass"
+        ></span>
+        <span class="live-update-status--count">/ [[ liveConnectionsCount ]]</span>
+    </span>
+{%- endblock -%}

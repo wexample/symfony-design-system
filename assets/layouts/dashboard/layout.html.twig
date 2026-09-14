@@ -87,6 +87,9 @@
                                     {{ breadcrumb_render({ current_label: page_title|default(null) }) }}
                                 {% endblock %}
                             </div>
+                            {#- What the footer holds beside the trail: status widgets,
+                                a version number — each in its own footer-item. -#}
+                            {% block footer_items %}{% endblock %}
                         </footer>
                     </div>
                     {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/toast-stack') }}

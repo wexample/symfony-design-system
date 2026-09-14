@@ -1,1 +1,3 @@
 @use '../../css/shapes/table';
+// A cell can hold a date that redraws itself, which carries its own shape.
+@use '../../css/shapes/date';

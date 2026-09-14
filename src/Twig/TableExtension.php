@@ -52,6 +52,9 @@ class TableExtension extends AbstractTemplateExtension
                 'key' => $column['key'] ?? null,
                 'label' => $column['label'] ?? null,
                 'cell' => $column['cell'] ?? 'text',
+                // Read by a date cell, and by nothing else: one of the format
+                // names both sides of the stack answer to.
+                'date_format' => $column['date_format'] ?? 'auto',
                 'secondary' => $column['secondary'] ?? false,
                 'class' => implode(' ', array_filter([
                     $column['class'] ?? null,
