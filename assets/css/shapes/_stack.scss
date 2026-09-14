@@ -35,3 +35,17 @@
 .stack--no-gap {
   gap: 0;
 }
+
+// Rows told apart by a line instead of by empty space: the gap closes, each row
+// takes its own room, and the separator falls exactly between two of them.
+.stack--vertical.stack--divided {
+  gap: 0;
+}
+
+.stack--vertical.stack--divided > * {
+  padding-block: var(--space-3);
+}
+
+.stack--vertical.stack--divided > * + * {
+  border-top: var(--border-separator);
+}

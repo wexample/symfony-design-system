@@ -14,3 +14,20 @@
 .bar--icon {
   color: var(--text-color-muted);
 }
+
+// The two ends: they take the room they need and never squeeze the title block,
+// which is the part allowed to be cut short.
+.bar--leading,
+.bar--trailing {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+// A bar standing for something reachable is a link over its whole width, and
+// takes the colour of where it sits rather than the link colour — what is read
+// is the title, not that it is clickable.
+a.bar {
+  color: inherit;
+  text-decoration: none;
+}

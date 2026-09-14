@@ -1,0 +1,26 @@
+{#- A cartouche: something named in one line — an icon or an avatar, a title and
+    what qualifies it, and whatever the caller hangs at the far end. It knows
+    nothing of entities, so a search result that is a file, a word or a setting
+    fits it as well as one that is a row in a table. -#}
+{%- set bar_tag = href ? 'a' : 'div' -%}
+<{{ bar_tag }} class="{{ class }}"{% if href %} href="{{ href }}"{% endif %} {{- component_render_tag_attributes(attr) }}>
+    {%- if avatar or icon -%}
+        <div class="bar--leading">
+            {%- if avatar -%}
+                {{- avatar|raw -}}
+            {%- else -%}
+                <div class="avatar">{{ icon(icon) }}</div>
+            {%- endif -%}
+        </div>
+    {%- endif -%}
+    <div class="bar--title-block">
+        <div class="text-strong text-ellipsis">{{ title }}</div>
+        {%- if subtitle -%}
+            <div class="text-secondary text-ellipsis">{{ subtitle }}</div>
+        {%- endif -%}
+    </div>
+    {#- A slot, so it is markup: a date, a tag, a button row. -#}
+    {%- if trailing -%}
+        <div class="bar--trailing">{{ trailing|raw }}</div>
+    {%- endif -%}
+</{{ bar_tag }}>
