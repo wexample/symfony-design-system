@@ -3,8 +3,12 @@
 {% if new_window %}
     {% set attr = attr|merge({'target': '_blank', 'rel': 'noopener noreferrer'}) %}
 {% endif %}
+{#- An item is the page being read when it leads to it. A section spanning
+    several addresses knows it and says so itself, since only the caller knows
+    which pages are the same place. -#}
+{% set active = options.active ?? (href == app.request.pathInfo) %}
 <li>
-    <a class="{{ options.class|default('') }}"
+    <a class="{{ options.class|default('') }}{{ active ? ' active' }}"
        href="{{ href }}"
        {{ component_render_tag_attributes(attr) }}>
         <span class="menu--item--icon">
