@@ -3,11 +3,14 @@
 @use 'pagination';
 @use 'spinner';
 
+// A table is one raised sheet above the page, so the surface is the table's and
+// the rows let it through — a row painting itself with the page background is
+// what made the dark face read black on black.
 .table {
   width: 100%;
   border-radius: var(--radius-1);
-  background: var(--surface-1);
-  border: var(--border-default);
+  background: var(--surface-2);
+  border: var(--border-separator);
   overflow: hidden;
   border-collapse: separate;
   border-spacing: 0;
@@ -16,13 +19,13 @@
 
 .table--row {
   align-items: center;
-  background: var(--color-default-background);
+  background: transparent;
 }
 
 .table--cell {
   padding: var(--space-3) var(--space-4);
   font-size: var(--font-size-3);
-  border-bottom: var(--border-default);
+  border-bottom: var(--border-separator);
 }
 
 .table--cell--fit {
