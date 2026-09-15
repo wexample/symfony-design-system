@@ -39,10 +39,6 @@
 // in the dark theme.
 .toolbar--shaded {
   background: var(--surface-shell);
-  // At shell level a bar is the colour of the page in the light theme, exactly
-  // as the header and the footer are: what tells it apart from what surrounds
-  // it is the line, not the contrast.
-  border: var(--border-separator);
 }
 
 .toolbar--group {
