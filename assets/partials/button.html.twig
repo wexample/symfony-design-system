@@ -1,6 +1,9 @@
+{#- The options double as attributes, so the two the tag already writes itself
+    are taken out of them: left in, they came back out a second time and the tag
+    carried `type` and `class` twice. -#}
 <button class="button{% if options.class is defined %} {{ options.class }}{% endif %}"
         type="{{ options.type|default('button') }}"
-        {{ component_render_tag_attributes(options) }}>
+        {{ component_render_tag_attributes(options|merge({ type: null, class: null })) }}>
     <span class="button--icon">
         {% if icon is defined and icon %}{{ icon(icon) }}{% endif %}
     </span>
