@@ -1,6 +1,11 @@
 import Field from '../js/Class/Field';
 import OverlayService from '@wexample/symfony-loader/js/Services/OverlayService';
 import KeyboardService from '@wexample/symfony-loader/js/Services/KeyboardService';
+import {
+  ASSISTANCE_STEP_DELAY_MS,
+  assistanceWait,
+  type AssistanceWriteOptions,
+} from '@wexample/js-api/Helper/Assistance';
 
 export default class extends Field {
   public overlayUseBackdrop = false;
@@ -99,6 +104,30 @@ export default class extends Field {
     this.el.dispatchEvent(new CustomEvent('select:change', { bubbles: true, detail: { value } }));
     this.close();
   };
+
+  /**
+   * An option is not spelled out. The list opens, the option is taken, the list
+   * closes — what a person would have been seen doing, at a pace that can be
+   * followed.
+   */
+  protected async writeValueAssisted(
+    value: unknown,
+    options: AssistanceWriteOptions
+  ): Promise<void> {
+    const target = String(value ?? '');
+    const delay = options.delayMs === 0 ? 0 : ASSISTANCE_STEP_DELAY_MS;
+
+    this.open();
+    await assistanceWait(delay, options.signal);
+
+    this.applySelection(target);
+    this.el.dispatchEvent(
+      new CustomEvent('select:change', { bubbles: true, detail: { value: target } })
+    );
+
+    await assistanceWait(delay, options.signal);
+    this.close();
+  }
 
   private applySelection(value: string): void {
     this.listEl?.querySelectorAll<HTMLElement>('.select--option').forEach((opt) => {

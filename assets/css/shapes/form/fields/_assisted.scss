@@ -1,0 +1,32 @@
+@use '../../../mixins/assisted' as assisted;
+
+// A field held by something other than the person using the page.
+//
+// The mark goes on the group, so any field wears it the same way whatever it is
+// made of — an input, a custom select, a switch — and a field shipped later
+// needs nothing written here to take part. What the halo says is temporary by
+// nature: it appears when an agent takes the field, and goes when it gives it
+// back.
+.form--group.is-assisted {
+  .form--input,
+  .form--textarea,
+  .select,
+  .select--search,
+  .switch,
+  .radio-group,
+  .emoji-picker {
+    @include assisted.assisted-outline;
+  }
+
+  // A field holding a single control frames that control; one holding several —
+  // a set of radios — is framed as a whole, since no single one of them is what
+  // is being written.
+  &:not(:has(.form--input, .form--textarea, .select, .switch, .radio-group)) {
+    @include assisted.assisted-outline;
+  }
+
+  // Nothing here answers to the pointer while it is held, and the cursor says so
+  // before the click proves it. The group is inert as well, which is what
+  // actually stops the interaction — this only keeps it from looking available.
+  cursor: default;
+}

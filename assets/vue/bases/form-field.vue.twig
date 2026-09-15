@@ -26,7 +26,13 @@
 {%- endblock -%}
 
 {%- block vue_body -%}
-    <div class="form--group" :class="{ 'has-error': hasErrors, 'is-disabled': controllerDisabled }">
+    {#- Inert while assisted: the whole group stops answering to the keyboard and
+        the pointer, rather than each control being locked one by one. -#}
+    <div
+            class="form--group"
+            :class="{ 'has-error': hasErrors, 'is-disabled': controllerDisabled, 'is-assisted': isAssisted }"
+            :inert="isAssisted ? true : null"
+    >
         {{ block('field_label') }}
         {{ block('field_control') }}
         {{ block('field_errors') }}

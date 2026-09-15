@@ -1,4 +1,8 @@
 <script>
+import {
+  assistanceWriteText,
+} from '@wexample/js-api/Helper/Assistance';
+
 export default {
   inject: {
     formController: { default: null }
@@ -51,6 +55,10 @@ export default {
     return {
       controllerDisabled: false,
       controllerErrors: [],
+      // Whether something other than the person is holding the field. Always
+      // temporary: a field left assisted is a field nobody can use.
+      isAssisted: false,
+      assistanceAbort: null,
     };
   },
 
@@ -84,12 +92,20 @@ export default {
 
   mounted() {
     if (this.formController && this.name) {
+      // Held in a variable: inside the object below `this` is the proxy, not the
+      // component it stands for.
+      const field = this;
+
       this._fieldProxy = {
         fieldName: this.name,
         disable: () => { this.controllerDisabled = true; },
         enable: () => { this.controllerDisabled = false; },
         setErrors: (errors) => { this.controllerErrors = [...errors]; },
         clearErrors: () => { this.controllerErrors = []; },
+        get isAssisted() { return field.isAssisted; },
+        assistanceActivate: () => this.assistanceActivate(),
+        assistanceDeactivate: () => this.assistanceDeactivate(),
+        setValueAssisted: (value, options) => this.setValueAssisted(value, options),
       };
       this.formController.registerField(this._fieldProxy);
     }
@@ -103,6 +119,45 @@ export default {
   },
 
   methods: {
+    // Hands the field over. The group goes inert rather than each control being
+    // locked one by one: what is being written is not to be argued with.
+    assistanceActivate() {
+      this.isAssisted = true;
+    },
+
+    assistanceDeactivate() {
+      // Whatever was still being written lands on its value at once.
+      this.assistanceAbort?.abort();
+      this.assistanceAbort = null;
+      this.isAssisted = false;
+    },
+
+    async setValueAssisted(value, options = {}) {
+      this.assistanceActivate();
+
+      const controller = new AbortController();
+      this.assistanceAbort = controller;
+
+      try {
+        await this.writeValueAssisted(value, { ...options, signal: controller.signal });
+      } finally {
+        this.assistanceDeactivate();
+      }
+    },
+
+    /**
+     * How this field spells a value out. A value that is written is spelled
+     * character by character; a field whose value is not a word — a switch, a
+     * set of radios — overrides this and says so its own way.
+     */
+    async writeValueAssisted(value, options) {
+      await assistanceWriteText(
+        (written) => this.$emit('update:modelValue', written),
+        String(value ?? ''),
+        options
+      );
+    },
+
     resolveLabel(label) {
       if (!label) {
         return '';

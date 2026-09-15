@@ -1,17 +1,15 @@
 @use '../../mixins/assisted' as assisted;
+@use './fields/assisted' as fields_assisted;
 
 .form {
   display: grid;
   gap: var(--space-4);
 }
 
+// A whole form can be held, and what it does then is hand the mark down to each
+// of its groups — the mark is a field's, the form only passes it on.
 .form.is-assisted .form--input,
 .form.is-assisted .form--textarea {
-  @include assisted.assisted-outline;
-}
-
-.form.is-assisted .form--input:focus,
-.form.is-assisted .form--textarea:focus {
   @include assisted.assisted-outline;
 }
 
