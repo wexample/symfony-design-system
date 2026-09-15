@@ -9,6 +9,40 @@ import {
 // their assisted value spelled out rather than dropped in.
 const TEXT_INPUT_TYPES = ['text', 'email', 'url', 'search', 'tel', 'password'];
 
+const pad = (value: number): string => String(value).padStart(2, '0');
+
+/**
+ * The shape a date control reads, from a date.
+ *
+ * A caller handing a string has already written it the way the control wants;
+ * one handing a Date means an instant, and an instant read by these controls is
+ * a local one — going through an ISO string would move it by the timezone.
+ */
+const dateControlValue = (type: string, value: unknown): string => {
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  const date = value instanceof Date ? value : new Date(value as number);
+
+  if (Number.isNaN(date.getTime())) {
+    return '';
+  }
+
+  const day = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+  const time = `${pad(date.getHours())}:${pad(date.getMinutes())}`;
+
+  if (type === 'date') {
+    return day;
+  }
+
+  if (type === 'time') {
+    return time;
+  }
+
+  return `${day}T${time}`;
+};
+
 export default abstract class Field extends Component implements FieldControllerInterface {
   private formEl: HTMLFormElement | null = null;
   private assisted: boolean = false;
@@ -139,6 +173,14 @@ export default abstract class Field extends Component implements FieldController
 
     if (control instanceof HTMLSelectElement) {
       control.value = String(value ?? '');
+      this.notifyChanged(control);
+
+      return;
+    }
+
+    if (control instanceof HTMLInputElement
+      && ['date', 'time', 'datetime-local', 'month', 'week'].includes(control.type)) {
+      control.value = dateControlValue(control.type, value);
       this.notifyChanged(control);
 
       return;

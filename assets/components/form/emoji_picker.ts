@@ -1,6 +1,7 @@
 import data from '@emoji-mart/data';
 import { Picker } from 'emoji-mart';
 import Field from '../../js/Class/Field';
+import type { AssistanceWriteOptions } from '@wexample/js-api/Helper/Assistance';
 
 type EmojiSelection = {
   native?: string;
@@ -116,6 +117,24 @@ export default class extends Field {
     this.inputEl.dispatchEvent(new Event('input', { bubbles: true }));
     this.inputEl.dispatchEvent(new Event('change', { bubbles: true }));
     this.closePanel();
+  }
+
+  /**
+   * The value lives in a hidden input, so the generic path would write it where
+   * nobody can see it: what the reader watches is the toggle, and it only
+   * follows once it is told to.
+   */
+  protected async writeValueAssisted(
+    value: unknown,
+    options: AssistanceWriteOptions
+  ): Promise<void> {
+    if (!this.inputEl) {
+      return;
+    }
+
+    this.inputEl.value = String(value ?? '');
+    this.syncToggleLabel();
+    this.notifyChanged(this.inputEl);
   }
 
   private syncToggleLabel() {
