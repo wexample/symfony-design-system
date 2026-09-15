@@ -4,6 +4,11 @@ import {
   assistanceWriteText,
   type AssistanceWriteOptions,
 } from '@wexample/js-api/Helper/Assistance';
+import {
+  FORM_FIELD_COLLECT,
+  FORM_FIELD_REGISTER,
+  FORM_FIELD_UNREGISTER,
+} from '@wexample/symfony-loader/js/Constants/FormEvents';
 
 // Controls a person writes into character by character, and which therefore get
 // their assisted value spelled out rather than dropped in.
@@ -61,6 +66,11 @@ export default abstract class Field extends Component implements FieldController
     // data — disabling on submit would empty the POST.
     this.formEl?.addEventListener('loading:start', this.onFormLoadingStart);
     this.formEl?.addEventListener('loading:end', this.onFormLoadingEnd);
+
+    // A form ready after this field asks for its fields; one ready before hears
+    // the announcement. Whichever comes second finds the first.
+    document.addEventListener(FORM_FIELD_COLLECT, this.onFormCollect);
+    this.announceToForm();
   }
 
   protected async deactivateListeners(): Promise<void> {
@@ -68,7 +78,37 @@ export default abstract class Field extends Component implements FieldController
 
     this.formEl?.removeEventListener('loading:start', this.onFormLoadingStart);
     this.formEl?.removeEventListener('loading:end', this.onFormLoadingEnd);
+    document.removeEventListener(FORM_FIELD_COLLECT, this.onFormCollect);
+
+    this.el.dispatchEvent(new CustomEvent(FORM_FIELD_UNREGISTER, {
+      bubbles: true,
+      detail: { field: this },
+    }));
   }
+
+  /**
+   * Says what this field is called to whatever form holds it. The event travels
+   * up, so the field needs to know nothing about the form — not even that there
+   * is one.
+   */
+  private announceToForm(): void {
+    if (!this.fieldName) {
+      return;
+    }
+
+    this.el.dispatchEvent(new CustomEvent(FORM_FIELD_REGISTER, {
+      bubbles: true,
+      detail: { field: this },
+    }));
+  }
+
+  private onFormCollect = (event: Event): void => {
+    const form = event.target;
+
+    if (form instanceof HTMLElement && form.contains(this.el)) {
+      this.announceToForm();
+    }
+  };
 
   private onFormLoadingStart = (): void => {
     // Whatever an agent was still writing lands at once: a form leaving with a
