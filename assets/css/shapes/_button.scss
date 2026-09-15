@@ -199,6 +199,24 @@
   padding: 0;
 }
 
+// Between two runs of items that have nothing to do with each other. It spans
+// the whole panel, edge to edge, because a rule inset from the sides reads as
+// part of the item above it.
+.button-menu--separator {
+  margin: var(--space-1) 0;
+  border-top: var(--border-separator);
+}
+
+// The same line doing a second job: naming what follows it.
+.button-menu--separator--titled {
+  margin-bottom: 0;
+  padding: var(--space-3) var(--space-4) var(--space-1);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--font-size-1);
+  color: var(--text-color-muted);
+}
+
 .button-menu--link {
   display: flex;
   align-items: center;
