@@ -1,6 +1,5 @@
 @use '../../css/mixins/flex' as flex;
 @use '../mixins/density' as density;
-@use '../mixins/surface-layer' as surface;
 
 .toolbar {
   --toolbar-padding: var(--space-3);
@@ -30,9 +29,20 @@
   --toolbar-font-size: var(--font-size-4);
 }
 
+// A toolbar is chrome, like a header, a tab bar or a menu: it takes the shell
+// surface and not an elevation of its own. Reading the token rather than naming
+// a level is also what makes it follow inside a modal or a panel, where the
+// layer remaps the shell to its own elevation.
+//
+// It must not establish that layer itself — doing so would remap the token on
+// the very element that reads it, which is how this ended up a notch too light
+// in the dark theme.
 .toolbar--shaded {
-  @include surface.surface-layer;
-  background: var(--surface-3);
+  background: var(--surface-shell);
+  // At shell level a bar is the colour of the page in the light theme, exactly
+  // as the header and the footer are: what tells it apart from what surrounds
+  // it is the line, not the contrast.
+  border: var(--border-separator);
 }
 
 .toolbar--group {
