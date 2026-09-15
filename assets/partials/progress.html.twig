@@ -1,0 +1,27 @@
+{#- Server-side twin of vue/partials/progress-bar.vue: same classes, same value
+    carried as a ratio. A change to either is a change to both — what the browser
+    can do beyond this is move the value, which needs one that changes. -#}
+<div class="progress progress--{{ type|default('info') }}{% if size %} progress--{{ size }}{% endif %}{% if indeterminate %} progress--indeterminate{% endif %}{% if class %} {{ class }}{% endif %}"
+     {% if not indeterminate %}style="--progress-value: {{ ratio }};"{% endif %}
+     role="progressbar"
+     aria-valuemin="0"
+     {% if indeterminate %}
+         aria-valuetext="{{ label|default('') }}"
+     {% else %}
+         aria-valuemax="{{ total }}"
+         aria-valuenow="{{ current }}"
+     {% endif %}
+     {% if label %}aria-label="{{ label }}"{% endif %}
+     {{ component_render_tag_attributes(attr|default({})) }}>
+    {%- if label or show_value -%}
+        <div class="progress--head">
+            {%- if label -%}<span class="progress--label">{{ label }}</span>{%- endif -%}
+            {%- if show_value and not indeterminate -%}
+                <span class="progress--value">{{ percent }}%</span>
+            {%- endif -%}
+        </div>
+    {%- endif -%}
+    <div class="progress--track">
+        <div class="progress--bar"></div>
+    </div>
+</div>
