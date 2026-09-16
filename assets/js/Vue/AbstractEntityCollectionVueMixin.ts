@@ -1,6 +1,8 @@
 import AbstractEntityManipulatorVueMixin from './AbstractEntityManipulatorVueMixin';
 import EventsService from '@wexample/symfony-loader/js/Services/EventsService';
 import LiveUpdatesService from '@wexample/symfony-loader/js/Services/LiveUpdatesService';
+import { reconcileEntityCollection } from '@wexample/js-api/Helper/ApiEntityCollectionHelper';
+import type AbstractApiEntity from '@wexample/js-api/Common/AbstractApiEntity';
 
 const AbstractEntityCollectionVueMixin = {
   mixins: [AbstractEntityManipulatorVueMixin],
@@ -12,6 +14,12 @@ const AbstractEntityCollectionVueMixin = {
       isLoading: false,
       isLoadingOlder: false,
       page: 0,
+      // Null fetches the collection in a single request: a list that holds no
+      // more than the eye does has nothing to page through.
+      pageLength: null,
+      compactPagination: false,
+      // bottom, top or both.
+      paginationPosition: 'bottom',
       // Read backwards, which page is the topmost one displayed. Null until the
       // first read, since that is what says how many pages there are.
       oldestLoadedPage: null,
@@ -27,6 +35,17 @@ const AbstractEntityCollectionVueMixin = {
   computed: {
     hasOlderEntities() {
       return this.oldestLoadedPage !== null && this.oldestLoadedPage > 0;
+    },
+
+    // What the pagination partial needs, whichever shape the collection wears.
+    paginationProps() {
+      return {
+        page: this.pagination?.page,
+        pagesCount: this.pagination?.pagesCount,
+        hasMore: this.pagination?.hasMore,
+        compact: this.compactPagination,
+        disabled: this.isLoading,
+      };
     },
   },
 
@@ -54,7 +73,12 @@ const AbstractEntityCollectionVueMixin = {
 
     // Null disables pagination: the collection is fetched in a single request.
     getPageLength() {
-      return null;
+      return this.pageLength;
+    },
+
+    hasPaginationAt(position) {
+      return Boolean(this.pagination)
+        && (this.paginationPosition === position || this.paginationPosition === 'both');
     },
 
     // A collection read backwards opens on its last page and grows upwards, so
@@ -88,10 +112,17 @@ const AbstractEntityCollectionVueMixin = {
       });
     },
 
-    async refreshEntitiesCollection() {
+    // A silent refresh is one the reader did not ask for — live, polling, an
+    // app event. It patches the collection without the loading state: rows are
+    // reconciled by identity, so the held instances stay and only what changed
+    // is redrawn. Loud refreshes are the reader's own moves: first load,
+    // pagination.
+    async refreshEntitiesCollection({ silent = false } = {}) {
       const reversed = this.startsAtLastPage();
 
-      this.isLoading = true;
+      if (!silent) {
+        this.isLoading = true;
+      }
       try {
         // A negative page is read by the api as counted back from the end, which
         // is the only way to ask for the freshest slice without first asking how
@@ -103,10 +134,16 @@ const AbstractEntityCollectionVueMixin = {
         if (reversed) {
           this.receiveLastPage(result.items, result.pagination.page);
         } else {
-          this.entities = result.items;
+          this.entities = reconcileEntityCollection(
+            this.entities as AbstractApiEntity[],
+            result.items,
+            (entity) => this.getEntityKey(entity)
+          );
         }
       } finally {
-        this.isLoading = false;
+        if (!silent) {
+          this.isLoading = false;
+        }
       }
 
       if (!reversed) {
@@ -115,7 +152,8 @@ const AbstractEntityCollectionVueMixin = {
     },
 
     // Refreshing a collection read backwards must not throw away the pages the
-    // reader has scrolled back to: what the last page brings is added to them.
+    // reader has scrolled back to: a row the page brings back absorbs its fresh
+    // values in place, and only the truly new ones are appended.
     receiveLastPage(items, page) {
       if (this.oldestLoadedPage === null || page < this.oldestLoadedPage) {
         this.oldestLoadedPage = page;
@@ -124,7 +162,22 @@ const AbstractEntityCollectionVueMixin = {
         return;
       }
 
-      this.entities = [...this.entities, ...this.filterUnknownEntities(items)];
+      const held = new Map<unknown, AbstractApiEntity>(
+        this.entities.map((entity: AbstractApiEntity) => [this.getEntityKey(entity), entity])
+      );
+      const unknown = [];
+
+      for (const item of items as AbstractApiEntity[]) {
+        const existing = held.get(this.getEntityKey(item));
+
+        if (existing) {
+          existing.absorb(item);
+        } else {
+          unknown.push(item);
+        }
+      }
+
+      this.entities = [...this.entities, ...unknown];
     },
 
     async loadOlderEntities() {
@@ -232,7 +285,7 @@ const AbstractEntityCollectionVueMixin = {
      */
     onLiveSourceMessage(payload, source) {
       if (!source.event || payload?.event === source.event) {
-        this.refreshEntitiesCollection();
+        this.refreshEntitiesCollection({ silent: true });
       }
     },
 
@@ -255,7 +308,7 @@ const AbstractEntityCollectionVueMixin = {
           return;
         }
 
-        this.refreshEntitiesCollection();
+        this.refreshEntitiesCollection({ silent: true });
       }, interval);
     },
 
@@ -280,7 +333,7 @@ const AbstractEntityCollectionVueMixin = {
       }
 
       this.collectionRefreshHandlers = events.map((eventName) => {
-        const handler = () => this.refreshEntitiesCollection();
+        const handler = () => this.refreshEntitiesCollection({ silent: true });
         this.app.getServiceOrFail(EventsService).listen(eventName, handler);
         return { eventName, handler };
       });

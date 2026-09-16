@@ -39,8 +39,11 @@ it listens to the process, and it redraws when anything is published there.
 ## The three ways in
 
 They live on `AbstractEntityCollectionVueMixin`, so any collection has them —
-table, tree, chat. They are not alternatives to weigh once and for all: they are
-what a collection's situation happens to offer, and a collection may declare
+table, bar list, chat. What keeps a collection true and what it looks like are
+two separate decisions: the same three ways serve
+`collection/bar-list/abstract-entity-bar-list.vue`, one line per row, exactly as
+they serve the table. They are not alternatives to weigh once and for all: they
+are what a collection's situation happens to offer, and a collection may declare
 none, one or several.
 
 **An app event** — `getCollectionRefreshEvents()` returns event names, and the
@@ -58,7 +61,8 @@ subscription held open. It stops while the tab is in the background: a page
 nobody is looking at is a page nobody needs read to them.
 
 All four states are on the demo page, *Data › Keeping up*, with buttons to ring
-each one by hand.
+each one by hand — the last section there is a bar list rather than a table,
+running on the same mixin.
 
 ## The part that is easy to get wrong
 
