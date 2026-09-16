@@ -9,7 +9,7 @@ use Wexample\SymfonyLoader\Controller\Pages\AbstractDesignSystemController;
 
 #[Route(
     name: 'wexample_design_system_fixtures_',
-    path: AbstractDesignSystemController::CONTROLLER_BASE_ROUTE . '/fixtures/',
+    path: AbstractDesignSystemController::CONTROLLER_BASE_ROUTE_INTERNAL . '/fixtures/',
 )]
 class FixturesController extends AbstractController
 {

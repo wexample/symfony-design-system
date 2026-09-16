@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Attribute\Route;
  * Session keys follow the format: ui.layout.menu.{menuId}
  * They are stored under the 'ui_state' session namespace.
  */
-#[Route(path: '/ui-state/', name: 'wexample_design_system_ui_state_')]
+#[Route(path: '/_ui-state/', name: 'wexample_design_system_ui_state_')]
 class UiStateController extends AbstractController
 {
     #[Route(path: 'set', name: 'set', methods: [Request::METHOD_POST])]
