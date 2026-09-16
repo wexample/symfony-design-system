@@ -1,5 +1,4 @@
 @use '../mixins/field' as field;
-@use '../mixins/border' as border;
 
 // A field that answers as it is typed in: the input, and under it a dropdown
 // holding one bar per result. The rows are the `bar` shape; what is here is
@@ -75,12 +74,14 @@
     background: var(--state-hover);
   }
 
-  &:focus,
+  // The ring is drawn inside the row. The dropdown scrolls, and a scrolling box
+  // clips whatever pokes out of it — an outline sitting outside the row lost
+  // its two sides against the dropdown's edges.
   &:focus-visible {
-    position: relative;
-    z-index: var(--z-raised);
+    background: var(--state-hover);
     border-radius: var(--radius-1);
-    @include border.border-focus-floating;
+    outline: var(--border-focus);
+    outline-offset: -2px;
   }
 }
 
