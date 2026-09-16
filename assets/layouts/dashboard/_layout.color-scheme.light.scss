@@ -16,7 +16,8 @@ $color-light: #fafafa !default;
     palette.$color-info,
     palette.$color-success,
     palette.$color-warning,
-    palette.$color-error
+    palette.$color-error,
+    $assist: palette.$color-assist
   );
 
   // Light face: ordered elevation — each surface level lighter than the one below.

@@ -54,7 +54,7 @@
 }
 
 .spinner--circle-path {
-  stroke: currentColor;
+  stroke: var(--spinner-color, currentColor);
   stroke-width: var(--spinner-stroke);
   stroke-linecap: round;
   stroke-dasharray: 80 60;

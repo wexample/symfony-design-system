@@ -3,6 +3,10 @@ $color-success: #1f9d55 !default;
 $color-warning: #f59f00 !default;
 $color-error: #e03131 !default;
 
+// What marks a field an agent is holding: the assisted outlines and every
+// --color-assist-N level derive from this one value, on each face.
+$color-assist: $color-info !default;
+
 $color-tag-1: #e63946 !default; // red
 $color-tag-2: #e8710a !default; // orange
 $color-tag-3: #d4a017 !default; // amber
