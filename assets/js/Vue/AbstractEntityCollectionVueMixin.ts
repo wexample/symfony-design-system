@@ -1,5 +1,6 @@
 import AbstractEntityManipulatorVueMixin from './AbstractEntityManipulatorVueMixin';
 import EventsService from '@wexample/symfony-loader/js/Services/EventsService';
+import LiveUpdatesService from '@wexample/symfony-loader/js/Services/LiveUpdatesService';
 
 const AbstractEntityCollectionVueMixin = {
   mixins: [AbstractEntityManipulatorVueMixin],
@@ -15,6 +16,11 @@ const AbstractEntityCollectionVueMixin = {
       // first read, since that is what says how many pages there are.
       oldestLoadedPage: null,
       pagination: null,
+      // What keeps the collection true after the first read. A collection may
+      // declare none, one or several of the three: they are not alternatives,
+      // they are what happens to be available where it stands.
+      liveConnection: null,
+      pollingTimer: null,
     };
   },
 
@@ -27,10 +33,18 @@ const AbstractEntityCollectionVueMixin = {
   mounted() {
     this.refreshEntitiesCollection();
     this.registerCollectionRefreshEvents();
+    // The app has to be up before a subscription can be asked for, which is not
+    // true of the two others.
+    this.runWhenAppReady(() => this.connectToLiveSource());
+    this.startCollectionPolling();
   },
 
   beforeDestroy() {
-    this.unregisterCollectionRefreshEvents();
+    this.stopWatchingCollection();
+  },
+
+  beforeUnmount() {
+    this.stopWatchingCollection();
   },
 
   methods: {
@@ -160,8 +174,103 @@ const AbstractEntityCollectionVueMixin = {
       await this.refreshEntitiesCollection();
     },
 
+    // --- What brings the collection back ---
+    //
+    // Three ways in, and a collection picks what its situation offers:
+    //
+    //   - an app event, for a change this page caused itself;
+    //   - a live source, where the server has a topic to publish on;
+    //   - polling, where it has none, or where a round trip a minute is
+    //     cheaper than a subscription held open.
+    //
+    // All three end in the same call, so nothing downstream knows which one
+    // rang.
+
     getCollectionRefreshEvents() {
       return [];
+    },
+
+    /**
+     * The entity whose topic this collection listens to, and the event on it
+     * worth a redraw:
+     *
+     *   { entityName: 'process', id: this.processId, event: 'run-changed' }
+     *
+     * Note whose topic it is: a collection listens to what it is the collection
+     * *of* — a process for its runs, a session for its messages — and never to
+     * each of its own rows. A row that does not exist yet has no topic, and it
+     * is precisely the row that appears which the reader is waiting for.
+     *
+     * Omit `event` to redraw on anything published there.
+     */
+    getLiveSource() {
+      return null;
+    },
+
+    async connectToLiveSource() {
+      const source = this.getLiveSource();
+
+      if (!source) {
+        return;
+      }
+
+      this.liveConnection = await this.app
+        .getServiceOrFail(LiveUpdatesService)
+        .connectToEntity({
+          entityName: source.entityName,
+          id: source.id,
+          owner: this,
+          onMessage: (connection, payload) => this.onLiveSourceMessage(payload, source),
+        });
+    },
+
+    /**
+     * The collection is asked for again rather than patched with what arrived:
+     * the row just published is also the one whoever caused it already has, and
+     * asking again is shorter than telling the two apart. It is also what keeps
+     * the server the only one deciding what the collection holds.
+     */
+    onLiveSourceMessage(payload, source) {
+      if (!source.event || payload?.event === source.event) {
+        this.refreshEntitiesCollection();
+      }
+    },
+
+    // Milliseconds between two readings, or null to ask only when something
+    // says to. A collection that polls says how often it is worth it.
+    getPollingIntervalMs() {
+      return null;
+    },
+
+    startCollectionPolling() {
+      const interval = this.getPollingIntervalMs();
+
+      if (!interval || this.pollingTimer) {
+        return;
+      }
+
+      this.pollingTimer = setInterval(() => {
+        // A page nobody is looking at is a page nobody needs read to them.
+        if (document.hidden) {
+          return;
+        }
+
+        this.refreshEntitiesCollection();
+      }, interval);
+    },
+
+    stopCollectionPolling() {
+      if (this.pollingTimer) {
+        clearInterval(this.pollingTimer);
+        this.pollingTimer = null;
+      }
+    },
+
+    stopWatchingCollection() {
+      this.unregisterCollectionRefreshEvents();
+      this.stopCollectionPolling();
+      this.liveConnection?.close();
+      this.liveConnection = null;
     },
 
     registerCollectionRefreshEvents() {
