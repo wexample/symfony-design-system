@@ -34,6 +34,13 @@ export default {
       type: Boolean,
       default: false
     },
+    // Names a row across refreshes. With it, a re-read collection patches its
+    // rows in place; without it, position is all a row has, and every refresh
+    // redraws them all.
+    rowKey: {
+      type: Function,
+      default: null
+    },
     ...translated.props,
     columns: {
       type: Array,
@@ -59,6 +66,9 @@ export default {
     },
     hasRows() {
       return Array.isArray(this.rows) && this.rows.length > 0;
+    },
+    getRowKey(row, index) {
+      return this.rowKey ? this.rowKey(row) : index;
     },
     hasCellActions(column) {
       return Boolean(column?.action || (Array.isArray(column?.actions) && column.actions.length));

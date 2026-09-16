@@ -49,7 +49,7 @@
         </tr>
         <tr
                 v-for="(row, index) in rows"
-                :key="index"
+                :key="getRowKey(row, index)"
                 class="table--row"
         >
             <template v-if="$slots.row">
