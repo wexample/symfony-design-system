@@ -26,7 +26,9 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
   protected confirmOnCloseMessage = '@page::frontend.embed.closing_confirmation.message';
   protected confirmOnCloseTitle = 'WexampleSymfonyLoaderBundle.common.system::frontend.confirm.title';
   protected confirmOnCloseDirtyMessage = 'WexampleSymfonyLoaderBundle.common.system::frontend.embed.confirm.form_leave';
-  protected onClickOverlayProxy?: EventListener;
+  protected onMouseDownOverlayProxy?: EventListener;
+  protected onMouseUpOverlayProxy?: EventListener;
+  protected pressStartedOnOverlay = false;
   protected confirmOnCloseWhenDirty = false;
   protected isDirty = false;
   protected onFormDirtyProxy?: EventListener;
@@ -103,16 +105,21 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
     this.confirmOnCloseWhenDirty = options?.confirmOnCloseWhenDirty === true;
 
     this.contentEl?.addEventListener('click', this.onClickContent);
-    this.onClickOverlayProxy = this.onClickOverlay.bind(this) as EventListener;
-    this.el.addEventListener('click', this.onClickOverlayProxy);
+    this.onMouseDownOverlayProxy = this.onMouseDownOverlay.bind(this) as EventListener;
+    this.el.addEventListener('mousedown', this.onMouseDownOverlayProxy);
+    this.onMouseUpOverlayProxy = this.onMouseUpOverlay.bind(this) as EventListener;
+    this.el.addEventListener('mouseup', this.onMouseUpOverlayProxy);
     this.onFormDirtyProxy = this.onFormDirty.bind(this) as EventListener;
     this.el.addEventListener('form:dirty', this.onFormDirtyProxy);
   }
 
   protected async deactivateListeners(): Promise<void> {
     this.contentEl?.removeEventListener('click', this.onClickContent);
-    if (this.onClickOverlayProxy) {
-      this.el.removeEventListener('click', this.onClickOverlayProxy);
+    if (this.onMouseDownOverlayProxy) {
+      this.el.removeEventListener('mousedown', this.onMouseDownOverlayProxy);
+    }
+    if (this.onMouseUpOverlayProxy) {
+      this.el.removeEventListener('mouseup', this.onMouseUpOverlayProxy);
     }
     if (this.onFormDirtyProxy) {
       this.el.removeEventListener('form:dirty', this.onFormDirtyProxy);
@@ -166,8 +173,20 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
     await this.close({ userInitiated: true });
   };
 
-  private onClickOverlay = async (event: Event) => {
-    if (!this.closeOnOverlayClick || event.target !== this.el) {
+  // Closing asks for a full click on the backdrop — pressed there and released
+  // there. The `click` event cannot say that: after a drag it fires on the
+  // common ancestor of the two ends, so a text selection started in a field and
+  // released past the content would read as a click on the backdrop, and close
+  // the modal over a form in progress.
+  private onMouseDownOverlay = (event: Event) => {
+    this.pressStartedOnOverlay = event.target === this.el;
+  };
+
+  private onMouseUpOverlay = async (event: Event) => {
+    const startedOnOverlay = this.pressStartedOnOverlay;
+    this.pressStartedOnOverlay = false;
+
+    if (!this.closeOnOverlayClick || !startedOnOverlay || event.target !== this.el) {
       return;
     }
 
