@@ -19,6 +19,10 @@
                         v-html="getItemIcon(item)"
                 ></span>
                 <span class="tabs--item-label">[[ item.label ]]</span>
+                <span
+                        v-if="item.count !== undefined && item.count !== null"
+                        class="pill tabs--item-count"
+                >[[ item.count ]]</span>
             </span>
         </a>
     </div>

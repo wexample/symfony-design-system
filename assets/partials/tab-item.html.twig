@@ -13,5 +13,8 @@
             <span class="tabs--item-icon">{{ icon(options.icon) }}</span>
         {% endif %}
         <span class="tabs--item-label">{{ label | trans }}</span>
+        {%- if options.count is defined and options.count is not null -%}
+            <span class="pill tabs--item-count">{{ options.count }}</span>
+        {%- endif -%}
     </span>
 </a>

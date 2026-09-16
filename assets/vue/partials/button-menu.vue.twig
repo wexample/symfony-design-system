@@ -47,6 +47,10 @@
                                 v-html="renderIcon(item.icon)"
                         ></span>
                         <span class="button-menu--item-label">[[ item.label ]]</span>
+                        <span
+                                v-if="item.count !== undefined && item.count !== null"
+                                class="pill button-menu--item-count"
+                        >[[ item.count ]]</span>
                     </a>
                     </li>
                 </template>

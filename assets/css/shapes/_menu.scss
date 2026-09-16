@@ -1,6 +1,7 @@
 @use '../../css/mixins/border' as border;
 @use '../../css/mixins/text' as text;
 @use '../../css/shapes/bar';
+@use '../../css/shapes/pill';
 
 .menu {
   --menu-width: var(--size-6);
@@ -118,6 +119,13 @@
 
 .menu--item--label {
   @include text.text-ellipsis;
+}
+
+// How many of whatever the item leads to. It is a pill and nothing else — all
+// the item adds is the far end.
+.menu--item--count {
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
 .menu--vertical--left {

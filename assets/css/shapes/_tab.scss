@@ -1,5 +1,6 @@
 @use '../mixins/density' as density;
 @use './surface';
+@use './pill';
 
 .tabs {
   display: flex;
@@ -65,6 +66,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+// The label is what gives way when the tab is too narrow, never the count.
+.tabs--item-count {
+  flex-shrink: 0;
 }
 
 .tabs--item:not(.tabs--item--active):hover {

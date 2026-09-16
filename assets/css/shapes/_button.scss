@@ -2,6 +2,7 @@
 @use '../mixins/transition' as transition;
 @use '../mixins/assisted' as assisted;
 @use 'spinner';
+@use 'pill';
 
 .button {
   display: inline-flex;
@@ -247,6 +248,11 @@
 .button-menu--item-label {
   display: inline-flex;
   align-items: center;
+}
+
+.button-menu--item-count {
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
 .button.is-assisted {

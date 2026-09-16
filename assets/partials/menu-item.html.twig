@@ -16,5 +16,8 @@
             {{ icon((translation_build_domain_from_template_path(page_translation_path_from_route(route)) ~ '::page_icon') | trans) }}
         </span>
         <span class="menu--item--label">{{ (translation_build_domain_from_template_path(page_translation_path_from_route(route)) ~ '::page_title') | trans }}</span>
+        {%- if options.count is defined and options.count is not null -%}
+            <span class="pill menu--item--count">{{ options.count }}</span>
+        {%- endif -%}
     </a>
 </li>
