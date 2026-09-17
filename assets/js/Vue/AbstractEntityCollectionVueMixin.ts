@@ -29,6 +29,11 @@ const AbstractEntityCollectionVueMixin = {
       // they are what happens to be available where it stands.
       liveConnection: null,
       pollingTimer: null,
+      // One reading at a time: a burst of live events folds into the reading
+      // under way plus one more, instead of a request per event racing each
+      // other — the last response to resolve is not always the freshest.
+      refreshUnderWay: false,
+      refreshAskedAgain: false,
     };
   },
 
@@ -117,7 +122,25 @@ const AbstractEntityCollectionVueMixin = {
     // reconciled by identity, so the held instances stay and only what changed
     // is redrawn. Loud refreshes are the reader's own moves: first load,
     // pagination.
-    async refreshEntitiesCollection({ silent = false } = {}) {
+    async refreshEntitiesCollection(options = {}) {
+      if (this.refreshUnderWay) {
+        this.refreshAskedAgain = true;
+
+        return;
+      }
+
+      this.refreshUnderWay = true;
+      try {
+        do {
+          this.refreshAskedAgain = false;
+          await this.readEntitiesCollection(options);
+        } while (this.refreshAskedAgain);
+      } finally {
+        this.refreshUnderWay = false;
+      }
+    },
+
+    async readEntitiesCollection({ silent = false } = {}) {
       const reversed = this.startsAtLastPage();
 
       if (!silent) {
