@@ -20,6 +20,12 @@ export default {
     result: {
       type: Object,
       required: true
+    },
+    // A row in a list of pages opens what it names. A row in a form field
+    // stands for a value being picked, and opening it would leave the form.
+    link: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -39,7 +45,7 @@ export default {
     // What the row is opened by. Null when the kind declared no route: the bar
     // then stands as a div and stops pretending to be a link.
     href() {
-      return this.readString('url') || null;
+      return this.link ? (this.readString('url') || null) : null;
     },
 
     icon() {

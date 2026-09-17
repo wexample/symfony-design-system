@@ -41,6 +41,7 @@
                             :key="resultKey(result)"
                             :is="resultComponent(result)"
                             :result="result"
+                            :link="linkResults"
                             @select="onSelect"
                     ></component>
                 {%- endblock -%}

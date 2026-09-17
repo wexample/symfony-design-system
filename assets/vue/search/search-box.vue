@@ -65,6 +65,17 @@ export default {
       type: String,
       default: 'default'
     },
+    // Restricts the answer to one kind — an entity name, or a provider key.
+    // Null asks everyone, which is what a header does.
+    type: {
+      type: String,
+      default: null
+    },
+    // Whether a row opens what it names. False where picking is the point.
+    linkResults: {
+      type: Boolean,
+      default: true
+    },
     length: {
       type: Number,
       default: 8
@@ -199,13 +210,16 @@ export default {
     },
 
     getFetchParams() {
-      return {
-        query: {
-          search: this.terms.trim(),
-          context: this.context
-        },
-        length: this.length
+      const query = {
+        search: this.terms.trim(),
+        context: this.context
       };
+
+      if (this.type) {
+        query.type = this.type;
+      }
+
+      return { query, length: this.length };
     },
 
     async search() {
