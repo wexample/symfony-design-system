@@ -1,3 +1,5 @@
+@use 'sass:color';
+@use 'sass:list';
 @use 'sass:math';
 
 $color-scheme-level-count: 32 !default;
@@ -12,7 +14,7 @@ $color-scheme-level-count: 32 !default;
   $levels: ();
 
   @for $i from 1 through $count {
-    $levels: append($levels, $i * $step, comma);
+    $levels: list.append($levels, $i * $step, comma);
   }
 
   @return $levels;
@@ -36,8 +38,8 @@ $color-scheme-level-count: 32 !default;
   --color-absolute-dark: #000;
   --color-absolute-light: #fff;
 
-  @for $i from 1 through length($levels) {
-    $level: nth($levels, $i);
+  @for $i from 1 through list.length($levels) {
+    $level: list.nth($levels, $i);
     --color-absolute-dark-transparent-#{$i}: #{rgba(#000, $level)};
     --color-absolute-light-transparent-#{$i}: #{rgba(#fff, $level)};
   }
@@ -88,9 +90,9 @@ $color-scheme-level-count: 32 !default;
 @mixin color-scheme-invert-levels($foreground, $background) {
   $levels: color-scheme-levels($color-scheme-level-count);
 
-  @for $i from 1 through length($levels) {
-    $level: nth($levels, $i);
-    --color-invert-#{$i}: #{mix($foreground, $background, $level * 100)};
+  @for $i from 1 through list.length($levels) {
+    $level: list.nth($levels, $i);
+    --color-invert-#{$i}: #{color.mix($foreground, $background, $level * 100%)};
     --color-invert-transparent-#{$i}: #{rgba($foreground, $level)};
   }
 }
@@ -98,16 +100,16 @@ $color-scheme-level-count: 32 !default;
 @mixin color-scheme-default-levels($background, $foreground) {
   $levels: color-scheme-levels($color-scheme-level-count);
 
-  @for $i from 1 through length($levels) {
-    $level: nth($levels, $i);
-    --color-default-#{$i}: #{mix($background, $foreground, $level * 100)};
+  @for $i from 1 through list.length($levels) {
+    $level: list.nth($levels, $i);
+    --color-default-#{$i}: #{color.mix($background, $foreground, $level * 100%)};
     --color-default-transparent-#{$i}: #{rgba($background, $level)};
   }
 }
 
 @mixin color-scheme-tags($background, $foreground, $tags...) {
-  @for $i from 1 through length($tags) {
-    @include color-scheme-semantic-levels('tag-#{$i}', nth($tags, $i), $background, $foreground);
+  @for $i from 1 through list.length($tags) {
+    @include color-scheme-semantic-levels('tag-#{$i}', list.nth($tags, $i), $background, $foreground);
   }
 }
 
@@ -117,13 +119,13 @@ $color-scheme-level-count: 32 !default;
 
   @for $i from 1 through $color-scheme-level-count {
     @if $i < $middle-index {
-      $weight: nth($levels, $i) * 100;
-      --color-#{$name}-#{$i}: #{mix($color, $background, $weight)};
+      $weight: list.nth($levels, $i) * 100%;
+      --color-#{$name}-#{$i}: #{color.mix($color, $background, $weight)};
     } @else if $i == $middle-index {
       --color-#{$name}-#{$i}: #{$color};
     } @else {
-      $weight: nth($levels, $i) * 100;
-      --color-#{$name}-#{$i}: #{mix($color, $foreground, $weight)};
+      $weight: list.nth($levels, $i) * 100%;
+      --color-#{$name}-#{$i}: #{color.mix($color, $foreground, $weight)};
     }
   }
 }
