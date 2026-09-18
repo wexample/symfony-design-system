@@ -1,7 +1,7 @@
 @use '../mixins/text' as text;
 
 .text-strong {
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
 }
 
 .text-secondary {

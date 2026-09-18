@@ -143,7 +143,7 @@
 }
 
 .chat--message-author {
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 .chat--message-date {
@@ -156,7 +156,7 @@
 // code, so it never competes with a spoken turn for attention.
 .chat--message-row--tool {
   .chat--message-content {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-family: var(--font-family-mono);
     font-size: 0.875rem;
     white-space: pre-wrap;
     word-break: break-word;

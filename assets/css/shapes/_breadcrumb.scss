@@ -42,6 +42,6 @@
 
   .breadcrumb--item--current {
     color: var(--color-default-text);
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
   }
 }

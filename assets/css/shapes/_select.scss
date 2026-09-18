@@ -57,7 +57,7 @@
 .select--group-label {
   padding: var(--space-1) var(--space-3);
   font-size: var(--font-size-1);
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
   color: var(--text-color-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -74,7 +74,7 @@
 
   &.select--option--selected {
     color: var(--color-primary);
-    font-weight: 600;
+    font-weight: var(--font-weight-strong);
   }
 }
 

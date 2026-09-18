@@ -1,0 +1,12 @@
+@use '../../css/fonts/system_sans' as sans;
+@use '../../css/fonts/system_mono' as mono;
+@use '../../css/mixins/font' as font;
+
+// System: the faces the reader's own machine sets everything else in. Nothing to fetch, nothing to wait for — the default, and what every other set is a departure from.
+.usage-fonts-system {
+  @include font.font-vars(
+    $base: sans.$font-stack-sans,
+    $heading: sans.$font-stack-sans,
+    $mono: mono.$font-stack-mono,
+  );
+}

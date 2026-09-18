@@ -4,7 +4,7 @@
   background: var(--tag-bg, var(--surface-2));
   color: var(--tag-color, inherit);
   font-size: 0.8em;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   display: inline-block;
   line-height: 1.6;
   white-space: nowrap;

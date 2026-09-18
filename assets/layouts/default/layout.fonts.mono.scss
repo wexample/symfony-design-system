@@ -1,0 +1,11 @@
+@use '../../css/fonts/system_mono' as mono;
+@use '../../css/mixins/font' as font;
+
+// Mono: everything typed. For a console, a log reader, an app whose subject is text a machine wrote — and the fastest way to see that the axis is doing something.
+.usage-fonts-mono {
+  @include font.font-vars(
+    $base: mono.$font-stack-mono,
+    $heading: mono.$font-stack-mono,
+    $mono: mono.$font-stack-mono,
+  );
+}

@@ -10,7 +10,7 @@ pre.code-block {
   color: #d4d4d4;
 
   code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    font-family: var(--font-family-mono);
     line-height: 1.6;
     white-space: pre;
     tab-size: 2;

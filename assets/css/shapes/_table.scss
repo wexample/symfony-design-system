@@ -111,7 +111,7 @@
 }
 
 .table thead .table--cell {
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
 }
 
 .table tbody tr:last-child .table--cell {

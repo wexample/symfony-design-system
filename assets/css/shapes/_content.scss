@@ -14,7 +14,7 @@
   h4,
   h5,
   h6 {
-    font-weight: 600;
+    font-weight: var(--font-weight-strong);
     line-height: 1.2;
     margin: 0;
     scroll-margin-top: var(--space-6);
@@ -29,7 +29,7 @@
 
   a {
     color: inherit;
-    font-weight: 600;
+    font-weight: var(--font-weight-strong);
     text-decoration: underline;
     text-decoration-color: var(--color-invert-9);
     text-underline-offset: 0.2em;
@@ -43,11 +43,11 @@
     border-radius: var(--radius-media);
   }
 
-  strong { font-weight: 600; }
+  strong { font-weight: var(--font-weight-strong); }
   em { font-style: italic; }
 
   :not(pre) > code {
-    font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+    font-family: var(--font-family-mono);
     font-size: 0.875em;
     color: var(--color-default-text);
     background: var(--border-color-default);
@@ -110,6 +110,6 @@
     line-height: 0.8;
     padding-right: 0.08em;
     padding-bottom: 0.05em;
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
   }
 }

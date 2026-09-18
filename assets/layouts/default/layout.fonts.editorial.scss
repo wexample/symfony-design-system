@@ -1,0 +1,16 @@
+@use '../../css/fonts/system_sans' as sans;
+@use '../../css/fonts/system_serif' as serif;
+@use '../../css/fonts/system_mono' as mono;
+@use '../../css/mixins/font' as font;
+
+// Editorial: set as a page of prose rather than as an interface. Serif throughout, headings included, for the apps that are mostly read.
+.usage-fonts-editorial {
+  @include font.font-vars(
+    $base: serif.$font-stack-serif,
+    $heading: serif.$font-stack-serif,
+    $mono: mono.$font-stack-mono,
+  // A serif carries its weight lower: what a sans says at 600 it says at 700.
+  $weight-strong: 700,
+  $weight-bold: 800,
+  );
+}

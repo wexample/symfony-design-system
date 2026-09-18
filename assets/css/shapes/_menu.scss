@@ -92,7 +92,7 @@
     }
 
     &.active {
-      font-weight: bold;
+      font-weight: var(--font-weight-bold);
       background: var(--state-active);
       color: var(--text-color-default);
     }

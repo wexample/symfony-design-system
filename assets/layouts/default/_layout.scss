@@ -25,19 +25,22 @@
 @use '../../css/mixins/content-size' as content_size;
 @use '../../css/mixins/opacity' as opacity;
 @use '../../css/mixins/z-index' as z_index;
-@use '../../css/fonts/system_sans' as system_sans;
-
-// Local variables
-$font-family-base: system_sans.$font-stack-sans !default;
-$font-family-heading: $font-family-base !default;
-$font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace !default;
+@use '../../css/partials/global' as global;
 
 html,
 body {
-  font-family: $font-family-base;
+  // The families themselves belong to the fonts axis, like the lengths belong
+  // to density: what is said here is only which of them the page is set in.
+  font-family: var(--font-family-base);
   @include content_size.content-size-vars;
   @include opacity.opacity-vars;
   @include z_index.z-index-vars;
+}
+
+// A title may be set in another face than the text under it — an editorial set
+// does exactly that — so it asks for the heading family rather than inheriting.
+#{global.$selector-title-all} {
+  font-family: var(--font-family-heading);
 }
 
 // The one moment the page is seen changing: while a usage is being swapped,

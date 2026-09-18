@@ -10,7 +10,7 @@
   background: var(--feedback-bg);
   color: var(--feedback-color);
   border: 1px solid var(--feedback-border-color);
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
   font-size: var(--font-size-2);
   line-height: 1;
 }

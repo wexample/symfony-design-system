@@ -15,7 +15,7 @@
 
   .header--title {
     font-size: var(--font-size-5);
-    font-weight: 600;
+    font-weight: var(--font-weight-strong);
     @include flex.flex-center;
     padding: var(--space-4);
   }

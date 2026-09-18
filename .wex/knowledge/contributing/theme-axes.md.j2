@@ -10,7 +10,8 @@ remembered in session.
 |---|---|---|
 | `color_scheme` | How much light is there? | Colours, and nothing but colours — including the *colour* of every border and shadow |
 | `density` | How much fits on a screen? | `--space-*`, `--size-*`, `--font-size-*` |
-| `skin` | How are things drawn? | Radii, shadow geometry, border width and style, separators, focus ring width, font family |
+| `skin` | How are things drawn? | Radii, shadow geometry, border width and style, separators, focus ring width |
+| `fonts` | What is it set in? | The three families and the four weights |
 | `animations` | Does the page move of its own accord? | Motion tokens — declared, with no file yet: nothing in the system moves unasked |
 
 ## Moving from one value to another
@@ -38,6 +39,12 @@ A shape never reads the radius scale (`--radius-1`, `--radius-2`). It reads the
 - `--radius-surface` — what content sits on: blocks, tables, modals, panels
 - `--radius-media` — pictures and figures
 - `--radius-pill` — what is read as a capsule
+
+The fonts axis works the same way: a shape names neither a family nor a
+number. `--font-family-base`, `--font-family-heading` and `--font-family-mono`
+are what a page tells apart; `--font-weight-normal`, `-medium`, `-strong` and
+`-bold` are named by how much they insist, so a set whose face has no 500 maps
+it onto what it does have.
 
 Three roles and a pill, on purpose. A new role appears only when a component
 must *diverge* from its role in some skin — none does today. A circle is a

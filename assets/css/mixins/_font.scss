@@ -1,0 +1,26 @@
+// The faces a page is set in, and the weights it is emphasised with. Like the
+// radius roles, a shape never names a family or a number: it says which of
+// these it wants, and the fonts axis decides what that is.
+//
+// Three families, since that is what a page tells apart: what it is written in,
+// what it is titled in, and what is meant to be read as typed rather than said.
+@mixin font-vars(
+  $base,
+  $heading: $base,
+  $mono: null,
+  $weight-normal: 400,
+  $weight-medium: 500,
+  $weight-strong: 600,
+  $weight-bold: 700
+) {
+  --font-family-base: #{$base};
+  --font-family-heading: #{$heading};
+  --font-family-mono: #{$mono};
+
+  // Four weights, named by how much they insist. A set whose face has no 500
+  // maps it onto what it does have rather than leaving a hole.
+  --font-weight-normal: #{$weight-normal};
+  --font-weight-medium: #{$weight-medium};
+  --font-weight-strong: #{$weight-strong};
+  --font-weight-bold: #{$weight-bold};
+}
