@@ -1,0 +1,10 @@
+@use '../../css/mixins/spacing' as spacing;
+@use '../../css/mixins/size' as size;
+@use '../../css/mixins/type-scale' as type_scale;
+
+// Slim: more on the screen. Spacing gives up a quarter, sizes and type only a little — a denser page is still a readable one.
+.usage-density-slim {
+  @include spacing.spacing-vars(0.75);
+  @include size.size-vars(0.875);
+  @include type_scale.type-scale(0.9375);
+}

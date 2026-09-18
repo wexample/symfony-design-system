@@ -1,0 +1,10 @@
+@use '../../css/mixins/spacing' as spacing;
+@use '../../css/mixins/size' as size;
+@use '../../css/mixins/type-scale' as type_scale;
+
+// Fat: room to breathe, or a screen read from further away. Spacing grows most, sizes and type follow moderately.
+.usage-density-fat {
+  @include spacing.spacing-vars(1.375);
+  @include size.size-vars(1.125);
+  @include type_scale.type-scale(1.0625);
+}

@@ -1,10 +1,11 @@
-@mixin type-scale {
-  --font-size-1: 0.75rem;
-  --font-size-2: 0.875rem;
-  --font-size-3: 1rem;
-  --font-size-4: 1.125rem;
-  --font-size-5: 1.25rem;
-  --font-size-6: 1.5rem;
-  --font-size-7: 2rem;
-  --font-size-8: 4rem;
+// The type scale at a given density: 1 is the reference, a density multiplies.
+@mixin type-scale($factor: 1) {
+  --font-size-1: #{0.75rem * $factor};
+  --font-size-2: #{0.875rem * $factor};
+  --font-size-3: #{1rem * $factor};
+  --font-size-4: #{1.125rem * $factor};
+  --font-size-5: #{1.25rem * $factor};
+  --font-size-6: #{1.5rem * $factor};
+  --font-size-7: #{2rem * $factor};
+  --font-size-8: #{4rem * $factor};
 }

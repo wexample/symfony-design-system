@@ -49,10 +49,20 @@ otherwise inherit. Nothing inherits a radius; if a shape has none it has none.
   says which *role* it takes (`--tabs-surface: var(--color-info-8)`), and the
   scheme decides what that role is on each face.
 
-## Apps
+## Where the files live
 
-An app layout built on a design system layout carries one entry file per axis
-value it supports, each a single `@use` of the design system's partial —
-`layout.color-scheme.dark.scss`, `layout.density.default.scss`,
-`layout.skin.default.scss`. Without the file, the axis has nothing to load and
-the page has no tokens.
+The design system ships every value of every axis beside its layouts, as
+entries: `layouts/default/layout.density.slim.scss`,
+`layouts/dashboard/layout.skin.default.scss`, and so on. Both layouts put
+themselves on the render node's inheritance stack, so an app layout built on
+them gets all of it without a file of its own: the loader walks the stack and
+takes the first layout that carries the axis.
+
+An app writes its own file only to customise — the colour scheme with its
+palette, typically — and then it **must ship every value of that axis**: the
+lookup stops at the first layout that has any file for an axis, so an app
+shipping `layout.density.default.scss` alone would silently lose `slim` and
+`fat`. Its file `@use`s the design system's, then adds what it adds.
+
+Adding a value is therefore one file in the design system, and nothing
+anywhere else — until an app that customises that axis wants it too.

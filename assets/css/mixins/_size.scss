@@ -1,13 +1,14 @@
-@mixin size-vars {
-  --size-1: 2rem;
-  --size-2: 3rem;
-  --size-3: 4rem;
-  --size-4: 6rem;
-  --size-5: 8rem;
-  --size-6: 16rem;
-  --size-7: 32rem;
-  --size-8: 64rem;
-  --size-9: 128rem;
+// Region sizes at a given density: 1 is the reference, a density multiplies.
+@mixin size-vars($factor: 1) {
+  --size-1: #{2rem * $factor};
+  --size-2: #{3rem * $factor};
+  --size-3: #{4rem * $factor};
+  --size-4: #{6rem * $factor};
+  --size-5: #{8rem * $factor};
+  --size-6: #{16rem * $factor};
+  --size-7: #{32rem * $factor};
+  --size-8: #{64rem * $factor};
+  --size-9: #{128rem * $factor};
 }
 
 @mixin size-expanded {

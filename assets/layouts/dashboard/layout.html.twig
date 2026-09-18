@@ -1,5 +1,10 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/layouts/default/layout.html.twig' -%}
 
+{%- block layout_config -%}
+    {{- render_pass.layoutRenderNode.setDefaultView(_self) -}}
+    {{ parent() }}
+{%- endblock -%}
+
 {%- block page_composer_html -%}
     {# Rendered up front so the header toggle and the panel itself can both tell
        whether the page has anything to put in the right menu. #}

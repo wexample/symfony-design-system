@@ -1,10 +1,11 @@
-@mixin spacing-vars {
+// The steps at a given density: 1 is the reference, a density multiplies.
+@mixin spacing-vars($factor: 1) {
   --space-0: 0;
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.5rem;
-  --space-6: 2rem;
-  --space-7: 3rem;
+  --space-1: #{0.25rem * $factor};
+  --space-2: #{0.5rem * $factor};
+  --space-3: #{0.75rem * $factor};
+  --space-4: #{1rem * $factor};
+  --space-5: #{1.5rem * $factor};
+  --space-6: #{2rem * $factor};
+  --space-7: #{3rem * $factor};
 }

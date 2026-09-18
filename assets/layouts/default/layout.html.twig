@@ -1,6 +1,9 @@
 {%- extends '@WexampleSymfonyLoaderBundle/layouts/default/layout.html.twig' -%}
 
 {%- block layout_config -%}
+    {#- On the stack, so the axis files shipped beside this layout are found
+        for every app layout built on it. -#}
+    {{- render_pass.layoutRenderNode.setDefaultView(_self) -}}
     {{ parent() }}
     {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::*') }}
 {%- endblock -%}
