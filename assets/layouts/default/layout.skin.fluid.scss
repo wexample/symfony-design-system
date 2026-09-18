@@ -1,0 +1,26 @@
+@use '../../css/mixins/radius' as radius;
+@use '../../css/mixins/shadow' as shadow;
+@use '../../css/mixins/border' as border;
+
+// Fluid: the same page, drawn soft. Corners are generous, the lines that only
+// separated things step back and depth does the telling instead. Nothing here
+// is a colour, and no shape knows this file exists — they read their roles.
+.usage-skin-fluid {
+  @include radius.radius-vars;
+  @include shadow.shadow-vars;
+  @include border.border-vars;
+
+  --radius-control: var(--radius-pill); // a control is a capsule
+  --radius-surface: var(--radius-2);
+  --radius-media: var(--radius-2);
+
+  // What was told apart by a line is told apart by the room around it.
+  --border-separator: 0 solid transparent;
+  --border-discreet: 0 solid transparent;
+  --border-default: 1px solid var(--border-color-discreet);
+
+  --shadow-1: 0 1px 2px var(--color-absolute-dark-transparent-2);
+  --shadow-2: 0 6px 14px var(--color-absolute-dark-transparent-2);
+  --shadow-3: 0 12px 28px var(--color-absolute-dark-transparent-3);
+  --shadow-4: 0 24px 56px var(--color-absolute-dark-transparent-4);
+}

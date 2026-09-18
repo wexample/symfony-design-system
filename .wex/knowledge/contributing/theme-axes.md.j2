@@ -11,7 +11,18 @@ remembered in session.
 | `color_scheme` | How much light is there? | Colours, and nothing but colours — including the *colour* of every border and shadow |
 | `density` | How much fits on a screen? | `--space-*`, `--size-*`, `--font-size-*` |
 | `skin` | How are things drawn? | Radii, shadow geometry, border width and style, separators, focus ring width, font family |
-| `animations` | Does anything move? | Motion tokens — not yet realised, transitions are still written in the shapes |
+| `animations` | Does the page move of its own accord? | Motion tokens — declared, with no file yet: nothing in the system moves unasked |
+
+## Moving from one value to another
+
+Switching an axis is the one moment the page is seen changing, and it is not
+the `animations` axis' business: the loader wears `is-switching-usage` on the
+body for the length of the swap — both stylesheets are on the document until
+the new one has loaded — and the theme hangs its own rule on that class, saying
+how long in `--usage-switch-duration`. Outside that moment nothing is eased,
+which is why the rule can afford to name every property the axes feed. A
+transition left on for good would be paid on every hover of every page, to be
+seen twice a day.
 
 The cut between them is what a shape reads. `--border-separator` is
 `1px solid var(--border-color-discreet)`: the skin owns the `1px solid`, the
