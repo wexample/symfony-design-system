@@ -1,0 +1,12 @@
+@use '../../css/mixins/radius' as radius;
+@use '../../css/mixins/shadow' as shadow;
+@use '../../css/mixins/border' as border;
+
+// Skin: how things are drawn, at equal colour and density. The corners, the
+// depth and the lines — never a colour, which the colour scheme keeps, so a
+// skin can take a line away without knowing what colour it would have had.
+.usage-skin-default {
+  @include radius.radius-vars;
+  @include shadow.shadow-vars;
+  @include border.border-vars;
+}

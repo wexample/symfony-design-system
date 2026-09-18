@@ -19,15 +19,11 @@
 @use '../../css/partials/text';
 @use '../../css/partials/animation';
 
-// Base mixins.
-@use '../../css/mixins/radius' as radius;
-@use '../../css/mixins/type-scale' as type_scale;
+// Base mixins. What is missing here is not forgotten: spacing, sizes and the
+// type scale belong to the density axis, radii, shadows and borders to the
+// skin axis — each is set by its own file, loaded for the value in force.
 @use '../../css/mixins/content-size' as content_size;
-@use '../../css/mixins/shadow' as shadow;
 @use '../../css/mixins/opacity' as opacity;
-@use '../../css/mixins/spacing' as spacing;
-@use '../../css/mixins/size' as size;
-@use '../../css/mixins/border' as border;
 @use '../../css/mixins/z-index' as z_index;
 @use '../../css/fonts/system_sans' as system_sans;
 
@@ -39,14 +35,8 @@ $font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liber
 html,
 body {
   font-family: $font-family-base;
-  @include radius.radius-vars;
-  @include type_scale.type-scale;
   @include content_size.content-size-vars;
-  @include shadow.shadow-vars;
   @include opacity.opacity-vars;
-  @include spacing.spacing-vars;
-  @include size.size-vars;
-  @include border.border-vars;
   @include z_index.z-index-vars;
 }
 

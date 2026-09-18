@@ -1,0 +1,12 @@
+@use '../../css/mixins/spacing' as spacing;
+@use '../../css/mixins/size' as size;
+@use '../../css/mixins/type-scale' as type_scale;
+
+// Density: how much fits on a screen. The three scales a shape spends from —
+// spacing, sizes, type — set once for the whole body; another density is
+// another file setting the same names.
+.usage-density-default {
+  @include spacing.spacing-vars;
+  @include size.size-vars;
+  @include type_scale.type-scale;
+}
