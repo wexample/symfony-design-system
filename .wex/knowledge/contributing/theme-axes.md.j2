@@ -35,7 +35,8 @@ scheme owns the colour, and a skin that wants no separators writes
 A shape never reads the radius scale (`--radius-1`, `--radius-2`). It reads the
 **role** it plays, and the skin decides what each role gets:
 
-- `--radius-control` — pressed, typed in, chosen: buttons, fields, selects, tags
+- `--radius-control` — one line high, and pressed: buttons, pagination, toolbar actions
+- `--radius-field` — holds text and grows: inputs, textareas, selects
 - `--radius-surface` — what content sits on: blocks, tables, modals, panels
 - `--radius-media` — pictures and figures
 - `--radius-pill` — what is read as a capsule
@@ -46,8 +47,10 @@ are what a page tells apart; `--font-weight-normal`, `-medium`, `-strong` and
 `-bold` are named by how much they insist, so a set whose face has no 500 maps
 it onto what it does have.
 
-Three roles and a pill, on purpose. A new role appears only when a component
-must *diverge* from its role in some skin — none does today. A circle is a
+Four roles and a pill, on purpose. A new role appears only when a component
+must *diverge* from its role in some skin: `field` was split off `control` the
+day `soft` made a capsule of everything and turned a textarea into a lozenge —
+a capsule is right for something one line high and absurd for a box that grows. A circle is a
 form, not a role: a shape that wants one writes `50%` itself.
 
 Corollary: a shape never writes `border-radius: 0` to undo a radius it would

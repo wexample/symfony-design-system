@@ -2,15 +2,20 @@
 @use '../../css/mixins/shadow' as shadow;
 @use '../../css/mixins/border' as border;
 
-// Fluid: the same page, drawn soft. Corners are generous, the lines that only
-// separated things step back and depth does the telling instead. Nothing here
-// is a colour, and no shape knows this file exists — they read their roles.
-.usage-skin-fluid {
+// Soft: the same page, drawn friendly. What is pressed becomes a capsule, what
+// holds content is generously rounded, and the lines that only separated things
+// step back — depth does the telling instead.
+//
+// This is where the two roles earn their keep: a capsule is right for something
+// one line high and absurd for a textarea, so `control` and `field` part ways
+// here and nowhere else.
+.usage-skin-soft {
   @include radius.radius-vars;
   @include shadow.shadow-vars;
   @include border.border-vars;
 
-  --radius-control: var(--radius-pill); // a control is a capsule
+  --radius-control: var(--radius-pill);
+  --radius-field: var(--radius-2);
   --radius-surface: var(--radius-2);
   --radius-media: var(--radius-2);
 

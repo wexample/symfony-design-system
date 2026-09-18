@@ -166,14 +166,14 @@
   width: max-content;
   background: var(--surface-3);
   box-shadow: var(--shadow-1);
-  border-radius: 0 0 var(--radius-control) var(--radius-control);
+  border-radius: 0 0 var(--radius-surface) var(--radius-surface);
   z-index: var(--z-dropdown);
 }
 
 .button-menu--panel--top {
   top: auto;
   bottom: calc(100% - 1px);
-  border-radius: var(--radius-control) var(--radius-control) 0 0;
+  border-radius: var(--radius-surface) var(--radius-surface) 0 0;
 }
 
 .button-menu--panel--right {

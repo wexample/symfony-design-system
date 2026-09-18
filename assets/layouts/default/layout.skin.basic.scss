@@ -1,0 +1,21 @@
+@use '../../css/mixins/radius' as radius;
+@use '../../css/mixins/shadow' as shadow;
+@use '../../css/mixins/border' as border;
+
+// Basic: drawn to be read rather than admired. Corners are there to soften an
+// edge, not to be seen; what is told apart is told apart by a line. The skin
+// everything else is a departure from — named for what it is for, not for the
+// shape it happens to have.
+.usage-skin-basic {
+  @include radius.radius-vars;
+  @include shadow.shadow-vars;
+  @include border.border-vars;
+
+  // Roles. A shape never reads the radius scale: it reads the role it plays,
+  // and the skin decides what each role gets. A circle is a form and not a
+  // role — a shape that wants one says 50% itself.
+  --radius-control: var(--radius-1); // one line high, pressed: buttons, pagination, toolbar actions
+  --radius-field: var(--radius-1);   // holds text and grows: inputs, textareas, selects
+  --radius-surface: var(--radius-1); // what content sits on: blocks, tables, modals, panels
+  --radius-media: var(--radius-2);   // pictures and figures, one step rounder
+}
