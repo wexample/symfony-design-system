@@ -1,0 +1,58 @@
+A theme is not one thing but four independent decisions, and the design
+system keeps them apart so that any value of one composes with any value of
+the others. Each is a loader *usage*: a body class `usage-<axis>-<value>`, a
+CSS file per value (`layout.<axis>.<value>.scss`), switched at runtime and
+remembered in session.
+
+## The four axes
+
+| Axis | The question it answers | What it owns |
+|---|---|---|
+| `color_scheme` | How much light is there? | Colours, and nothing but colours — including the *colour* of every border and shadow |
+| `density` | How much fits on a screen? | `--space-*`, `--size-*`, `--font-size-*` |
+| `skin` | How are things drawn? | Radii, shadow geometry, border width and style, separators, focus ring width, font family |
+| `animations` | Does anything move? | Motion tokens — not yet realised, transitions are still written in the shapes |
+
+The cut between them is what a shape reads. `--border-separator` is
+`1px solid var(--border-color-discreet)`: the skin owns the `1px solid`, the
+scheme owns the colour, and a skin that wants no separators writes
+`0 solid transparent` without knowing what colour the line would have had.
+
+## Roles, not scales
+
+A shape never reads the radius scale (`--radius-1`, `--radius-2`). It reads the
+**role** it plays, and the skin decides what each role gets:
+
+- `--radius-control` — pressed, typed in, chosen: buttons, fields, selects, tags
+- `--radius-surface` — what content sits on: blocks, tables, modals, panels
+- `--radius-media` — pictures and figures
+- `--radius-pill` — what is read as a capsule
+
+Three roles and a pill, on purpose. A new role appears only when a component
+must *diverge* from its role in some skin — none does today. A circle is a
+form, not a role: a shape that wants one writes `50%` itself.
+
+Corollary: a shape never writes `border-radius: 0` to undo a radius it would
+otherwise inherit. Nothing inherits a radius; if a shape has none it has none.
+
+## Where a rule goes
+
+- **Tokens first.** A skin is one file per layout setting the same names as
+  the default skin. `layouts/default/_layout.skin.default.scss` is the
+  reference: every skin sets what it sets, and the rest reads through.
+- **A file per component only when structure changes.** The loader resolves
+  `<component>.skin.<value>.scss` for any render node and loads it only when
+  that component is on the page. Reach for it when a skin needs rules no token
+  can carry — bevelled borders, a different layout of the same parts — never
+  to restate a token.
+- **Colour stays out.** A skin that needs a component to take another colour
+  says which *role* it takes (`--tabs-surface: var(--color-info-8)`), and the
+  scheme decides what that role is on each face.
+
+## Apps
+
+An app layout built on a design system layout carries one entry file per axis
+value it supports, each a single `@use` of the design system's partial —
+`layout.color-scheme.dark.scss`, `layout.density.default.scss`,
+`layout.skin.default.scss`. Without the file, the axis has nothing to load and
+the page has no tokens.

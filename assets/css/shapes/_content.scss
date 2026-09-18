@@ -40,7 +40,7 @@
   img {
     width: 100%;
     height: auto;
-    border-radius: var(--radius-2);
+    border-radius: var(--radius-media);
   }
 
   strong { font-weight: 600; }
@@ -52,7 +52,7 @@
     color: var(--color-default-text);
     background: var(--border-color-default);
     padding: 0.2em 0.6em;
-    border-radius: var(--radius-2);
+    border-radius: var(--radius-pill);
   }
 
   > p:first-child { margin-top: 0; }

@@ -4,7 +4,7 @@
   justify-content: center;
   width: 1.75rem;
   height: 1.75rem;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   color: var(--text-color-muted);
   text-decoration: none;
 }

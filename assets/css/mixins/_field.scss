@@ -7,7 +7,7 @@
 
 @mixin field-base {
   border: var(--border-default);
-  border-radius: var(--radius-1);
+  border-radius: var(--radius-control);
   background: var(--surface-1);
   color: inherit;
   font-size: var(--font-size-3);

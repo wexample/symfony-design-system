@@ -34,7 +34,7 @@
 // readable as any body text.
 .message--compact {
   --feedback-border-width: 0;
-  --feedback-radius: var(--radius-1);
+  --feedback-radius: var(--radius-surface);
   padding: var(--space-3) var(--space-4);
   box-shadow: none;
 }

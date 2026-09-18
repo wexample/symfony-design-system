@@ -59,7 +59,7 @@
   width: 100%;
   max-height: 90vh;
   background: var(--surface-3);
-  border-radius: var(--radius-1);
+  border-radius: var(--radius-surface);
   box-shadow: var(--shadow-3);
   overflow: hidden;
 }
@@ -67,5 +67,5 @@
 @include shell.overlay-shell('modal');
 
 .modal-body {
-  border-radius: 0 0 var(--radius-1) var(--radius-1);
+  border-radius: 0 0 var(--radius-surface) var(--radius-surface);
 }

@@ -1,7 +1,7 @@
 @mixin figure-styles {
   figure {
     margin: 0;
-    border-radius: var(--radius-2);
+    border-radius: var(--radius-media);
     overflow: hidden;
 
     figcaption {

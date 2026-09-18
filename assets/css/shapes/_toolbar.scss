@@ -52,7 +52,7 @@
   align-items: center;
   gap: var(--space-1);
   padding: var(--space-2);
-  border-radius: var(--radius-1);
+  border-radius: var(--radius-control);
   transition: background 0.15s;
 
   &:hover {
@@ -69,7 +69,7 @@
   justify-content: center;
   padding: var(--density-padding-block, var(--space-2));
   border: 0;
-  border-radius: var(--radius-1);
+  border-radius: var(--radius-control);
   background: transparent;
   color: var(--text-color-muted);
   font: inherit;
