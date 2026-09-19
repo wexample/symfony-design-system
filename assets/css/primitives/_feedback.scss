@@ -1,26 +1,18 @@
 @use '../mixins/feedback' as feedback_semantic;
 
+// How thick the line is, how far the surface stands off the page and how its
+// corners go are the skin's to say (see mixins/skin): the primitive only reads
+// them, and assembles the relief here because its colour is only known here.
 @mixin feedback-surface {
   @include feedback_semantic.feedback-base;
-  --feedback-border-width: 0.1875rem;
-  --feedback-radius: 1rem;
-  --feedback-shadow-x: 0;
-  --feedback-shadow-y: 0.4375rem;
-  --feedback-shadow-blur: 0;
-  --feedback-shadow-spread: 0;
   display: grid;
   gap: var(--space-2);
   padding: var(--space-4);
-  border: var(--feedback-border-width) solid var(--feedback-border-color);
-  border-radius: var(--feedback-radius);
+  border: var(--feedback-border-width, 1px) solid var(--feedback-border-color);
+  border-radius: var(--feedback-radius, var(--radius-surface));
   background: var(--feedback-bg);
   color: var(--color-default-text);
-  box-shadow:
-    var(--feedback-shadow-x)
-    var(--feedback-shadow-y)
-    var(--feedback-shadow-blur)
-    var(--feedback-shadow-spread)
-    var(--feedback-border-color);
+  box-shadow: 0 var(--feedback-shadow-offset, 0) 0 0 var(--feedback-border-color);
   overflow-wrap: anywhere;
   word-break: break-word;
 

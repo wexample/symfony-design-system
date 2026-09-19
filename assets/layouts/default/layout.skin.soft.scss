@@ -1,31 +1,33 @@
-@use '../../css/mixins/radius' as radius;
+Commit@use '../../css/mixins/skin' as skin;
 @use '../../css/mixins/shadow' as shadow;
-@use '../../css/mixins/border' as border;
 
-// Soft: the same page, drawn friendly. What is pressed becomes a capsule, what
-// holds content is generously rounded, and the lines that only separated things
-// step back — depth does the telling instead.
-//
-// This is where the two roles earn their keep: a capsule is right for something
-// one line high and absurd for a textarea, so `control` and `field` part ways
-// here and nowhere else.
+// Soft: the same page, drawn friendly. Read as its difference from basic — it
+// starts there, then: corners on everything, depth under what floats, and the
+// lines that only separated things step back.
 .usage-skin-soft {
-  @include radius.radius-vars;
-  @include shadow.shadow-vars;
-  @include border.border-vars;
+  @include skin.skin-basic;
 
-  --radius-control: var(--radius-pill);
+  --radius-control: var(--radius-2);
   --radius-field: var(--radius-2);
   --radius-surface: var(--radius-2);
-  --radius-media: var(--radius-2);
+  --radius-media: var(--radius-3);
 
-  // What was told apart by a line is told apart by the room around it.
+  // Depth comes back.
+  @include shadow.shadow-vars;
+
+  // What was told apart by a line is told apart by the room around it. The
+  // borders that draw a thing rather than separate two — a field's — are not
+  // touched: a field with no edge is a field nobody finds.
   --border-separator: 0 solid transparent;
   --border-discreet: 0 solid transparent;
-  --border-default: 1px solid var(--border-color-discreet);
 
-  --shadow-1: 0 1px 2px var(--color-absolute-dark-transparent-2);
-  --shadow-2: 0 6px 14px var(--color-absolute-dark-transparent-2);
-  --shadow-3: 0 12px 28px var(--color-absolute-dark-transparent-3);
-  --shadow-4: 0 24px 56px var(--color-absolute-dark-transparent-4);
+  // A navigation item keeps a margin of its own and the link floats in it:
+  // the space is density's, only moved from the link to the item around it.
+  --menu-item-inset: var(--space-2);
+  --tabs-inset: var(--space-2);
+
+  // Feedback wears a thick line and stands off the page.
+  --feedback-border-width: 0.1875rem;
+  --feedback-shadow-offset: 0.4375rem;
 }
+

@@ -4,6 +4,10 @@
 
 .tabs {
   display: flex;
+  // The skin may keep a margin around each tab and let it float; the tab
+  // gives that height back below, so the bar stays as tall as density says.
+  padding: var(--tabs-inset, 0px);
+  gap: var(--tabs-inset, 0px);
   border-bottom: var(--border-separator);
   background: var(--surface-shell);
 }
@@ -27,7 +31,7 @@
 }
 
 .tabs--compact .tabs--item {
-  padding: var(--space-3) var(--space-3);
+  padding: calc(var(--space-3) - var(--tabs-inset, 0px)) var(--space-3);
 }
 
 .tabs--compact .tabs--item-content {
@@ -38,7 +42,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-4) var(--space-6);
+  padding: calc(var(--space-4) - var(--tabs-inset, 0px)) var(--space-6);
+  border-radius: var(--radius-control);
   color: var(--text-color-muted);
   text-decoration: none;
   min-width: 0;

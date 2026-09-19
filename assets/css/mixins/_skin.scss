@@ -1,0 +1,43 @@
+@use './radius' as radius;
+@use './border' as border;
+
+// What every skin starts from, and what `basic` is: flat and square. Nothing
+// floats, nothing is rounded, a line stands where two things must be told
+// apart and nowhere else. A skin is what it adds to this — it includes the
+// mixin, then says what it says.
+@mixin skin-basic {
+  @include radius.radius-vars;
+  @include border.border-vars;
+
+  // Roles. A shape never reads the radius scale: it reads the role it plays,
+  // and the skin decides what each role gets. A circle is a form and not a
+  // role — a shape that wants one says 50% itself.
+  //
+  // The first step and not zero: a true right angle reads as unfinished on a
+  // screen, so the edge is shaved without being rounded.
+  --radius-control: var(--radius-1); // one line high, pressed: buttons, pagination, toolbar actions
+  --radius-field: var(--radius-1);   // holds text and grows: inputs, textareas, selects
+  --radius-surface: var(--radius-1); // what content sits on: blocks, tables, modals, panels
+  --radius-media: var(--radius-1);   // pictures and figures
+
+  // The depth scale keeps its four names, so a skin can give them depth; here
+  // they give none.
+  --shadow-1: none;
+  --shadow-2: none;
+  --shadow-3: none;
+  --shadow-4: none;
+
+  // Where the space of a navigation item goes. Density says how much there is;
+  // the skin says whether the link takes it all (the hover hugs the column)
+  // or the item keeps some and the link floats inside. The shape subtracts,
+  // so an item is the same height whatever the skin.
+  // A length even at zero: calc() refuses to take a bare number off a rem.
+  --menu-item-inset: 0px;
+  --tabs-inset: 0px;
+
+  // Feedback surfaces (toasts, banners): a line the colour of what they say,
+  // and no relief. The offset is a length and not a shadow on purpose — the
+  // colour is only known on the element, so the primitive assembles it there.
+  --feedback-border-width: 1px;
+  --feedback-shadow-offset: 0;
+}

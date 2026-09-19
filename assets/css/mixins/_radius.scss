@@ -1,6 +1,9 @@
 @mixin radius-vars {
   --radius-0: 0;
-  --radius-1: 0.5rem;
-  --radius-2: 1rem;
+  // Barely there: the edge is shaved rather than rounded, which is what a
+  // square shape wants when a true right angle reads as unfinished.
+  --radius-1: 0.125rem;
+  --radius-2: 0.5rem;
+  --radius-3: 1rem;
   --radius-pill: 9999px;
 }

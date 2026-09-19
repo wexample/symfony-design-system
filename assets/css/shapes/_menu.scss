@@ -78,12 +78,21 @@
   flex-direction: column;
   width: 100%;
 
+  // Density says how much room an item has; the skin says where it goes.
+  // With no inset the link takes it all and its hover hugs the column; with
+  // one, the item keeps a margin and the link floats inside it. The height
+  // is the same either way, since the link gives up exactly what the item took.
+  li {
+    padding: var(--menu-item-inset, 0px);
+  }
+
   li a {
     width: 100%;
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    padding: var(--menu-item-padding);
+    padding: calc(var(--menu-item-padding) - var(--menu-item-inset, 0px));
+    border-radius: var(--radius-control);
     color: var(--text-color-muted);
 
     &:hover {
@@ -137,5 +146,5 @@
 }
 
 .menu--sub-items > li > a {
-  padding-left: calc(var(--menu-item-padding) * 2);
+  padding-left: calc(var(--menu-item-padding) * 2 - var(--menu-item-inset, 0px));
 }
