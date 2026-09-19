@@ -1,0 +1,1397 @@
+{
+    "version": 1,
+    "elements": [
+        {
+            "key": "action-icon",
+            "formats": {
+                "shape": [
+                    "css/shapes/_action-icon.scss"
+                ]
+            }
+        },
+        {
+            "key": "action-link",
+            "formats": {
+                "shape": [
+                    "css/shapes/_action-link.scss"
+                ]
+            }
+        },
+        {
+            "key": "app-home-url",
+            "formats": {
+                "twig_function": [
+                    "app_home_url"
+                ]
+            }
+        },
+        {
+            "key": "avatar",
+            "formats": {
+                "shape": [
+                    "css/shapes/_avatar.scss"
+                ]
+            }
+        },
+        {
+            "key": "banner",
+            "formats": {
+                "shape": [
+                    "css/shapes/_banner.scss"
+                ],
+                "component": [
+                    "components/banner.front.html.twig",
+                    "components/banner.html.twig",
+                    "components/banner.scss",
+                    "components/banner.ts"
+                ]
+            }
+        },
+        {
+            "key": "bar",
+            "formats": {
+                "shape": [
+                    "css/shapes/_bar.scss"
+                ],
+                "twig_function": [
+                    "bar"
+                ],
+                "component": [
+                    "components/bar.html.twig",
+                    "components/bar.scss",
+                    "components/bar.ts"
+                ],
+                "vue": [
+                    "vue/partials/bar.vue",
+                    "vue/partials/bar.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "bases/entity",
+            "formats": {
+                "vue": [
+                    "vue/bases/entity.vue",
+                    "vue/bases/entity.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "bases/form",
+            "formats": {
+                "vue": [
+                    "vue/bases/form.vue",
+                    "vue/bases/form.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "bases/form-field",
+            "formats": {
+                "vue": [
+                    "vue/bases/form-field.vue",
+                    "vue/bases/form-field.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "bases/vue-wrapper",
+            "formats": {
+                "vue": [
+                    "vue/bases/vue-wrapper.vue",
+                    "vue/bases/vue-wrapper.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "block",
+            "formats": {
+                "shape": [
+                    "css/shapes/_block.scss"
+                ]
+            }
+        },
+        {
+            "key": "breadcrumb",
+            "formats": {
+                "shape": [
+                    "css/shapes/_breadcrumb.scss"
+                ],
+                "partial": [
+                    "partials/breadcrumb.html.twig"
+                ],
+                "twig_function": [
+                    "breadcrumb",
+                    "breadcrumb_append_route",
+                    "breadcrumb_stack",
+                    "breadcrumb_render"
+                ]
+            }
+        },
+        {
+            "key": "button",
+            "formats": {
+                "shape": [
+                    "css/shapes/_button.scss"
+                ],
+                "partial": [
+                    "partials/button.html.twig"
+                ],
+                "twig_function": [
+                    "button"
+                ],
+                "component": [
+                    "components/button.html.twig",
+                    "components/button.ts"
+                ]
+            }
+        },
+        {
+            "key": "button-link",
+            "formats": {
+                "twig_function": [
+                    "button_link"
+                ],
+                "component": [
+                    "components/button-link.html.twig",
+                    "components/button-link.ts"
+                ]
+            }
+        },
+        {
+            "key": "button-menu",
+            "formats": {
+                "twig_function": [
+                    "button_menu"
+                ],
+                "component": [
+                    "components/button-menu.html.twig",
+                    "components/button-menu.ts"
+                ],
+                "vue": [
+                    "vue/partials/button-menu.vue",
+                    "vue/partials/button-menu.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "button-target",
+            "formats": {
+                "twig_function": [
+                    "button_target"
+                ],
+                "component": [
+                    "components/button-target.html.twig",
+                    "components/button-target.scss",
+                    "components/button-target.ts"
+                ],
+                "vue": [
+                    "vue/partials/button-target.vue",
+                    "vue/partials/button-target.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "chat",
+            "formats": {
+                "shape": [
+                    "css/shapes/_chat.scss"
+                ]
+            }
+        },
+        {
+            "key": "cluster",
+            "formats": {
+                "shape": [
+                    "css/shapes/_cluster.scss"
+                ]
+            }
+        },
+        {
+            "key": "code-block",
+            "formats": {
+                "partial": [
+                    "partials/code-block.html.twig"
+                ]
+            }
+        },
+        {
+            "key": "collection/bar-list/abstract-entity-bar-list",
+            "formats": {
+                "vue": [
+                    "vue/collection/bar-list/abstract-entity-bar-list.vue",
+                    "vue/collection/bar-list/abstract-entity-bar-list.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "collection/chat/abstract-entity-chat",
+            "formats": {
+                "vue": [
+                    "vue/collection/chat/abstract-entity-chat.vue",
+                    "vue/collection/chat/abstract-entity-chat.en.yml",
+                    "vue/collection/chat/abstract-entity-chat.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "collection/table/abstract-entity-table",
+            "formats": {
+                "vue": [
+                    "vue/collection/table/abstract-entity-table.vue",
+                    "vue/collection/table/abstract-entity-table.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "color-scheme-switch",
+            "formats": {
+                "shape": [
+                    "css/shapes/_color-scheme-switch.scss"
+                ],
+                "component": [
+                    "components/color-scheme-switch.html.twig",
+                    "components/color-scheme-switch.en.yml",
+                    "components/color-scheme-switch.ts"
+                ]
+            }
+        },
+        {
+            "key": "confirm",
+            "formats": {
+                "shape": [
+                    "css/shapes/_confirm.scss"
+                ],
+                "component": [
+                    "components/confirm.front.html.twig"
+                ]
+            }
+        },
+        {
+            "key": "container",
+            "formats": {
+                "shape": [
+                    "css/shapes/_container.scss"
+                ]
+            }
+        },
+        {
+            "key": "content",
+            "formats": {
+                "shape": [
+                    "css/shapes/_content.scss"
+                ]
+            }
+        },
+        {
+            "key": "content-image",
+            "formats": {
+                "partial": [
+                    "partials/content-image.html.twig"
+                ],
+                "twig_function": [
+                    "content_image"
+                ]
+            }
+        },
+        {
+            "key": "data-table",
+            "formats": {
+                "vue": [
+                    "vue/partials/data-table.vue",
+                    "vue/partials/data-table.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "date",
+            "formats": {
+                "shape": [
+                    "css/shapes/_date.scss"
+                ]
+            }
+        },
+        {
+            "key": "date-display",
+            "formats": {
+                "vue": [
+                    "vue/partials/date-display.vue",
+                    "vue/partials/date-display.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "disk-item",
+            "formats": {
+                "shape": [
+                    "css/shapes/_disk-item.scss"
+                ]
+            }
+        },
+        {
+            "key": "disk-item-explorer",
+            "formats": {
+                "shape": [
+                    "css/shapes/_disk-item-explorer.scss"
+                ]
+            }
+        },
+        {
+            "key": "doc",
+            "formats": {
+                "shape": [
+                    "css/shapes/_doc.scss"
+                ]
+            }
+        },
+        {
+            "key": "document-embed",
+            "formats": {
+                "partial": [
+                    "partials/document-embed.html.twig"
+                ],
+                "twig_function": [
+                    "document_embed"
+                ]
+            }
+        },
+        {
+            "key": "dots",
+            "formats": {
+                "shape": [
+                    "css/shapes/_dots.scss"
+                ],
+                "partial": [
+                    "partials/dots.html.twig"
+                ],
+                "component": [
+                    "components/dots.html.twig",
+                    "components/dots.scss",
+                    "components/dots.ts"
+                ],
+                "vue": [
+                    "vue/partials/dots.vue",
+                    "vue/partials/dots.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "embed",
+            "formats": {
+                "shape": [
+                    "css/shapes/_embed.scss"
+                ],
+                "component": [
+                    "components/embed.html.twig",
+                    "components/embed.scss",
+                    "components/embed.ts"
+                ]
+            }
+        },
+        {
+            "key": "entity",
+            "formats": {
+                "shape": [
+                    "css/shapes/_entity.scss"
+                ],
+                "twig_function": [
+                    "entity"
+                ],
+                "component": [
+                    "components/entity.html.twig",
+                    "components/entity.scss",
+                    "components/entity.ts"
+                ]
+            }
+        },
+        {
+            "key": "entity/bar",
+            "formats": {
+                "shape": [
+                    "css/shapes/entity/_bar.scss"
+                ],
+                "component": [
+                    "components/entity/bar.html.twig",
+                    "components/entity/bar.scss",
+                    "components/entity/bar.ts"
+                ],
+                "vue": [
+                    "vue/entity/bar.vue",
+                    "vue/entity/bar.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "flow",
+            "formats": {
+                "shape": [
+                    "css/shapes/_flow.scss"
+                ]
+            }
+        },
+        {
+            "key": "footer",
+            "formats": {
+                "shape": [
+                    "css/shapes/_footer.scss"
+                ]
+            }
+        },
+        {
+            "key": "form",
+            "formats": {
+                "shape": [
+                    "css/shapes/_form.scss"
+                ],
+                "twig_function": [
+                    "form_submit"
+                ]
+            }
+        },
+        {
+            "key": "form/actions",
+            "formats": {
+                "shape": [
+                    "css/shapes/form/_actions.scss"
+                ]
+            }
+        },
+        {
+            "key": "form/assisted",
+            "formats": {
+                "shape": [
+                    "css/shapes/form/fields/_assisted.scss"
+                ]
+            }
+        },
+        {
+            "key": "form/base",
+            "formats": {
+                "shape": [
+                    "css/shapes/form/fields/_base.scss"
+                ]
+            }
+        },
+        {
+            "key": "form/button-input",
+            "formats": {
+                "component": [
+                    "components/form/button_input.html.twig",
+                    "components/form/button_input.ts"
+                ],
+                "vue": [
+                    "vue/form/fields/button-input.vue",
+                    "vue/form/fields/button-input.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "form/date-input",
+            "formats": {
+                "component": [
+                    "components/form/date_input.html.twig",
+                    "components/form/date_input.scss",
+                    "components/form/date_input.ts"
+                ],
+                "vue": [
+                    "vue/form/fields/date-input.vue",
+                    "vue/form/fields/date-input.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "form/datetime-input",
+            "formats": {
+                "component": [
+                    "components/form/datetime_input.html.twig",
+                    "components/form/datetime_input.scss",
+                    "components/form/datetime_input.ts"
+                ],
+                "vue": [
+                    "vue/form/fields/datetime-input.vue",
+                    "vue/form/fields/datetime-input.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "form/email-input",
+            "formats": {
+                "component": [
+                    "components/form/email_input.html.twig",
+                    "components/form/email_input.scss",
+                    "components/form/email_input.ts"
+                ],
+                "vue": [
+                    "vue/form/fields/email-input.vue",
+                    "vue/form/fields/email-input.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "form/emoji-picker",
+            "formats": {
+                "component": [
+                    "components/form/emoji_picker.html.twig",
+                    "components/form/emoji_picker.en.yml",
+                    "components/form/emoji_picker.scss",
+                    "components/form/emoji_picker.ts"
+                ],
+                "vue": [
+                    "vue/form/fields/emoji-picker.vue",
+                    "vue/form/fields/emoji-picker.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "form/file-input",
+            "formats": {
+                "component": [
+                    "components/form/file_input.html.twig",
+                    "components/form/file_input.scss",
+                    "components/form/file_input.ts"
+                ],
+                "vue": [
+                    "vue/form/fields/file-input.vue",
+                    "vue/form/fields/file-input.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "form/hidden-input",
+            "formats": {
+                "component": [
+                    "components/form/hidden_input.html.twig",
+                    "components/form/hidden_input.scss",
+                    "components/form/hidden_input.ts"
+                ],
+                "vue": [
+                    "vue/form/fields/hidden-input.vue",
+                    "vue/form/fields/hidden-input.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "form/layout",
+            "formats": {
+                "shape": [
+                    "css/shapes/form/_layout.scss"
+                ]
+            }
+        },
+        {
+            "key": "form/messages",
+            "formats": {
+                "shape": [
+                    "css/shapes/form/_messages.scss"
+                ]
+            }
+        },
+        {
+            "key": "form/number-input",
+            "formats": {
+                "component": [
+                    "components/form/number_input.html.twig",
+                    "components/form/number_input.scss",
+                    "components/form/number_input.ts"
+                ],
+                "vue": [
+                    "vue/form/fields/number-input.vue",
+                    "vue/form/fields/number-input.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "form/password",
+            "formats": {
+                "shape": [
+                    "css/shapes/form/fields/_password.scss"
+                ]
+            }
+        },
+        {
+            "key": "form/password-input",
+            "formats": {
+                "component": [
+                    "components/form/password_input.html.twig",
+                    "components/form/password_input.scss",
+                    "components/form/password_input.ts"
+                ],
+                "vue": [
+                    "vue/form/fields/password-input.vue",
+                    "vue/form/fields/password-input.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "form/radio",
+            "formats": {
+                "shape": [
+                    "css/shapes/form/fields/_radio.scss"
+                ]
+            }
+        },
+        {
+            "key": "form/radio-input",
+            "formats": {
+                "component": [
+                    "components/form/radio_input.html.twig",
+                    "components/form/radio_input.scss",
+                    "components/form/radio_input.ts"
+                ],
+                "vue": [
+                    "vue/form/fields/radio-input.vue",
+                    "vue/form/fields/radio-input.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "form/select",
+            "formats": {
+                "shape": [
+                    "css/shapes/form/fields/_select.scss"
+                ]
+            }
+        },
+        {
+            "key": "form/select-input",
+            "formats": {
+                "component": [
+                    "components/form/select_input.html.twig",
+                    "components/form/select_input.scss",
+                    "components/form/select_input.ts"
+                ],
+                "vue": [
+                    "vue/form/fields/select-input.vue",
+                    "vue/form/fields/select-input.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "form/state",
+            "formats": {
+                "shape": [
+                    "css/shapes/form/fields/_state.scss"
+                ]
+            }
+        },
+        {
+            "key": "form/submit-button",
+            "formats": {
+                "vue": [
+                    "vue/form/fields/submit-button.vue",
+                    "vue/form/fields/submit-button.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "form/submit-input",
+            "formats": {
+                "component": [
+                    "components/form/submit_input.html.twig",
+                    "components/form/submit_input.scss",
+                    "components/form/submit_input.ts"
+                ]
+            }
+        },
+        {
+            "key": "form/surface",
+            "formats": {
+                "shape": [
+                    "css/shapes/form/_surface.scss"
+                ]
+            }
+        },
+        {
+            "key": "form/switch",
+            "formats": {
+                "shape": [
+                    "css/shapes/form/fields/_switch.scss"
+                ]
+            }
+        },
+        {
+            "key": "form/switch-input",
+            "formats": {
+                "component": [
+                    "components/form/switch_input.html.twig",
+                    "components/form/switch_input.scss",
+                    "components/form/switch_input.ts"
+                ],
+                "vue": [
+                    "vue/form/fields/switch-input.vue",
+                    "vue/form/fields/switch-input.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "form/text-input",
+            "formats": {
+                "component": [
+                    "components/form/text_input.html.twig",
+                    "components/form/text_input.scss",
+                    "components/form/text_input.ts"
+                ],
+                "vue": [
+                    "vue/form/fields/text-input.vue",
+                    "vue/form/fields/text-input.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "form/textarea",
+            "formats": {
+                "component": [
+                    "components/form/textarea.html.twig",
+                    "components/form/textarea.scss",
+                    "components/form/textarea.ts"
+                ]
+            }
+        },
+        {
+            "key": "form/textarea-input",
+            "formats": {
+                "vue": [
+                    "vue/form/fields/textarea-input.vue",
+                    "vue/form/fields/textarea-input.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "form/time-input",
+            "formats": {
+                "component": [
+                    "components/form/time_input.html.twig",
+                    "components/form/time_input.scss",
+                    "components/form/time_input.ts"
+                ],
+                "vue": [
+                    "vue/form/fields/time-input.vue",
+                    "vue/form/fields/time-input.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "form/url-input",
+            "formats": {
+                "component": [
+                    "components/form/url_input.html.twig",
+                    "components/form/url_input.scss",
+                    "components/form/url_input.ts"
+                ],
+                "vue": [
+                    "vue/form/fields/url-input.vue",
+                    "vue/form/fields/url-input.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "graph",
+            "formats": {
+                "shape": [
+                    "css/shapes/_graph.scss"
+                ]
+            }
+        },
+        {
+            "key": "grid",
+            "formats": {
+                "shape": [
+                    "css/shapes/_grid.scss"
+                ]
+            }
+        },
+        {
+            "key": "gutters",
+            "formats": {
+                "shape": [
+                    "css/shapes/_gutters.scss"
+                ]
+            }
+        },
+        {
+            "key": "header",
+            "formats": {
+                "shape": [
+                    "css/shapes/_header.scss"
+                ]
+            }
+        },
+        {
+            "key": "layout",
+            "formats": {
+                "shape": [
+                    "css/shapes/_layout.scss"
+                ]
+            }
+        },
+        {
+            "key": "layout-reset-modern",
+            "formats": {
+                "shape": [
+                    "css/shapes/_layout-reset-modern.scss"
+                ]
+            }
+        },
+        {
+            "key": "lead",
+            "formats": {
+                "shape": [
+                    "css/shapes/_lead.scss"
+                ]
+            }
+        },
+        {
+            "key": "list-expanded",
+            "formats": {
+                "shape": [
+                    "css/shapes/_list-expanded.scss"
+                ],
+                "vue": [
+                    "vue/partials/list-expanded.vue",
+                    "vue/partials/list-expanded.en.yml",
+                    "vue/partials/list-expanded.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "live-update-status",
+            "formats": {
+                "shape": [
+                    "css/shapes/_live-update-status.scss"
+                ],
+                "vue": [
+                    "vue/partials/live-update-status.vue",
+                    "vue/partials/live-update-status.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "load-more",
+            "formats": {
+                "vue": [
+                    "vue/partials/load-more.vue",
+                    "vue/partials/load-more.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "media",
+            "formats": {
+                "shape": [
+                    "css/shapes/_media.scss"
+                ]
+            }
+        },
+        {
+            "key": "menu",
+            "formats": {
+                "shape": [
+                    "css/shapes/_menu.scss"
+                ],
+                "twig_function": [
+                    "menu_get_routes_from_controller_namespace"
+                ]
+            }
+        },
+        {
+            "key": "menu-collapsible-panel",
+            "formats": {
+                "component": [
+                    "components/menu-collapsible-panel.html.twig",
+                    "components/menu-collapsible-panel.ts"
+                ]
+            }
+        },
+        {
+            "key": "menu-item",
+            "formats": {
+                "partial": [
+                    "partials/menu-item.html.twig"
+                ],
+                "twig_function": [
+                    "menu_item"
+                ]
+            }
+        },
+        {
+            "key": "menu-item-collapsible",
+            "formats": {
+                "partial": [
+                    "partials/menu-item-collapsible.html.twig"
+                ],
+                "twig_function": [
+                    "menu_item_collapsible_from_controller",
+                    "menu_item_collapsible"
+                ]
+            }
+        },
+        {
+            "key": "menu-item-link",
+            "formats": {
+                "partial": [
+                    "partials/menu-item-link.html.twig"
+                ],
+                "twig_function": [
+                    "menu_item_link"
+                ]
+            }
+        },
+        {
+            "key": "menu-separator",
+            "formats": {
+                "partial": [
+                    "partials/menu-separator.html.twig"
+                ],
+                "twig_function": [
+                    "menu_separator"
+                ]
+            }
+        },
+        {
+            "key": "message",
+            "formats": {
+                "shape": [
+                    "css/shapes/_message.scss"
+                ],
+                "partial": [
+                    "partials/message.html.twig"
+                ],
+                "twig_function": [
+                    "message_info",
+                    "message_success",
+                    "message_warning",
+                    "message_error"
+                ]
+            }
+        },
+        {
+            "key": "meta-bar",
+            "formats": {
+                "shape": [
+                    "css/shapes/_meta-bar.scss"
+                ]
+            }
+        },
+        {
+            "key": "modal",
+            "formats": {
+                "shape": [
+                    "css/shapes/_modal.scss"
+                ],
+                "component": [
+                    "components/modal.html.twig",
+                    "components/modal.scss",
+                    "components/modal.ts"
+                ]
+            }
+        },
+        {
+            "key": "overlay",
+            "formats": {
+                "shape": [
+                    "css/shapes/_overlay.scss"
+                ],
+                "component": [
+                    "components/overlay.html.twig",
+                    "components/overlay.front.html.twig",
+                    "components/overlay.scss",
+                    "components/overlay.ts"
+                ]
+            }
+        },
+        {
+            "key": "page",
+            "formats": {
+                "shape": [
+                    "css/shapes/_page.scss"
+                ]
+            }
+        },
+        {
+            "key": "pagination",
+            "formats": {
+                "shape": [
+                    "css/shapes/_pagination.scss"
+                ],
+                "vue": [
+                    "vue/partials/pagination.vue",
+                    "vue/partials/pagination.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "panel",
+            "formats": {
+                "shape": [
+                    "css/shapes/_panel.scss"
+                ],
+                "component": [
+                    "components/panel.html.twig",
+                    "components/panel.scss",
+                    "components/panel.ts"
+                ]
+            }
+        },
+        {
+            "key": "pill",
+            "formats": {
+                "shape": [
+                    "css/shapes/_pill.scss"
+                ]
+            }
+        },
+        {
+            "key": "progress",
+            "formats": {
+                "shape": [
+                    "css/shapes/_progress.scss"
+                ],
+                "partial": [
+                    "partials/progress.html.twig"
+                ],
+                "twig_function": [
+                    "progress"
+                ],
+                "component": [
+                    "components/progress.html.twig",
+                    "components/progress.scss",
+                    "components/progress.ts"
+                ]
+            }
+        },
+        {
+            "key": "progress-bar",
+            "formats": {
+                "vue": [
+                    "vue/partials/progress-bar.vue",
+                    "vue/partials/progress-bar.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "prompt",
+            "formats": {
+                "shape": [
+                    "css/shapes/_prompt.scss"
+                ],
+                "partial": [
+                    "partials/prompt.html.twig"
+                ]
+            }
+        },
+        {
+            "key": "properties",
+            "formats": {
+                "shape": [
+                    "css/shapes/_properties.scss"
+                ],
+                "partial": [
+                    "partials/properties.html.twig"
+                ],
+                "twig_function": [
+                    "properties"
+                ]
+            }
+        },
+        {
+            "key": "rail",
+            "formats": {
+                "shape": [
+                    "css/shapes/_rail.scss"
+                ]
+            }
+        },
+        {
+            "key": "select",
+            "formats": {
+                "shape": [
+                    "css/shapes/_select.scss"
+                ],
+                "component": [
+                    "components/select.html.twig",
+                    "components/select.scss",
+                    "components/select.ts"
+                ]
+            }
+        },
+        {
+            "key": "select-search",
+            "formats": {
+                "component": [
+                    "components/select-search.html.twig",
+                    "components/select-search.en.yml",
+                    "components/select-search.scss",
+                    "components/select-search.ts"
+                ]
+            }
+        },
+        {
+            "key": "slash-commands-js",
+            "formats": {
+                "twig_function": [
+                    "slash_commands_js"
+                ]
+            }
+        },
+        {
+            "key": "spinner",
+            "formats": {
+                "shape": [
+                    "css/shapes/_spinner.scss"
+                ],
+                "partial": [
+                    "partials/spinner.html.twig"
+                ],
+                "component": [
+                    "components/spinner.html.twig",
+                    "components/spinner.scss",
+                    "components/spinner.ts"
+                ],
+                "vue": [
+                    "vue/partials/spinner.vue",
+                    "vue/partials/spinner.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "stack",
+            "formats": {
+                "shape": [
+                    "css/shapes/_stack.scss"
+                ]
+            }
+        },
+        {
+            "key": "stage",
+            "formats": {
+                "shape": [
+                    "css/shapes/_stage.scss"
+                ],
+                "vue": [
+                    "vue/partials/stage.vue",
+                    "vue/partials/stage.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "status",
+            "formats": {
+                "shape": [
+                    "css/shapes/_status.scss"
+                ],
+                "partial": [
+                    "partials/status.html.twig"
+                ]
+            }
+        },
+        {
+            "key": "status-icon",
+            "formats": {
+                "shape": [
+                    "css/shapes/_status-icon.scss"
+                ],
+                "partial": [
+                    "partials/status-icon.html.twig"
+                ],
+                "twig_function": [
+                    "status_icon"
+                ],
+                "component": [
+                    "components/status-icon.html.twig",
+                    "components/status-icon.scss",
+                    "components/status-icon.ts"
+                ],
+                "vue": [
+                    "vue/partials/status-icon.vue",
+                    "vue/partials/status-icon.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "surface",
+            "formats": {
+                "shape": [
+                    "css/shapes/_surface.scss"
+                ]
+            }
+        },
+        {
+            "key": "switch",
+            "formats": {
+                "shape": [
+                    "css/shapes/_switch.scss"
+                ],
+                "component": [
+                    "components/switch.html.twig",
+                    "components/switch.ts"
+                ]
+            }
+        },
+        {
+            "key": "tab",
+            "formats": {
+                "shape": [
+                    "css/shapes/_tab.scss"
+                ]
+            }
+        },
+        {
+            "key": "tab-item",
+            "formats": {
+                "partial": [
+                    "partials/tab-item.html.twig"
+                ],
+                "twig_function": [
+                    "tab_item",
+                    "tab_item_link"
+                ]
+            }
+        },
+        {
+            "key": "table",
+            "formats": {
+                "shape": [
+                    "css/shapes/_table.scss"
+                ],
+                "partial": [
+                    "partials/table.html.twig"
+                ],
+                "twig_function": [
+                    "table"
+                ]
+            }
+        },
+        {
+            "key": "tabs",
+            "formats": {
+                "vue": [
+                    "vue/partials/tabs.vue",
+                    "vue/partials/tabs.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "tag",
+            "formats": {
+                "shape": [
+                    "css/shapes/_tag.scss"
+                ]
+            }
+        },
+        {
+            "key": "toast",
+            "formats": {
+                "shape": [
+                    "css/shapes/_toast.scss"
+                ],
+                "component": [
+                    "components/toast.front.html.twig",
+                    "components/toast.html.twig",
+                    "components/toast.scss",
+                    "components/toast.ts"
+                ]
+            }
+        },
+        {
+            "key": "toast-stack",
+            "formats": {
+                "component": [
+                    "components/toast-stack.html.twig",
+                    "components/toast-stack.ts"
+                ]
+            }
+        },
+        {
+            "key": "toolbar",
+            "formats": {
+                "shape": [
+                    "css/shapes/_toolbar.scss"
+                ]
+            }
+        },
+        {
+            "key": "tree",
+            "formats": {
+                "shape": [
+                    "css/shapes/_tree.scss"
+                ],
+                "partial": [
+                    "partials/tree.html.twig"
+                ],
+                "twig_function": [
+                    "tree"
+                ],
+                "vue": [
+                    "vue/partials/tree.vue",
+                    "vue/partials/tree.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "tree-node",
+            "formats": {
+                "vue": [
+                    "vue/partials/tree-node.vue",
+                    "vue/partials/tree-node.en.yml",
+                    "vue/partials/tree-node.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "tree-row-directory",
+            "formats": {
+                "vue": [
+                    "vue/partials/tree-row-directory.vue",
+                    "vue/partials/tree-row-directory.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "tree-row-file",
+            "formats": {
+                "vue": [
+                    "vue/partials/tree-row-file.vue",
+                    "vue/partials/tree-row-file.vue.twig"
+                ]
+            }
+        },
+        {
+            "key": "ui-state-get",
+            "formats": {
+                "twig_function": [
+                    "ui_state_get"
+                ]
+            }
+        },
+        {
+            "key": "upload-handler",
+            "formats": {
+                "component": [
+                    "components/upload-handler.html.twig",
+                    "components/upload-handler.scss",
+                    "components/upload-handler.ts"
+                ]
+            }
+        },
+        {
+            "key": "zone",
+            "formats": {
+                "shape": [
+                    "css/shapes/_zone.scss"
+                ]
+            }
+        }
+    ],
+    "unscanned_paths": [
+        "common",
+        "css/fonts",
+        "css/mixins",
+        "css/partials",
+        "css/primitives",
+        "css/utilities",
+        "fixtures",
+        "js",
+        "layouts",
+        "ts"
+    ]
+}

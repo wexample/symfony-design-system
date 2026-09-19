@@ -17,9 +17,13 @@ use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
  * It is a stopgap with a purpose: the design system has no place saying that an
  * element exists — the name is a file name, the options are arguments buried in
  * a twig extension, the documentation is a demo page — so the only honest way to
- * count is to look. What the scan produces is meant to be read once and turned
- * into a declaration; until then it is what the inventory page shows, and it
- * stays true as files move, which a hand-written list would not.
+ * count is to look. What it finds is written to the registry by
+ * `ElementRegistryService`, and everything else reads that file; the walk runs
+ * when the registry is regenerated, never when a page is drawn.
+ *
+ * The scan is meant to be read once and turned into a declaration. The day it is,
+ * it keeps its use as the registry's contradictor: what a declaration claims,
+ * against what is on disk.
  */
 class ElementScannerService
 {
@@ -255,7 +259,13 @@ class ElementScannerService
             foreach ((new Finder())->directories()->depth(0)->in($directory) as $child) {
                 $path = ($parent ? $parent . '/' : '') . $child->getFilename();
 
-                if (! in_array($path, $scanned, true) && $path !== 'css') {
+                // The registry's own directory holds what this scan writes and
+                // not what it reads. Calling it uncovered would be true and
+                // useless, and would make each run disagree with the last.
+                if (! in_array($path, $scanned, true)
+                    && $path !== 'css'
+                    && $path !== ElementRegistryService::DIRECTORY
+                ) {
                     $paths[] = $path;
                 }
             }

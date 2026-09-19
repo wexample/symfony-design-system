@@ -101,9 +101,29 @@ class ElementEntry
     {
         return [
             'key' => $this->key,
-            'group' => $this->getGroup(),
-            'formats' => $this->getOccurrences(),
-            'formats_count' => $this->countFormats(),
+            'formats' => array_filter($this->getOccurrences()),
         ];
+    }
+
+    public static function fromArray(array $data): self
+    {
+        $entry = new self($data['key']);
+
+        foreach ($data['formats'] ?? [] as $value => $occurrences) {
+            $format = ElementFormat::tryFrom($value);
+
+            // A format dropped from the enum leaves its occurrences behind in a
+            // registry written before that, and they are ignored rather than
+            // fatal: the file is regenerated, not migrated.
+            if ($format === null) {
+                continue;
+            }
+
+            foreach ($occurrences as $occurrence) {
+                $entry->add($format, $occurrence);
+            }
+        }
+
+        return $entry;
     }
 }

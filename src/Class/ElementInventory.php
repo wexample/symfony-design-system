@@ -5,12 +5,11 @@ namespace Wexample\SymfonyDesignSystem\Class;
 use Wexample\SymfonyDesignSystem\Enum\ElementFormat;
 
 /**
- * What a scan of the bundle's assets found, element by element.
+ * The elements of the design system and the formats each is delivered in.
  *
- * It is an observation and not a registry: it says what is there, never what
- * should be. Its value is exactly that — read beside the natures an element can
- * have, a row found in one format alone is a question the collection cannot ask
- * itself.
+ * What the registry file holds, and what a scan produces. It says what is there,
+ * never what should be: read beside the natures an element can have, a row found
+ * in one format alone is a question the collection cannot ask itself.
  */
 class ElementInventory
 {
@@ -130,6 +129,12 @@ class ElementInventory
         return $this->unscannedPaths;
     }
 
+    /**
+     * What gets written to the registry file: what was found, and what was not
+     * looked at. The counts are left out on purpose — they are one `count()`
+     * away for whoever reads the file, and a derived number written down is a
+     * number that can disagree with the rows above it.
+     */
     public function toArray(): array
     {
         return [
@@ -137,12 +142,18 @@ class ElementInventory
                 static fn (ElementEntry $entry): array => $entry->toArray(),
                 $this->getEntries()
             ),
-            'counts' => [
-                'elements' => $this->countEntries(),
-                'by_format' => $this->countByFormat(),
-                'by_formats_count' => $this->countByFormatsCount(),
-            ],
             'unscanned_paths' => $this->getUnscannedPaths(),
         ];
+    }
+
+    public static function fromArray(array $data): self
+    {
+        $inventory = new self($data['unscanned_paths'] ?? []);
+
+        foreach ($data['elements'] ?? [] as $element) {
+            $inventory->entries[$element['key']] = ElementEntry::fromArray($element);
+        }
+
+        return $inventory;
     }
 }

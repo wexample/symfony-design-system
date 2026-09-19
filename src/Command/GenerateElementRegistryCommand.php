@@ -8,26 +8,29 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Class\ElementEntry;
+use Wexample\SymfonyDesignSystem\Class\ElementInventory;
 use Wexample\SymfonyDesignSystem\Enum\ElementFormat;
+use Wexample\SymfonyDesignSystem\Service\ElementRegistryService;
 use Wexample\SymfonyDesignSystem\Service\ElementScannerService;
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Command\AbstractBundleCommand;
 use Wexample\SymfonyHelpers\Service\BundleService;
 
 /**
- * Prints what elements the design system holds and in which formats.
+ * Walks the assets and writes the registry file every other reader works from.
  *
- * The same answer the inventory page shows, from a shell and as json, so that
- * the day the scan becomes a declaration the difference between the two can be
- * diffed rather than argued about.
+ * Run it after adding, moving or removing an element. `--check` is the same walk
+ * without the writing, for a build that wants to fail on a stale file rather
+ * than serve one.
  */
-class ScanElementsCommand extends AbstractBundleCommand
+class GenerateElementRegistryCommand extends AbstractBundleCommand
 {
-    protected static $defaultDescription = 'Lists the design system elements and the formats each is delivered in';
+    protected static $defaultDescription = 'Writes the registry of design system elements and the formats each is delivered in';
 
     public function __construct(
         BundleService $bundleService,
         private readonly ElementScannerService $scannerService,
+        private readonly ElementRegistryService $registryService,
         private readonly Environment $twig,
         ?string $name = null,
     ) {
@@ -43,12 +46,19 @@ class ScanElementsCommand extends AbstractBundleCommand
     {
         parent::configure();
 
-        $this->addOption(
-            'json',
-            null,
-            InputOption::VALUE_NONE,
-            'Print the inventory as json instead of a table'
-        );
+        $this
+            ->addOption(
+                'check',
+                null,
+                InputOption::VALUE_NONE,
+                'Write nothing and fail when the registry no longer matches the assets'
+            )
+            ->addOption(
+                'table',
+                null,
+                InputOption::VALUE_NONE,
+                'Print the elements as a table, for reading rather than for machines'
+            );
     }
 
     protected function execute(
@@ -58,17 +68,43 @@ class ScanElementsCommand extends AbstractBundleCommand
         $io = new SymfonyStyle($input, $output);
         $inventory = $this->scannerService->scan($this->twig);
 
-        if ($input->getOption('json')) {
-            $output->writeln(
-                json_encode(
-                    $inventory->toArray(),
-                    JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR
-                )
-            );
-
-            return self::SUCCESS;
+        if ($input->getOption('table')) {
+            $this->writeTable($io, $inventory->getEntries());
         }
 
+        $this->writeSummary($io, $inventory);
+
+        if ($input->getOption('check')) {
+            if ($this->registryService->isUpToDate($inventory)) {
+                $io->success('The registry matches the assets.');
+
+                return self::SUCCESS;
+            }
+
+            $io->error(
+                'The registry no longer matches the assets. Run '
+                . self::buildDefaultName() . ' and commit the result.'
+            );
+
+            return self::FAILURE;
+        }
+
+        if ($this->registryService->write($inventory)) {
+            $io->success('Registry written to ' . $this->registryService->getPath());
+        } else {
+            $io->writeln('Registry unchanged: ' . $this->registryService->getPath());
+        }
+
+        return self::SUCCESS;
+    }
+
+    /**
+     * @param ElementEntry[] $entries
+     */
+    private function writeTable(
+        SymfonyStyle $io,
+        array $entries
+    ): void {
         $formats = ElementFormat::cases();
 
         $io->table(
@@ -87,10 +123,15 @@ class ScanElementsCommand extends AbstractBundleCommand
                         $formats
                     )
                 ),
-                $inventory->getEntries()
+                $entries
             )
         );
+    }
 
+    private function writeSummary(
+        SymfonyStyle $io,
+        ElementInventory $inventory
+    ): void {
         $io->writeln(
             sprintf(
                 '%d elements, %d of them in a single format.',
@@ -100,7 +141,5 @@ class ScanElementsCommand extends AbstractBundleCommand
         );
 
         $io->comment('Not scanned: ' . implode(', ', $inventory->getUnscannedPaths()));
-
-        return self::SUCCESS;
     }
 }
