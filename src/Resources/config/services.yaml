@@ -21,6 +21,12 @@ services:
         arguments:
             $commands: !tagged_iterator wexample.symfony_design_system.slash_command
 
+    Wexample\SymfonyDesignSystem\Command\:
+        resource: '../../Command/'
+
+    Wexample\SymfonyDesignSystem\Service\:
+        resource: '../../Service/'
+
     Wexample\SymfonyDesignSystem\Twig\:
         resource: '../../Twig/'
         exclude: '../../Twig/AppExtension.php'
