@@ -20,7 +20,8 @@
   --radius-surface: var(--radius-1); // what content sits on: blocks, tables, modals, panels
   --radius-media: var(--radius-1);   // pictures and figures
 
-  // The depth scale keeps its four names, so a skin can give them depth; here
+  // The depth scale keeps its four names, so a skin can give them depth (see
+  // mixins/shadow — the geometry is the skin's, the colour the scheme's); here
   // they give none.
   --shadow-1: none;
   --shadow-2: none;

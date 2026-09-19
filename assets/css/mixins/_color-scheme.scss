@@ -73,6 +73,11 @@ $color-scheme-level-count: 32 !default;
   // apart, so this line has to be seen where a discreet one only has to be felt.
   --border-color-region: var(--color-invert-8);
 
+  // Shadows. The skin draws the geometry — offset, blur, how heavy each layer
+  // is — and casts it in this colour, so a face that wants a warmer or a
+  // lighter shade changes one line here and no skin knows.
+  --shadow-color: var(--color-absolute-dark);
+
   // Text.
   --text-color-default: var(--color-default-text);
   --text-color-muted: var(--color-invert-20); // secondary: labels, meta, subtitles
