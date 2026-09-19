@@ -1,4 +1,4 @@
-Commit@use '../../css/mixins/skin' as skin;
+@use '../../css/mixins/skin' as skin;
 @use '../../css/mixins/shadow' as shadow;
 
 // Soft: the same page, drawn friendly. Read as its difference from basic — it
@@ -30,4 +30,3 @@ Commit@use '../../css/mixins/skin' as skin;
   --feedback-border-width: 0.1875rem;
   --feedback-shadow-offset: 0.4375rem;
 }
-
