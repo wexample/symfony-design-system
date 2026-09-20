@@ -11,9 +11,10 @@ namespace Wexample\SymfonyDesignSystem\Enum;
  * a rival way of shipping the element, which is what the old split between
  * shapes, partials, components and functions had turned into.
  *
- * Adding a format is adding a case here and a file beside the others:
- * `button.tsx` for react, `button.prompt.md` for an agent. Nothing else in the
- * registry has to learn about it.
+ * Adding a format is adding a case here and a file beside the others. Nothing
+ * else in the registry has to learn about it: the scan reads the suffix, the
+ * table grows a column, and every declaration that says nothing about it is a
+ * decision not yet made.
  */
 enum ElementFormat: string
 {
@@ -41,6 +42,31 @@ enum ElementFormat: string
     case SCRIPT = 'script';
 
     /**
+     * The contract: what the component takes, with types and defaults. Every
+     * other renderer is checkable against it, and the ones below are meant to
+     * be derived from it or written to it.
+     */
+    case SCHEMA = 'schema';
+
+    /**
+     * What an agent is told about the component: the schema, how to use it,
+     * and the tools that act on it.
+     */
+    case AI = 'ai';
+
+    /**
+     * The react renderer.
+     */
+    case REACT = 'react';
+
+    /**
+     * The flutter renderer. What can be carried over from here is the contract
+     * and the tokens, never the markup: a widget is written in dart against the
+     * schema, and checked against it.
+     */
+    case FLUTTER = 'flutter';
+
+    /**
      * What a file has to end with to be that renderer of its component.
      *
      * The order matters: `.vue.twig` is a vue wrapper and not a template, so it
@@ -53,6 +79,10 @@ enum ElementFormat: string
             self::VUE => ['.vue', '.vue.twig'],
             self::TEMPLATE => ['.html.twig', '.front.html.twig'],
             self::SCRIPT => ['.ts'],
+            self::SCHEMA => ['.schema.json'],
+            self::AI => ['.ai.yml'],
+            self::REACT => ['.tsx'],
+            self::FLUTTER => ['.dart'],
         };
     }
 
@@ -67,6 +97,10 @@ enum ElementFormat: string
             self::VUE => '.vue',
             self::TEMPLATE => '.html.twig',
             self::SCRIPT => '.ts',
+            self::SCHEMA => '.schema.json',
+            self::AI => '.ai.yml',
+            self::REACT => '.tsx',
+            self::FLUTTER => '.dart',
         };
     }
 }

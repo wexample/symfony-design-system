@@ -14,7 +14,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "nothing renders it server-side",
@@ -35,7 +39,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "nothing renders it server-side",
@@ -56,7 +64,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "nothing renders an avatar today; the entity bar draws the markup itself",
@@ -84,7 +96,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "waived",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
@@ -113,7 +129,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -134,7 +154,11 @@
                 "style": "expected",
                 "template": "waived",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "client-side by nature: it only makes sense inside a vue tree",
@@ -158,7 +182,11 @@
                 "style": "expected",
                 "template": "waived",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "client-side by nature: it only makes sense inside a vue tree",
@@ -179,7 +207,11 @@
                 "style": "waived",
                 "template": "waived",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of form/base and adds none of its own",
@@ -200,7 +232,11 @@
                 "style": "waived",
                 "template": "waived",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "draws no markup of its own; what extends it brings the style",
@@ -222,7 +258,11 @@
                 "style": "waived",
                 "template": "waived",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "draws no markup of its own; what extends it brings the style",
@@ -243,7 +283,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -267,7 +311,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "part of a page's shell, drawn by the server for a page the server knows",
@@ -293,7 +341,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "todo",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "it can appear inside a vue collection and cannot be reached from one"
@@ -315,7 +367,11 @@
                 "style": "waived",
                 "template": "expected",
                 "vue": "todo",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of button and adds none of its own",
@@ -342,7 +398,11 @@
                 "style": "waived",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of button and adds none of its own"
@@ -371,7 +431,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -388,7 +452,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -409,7 +477,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -430,7 +502,11 @@
                 "style": "waived",
                 "template": "expected",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of doc and adds none of its own",
@@ -455,7 +531,11 @@
                 "style": "expected",
                 "template": "waived",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "client-side by nature: it only makes sense inside a vue tree",
@@ -479,7 +559,11 @@
                 "style": "expected",
                 "template": "waived",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "client-side by nature: it only makes sense inside a vue tree",
@@ -500,7 +584,11 @@
                 "style": "waived",
                 "template": "waived",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of table and adds none of its own",
@@ -527,7 +615,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "waived",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
@@ -552,7 +644,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "waived",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
@@ -571,7 +667,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -592,7 +692,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -613,7 +717,11 @@
                 "style": "waived",
                 "template": "expected",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of media and adds none of its own",
@@ -641,7 +749,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "script": "it shows and does nothing; sorting and paging belong to what holds it"
@@ -664,7 +776,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "nothing renders it server-side",
@@ -684,7 +800,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "nothing renders it server-side",
@@ -705,7 +825,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -726,7 +850,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -747,7 +875,11 @@
                 "style": "waived",
                 "template": "expected",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of media and adds none of its own",
@@ -778,7 +910,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -801,7 +937,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "waived",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
@@ -826,7 +966,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "todo",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "it can appear inside a vue collection and cannot be reached from one"
@@ -855,7 +999,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -872,7 +1020,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -893,7 +1045,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -914,7 +1070,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -935,7 +1095,11 @@
                 "style": "expected",
                 "template": "waived",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
@@ -956,7 +1120,11 @@
                 "style": "expected",
                 "template": "waived",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
@@ -977,7 +1145,11 @@
                 "style": "expected",
                 "template": "waived",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
@@ -1005,7 +1177,11 @@
                 "style": "waived",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of button and adds none of its own"
@@ -1034,7 +1210,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1061,7 +1241,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1088,7 +1272,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1115,7 +1303,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1142,7 +1334,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1169,7 +1365,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1186,7 +1386,11 @@
                 "style": "expected",
                 "template": "waived",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
@@ -1207,7 +1411,11 @@
                 "style": "expected",
                 "template": "waived",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
@@ -1238,7 +1446,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1255,7 +1467,11 @@
                 "style": "expected",
                 "template": "waived",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
@@ -1286,7 +1502,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1303,7 +1523,11 @@
                 "style": "expected",
                 "template": "waived",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
@@ -1334,7 +1558,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1351,7 +1579,11 @@
                 "style": "expected",
                 "template": "waived",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
@@ -1382,7 +1614,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1399,7 +1635,11 @@
                 "style": "expected",
                 "template": "waived",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
@@ -1430,7 +1670,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1447,7 +1691,11 @@
                 "style": "expected",
                 "template": "waived",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
@@ -1468,7 +1716,11 @@
                 "style": "expected",
                 "template": "waived",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
@@ -1499,7 +1751,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1526,7 +1782,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1553,7 +1813,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1580,7 +1844,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1607,7 +1875,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1624,7 +1896,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -1645,7 +1921,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -1666,7 +1946,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -1687,7 +1971,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -1708,7 +1996,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -1729,7 +2021,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -1750,7 +2046,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -1775,7 +2075,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "nothing renders it server-side",
@@ -1799,7 +2103,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "nothing renders it server-side",
@@ -1820,7 +2128,11 @@
                 "style": "waived",
                 "template": "waived",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of button and adds none of its own",
@@ -1841,7 +2153,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -1862,7 +2178,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -1886,7 +2206,11 @@
                 "style": "waived",
                 "template": "expected",
                 "vue": "waived",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of gutters and adds none of its own",
@@ -1906,7 +2230,11 @@
                 "style": "waived",
                 "template": "expected",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of menu and adds none of its own",
@@ -1933,7 +2261,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "waived",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "part of a page's shell, drawn by the server for a page the server knows"
@@ -1952,7 +2284,11 @@
                 "style": "waived",
                 "template": "expected",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of menu and adds none of its own",
@@ -1973,7 +2309,11 @@
                 "style": "waived",
                 "template": "expected",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of menu and adds none of its own",
@@ -1997,7 +2337,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "it can appear inside a vue collection and cannot be reached from one",
@@ -2017,7 +2361,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -2044,7 +2392,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "waived",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
@@ -2070,7 +2422,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "waived",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
@@ -2089,7 +2445,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -2114,7 +2474,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "nothing renders it server-side",
@@ -2140,7 +2504,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "waived",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
@@ -2159,7 +2527,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "nothing renders it server-side",
@@ -2190,7 +2562,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -2210,7 +2586,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "it can appear inside a vue collection and cannot be reached from one",
@@ -2233,7 +2613,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "it can appear inside a vue collection and cannot be reached from one",
@@ -2253,7 +2637,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -2280,7 +2668,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "todo",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "it can appear inside a vue collection and cannot be reached from one"
@@ -2305,7 +2697,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "waived",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
@@ -2334,7 +2730,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -2351,7 +2751,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -2376,7 +2780,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "nothing renders it server-side",
@@ -2399,7 +2807,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "it can appear inside a vue collection and cannot be reached from one",
@@ -2429,7 +2841,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -2446,7 +2862,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -2473,7 +2893,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "todo",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "it can appear inside a vue collection and cannot be reached from one"
@@ -2499,7 +2923,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "expected",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it"
@@ -2518,7 +2946,11 @@
                 "style": "waived",
                 "template": "expected",
                 "vue": "waived",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of tab and adds none of its own",
@@ -2539,7 +2971,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "nothing renders it server-side",
@@ -2567,7 +3003,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "waived",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
@@ -2589,7 +3029,11 @@
                 "style": "waived",
                 "template": "expected",
                 "vue": "waived",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of toast and adds none of its own",
@@ -2609,7 +3053,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
@@ -2637,7 +3085,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "script": "it shows and does nothing"
@@ -2657,7 +3109,11 @@
                 "style": "waived",
                 "template": "waived",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of tree and adds none of its own",
@@ -2679,7 +3135,11 @@
                 "style": "waived",
                 "template": "waived",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of tree and adds none of its own",
@@ -2701,7 +3161,11 @@
                 "style": "waived",
                 "template": "waived",
                 "vue": "expected",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "style": "wears the style of tree and adds none of its own",
@@ -2728,7 +3192,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "waived",
-                "script": "expected"
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
@@ -2747,7 +3215,11 @@
                 "style": "expected",
                 "template": "todo",
                 "vue": "todo",
-                "script": "waived"
+                "script": "waived",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
