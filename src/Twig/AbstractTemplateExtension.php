@@ -42,21 +42,34 @@ abstract class AbstractTemplateExtension extends AbstractExtension
     }
 
     /**
+     * What a function hands the component is template variables, not options.
+     *
+     * The difference is where they end up: a component's options are serialised
+     * into the page for the browser to build the component from, template
+     * variables only reach the twig that draws it. What these functions pass is
+     * the second kind — a row of entities, a menu's render pass, a translated
+     * label already resolved — and sending it to the browser would at best
+     * bloat the page and at worst, as it did, produce a `layoutRenderData` that
+     * json cannot encode and a page with no data at all.
+     *
+     * A component whose client side needs options says so by calling
+     * `component()` itself, which is what the interactive ones do.
+     *
      * @param mixed $context the twig context, holding the render pass
      */
     public function renderComponent(
         Environment $twig,
         mixed $context,
         string $name,
-        array $options = [],
-        array $templateVars = []
+        array $templateVars = [],
+        array $options = []
     ): string {
         return $this->componentsExtension->component(
             $twig,
             is_array($context) ? ($context['render_pass'] ?? null) : null,
             $name,
-            array_merge($this->getDefaultOptions(), $options),
-            $templateVars
+            $options,
+            array_merge($this->getDefaultOptions(), $templateVars)
         );
     }
 }
