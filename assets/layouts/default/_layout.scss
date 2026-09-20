@@ -43,29 +43,6 @@ body {
   font-family: var(--font-family-heading);
 }
 
-// The one moment the page is seen changing: while a usage is being swapped,
-// both stylesheets are on the document, so what the axes feed can be eased
-// instead of jumping. The loader wears this class for exactly that long —
-// nothing is animated the rest of the time, which is why the rule can afford
-// to name everything.
-body.is-switching-usage {
-  --usage-switch-duration: 240ms;
-}
-
-body.is-switching-usage,
-body.is-switching-usage * {
-  transition:
-    background-color var(--usage-switch-duration) ease,
-    color var(--usage-switch-duration) ease,
-    border-color var(--usage-switch-duration) ease,
-    box-shadow var(--usage-switch-duration) ease,
-    border-radius var(--usage-switch-duration) ease,
-    padding var(--usage-switch-duration) ease,
-    margin var(--usage-switch-duration) ease,
-    gap var(--usage-switch-duration) ease,
-    font-size var(--usage-switch-duration) ease;
-}
-
 #layout-initial {
   height: 100%;
 }
