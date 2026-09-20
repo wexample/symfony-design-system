@@ -27,6 +27,10 @@ services:
     Wexample\SymfonyDesignSystem\Service\:
         resource: '../../Service/'
 
+    Wexample\SymfonyDesignSystem\Service\ElementScannerService:
+        arguments:
+            $sources: '%wexample_symfony_design_system.element_sources%'
+
     Wexample\SymfonyDesignSystem\Twig\:
         resource: '../../Twig/'
         exclude: '../../Twig/AppExtension.php'

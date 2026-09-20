@@ -7,19 +7,19 @@ use Twig\Environment;
 use Twig\Extension\ExtensionInterface;
 use Wexample\Helpers\Helper\TextHelper;
 use Wexample\SymfonyDesignSystem\Class\ElementInventory;
+use Wexample\SymfonyDesignSystem\Class\ElementSource;
 use Wexample\SymfonyDesignSystem\Enum\ElementFormat;
 use Wexample\SymfonyDesignSystem\Twig\InventoryExtension;
-use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 
 /**
- * Walks the bundle's assets and answers what elements are there, in what formats.
+ * Walks a bundle's assets and answers what elements are there, in what formats.
  *
  * It is a stopgap with a purpose: the design system has no place saying that an
  * element exists — the name is a file name, the options are arguments buried in
  * a twig extension, the documentation is a demo page — so the only honest way to
- * count is to look. What it finds is written to the registry by
- * `ElementRegistryService`, and everything else reads that file; the walk runs
- * when the registry is regenerated, never when a page is drawn.
+ * count is to look. What it finds is written to that bundle's registry by
+ * `ElementRegistryService`, and everything else reads the file; the walk runs
+ * when a registry is regenerated, never when a page is drawn.
  *
  * The scan is meant to be read once and turned into a declaration. The day it is,
  * it keeps its use as the registry's contradictor: what a declaration claims,
@@ -42,39 +42,69 @@ class ElementScannerService
     ];
 
     /**
-     * The twig extensions a function must come from to be counted. The loader
-     * registers `component()` and `vue()`, which are how elements are drawn and
-     * not elements themselves.
+     * @var ElementSource[]
      */
-    private const string TWIG_NAMESPACE = 'Wexample\\SymfonyDesignSystem\\Twig\\';
+    private readonly array $sources;
 
-    public function scan(Environment $twig): ElementInventory
+    /**
+     * @param array[] $sources as the container collected them from the bundles
+     *                         that declared themselves holders of elements
+     */
+    public function __construct(array $sources)
     {
-        $inventory = new ElementInventory($this->findUnscannedPaths());
+        $this->sources = array_map(
+            static fn (array $source): ElementSource => ElementSource::fromArray($source),
+            $sources
+        );
+    }
+
+    /**
+     * @return ElementSource[]
+     */
+    public function getSources(): array
+    {
+        return $this->sources;
+    }
+
+    public function getSource(string $alias): ?ElementSource
+    {
+        foreach ($this->sources as $source) {
+            if ($source->alias === $alias) {
+                return $source;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * What one bundle holds. Sources are scanned apart and never merged here:
+     * each one writes its own registry, and whoever wants the whole picture
+     * merges the files rather than asking for a walk of everything.
+     */
+    public function scan(
+        Environment $twig,
+        ElementSource $source
+    ): ElementInventory {
+        $inventory = new ElementInventory($this->findUnscannedPaths($source));
 
         foreach (ElementFormat::fileBased() as $format) {
-            $this->scanFormat($inventory, $format);
+            $this->scanFormat($inventory, $source, $format);
         }
 
         // Functions come last: a function is attached to the element it draws,
         // and that element is only known once the files have been walked.
-        $this->scanTwigFunctions($inventory, $twig);
+        $this->scanTwigFunctions($inventory, $source, $twig);
 
         return $inventory;
     }
 
-    public function getAssetsPath(): string
-    {
-        return realpath(
-            current(WexampleSymfonyDesignSystemBundle::getLoaderFrontPaths())
-        ) . '/';
-    }
-
     private function scanFormat(
         ElementInventory $inventory,
+        ElementSource $source,
         ElementFormat $format
     ): void {
-        $directory = $this->getAssetsPath() . $format->getDirectory();
+        $directory = $source->path . $format->getDirectory();
 
         if (! is_dir($directory)) {
             return;
@@ -86,15 +116,18 @@ class ElementScannerService
             ->name($this->getPrimaryFilePattern($format));
 
         foreach ($finder as $file) {
-            $relative = $format->getDirectory() . '/' . $file->getRelativePathname();
-            $key = $this->buildKey($file->getRelativePathname());
+            $entry = $inventory->entry($this->buildKey($file->getRelativePathname()));
 
-            $entry = $inventory->entry($key);
-
-            $entry->add($format, $relative);
+            $entry->add(
+                $format,
+                $source->qualify($format->getDirectory() . '/' . $file->getRelativePathname())
+            );
 
             foreach ($this->findSiblings($file->getPath(), $file->getRelativePathname()) as $sibling) {
-                $entry->add($format, $format->getDirectory() . '/' . $sibling);
+                $entry->add(
+                    $format,
+                    $source->qualify($format->getDirectory() . '/' . $sibling)
+                );
             }
         }
     }
@@ -179,7 +212,7 @@ class ElementScannerService
     }
 
     /**
-     * Attaches every twig function of the bundle to the element it draws.
+     * Attaches every twig function of the source's bundle to the element it draws.
      *
      * `status_icon` names its element outright; `button_link` and `message_info`
      * do not, and are read as what they are — a way of calling `button` and
@@ -189,12 +222,13 @@ class ElementScannerService
      */
     private function scanTwigFunctions(
         ElementInventory $inventory,
+        ElementSource $source,
         Environment $twig
     ): void {
         foreach ($twig->getExtensions() as $extension) {
-            // The function handing this scan to a template is not an element,
-            // and counting it would make the inventory list itself.
-            if (! $this->isDesignSystemExtension($extension)
+            // The functions handing a registry to a template are not elements,
+            // and counting them would make the registry list itself.
+            if (! $this->belongsToSource($extension, $source)
                 || $extension instanceof InventoryExtension
             ) {
                 continue;
@@ -210,9 +244,11 @@ class ElementScannerService
         }
     }
 
-    private function isDesignSystemExtension(ExtensionInterface $extension): bool
-    {
-        return str_starts_with($extension::class, self::TWIG_NAMESPACE);
+    private function belongsToSource(
+        ExtensionInterface $extension,
+        ElementSource $source
+    ): bool {
+        return str_starts_with($extension::class, $source->twigNamespace);
     }
 
     private function resolveFunctionKey(
@@ -235,12 +271,12 @@ class ElementScannerService
     }
 
     /**
-     * What the scan does not look at, computed rather than listed, so that the
-     * page showing the inventory cannot claim a coverage it lost.
+     * What the scan does not look at, computed rather than listed, so that a page
+     * showing the registry cannot claim a coverage it lost.
      *
      * @return string[]
      */
-    private function findUnscannedPaths(): array
+    private function findUnscannedPaths(ElementSource $source): array
     {
         $scanned = array_map(
             static fn (ElementFormat $format): string => $format->getDirectory(),
@@ -250,7 +286,7 @@ class ElementScannerService
         $paths = [];
 
         foreach ([null, 'css'] as $parent) {
-            $directory = $this->getAssetsPath() . $parent;
+            $directory = $source->path . $parent;
 
             if (! is_dir($directory)) {
                 continue;
@@ -266,7 +302,7 @@ class ElementScannerService
                     && $path !== 'css'
                     && $path !== ElementRegistryService::DIRECTORY
                 ) {
-                    $paths[] = $path;
+                    $paths[] = $source->qualify($path);
                 }
             }
         }

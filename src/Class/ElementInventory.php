@@ -24,8 +24,37 @@ class ElementInventory
      *                                 inventory can say what it leaves out
      */
     public function __construct(
-        private readonly array $unscannedPaths = [],
+        private array $unscannedPaths = [],
     ) {
+    }
+
+    /**
+     * Folds another inventory into this one.
+     *
+     * Two bundles holding an element of the same name land on the same row, and
+     * the qualified paths say which is which. That is on purpose: whether it is
+     * an app overriding the design system or two unrelated things that happen to
+     * be called `bar`, the row is where a reader finds out, and hiding it under
+     * two names would hide the question.
+     */
+    public function merge(self $other): void
+    {
+        foreach ($other->getEntries() as $entry) {
+            $mine = $this->entry($entry->key);
+
+            foreach ($entry->getOccurrences() as $value => $occurrences) {
+                $format = ElementFormat::from($value);
+
+                foreach ($occurrences as $occurrence) {
+                    $mine->add($format, $occurrence);
+                }
+            }
+        }
+
+        $this->unscannedPaths = array_merge(
+            $this->unscannedPaths,
+            $other->getUnscannedPaths()
+        );
     }
 
     public function entry(string $key): ElementEntry

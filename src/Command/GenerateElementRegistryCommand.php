@@ -9,6 +9,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Class\ElementEntry;
 use Wexample\SymfonyDesignSystem\Class\ElementInventory;
+use Wexample\SymfonyDesignSystem\Class\ElementSource;
 use Wexample\SymfonyDesignSystem\Enum\ElementFormat;
 use Wexample\SymfonyDesignSystem\Service\ElementRegistryService;
 use Wexample\SymfonyDesignSystem\Service\ElementScannerService;
@@ -17,11 +18,12 @@ use Wexample\SymfonyHelpers\Command\AbstractBundleCommand;
 use Wexample\SymfonyHelpers\Service\BundleService;
 
 /**
- * Walks the assets and writes the registry file every other reader works from.
+ * Walks each bundle that signed up as holding elements, and writes its registry.
  *
- * Run it after adding, moving or removing an element. `--check` is the same walk
- * without the writing, for a build that wants to fail on a stale file rather
- * than serve one.
+ * One file per bundle, inside that bundle: a package ships the registry of what
+ * it holds. Run it after adding, moving or removing an element. `--check` is the
+ * same walk without the writing, for a build that wants to fail on a stale file
+ * rather than serve one.
  */
 class GenerateElementRegistryCommand extends AbstractBundleCommand
 {
@@ -58,6 +60,12 @@ class GenerateElementRegistryCommand extends AbstractBundleCommand
                 null,
                 InputOption::VALUE_NONE,
                 'Print the elements as a table, for reading rather than for machines'
+            )
+            ->addOption(
+                'source',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'Only this bundle alias, instead of every bundle holding elements'
             );
     }
 
@@ -66,36 +74,77 @@ class GenerateElementRegistryCommand extends AbstractBundleCommand
         OutputInterface $output
     ): int {
         $io = new SymfonyStyle($input, $output);
-        $inventory = $this->scannerService->scan($this->twig);
+        $sources = $this->resolveSources($input->getOption('source'));
 
-        if ($input->getOption('table')) {
-            $this->writeTable($io, $inventory->getEntries());
-        }
-
-        $this->writeSummary($io, $inventory);
-
-        if ($input->getOption('check')) {
-            if ($this->registryService->isUpToDate($inventory)) {
-                $io->success('The registry matches the assets.');
-
-                return self::SUCCESS;
-            }
-
-            $io->error(
-                'The registry no longer matches the assets. Run '
-                . self::buildDefaultName() . ' and commit the result.'
+        if ($sources === []) {
+            $io->warning(
+                'No bundle declares itself a holder of design system elements. '
+                . 'A bundle joins by implementing DesignSystemElementsBundleInterface.'
             );
 
-            return self::FAILURE;
+            return self::SUCCESS;
         }
 
-        if ($this->registryService->write($inventory)) {
-            $io->success('Registry written to ' . $this->registryService->getPath());
-        } else {
-            $io->writeln('Registry unchanged: ' . $this->registryService->getPath());
+        $stale = [];
+
+        foreach ($sources as $source) {
+            $io->section($source->alias);
+
+            $inventory = $this->scannerService->scan($this->twig, $source);
+
+            if ($input->getOption('table')) {
+                $this->writeTable($io, $inventory->getEntries());
+            }
+
+            $this->writeSummary($io, $inventory);
+
+            if ($input->getOption('check')) {
+                if (! $this->registryService->isUpToDate($source, $inventory)) {
+                    $stale[] = $source->alias;
+                }
+
+                continue;
+            }
+
+            $path = $this->registryService->getPath($source);
+
+            $io->writeln(
+                $this->registryService->write($source, $inventory)
+                    ? 'Written: ' . $path
+                    : 'Unchanged: ' . $path
+            );
         }
 
-        return self::SUCCESS;
+        if (! $input->getOption('check')) {
+            return self::SUCCESS;
+        }
+
+        if ($stale === []) {
+            $io->success('Every registry matches the assets.');
+
+            return self::SUCCESS;
+        }
+
+        $io->error(
+            'Out of date: ' . implode(', ', $stale) . '. Run '
+            . self::buildDefaultName() . ' and commit the result.'
+        );
+
+        return self::FAILURE;
+    }
+
+    /**
+     * @return ElementSource[]
+     */
+    private function resolveSources(?string $alias): array
+    {
+        if ($alias === null) {
+            return $this->scannerService->getSources();
+        }
+
+        $source = $this->scannerService->getSource($alias);
+
+        return $source === null ? [] : [$source];
     }
 
     /**
