@@ -8,7 +8,10 @@
     {% set _label = label %}
     {% set active_class = '' %}
 {% endif %}
-<li class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-item-collapsible') }} menu-item-collapsible{{ is_open ? ' is-open' : '' }}">
+{# The component registers itself when it is called; binding here as well
+   would give one element two render nodes, and the second would look for a
+   placeholder the first had already taken. #}
+<li class="menu-item-collapsible{{ is_open ? ' is-open' : '' }}">
     <div class="menu-item-collapsible--header{{ active_class ? ' ' ~ active_class : '' }}">
         <a href="{{ href }}" class="menu-item-collapsible--link">
             <span class="menu--item--icon">{{ icon(_icon_name) }}</span>
