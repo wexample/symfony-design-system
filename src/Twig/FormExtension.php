@@ -12,10 +12,11 @@ class FormExtension extends AbstractTemplateExtension
         return [
             new TwigFunction(
                 'form_submit',
-                function (Environment $twig, string $icon, string $label, array $options = []) {
-                    return $this->renderTemplate(
+                function (Environment $twig, $context, string $icon, string $label, array $options = []) {
+                    return $this->renderComponent(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/partials/button.html.twig',
+                        $context,
+                        '@WexampleSymfonyDesignSystemBundle/components/button',
                         [
                             'icon' => $icon,
                             'label' => $label,

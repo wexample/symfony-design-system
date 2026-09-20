@@ -21,12 +21,14 @@ class PropertiesExtension extends AbstractTemplateExtension
                 'properties',
                 function (
                     Environment $twig,
+                    $context,
                     array $items,
                     array $options = [],
                 ) {
-                    return $this->renderTemplate(
+                    return $this->renderComponent(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/partials/properties.html.twig',
+                        $context,
+                        '@WexampleSymfonyDesignSystemBundle/components/properties',
                         [
                             'items' => $this->normalizeItems($items),
                             'class' => $this->buildClass($options),

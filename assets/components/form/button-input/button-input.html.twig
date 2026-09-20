@@ -1,0 +1,15 @@
+<button
+    {{ component_render_tag_attributes({class: 'button'}) }}
+    type="button"
+    {% if name is defined %}name="{{ name }}"{% endif %}
+    {% if id is defined %}id="{{ id }}"{% endif %}
+    {% if value is defined and value != '' %}value="{{ value }}"{% endif %}
+>
+    <span class="button--icon">
+        {{ icon(icon is defined and icon ? icon : 'ph:bold/arrow-right') }}
+    </span>
+    <span class="button--spinner" aria-hidden="true">
+        {% include '@WexampleSymfonyDesignSystemBundle/components/spinner/spinner.html.twig' with { align: 'inline' } only %}
+    </span>
+    <span>{% if label is defined %}{{ label }}{% endif %}</span>
+</button>

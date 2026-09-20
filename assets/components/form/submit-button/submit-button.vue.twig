@@ -1,0 +1,16 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/bases/form-field/form-field.vue.twig' -%}
+
+{%- block vue_body -%}
+    <button
+            :class="['button', primary ? 'button--invert' : '', { 'is-loading': isSubmitting, 'is-disabled': isDisabled }]"
+            :type="type"
+            :disabled="isDisabled ? true : null"
+            @click="onButtonClick"
+    >
+        <span class="button--icon"><slot name="icon"></slot></span>
+        <span class="button--spinner" aria-hidden="true">
+            {%- include '@WexampleSymfonyDesignSystemBundle/components/spinner/spinner.html.twig' with { align: 'inline' } only -%}
+        </span>
+        [[ resolvedLabel ]]
+    </button>
+{%- endblock -%}

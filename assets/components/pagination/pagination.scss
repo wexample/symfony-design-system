@@ -1,0 +1,86 @@
+@use '../../css/mixins/transition' as transition;
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-4) 0;
+  font-size: var(--font-size-3);
+}
+
+.pagination--pages {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pagination--pages--item {
+  margin: 0;
+  padding: 0;
+}
+
+.pagination--control,
+.pagination--number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-width: 2.25rem;
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-default);
+  border-radius: var(--radius-control);
+  background: var(--surface-1);
+  color: var(--color-default-text);
+  font-size: inherit;
+  line-height: 1;
+  cursor: pointer;
+  @include transition.smooth(2);
+}
+
+.pagination--control:hover:not(:disabled),
+.pagination--number:hover:not(:disabled) {
+  background: var(--state-hover);
+}
+
+.pagination--control:disabled,
+.pagination--number:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination--number--current {
+  background: var(--color-default-background-invert);
+  color: var(--color-default-text-invert);
+  cursor: default;
+}
+
+.pagination--number--current:hover:not(:disabled) {
+  background: var(--color-default-background-invert);
+}
+
+.pagination--control--icon {
+  font-size: var(--font-size-5);
+  line-height: 1;
+}
+
+.pagination--ellipsis,
+.pagination--status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  padding: var(--space-2) var(--space-3);
+  color: var(--text-color-muted);
+}
+
+// Only the chevrons survive once the pager gets cramped.
+@media (max-width: 40rem) {
+  .pagination--control--label {
+    display: none;
+  }
+}

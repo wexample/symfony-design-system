@@ -12,10 +12,11 @@ class ImageExtension extends AbstractTemplateExtension
         return [
             new TwigFunction(
                 'content_image',
-                function (Environment $twig, string $src, string $alt, array $options = []): string {
-                    return $this->renderTemplate(
+                function (Environment $twig, $context, string $src, string $alt, array $options = []): string {
+                    return $this->renderComponent(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/partials/content-image.html.twig',
+                        $context,
+                        '@WexampleSymfonyDesignSystemBundle/components/content-image',
                         array_merge(['loading' => 'lazy'], $options, ['src' => $src, 'alt' => $alt])
                     );
                 },

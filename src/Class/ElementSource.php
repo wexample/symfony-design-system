@@ -9,7 +9,7 @@ use Wexample\SymfonyDesignSystem\Interface\DesignSystemElementsBundleInterface;
  * One bundle that signed up as holding elements, and where to look in it.
  *
  * The alias is the one twig already resolves templates by, so a path written in
- * the registry — `@WexampleSymfonyDesignSystemBundle/partials/spinner.html.twig`
+ * the registry — `@WexampleSymfonyDesignSystemBundle/components/spinner/spinner.html.twig`
  * — is a path anyone here can open without being told what it is relative to.
  */
 class ElementSource

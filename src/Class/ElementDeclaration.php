@@ -33,7 +33,6 @@ class ElementDeclaration
      */
     public function __construct(
         public readonly string $key,
-        public readonly ?string $nature = null,
         public readonly ?string $description = null,
         public readonly array $formats = [],
     ) {
@@ -67,7 +66,6 @@ class ElementDeclaration
     {
         return [
             'key' => $this->key,
-            'nature' => $this->nature,
             'description' => $this->description,
             'formats' => $this->formats,
         ];
@@ -77,7 +75,6 @@ class ElementDeclaration
     {
         return new self(
             $data['key'],
-            $data['nature'] ?? null,
             $data['description'] ?? null,
             (array) ($data['formats'] ?? []),
         );

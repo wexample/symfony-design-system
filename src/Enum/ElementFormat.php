@@ -3,65 +3,70 @@
 namespace Wexample\SymfonyDesignSystem\Enum;
 
 /**
- * How an element of the design system is handed over to whoever draws it.
+ * A way of drawing a component, among the several it keeps side by side.
  *
- * A format is not what an element *is* — that is its nature, which nothing here
- * declares yet — but the shape it is delivered in. The five below are what the
- * bundle ships today; a json schema, an agent prompt and foreign frameworks are
- * meant to join them, which is why the list is named in one place instead of
- * being read off a directory listing each time it is needed.
+ * There is one kind of thing in the design system — a component — and a folder
+ * per component holding every renderer it has: the stylesheet, the server
+ * template, the client twin, the behaviour. A format is one of those files, not
+ * a rival way of shipping the element, which is what the old split between
+ * shapes, partials, components and functions had turned into.
+ *
+ * Adding a format is adding a case here and a file beside the others:
+ * `button.tsx` for react, `button.prompt.md` for an agent. Nothing else in the
+ * registry has to learn about it.
  */
 enum ElementFormat: string
 {
     /**
-     * A css class expecting markup it does not itself produce.
+     * The stylesheet. Loaded by the loader when the component is on the page,
+     * so nothing has to import it by hand.
      */
-    case SHAPE = 'shape';
+    case STYLE = 'style';
 
     /**
-     * A twig include drawing that markup, taking its variables from the caller.
+     * The server template, rendered by twig. `.front.html.twig` beside it is
+     * the same renderer for a component the browser clones.
      */
-    case PARTIAL = 'partial';
+    case TEMPLATE = 'template';
 
     /**
-     * A php function drawing it, with named options and defaults.
-     */
-    case TWIG_FUNCTION = 'twig_function';
-
-    /**
-     * The loader's triad — template, script, stylesheet — bound at runtime, and
-     * the only format that can carry behaviour.
-     */
-    case COMPONENT = 'component';
-
-    /**
-     * The client-side twin, drawn in the browser from the same options.
+     * The client twin, drawn by vue from the same options.
      */
     case VUE = 'vue';
 
     /**
-     * Where under `assets/` the format's primary files are looked for.
+     * The behaviour, bound to the markup once it is in the document. Only for a
+     * component that does something.
      */
-    public function getDirectory(): ?string
+    case SCRIPT = 'script';
+
+    /**
+     * What a file has to end with to be that renderer of its component.
+     *
+     * The order matters: `.vue.twig` is a vue wrapper and not a template, so it
+     * has to be tried before `.html.twig` would claim it.
+     */
+    public function getSuffixes(): array
     {
         return match ($this) {
-            self::SHAPE => 'css/shapes',
-            self::PARTIAL => 'partials',
-            self::COMPONENT => 'components',
-            self::VUE => 'vue',
-            // Declared in php, so there is no directory to walk.
-            self::TWIG_FUNCTION => null,
+            self::STYLE => ['.scss'],
+            self::VUE => ['.vue', '.vue.twig'],
+            self::TEMPLATE => ['.html.twig', '.front.html.twig'],
+            self::SCRIPT => ['.ts'],
         };
     }
 
     /**
-     * @return self[]
+     * The one file whose presence means the component has that renderer at all.
+     * A `.vue.twig` without its `.vue` is a wrapper around nothing.
      */
-    public static function fileBased(): array
+    public function getPrimarySuffix(): string
     {
-        return array_filter(
-            self::cases(),
-            static fn (self $format): bool => $format->getDirectory() !== null
-        );
+        return match ($this) {
+            self::STYLE => '.scss',
+            self::VUE => '.vue',
+            self::TEMPLATE => '.html.twig',
+            self::SCRIPT => '.ts',
+        };
     }
 }

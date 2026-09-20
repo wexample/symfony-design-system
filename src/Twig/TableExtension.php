@@ -21,9 +21,10 @@ class TableExtension extends AbstractTemplateExtension
                 ) {
                     $context = is_array($context) ? $context : [];
 
-                    return $this->renderTemplate(
+                    return $this->renderComponent(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/partials/table.html.twig',
+                        $context,
+                        '@WexampleSymfonyDesignSystemBundle/components/table',
                         [
                             // An actions cell may render a target button, and a
                             // component cannot be registered without the pass.

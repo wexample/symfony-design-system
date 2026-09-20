@@ -1,0 +1,9 @@
+<div class="overlay" hidden="hidden">
+<div class="component-overlay"></div>
+    <div class="overlay-content">
+        {% include '@WexampleSymfonyDesignSystemBundle/components/spinner/spinner.html.twig' with {
+            align: 'center',
+            label: '@page::label.loading' | trans
+        } %}
+    </div>
+</div>

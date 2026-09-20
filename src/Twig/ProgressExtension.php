@@ -8,10 +8,6 @@ use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 class ProgressExtension extends AbstractTemplateExtension
 {
-    public function __construct(
-        private readonly ComponentsExtension $componentsExtension,
-    ) {
-    }
 
     public function getFunctions(): array
     {

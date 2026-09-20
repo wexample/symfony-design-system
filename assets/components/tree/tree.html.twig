@@ -1,0 +1,23 @@
+<ul class="{{ class }}">
+    {%- for item in items -%}
+        {%- set row -%}
+            <span class="tree--caret">{{ item.children ? icon('ph:bold/caret-right') : '' }}</span>
+            {%- if item.icon %}<span class="tree--icon">{{ icon(item.icon) }}</span>{% endif -%}
+            <span class="tree--label">{{ item.label }}</span>
+        {%- endset -%}
+        <li class="tree--item{{ item.open ? ' is-open' : '' }}{{ item.selected ? ' is-selected' : '' }}">
+            {%- if item.href -%}
+                <a class="tree--row" href="{{ item.href }}" style="--tree-depth: {{ item.depth }}">{{ row }}</a>
+            {%- else -%}
+                <span class="tree--row" style="--tree-depth: {{ item.depth }}">{{ row }}</span>
+            {%- endif -%}
+            {%- if item.children -%}
+                {{ include(
+                    '@WexampleSymfonyDesignSystemBundle/components/tree/tree.html.twig',
+                    { items: item.children, class: 'tree--children' },
+                    false
+                ) }}
+            {%- endif -%}
+        </li>
+    {%- endfor -%}
+</ul>

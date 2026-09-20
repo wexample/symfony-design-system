@@ -6,14 +6,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 use Twig\TwigFunction;
+use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 class BreadcrumbExtension extends AbstractTemplateExtension
 {
     private const STACK_ATTRIBUTE = '_breadcrumb_stack';
 
     public function __construct(
+        ComponentsExtension $componentsExtension,
         private readonly RequestStack $requestStack
     ) {
+        parent::__construct($componentsExtension);
     }
 
     public function getFunctions(): array
@@ -23,12 +26,14 @@ class BreadcrumbExtension extends AbstractTemplateExtension
                 'breadcrumb',
                 function (
                     Environment $twig,
+                    $context,
                     array $items,
                     array $options = [],
                 ) {
-                    return $this->renderTemplate(
+                    return $this->renderComponent(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/partials/breadcrumb.html.twig',
+                        $context,
+                        '@WexampleSymfonyDesignSystemBundle/components/breadcrumb',
                         [
                             'items' => $this->normalizeItems($items),
                             'options' => $options,
@@ -47,10 +52,11 @@ class BreadcrumbExtension extends AbstractTemplateExtension
             ),
             new TwigFunction(
                 'breadcrumb_render',
-                function (Environment $twig, array $options = []) {
-                    return $this->renderTemplate(
+                function (Environment $twig, $context, array $options = []) {
+                    return $this->renderComponent(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/partials/breadcrumb.html.twig',
+                        $context,
+                        '@WexampleSymfonyDesignSystemBundle/components/breadcrumb',
                         [
                             'items' => $this->normalizeItems($this->buildStackWithCurrentRoute()),
                             'options' => $options,

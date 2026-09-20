@@ -1,0 +1,21 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/bases/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <div
+            :class="classes"
+            :style="style"
+            role="progressbar"
+            aria-valuemin="0"
+            :aria-valuemax="indeterminate ? null : currentTotal"
+            :aria-valuenow="indeterminate ? null : value"
+            :aria-label="currentLabel"
+    >
+        <div v-if="currentLabel || showValue" class="progress--head">
+            <span v-if="currentLabel" class="progress--label">[[ currentLabel ]]</span>
+            <span v-if="showValue && !indeterminate" class="progress--value">[[ percent ]]%</span>
+        </div>
+        <div class="progress--track">
+            <div class="progress--bar"></div>
+        </div>
+    </div>
+{%- endblock -%}

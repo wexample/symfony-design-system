@@ -108,6 +108,6 @@ class SeedElementsCommand extends AbstractBundleCommand
             }
         }
 
-        return new ElementDeclaration($entry->key, null, null, $formats);
+        return new ElementDeclaration($entry->key, null, $formats);
     }
 }

@@ -41,7 +41,6 @@ class ElementEntry
     public function __construct(
         public readonly string $key,
         public readonly string $source,
-        public ?string $nature = null,
         public ?string $description = null,
     ) {
     }
@@ -177,7 +176,6 @@ class ElementEntry
         return [
             'key' => $this->key,
             'source' => $this->source,
-            'nature' => $this->nature,
             'description' => $this->description,
             'formats' => array_filter($this->getOccurrences()),
             'stances' => $this->stances,
@@ -190,7 +188,6 @@ class ElementEntry
         $entry = new self(
             $data['key'],
             $data['source'],
-            $data['nature'] ?? null,
             $data['description'] ?? null,
         );
 

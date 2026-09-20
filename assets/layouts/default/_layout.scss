@@ -2,12 +2,12 @@
 @use '@wexample/symfony-loader/layouts/default/layout';
 
 // Base shapes.
-@use '../../css/shapes/layout-reset-modern';
-@use '../../css/shapes/page';
-@use '../../css/shapes/overlay';
-@use '../../css/shapes/stack';
-@use '../../css/shapes/doc';
-@use '../../css/shapes/status';
+@use '../../components/layout-reset-modern/layout-reset-modern';
+@use '../../components/page/page';
+@use '../../components/overlay/overlay';
+@use '../../components/stack/stack';
+@use '../../components/doc/doc';
+@use '../../components/status/status';
 
 // Utilities.
 @use '../../css/utilities/density';

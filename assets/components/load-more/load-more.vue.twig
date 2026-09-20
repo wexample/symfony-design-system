@@ -1,0 +1,20 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/bases/vue/vue.vue.twig' -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/dots') -}}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <button
+            :class="['button', { 'is-loading': isLoading }]"
+            type="button"
+            :disabled="isLoading ? true : null"
+            @click="$emit('load')"
+    >
+        <span class="button--icon" v-html="iconHtml"></span>
+        <span class="button--spinner" aria-hidden="true">
+            <dots size="sm" align="inline"></dots>
+        </span>
+        [[ label ]]
+    </button>
+{%- endblock -%}

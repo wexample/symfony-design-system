@@ -1,0 +1,10 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/bases/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ parent() }}
+    {{ trans_js(render_pass, 'WexampleSymfonyLoaderBundle.common.system::date.*') }}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <time class="date" :datetime="machineValue" :title="title">[[ text ]]</time>
+{%- endblock -%}

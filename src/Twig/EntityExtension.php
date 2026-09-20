@@ -9,11 +9,6 @@ use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 class EntityExtension extends AbstractTemplateExtension
 {
-    public function __construct(
-        private readonly ComponentsExtension $componentsExtension
-    ) {
-    }
-
     public function getFunctions(): array
     {
         $options = [

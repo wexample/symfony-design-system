@@ -1,0 +1,24 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/bases/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    {# Client-side twin of components/button-target.html.twig: same options, same
+       markup. A change to either is a change to both. #}
+    <a
+            v-if="label"
+            :class="className"
+            :href="href || '#'"
+            @click="onClick"
+    >
+        <span class="button--icon" v-html="iconHtml"></span>
+        <span>[[ label ]]</span>
+    </a>
+    {#- Without a label the icon is the button, and wrapping it would only reserve
+        room for the words that are not there. -#}
+    <a
+            v-else
+            :class="className"
+            :href="href || '#'"
+            @click="onClick"
+            v-html="iconHtml"
+    ></a>
+{%- endblock -%}

@@ -1,15 +1,13 @@
 # Declares `avatar` to the design system registry.
 # Seeded from a scan of the assets; kept by hand from here on.
-# nature: what the element is — to be chosen from the registry's vocabulary.
 # formats, per format — whose move it is next:
 #   true            it is there, nothing is owed
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-nature: null
 description: "A person or a thing, shown small and standing for itself."
 formats:
-  shape: true
-  component: todo
-  vue: "todo — the entity bar draws one, and a bar drawn client-side cannot reach a twig component"
-  twig_function: "the shape takes one class and an image; a function would only hide the img"
+  style: true
+  template: todo — nothing renders an avatar today; the entity bar draws the markup itself
+  vue: todo — a bar drawn client-side cannot reach a twig component
+  script: an avatar shows and does nothing

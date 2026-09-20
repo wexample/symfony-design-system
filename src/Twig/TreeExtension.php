@@ -14,12 +14,14 @@ class TreeExtension extends AbstractTemplateExtension
                 'tree',
                 function (
                     Environment $twig,
+                    $context,
                     array $items,
                     array $options = [],
                 ) {
-                    return $this->renderTemplate(
+                    return $this->renderComponent(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/partials/tree.html.twig',
+                        $context,
+                        '@WexampleSymfonyDesignSystemBundle/components/tree',
                         [
                             'items' => $this->normalizeItems($items),
                             'class' => implode(' ', array_filter([

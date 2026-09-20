@@ -1,0 +1,26 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/bases/form-field/form-field.vue.twig' -%}
+
+{%- block field_control -%}
+    <div class="radio-group">
+        <div
+                v-for="(option, index) in options"
+                :key="index"
+                class="radio-option"
+        >
+            <input
+                    class="form--radio"
+                    type="radio"
+                    :id="resolveOptionId(index)"
+                    :name="name || null"
+                    :value="resolveOptionValue(option)"
+                    :checked="modelValue === resolveOptionValue(option)"
+                    :disabled="disabled ? true : null"
+                    @change="onChange(resolveOptionValue(option))"
+            >
+            <label
+                    class="form--radio-label"
+                    :for="resolveOptionId(index)"
+            >[[ resolveOptionLabel(option) ]]</label>
+        </div>
+    </div>
+{%- endblock -%}

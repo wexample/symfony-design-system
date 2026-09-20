@@ -104,25 +104,36 @@ src/Helper/EntityDisplay.php is a value-object holding the three standard entity
 
 ### Asset layout
 
-Assets live in `assets/` and are divided into five directories.
+Assets live in `assets/`, and everything the design system draws lives in one of them: `components/`.
+
+**`components/`** holds one directory per component, named after it, and inside it every renderer that component has — the stylesheet, the server template, the client twin, the behaviour:
+
+```
+components/button/
+  button.scss        the style, loaded when the component is on the page
+  button.html.twig   the server renderer
+  button.vue         the client twin, when there is one
+  button.ts          the behaviour, when there is any
+```
+
+There is no other place an element can be. A stylesheet with no markup, a template nobody can call, a twin under another name: the split between `css/shapes/`, `partials/`, `components/` and `vue/` made all three invisible, and the folder makes them a missing file in a directory that names what it is missing. `assets/elements/<key>.yml` says, per renderer, whether the component is expected in it, whether it is wanted and missing, or why it does without; `assets/data/elements.json` is compiled from those declarations and checked against the tree. See `design-system:seed-elements` and `design-system:generate-element-registry`.
+
+A component is called by name and never by path — `{{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/button', {...}) }}`, or through the twig function that wraps it — and the loader resolves the directory. Nothing includes a template directly.
+
+The ones worth knowing:
+
+- `modal` and `panel` both extend `AbstractOverlayPageManager` (assets/js/Class/AbstractOverlayPageManager.ts), which layers `FadeAnimationMixin`, `FocusableComponentMixin`, and `OverlayMixin` from the loader. It handles open/close with optional confirm-on-close and dirty-form detection.
+- `button-target` (assets/components/button-target/button-target.ts) intercepts clicks on its anchor, reads `data-target` and `data-target-options`, and hands the href to `loadIntoTarget()` from assets/js/Helper/TargetHelper.ts, which dispatches to `ModalService`, `PanelService` or `EmbedService`. The two overlays keep their place in URL hash params, so a persistent one reopens on reload; an embed does not, belonging to the page that placed it. A modified click is left to the browser, so every target stays openable as a full page.
+- `menu-collapsible-panel` (assets/components/menu-collapsible-panel/menu-collapsible-panel.ts) toggles `gutters--collapsible--collapsed` on its element and calls `app.onMenuStateChange(menuId, open)` on every toggle, which is the point where the host app or the default `UiStateController` persist the state to the session.
+- `toast` applies `FadeAnimationMixin`, `AutoCloseMixin`, and `ActionLinksMixin`; it self-removes after 4 s unless `sticky` is set.
+
+`bases/entity` and `bases/form` are the root Vue components for entity and form contexts; the field components under `components/form/` map one-to-one to the Symfony form types of `wexample/symfony-forms`, and each of them now keeps its template, its style, its script and its vue twin side by side.
 
 **`layouts/`** defines the two provided HTML layouts. assets/layouts/default/layout.html.twig extends the loader's base layout and adds the `page_body_container` block (wraps the body in a container with an optional `h1`). assets/layouts/dashboard/layout.html.twig extends `default` and renders a two-sidebar shell: a left `menu-collapsible-panel`, a scrollable main content column, and a right `menu-collapsible-panel`. The left panel reads its initial collapsed state from `ui_state_get('ui.layout.menu.left', true)`. Host apps extend `dashboard/layout.html.twig` to inject `page_menu_links` and other blocks.
 
-**`components/`** holds interactive units. Each component is a triad: a `.html.twig` template rendered server-side, a `.ts` file that attaches client behaviour, and a `.scss` file for component-scoped styles. Notable components:
-
-- `modal` and `panel` both extend `AbstractOverlayPageManager` (assets/js/Class/AbstractOverlayPageManager.ts), which layers `FadeAnimationMixin`, `FocusableComponentMixin`, and `OverlayMixin` from the loader. It handles open/close with optional confirm-on-close and dirty-form detection.
-- `button-target` (assets/components/button-target.ts) intercepts clicks on its anchor, reads `data-target` and `data-target-options`, and hands the href to `loadIntoTarget()` from assets/js/Helper/TargetHelper.ts, which dispatches to `ModalService`, `PanelService` or `EmbedService`. The two overlays keep their place in URL hash params, so a persistent one reopens on reload; an embed does not, belonging to the page that placed it. A modified click is left to the browser, so every target stays openable as a full page.
-- `menu-collapsible-panel` (assets/components/menu-collapsible-panel.ts) toggles `gutters--collapsible--collapsed` on its element and calls `app.onMenuStateChange(menuId, open)` on every toggle, which is the point where the host app or the default `UiStateController` persist the state to the session.
-- `toast` applies `FadeAnimationMixin`, `AutoCloseMixin`, and `ActionLinksMixin`; it self-removes after 4 s unless `sticky` is set.
-
 **`js/`** contains shared TypeScript classes and Vue mixins.
 
-- `AbstractCollapsibleComponent` (assets/js/Class/AbstractCollapsibleComponent.ts) listens for a click on a selector returned by `getToggleSelector()` and toggles `is-open` on the element.
-- `AbstractDesignSystemVueMixin` (assets/js/Vue/AbstractDesignSystemVueMixin.ts) adds `waitForAppReady()` to any Vue component that must wait for the JS app to finish bootstrapping before performing async work.
-
-**`vue/`** holds Vue 3 single-file components and their `.vue.twig` server-side wrappers. `bases/entity.vue` and `bases/form.vue` are the root Vue components for entity and form contexts; field components under `vue/form/fields/` map one-to-one to the Symfony form types declared in `src/Form/Demo/`.
-
-**`css/`** is organised into: `mixins/` (SCSS mixins for layout, spacing, typography, overlays), `shapes/` (one file per UI shape such as `_button.scss`, `_modal.scss`, `_menu.scss`), `partials/` (palette, global variables, colour-scheme overrides), `utilities/` (alignment, text-align, visually-hidden), and `primitives/` (feedback). The palette file `assets/css/partials/_palette.scss` declares colour variables with `!default` so host apps can override them by importing their own palette first.
+**`css/`** holds what is shared between components rather than owned by one: `mixins/`, `partials/` (palette, global variables, colour-scheme overrides), `utilities/` (alignment, text-align, visually-hidden), and `primitives/` (feedback). A rule that belongs to a single component belongs in that component's directory. The palette file `assets/css/partials/_palette.scss` declares colour variables with `!default` so host apps can override them by importing their own palette first.
 
 ### Call path through the stack
 

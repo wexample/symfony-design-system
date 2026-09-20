@@ -1,0 +1,313 @@
+<script>
+import DateDisplay from '../date-display/date-display.vue';
+import Spinner from '../spinner/spinner.vue';
+import ButtonTarget from '../button-target/button-target.vue';
+import StatusIcon from '../status-icon/status-icon.vue';
+import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
+
+const translated = buildTranslatedBindings({
+  resolvedLoadingLabel: [
+    'loadingLabel',
+    'WexampleSymfonyDesignSystemBundle.common.system::frontend.loading'
+  ],
+  resolvedEmptyLabel: [
+    'emptyLabel',
+    'WexampleSymfonyDesignSystemBundle.common.system::frontend.no_data'
+  ]
+});
+
+export default {
+  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-data-table',
+
+  components: {
+    ButtonTarget,
+    DateDisplay,
+    Spinner,
+    StatusIcon
+  },
+
+  props: {
+    rows: {
+      type: Array,
+      required: true,
+      default: () => []
+    },
+    loading: {
+      type: Boolean,
+      default: false
+    },
+    // Names a row across refreshes. With it, a re-read collection patches its
+    // rows in place; without it, position is all a row has, and every refresh
+    // redraws them all.
+    rowKey: {
+      type: Function,
+      default: null
+    },
+    ...translated.props,
+    columns: {
+      type: Array,
+      default: () => []
+    },
+    app: {
+      type: Object,
+      required: true
+    },
+    showHeader: {
+      type: Boolean,
+      default: false
+    },
+    // The header stays in view while the rows scroll under it. The page says
+    // how far from the top it stops, through --table-sticky-top.
+    sticky: {
+      type: Boolean,
+      default: false
+    }
+  },
+
+  computed: {
+    ...translated.computed
+  },
+
+  methods: {
+    // A row carrying only a group is the line between two runs of rows, given
+    // a word: it spans the table and names what follows.
+    isGroupRow(row) {
+      return Boolean(row) && row.group !== undefined;
+    },
+
+    isStatusCell(column) {
+      return column?.cell === 'status';
+    },
+
+    // A type name, or { type, count, title, label }: the circle says which
+    // state, the count how many of it.
+    getStatus(value) {
+      if (!value) {
+        return null;
+      }
+
+      return typeof value === 'object' ? value : { type: value };
+    },
+
+    getEmptyColspan() {
+      return this.columns && this.columns.length ? this.columns.length : 1;
+    },
+    hasRows() {
+      return Array.isArray(this.rows) && this.rows.length > 0;
+    },
+    getRowKey(row, index) {
+      return this.rowKey ? this.rowKey(row) : index;
+    },
+    hasCellActions(column) {
+      return Boolean(column?.action || (Array.isArray(column?.actions) && column.actions.length));
+    },
+
+    getCellActions(row, column) {
+      const actions = column?.actions
+          ? (Array.isArray(column.actions) ? column.actions : [column.actions])
+          : (column?.action ? [column.action] : []);
+
+      if (!actions.length) {
+        return [];
+      }
+
+      const routingService = this.app.getServiceOrFail('routing');
+      const defaultIcons = {
+        show: 'ph:bold/eye',
+        edit: 'ph:bold/pencil-simple',
+      };
+
+      return actions.map((action) => {
+        const actionName = typeof action === 'string'
+            ? action
+            : (action?.name || action?.action);
+
+        const iconName = typeof action === 'object'
+            ? (action.icon || defaultIcons[actionName])
+            : defaultIcons[actionName];
+
+        const route = typeof action === 'object'
+            ? action.route
+            : undefined;
+
+        const routeName = route || (column?.routePrefix && actionName
+            ? `${column.routePrefix}_${actionName}`
+            : undefined);
+
+        const params = typeof action === 'object' && action.params !== undefined
+            ? action.params
+            : column?.params;
+
+        const parameters = typeof params === 'function'
+            ? params(row, column, action)
+            : (params ?? {});
+
+        const href = routeName
+            ? routingService.path(routeName, parameters)
+            : '';
+
+        const target = typeof action === 'object' && action.target !== undefined
+            ? action.target
+            : column?.target;
+
+        const targetOptions = typeof action === 'object' && action.targetOptions !== undefined
+            ? action.targetOptions
+            : column?.targetOptions;
+
+        const method = typeof action === 'object' && action.method
+            ? String(action.method).toLowerCase()
+            : 'get';
+
+        return {
+          href,
+          target: target ?? '',
+          targetOptions: targetOptions ?? {},
+          method,
+          token: typeof action === 'object' ? action.token : undefined,
+          label: typeof action === 'object' ? action.label : undefined,
+          icon: iconName ?? '',
+        };
+      }).filter((entry) => entry.icon);
+    },
+
+    renderIcon(name) {
+      return name ? this.app.getServiceOrFail('icon').icon(name) : '';
+    },
+
+    getCellIcon(row, column) {
+      if (!column?.icon) {
+        return '';
+      }
+
+      const icon = typeof column.icon === 'function'
+          ? column.icon(row, column)
+          : column.icon;
+
+      if (!icon) {
+        return '';
+      }
+
+      const iconService = this.app.getServiceOrFail('icon');
+      return iconService.icon(icon);
+    },
+
+    getColumnKey(column, index) {
+      if (typeof column === 'string') {
+        return column;
+      }
+
+      if (column?.key) {
+        return column.key;
+      }
+
+      if (column?.action) {
+        return `action-${column.action}`;
+      }
+
+      if (Array.isArray(column?.actions)) {
+        return `actions-${column.actions.join('-')}`;
+      }
+
+      return `column-${index}`;
+    },
+
+    getColumnLabel(column) {
+      if (typeof column === 'string') {
+        return this.trans(`@vue::table.column.${column}.title`);
+      }
+
+      if (column?.label === false) {
+        return '';
+      }
+
+      if (column?.label !== undefined && column?.label !== null) {
+        return column.label;
+      }
+
+      if (column?.key) {
+        return this.trans(`@vue::table.column.${column.key}.title`);
+      }
+
+      return column?.key ?? '';
+    },
+
+    getCellValue(row, column) {
+      const key = this.getColumnKey(column);
+      if (!row || !key) {
+        return '';
+      }
+
+      if (key.includes('.')) {
+        return key.split('.').reduce((value, part) => {
+          if (value === null || value === undefined) {
+            return '';
+          }
+          return value[part];
+        }, row) ?? '';
+      }
+
+      const value = row[key] ?? '';
+
+      if (typeof column?.format === 'function') {
+        return column.format(value, row, column);
+      }
+
+      return value;
+    },
+
+    getCellHref(row, column) {
+      const href = column?.href;
+      if (!href) {
+        return '';
+      }
+
+      if (typeof href === 'function') {
+        return href(row, column);
+      }
+
+      if (typeof href === 'string') {
+        return href;
+      }
+
+      if (typeof href === 'object' && href.route) {
+        const parameters =
+            typeof href.parameters === 'function'
+                ? href.parameters(row, column)
+                : href.parameters ?? {};
+
+        const routingService = this.app.getServiceOrFail('routing');
+        return routingService.path(href.route, parameters);
+      }
+
+      return '';
+    },
+
+    isHtmlCell(column) {
+      return column?.html === true || column?.cell === 'html';
+    },
+
+    // A date the reader is meant to situate rather than read: the cell hands it
+    // to the component that owns its own redraw, so "2 min ago" stays true while
+    // the page is left open — which a formatted string cannot.
+    isDateCell(column) {
+      return column?.cell === 'date';
+    },
+
+    getDateFormat(column) {
+      return column?.dateFormat ?? 'auto';
+    },
+
+    getDateTitleFormat(column) {
+      return column?.dateTitleFormat ?? 'date_time_full';
+    },
+
+    getColumnClass(column) {
+      const classes = [];
+      if (column?.className) classes.push(column.className);
+      if (column?.align) classes.push(`table--cell--${column.align}`);
+      if (column?.secondary) classes.push('table--cell--secondary');
+      return classes.length ? classes.join(' ') : undefined;
+    }
+  }
+};
+</script>

@@ -1,0 +1,14 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/bases/form-field/form-field.vue.twig' -%}
+
+{%- block field_label -%}{%- endblock -%}
+
+{%- block field_control -%}
+    <input
+            type="hidden"
+            :name="name || null"
+            :id="resolvedId"
+            :value="modelValue"
+    >
+{%- endblock -%}
+
+{%- block field_errors -%}{%- endblock -%}

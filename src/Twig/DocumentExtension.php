@@ -14,13 +14,15 @@ class DocumentExtension extends AbstractTemplateExtension
                 'document_embed',
                 function (
                     Environment $twig,
+                    $context,
                     string $src,
                     string $title,
                     array $options = [],
                 ) {
-                    return $this->renderTemplate(
+                    return $this->renderComponent(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/partials/document-embed.html.twig',
+                        $context,
+                        '@WexampleSymfonyDesignSystemBundle/components/document-embed',
                         [
                             'src' => $src,
                             'title' => $title,

@@ -109,7 +109,6 @@ class ElementDeclarationService
     {
         return "# Declares `{$declaration->key}` to the design system registry.\n"
             . "# Seeded from a scan of the assets; kept by hand from here on.\n"
-            . "# nature: what the element is — to be chosen from the registry's vocabulary.\n"
             . "# formats, per format — whose move it is next:\n"
             . "#   true            it is there, nothing is owed\n"
             . "#   todo — a note   it is wanted and missing, someone should build it\n"

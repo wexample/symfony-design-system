@@ -1,0 +1,115 @@
+@use '../../css/mixins/figure' as figure;
+
+.content {
+  font-size: var(--font-size-4);
+  line-height: 1.6;
+
+  > * + * { margin-top: var(--space-4); }
+  > :is(h1, h2, h3, h4, h5, h6) + * { margin-top: var(--space-2); }
+  > * + :is(h2, h3, h4, h5, h6) { margin-top: var(--space-6); }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: var(--font-weight-strong);
+    line-height: 1.2;
+    margin: 0;
+    scroll-margin-top: var(--space-6);
+  }
+
+  h1 { font-size: var(--font-size-7); }
+  h2 { font-size: var(--font-size-6); }
+  h3 { font-size: var(--font-size-5); }
+  h4 { font-size: var(--font-size-4); }
+  h5 { font-size: var(--font-size-3); }
+  h6 { font-size: var(--font-size-3); }
+
+  a {
+    color: inherit;
+    font-weight: var(--font-weight-strong);
+    text-decoration: underline;
+    text-decoration-color: var(--color-invert-9);
+    text-underline-offset: 0.2em;
+    text-underline-position: under;
+    &:hover { color: var(--color-primary); }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-media);
+  }
+
+  strong { font-weight: var(--font-weight-strong); }
+  em { font-style: italic; }
+
+  :not(pre) > code {
+    font-family: var(--font-family-mono);
+    font-size: 0.875em;
+    color: var(--color-default-text);
+    background: var(--border-color-default);
+    padding: 0.2em 0.6em;
+    border-radius: var(--radius-pill);
+  }
+
+  > p:first-child { margin-top: 0; }
+  > p:last-child { margin-bottom: 0; }
+
+  ul, ol {
+    padding-left: var(--space-5);
+    margin-block: var(--space-5);
+    li + li { margin-top: var(--space-2); }
+  }
+
+  ul { list-style: disc; }
+  ol { list-style: decimal; }
+
+  li > ul,
+  li > ol {
+    margin-top: var(--space-2);
+    list-style: circle;
+  }
+
+  blockquote {
+    border-left: 3px solid var(--color-primary);
+    padding-left: var(--space-4);
+    color: var(--text-color-muted);
+    font-style: italic;
+  }
+
+  cite {
+    display: block;
+    margin-top: var(--space-2);
+    font-size: var(--font-size-2);
+    font-style: normal;
+    color: var(--text-color-muted);
+  }
+
+  @include figure.figure-styles;
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--color-invert-9);
+  }
+
+  &--media {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-6);
+    align-items: start;
+
+    > * + * { margin-top: 0; }
+  }
+
+  &--dropcap > p:first-of-type::first-letter {
+    float: left;
+    font-size: 4.2em;
+    line-height: 0.8;
+    padding-right: 0.08em;
+    padding-bottom: 0.05em;
+    font-weight: var(--font-weight-bold);
+  }
+}

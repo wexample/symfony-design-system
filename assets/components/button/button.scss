@@ -1,0 +1,271 @@
+@use '../../css/mixins/density' as density;
+@use '../../css/mixins/transition' as transition;
+@use '../../css/mixins/assisted' as assisted;
+@use '../spinner/spinner';
+@use '../pill/pill';
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  // Given up where the region it stands in is packed tight, kept everywhere
+  // else — see mixins/density.
+  gap: var(--density-gap, var(--space-2));
+  padding: var(--density-padding-block, var(--space-2)) var(--density-padding-inline, var(--space-3));
+  border-radius: var(--radius-control);
+  border: 0;
+  background: var(--surface-2);
+  color: var(--color-default-text);
+  font-size: var(--font-size-3);
+  box-shadow: var(--shadow-1);
+  cursor: pointer;
+  white-space: nowrap;
+  @include transition.smooth(2);
+}
+
+.button:disabled,
+.button.is-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.button--spinner {
+  display: none;
+}
+
+.button.is-loading {
+  pointer-events: none;
+  opacity: 0.8;
+
+  .button--icon {
+    display: none;
+  }
+
+  .button--spinner {
+    display: inline-flex;
+  }
+}
+
+// A button that sits in a bar rather than on a surface: it drops its own
+// background and shadow, and only shows a frame under the pointer. What names it
+// is its label, and the bar around it is what gives it its place.
+.button--flat {
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-color-muted);
+}
+
+.button--flat:hover,
+.button--flat:focus-visible {
+  background: var(--state-hover);
+  color: var(--text-color-default);
+}
+
+.button-menu.is-open .button--flat {
+  background: var(--state-hover);
+  color: var(--text-color-default);
+}
+
+.button--compact {
+  @include density.density-compact;
+}
+
+.button--invert {
+  background: var(--color-default-background-invert);
+  color: var(--color-default-text-invert);
+}
+
+.button--success {
+  background: var(--color-success-17);
+  color: #fff;
+  box-shadow: none;
+}
+
+.button--danger {
+  background: var(--color-error-17);
+  color: #fff;
+  box-shadow: none;
+}
+
+.button--icon {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.button-menu {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.button--menu {
+  gap: var(--space-2);
+}
+
+.button-menu.is-open .button--menu {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.button-menu--invert .button--menu {
+  background: var(--color-default-background-invert);
+  color: var(--color-default-text-invert);
+}
+
+.button-menu--invert .button-menu--panel {
+  background: var(--color-default-background-invert);
+  color: var(--color-default-text-invert);
+}
+
+.button-menu--invert .button-menu--link {
+  color: var(--color-default-text-invert);
+}
+
+.button-menu--invert .button-menu--link:hover,
+.button-menu--invert .button-menu--link:focus-visible {
+  background: var(--state-hover);
+}
+
+.button-menu--label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.button-menu--caret {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: var(--space-2);
+}
+
+.button-menu--caret::before {
+  content: '';
+  width: 0.45em;
+  height: 0.45em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.button-menu.is-open .button-menu--caret::before {
+  transform: rotate(225deg);
+}
+
+.button-menu--panel {
+  // A menu reads at its own size. Left to inherit it would take the size of
+  // whatever it opens in — a toolbar raises the font to size its icons, and the
+  // items would come out at 20px while the button that opened them is at 16.
+  font-size: var(--font-size-3);
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 0;
+  min-width: 100%;
+  width: max-content;
+  background: var(--surface-3);
+  box-shadow: var(--shadow-1);
+  border-radius: 0 0 var(--radius-surface) var(--radius-surface);
+  z-index: var(--z-dropdown);
+}
+
+.button-menu--panel--top {
+  top: auto;
+  bottom: calc(100% - 1px);
+  border-radius: var(--radius-surface) var(--radius-surface) 0 0;
+}
+
+.button-menu--panel--right {
+  right: 0;
+  left: auto;
+}
+
+.button-menu--panel--left {
+  left: 0;
+  right: auto;
+}
+
+.button-menu--list {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-2) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.button-menu--item {
+  margin: 0;
+  padding: 0;
+}
+
+// Between two runs of items that have nothing to do with each other. It spans
+// the whole panel, edge to edge, because a rule inset from the sides reads as
+// part of the item above it.
+.button-menu--separator {
+  margin: var(--space-1) 0;
+  border-top: var(--border-separator);
+}
+
+// The same line doing a second job: naming what follows it.
+.button-menu--separator--titled {
+  margin-bottom: 0;
+  padding: var(--space-3) var(--space-4) var(--space-1);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--font-size-1);
+  color: var(--text-color-muted);
+}
+
+.button-menu--link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-default-text);
+  text-decoration: none;
+  width: 100%;
+}
+
+.button-menu--link:hover,
+.button-menu--link:focus-visible {
+  background: var(--state-hover);
+}
+
+.button-menu--list--items-right .button-menu--link {
+  justify-content: flex-start;
+  flex-direction: row-reverse;
+}
+
+.button-menu--item-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.button-menu--item-label {
+  display: inline-flex;
+  align-items: center;
+}
+
+.button-menu--item-count {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.button.is-assisted {
+  @include assisted.assisted-outline;
+  pointer-events: none;
+  user-select: none;
+}
+
+.button-menu.is-assisted {
+  pointer-events: none;
+  user-select: none;
+
+  .button--menu {
+    @include assisted.assisted-outline;
+  }
+}

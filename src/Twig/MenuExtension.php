@@ -7,15 +7,18 @@ use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 use Twig\TwigFunction;
+use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 use Wexample\Helpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
 
 class MenuExtension extends AbstractTemplateExtension
 {
     public function __construct(
+        ComponentsExtension $componentsExtension,
         private readonly RouterInterface $router,
         private readonly RequestStack $requestStack,
     ) {
+        parent::__construct($componentsExtension);
     }
 
     public function getFunctions(): array
@@ -25,13 +28,15 @@ class MenuExtension extends AbstractTemplateExtension
                 'menu_item',
                 function (
                     Environment $twig,
+                    $context,
                     string $route,
                     array $routeParams = [],
                     array $options = [],
                 ) {
-                    return $this->renderTemplate(
+                    return $this->renderComponent(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/partials/menu-item.html.twig',
+                        $context,
+                        '@WexampleSymfonyDesignSystemBundle/components/menu-item',
                         [
                             'route' => $route,
                             'route_params' => $routeParams,
@@ -44,10 +49,11 @@ class MenuExtension extends AbstractTemplateExtension
             ),
             new TwigFunction(
                 'menu_separator',
-                function (Environment $twig, string $label, array $options = []) {
-                    return $this->renderTemplate(
+                function (Environment $twig, $context, string $label, array $options = []) {
+                    return $this->renderComponent(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/partials/menu-separator.html.twig',
+                        $context,
+                        '@WexampleSymfonyDesignSystemBundle/components/menu-separator',
                         [
                             'label' => $label,
                             'options' => $options,
@@ -58,10 +64,11 @@ class MenuExtension extends AbstractTemplateExtension
             ),
             new TwigFunction(
                 'menu_item_link',
-                function (Environment $twig, string $icon, string $label, string $href, array $options = []) {
-                    return $this->renderTemplate(
+                function (Environment $twig, $context, string $icon, string $label, string $href, array $options = []) {
+                    return $this->renderComponent(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/partials/menu-item-link.html.twig',
+                        $context,
+                        '@WexampleSymfonyDesignSystemBundle/components/menu-item-link',
                         [
                             'icon' => $icon,
                             'label' => $label,
@@ -76,6 +83,7 @@ class MenuExtension extends AbstractTemplateExtension
                 'menu_item_collapsible_from_controller',
                 function (
                     Environment $twig,
+                    $context,
                     mixed $renderPass,
                     string $controllerNamespace,
                 ) {
@@ -107,9 +115,10 @@ class MenuExtension extends AbstractTemplateExtension
                         if ($routeHref === $href) {
                             continue;
                         }
-                        $items .= $this->renderTemplate(
+                        $items .= $this->renderComponent(
                             $twig,
-                            '@WexampleSymfonyDesignSystemBundle/partials/menu-item.html.twig',
+                            $context,
+                            '@WexampleSymfonyDesignSystemBundle/components/menu-item',
                             [
                                 'route' => $routeName,
                                 'route_params' => [],
@@ -122,9 +131,10 @@ class MenuExtension extends AbstractTemplateExtension
                     $content = $items ? '<ul class="menu--sub-items">'.$items.'</ul>' : '';
 
                     if ($content === '') {
-                        return $this->renderTemplate(
+                        return $this->renderComponent(
                             $twig,
-                            '@WexampleSymfonyDesignSystemBundle/partials/menu-item.html.twig',
+                            $context,
+                            '@WexampleSymfonyDesignSystemBundle/components/menu-item',
                             [
                                 'route' => $indexRoute,
                                 'route_params' => [],
@@ -134,9 +144,10 @@ class MenuExtension extends AbstractTemplateExtension
                         );
                     }
 
-                    return $this->renderTemplate(
+                    return $this->renderComponent(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/partials/menu-item-collapsible.html.twig',
+                        $context,
+                        '@WexampleSymfonyDesignSystemBundle/components/menu-item-collapsible',
                         [
                             'render_pass' => $renderPass,
                             'route' => $indexRoute,
@@ -152,6 +163,7 @@ class MenuExtension extends AbstractTemplateExtension
                 'menu_item_collapsible',
                 function (
                     Environment $twig,
+                    $context,
                     mixed $renderPass,
                     string $iconName,
                     string $label,
@@ -160,9 +172,10 @@ class MenuExtension extends AbstractTemplateExtension
                     bool $isOpen = false,
                 ) {
                     if (trim($content) === '') {
-                        return $this->renderTemplate(
+                        return $this->renderComponent(
                             $twig,
-                            '@WexampleSymfonyDesignSystemBundle/partials/menu-item-link.html.twig',
+                            $context,
+                            '@WexampleSymfonyDesignSystemBundle/components/menu-item-link',
                             [
                                 'icon' => $iconName,
                                 'label' => $label,
@@ -172,9 +185,10 @@ class MenuExtension extends AbstractTemplateExtension
                         );
                     }
 
-                    return $this->renderTemplate(
+                    return $this->renderComponent(
                         $twig,
-                        '@WexampleSymfonyDesignSystemBundle/partials/menu-item-collapsible.html.twig',
+                        $context,
+                        '@WexampleSymfonyDesignSystemBundle/components/menu-item-collapsible',
                         [
                             'render_pass' => $renderPass,
                             'icon_name' => $iconName,

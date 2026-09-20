@@ -111,7 +111,6 @@ class ElementRegistryService
                 continue;
             }
 
-            $entry->nature = $declaration->nature;
             $entry->description = $declaration->description;
 
             foreach (ElementFormat::cases() as $format) {

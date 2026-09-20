@@ -1,0 +1,168 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/bases/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ parent() }}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.*') }}
+{%- endblock -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/date-display') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/spinner') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/button-target') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/status-icon') -}}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    {# Client-side twin of partials/table.html.twig: same column contract, same
+       markup. A change to either is a change to both. #}
+    <table class="table" :class="{ 'table--refreshing': loading && hasRows(), 'table--sticky': sticky }">
+        <thead v-if="showHeader && columns.length">
+        <tr class="table--row">
+            <slot name="header" :columns="columns">
+                <th
+                        v-for="(column, columnIndex) in columns"
+                        :key="getColumnKey(column, columnIndex)"
+                        class="table--cell"
+                        :class="getColumnClass(column)"
+                        scope="col"
+                >
+                    [[ getColumnLabel(column) ]]
+                </th>
+            </slot>
+        </tr>
+        </thead>
+        <tbody>
+        {# Out of flow, so it adds no height and stays anchored to the rows area. #}
+        <tr v-if="loading && hasRows()">
+            <td class="table--overlay">
+                <spinner size="sm" :label="resolvedLoadingLabel"></spinner>
+            </td>
+        </tr>
+        <tr v-if="loading && !hasRows()" class="table--row table--row--loading">
+            <td class="table--cell table--cell--loading" :colspan="getEmptyColspan()">
+                <spinner size="sm" :label="resolvedLoadingLabel"></spinner>
+            </td>
+        </tr>
+        <tr v-else-if="!hasRows()" class="table--row">
+            <td class="table--cell text-empty" :colspan="getEmptyColspan()">
+                [[ resolvedEmptyLabel ]]
+            </td>
+        </tr>
+        <tr
+                v-for="(row, index) in rows"
+                :key="getRowKey(row, index)"
+                class="table--row"
+                :class="{ 'table--row--group': isGroupRow(row) }"
+        >
+            <template v-if="isGroupRow(row)">
+                <th class="table--cell table--cell--group" :colspan="getEmptyColspan()" scope="colgroup">[[ row.group ]]</th>
+            </template>
+            <template v-else-if="$slots.row">
+                <slot name="row" v-bind="{ row, columns }"></slot>
+            </template>
+            <template v-else>
+                <td
+                        v-for="(column, columnIndex) in columns"
+                        :key="getColumnKey(column, columnIndex)"
+                        class="table--cell"
+                        :class="getColumnClass(column)"
+                >
+                    <template v-if="$slots.cell">
+                        <slot
+                                name="cell"
+                                v-bind="{ row, column, value: getCellValue(row, column) }"
+                        ></slot>
+                    </template>
+                    <template v-else>
+                        <template v-if="isHtmlCell(column)">
+                            <span v-html="getCellValue(row, column)"></span>
+                        </template>
+                        <template v-else-if="isDateCell(column)">
+                            <date-display
+                                    v-if="getCellValue(row, column)"
+                                    :value="getCellValue(row, column)"
+                                    :format="getDateFormat(column)"
+                                    :title-format="getDateTitleFormat(column)"
+                            ></date-display>
+                        </template>
+                        <template v-else-if="isStatusCell(column)">
+                            <span
+                                    v-if="getStatus(getCellValue(row, column))"
+                                    class="table--status"
+                                    :title="getStatus(getCellValue(row, column)).title"
+                            >
+                                <status-icon
+                                        :type="getStatus(getCellValue(row, column)).type"
+                                        :label="getStatus(getCellValue(row, column)).label"
+                                        size="sm"
+                                ></status-icon>
+                                <span v-if="getStatus(getCellValue(row, column)).count" class="pill">[[ getStatus(getCellValue(row, column)).count ]]</span>
+                            </span>
+                        </template>
+                        <template v-else-if="hasCellActions(column)">
+                            <span class="table--actions">
+                                <template v-for="(action, actionIndex) in getCellActions(row, column)">
+                                    <form
+                                            v-if="action.method === 'post' && action.href"
+                                            :key="`action-form-${actionIndex}`"
+                                            :action="action.href"
+                                            method="post"
+                                    >
+                                        <input v-if="action.token" type="hidden" name="_token" :value="action.token">
+                                        <button
+                                                class="table--icon-button"
+                                                type="submit"
+                                                :title="action.label"
+                                                v-html="renderIcon(action.icon)"
+                                        ></button>
+                                    </form>
+                                    <button-target
+                                            v-else-if="action.href"
+                                            :key="`action-link-${actionIndex}`"
+                                            :app="app"
+                                            :href="action.href"
+                                            :target="action.target"
+                                            :target-options="action.targetOptions"
+                                            :icon="action.icon"
+                                            class-name="table--icon-link"
+                                    ></button-target>
+                                    <span
+                                            v-else
+                                            :key="`action-icon-${actionIndex}`"
+                                            class="table--icon"
+                                            v-html="renderIcon(action.icon)"
+                                    ></span>
+                                </template>
+                            </span>
+                        </template>
+                        <template v-else-if="column.icon">
+                            <a
+                                    v-if="getCellHref(row, column)"
+                                    :href="getCellHref(row, column)"
+                                    class="table--icon-link"
+                                    v-html="getCellIcon(row, column)"
+                            ></a>
+                            <span
+                                    v-else
+                                    class="table--icon"
+                                    v-html="getCellIcon(row, column)"
+                            ></span>
+                        </template>
+                        <template v-else-if="getCellHref(row, column)">
+                            <a :href="getCellHref(row, column)">[[ getCellValue(row, column) ]]</a>
+                        </template>
+                        <template v-else>
+                            [[ getCellValue(row, column) ]]
+                        </template>
+                    </template>
+                </td>
+            </template>
+        </tr>
+        </tbody>
+        <tfoot v-if="$slots.footer">
+        <tr class="table--row">
+            <slot name="footer" v-bind="{ columns }"></slot>
+        </tr>
+        </tfoot>
+    </table>
+{%- endblock -%}
