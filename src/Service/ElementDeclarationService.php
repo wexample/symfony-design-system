@@ -110,8 +110,10 @@ class ElementDeclarationService
         return "# Declares `{$declaration->key}` to the design system registry.\n"
             . "# Seeded from a scan of the assets; kept by hand from here on.\n"
             . "# nature: what the element is — to be chosen from the registry's vocabulary.\n"
-            . "# formats: true when the element is expected in that format, or a\n"
-            . "#   sentence saying why it does without. A format missing here is a\n"
-            . "#   decision not yet made, and the check will name it.\n";
+            . "# formats, per format — whose move it is next:\n"
+            . "#   true            it is there, nothing is owed\n"
+            . "#   todo — a note   it is wanted and missing, someone should build it\n"
+            . "#   a sentence      it does without on purpose, and this is why\n"
+            . "#   left out        nobody has ruled yet, and the check will name it\n";
     }
 }

@@ -3,16 +3,16 @@
 namespace Wexample\SymfonyDesignSystem\Class;
 
 use Wexample\SymfonyDesignSystem\Enum\ElementFormat;
+use Wexample\SymfonyDesignSystem\Enum\FormatStance;
 
 /**
  * One element of the design system as the registry knows it: what was declared
  * about it, and what was found for it.
  *
- * The declared part — nature, description, a justification for each format it
- * does without — comes from the bundle's yaml. The found part — the files behind
- * each format — comes from the scan. The two are put together only once they
- * agree, so an entry never says both that a format is expected and that nothing
- * carries it.
+ * The declared part — nature, description, and where the bundle stands on each
+ * format — comes from its yaml. The found part — the files behind each format —
+ * comes from the scan. The two are put together only once they agree, so an
+ * entry never says both that a format is expected and that nothing carries it.
  *
  * An element is identified by its bundle and its key together. Two bundles may
  * each hold a `bar`; the loader resolves them by alias, so they are two
@@ -27,9 +27,16 @@ class ElementEntry
     private array $occurrences = [];
 
     /**
-     * @var array<string, string> format value => why the element does without it
+     * @var array<string, string> format value => where the declaration stands
+     *                            on it, as a FormatStance value
      */
-    private array $absent = [];
+    private array $stances = [];
+
+    /**
+     * @var array<string, string> format value => what the declaration says in
+     *                            its own words about it
+     */
+    private array $notes = [];
 
     public function __construct(
         public readonly string $key,
@@ -79,24 +86,43 @@ class ElementEntry
         return $this->occurrences[$format->value] ?? [];
     }
 
-    public function setAbsent(
+    public function setStance(
         ElementFormat $format,
-        string $justification
+        FormatStance $stance,
+        ?string $note = null
     ): void {
-        $this->absent[$format->value] = $justification;
+        $this->stances[$format->value] = $stance->value;
+
+        if ($note !== null) {
+            $this->notes[$format->value] = $note;
+        }
     }
 
-    public function getAbsentJustification(ElementFormat $format): ?string
+    public function getStance(ElementFormat $format): FormatStance
     {
-        return $this->absent[$format->value] ?? null;
+        return FormatStance::tryFrom($this->stances[$format->value] ?? '')
+            ?? FormatStance::UNDECIDED;
+    }
+
+    public function getNote(ElementFormat $format): ?string
+    {
+        return $this->notes[$format->value] ?? null;
+    }
+
+    /**
+     * @return array<string, string> format value => stance value
+     */
+    public function getStances(): array
+    {
+        return $this->stances;
     }
 
     /**
      * @return array<string, string>
      */
-    public function getAbsent(): array
+    public function getNotes(): array
     {
-        return $this->absent;
+        return $this->notes;
     }
 
     /**
@@ -154,7 +180,8 @@ class ElementEntry
             'nature' => $this->nature,
             'description' => $this->description,
             'formats' => array_filter($this->getOccurrences()),
-            'absent' => $this->absent,
+            'stances' => $this->stances,
+            'notes' => $this->notes,
         ];
     }
 
@@ -182,11 +209,12 @@ class ElementEntry
             }
         }
 
-        foreach ($data['absent'] ?? [] as $value => $justification) {
+        foreach ($data['stances'] ?? [] as $value => $stance) {
             $format = ElementFormat::tryFrom($value);
+            $stance = FormatStance::tryFrom((string) $stance);
 
-            if ($format !== null) {
-                $entry->setAbsent($format, (string) $justification);
+            if ($format !== null && $stance !== null) {
+                $entry->setStance($format, $stance, $data['notes'][$value] ?? null);
             }
         }
 

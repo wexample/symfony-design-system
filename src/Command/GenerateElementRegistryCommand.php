@@ -10,6 +10,7 @@ use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Class\ElementEntry;
 use Wexample\SymfonyDesignSystem\Class\ElementSource;
 use Wexample\SymfonyDesignSystem\Enum\ElementFormat;
+use Wexample\SymfonyDesignSystem\Enum\FormatStance;
 use Wexample\SymfonyDesignSystem\Service\ElementRegistryService;
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Command\AbstractBundleCommand;
@@ -99,15 +100,23 @@ class GenerateElementRegistryCommand extends AbstractBundleCommand
 
             $io->writeln(
                 sprintf(
-                    '%d elements, %d of them in a single format, %d format decisions pending.',
+                    '%d elements, %d formats left to do, %d decisions not yet made.',
                     $inventory->countEntries(),
-                    $inventory->countByFormatsCount()[1],
+                    count($compilation->todo),
                     count($compilation->pending)
                 )
             );
 
-            if ($output->isVerbose() && $compilation->pending !== []) {
-                $io->listing($compilation->pending);
+            if ($output->isVerbose()) {
+                if ($compilation->todo !== []) {
+                    $io->writeln('To do:');
+                    $io->listing($compilation->todo);
+                }
+
+                if ($compilation->pending !== []) {
+                    $io->writeln('Undecided:');
+                    $io->listing($compilation->pending);
+                }
             }
 
             if (! $compilation->isClean()) {
@@ -193,7 +202,8 @@ class GenerateElementRegistryCommand extends AbstractBundleCommand
                     array_map(
                         static fn (ElementFormat $format): string => match (true) {
                             $entry->has($format) => 'x',
-                            $entry->getAbsentJustification($format) !== null => '-',
+                            $entry->getStance($format) === FormatStance::TODO => '!',
+                            $entry->getStance($format) === FormatStance::WAIVED => '-',
                             default => '',
                         },
                         $formats

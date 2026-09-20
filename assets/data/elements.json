@@ -11,7 +11,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_action-icon.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "action-link",
@@ -23,7 +30,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_action-link.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "app-home-url",
@@ -35,19 +49,36 @@
                     "app_home_url"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "expected",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "avatar",
             "source": "WexampleSymfonyDesignSystemBundle",
             "nature": null,
-            "description": null,
+            "description": "A person or a thing, shown small and standing for itself.",
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_avatar.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "waived",
+                "component": "todo",
+                "vue": "todo"
+            },
+            "notes": {
+                "twig_function": "the shape takes one class and an image; a function would only hide the img",
+                "vue": "the entity bar draws one, and a bar drawn client-side cannot reach a twig component"
+            }
         },
         {
             "key": "banner",
@@ -65,7 +96,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/banner.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "bar",
@@ -89,7 +127,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/bar.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "expected",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "bases/entity",
@@ -102,7 +147,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/bases/entity.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "bases/form",
@@ -115,7 +167,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/bases/form.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "bases/form-field",
@@ -128,7 +187,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/bases/form-field.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "bases/vue-wrapper",
@@ -141,7 +207,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/bases/vue-wrapper.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "block",
@@ -153,7 +226,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_block.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "breadcrumb",
@@ -174,7 +254,14 @@
                     "breadcrumb_render"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "expected",
+                "twig_function": "expected",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "button",
@@ -196,7 +283,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/button.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "expected",
+                "twig_function": "expected",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "button-link",
@@ -212,7 +306,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/button-link.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "expected",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "button-menu",
@@ -232,7 +333,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/button-menu.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "expected",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "button-target",
@@ -253,7 +361,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/button-target.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "expected",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "chat",
@@ -265,7 +380,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_chat.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "cluster",
@@ -277,7 +399,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_cluster.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "code-block",
@@ -289,7 +418,14 @@
                     "@WexampleSymfonyDesignSystemBundle/partials/code-block.html.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "expected",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "collection/bar-list/abstract-entity-bar-list",
@@ -302,7 +438,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/collection/bar-list/abstract-entity-bar-list.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "collection/chat/abstract-entity-chat",
@@ -316,7 +459,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/collection/chat/abstract-entity-chat.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "collection/table/abstract-entity-table",
@@ -329,7 +479,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/collection/table/abstract-entity-table.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "color-scheme-switch",
@@ -346,7 +503,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/color-scheme-switch.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "confirm",
@@ -361,7 +525,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/confirm.front.html.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "container",
@@ -373,7 +544,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_container.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "content",
@@ -385,7 +563,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_content.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "content-image",
@@ -400,7 +585,14 @@
                     "content_image"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "expected",
+                "twig_function": "expected",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "data-table",
@@ -413,7 +605,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/data-table.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "date",
@@ -425,7 +624,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_date.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "date-display",
@@ -438,7 +644,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/date-display.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "disk-item",
@@ -450,7 +663,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_disk-item.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "disk-item-explorer",
@@ -462,7 +682,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_disk-item-explorer.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "doc",
@@ -474,7 +701,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_doc.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "document-embed",
@@ -489,7 +723,14 @@
                     "document_embed"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "expected",
+                "twig_function": "expected",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "dots",
@@ -513,7 +754,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/dots.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "expected",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "embed",
@@ -530,7 +778,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/embed.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "entity",
@@ -550,7 +805,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/entity.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "expected",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "entity/bar",
@@ -571,7 +833,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/entity/bar.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "flow",
@@ -583,7 +852,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_flow.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "footer",
@@ -595,7 +871,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_footer.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "form",
@@ -610,7 +893,14 @@
                     "form_submit"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "expected",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "form/actions",
@@ -622,7 +912,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_actions.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "form/assisted",
@@ -634,7 +931,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/fields/_assisted.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "form/base",
@@ -646,7 +950,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/fields/_base.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "form/button-input",
@@ -663,7 +974,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/button-input.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "form/date-input",
@@ -681,7 +999,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/date-input.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "form/datetime-input",
@@ -699,7 +1024,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/datetime-input.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "form/email-input",
@@ -717,7 +1049,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/email-input.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "form/emoji-picker",
@@ -736,7 +1075,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/emoji-picker.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "form/file-input",
@@ -754,7 +1100,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/file-input.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "form/hidden-input",
@@ -772,7 +1125,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/hidden-input.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "form/layout",
@@ -784,7 +1144,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_layout.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "form/messages",
@@ -796,7 +1163,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_messages.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "form/number-input",
@@ -814,7 +1188,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/number-input.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "form/password",
@@ -826,7 +1207,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/fields/_password.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "form/password-input",
@@ -844,7 +1232,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/password-input.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "form/radio",
@@ -856,7 +1251,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/fields/_radio.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "form/radio-input",
@@ -874,7 +1276,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/radio-input.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "form/select",
@@ -886,7 +1295,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/fields/_select.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "form/select-input",
@@ -904,7 +1320,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/select-input.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "form/state",
@@ -916,7 +1339,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/fields/_state.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "form/submit-button",
@@ -929,7 +1359,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/submit-button.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "form/submit-input",
@@ -943,7 +1380,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/form/submit_input.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "form/surface",
@@ -955,7 +1399,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_surface.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "form/switch",
@@ -967,7 +1418,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/fields/_switch.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "form/switch-input",
@@ -985,7 +1443,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/switch-input.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "form/text-input",
@@ -1003,7 +1468,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/text-input.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "form/textarea",
@@ -1017,7 +1489,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/form/textarea.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "form/textarea-input",
@@ -1030,7 +1509,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/textarea-input.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "form/time-input",
@@ -1048,7 +1534,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/time-input.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "form/url-input",
@@ -1066,7 +1559,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/url-input.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "graph",
@@ -1078,7 +1578,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_graph.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "grid",
@@ -1090,7 +1597,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_grid.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "gutters",
@@ -1102,7 +1616,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_gutters.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "header",
@@ -1114,7 +1635,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_header.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "layout",
@@ -1126,7 +1654,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_layout.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "layout-reset-modern",
@@ -1138,7 +1673,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_layout-reset-modern.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "lead",
@@ -1150,7 +1692,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_lead.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "list-expanded",
@@ -1167,7 +1716,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/list-expanded.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "live-update-status",
@@ -1183,7 +1739,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/live-update-status.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "load-more",
@@ -1196,7 +1759,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/load-more.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "media",
@@ -1208,7 +1778,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_media.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "menu",
@@ -1223,7 +1800,14 @@
                     "menu_get_routes_from_controller_namespace"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "expected",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "menu-collapsible-panel",
@@ -1236,7 +1820,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "menu-item",
@@ -1251,7 +1842,14 @@
                     "menu_item"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "expected",
+                "twig_function": "expected",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "menu-item-collapsible",
@@ -1267,7 +1865,14 @@
                     "menu_item_collapsible"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "expected",
+                "twig_function": "expected",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "menu-item-link",
@@ -1282,7 +1887,14 @@
                     "menu_item_link"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "expected",
+                "twig_function": "expected",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "menu-separator",
@@ -1297,7 +1909,14 @@
                     "menu_separator"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "expected",
+                "twig_function": "expected",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "message",
@@ -1318,7 +1937,14 @@
                     "message_error"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "expected",
+                "twig_function": "expected",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "meta-bar",
@@ -1330,7 +1956,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_meta-bar.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "modal",
@@ -1347,7 +1980,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/modal.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "overlay",
@@ -1365,7 +2005,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/overlay.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "page",
@@ -1377,7 +2024,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_page.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "pagination",
@@ -1393,7 +2047,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/pagination.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "panel",
@@ -1410,7 +2071,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/panel.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "pill",
@@ -1422,7 +2090,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_pill.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "progress",
@@ -1445,7 +2120,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/progress.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "expected",
+                "twig_function": "expected",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "progress-bar",
@@ -1458,7 +2140,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/progress-bar.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "prompt",
@@ -1473,7 +2162,14 @@
                     "@WexampleSymfonyDesignSystemBundle/partials/prompt.html.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "expected",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "properties",
@@ -1491,7 +2187,14 @@
                     "properties"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "expected",
+                "twig_function": "expected",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "rail",
@@ -1503,7 +2206,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_rail.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "select",
@@ -1520,7 +2230,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/select.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "select-search",
@@ -1535,7 +2252,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/select-search.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "slash-commands-js",
@@ -1547,7 +2271,14 @@
                     "slash_commands_js"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "expected",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "spinner",
@@ -1571,7 +2302,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/spinner.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "expected",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "stack",
@@ -1583,7 +2321,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_stack.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "stage",
@@ -1599,7 +2344,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/stage.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "status",
@@ -1614,7 +2366,14 @@
                     "@WexampleSymfonyDesignSystemBundle/partials/status.html.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "expected",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "status-icon",
@@ -1641,7 +2400,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/status-icon.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "expected",
+                "twig_function": "expected",
+                "component": "expected",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "surface",
@@ -1653,7 +2419,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_surface.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "switch",
@@ -1669,7 +2442,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/switch.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "tab",
@@ -1681,7 +2461,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_tab.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "tab-item",
@@ -1697,7 +2484,14 @@
                     "tab_item_link"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "expected",
+                "twig_function": "expected",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "table",
@@ -1715,7 +2509,14 @@
                     "table"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "expected",
+                "twig_function": "expected",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "tabs",
@@ -1728,7 +2529,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/tabs.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "tag",
@@ -1740,7 +2548,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_tag.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "toast",
@@ -1758,7 +2573,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/toast.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "toast-stack",
@@ -1771,7 +2593,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/toast-stack.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "toolbar",
@@ -1783,7 +2612,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_toolbar.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "tree",
@@ -1805,7 +2641,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/tree.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "expected",
+                "twig_function": "expected",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "tree-node",
@@ -1819,7 +2662,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/tree-node.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "tree-row-directory",
@@ -1832,7 +2682,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/tree-row-directory.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "tree-row-file",
@@ -1845,7 +2702,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/tree-row-file.vue.twig"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "expected"
+            },
+            "notes": []
         },
         {
             "key": "ui-state-get",
@@ -1857,7 +2721,14 @@
                     "ui_state_get"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "expected",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "upload-handler",
@@ -1871,7 +2742,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/upload-handler.ts"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "undecided",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "expected",
+                "vue": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "zone",
@@ -1883,7 +2761,14 @@
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_zone.scss"
                 ]
             },
-            "absent": []
+            "stances": {
+                "shape": "expected",
+                "partial": "undecided",
+                "twig_function": "undecided",
+                "component": "undecided",
+                "vue": "undecided"
+            },
+            "notes": []
         }
     ],
     "unscanned_paths": [

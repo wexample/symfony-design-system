@@ -9,6 +9,7 @@ use Wexample\SymfonyDesignSystem\Class\ElementDeclaration;
 use Wexample\SymfonyDesignSystem\Class\ElementInventory;
 use Wexample\SymfonyDesignSystem\Class\ElementSource;
 use Wexample\SymfonyDesignSystem\Enum\ElementFormat;
+use Wexample\SymfonyDesignSystem\Enum\FormatStance;
 
 /**
  * The registry files: what each bundle holds, written down for whoever reads.
@@ -66,15 +67,16 @@ class ElementRegistryService
     /**
      * Puts a bundle's declarations beside its scan and says whether they agree.
      *
-     * Five ways they can fail to, each named after the element:
+     * Four ways they can fail to, each named after the element:
      *
      * - files on disk that no declaration claims;
      * - a declaration with nothing on disk behind it;
      * - a format declared expected and not found;
-     * - a format found and neither expected nor justified absent — a decision
-     *   not yet made;
-     * - a format justified absent and found anyway — a justification that
-     *   outlived what it justified.
+     * - a format found that the declaration says is not carried — whether it
+     *   was waived or left to do, the sentence has outlived what it described.
+     *
+     * A format neither found nor ruled on is not a failure but a decision not
+     * yet made: it is counted and named, never fatal.
      */
     public function compile(
         Environment $twig,
@@ -84,6 +86,7 @@ class ElementRegistryService
         $declarations = $this->declarationService->loadAll($source);
         $problems = [];
         $pending = [];
+        $todo = [];
 
         foreach ($scanned->getEntries() as $entry) {
             if (! isset($declarations[$entry->key])) {
@@ -113,51 +116,59 @@ class ElementRegistryService
 
             foreach (ElementFormat::cases() as $format) {
                 $found = $entry->has($format);
+                $stance = $declaration->getStance($format);
 
-                $problems = array_merge(
-                    $problems,
-                    $this->compareFormat($entry->getId(), $declaration, $format, $found)
-                );
+                $problem = $this->compareFormat($entry->getId(), $stance, $format, $found);
 
-                if (! $found && $declaration->isUndecided($format)) {
-                    $pending[] = sprintf('%s: %s', $entry->getId(), $format->value);
+                if ($problem !== null) {
+                    $problems[] = $problem;
                 }
 
-                $justification = $declaration->getAbsentJustification($format);
-
-                if ($justification !== null) {
-                    $entry->setAbsent($format, $justification);
+                if (! $found) {
+                    match ($stance) {
+                        FormatStance::UNDECIDED => $pending[] = sprintf('%s: %s', $entry->getId(), $format->value),
+                        FormatStance::TODO => $todo[] = sprintf(
+                            '%s: %s%s',
+                            $entry->getId(),
+                            $format->value,
+                            ($note = $declaration->getNote($format)) !== null ? ' — ' . $note : ''
+                        ),
+                        default => null,
+                    };
                 }
+
+                $entry->setStance($format, $stance, $declaration->getNote($format));
             }
         }
 
-        return new ElementCompilation($scanned, $problems, $pending);
+        return new ElementCompilation($scanned, $problems, $pending, $todo);
     }
 
     /**
-     * @return string[]
+     * Only EXPECTED says the format is carried; the three others all say it is
+     * not, which is why a file found under any of them is the same mistake.
      */
     private function compareFormat(
         string $id,
-        ElementDeclaration $declaration,
+        FormatStance $stance,
         ElementFormat $format,
         bool $found
-    ): array {
-        if ($declaration->isExpected($format)) {
+    ): ?string {
+        if ($stance->assertsPresence()) {
             return $found
-                ? []
-                : [sprintf('%s: expected as %s, and nothing on disk is.', $id, $format->value)];
+                ? null
+                : sprintf('%s: expected as %s, and nothing on disk is.', $id, $format->value);
         }
 
-        if ($declaration->getAbsentJustification($format) !== null) {
-            return $found
-                ? [sprintf('%s: declared to do without %s, and found in it — the justification is stale.', $id, $format->value)]
-                : [];
+        if (! $found) {
+            return null;
         }
 
-        return $found
-            ? [sprintf('%s: found as %s, and the declaration says nothing about it — expected, or why not?', $id, $format->value)]
-            : [];
+        return match ($stance) {
+            FormatStance::TODO => sprintf('%s: left to do as %s, and found in it — the todo is done, say so.', $id, $format->value),
+            FormatStance::WAIVED => sprintf('%s: declared to do without %s, and found in it — the reason is stale.', $id, $format->value),
+            default => sprintf('%s: found as %s, and the declaration says nothing about it — expected, to do, or why not?', $id, $format->value),
+        };
     }
 
     public function getPath(ElementSource $source): string

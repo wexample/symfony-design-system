@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Class;
 
 use Wexample\SymfonyDesignSystem\Enum\ElementFormat;
+use Wexample\SymfonyDesignSystem\Enum\FormatStance;
 
 /**
  * The elements of the design system and the formats each is delivered in.
@@ -150,6 +151,29 @@ class ElementInventory
             static fn (ElementFormat $format): string => $format->value,
             ElementFormat::cases()
         );
+    }
+
+    /**
+     * How many element-and-format pairs stand in each way — the only honest
+     * summary now that a row is not judged by how many formats it holds.
+     *
+     * @return array<string, int> stance value => count
+     */
+    public function countByStance(): array
+    {
+        $counts = [];
+
+        foreach (FormatStance::cases() as $stance) {
+            $counts[$stance->value] = 0;
+        }
+
+        foreach ($this->entries as $entry) {
+            foreach (ElementFormat::cases() as $format) {
+                ++$counts[$entry->getStance($format)->value];
+            }
+        }
+
+        return $counts;
     }
 
     /**

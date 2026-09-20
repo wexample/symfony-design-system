@@ -3,15 +3,15 @@
 namespace Wexample\SymfonyDesignSystem\Class;
 
 use Wexample\SymfonyDesignSystem\Enum\ElementFormat;
+use Wexample\SymfonyDesignSystem\Enum\FormatStance;
 
 /**
  * What a bundle says about one of its elements, by hand, in a yaml file.
  *
  * It holds what no scan can know — what the element is, what it is for, and
- * for each format either that the element is expected in it or why it does
- * without. It holds no file paths: those are on disk, the scan reads them, and
- * writing them here would only give the two a way to disagree that nobody asked
- * for.
+ * where it stands on each format. It holds no file paths: those are on disk,
+ * the scan reads them, and writing them here would only give the two a way to
+ * disagree that nobody asked for.
  *
  * Seeded once by `design-system:seed-elements`, never rewritten by anything.
  */
@@ -23,9 +23,13 @@ class ElementDeclaration
     final public const bool EXPECTED = true;
 
     /**
-     * @param array<string, bool|string> $formats format value => EXPECTED, or
-     *                                            a sentence saying why the
-     *                                            element does without it
+     * @param array<string, bool|string> $formats format value => `true` when
+     *                                            expected, `todo` with an
+     *                                            optional note when wanted and
+     *                                            missing, a sentence when the
+     *                                            element does without on
+     *                                            purpose. A format left out is
+     *                                            a decision not yet made.
      */
     public function __construct(
         public readonly string $key,
@@ -35,26 +39,28 @@ class ElementDeclaration
     ) {
     }
 
-    public function isExpected(ElementFormat $format): bool
+    public function getStance(ElementFormat $format): FormatStance
     {
-        return ($this->formats[$format->value] ?? null) === self::EXPECTED;
-    }
-
-    public function getAbsentJustification(ElementFormat $format): ?string
-    {
-        $value = $this->formats[$format->value] ?? null;
-
-        return is_string($value) && $value !== '' ? $value : null;
+        return FormatStance::read($this->formats[$format->value] ?? null);
     }
 
     /**
-     * A format neither expected nor justified is a decision not yet made, and
-     * the check names it rather than letting it pass as either.
+     * What the declaration adds in its own words: the reason behind a waiver,
+     * the note behind a todo, nothing otherwise.
      */
+    public function getNote(ElementFormat $format): ?string
+    {
+        return FormatStance::readNote($this->formats[$format->value] ?? null);
+    }
+
+    public function isExpected(ElementFormat $format): bool
+    {
+        return $this->getStance($format) === FormatStance::EXPECTED;
+    }
+
     public function isUndecided(ElementFormat $format): bool
     {
-        return ! $this->isExpected($format)
-            && $this->getAbsentJustification($format) === null;
+        return $this->getStance($format) === FormatStance::UNDECIDED;
     }
 
     public function toArray(): array

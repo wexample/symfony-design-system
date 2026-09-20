@@ -21,11 +21,16 @@ class ElementCompilation
      *                            the day every element has decided every format
      *                            is the day this list is empty, and a build that
      *                            failed until then would never have run
+     * @param string[] $todo      a format an element's declaration wants and
+     *                            does not have. Named, not fatal: an
+     *                            acknowledged gap is work someone can pick up,
+     *                            where an undecided one is nobody's
      */
     public function __construct(
         public readonly ElementInventory $inventory,
         public readonly array $problems = [],
         public readonly array $pending = [],
+        public readonly array $todo = [],
     ) {
     }
 
