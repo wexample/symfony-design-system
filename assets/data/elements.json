@@ -543,17 +543,19 @@
                 ],
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/confirm/confirm.front.html.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/confirm/confirm.ts"
                 ]
             },
             "stances": {
                 "style": "expected",
                 "template": "expected",
                 "vue": "waived",
-                "script": "waived"
+                "script": "expected"
             },
             "notes": {
-                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in",
-                "script": "it shows and does nothing"
+                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
             }
         },
         {
@@ -1917,20 +1919,24 @@
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
             "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/menu-item-collapsible/menu-item-collapsible.scss"
+                ],
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/menu-item-collapsible/menu-item-collapsible.html.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/menu-item-collapsible/menu-item-collapsible.ts"
                 ]
             },
             "stances": {
-                "style": "waived",
+                "style": "expected",
                 "template": "expected",
                 "vue": "waived",
-                "script": "waived"
+                "script": "expected"
             },
             "notes": {
-                "style": "wears the style of menu and adds none of its own",
-                "vue": "part of a page's shell, drawn by the server for a page the server knows",
-                "script": "it shows and does nothing"
+                "vue": "part of a page's shell, drawn by the server for a page the server knows"
             }
         },
         {
@@ -2484,17 +2490,19 @@
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/tab/tab.vue",
                     "@WexampleSymfonyDesignSystemBundle/components/tab/tab.vue.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/tab/tab.ts"
                 ]
             },
             "stances": {
                 "style": "expected",
                 "template": "todo",
                 "vue": "expected",
-                "script": "waived"
+                "script": "expected"
             },
             "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "script": "it shows and does nothing"
+                "template": "a page writes the tag by hand today; a component would load the style with it"
             }
         },
         {

@@ -2,7 +2,7 @@ import Component from '@wexample/symfony-loader/js/Class/Component';
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
 import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAnimationMixin';
 import KeyboardService from '@wexample/symfony-loader/js/Services/KeyboardService';
-import { renderPromptActions, PromptAction } from '../js/Helper/PromptActionsHelper';
+import { renderPromptActions, PromptAction } from '../../js/Helper/PromptActionsHelper';
 
 export default class extends Component {
   async init() {
