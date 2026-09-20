@@ -10,3 +10,4 @@ formats:
   template: true
   vue: true
   script: true
+  style: "wears the style of button and adds none of its own"

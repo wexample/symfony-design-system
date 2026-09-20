@@ -9,3 +9,5 @@ description: null
 formats:
   style: true
   template: true
+  vue: "todo — it can appear inside a vue collection and cannot be reached from one"
+  script: "it shows and does nothing"

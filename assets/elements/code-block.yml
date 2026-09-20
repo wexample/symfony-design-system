@@ -8,3 +8,6 @@
 description: null
 formats:
   template: true
+  style: "wears the style of doc and adds none of its own"
+  vue: "part of a page's shell, drawn by the server for a page the server knows"
+  script: "it shows and does nothing"

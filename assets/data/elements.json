@@ -12,11 +12,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "nothing renders it server-side",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "action-link",
@@ -29,11 +33,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "nothing renders it server-side",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "avatar",
@@ -75,10 +83,12 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "waived",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+            }
         },
         {
             "key": "bar",
@@ -122,11 +132,14 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "bases/form",
@@ -143,11 +156,14 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "bases/form-field",
@@ -160,12 +176,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
-                "template": "undecided",
+                "style": "waived",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of form/base and adds none of its own",
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "bases/vue",
@@ -177,12 +197,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
-                "template": "undecided",
+                "style": "waived",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "draws no markup of its own; what extends it brings the style",
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "bases/vue-wrapper",
@@ -195,12 +219,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
-                "template": "undecided",
+                "style": "waived",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "draws no markup of its own; what extends it brings the style",
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "block",
@@ -213,11 +241,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "breadcrumb",
@@ -234,10 +266,13 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
-                "script": "undecided"
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "vue": "part of a page's shell, drawn by the server for a page the server knows",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "button",
@@ -257,10 +292,12 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "todo",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "vue": "it can appear inside a vue collection and cannot be reached from one"
+            }
         },
         {
             "key": "button-link",
@@ -275,12 +312,15 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
+                "style": "waived",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "todo",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of button and adds none of its own",
+                "vue": "it can appear inside a vue collection and cannot be reached from one"
+            }
         },
         {
             "key": "button-menu",
@@ -299,12 +339,14 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
+                "style": "waived",
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of button and adds none of its own"
+            }
         },
         {
             "key": "button-target",
@@ -344,11 +386,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "cluster",
@@ -361,11 +407,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "code-block",
@@ -377,12 +427,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
+                "style": "waived",
                 "template": "expected",
-                "vue": "undecided",
-                "script": "undecided"
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of doc and adds none of its own",
+                "vue": "part of a page's shell, drawn by the server for a page the server knows",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "collection/bar-list/abstract-entity-bar-list",
@@ -399,11 +453,14 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "collection/chat/abstract-entity-chat",
@@ -420,11 +477,14 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "collection/table/abstract-entity-table",
@@ -437,12 +497,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
-                "template": "undecided",
+                "style": "waived",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of table and adds none of its own",
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "color-scheme-switch",
@@ -462,10 +526,12 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "waived",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+            }
         },
         {
             "key": "confirm",
@@ -482,10 +548,13 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
-                "script": "undecided"
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "container",
@@ -498,11 +567,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "content",
@@ -515,11 +588,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "content-image",
@@ -531,12 +608,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
+                "style": "waived",
                 "template": "expected",
-                "vue": "undecided",
-                "script": "undecided"
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of media and adds none of its own",
+                "vue": "part of a page's shell, drawn by the server for a page the server knows",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "data-table",
@@ -553,11 +634,14 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "todo",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "this is the client side of table under another name; merging the two is the question to settle",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "date",
@@ -570,11 +654,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "nothing renders it server-side",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "date-display",
@@ -587,12 +675,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
-                "template": "undecided",
+                "style": "waived",
+                "template": "todo",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of date and adds none of its own",
+                "template": "this is the client side of date under another name; merging the two is the question to settle",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "disk-item",
@@ -605,11 +697,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "nothing renders it server-side",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "disk-item-explorer",
@@ -622,11 +718,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "doc",
@@ -639,11 +739,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "document-embed",
@@ -655,12 +759,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
+                "style": "waived",
                 "template": "expected",
-                "vue": "undecided",
-                "script": "undecided"
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of media and adds none of its own",
+                "vue": "part of a page's shell, drawn by the server for a page the server knows",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "dots",
@@ -707,10 +815,12 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "waived",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+            }
         },
         {
             "key": "entity",
@@ -730,10 +840,12 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "todo",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "vue": "it can appear inside a vue collection and cannot be reached from one"
+            }
         },
         {
             "key": "entity/bar",
@@ -773,11 +885,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "footer",
@@ -790,11 +906,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "form",
@@ -807,11 +927,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "form/actions",
@@ -824,11 +948,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "waived",
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
+                "vue": "a style the field components share, not a component",
+                "script": "a style the field components share, not a component"
+            }
         },
         {
             "key": "form/assisted",
@@ -841,11 +969,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "waived",
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
+                "vue": "a style the field components share, not a component",
+                "script": "a style the field components share, not a component"
+            }
         },
         {
             "key": "form/base",
@@ -858,11 +990,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "waived",
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
+                "vue": "a style the field components share, not a component",
+                "script": "a style the field components share, not a component"
+            }
         },
         {
             "key": "form/button-input",
@@ -881,12 +1017,14 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
+                "style": "waived",
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of button and adds none of its own"
+            }
         },
         {
             "key": "form/date-input",
@@ -1061,11 +1199,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "waived",
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
+                "vue": "a style the field components share, not a component",
+                "script": "a style the field components share, not a component"
+            }
         },
         {
             "key": "form/messages",
@@ -1078,11 +1220,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "waived",
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
+                "vue": "a style the field components share, not a component",
+                "script": "a style the field components share, not a component"
+            }
         },
         {
             "key": "form/number-input",
@@ -1122,11 +1268,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "waived",
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
+                "vue": "a style the field components share, not a component",
+                "script": "a style the field components share, not a component"
+            }
         },
         {
             "key": "form/password-input",
@@ -1166,11 +1316,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "waived",
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
+                "vue": "a style the field components share, not a component",
+                "script": "a style the field components share, not a component"
+            }
         },
         {
             "key": "form/radio-input",
@@ -1210,11 +1364,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "waived",
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
+                "vue": "a style the field components share, not a component",
+                "script": "a style the field components share, not a component"
+            }
         },
         {
             "key": "form/select-input",
@@ -1254,11 +1412,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "waived",
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
+                "vue": "a style the field components share, not a component",
+                "script": "a style the field components share, not a component"
+            }
         },
         {
             "key": "form/submit-button",
@@ -1271,12 +1433,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
-                "template": "undecided",
+                "style": "waived",
+                "template": "todo",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of button and adds none of its own",
+                "template": "this is the client side of form/submit-input under another name; merging the two is the question to settle",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "form/submit-input",
@@ -1296,10 +1462,12 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "todo",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "vue": "it can appear inside a vue collection and cannot be reached from one"
+            }
         },
         {
             "key": "form/surface",
@@ -1312,11 +1480,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "waived",
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
+                "vue": "a style the field components share, not a component",
+                "script": "a style the field components share, not a component"
+            }
         },
         {
             "key": "form/switch",
@@ -1329,11 +1501,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "waived",
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
+                "vue": "a style the field components share, not a component",
+                "script": "a style the field components share, not a component"
+            }
         },
         {
             "key": "form/switch-input",
@@ -1407,10 +1583,12 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "todo",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "vue": "it can appear inside a vue collection and cannot be reached from one"
+            }
         },
         {
             "key": "form/textarea-input",
@@ -1423,12 +1601,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
-                "template": "undecided",
+                "style": "waived",
+                "template": "todo",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of form/base and adds none of its own",
+                "template": "this is the client side of form/textarea under another name; merging the two is the question to settle",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "form/time-input",
@@ -1495,11 +1677,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "grid",
@@ -1512,11 +1698,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "gutters",
@@ -1529,11 +1719,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "header",
@@ -1546,11 +1740,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "layout",
@@ -1563,11 +1761,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "layout-reset-modern",
@@ -1580,11 +1782,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "lead",
@@ -1597,11 +1803,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "list-expanded",
@@ -1618,11 +1828,14 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "todo",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "nothing renders it server-side",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "live-update-status",
@@ -1639,11 +1852,14 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "todo",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "nothing renders it server-side",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "load-more",
@@ -1656,12 +1872,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
-                "template": "undecided",
+                "style": "waived",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of button and adds none of its own",
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "media",
@@ -1674,11 +1894,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "menu",
@@ -1691,11 +1915,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "menu-collapsible-panel",
@@ -1710,12 +1938,15 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
+                "style": "waived",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "waived",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of gutters and adds none of its own",
+                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+            }
         },
         {
             "key": "menu-item",
@@ -1727,12 +1958,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
+                "style": "waived",
                 "template": "expected",
-                "vue": "undecided",
-                "script": "undecided"
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of menu and adds none of its own",
+                "vue": "part of a page's shell, drawn by the server for a page the server knows",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "menu-item-collapsible",
@@ -1744,12 +1979,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
+                "style": "waived",
                 "template": "expected",
-                "vue": "undecided",
-                "script": "undecided"
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of menu and adds none of its own",
+                "vue": "part of a page's shell, drawn by the server for a page the server knows",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "menu-item-link",
@@ -1761,12 +2000,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
+                "style": "waived",
                 "template": "expected",
-                "vue": "undecided",
-                "script": "undecided"
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of menu and adds none of its own",
+                "vue": "part of a page's shell, drawn by the server for a page the server knows",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "menu-separator",
@@ -1778,12 +2021,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
+                "style": "waived",
                 "template": "expected",
-                "vue": "undecided",
-                "script": "undecided"
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of menu and adds none of its own",
+                "vue": "part of a page's shell, drawn by the server for a page the server knows",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "message",
@@ -1800,10 +2047,13 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
-                "script": "undecided"
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "meta-bar",
@@ -1816,11 +2066,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "modal",
@@ -1840,10 +2094,12 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "waived",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+            }
         },
         {
             "key": "overlay",
@@ -1864,10 +2120,12 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "waived",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+            }
         },
         {
             "key": "page",
@@ -1880,11 +2138,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "pagination",
@@ -1901,11 +2163,14 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "todo",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "nothing renders it server-side",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "panel",
@@ -1925,10 +2190,12 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "waived",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+            }
         },
         {
             "key": "pill",
@@ -1941,11 +2208,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "nothing renders it server-side",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "progress",
@@ -1965,10 +2236,12 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "todo",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "vue": "it can appear inside a vue collection and cannot be reached from one"
+            }
         },
         {
             "key": "progress-bar",
@@ -1985,11 +2258,14 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "todo",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "this is the client side of progress under another name; merging the two is the question to settle",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "prompt",
@@ -2006,10 +2282,13 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
-                "script": "undecided"
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "properties",
@@ -2026,10 +2305,13 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
-                "script": "undecided"
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "rail",
@@ -2042,11 +2324,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "select",
@@ -2066,10 +2352,12 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "todo",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "vue": "it can appear inside a vue collection and cannot be reached from one"
+            }
         },
         {
             "key": "select-search",
@@ -2089,10 +2377,12 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "waived",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+            }
         },
         {
             "key": "spinner",
@@ -2132,11 +2422,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "stage",
@@ -2153,11 +2447,14 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "todo",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "nothing renders it server-side",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "status",
@@ -2174,10 +2471,13 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
-                "script": "undecided"
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "status-icon",
@@ -2217,11 +2517,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "switch",
@@ -2241,10 +2545,12 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "todo",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "vue": "it can appear inside a vue collection and cannot be reached from one"
+            }
         },
         {
             "key": "tab",
@@ -2257,11 +2563,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "tab-item",
@@ -2273,12 +2583,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
+                "style": "waived",
                 "template": "expected",
-                "vue": "undecided",
-                "script": "undecided"
+                "vue": "waived",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of tab and adds none of its own",
+                "vue": "part of a page's shell, drawn by the server for a page the server knows",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "table",
@@ -2295,10 +2609,13 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
-                "script": "undecided"
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "tabs",
@@ -2315,11 +2632,14 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "todo",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "this is the client side of tab under another name; merging the two is the question to settle",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "tag",
@@ -2332,11 +2652,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "nothing renders it server-side",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "toast",
@@ -2357,10 +2681,12 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "waived",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+            }
         },
         {
             "key": "toast-stack",
@@ -2375,12 +2701,15 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
+                "style": "waived",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "waived",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of toast and adds none of its own",
+                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+            }
         },
         {
             "key": "toolbar",
@@ -2393,11 +2722,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "tree",
@@ -2419,9 +2752,11 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "script": "it shows and does nothing"
+            }
         },
         {
             "key": "tree-node",
@@ -2434,12 +2769,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
-                "template": "undecided",
+                "style": "waived",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of tree and adds none of its own",
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "tree-row-directory",
@@ -2452,12 +2791,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
-                "template": "undecided",
+                "style": "waived",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of tree and adds none of its own",
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "tree-row-file",
@@ -2470,12 +2813,16 @@
                 ]
             },
             "stances": {
-                "style": "undecided",
-                "template": "undecided",
+                "style": "waived",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided"
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "style": "wears the style of tree and adds none of its own",
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "upload-handler",
@@ -2495,10 +2842,12 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "undecided",
+                "vue": "waived",
                 "script": "expected"
             },
-            "notes": []
+            "notes": {
+                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+            }
         },
         {
             "key": "zone",
@@ -2511,11 +2860,15 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
-                "vue": "undecided",
-                "script": "undecided"
+                "template": "todo",
+                "vue": "todo",
+                "script": "waived"
             },
-            "notes": []
+            "notes": {
+                "template": "a page writes the tag by hand today; a component would load the style with it",
+                "vue": "it can appear inside a vue collection and cannot be reached from one",
+                "script": "it shows and does nothing"
+            }
         }
     ],
     "unscanned_paths": [

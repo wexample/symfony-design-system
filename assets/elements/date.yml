@@ -8,3 +8,6 @@
 description: null
 formats:
   style: true
+  template: "todo — nothing renders it server-side"
+  vue: "todo — it can appear inside a vue collection and cannot be reached from one"
+  script: "it shows and does nothing"

@@ -8,3 +8,6 @@
 description: null
 formats:
   vue: true
+  style: "wears the style of button and adds none of its own"
+  template: "todo — this is the client side of form/submit-input under another name; merging the two is the question to settle"
+  script: "its behaviour is the vue component's"

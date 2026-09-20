@@ -9,3 +9,5 @@ description: null
 formats:
   style: true
   vue: true
+  template: "todo — this is the client side of progress under another name; merging the two is the question to settle"
+  script: "its behaviour is the vue component's"

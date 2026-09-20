@@ -8,3 +8,6 @@
 description: null
 formats:
   vue: true
+  style: "wears the style of table and adds none of its own"
+  template: "client-side by nature: it only makes sense inside a vue tree"
+  script: "its behaviour is the vue component's"

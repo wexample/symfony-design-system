@@ -10,3 +10,4 @@ formats:
   style: true
   template: true
   script: true
+  vue: "todo — it can appear inside a vue collection and cannot be reached from one"
