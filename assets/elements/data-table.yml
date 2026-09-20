@@ -10,3 +10,7 @@ formats:
   template: true
   vue: true
   script: "it shows and does nothing; sorting and paging belong to what holds it"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

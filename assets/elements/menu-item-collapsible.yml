@@ -11,3 +11,7 @@ formats:
   style: true
   vue: "part of a page's shell, drawn by the server for a page the server knows"
   script: true
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

@@ -11,3 +11,7 @@ formats:
   template: todo — nothing renders an avatar today; the entity bar draws the markup itself
   vue: todo — a bar drawn client-side cannot reach a twig component
   script: an avatar shows and does nothing
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

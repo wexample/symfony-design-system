@@ -11,3 +11,7 @@ formats:
   vue: true
   template: "client-side by nature: it only makes sense inside a vue tree"
   script: "its behaviour is the vue component's"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

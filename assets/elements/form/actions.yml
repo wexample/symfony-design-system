@@ -11,3 +11,7 @@ formats:
   template: "a style the field components share, not a component: it belongs in css/mixins and should move there"
   vue: "a style the field components share, not a component"
   script: "a style the field components share, not a component"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

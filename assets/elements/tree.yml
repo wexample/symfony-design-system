@@ -11,3 +11,7 @@ formats:
   template: true
   vue: true
   script: "it shows and does nothing"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

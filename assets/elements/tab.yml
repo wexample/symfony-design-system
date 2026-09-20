@@ -11,3 +11,7 @@ formats:
   template: "todo — a page writes the tag by hand today; a component would load the style with it"
   vue: true
   script: true
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo
