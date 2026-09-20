@@ -9,12 +9,13 @@
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/date-display') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/spinner') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/button-target') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/vue/partials/status-icon') -}}
 {%- endblock -%}
 
 {%- block vue_body -%}
     {# Client-side twin of partials/table.html.twig: same column contract, same
        markup. A change to either is a change to both. #}
-    <table class="table" :class="{ 'table--refreshing': loading && hasRows() }">
+    <table class="table" :class="{ 'table--refreshing': loading && hasRows(), 'table--sticky': sticky }">
         <thead v-if="showHeader && columns.length">
         <tr class="table--row">
             <slot name="header" :columns="columns">
@@ -51,8 +52,12 @@
                 v-for="(row, index) in rows"
                 :key="getRowKey(row, index)"
                 class="table--row"
+                :class="{ 'table--row--group': isGroupRow(row) }"
         >
-            <template v-if="$slots.row">
+            <template v-if="isGroupRow(row)">
+                <th class="table--cell table--cell--group" :colspan="getEmptyColspan()" scope="colgroup">[[ row.group ]]</th>
+            </template>
+            <template v-else-if="$slots.row">
                 <slot name="row" v-bind="{ row, columns }"></slot>
             </template>
             <template v-else>
@@ -79,6 +84,20 @@
                                     :format="getDateFormat(column)"
                                     :title-format="getDateTitleFormat(column)"
                             ></date-display>
+                        </template>
+                        <template v-else-if="isStatusCell(column)">
+                            <span
+                                    v-if="getStatus(getCellValue(row, column))"
+                                    class="table--status"
+                                    :title="getStatus(getCellValue(row, column)).title"
+                            >
+                                <status-icon
+                                        :type="getStatus(getCellValue(row, column)).type"
+                                        :label="getStatus(getCellValue(row, column)).label"
+                                        size="sm"
+                                ></status-icon>
+                                <span v-if="getStatus(getCellValue(row, column)).count" class="pill">[[ getStatus(getCellValue(row, column)).count ]]</span>
+                            </span>
                         </template>
                         <template v-else-if="hasCellActions(column)">
                             <span class="table--actions">

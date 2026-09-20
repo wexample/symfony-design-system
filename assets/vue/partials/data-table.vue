@@ -2,6 +2,7 @@
 import DateDisplay from './date-display.vue';
 import Spinner from './spinner.vue';
 import ButtonTarget from './button-target.vue';
+import StatusIcon from './status-icon.vue';
 import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
 
 const translated = buildTranslatedBindings({
@@ -21,7 +22,8 @@ export default {
   components: {
     ButtonTarget,
     DateDisplay,
-    Spinner
+    Spinner,
+    StatusIcon
   },
 
   props: {
@@ -53,6 +55,12 @@ export default {
     showHeader: {
       type: Boolean,
       default: false
+    },
+    // The header stays in view while the rows scroll under it. The page says
+    // how far from the top it stops, through --table-sticky-top.
+    sticky: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -61,6 +69,26 @@ export default {
   },
 
   methods: {
+    // A row carrying only a group is the line between two runs of rows, given
+    // a word: it spans the table and names what follows.
+    isGroupRow(row) {
+      return Boolean(row) && row.group !== undefined;
+    },
+
+    isStatusCell(column) {
+      return column?.cell === 'status';
+    },
+
+    // A type name, or { type, count, title, label }: the circle says which
+    // state, the count how many of it.
+    getStatus(value) {
+      if (!value) {
+        return null;
+      }
+
+      return typeof value === 'object' ? value : { type: value };
+    },
+
     getEmptyColspan() {
       return this.columns && this.columns.length ? this.columns.length : 1;
     },

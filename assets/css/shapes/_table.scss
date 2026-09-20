@@ -11,7 +11,10 @@
   border-radius: var(--radius-surface);
   background: var(--surface-2);
   border: var(--border-separator);
-  overflow: hidden;
+  // Clip and not hidden: hidden makes the table its own scroll container, and
+  // a sticky header inside one sticks to the table instead of to the page.
+  // Clip only cuts the corners, which is all that was wanted of it.
+  overflow: clip;
   border-collapse: separate;
   border-spacing: 0;
   margin:1rem 0;
@@ -112,6 +115,39 @@
 
 .table thead .table--cell {
   font-weight: var(--font-weight-strong);
+}
+
+// A long table is read column by column as much as row by row, and a header
+// that scrolls away turns every mark below it into a mark of nothing. The page
+// says how far from the top the header stops, if something of its own is
+// already pinned there.
+.table--sticky thead .table--cell {
+  position: sticky;
+  top: var(--table-sticky-top, 0px);
+  z-index: 1;
+  background: var(--surface-2);
+}
+
+// Not a row but the line between two runs of them, given a word: the same
+// reading as a menu separator, so a reader who knows one knows the other.
+.table--row--group .table--cell--group {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-strong);
+  color: var(--text-color-muted);
+  background: var(--surface-1);
+}
+
+// A state and, where there is one, how many of it: the icon says which, the
+// count sits beside it and neither is a colour anyone picked.
+.table--status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  vertical-align: middle;
 }
 
 .table tbody tr:last-child .table--cell {

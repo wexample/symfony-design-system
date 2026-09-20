@@ -2,7 +2,7 @@
    markup. A change to either is a change to both. #}
 {% set columns_count = columns|length ?: 1 %}
 
-<table class="table{{ options.class is defined ? ' ' ~ options.class }}">
+<table class="table{{ options.sticky|default(false) ? ' table--sticky' }}{{ options.class is defined ? ' ' ~ options.class }}">
     {% if options.show_header|default(true) %}
         <thead>
         <tr class="table--row">
@@ -30,6 +30,13 @@
         </tr>
     {% else %}
         {% for row in rows %}
+            {#- A row carrying only a group is the line between two runs of rows,
+                given a word: it spans the table and names what follows. -#}
+            {% if row.group is defined %}
+            <tr class="table--row table--row--group">
+                <th class="table--cell table--cell--group" colspan="{{ columns_count }}" scope="colgroup">{{ row.group }}</th>
+            </tr>
+            {% else %}
             <tr class="table--row">
                 {% for column in columns %}
                     {% set value = column.key ? attribute(row, column.key) : null %}
@@ -74,12 +81,23 @@
                             {%- endif -%}
                         {%- elseif column.cell == 'html' -%}
                             {{- value|raw -}}
+                        {%- elseif column.cell == 'status' -%}
+                            {#- A type name, or { type, count, title, label }: the
+                                circle says which state, the count how many of it. -#}
+                            {%- set status = value is iterable ? value : { type: value } -%}
+                            {%- if status.type|default(null) -%}
+                                <span class="table--status"{% if status.title|default(null) %} title="{{ status.title }}"{% endif %}>
+                                    {{- status_icon(status.type, { size: 'sm', label: status.label|default(null) }) -}}
+                                    {%- if status.count|default(null) -%}<span class="pill">{{ status.count }}</span>{%- endif -%}
+                                </span>
+                            {%- endif -%}
                         {%- else -%}
                             {{- value -}}
                         {%- endif -%}
                     </td>
                 {% endfor %}
             </tr>
+            {% endif %}
         {% endfor %}
     {% endif %}
     </tbody>

@@ -17,6 +17,8 @@ export default {
     return {
       columns: [],
       showHeader: true,
+      // The header stays in view while the rows scroll under it.
+      sticky: false,
       // Set to null to fetch the whole collection in a single request.
       pageLength: 10
     };

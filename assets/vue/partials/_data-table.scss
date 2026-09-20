@@ -1,3 +1,6 @@
 @use '../../css/shapes/table';
 // A cell can hold a date that redraws itself, which carries its own shape.
 @use '../../css/shapes/date';
+// A status cell is a circle and, at times, a count beside it.
+@use '../../css/shapes/status-icon';
+@use '../../css/shapes/pill';
