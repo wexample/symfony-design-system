@@ -646,7 +646,7 @@
         {
             "key": "date",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "The date a page shows, with the full one in its tooltip. Its vue identifier stays `DateDisplay` and its tag `<date-display>`: `Date` is a javascript global and `date()` is a twig function, so the component's own name is safe as a directory and as a css class, and nowhere else.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/date/date.scss"
@@ -1529,7 +1529,7 @@
         {
             "key": "form/textarea",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A field that holds several lines. Its vue tag stays `<textarea-input>`: `<textarea>` is a native html element and vue refuses to redefine one.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/textarea/textarea.scss"
@@ -2162,7 +2162,7 @@
         {
             "key": "progress",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "Work under way, as a bar. Its vue tag stays `<progress-bar>`: `<progress>` is a native html element and vue refuses to redefine one.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/progress/progress.scss"
