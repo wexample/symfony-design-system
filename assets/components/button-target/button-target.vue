@@ -2,7 +2,7 @@
 import { loadIntoTarget } from '../../js/Helper/TargetHelper';
 
 export default {
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-button-target',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-button-target-button-target',
 
   props: {
     app: {

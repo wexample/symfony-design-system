@@ -1,5 +1,5 @@
 <script>
-import DateDisplay from '../date-display/date-display.vue';
+import DateDisplay from '../date/date.vue';
 import Spinner from '../spinner/spinner.vue';
 import ButtonTarget from '../button-target/button-target.vue';
 import StatusIcon from '../status-icon/status-icon.vue';
@@ -17,7 +17,7 @@ const translated = buildTranslatedBindings({
 });
 
 export default {
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-data-table',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-data-table-data-table',
 
   components: {
     ButtonTarget,

@@ -3,7 +3,7 @@ import BaseField from '../../bases/form-field/form-field.vue';
 
 export default {
   extends: BaseField,
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-form-fields-submit-button',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-form-submit-input-submit-input',
 
   props: {
     type: {

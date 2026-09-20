@@ -2,7 +2,7 @@
 import DateService from '@wexample/symfony-loader/js/Services/DateService';
 
 export default {
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-date-display',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-date-date',
 
   props: {
     value: {

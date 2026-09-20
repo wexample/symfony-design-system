@@ -2,7 +2,7 @@
 import TreeNode from "../tree-node/tree-node.vue";
 
 export default {
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-tree',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-tree-tree',
 
   components: {
     // Declared here and nowhere else: components are registered on the app, so a

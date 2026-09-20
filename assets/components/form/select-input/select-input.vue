@@ -3,7 +3,7 @@ import BaseField from '../../bases/form-field/form-field.vue';
 
 export default {
   extends: BaseField,
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-form-fields-select-input',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-form-select-input-select-input',
   emits: ['update:modelValue'],
 
   props: {

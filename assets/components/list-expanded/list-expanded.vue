@@ -19,7 +19,7 @@ const translated = buildTranslatedBindings({
 });
 
 export default {
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-list-expanded',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-list-expanded-list-expanded',
   mixins: [
     FocusableVueMixin,
     WithRovingFocusKeyboardVueMixin

@@ -1,7 +1,7 @@
 <script>
 import AbstractEntityCollectionVueMixin from "../../../../js/Vue/AbstractEntityCollectionVueMixin";
 import buildTranslatedBindings from "../../../../js/Helper/TranslationHelper";
-import DateDisplay from "../../../date-display/date-display.vue";
+import DateDisplay from "../../../date/date.vue";
 import LoadMore from "../../../load-more/load-more.vue";
 
 const translated = buildTranslatedBindings({

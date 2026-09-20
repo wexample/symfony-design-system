@@ -25,7 +25,7 @@ const translated = buildTranslatedBindings({
 });
 
 export default {
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-pagination',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-pagination-pagination',
 
   props: {
     ...translated.props,

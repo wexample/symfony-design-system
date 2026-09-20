@@ -650,40 +650,21 @@
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/date/date.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/date/date.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/date/date.vue.twig"
                 ]
             },
             "stances": {
                 "style": "expected",
                 "template": "todo",
-                "vue": "todo",
-                "script": "waived"
-            },
-            "notes": {
-                "template": "nothing renders it server-side",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "date-display",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/date-display/date-display.vue.twig",
-                    "@WexampleSymfonyDesignSystemBundle/components/date-display/date-display.vue"
-                ]
-            },
-            "stances": {
-                "style": "waived",
-                "template": "todo",
                 "vue": "expected",
                 "script": "waived"
             },
             "notes": {
-                "style": "wears the style of date and adds none of its own",
-                "template": "this is the client side of date under another name; merging the two is the question to settle",
-                "script": "its behaviour is the vue component's"
+                "template": "nothing renders it server-side",
+                "script": "it shows and does nothing"
             }
         },
         {
@@ -1423,28 +1404,6 @@
             }
         },
         {
-            "key": "form/submit-button",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/submit-button/submit-button.vue",
-                    "@WexampleSymfonyDesignSystemBundle/components/form/submit-button/submit-button.vue.twig"
-                ]
-            },
-            "stances": {
-                "style": "waived",
-                "template": "todo",
-                "vue": "expected",
-                "script": "waived"
-            },
-            "notes": {
-                "style": "wears the style of button and adds none of its own",
-                "template": "this is the client side of form/submit-input under another name; merging the two is the question to settle",
-                "script": "its behaviour is the vue component's"
-            }
-        },
-        {
             "key": "form/submit-input",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -1455,6 +1414,10 @@
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/submit-input/submit-input.html.twig"
                 ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/submit-input/submit-input.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/submit-input/submit-input.vue.twig"
+                ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/submit-input/submit-input.ts"
                 ]
@@ -1462,12 +1425,10 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "todo",
+                "vue": "expected",
                 "script": "expected"
             },
-            "notes": {
-                "vue": "it can appear inside a vue collection and cannot be reached from one"
-            }
+            "notes": []
         },
         {
             "key": "form/surface",
@@ -1576,6 +1537,10 @@
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/textarea/textarea.html.twig"
                 ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/textarea/textarea.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/textarea/textarea.vue"
+                ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/textarea/textarea.ts"
                 ]
@@ -1583,34 +1548,10 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "todo",
+                "vue": "expected",
                 "script": "expected"
             },
-            "notes": {
-                "vue": "it can appear inside a vue collection and cannot be reached from one"
-            }
-        },
-        {
-            "key": "form/textarea-input",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/textarea-input/textarea-input.vue.twig",
-                    "@WexampleSymfonyDesignSystemBundle/components/form/textarea-input/textarea-input.vue"
-                ]
-            },
-            "stances": {
-                "style": "waived",
-                "template": "todo",
-                "vue": "expected",
-                "script": "waived"
-            },
-            "notes": {
-                "style": "wears the style of form/base and adds none of its own",
-                "template": "this is the client side of form/textarea under another name; merging the two is the question to settle",
-                "script": "its behaviour is the vue component's"
-            }
+            "notes": []
         },
         {
             "key": "form/time-input",
@@ -2229,6 +2170,10 @@
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/progress/progress.html.twig"
                 ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/progress/progress.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/progress/progress.vue"
+                ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/progress/progress.ts"
                 ]
@@ -2236,36 +2181,10 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "todo",
+                "vue": "expected",
                 "script": "expected"
             },
-            "notes": {
-                "vue": "it can appear inside a vue collection and cannot be reached from one"
-            }
-        },
-        {
-            "key": "progress-bar",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/progress-bar/progress-bar.scss"
-                ],
-                "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/progress-bar/progress-bar.vue",
-                    "@WexampleSymfonyDesignSystemBundle/components/progress-bar/progress-bar.vue.twig"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "expected",
-                "script": "waived"
-            },
-            "notes": {
-                "template": "this is the client side of progress under another name; merging the two is the question to settle",
-                "script": "its behaviour is the vue component's"
-            }
+            "notes": []
         },
         {
             "key": "prompt",
@@ -2559,17 +2478,20 @@
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/tab/tab.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/tab/tab.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/tab/tab.vue.twig"
                 ]
             },
             "stances": {
                 "style": "expected",
                 "template": "todo",
-                "vue": "todo",
+                "vue": "expected",
                 "script": "waived"
             },
             "notes": {
                 "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
                 "script": "it shows and does nothing"
             }
         },
@@ -2615,30 +2537,6 @@
             "notes": {
                 "vue": "it can appear inside a vue collection and cannot be reached from one",
                 "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "tabs",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/tabs/tabs.scss"
-                ],
-                "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/tabs/tabs.vue.twig",
-                    "@WexampleSymfonyDesignSystemBundle/components/tabs/tabs.vue"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "expected",
-                "script": "waived"
-            },
-            "notes": {
-                "template": "this is the client side of tab under another name; merging the two is the question to settle",
-                "script": "its behaviour is the vue component's"
             }
         },
         {

@@ -9,5 +9,5 @@ description: null
 formats:
   style: true
   template: "todo — a page writes the tag by hand today; a component would load the style with it"
-  vue: "todo — it can appear inside a vue collection and cannot be reached from one"
+  vue: true
   script: "it shows and does nothing"

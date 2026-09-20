@@ -1,6 +1,6 @@
 <script>
 export default {
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-tabs',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-tab-tab',
 
   props: {
     app: {

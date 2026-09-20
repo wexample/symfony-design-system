@@ -1,6 +1,6 @@
 <script>
 export default {
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-spinner',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-spinner-spinner',
 
   props: {
     size: {

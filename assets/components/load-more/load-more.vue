@@ -2,7 +2,7 @@
 import Dots from '../dots/dots.vue';
 
 export default {
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-load-more',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-load-more-load-more',
 
   components: {
     Dots

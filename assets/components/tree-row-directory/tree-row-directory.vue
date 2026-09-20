@@ -1,6 +1,6 @@
 <script>
 export default {
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-tree-row-directory',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-tree-row-directory-tree-row-directory',
 
   // The row is where a per-type action is raised, and the node relays it up.
   emits: ['action'],

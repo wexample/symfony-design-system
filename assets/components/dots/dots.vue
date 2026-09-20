@@ -1,6 +1,6 @@
 <script>
 export default {
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-dots',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-dots-dots',
 
   props: {
     size: {

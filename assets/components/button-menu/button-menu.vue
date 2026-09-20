@@ -7,7 +7,7 @@ import IconService from '@wexample/symfony-loader/js/Services/IconService';
 // is a select event, because in a vue page an item often does something rather
 // than leading somewhere.
 export default {
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-button-menu',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-button-menu-button-menu',
 
   props: {
     icon: {

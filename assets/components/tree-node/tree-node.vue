@@ -1,6 +1,6 @@
 <script>
 export default {
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-tree-node',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-tree-node-tree-node',
 
   inject: {
     treeRowComponents: {

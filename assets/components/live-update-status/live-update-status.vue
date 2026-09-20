@@ -3,6 +3,6 @@ import AbstractLiveUpdateStatusVueMixin from "../../js/Vue/AbstractLiveUpdateSta
 
 export default {
   mixins: [AbstractLiveUpdateStatusVueMixin],
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-live-update-status',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-live-update-status-live-update-status',
 };
 </script>

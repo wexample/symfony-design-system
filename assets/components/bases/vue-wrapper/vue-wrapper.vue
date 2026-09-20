@@ -8,7 +8,7 @@ export default {
     WithCssClassesVueMixin,
     AbstractDesignSystemVueMixin
   ],
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-vue-wrapper',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-bases-vue-wrapper-vue-wrapper',
 };
 
 </script>

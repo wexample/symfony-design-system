@@ -16,7 +16,7 @@ export const STATUS_ICON_GLYPHS = {
 };
 
 export default {
-  template: '#vue-template-wexample-symfony-design-system-bundle-vue-partials-status-icon',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-status-icon-status-icon',
 
   props: {
     // One of the names above. Anything else draws a bare ring, which is what an
