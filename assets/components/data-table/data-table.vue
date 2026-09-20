@@ -1,5 +1,5 @@
 <script>
-import DateDisplay from '../date/date.vue';
+import DateDisplay from '../date-display/date-display.vue';
 import Spinner from '../spinner/spinner.vue';
 import ButtonTarget from '../button-target/button-target.vue';
 import StatusIcon from '../status-icon/status-icon.vue';

@@ -1,8 +1,8 @@
 <script>
-import BaseField from '../../bases/form-field/form-field.vue';
+import FormField from '../../bases/form-field/form-field.vue';
 
 export default {
-  extends: BaseField,
+  extends: FormField,
   template: '#vue-template-wexample-symfony-design-system-bundle-components-form-radio-input-radio-input',
   emits: ['update:modelValue'],
 

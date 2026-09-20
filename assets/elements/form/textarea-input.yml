@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: "A field that holds several lines. Its vue tag stays `<textarea-input>`: `<textarea>` is a native html element and vue refuses to redefine one."
+description: "A field that holds several lines. Named like its siblings, and not `textarea`, because `<textarea>` is a native html element."
 formats:
   style: true
   template: true

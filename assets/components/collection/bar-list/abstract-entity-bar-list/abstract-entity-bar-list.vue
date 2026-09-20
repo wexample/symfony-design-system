@@ -2,7 +2,7 @@
 import AbstractEntityCollectionVueMixin from "../../../../js/Vue/AbstractEntityCollectionVueMixin";
 import buildTranslatedBindings from "../../../../js/Helper/TranslationHelper";
 import Bar from "../../../bar/bar.vue";
-import DateDisplay from "../../../date/date.vue";
+import DateDisplay from "../../../date-display/date-display.vue";
 import Pagination from "../../../pagination/pagination.vue";
 import Spinner from "../../../spinner/spinner.vue";
 

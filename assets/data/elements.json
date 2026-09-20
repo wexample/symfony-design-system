@@ -644,16 +644,16 @@
             }
         },
         {
-            "key": "date",
+            "key": "date-display",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": "The date a page shows, with the full one in its tooltip. Its vue identifier stays `DateDisplay` and its tag `<date-display>`: `Date` is a javascript global and `date()` is a twig function, so the component's own name is safe as a directory and as a css class, and nowhere else.",
+            "description": "The date a page shows, with the full one in its tooltip. Named for what it does rather than for what it holds: `date` would give a vue identifier shadowing javascript's `Date`, and the directory, the file and the component must read the same everywhere.",
             "formats": {
                 "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/date/date.scss"
+                    "@WexampleSymfonyDesignSystemBundle/components/date-display/date-display.scss"
                 ],
                 "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/date/date.vue",
-                    "@WexampleSymfonyDesignSystemBundle/components/date/date.vue.twig"
+                    "@WexampleSymfonyDesignSystemBundle/components/date-display/date-display.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/date-display/date-display.vue"
                 ]
             },
             "stances": {
@@ -1527,22 +1527,22 @@
             "notes": []
         },
         {
-            "key": "form/textarea",
+            "key": "form/textarea-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": "A field that holds several lines. Its vue tag stays `<textarea-input>`: `<textarea>` is a native html element and vue refuses to redefine one.",
+            "description": "A field that holds several lines. Named like its siblings, and not `textarea`, because `<textarea>` is a native html element.",
             "formats": {
                 "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/textarea/textarea.scss"
+                    "@WexampleSymfonyDesignSystemBundle/components/form/textarea-input/textarea-input.scss"
                 ],
                 "template": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/textarea/textarea.html.twig"
+                    "@WexampleSymfonyDesignSystemBundle/components/form/textarea-input/textarea-input.html.twig"
                 ],
                 "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/textarea/textarea.vue.twig",
-                    "@WexampleSymfonyDesignSystemBundle/components/form/textarea/textarea.vue"
+                    "@WexampleSymfonyDesignSystemBundle/components/form/textarea-input/textarea-input.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/textarea-input/textarea-input.vue"
                 ],
                 "script": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/textarea/textarea.ts"
+                    "@WexampleSymfonyDesignSystemBundle/components/form/textarea-input/textarea-input.ts"
                 ]
             },
             "stances": {
@@ -2160,22 +2160,22 @@
             }
         },
         {
-            "key": "progress",
+            "key": "progress-bar",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": "Work under way, as a bar. Its vue tag stays `<progress-bar>`: `<progress>` is a native html element and vue refuses to redefine one.",
+            "description": "Work under way, as a bar. Named `progress-bar` and not `progress` because `<progress>` is a native html element and vue refuses to redefine one.",
             "formats": {
                 "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/progress/progress.scss"
+                    "@WexampleSymfonyDesignSystemBundle/components/progress-bar/progress-bar.scss"
                 ],
                 "template": [
-                    "@WexampleSymfonyDesignSystemBundle/components/progress/progress.html.twig"
+                    "@WexampleSymfonyDesignSystemBundle/components/progress-bar/progress-bar.html.twig"
                 ],
                 "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/progress/progress.vue.twig",
-                    "@WexampleSymfonyDesignSystemBundle/components/progress/progress.vue"
+                    "@WexampleSymfonyDesignSystemBundle/components/progress-bar/progress-bar.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/progress-bar/progress-bar.vue.twig"
                 ],
                 "script": [
-                    "@WexampleSymfonyDesignSystemBundle/components/progress/progress.ts"
+                    "@WexampleSymfonyDesignSystemBundle/components/progress-bar/progress-bar.ts"
                 ]
             },
             "stances": {

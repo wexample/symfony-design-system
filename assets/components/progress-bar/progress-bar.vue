@@ -4,7 +4,7 @@
 // finish, a value that may be written '54%' — so a routine that drives a bar in
 // a terminal drives this one without being rewritten.
 export default {
-  template: '#vue-template-wexample-symfony-design-system-bundle-components-progress-progress',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-progress-bar-progress-bar',
 
   props: {
     // A count, or a share written as '54%'.

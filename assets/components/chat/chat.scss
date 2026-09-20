@@ -3,7 +3,7 @@
 // The thread head holds a load-more, which is a button showing dots while it waits.
 @use '../button/button';
 // A message dates itself, and the date carries its own tooltip cursor.
-@use '../date/date';
+@use '../date-display/date-display';
 @use '../dots/dots';
 
 .chat-textarea {

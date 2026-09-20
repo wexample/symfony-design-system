@@ -1,9 +1,9 @@
 <script>
-import BaseField from '../../bases/form-field/form-field.vue';
+import FormField from '../../bases/form-field/form-field.vue';
 
 export default {
-  extends: BaseField,
-  template: '#vue-template-wexample-symfony-design-system-bundle-components-form-textarea-textarea',
+  extends: FormField,
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-form-textarea-input-textarea-input',
   emits: ['update:modelValue'],
 
   props: {

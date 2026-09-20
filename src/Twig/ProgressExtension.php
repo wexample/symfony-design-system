@@ -27,7 +27,7 @@ class ProgressExtension extends AbstractTemplateExtension
                     return $this->componentsExtension->component(
                         $twig,
                         $context['render_pass'] ?? null,
-                        '@WexampleSymfonyDesignSystemBundle/components/progress',
+                        '@WexampleSymfonyDesignSystemBundle/components/progress-bar',
                         [
                             'current' => $current,
                             'total' => $total,
