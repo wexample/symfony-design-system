@@ -1,5 +1,7 @@
-{# Server-side twin of vue/partials/data-table.vue: same column contract, same
-   markup. A change to either is a change to both. #}
+{# The server renderer of the data table. Its client twin is data-table.vue,
+   beside it, and the two take the same column definitions — what a cell value
+   may be is where they part, and that is written in the component's
+   declaration: this one is drawn once the data is known, the other before. #}
 {% set columns_count = columns|length ?: 1 %}
 
 <table class="table{{ options.sticky|default(false) ? ' table--sticky' }}{{ options.class is defined ? ' ' ~ options.class }}">

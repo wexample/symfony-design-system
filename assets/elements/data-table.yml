@@ -1,13 +1,12 @@
 # Declares `data-table` to the design system registry.
-# Seeded from a scan of the assets; kept by hand from here on.
 # formats, per format — whose move it is next:
 #   true            it is there, nothing is owed
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "A table of rows and columns, drawn from the same column definitions on both sides. Named `data-table` and not `table` because `<table>` is a native html element and vue refuses to redefine one. The two renderers part on what a cell value may be, and they have to: the client one runs before the data is known, so it takes functions for `format`, `href`, `icon` and `params` and resolves routes itself; the server one runs after, so it takes the result already computed in the row \u2014 `{label, href}` for a link, `{icon, href}` for an icon. `secondary` greys the header too on the client and only the body on the server, and the refreshing overlay has no server equivalent because a page that is being redrawn is not on screen."
 formats:
   style: true
+  template: true
   vue: true
-  template: "todo — this is the client side of table under another name; merging the two is the question to settle"
-  script: "its behaviour is the vue component's"
+  script: "it shows and does nothing; sorting and paging belong to what holds it"

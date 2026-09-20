@@ -11,7 +11,7 @@ class TableExtension extends AbstractTemplateExtension
     {
         return [
             new TwigFunction(
-                'table',
+                'data_table',
                 function (
                     Environment $twig,
                     $context,
@@ -24,7 +24,7 @@ class TableExtension extends AbstractTemplateExtension
                     return $this->renderComponent(
                         $twig,
                         $context,
-                        '@WexampleSymfonyDesignSystemBundle/components/table',
+                        '@WexampleSymfonyDesignSystemBundle/components/data-table',
                         [
                             // An actions cell may render a target button, and a
                             // component cannot be registered without the pass.

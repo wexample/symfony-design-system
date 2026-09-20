@@ -622,10 +622,13 @@
         {
             "key": "data-table",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A table of rows and columns, drawn from the same column definitions on both sides. Named `data-table` and not `table` because `<table>` is a native html element and vue refuses to redefine one. The two renderers part on what a cell value may be, and they have to: the client one runs before the data is known, so it takes functions for `format`, `href`, `icon` and `params` and resolves routes itself; the server one runs after, so it takes the result already computed in the row \u2014 `{label, href}` for a link, `{icon, href}` for an icon. `secondary` greys the header too on the client and only the body on the server, and the refreshing overlay has no server equivalent because a page that is being redrawn is not on screen.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/data-table/data-table.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/data-table/data-table.html.twig"
                 ],
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/data-table/data-table.vue",
@@ -634,13 +637,12 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "todo",
+                "template": "expected",
                 "vue": "expected",
                 "script": "waived"
             },
             "notes": {
-                "template": "this is the client side of table under another name; merging the two is the question to settle",
-                "script": "its behaviour is the vue component's"
+                "script": "it shows and does nothing; sorting and paging belong to what holds it"
             }
         },
         {
@@ -2513,29 +2515,6 @@
             "notes": {
                 "style": "wears the style of tab and adds none of its own",
                 "vue": "part of a page's shell, drawn by the server for a page the server knows",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "table",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/table/table.scss"
-                ],
-                "template": [
-                    "@WexampleSymfonyDesignSystemBundle/components/table/table.html.twig"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "expected",
-                "vue": "todo",
-                "script": "waived"
-            },
-            "notes": {
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
                 "script": "it shows and does nothing"
             }
         },
