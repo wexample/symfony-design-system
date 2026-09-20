@@ -116,7 +116,7 @@ class ElementScannerService
             ->name($this->getPrimaryFilePattern($format));
 
         foreach ($finder as $file) {
-            $entry = $inventory->entry($this->buildKey($file->getRelativePathname()));
+            $entry = $inventory->entry($source->alias, $this->buildKey($file->getRelativePathname()));
 
             $entry->add(
                 $format,
@@ -238,7 +238,7 @@ class ElementScannerService
                 $name = $function->getName();
 
                 $inventory
-                    ->entry($this->resolveFunctionKey($inventory, $name))
+                    ->entry($source->alias, $this->resolveFunctionKey($inventory, $source, $name))
                     ->add(ElementFormat::TWIG_FUNCTION, $name);
             }
         }
@@ -253,6 +253,7 @@ class ElementScannerService
 
     private function resolveFunctionKey(
         ElementInventory $inventory,
+        ElementSource $source,
         string $functionName
     ): string {
         $segments = explode('_', $functionName);
@@ -260,7 +261,7 @@ class ElementScannerService
         while ($segments !== []) {
             $key = implode('-', $segments);
 
-            if ($inventory->hasEntry($key)) {
+            if ($inventory->hasEntry($source->alias, $key)) {
                 return $key;
             }
 
@@ -295,12 +296,14 @@ class ElementScannerService
             foreach ((new Finder())->directories()->depth(0)->in($directory) as $child) {
                 $path = ($parent ? $parent . '/' : '') . $child->getFilename();
 
-                // The registry's own directory holds what this scan writes and
-                // not what it reads. Calling it uncovered would be true and
-                // useless, and would make each run disagree with the last.
+                // The registry's directory holds what the registry writes, the
+                // declarations' directory what is said about elements: neither
+                // holds elements, and calling them uncovered would be true,
+                // useless, and a way for each run to disagree with the last.
                 if (! in_array($path, $scanned, true)
                     && $path !== 'css'
                     && $path !== ElementRegistryService::DIRECTORY
+                    && $path !== ElementDeclarationService::DIRECTORY
                 ) {
                     $paths[] = $source->qualify($path);
                 }

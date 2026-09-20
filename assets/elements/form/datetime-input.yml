@@ -1,0 +1,11 @@
+# Declares `form/datetime-input` to the design system registry.
+# Seeded from a scan of the assets; kept by hand from here on.
+# nature: what the element is — to be chosen from the registry's vocabulary.
+# formats: true when the element is expected in that format, or a
+#   sentence saying why it does without. A format missing here is a
+#   decision not yet made, and the check will name it.
+nature: null
+description: null
+formats:
+  component: true
+  vue: true

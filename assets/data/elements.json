@@ -1,40 +1,59 @@
 {
-    "version": 1,
+    "version": 2,
     "elements": [
         {
             "key": "action-icon",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_action-icon.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "action-link",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_action-link.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "app-home-url",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "twig_function": [
                     "app_home_url"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "avatar",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_avatar.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "banner",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_banner.scss"
@@ -45,10 +64,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/banner.scss",
                     "@WexampleSymfonyDesignSystemBundle/components/banner.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "bar",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_bar.scss"
@@ -65,54 +88,78 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/bar.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/bar.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "bases/entity",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/vue/bases/entity.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/bases/entity.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "bases/form",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/vue/bases/form.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/bases/form.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "bases/form-field",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/vue/bases/form-field.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/bases/form-field.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "bases/vue-wrapper",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/vue/bases/vue-wrapper.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/bases/vue-wrapper.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "block",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_block.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "breadcrumb",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_breadcrumb.scss"
@@ -126,10 +173,14 @@
                     "breadcrumb_stack",
                     "breadcrumb_render"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "button",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": "The action a page offers first.",
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_button.scss"
@@ -144,10 +195,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/button.html.twig",
                     "@WexampleSymfonyDesignSystemBundle/components/button.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "button-link",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "twig_function": [
                     "button_link"
@@ -156,10 +211,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/button-link.html.twig",
                     "@WexampleSymfonyDesignSystemBundle/components/button-link.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "button-menu",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "twig_function": [
                     "button_menu"
@@ -172,10 +231,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/button-menu.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/button-menu.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "button-target",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "twig_function": [
                     "button_target"
@@ -189,62 +252,90 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/button-target.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/button-target.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "chat",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_chat.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "cluster",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_cluster.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "code-block",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "partial": [
                     "@WexampleSymfonyDesignSystemBundle/partials/code-block.html.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "collection/bar-list/abstract-entity-bar-list",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/vue/collection/bar-list/abstract-entity-bar-list.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/collection/bar-list/abstract-entity-bar-list.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "collection/chat/abstract-entity-chat",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/vue/collection/chat/abstract-entity-chat.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/collection/chat/abstract-entity-chat.en.yml",
                     "@WexampleSymfonyDesignSystemBundle/vue/collection/chat/abstract-entity-chat.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "collection/table/abstract-entity-table",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/vue/collection/table/abstract-entity-table.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/collection/table/abstract-entity-table.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "color-scheme-switch",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_color-scheme-switch.scss"
@@ -254,10 +345,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/color-scheme-switch.en.yml",
                     "@WexampleSymfonyDesignSystemBundle/components/color-scheme-switch.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "confirm",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_confirm.scss"
@@ -265,26 +360,38 @@
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/confirm.front.html.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "container",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_container.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "content",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_content.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "content-image",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "partial": [
                     "@WexampleSymfonyDesignSystemBundle/partials/content-image.html.twig"
@@ -292,60 +399,88 @@
                 "twig_function": [
                     "content_image"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "data-table",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/data-table.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/data-table.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "date",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_date.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "date-display",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/date-display.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/date-display.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "disk-item",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_disk-item.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "disk-item-explorer",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_disk-item-explorer.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "doc",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_doc.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "document-embed",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "partial": [
                     "@WexampleSymfonyDesignSystemBundle/partials/document-embed.html.twig"
@@ -353,10 +488,14 @@
                 "twig_function": [
                     "document_embed"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "dots",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_dots.scss"
@@ -373,10 +512,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/dots.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/dots.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "embed",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_embed.scss"
@@ -386,10 +529,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/embed.scss",
                     "@WexampleSymfonyDesignSystemBundle/components/embed.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "entity",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_entity.scss"
@@ -402,10 +549,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/entity.scss",
                     "@WexampleSymfonyDesignSystemBundle/components/entity.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "entity/bar",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/entity/_bar.scss"
@@ -419,26 +570,38 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/entity/bar.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/entity/bar.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "flow",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_flow.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "footer",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_footer.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_form.scss"
@@ -446,34 +609,50 @@
                 "twig_function": [
                     "form_submit"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/actions",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_actions.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/assisted",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/fields/_assisted.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/base",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/fields/_base.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/button-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/button_input.html.twig",
@@ -483,10 +662,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/button-input.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/button-input.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/date-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/date_input.html.twig",
@@ -497,10 +680,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/date-input.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/date-input.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/datetime-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/datetime_input.html.twig",
@@ -511,10 +698,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/datetime-input.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/datetime-input.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/email-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/email_input.html.twig",
@@ -525,10 +716,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/email-input.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/email-input.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/emoji-picker",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/emoji_picker.html.twig",
@@ -540,10 +735,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/emoji-picker.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/emoji-picker.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/file-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/file_input.html.twig",
@@ -554,10 +753,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/file-input.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/file-input.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/hidden-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/hidden_input.html.twig",
@@ -568,26 +771,38 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/hidden-input.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/hidden-input.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/layout",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_layout.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/messages",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_messages.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/number-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/number_input.html.twig",
@@ -598,18 +813,26 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/number-input.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/number-input.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/password",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/fields/_password.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/password-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/password_input.html.twig",
@@ -620,18 +843,26 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/password-input.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/password-input.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/radio",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/fields/_radio.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/radio-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/radio_input.html.twig",
@@ -642,18 +873,26 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/radio-input.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/radio-input.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/select",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/fields/_select.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/select-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/select_input.html.twig",
@@ -664,53 +903,77 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/select-input.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/select-input.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/state",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/fields/_state.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/submit-button",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/submit-button.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/submit-button.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/submit-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/submit_input.html.twig",
                     "@WexampleSymfonyDesignSystemBundle/components/form/submit_input.scss",
                     "@WexampleSymfonyDesignSystemBundle/components/form/submit_input.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/surface",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_surface.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/switch",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/form/fields/_switch.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/switch-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/switch_input.html.twig",
@@ -721,10 +984,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/switch-input.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/switch-input.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/text-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/text_input.html.twig",
@@ -735,29 +1002,41 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/text-input.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/text-input.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/textarea",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/textarea.html.twig",
                     "@WexampleSymfonyDesignSystemBundle/components/form/textarea.scss",
                     "@WexampleSymfonyDesignSystemBundle/components/form/textarea.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/textarea-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/textarea-input.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/textarea-input.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/time-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/time_input.html.twig",
@@ -768,10 +1047,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/time-input.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/time-input.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "form/url-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/url_input.html.twig",
@@ -782,66 +1065,98 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/url-input.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/form/fields/url-input.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "graph",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_graph.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "grid",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_grid.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "gutters",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_gutters.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "header",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_header.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "layout",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_layout.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "layout-reset-modern",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_layout-reset-modern.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "lead",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_lead.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "list-expanded",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_list-expanded.scss"
@@ -851,10 +1166,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/list-expanded.en.yml",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/list-expanded.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "live-update-status",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_live-update-status.scss"
@@ -863,27 +1182,39 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/live-update-status.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/live-update-status.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "load-more",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/load-more.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/load-more.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "media",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_media.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "menu",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_menu.scss"
@@ -891,19 +1222,27 @@
                 "twig_function": [
                     "menu_get_routes_from_controller_namespace"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "menu-collapsible-panel",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel.html.twig",
                     "@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "menu-item",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "partial": [
                     "@WexampleSymfonyDesignSystemBundle/partials/menu-item.html.twig"
@@ -911,10 +1250,14 @@
                 "twig_function": [
                     "menu_item"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "menu-item-collapsible",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "partial": [
                     "@WexampleSymfonyDesignSystemBundle/partials/menu-item-collapsible.html.twig"
@@ -923,10 +1266,14 @@
                     "menu_item_collapsible_from_controller",
                     "menu_item_collapsible"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "menu-item-link",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "partial": [
                     "@WexampleSymfonyDesignSystemBundle/partials/menu-item-link.html.twig"
@@ -934,10 +1281,14 @@
                 "twig_function": [
                     "menu_item_link"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "menu-separator",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "partial": [
                     "@WexampleSymfonyDesignSystemBundle/partials/menu-separator.html.twig"
@@ -945,10 +1296,14 @@
                 "twig_function": [
                     "menu_separator"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "message",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_message.scss"
@@ -962,18 +1317,26 @@
                     "message_warning",
                     "message_error"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "meta-bar",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_meta-bar.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "modal",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_modal.scss"
@@ -983,10 +1346,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/modal.scss",
                     "@WexampleSymfonyDesignSystemBundle/components/modal.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "overlay",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_overlay.scss"
@@ -997,18 +1364,26 @@
                     "@WexampleSymfonyDesignSystemBundle/components/overlay.scss",
                     "@WexampleSymfonyDesignSystemBundle/components/overlay.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "page",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_page.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "pagination",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_pagination.scss"
@@ -1017,10 +1392,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/pagination.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/pagination.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "panel",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_panel.scss"
@@ -1030,18 +1409,26 @@
                     "@WexampleSymfonyDesignSystemBundle/components/panel.scss",
                     "@WexampleSymfonyDesignSystemBundle/components/panel.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "pill",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_pill.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "progress",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_progress.scss"
@@ -1057,19 +1444,27 @@
                     "@WexampleSymfonyDesignSystemBundle/components/progress.scss",
                     "@WexampleSymfonyDesignSystemBundle/components/progress.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "progress-bar",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/progress-bar.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/progress-bar.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "prompt",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_prompt.scss"
@@ -1077,10 +1472,14 @@
                 "partial": [
                     "@WexampleSymfonyDesignSystemBundle/partials/prompt.html.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "properties",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_properties.scss"
@@ -1091,18 +1490,26 @@
                 "twig_function": [
                     "properties"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "rail",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_rail.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "select",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_select.scss"
@@ -1112,10 +1519,14 @@
                     "@WexampleSymfonyDesignSystemBundle/components/select.scss",
                     "@WexampleSymfonyDesignSystemBundle/components/select.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "select-search",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/select-search.html.twig",
@@ -1123,18 +1534,26 @@
                     "@WexampleSymfonyDesignSystemBundle/components/select-search.scss",
                     "@WexampleSymfonyDesignSystemBundle/components/select-search.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "slash-commands-js",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "twig_function": [
                     "slash_commands_js"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "spinner",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_spinner.scss"
@@ -1151,18 +1570,26 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/spinner.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/spinner.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "stack",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_stack.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "stage",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_stage.scss"
@@ -1171,10 +1598,14 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/stage.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/stage.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "status",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_status.scss"
@@ -1182,10 +1613,14 @@
                 "partial": [
                     "@WexampleSymfonyDesignSystemBundle/partials/status.html.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "status-icon",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_status-icon.scss"
@@ -1205,18 +1640,26 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/status-icon.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/status-icon.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "surface",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_surface.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "switch",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_switch.scss"
@@ -1225,18 +1668,26 @@
                     "@WexampleSymfonyDesignSystemBundle/components/switch.html.twig",
                     "@WexampleSymfonyDesignSystemBundle/components/switch.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "tab",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_tab.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "tab-item",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "partial": [
                     "@WexampleSymfonyDesignSystemBundle/partials/tab-item.html.twig"
@@ -1245,10 +1696,14 @@
                     "tab_item",
                     "tab_item_link"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "table",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_table.scss"
@@ -1259,27 +1714,39 @@
                 "twig_function": [
                     "table"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "tabs",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/tabs.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/tabs.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "tag",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_tag.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "toast",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_toast.scss"
@@ -1290,27 +1757,39 @@
                     "@WexampleSymfonyDesignSystemBundle/components/toast.scss",
                     "@WexampleSymfonyDesignSystemBundle/components/toast.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "toast-stack",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/toast-stack.html.twig",
                     "@WexampleSymfonyDesignSystemBundle/components/toast-stack.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "toolbar",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_toolbar.scss"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "tree",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_tree.scss"
@@ -1325,61 +1804,86 @@
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/tree.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/tree.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "tree-node",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/tree-node.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/tree-node.en.yml",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/tree-node.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "tree-row-directory",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/tree-row-directory.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/tree-row-directory.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "tree-row-file",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/tree-row-file.vue",
                     "@WexampleSymfonyDesignSystemBundle/vue/partials/tree-row-file.vue.twig"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "ui-state-get",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "twig_function": [
                     "ui_state_get"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "upload-handler",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "component": [
                     "@WexampleSymfonyDesignSystemBundle/components/upload-handler.html.twig",
                     "@WexampleSymfonyDesignSystemBundle/components/upload-handler.scss",
                     "@WexampleSymfonyDesignSystemBundle/components/upload-handler.ts"
                 ]
-            }
+            },
+            "absent": []
         },
         {
             "key": "zone",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "nature": null,
+            "description": null,
             "formats": {
                 "shape": [
                     "@WexampleSymfonyDesignSystemBundle/css/shapes/_zone.scss"
                 ]
-            }
+            },
+            "absent": []
         }
     ],
     "unscanned_paths": [

@@ -3,16 +3,22 @@
 namespace Wexample\SymfonyDesignSystem\Service;
 
 use JsonException;
+use Twig\Environment;
+use Wexample\SymfonyDesignSystem\Class\ElementCompilation;
+use Wexample\SymfonyDesignSystem\Class\ElementDeclaration;
 use Wexample\SymfonyDesignSystem\Class\ElementInventory;
 use Wexample\SymfonyDesignSystem\Class\ElementSource;
+use Wexample\SymfonyDesignSystem\Enum\ElementFormat;
 
 /**
- * The registry files: what each bundle holds, written down.
+ * The registry files: what each bundle holds, written down for whoever reads.
  *
- * The scan can answer the same question at any moment, but only inside php. A
- * file can be read by the build, by the node side through the published asset
- * root, by another language, by an agent — so the registry is the artefact and
- * the scan is only how it is produced. Whoever consumes it never runs the walk.
+ * A registry is compiled from two things that must agree — the bundle's yaml
+ * declarations, which say what each element is and which formats it is expected
+ * in, and a scan of its assets, which says what is actually there. Where they
+ * agree, the file follows; where they do not, the compilation names the point
+ * and nothing is written, since a registry built from a contradiction would only
+ * be read by something that trusts it.
  *
  * One file per bundle, inside that bundle: a package ships the registry of what
  * *it* holds, and nothing writes into a neighbour. The picture of a whole
@@ -28,7 +34,7 @@ class ElementRegistryService
      * The shape of the file, not the version of the bundle. It changes when a
      * reader would have to change with it, which is what a consumer pins.
      */
-    final public const int VERSION = 1;
+    final public const int VERSION = 2;
 
     /**
      * Under the published asset root, so that the node side reaches it as
@@ -45,6 +51,7 @@ class ElementRegistryService
 
     public function __construct(
         private readonly ElementScannerService $scannerService,
+        private readonly ElementDeclarationService $declarationService,
     ) {
     }
 
@@ -54,6 +61,103 @@ class ElementRegistryService
     public function getSources(): array
     {
         return $this->scannerService->getSources();
+    }
+
+    /**
+     * Puts a bundle's declarations beside its scan and says whether they agree.
+     *
+     * Five ways they can fail to, each named after the element:
+     *
+     * - files on disk that no declaration claims;
+     * - a declaration with nothing on disk behind it;
+     * - a format declared expected and not found;
+     * - a format found and neither expected nor justified absent — a decision
+     *   not yet made;
+     * - a format justified absent and found anyway — a justification that
+     *   outlived what it justified.
+     */
+    public function compile(
+        Environment $twig,
+        ElementSource $source
+    ): ElementCompilation {
+        $scanned = $this->scannerService->scan($twig, $source);
+        $declarations = $this->declarationService->loadAll($source);
+        $problems = [];
+        $pending = [];
+
+        foreach ($scanned->getEntries() as $entry) {
+            if (! isset($declarations[$entry->key])) {
+                $problems[] = sprintf(
+                    '%s: found on disk but not declared — seed it, or delete %s.',
+                    $entry->getId(),
+                    implode(', ', array_merge(...array_values($entry->getOccurrences())))
+                );
+            }
+        }
+
+        foreach ($declarations as $key => $declaration) {
+            $entry = $scanned->findEntry($source->alias, $key);
+
+            if ($entry === null) {
+                $problems[] = sprintf(
+                    '%s: declared but nothing on disk carries it — delete %s.',
+                    $source->alias . ':' . $key,
+                    $this->declarationService->getPath($source, $key)
+                );
+
+                continue;
+            }
+
+            $entry->nature = $declaration->nature;
+            $entry->description = $declaration->description;
+
+            foreach (ElementFormat::cases() as $format) {
+                $found = $entry->has($format);
+
+                $problems = array_merge(
+                    $problems,
+                    $this->compareFormat($entry->getId(), $declaration, $format, $found)
+                );
+
+                if (! $found && $declaration->isUndecided($format)) {
+                    $pending[] = sprintf('%s: %s', $entry->getId(), $format->value);
+                }
+
+                $justification = $declaration->getAbsentJustification($format);
+
+                if ($justification !== null) {
+                    $entry->setAbsent($format, $justification);
+                }
+            }
+        }
+
+        return new ElementCompilation($scanned, $problems, $pending);
+    }
+
+    /**
+     * @return string[]
+     */
+    private function compareFormat(
+        string $id,
+        ElementDeclaration $declaration,
+        ElementFormat $format,
+        bool $found
+    ): array {
+        if ($declaration->isExpected($format)) {
+            return $found
+                ? []
+                : [sprintf('%s: expected as %s, and nothing on disk is.', $id, $format->value)];
+        }
+
+        if ($declaration->getAbsentJustification($format) !== null) {
+            return $found
+                ? [sprintf('%s: declared to do without %s, and found in it — the justification is stale.', $id, $format->value)]
+                : [];
+        }
+
+        return $found
+            ? [sprintf('%s: found as %s, and the declaration says nothing about it — expected, or why not?', $id, $format->value)]
+            : [];
     }
 
     public function getPath(ElementSource $source): string
@@ -98,7 +202,7 @@ class ElementRegistryService
     {
         $merged = new ElementInventory();
 
-        foreach ($this->scannerService->getSources() as $source) {
+        foreach ($this->getSources() as $source) {
             $inventory = $this->load($source);
 
             if ($inventory !== null) {
@@ -116,7 +220,7 @@ class ElementRegistryService
     {
         return array_values(
             array_filter(
-                $this->scannerService->getSources(),
+                $this->getSources(),
                 fn (ElementSource $source): bool => ! $this->exists($source)
             )
         );

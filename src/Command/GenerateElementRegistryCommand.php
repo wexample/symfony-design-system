@@ -8,30 +8,29 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Class\ElementEntry;
-use Wexample\SymfonyDesignSystem\Class\ElementInventory;
 use Wexample\SymfonyDesignSystem\Class\ElementSource;
 use Wexample\SymfonyDesignSystem\Enum\ElementFormat;
 use Wexample\SymfonyDesignSystem\Service\ElementRegistryService;
-use Wexample\SymfonyDesignSystem\Service\ElementScannerService;
 use Wexample\SymfonyDesignSystem\WexampleSymfonyDesignSystemBundle;
 use Wexample\SymfonyHelpers\Command\AbstractBundleCommand;
 use Wexample\SymfonyHelpers\Service\BundleService;
 
 /**
- * Walks each bundle that signed up as holding elements, and writes its registry.
+ * Compiles each bundle's declarations against its assets and writes its registry.
  *
- * One file per bundle, inside that bundle: a package ships the registry of what
- * it holds. Run it after adding, moving or removing an element. `--check` is the
- * same walk without the writing, for a build that wants to fail on a stale file
- * rather than serve one.
+ * Nothing is written for a bundle whose declarations and disk disagree: the
+ * command lists every point of disagreement and fails, since a registry built
+ * on one would only be read by something that trusts it. `--check` is the same
+ * run without the writing, plus a failure when the file on disk is not what
+ * would be written — for a build that wants to catch a declaration edited and
+ * not regenerated.
  */
 class GenerateElementRegistryCommand extends AbstractBundleCommand
 {
-    protected static $defaultDescription = 'Writes the registry of design system elements and the formats each is delivered in';
+    protected static $defaultDescription = 'Compiles the design system element declarations into each bundle\'s registry file';
 
     public function __construct(
         BundleService $bundleService,
-        private readonly ElementScannerService $scannerService,
         private readonly ElementRegistryService $registryService,
         private readonly Environment $twig,
         ?string $name = null,
@@ -53,7 +52,7 @@ class GenerateElementRegistryCommand extends AbstractBundleCommand
                 'check',
                 null,
                 InputOption::VALUE_NONE,
-                'Write nothing and fail when the registry no longer matches the assets'
+                'Write nothing; fail when declarations and disk disagree, or when a registry is stale'
             )
             ->addOption(
                 'table',
@@ -75,6 +74,7 @@ class GenerateElementRegistryCommand extends AbstractBundleCommand
     ): int {
         $io = new SymfonyStyle($input, $output);
         $sources = $this->resolveSources($input->getOption('source'));
+        $check = (bool) $input->getOption('check');
 
         if ($sources === []) {
             $io->warning(
@@ -85,22 +85,45 @@ class GenerateElementRegistryCommand extends AbstractBundleCommand
             return self::SUCCESS;
         }
 
-        $stale = [];
+        $failed = [];
 
         foreach ($sources as $source) {
             $io->section($source->alias);
 
-            $inventory = $this->scannerService->scan($this->twig, $source);
+            $compilation = $this->registryService->compile($this->twig, $source);
+            $inventory = $compilation->inventory;
 
             if ($input->getOption('table')) {
                 $this->writeTable($io, $inventory->getEntries());
             }
 
-            $this->writeSummary($io, $inventory);
+            $io->writeln(
+                sprintf(
+                    '%d elements, %d of them in a single format, %d format decisions pending.',
+                    $inventory->countEntries(),
+                    $inventory->countByFormatsCount()[1],
+                    count($compilation->pending)
+                )
+            );
 
-            if ($input->getOption('check')) {
-                if (! $this->registryService->isUpToDate($source, $inventory)) {
-                    $stale[] = $source->alias;
+            if ($output->isVerbose() && $compilation->pending !== []) {
+                $io->listing($compilation->pending);
+            }
+
+            if (! $compilation->isClean()) {
+                $io->listing($compilation->problems);
+                $io->writeln(sprintf('<error>%d problems, nothing written.</error>', count($compilation->problems)));
+                $failed[] = $source->alias;
+
+                continue;
+            }
+
+            if ($check) {
+                if ($this->registryService->isUpToDate($source, $inventory)) {
+                    $io->writeln('Registry matches.');
+                } else {
+                    $io->writeln('<error>Registry is stale.</error>');
+                    $failed[] = $source->alias;
                 }
 
                 continue;
@@ -115,18 +138,14 @@ class GenerateElementRegistryCommand extends AbstractBundleCommand
             );
         }
 
-        if (! $input->getOption('check')) {
-            return self::SUCCESS;
-        }
-
-        if ($stale === []) {
-            $io->success('Every registry matches the assets.');
+        if ($failed === []) {
+            $io->success($check ? 'Every registry matches its declarations and its assets.' : 'Done.');
 
             return self::SUCCESS;
         }
 
         $io->error(
-            'Out of date: ' . implode(', ', $stale) . '. Run '
+            'Failed: ' . implode(', ', $failed) . '. Fix the declarations, then run '
             . self::buildDefaultName() . ' and commit the result.'
         );
 
@@ -139,12 +158,16 @@ class GenerateElementRegistryCommand extends AbstractBundleCommand
     private function resolveSources(?string $alias): array
     {
         if ($alias === null) {
-            return $this->scannerService->getSources();
+            return $this->registryService->getSources();
         }
 
-        $source = $this->scannerService->getSource($alias);
+        foreach ($this->registryService->getSources() as $source) {
+            if ($source->alias === $alias) {
+                return [$source];
+            }
+        }
 
-        return $source === null ? [] : [$source];
+        return [];
     }
 
     /**
@@ -168,27 +191,16 @@ class GenerateElementRegistryCommand extends AbstractBundleCommand
                 static fn (ElementEntry $entry): array => array_merge(
                     [$entry->key],
                     array_map(
-                        static fn (ElementFormat $format): string => $entry->has($format) ? 'x' : '',
+                        static fn (ElementFormat $format): string => match (true) {
+                            $entry->has($format) => 'x',
+                            $entry->getAbsentJustification($format) !== null => '-',
+                            default => '',
+                        },
                         $formats
                     )
                 ),
                 $entries
             )
         );
-    }
-
-    private function writeSummary(
-        SymfonyStyle $io,
-        ElementInventory $inventory
-    ): void {
-        $io->writeln(
-            sprintf(
-                '%d elements, %d of them in a single format.',
-                $inventory->countEntries(),
-                $inventory->countByFormatsCount()[1]
-            )
-        );
-
-        $io->comment('Not scanned: ' . implode(', ', $inventory->getUnscannedPaths()));
     }
 }

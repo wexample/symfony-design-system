@@ -7,21 +7,26 @@ use Wexample\SymfonyDesignSystem\Enum\ElementFormat;
 /**
  * The elements of the design system and the formats each is delivered in.
  *
- * What the registry file holds, and what a scan produces. It says what is there,
- * never what should be: read beside the natures an element can have, a row found
- * in one format alone is a question the collection cannot ask itself.
+ * What a registry file holds, what a scan produces, and what a page draws. It
+ * says what is there, never what should be: read beside the natures an element
+ * can have, a row found in one format alone is a question the collection cannot
+ * ask itself.
+ *
+ * Entries are keyed by bundle and key together, so the inventories of several
+ * bundles merge without one `bar` swallowing another.
  */
 class ElementInventory
 {
     /**
-     * @var array<string, ElementEntry>
+     * @var array<string, ElementEntry> id => entry
      */
     private array $entries = [];
 
     /**
-     * @param string[] $unscannedPaths directories of `assets/` this scan does
-     *                                 not look at, so that a page showing the
-     *                                 inventory can say what it leaves out
+     * @param string[] $unscannedPaths directories of the assets root the scan
+     *                                 does not look at, qualified by alias, so
+     *                                 that a page showing the inventory can say
+     *                                 what it leaves out
      */
     public function __construct(
         private array $unscannedPaths = [],
@@ -29,47 +34,46 @@ class ElementInventory
     }
 
     /**
-     * Folds another inventory into this one.
-     *
-     * Two bundles holding an element of the same name land on the same row, and
-     * the qualified paths say which is which. That is on purpose: whether it is
-     * an app overriding the design system or two unrelated things that happen to
-     * be called `bar`, the row is where a reader finds out, and hiding it under
-     * two names would hide the question.
+     * Folds another inventory into this one. Same id, same element: the
+     * occurrences are added and the declared fields of the newcomer win.
      */
     public function merge(self $other): void
     {
         foreach ($other->getEntries() as $entry) {
-            $mine = $this->entry($entry->key);
-
-            foreach ($entry->getOccurrences() as $value => $occurrences) {
-                $format = ElementFormat::from($value);
-
-                foreach ($occurrences as $occurrence) {
-                    $mine->add($format, $occurrence);
-                }
-            }
+            $this->entries[$entry->getId()] = $entry;
         }
 
-        $this->unscannedPaths = array_merge(
-            $this->unscannedPaths,
-            $other->getUnscannedPaths()
+        $this->unscannedPaths = array_values(
+            array_unique(
+                array_merge($this->unscannedPaths, $other->getUnscannedPaths())
+            )
         );
     }
 
-    public function entry(string $key): ElementEntry
-    {
-        return $this->entries[$key] ??= new ElementEntry($key);
+    public function entry(
+        string $source,
+        string $key
+    ): ElementEntry {
+        return $this->entries[ElementEntry::buildId($source, $key)] ??= new ElementEntry($key, $source);
     }
 
-    public function hasEntry(string $key): bool
-    {
-        return isset($this->entries[$key]);
+    public function hasEntry(
+        string $source,
+        string $key
+    ): bool {
+        return isset($this->entries[ElementEntry::buildId($source, $key)]);
+    }
+
+    public function findEntry(
+        string $source,
+        string $key
+    ): ?ElementEntry {
+        return $this->entries[ElementEntry::buildId($source, $key)] ?? null;
     }
 
     /**
-     * @return ElementEntry[] sorted by key, which groups an element with the
-     *                        others of its directory
+     * @return ElementEntry[] sorted by source then key, which groups an element
+     *                        with the others of its bundle and directory
      */
     public function getEntries(): array
     {
@@ -77,6 +81,20 @@ class ElementInventory
         ksort($entries);
 
         return array_values($entries);
+    }
+
+    /**
+     * @return array<string, ElementEntry[]> source alias => entries
+     */
+    public function getEntriesBySource(): array
+    {
+        $sources = [];
+
+        foreach ($this->getEntries() as $entry) {
+            $sources[$entry->source][] = $entry;
+        }
+
+        return $sources;
     }
 
     /**
@@ -98,8 +116,30 @@ class ElementInventory
     }
 
     /**
-     * The formats the scan knows about, in the order a table shows them. The
-     * page holds no list of its own: a format added to the enum is a column
+     * The keys held by more than one bundle. Not an error — the loader tells
+     * them apart — but the one thing a reader of the union would want pointed
+     * at, whether it is an app redrawing a design system element or two things
+     * that happen to share a name.
+     *
+     * @return array<string, string[]> key => aliases holding it
+     */
+    public function findSharedKeys(): array
+    {
+        $byKey = [];
+
+        foreach ($this->entries as $entry) {
+            $byKey[$entry->key][] = $entry->source;
+        }
+
+        return array_filter(
+            $byKey,
+            static fn (array $sources): bool => count($sources) > 1
+        );
+    }
+
+    /**
+     * The formats the registry knows about, in the order a table shows them.
+     * The page holds no list of its own: a format added to the enum is a column
      * that appears.
      *
      * @return string[]
@@ -136,7 +176,7 @@ class ElementInventory
      */
     public function countByFormatsCount(): array
     {
-        $counts = array_fill(1, count(ElementFormat::cases()), 0);
+        $counts = array_fill(0, count(ElementFormat::cases()) + 1, 0);
 
         foreach ($this->entries as $entry) {
             ++$counts[$entry->countFormats()];
@@ -159,10 +199,9 @@ class ElementInventory
     }
 
     /**
-     * What gets written to the registry file: what was found, and what was not
-     * looked at. The counts are left out on purpose — they are one `count()`
-     * away for whoever reads the file, and a derived number written down is a
-     * number that can disagree with the rows above it.
+     * What gets written to a registry file. The counts are left out on purpose —
+     * they are one `count()` away for whoever reads the file, and a derived
+     * number written down is a number that can disagree with the rows above it.
      */
     public function toArray(): array
     {
@@ -180,7 +219,8 @@ class ElementInventory
         $inventory = new self($data['unscanned_paths'] ?? []);
 
         foreach ($data['elements'] ?? [] as $element) {
-            $inventory->entries[$element['key']] = ElementEntry::fromArray($element);
+            $entry = ElementEntry::fromArray($element);
+            $inventory->entries[$entry->getId()] = $entry;
         }
 
         return $inventory;
