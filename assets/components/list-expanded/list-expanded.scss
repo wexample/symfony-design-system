@@ -1,4 +1,3 @@
-@use '../../css/mixins/border' as border;
 @use '@wexample/symfony-design-system/components/form/form';
 
 .list-expanded {
@@ -46,12 +45,14 @@
   background: var(--state-hover);
 }
 
+// A ground and not a ring, as everywhere a row is walked with the keyboard:
+// the row spans the list, so the eye has nothing to find — only to be told
+// which one it is on. Stronger than hover, a deliberate move saying more than
+// a passing pointer.
 .list-expanded--items > [data-list-expanded-item]:focus,
 .list-expanded--items > [data-list-expanded-item]:focus-visible {
-  position: relative;
-  z-index: var(--z-raised);
-  border-radius: var(--radius-control);
-  @include border.border-focus-floating;
+  background: var(--state-focus);
+  outline: 0;
 }
 
 .list-expanded .text-empty {

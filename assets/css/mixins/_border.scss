@@ -8,6 +8,3 @@
   --border-region: 1px solid var(--border-color-region);
 }
 
-@mixin border-focus-floating($animated: false) {
-  position: relative;
-}
