@@ -106,7 +106,9 @@ Assets live in `assets/` and are divided into five directories.
 
 **`components/`** holds one directory per component, named after it, containing every renderer that component has: `.html.twig`, `.scss`, `.ts`, `.vue`, `.vue.twig`. `bases/entity/entity.vue` and `bases/form/form.vue` are the root Vue components for entity and form contexts; the input components under `components/form/` map one-to-one to the Symfony form types declared in `src/Form/Demo/`.
 
-**`css/`** is what is *not* a component: `mixins/` (SCSS mixins for layout, spacing, typography, overlays), `partials/` (palette, global variables, colour-scheme overrides), `utilities/` (alignment, text-align, visually-hidden), `primitives/` (feedback) and `fonts/`. The per-shape stylesheets that used to live in `shapes/` moved beside the component they draw. The palette file `assets/css/partials/_palette.scss` declares colour variables with `!default` so host apps can override them by importing their own palette first.
+**`css/`** is what is *not* a component: `mixins/` (SCSS mixins for layout, spacing, typography, overlays), `shapes/` (one stylesheet per shape), `partials/` (palette, global variables, colour-scheme overrides), `utilities/` (alignment, text-align, visually-hidden), `primitives/` (feedback) and `fonts/`.
+
+A **shape** is a style with no renderer: the caller writes the markup and puts the class on it, and `@use`s the shape from its own stylesheet. `.stack`, `.grid`, `.block`, `.cluster` are shapes. The line against a component is drawn by the files, not by taste — a shape is exactly one `.scss` and nothing renders it, so the day someone writes it a `.html.twig` it stops being a shape and moves into `components/`. That move *is* the promotion, and it is what puts the element in the inventory table: shapes are not in it, because a table of renderers has no column to offer something that has none. The palette file `assets/css/partials/_palette.scss` declares colour variables with `!default` so host apps can override them by importing their own palette first.
 
 ### Call path through the stack
 
