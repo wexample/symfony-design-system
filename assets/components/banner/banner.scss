@@ -38,22 +38,22 @@
 
 .banner--info {
   @include feedback_semantic.feedback-info;
-  --feedback-bg: var(--color-info-17);
+  --feedback-bg: var(--feedback-fill);
 }
 
 .banner--success {
   @include feedback_semantic.feedback-success;
-  --feedback-bg: var(--color-success-17);
+  --feedback-bg: var(--feedback-fill);
 }
 
 .banner--warning {
   @include feedback_semantic.feedback-warning;
-  --feedback-bg: var(--color-warning-17);
+  --feedback-bg: var(--feedback-fill);
 }
 
 .banner--error {
   @include feedback_semantic.feedback-error;
-  --feedback-bg: var(--color-error-17);
+  --feedback-bg: var(--feedback-fill);
 }
 
 @keyframes ds-banner-open {

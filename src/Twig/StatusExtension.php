@@ -60,9 +60,8 @@ class StatusExtension extends AbstractTemplateExtension
                             // state rather than being it — so it is drawn a
                             // step back from the rest.
                             'count' => $options['count'] ?? null,
-                            // Filled with the colour whole: for a state read by
-                            // the dozen, in a column. Soft otherwise.
-                            'solid' => $options['solid'] ?? false,
+                            // Read by the dozen, in a cell: gives up the room
+                            // it takes standing alone in a sentence.
                             'compact' => $options['compact'] ?? false,
                             // Overrides what the type would put inside.
                             'glyph_name' => $options['glyph'] ?? null,

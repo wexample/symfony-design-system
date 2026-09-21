@@ -2,16 +2,16 @@
   0%,
   100% {
     outline-offset: 2px;
-    outline-color: var(--color-assist-3);
+    outline-color: var(--color-assist-2);
   }
   50% {
     outline-offset: 6px;
-    outline-color: var(--color-assist-6);
+    outline-color: var(--color-assist-3);
   }
 }
 
 @mixin assisted-outline {
-  outline: var(--border-focus-width) solid var(--color-assist-6);
+  outline: var(--border-focus-width) solid var(--color-assist-3);
   outline-offset: 2px;
   animation: assisted-pulse 1600ms ease-in-out infinite;
 }

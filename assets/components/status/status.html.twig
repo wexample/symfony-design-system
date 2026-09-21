@@ -7,7 +7,7 @@
     and a capsule has no room for one, so here it is named instead. -#}
 {% if not glyph and type == 'running' %}{% set glyph = 'ph:bold/circle-notch' %}{% endif %}
 
-<span class="status status--{{ type }}{{ solid|default(false) ? ' status--solid' }}{{ compact|default(false) ? ' status--compact' }}{% if class|default('') %} {{ class }}{% endif %}"
+<span class="status status--{{ type }}{{ compact|default(false) ? ' status--compact' }}{% if class|default('') %} {{ class }}{% endif %}"
       {% if title|default(null) %}title="{{ title }}"{% endif %}
       {{ component_render_tag_attributes(attr|default({})) }}>
     {%- if glyph -%}

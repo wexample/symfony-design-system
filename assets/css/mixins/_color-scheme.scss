@@ -47,8 +47,8 @@ $color-scheme-level-count: 32 !default;
   --color-link: var(--color-invert-14);
   --color-link-hover: var(--color-invert-16);
   --color-activity-default: var(--color-default-16);
-  --color-activity-input: var(--color-success-16);
-  --color-activity-output: var(--color-info-16);
+  --color-activity-input: var(--color-success-fill);
+  --color-activity-output: var(--color-info-fill);
 
   // Semantic tokens — components must use these instead of raw levels.
   // Both faces of a theme share these mappings; a face can override any of
@@ -118,9 +118,18 @@ $color-scheme-level-count: 32 !default;
   }
 }
 
+// A semantic family is read from the page to the text, through the colour:
+// level 1 is the colour barely tinting the background, the middle is the
+// colour whole, the last level is the colour barely tinting the text. Both
+// halves are ramps — each step is one more sixteenth of the way — so a level
+// number says how far from the page a thing stands, on either face alike.
+//
+// Below the middle is where grounds are found (a tint the colour sits on);
+// above it is ink (the colour pushed toward the text so it reads on the page,
+// which lightens it on the dark face and deepens it on the light one).
 @mixin color-scheme-semantic-levels($name, $color, $background, $foreground) {
-  $levels: color-scheme-levels($color-scheme-level-count);
   $middle-index: math.floor(math.div($color-scheme-level-count, 2)) + 1;
+  $half: $middle-index - 1;
 
   // Filled markers. A marker painted with the colour whole is its own little
   // surface: it stops sitting on the page, so it stops taking the page's
@@ -136,12 +145,14 @@ $color-scheme-level-count: 32 !default;
 
   @for $i from 1 through $color-scheme-level-count {
     @if $i < $middle-index {
-      $weight: list.nth($levels, $i) * 100%;
+      // Toward the page: how much of the colour is there, out of the half.
+      $weight: math.div($i, $middle-index) * 100%;
       --color-#{$name}-#{$i}: #{color.mix($color, $background, $weight)};
     } @else if $i == $middle-index {
       --color-#{$name}-#{$i}: #{$color};
     } @else {
-      $weight: list.nth($levels, $i) * 100%;
+      // Toward the text: how much of the colour is left, out of the half.
+      $weight: math.div($color-scheme-level-count + 1 - $i, $half) * 100%;
       --color-#{$name}-#{$i}: #{color.mix($color, $foreground, $weight)};
     }
   }

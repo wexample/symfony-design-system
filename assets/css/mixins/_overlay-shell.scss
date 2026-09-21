@@ -34,7 +34,7 @@
   .#{$name}-loading-bar {
     height: 100%;
     width: 0%;
-    background: var(--color-info-12);
+    background: var(--color-info-6);
     opacity: 0;
     transition: width 180ms ease, opacity 220ms ease;
   }
