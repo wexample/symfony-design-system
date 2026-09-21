@@ -1,4 +1,4 @@
-{%- extends '@WexampleSymfonyDesignSystemBundle/components/bases/vue/vue.vue.twig' -%}
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
 
 {%- block field_label -%}
     <label v-if="hasLabel" class="form--label" :for="resolvedId">[[ resolveLabel(label) ]]</label>

@@ -1,6 +1,6 @@
 <script>
 
-import Entity from "../../bases/entity/entity.vue";
+import Entity from "../../_abstract/entity/entity.vue";
 
 export default {
   extends: Entity,

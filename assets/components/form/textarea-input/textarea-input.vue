@@ -1,5 +1,5 @@
 <script>
-import FormField from '../../bases/form-field/form-field.vue';
+import FormField from '../../_abstract/form-field/form-field.vue';
 
 export default {
   extends: FormField,

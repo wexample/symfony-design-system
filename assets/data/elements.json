@@ -63,139 +63,6 @@
             "notes": []
         },
         {
-            "key": "bases/entity",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/bases/entity/entity.scss"
-                ],
-                "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/bases/entity/entity.vue",
-                    "@WexampleSymfonyDesignSystemBundle/components/bases/entity/entity.vue.twig"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "waived",
-                "vue": "expected",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "client-side by nature: it only makes sense inside a vue tree",
-                "script": "its behaviour is the vue component's"
-            }
-        },
-        {
-            "key": "bases/form",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/bases/form/form.scss"
-                ],
-                "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/bases/form/form.vue.twig",
-                    "@WexampleSymfonyDesignSystemBundle/components/bases/form/form.vue"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "waived",
-                "vue": "expected",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "client-side by nature: it only makes sense inside a vue tree",
-                "script": "its behaviour is the vue component's"
-            }
-        },
-        {
-            "key": "bases/form-field",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/bases/form-field/form-field.vue.twig",
-                    "@WexampleSymfonyDesignSystemBundle/components/bases/form-field/form-field.vue"
-                ]
-            },
-            "stances": {
-                "style": "waived",
-                "template": "waived",
-                "vue": "expected",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "style": "wears the style of form/base and adds none of its own",
-                "template": "client-side by nature: it only makes sense inside a vue tree",
-                "script": "its behaviour is the vue component's"
-            }
-        },
-        {
-            "key": "bases/vue",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/bases/vue/vue.vue.twig"
-                ]
-            },
-            "stances": {
-                "style": "waived",
-                "template": "waived",
-                "vue": "expected",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "style": "draws no markup of its own; what extends it brings the style",
-                "template": "client-side by nature: it only makes sense inside a vue tree",
-                "script": "its behaviour is the vue component's"
-            }
-        },
-        {
-            "key": "bases/vue-wrapper",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/bases/vue-wrapper/vue-wrapper.vue.twig",
-                    "@WexampleSymfonyDesignSystemBundle/components/bases/vue-wrapper/vue-wrapper.vue"
-                ]
-            },
-            "stances": {
-                "style": "waived",
-                "template": "waived",
-                "vue": "expected",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "style": "draws no markup of its own; what extends it brings the style",
-                "template": "client-side by nature: it only makes sense inside a vue tree",
-                "script": "its behaviour is the vue component's"
-            }
-        },
-        {
             "key": "breadcrumb",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -2154,6 +2021,78 @@
             "notes": {
                 "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
             }
+        }
+    ],
+    "abstracts": [
+        {
+            "key": "_abstract/form-field",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/form-field/form-field.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/form-field/form-field.vue"
+                ]
+            },
+            "stances": [],
+            "notes": []
+        },
+        {
+            "key": "_abstract/vue",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig"
+                ]
+            },
+            "stances": [],
+            "notes": []
+        },
+        {
+            "key": "_abstract/form",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/form/form.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/form/form.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/form/form.vue"
+                ]
+            },
+            "stances": [],
+            "notes": []
+        },
+        {
+            "key": "_abstract/vue-wrapper",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/vue-wrapper/vue-wrapper.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/vue-wrapper/vue-wrapper.vue"
+                ]
+            },
+            "stances": [],
+            "notes": []
+        },
+        {
+            "key": "_abstract/entity",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/entity/entity.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/entity/entity.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/entity/entity.vue.twig"
+                ]
+            },
+            "stances": [],
+            "notes": []
         }
     ],
     "shapes": [

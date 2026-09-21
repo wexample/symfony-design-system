@@ -30,6 +30,17 @@ class ElementScannerService
     final public const string DIRECTORY = 'components';
 
     /**
+     * The one directory under `components/` that does not hold components.
+     *
+     * What is in it is only ever extended, never drawn: `_abstract/vue` is
+     * three empty twig blocks that thirty-one templates fill in. Asking it for
+     * a schema or a react twin is asking a question it has no way to answer,
+     * which is why it is kept out of the matrix — the underscore says as much
+     * before anyone opens it.
+     */
+    final public const string DIRECTORY_ABSTRACT = '_abstract';
+
+    /**
      * @var ElementSource[]
      */
     private readonly array $sources;
@@ -100,9 +111,11 @@ class ElementScannerService
                 continue;
             }
 
-            $inventory
-                ->entry($source->alias, $key)
-                ->add($format, $source->qualify(self::DIRECTORY . '/' . $file->getRelativePathname()));
+            $entry = str_starts_with($key, self::DIRECTORY_ABSTRACT . '/')
+                ? $inventory->abstract($source->alias, $key)
+                : $inventory->entry($source->alias, $key);
+
+            $entry->add($format, $source->qualify(self::DIRECTORY . '/' . $file->getRelativePathname()));
         }
 
         return $inventory;

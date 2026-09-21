@@ -28,6 +28,16 @@ class ElementInventory
     private array $entries = [];
 
     /**
+     * The bases, kept out of the entries for the same reason the shapes are
+     * kept out: nothing draws them, so a table comparing renderers has nothing
+     * to compare them on. They keep the formats they do carry, since that is
+     * what someone extending one wants to know.
+     *
+     * @var array<string, ElementEntry> id => entry
+     */
+    private array $abstracts = [];
+
+    /**
      * Listed apart from the entries, never merged into them: a shape has no
      * renderer, so it has no column in a table of renderers, and folding the
      * two would put back the question the separation exists to drop.
@@ -55,6 +65,10 @@ class ElementInventory
     {
         foreach ($other->getEntries() as $entry) {
             $this->entries[$entry->getId()] = $entry;
+        }
+
+        foreach ($other->getAbstracts() as $entry) {
+            $this->abstracts[$entry->getId()] = $entry;
         }
 
         foreach ($other->getShapes() as $shape) {
@@ -239,6 +253,21 @@ class ElementInventory
         return $this->unscannedPaths;
     }
 
+    public function abstract(
+        string $source,
+        string $key
+    ): ElementEntry {
+        return $this->abstracts[ElementEntry::buildId($source, $key)] ??= new ElementEntry($key, $source);
+    }
+
+    /**
+     * @return ElementEntry[]
+     */
+    public function getAbstracts(): array
+    {
+        return array_values($this->abstracts);
+    }
+
     /**
      * @param array<string, ShapeEntry> $shapes
      */
@@ -267,6 +296,10 @@ class ElementInventory
                 static fn (ElementEntry $entry): array => $entry->toArray(),
                 $this->getEntries()
             ),
+            'abstracts' => array_map(
+                static fn (ElementEntry $entry): array => $entry->toArray(),
+                $this->getAbstracts()
+            ),
             'shapes' => array_map(
                 static fn (ShapeEntry $shape): array => $shape->toArray(),
                 $this->getShapes()
@@ -282,6 +315,11 @@ class ElementInventory
         foreach ($data['elements'] ?? [] as $element) {
             $entry = ElementEntry::fromArray($element);
             $inventory->entries[$entry->getId()] = $entry;
+        }
+
+        foreach ($data['abstracts'] ?? [] as $element) {
+            $entry = ElementEntry::fromArray($element);
+            $inventory->abstracts[$entry->getId()] = $entry;
         }
 
         foreach ($data['shapes'] ?? [] as $shape) {
