@@ -1,20 +1,75 @@
 @use '../../css/mixins/feedback' as feedback;
 
+// A state, and what qualifies it. One capsule for the whole family: what it
+// carries is free — a word, a figure, or both — and what changes between two
+// uses is its weight, not its name.
+//
+// `soft` is a state announced on its own, in a sentence or beside a title:
+// tinted ground, coloured ink, a line around it. `solid` is a state read by
+// the dozen, in a column of a table: the colour whole, the ink on top of it.
+// The circle (`status-icon`) is the third form, for where there is no room
+// for a capsule — and the only one that can show a state being a quantity.
 .status {
   @include feedback.feedback-base;
+  --status-glyph-color: var(--feedback-color);
+  --status-label-color: var(--feedback-color);
+  // What qualifies the state steps back from what the state is: same ink,
+  // less of it.
+  --status-count-color: color-mix(in srgb, var(--feedback-color) 65%, transparent);
+
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-pill);
   background: var(--feedback-bg);
-  color: var(--feedback-color);
   border: 1px solid var(--feedback-border-color);
+  color: var(--status-label-color);
   font-weight: var(--font-weight-strong);
   font-size: var(--font-size-2);
   line-height: 1;
+  white-space: nowrap;
+  vertical-align: middle;
 }
 
+// Filled: the capsule stops being drawn on the page and becomes its own
+// ground, which is why it carries no line — a fill and a border around it are
+// two enclosures for one object.
+.status--solid {
+  background: var(--feedback-fill);
+  border-color: transparent;
+  --status-glyph-color: var(--feedback-on-fill);
+  --status-label-color: var(--feedback-on-fill);
+  --status-count-color: var(--feedback-on-fill-muted);
+}
+
+// Read by the dozen, in a cell: the capsule gives up the room it takes when it
+// stands alone in a sentence.
+.status--compact {
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+}
+
+.status--glyph {
+  display: inline-flex;
+  align-items: center;
+  // Held to the line it sits on rather than to a size of its own, so the
+  // capsule keeps the height of the text beside it.
+  font-size: 1em;
+  color: var(--status-glyph-color);
+}
+
+.status--label {
+  color: var(--status-label-color);
+}
+
+.status--count {
+  color: var(--status-count-color);
+}
+
+// The nine states the family answers to, drawn with the four colours a reader
+// tells apart. What a pipeline calls a state is its own business; what it
+// means — done, failed, watch out, under way, nothing yet — is not.
 .status--success {
   @include feedback.feedback-success;
 }
@@ -23,10 +78,26 @@
   @include feedback.feedback-error;
 }
 
-.status--warning {
+.status--warning,
+.status--paused {
   @include feedback.feedback-warning;
 }
 
-.status--info {
+.status--info,
+.status--running,
+.status--play {
   @include feedback.feedback-info;
+}
+
+// Nothing has happened yet, and nothing ever will: neither is a judgement, so
+// neither takes a colour.
+.status--skipped {
+  --feedback-color: var(--text-color-subtle);
+}
+
+// Not a state it is in but one it cannot reach: dimmed as a whole, since the
+// colour alone would still read as something to wait for.
+.status--disabled {
+  --feedback-color: var(--text-color-subtle);
+  opacity: var(--opacity-6);
 }

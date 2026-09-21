@@ -122,6 +122,18 @@ $color-scheme-level-count: 32 !default;
   $levels: color-scheme-levels($color-scheme-level-count);
   $middle-index: math.floor(math.div($color-scheme-level-count, 2)) + 1;
 
+  // Filled markers. A marker painted with the colour whole is its own little
+  // surface: it stops sitting on the page, so it stops taking the page's
+  // intensity, and these three are deliberately the same on both faces of the
+  // theme. Everything else here mixes toward the background or the foreground
+  // and therefore reads differently in light and in dark, which is right for
+  // something drawn *on* the page and wrong for something that replaces it.
+  --color-#{$name}-fill: #{$color};
+  --color-#{$name}-on-fill: var(--color-absolute-light);
+  // What must be read on the fill without taking the eye first: a deep shade
+  // of the same hue rather than a paler one, so the marker keeps one colour.
+  --color-#{$name}-on-fill-muted: #{color.mix($color, #000, 30%)};
+
   @for $i from 1 through $color-scheme-level-count {
     @if $i < $middle-index {
       $weight: list.nth($levels, $i) * 100%;
