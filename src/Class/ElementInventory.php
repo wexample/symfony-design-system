@@ -15,6 +15,10 @@ use Wexample\SymfonyDesignSystem\Enum\FormatStance;
  *
  * Entries are keyed by bundle and key together, so the inventories of several
  * bundles merge without one `bar` swallowing another.
+ *
+ * It also carries the bundle's shapes, in their own list. They belong to the
+ * same file because a registry says what a bundle holds, and they stay out of
+ * the entries because they have no renderer to be compared on.
  */
 class ElementInventory
 {
@@ -22,6 +26,15 @@ class ElementInventory
      * @var array<string, ElementEntry> id => entry
      */
     private array $entries = [];
+
+    /**
+     * Listed apart from the entries, never merged into them: a shape has no
+     * renderer, so it has no column in a table of renderers, and folding the
+     * two would put back the question the separation exists to drop.
+     *
+     * @var array<string, ShapeEntry> id => shape
+     */
+    private array $shapes = [];
 
     /**
      * @param string[] $unscannedPaths directories of the assets root the scan
@@ -42,6 +55,10 @@ class ElementInventory
     {
         foreach ($other->getEntries() as $entry) {
             $this->entries[$entry->getId()] = $entry;
+        }
+
+        foreach ($other->getShapes() as $shape) {
+            $this->shapes[$shape->getId()] = $shape;
         }
 
         $this->unscannedPaths = array_values(
@@ -223,6 +240,22 @@ class ElementInventory
     }
 
     /**
+     * @param array<string, ShapeEntry> $shapes
+     */
+    public function setShapes(array $shapes): void
+    {
+        $this->shapes = $shapes;
+    }
+
+    /**
+     * @return ShapeEntry[]
+     */
+    public function getShapes(): array
+    {
+        return array_values($this->shapes);
+    }
+
+    /**
      * What gets written to a registry file. The counts are left out on purpose —
      * they are one `count()` away for whoever reads the file, and a derived
      * number written down is a number that can disagree with the rows above it.
@@ -233,6 +266,10 @@ class ElementInventory
             'elements' => array_map(
                 static fn (ElementEntry $entry): array => $entry->toArray(),
                 $this->getEntries()
+            ),
+            'shapes' => array_map(
+                static fn (ShapeEntry $shape): array => $shape->toArray(),
+                $this->getShapes()
             ),
             'unscanned_paths' => $this->getUnscannedPaths(),
         ];
@@ -245,6 +282,11 @@ class ElementInventory
         foreach ($data['elements'] ?? [] as $element) {
             $entry = ElementEntry::fromArray($element);
             $inventory->entries[$entry->getId()] = $entry;
+        }
+
+        foreach ($data['shapes'] ?? [] as $shape) {
+            $entry = ShapeEntry::fromArray($shape);
+            $inventory->shapes[$entry->getId()] = $entry;
         }
 
         return $inventory;

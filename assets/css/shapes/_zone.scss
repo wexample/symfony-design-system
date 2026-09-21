@@ -1,3 +1,4 @@
+// A region of a layout given its own size, splittable, scrollable, and never handing that size to its children.
 @use './surface';
 
 // The size a zone is given is its own and never its children's. Left to inherit,

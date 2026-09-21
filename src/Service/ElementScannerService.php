@@ -38,8 +38,10 @@ class ElementScannerService
      * @param array[] $sources as the container collected them from the bundles
      *                         that declared themselves holders of elements
      */
-    public function __construct(array $sources)
-    {
+    public function __construct(
+        private readonly ShapeScannerService $shapeScannerService,
+        array $sources
+    ) {
         $this->sources = array_map(
             static fn (array $source): ElementSource => ElementSource::fromArray($source),
             $sources
@@ -75,6 +77,7 @@ class ElementScannerService
         ElementSource $source
     ): ElementInventory {
         $inventory = new ElementInventory($this->findUnscannedPaths($source));
+        $inventory->setShapes($this->shapeScannerService->scan($source));
         $root = $source->path . self::DIRECTORY;
 
         if (! is_dir($root)) {
@@ -164,6 +167,7 @@ class ElementScannerService
                 if (! in_array($path, [
                     self::DIRECTORY,
                     'css',
+                    ShapeScannerService::DIRECTORY,
                     ElementRegistryService::DIRECTORY,
                     ElementDeclarationService::DIRECTORY,
                 ], true)) {

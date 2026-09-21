@@ -1,5 +1,5 @@
 {
-    "version": 2,
+    "version": 3,
     "elements": [
         {
             "key": "banner",
@@ -2156,13 +2156,272 @@
             }
         }
     ],
+    "shapes": [
+        {
+            "key": "action-icon",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_action-icon.scss",
+            "description": "A round, muted icon button for a secondary action sitting in a corner \u2014 close, expand, dismiss."
+        },
+        {
+            "key": "action-link",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_action-link.scss",
+            "description": "An inline link with an icon beside its label, muted until hovered, for a secondary action inside text or a row."
+        },
+        {
+            "key": "avatar",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_avatar.scss",
+            "description": "A round frame at text size holding a portrait, an icon or initials, cropped to fill."
+        },
+        {
+            "key": "block",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_block.scss",
+            "description": "The card: a raised rectangle with a title, a body, media, meta and a footer, each optional."
+        },
+        {
+            "key": "chat",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_chat.scss",
+            "description": "A conversation \u2014 the thread of messages, their authors and dates, and the composer under it."
+        },
+        {
+            "key": "cluster",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_cluster.scss",
+            "description": "A row of small things that wraps when it runs out of room: tags, pills, buttons."
+        },
+        {
+            "key": "container",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_container.scss",
+            "description": "Centres its content and caps its width at one of the reading sizes."
+        },
+        {
+            "key": "content",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_content.scss",
+            "description": "Prose written elsewhere \u2014 an article, a description, rendered markdown \u2014 given spacing, headings and figures."
+        },
+        {
+            "key": "disk-item",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_disk-item.scss",
+            "description": "A file or a directory shown as an icon with its name under it."
+        },
+        {
+            "key": "disk-item-explorer",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_disk-item-explorer.scss",
+            "description": "The grid that lays disk items out, wrapping at a fixed item width."
+        },
+        {
+            "key": "doc",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_doc.scss",
+            "description": "A documentation page: sections in two columns, the prose on one side and the code on the other."
+        },
+        {
+            "key": "flow",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_flow.scss",
+            "description": "The default vertical rhythm between blocks, and `no-flow` to drop it where it is unwanted."
+        },
+        {
+            "key": "footer",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_footer.scss",
+            "description": "The strip closing a page, aligned on the same gutters as the rest of it."
+        },
+        {
+            "key": "form",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_form.scss",
+            "description": "Every form shape at once, for whoever draws a form and does not want to name them one by one."
+        },
+        {
+            "key": "form/actions",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_actions.scss",
+            "description": "The row closing a form, where its buttons sit."
+        },
+        {
+            "key": "form/assisted",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_assisted.scss",
+            "description": "A field whose value is being filled for it, and how it reads while that happens."
+        },
+        {
+            "key": "form/base",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_base.scss",
+            "description": "What every input and textarea looks like before anything is said about it."
+        },
+        {
+            "key": "form/layout",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_layout.scss",
+            "description": "The frame of a form: its groups, their labels, and how they follow one another."
+        },
+        {
+            "key": "form/messages",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_messages.scss",
+            "description": "The help text under a field, and the errors that replace it."
+        },
+        {
+            "key": "form/password",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_password.scss",
+            "description": "A password field and the control revealing what it holds."
+        },
+        {
+            "key": "form/radio",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_radio.scss",
+            "description": "A group of radio options, and each option as a row that can be clicked whole."
+        },
+        {
+            "key": "form/select",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_select.scss",
+            "description": "A native select made to read like the other inputs, caret included."
+        },
+        {
+            "key": "form/state",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_state.scss",
+            "description": "What a field looks like when it is focused, in error, or refusing input."
+        },
+        {
+            "key": "form/surface",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_surface.scss",
+            "description": "Form fields set on a raised ground rather than on the page."
+        },
+        {
+            "key": "form/switch",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_switch.scss",
+            "description": "A checkbox drawn as a switch."
+        },
+        {
+            "key": "graph",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_graph.scss",
+            "description": "The frame a chart is drawn in, filling what it is given and clipping what overflows."
+        },
+        {
+            "key": "grid",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_grid.scss",
+            "description": "Columns that fit themselves to the room available, or a fixed number when asked."
+        },
+        {
+            "key": "gutters",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_gutters.scss",
+            "description": "The horizontal and vertical margins a page keeps at its edges, shared so its parts line up."
+        },
+        {
+            "key": "header",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_header.scss",
+            "description": "The bar at the top of a page: its title, and the controls that belong to it."
+        },
+        {
+            "key": "layout",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_layout.scss",
+            "description": "The frame of a page \u2014 a horizontal or vertical split, and a body that scrolls or does not."
+        },
+        {
+            "key": "layout-reset-modern",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_layout-reset-modern.scss",
+            "description": "The reset: box model, margins, lists and typographic defaults, applied once to the document."
+        },
+        {
+            "key": "lead",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_lead.scss",
+            "description": "An introductory paragraph, set apart in italics inside a dashed frame."
+        },
+        {
+            "key": "media",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_media.scss",
+            "description": "An image or a video held at a ratio \u2014 square, round, 16:9 \u2014 cropped rather than distorted."
+        },
+        {
+            "key": "menu",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_menu.scss",
+            "description": "A menu, as a bar or as a column: its items, their icons, their counts and their submenus."
+        },
+        {
+            "key": "meta-bar",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_meta-bar.scss",
+            "description": "A thin line of secondary information between two separators, its groups pushed to either end."
+        },
+        {
+            "key": "page",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_page.scss",
+            "description": "The page itself, and `page--fill` for the part of it sized by the room it is given rather than by what it holds."
+        },
+        {
+            "key": "pill",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_pill.scss",
+            "description": "A small rounded label for a count, a state or a tag, set in the surrounding text size."
+        },
+        {
+            "key": "rail",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_rail.scss",
+            "description": "A column with a scrolling track between fixed ends, for a side panel or a toolbar of its own."
+        },
+        {
+            "key": "stack",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_stack.scss",
+            "description": "Children laid in a row or a column with one gap, optionally split at a point or divided by rules."
+        },
+        {
+            "key": "surface",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_surface.scss",
+            "description": "The raised ground a block sits on, and the class that tells its children they are on one."
+        },
+        {
+            "key": "tag",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_tag.scss",
+            "description": "The six tag colours, each as a background and a readable ink, meant to be worn by a pill."
+        },
+        {
+            "key": "toolbar",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_toolbar.scss",
+            "description": "A row of controls above or below what they act on, grouped and separated."
+        },
+        {
+            "key": "zone",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_zone.scss",
+            "description": "A region of a layout given its own size, splittable, scrollable, and never handing that size to its children."
+        }
+    ],
     "unscanned_paths": [
         "@WexampleSymfonyDesignSystemBundle/common",
         "@WexampleSymfonyDesignSystemBundle/css/fonts",
         "@WexampleSymfonyDesignSystemBundle/css/mixins",
         "@WexampleSymfonyDesignSystemBundle/css/partials",
         "@WexampleSymfonyDesignSystemBundle/css/primitives",
-        "@WexampleSymfonyDesignSystemBundle/css/shapes",
         "@WexampleSymfonyDesignSystemBundle/css/utilities",
         "@WexampleSymfonyDesignSystemBundle/fixtures",
         "@WexampleSymfonyDesignSystemBundle/js",

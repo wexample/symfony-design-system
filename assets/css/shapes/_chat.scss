@@ -1,3 +1,4 @@
+// A conversation — the thread of messages, their authors and dates, and the composer under it.
 @use '../mixins/field' as field;
 @use './form/base';
 // The thread head holds a load-more, which is a button showing dots while it waits.

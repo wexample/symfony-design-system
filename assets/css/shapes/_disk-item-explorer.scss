@@ -1,3 +1,4 @@
+// The grid that lays disk items out, wrapping at a fixed item width.
 .disk-item-explorer {
   --disk-item-width: var(--size-5);
   --disk-item-gap: var(--space-3);

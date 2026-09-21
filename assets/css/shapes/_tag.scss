@@ -1,3 +1,4 @@
+// The six tag colours, each as a background and a readable ink, meant to be worn by a pill.
 @for $i from 1 through 6 {
   .tag-#{$i} {
     --tag-bg: var(--color-tag-#{$i}-3);

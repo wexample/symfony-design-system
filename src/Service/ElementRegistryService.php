@@ -34,7 +34,7 @@ class ElementRegistryService
      * The shape of the file, not the version of the bundle. It changes when a
      * reader would have to change with it, which is what a consumer pins.
      */
-    final public const int VERSION = 2;
+    final public const int VERSION = 3;
 
     /**
      * Under the published asset root, so that the node side reaches it as
