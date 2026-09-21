@@ -8,7 +8,7 @@
 description: null
 formats:
   style: true
-  template: "todo — a page writes the tag by hand today; a component would load the style with it"
+  template: true
   vue: true
   script: true
   schema: todo

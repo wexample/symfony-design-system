@@ -1,0 +1,16 @@
+{#- The bar a run of tab items stands in. A page used to write this div itself,
+    which worked and loaded no stylesheet: asking for the component is what puts
+    tab.scss and tab.ts on the page along with the markup.
+
+    The items come from the caller, as they do on the vue side — the bar knows
+    how many there are and nothing else about them. -#}
+{%- set slots = slots|default({}) -%}
+{%- set classes = ['tabs', 'flow'] -%}
+{%- if fill|default(false) -%}{%- set classes = classes|merge(['tabs--fill']) -%}{%- endif -%}
+{%- if compact|default(false) -%}{%- set classes = classes|merge(['tabs--compact']) -%}{%- endif -%}
+{%- if class is defined and class -%}{%- set classes = classes|merge([class]) -%}{%- endif -%}
+<div class="{{ classes|join(' ') }}">
+    {%- block tabs_body -%}
+        {{- slots.body|default('')|raw -}}
+    {%- endblock -%}
+</div>

@@ -74,12 +74,16 @@
                 ],
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/breadcrumb/breadcrumb.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/breadcrumb/breadcrumb.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/breadcrumb/breadcrumb.vue.twig"
                 ]
             },
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "todo",
+                "vue": "expected",
                 "script": "waived",
                 "schema": "todo",
                 "ai": "todo",
@@ -87,7 +91,6 @@
                 "flutter": "todo"
             },
             "notes": {
-                "vue": "waits on the route table client-side: every label comes from the target page's own catalogue, which only the server resolves today",
                 "script": "it shows and does nothing"
             }
         },
@@ -1191,31 +1194,6 @@
             }
         },
         {
-            "key": "menu-item",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "template": [
-                    "@WexampleSymfonyDesignSystemBundle/components/menu-item/menu-item.html.twig"
-                ]
-            },
-            "stances": {
-                "style": "waived",
-                "template": "expected",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "style": "wears the style of menu and adds none of its own",
-                "vue": "waits on the route table client-side: icon, label and active state are all read from the target page's catalogue",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
             "key": "menu-item-collapsible",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -1726,6 +1704,9 @@
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/tab/tab.scss"
                 ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/tab/tab.html.twig"
+                ],
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/tab/tab.vue",
                     "@WexampleSymfonyDesignSystemBundle/components/tab/tab.vue.twig"
@@ -1736,7 +1717,7 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "todo",
+                "template": "expected",
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
@@ -1744,9 +1725,7 @@
                 "react": "todo",
                 "flutter": "todo"
             },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it"
-            }
+            "notes": []
         },
         {
             "key": "tab-item",

@@ -129,33 +129,13 @@ class MenuExtension extends AbstractTemplateExtension
                         if ($routeHref === $href) {
                             continue;
                         }
-                        $items .= $this->renderComponent(
-                            $twig,
-                            $context,
-                            '@WexampleSymfonyDesignSystemBundle/components/menu-item',
-                            [
-                                'route' => $routeName,
-                                'route_params' => [],
-                                'href' => $routeHref,
-                                'options' => [],
-                            ]
-                        );
+                        $items .= $this->renderMenuItem($twig, $context, $routeName, [], []);
                     }
 
                     $content = $items ? '<ul class="menu--sub-items">'.$items.'</ul>' : '';
 
                     if ($content === '') {
-                        return $this->renderComponent(
-                            $twig,
-                            $context,
-                            '@WexampleSymfonyDesignSystemBundle/components/menu-item',
-                            [
-                                'route' => $indexRoute,
-                                'route_params' => [],
-                                'href' => $href,
-                                'options' => [],
-                            ]
-                        );
+                        return $this->renderMenuItem($twig, $context, $indexRoute, [], []);
                     }
 
                     return $this->renderComponent(
@@ -225,6 +205,12 @@ class MenuExtension extends AbstractTemplateExtension
     /**
      * One item pointing at one route — what both the named item and a whole
      * group are made of, so that a change to either is a change to both.
+     *
+     * It draws the same row as `menu_item_link`, and it draws it with the same
+     * component: the only thing a route adds is where the icon and the label
+     * are read from, which is resolved here, beside the address. Written in a
+     * template of its own it made a second `<li>` that had to be kept in step
+     * with the first by hand.
      */
     private function renderMenuItem(
         Environment $twig,
@@ -233,15 +219,33 @@ class MenuExtension extends AbstractTemplateExtension
         array $routeParams,
         array $options,
     ): string {
+        $call = static fn (
+            string $name,
+            ...$arguments
+        ): mixed => $twig->getFunction($name)->getCallable()(...$arguments);
+
+        $domain = $call(
+            'translation_build_domain_from_template_path',
+            $call('page_translation_path_from_route', $route)
+        );
+
         return $this->renderComponent(
             $twig,
             $context,
-            '@WexampleSymfonyDesignSystemBundle/components/menu-item',
+            '@WexampleSymfonyDesignSystemBundle/components/menu-item-link',
             [
-                'route' => $route,
-                'route_params' => $routeParams,
-                'href' => $twig->getFunction('path')->getCallable()($route, $routeParams),
-                'options' => $options,
+                // The icon name is itself an entry of the page's catalogue, and
+                // the component takes a name; the label it translates itself,
+                // as it does for every caller, so it is handed the key.
+                'icon' => $twig->getFilter('trans')->getCallable()($domain.'::page_icon'),
+                'label' => $domain.'::page_title',
+                'href' => $call('path', $route, $routeParams),
+                // A section spanning several addresses is still the page being
+                // read. The caller keeps the last word, since only it knows
+                // which pages are the same place.
+                'options' => $options + [
+                    'active' => $call('route_is_current_or_related', $route, $routeParams, true, false),
+                ],
             ]
         );
     }

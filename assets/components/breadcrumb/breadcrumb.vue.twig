@@ -1,0 +1,23 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <nav :class="['breadcrumb', extraClass]">
+        <template v-for="(item, index) in items" :key="index">
+            <a
+                    v-if="item.href && !isCurrent(item, index)"
+                    class="breadcrumb--item"
+                    :href="item.href"
+            >
+                <span class="breadcrumb--label">[[ item.label ]]</span>
+            </a>
+            <span v-else class="breadcrumb--item breadcrumb--item--current">
+                <span class="breadcrumb--label">[[ item.label ]]</span>
+            </span>
+            <span
+                    v-if="index < items.length - 1"
+                    class="breadcrumb--separator"
+                    v-html="separatorHtml"
+            ></span>
+        </template>
+    </nav>
+{%- endblock -%}
