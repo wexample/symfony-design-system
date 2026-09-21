@@ -1,9 +1,12 @@
+// Each step is twice the one below it, which is what makes the scale readable:
+// two steps apart is always the same distance, wherever you stand on it.
 @mixin radius-vars {
   --radius-0: 0;
-  // Barely there: the edge is shaved rather than rounded, which is what a
-  // square shape wants when a true right angle reads as unfinished.
+  // Barely there: the edge is shaved rather than rounded, which is what a flat
+  // skin wants when a true right angle reads as unfinished.
   --radius-1: 0.125rem;
-  --radius-2: 0.5rem;
-  --radius-3: 1rem;
+  --radius-2: 0.25rem;
+  --radius-3: 0.5rem;
+  --radius-4: 1rem;
   --radius-pill: 9999px;
 }

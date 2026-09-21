@@ -2,7 +2,7 @@
 @use '@wexample/symfony-design-system/components/form/form';
 
 .list-expanded {
-  border-radius: var(--radius-surface);
+  border-radius: var(--radius-box);
   background: var(--surface-3);
   overflow: visible;
   display: flex;

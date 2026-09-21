@@ -32,13 +32,20 @@ scheme owns the colour, and a skin that wants no separators writes
 ## Roles, not scales
 
 A shape never reads the radius scale (`--radius-1`, `--radius-2`). It reads the
-**role** it plays, and the skin decides what each role gets:
+**role** it plays, and the skin decides *which step* that role gets — never
+what a step is worth, which would make the scale mean two things at once:
 
 - `--radius-control` — one line high, and pressed: buttons, pagination, toolbar actions
-- `--radius-field` — holds text and grows: inputs, textareas, selects
-- `--radius-surface` — what content sits on: blocks, tables, modals, panels
+- `--radius-box` — holds something: blocks, fields, toasts, leads, modals, tables, dropdowns
 - `--radius-media` — pictures and figures
 - `--radius-pill` — what is read as a capsule
+
+What separates two regions of a page — a zone, a column, the menu — is none of
+these and rounds nothing.
+
+The scale itself is geometric, each step twice the one below
+(`0.125 / 0.25 / 0.5 / 1rem`), so that two steps apart is the same distance
+wherever you stand on it.
 
 The fonts axis works the same way: a shape names neither a family nor a
 number. `--font-family-base`, `--font-family-heading` and `--font-family-mono`
@@ -46,11 +53,13 @@ are what a page tells apart; `--font-weight-normal`, `-medium`, `-strong` and
 `-bold` are named by how much they insist, so a set whose face has no 500 maps
 it onto what it does have.
 
-Four roles and a pill, on purpose. A new role appears only when a component
-must *diverge* from its role in some skin: `field` was split off `control` the
-day `soft` made a capsule of everything and turned a textarea into a lozenge —
-a capsule is right for something one line high and absurd for a box that grows. A circle is a
-form, not a role: a shape that wants one writes `50%` itself.
+Three roles and a pill, on purpose. A role exists where two things are drawn
+differently by some skin, and nowhere else: `control` parted from `box` the day
+`soft` made a capsule of everything and turned a textarea into a lozenge — a
+capsule is right for something one line high and absurd for a box that grows.
+`field` and `surface` were two roles for a while and never once diverged, which
+is why they are now one. A circle is a form, not a role: a shape that wants one
+writes `50%` itself.
 
 Corollary: a shape never writes `border-radius: 0` to undo a radius it would
 otherwise inherit. Nothing inherits a radius; if a shape has none it has none.

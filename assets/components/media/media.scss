@@ -38,7 +38,7 @@
 .media--square {
   aspect-ratio: 1;
   // A square tile sits among blocks and takes their corner, not a picture's.
-  border-radius: var(--radius-surface);
+  border-radius: var(--radius-box);
 }
 
 .media--square img,

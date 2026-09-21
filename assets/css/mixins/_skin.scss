@@ -10,15 +10,15 @@
   @include border.border-vars;
 
   // Roles. A shape never reads the radius scale: it reads the role it plays,
-  // and the skin decides what each role gets. A circle is a form and not a
-  // role — a shape that wants one says 50% itself.
+  // and the skin decides which step that role gets — never what the step is
+  // worth, which would make the scale mean two things at once. A circle is a
+  // form and not a role: a shape that wants one says 50% itself.
   //
-  // The first step and not zero: a true right angle reads as unfinished on a
-  // screen, so the edge is shaved without being rounded.
-  --radius-control: var(--radius-1); // one line high, pressed: buttons, pagination, toolbar actions
-  --radius-field: var(--radius-1);   // holds text and grows: inputs, textareas, selects
-  --radius-surface: var(--radius-1); // what content sits on: blocks, tables, modals, panels
-  --radius-media: var(--radius-1);   // pictures and figures
+  // What holds something is a box, whether it holds text, content or a
+  // message; what separates two regions of a page is not, and rounds nothing.
+  --radius-control: var(--radius-2); // one line high, pressed: buttons, pagination, toolbar actions
+  --radius-box: var(--radius-2);     // holds something: blocks, fields, toasts, leads, modals, tables
+  --radius-media: var(--radius-2);   // pictures and figures
 
   // The depth scale keeps its four names, so a skin can give them depth (see
   // mixins/shadow — the geometry is the skin's, the colour the scheme's); here

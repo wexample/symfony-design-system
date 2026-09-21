@@ -9,7 +9,7 @@
   gap: var(--space-2);
   padding: var(--space-4);
   border: var(--feedback-border-width, 1px) solid var(--feedback-border-color);
-  border-radius: var(--feedback-radius, var(--radius-surface));
+  border-radius: var(--feedback-radius, var(--radius-box));
   background: var(--feedback-bg);
   color: var(--color-default-text);
   box-shadow: 0 var(--feedback-shadow-offset, 0) 0 0 var(--feedback-border-color);

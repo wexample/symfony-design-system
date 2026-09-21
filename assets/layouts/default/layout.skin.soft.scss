@@ -7,10 +7,9 @@
 .usage-skin-soft {
   @include skin.skin-basic;
 
-  --radius-control: var(--radius-2);
-  --radius-field: var(--radius-2);
-  --radius-surface: var(--radius-2);
-  --radius-media: var(--radius-3);
+  --radius-control: var(--radius-3);
+  --radius-box: var(--radius-3);
+  --radius-media: var(--radius-4);
 
   // Depth comes back.
   @include shadow.shadow-vars;

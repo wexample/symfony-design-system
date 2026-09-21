@@ -11,7 +11,7 @@
 // what made the dark face read black on black.
 .table {
   width: 100%;
-  border-radius: var(--radius-surface);
+  border-radius: var(--radius-box);
   background: var(--surface-2);
   border: var(--border-separator);
   // Clip and not hidden: hidden makes the table its own scroll container, and
