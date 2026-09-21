@@ -33,6 +33,7 @@ All Twig extensions extend src/Twig/AbstractTemplateExtension.php, which wraps `
 | src/Twig/FormExtension.php | `form_submit()` — renders `components/button/button.html.twig` with `type: submit` injected |
 | src/Twig/ImageExtension.php | `content_image()` — renders `components/content-image/content-image.html.twig` with `loading: lazy` as default |
 | src/Twig/MenuExtension.php | `menu_item()`, `menu_items()`, `menu_separator()`, `menu_item_link()`, `menu_item_collapsible()`, `menu_item_collapsible_from_controller()` |
+| src/Twig/SectionExtension.php | `page_sections($zone, $routeParams)` — the zones a page offers, filled by the routes carrying `#[PageSection]` |
 | src/Twig/MessageExtension.php | `message_info()`, `message_success()`, `message_warning()`, `message_error()` — all render `components/message/message.html.twig` with a type and a default icon |
 | src/Twig/PropertiesExtension.php | `properties($items, $options)` — key/value list, options `bordered`, `split`, `compact`, `stacked` map to `properties--*` modifiers |
 | src/Twig/TabExtension.php | `tab_item()`, `tab_item_link()` — render `components/tab-item/tab-item.html.twig` |
@@ -41,7 +42,7 @@ All Twig extensions extend src/Twig/AbstractTemplateExtension.php, which wraps `
 
 `button_target($icon, $label, $href, $target, $options)` takes the same first three arguments as `button_link()`, plus where the page it points at is loaded: `modal`, `panel`, or the name of an embed the page holds. It merges `href` and `target` into `$options` and renders `components/button-target`. The class list is the caller's — `options.class` replaces it entirely, defaulting to `button` — because the same behaviour has to sit on a `.button` and on a `.table--icon-link`.
 
-### A menu the pages fill
+### Runs the pages declare themselves into
 
 A menu written by hand is a list someone has to edit when a page appears, and a page shipped by a bundle has nobody to edit it — the application owning the template has never heard of it. src/Attribute/MenuItem.php turns that around: a controller action declares which run of items it joins, and the menu asks for the run.
 
@@ -66,6 +67,20 @@ src/Service/MenuItemRegistry.php walks `RouterInterface::getRouteCollection()`, 
 ```
 
 `| raw` is not optional there: twig escapes what it no longer knows came from a renderer once it has been through a variable.
+
+The same question is asked of the body of a page by src/Attribute/PageSection.php, its twin: a page names a zone and nothing else, and what fills it is declared on the other side.
+
+```php
+#[PageSection(group: 'app_general', weight: 10)]
+#[Route('/app/{id}/_sections/blog-posts', name: 'acme_blog_board_section_posts')]
+public function posts(App $managedApp): Response
+```
+
+A section is a route and not a template on purpose. A zone worth having needs its own data — a repository, a service, a query the page's owner cannot guess — and a template would have to be handed a context nobody can write. So `page_sections` draws each one as an inline sub-request through the kernel, with its own controller, its own services and its own security; no fragment route has to be exposed for that to work. The route serves a fragment, so it renders no layout, and its path opens on an underscore since nobody opens it by hand.
+
+Both attributes extend src/Attribute/AbstractRouteGroup.php and are collected by the one registry, keyed by attribute class: a menu item and a page section are the same question, and two walks written apart are two walks that drift apart.
+
+An application that needs a run to hold less than what declared itself into it implements src/Interface/RouteGroupVoterInterface.php, autoconfigured by the bundle's extension. The board does: bundles share one router, so a page contributed by one app's bundle would otherwise appear on every app. The voter is asked at read time and not while collecting — what a route declared never changes, where it is being asked from changes every request.
 
 `menu_item_collapsible_from_controller()` builds the submenu automatically: it scans `RouterInterface::getRouteCollection()` for routes whose `_controller` class path shares a namespace prefix with the given controller namespace, keeps only the top-level or index routes (using `ClassHelper`), then compares each against the current request route to decide whether the group is open.
 
@@ -140,6 +155,6 @@ A **shape** is a style with no renderer: the caller writes the markup and puts t
 
 A typical page request arrives at a controller that calls `renderPage('index')`. The loader's `AbstractPagesController` builds a `RenderPass` (tracking the bundle, view name, and layout bases), passes it through `adaptiveRender()`, and ultimately calls `twig->render()`. The template extends `dashboard/layout.html.twig` → `default/layout.html.twig` → the loader's HTML base, which owns the `<!DOCTYPE html>` shell.
 
-Inside a template, calling `{{ button_target(..., 'modal') }}` invokes `ButtonExtension`, which calls the loader's `ComponentsExtension::component()`. That function renders `components/button-target/button-target.html.twig` server-side and registers the component with the render pass so the loader emits the correct JS bootstrap data. When the browser executes that bootstrap data, `button-target.ts` mounts, listens for clicks, and delegates to `ModalService`, which fetches the target page and hands it to `modal.ts` — an `AbstractOverlayPageManager` — to display.
+Inside a template, calling `{{ "{{ button_target(..., 'modal') }}" }}` invokes `ButtonExtension`, which calls the loader's `ComponentsExtension::component()`. That function renders `components/button-target/button-target.html.twig` server-side and registers the component with the render pass so the loader emits the correct JS bootstrap data. When the browser executes that bootstrap data, `button-target.ts` mounts, listens for clicks, and delegates to `ModalService`, which fetches the target page and hands it to `modal.ts` — an `AbstractOverlayPageManager` — to display.
 
 UI state flows in the reverse direction: `menu-collapsible-panel.ts` fires `app.onMenuStateChange(id, open)` → `App::persistUiState` POSTs to `/_ui-state/set` → `UiStateController` writes to the session → on the next page load `ui_state_get('ui.layout.menu.left')` returns the saved value and `dashboard/layout.html.twig` renders the panel pre-collapsed or pre-open.
