@@ -2,7 +2,7 @@
 import DateDisplay from '../date-display/date-display.vue';
 import Spinner from '../spinner/spinner.vue';
 import ButtonTarget from '../button-target/button-target.vue';
-import StatusIcon from '../status-icon/status-icon.vue';
+import Status from '../status/status.vue';
 import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
 
 const translated = buildTranslatedBindings({
@@ -23,7 +23,7 @@ export default {
     ButtonTarget,
     DateDisplay,
     Spinner,
-    StatusIcon
+    Status
   },
 
   props: {

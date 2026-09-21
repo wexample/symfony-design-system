@@ -9,7 +9,7 @@
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/date-display') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/spinner') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/button-target') -}}
-    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/status-icon') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/status') -}}
 {%- endblock -%}
 
 {%- block vue_body -%}
@@ -86,18 +86,14 @@
                             ></date-display>
                         </template>
                         <template v-else-if="isStatusCell(column)">
-                            <span
+                            <status
                                     v-if="getStatus(getCellValue(row, column))"
-                                    class="table--status"
+                                    :type="getStatus(getCellValue(row, column)).type"
+                                    :label="getStatus(getCellValue(row, column)).label"
+                                    :count="getStatus(getCellValue(row, column)).count"
                                     :title="getStatus(getCellValue(row, column)).title"
-                            >
-                                <status-icon
-                                        :type="getStatus(getCellValue(row, column)).type"
-                                        :label="getStatus(getCellValue(row, column)).label"
-                                        size="sm"
-                                ></status-icon>
-                                <span v-if="getStatus(getCellValue(row, column)).count" class="pill">[[ getStatus(getCellValue(row, column)).count ]]</span>
-                            </span>
+                                    :compact="true"
+                            ></status>
                         </template>
                         <template v-else-if="hasCellActions(column)">
                             <span class="table--actions">

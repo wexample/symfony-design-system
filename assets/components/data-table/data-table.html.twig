@@ -84,14 +84,16 @@
                         {%- elseif column.cell == 'html' -%}
                             {{- value|raw -}}
                         {%- elseif column.cell == 'status' -%}
-                            {#- A type name, or { type, count, title, label }: the
-                                circle says which state, the count how many of it. -#}
-                            {%- set status = value is iterable ? value : { type: value } -%}
-                            {%- if status.type|default(null) -%}
-                                <span class="table--status"{% if status.title|default(null) %} title="{{ status.title }}"{% endif %}>
-                                    {{- status_icon(status.type, { size: 'sm', label: status.label|default(null) }) -}}
-                                    {%- if status.count|default(null) -%}<span class="pill">{{ status.count }}</span>{%- endif -%}
-                                </span>
+                            {#- A type name, or { type, count, title, label }. One
+                                capsule for the two: a mark and a count beside it
+                                read as two objects, and a column of them as noise. -#}
+                            {%- set state = value is iterable ? value : { type: value } -%}
+                            {%- if state.type|default(null) -%}
+                                {{ status(state.type, state.label|default(null), {
+                                    count: state.count|default(null),
+                                    title: state.title|default(null),
+                                    compact: true,
+                                }) }}
                             {%- endif -%}
                         {%- else -%}
                             {{- value -}}
