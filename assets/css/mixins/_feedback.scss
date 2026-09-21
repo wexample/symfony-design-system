@@ -16,7 +16,6 @@
   // intensity: a neutral marker has to read as grey on white and on black.
   --feedback-fill: var(--color-invert-6);
   --feedback-on-fill: var(--color-default-text);
-  --feedback-on-fill-muted: var(--text-color-muted);
 }
 
 @mixin feedback-info {
@@ -25,7 +24,6 @@
   --feedback-border-color: var(--feedback-color);
   --feedback-fill: var(--color-info-fill);
   --feedback-on-fill: var(--color-info-on-fill);
-  --feedback-on-fill-muted: var(--color-info-on-fill-muted);
 }
 
 @mixin feedback-success {
@@ -34,7 +32,6 @@
   --feedback-border-color: var(--feedback-color);
   --feedback-fill: var(--color-success-fill);
   --feedback-on-fill: var(--color-success-on-fill);
-  --feedback-on-fill-muted: var(--color-success-on-fill-muted);
 }
 
 @mixin feedback-warning {
@@ -43,7 +40,6 @@
   --feedback-border-color: var(--feedback-color);
   --feedback-fill: var(--color-warning-fill);
   --feedback-on-fill: var(--color-warning-on-fill);
-  --feedback-on-fill-muted: var(--color-warning-on-fill-muted);
 }
 
 @mixin feedback-error {
@@ -52,5 +48,4 @@
   --feedback-border-color: var(--feedback-color);
   --feedback-fill: var(--color-error-fill);
   --feedback-on-fill: var(--color-error-on-fill);
-  --feedback-on-fill-muted: var(--color-error-on-fill-muted);
 }

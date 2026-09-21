@@ -9,11 +9,6 @@
 // for a capsule — and the only one that can show a state being a quantity.
 .status {
   @include feedback.feedback-base;
-  --status-glyph-color: var(--feedback-on-fill);
-  --status-label-color: var(--feedback-on-fill);
-  // Everything the capsule carries is written in the one ink the fill answers
-  // to: on a ground that strong, a second ink reads as a fault, not a nuance.
-  --status-count-color: var(--feedback-on-fill);
 
   display: inline-flex;
   align-items: center;
@@ -21,7 +16,9 @@
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-pill);
   background: var(--feedback-fill);
-  color: var(--status-label-color);
+  // Glyph, word and figure share the one ink the fill answers to: on a ground
+  // that strong, a second ink reads as a fault, not as a nuance.
+  color: var(--feedback-on-fill);
   font-weight: var(--font-weight-strong);
   font-size: var(--font-size-2);
   line-height: 1;
@@ -42,15 +39,6 @@
   // Held to the line it sits on rather than to a size of its own, so the
   // capsule keeps the height of the text beside it.
   font-size: 1em;
-  color: var(--status-glyph-color);
-}
-
-.status--label {
-  color: var(--status-label-color);
-}
-
-.status--count {
-  color: var(--status-count-color);
 }
 
 // The nine states the family answers to, drawn with the four colours a reader
