@@ -1,0 +1,113 @@
+@use './surface';
+
+// The size a zone is given is its own and never its children's. Left to inherit,
+// a narrow zone nested in a sized one silently takes that size — a header inside
+// a 16rem column becomes 16rem tall instead of as tall as its content. Declared
+// with the universal syntax and no initial value, so a zone that sets nothing
+// still falls back to `fit-content` where the variable is read.
+@property --zone-size {
+  syntax: '*';
+  inherits: false;
+}
+
+.zone {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.zone--split {
+  display: flex;
+
+  > * {
+    min-width: 0;
+  }
+
+  > .zone {
+    flex: 1 1 0;
+    // A zone on its own is 100% of its parent, but in a split the parent is what
+    // sizes it: the main axis by flex, the cross axis by stretch — and stretch only
+    // reaches a child that asks for no size of its own. Both are given back here.
+    width: auto;
+    height: auto;
+  }
+
+  // Repeated here to outweigh the width reset of the sibling rule above.
+  > .zone--narrow {
+    flex: 0 0 auto;
+    width: var(--zone-size, fit-content);
+  }
+
+  > .zone--bordered:not(:first-child) {
+    border-left: var(--border-region);
+  }
+}
+
+// Without a floor, the flexible zones shrink to nothing instead of wrapping.
+// Below that floor the body claims a full line and the narrow column moves above it.
+.zone--split.zone--split--wrap {
+  flex-wrap: wrap;
+
+  > .zone {
+    flex-basis: var(--zone-body-min, 20rem);
+    min-width: min(100%, var(--zone-body-min, 20rem));
+  }
+
+  > .zone--narrow {
+    flex-basis: auto;
+    min-width: 0;
+  }
+}
+
+// A split is an axis, not a direction. Turned vertical it keeps the same reading:
+// a plain zone takes what is free, a narrow one is sized, and `--zone-size` is
+// that size along whichever axis the split runs on.
+.zone--split.zone--split--vertical {
+  flex-direction: column;
+
+  > .zone--narrow {
+    width: auto;
+    height: var(--zone-size, fit-content);
+  }
+
+  > .zone--bordered:not(:first-child) {
+    border-left: 0;
+    border-top: var(--border-region);
+  }
+}
+
+.zone--split.zone--split--equal {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+}
+
+.zone--padded {
+  padding: var(--space-4);
+}
+
+.zone--gap {
+  gap: var(--space-4);
+}
+
+.zone--scrollable {
+  overflow-y: auto;
+  min-height: 0;
+  flex: 1;
+}
+
+.zone--narrow {
+  width: var(--zone-size, fit-content);
+  max-width: 100%;
+}
+
+@for $i from 1 through 9 {
+  .zone--size-#{$i} {
+    --zone-size: var(--size-#{$i});
+  }
+}
+
+.zone--alt {
+  background: var(--surface-1);
+}

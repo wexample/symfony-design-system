@@ -1,0 +1,16 @@
+@use '../mixins/gutters' as gutters;
+
+.footer {
+  @include gutters.gutters-horizontal;
+  background: var(--surface-shell);
+  border-top: var(--border-separator);
+
+  .footer--body {
+    @include gutters.gutters-body;
+    display: flex;
+  }
+
+  .footer-item {
+    padding: var(--space-1);
+  }
+}

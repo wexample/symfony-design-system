@@ -1,6 +1,6 @@
 @use '../../css/mixins/density' as density;
-@use '../surface/surface';
-@use '../pill/pill';
+@use '../../css/shapes/surface';
+@use '../../css/shapes/pill';
 
 .tabs {
   display: flex;

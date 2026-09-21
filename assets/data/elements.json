@@ -2,81 +2,6 @@
     "version": 2,
     "elements": [
         {
-            "key": "action-icon",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/action-icon/action-icon.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "nothing renders it server-side",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "action-link",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/action-link/action-link.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "nothing renders it server-side",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "avatar",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": "A person or a thing, shown small and standing for itself.",
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/avatar/avatar.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "nothing renders an avatar today; the entity bar draws the markup itself",
-                "vue": "a bar drawn client-side cannot reach a twig component",
-                "script": "an avatar shows and does nothing"
-            }
-        },
-        {
             "key": "banner",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -271,31 +196,6 @@
             }
         },
         {
-            "key": "block",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/block/block.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
             "key": "breadcrumb",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -438,56 +338,6 @@
                 "flutter": "todo"
             },
             "notes": []
-        },
-        {
-            "key": "chat",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/chat/chat.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "cluster",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/cluster/cluster.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
         },
         {
             "key": "code-block",
@@ -655,56 +505,6 @@
             }
         },
         {
-            "key": "container",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/container/container.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "content",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/content/content.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
             "key": "content-image",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -784,81 +584,6 @@
             },
             "notes": {
                 "template": "nothing renders it server-side",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "disk-item",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/disk-item/disk-item.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "nothing renders it server-side",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "disk-item-explorer",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/disk-item-explorer/disk-item-explorer.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "doc",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/doc/doc.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
                 "script": "it shows and does nothing"
             }
         },
@@ -1006,156 +731,6 @@
                 "flutter": "todo"
             },
             "notes": []
-        },
-        {
-            "key": "flow",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/flow/flow.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "footer",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/footer/footer.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "form",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/form.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "form/actions",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/actions/actions.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "waived",
-                "vue": "waived",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
-                "vue": "a style the field components share, not a component",
-                "script": "a style the field components share, not a component"
-            }
-        },
-        {
-            "key": "form/assisted",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/assisted/assisted.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "waived",
-                "vue": "waived",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
-                "vue": "a style the field components share, not a component",
-                "script": "a style the field components share, not a component"
-            }
-        },
-        {
-            "key": "form/base",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/base/base.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "waived",
-                "vue": "waived",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
-                "vue": "a style the field components share, not a component",
-                "script": "a style the field components share, not a component"
-            }
         },
         {
             "key": "form/button-input",
@@ -1374,56 +949,6 @@
             "notes": []
         },
         {
-            "key": "form/layout",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/layout/layout.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "waived",
-                "vue": "waived",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
-                "vue": "a style the field components share, not a component",
-                "script": "a style the field components share, not a component"
-            }
-        },
-        {
-            "key": "form/messages",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/messages/messages.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "waived",
-                "vue": "waived",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
-                "vue": "a style the field components share, not a component",
-                "script": "a style the field components share, not a component"
-            }
-        },
-        {
             "key": "form/number-input",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -1453,31 +978,6 @@
                 "flutter": "todo"
             },
             "notes": []
-        },
-        {
-            "key": "form/password",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/password/password.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "waived",
-                "vue": "waived",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
-                "vue": "a style the field components share, not a component",
-                "script": "a style the field components share, not a component"
-            }
         },
         {
             "key": "form/password-input",
@@ -1511,31 +1011,6 @@
             "notes": []
         },
         {
-            "key": "form/radio",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/radio/radio.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "waived",
-                "vue": "waived",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
-                "vue": "a style the field components share, not a component",
-                "script": "a style the field components share, not a component"
-            }
-        },
-        {
             "key": "form/radio-input",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -1565,31 +1040,6 @@
                 "flutter": "todo"
             },
             "notes": []
-        },
-        {
-            "key": "form/select",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/select/select.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "waived",
-                "vue": "waived",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
-                "vue": "a style the field components share, not a component",
-                "script": "a style the field components share, not a component"
-            }
         },
         {
             "key": "form/select-input",
@@ -1623,31 +1073,6 @@
             "notes": []
         },
         {
-            "key": "form/state",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/state/state.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "waived",
-                "vue": "waived",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
-                "vue": "a style the field components share, not a component",
-                "script": "a style the field components share, not a component"
-            }
-        },
-        {
             "key": "form/submit-input",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -1677,56 +1102,6 @@
                 "flutter": "todo"
             },
             "notes": []
-        },
-        {
-            "key": "form/surface",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/surface/surface.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "waived",
-                "vue": "waived",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
-                "vue": "a style the field components share, not a component",
-                "script": "a style the field components share, not a component"
-            }
-        },
-        {
-            "key": "form/switch",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/switch/switch.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "waived",
-                "vue": "waived",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a style the field components share, not a component: it belongs in css/mixins and should move there",
-                "vue": "a style the field components share, not a component",
-                "script": "a style the field components share, not a component"
-            }
         },
         {
             "key": "form/switch-input",
@@ -1884,181 +1259,6 @@
             "notes": []
         },
         {
-            "key": "graph",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/graph/graph.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "grid",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/grid/grid.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "gutters",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/gutters/gutters.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "header",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/header/header.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "layout",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/layout/layout.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "layout-reset-modern",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/layout-reset-modern/layout-reset-modern.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "lead",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/lead/lead.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
             "key": "list-expanded",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -2138,56 +1338,6 @@
                 "style": "wears the style of button and adds none of its own",
                 "template": "client-side by nature: it only makes sense inside a vue tree",
                 "script": "its behaviour is the vue component's"
-            }
-        },
-        {
-            "key": "media",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/media/media.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "menu",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/menu/menu.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
             }
         },
         {
@@ -2349,31 +1499,6 @@
             }
         },
         {
-            "key": "meta-bar",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/meta-bar/meta-bar.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
             "key": "modal",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -2433,31 +1558,6 @@
             }
         },
         {
-            "key": "page",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/page/page.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
             "key": "pagination",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -2512,31 +1612,6 @@
             },
             "notes": {
                 "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
-            }
-        },
-        {
-            "key": "pill",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/pill/pill.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "nothing renders it server-side",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
             }
         },
         {
@@ -2620,31 +1695,6 @@
                 "flutter": "todo"
             },
             "notes": {
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "rail",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/rail/rail.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
                 "vue": "it can appear inside a vue collection and cannot be reached from one",
                 "script": "it shows and does nothing"
             }
@@ -2739,31 +1789,6 @@
             "notes": []
         },
         {
-            "key": "stack",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/stack/stack.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
             "key": "stage",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -2853,31 +1878,6 @@
             "notes": []
         },
         {
-            "key": "surface",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/surface/surface.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
             "key": "switch",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -2962,31 +1962,6 @@
             }
         },
         {
-            "key": "tag",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/tag/tag.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "nothing renders it server-side",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
             "key": "toast",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -3041,31 +2016,6 @@
             "notes": {
                 "style": "wears the style of toast and adds none of its own",
                 "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
-            }
-        },
-        {
-            "key": "toolbar",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/toolbar/toolbar.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
             }
         },
         {
@@ -3204,31 +2154,6 @@
             "notes": {
                 "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
             }
-        },
-        {
-            "key": "zone",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/zone/zone.scss"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "todo",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "a page writes the tag by hand today; a component would load the style with it",
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
         }
     ],
     "unscanned_paths": [
@@ -3237,6 +2162,7 @@
         "@WexampleSymfonyDesignSystemBundle/css/mixins",
         "@WexampleSymfonyDesignSystemBundle/css/partials",
         "@WexampleSymfonyDesignSystemBundle/css/primitives",
+        "@WexampleSymfonyDesignSystemBundle/css/shapes",
         "@WexampleSymfonyDesignSystemBundle/css/utilities",
         "@WexampleSymfonyDesignSystemBundle/fixtures",
         "@WexampleSymfonyDesignSystemBundle/js",

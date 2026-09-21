@@ -2,7 +2,7 @@
 @use '../../css/mixins/transition' as transition;
 @use '../../css/mixins/assisted' as assisted;
 @use '../spinner/spinner';
-@use '../pill/pill';
+@use '../../css/shapes/pill';
 
 .button {
   display: inline-flex;

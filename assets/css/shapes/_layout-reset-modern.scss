@@ -1,0 +1,72 @@
+@use '../mixins/margin' as margin;
+@use '../mixins/list' as list;
+@use '../partials/global' as global;
+
+// Predictable box model for all elements.
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  text-size-adjust: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100%;
+}
+
+// Remove default spacing on common text blocks.
+html,
+body,
+#{global.$selector-title-all},
+ul,
+ol,
+dl,
+dt,
+dd,
+blockquote,
+figure {
+  @include margin.no-margin-or-padding;
+}
+
+// Default link styling is handled elsewhere.
+a {
+  text-decoration: none;
+  color: var(--color-link);
+}
+
+a:hover {
+  color: var(--color-link-hover);
+}
+
+// No bullets/markers by default.
+ul,
+ol,
+menu {
+  @include list.no-list-style;
+}
+
+// Media is block-level and responsive by default.
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+// Form controls inherit typography.
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
