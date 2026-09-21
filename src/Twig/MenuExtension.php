@@ -8,7 +8,8 @@ use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\Helpers\Helper\ClassHelper;
-use Wexample\SymfonyDesignSystem\Service\MenuItemRegistry;
+use Wexample\SymfonyDesignSystem\Attribute\MenuItem;
+use Wexample\SymfonyDesignSystem\Service\RouteGroupRegistry;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
@@ -18,7 +19,7 @@ class MenuExtension extends AbstractTemplateExtension
         ComponentsExtension $componentsExtension,
         private readonly RouterInterface $router,
         private readonly RequestStack $requestStack,
-        private readonly MenuItemRegistry $menuItemRegistry,
+        private readonly RouteGroupRegistry $routeGroupRegistry,
     ) {
         parent::__construct($componentsExtension);
     }
@@ -50,7 +51,7 @@ class MenuExtension extends AbstractTemplateExtension
                 ) {
                     $rendered = '';
 
-                    foreach ($this->menuItemRegistry->getGroup($group) as $route) {
+                    foreach ($this->routeGroupRegistry->getGroup(MenuItem::class, $group) as $route) {
                         $rendered .= $this->renderMenuItem($twig, $context, $route, $routeParams, $options);
                     }
 

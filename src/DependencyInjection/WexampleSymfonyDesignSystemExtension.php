@@ -9,6 +9,7 @@ use Wexample\SymfonyDesignSystem\Chat\SlashCommand\Attribute\AsSlashCommand;
 use Wexample\SymfonyDesignSystem\Chat\SlashCommand\SlashCommandRegistry;
 use Wexample\SymfonyDesignSystem\Class\ElementSource;
 use Wexample\SymfonyDesignSystem\Interface\DesignSystemElementsBundleInterface;
+use Wexample\SymfonyDesignSystem\Interface\RouteGroupVoterInterface;
 use Wexample\SymfonyHelpers\DependencyInjection\AbstractWexampleSymfonyExtension;
 use Wexample\SymfonyLoader\DependencyInjection\Traits\WithLoaderConfigurationExtensionTrait;
 
@@ -33,6 +34,14 @@ class WexampleSymfonyDesignSystemExtension extends AbstractWexampleSymfonyExtens
                 $definition->addTag(SlashCommandRegistry::TAG);
             }
         );
+
+        // Tagged on the interface rather than through a compiler pass: a voter
+        // written in the host application is autoconfigured like any other
+        // service, so it joins the registry without the application knowing the
+        // tag name.
+        $container
+            ->registerForAutoconfiguration(RouteGroupVoterInterface::class)
+            ->addTag(RouteGroupVoterInterface::TAG);
 
         $layoutBases = (array) ($container->hasParameter('wexample_symfony_design_system.loader.layout_bases')
             ? $container->getParameter('wexample_symfony_design_system.loader.layout_bases')

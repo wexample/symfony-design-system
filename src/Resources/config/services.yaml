@@ -27,6 +27,10 @@ services:
     Wexample\SymfonyDesignSystem\Service\:
         resource: '../../Service/'
 
+    Wexample\SymfonyDesignSystem\Service\RouteGroupRegistry:
+        arguments:
+            $voters: !tagged_iterator wexample.symfony_design_system.route_group_voter
+
     Wexample\SymfonyDesignSystem\Service\ElementScannerService:
         arguments:
             $sources: '%wexample_symfony_design_system.element_sources%'
@@ -34,6 +38,12 @@ services:
     Wexample\SymfonyDesignSystem\Twig\:
         resource: '../../Twig/'
         exclude: '../../Twig/AppExtension.php'
+
+    # The fragment handler has no autowiring alias in FrameworkBundle, so the
+    # one service needing it names it. The rest is autowired as usual.
+    Wexample\SymfonyDesignSystem\Twig\SectionExtension:
+        arguments:
+            $fragmentHandler: '@fragment.handler'
 
     Wexample\SymfonyDesignSystem\Twig\AppExtension:
         arguments:

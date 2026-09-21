@@ -18,16 +18,6 @@ use Attribute;
  * it here would be a second place to keep in step with the first.
  */
 #[Attribute(Attribute::TARGET_METHOD)]
-class MenuItem
+class MenuItem extends AbstractRouteGroup
 {
-    /**
-     * @param string $group  the run of items this one joins, named by whatever menu renders it
-     * @param int    $weight rank inside the group, lightest first. Declaration order would be
-     *                       installation order, which is to say no order at all
-     */
-    public function __construct(
-        public readonly string $group,
-        public readonly int $weight = 0,
-    ) {
-    }
 }
