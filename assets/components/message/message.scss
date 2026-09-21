@@ -3,12 +3,11 @@
 
 .message {
   @include feedback.feedback-surface;
-  // How wide the bar telling the type is. A message is standing text on the
-  // page — a box outlined in the colour reads as loud as a toast, which is
-  // something that interrupts. So the colour is a bar down the side, and the
-  // other three sides are nothing.
-  --message-bar-width: var(--space-1);
-  border-width: 0 0 0 var(--message-bar-width);
+  // A message is standing text on the page — a box outlined in the colour
+  // reads as loud as a toast, which is something that interrupts. So the
+  // colour is a bar down the side, and the other three sides are nothing. How
+  // thick the bar is belongs to the skin, like every other line.
+  border-width: 0 0 0 var(--feedback-bar-width);
 }
 
 .message--title {

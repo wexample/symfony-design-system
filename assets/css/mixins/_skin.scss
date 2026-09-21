@@ -40,5 +40,9 @@
   // and no relief. The offset is a length and not a shadow on purpose — the
   // colour is only known on the element, so the primitive assembles it there.
   --feedback-border-width: 1px;
+  // The bar a message is told apart by. A line and not a space: it is written
+  // in pixels like every other border, so it stays a hairline whatever the
+  // density does to the room around it.
+  --feedback-bar-width: 2px;
   --feedback-shadow-offset: 0;
 }
