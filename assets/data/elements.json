@@ -2801,12 +2801,16 @@
                 ],
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/status/status.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/status/status.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/status/status.vue"
                 ]
             },
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "todo",
+                "vue": "expected",
                 "script": "waived",
                 "schema": "todo",
                 "ai": "todo",
@@ -2814,7 +2818,6 @@
                 "flutter": "todo"
             },
             "notes": {
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
                 "script": "it shows and does nothing"
             }
         },
