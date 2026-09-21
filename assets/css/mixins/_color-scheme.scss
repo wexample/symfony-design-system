@@ -64,6 +64,11 @@ $color-scheme-level-count: 32 !default;
   // Interaction states: always readable above any surface level.
   --state-hover: var(--color-invert-1);
   --state-active: var(--color-invert-2);
+  // Where the keyboard is. A row in a list wears it as a ground rather than a
+  // ring: a ring is right around a field, which is a box the eye has to find,
+  // and wrong around a row, which is already one of a column of boxes. Set
+  // above hover, since a passing pointer says less than a deliberate move.
+  --state-focus: var(--color-invert-4);
 
   // Borders.
   --border-color-discreet: var(--color-invert-4);
