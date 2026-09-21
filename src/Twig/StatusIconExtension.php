@@ -4,11 +4,9 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Twig\Environment;
 use Twig\TwigFunction;
-use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 class StatusIconExtension extends AbstractTemplateExtension
 {
-
     public function getFunctions(): array
     {
         return [

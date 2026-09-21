@@ -5,7 +5,6 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\SymfonyLoader\Rendering\RenderPass;
-use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 class EntityExtension extends AbstractTemplateExtension
 {

@@ -7,9 +7,9 @@ use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 use Twig\TwigFunction;
-use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 use Wexample\Helpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
+use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 class MenuExtension extends AbstractTemplateExtension
 {

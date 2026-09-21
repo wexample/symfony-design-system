@@ -9,7 +9,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Class\ElementDeclaration;
 use Wexample\SymfonyDesignSystem\Class\ElementEntry;
-use Wexample\SymfonyDesignSystem\Class\ElementSource;
 use Wexample\SymfonyDesignSystem\Enum\ElementFormat;
 use Wexample\SymfonyDesignSystem\Service\ElementDeclarationService;
 use Wexample\SymfonyDesignSystem\Service\ElementScannerService;

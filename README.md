@@ -1,6 +1,6 @@
 # symfony_design_system
 
-Version: 11.0.2
+Version: 13.0.0
 
 A Symfony bundle that ships a ready-made design system for web applications: Twig components (buttons, modals, toasts, forms, entity bars), SCSS layouts (`dashboard` and `default`), Vue mixins, and a suite of Twig extensions that wire them together. Every page flows through a `RenderPass` object managed by `AbstractDesignSystemController`, which handles template resolution, per-layout asset loading, and render-node–scoped translations. It targets Symfony developers who want consistent UI primitives and a structured front-end pipeline without building one from scratch.
 
@@ -46,13 +46,13 @@ All Twig extensions extend src/Twig/AbstractTemplateExtension.php, which wraps `
 | src/Twig/ButtonExtension.php | `button()`, `button_menu()`, `button_link()`, `button_target()` — delegate to the loader's `ComponentsExtension::component()` |
 | src/Twig/DocumentExtension.php | `document_embed($src, $title, $options)` — an `iframe` inside a `.media` box; option `ratio` picks the modifier, `media--fill` otherwise. The `$title` is positional because an untitled iframe is an accessibility failure |
 | src/Twig/EntityExtension.php | `entity($renderPass, $entity, $format)` — resolves `@front/components/entity/{snake_name}/{format}` via `ComponentsExtension` |
-| src/Twig/FormExtension.php | `form_submit()` — renders `partials/button.html.twig` with `type: submit` injected |
-| src/Twig/ImageExtension.php | `content_image()` — renders `partials/content-image.html.twig` with `loading: lazy` as default |
+| src/Twig/FormExtension.php | `form_submit()` — renders `components/button/button.html.twig` with `type: submit` injected |
+| src/Twig/ImageExtension.php | `content_image()` — renders `components/content-image/content-image.html.twig` with `loading: lazy` as default |
 | src/Twig/MenuExtension.php | `menu_item()`, `menu_separator()`, `menu_item_link()`, `menu_item_collapsible()`, `menu_item_collapsible_from_controller()` |
-| src/Twig/MessageExtension.php | `message_info()`, `message_success()`, `message_warning()`, `message_error()` — all render `partials/message.html.twig` with a type and a default icon |
+| src/Twig/MessageExtension.php | `message_info()`, `message_success()`, `message_warning()`, `message_error()` — all render `components/message/message.html.twig` with a type and a default icon |
 | src/Twig/PropertiesExtension.php | `properties($items, $options)` — key/value list, options `bordered`, `split`, `compact`, `stacked` map to `properties--*` modifiers |
-| src/Twig/TabExtension.php | `tab_item()`, `tab_item_link()` — render `partials/tab-item.html.twig` |
-| src/Twig/TableExtension.php | `table($columns, $rows, $options)` — normalizes the column definitions, renders `partials/table.html.twig` |
+| src/Twig/TabExtension.php | `tab_item()`, `tab_item_link()` — render `components/tab-item/tab-item.html.twig` |
+| src/Twig/TableExtension.php | `data_table($columns, $rows, $options)` — normalizes the column definitions, renders `components/data-table/data-table.html.twig` |
 | src/Twig/UiStateExtension.php | `ui_state_get($key, $default)` — reads from `session['ui_state.{key}']` |
 
 `button_target($icon, $label, $href, $target, $options)` takes the same first three arguments as `button_link()`, plus where the page it points at is loaded: `modal`, `panel`, or the name of an embed the page holds. It merges `href` and `target` into `$options` and renders `components/button-target`. The class list is the caller's — `options.class` replaces it entirely, defaulting to `button` — because the same behaviour has to sit on a `.button` and on a `.table--icon-link`.
@@ -76,9 +76,9 @@ The principle is being deployed progressively; the elements that already have th
 
 | Element | Server | Client |
 |---|---|---|
-| Table | `table()` from src/Twig/TableExtension.php, assets/partials/table.html.twig | `<data-table>`, assets/vue/partials/data-table.vue.twig |
-| Target button | `button_target()` from src/Twig/ButtonExtension.php, assets/components/button-target.html.twig | `<button-target>`, assets/vue/partials/button-target.vue.twig |
-| Spinner | assets/partials/spinner.html.twig | assets/vue/partials/spinner.vue.twig |
+| Table | `data_table()` from src/Twig/TableExtension.php, assets/components/data-table/data-table.html.twig | `<data-table>`, assets/components/data-table/data-table.vue.twig |
+| Target button | `button_target()` from src/Twig/ButtonExtension.php, assets/components/button-target/button-target.html.twig | `<button-target>`, assets/components/button-target/button-target.vue.twig |
+| Spinner | assets/components/spinner/spinner.html.twig | assets/components/spinner/spinner.vue.twig |
 
 #### Tables: where the twins part company
 
@@ -104,42 +104,31 @@ src/Helper/EntityDisplay.php is a value-object holding the three standard entity
 
 ### Asset layout
 
-Assets live in `assets/`, and everything the design system draws lives in one of them: `components/`.
+Assets live in `assets/` and are divided into five directories.
 
-**`components/`** holds one directory per component, named after it, and inside it every renderer that component has — the stylesheet, the server template, the client twin, the behaviour:
+**`layouts/`** defines the two provided HTML layouts. assets/layouts/default/layout.html.twig extends the loader's base layout and adds the `page_body_container` block (wraps the body in a container with an optional `h1`). assets/layouts/dashboard/layout.html.twig extends `default` and renders a two-sidebar shell: a left `menu-collapsible-panel`, a scrollable main content column, and a right `menu-collapsible-panel`. The left panel reads its initial collapsed state from `ui_state_get('ui.layout.menu.left', true)`. Host apps extend `dashboard/layout.html.twig` to inject `page_menu_links` and other blocks.
 
-```
-components/button/
-  button.scss        the style, loaded when the component is on the page
-  button.html.twig   the server renderer
-  button.vue         the client twin, when there is one
-  button.ts          the behaviour, when there is any
-```
-
-There is no other place an element can be. A stylesheet with no markup, a template nobody can call, a twin under another name: the split between `css/shapes/`, `partials/`, `components/` and `vue/` made all three invisible, and the folder makes them a missing file in a directory that names what it is missing. `assets/elements/<key>.yml` says, per renderer, whether the component is expected in it, whether it is wanted and missing, or why it does without; `assets/data/elements.json` is compiled from those declarations and checked against the tree. See `design-system:seed-elements` and `design-system:generate-element-registry`.
-
-A component is called by name and never by path — `{{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/button', {...}) }}`, or through the twig function that wraps it — and the loader resolves the directory. Nothing includes a template directly.
-
-The ones worth knowing:
+**`components/`** holds interactive units. Each component is a triad: a `.html.twig` template rendered server-side, a `.ts` file that attaches client behaviour, and a `.scss` file for component-scoped styles. Notable components:
 
 - `modal` and `panel` both extend `AbstractOverlayPageManager` (assets/js/Class/AbstractOverlayPageManager.ts), which layers `FadeAnimationMixin`, `FocusableComponentMixin`, and `OverlayMixin` from the loader. It handles open/close with optional confirm-on-close and dirty-form detection.
 - `button-target` (assets/components/button-target/button-target.ts) intercepts clicks on its anchor, reads `data-target` and `data-target-options`, and hands the href to `loadIntoTarget()` from assets/js/Helper/TargetHelper.ts, which dispatches to `ModalService`, `PanelService` or `EmbedService`. The two overlays keep their place in URL hash params, so a persistent one reopens on reload; an embed does not, belonging to the page that placed it. A modified click is left to the browser, so every target stays openable as a full page.
 - `menu-collapsible-panel` (assets/components/menu-collapsible-panel/menu-collapsible-panel.ts) toggles `gutters--collapsible--collapsed` on its element and calls `app.onMenuStateChange(menuId, open)` on every toggle, which is the point where the host app or the default `UiStateController` persist the state to the session.
 - `toast` applies `FadeAnimationMixin`, `AutoCloseMixin`, and `ActionLinksMixin`; it self-removes after 4 s unless `sticky` is set.
 
-`bases/entity` and `bases/form` are the root Vue components for entity and form contexts; the field components under `components/form/` map one-to-one to the Symfony form types of `wexample/symfony-forms`, and each of them now keeps its template, its style, its script and its vue twin side by side.
-
-**`layouts/`** defines the two provided HTML layouts. assets/layouts/default/layout.html.twig extends the loader's base layout and adds the `page_body_container` block (wraps the body in a container with an optional `h1`). assets/layouts/dashboard/layout.html.twig extends `default` and renders a two-sidebar shell: a left `menu-collapsible-panel`, a scrollable main content column, and a right `menu-collapsible-panel`. The left panel reads its initial collapsed state from `ui_state_get('ui.layout.menu.left', true)`. Host apps extend `dashboard/layout.html.twig` to inject `page_menu_links` and other blocks.
-
 **`js/`** contains shared TypeScript classes and Vue mixins.
 
-**`css/`** holds what is shared between components rather than owned by one: `mixins/`, `partials/` (palette, global variables, colour-scheme overrides), `utilities/` (alignment, text-align, visually-hidden), and `primitives/` (feedback). A rule that belongs to a single component belongs in that component's directory. The palette file `assets/css/partials/_palette.scss` declares colour variables with `!default` so host apps can override them by importing their own palette first.
+- `AbstractCollapsibleComponent` (assets/js/Class/AbstractCollapsibleComponent.ts) listens for a click on a selector returned by `getToggleSelector()` and toggles `is-open` on the element.
+- `AbstractDesignSystemVueMixin` (assets/js/Vue/AbstractDesignSystemVueMixin.ts) adds `waitForAppReady()` to any Vue component that must wait for the JS app to finish bootstrapping before performing async work.
+
+**`components/`** holds one directory per component, named after it, containing every renderer that component has: `.html.twig`, `.scss`, `.ts`, `.vue`, `.vue.twig`. `bases/entity/entity.vue` and `bases/form/form.vue` are the root Vue components for entity and form contexts; the input components under `components/form/` map one-to-one to the Symfony form types declared in `src/Form/Demo/`.
+
+**`css/`** is what is *not* a component: `mixins/` (SCSS mixins for layout, spacing, typography, overlays), `partials/` (palette, global variables, colour-scheme overrides), `utilities/` (alignment, text-align, visually-hidden), `primitives/` (feedback) and `fonts/`. The per-shape stylesheets that used to live in `shapes/` moved beside the component they draw. The palette file `assets/css/partials/_palette.scss` declares colour variables with `!default` so host apps can override them by importing their own palette first.
 
 ### Call path through the stack
 
 A typical page request arrives at a controller that calls `renderPage('index')`. The loader's `AbstractPagesController` builds a `RenderPass` (tracking the bundle, view name, and layout bases), passes it through `adaptiveRender()`, and ultimately calls `twig->render()`. The template extends `dashboard/layout.html.twig` → `default/layout.html.twig` → the loader's HTML base, which owns the `<!DOCTYPE html>` shell.
 
-Inside a template, calling `{{ button_target(..., 'modal') }}` invokes `ButtonExtension`, which calls the loader's `ComponentsExtension::component()`. That function renders `components/button-target.html.twig` server-side and registers the component with the render pass so the loader emits the correct JS bootstrap data. When the browser executes that bootstrap data, `button-target.ts` mounts, listens for clicks, and delegates to `ModalService`, which fetches the target page and hands it to `modal.ts` — an `AbstractOverlayPageManager` — to display.
+Inside a template, calling `{{ button_target(..., 'modal') }}` invokes `ButtonExtension`, which calls the loader's `ComponentsExtension::component()`. That function renders `components/button-target/button-target.html.twig` server-side and registers the component with the render pass so the loader emits the correct JS bootstrap data. When the browser executes that bootstrap data, `button-target.ts` mounts, listens for clicks, and delegates to `ModalService`, which fetches the target page and hands it to `modal.ts` — an `AbstractOverlayPageManager` — to display.
 
 UI state flows in the reverse direction: `menu-collapsible-panel.ts` fires `app.onMenuStateChange(id, open)` → `App::persistUiState` POSTs to `/ui-state/set` → `UiStateController` writes to the session → on the next page load `ui_state_get('ui.layout.menu.left')` returns the saved value and `dashboard/layout.html.twig` renders the panel pre-collapsed or pre-open.
 
@@ -157,7 +146,7 @@ Visit the [Wexample Suite documentation](https://docs.wexample.com) for the comp
 
 - php: >=8.5
 - wexample/symfony-live: >=4.0.0
-- wexample/symfony-loader: >=6.0.0
+- wexample/symfony-loader: >=7.0.0
 
 ## Versioning & Compatibility Policy
 

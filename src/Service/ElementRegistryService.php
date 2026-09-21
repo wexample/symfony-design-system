@@ -5,7 +5,6 @@ namespace Wexample\SymfonyDesignSystem\Service;
 use JsonException;
 use Twig\Environment;
 use Wexample\SymfonyDesignSystem\Class\ElementCompilation;
-use Wexample\SymfonyDesignSystem\Class\ElementDeclaration;
 use Wexample\SymfonyDesignSystem\Class\ElementInventory;
 use Wexample\SymfonyDesignSystem\Class\ElementSource;
 use Wexample\SymfonyDesignSystem\Enum\ElementFormat;

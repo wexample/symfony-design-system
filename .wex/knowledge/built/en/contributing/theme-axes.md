@@ -1,0 +1,97 @@
+A theme is not one thing but four independent decisions, and the design
+system keeps them apart so that any value of one composes with any value of
+the others. Each is a loader *usage*: a body class `usage-<axis>-<value>`, a
+CSS file per value (`layout.<axis>.<value>.scss`), switched at runtime and
+remembered in session.
+
+## The four axes
+
+| Axis | The question it answers | What it owns |
+|---|---|---|
+| `color_scheme` | How much light is there? | Colours, and nothing but colours — including the *colour* of every border and shadow |
+| `density` | How much fits on a screen? | `--space-*`, `--size-*`, `--font-size-*` |
+| `skin` | How are things drawn? | Radii, shadow geometry, border width and style, separators, focus ring width |
+| `fonts` | What is it set in? | The three families and the four weights |
+| `animations` | Does the page move of its own accord? | Motion tokens — declared, with no file yet: nothing in the system moves unasked |
+
+## Moving from one value to another
+
+Switching an axis is a clean cut, on purpose. The loader keeps the old
+stylesheet on the document until the new one has loaded — so the page never
+spends a frame wearing neither — and then swaps. There is no transition: one
+was tried, a rule on the body for the length of the swap, and easing every
+length and colour of a page at once reads worse than the cut it was hiding.
+Should motion ever come back it belongs to the `animations` axis, not to the
+swap.
+
+The cut between them is what a shape reads. `--border-separator` is
+`1px solid var(--border-color-discreet)`: the skin owns the `1px solid`, the
+scheme owns the colour, and a skin that wants no separators writes
+`0 solid transparent` without knowing what colour the line would have had.
+
+## Roles, not scales
+
+A shape never reads the radius scale (`--radius-1`, `--radius-2`). It reads the
+**role** it plays, and the skin decides *which step* that role gets — never
+what a step is worth, which would make the scale mean two things at once:
+
+- `--radius-control` — one line high, and pressed: buttons, pagination, toolbar actions
+- `--radius-box` — holds something: blocks, fields, toasts, leads, modals, tables, dropdowns
+- `--radius-media` — pictures and figures
+- `--radius-pill` — what is read as a capsule
+
+What separates two regions of a page — a zone, a column, the menu — is none of
+these and rounds nothing.
+
+The scale itself is geometric, each step twice the one below
+(`0.125 / 0.25 / 0.5 / 1rem`), so that two steps apart is the same distance
+wherever you stand on it.
+
+The fonts axis works the same way: a shape names neither a family nor a
+number. `--font-family-base`, `--font-family-heading` and `--font-family-mono`
+are what a page tells apart; `--font-weight-normal`, `-medium`, `-strong` and
+`-bold` are named by how much they insist, so a set whose face has no 500 maps
+it onto what it does have.
+
+Three roles and a pill, on purpose. A role exists where two things are drawn
+differently by some skin, and nowhere else: `control` parted from `box` the day
+`soft` made a capsule of everything and turned a textarea into a lozenge — a
+capsule is right for something one line high and absurd for a box that grows.
+`field` and `surface` were two roles for a while and never once diverged, which
+is why they are now one. A circle is a form, not a role: a shape that wants one
+writes `50%` itself.
+
+Corollary: a shape never writes `border-radius: 0` to undo a radius it would
+otherwise inherit. Nothing inherits a radius; if a shape has none it has none.
+
+## Where a rule goes
+
+- **Tokens first.** A skin is one file per layout setting the same names as
+  the default skin. `layouts/default/_layout.skin.default.scss` is the
+  reference: every skin sets what it sets, and the rest reads through.
+- **A file per component only when structure changes.** The loader resolves
+  `<component>.skin.<value>.scss` for any render node and loads it only when
+  that component is on the page. Reach for it when a skin needs rules no token
+  can carry — bevelled borders, a different layout of the same parts — never
+  to restate a token.
+- **Colour stays out.** A skin that needs a component to take another colour
+  says which *role* it takes (`--tabs-surface: var(--color-info-8)`), and the
+  scheme decides what that role is on each face.
+
+## Where the files live
+
+The design system ships every value of every axis beside its layouts, as
+entries: `layouts/default/layout.density.slim.scss`,
+`layouts/dashboard/layout.skin.default.scss`, and so on. Both layouts put
+themselves on the render node's inheritance stack, so an app layout built on
+them gets all of it without a file of its own: the loader walks the stack and
+takes the first layout that carries the axis.
+
+An app writes its own file only to customise — the colour scheme with its
+palette, typically — and then it **must ship every value of that axis**: the
+lookup stops at the first layout that has any file for an axis, so an app
+shipping `layout.density.default.scss` alone would silently lose `slim` and
+`fat`. Its file `@use`s the design system's, then adds what it adds.
+
+Adding a value is therefore one file in the design system, and nothing
+anywhere else — until an app that customises that axis wants it too.
