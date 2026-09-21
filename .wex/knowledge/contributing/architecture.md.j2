@@ -76,7 +76,7 @@ Shared column options: `key`, `label`, `align`, `secondary`, `class` (`className
 
 ### Controllers
 
-{{ path("src/Controller/UiStateController.php") }} exposes `POST /ui-state/set`. It reads `{key, value}` from the JSON body and writes `session['ui_state.{key}'] = value`. This is the default persistence target for menu-collapse state; apps that need server-side persistence override `App::persistUiState` on the JS side instead of calling this endpoint.
+{{ path("src/Controller/UiStateController.php") }} exposes `POST /_ui-state/set`. It reads `{key, value}` from the JSON body and writes `session['ui_state.{key}'] = value`. This is the default persistence target for menu-collapse state; apps that need server-side persistence override `App::persistUiState` on the JS side instead of calling this endpoint.
 
 {{ path("src/Controller/FixturesController.php") }} serves `placeholder.svg` from `assets/fixtures/` at the design-system base route.
 
@@ -114,4 +114,4 @@ A typical page request arrives at a controller that calls `renderPage('index')`.
 
 Inside a template, calling `{{ "{{ button_target(..., 'modal') }}" }}` invokes `ButtonExtension`, which calls the loader's `ComponentsExtension::component()`. That function renders `components/button-target/button-target.html.twig` server-side and registers the component with the render pass so the loader emits the correct JS bootstrap data. When the browser executes that bootstrap data, `button-target.ts` mounts, listens for clicks, and delegates to `ModalService`, which fetches the target page and hands it to `modal.ts` — an `AbstractOverlayPageManager` — to display.
 
-UI state flows in the reverse direction: `menu-collapsible-panel.ts` fires `app.onMenuStateChange(id, open)` → `App::persistUiState` POSTs to `/ui-state/set` → `UiStateController` writes to the session → on the next page load `ui_state_get('ui.layout.menu.left')` returns the saved value and `dashboard/layout.html.twig` renders the panel pre-collapsed or pre-open.
+UI state flows in the reverse direction: `menu-collapsible-panel.ts` fires `app.onMenuStateChange(id, open)` → `App::persistUiState` POSTs to `/_ui-state/set` → `UiStateController` writes to the session → on the next page load `ui_state_get('ui.layout.menu.left')` returns the saved value and `dashboard/layout.html.twig` renders the panel pre-collapsed or pre-open.
