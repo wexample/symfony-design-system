@@ -3,6 +3,12 @@
 
 .message {
   @include feedback.feedback-surface;
+  // How wide the bar telling the type is. A message is standing text on the
+  // page — a box outlined in the colour reads as loud as a toast, which is
+  // something that interrupts. So the colour is a bar down the side, and the
+  // other three sides are nothing.
+  --message-bar-width: var(--space-1);
+  border-width: 0 0 0 var(--message-bar-width);
 }
 
 .message--title {
@@ -29,12 +35,10 @@
   @include feedback_semantic.feedback-error;
 }
 
-// States a standing rule rather than reporting an event: the framing goes away
-// and the icon is left to carry the semantic color, so the sentence stays as
-// readable as any body text.
+// States a standing rule rather than reporting an event: it gives up the room
+// and the relief, keeping the bar — which is the one thing saying what kind of
+// message it is.
 .message--compact {
-  --feedback-border-width: 0;
-  --feedback-radius: var(--radius-box);
   padding: var(--space-3) var(--space-4);
   box-shadow: none;
 }

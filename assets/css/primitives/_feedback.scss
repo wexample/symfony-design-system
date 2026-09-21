@@ -18,6 +18,10 @@
 
   > * {
     min-width: 0;
+    // The box spaces its children by its gap, so they arrive with nothing of
+    // their own: a paragraph's default margin would otherwise be added to the
+    // padding and leave the last line floating above the floor.
+    margin-block: 0;
   }
 }
 
