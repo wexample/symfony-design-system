@@ -7,15 +7,15 @@ import LoadMore from "../../../load-more/load-more.vue";
 const translated = buildTranslatedBindings({
   resolvedPlaceholder: [
     'placeholder',
-    'WexampleSymfonyDesignSystemBundle.vue.collection.chat.abstract-entity-chat::composer.placeholder'
+    'WexampleSymfonyDesignSystemBundle.components.collection.chat.abstract-entity-chat.abstract-entity-chat::composer.placeholder'
   ],
   resolvedSubmitLabel: [
     'submitLabel',
-    'WexampleSymfonyDesignSystemBundle.vue.collection.chat.abstract-entity-chat::composer.submit'
+    'WexampleSymfonyDesignSystemBundle.components.collection.chat.abstract-entity-chat.abstract-entity-chat::composer.submit'
   ],
   resolvedLoadOlderLabel: [
     'loadOlderLabel',
-    'WexampleSymfonyDesignSystemBundle.vue.collection.chat.abstract-entity-chat::thread.load_older'
+    'WexampleSymfonyDesignSystemBundle.components.collection.chat.abstract-entity-chat.abstract-entity-chat::thread.load_older'
   ]
 });
 

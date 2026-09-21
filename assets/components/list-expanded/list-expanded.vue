@@ -6,15 +6,15 @@ import WithRovingFocusKeyboardVueMixin from "../../js/Vue/WithRovingFocusKeyboar
 const translated = buildTranslatedBindings({
   resolvedSearchPlaceholder: [
     'searchPlaceholder',
-    'WexampleSymfonyDesignSystemBundle.vue.partials.list-expanded::search.placeholder'
+    'WexampleSymfonyDesignSystemBundle.components.list-expanded.list-expanded::search.placeholder'
   ],
   resolvedFilterLabel: [
     'filterLabel',
-    'WexampleSymfonyDesignSystemBundle.vue.partials.list-expanded::filter.label'
+    'WexampleSymfonyDesignSystemBundle.components.list-expanded.list-expanded::filter.label'
   ],
   resolvedEmptyLabel: [
     'emptyLabel',
-    'WexampleSymfonyDesignSystemBundle.vue.partials.list-expanded::empty.label'
+    'WexampleSymfonyDesignSystemBundle.components.list-expanded.list-expanded::empty.label'
   ]
 });
 

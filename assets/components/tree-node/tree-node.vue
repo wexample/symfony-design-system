@@ -85,7 +85,7 @@ export default {
 
     moreLabel() {
       return this.trans(
-        'WexampleSymfonyDesignSystemBundle.vue.partials.tree-node::more.label',
+        'WexampleSymfonyDesignSystemBundle.components.tree-node.tree-node::more.label',
         { '%count%': this.remainingCount }
       );
     },
