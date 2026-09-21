@@ -10,7 +10,7 @@ formats:
   style: true
   template: true
   script: true
-  vue: "put on the page by a service that injects its markup; there is no vue tree to place it in"
+  vue: "it reads the render pass for the current scheme and reloads the layout's stylesheets — a document-level switch, not a value a vue tree holds"
   schema: todo
   ai: todo
   react: todo

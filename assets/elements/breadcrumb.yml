@@ -9,7 +9,7 @@ description: null
 formats:
   style: true
   template: true
-  vue: "part of a page's shell, drawn by the server for a page the server knows"
+  vue: "todo — waits on the route table client-side: every label comes from the target page's own catalogue, which only the server resolves today"
   script: "it shows and does nothing"
   schema: todo
   ai: todo

@@ -1,0 +1,11 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <div :class="toastClass">
+        <button class="toast--close" type="button" @click="$emit('close')">
+            <span v-html="closeIconHtml"></span>
+        </button>
+        <div v-if="title" class="toast--title">[[ title ]]</div>
+        <div v-if="message" class="toast--message">[[ message ]]</div>
+    </div>
+{%- endblock -%}

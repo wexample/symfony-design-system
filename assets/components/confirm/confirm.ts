@@ -45,9 +45,9 @@ export default class extends Component {
   attachHtmlElements() {
     super.attachHtmlElements();
     this.attachHtmlElementsMap({
-      title: '[data-prompt-title]',
-      message: '[data-prompt-message]',
-      actions: '[data-prompt-actions]',
+      title: '[data-confirm-title]',
+      message: '[data-confirm-message]',
+      actions: '[data-confirm-actions]',
     });
   }
 

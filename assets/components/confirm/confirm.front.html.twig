@@ -1,3 +1,7 @@
-{% include '@WexampleSymfonyDesignSystemBundle/components/prompt/prompt.html.twig' with {
-    prompt_class: 'confirm'
-} %}
+{#- The frame of a question: a title, a message and a row of actions, empty
+    here and filled by confirm.ts once the markup is in the page. -#}
+<div class="confirm">
+    <div class="confirm--title" data-confirm-title hidden="hidden"></div>
+    <div class="confirm--message" data-confirm-message hidden="hidden"></div>
+    <div class="confirm--actions" data-confirm-actions></div>
+</div>

@@ -1,5 +1,29 @@
-@use '../prompt/prompt';
+@use '../../css/primitives/feedback' as feedback;
 @use '../../css/mixins/animation' as animation;
+
+.confirm {
+  @include feedback.feedback-surface;
+  position: relative;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.confirm--title {
+  @include feedback.feedback-title;
+  color: var(--color-default-text);
+}
+
+.confirm--message {
+  color: var(--color-default-text);
+}
+
+.confirm--actions {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-top: var(--space-4);
+}
 
 .confirm--toast {
   pointer-events: auto;

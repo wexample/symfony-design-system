@@ -1,0 +1,11 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <a
+            :class="['button', extraClass]"
+            :href="href"
+    >
+        <span class="button--icon" v-html="iconHtml"></span>
+        <span>[[ label ]]</span>
+    </a>
+{%- endblock -%}

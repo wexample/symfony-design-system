@@ -9,7 +9,7 @@ description: null
 formats:
   style: true
   vue: true
-  template: "todo — nothing renders it server-side"
+  template: true
   script: "it shows and does nothing"
   schema: todo
   ai: todo

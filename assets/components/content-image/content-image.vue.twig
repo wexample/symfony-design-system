@@ -1,0 +1,9 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <figure v-if="caption" :class="extraClass">
+        <img :src="src" :alt="alt" :loading="loading" :width="width" :height="height">
+        <figcaption>[[ caption ]]</figcaption>
+    </figure>
+    <img v-else :src="src" :alt="alt" :loading="loading" :class="extraClass" :width="width" :height="height">
+{%- endblock -%}

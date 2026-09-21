@@ -1,0 +1,7 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <div :class="extraClass">
+        <iframe :src="src" :title="title" :loading="loading"></iframe>
+    </div>
+{%- endblock -%}

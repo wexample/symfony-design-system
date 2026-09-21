@@ -9,7 +9,7 @@ description: null
 formats:
   style: true
   template: true
-  vue: "put on the page by a service that injects its markup; there is no vue tree to place it in"
+  vue: "built from the template and injected by the confirm service; no page writes it"
   script: true
   schema: todo
   ai: todo

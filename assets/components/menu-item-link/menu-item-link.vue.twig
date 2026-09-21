@@ -1,0 +1,19 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <li>
+        <a
+                :class="[extraClass, { active: isActive }]"
+                :href="href"
+                :target="newWindow ? '_blank' : null"
+                :rel="newWindow ? 'noopener noreferrer' : null"
+        >
+            <span class="menu--item--icon" v-html="iconHtml"></span>
+            <span class="menu--item--label">[[ label ]]</span>
+            <span
+                    v-if="count !== undefined && count !== null"
+                    class="pill menu--item--count"
+            >[[ count ]]</span>
+        </a>
+    </li>
+{%- endblock -%}

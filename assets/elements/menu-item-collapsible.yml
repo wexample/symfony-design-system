@@ -9,7 +9,7 @@ description: null
 formats:
   template: true
   style: true
-  vue: "part of a page's shell, drawn by the server for a page the server knows"
+  vue: "todo — the same route table as menu-item, plus the open state to hold"
   script: true
   schema: todo
   ai: todo

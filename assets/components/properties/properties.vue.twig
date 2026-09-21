@@ -1,0 +1,13 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <dl :class="listClass">
+        <div v-for="(item, index) in items" :key="index" class="properties--row">
+            <dt class="properties--key">[[ item.key ]]</dt>
+            <dd class="properties--value">
+                <span v-if="item.html" v-html="item.value"></span>
+                <template v-else>[[ item.value ]]</template>
+            </dd>
+        </div>
+    </dl>
+{%- endblock -%}

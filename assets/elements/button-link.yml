@@ -10,7 +10,7 @@ formats:
   template: true
   script: true
   style: "wears the style of button and adds none of its own"
-  vue: "todo — it can appear inside a vue collection and cannot be reached from one"
+  vue: true
   schema: todo
   ai: todo
   react: todo

@@ -13,6 +13,10 @@
                     "@WexampleSymfonyDesignSystemBundle/components/banner/banner.front.html.twig",
                     "@WexampleSymfonyDesignSystemBundle/components/banner/banner.html.twig"
                 ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/banner/banner.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/banner/banner.vue.twig"
+                ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/banner/banner.ts"
                 ]
@@ -20,16 +24,14 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "waived",
+                "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
                 "ai": "todo",
                 "react": "todo",
                 "flutter": "todo"
             },
-            "notes": {
-                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
-            }
+            "notes": []
         },
         {
             "key": "bar",
@@ -77,7 +79,7 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "waived",
+                "vue": "todo",
                 "script": "waived",
                 "schema": "todo",
                 "ai": "todo",
@@ -85,7 +87,7 @@
                 "flutter": "todo"
             },
             "notes": {
-                "vue": "part of a page's shell, drawn by the server for a page the server knows",
+                "vue": "waits on the route table client-side: every label comes from the target page's own catalogue, which only the server resolves today",
                 "script": "it shows and does nothing"
             }
         },
@@ -100,6 +102,10 @@
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/button/button.html.twig"
                 ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/button/button.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/button/button.vue"
+                ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/button/button.ts"
                 ]
@@ -107,16 +113,14 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "todo",
+                "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
                 "ai": "todo",
                 "react": "todo",
                 "flutter": "todo"
             },
-            "notes": {
-                "vue": "it can appear inside a vue collection and cannot be reached from one"
-            }
+            "notes": []
         },
         {
             "key": "button-link",
@@ -126,6 +130,10 @@
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/button-link/button-link.html.twig"
                 ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/button-link/button-link.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/button-link/button-link.vue"
+                ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/button-link/button-link.ts"
                 ]
@@ -133,7 +141,7 @@
             "stances": {
                 "style": "waived",
                 "template": "expected",
-                "vue": "todo",
+                "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
                 "ai": "todo",
@@ -141,8 +149,7 @@
                 "flutter": "todo"
             },
             "notes": {
-                "style": "wears the style of button and adds none of its own",
-                "vue": "it can appear inside a vue collection and cannot be reached from one"
+                "style": "wears the style of button and adds none of its own"
             }
         },
         {
@@ -213,12 +220,16 @@
             "formats": {
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/code-block/code-block.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/code-block/code-block.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/code-block/code-block.vue"
                 ]
             },
             "stances": {
                 "style": "waived",
                 "template": "expected",
-                "vue": "waived",
+                "vue": "expected",
                 "script": "waived",
                 "schema": "todo",
                 "ai": "todo",
@@ -227,7 +238,6 @@
             },
             "notes": {
                 "style": "wears the style of doc and adds none of its own",
-                "vue": "part of a page's shell, drawn by the server for a page the server knows",
                 "script": "it shows and does nothing"
             }
         },
@@ -339,7 +349,7 @@
                 "flutter": "todo"
             },
             "notes": {
-                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+                "vue": "it reads the render pass for the current scheme and reloads the layout's stylesheets \u2014 a document-level switch, not a value a vue tree holds"
             }
         },
         {
@@ -368,7 +378,7 @@
                 "flutter": "todo"
             },
             "notes": {
-                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+                "vue": "built from the template and injected by the confirm service; no page writes it"
             }
         },
         {
@@ -378,12 +388,16 @@
             "formats": {
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/content-image/content-image.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/content-image/content-image.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/content-image/content-image.vue.twig"
                 ]
             },
             "stances": {
                 "style": "waived",
                 "template": "expected",
-                "vue": "waived",
+                "vue": "expected",
                 "script": "waived",
                 "schema": "todo",
                 "ai": "todo",
@@ -392,7 +406,6 @@
             },
             "notes": {
                 "style": "wears the style of media and adds none of its own",
-                "vue": "part of a page's shell, drawn by the server for a page the server knows",
                 "script": "it shows and does nothing"
             }
         },
@@ -461,12 +474,16 @@
             "formats": {
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/document-embed/document-embed.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/document-embed/document-embed.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/document-embed/document-embed.vue.twig"
                 ]
             },
             "stances": {
                 "style": "waived",
                 "template": "expected",
-                "vue": "waived",
+                "vue": "expected",
                 "script": "waived",
                 "schema": "todo",
                 "ai": "todo",
@@ -475,7 +492,6 @@
             },
             "notes": {
                 "style": "wears the style of media and adds none of its own",
-                "vue": "part of a page's shell, drawn by the server for a page the server knows",
                 "script": "it shows and does nothing"
             }
         },
@@ -536,68 +552,8 @@
                 "flutter": "todo"
             },
             "notes": {
-                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+                "vue": "a mount point, not a drawing: the component puts a whole loaded page inside .embed--content"
             }
-        },
-        {
-            "key": "entity",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/entity/entity.scss"
-                ],
-                "template": [
-                    "@WexampleSymfonyDesignSystemBundle/components/entity/entity.html.twig"
-                ],
-                "script": [
-                    "@WexampleSymfonyDesignSystemBundle/components/entity/entity.ts"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "expected",
-                "vue": "todo",
-                "script": "expected",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "vue": "it can appear inside a vue collection and cannot be reached from one"
-            }
-        },
-        {
-            "key": "entity/bar",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/entity/bar/bar.scss"
-                ],
-                "template": [
-                    "@WexampleSymfonyDesignSystemBundle/components/entity/bar/bar.html.twig"
-                ],
-                "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/entity/bar/bar.vue.twig",
-                    "@WexampleSymfonyDesignSystemBundle/components/entity/bar/bar.vue"
-                ],
-                "script": [
-                    "@WexampleSymfonyDesignSystemBundle/components/entity/bar/bar.ts"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "expected",
-                "vue": "expected",
-                "script": "expected",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": []
         },
         {
             "key": "form/button-input",
@@ -1222,7 +1178,7 @@
             "stances": {
                 "style": "waived",
                 "template": "expected",
-                "vue": "waived",
+                "vue": "todo",
                 "script": "expected",
                 "schema": "todo",
                 "ai": "todo",
@@ -1231,7 +1187,7 @@
             },
             "notes": {
                 "style": "wears the style of gutters and adds none of its own",
-                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+                "vue": "a chantier of its own: the twig side is an empty placeholder binding to gutters the layout wrote, so a vue one has to own markup it does not own today"
             }
         },
         {
@@ -1246,7 +1202,7 @@
             "stances": {
                 "style": "waived",
                 "template": "expected",
-                "vue": "waived",
+                "vue": "todo",
                 "script": "waived",
                 "schema": "todo",
                 "ai": "todo",
@@ -1255,7 +1211,7 @@
             },
             "notes": {
                 "style": "wears the style of menu and adds none of its own",
-                "vue": "part of a page's shell, drawn by the server for a page the server knows",
+                "vue": "waits on the route table client-side: icon, label and active state are all read from the target page's catalogue",
                 "script": "it shows and does nothing"
             }
         },
@@ -1277,7 +1233,7 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "waived",
+                "vue": "todo",
                 "script": "expected",
                 "schema": "todo",
                 "ai": "todo",
@@ -1285,7 +1241,7 @@
                 "flutter": "todo"
             },
             "notes": {
-                "vue": "part of a page's shell, drawn by the server for a page the server knows"
+                "vue": "the same route table as menu-item, plus the open state to hold"
             }
         },
         {
@@ -1295,12 +1251,16 @@
             "formats": {
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/menu-item-link/menu-item-link.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/menu-item-link/menu-item-link.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/menu-item-link/menu-item-link.vue.twig"
                 ]
             },
             "stances": {
                 "style": "waived",
                 "template": "expected",
-                "vue": "waived",
+                "vue": "expected",
                 "script": "waived",
                 "schema": "todo",
                 "ai": "todo",
@@ -1309,7 +1269,6 @@
             },
             "notes": {
                 "style": "wears the style of menu and adds none of its own",
-                "vue": "part of a page's shell, drawn by the server for a page the server knows",
                 "script": "it shows and does nothing"
             }
         },
@@ -1320,12 +1279,16 @@
             "formats": {
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/menu-separator/menu-separator.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/menu-separator/menu-separator.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/menu-separator/menu-separator.vue"
                 ]
             },
             "stances": {
                 "style": "waived",
                 "template": "expected",
-                "vue": "waived",
+                "vue": "expected",
                 "script": "waived",
                 "schema": "todo",
                 "ai": "todo",
@@ -1334,7 +1297,6 @@
             },
             "notes": {
                 "style": "wears the style of menu and adds none of its own",
-                "vue": "part of a page's shell, drawn by the server for a page the server knows",
                 "script": "it shows and does nothing"
             }
         },
@@ -1348,12 +1310,16 @@
                 ],
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/message/message.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/message/message.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/message/message.vue"
                 ]
             },
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "todo",
+                "vue": "expected",
                 "script": "waived",
                 "schema": "todo",
                 "ai": "todo",
@@ -1361,7 +1327,6 @@
                 "flutter": "todo"
             },
             "notes": {
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
                 "script": "it shows and does nothing"
             }
         },
@@ -1391,7 +1356,7 @@
                 "flutter": "todo"
             },
             "notes": {
-                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+                "vue": "a mount point, not a drawing: its content is a page the router loads into .modal--content"
             }
         },
         {
@@ -1421,7 +1386,7 @@
                 "flutter": "todo"
             },
             "notes": {
-                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+                "vue": "a mount point, not a drawing: its body is set from the options once the markup is in the document"
             }
         },
         {
@@ -1478,7 +1443,7 @@
                 "flutter": "todo"
             },
             "notes": {
-                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+                "vue": "a mount point, not a drawing: its content is a page the router loads into .panel--content"
             }
         },
         {
@@ -1513,33 +1478,6 @@
             "notes": []
         },
         {
-            "key": "prompt",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/prompt/prompt.scss"
-                ],
-                "template": [
-                    "@WexampleSymfonyDesignSystemBundle/components/prompt/prompt.html.twig"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "expected",
-                "vue": "todo",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
-                "script": "it shows and does nothing"
-            }
-        },
-        {
             "key": "properties",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -1549,12 +1487,16 @@
                 ],
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/properties/properties.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/properties/properties.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/properties/properties.vue"
                 ]
             },
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "todo",
+                "vue": "expected",
                 "script": "waived",
                 "schema": "todo",
                 "ai": "todo",
@@ -1562,7 +1504,6 @@
                 "flutter": "todo"
             },
             "notes": {
-                "vue": "it can appear inside a vue collection and cannot be reached from one",
                 "script": "it shows and does nothing"
             }
         },
@@ -1613,7 +1554,7 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "waived",
+                "vue": "todo",
                 "script": "expected",
                 "schema": "todo",
                 "ai": "todo",
@@ -1621,7 +1562,7 @@
                 "flutter": "todo"
             },
             "notes": {
-                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+                "vue": "the same control as select, which is owed one too"
             }
         },
         {
@@ -1663,6 +1604,9 @@
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/stage/stage.scss"
                 ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/stage/stage.html.twig"
+                ],
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/stage/stage.vue.twig",
                     "@WexampleSymfonyDesignSystemBundle/components/stage/stage.vue"
@@ -1670,7 +1614,7 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "todo",
+                "template": "expected",
                 "vue": "expected",
                 "script": "waived",
                 "schema": "todo",
@@ -1679,7 +1623,6 @@
                 "flutter": "todo"
             },
             "notes": {
-                "template": "nothing renders it server-side",
                 "script": "it shows and does nothing"
             }
         },
@@ -1755,6 +1698,10 @@
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/switch/switch.html.twig"
                 ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/switch/switch.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/switch/switch.vue"
+                ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/switch/switch.ts"
                 ]
@@ -1762,16 +1709,14 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "todo",
+                "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
                 "ai": "todo",
                 "react": "todo",
                 "flutter": "todo"
             },
-            "notes": {
-                "vue": "it can appear inside a vue collection and cannot be reached from one"
-            }
+            "notes": []
         },
         {
             "key": "tab",
@@ -1824,7 +1769,7 @@
             },
             "notes": {
                 "style": "wears the style of tab and adds none of its own",
-                "vue": "part of a page's shell, drawn by the server for a page the server knows",
+                "vue": "the vue tab draws its own items from resolvedItems; there is no separate item component on that side",
                 "script": "it shows and does nothing"
             }
         },
@@ -1840,6 +1785,10 @@
                     "@WexampleSymfonyDesignSystemBundle/components/toast/toast.front.html.twig",
                     "@WexampleSymfonyDesignSystemBundle/components/toast/toast.html.twig"
                 ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/toast/toast.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/toast/toast.vue"
+                ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/toast/toast.ts"
                 ]
@@ -1847,16 +1796,14 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "waived",
+                "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
                 "ai": "todo",
                 "react": "todo",
                 "flutter": "todo"
             },
-            "notes": {
-                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
-            }
+            "notes": []
         },
         {
             "key": "toast-stack",
@@ -1882,7 +1829,7 @@
             },
             "notes": {
                 "style": "wears the style of toast and adds none of its own",
-                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+                "vue": "the page's single mount point for toasts, fed by the server flash bag"
             }
         },
         {
@@ -2011,7 +1958,7 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "waived",
+                "vue": "todo",
                 "script": "expected",
                 "schema": "todo",
                 "ai": "todo",
@@ -2019,7 +1966,7 @@
                 "flutter": "todo"
             },
             "notes": {
-                "vue": "put on the page by a service that injects its markup; there is no vue tree to place it in"
+                "vue": "a form with a file input and a slot, reachable from inside a vue tree"
             }
         }
     ],
@@ -2086,9 +2033,37 @@
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/_abstract/entity/entity.scss"
                 ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/entity/entity.html.twig"
+                ],
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/_abstract/entity/entity.vue",
                     "@WexampleSymfonyDesignSystemBundle/components/_abstract/entity/entity.vue.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/entity/entity.ts"
+                ]
+            },
+            "stances": [],
+            "notes": []
+        },
+        {
+            "key": "_abstract/entity/bar",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/entity/bar/bar.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/entity/bar/bar.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/entity/bar/bar.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/entity/bar/bar.vue"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/_abstract/entity/bar/bar.ts"
                 ]
             },
             "stances": [],

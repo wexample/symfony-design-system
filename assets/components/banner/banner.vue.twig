@@ -1,0 +1,7 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <div :class="bannerClass">
+        <div v-if="message" class="banner--message">[[ message ]]</div>
+    </div>
+{%- endblock -%}

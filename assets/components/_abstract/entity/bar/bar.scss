@@ -1,6 +1,5 @@
-@use '../../_abstract/entity/entity' as base-entity;
-@use '../entity';
-@use '../../bar/bar';
+@use '../entity' as base-entity;
+@use '../../../bar/bar';
 
 .entity--display--bar {
   @extend .bar;

@@ -1,0 +1,20 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/spinner') -}}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <button
+            :class="['button', extraClass, { 'is-loading': isLoading }]"
+            :type="type"
+            :disabled="disabled || isLoading ? true : null"
+            @click="$emit('click', $event)"
+    >
+        <span class="button--icon" v-html="iconHtml"></span>
+        <span class="button--spinner" aria-hidden="true">
+            <spinner align="inline"></spinner>
+        </span>
+        <span>[[ label ]]</span>
+    </button>
+{%- endblock -%}

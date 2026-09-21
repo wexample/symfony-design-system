@@ -10,7 +10,7 @@ formats:
   style: true
   template: true
   script: true
-  vue: "put on the page by a service that injects its markup; there is no vue tree to place it in"
+  vue: "a mount point, not a drawing: its content is a page the router loads into .modal--content"
   schema: todo
   ai: todo
   react: todo

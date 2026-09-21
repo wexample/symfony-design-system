@@ -9,7 +9,7 @@ description: null
 formats:
   template: true
   style: "wears the style of menu and adds none of its own"
-  vue: "part of a page's shell, drawn by the server for a page the server knows"
+  vue: "todo — waits on the route table client-side: icon, label and active state are all read from the target page's catalogue"
   script: "it shows and does nothing"
   schema: todo
   ai: todo

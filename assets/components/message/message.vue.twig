@@ -1,0 +1,12 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <div :class="messageClass">
+        {#- Compact states a single sentence: it reads as plain text, not as a heading. -#}
+        <div v-if="title" :class="compact ? null : 'message--title'">
+            <span v-if="iconHtml" class="message--icon" v-html="iconHtml"></span>
+            [[ title ]]
+        </div>
+        <p v-if="body">[[ body ]]</p>
+    </div>
+{%- endblock -%}

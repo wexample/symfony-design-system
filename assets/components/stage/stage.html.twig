@@ -1,0 +1,9 @@
+{#- A stage: the box a page's moving parts are placed against, expanded to its
+    root and holding nothing of its own. What stands on it comes from the caller,
+    as the `<slot>` of stage.vue.twig does on the other side. -#}
+{%- set slots = slots|default({}) -%}
+<div class="stage">
+    {%- block stage_body -%}
+        {{- slots.body|default('')|raw -}}
+    {%- endblock -%}
+</div>
