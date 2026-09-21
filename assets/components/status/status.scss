@@ -11,8 +11,9 @@
   @include feedback.feedback-base;
   --status-glyph-color: var(--feedback-on-fill);
   --status-label-color: var(--feedback-on-fill);
-  // What qualifies the state steps back from what the state is.
-  --status-count-color: var(--feedback-on-fill-muted);
+  // Everything the capsule carries is written in the one ink the fill answers
+  // to: on a ground that strong, a second ink reads as a fault, not a nuance.
+  --status-count-color: var(--feedback-on-fill);
 
   display: inline-flex;
   align-items: center;
