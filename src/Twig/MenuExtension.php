@@ -9,6 +9,7 @@ use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\Helpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
+use Wexample\SymfonyDesignSystem\Service\MenuItemRegistry;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 class MenuExtension extends AbstractTemplateExtension
@@ -17,6 +18,7 @@ class MenuExtension extends AbstractTemplateExtension
         ComponentsExtension $componentsExtension,
         private readonly RouterInterface $router,
         private readonly RequestStack $requestStack,
+        private readonly MenuItemRegistry $menuItemRegistry,
     ) {
         parent::__construct($componentsExtension);
     }
@@ -33,17 +35,29 @@ class MenuExtension extends AbstractTemplateExtension
                     array $routeParams = [],
                     array $options = [],
                 ) {
-                    return $this->renderComponent(
-                        $twig,
-                        $context,
-                        '@WexampleSymfonyDesignSystemBundle/components/menu-item',
-                        [
-                            'route' => $route,
-                            'route_params' => $routeParams,
-                            'href' => $twig->getFunction('path')->getCallable()($route, $routeParams),
-                            'options' => $options,
-                        ]
-                    );
+                    return $this->renderMenuItem($twig, $context, $route, $routeParams, $options);
+                },
+                self::TEMPLATE_FUNCTION_OPTIONS
+            ),
+            new TwigFunction(
+                'menu_items',
+                function (
+                    Environment $twig,
+                    $context,
+                    string $group,
+                    array $routeParams = [],
+                    array $options = [],
+                ) {
+                    $rendered = '';
+
+                    foreach ($this->menuItemRegistry->getGroup($group) as $route) {
+                        $rendered .= $this->renderMenuItem($twig, $context, $route, $routeParams, $options);
+                    }
+
+                    // The empty string of a group nobody joined is what lets a
+                    // template put a heading above the run only when there is a
+                    // run: `{% set items = menu_items(...) %}` then reads false.
+                    return $rendered;
                 },
                 self::TEMPLATE_FUNCTION_OPTIONS
             ),
@@ -206,6 +220,30 @@ class MenuExtension extends AbstractTemplateExtension
                 [$this, 'menuGetRoutesFromControllerNamespace']
             ),
         ];
+    }
+
+    /**
+     * One item pointing at one route — what both the named item and a whole
+     * group are made of, so that a change to either is a change to both.
+     */
+    private function renderMenuItem(
+        Environment $twig,
+        mixed $context,
+        string $route,
+        array $routeParams,
+        array $options,
+    ): string {
+        return $this->renderComponent(
+            $twig,
+            $context,
+            '@WexampleSymfonyDesignSystemBundle/components/menu-item',
+            [
+                'route' => $route,
+                'route_params' => $routeParams,
+                'href' => $twig->getFunction('path')->getCallable()($route, $routeParams),
+                'options' => $options,
+            ]
+        );
     }
 
     public function menuGetRoutesFromControllerNamespace(string $namespace): array
