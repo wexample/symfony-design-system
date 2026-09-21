@@ -1,19 +1,12 @@
-{#- Server-side twin of vue/partials/status-icon.vue: same types, same glyphs,
-    same markup. A change to either is a change to both — what the browser can
-    do beyond this is move the arc, which needs a value that changes. -#}
-{% set glyphs = {
-    success: 'ph:bold/check',
-    error: 'ph:bold/x',
-    warning: 'ph:bold/warning',
-    running: null,
-    pending: 'ph:bold/clock',
-    paused: 'ph:bold/pause',
-    play: 'ph:bold/play',
-    skipped: 'ph:bold/caret-double-right',
-    disabled: 'ph:bold/minus'
-} %}
+{#- Server-side twin of status-icon.vue: same types, same glyphs, same markup.
+    A change to either is a change to both — what the browser can do beyond this
+    is move the arc, which needs a value that changes.
+
+    The glyphs come from `status_glyph()` and not from a map written here: the
+    tag draws the same states, and one of the two drifting would give a reader
+    two drawings of one thing. -#}
 {% set type = type|default('pending') %}
-{% set glyph = glyph_name|default(glyphs[type]|default(null)) %}
+{% set glyph = glyph_name|default(status_glyph(type)) %}
 {% set progress = progress|default(null) %}
 {% set size = size|default(null) %}
 {% set label = label|default(null) %}

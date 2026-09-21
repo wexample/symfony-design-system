@@ -1,0 +1,20 @@
+{#- A state and what qualifies it, read as one object: the colour encloses the
+    figure instead of standing beside a count nobody coloured. Where the circle
+    says a state on its own and `status` says it in words, this is the form for
+    a table, where the same state is read by the dozen. -#}
+{% set type = type|default('pending') %}
+{% set glyph = glyph_name|default(status_glyph(type)) %}
+{#- A running state has no glyph of its own: the circle draws it with its arc,
+    and a capsule has no room for one, so here it is named instead. -#}
+{% if not glyph and type == 'running' %}{% set glyph = 'ph:bold/circle-notch' %}{% endif %}
+
+<span class="status-tag status-tag--{{ type }}{% if class|default('') %} {{ class }}{% endif %}"
+      {% if title|default(null) %}title="{{ title }}"{% endif %}
+      {{ component_render_tag_attributes(attr|default({})) }}>
+    {%- if glyph -%}
+        <span class="status-tag--glyph" aria-hidden="true">{{ icon(glyph) }}</span>
+    {%- endif -%}
+    {%- if label is not null and label != '' -%}
+        <span class="status-tag--label">{{ label }}</span>
+    {%- endif -%}
+</span>
