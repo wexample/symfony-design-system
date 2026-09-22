@@ -1,11 +1,13 @@
 <script>
 import IconService from '@wexample/symfony-loader/js/Services/IconService';
 
-// The twin of components/button-menu: same classes, same panel, and above all the
-// same item shape — { icon, label, href, class, newWindow } — so a menu written
-// for one side can be handed to the other without being rewritten. What it adds
-// is a select event, because in a vue page an item often does something rather
-// than leading somewhere.
+// The twin of components/button-menu: same classes, same panel, and above all
+// the same item shape — { type, icon, label, trailingIcon, count, href,
+// newWindow, checked, items, class } — so a menu written for one side can be
+// handed to the other without being rewritten. What an item is follows from
+// what it carries: a target makes a link, a state makes a toggle, children make
+// a branch. What this adds over the server is the events, because in a vue page
+// an item does something rather than leading somewhere.
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-button-menu-button-menu',
 
@@ -53,11 +55,14 @@ export default {
     }
   },
 
-  emits: ['select', 'open', 'close'],
+  emits: ['select', 'toggle', 'open', 'close'],
 
   data() {
     return {
       isOpen: false,
+      // Which branch is held open by a click. Hovering and tabbing open one
+      // through the stylesheet alone; this is for the touch that has neither.
+      openSubmenu: null,
       // What the panel resolved to this time round, which is not always what the
       // props asked for.
       align: this.menuAlign,
@@ -96,12 +101,67 @@ export default {
 
     hasCaret() {
       return this.caret ?? Boolean(this.label);
+    },
+
+    // Drawn once and handed to every checked toggle, the mark being the same
+    // one on all of them.
+    checkGlyph() {
+      return this.renderIcon('ph:bold/check');
     }
   },
 
   methods: {
     renderIcon(name) {
       return this.app.getServiceOrFail(IconService).icon(name);
+    },
+
+    // What an item is, out of what it carries. The caller may say it outright
+    // with `type`; it never has to.
+    itemType(item) {
+      if (item.type) {
+        return item.type;
+      }
+
+      if (item.separator) {
+        return 'separator';
+      }
+
+      if (item.items && item.items.length) {
+        return 'submenu';
+      }
+
+      return item.checked === undefined ? 'link' : 'toggle';
+    },
+
+    // A link goes somewhere and is an anchor; a toggle and a branch go nowhere
+    // and are buttons, which is also what makes them reachable by keyboard
+    // without a target to pretend to have.
+    itemTag(item) {
+      return this.itemType(item) === 'link' ? 'a' : 'button';
+    },
+
+    itemRole(item) {
+      return this.itemType(item) === 'toggle' ? 'menuitemcheckbox' : 'menuitem';
+    },
+
+    itemClasses(item, index) {
+      return [
+        'button-menu--item',
+        this.itemType(item) === 'submenu' ? 'button-menu--item--submenu' : null,
+        this.openSubmenu === index ? 'is-open' : null
+      ];
+    },
+
+    linkClasses(item) {
+      const type = this.itemType(item);
+
+      return [
+        'button-menu--link',
+        type === 'toggle' ? 'button-menu--toggle' : null,
+        type === 'toggle' && item.checked ? 'is-checked' : null,
+        type === 'submenu' ? 'button-menu--submenu' : null,
+        item.class
+      ];
     },
 
     itemHref(item) {
@@ -133,6 +193,7 @@ export default {
       }
 
       this.isOpen = false;
+      this.openSubmenu = null;
       this.unwatchDocument();
       this.align = this.menuAlign;
       this.vertical = this.menuVertical;
@@ -158,14 +219,51 @@ export default {
     },
 
     // An item leading nowhere is an action: the click is stopped and handed to
-    // whoever placed the menu.
-    onItemClick(item, event) {
-      if (!item.href) {
+    // whoever placed the menu. A toggle and a branch keep the panel open — a
+    // menu of filters is read by the handful, not one at a time, and a branch
+    // that closed what it opens would open nothing.
+    onItemClick(item, index, event) {
+      const type = this.itemType(item);
+
+      if (type !== 'link' || !item.href) {
         event.preventDefault();
+      }
+
+      if (item.disabled) {
+        return;
+      }
+
+      if (type === 'submenu') {
+        this.openSubmenu = this.openSubmenu === index ? null : index;
+        this.$nextTick(() => this.placeSubmenu(event));
+
+        return;
+      }
+
+      if (type === 'toggle') {
+        this.$emit('toggle', { item, checked: !item.checked });
+
+        return;
       }
 
       this.$emit('select', item);
       this.close();
+    },
+
+    // A branch opens to the right of the panel unless the window ends there.
+    placeSubmenu(event) {
+      const row = event?.currentTarget ?? event?.target;
+      const list = row?.parentElement?.querySelector('.button-menu--sublist');
+
+      if (!list) {
+        return;
+      }
+
+      list.classList.remove('button-menu--sublist--left');
+
+      if (list.getBoundingClientRect().right > window.innerWidth) {
+        list.classList.add('button-menu--sublist--left');
+      }
     },
 
     // The asked-for side is kept unless it is the only one that does not fit.

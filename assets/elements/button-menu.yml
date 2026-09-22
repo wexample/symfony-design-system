@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "A button and the panel it opens. Its items come in four kinds told apart by what they carry — a target makes a link, a state makes a toggle, children make a branch one level deep, a bare line makes a separator — and a toggle keeps the panel open under it, which is what makes a menu of filters out of it."
 formats:
   template: true
   vue: true

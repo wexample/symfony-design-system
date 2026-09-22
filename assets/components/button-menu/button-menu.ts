@@ -10,6 +10,7 @@ export default class extends Component {
   private buttonEl?: HTMLButtonElement;
   private panelEl?: HTMLElement;
   private itemLinks: HTMLElement[] = [];
+  private submenuRows: HTMLElement[] = [];
   private defaultAlign: 'left' | 'right' = 'left';
   private defaultVertical: 'bottom' | 'top' = 'bottom';
   private onDocumentMouseDown = (event: MouseEvent) => {
@@ -30,20 +31,83 @@ export default class extends Component {
     await super.init();
   }
 
+  private onSubmenuEnter = (event: Event) => {
+    this.placeSubmenu(event.currentTarget as HTMLElement);
+  };
+
   private onButtonClick = (event: Event) => {
     event.preventDefault();
     (this as any).overlayToggle(event);
   };
 
-  private onItemClick = () => {
+  // A link chose something and the menu has done its job. A toggle and a
+  // branch have not: the panel stays open under them, since a menu of filters
+  // is read by the handful, not one at a time.
+  private onItemClick = (event: Event) => {
+    const el = event.currentTarget as HTMLElement;
+
+    if (el.classList.contains('button-menu--submenu')) {
+      event.preventDefault();
+      el.parentElement?.classList.toggle('is-open');
+      this.placeSubmenu(el);
+
+      return;
+    }
+
+    if (el.classList.contains('button-menu--toggle')) {
+      event.preventDefault();
+      this.toggleItem(el as HTMLButtonElement);
+
+      return;
+    }
+
     (this as any).overlayClose();
   };
+
+  // The state is flipped here and said out loud: the page that placed the menu
+  // listens for it rather than reading classes off the panel.
+  private toggleItem(el: HTMLButtonElement): void {
+    const checked = el.getAttribute('aria-checked') !== 'true';
+
+    el.setAttribute('aria-checked', checked ? 'true' : 'false');
+    el.classList.toggle('is-checked', checked);
+
+    el.dispatchEvent(
+      new CustomEvent('button-menu:toggle', {
+        bubbles: true,
+        detail: {
+          value: el.dataset.value ?? null,
+          checked,
+        },
+      })
+    );
+  }
+
+  // A branch opens to the right of the panel unless the window ends there.
+  private placeSubmenu(el: HTMLElement): void {
+    const list = el.parentElement?.querySelector(
+      '.button-menu--sublist'
+    ) as HTMLElement | null;
+
+    if (!list) {
+      return;
+    }
+
+    list.classList.remove('button-menu--sublist--left');
+
+    if (list.getBoundingClientRect().right > window.innerWidth) {
+      list.classList.add('button-menu--sublist--left');
+    }
+  }
 
   protected async activateListeners(): Promise<void> {
     this.buttonEl = this.el.querySelector('.button--menu') as HTMLButtonElement;
     this.panelEl = this.el.querySelector('.button-menu--panel') as HTMLElement;
     this.itemLinks = Array.from(
       this.el.querySelectorAll('.button-menu--link')
+    ) as HTMLElement[];
+    this.submenuRows = Array.from(
+      this.el.querySelectorAll('.button-menu--submenu')
     ) as HTMLElement[];
 
     if (!this.buttonEl || !this.panelEl) {
@@ -62,6 +126,10 @@ export default class extends Component {
     this.itemLinks.forEach((link) => {
       link.addEventListener('click', this.onItemClick);
     });
+
+    this.submenuRows.forEach((row) => {
+      row.addEventListener('mouseenter', this.onSubmenuEnter);
+    });
   }
 
   protected async deactivateListeners(): Promise<void> {
@@ -71,6 +139,10 @@ export default class extends Component {
 
     this.itemLinks.forEach((link) => {
       link.removeEventListener('click', this.onItemClick);
+    });
+
+    this.submenuRows.forEach((row) => {
+      row.removeEventListener('mouseenter', this.onSubmenuEnter);
     });
   }
 
@@ -95,6 +167,9 @@ export default class extends Component {
     }
 
     document.removeEventListener('mousedown', this.onDocumentMouseDown);
+    this.submenuRows.forEach((row) =>
+      row.parentElement?.classList.remove('is-open')
+    );
     this.resetPlacement();
   }
 

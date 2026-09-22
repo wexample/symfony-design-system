@@ -1,3 +1,119 @@
+{#- What an item is, out of what it carries: a word and a target is a link, a
+    word and a state is a toggle, a word and children is a submenu. The caller
+    may say it outright with `type`; it never has to. -#}
+{% macro item_type(item) %}
+    {%- if item.type is defined and item.type -%}
+        {{- item.type -}}
+    {%- elseif item.separator|default(false) -%}
+        separator
+    {%- elseif item.items|default([])|length -%}
+        submenu
+    {%- elseif item.checked is defined -%}
+        toggle
+    {%- else -%}
+        link
+    {%- endif -%}
+{% endmacro %}
+
+{#- What every kind of item shows, in the same two places: what it is on the
+    leading side, what qualifies it on the trailing one. A toggle spends its
+    leading slot on its state — a mark and an icon on one row would be two
+    things to read where the eye expects one — and the slot keeps its width
+    unchecked, so a column of toggles has its words aligned. -#}
+{% macro row(item, type) %}
+    {%- if type == 'toggle' -%}
+        <span class="button-menu--item-check" aria-hidden="true">
+            {%- if item.checked|default(false) -%}{{ icon('ph:bold/check') }}{%- endif -%}
+        </span>
+    {%- elseif item.icon|default(null) -%}
+        <span class="button-menu--item-icon">{{ icon(item.icon) }}</span>
+    {%- endif -%}
+    <span class="button-menu--item-label">{{ item.label | trans }}</span>
+    {%- if item.count is defined and item.count is not null -%}
+        <span class="pill button-menu--item-count">{{ item.count }}</span>
+    {%- endif -%}
+    {%- if item.trailing_icon|default(null) -%}
+        <span class="button-menu--item-trailing">{{ icon(item.trailing_icon) }}</span>
+    {%- elseif type == 'submenu' -%}
+        <span class="button-menu--item-trailing button-menu--item-caret" aria-hidden="true"></span>
+    {%- endif -%}
+{% endmacro %}
+
+{% macro item(item, depth) %}
+    {% import _self as menu %}
+    {% set type = menu.item_type(item)|trim %}
+    {% set item_class = item.class is defined and item.class ? ' ' ~ item.class : '' %}
+    {% set item_attr = item.attr|default({}) %}
+
+    {%- if type == 'separator' -%}
+        {#- Not an item but the line between two runs of them. Given a word it
+            becomes the heading of what follows. -#}
+        {% if item.label|default(null) %}
+            <li class="button-menu--separator button-menu--separator--titled" role="separator">{{ item.label | trans }}</li>
+        {% else %}
+            <li class="button-menu--separator" role="separator"></li>
+        {% endif %}
+
+    {%- elseif type == 'toggle' -%}
+        {#- A state the reader turns on and off. It is a button and not a link
+            because it goes nowhere, and the panel stays open under it: a menu
+            of filters is read by the handful, not one at a time. -#}
+        <li class="button-menu--item" role="none">
+            <button type="button"
+                    class="button-menu--link button-menu--toggle{{ item.checked|default(false) ? ' is-checked' }}{{ item_class }}"
+                    role="menuitemcheckbox"
+                    aria-checked="{{ item.checked|default(false) ? 'true' : 'false' }}"
+                    {% if item.value is defined and item.value is not null %}data-value="{{ item.value }}"{% endif %}
+                    {% if item.disabled|default(false) %}disabled="disabled"{% endif %}
+                    {{ component_render_tag_attributes(item_attr) }}>
+                {{- menu.row(item, type) -}}
+            </button>
+        </li>
+
+    {%- elseif type == 'submenu' -%}
+        {#- A branch: the row opens what hangs under it rather than leading
+            anywhere. One level deep, on purpose — a menu that needs two is a
+            page. -#}
+        <li class="button-menu--item button-menu--item--submenu" role="none">
+            <button type="button"
+                    class="button-menu--link button-menu--submenu{{ item_class }}"
+                    aria-haspopup="menu"
+                    aria-expanded="false"
+                    {% if item.disabled|default(false) %}disabled="disabled"{% endif %}
+                    {{ component_render_tag_attributes(item_attr) }}>
+                {{- menu.row(item, type) -}}
+            </button>
+            <ul class="button-menu--list button-menu--sublist" role="menu">
+                {% for child in item.items %}
+                    {{ menu.item(child, depth + 1) }}
+                {% endfor %}
+            </ul>
+        </li>
+
+    {%- else -%}
+        {% if item.new_window|default(false) %}
+            {% set item_attr = item_attr|merge({'target': '_blank', 'rel': 'noopener noreferrer'}) %}
+        {% endif %}
+        {% set item_href = item.href|default(null) %}
+        {% if item_href is empty %}
+            {% if item.route is defined and item.route %}
+                {% set item_href = path(item.route, item.route_params|default({})) %}
+            {% else %}
+                {% set item_href = '#' %}
+            {% endif %}
+        {% endif %}
+        <li class="button-menu--item" role="none">
+            <a class="button-menu--link{{ item_class }}"
+               href="{{ item_href }}"
+               role="menuitem"
+               {{ component_render_tag_attributes(item_attr) }}>
+                {{- menu.row(item, type) -}}
+            </a>
+        </li>
+    {%- endif -%}
+{% endmacro %}
+
+{% import _self as menu %}
 {% set menu_align = options.menu_align|default('left') %}
 {% set menu_vertical = options.menu_vertical|default('bottom') %}
 {% set items_align = options.items_align|default('left') %}
@@ -30,44 +146,7 @@
          hidden="hidden">
         <ul class="button-menu--list button-menu--list--items-{{ items_align }}">
             {% for item in items %}
-                {#- Not an item but the line between two runs of them. Given a word
-                    it becomes the heading of what follows. -#}
-                {% if item.separator|default(false) %}
-                    {% if item.label|default(null) %}
-                        <li class="button-menu--separator button-menu--separator--titled" role="separator">{{ item.label | trans }}</li>
-                    {% else %}
-                        <li class="button-menu--separator" role="separator"></li>
-                    {% endif %}
-                {% else %}
-                {% set item_attr = item.attr|default({}) %}
-                {% if item.new_window|default(false) %}
-                    {% set item_attr = item_attr|merge({'target': '_blank', 'rel': 'noopener noreferrer'}) %}
-                {% endif %}
-                {% set item_href = item.href|default(null) %}
-                {% if item_href is not defined or item_href is empty %}
-                    {% if item.route is defined and item.route %}
-                        {% set item_href = path(item.route, item.route_params|default({})) %}
-                    {% else %}
-                        {% set item_href = '#' %}
-                    {% endif %}
-                {% endif %}
-                <li class="button-menu--item" role="none">
-                    <a class="button-menu--link{% if item.class is defined %} {{ item.class }}{% endif %}"
-                       href="{{ item_href }}"
-                       role="menuitem"
-                       {{ component_render_tag_attributes(item_attr) }}>
-                        {% if item.icon is defined and item.icon %}
-                            <span class="button-menu--item-icon">
-                                {{ icon(item.icon) }}
-                            </span>
-                        {% endif %}
-                        <span class="button-menu--item-label">{{ item.label | trans }}</span>
-                        {% if item.count is defined and item.count is not null %}
-                            <span class="pill button-menu--item-count">{{ item.count }}</span>
-                        {% endif %}
-                    </a>
-                </li>
-                {% endif %}
+                {{ menu.item(item, 0) }}
             {% endfor %}
         </ul>
     </div>

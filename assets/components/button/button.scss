@@ -218,6 +218,9 @@
   color: var(--text-color-muted);
 }
 
+// One row for the three kinds of item: a link, a state, a branch. What changes
+// between them is what stands in the two slots, never the row itself — a menu
+// whose lines do not line up is a menu read twice.
 .button-menu--link {
   display: flex;
   align-items: center;
@@ -226,11 +229,93 @@
   color: var(--color-default-text);
   text-decoration: none;
   width: 100%;
+  // A toggle and a branch are buttons, and a button brings a look of its own.
+  background: transparent;
+  border: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
 .button-menu--link:hover,
 .button-menu--link:focus-visible {
   background: var(--state-hover);
+}
+
+.button-menu--link:disabled {
+  opacity: var(--opacity-6);
+  cursor: not-allowed;
+}
+
+// The state of a toggle, in the slot an icon would have taken. It keeps its
+// width unchecked: a column of toggles has to have its words aligned, and a
+// mark that pushes the line as it appears is a line that moves under the eye.
+.button-menu--item-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 1em;
+  line-height: 1;
+}
+
+// Unchecked, the row says nothing of its state but the empty slot; checked, it
+// carries the mark and the word stops being a thing merely on offer.
+.button-menu--toggle.is-checked {
+  color: var(--color-default-text);
+  font-weight: var(--font-weight-strong);
+}
+
+// What qualifies the row, at the far end: an icon, or the mark that a branch
+// hangs under it.
+.button-menu--item-trailing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  margin-left: auto;
+  line-height: 1;
+}
+
+.button-menu--item-caret::before {
+  content: '';
+  width: 0.4em;
+  height: 0.4em;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+// A branch and what hangs under it. Opened by the pointer and by the keyboard
+// on its own — the stylesheet is enough for both — and by a class for the
+// touch that has neither.
+.button-menu--item--submenu {
+  position: relative;
+}
+
+.button-menu--sublist {
+  display: none;
+  position: absolute;
+  top: calc(var(--space-2) * -1);
+  left: 100%;
+  min-width: 100%;
+  width: max-content;
+  background: var(--surface-3);
+  box-shadow: var(--shadow-1);
+  border-radius: var(--radius-box);
+  z-index: 1;
+}
+
+.button-menu--item--submenu:hover > .button-menu--sublist,
+.button-menu--item--submenu:focus-within > .button-menu--sublist,
+.button-menu--item--submenu.is-open > .button-menu--sublist {
+  display: flex;
+}
+
+// Where the window ends before the branch does.
+.button-menu--sublist--left {
+  left: auto;
+  right: 100%;
 }
 
 .button-menu--list--items-right .button-menu--link {
