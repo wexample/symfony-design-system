@@ -223,6 +223,34 @@ class ElementRegistryService
     }
 
     /**
+     * Every source compiled and merged, without reading a single written file.
+     *
+     * What `loadAll()` gives once someone has run the command, this gives from
+     * the assets themselves — for a page that would rather be right than be
+     * fast. The problems of every source are kept end to end, since a page
+     * showing the union has to be able to name the bundle that disagrees with
+     * itself rather than quietly show it as it was last written down.
+     */
+    public function compileAll(Environment $twig): ElementCompilation
+    {
+        $merged = new ElementInventory();
+        $problems = [];
+        $pending = [];
+        $todo = [];
+
+        foreach ($this->getSources() as $source) {
+            $compilation = $this->compile($twig, $source);
+
+            $merged->merge($compilation->inventory);
+            $problems = array_merge($problems, $compilation->problems);
+            $pending = array_merge($pending, $compilation->pending);
+            $todo = array_merge($todo, $compilation->todo);
+        }
+
+        return new ElementCompilation($merged, $problems, $pending, $todo);
+    }
+
+    /**
      * @return ElementSource[] the sources whose registry has never been written
      */
     public function findMissing(): array

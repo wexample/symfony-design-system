@@ -45,6 +45,13 @@ services:
         arguments:
             $fragmentHandler: '@fragment.handler'
 
+    # Debug decides where the inventory comes from: the written registries in
+    # production, a walk of the assets while developing, so that an element
+    # added a minute ago is on the page without a command being remembered.
+    Wexample\SymfonyDesignSystem\Twig\InventoryExtension:
+        arguments:
+            $debug: '%kernel.debug%'
+
     Wexample\SymfonyDesignSystem\Twig\AppExtension:
         arguments:
             $appHomeRoute: '%wexample_ds_app_home_route%'
