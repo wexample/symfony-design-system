@@ -241,7 +241,10 @@ export default {
       }
 
       if (type === 'toggle') {
-        this.$emit('toggle', { item, checked: !item.checked });
+        // Flipped here and said out loud after: a menu that waited for its
+        // owner to hand the state back would leave the mark behind the click.
+        item.checked = !item.checked;
+        this.$emit('toggle', { item, checked: item.checked });
 
         return;
       }

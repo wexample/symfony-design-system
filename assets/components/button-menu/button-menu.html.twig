@@ -18,13 +18,13 @@
 {#- What every kind of item shows, in the same two places: what it is on the
     leading side, what qualifies it on the trailing one. A toggle spends its
     leading slot on its state — a mark and an icon on one row would be two
-    things to read where the eye expects one — and the slot keeps its width
-    unchecked, so a column of toggles has its words aligned. -#}
+    things to read where the eye expects one. The mark is always drawn and only
+    shown when checked: the slot keeps its width either way, so a column of
+    toggles has its words aligned, and turning one on is a class and not a
+    redraw — which is how both sides of the stack can flip it. -#}
 {% macro row(item, type) %}
     {%- if type == 'toggle' -%}
-        <span class="button-menu--item-check" aria-hidden="true">
-            {%- if item.checked|default(false) -%}{{ icon('ph:bold/check') }}{%- endif -%}
-        </span>
+        <span class="button-menu--item-check" aria-hidden="true">{{ icon('ph:bold/check') }}</span>
     {%- elseif item.icon|default(null) -%}
         <span class="button-menu--item-icon">{{ icon(item.icon) }}</span>
     {%- endif -%}

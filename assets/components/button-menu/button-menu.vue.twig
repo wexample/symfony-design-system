@@ -54,7 +54,7 @@
                                     v-if="itemType(item) === 'toggle'"
                                     class="button-menu--item-check"
                                     aria-hidden="true"
-                                    v-html="item.checked ? checkGlyph : ''"
+                                    v-html="checkGlyph"
                             ></span>
                             <span
                                     v-else-if="item.icon"
@@ -107,7 +107,7 @@
                                                 v-if="itemType(child) === 'toggle'"
                                                 class="button-menu--item-check"
                                                 aria-hidden="true"
-                                                v-html="child.checked ? checkGlyph : ''"
+                                                v-html="checkGlyph"
                                         ></span>
                                         <span
                                                 v-else-if="child.icon"

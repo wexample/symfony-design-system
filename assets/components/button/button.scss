@@ -247,9 +247,10 @@
   cursor: not-allowed;
 }
 
-// The state of a toggle, in the slot an icon would have taken. It keeps its
-// width unchecked: a column of toggles has to have its words aligned, and a
-// mark that pushes the line as it appears is a line that moves under the eye.
+// The state of a toggle, in the slot an icon would have taken. The mark is
+// always there and hidden rather than absent: the slot keeps its width, so a
+// column of toggles has its words aligned and a mark appearing never pushes
+// the line under the eye.
 .button-menu--item-check {
   display: inline-flex;
   align-items: center;
@@ -257,13 +258,13 @@
   flex: none;
   width: 1em;
   line-height: 1;
+  visibility: hidden;
 }
 
-// Unchecked, the row says nothing of its state but the empty slot; checked, it
-// carries the mark and the word stops being a thing merely on offer.
-.button-menu--toggle.is-checked {
-  color: var(--color-default-text);
-  font-weight: var(--font-weight-strong);
+// The mark is the whole of what a toggle says about itself. A word changing
+// weight as it is clicked would say the same thing a second time, and louder.
+.button-menu--toggle.is-checked .button-menu--item-check {
+  visibility: visible;
 }
 
 // What qualifies the row, at the far end: an icon, or the mark that a branch
