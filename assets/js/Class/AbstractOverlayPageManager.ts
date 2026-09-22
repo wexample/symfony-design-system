@@ -5,7 +5,7 @@ import FocusableComponentMixin from '@wexample/symfony-loader/js/Class/Mixins/Fo
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
 import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAnimationMixin';
 import RequestOptionsInterface from '@wexample/symfony-loader/js/Interfaces/RequestOptions/RequestOptionsInterface';
-import ConfirmService from '@wexample/symfony-loader/js/Services/ConfirmService';
+import ConfirmService from '@wexample/symfony-design-system/js/Services/ConfirmService';
 import { hashParamDelete } from '../Helper/HashStateHelper';
 
 export interface OverlayRequestOptionsInterface extends RequestOptionsInterface {

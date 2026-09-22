@@ -1,5 +1,5 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
-import OverlayService from '@wexample/symfony-loader/js/Services/OverlayService';
+import OverlayService from '@wexample/symfony-design-system/js/Services/OverlayService';
 import KeyboardService from '@wexample/symfony-loader/js/Services/KeyboardService';
 
 export default class extends Component {

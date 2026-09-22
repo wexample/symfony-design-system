@@ -1,5 +1,5 @@
 import Field from '../../js/Class/Field';
-import OverlayService from '@wexample/symfony-loader/js/Services/OverlayService';
+import OverlayService from '@wexample/symfony-design-system/js/Services/OverlayService';
 import KeyboardService from '@wexample/symfony-loader/js/Services/KeyboardService';
 import {
   ASSISTANCE_STEP_DELAY_MS,
