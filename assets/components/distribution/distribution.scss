@@ -1,0 +1,159 @@
+@use '../../css/mixins/density' as density;
+@use '../../css/mixins/feedback' as feedback;
+@use '../status/status';
+
+// What a whole is made of, in one line. Where `progress-bar` says how far one
+// value has got, this says how a total divides: the parts keep the order they
+// are given, so a pipeline reads from left to right like the pipeline it is,
+// and the states are named with the vocabulary the capsule and the circle
+// already use — one thing said three ways, never three colours for one state.
+.distribution {
+  --distribution-height: var(--space-2);
+  --distribution-track-color: var(--surface-1);
+  // Between two parts, so that neighbours of one colour stay two parts and not
+  // one long one. A hair, not a gutter.
+  --distribution-part-gap: 2px;
+  // The narrowest a part that exists is allowed to be drawn: below this a
+  // share stops being a share and becomes nothing at all.
+  --distribution-part-min: 3px;
+  // Under the pointer, on a ground that already carries its own colour: a film
+  // of light rather than another colour, which would say a different state.
+  --distribution-part-hover: var(--color-absolute-light-transparent-4);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--density-gap, var(--space-2));
+  width: 100%;
+  min-width: 0;
+  color: var(--text-color-muted);
+  font-size: var(--font-size-2);
+}
+
+// What the bar is about and what it counts, on either side of one line.
+.distribution--head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.distribution--label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Held on its own so the number never moves as the digits change.
+.distribution--value {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.distribution--track {
+  display: flex;
+  gap: var(--distribution-part-gap);
+  overflow: hidden;
+  width: 100%;
+  height: var(--distribution-height);
+  border-radius: var(--radius-pill);
+  background: var(--distribution-track-color);
+}
+
+// Each part grows in proportion to what it is worth, from a basis of nothing:
+// shares laid out this way add up exactly, where widths in percent leave a
+// sliver of track showing at the end of the row.
+.distribution--part {
+  @include feedback.feedback-base;
+
+  flex-grow: var(--distribution-part, 1);
+  flex-shrink: 1;
+  flex-basis: 0;
+  min-width: var(--distribution-part-min);
+  background: var(--feedback-fill);
+}
+
+// What the total counts but no part accounts for: it holds its share of the
+// row and draws nothing, so the track shows through exactly where the tally
+// falls short.
+.distribution--rest {
+  flex-grow: var(--distribution-part, 1);
+  flex-shrink: 1;
+  flex-basis: 0;
+  min-width: 0;
+  background: transparent;
+}
+
+a.distribution--part {
+  // Laid over the fill rather than replacing it: the part keeps saying which
+  // state it is while saying that it is under the pointer.
+  &:hover {
+    background-image: linear-gradient(
+      var(--distribution-part-hover),
+      var(--distribution-part-hover)
+    );
+  }
+
+  // Inset, since the track clips whatever oversteps it — a ring drawn outside
+  // would be cut off on the very parts that need it most, the first and last.
+  &:focus-visible {
+    box-shadow: inset 0 0 0 2px var(--feedback-on-fill);
+    outline: 0;
+  }
+}
+
+// The parts said in words, under the bar that says them in proportion. Each
+// one is the capsule the rest of the stack draws a state with, so a reader
+// meets the same object here and in the table below.
+.distribution--legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+// A legend entry that leads somewhere is still a capsule: the link gives it
+// its target and nothing of its own.
+a.distribution--legend--item {
+  display: inline-flex;
+  text-decoration: none;
+  color: inherit;
+}
+
+// The nine states the family answers to, drawn with the four colours a reader
+// tells apart — the same mapping as the capsule and the circle.
+.distribution--part--success {
+  @include feedback.feedback-success;
+}
+
+.distribution--part--error {
+  @include feedback.feedback-error;
+}
+
+.distribution--part--warning,
+.distribution--part--paused {
+  @include feedback.feedback-warning;
+}
+
+.distribution--part--info,
+.distribution--part--running,
+.distribution--part--play {
+  @include feedback.feedback-info;
+}
+
+// Not a state it is in but one it cannot reach: dimmed as a whole, since the
+// grey alone would still read as something to wait for.
+.distribution--part--disabled {
+  opacity: var(--opacity-6);
+}
+
+// Reduced to what it has to say, for a row of a table or a card footer: a
+// thinner bar, and the density passed on to the capsules of its legend.
+.distribution--compact {
+  @include density.density-compact;
+  --distribution-height: var(--space-1);
+
+  gap: var(--space-1);
+  font-size: var(--font-size-1);
+}

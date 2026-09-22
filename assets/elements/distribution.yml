@@ -1,0 +1,16 @@
+# Declares `distribution` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "What a total is made of, in one line: the parts in proportion, in the order they are given, named underneath with the status capsule. Where `progress-bar` says how far one value has got, this says how a whole divides."
+formats:
+  style: true
+  template: true
+  vue: true
+  script: "a part that leads somewhere is a link, and one that does not is read; neither needs a behaviour of its own"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

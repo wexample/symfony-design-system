@@ -1,0 +1,58 @@
+{#- What a total is made of, in one line. The parts are drawn in the order they
+    are given, and named underneath with the capsule the rest of the stack draws
+    a state with. Server-side twin of distribution.vue: same classes, same order,
+    same shares. A change to either is a change to both. -#}
+<div class="distribution{{ compact|default(false) ? ' distribution--compact' }}{% if class|default('') %} {{ class }}{% endif %}"
+     {{ component_render_tag_attributes(attr|default({})) }}>
+    {%- if label or show_value -%}
+        <div class="distribution--head">
+            {%- if label -%}<span class="distribution--label">{{ label }}</span>{%- endif -%}
+            {%- if show_value -%}<span class="distribution--value">{{ total }}</span>{%- endif -%}
+        </div>
+    {%- endif -%}
+    <div class="distribution--track">
+        {%- for part in parts -%}
+            {#- A part worth nothing is not drawn: it would be a lie the width of
+                its minimum. It keeps its place in the legend, where nothing is
+                something worth reading. -#}
+            {%- if part.value > 0 -%}
+                {%- set part_class = 'distribution--part distribution--part--' ~ part.type -%}
+                {%- set part_style = '--distribution-part: ' ~ part.value -%}
+                {#- Said in the legend already; repeating it here would read the
+                    bar twice. Where there is no legend, the part says it itself. -#}
+                {%- set part_described = legend|default(false) -%}
+                {%- if part.href -%}
+                    <a class="{{ part_class }}"
+                       style="{{ part_style }}"
+                       href="{{ part.href }}"
+                       title="{{ part.title }}"
+                       aria-label="{{ part.title }}"></a>
+                {%- else -%}
+                    <span class="{{ part_class }}"
+                          style="{{ part_style }}"
+                          title="{{ part.title }}"
+                          {% if part_described %}aria-hidden="true"{% else %}aria-label="{{ part.title }}"{% endif %}></span>
+                {%- endif -%}
+            {%- endif -%}
+        {%- endfor -%}
+        {%- if rest > 0 -%}
+            <span class="distribution--rest" style="--distribution-part: {{ rest }}" aria-hidden="true"></span>
+        {%- endif -%}
+    </div>
+    {%- if legend|default(false) and parts -%}
+        <div class="distribution--legend">
+            {%- for part in parts -%}
+                {%- set capsule = status(part.type, part.label, {
+                    count: part.value,
+                    title: part.title,
+                    compact: true,
+                }) -%}
+                {%- if part.href -%}
+                    <a class="distribution--legend--item" href="{{ part.href }}">{{ capsule|raw }}</a>
+                {%- else -%}
+                    {{ capsule|raw }}
+                {%- endif -%}
+            {%- endfor -%}
+        </div>
+    {%- endif -%}
+</div>

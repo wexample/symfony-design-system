@@ -1,0 +1,67 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/status') -}}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    {#- Client-side twin of distribution.html.twig: same classes, same order,
+        same shares. A change to either is a change to both. -#}
+    <div :class="classes">
+        <div v-if="label || showValue" class="distribution--head">
+            <span v-if="label" class="distribution--label">[[ label ]]</span>
+            <span v-if="showValue" class="distribution--value">[[ currentTotal ]]</span>
+        </div>
+        <div class="distribution--track">
+            <template v-for="(part, index) in drawnParts" :key="index">
+                <a
+                        v-if="part.href"
+                        class="distribution--part"
+                        :class="`distribution--part--${part.type}`"
+                        :style="{ '--distribution-part': part.value }"
+                        :href="part.href"
+                        :title="part.title"
+                        :aria-label="part.title"
+                ></a>
+                <span
+                        v-else
+                        class="distribution--part"
+                        :class="`distribution--part--${part.type}`"
+                        :style="{ '--distribution-part': part.value }"
+                        :title="part.title"
+                        :aria-hidden="legend ? 'true' : null"
+                        :aria-label="legend ? null : part.title"
+                        @click="$emit('select', part)"
+                ></span>
+            </template>
+            <span
+                    v-if="rest > 0"
+                    class="distribution--rest"
+                    :style="{ '--distribution-part': rest }"
+                    aria-hidden="true"
+            ></span>
+        </div>
+        <div v-if="legend && parts.length" class="distribution--legend">
+            <template v-for="(part, index) in parts" :key="index">
+                <a v-if="part.href" class="distribution--legend--item" :href="part.href">
+                    <status
+                            :type="part.type"
+                            :label="part.label"
+                            :count="part.value"
+                            :title="part.title"
+                            :compact="true"
+                    ></status>
+                </a>
+                <status
+                        v-else
+                        :type="part.type"
+                        :label="part.label"
+                        :count="part.value"
+                        :title="part.title"
+                        :compact="true"
+                        @click="$emit('select', part)"
+                ></status>
+            </template>
+        </div>
+    </div>
+{%- endblock -%}
