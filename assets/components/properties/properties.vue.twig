@@ -1,10 +1,13 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
 
 {%- block vue_body -%}
+    {#- Client-side twin of properties.html.twig: same classes, same reading of
+        an empty value. A change to either is a change to both. -#}
     <dl :class="listClass">
-        <div v-for="(item, index) in items" :key="index" class="properties--row">
+        <div v-for="(item, index) in items" :key="index" :class="rowClass(item)">
             <dt class="properties--key">[[ item.key ]]</dt>
-            <dd class="properties--value">
+            <dd v-if="isEmpty(item)" class="properties--value properties--value--empty">&mdash;</dd>
+            <dd v-else class="properties--value">
                 <span v-if="item.html" v-html="item.value"></span>
                 <template v-else>[[ item.value ]]</template>
             </dd>

@@ -50,3 +50,36 @@
 .properties--stacked > .properties--row {
   gap: var(--space-1);
 }
+
+// Many short pairs read badly in one tall column: the eye crosses the width of
+// the page between a key and its value, and the lines between rows end up doing
+// the work of holding each pair together. Laid out in columns, a pair is a
+// small block of two lines that needs no rule around it, and the width is spent
+// on the pairs rather than on the gap in the middle of each one.
+.properties--columns {
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(var(--properties-column-min, 14rem), 1fr)
+  );
+  gap: var(--space-4) var(--space-5);
+}
+
+.properties--columns > .properties--row {
+  display: flex;
+  flex-direction: column;
+  grid-column: auto;
+  gap: var(--space-1);
+  padding: 0;
+}
+
+// What no column can hold without stretching the others — a path, a sentence —
+// takes the whole width instead.
+.properties--columns > .properties--row--full {
+  grid-column: 1 / -1;
+}
+
+// A field nobody filled. It is said with a dash rather than left blank: an
+// empty line reads as a bug, a dash reads as an answer — nothing here.
+.properties--value--empty {
+  color: var(--text-color-subtle);
+}

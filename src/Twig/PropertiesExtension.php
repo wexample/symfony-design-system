@@ -12,6 +12,7 @@ class PropertiesExtension extends AbstractTemplateExtension
         'split',
         'compact',
         'stacked',
+        'columns',
     ];
 
     public function getFunctions(): array
@@ -49,6 +50,9 @@ class PropertiesExtension extends AbstractTemplateExtension
                 'key' => $item['key'] ?? null,
                 'value' => $item['value'] ?? null,
                 'html' => $item['html'] ?? false,
+                // In columns, what no column can hold without stretching the
+                // others takes the whole width instead.
+                'full' => $item['full'] ?? false,
             ];
         }
 

@@ -1,14 +1,21 @@
 <dl class="{{ class }}">
     {% for item in items %}
-        <div class="properties--row">
+        <div class="properties--row{{ item.full ? ' properties--row--full' }}">
             <dt class="properties--key">{{ item.key }}</dt>
-            <dd class="properties--value">
-                {%- if item.html ?? false -%}
-                    {{- item.value|raw -}}
-                {%- else -%}
-                    {{- item.value -}}
-                {%- endif -%}
-            </dd>
+            {#- A field nobody filled is said with a dash: a blank space reads as
+                something missing from the page, a dash as something missing from
+                the thing described, which is the truth. -#}
+            {% if item.value is null or item.value == '' %}
+                <dd class="properties--value properties--value--empty">&mdash;</dd>
+            {% else %}
+                <dd class="properties--value">
+                    {%- if item.html ?? false -%}
+                        {{- item.value|raw -}}
+                    {%- else -%}
+                        {{- item.value -}}
+                    {%- endif -%}
+                </dd>
+            {% endif %}
         </div>
     {% endfor %}
 </dl>
