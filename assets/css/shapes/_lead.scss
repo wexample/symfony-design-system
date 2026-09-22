@@ -1,11 +1,16 @@
-// An introductory paragraph, set apart in italics inside a dashed frame.
+// An introductory paragraph, set apart in italics inside a dotted frame.
 .lead {
+  // An ink laid over whatever is behind, and not a colour of its own: the
+  // frame stands on the page as often as inside a block, and a flat grey
+  // chosen for one of the two grounds vanishes into the other.
+  --lead-border-color: var(--color-invert-transparent-6);
+
   color: var(--text-color-muted);
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-box);
   font-style: italic;
   line-height: var(--space-5);
-  border: 2px dashed var(--border-color-discreet);
+  border: 2px dotted var(--lead-border-color);
 }
 
 .lead ul,
