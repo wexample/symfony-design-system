@@ -42,10 +42,35 @@
   background: var(--surface-shell);
 }
 
+// What the bar is the header of. Written by every app that puts a heading in a
+// toolbar and drawn by nobody until now: a heading brings margins of its own,
+// and a heading in a row has to give them up or the row stops being a line.
+.toolbar--title {
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .toolbar--group {
   display: flex;
   align-items: center;
   gap: var(--space-2);
+}
+
+// Markers standing in a bar — a code, a version, a state — are read as one row,
+// and a row is only a row if its pieces share a rhythm. The pill is sized in
+// ems, for the text it usually sits inside; beside a capsule, which is sized in
+// tokens, it comes out a head shorter and the two stop looking like the family
+// they are. Here they are levelled: same height, same type, same corners, and
+// only the colour still says which is a state and which is a name.
+.toolbar .pill {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-2);
+  line-height: 1;
 }
 
 .toolbar--link {
