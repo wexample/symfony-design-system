@@ -243,9 +243,16 @@ class MenuExtension extends AbstractTemplateExtension
                 'href' => $call('path', $route, $routeParams),
                 // A section spanning several addresses is still the page being
                 // read. The caller keeps the last word, since only it knows
-                // which pages are the same place.
+                // which pages are the same place -- `exact` for an item that is
+                // nobody's section head, `active` outright for the rest.
                 'options' => $options + [
-                    'active' => $call('route_is_current_or_related', $route, $routeParams, true, false),
+                    'active' => $call(
+                        ($options['exact'] ?? false) ? 'route_is_current' : 'route_is_current_or_related',
+                        $route,
+                        $routeParams,
+                        true,
+                        false
+                    ),
                 ],
             ]
         );
