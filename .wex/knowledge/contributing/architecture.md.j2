@@ -15,6 +15,10 @@ public static function getLoaderFrontPaths(): array
 }
 ```
 
+The same `assets/` directory is also an npm package, `@wexample/symfony-design-system`, which an application must declare as `link:` and not `file:` — the page *Assets as an npm package*, in this same section, gives the mechanism and the failure it prevents.
+
+Three loader services draw markup — a banner, an overlay backdrop, a confirm dialog — and the loader does not know what that markup is. {{ path("assets/js/Services/BannerService.ts") }} and {{ path("assets/js/Services/OverlayService.ts") }} extend the loader's and set the one thing it left open, `componentPath`; {{ path("assets/js/Services/ConfirmService.ts") }} lives here outright, since nothing in the loader calls it. An application registers these three in its `App.getServices()`; the loader lets a subclass take the place of the service registered under the same name, so the base arriving first through `super.getServices()` does not win.
+
 {{ path("src/DependencyInjection/WexampleSymfonyDesignSystemExtension.php") }} calls `loadConfig()` (which reads {{ path("src/Resources/config/services.yaml") }}) and then merges two layout bases — `modal` and `panel` — into the loader's parameter `wexample_symfony_loader.layout_bases`. That parameter tells the loader which component to use as the container when a page is embedded inside an overlay.
 
 `services.yaml` registers every class under `Controller\`, `Form\`, `Service\`, and `Twig\` with autowiring and autoconfigure. `AppExtension` is excluded from the wildcard scan and registered separately so its `$appHomeRoute` constructor argument can be injected from the `wexample_ds_app_home_route` parameter.
