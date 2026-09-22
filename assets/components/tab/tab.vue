@@ -2,11 +2,10 @@
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-tab-tab',
 
+  // `app` is a global property of the vue application, not a prop: declaring it
+  // here left it undefined for every parent that did not pass it by hand, and
+  // getItemIcon() reads a service off it.
   props: {
-    app: {
-      type: Object,
-      required: true
-    },
     items: {
       type: Array,
       required: true,
