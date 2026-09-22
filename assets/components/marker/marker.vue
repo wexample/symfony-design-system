@@ -2,25 +2,28 @@
 import IconService from '@wexample/symfony-loader/js/Services/IconService';
 import { STATUS_ICON_GLYPHS } from '../status-icon/status-icon.vue';
 
-// The twin of components/status/status.html.twig: same types, same glyphs, same
-// markup. The glyph map is the circle's, so the two forms of a state never
-// drift apart — a running state has none there, and is named here, the capsule
-// having no arc to draw it with.
+// The twin of components/marker/marker.html.twig: same tones, same glyphs,
+// same markup. The glyph map is the circle's, so the two forms of a state
+// never drift apart — a running state has none there, and is named here, the
+// capsule having no arc to draw it with.
 export default {
-  template: '#vue-template-wexample-symfony-design-system-bundle-components-status-status',
+  template: '#vue-template-wexample-symfony-design-system-bundle-components-marker-marker',
 
   props: {
-    type: {
+    // A state (`success`, `running`…), the neutral one for a name or a
+    // version, or a category (`tag-3`). The tone is the whole of what tells
+    // one marker from another.
+    tone: {
       type: String,
-      default: 'info'
+      default: 'neutral'
     },
-    // What the state is, in words.
+    // In words.
     label: {
       type: String,
       default: null
     },
-    // How many of it there are: it qualifies the state rather than being it,
-    // so it is drawn a step back.
+    // How many of it there are, which qualifies what the marker says rather
+    // than being it.
     count: {
       default: null
     },
@@ -29,7 +32,8 @@ export default {
       type: Boolean,
       default: false
     },
-    // Overrides what the type would put inside.
+    // Overrides what a state would put inside, and the only way a tone with
+    // no glyph of its own gets one.
     glyph: {
       type: String,
       default: null
@@ -44,16 +48,16 @@ export default {
   computed: {
     classes() {
       return [
-        'status',
-        `status--${this.type}`,
-        this.compact ? 'status--compact' : null
+        'marker',
+        `marker--${this.tone}`,
+        this.compact ? 'marker--compact' : null
       ];
     },
 
     glyphName() {
       return this.glyph
-        ?? STATUS_ICON_GLYPHS[this.type]
-        ?? (this.type === 'running' ? 'ph:bold/circle-notch' : null);
+        ?? STATUS_ICON_GLYPHS[this.tone]
+        ?? (this.tone === 'running' ? 'ph:bold/circle-notch' : null);
     },
 
     glyphHtml() {

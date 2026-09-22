@@ -1,0 +1,24 @@
+{#- One thing said about what stands beside it. A state brings its glyph from
+    `status_glyph()` and not from a map written here: the circle draws the same
+    states, and one of the two drifting would give a reader two drawings of one
+    thing. A tone that is not a state — the neutral one, a category — has none
+    unless the caller names it. -#}
+{% set tone = tone|default('neutral') %}
+{% set glyph = glyph_name|default(status_glyph(tone)) %}
+{#- A running state has no glyph of its own: the circle draws it with its arc,
+    and a capsule has no room for one, so here it is named instead. -#}
+{% if not glyph and tone == 'running' %}{% set glyph = 'ph:bold/circle-notch' %}{% endif %}
+
+<span class="marker marker--{{ tone }}{{ compact|default(false) ? ' marker--compact' }}{% if class|default('') %} {{ class }}{% endif %}"
+      {% if title|default(null) %}title="{{ title }}"{% endif %}
+      {{ component_render_tag_attributes(attr|default({})) }}>
+    {%- if glyph -%}
+        <span class="marker--glyph" aria-hidden="true">{{ icon(glyph) }}</span>
+    {%- endif -%}
+    {%- if label is defined and label is not null and label != '' -%}
+        <span class="marker--label">{{ label }}</span>
+    {%- endif -%}
+    {%- if count is defined and count is not null and count != '' -%}
+        <span class="marker--count">{{ count }}</span>
+    {%- endif -%}
+</span>

@@ -1,0 +1,11 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    {#- Client-side twin of marker.html.twig: same classes, same order. A change
+        to either is a change to both. -#}
+    <span :class="classes" :title="title">
+        <span v-if="glyphHtml" class="marker--glyph" aria-hidden="true" v-html="glyphHtml"></span>
+        <span v-if="hasLabel" class="marker--label">[[ label ]]</span>
+        <span v-if="hasCount" class="marker--count">[[ count ]]</span>
+    </span>
+{%- endblock -%}

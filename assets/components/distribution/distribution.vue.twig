@@ -1,7 +1,7 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
 
 {%- block vue_require -%}
-    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/status') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/marker') -}}
 {%- endblock -%}
 
 {%- block vue_body -%}
@@ -44,23 +44,23 @@
         <div v-if="legend && parts.length" class="distribution--legend">
             <template v-for="(part, index) in parts" :key="index">
                 <a v-if="part.href" class="distribution--legend--item" :href="part.href">
-                    <status
-                            :type="part.type"
+                    <marker
+                            :tone="part.type"
                             :label="part.label"
                             :count="part.value"
                             :title="part.title"
                             :compact="true"
-                    ></status>
+                    ></marker>
                 </a>
-                <status
+                <marker
                         v-else
-                        :type="part.type"
+                        :tone="part.type"
                         :label="part.label"
                         :count="part.value"
                         :title="part.title"
                         :compact="true"
                         @click="$emit('select', part)"
-                ></status>
+                ></marker>
             </template>
         </div>
     </div>

@@ -1,6 +1,6 @@
 @use '../../css/mixins/density' as density;
 @use '../../css/mixins/feedback' as feedback;
-@use '../status/status';
+@use '../marker/marker';
 
 // What a whole is made of, in one line. Where `progress-bar` says how far one
 // value has got, this says how a total divides: the parts keep the order they
@@ -119,16 +119,16 @@ a.distribution--part {
     min-width: 0;
   }
 
-  .status {
+  .marker {
     min-width: 0;
   }
 
-  .status--glyph,
-  .status--count {
+  .marker--glyph,
+  .marker--count {
     flex: none;
   }
 
-  .status--label {
+  .marker--label {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;

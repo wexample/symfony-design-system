@@ -30,7 +30,7 @@
     {%- endif -%}
     <span class="button-menu--item-label">{{ item.label | trans }}</span>
     {%- if item.count is defined and item.count is not null -%}
-        <span class="pill button-menu--item-count">{{ item.count }}</span>
+        <span class="count button-menu--item-count">{{ item.count }}</span>
     {%- endif -%}
     {%- if item.trailing_icon|default(null) -%}
         <span class="button-menu--item-trailing">{{ icon(item.trailing_icon) }}</span>

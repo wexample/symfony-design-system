@@ -2,7 +2,7 @@
 @use '../mixins/border' as border;
 @use '../mixins/text' as text;
 @use '../../components/bar/bar';
-@use './pill';
+@use './count';
 
 .menu {
   --menu-width: var(--size-6);
@@ -131,8 +131,8 @@
   @include text.text-ellipsis;
 }
 
-// How many of whatever the item leads to. It is a pill and nothing else — all
-// the item adds is the far end.
+// How many of whatever the item leads to. It is a counter and nothing else —
+// all the item adds is the far end.
 .menu--item--count {
   margin-left: auto;
   flex-shrink: 0;

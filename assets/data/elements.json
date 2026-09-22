@@ -158,7 +158,7 @@
         {
             "key": "button-menu",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A button and the panel it opens. Its items come in four kinds told apart by what they carry \u2014 a target makes a link, a state makes a toggle, children make a branch one level deep, a bare line makes a separator \u2014 and a toggle keeps the panel open under it, which is what makes a menu of filters out of it.",
             "formats": {
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/button-menu/button-menu.html.twig"
@@ -468,6 +468,36 @@
             "notes": {
                 "template": "nothing renders it server-side",
                 "script": "it shows and does nothing"
+            }
+        },
+        {
+            "key": "distribution",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "What a total is made of, in one line: the parts in proportion, in the order they are given, named underneath with the status capsule. Where `progress-bar` says how far one value has got, this says how a whole divides.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/distribution/distribution.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/distribution/distribution.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/distribution/distribution.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/distribution/distribution.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "a part that leads somewhere is a link, and one that does not is read; neither needs a behaviour of its own"
             }
         },
         {
@@ -1167,6 +1197,36 @@
             }
         },
         {
+            "key": "marker",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "One capsule for everything said about a thing in a word: a state, a name, a version, a category. The tone is the whole of what tells them apart \u2014 the shape, the rhythm and the ink are one, because a reader meets them in one row.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/marker/marker.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/marker/marker.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/marker/marker.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/marker/marker.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "it shows and does nothing"
+            }
+        },
+        {
             "key": "menu-collapsible-panel",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -1588,36 +1648,6 @@
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/stage/stage.vue.twig",
                     "@WexampleSymfonyDesignSystemBundle/components/stage/stage.vue"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "expected",
-                "vue": "expected",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "script": "it shows and does nothing"
-            }
-        },
-        {
-            "key": "status",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/status/status.scss"
-                ],
-                "template": [
-                    "@WexampleSymfonyDesignSystemBundle/components/status/status.html.twig"
-                ],
-                "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/status/status.vue.twig",
-                    "@WexampleSymfonyDesignSystemBundle/components/status/status.vue"
                 ]
             },
             "stances": {
@@ -2099,6 +2129,12 @@
             "description": "Prose written elsewhere \u2014 an article, a description, rendered markdown \u2014 given spacing, headings and figures."
         },
         {
+            "key": "count",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_count.scss",
+            "description": "How many of something there are, hanging from the row that leads to it: the unread of a menu item, the results of a tab, the entries behind a branch.  Not a marker, though it looks like a small one: a marker stands beside a thing and is sized in tokens, this one hangs from a line of text and is sized in ems, so it follows whatever it is attached to \u2014 a toolbar raising its font raises this with it. Nearly an exponent, and read like one.  Borrowed rather than owned: `menu`, `tab` and `button-menu` each `@use` it for the count they hang at the end of a row, so the rule below is copied into each of their bundles and a page that loads two of them ships it twice. That is what a shape costs and it is the price of the rule \u2014 nothing renders this, so the only way it can reach the markup is for whoever writes the class to pull it in."
+        },
+        {
             "key": "disk-item",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_disk-item.scss",
@@ -2240,7 +2276,7 @@
             "key": "lead",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_lead.scss",
-            "description": "An introductory paragraph, set apart in italics inside a dashed frame."
+            "description": "An introductory paragraph, set apart in italics inside a dotted frame."
         },
         {
             "key": "media",
@@ -2267,12 +2303,6 @@
             "description": "The page itself, and `page--fill` for the part of it sized by the room it is given rather than by what it holds."
         },
         {
-            "key": "pill",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_pill.scss",
-            "description": "A small rounded label for a count, a state or a tag, set in the surrounding text size."
-        },
-        {
             "key": "rail",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_rail.scss",
@@ -2289,12 +2319,6 @@
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_surface.scss",
             "description": "The raised ground a block sits on, and the class that tells its children they are on one."
-        },
-        {
-            "key": "tag",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_tag.scss",
-            "description": "The six tag colours, each as a background and a readable ink, meant to be worn by a pill."
         },
         {
             "key": "toolbar",

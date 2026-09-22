@@ -1,5 +1,5 @@
 <script>
-import Status from '../status/status.vue';
+import Marker from '../marker/marker.vue';
 
 // The twin of components/distribution/distribution.html.twig: same parts, same
 // shares, same legend. What the browser can do beyond the server is take a
@@ -9,7 +9,7 @@ export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-distribution-distribution',
 
   components: {
-    Status
+    Marker
   },
 
   props: {

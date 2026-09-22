@@ -1,0 +1,103 @@
+@use '../../css/mixins/feedback' as feedback;
+
+// One thing said about what stands beside it: a state, a name, a version, a
+// category. One capsule for all four, because a reader meets them in one row
+// and telling them apart by their shape would be telling them apart by nothing
+// — what differs is the tone, and the tone is the whole of what they say.
+//
+// What it carries is free: a word, a figure, a glyph, or two of the three. It
+// is always filled with the colour whole, and a filled capsule is its own
+// ground: it stops sitting on the page, keeps the same intensity in light and
+// in dark, and carries no line, since a fill and a border around it are two
+// enclosures for one object.
+//
+// The circle (`status-icon`) is the other form of a state, for where there is
+// no room for a capsule — and the only one that can show a state being a
+// quantity. The counter (`count`) is not of this family at all: it hangs from
+// a row and is sized in the text it hangs from.
+.marker {
+  @include feedback.feedback-base;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--feedback-fill);
+  // Glyph, word and figure share the one ink the fill answers to: on a ground
+  // that strong, a second ink reads as a fault, not as a nuance.
+  color: var(--feedback-on-fill);
+  font-weight: var(--font-weight-strong);
+  font-size: var(--font-size-2);
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+// Read by the dozen, in a cell: the capsule gives up the room it takes when it
+// stands alone in a sentence.
+.marker--compact {
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+}
+
+.marker--glyph {
+  display: inline-flex;
+  align-items: center;
+  // Held to the line it sits on rather than to a size of its own, so the
+  // capsule keeps the height of the text beside it.
+  font-size: 1em;
+}
+
+// A marker with nothing to say about a state — a code, a version, a name — is
+// the grey one, which is what the base already gives it. Named so a caller can
+// write what it means rather than leave the tone out and hope.
+.marker--neutral {
+  @include feedback.feedback-base;
+}
+
+// The nine states the family answers to, drawn with the four colours a reader
+// tells apart. What a pipeline calls a state is its own business; what it
+// means — done, failed, watch out, under way, nothing yet — is not.
+.marker--success {
+  @include feedback.feedback-success;
+}
+
+.marker--error {
+  @include feedback.feedback-error;
+}
+
+.marker--warning,
+.marker--paused {
+  @include feedback.feedback-warning;
+}
+
+.marker--info,
+.marker--running,
+.marker--play {
+  @include feedback.feedback-info;
+}
+
+// Nothing has happened yet, and nothing ever will: neither is a judgement, so
+// neither takes a colour.
+.marker--skipped {
+  --feedback-color: var(--text-color-subtle);
+}
+
+// Not a state it is in but one it cannot reach: dimmed as a whole, since the
+// colour alone would still read as something to wait for.
+.marker--disabled {
+  --feedback-color: var(--text-color-subtle);
+  opacity: var(--opacity-6);
+}
+
+// A category rather than a state: the six palette colours a taxonomy is drawn
+// from, worn exactly as a state is, so that a row of markers stays a row. Each
+// takes the ink its own palette says can be read on it, where a state is
+// written in white.
+@for $i from 1 through 6 {
+  .marker--tag-#{$i} {
+    --feedback-fill: var(--color-tag-#{$i}-3);
+    --feedback-on-fill: var(--color-tag-#{$i}-23);
+  }
+}

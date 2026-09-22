@@ -42,7 +42,7 @@
     {%- if legend|default(false) and parts -%}
         <div class="distribution--legend">
             {%- for part in parts -%}
-                {%- set capsule = status(part.type, part.label, {
+                {%- set capsule = marker(part.type, part.label, {
                     count: part.value,
                     title: part.title,
                     compact: true,

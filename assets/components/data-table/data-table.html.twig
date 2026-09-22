@@ -89,7 +89,7 @@
                                 read as two objects, and a column of them as noise. -#}
                             {%- set state = value is iterable ? value : { type: value } -%}
                             {%- if state.type|default(null) -%}
-                                {{ status(state.type, state.label|default(null), {
+                                {{ marker(state.type, state.label|default(null), {
                                     count: state.count|default(null),
                                     title: state.title|default(null),
                                     compact: true,

@@ -2,7 +2,7 @@
 import DateDisplay from '../date-display/date-display.vue';
 import Spinner from '../spinner/spinner.vue';
 import ButtonTarget from '../button-target/button-target.vue';
-import Status from '../status/status.vue';
+import Marker from '../marker/marker.vue';
 import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
 
 const translated = buildTranslatedBindings({
@@ -23,7 +23,7 @@ export default {
     ButtonTarget,
     DateDisplay,
     Spinner,
-    Status
+    Marker
   },
 
   props: {
@@ -75,13 +75,13 @@ export default {
       return Boolean(row) && row.group !== undefined;
     },
 
-    isStatusCell(column) {
+    isMarkerCell(column) {
       return column?.cell === 'status';
     },
 
     // A type name, or { type, count, title, label }: the circle says which
     // state, the count how many of it.
-    getStatus(value) {
+    getMarker(value) {
       if (!value) {
         return null;
       }

@@ -17,7 +17,7 @@
         <span class="menu--item--label">{{ label | trans }}</span>
         {#- How many of whatever the item leads to, at the far end. -#}
         {%- if options.count is defined and options.count is not null -%}
-            <span class="pill menu--item--count">{{ options.count }}</span>
+            <span class="count menu--item--count">{{ options.count }}</span>
         {%- endif -%}
     </a>
 </li>
