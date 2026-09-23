@@ -8,7 +8,10 @@
   justify-content: center;
   border-radius: var(--radius-pill);
   overflow: hidden;
-  background: var(--surface-3);
+  // Read from variables so what holds the avatar can colour it without naming
+  // it: a toned block hands it the tone.
+  background: var(--avatar-bg, var(--surface-3));
+  color: var(--avatar-color, inherit);
 }
 
 .avatar > img {

@@ -1,5 +1,6 @@
 // The card: a raised rectangle with a title, a body, media, meta and a footer, each optional.
 @use '../mixins/surface-layer' as surface;
+@use '../mixins/feedback' as feedback;
 
 .block {
   @include surface.surface-layer;
@@ -170,4 +171,46 @@
 
 .block--square {
   aspect-ratio: 1;
+}
+
+// A block carrying a tone: the colour of a state — or of a category — as a bar
+// down the leading edge, and nothing else. The ground stays the block's own: a
+// list of findings tinted from top to bottom reads as an alarm, where a row of
+// bars reads as a list the eye sorts by colour. The bar is the one a message
+// wears, its width the skin's.
+//
+// The avatar standing at the head of a bar placed on such a block takes the
+// tone too, through the two variables it reads — the severity then holds in the
+// icon and not only in a line three pixels wide.
+%block-tone {
+  border-left: var(--feedback-bar-width) solid var(--feedback-color);
+  --avatar-bg: var(--feedback-bg);
+  --avatar-color: var(--feedback-color);
+}
+
+.block--tone-info {
+  @include feedback.feedback-info;
+  @extend %block-tone;
+}
+
+.block--tone-success {
+  @include feedback.feedback-success;
+  @extend %block-tone;
+}
+
+.block--tone-warning {
+  @include feedback.feedback-warning;
+  @extend %block-tone;
+}
+
+.block--tone-error {
+  @include feedback.feedback-error;
+  @extend %block-tone;
+}
+
+@each $name in feedback.$category-names {
+  .block--tone-cat-#{$name} {
+    @include feedback.feedback-category($name);
+    @extend %block-tone;
+  }
 }
