@@ -15,6 +15,7 @@
 {%- block vue_body -%}
     {# Client-side twin of partials/table.html.twig: same column contract, same
        markup. A change to either is a change to both. #}
+    <div class="table--frame" :class="{ 'table--frame--sticky': sticky }">
     <table class="table" :class="{ 'table--refreshing': loading && hasRows(), 'table--sticky': sticky }">
         <thead v-if="showHeader && columns.length">
         <tr class="table--row">
@@ -161,4 +162,5 @@
         </tr>
         </tfoot>
     </table>
+    </div>
 {%- endblock -%}

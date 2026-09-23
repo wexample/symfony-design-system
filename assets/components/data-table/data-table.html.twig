@@ -4,6 +4,9 @@
    declaration: this one is drawn once the data is known, the other before. #}
 {% set columns_count = columns|length ?: 1 %}
 
+{#- The frame is what scrolls sideways when the columns are wider than the room:
+    the table keeps its own width, the page keeps its own. -#}
+<div class="table--frame{{ options.sticky|default(false) ? ' table--frame--sticky' }}">
 <table class="table{{ options.sticky|default(false) ? ' table--sticky' }}{{ options.class is defined ? ' ' ~ options.class }}">
     {% if options.show_header|default(true) %}
         <thead>
@@ -106,3 +109,4 @@
     {% endif %}
     </tbody>
 </table>
+</div>

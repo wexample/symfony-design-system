@@ -19,7 +19,24 @@
   overflow: clip;
   border-collapse: separate;
   border-spacing: 0;
-  margin:1rem 0;
+}
+
+// What holds the table and scrolls it sideways when its columns ask for more
+// than the room: the table is drawn at the width it needs, and the page around
+// it does not move. The frame carries the margin, so the scrollbar sits under
+// the table and not under a gap.
+.table--frame {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+// A scroll container on one axis is one on both, and a sticky header inside it
+// sticks to the frame, which does not scroll vertically — so it never sticks.
+// A sticky table keeps the page as its scroller and gives up the sideways
+// scroll: the two cannot be had together without the table scrolling itself.
+.table--frame--sticky {
+  overflow-x: visible;
 }
 
 .table--row {
