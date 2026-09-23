@@ -5,7 +5,10 @@
     The items come from the caller, as they do on the vue side — the bar knows
     how many there are and nothing else about them. -#}
 {%- set slots = slots|default({}) -%}
-{%- set classes = ['tabs', 'flow'] -%}
+{#- No rhythm of its own: a bar standing above a region would push the region
+    down by a margin nobody asked for. A page using tabs inside its content adds
+    `flow` through the class option. -#}
+{%- set classes = ['tabs'] -%}
 {%- if fill|default(false) -%}{%- set classes = classes|merge(['tabs--fill']) -%}{%- endif -%}
 {%- if compact|default(false) -%}{%- set classes = classes|merge(['tabs--compact']) -%}{%- endif -%}
 {%- if class is defined and class -%}{%- set classes = classes|merge([class]) -%}{%- endif -%}

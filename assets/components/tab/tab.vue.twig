@@ -1,7 +1,7 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
 
 {%- block vue_body -%}
-    <div class="tabs flow" :class="resolvedTabsClass">
+    <div class="tabs" :class="resolvedTabsClass">
         <a
                 v-for="item in resolvedItems"
                 :key="item.key"
