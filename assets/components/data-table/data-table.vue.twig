@@ -86,13 +86,13 @@
                                     :title-format="getDateTitleFormat(column)"
                             ></date-display>
                         </template>
-                        <template v-else-if="isStatusCell(column)">
+                        <template v-else-if="isMarkerCell(column)">
                             <marker
-                                    v-if="getStatus(getCellValue(row, column))"
-                                    :tone="getStatus(getCellValue(row, column)).type"
-                                    :label="getStatus(getCellValue(row, column)).label"
-                                    :count="getStatus(getCellValue(row, column)).count"
-                                    :title="getStatus(getCellValue(row, column)).title"
+                                    v-if="getMarker(getCellValue(row, column))"
+                                    :tone="getMarker(getCellValue(row, column)).type"
+                                    :label="getMarker(getCellValue(row, column)).label"
+                                    :count="getMarker(getCellValue(row, column)).count"
+                                    :title="getMarker(getCellValue(row, column)).title"
                                     :compact="true"
                             ></marker>
                         </template>
