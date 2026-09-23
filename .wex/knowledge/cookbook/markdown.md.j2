@@ -1,0 +1,17 @@
+## Markdown drawn by the design system
+
+`markdown` (from `wexample/symfony-template`) renders plain html, the kind a mail or a feed can carry. `markdown_ds` renders the same document into the design system: its tables come out of `data_table()`, with the component's frame, alignment and sticky header.
+
+```twig
+{% raw %}{{ document_body | markdown_ds }}{% endraw %}
+```
+
+Choose per use, never both at once: the two are separate services, {{ path("src/Service/DesignSystemMarkdownService.php") }} extending `MarkdownService`, and neither replaces the other in the container.
+
+### Why a filter
+
+A component is drawn inside the render pass of the page it lands in — that is what registers its styles and scripts. The pass lives in the template's context, so the conversion has to happen while the page is drawn, which a filter does and a controller does not. Called without a pass, `DesignSystemMarkdownService::toHtml()` renders what `MarkdownService` renders, and the content stylesheet dresses the plain `<table>`.
+
+### What is read from a table
+
+{{ path("src/Class/Markdown/DataTableRenderer.php") }} reads the parsed table, not its html: the header row gives the columns and their alignment, each body row a row, and every cell is rendered inline first and handed over as html — bold, links and code survive. A table that does not read as one header row over body rows falls back to the plain `<table>`; so does any error while drawing it. A document never loses a table.

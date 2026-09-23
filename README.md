@@ -194,6 +194,7 @@ Visit the [Wexample Suite documentation](https://docs.wexample.com) for the comp
 - php: >=8.5
 - wexample/symfony-loader: >=11.0.0
 - wexample/symfony-routing: >=1.0.0
+- wexample/symfony-template: >=1.0.0
 
 ## Versioning & Compatibility Policy
 
