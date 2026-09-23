@@ -23,7 +23,9 @@ export default {
     ButtonTarget,
     DateDisplay,
     Spinner,
-    Marker
+    // Registered as `capsule`: `marker` is an svg element, which vue refuses
+    // as a component id and renders as itself — an invisible one.
+    Capsule: Marker
   },
 
   props: {

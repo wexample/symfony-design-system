@@ -87,14 +87,14 @@
                             ></date-display>
                         </template>
                         <template v-else-if="isMarkerCell(column)">
-                            <marker
+                            <capsule
                                     v-if="getMarker(getCellValue(row, column))"
                                     :tone="getMarker(getCellValue(row, column)).type"
                                     :label="getMarker(getCellValue(row, column)).label"
                                     :count="getMarker(getCellValue(row, column)).count"
                                     :title="getMarker(getCellValue(row, column)).title"
                                     :compact="true"
-                            ></marker>
+                            ></capsule>
                         </template>
                         <template v-else-if="hasCellActions(column)">
                             <span class="table--actions">

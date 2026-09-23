@@ -9,7 +9,9 @@ export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-distribution-distribution',
 
   components: {
-    Marker
+    // Registered as `capsule`: `marker` is an svg element, which vue refuses
+    // as a component id and renders as itself — an invisible one.
+    Capsule: Marker
   },
 
   props: {

@@ -44,15 +44,15 @@
         <div v-if="legend && parts.length" class="distribution--legend">
             <template v-for="(part, index) in parts" :key="index">
                 <a v-if="part.href" class="distribution--legend--item" :href="part.href">
-                    <marker
+                    <capsule
                             :tone="part.type"
                             :label="part.label"
                             :count="part.value"
                             :title="part.title"
                             :compact="true"
-                    ></marker>
+                    ></capsule>
                 </a>
-                <marker
+                <capsule
                         v-else
                         :tone="part.type"
                         :label="part.label"
@@ -60,7 +60,7 @@
                         :title="part.title"
                         :compact="true"
                         @click="$emit('select', part)"
-                ></marker>
+                ></capsule>
             </template>
         </div>
     </div>
