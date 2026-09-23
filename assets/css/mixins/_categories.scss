@@ -5,19 +5,20 @@
 //
 // The flat palette the older network app already drew with (after
 // codepen.io/chorijan/pen/azVzPO), taken whole. Here as a map so the components
-// can loop on the names and a layout can override the values.
+// can loop on the names and a layout can override the values. The names are
+// quoted: `teal` bare is a colour, not a word, and would not print as one.
 $categories: (
-  ruby: #d8334a,
-  grapefruit: #ed5565,
-  bittersweet: #fc6e51,
-  sunflower: #ffce54,
-  straw: #e8ce4d,
-  grass: #a0d468,
-  mint: #48cfad,
-  teal: #a0cecb,
-  aqua: #4fc1e9,
-  blue-jeans: #5d9cec,
-  plum: #8067b7,
-  lavender: #ac92ec,
-  pink-rose: #ec87c0,
+  'ruby': #d8334a,
+  'grapefruit': #ed5565,
+  'bittersweet': #fc6e51,
+  'sunflower': #ffce54,
+  'straw': #e8ce4d,
+  'grass': #a0d468,
+  'mint': #48cfad,
+  'teal': #a0cecb,
+  'aqua': #4fc1e9,
+  'blue-jeans': #5d9cec,
+  'plum': #8067b7,
+  'lavender': #ac92ec,
+  'pink-rose': #ec87c0,
 ) !default;
