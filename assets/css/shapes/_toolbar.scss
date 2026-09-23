@@ -11,6 +11,15 @@
   justify-content: space-between;
   gap: var(--space-3);
   font-size: var(--toolbar-font-size);
+  min-width: 0;
+
+  // A bar is as wide as what holds it and not as wide as what it holds: what
+  // stands in it may give way, down to nothing, instead of pushing the bar out
+  // of its region. Not clipped — a menu opened from the bar has to hang below
+  // it — so what gives way is each item, which ellipsises its own words.
+  > * {
+    min-width: 0;
+  }
 }
 
 // A bare toolbar holding a heading acts as that heading's own line: no padding,
