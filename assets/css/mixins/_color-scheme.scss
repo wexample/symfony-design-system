@@ -123,11 +123,26 @@ $color-scheme-level-count: 32 !default;
 }
 
 // The categorical palette gets the same ladder as a semantic family, under
-// `--color-cat-N-*`: a fill and its ink, a ground tinting the page, an ink
-// that reads on it.
+// `--color-cat-<name>-*`: a fill and its ink, a ground tinting the page, an ink
+// that reads on it. Two things more than a state has:
+//
+// - The ink on the fill is chosen per colour. These are flat colours and half
+//   of them are light — white on sunflower is not read — so a fill light enough
+//   (OKLCH lightness above 75%) takes the dark ink instead.
+// - A light and a dark variant, fixed like the fill: the same colour a step
+//   either way, for a hover, a pressed state, a second series of the same
+//   family. Fixed and not face-dependent, since like the fill they stand for a
+//   colour rather than for a place on the page.
 @mixin color-scheme-categories($background, $foreground, $colors) {
-  @for $i from 1 through list.length($colors) {
-    @include color-scheme-semantic-levels('cat-#{$i}', list.nth($colors, $i), $background, $foreground);
+  @each $name, $color in $colors {
+    @include color-scheme-semantic-levels('cat-#{$name}', $color, $background, $foreground);
+
+    @if color.channel($color, 'lightness', $space: oklch) > 75% {
+      --color-cat-#{$name}-on-fill: var(--color-absolute-dark);
+    }
+
+    --color-cat-#{$name}-light: #{color.scale($color, $lightness: 35%)};
+    --color-cat-#{$name}-dark: #{color.scale($color, $lightness: -25%)};
   }
 }
 

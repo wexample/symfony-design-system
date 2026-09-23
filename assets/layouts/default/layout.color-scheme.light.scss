@@ -1,5 +1,6 @@
 @use './palette' as palette;
 @use '../../css/mixins/color-scheme' as color_scheme;
+@use '../../css/mixins/categories' as categories;
 
 // Light face of the theme: slightly off-white background, near-black text.
 // Not the exact mirror of the dark face — each face tunes its own anchors.
@@ -20,7 +21,7 @@ $color-light: #fafafa !default;
   // the space between two zones reads as space and no line has to be drawn.
   --surface-page: #efefef;
   --surface-zone: #{$color-light};
-  @include color_scheme.color-scheme-categories($color-light, $color-dark, palette.$color-categories);
+  @include color_scheme.color-scheme-categories($color-light, $color-dark, categories.$categories);
   background: var(--surface-page);
   color-scheme: light;
 }

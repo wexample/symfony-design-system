@@ -125,8 +125,8 @@
 // A category rather than a state: the ring in one colour of the categorical
 // palette, for an app whose stages are a taxonomy — the glyph inside is then
 // the app's to give, the design system having no word for what the stage is.
-@for $i from 1 through feedback.$category-count {
-  .status-icon--cat-#{$i} {
-    --status-icon-color: var(--color-cat-#{$i}-fill);
+@each $name in feedback.$category-names {
+  .status-icon--cat-#{$name} {
+    --status-icon-color: var(--color-cat-#{$name}-fill);
   }
 }

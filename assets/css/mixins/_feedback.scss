@@ -1,3 +1,8 @@
+@use 'sass:map';
+@use './categories';
+
+$category-names: map.keys(categories.$categories);
+
 // What a state is worth to the reader, in colours. Five families, and the
 // neutral one for a state that is not a judgement.
 //
@@ -50,15 +55,13 @@
   --feedback-on-fill: var(--color-error-on-fill);
 }
 
-// A category rather than a state: rank N of the categorical palette, worn the
-// way a state is worn, so a component that takes `success` takes `cat-3` with
-// nothing else to learn.
-@mixin feedback-category($i) {
-  --feedback-color: var(--color-cat-#{$i}-23);
-  --feedback-bg: var(--color-cat-#{$i}-4);
+// A category rather than a state: one colour of the categorical palette, by
+// name, worn the way a state is worn — a component that takes `success` takes
+// `cat-mint` with nothing else to learn.
+@mixin feedback-category($name) {
+  --feedback-color: var(--color-cat-#{$name}-23);
+  --feedback-bg: var(--color-cat-#{$name}-4);
   --feedback-border-color: var(--feedback-color);
-  --feedback-fill: var(--color-cat-#{$i}-fill);
-  --feedback-on-fill: var(--color-cat-#{$i}-on-fill);
+  --feedback-fill: var(--color-cat-#{$name}-fill);
+  --feedback-on-fill: var(--color-cat-#{$name}-on-fill);
 }
-
-$category-count: 10;

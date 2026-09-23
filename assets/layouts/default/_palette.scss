@@ -6,27 +6,3 @@ $color-success: #1f9d55 !default;
 $color-warning: #f59f00 !default;
 $color-error: #e03131 !default;
 
-// The categorical palette: colours that mean nothing but "not the one beside
-// it" — the series of a chart, the segments of a distribution, the categories
-// of a taxonomy. Ten, because past ten the eye stops telling them apart.
-//
-// Set as one set rather than picked one by one: the same perceived lightness
-// (OKLCH L 0.63), so none of them shouts over the others and each carries white
-// ink, and ordered so that two neighbours are always far apart on the wheel —
-// a distribution paints its segments in this order, and two greens side by side
-// read as one.
-$color-cat-1: #438ae1 !default;  // blue
-$color-cat-2: #cc6c13 !default;  // orange
-$color-cat-3: #079e92 !default;  // teal
-$color-cat-4: #c65f9e !default;  // magenta
-$color-cat-5: #44a04b !default;  // green
-$color-cat-6: #9174d9 !default;  // violet
-$color-cat-7: #b27f02 !default;  // amber
-$color-cat-8: #d55f59 !default;  // red
-$color-cat-9: #1898b7 !default;  // cyan
-$color-cat-10: #7e9500 !default; // lime
-
-$color-categories: (
-  $color-cat-1, $color-cat-2, $color-cat-3, $color-cat-4, $color-cat-5,
-  $color-cat-6, $color-cat-7, $color-cat-8, $color-cat-9, $color-cat-10
-) !default;

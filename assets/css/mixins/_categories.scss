@@ -1,0 +1,23 @@
+// The categorical palette: colours that mean nothing but "not the one beside
+// it" — the series of a chart, the segments of a distribution, the stages of a
+// workflow. Named, not numbered: an app picks `mint` for a stage because it
+// looks like mint, and a name survives a colour being added in the middle.
+//
+// The flat palette the older network app already drew with (after
+// codepen.io/chorijan/pen/azVzPO), taken whole. Here as a map so the components
+// can loop on the names and a layout can override the values.
+$categories: (
+  ruby: #d8334a,
+  grapefruit: #ed5565,
+  bittersweet: #fc6e51,
+  sunflower: #ffce54,
+  straw: #e8ce4d,
+  grass: #a0d468,
+  mint: #48cfad,
+  teal: #a0cecb,
+  aqua: #4fc1e9,
+  blue-jeans: #5d9cec,
+  plum: #8067b7,
+  lavender: #ac92ec,
+  pink-rose: #ec87c0,
+) !default;

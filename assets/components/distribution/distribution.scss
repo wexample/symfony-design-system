@@ -166,9 +166,9 @@ a.distribution--legend--item {
 
 // Categories rather than states, for a split that is a taxonomy and not a
 // verdict: the categorical palette, in its order, so neighbours stay apart.
-@for $i from 1 through feedback.$category-count {
-  .distribution--part--cat-#{$i} {
-    @include feedback.feedback-category($i);
+@each $name in feedback.$category-names {
+  .distribution--part--cat-#{$name} {
+    @include feedback.feedback-category($name);
   }
 }
 

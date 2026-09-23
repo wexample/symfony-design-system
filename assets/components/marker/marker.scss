@@ -93,8 +93,8 @@
 
 // A category rather than a state: the categorical palette, worn exactly as a
 // state is — filled, white ink — so that a row of markers stays a row.
-@for $i from 1 through feedback.$category-count {
-  .marker--cat-#{$i} {
-    @include feedback.feedback-category($i);
+@each $name in feedback.$category-names {
+  .marker--cat-#{$name} {
+    @include feedback.feedback-category($name);
   }
 }
