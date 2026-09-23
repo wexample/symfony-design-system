@@ -1,0 +1,70 @@
+// A region that folds to its bar, and the bar that turns on its side with it.
+@use '../../css/shapes/zone';
+@use '../../css/shapes/toolbar';
+
+.zone-collapsible {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.zone-collapsible--bar {
+  flex: 0 0 auto;
+}
+
+.zone-collapsible--body {
+  flex: 1;
+  min-height: 0;
+}
+
+// Folded, the region is sized by itself and no longer by the room it is in.
+// Three classes on purpose: the split sizes its children with two, and this has
+// to outweigh that wherever the two stylesheets happen to land in the cascade.
+.zone.zone--panel.zone-collapsible--collapsed {
+  flex: 0 0 var(--zone-collapsed-size, var(--size-1));
+  width: var(--zone-collapsed-size, var(--size-1));
+}
+
+// Mounted by a script, the region is written inside the element the page gave
+// it: the one that folds is then not the one the split sizes. So the element
+// standing above reads the state of what it holds rather than being told about
+// it. Never a split, which is the one thing above a folded region that must not
+// shrink with it — it holds the others too.
+.zone:not(.zone--split):has(> .zone-collapsible.zone-collapsible--collapsed) {
+  --zone-size: var(--zone-collapsed-size, var(--size-1));
+  flex: 0 0 var(--zone-size);
+  width: var(--zone-size);
+}
+
+.zone-collapsible--collapsed {
+  .zone-collapsible--body,
+  .zone-collapsible--actions {
+    display: none;
+  }
+
+  // The bar keeps its place at the top and runs down the rail instead of across
+  // it: the caret first, since it is what the pointer comes for, the title under
+  // it taking whatever height is left.
+  .zone-collapsible--bar {
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: auto;
+    min-height: 0;
+  }
+
+  // The turn is the system's, not this component's: whatever else is set
+  // sideways later has to lean the same way.
+  .zone-collapsible--toggle {
+    transform: rotate(var(--rotate-quarter));
+  }
+
+  .zone-collapsible--title {
+    writing-mode: var(--writing-mode-vertical);
+    min-height: 0;
+    max-height: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

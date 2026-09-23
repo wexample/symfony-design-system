@@ -1,0 +1,15 @@
+// Which way a text set vertically runs, and the quarter turn that goes with it.
+// A design system turns things one way and not the other: a caret that folds a
+// region and the title standing beside it afterwards have to agree, and so do
+// the next two that come along. The direction is named once here and read; a
+// rule that writes `90deg` itself is a rule that will disagree one day.
+@mixin writing-vars {
+  // Vertical text reads downward — the way a spine reads on a library shelf,
+  // not the way it reads on a bookshop table. `vertical-rl` and not
+  // `sideways-lr`, which one engine still does not know.
+  --writing-mode-vertical: vertical-rl;
+
+  // The turn that takes a horizontal glyph to that reading: an arrow pointing
+  // left comes out pointing down, which is where the text now goes.
+  --rotate-quarter: -90deg;
+}

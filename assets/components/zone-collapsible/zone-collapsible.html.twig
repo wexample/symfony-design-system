@@ -1,0 +1,28 @@
+{#- A region that folds. Folded it does not disappear: it keeps its place in the
+    row, its ground, and its bar turned on its side — so the button that folded
+    it is the button that opens it, and nothing outside has to know it exists.
+
+    Given an `id`, it remembers: the state is read here so the page arrives
+    already folded, and written by the script under the same key. -#}
+{%- set slots = slots|default({}) -%}
+{%- set expanded_default = not (collapsed|default(false)) -%}
+{%- set expanded = id|default(null) ? ui_state_get('ui.layout.zone.' ~ id, expanded_default) : expanded_default -%}
+{%- set actions = slots.actions|default('')|trim -%}
+<div class="zone zone--panel zone-collapsible{{ expanded ? '' : ' zone-collapsible--collapsed' }}{{ class|default(null) ? ' ' ~ class : '' }}"
+     {%- if id|default(null) %} data-zone-id="{{ id }}"{% endif %}>
+    <div class="zone zone--narrow toolbar toolbar--shaded toolbar--compact zone-collapsible--bar">
+        <button class="toolbar--action zone-collapsible--toggle"
+                type="button"
+                aria-expanded="{{ expanded ? 'true' : 'false' }}"
+                title="{{ expanded
+                    ? 'WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.collapse'|trans
+                    : 'WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.expand'|trans }}">
+            {{ icon('ph:bold/caret-left') }}
+        </button>
+        <span class="toolbar--title zone-collapsible--title">{{ title|default('') }}</span>
+        {%- if actions %}<div class="toolbar--group zone-collapsible--actions">{{ actions|raw }}</div>{% endif -%}
+    </div>
+    <div class="zone zone--scrollable zone-collapsible--body{{ padded|default(true) ? ' zone--padded' : '' }}">
+        {{- slots.body|default('')|raw -}}
+    </div>
+</div>

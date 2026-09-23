@@ -58,7 +58,7 @@ public function index(App $managedApp): Response
 
 The attribute carries a group and a weight and nothing else, because everything else is already known elsewhere: `menu_item` reads the label and the icon from the page's own translations — `page_title` and `page_icon` — and decides on its own whether it is the page being read. Repeating any of it on the attribute would be a second place to keep in step with the first.
 
-{{ path("src/Service/MenuItemRegistry.php") }} walks `RouterInterface::getRouteCollection()`, reflects on each controller through `RouteHelper::resolveMethodReflection()`, and sorts each group by weight then route name — the order bundles are discovered in is the order they were installed in, which is to say no order at all. The walk is held for the request and nothing is written to disk: the collection it reads from is itself compiled and cached, so a cache here would only add a second thing to invalidate when a bundle arrives.
+{{ path("src/Service/RouteGroupRegistry.php") }} walks `RouterInterface::getRouteCollection()`, reflects on each controller through `RouteHelper::resolveMethodReflection()`, and sorts each group by weight then route name — the order bundles are discovered in is the order they were installed in, which is to say no order at all. The walk is held for the request, once per attribute it is asked for, and nothing is written to disk: the collection it reads from is itself compiled and cached, so a cache here would only add a second thing to invalidate when a bundle arrives.
 
 `menu_items($group, $routeParams, $options)` renders a whole run, one `menu-item` per route, and returns an empty string for a group nobody joined. That is what lets a template put a heading above a run only when there is a run:
 
@@ -82,7 +82,7 @@ public function posts(App $managedApp): Response
 
 A section is a route and not a template on purpose. A zone worth having needs its own data — a repository, a service, a query the page's owner cannot guess — and a template would have to be handed a context nobody can write. So `page_sections` draws each one as an inline sub-request through the kernel, with its own controller, its own services and its own security; no fragment route has to be exposed for that to work. The route serves a fragment, so it renders no layout, and its path opens on an underscore since nobody opens it by hand.
 
-Both attributes extend {{ path("src/Attribute/AbstractRouteGroup.php") }} and are collected by the one registry, keyed by attribute class: a menu item and a page section are the same question, and two walks written apart are two walks that drift apart.
+Both attributes extend {{ path("src/Attribute/AbstractRouteGroup.php") }} and are collected by that same registry, keyed by attribute class: a menu item and a page section are the same question, and two walks written apart are two walks that drift apart.
 
 An application that needs a run to hold less than what declared itself into it implements {{ path("src/Interface/RouteGroupVoterInterface.php") }}, autoconfigured by the bundle's extension. The board does: bundles share one router, so a page contributed by one app's bundle would otherwise appear on every app. The voter is asked at read time and not while collecting — what a route declared never changes, where it is being asked from changes every request.
 

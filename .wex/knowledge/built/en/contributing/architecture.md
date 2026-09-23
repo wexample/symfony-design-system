@@ -15,6 +15,10 @@ public static function getLoaderFrontPaths(): array
 }
 ```
 
+The same `assets/` directory is also an npm package, `@wexample/symfony-design-system`, which an application must declare as `link:` and not `file:` — the page *Assets as an npm package*, in this same section, gives the mechanism and the failure it prevents.
+
+Three loader services draw markup — a banner, an overlay backdrop, a confirm dialog — and the loader does not know what that markup is. assets/js/Services/BannerService.ts and assets/js/Services/OverlayService.ts extend the loader's and set the one thing it left open, `componentPath`; assets/js/Services/ConfirmService.ts lives here outright, since nothing in the loader calls it. An application registers these three in its `App.getServices()`; the loader lets a subclass take the place of the service registered under the same name, so the base arriving first through `super.getServices()` does not win.
+
 src/DependencyInjection/WexampleSymfonyDesignSystemExtension.php calls `loadConfig()` (which reads src/Resources/config/services.yaml) and then merges two layout bases — `modal` and `panel` — into the loader's parameter `wexample_symfony_loader.layout_bases`. That parameter tells the loader which component to use as the container when a page is embedded inside an overlay.
 
 `services.yaml` registers every class under `Controller\`, `Form\`, `Service\`, and `Twig\` with autowiring and autoconfigure. `AppExtension` is excluded from the wildcard scan and registered separately so its `$appHomeRoute` constructor argument can be injected from the `wexample_ds_app_home_route` parameter.
@@ -54,7 +58,7 @@ public function index(App $managedApp): Response
 
 The attribute carries a group and a weight and nothing else, because everything else is already known elsewhere: `menu_item` reads the label and the icon from the page's own translations — `page_title` and `page_icon` — and decides on its own whether it is the page being read. Repeating any of it on the attribute would be a second place to keep in step with the first.
 
-src/Service/MenuItemRegistry.php walks `RouterInterface::getRouteCollection()`, reflects on each controller through `RouteHelper::resolveMethodReflection()`, and sorts each group by weight then route name — the order bundles are discovered in is the order they were installed in, which is to say no order at all. The walk is held for the request and nothing is written to disk: the collection it reads from is itself compiled and cached, so a cache here would only add a second thing to invalidate when a bundle arrives.
+src/Service/RouteGroupRegistry.php walks `RouterInterface::getRouteCollection()`, reflects on each controller through `RouteHelper::resolveMethodReflection()`, and sorts each group by weight then route name — the order bundles are discovered in is the order they were installed in, which is to say no order at all. The walk is held for the request, once per attribute it is asked for, and nothing is written to disk: the collection it reads from is itself compiled and cached, so a cache here would only add a second thing to invalidate when a bundle arrives.
 
 `menu_items($group, $routeParams, $options)` renders a whole run, one `menu-item` per route, and returns an empty string for a group nobody joined. That is what lets a template put a heading above a run only when there is a run:
 
@@ -78,7 +82,7 @@ public function posts(App $managedApp): Response
 
 A section is a route and not a template on purpose. A zone worth having needs its own data — a repository, a service, a query the page's owner cannot guess — and a template would have to be handed a context nobody can write. So `page_sections` draws each one as an inline sub-request through the kernel, with its own controller, its own services and its own security; no fragment route has to be exposed for that to work. The route serves a fragment, so it renders no layout, and its path opens on an underscore since nobody opens it by hand.
 
-Both attributes extend src/Attribute/AbstractRouteGroup.php and are collected by the one registry, keyed by attribute class: a menu item and a page section are the same question, and two walks written apart are two walks that drift apart.
+Both attributes extend src/Attribute/AbstractRouteGroup.php and are collected by that same registry, keyed by attribute class: a menu item and a page section are the same question, and two walks written apart are two walks that drift apart.
 
 An application that needs a run to hold less than what declared itself into it implements src/Interface/RouteGroupVoterInterface.php, autoconfigured by the bundle's extension. The board does: bundles share one router, so a page contributed by one app's bundle would otherwise appear on every app. The voter is asked at read time and not while collecting — what a route declared never changes, where it is being asked from changes every request.
 
@@ -155,6 +159,6 @@ A **shape** is a style with no renderer: the caller writes the markup and puts t
 
 A typical page request arrives at a controller that calls `renderPage('index')`. The loader's `AbstractPagesController` builds a `RenderPass` (tracking the bundle, view name, and layout bases), passes it through `adaptiveRender()`, and ultimately calls `twig->render()`. The template extends `dashboard/layout.html.twig` → `default/layout.html.twig` → the loader's HTML base, which owns the `<!DOCTYPE html>` shell.
 
-Inside a template, calling `{{ "{{ button_target(..., 'modal') }}" }}` invokes `ButtonExtension`, which calls the loader's `ComponentsExtension::component()`. That function renders `components/button-target/button-target.html.twig` server-side and registers the component with the render pass so the loader emits the correct JS bootstrap data. When the browser executes that bootstrap data, `button-target.ts` mounts, listens for clicks, and delegates to `ModalService`, which fetches the target page and hands it to `modal.ts` — an `AbstractOverlayPageManager` — to display.
+Inside a template, calling `{{ button_target(..., 'modal') }}` invokes `ButtonExtension`, which calls the loader's `ComponentsExtension::component()`. That function renders `components/button-target/button-target.html.twig` server-side and registers the component with the render pass so the loader emits the correct JS bootstrap data. When the browser executes that bootstrap data, `button-target.ts` mounts, listens for clicks, and delegates to `ModalService`, which fetches the target page and hands it to `modal.ts` — an `AbstractOverlayPageManager` — to display.
 
 UI state flows in the reverse direction: `menu-collapsible-panel.ts` fires `app.onMenuStateChange(id, open)` → `App::persistUiState` POSTs to `/_ui-state/set` → `UiStateController` writes to the session → on the next page load `ui_state_get('ui.layout.menu.left')` returns the saved value and `dashboard/layout.html.twig` renders the panel pre-collapsed or pre-open.

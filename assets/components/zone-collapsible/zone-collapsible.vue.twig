@@ -1,0 +1,33 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.*') }}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    {# Client-side twin of components/zone-collapsible.html.twig: same markup,
+       same classes. A change to either is a change to both. #}
+    <div
+            class="zone zone--panel zone-collapsible"
+            :class="[{ 'zone-collapsible--collapsed': isCollapsed }, extraClass]"
+            :data-zone-id="id"
+    >
+        <div class="zone zone--narrow toolbar toolbar--shaded toolbar--compact zone-collapsible--bar">
+            <button
+                    class="toolbar--action zone-collapsible--toggle"
+                    type="button"
+                    :aria-expanded="isCollapsed ? 'false' : 'true'"
+                    :title="toggleLabel"
+                    @click="onToggle"
+                    v-html="caret"
+            ></button>
+            <span class="toolbar--title zone-collapsible--title">[[ title ]]</span>
+            <div v-if="$slots.actions" class="toolbar--group zone-collapsible--actions">
+                <slot name="actions"></slot>
+            </div>
+        </div>
+        <div class="zone zone--scrollable zone-collapsible--body" :class="{ 'zone--padded': padded }">
+            <slot></slot>
+        </div>
+    </div>
+{%- endblock -%}

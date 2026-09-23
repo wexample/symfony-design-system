@@ -28,6 +28,7 @@
 @use '../../css/mixins/content-size' as content_size;
 @use '../../css/mixins/opacity' as opacity;
 @use '../../css/mixins/z-index' as z_index;
+@use '../../css/mixins/writing' as writing;
 @use '../../css/partials/global' as global;
 
 html,
@@ -38,6 +39,7 @@ body {
   @include content_size.content-size-vars;
   @include opacity.opacity-vars;
   @include z_index.z-index-vars;
+  @include writing.writing-vars;
 }
 
 // A title may be set in another face than the text under it — an editorial set

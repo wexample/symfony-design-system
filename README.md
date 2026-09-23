@@ -1,6 +1,6 @@
 # symfony_design_system
 
-Version: 16.0.1
+Version: 18.0.0
 
 A Symfony bundle that ships a ready-made design system for web applications: Twig components (buttons, modals, toasts, forms, entity bars), SCSS layouts (`dashboard` and `default`), Vue mixins, and a suite of Twig extensions that wire them together. Every page flows through a `RenderPass` object managed by `AbstractDesignSystemController`, which handles template resolution, per-layout asset loading, and render-node–scoped translations. It targets Symfony developers who want consistent UI primitives and a structured front-end pipeline without building one from scratch.
 
@@ -31,6 +31,10 @@ public static function getLoaderFrontPaths(): array
 }
 ```
 
+The same `assets/` directory is also an npm package, `@wexample/symfony-design-system`, which an application must declare as `link:` and not `file:` — the page *Assets as an npm package*, in this same section, gives the mechanism and the failure it prevents.
+
+Three loader services draw markup — a banner, an overlay backdrop, a confirm dialog — and the loader does not know what that markup is. assets/js/Services/BannerService.ts and assets/js/Services/OverlayService.ts extend the loader's and set the one thing it left open, `componentPath`; assets/js/Services/ConfirmService.ts lives here outright, since nothing in the loader calls it. An application registers these three in its `App.getServices()`; the loader lets a subclass take the place of the service registered under the same name, so the base arriving first through `super.getServices()` does not win.
+
 src/DependencyInjection/WexampleSymfonyDesignSystemExtension.php calls `loadConfig()` (which reads src/Resources/config/services.yaml) and then merges two layout bases — `modal` and `panel` — into the loader's parameter `wexample_symfony_loader.layout_bases`. That parameter tells the loader which component to use as the container when a page is embedded inside an overlay.
 
 `services.yaml` registers every class under `Controller\`, `Form\`, `Service\`, and `Twig\` with autowiring and autoconfigure. `AppExtension` is excluded from the wildcard scan and registered separately so its `$appHomeRoute` constructor argument can be injected from the `wexample_ds_app_home_route` parameter.
@@ -49,6 +53,7 @@ All Twig extensions extend src/Twig/AbstractTemplateExtension.php, which wraps `
 | src/Twig/FormExtension.php | `form_submit()` — renders `components/button/button.html.twig` with `type: submit` injected |
 | src/Twig/ImageExtension.php | `content_image()` — renders `components/content-image/content-image.html.twig` with `loading: lazy` as default |
 | src/Twig/MenuExtension.php | `menu_item()`, `menu_items()`, `menu_separator()`, `menu_item_link()`, `menu_item_collapsible()`, `menu_item_collapsible_from_controller()` |
+| src/Twig/SectionExtension.php | `page_sections($zone, $routeParams)` — the zones a page offers, filled by the routes carrying `#[PageSection]` |
 | src/Twig/MessageExtension.php | `message_info()`, `message_success()`, `message_warning()`, `message_error()` — all render `components/message/message.html.twig` with a type and a default icon |
 | src/Twig/PropertiesExtension.php | `properties($items, $options)` — key/value list, options `bordered`, `split`, `compact`, `stacked` map to `properties--*` modifiers |
 | src/Twig/TabExtension.php | `tab_item()`, `tab_item_link()` — render `components/tab-item/tab-item.html.twig` |
@@ -57,7 +62,7 @@ All Twig extensions extend src/Twig/AbstractTemplateExtension.php, which wraps `
 
 `button_target($icon, $label, $href, $target, $options)` takes the same first three arguments as `button_link()`, plus where the page it points at is loaded: `modal`, `panel`, or the name of an embed the page holds. It merges `href` and `target` into `$options` and renders `components/button-target`. The class list is the caller's — `options.class` replaces it entirely, defaulting to `button` — because the same behaviour has to sit on a `.button` and on a `.table--icon-link`.
 
-### A menu the pages fill
+### Runs the pages declare themselves into
 
 A menu written by hand is a list someone has to edit when a page appears, and a page shipped by a bundle has nobody to edit it — the application owning the template has never heard of it. src/Attribute/MenuItem.php turns that around: a controller action declares which run of items it joins, and the menu asks for the run.
 
@@ -69,7 +74,7 @@ public function index(App $managedApp): Response
 
 The attribute carries a group and a weight and nothing else, because everything else is already known elsewhere: `menu_item` reads the label and the icon from the page's own translations — `page_title` and `page_icon` — and decides on its own whether it is the page being read. Repeating any of it on the attribute would be a second place to keep in step with the first.
 
-src/Service/MenuItemRegistry.php walks `RouterInterface::getRouteCollection()`, reflects on each controller through `RouteHelper::resolveMethodReflection()`, and sorts each group by weight then route name — the order bundles are discovered in is the order they were installed in, which is to say no order at all. The walk is held for the request and nothing is written to disk: the collection it reads from is itself compiled and cached, so a cache here would only add a second thing to invalidate when a bundle arrives.
+src/Service/RouteGroupRegistry.php walks `RouterInterface::getRouteCollection()`, reflects on each controller through `RouteHelper::resolveMethodReflection()`, and sorts each group by weight then route name — the order bundles are discovered in is the order they were installed in, which is to say no order at all. The walk is held for the request, once per attribute it is asked for, and nothing is written to disk: the collection it reads from is itself compiled and cached, so a cache here would only add a second thing to invalidate when a bundle arrives.
 
 `menu_items($group, $routeParams, $options)` renders a whole run, one `menu-item` per route, and returns an empty string for a group nobody joined. That is what lets a template put a heading above a run only when there is a run:
 
@@ -82,6 +87,20 @@ src/Service/MenuItemRegistry.php walks `RouterInterface::getRouteCollection()`, 
 ```
 
 `| raw` is not optional there: twig escapes what it no longer knows came from a renderer once it has been through a variable.
+
+The same question is asked of the body of a page by src/Attribute/PageSection.php, its twin: a page names a zone and nothing else, and what fills it is declared on the other side.
+
+```php
+#[PageSection(group: 'app_general', weight: 10)]
+#[Route('/app/{id}/_sections/blog-posts', name: 'acme_blog_board_section_posts')]
+public function posts(App $managedApp): Response
+```
+
+A section is a route and not a template on purpose. A zone worth having needs its own data — a repository, a service, a query the page's owner cannot guess — and a template would have to be handed a context nobody can write. So `page_sections` draws each one as an inline sub-request through the kernel, with its own controller, its own services and its own security; no fragment route has to be exposed for that to work. The route serves a fragment, so it renders no layout, and its path opens on an underscore since nobody opens it by hand.
+
+Both attributes extend src/Attribute/AbstractRouteGroup.php and are collected by that same registry, keyed by attribute class: a menu item and a page section are the same question, and two walks written apart are two walks that drift apart.
+
+An application that needs a run to hold less than what declared itself into it implements src/Interface/RouteGroupVoterInterface.php, autoconfigured by the bundle's extension. The board does: bundles share one router, so a page contributed by one app's bundle would otherwise appear on every app. The voter is asked at read time and not while collecting — what a route declared never changes, where it is being asked from changes every request.
 
 `menu_item_collapsible_from_controller()` builds the submenu automatically: it scans `RouterInterface::getRouteCollection()` for routes whose `_controller` class path shares a namespace prefix with the given controller namespace, keeps only the top-level or index routes (using `ClassHelper`), then compares each against the current request route to decide whether the group is open.
 
@@ -174,7 +193,7 @@ Visit the [Wexample Suite documentation](https://docs.wexample.com) for the comp
 
 - php: >=8.5
 - wexample/symfony-live: >=4.0.0
-- wexample/symfony-loader: >=10.0.0
+- wexample/symfony-loader: >=11.0.0
 
 ## Versioning & Compatibility Policy
 
