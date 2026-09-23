@@ -15,10 +15,62 @@
 {%- block vue_body -%}
     {# Client-side twin of partials/table.html.twig: same column contract, same
        markup. A change to either is a change to both. #}
+    <div class="data-table">
+    {# What can be done to the ticked rows, above them — same bar as the server
+       table, and the same post when an action has an address. #}
+    <div v-if="hasBulkActions" class="table--bulk">
+        <span class="table--bulk-count">[[ transTable('selected', { '%count%': selectedCount }) ]]</span>
+        <template v-if="bulkActionsMode === 'select'">
+            <select
+                    class="form--input table--bulk-select"
+                    v-model="bulkActionIndex"
+                    :aria-label="transTable('actions')"
+            >
+                <option value="">[[ transTable('actions') ]]</option>
+                <option
+                        v-for="(action, actionIndex) in bulkActions"
+                        :key="action.key ?? actionIndex"
+                        :value="actionIndex"
+                >[[ action.label ]]</option>
+            </select>
+            <button
+                    class="button table--bulk-apply"
+                    type="button"
+                    :disabled="!selectedCount || bulkActionIndex === ''"
+                    @click="applyBulkSelect"
+            >
+                <span class="button--icon" v-html="renderIcon('ph:bold/check')"></span>
+                <span>[[ transTable('apply') ]]</span>
+            </button>
+        </template>
+        <template v-else>
+            <button
+                    v-for="(action, actionIndex) in bulkActions"
+                    :key="action.key ?? actionIndex"
+                    class="button table--bulk-action"
+                    type="button"
+                    :disabled="!selectedCount"
+                    @click="runBulkAction(action)"
+            >
+                <span class="button--icon" v-html="renderIcon(action.icon)"></span>
+                <span>[[ action.label ]]</span>
+            </button>
+        </template>
+    </div>
     <div class="table--frame" :class="{ 'table--frame--sticky': sticky }">
     <table class="table" :class="{ 'table--refreshing': loading && hasRows(), 'table--sticky': sticky }">
         <thead v-if="showHeader && columns.length">
         <tr class="table--row">
+            <th v-if="selectable" class="table--cell table--cell--select" scope="col">
+                <input
+                        class="table--select table--select-all"
+                        type="checkbox"
+                        :checked="allSelected"
+                        :indeterminate="someSelected"
+                        :aria-label="transTable('select_all')"
+                        @change="toggleAll($event.target.checked)"
+                >
+            </th>
             <slot name="header" :columns="columns">
                 <th
                         v-for="(column, columnIndex) in columns"
@@ -55,6 +107,15 @@
                 class="table--row"
                 :class="{ 'table--row--group': isGroupRow(row) }"
         >
+            <td v-if="selectable && !isGroupRow(row)" class="table--cell table--cell--select">
+                <input
+                        class="table--select table--select-row"
+                        type="checkbox"
+                        :checked="isRowSelected(row, index)"
+                        :aria-label="transTable('select_row')"
+                        @change="toggleRow(row, index, $event.target.checked)"
+                >
+            </td>
             <template v-if="isGroupRow(row)">
                 <th class="table--cell table--cell--group" :colspan="getEmptyColspan()" scope="colgroup">[[ row.group ]]</th>
             </template>
@@ -162,5 +223,6 @@
         </tr>
         </tfoot>
     </table>
+    </div>
     </div>
 {%- endblock -%}

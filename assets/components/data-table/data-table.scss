@@ -4,6 +4,9 @@
 @use '../../css/utilities/text-align';
 @use '../pagination/pagination';
 @use '../spinner/spinner';
+@use '../button/button';
+@use '../../css/shapes/form/base';
+@use '../../css/shapes/form/select';
 
 // A table is one raised sheet above the page, so the surface is the table's and
 // the rows let it through — a row painting itself with the page background is
@@ -200,4 +203,48 @@
 
 .table .table--cell.text-empty {
   text-align: center;
+}
+
+// Rows that can be ticked. The box column takes no more than the box, and a
+// ticked row is lit the way a selected tree row is, lightly: it is still read
+// as a row among the others.
+.table--cell--select {
+  width: 1%;
+  padding-right: 0;
+}
+
+.table--select {
+  margin: 0;
+  vertical-align: middle;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.table--row:has(> .table--cell--select .table--select:checked) {
+  background: var(--state-active);
+}
+
+// What can be done to the ticked rows, above them. The frame below keeps its
+// margin for the table alone.
+.table--bulk {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: 1rem;
+
+  + .table--frame {
+    margin-top: var(--space-2);
+  }
+}
+
+.table--bulk-count {
+  margin-right: var(--space-2);
+  font-size: var(--font-size-2);
+  color: var(--text-color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.table--bulk-select {
+  width: auto;
 }

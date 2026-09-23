@@ -7,6 +7,12 @@ frontend:
     next: Next
     page: Page
     ellipsis: "…"
+  table:
+    select_all: Select all rows
+    select_row: Select this row
+    selected: "%count% selected"
+    actions: Actions
+    apply: Apply
   zone:
     collapse: Collapse
     expand: Expand

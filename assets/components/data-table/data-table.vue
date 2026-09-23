@@ -63,11 +63,89 @@ export default {
     sticky: {
       type: Boolean,
       default: false
+    },
+    // Rows that can be ticked, a box at the head of each. What names a row in
+    // the selection is its key, so a table that selects wants a `rowKey`.
+    selectable: {
+      type: Boolean,
+      default: false
+    },
+    // The ticked keys, for a parent that holds them (`v-model:selected`).
+    // Left null, the table holds them itself.
+    selected: {
+      type: Array,
+      default: null
+    },
+    // What can be done to the ticked rows: { key, label, icon, href, token }.
+    // One with an href posts them there, as the server table does; every one
+    // is also emitted as `bulk-action`, for a parent that acts itself.
+    bulkActions: {
+      type: Array,
+      default: () => []
+    },
+    // `buttons` when there are few, `select` when there are enough to crowd
+    // the bar.
+    bulkActionsMode: {
+      type: String,
+      default: 'buttons'
+    },
+    // The name the ticked keys are posted under.
+    selectionName: {
+      type: String,
+      default: 'ids[]'
     }
   },
 
+  emits: ['update:selected', 'bulk-action'],
+
+  data() {
+    return {
+      ownSelected: [],
+      bulkActionIndex: ''
+    };
+  },
+
   computed: {
-    ...translated.computed
+    ...translated.computed,
+
+    selectedKeys() {
+      return this.selected ?? this.ownSelected;
+    },
+
+    selectableKeys() {
+      return (this.rows || [])
+        .map((row, index) => (this.isGroupRow(row) ? null : this.getRowKey(row, index)))
+        .filter((key) => key !== null);
+    },
+
+    selectedCount() {
+      return this.selectedKeys.length;
+    },
+
+    allSelected() {
+      return this.selectableKeys.length > 0 && this.selectedCount === this.selectableKeys.length;
+    },
+
+    someSelected() {
+      return this.selectedCount > 0 && !this.allSelected;
+    },
+
+    hasBulkActions() {
+      return this.selectable && this.bulkActions.length > 0;
+    }
+  },
+
+  watch: {
+    // What is no longer on screen cannot be acted on: a refresh or a page turn
+    // drops the keys it took away.
+    rows() {
+      const present = new Set(this.selectableKeys);
+      const kept = this.selectedKeys.filter((key) => present.has(key));
+
+      if (kept.length !== this.selectedKeys.length) {
+        this.setSelected(kept);
+      }
+    }
   },
 
   methods: {
@@ -92,7 +170,76 @@ export default {
     },
 
     getEmptyColspan() {
-      return this.columns && this.columns.length ? this.columns.length : 1;
+      return (this.columns && this.columns.length ? this.columns.length : 1)
+        + (this.selectable ? 1 : 0);
+    },
+
+    transTable(name, args = {}) {
+      return this.trans(`WexampleSymfonyDesignSystemBundle.common.system::frontend.table.${name}`, args);
+    },
+
+    isRowSelected(row, index) {
+      return this.selectedKeys.includes(this.getRowKey(row, index));
+    },
+
+    setSelected(keys) {
+      this.ownSelected = keys;
+      this.$emit('update:selected', keys);
+    },
+
+    toggleRow(row, index, checked) {
+      const key = this.getRowKey(row, index);
+      const others = this.selectedKeys.filter((selected) => selected !== key);
+
+      this.setSelected(checked ? [...others, key] : others);
+    },
+
+    toggleAll(checked) {
+      this.setSelected(checked ? [...this.selectableKeys] : []);
+    },
+
+    applyBulkSelect() {
+      const action = this.bulkActions[this.bulkActionIndex];
+
+      if (action) {
+        this.runBulkAction(action);
+      }
+    },
+
+    // Told to the parent in any case; posted too when the action has an
+    // address, the way the server table posts it.
+    runBulkAction(action) {
+      const keys = [...this.selectedKeys];
+
+      this.$emit('bulk-action', {
+        action,
+        keys,
+        rows: this.rows.filter((row, index) => keys.includes(this.getRowKey(row, index)))
+      });
+
+      if (!action.href) {
+        return;
+      }
+
+      const form = document.createElement('form');
+      form.method = 'post';
+      form.action = action.href;
+
+      const fields = keys.map((key) => [this.selectionName, key]);
+      if (action.token) {
+        fields.push(['_token', action.token]);
+      }
+
+      fields.forEach(([name, value]) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        input.value = String(value);
+        form.appendChild(input);
+      });
+
+      document.body.appendChild(form);
+      form.submit();
     },
     hasRows() {
       return Array.isArray(this.rows) && this.rows.length > 0;

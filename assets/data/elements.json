@@ -426,21 +426,22 @@
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/data-table/data-table.vue",
                     "@WexampleSymfonyDesignSystemBundle/components/data-table/data-table.vue.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/data-table/data-table.ts"
                 ]
             },
             "stances": {
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "waived",
+                "script": "expected",
                 "schema": "todo",
                 "ai": "todo",
                 "react": "todo",
                 "flutter": "todo"
             },
-            "notes": {
-                "script": "it shows and does nothing; sorting and paging belong to what holds it"
-            }
+            "notes": []
         },
         {
             "key": "date-display",
@@ -1977,6 +1978,68 @@
             "notes": {
                 "vue": "a form with a file input and a slot, reachable from inside a vue tree"
             }
+        },
+        {
+            "key": "zone-collapsible",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A region of a layout that folds to its bar, the bar turning on its side with it.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-collapsible/zone-collapsible.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-collapsible/zone-collapsible.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-collapsible/zone-collapsible.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-collapsible/zone-collapsible.vue"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-collapsible/zone-collapsible.ts"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "expected",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": []
+        },
+        {
+            "key": "zone-resizer",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "The handle that sizes the region it stands in, lying in the gap beside it.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-resizer/zone-resizer.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-resizer/zone-resizer.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-resizer/zone-resizer.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-resizer/zone-resizer.vue.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-resizer/zone-resizer.ts"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "expected",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": []
         }
     ],
     "abstracts": [

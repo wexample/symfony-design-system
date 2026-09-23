@@ -2,7 +2,53 @@
    beside it, and the two take the same column definitions — what a cell value
    may be is where they part, and that is written in the component's
    declaration: this one is drawn once the data is known, the other before. #}
-{% set columns_count = columns|length ?: 1 %}
+{% set selectable = options.selectable|default(false) %}
+{% set columns_count = (columns|length ?: 1) + (selectable ? 1 : 0) %}
+{% set bulk_actions = options.bulk_actions|default([]) %}
+{#- The checkboxes sit in the table and the form above it: a row may hold forms
+    of its own, and forms do not nest, so the boxes join the bulk form by its id
+    rather than by being inside it. -#}
+{% set bulk_form_id = 'data-table-bulk-' ~ random() %}
+
+{#- One root, for the script to hang from: it keeps the select-all box, the
+    count and the bulk actions in step with the rows that are ticked. -#}
+<div class="data-table">
+{%- if selectable and bulk_actions is not empty -%}
+    {#- What can be done to the ticked rows: each action posts them, their values
+        under one name, to its own address. Buttons when there are few, a select
+        when there are enough to crowd the bar. -#}
+    <form class="table--bulk" id="{{ bulk_form_id }}" method="post" action="{{ (bulk_actions|first).href|default('#') }}">
+        <span class="table--bulk-count" data-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.selected'|trans({ '%count%': '%count%' }) }}">
+            {{- 'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.selected'|trans({ '%count%': 0 }) -}}
+        </span>
+        {%- if options.bulk_actions_mode|default('buttons') == 'select' -%}
+            <input type="hidden" name="_token" value="">
+            <select class="form--input table--bulk-select" aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.actions'|trans }}">
+                <option value="">{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.actions'|trans }}</option>
+                {%- for action in bulk_actions -%}
+                    <option value="{{ loop.index0 }}" data-href="{{ action.href|default('#') }}" data-token="{{ action.token|default('') }}">{{ action.label|default('') }}</option>
+                {%- endfor -%}
+            </select>
+            {{ button('ph:bold/check', 'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.apply', {
+                type: 'submit',
+                class: 'table--bulk-apply',
+                disabled: true,
+            }) }}
+        {%- else -%}
+            {%- for action in bulk_actions -%}
+                {#- The token rides on the button, so each action carries its own. -#}
+                {{ button(action.icon|default(null), action.label|default(''), {
+                    type: 'submit',
+                    class: 'table--bulk-action',
+                    formaction: action.href|default('#'),
+                    name: '_token',
+                    value: action.token|default(''),
+                    disabled: true,
+                }) }}
+            {%- endfor -%}
+        {%- endif -%}
+    </form>
+{%- endif -%}
 
 {#- The frame is what scrolls sideways when the columns are wider than the room:
     the table keeps its own width, the page keeps its own. -#}
@@ -11,6 +57,11 @@
     {% if options.show_header|default(true) %}
         <thead>
         <tr class="table--row">
+            {% if selectable %}
+                <th class="table--cell table--cell--select" scope="col">
+                    <input class="table--select table--select-all" type="checkbox" aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.select_all'|trans }}">
+                </th>
+            {% endif %}
             {% for column in columns %}
                 <th class="table--cell{{ column.class ? ' ' ~ column.class }}" scope="col">{{ column.label }}</th>
             {% endfor %}
@@ -43,6 +94,15 @@
             </tr>
             {% else %}
             <tr class="table--row">
+                {% if selectable %}
+                    <td class="table--cell table--cell--select">
+                        <input class="table--select table--select-row" type="checkbox"
+                               form="{{ bulk_form_id }}"
+                               name="{{ options.selection_name|default('ids[]') }}"
+                               value="{{ attribute(row, options.selection_key|default('id')) }}"
+                               aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.select_row'|trans }}">
+                    </td>
+                {% endif %}
                 {% for column in columns %}
                     {% set value = column.key ? attribute(row, column.key) : null %}
                     <td class="table--cell{{ column.class ? ' ' ~ column.class }}{{ column.secondary ? ' table--cell--secondary' }}">
@@ -109,4 +169,5 @@
     {% endif %}
     </tbody>
 </table>
+</div>
 </div>
