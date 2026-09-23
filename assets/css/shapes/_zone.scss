@@ -46,6 +46,22 @@
   }
 }
 
+// A region the width of a text: what a container is to a page, a zone is here —
+// capped at the reading measure and padded the same, so a document reads alike
+// in a pane and on a page of its own. In a split it asks for that measure and
+// gives way below it; what it leaves goes to a flexible neighbour, which is how
+// the page shows around a text instead of the text's ground running to the edge.
+// Written after the split's own rule, which sizes its children with as many
+// classes: the later of two equals is the one that holds.
+.zone--measure {
+  max-width: var(--zone-measure, var(--content-size-m));
+  padding: var(--space-4);
+}
+
+.zone--split > .zone--measure {
+  flex: 0 1 var(--zone-measure, var(--content-size-m));
+}
+
 // Without a floor, the flexible zones shrink to nothing instead of wrapping.
 // Below that floor the body claims a full line and the narrow column moves above it.
 .zone--split.zone--split--wrap {
