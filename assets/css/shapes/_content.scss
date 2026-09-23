@@ -89,6 +89,39 @@
     color: var(--text-color-muted);
   }
 
+  // A table written in prose carries no class: markdown renders it bare. It gets
+  // the same sheet as the data-table component, from the same tokens, on the
+  // elements themselves — a table that does carry the component's class keeps
+  // its own rules, hence the exclusion. What prose cannot have is the sideways
+  // scroll, which lives on the frame around the table and not on the table.
+  table:not(.table) {
+    width: 100%;
+    border-radius: var(--radius-box);
+    background: var(--surface-2);
+    border: var(--border-separator);
+    overflow: clip;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    :is(th, td) {
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--font-size-3);
+      border-bottom: var(--border-separator);
+      text-align: left;
+    }
+
+    thead :is(th, td) { font-weight: var(--font-weight-strong); }
+
+    tbody tr:last-child :is(th, td) { border-bottom: 0; }
+
+    caption {
+      caption-side: bottom;
+      padding-top: var(--space-2);
+      font-size: var(--font-size-2);
+      color: var(--text-color-muted);
+    }
+  }
+
   @include figure.figure-styles;
 
   hr {
