@@ -17,7 +17,14 @@
 // and a neutral font-size context so the heading keeps its natural em-based
 // size. A shaded one is chrome — the header of a panel — and chrome keeps its
 // room whatever it holds: a heading there is a label, not a line of the text.
-.toolbar:not(.toolbar--shaded):has(> :is(h1, h2, h3, h4, h5, h6)) {
+//
+// The heading is looked for at any depth, because a title with markers beside
+// it has to be grouped for `space-between` to push the actions to the far end:
+// requiring a direct child made the rule miss the bars that need it most. What
+// it keys on is `--title`, the bar's own word for what it heads, and not the
+// mere presence of a heading — a component dropped in the row is free to build
+// one of its own without the bar silently losing its room.
+.toolbar:not(.toolbar--shaded):has(.toolbar--title:is(h1, h2, h3, h4, h5, h6)) {
   --toolbar-padding: 0;
   --toolbar-font-size: 1rem;
 }
