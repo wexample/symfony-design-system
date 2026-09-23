@@ -1,0 +1,20 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.*') }}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    {# Client-side twin of components/zone-resizer.html.twig: same markup, same
+       classes. A change to either is a change to both. #}
+    <div
+            class="zone-resizer"
+            :class="'zone-resizer--' + edge"
+            role="separator"
+            tabindex="0"
+            :aria-orientation="orientation"
+            :data-zone-resizer-axis="axis"
+            :data-zone-resizer-edge="edge"
+            :title="trans('@vue::zone.resize')"
+    ></div>
+{%- endblock -%}

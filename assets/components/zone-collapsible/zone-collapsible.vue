@@ -1,6 +1,12 @@
 <script>
+import ZoneResizer from '../zone-resizer/zone-resizer.vue';
+
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-zone-collapsible-zone-collapsible',
+
+  components: {
+    ZoneResizer
+  },
 
   props: {
     // Names the region so it can be remembered. Without one it still folds, it
@@ -26,6 +32,17 @@ export default {
     extraClass: {
       type: String,
       default: null
+    },
+    // A handle in the gap on one of its edges, for a region the visitor is
+    // allowed to size. It goes with the fold rather than against it: folded,
+    // there is nothing left to size.
+    resizable: {
+      type: Boolean,
+      default: false
+    },
+    resizerEdge: {
+      type: String,
+      default: 'end'
     }
   },
 

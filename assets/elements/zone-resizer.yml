@@ -1,0 +1,16 @@
+# Declares `zone-resizer` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "The handle that sizes the region it stands in, lying in the gap beside it."
+formats:
+  style: true
+  template: true
+  vue: true
+  script: true
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

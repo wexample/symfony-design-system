@@ -1,0 +1,17 @@
+{#- The handle that resizes the region it stands in. Dropped inside any zone, it
+    hangs into the gap on one edge of it — the room between two regions being the
+    only place a separator belongs, and the gap following the zone since the
+    handle is its child.
+
+    It is a separator in the sense the accessibility tree gives the word: the
+    thing between two panes that can be moved, reachable by the keyboard as well
+    as by the pointer. -#}
+{%- set edge = edge|default('end') -%}
+{%- set axis = axis|default(null) -%}
+<div class="zone-resizer zone-resizer--{{ edge }}"
+     role="separator"
+     tabindex="0"
+     aria-orientation="{{ axis == 'y' ? 'horizontal' : 'vertical' }}"
+     {%- if axis %} data-zone-resizer-axis="{{ axis }}"{% endif %}
+     data-zone-resizer-edge="{{ edge }}"
+     title="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.resize'|trans }}"></div>

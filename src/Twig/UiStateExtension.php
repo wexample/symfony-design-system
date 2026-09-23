@@ -2,14 +2,14 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig;
 
-use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use Wexample\SymfonyDesignSystem\Service\UiStateService;
 
 class UiStateExtension extends AbstractExtension
 {
     public function __construct(
-        private readonly RequestStack $requestStack,
+        private readonly UiStateService $uiState,
     ) {
     }
 
@@ -22,6 +22,6 @@ class UiStateExtension extends AbstractExtension
 
     public function uiStateGet(string $key, mixed $default = null): mixed
     {
-        return $this->requestStack->getSession()->get('ui_state.' . $key, $default);
+        return $this->uiState->get($key, $default);
     }
 }

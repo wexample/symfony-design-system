@@ -1,0 +1,66 @@
+// The handle that sizes the region it stands in, lying in the gap beside it.
+@use '../../css/shapes/zone';
+
+// The handle is placed against the edges of the region holding it, so that
+// region is what it is placed against. Written here and not asked of the page,
+// which would forget it once.
+.zone:has(> .zone-resizer) {
+  position: relative;
+}
+
+// The handle is the gap and nothing else: exactly as wide, lying exactly where
+// it is, and drawing nothing — the cursor is what says it can be moved. The gap
+// is read from the split, which hands `--zone-gap` down to what it holds, with
+// the split's own fallback when it names none.
+.zone-resizer {
+  --zone-resizer-reach: var(--zone-gap, var(--space-2));
+  position: absolute;
+  z-index: 1;
+  // Without this a finger scrolls the page instead of moving the handle.
+  touch-action: none;
+}
+
+.zone-resizer:focus {
+  outline: none;
+}
+
+// Along the row: the handle runs down the full height of the region, filling
+// the gap on one of its two vertical edges. This is the default, the axis being
+// unknown until the script has read the split — harmless for a handle that
+// draws nothing.
+.zone-resizer--start,
+.zone-resizer--end {
+  top: 0;
+  bottom: 0;
+  width: var(--zone-resizer-reach);
+  cursor: col-resize;
+}
+
+.zone-resizer--end {
+  right: calc(var(--zone-resizer-reach) * -1);
+}
+
+.zone-resizer--start {
+  left: calc(var(--zone-resizer-reach) * -1);
+}
+
+// Down the column: the same handle turned, filling the gap under or over the
+// region. Two classes, to outweigh the pair above whatever the source order.
+.zone-resizer--y.zone-resizer--start,
+.zone-resizer--y.zone-resizer--end {
+  top: auto;
+  bottom: auto;
+  left: 0;
+  right: 0;
+  width: auto;
+  height: var(--zone-resizer-reach);
+  cursor: row-resize;
+}
+
+.zone-resizer--y.zone-resizer--end {
+  bottom: calc(var(--zone-resizer-reach) * -1);
+}
+
+.zone-resizer--y.zone-resizer--start {
+  top: calc(var(--zone-resizer-reach) * -1);
+}

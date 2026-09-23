@@ -1,5 +1,9 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
 
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer') -}}
+{%- endblock -%}
+
 {%- block vue_config -%}
     {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.*') }}
 {%- endblock -%}
@@ -29,5 +33,6 @@
         <div class="zone zone--scrollable zone-collapsible--body" :class="{ 'zone--padded': padded }">
             <slot></slot>
         </div>
+        <zone-resizer v-if="resizable && !isCollapsed" :edge="resizerEdge"></zone-resizer>
     </div>
 {%- endblock -%}

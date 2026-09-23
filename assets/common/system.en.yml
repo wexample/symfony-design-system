@@ -10,3 +10,4 @@ frontend:
   zone:
     collapse: Collapse
     expand: Expand
+    resize: Resize

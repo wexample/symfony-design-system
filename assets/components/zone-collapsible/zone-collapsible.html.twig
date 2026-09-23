@@ -9,7 +9,7 @@
 {%- set expanded = id|default(null) ? ui_state_get('ui.layout.zone.' ~ id, expanded_default) : expanded_default -%}
 {%- set actions = slots.actions|default('')|trim -%}
 <div class="zone zone--panel zone-collapsible{{ expanded ? '' : ' zone-collapsible--collapsed' }}{{ class|default(null) ? ' ' ~ class : '' }}"
-     {%- if id|default(null) %} data-zone-id="{{ id }}"{% endif %}>
+     {%- if id|default(null) %} {{ zone_state(id) }}{% endif %}>
     <div class="zone zone--narrow toolbar toolbar--shaded toolbar--compact zone-collapsible--bar">
         <button class="toolbar--action zone-collapsible--toggle"
                 type="button"
@@ -25,4 +25,11 @@
     <div class="zone zone--scrollable zone-collapsible--body{{ padded|default(true) ? ' zone--padded' : '' }}">
         {{- slots.body|default('')|raw -}}
     </div>
+    {#- Folded, there is nothing left to size: the handle would be sitting on a
+        rail the caret is the whole of. -#}
+    {%- if resizable|default(false) and expanded -%}
+        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer', {}, {
+            edge: resizer_edge|default('end')
+        }) }}
+    {%- endif -%}
 </div>
