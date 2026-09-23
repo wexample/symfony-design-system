@@ -1,5 +1,10 @@
 <script>
 import TreeNode from "../tree-node/tree-node.vue";
+import { uiStateGet, uiStateHas, uiStateSet } from "../../js/Helper/UiStateHelper";
+
+// How many open branches a tree keeps in mind. Past this the oldest are
+// dropped: a session is not the place to hoard every folder ever opened.
+const OPEN_KEYS_MAX = 200;
 
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-tree-tree',
@@ -39,6 +44,21 @@ export default {
     allowSelectMultiple: {
       type: Boolean,
       default: false
+    },
+
+    // Names the tree so which branches are open is remembered, and comes back
+    // with the page. Without one it opens as its items say, every time.
+    stateId: {
+      type: String,
+      default: null
+    },
+
+    // Says which value of an item names it from one load to the next. Left out,
+    // getTreeItemKey() reads `key`, then `id`, then falls back on the path of
+    // labels — enough for a tree whose data has neither.
+    itemKey: {
+      type: Function,
+      default: null
     }
   },
 
@@ -53,6 +73,12 @@ export default {
         // Where a range starts. The last click that was not a range, so that
         // shifting twice from the same place widens instead of walking.
         anchor: null
+      },
+      // The keys of the open branches, in the order they were opened. Seeded by
+      // the nodes that mount open, so the first thing remembered is what the
+      // visitor saw and not only what they clicked.
+      openState: {
+        keys: this.readOpenKeys()
       }
     };
   },
@@ -72,11 +98,66 @@ export default {
       treeLoadChildren: this.loadChildren,
       treeSelection: this.selection,
       treeRegisterRow: this.registerRow,
-      treeUnregisterRow: this.unregisterRow
+      treeUnregisterRow: this.unregisterRow,
+      treeItemKey: this.getTreeItemKey,
+      treeIsRemembered: this.isRemembered,
+      treeIsOpen: this.isOpenKey,
+      treeSetOpen: this.setOpenKey
     };
   },
 
   methods: {
+    // The one question every tree answers the same way and every dataset
+    // differently: what names this item. A component extending the tree
+    // overrides this; a page passes `item-key`.
+    getTreeItemKey(item, parentKey) {
+      if (this.itemKey) {
+        return String(this.itemKey(item));
+      }
+
+      const own = item.key ?? item.id;
+
+      if (own !== undefined && own !== null) {
+        return String(own);
+      }
+
+      const label = item.label ?? item.name ?? '';
+
+      return parentKey ? `${parentKey}/${label}` : label;
+    },
+
+    stateKey() {
+      return `ui.tree.${this.stateId}.open`;
+    },
+
+    readOpenKeys() {
+      return this.stateId ? uiStateGet(this.app, this.stateKey(), []) : [];
+    },
+
+    // Whether this tree has something to restore. When it has not — never named,
+    // or never touched — the nodes open as their items say.
+    isRemembered() {
+      return !!this.stateId && uiStateHas(this.app, this.stateKey());
+    },
+
+    isOpenKey(key) {
+      return this.openState.keys.includes(key);
+    },
+
+    setOpenKey(key, open, persist = true) {
+      const keys = this.openState.keys.filter(existing => existing !== key);
+
+      if (open) {
+        keys.push(key);
+      }
+
+      this.openState.keys = keys.slice(-OPEN_KEYS_MAX);
+
+      if (persist && this.stateId) {
+        uiStateSet(this.app, this.stateKey(), this.openState.keys);
+      }
+    },
+
     registerRow(el, item) {
       this.rowItems.set(el, item);
     },

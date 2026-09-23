@@ -37,6 +37,7 @@
                     :key="index"
                     :item="child"
                     :depth="depth + 1"
+                    :parent-key="nodeKey"
                     @select="$emit('select', $event)"
                     @action="$emit('action', $event)"
             ></tree-node>

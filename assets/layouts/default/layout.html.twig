@@ -6,6 +6,10 @@
     {{- render_pass.layoutRenderNode.setDefaultView(_self) -}}
     {{ parent() }}
     {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::*') }}
+    {#- What the interface remembers, handed to the page once: a component
+        restoring its state — a tree reopening its branches — reads it where it
+        stands rather than every page passing it down. -#}
+    {{ var_export(render_pass, 'uiState', ui_state_all()) }}
 {%- endblock -%}
 
 {%- block page_body_container -%}

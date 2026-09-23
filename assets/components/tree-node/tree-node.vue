@@ -23,6 +23,18 @@ export default {
     },
     treeUnregisterRow: {
       default: null
+    },
+    treeItemKey: {
+      default: null
+    },
+    treeIsRemembered: {
+      default: null
+    },
+    treeIsOpen: {
+      default: null
+    },
+    treeSetOpen: {
+      default: null
     }
   },
 
@@ -34,14 +46,26 @@ export default {
     depth: {
       type: Number,
       default: 0
+    },
+    // The key of the node above, for a key built from the path of labels.
+    parentKey: {
+      type: String,
+      default: null
     }
   },
 
   data() {
+    const nodeKey = this.treeItemKey ? this.treeItemKey(this.item, this.parentKey) : null;
+
     return {
+      nodeKey,
       // The item says how the node starts, the node owns it afterwards — that is
-      // the whole difference with the Twig version, which cannot toggle.
-      isOpen: this.item.open === true,
+      // the whole difference with the Twig version, which cannot toggle. Once
+      // the tree remembers, the memory wins over the item: a branch the visitor
+      // folded stays folded even if the data arrives with `open: true`.
+      isOpen: nodeKey !== null && this.treeIsRemembered?.()
+        ? this.treeIsOpen(nodeKey)
+        : this.item.open === true,
       // Null means "never asked": what tells a level yet to load from one that
       // loaded and came back empty.
       children: this.item.children ?? null,
@@ -109,8 +133,23 @@ export default {
     }
   },
 
-  mounted() {
+  async mounted() {
     this.treeRegisterRow?.(this.$refs.row, this.item);
+
+    if (!this.isOpen) {
+      return;
+    }
+
+    // Open on arrival without having been clicked: kept in mind, so the first
+    // thing written down is what was on screen and not only what changed.
+    this.treeSetOpen?.(this.nodeKey, true, false);
+
+    // A branch reopened from memory has no children yet when they come on
+    // demand: it asks for them the way a click would, and the branches below
+    // do the same as they mount, one level at a time.
+    if (this.children === null && this.treeLoadChildren) {
+      await this.loadPage(0);
+    }
   },
 
   beforeUnmount() {
@@ -130,6 +169,7 @@ export default {
       }
 
       this.isOpen = !this.isOpen;
+      this.treeSetOpen?.(this.nodeKey, this.isOpen);
 
       if (!this.isOpen) {
         this.forgetChildren();

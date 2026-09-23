@@ -32,6 +32,26 @@ class UiStateService
         return $this->requestStack->getSession()->get(self::NAMESPACE.$key, $default);
     }
 
+    /**
+     * Everything the interface remembers, keyed without the namespace — what the
+     * layout hands to the page once, so a component restoring its state reads it
+     * where it stands instead of every page passing it down.
+     *
+     * @return array<string, mixed>
+     */
+    public function all(): array
+    {
+        $state = [];
+
+        foreach ($this->requestStack->getSession()->all() as $key => $value) {
+            if (str_starts_with($key, self::NAMESPACE)) {
+                $state[substr($key, strlen(self::NAMESPACE))] = $value;
+            }
+        }
+
+        return $state;
+    }
+
     public function set(
         string $key,
         mixed $value,

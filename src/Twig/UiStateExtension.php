@@ -17,6 +17,7 @@ class UiStateExtension extends AbstractExtension
     {
         return [
             new TwigFunction('ui_state_get', [$this, 'uiStateGet']),
+            new TwigFunction('ui_state_all', [$this->uiState, 'all']),
         ];
     }
 
