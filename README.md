@@ -192,7 +192,6 @@ Visit the [Wexample Suite documentation](https://docs.wexample.com) for the comp
 ## Dependencies
 
 - php: >=8.5
-- wexample/symfony-live: >=4.0.0
 - wexample/symfony-loader: >=11.0.0
 - wexample/symfony-routing: >=1.0.0
 
