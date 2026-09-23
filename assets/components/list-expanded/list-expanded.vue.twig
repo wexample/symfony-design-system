@@ -30,6 +30,6 @@
         <div v-if="hasItems" ref="itemsContainer" class="list-expanded--items" @focusin="onItemFocus">
             <slot></slot>
         </div>
-        <div v-else class="text-empty">[[ resolvedEmptyLabel ]]</div>
+        <div v-else class="empty">[[ resolvedEmptyLabel ]]</div>
     </div>
 {%- endblock -%}

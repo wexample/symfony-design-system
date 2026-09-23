@@ -1,0 +1,14 @@
+// What stands where a list, a table or a panel has nothing to show: said once,
+// in the middle of the room the rows would have taken, and quietly — nothing
+// having happened is not an error.
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
+  font-size: var(--font-size-3);
+  color: var(--text-color-subtle);
+}
