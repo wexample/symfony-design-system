@@ -32,9 +32,4 @@ $color-light: #fafafa !default;
   --state-active: var(--color-invert-4);
   --border-color-discreet: #cccccc;
 
-  @include color_scheme.color-scheme-tags(
-    $color-light, $color-dark,
-    palette.$color-tag-1, palette.$color-tag-2, palette.$color-tag-3,
-    palette.$color-tag-4, palette.$color-tag-5, palette.$color-tag-6
-  );
 }

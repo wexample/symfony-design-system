@@ -31,9 +31,4 @@ $color-light: #f2f2f2 !default;
   // white, so the dark face takes the region border well below the shared value.
   --border-color-region: var(--color-invert-3);
 
-  @include color_scheme.color-scheme-tags(
-    $color-dark, $color-light,
-    palette.$color-tag-1, palette.$color-tag-2, palette.$color-tag-3,
-    palette.$color-tag-4, palette.$color-tag-5, palette.$color-tag-6
-  );
 }

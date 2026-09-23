@@ -11,7 +11,7 @@ export default {
 
   props: {
     // A state (`success`, `running`…), the neutral one for a name or a
-    // version, or a category (`tag-3`). The tone is the whole of what tells
+    // version, or a category (`cat-3`). The tone is the whole of what tells
     // one marker from another.
     tone: {
       type: String,

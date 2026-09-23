@@ -122,9 +122,12 @@ $color-scheme-level-count: 32 !default;
   }
 }
 
-@mixin color-scheme-tags($background, $foreground, $tags...) {
-  @for $i from 1 through list.length($tags) {
-    @include color-scheme-semantic-levels('tag-#{$i}', list.nth($tags, $i), $background, $foreground);
+// The categorical palette gets the same ladder as a semantic family, under
+// `--color-cat-N-*`: a fill and its ink, a ground tinting the page, an ink
+// that reads on it.
+@mixin color-scheme-categories($background, $foreground, $colors) {
+  @for $i from 1 through list.length($colors) {
+    @include color-scheme-semantic-levels('cat-#{$i}', list.nth($colors, $i), $background, $foreground);
   }
 }
 

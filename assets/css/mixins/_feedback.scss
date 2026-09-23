@@ -49,3 +49,16 @@
   --feedback-fill: var(--color-error-fill);
   --feedback-on-fill: var(--color-error-on-fill);
 }
+
+// A category rather than a state: rank N of the categorical palette, worn the
+// way a state is worn, so a component that takes `success` takes `cat-3` with
+// nothing else to learn.
+@mixin feedback-category($i) {
+  --feedback-color: var(--color-cat-#{$i}-23);
+  --feedback-bg: var(--color-cat-#{$i}-4);
+  --feedback-border-color: var(--feedback-color);
+  --feedback-fill: var(--color-cat-#{$i}-fill);
+  --feedback-on-fill: var(--color-cat-#{$i}-on-fill);
+}
+
+$category-count: 10;

@@ -1,3 +1,5 @@
+@use '../../css/mixins/feedback' as feedback;
+
 // A state told by a circle instead of by a word: the ring carries the colour and
 // the glyph inside says which state it is. Where the state is something under
 // way, the ring is drawn only as far as it has got — the same circle read as a
@@ -118,4 +120,13 @@
 .status-icon--disabled {
   --status-icon-color: var(--text-color-subtle);
   opacity: var(--opacity-6);
+}
+
+// A category rather than a state: the ring in one colour of the categorical
+// palette, for an app whose stages are a taxonomy — the glyph inside is then
+// the app's to give, the design system having no word for what the stage is.
+@for $i from 1 through feedback.$category-count {
+  .status-icon--cat-#{$i} {
+    --status-icon-color: var(--color-cat-#{$i}-fill);
+  }
 }

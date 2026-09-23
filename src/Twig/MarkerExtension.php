@@ -35,7 +35,7 @@ class MarkerExtension extends AbstractTemplateExtension
                         [
                             // A state (`success`, `running`…), the neutral one
                             // for a name or a version, or a category
-                            // (`tag-3`). What the capsule says is the tone;
+                            // (`cat-3`). What the capsule says is the tone;
                             // the rest is what it says it about.
                             'tone' => $tone,
                             // In words. Nothing given, the glyph is the whole

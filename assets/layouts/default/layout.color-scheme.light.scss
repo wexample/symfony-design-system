@@ -20,6 +20,7 @@ $color-light: #fafafa !default;
   // the space between two zones reads as space and no line has to be drawn.
   --surface-page: #efefef;
   --surface-zone: #{$color-light};
+  @include color_scheme.color-scheme-categories($color-light, $color-dark, palette.$color-categories);
   background: var(--surface-page);
   color-scheme: light;
 }

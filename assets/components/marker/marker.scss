@@ -91,13 +91,10 @@
   opacity: var(--opacity-6);
 }
 
-// A category rather than a state: the six palette colours a taxonomy is drawn
-// from, worn exactly as a state is, so that a row of markers stays a row. Each
-// takes the ink its own palette says can be read on it, where a state is
-// written in white.
-@for $i from 1 through 6 {
-  .marker--tag-#{$i} {
-    --feedback-fill: var(--color-tag-#{$i}-3);
-    --feedback-on-fill: var(--color-tag-#{$i}-23);
+// A category rather than a state: the categorical palette, worn exactly as a
+// state is — filled, white ink — so that a row of markers stays a row.
+@for $i from 1 through feedback.$category-count {
+  .marker--cat-#{$i} {
+    @include feedback.feedback-category($i);
   }
 }
