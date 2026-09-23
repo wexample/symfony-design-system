@@ -16,6 +16,10 @@ $color-light: #fafafa !default;
     palette.$color-warning,
     palette.$color-error
   );
+  // The page is the desk, a step under the ground a region stands on, so that
+  // the space between two zones reads as space and no line has to be drawn.
+  --surface-page: #efefef;
+  --surface-zone: #{$color-light};
   background: var(--surface-page);
   color-scheme: light;
 }

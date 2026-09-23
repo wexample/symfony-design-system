@@ -19,7 +19,11 @@ $color-light: #f2f2f2 !default;
     palette.$color-error,
     $assist: palette.$color-assist
   );
-  --surface-shell: var(--surface-1); // dark: shell slightly elevated above page
+  // Dark face: the page is lifted off the deepest ground and the regions keep
+  // it. A zone is then a hole in the frame rather than a panel on it, and the
+  // shell needs no lift of its own — it is the same desk as the gaps.
+  --surface-page: #1f1f1f;
+  --surface-zone: var(--color-default-background);
   --state-hover: var(--color-invert-2);
   --state-active: var(--color-invert-1);
   --border-color-discreet: var(--color-default-background);

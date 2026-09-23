@@ -1,5 +1,6 @@
 // A region of a layout given its own size, splittable, scrollable, and never handing that size to its children.
 @use './surface';
+@use '../mixins/surface-layer' as surface-layer;
 
 // The size a zone is given is its own and never its children's. Left to inherit,
 // a narrow zone nested in a sized one silently takes that size — a header inside
@@ -18,8 +19,12 @@
   min-height: 0;
 }
 
+// Two regions of a page are two objects, not one panel cut in half: what tells
+// them apart is the room between them, through which the page shows. So a split
+// spaces what it holds, and no line is drawn anywhere.
 .zone--split {
   display: flex;
+  gap: var(--zone-gap, var(--space-2));
 
   > * {
     min-width: 0;
@@ -38,10 +43,6 @@
   > .zone--narrow {
     flex: 0 0 auto;
     width: var(--zone-size, fit-content);
-  }
-
-  > .zone--bordered:not(:first-child) {
-    border-left: var(--border-region);
   }
 }
 
@@ -71,10 +72,21 @@
     width: auto;
     height: var(--zone-size, fit-content);
   }
+}
 
-  > .zone--bordered:not(:first-child) {
-    border-left: 0;
-    border-top: var(--border-region);
+// A row longer than the page: the regions keep the width they ask for and the
+// split scrolls sideways instead of squeezing them. Nothing takes "what is
+// left" here — there is none, the row overflows on purpose — so a zone that
+// names no size falls back to a column wide enough to hold something.
+.zone--split.zone--split--scroll {
+  overflow-x: auto;
+
+  > .zone {
+    flex: 0 0 var(--zone-size, var(--size-7));
+  }
+
+  > .zone--narrow {
+    flex: 0 0 auto;
   }
 }
 
@@ -88,8 +100,10 @@
   padding: var(--space-4);
 }
 
+// A split spaces its zones on its own; this is for the page that wants more air
+// between two regions than the room they are given by default.
 .zone--gap {
-  gap: var(--space-4);
+  --zone-gap: var(--space-4);
 }
 
 .zone--scrollable {
@@ -111,4 +125,18 @@
 
 .zone--alt {
   background: var(--surface-1);
+}
+
+// A zone standing on its own ground. Around it and between it and its siblings
+// the page shows, which is the shell's ground: what used to be one body split by
+// a line is now several objects laid on the same desk.
+.zone--panel {
+  // A panel is a ground of its own, so what it holds takes its bearings from it
+  // and not from the page it no longer touches.
+  @include surface-layer.surface-layer;
+  background: var(--surface-zone);
+  // The layer puts the chrome it holds — a toolbar, a tab bar — on the top of
+  // the ladder, which is right for a block standing on the page and wrong here:
+  // a panel already stands there, so its chrome takes the step under it.
+  --surface-shell: var(--surface-1);
 }

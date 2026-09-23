@@ -57,6 +57,11 @@ $color-scheme-level-count: 32 !default;
   // Surfaces: elevation ladder above the page background.
   --surface-page: var(--color-default-background);
   --surface-shell: var(--surface-page); // persistent structure: menu, header, footer, tabs
+  // The ground a work region stands on. The page is what shows around and
+  // between the regions, so the two grounds must differ for the space between
+  // two zones to read as space. A face that says nothing keeps them equal,
+  // which is a page whose body is one piece — the look every page had.
+  --surface-zone: var(--surface-page);
   --surface-1: var(--color-invert-2); // subtle: inputs, fields
   --surface-2: var(--color-invert-3); // raised interactive: buttons, toolbar
   --surface-3: var(--color-invert-4); // elevated content: blocks, cards, modals

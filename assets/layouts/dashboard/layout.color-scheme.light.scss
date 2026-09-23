@@ -21,7 +21,10 @@ $color-light: #fafafa !default;
   );
 
   // Light face: ordered elevation — each surface level lighter than the one below.
-  --surface-page: #f0f0f0; // base gray (page, nav, header)
+  // The page is the desk the regions are laid on: taken a step down from the
+  // ground they stand on, so the room between two zones reads as room.
+  --surface-page: #e6e6e6; // base gray (page, nav, header, and between the zones)
+  --surface-zone: #f0f0f0; // the ground a work region stands on — what the body always had
   --surface-1:    #f5f5f5; // subtle lift (inputs, fields)
   --surface-2:    #fafafa; // raised interactive (buttons, toolbar)
   --surface-3:    #ffffff; // elevated content (blocks, cards, modals)

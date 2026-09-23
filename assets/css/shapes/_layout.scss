@@ -49,6 +49,14 @@
   flex-direction: column;
 }
 
+// What a body holds is a region, not a text: it takes the room the body was
+// given instead of the height of what it holds, so its ground covers the body
+// down to the footer rather than stopping where the words do. No floor of its
+// own, so a page taller than the window still pushes the wrapper that scrolls.
+.layout--body > .zone--panel {
+  flex: 1;
+}
+
 .layout--body--overlay-scope {
   position: relative;
 }

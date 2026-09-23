@@ -9,7 +9,7 @@
 {%- endblock -%}
 
 {%- block page_body_container -%}
-    <div class="{{ page_body_container_class|default('container container--left container--border-right stack--vertical') }}">
+    <div class="{{ page_body_container_class|default('container container--left zone--panel stack--vertical') }}">
         {%- if page_show_title|default(false) -%}
             {%- set pageTitleActions %}{% block page_title_actions %}{% endblock %}{%- endset -%}
             {%- set pageTitleActions = pageTitleActions|trim -%}
