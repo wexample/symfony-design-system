@@ -24,6 +24,13 @@ export default {
       type: Boolean,
       default: false
     },
+    // What the shown value says: the share it makes ('percent'), or the count
+    // against its total ('count') — 154 / 451, which a reader counting files
+    // wants and a share hides.
+    valueFormat: {
+      type: String,
+      default: 'percent'
+    },
     // Work whose end is not known. The bar sweeps and says no number, which is
     // the honest reading of not knowing.
     indeterminate: {
@@ -86,6 +93,12 @@ export default {
 
     percent() {
       return Math.round(this.ratio * 100);
+    },
+
+    valueLabel() {
+      return this.valueFormat === 'count'
+        ? `${Math.round(this.value)} / ${this.currentTotal}`
+        : `${this.percent}%`;
     },
 
     style() {

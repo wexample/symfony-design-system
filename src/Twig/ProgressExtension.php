@@ -35,6 +35,9 @@ class ProgressExtension extends AbstractTemplateExtension
                             'percent' => $total > 0 ? (int) round($current / $total * 100) : 0,
                             'label' => $options['label'] ?? null,
                             'show_value' => $options['show_value'] ?? false,
+                            // 'percent' or 'count': how the shown value reads,
+                            // a share or the count against its total.
+                            'value_format' => $options['value_format'] ?? 'percent',
                             // Work whose end is not known: the bar sweeps rather
                             // than claiming a share.
                             'indeterminate' => $options['indeterminate'] ?? false,

@@ -30,7 +30,7 @@
             <bar
                     v-for="item in bars"
                     :key="item.key"
-                    :class="barClass"
+                    :class="[barClass, item.class]"
                     :title="item.title"
                     :subtitle="item.subtitle"
                     :icon="item.icon"

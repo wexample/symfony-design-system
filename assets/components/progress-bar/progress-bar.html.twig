@@ -17,7 +17,7 @@
         <div class="progress--head">
             {%- if label -%}<span class="progress--label">{{ label }}</span>{%- endif -%}
             {%- if show_value and not indeterminate -%}
-                <span class="progress--value">{{ percent }}%</span>
+                <span class="progress--value">{{ value_format|default('percent') == 'count' ? current|round ~ ' / ' ~ total|round : percent ~ '%' }}</span>
             {%- endif -%}
         </div>
     {%- endif -%}

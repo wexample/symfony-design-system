@@ -84,7 +84,10 @@ export default {
      * What to read on the row, the entity being the only thing the list knows
      * of it:
      *
-     *   { title, subtitle, icon, avatar, href, date }
+     *   { title, subtitle, icon, avatar, href, date, class }
+     *
+     * `class` is what this row has that its neighbours do not — a tone, most
+     * often — and rides beside the class the list gives them all.
      *
      * `date` is the far end's usual tenant and is handed to the component that
      * redraws itself, so "2 min ago" stays true on a page left open. Anything
@@ -98,7 +101,8 @@ export default {
         icon: null,
         avatar: null,
         href: null,
-        date: null
+        date: null,
+        class: null
       };
     }
   }
