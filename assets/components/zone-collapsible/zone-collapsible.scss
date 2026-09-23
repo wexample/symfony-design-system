@@ -12,6 +12,17 @@
   flex: 0 0 auto;
 }
 
+// The bar is a zone, and a zone is the full size of what holds it. Read as the
+// `auto` basis of a column child, that 100% is the whole component, and the
+// body is left the height of its own padding; read as a `fit-content` width,
+// the bar stops at its title instead of running the column. Both are given
+// back to the flex layout, which sizes the bar on its content and stretches it
+// across. Two classes, since the order the two stylesheets land in is not ours.
+.zone.zone-collapsible--bar {
+  height: auto;
+  width: auto;
+}
+
 .zone-collapsible--body {
   flex: 1;
   min-height: 0;
