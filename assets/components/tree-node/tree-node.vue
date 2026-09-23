@@ -35,6 +35,9 @@ export default {
     },
     treeSetOpen: {
       default: null
+    },
+    treeRouteState: {
+      default: () => ({ key: null, reveal: [] })
     }
   },
 
@@ -63,9 +66,12 @@ export default {
       // the whole difference with the Twig version, which cannot toggle. Once
       // the tree remembers, the memory wins over the item: a branch the visitor
       // folded stays folded even if the data arrives with `open: true`.
-      isOpen: nodeKey !== null && this.treeIsRemembered?.()
-        ? this.treeIsOpen(nodeKey)
-        : this.item.open === true,
+      // Above both, the address: a branch holding the item it names opens,
+      // whatever was remembered, or that item could not be drawn.
+      isOpen: (nodeKey !== null && this.treeRouteState.reveal.includes(nodeKey))
+        || (nodeKey !== null && this.treeIsRemembered?.()
+          ? this.treeIsOpen(nodeKey)
+          : this.item.open === true),
       // Null means "never asked": what tells a level yet to load from one that
       // loaded and came back empty.
       children: this.item.children ?? null,
@@ -128,13 +134,27 @@ export default {
 
     // An item written by hand says label, an entity says name: resolved here so
     // no caller has to remap a collection on its way in.
+    isRevealed() {
+      return this.nodeKey !== null && this.treeRouteState.reveal.includes(this.nodeKey);
+    },
+
     label() {
       return this.item.label ?? this.item.name ?? '';
     }
   },
 
+  watch: {
+    // The back button asked for an item under this branch while it was drawn
+    // closed: it opens the way a click on its caret would.
+    isRevealed(revealed) {
+      if (revealed && !this.isOpen) {
+        this.onCaretClick();
+      }
+    }
+  },
+
   async mounted() {
-    this.treeRegisterRow?.(this.$refs.row, this.item);
+    this.treeRegisterRow?.(this.$refs.row, this.item, this.nodeKey);
 
     if (!this.isOpen) {
       return;
@@ -153,7 +173,7 @@ export default {
   },
 
   beforeUnmount() {
-    this.treeUnregisterRow?.(this.$refs.row);
+    this.treeUnregisterRow?.(this.$refs.row, this.nodeKey);
   },
 
   methods: {
@@ -183,6 +203,7 @@ export default {
     onRowClick(event) {
       this.$emit('select', {
         item: this.item,
+        key: this.nodeKey,
         range: event.shiftKey,
         toggle: event.ctrlKey || event.metaKey
       });

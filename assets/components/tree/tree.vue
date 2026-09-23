@@ -1,6 +1,7 @@
 <script>
 import TreeNode from "../tree-node/tree-node.vue";
 import { uiStateGet, uiStateHas, uiStateSet } from "../../js/Helper/UiStateHelper";
+import { locationQueryParamGet, locationQueryParamSet } from "@wexample/js-helpers/Helper/Location";
 
 // How many open branches a tree keeps in mind. Past this the oldest are
 // dropped: a session is not the place to hoard every folder ever opened.
@@ -53,10 +54,28 @@ export default {
       default: null
     },
 
-    // Says which value of an item names it from one load to the next. Left out,
-    // getTreeItemKey() reads `key`, then `id`, then falls back on the path of
-    // labels — enough for a tree whose data has neither.
+    // Says which value of an item names it from one load to the next — called
+    // with the item and the key of its parent. Left out, getTreeItemKey() reads
+    // `key`, then `id`, then falls back on the path of labels — enough for a
+    // tree whose data has neither.
     itemKey: {
+      type: Function,
+      default: null
+    },
+
+    // Names the query parameter the selected item is written to. Given one, what
+    // is selected is what the page shows: it goes into the address, comes back
+    // with a reload, a shared link or the back button, and is selected again —
+    // with the same `select` a click sends, so the page has one way to react.
+    routeParam: {
+      type: String,
+      default: null
+    },
+
+    // Which items are worth an address. Left out, every one is; a tree whose
+    // folders only fold says so here, and a click on a folder leaves the
+    // address alone.
+    routable: {
       type: Function,
       default: null
     }
@@ -79,6 +98,13 @@ export default {
       // visitor saw and not only what they clicked.
       openState: {
         keys: this.readOpenKeys()
+      },
+      // What the address asks for: the key to select, and the branches that
+      // have to open for it to be drawn. Held apart from what is remembered,
+      // since it is not a preference and must not be written down as one.
+      routeState: {
+        key: null,
+        reveal: []
       }
     };
   },
@@ -88,6 +114,20 @@ export default {
     // range is asked for, and making it reactive would redraw the tree on every
     // node that mounts.
     this.rowItems = new Map();
+    // The same, by key: what a key in the address resolves to once drawn.
+    this.keyItems = new Map();
+
+    if (this.routeParam) {
+      this.readRoute();
+      this.onPopState = () => this.readRoute(true);
+      window.addEventListener('popstate', this.onPopState);
+    }
+  },
+
+  beforeUnmount() {
+    if (this.onPopState) {
+      window.removeEventListener('popstate', this.onPopState);
+    }
   },
 
   provide() {
@@ -102,7 +142,8 @@ export default {
       treeItemKey: this.getTreeItemKey,
       treeIsRemembered: this.isRemembered,
       treeIsOpen: this.isOpenKey,
-      treeSetOpen: this.setOpenKey
+      treeSetOpen: this.setOpenKey,
+      treeRouteState: this.routeState
     };
   },
 
@@ -112,7 +153,7 @@ export default {
     // overrides this; a page passes `item-key`.
     getTreeItemKey(item, parentKey) {
       if (this.itemKey) {
-        return String(this.itemKey(item));
+        return String(this.itemKey(item, parentKey));
       }
 
       const own = item.key ?? item.id;
@@ -158,17 +199,68 @@ export default {
       }
     },
 
-    registerRow(el, item) {
-      this.rowItems.set(el, item);
+    // The branches above an item, from the root down, given its key. The default
+    // reads a key that is a path — `a/b/c.md` is under `a` and `a/b` — which is
+    // what files and documents are. A tree whose keys are not paths overrides
+    // this, or its selected item can only be restored where it is already drawn.
+    getTreeItemAncestorKeys(key) {
+      const parts = key.split('/');
+
+      return parts.slice(0, -1).map((_, index) => parts.slice(0, index + 1).join('/'));
     },
 
-    unregisterRow(el) {
+    // Reads what the address asks for. On a reload the branches open as the
+    // nodes mount; on the back button they are already drawn, so the ones that
+    // are open select at once and the closed ones open through `reveal`.
+    readRoute(fromHistory = false) {
+      const key = locationQueryParamGet(this.routeParam) || null;
+
+      this.routeState.key = key;
+      this.routeState.reveal = key ? this.getTreeItemAncestorKeys(key) : [];
+
+      if (fromHistory && key && this.keyItems.has(key)) {
+        this.selectFromRoute(this.keyItems.get(key));
+      }
+
+      if (fromHistory && !key) {
+        this.selection.items = [];
+        this.$emit('select', []);
+      }
+    },
+
+    selectFromRoute(item) {
+      this.selection.items = [item];
+      this.selection.anchor = item;
+      this.$emit('select', this.selection.items);
+    },
+
+    registerRow(el, item, key) {
+      this.rowItems.set(el, item);
+
+      if (key === null || key === undefined) {
+        return;
+      }
+
+      this.keyItems.set(key, item);
+
+      // The item the address named has just been drawn: it is selected as a
+      // click would, and the page opens it the way it opens one.
+      if (key === this.routeState.key && !this.selection.items.includes(item)) {
+        this.selectFromRoute(item);
+      }
+    },
+
+    unregisterRow(el, key) {
       this.rowItems.delete(el);
+
+      if (key !== null && key !== undefined) {
+        this.keyItems.delete(key);
+      }
     },
 
     // Clicking a row selects it and says so. What that means is the caller's to
     // decide — the tree only holds which ones they are.
-    onSelect({ item, range, toggle }) {
+    onSelect({ item, key, range, toggle }) {
       if (this.allowSelectMultiple && range) {
         this.selection.items = this.itemsBetweenAnchorAnd(item);
       } else if (this.allowSelectMultiple && toggle) {
@@ -179,6 +271,14 @@ export default {
       } else {
         this.selection.items = [item];
         this.selection.anchor = item;
+      }
+
+      // One item picked is one place to be; a range or a set picked by hand is a
+      // selection and not a place, so the address is left as it was.
+      if (this.routeParam && this.selection.items.length === 1 && key
+        && (!this.routable || this.routable(item))) {
+        this.routeState.key = key;
+        locationQueryParamSet(this.routeParam, key);
       }
 
       this.$emit('select', this.selection.items);
