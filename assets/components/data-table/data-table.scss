@@ -27,7 +27,8 @@
   // the page, and inside a sheet already raised by three of them it lands a
   // line on the far side of the page — the black stripe of the dark face.
   // Named for what they do, so a skin retunes the table and nothing else.
-  --table-head-bg: var(--darken-2);
+  --table-head-bg: var(--surface-head);
+  --table-head-color: var(--text-color-head);
   --table-stripe: var(--tint-2);
   --table-row-hover: var(--tint-3);
   --table-row-selected: var(--tint-4);
@@ -146,6 +147,7 @@
 
 .table thead .table--cell {
   font-weight: var(--font-weight-strong);
+  color: var(--table-head-color);
   background: var(--table-head-bg);
 }
 

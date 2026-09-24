@@ -100,6 +100,7 @@ $color-scheme-level-count: 32 !default;
   // and lighten do not follow it: darker is darker on both faces, for what is
   // meant as depth — a band that sits behind, like the head of a table.
   @include color-scheme-nuances($foreground);
+  @include color-scheme-head($background, $foreground);
 
   // Text.
   --text-color-default: var(--color-default-text);
@@ -128,6 +129,20 @@ $color-scheme-level-count: 32 !default;
   --lighten-2: rgba(255, 255, 255, 0.06);
   --lighten-3: rgba(255, 255, 255, 0.1);
   --lighten-4: rgba(255, 255, 255, 0.16);
+}
+
+// The head of a data world — the names above the columns of a table: a band
+// that sits behind, and labels stepped back from the values under them. The
+// two faces do not mirror here, and were tuned apart: a dark head wants more
+// depth and less ink than a light one, where a faint label washes out.
+@mixin color-scheme-head($background, $foreground) {
+  @if color.channel($background, 'lightness', $space: oklch) < 50% {
+    --surface-head: var(--darken-2);
+    --text-color-head: #{rgba($foreground, 0.2)};
+  } @else {
+    --surface-head: var(--darken-1);
+    --text-color-head: #{rgba($foreground, 0.4)};
+  }
 }
 
 @mixin color-scheme-invert-levels($foreground, $background) {
