@@ -22,6 +22,15 @@
   overflow: clip;
   border-collapse: separate;
   border-spacing: 0;
+
+  // Its grounds, from the nuances and not the levels: a level is one step of
+  // the page, and inside a sheet already raised by three of them it lands a
+  // line on the far side of the page — the black stripe of the dark face.
+  // Named for what they do, so a skin retunes the table and nothing else.
+  --table-head-bg: var(--darken-2);
+  --table-stripe: var(--tint-2);
+  --table-row-hover: var(--tint-3);
+  --table-row-selected: var(--tint-4);
 }
 
 // What holds the table and scrolls it sideways when its columns ask for more
@@ -137,6 +146,7 @@
 
 .table thead .table--cell {
   font-weight: var(--font-weight-strong);
+  background: var(--table-head-bg);
 }
 
 // A long table is read column by column as much as row by row, and a header
@@ -147,7 +157,9 @@
   position: sticky;
   top: var(--table-sticky-top, 0px);
   z-index: 1;
-  background: var(--surface-2);
+  // The head's nuance is an ink, and rows scrolling under an ink show through
+  // it: the sheet goes underneath, so the band stays opaque.
+  background: linear-gradient(var(--table-head-bg), var(--table-head-bg)), var(--surface-2);
 }
 
 // Not a row but the line between two runs of them, given a word: the same
@@ -209,17 +221,18 @@
 // the eye holds a line through. Counted among the rows alone, so a group line or
 // the loading overlay does not shift the rhythm, and held under :where() so a
 // ticked row still shows over it.
-.table--striped {
-  --table-stripe: var(--color-invert-1);
+.table--striped :where(tbody > .table--row:nth-child(even of .table--row:not(.table--row--group))) {
+  background: var(--table-stripe);
+}
 
-  :where(tbody > .table--row:nth-child(even of .table--row:not(.table--row--group))) {
-    background: var(--table-stripe);
-  }
+// The whole row under the pointer, for a table read one row at a time across
+// many columns. Above a stripe, below a ticked row, which keeps its ground.
+.table--hover :where(tbody > .table--row:not(.table--row--group, .table--row--loading):not(:has(> .text-empty))):hover {
+  background: var(--table-row-hover);
 }
 
 // Rows that can be ticked. The box column takes no more than the box, and a
-// ticked row is lit the way a selected tree row is, lightly: it is still read
-// as a row among the others.
+// ticked row is lit, lightly: it is still read as a row among the others.
 .table--cell--select {
   width: 1%;
   padding-right: 0;
@@ -233,7 +246,7 @@
 }
 
 .table--row:has(> .table--cell--select .table--select:checked) {
-  background: var(--state-active);
+  background: var(--table-row-selected);
 }
 
 // What can be done to the ticked rows, above them. The frame below keeps its

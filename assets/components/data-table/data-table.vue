@@ -69,6 +69,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // The whole row lit under the pointer.
+    hover: {
+      type: Boolean,
+      default: false
+    },
     // Rows that can be ticked, a box at the head of each. What names a row in
     // the selection is its key, so a table that selects wants a `rowKey`.
     selectable: {

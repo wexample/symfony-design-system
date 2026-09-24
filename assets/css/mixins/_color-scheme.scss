@@ -88,6 +88,19 @@ $color-scheme-level-count: 32 !default;
   // lighter shade changes one line here and no skin knows.
   --shadow-color: var(--color-absolute-dark);
 
+  // Nuances: a scale finer than the levels, for the small worlds inside a
+  // surface — the rows of a table, the lines of a list — where one level is
+  // already a jump. They are inks and not colours: laid over whatever ground
+  // they fall on, so a nuance reads the same on a block as on the page, where
+  // an opaque level only reads right on the ground it was mixed against.
+  //
+  // Two families, because two things are asked of them. A tint is the text's
+  // ink, and follows the scheme: it lifts a line in dark as it deepens one in
+  // light — what a stripe or a pointer wants, a mark and not a depth. Darken
+  // and lighten do not follow it: darker is darker on both faces, for what is
+  // meant as depth — a band that sits behind, like the head of a table.
+  @include color-scheme-nuances($foreground);
+
   // Text.
   --text-color-default: var(--color-default-text);
   --text-color-muted: var(--color-invert-20); // secondary: labels, meta, subtitles
@@ -100,6 +113,21 @@ $color-scheme-level-count: 32 !default;
   @include color-scheme-semantic-levels(success, $success, $background, $foreground);
   @include color-scheme-semantic-levels(warning, $warning, $background, $foreground);
   @include color-scheme-semantic-levels(error, $error, $background, $foreground);
+}
+
+@mixin color-scheme-nuances($foreground) {
+  --tint-1: #{rgba($foreground, 0.015)};
+  --tint-2: #{rgba($foreground, 0.03)};
+  --tint-3: #{rgba($foreground, 0.05)};
+  --tint-4: #{rgba($foreground, 0.08)};
+  --darken-1: rgba(0, 0, 0, 0.06);
+  --darken-2: rgba(0, 0, 0, 0.12);
+  --darken-3: rgba(0, 0, 0, 0.2);
+  --darken-4: rgba(0, 0, 0, 0.3);
+  --lighten-1: rgba(255, 255, 255, 0.03);
+  --lighten-2: rgba(255, 255, 255, 0.06);
+  --lighten-3: rgba(255, 255, 255, 0.1);
+  --lighten-4: rgba(255, 255, 255, 0.16);
 }
 
 @mixin color-scheme-invert-levels($foreground, $background) {
