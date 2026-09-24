@@ -1,6 +1,6 @@
 # symfony_design_system
 
-Version: 20.0.2
+Version: 20.0.3
 
 A Symfony bundle that ships a ready-made design system for web applications: Twig components (buttons, modals, toasts, forms, entity bars), SCSS layouts (`dashboard` and `default`), Vue mixins, and a suite of Twig extensions that wire them together. Every page flows through a `RenderPass` object managed by `AbstractDesignSystemController`, which handles template resolution, per-layout asset loading, and render-node–scoped translations. It targets Symfony developers who want consistent UI primitives and a structured front-end pipeline without building one from scratch.
 
@@ -192,7 +192,7 @@ Visit the [Wexample Suite documentation](https://docs.wexample.com) for the comp
 ## Dependencies
 
 - php: >=8.5
-- wexample/symfony-loader: >=13.0.0
+- wexample/symfony-loader: >=14.0.0
 - wexample/symfony-routing: >=1.0.0
 - wexample/symfony-template: >=2.0.0
 
