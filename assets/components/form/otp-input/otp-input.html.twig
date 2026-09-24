@@ -1,0 +1,31 @@
+{#- One real input holds the code, so the server reads a single value and the
+    browser does what it already knows: pasting, the code the phone offers,
+    backspace, the label. The cells beneath only draw what it holds. -#}
+{%- set length = length|default(6) -%}
+{%- set alphanumeric = alphanumeric|default(false) -%}
+<div {{ component_render_tag_attributes({class:'form--group otp-input'}) }}>
+    <label class="form--label" for="{{ id }}">{{ label }}</label>
+    <div class="otp-input--control" style="--otp-input-length: {{ length }}">
+        <input
+            class="otp-input--field"
+            id="{{ id }}"
+            type="text"
+            {% if name is defined %}name="{{ name }}"{% endif %}
+            {% if required is defined and required %}required{% endif %}
+            {% if value is defined %}value="{{ value }}"{% endif %}
+            inputmode="{{ alphanumeric ? 'text' : 'numeric' }}"
+            autocomplete="one-time-code"
+            autocapitalize="characters"
+            spellcheck="false"
+            pattern="{{ alphanumeric ? '[A-Za-z0-9]' : '[0-9]' }}{{ '{' ~ length ~ '}' }}"
+            data-length="{{ length }}"
+            {% if alphanumeric %}data-alphanumeric{% endif %}
+            {% if auto_submit|default(true) %}data-auto-submit{% endif %}
+        >
+        <div class="otp-input--cells" aria-hidden="true">
+            {%- for index in 0..(length - 1) -%}
+                <span class="otp-input--cell">{{ value is defined ? value|slice(index, 1) }}</span>
+            {%- endfor -%}
+        </div>
+    </div>
+</div>

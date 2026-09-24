@@ -837,6 +837,37 @@
             "notes": []
         },
         {
+            "key": "form/otp-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A short code \u2014 sent by e-mail, by SMS or shown by an app \u2014 written in one cell per character.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/otp-input/otp-input.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/otp-input/otp-input.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/otp-input/otp-input.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/otp-input/otp-input.vue.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/otp-input/otp-input.ts"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "expected",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": []
+        },
+        {
             "key": "form/password-input",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -2214,6 +2245,12 @@
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_doc.scss",
             "description": "A documentation page: sections in two columns, the prose on one side and the code on the other."
+        },
+        {
+            "key": "empty",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_empty.scss",
+            "description": "What stands where a list, a table or a panel has nothing to show: said once, in the middle of the room the rows would have taken, and quietly \u2014 nothing having happened is not an error."
         },
         {
             "key": "flow",

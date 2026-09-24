@@ -1,0 +1,17 @@
+# Declares `form/otp-input` to the design system registry.
+# Seeded from a scan of the assets; kept by hand from here on.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: A short code — sent by e-mail, by SMS or shown by an app — written in one cell per character.
+formats:
+  style: true
+  template: true
+  vue: true
+  script: true
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

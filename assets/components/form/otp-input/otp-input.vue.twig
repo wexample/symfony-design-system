@@ -1,0 +1,34 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/form-field/form-field.vue.twig' -%}
+
+{#- The same single input over drawn cells as the server-rendered field: one
+    value, and the browser's own paste, autofill and label. -#}
+{%- block field_control -%}
+    <div class="otp-input--control" :style="{ '--otp-input-length': length }">
+        <input
+                ref="input"
+                class="otp-input--field"
+                type="text"
+                :name="name || null"
+                :id="resolvedId"
+                :value="modelValue"
+                :required="required ? true : null"
+                :disabled="isDisabled ? true : null"
+                :inputmode="alphanumeric ? 'text' : 'numeric'"
+                autocomplete="one-time-code"
+                autocapitalize="characters"
+                spellcheck="false"
+                :pattern="pattern"
+                @input="onInput"
+                @focus="onSelectionChange"
+                @blur="onSelectionChange"
+        >
+        <div class="otp-input--cells" aria-hidden="true">
+            <span
+                    v-for="(cell, index) in cells"
+                    :key="index"
+                    class="otp-input--cell"
+                    :class="{ 'is-filled': cell.char !== '', 'is-active': cell.active }"
+            >[[ cell.char ]]</span>
+        </div>
+    </div>
+{%- endblock -%}

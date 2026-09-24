@@ -1,0 +1,54 @@
+/* Component: form/otp_input */
+@use '../../../css/mixins/field';
+
+.otp-input--control {
+  position: relative;
+  display: inline-grid;
+  justify-self: start;
+}
+
+.otp-input--cells {
+  display: grid;
+  grid-template-columns: repeat(var(--otp-input-length), var(--size-1));
+  gap: var(--space-2);
+}
+
+.otp-input--cell {
+  @include field.field-base;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--size-2);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-5);
+  text-transform: uppercase;
+}
+
+// The input lies over the cells and takes every click and keystroke, but draws
+// nothing: its value is what the cells show. Transparent rather than hidden, so
+// the phone still offers the code it received into it.
+.otp-input--field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: transparent;
+  caret-color: transparent;
+  // Below 16px a phone zooms on focus.
+  font-size: 1rem;
+
+  &::selection {
+    background: transparent;
+  }
+}
+
+.otp-input--control:focus-within .otp-input--cell.is-active {
+  @include field.field-focus;
+}
+
+.form--group.has-error .otp-input--cell {
+  border: var(--border-focus);
+  border-color: var(--color-error-23);
+}
