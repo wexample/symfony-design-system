@@ -26,6 +26,9 @@
         <div v-else-if="!hasBars" class="empty">[[ resolvedEmptyLabel ]]</div>
 
         <div v-else :class="itemsClass">
+            {#- One line per entity: a list whose lines are drawn by a component of
+                its own replaces this block, and keeps the rest of the list. -#}
+            {%- block bar_list_item -%}
             {# `item` and not `bar`: the loop must not shadow the component it renders. #}
             <bar
                     v-for="item in bars"
@@ -43,6 +46,7 @@
                     {%- endblock -%}
                 </template>
             </bar>
+            {%- endblock -%}
         </div>
 
         <pagination

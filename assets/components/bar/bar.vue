@@ -3,9 +3,10 @@ export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-bar-bar',
 
   props: {
+    // Owed unless the `body` slot says what the line is about instead.
     title: {
       type: String,
-      required: true
+      default: null
     },
     subtitle: {
       type: String,

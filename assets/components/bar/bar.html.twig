@@ -14,9 +14,15 @@
         </div>
     {%- endif -%}
     <div class="bar--title-block">
-        <div class="text-strong text-ellipsis">{{ title }}</div>
-        {%- if subtitle -%}
-            <div class="text-secondary text-ellipsis">{{ subtitle }}</div>
+        {#- A slot, for a line whose middle is not a name: it takes the room the
+            title would have, the ends keeping theirs. -#}
+        {%- if body|default(null) -%}
+            {{- body|raw -}}
+        {%- else -%}
+            <div class="text-strong text-ellipsis">{{ title }}</div>
+            {%- if subtitle -%}
+                <div class="text-secondary text-ellipsis">{{ subtitle }}</div>
+            {%- endif -%}
         {%- endif -%}
     </div>
     {#- A slot, so it is markup: a date, a tag, a button row. -#}

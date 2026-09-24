@@ -11,8 +11,12 @@
             <div v-else class="avatar" v-html="iconHtml"></div>
         </div>
         <div class="bar--title-block">
-            <div class="text-strong text-ellipsis">[[ title ]]</div>
-            <div v-if="subtitle" class="text-secondary text-ellipsis">[[ subtitle ]]</div>
+            {# A slot, for a line whose middle is not a name: it takes the room
+               the title would have, the ends keeping theirs. #}
+            <slot name="body">
+                <div class="text-strong text-ellipsis">[[ title ]]</div>
+                <div v-if="subtitle" class="text-secondary text-ellipsis">[[ subtitle ]]</div>
+            </slot>
         </div>
         {# A slot, so it is markup: a date, a tag, a button row. #}
         <div v-if="$slots.trailing" class="bar--trailing">
