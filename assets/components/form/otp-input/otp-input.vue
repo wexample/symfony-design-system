@@ -1,4 +1,5 @@
 <script>
+import { assistanceWriteText } from '@wexample/js-api/Helper/Assistance';
 import FormField from '../../_abstract/form-field/form-field.vue';
 import { otpInputCells, otpInputClean } from '../../../js/Helper/OtpInputHelper';
 
@@ -28,13 +29,23 @@ export default {
 
   data() {
     return {
+      // Held here and not only read from the prop: dropped in a page without a
+      // v-model, the value it emits comes back to nobody, and the cells would
+      // stay empty under a field being written in.
+      value: this.modelValue || '',
       caret: null
     };
   },
 
+  watch: {
+    modelValue(value) {
+      this.value = value || '';
+    }
+  },
+
   computed: {
     cells() {
-      return otpInputCells(this.modelValue || '', this.length, this.caret);
+      return otpInputCells(this.value, this.length, this.caret);
     },
 
     pattern() {
@@ -53,13 +64,14 @@ export default {
   methods: {
     onInput(event) {
       const input = event.target;
-      const wasComplete = (this.modelValue || '').length === this.length;
+      const wasComplete = this.value.length === this.length;
       const cleaned = otpInputClean(input.value, this.length, this.alphanumeric);
 
       if (cleaned !== input.value) {
         input.value = cleaned;
       }
 
+      this.value = cleaned;
       this.$emit('update:modelValue', cleaned);
       this.onSelectionChange();
 
@@ -72,6 +84,18 @@ export default {
           input.form?.requestSubmit();
         }
       }
+    },
+
+    // Spelled into the cells as a person would type it, through the same value.
+    async writeValueAssisted(value, options) {
+      await assistanceWriteText(
+        (written) => {
+          this.value = otpInputClean(written, this.length, this.alphanumeric);
+          this.$emit('update:modelValue', this.value);
+        },
+        String(value ?? ''),
+        options
+      );
     },
 
     onSelectionChange() {
