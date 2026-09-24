@@ -51,8 +51,15 @@ export default {
     classes() {
       return [
         'distribution',
-        this.compact ? 'distribution--compact' : null
+        this.compact ? 'distribution--compact' : null,
+        this.isEmpty ? 'distribution--empty' : null
       ];
+    },
+
+    // Nothing counted yet: no total and no part — work not started, a tally
+    // still out. The bar is drawn all the same, so a row keeps its shape.
+    isEmpty() {
+      return this.currentTotal <= 0;
     },
 
     parts() {

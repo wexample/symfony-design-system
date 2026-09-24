@@ -2,12 +2,14 @@
     are given, and named underneath with the capsule the rest of the stack draws
     a state with. Server-side twin of distribution.vue: same classes, same order,
     same shares. A change to either is a change to both. -#}
-<div class="distribution{{ compact|default(false) ? ' distribution--compact' }}{% if class|default('') %} {{ class }}{% endif %}"
+{#- Nothing counted yet: drawn all the same, so a row keeps its shape. -#}
+{%- set empty = total <= 0 -%}
+<div class="distribution{{ compact|default(false) ? ' distribution--compact' }}{{ empty ? ' distribution--empty' }}{% if class|default('') %} {{ class }}{% endif %}"
      {{ component_render_tag_attributes(attr|default({})) }}>
     {%- if label or show_value -%}
         <div class="distribution--head">
             {%- if label -%}<span class="distribution--label">{{ label }}</span>{%- endif -%}
-            {%- if show_value -%}<span class="distribution--value">{{ total }}</span>{%- endif -%}
+            {%- if show_value -%}<span class="distribution--value">{{ empty ? '—' : total }}</span>{%- endif -%}
         </div>
     {%- endif -%}
     <div class="distribution--track">

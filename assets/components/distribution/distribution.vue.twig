@@ -10,7 +10,7 @@
     <div :class="classes">
         <div v-if="label || showValue" class="distribution--head">
             <span v-if="label" class="distribution--label">[[ label ]]</span>
-            <span v-if="showValue" class="distribution--value">[[ currentTotal ]]</span>
+            <span v-if="showValue" class="distribution--value">[[ isEmpty ? '—' : currentTotal ]]</span>
         </div>
         <div class="distribution--track">
             <template v-for="(part, index) in drawnParts" :key="index">
