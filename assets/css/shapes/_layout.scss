@@ -24,8 +24,11 @@
 // basis degrades to the content's own height, and the body stands as tall as
 // what it holds — nothing inside it has anything left to scroll. So a column
 // holding a wide body is the viewport's height; every other page keeps growing
-// and lets the scrollable wrapper scroll it.
-.layout--vertical:has(> .layout--body--wide) {
+// and lets the scrollable wrapper scroll it. A body whose split holds a zone
+// beside the page's own is wide without being told: two zones side by side
+// scroll each on its own, which only a body of bounded height allows.
+.layout--vertical:has(> .layout--body--wide),
+.layout--vertical:has(> .layout--body > .zone--split > .zone ~ .zone) {
   height: 100%;
 }
 
@@ -53,7 +56,7 @@
 // given instead of the height of what it holds, so its ground covers the body
 // down to the footer rather than stopping where the words do. No floor of its
 // own, so a page taller than the window still pushes the wrapper that scrolls.
-.layout--body > .zone--panel {
+.layout--body > .zone {
   flex: 1;
 }
 
@@ -65,7 +68,8 @@
   @extend .container;
 }
 
-.layout--body--wide {
+.layout--body--wide,
+.layout--body:has(> .zone--split > .zone ~ .zone) {
   position: relative;
   display: flex;
   flex-direction: column;

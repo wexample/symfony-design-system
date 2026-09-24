@@ -12,20 +12,40 @@
     {{ var_export(render_pass, 'uiState', ui_state_all()) }}
 {%- endblock -%}
 
+{#- Every page body is the same split of zones, whatever it holds: the page's
+    own zone, and around it whatever regions the page opens beside it — a tree
+    before, a detail after. Adding a neighbour is filling a block, never
+    rebuilding the page's zone, so a page reads alike with or without one. -#}
 {%- block page_body_container -%}
-    <div class="{{ page_body_container_class|default('container container--left zone--panel stack--vertical') }}">
-        {%- if page_show_title|default(false) -%}
-            {%- set pageTitleActions %}{% block page_title_actions %}{% endblock %}{%- endset -%}
-            {%- set pageTitleActions = pageTitleActions|trim -%}
-            {%- if pageTitleActions is not empty -%}
-                <div class="toolbar">
-                    <h1 class="toolbar--title">{{ page_title | default('@page::page_title' | trans) }}</h1>
-                    <div class="toolbar--group">{{- pageTitleActions|raw -}}</div>
-                </div>
-            {%- else -%}
-                <h1 class="page--title">{{ page_title | default('@page::page_title' | trans) }}</h1>
-            {%- endif -%}
-        {%- endif -%}
-        {{- block('page_body') -}}
+    {%- set pageZonesBefore %}{% block page_zones_before %}{% endblock %}{% endset -%}
+    {%- set pageZonesAfter %}{% block page_zones_after %}{% endblock %}{% endset -%}
+    {#- Beside a neighbour the page stops scrolling and each zone scrolls on its
+        own; alone, the zone grows with what it holds and the page scrolls — a
+        zone scrolling there would hold a sticky header that never sticks. -#}
+    {%- set pageZonesScroll = page_body_mode|default('default') == 'wide'
+        or pageZonesBefore|trim is not empty
+        or pageZonesAfter|trim is not empty -%}
+    <div class="zone zone--split">
+        {{- pageZonesBefore -}}
+        {#- Its content carries the room, not the frame: a sticky header sticks to
+            the frame's edge rather than under a padding. -#}
+        <div class="zone zone--panel zone--measure{{ pageZonesScroll ? ' zone--scrollable' }}">
+            <div class="zone--content stack--vertical">
+                {%- if page_show_title|default(false) -%}
+                    {%- set pageTitleActions %}{% block page_title_actions %}{% endblock %}{%- endset -%}
+                    {%- set pageTitleActions = pageTitleActions|trim -%}
+                    {%- if pageTitleActions is not empty -%}
+                        <div class="toolbar">
+                            <h1 class="toolbar--title">{{ page_title | default('@page::page_title' | trans) }}</h1>
+                            <div class="toolbar--group">{{- pageTitleActions|raw -}}</div>
+                        </div>
+                    {%- else -%}
+                        <h1 class="page--title">{{ page_title | default('@page::page_title' | trans) }}</h1>
+                    {%- endif -%}
+                {%- endif -%}
+                {{- block('page_body') -}}
+            </div>
+        </div>
+        {{- pageZonesAfter -}}
     </div>
 {%- endblock -%}
