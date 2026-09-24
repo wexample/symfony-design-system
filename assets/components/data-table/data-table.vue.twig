@@ -58,7 +58,7 @@
         </template>
     </div>
     <div class="table--frame" :class="{ 'table--frame--sticky': sticky }">
-    <table class="table" :class="{ 'table--refreshing': loading && hasRows(), 'table--sticky': sticky }">
+    <table class="table" :class="{ 'table--refreshing': loading && hasRows(), 'table--sticky': sticky, 'table--striped': striped }">
         <thead v-if="showHeader && columns.length">
         <tr class="table--row">
             <th v-if="selectable" class="table--cell table--cell--select" scope="col">

@@ -205,6 +205,18 @@
   text-align: center;
 }
 
+// One row in two on a faint ground, for a table read across more columns than
+// the eye holds a line through. Counted among the rows alone, so a group line or
+// the loading overlay does not shift the rhythm, and held under :where() so a
+// ticked row still shows over it.
+.table--striped {
+  --table-stripe: var(--color-invert-1);
+
+  :where(tbody > .table--row:nth-child(even of .table--row:not(.table--row--group))) {
+    background: var(--table-stripe);
+  }
+}
+
 // Rows that can be ticked. The box column takes no more than the box, and a
 // ticked row is lit the way a selected tree row is, lightly: it is still read
 // as a row among the others.

@@ -64,6 +64,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // One row in two on a faint ground, for wide tables read across.
+    striped: {
+      type: Boolean,
+      default: false
+    },
     // Rows that can be ticked, a box at the head of each. What names a row in
     // the selection is its key, so a table that selects wants a `rowKey`.
     selectable: {
