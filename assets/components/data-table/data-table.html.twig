@@ -109,20 +109,27 @@
                         {%- if column.cell == 'actions' -%}
                             <span class="table--actions">
                                 {%- for action in value -%}
+                                    {#- An icon alone says nothing to a reader who cannot see
+                                        it, nor to one who does not know it: every action
+                                        carries its label, as a tooltip and as its name. -#}
+                                    {%- set action_label = action.label|default(null) -%}
                                     {%- if action.method|default('get')|lower == 'post' -%}
                                         <form method="post" action="{{ action.href|default('#') }}">
                                             {%- if action.token|default(null) -%}
                                                 <input type="hidden" name="_token" value="{{ action.token }}">
                                             {%- endif -%}
-                                            <button class="table--icon-button" type="submit" title="{{ action.label|default('') }}">{{ icon(action.icon) }}</button>
+                                            <button class="table--icon-button" type="submit"
+                                                    {%- if action_label %} title="{{ action_label }}" aria-label="{{ action_label }}"{% endif %}>{{ icon(action.icon) }}</button>
                                         </form>
                                     {%- elseif action.target|default(null) -%}
                                         {{ button_target(action.icon, '', action.href|default('#'), action.target, {
                                             class: 'table--icon-link',
                                             target_options: action.target_options|default({}),
+                                            attr: action_label ? { title: action_label, 'aria-label': action_label } : {},
                                         }) }}
                                     {%- else -%}
-                                        <a class="table--icon-link" href="{{ action.href|default('#') }}">{{ icon(action.icon) }}</a>
+                                        <a class="table--icon-link" href="{{ action.href|default('#') }}"
+                                           {%- if action_label %} title="{{ action_label }}" aria-label="{{ action_label }}"{% endif %}>{{ icon(action.icon) }}</a>
                                     {%- endif -%}
                                 {%- endfor -%}
                             </span>

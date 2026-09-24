@@ -182,12 +182,16 @@
                                             :target="action.target"
                                             :target-options="action.targetOptions"
                                             :icon="action.icon"
+                                            :title="action.label || null"
+                                            :aria-label="action.label || null"
                                             class-name="table--icon-link"
                                     ></button-target>
                                     <span
                                             v-else
                                             :key="`action-icon-${actionIndex}`"
                                             class="table--icon"
+                                            :title="action.label || null"
+                                            :aria-label="action.label || null"
                                             v-html="renderIcon(action.icon)"
                                     ></span>
                                 </template>
