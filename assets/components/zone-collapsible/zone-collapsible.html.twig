@@ -22,8 +22,14 @@
         <span class="toolbar--title zone-collapsible--title">{{ title|default('') }}</span>
         {%- if actions %}<div class="toolbar--group zone-collapsible--actions">{{ actions|raw }}</div>{% endif -%}
     </div>
-    <div class="zone zone--scrollable zone-collapsible--body{{ padded|default(true) ? ' zone--padded' : '' }}">
-        {{- slots.body|default('')|raw -}}
+    {#- The body scrolls and its content is padded, never the body itself: a
+        sticky element inside would stick under that padding. -#}
+    <div class="zone zone--scrollable zone-collapsible--body">
+        {%- if padded|default(true) -%}
+            <div class="zone--content">{{- slots.body|default('')|raw -}}</div>
+        {%- else -%}
+            {{- slots.body|default('')|raw -}}
+        {%- endif -%}
     </div>
     {#- Folded, there is nothing left to size: the handle would be sitting on a
         rail the caret is the whole of. -#}

@@ -47,15 +47,15 @@
 }
 
 // A region the width of a text: what a container is to a page, a zone is here —
-// capped at the reading measure and padded the same, so a document reads alike
-// in a pane and on a page of its own. In a split it asks for that measure and
-// gives way below it; what it leaves goes to a flexible neighbour, which is how
-// the page shows around a text instead of the text's ground running to the edge.
-// Written after the split's own rule, which sizes its children with as many
-// classes: the later of two equals is the one that holds.
+// capped at the reading measure, so a document reads alike in a pane and on a
+// page of its own. In a split it asks for that measure and gives way below it;
+// what it leaves goes to a flexible neighbour, which is how the page shows
+// around a text instead of the text's ground running to the edge. The measure
+// is a width and nothing else: the room around the text is its content's, a
+// `zone--content` inside it. Written after the split's own rule, which sizes its
+// children with as many classes: the later of two equals is the one that holds.
 .zone--measure {
   max-width: var(--zone-measure, var(--content-size-m));
-  padding: var(--space-4);
 }
 
 .zone--split > .zone--measure {
@@ -112,8 +112,19 @@
   grid-auto-flow: column;
 }
 
+// Room around what a zone holds, on a zone that does not scroll.
 .zone--padded {
   padding: var(--space-4);
+}
+
+// Room around what a zone holds, on a zone that does — or on any zone, the one
+// way that is right in both cases. A scrolling zone is the frame, and never
+// carries the padding itself: a sticky element inside it — a table's header —
+// sticks to the frame's inner edge, under that padding, and what scrolls away
+// stays visible in the band above it. Padded from within, the frame's edge is
+// the content's, and sticking to it hides what went past.
+.zone--content {
+  padding: var(--zone-padding, var(--space-4));
 }
 
 // A split spaces its zones on its own; this is for the page that wants more air
@@ -122,6 +133,7 @@
   --zone-gap: var(--space-4);
 }
 
+// What scrolls: a frame, without padding of its own — see `zone--content`.
 .zone--scrollable {
   overflow-y: auto;
   min-height: 0;

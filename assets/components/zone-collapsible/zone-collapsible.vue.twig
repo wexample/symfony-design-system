@@ -30,8 +30,13 @@
                 <slot name="actions"></slot>
             </div>
         </div>
-        <div class="zone zone--scrollable zone-collapsible--body" :class="{ 'zone--padded': padded }">
-            <slot></slot>
+        {# The body scrolls and its content is padded, never the body itself: a
+           sticky element inside would stick under that padding. #}
+        <div class="zone zone--scrollable zone-collapsible--body">
+            <div v-if="padded" class="zone--content">
+                <slot></slot>
+            </div>
+            <slot v-else></slot>
         </div>
         <zone-resizer v-if="resizable && !isCollapsed" :edge="resizerEdge"></zone-resizer>
     </div>
