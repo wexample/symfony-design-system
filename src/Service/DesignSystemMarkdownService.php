@@ -6,8 +6,8 @@ use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\Table\Table;
 use Twig\Environment as TwigEnvironment;
 use Wexample\SymfonyDesignSystem\Class\Markdown\DataTableRenderer;
-use Wexample\SymfonyTemplate\Enum\MarkdownFlavor;
 use Wexample\SymfonyLoader\Rendering\RenderPass;
+use Wexample\SymfonyTemplate\Enum\MarkdownFlavor;
 use Wexample\SymfonyTemplate\Service\MarkdownService;
 
 /**
