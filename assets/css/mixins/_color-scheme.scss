@@ -101,6 +101,7 @@ $color-scheme-level-count: 32 !default;
   // meant as depth — a band that sits behind, like the head of a table.
   @include color-scheme-nuances($foreground);
   @include color-scheme-head($background, $foreground);
+  @include color-scheme-code($background);
 
   // Text.
   --text-color-default: var(--color-default-text);
@@ -143,6 +144,31 @@ $color-scheme-level-count: 32 !default;
     --surface-head: var(--darken-1);
     --text-color-head: #{rgba($foreground, 0.4)};
   }
+}
+
+// Code, coloured: what an editor and a highlighter paint a keyword, a string, a
+// comment with. Taken from the categorical palette, so a code sample shares the
+// hues of the rest of the page, in its lighter variant on a dark face and its
+// darker one on a light face — the only way a hue stays readable on both. Both
+// sides of the stack read these, whether the code is written or only shown.
+@mixin color-scheme-code($background) {
+  $variant: 'dark';
+
+  @if color.channel($background, 'lightness', $space: oklch) < 50% {
+    $variant: 'light';
+  }
+
+  --code-keyword: var(--color-cat-lavender-#{$variant});
+  --code-string: var(--color-cat-grass-#{$variant});
+  --code-number: var(--color-cat-bittersweet-#{$variant});
+  --code-property: var(--color-cat-aqua-#{$variant});
+  --code-tag: var(--color-cat-blue-jeans-#{$variant});
+  --code-function: var(--color-cat-sunflower-#{$variant});
+  --code-comment: var(--text-color-subtle);
+  --code-punctuation: var(--text-color-muted);
+  // Laid over the text rather than behind a line: see-through, so the words
+  // under it stay read.
+  --code-selection: color-mix(in srgb, var(--color-cat-blue-jeans-fill) 35%, transparent);
 }
 
 @mixin color-scheme-invert-levels($foreground, $background) {
