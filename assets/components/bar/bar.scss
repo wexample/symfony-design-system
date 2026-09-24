@@ -28,6 +28,15 @@
   gap: var(--space-2);
 }
 
+// An end whose words change length as it lives — a date saying "Just now",
+// then "40 min ago" — would pull the middle of the line with it. Given a size,
+// the end holds that room and sets its content against the edge, so a column
+// of bars keeps its middles the same width whatever each one says.
+.bar--trailing {
+  min-width: var(--bar-trailing-size, 0);
+  justify-content: flex-end;
+}
+
 // A bar standing for something reachable is a link over its whole width, and
 // takes the colour of where it sits rather than the link colour — what is read
 // is the title, not that it is clickable.

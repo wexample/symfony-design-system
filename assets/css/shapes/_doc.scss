@@ -10,7 +10,11 @@
 .doc-section {
   @include surface.surface-layer;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  // Two halves whatever they hold: a bare `1fr` never goes below its content,
+  // so a long address or a line of code widened its column and every section
+  // split the page differently. From zero, the halves stay halves, and what
+  // is too long scrolls or wraps inside its own.
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 0;
   align-items: stretch;
   background: var(--surface-3);
@@ -29,6 +33,8 @@
 
 .doc-section--code {
   min-width: 0;
+  // An address is one unbroken word, and would run out of its half.
+  overflow-wrap: anywhere;
   padding: var(--space-4);
   border-left: var(--border-separator);
 }
