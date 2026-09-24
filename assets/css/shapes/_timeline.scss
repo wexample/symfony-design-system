@@ -1,0 +1,168 @@
+// Things one under the other, each on a marker, joined by a line: the steps of
+// a procedure, the events of a history, the stages of a run. What each holds is
+// free — a title, a line of text, a table, a form — and the line runs down the
+// whole height of it, to the next marker.
+@use '../mixins/feedback' as feedback;
+
+.timeline {
+  --timeline-marker-size: 1.75rem;
+  --timeline-gap: var(--space-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: timeline;
+}
+
+.timeline--item {
+  @include feedback.feedback-base;
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--timeline-marker-size) minmax(0, 1fr);
+  column-gap: var(--space-3);
+  margin: 0;
+  padding-bottom: var(--timeline-gap);
+  counter-increment: timeline;
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+
+  // The line, from under this marker down to the next one. Drawn by the item
+  // rather than by the list, so it is exactly as long as what the item holds.
+  &:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    top: var(--timeline-marker-size);
+    bottom: 0;
+    left: calc(var(--timeline-marker-size) / 2);
+    border-left: var(--border-default);
+  }
+}
+
+.timeline--marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--timeline-marker-size);
+  height: var(--timeline-marker-size);
+  border: var(--border-default);
+  border-radius: 50%;
+  background: var(--surface-1);
+  color: var(--text-color-muted);
+  font-size: var(--font-size-2);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+
+  // An empty marker is a dot, unless the list counts its steps.
+  &:empty::after {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: currentColor;
+  }
+}
+
+.timeline--numbered > .timeline--item > .timeline--marker:empty::after {
+  content: counter(timeline);
+  width: auto;
+  height: auto;
+  background: none;
+}
+
+// What the item holds starts level with its marker's middle, whatever it is.
+.timeline--content {
+  min-width: 0;
+  padding-top: calc((var(--timeline-marker-size) - 1lh) / 2);
+}
+
+.timeline--content > * + * {
+  margin-top: var(--space-2);
+}
+
+.timeline--title {
+  font-weight: var(--font-weight-strong);
+}
+
+.timeline--meta {
+  color: var(--text-color-muted);
+  font-size: var(--font-size-2);
+}
+
+// The same three states as the stepper: behind, being done, ahead.
+.timeline--item.is-done {
+  > .timeline--marker {
+    border-color: var(--color-default-text);
+    color: var(--color-default-text);
+  }
+
+  &:not(:last-child)::before {
+    border-left-color: var(--color-default-text);
+  }
+}
+
+.timeline--item.is-current > .timeline--marker {
+  border-color: var(--color-default-background-invert);
+  background: var(--color-default-background-invert);
+  color: var(--color-default-text-invert);
+}
+
+.timeline--item.is-current > .timeline--content > .timeline--title {
+  color: var(--color-default-text);
+}
+
+// Not decided yet: no number of its own, and dashes where the sequence is only
+// guessed — to it and away from it.
+.timeline--item.is-unknown {
+  counter-increment: none;
+
+  > .timeline--marker {
+    border-style: dashed;
+  }
+
+  &:not(:last-child)::before {
+    border-left-style: dashed;
+  }
+}
+
+.timeline--item:not(:last-child):has(+ .is-unknown)::before {
+  border-left-style: dashed;
+}
+
+.timeline--numbered > .timeline--item.is-unknown > .timeline--marker:empty::after {
+  content: '…';
+}
+
+// A tone: the marker takes the colour of a state, or of a category, the way a
+// marker or a toned block does. The line keeps its own.
+@each $tone in (info, success, warning, error) {
+  .timeline--item--#{$tone} {
+    @if $tone == info {
+      @include feedback.feedback-info;
+    } @else if $tone == success {
+      @include feedback.feedback-success;
+    } @else if $tone == warning {
+      @include feedback.feedback-warning;
+    } @else {
+      @include feedback.feedback-error;
+    }
+  }
+}
+
+@each $name in feedback.$category-names {
+  .timeline--item--cat-#{$name} {
+    @include feedback.feedback-category($name);
+  }
+}
+
+.timeline--item:is(
+  .timeline--item--info,
+  .timeline--item--success,
+  .timeline--item--warning,
+  .timeline--item--error,
+  [class*='timeline--item--cat-']
+) > .timeline--marker {
+  border-color: var(--feedback-fill);
+  background: var(--feedback-fill);
+  color: var(--feedback-on-fill);
+}

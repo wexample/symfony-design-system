@@ -1845,6 +1845,36 @@
             }
         },
         {
+            "key": "timeline",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "Things one under the other on markers joined by a line \u2014 steps of a procedure, events of a history \u2014 each holding whatever it needs.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/timeline/timeline.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/timeline/timeline.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/timeline/timeline.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/timeline/timeline.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "it lays things out, and a layout needs nothing to run"
+            }
+        },
+        {
             "key": "toast",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -2449,6 +2479,12 @@
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_surface.scss",
             "description": "The raised ground a block sits on, and the class that tells its children they are on one."
+        },
+        {
+            "key": "timeline",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_timeline.scss",
+            "description": "Things one under the other, each on a marker, joined by a line: the steps of a procedure, the events of a history, the stages of a run. What each holds is free \u2014 a title, a line of text, a table, a form \u2014 and the line runs down the whole height of it, to the next marker."
         },
         {
             "key": "toolbar",

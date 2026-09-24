@@ -1,0 +1,32 @@
+{#- The timeline shape, fed from a list. Each item takes a `title`, a `meta`
+    line and a `text`, all escaped, and a `body` for anything else — markup
+    captured with `{% set %}`, other components included. `icon` replaces the
+    dot, `state` is done, current or unknown as on the stepper, `tone` a state
+    or a `cat-*` colour. Written by hand, the shape takes the same classes. -#}
+{%- set items = items|default([]) -%}
+<ol class="timeline{{ numbered|default(false) ? ' timeline--numbered' }}{{ class is defined and class ? ' ' ~ class }}">
+    {%- for item in items -%}
+        <li class="timeline--item
+            {{- item.state is defined and item.state ? ' is-' ~ item.state -}}
+            {{- item.tone is defined and item.tone ? ' timeline--item--' ~ item.tone -}}"
+            {%- if item.state is defined and item.state == 'current' %} aria-current="step"{% endif %}>
+            <span class="timeline--marker" aria-hidden="true">
+                {%- if item.icon is defined and item.icon -%}{{ icon(item.icon) }}{%- endif -%}
+            </span>
+            <div class="timeline--content">
+                {%- if item.title is defined and item.title -%}
+                    <div class="timeline--title">{{ item.title }}</div>
+                {%- endif -%}
+                {%- if item.meta is defined and item.meta -%}
+                    <div class="timeline--meta">{{ item.meta }}</div>
+                {%- endif -%}
+                {%- if item.text is defined and item.text -%}
+                    <p>{{ item.text }}</p>
+                {%- endif -%}
+                {%- if item.body is defined and item.body -%}
+                    {{ item.body|raw }}
+                {%- endif -%}
+            </div>
+        </li>
+    {%- endfor -%}
+</ol>

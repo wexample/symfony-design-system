@@ -1,0 +1,21 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <ol :class="['timeline', { 'timeline--numbered': numbered }]">
+        <li
+                v-for="(item, index) in items"
+                :key="index"
+                :class="itemClasses(item)"
+                :aria-current="item.state === 'current' ? 'step' : null"
+        >
+            <span v-if="item.icon" class="timeline--marker" aria-hidden="true" v-html="iconHtml(item.icon)"></span>
+            <span v-else class="timeline--marker" aria-hidden="true"></span>
+            <div class="timeline--content">
+                <div v-if="item.title" class="timeline--title">[[ item.title ]]</div>
+                <div v-if="item.meta" class="timeline--meta">[[ item.meta ]]</div>
+                <p v-if="item.text">[[ item.text ]]</p>
+                <slot name="item" :item="item" :index="index"></slot>
+            </div>
+        </li>
+    </ol>
+{%- endblock -%}
