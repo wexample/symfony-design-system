@@ -1728,6 +1728,36 @@
             "notes": []
         },
         {
+            "key": "stepper",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "Where a reader stands in a sequence of steps \u2014 done, current, ahead \u2014 joined by a line that fills as it is walked.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/stepper/stepper.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/stepper/stepper.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/stepper/stepper.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/stepper/stepper.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "it links, and a link needs nothing to run"
+            }
+        },
+        {
             "key": "switch",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,

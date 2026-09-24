@@ -1,0 +1,39 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <nav class="stepper" :aria-label="resolvedLabel">
+        <ol class="stepper--list">
+            <li
+                    v-for="(step, index) in steps"
+                    :key="index"
+                    :class="['stepper--item', 'is-' + stateOf(index)]"
+            >
+                <a
+                        v-if="step.href && index !== current"
+                        class="stepper--step"
+                        :href="step.href"
+                >
+                    <span v-if="numbered" class="stepper--index">[[ index + 1 ]]</span>
+                    <span v-if="step.label" class="stepper--label">[[ step.label ]]</span>
+                </a>
+                <button
+                        v-else-if="navigable && index !== current"
+                        type="button"
+                        class="stepper--step"
+                        @click="$emit('select', index)"
+                >
+                    <span v-if="numbered" class="stepper--index">[[ index + 1 ]]</span>
+                    <span v-if="step.label" class="stepper--label">[[ step.label ]]</span>
+                </button>
+                <span
+                        v-else
+                        class="stepper--step"
+                        :aria-current="index === current ? 'step' : null"
+                >
+                    <span v-if="numbered" class="stepper--index">[[ index + 1 ]]</span>
+                    <span v-if="step.label" class="stepper--label">[[ step.label ]]</span>
+                </span>
+            </li>
+        </ol>
+    </nav>
+{%- endblock -%}

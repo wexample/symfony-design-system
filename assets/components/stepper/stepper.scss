@@ -1,0 +1,98 @@
+// Steps in a row, a line between each two: solid behind the reader, discreet ahead.
+@use '../../css/mixins/transition' as transition;
+
+.stepper {
+  // Too many steps for the width scroll rather than wrap: a sequence broken
+  // over two lines no longer reads as one.
+  overflow-x: auto;
+}
+
+.stepper--list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+// Every step but the last takes a share of the width, which its line fills.
+.stepper--item {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  margin: 0;
+
+  &:last-child {
+    flex: 0 0 auto;
+  }
+
+  &:not(:last-child)::after {
+    content: '';
+    flex: 1 1 auto;
+    min-width: var(--space-4);
+    border-top: var(--border-default);
+  }
+
+  &.is-done:not(:last-child)::after {
+    border-top-color: var(--color-default-text);
+  }
+}
+
+.stepper--step {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-color-muted);
+  font-size: var(--font-size-2);
+  white-space: nowrap;
+  text-decoration: none;
+  @include transition.smooth(2);
+
+  &:is(a, button):hover {
+    color: var(--color-default-text);
+  }
+}
+
+// A bare `<button>` in the vue twin, drawn like the link it stands for.
+button.stepper--step {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.stepper--index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75em;
+  height: 1.75em;
+  border: var(--border-default);
+  border-radius: 50%;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.stepper--item.is-done .stepper--step {
+  color: var(--color-default-text);
+}
+
+.stepper--item.is-done .stepper--index {
+  border-color: var(--color-default-text);
+}
+
+.stepper--item.is-current .stepper--step {
+  color: var(--color-default-text);
+  font-weight: 600;
+}
+
+.stepper--item.is-current .stepper--index {
+  border-color: var(--color-default-background-invert);
+  background: var(--color-default-background-invert);
+  color: var(--color-default-text-invert);
+}

@@ -1,0 +1,26 @@
+{#- Where a reader stands in a sequence: the steps behind, the one being done,
+    those ahead, joined by a line that fills as it is walked. A step with an
+    `href` can be gone back to; which ones get one is the caller's decision. -#}
+{%- set steps = steps|default([]) -%}
+{%- set current = current|default(0) -%}
+{%- set numbered = numbered ?? true -%}
+<nav class="stepper{{ class is defined and class ? ' ' ~ class : '' }}"
+     aria-label="{{ label|default('WexampleSymfonyDesignSystemBundle.common.system::frontend.stepper.label'|trans) }}">
+    <ol class="stepper--list">
+        {%- for step in steps -%}
+            {%- set index = loop.index0 -%}
+            {%- set state = index < current ? 'done' : (index == current ? 'current' : 'upcoming') -%}
+            {%- set body -%}
+                {%- if numbered -%}<span class="stepper--index">{{ loop.index }}</span>{%- endif -%}
+                {%- if step.label is defined and step.label -%}<span class="stepper--label">{{ step.label }}</span>{%- endif -%}
+            {%- endset -%}
+            <li class="stepper--item is-{{ state }}">
+                {%- if step.href is defined and step.href and state != 'current' -%}
+                    <a class="stepper--step" href="{{ step.href }}">{{ body }}</a>
+                {%- else -%}
+                    <span class="stepper--step"{% if state == 'current' %} aria-current="step"{% endif %}>{{ body }}</span>
+                {%- endif -%}
+            </li>
+        {%- endfor -%}
+    </ol>
+</nav>

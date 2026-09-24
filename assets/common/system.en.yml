@@ -7,6 +7,8 @@ frontend:
     next: Next
     page: Page
     ellipsis: "…"
+  stepper:
+    label: Steps
   table:
     select_all: Select all rows
     select_row: Select this row
