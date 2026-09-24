@@ -6,32 +6,32 @@
             <li
                     v-for="(step, index) in steps"
                     :key="index"
-                    :class="['stepper--item', 'is-' + stateOf(index)]"
+                    :class="['stepper--item', 'is-' + stateOf(index), { 'is-unknown': step.unknown }]"
             >
                 <a
-                        v-if="step.href && index !== current"
+                        v-if="isLink(step, index)"
                         class="stepper--step"
                         :href="step.href"
                 >
-                    <span v-if="numbered" class="stepper--index">[[ index + 1 ]]</span>
-                    <span v-if="step.label" class="stepper--label">[[ step.label ]]</span>
+                    <span v-if="numbered" class="stepper--index">[[ step.unknown ? '…' : numbers[index] ]]</span>
+                    <span v-if="step.label || (step.unknown && !numbered)" class="stepper--label">[[ step.label || '…' ]]</span>
                 </a>
                 <button
-                        v-else-if="navigable && index !== current"
+                        v-else-if="navigable && !step.unknown && index !== current"
                         type="button"
                         class="stepper--step"
                         @click="$emit('select', index)"
                 >
-                    <span v-if="numbered" class="stepper--index">[[ index + 1 ]]</span>
-                    <span v-if="step.label" class="stepper--label">[[ step.label ]]</span>
+                    <span v-if="numbered" class="stepper--index">[[ step.unknown ? '…' : numbers[index] ]]</span>
+                    <span v-if="step.label || (step.unknown && !numbered)" class="stepper--label">[[ step.label || '…' ]]</span>
                 </button>
                 <span
                         v-else
                         class="stepper--step"
                         :aria-current="index === current ? 'step' : null"
                 >
-                    <span v-if="numbered" class="stepper--index">[[ index + 1 ]]</span>
-                    <span v-if="step.label" class="stepper--label">[[ step.label ]]</span>
+                    <span v-if="numbered" class="stepper--index">[[ step.unknown ? '…' : numbers[index] ]]</span>
+                    <span v-if="step.label || (step.unknown && !numbered)" class="stepper--label">[[ step.label || '…' ]]</span>
                 </span>
             </li>
         </ol>

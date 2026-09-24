@@ -96,3 +96,14 @@ button.stepper--step {
   background: var(--color-default-background-invert);
   color: var(--color-default-text-invert);
 }
+
+// Not decided yet: drawn in dashes, and so is the line leading to it and away
+// from it — the sequence is known up to there and only guessed beyond.
+.stepper--item.is-unknown .stepper--index {
+  border-style: dashed;
+}
+
+.stepper--item.is-unknown:not(:last-child)::after,
+.stepper--item:not(:last-child):has(+ .is-unknown)::after {
+  border-top-style: dashed;
+}
