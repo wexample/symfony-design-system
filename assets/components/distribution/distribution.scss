@@ -178,12 +178,10 @@ a.distribution--legend--item {
   opacity: var(--opacity-6);
 }
 
-// Nothing counted yet — work not started, a tally still out: the bar keeps its
-// place, so a row of them keeps its shape, and is dimmed as a whole the way a
-// part that cannot be reached is. Its figure is a dash: nothing is not zero.
-.distribution--empty {
-  opacity: var(--opacity-6);
-}
+// Nothing counted yet — work not started, a tally still out — needs no drawing
+// of its own: the bare track is already what is left to fill, the same ground
+// a total larger than its parts shows through. `distribution--empty` is there
+// for a page that wants more, and its figure is a dash: nothing is not zero.
 
 // Reduced to what it has to say, for a row of a table or a card footer: a
 // thinner bar, and the density passed on to the capsules of its legend.
