@@ -1,0 +1,80 @@
+// Items on lanes, one row each, the graph at the head of the row and what the
+// item says after it: title and refs, then who, when and its short name in
+// columns that line up. The row's height is the drawing's (GRAPH_LOG_ROW), so
+// the lines of two rows meet.
+@use '../marker/marker';
+@use '../date-display/date-display';
+
+.graph-log {
+  --graph-log-row: 28px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--font-size-2);
+}
+
+.graph-log--row {
+  display: contents;
+}
+
+.graph-log--row > * {
+  display: flex;
+  align-items: center;
+  height: var(--graph-log-row);
+  min-width: 0;
+}
+
+.graph-log--row:hover > * {
+  background: var(--tint-2);
+}
+
+.graph-log--graph {
+  padding-right: var(--space-2);
+}
+
+.graph-log--svg {
+  display: block;
+
+  path {
+    fill: none;
+    stroke-width: 2;
+  }
+}
+
+.graph-log--node {
+  stroke: var(--surface-1);
+  stroke-width: 1.5;
+}
+
+.graph-log--main {
+  gap: var(--space-1);
+  padding-right: var(--space-3);
+}
+
+.graph-log--title {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: inherit;
+  text-decoration: none;
+}
+
+a.graph-log--title:hover {
+  text-decoration: underline;
+}
+
+.graph-log--meta,
+.graph-log--date,
+.graph-log--code {
+  padding-right: var(--space-3);
+  color: var(--text-color-muted);
+  white-space: nowrap;
+}
+
+.graph-log--code {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-1);
+}

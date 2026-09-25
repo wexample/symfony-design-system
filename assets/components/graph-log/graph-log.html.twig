@@ -1,0 +1,30 @@
+{#- Items in a line of descent, newest first, drawn on lanes: a git history,
+    the versions of a document, runs that fork. Each item is { id, parents,
+    title, href, refs: [{ label, tone }], code, meta, date }; only id and
+    parents make the graph, the rest is what the row says. The graph is drawn
+    by graph-log.ts, from the ids and parents the rows carry. -#}
+{%- set items = items|default([]) -%}
+<ol class="graph-log{{ class is defined and class ? ' ' ~ class }}">
+    {%- for item in items -%}
+        <li class="graph-log--row"
+            data-id="{{ item.id }}"
+            data-parents="{{ item.parents|default([])|join(' ') }}">
+            <span class="graph-log--graph"></span>
+            <span class="graph-log--main">
+                {%- for ref in item.refs|default([]) -%}
+                    {{ marker(ref.tone|default('neutral'), ref.label, { compact: true }) }}
+                {%- endfor -%}
+                {%- if item.href is defined and item.href -%}
+                    <a class="graph-log--title" href="{{ item.href }}"{% if item.title %} title="{{ item.title }}"{% endif %}>{{ item.title }}</a>
+                {%- else -%}
+                    <span class="graph-log--title"{% if item.title is defined and item.title %} title="{{ item.title }}"{% endif %}>{{ item.title|default('') }}</span>
+                {%- endif -%}
+            </span>
+            <span class="graph-log--meta">{{ item.meta|default('') }}</span>
+            <span class="graph-log--date">
+                {%- if item.date is defined and item.date -%}{{ date_display(item.date, 'date_time_short') }}{%- endif -%}
+            </span>
+            <code class="graph-log--code">{{ item.code|default('') }}</code>
+        </li>
+    {%- endfor -%}
+</ol>

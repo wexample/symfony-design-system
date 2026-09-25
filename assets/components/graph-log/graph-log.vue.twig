@@ -1,0 +1,30 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/marker') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/date-display') -}}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <ol class="graph-log">
+        <li v-for="(item, index) in items" :key="item.id" class="graph-log--row">
+            <span class="graph-log--graph" v-html="svg(index)"></span>
+            <span class="graph-log--main">
+                <capsule
+                        v-for="(ref, refIndex) in (item.refs || [])"
+                        :key="refIndex"
+                        :tone="ref.tone || 'neutral'"
+                        :label="ref.label"
+                        :compact="true"
+                ></capsule>
+                <a v-if="item.href" class="graph-log--title" :href="item.href" :title="item.title">[[ item.title ]]</a>
+                <span v-else class="graph-log--title" :title="item.title || null">[[ item.title ]]</span>
+            </span>
+            <span class="graph-log--meta">[[ item.meta || '' ]]</span>
+            <span class="graph-log--date">
+                <date-display v-if="item.date" :value="item.date" format="date_time_short"></date-display>
+            </span>
+            <code class="graph-log--code">[[ item.code || '' ]]</code>
+        </li>
+    </ol>
+{%- endblock -%}

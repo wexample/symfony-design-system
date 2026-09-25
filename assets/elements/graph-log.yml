@@ -1,0 +1,17 @@
+# Declares `graph-log` to the design system registry.
+# Seeded from a scan of the assets; kept by hand from here on.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "Items in a line of descent, newest first, drawn on coloured lanes with their merges and forks: a git history — symfony-coding gives it one — or anything that branches, versions of a document, runs that fork."
+formats:
+  style: true
+  template: true
+  vue: true
+  script: true
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

@@ -1207,6 +1207,37 @@
             "notes": []
         },
         {
+            "key": "graph-log",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "Items in a line of descent, newest first, drawn on coloured lanes with their merges and forks: a git history \u2014 symfony-coding gives it one \u2014 or anything that branches, versions of a document, runs that fork.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/graph-log/graph-log.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/graph-log/graph-log.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/graph-log/graph-log.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/graph-log/graph-log.vue"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/graph-log/graph-log.ts"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "expected",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": []
+        },
+        {
             "key": "list-expanded",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
