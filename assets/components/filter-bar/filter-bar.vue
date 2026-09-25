@@ -71,7 +71,12 @@ export default {
         label: option.label,
         value: String(option.value),
         count: option.count ?? null,
-        checked: selected.includes(String(option.value))
+        checked: selected.includes(String(option.value)),
+        // A box for several, a round one for a choice of one, in the option's
+        // tone when it has one.
+        box: true,
+        radio: !filter.multiple,
+        tone: option.tone ?? null
       }));
 
       if (!selected.length) {

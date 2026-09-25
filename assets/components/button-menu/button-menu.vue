@@ -3,7 +3,7 @@ import IconService from '@wexample/symfony-loader/js/Services/IconService';
 
 // The twin of components/button-menu: same classes, same panel, and above all
 // the same item shape — { type, icon, label, trailingIcon, count, href,
-// newWindow, checked, items, class } — so a menu written for one side can be
+// newWindow, checked, box, radio, tone, items, class } — so a menu written for one side can be
 // handed to the other without being rewritten. What an item is follows from
 // what it carries: a target makes a link, a state makes a toggle, children make
 // a branch. What this adds over the server is the events, because in a vue page
@@ -167,6 +167,11 @@ export default {
         'button-menu--link',
         type === 'toggle' ? 'button-menu--toggle' : null,
         type === 'toggle' && item.checked ? 'is-checked' : null,
+        // A box drawn before it is ticked, round for a choice of one, coloured
+        // by a tone — the twig twin's same three.
+        type === 'toggle' && (item.box || item.radio) ? 'button-menu--toggle--box' : null,
+        type === 'toggle' && item.radio ? 'button-menu--toggle--radio' : null,
+        type === 'toggle' && item.tone ? `button-menu--toggle--${item.tone}` : null,
         type === 'submenu' ? 'button-menu--submenu' : null,
         item.class
       ];

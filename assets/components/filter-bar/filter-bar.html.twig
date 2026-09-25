@@ -1,7 +1,8 @@
 {#- A row of filters kept in the page's query: each option is a link to the
     same page with that option turned, and the controller reads the same query
     to narrow what it lists. `filters` is [{ key, label, options: [{ value,
-    label, count }], multiple }], the shape the vue twin takes. -#}
+    label, count, tone }], multiple }], the shape the vue twin takes; a tone —
+    a state or a `cat-*` colour — colours the option's box. -#}
 {%- set filters = filters|default([]) -%}
 <div class="filter-bar{{ class is defined and class ? ' ' ~ class }}">
     {%- for filter in filters -%}
@@ -13,6 +14,9 @@
                 count: option.count ?? null,
                 checked: (option.value ~ '') in selected,
                 href: filter_toggle_url(filter, option.value ~ ''),
+                box: true,
+                radio: not (filter.multiple ?? false),
+                tone: option.tone ?? null,
             }]) -%}
         {%- endfor -%}
         {%- if selected is not empty -%}

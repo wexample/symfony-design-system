@@ -2,6 +2,9 @@ export type FilterOption = {
   value: string;
   label: string;
   count?: number | null;
+  // A state or a `cat-*` colour, for the option's box: what is filtered is
+  // often a status or a coloured name.
+  tone?: string | null;
 };
 
 export type FilterDefinition = {

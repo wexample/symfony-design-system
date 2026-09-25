@@ -1,6 +1,7 @@
 @use '../../css/mixins/density' as density;
 @use '../../css/mixins/transition' as transition;
 @use '../../css/mixins/assisted' as assisted;
+@use '../../css/mixins/feedback' as feedback;
 @use '../spinner/spinner';
 @use '../../css/shapes/count';
 
@@ -274,6 +275,61 @@
 // weight as it is clicked would say the same thing a second time, and louder.
 .button-menu--toggle.is-checked .button-menu--item-check {
   visibility: visible;
+}
+
+// A box, always drawn: a toggle that is one of several things to tick — a
+// filter — shows it can be ticked before it is. Empty and outlined, then
+// filled with the mark once on; a round one for a choice of one.
+.button-menu--toggle--box .button-menu--item-check {
+  visibility: visible;
+  height: 1em;
+  border: 0.125em solid var(--toggle-color, var(--text-color-muted));
+  border-radius: 0.2em;
+  font-size: 0.875em;
+  transition: background-color 120ms ease, border-color 120ms ease;
+
+  > * {
+    visibility: hidden;
+    font-size: 0.75em;
+  }
+}
+
+.button-menu--toggle--radio .button-menu--item-check {
+  border-radius: 50%;
+}
+
+.button-menu--toggle--box.is-checked .button-menu--item-check {
+  border-color: var(--toggle-color, var(--color-default-background-invert));
+  background: var(--toggle-color, var(--color-default-background-invert));
+  color: var(--toggle-on-color, var(--color-default-text-invert));
+
+  > * {
+    visibility: visible;
+  }
+}
+
+// A tone: the box takes the colour of a state or of a category, the way a
+// marker does — what is being filtered is often a status or a coloured name.
+.button-menu--toggle--info { @include feedback.feedback-info; }
+.button-menu--toggle--success { @include feedback.feedback-success; }
+.button-menu--toggle--warning { @include feedback.feedback-warning; }
+.button-menu--toggle--error { @include feedback.feedback-error; }
+
+@each $name in feedback.$category-names {
+  .button-menu--toggle--cat-#{$name} {
+    @include feedback.feedback-category($name);
+  }
+}
+
+.button-menu--toggle:is(
+  .button-menu--toggle--info,
+  .button-menu--toggle--success,
+  .button-menu--toggle--warning,
+  .button-menu--toggle--error,
+  [class*='button-menu--toggle--cat-']
+) {
+  --toggle-color: var(--feedback-fill);
+  --toggle-on-color: var(--feedback-on-fill);
 }
 
 // What qualifies the row, at the far end: an icon, or the mark that a branch

@@ -55,6 +55,12 @@
         {% endif %}
 
     {%- elseif type == 'toggle' -%}
+        {#- `box` draws the box before it is ticked, `radio` makes it round for
+            a choice of one, `tone` colours it — a status, a category. -#}
+        {% set item_class = item_class
+            ~ (item.box|default(false) or item.radio|default(false) ? ' button-menu--toggle--box')
+            ~ (item.radio|default(false) ? ' button-menu--toggle--radio')
+            ~ (item.tone|default(null) ? ' button-menu--toggle--' ~ item.tone) %}
         {#- A state the reader turns on and off. It is a button and not a link
             because it goes nowhere, and the panel stays open under it: a menu
             of filters is read by the handful, not one at a time. -#}
