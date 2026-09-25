@@ -26,7 +26,7 @@
             <select class="form--input table--bulk-select" aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.actions'|trans }}">
                 <option value="">{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.actions'|trans }}</option>
                 {%- for action in bulk_actions -%}
-                    <option value="{{ loop.index0 }}" data-href="{{ action.href|default('#') }}" data-token="{{ action.token|default('') }}">{{ action.label|default('') }}</option>
+                    <option value="{{ loop.index0 }}" data-href="{{ action.href|default('#') }}" data-token="{{ action.token|default('') }}"{% if action.all|default(false) %} data-all{% endif %}>{{ action.label|default('') }}</option>
                 {%- endfor -%}
             </select>
             {{ button('ph:bold/check', 'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.apply', {
@@ -37,13 +37,14 @@
         {%- else -%}
             {%- for action in bulk_actions -%}
                 {#- The token rides on the button, so each action carries its own. -#}
+                {#- One marked `all` acts on every row and needs nothing ticked. -#}
                 {{ button(action.icon|default(null), action.label|default(''), {
                     type: 'submit',
-                    class: 'table--bulk-action',
+                    class: 'table--bulk-action' ~ (action.all|default(false) ? ' table--bulk-action--all'),
                     formaction: action.href|default('#'),
                     name: '_token',
                     value: action.token|default(''),
-                    disabled: true,
+                    disabled: not action.all|default(false),
                 }) }}
             {%- endfor -%}
         {%- endif -%}

@@ -91,6 +91,8 @@ export default {
       default: null
     },
     // What can be done to the ticked rows: { key, label, icon, href, token }.
+    // One marked `all` acts on every row, ticked or not, and can be pressed
+    // with nothing ticked — "fix all" beside "fix selected".
     // One with an href posts them there, as the server table does; every one
     // is also emitted as `bulk-action`, for a parent that acts itself.
     bulkActions: {
@@ -244,6 +246,10 @@ export default {
       this.setSelected(checked ? [...this.selectableKeys] : []);
     },
 
+    canRunBulkAction(action) {
+      return Boolean(action) && (action.all || this.selectedCount > 0);
+    },
+
     applyBulkSelect() {
       const action = this.bulkActions[this.bulkActionIndex];
 
@@ -255,7 +261,7 @@ export default {
     // Told to the parent in any case; posted too when the action has an
     // address, the way the server table posts it.
     runBulkAction(action) {
-      const keys = [...this.selectedKeys];
+      const keys = action.all ? [...this.selectableKeys] : [...this.selectedKeys];
 
       this.$emit('bulk-action', {
         action,

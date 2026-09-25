@@ -52,12 +52,18 @@ export default class extends Component {
   // token only then, each action having its own.
   private onSubmit = (event: SubmitEvent): void => {
     const selectEl = this.getSelectEl();
+    const option = selectEl?.selectedOptions[0];
+
+    // An action on every row posts every row: the boxes are ticked on the way.
+    if (event.submitter?.classList.contains('table--bulk-action--all') || option?.dataset.all !== undefined) {
+      this.getRowBoxes().forEach((box) => {
+        box.checked = true;
+      });
+    }
 
     if (!selectEl || !this.formEl) {
       return;
     }
-
-    const option = selectEl.selectedOptions[0];
 
     if (!option || option.value === '') {
       event.preventDefault();
@@ -91,9 +97,21 @@ export default class extends Component {
     }
 
     const selectEl = this.getSelectEl();
+    const option = selectEl?.selectedOptions[0];
+    const optionAll = option !== undefined && option.value !== '' && option.dataset.all !== undefined;
+
     this.formEl.querySelectorAll<HTMLButtonElement>('.table--bulk-action, .table--bulk-apply').forEach((button) => {
-      button.disabled = count === 0
-        || (button.classList.contains('table--bulk-apply') && (!selectEl || selectEl.value === ''));
+      if (button.classList.contains('table--bulk-action--all')) {
+        button.disabled = false;
+        return;
+      }
+
+      if (button.classList.contains('table--bulk-apply')) {
+        button.disabled = !selectEl || selectEl.value === '' || (count === 0 && !optionAll);
+        return;
+      }
+
+      button.disabled = count === 0;
     });
   }
 }

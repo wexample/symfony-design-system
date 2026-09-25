@@ -38,7 +38,7 @@
             <button
                     class="button table--bulk-apply"
                     type="button"
-                    :disabled="!selectedCount || bulkActionIndex === ''"
+                    :disabled="!canRunBulkAction(bulkActions[bulkActionIndex])"
                     @click="applyBulkSelect"
             >
                 <span class="button--icon" v-html="renderIcon('ph:bold/check')"></span>
@@ -51,7 +51,7 @@
                     :key="action.key ?? actionIndex"
                     class="button table--bulk-action"
                     type="button"
-                    :disabled="!selectedCount"
+                    :disabled="!canRunBulkAction(action)"
                     @click="runBulkAction(action)"
             >
                 <span class="button--icon" v-html="renderIcon(action.icon)"></span>
