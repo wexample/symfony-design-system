@@ -1,0 +1,28 @@
+// A page on its way into the room it will fill — an embed today, a modal or a
+// panel tomorrow: the manager wears `is-page-loading`, the page it held dims,
+// and a spinner stands in the middle of the room.
+
+.page-loading--spinner {
+  display: none;
+}
+
+.is-page-loading {
+  position: relative;
+
+  > .page-loading--spinner {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+}
+
+// What was there stays readable enough to be recognised, and plainly not the
+// page being asked for.
+.is-page-loading > :not(.page-loading--spinner) {
+  opacity: 0.4;
+  transition: opacity 180ms ease;
+}

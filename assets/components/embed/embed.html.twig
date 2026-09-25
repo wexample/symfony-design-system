@@ -1,3 +1,6 @@
-<div class="embed">
+{#- Where a page is loaded into the page. `page_loading: false` keeps it from
+    showing a spinner while a slow one is on its way. -#}
+<div class="embed"{% if page_loading is defined and page_loading is same as(false) %} data-page-loading="off"{% endif %}>
     <div class="embed--content"></div>
+    <div class="page-loading--spinner">{% include '@WexampleSymfonyDesignSystemBundle/components/spinner/spinner.html.twig' with { size: 'md' } %}</div>
 </div>
