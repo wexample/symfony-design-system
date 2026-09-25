@@ -16,6 +16,8 @@ frontend:
     total: "%count% in total"
     actions: Actions
     apply: Apply
+  switch:
+    cancel: Cancel
   zone:
     collapse: Collapse
     expand: Expand

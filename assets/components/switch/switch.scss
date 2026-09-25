@@ -1,4 +1,5 @@
 @use '../../css/mixins/assisted' as assisted;
+@use '../../css/mixins/feedback' as feedback;
 
 .switch {
   display: inline-flex;
@@ -67,9 +68,9 @@
   opacity: 0;
 }
 
-// Active state
+// Active state: the link colour, or the tone's fill when the switch has one.
 .switch[data-checked="true"] {
-  .switch--pill { background: var(--color-link); }
+  .switch--pill { background: var(--switch-on-color, var(--color-link)); }
   .switch--knob { transform: translateX(var(--travel)); }
   .switch--off-inner { opacity: 0; }
   .switch--on-inner  { opacity: 1; }
@@ -81,5 +82,19 @@
 
   .switch--pill {
     @include assisted.assisted-outline;
+  }
+}
+
+// A tone: the colour the pill takes once on, from the state or category
+// tokens — a mode that carries a risk says so in `warning`.
+.switch--info { @include feedback.feedback-info; --switch-on-color: var(--feedback-fill); }
+.switch--success { @include feedback.feedback-success; --switch-on-color: var(--feedback-fill); }
+.switch--warning { @include feedback.feedback-warning; --switch-on-color: var(--feedback-fill); }
+.switch--error { @include feedback.feedback-error; --switch-on-color: var(--feedback-fill); }
+
+@each $name in feedback.$category-names {
+  .switch--cat-#{$name} {
+    @include feedback.feedback-category($name);
+    --switch-on-color: var(--feedback-fill);
   }
 }

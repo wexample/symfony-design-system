@@ -37,6 +37,16 @@ export default {
     extraClass: {
       type: String,
       default: null
+    },
+    // The colour the pill takes once on: a state or a `cat-*` colour.
+    tone: {
+      type: String,
+      default: null
+    },
+    // { title, message, accept }, asked before switching on.
+    confirm: {
+      type: Object,
+      default: null
     }
   },
 
@@ -58,6 +68,10 @@ export default {
         classes.push('switch--label-left');
       }
 
+      if (this.tone) {
+        classes.push(`switch--${this.tone}`);
+      }
+
       if (this.extraClass) {
         classes.push(this.extraClass);
       }
@@ -67,12 +81,38 @@ export default {
   },
 
   methods: {
-    toggle() {
+    async toggle() {
       const next = !this.isChecked;
+
+      if (next && this.confirm?.message && !(await this.askConfirmation())) {
+        return;
+      }
 
       this.innerChecked = next;
       this.$emit('update:modelValue', next);
       this.$emit('change', next);
+    },
+
+    async askConfirmation() {
+      const confirmService = this.app.services.confirm;
+
+      if (!confirmService) {
+        return window.confirm(this.confirm.message);
+      }
+
+      const result = await confirmService.confirm({
+        title: this.confirm.title || undefined,
+        message: this.confirm.message,
+        preset: 'ok_cancel',
+        actions: this.confirm.accept
+          ? [
+            { key: 'y', value: 'ok', label: this.confirm.accept, role: 'primary' },
+            { key: 'n', value: 'cancel', label: this.trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.switch.cancel'), role: 'secondary' }
+          ]
+          : undefined
+      });
+
+      return result === 'ok';
     }
   }
 };
