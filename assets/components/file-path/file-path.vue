@@ -1,4 +1,6 @@
 <script>
+import { filePathSplit } from '../../js/Helper/FilePathHelper';
+
 // The twin of file-path.html.twig.
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-file-path-file-path',
@@ -12,13 +14,7 @@ export default {
 
   computed: {
     parts() {
-      const cut = (this.path || '').split('/');
-      const name = cut.pop();
-
-      return {
-        folder: cut.length ? `${cut.join('/')}/` : '',
-        name
-      };
+      return filePathSplit(this.path);
     }
   }
 };
