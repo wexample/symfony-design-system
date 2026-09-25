@@ -11,7 +11,7 @@ export default class extends Component {
   protected async activateListeners(): Promise<void> {
     await super.activateListeners();
 
-    this.formEl = this.el.querySelector('form.table--bulk');
+    this.formEl = this.el.querySelector('form.table--bar');
     this.selectAllEl = this.el.querySelector('.table--select-all');
 
     this.el.addEventListener('change', this.onChange);

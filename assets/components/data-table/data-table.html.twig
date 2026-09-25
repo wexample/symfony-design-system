@@ -32,7 +32,7 @@
     {#- What can be done to the ticked rows: each action posts them, their values
         under one name, to its own address. Buttons when there are few, a select
         when there are enough to crowd the bar. -#}
-    <form class="table--bulk" id="{{ bulk_form_id }}" method="post" action="{{ (bulk_actions|first).href|default('#') }}">
+    <form class="table--bar" id="{{ bulk_form_id }}" method="post" action="{{ (bulk_actions|first).href|default('#') }}">
         {{ filter_bar }}
         <span class="table--bulk-count" data-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.selected'|trans({ '%count%': '%count%' }) }}">
             {{- 'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.selected'|trans({ '%count%': 0 }) -}}
@@ -67,7 +67,7 @@
         {{ total_count }}
     </form>
 {%- elseif show_count or filters is not empty -%}
-    <div class="table--bulk">{{ filter_bar }}{{ total_count }}</div>
+    <div class="table--bar">{{ filter_bar }}{{ total_count }}</div>
 {%- endif -%}
 
 {#- The frame is what scrolls sideways when the columns are wider than the room:
