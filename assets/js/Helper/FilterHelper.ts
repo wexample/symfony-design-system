@@ -59,22 +59,31 @@ export function filterClear(values: FilterValues, key: string): FilterValues {
   return next;
 }
 
+export type FilterSummaryParts = {
+  // The label of the first value held, null while the filter holds none.
+  value: string | null;
+  // How many values beyond the first.
+  more: number;
+};
+
 /**
- * What the button of a filter says: its name while it narrows nothing, then
- * what it narrows to — the one value, or the first and how many more.
+ * What the button of a filter has to say, before it is worded: nothing while
+ * it narrows nothing, then the first value and how many more. The wording is
+ * the translations' — `frontend.filter.summary` and `summary_more`.
  */
-export function filterSummary(definition: FilterDefinition, values: FilterValues): string {
+export function filterSummaryParts(definition: FilterDefinition, values: FilterValues): FilterSummaryParts {
   const selected = filterSelected(values, definition.key);
 
   if (!selected.length) {
-    return definition.label;
+    return { value: null, more: 0 };
   }
 
   const first = definition.options.find((option) => String(option.value) === selected[0]);
-  const shown = first?.label ?? selected[0];
-  const more = selected.length > 1 ? ` +${selected.length - 1}` : '';
 
-  return `${definition.label}: ${shown}${more}`;
+  return {
+    value: first?.label ?? selected[0],
+    more: selected.length - 1,
+  };
 }
 
 /**

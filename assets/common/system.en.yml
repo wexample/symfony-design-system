@@ -3,6 +3,8 @@ frontend:
   no_data: No data
   filter:
     clear: Clear
+    summary: "%label%: %value%"
+    summary_more: "%label%: %value% +%more%"
   pagination:
     label: Pagination
     previous: Previous

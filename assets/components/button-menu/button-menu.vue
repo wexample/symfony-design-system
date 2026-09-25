@@ -137,7 +137,15 @@ export default {
     // and are buttons, which is also what makes them reachable by keyboard
     // without a target to pretend to have.
     itemTag(item) {
-      return this.itemType(item) === 'link' ? 'a' : 'button';
+      return this.isAnchor(item) ? 'a' : 'button';
+    },
+
+    // A link, or a toggle keeping its state in the address it leads to — a
+    // filter of a server table — as its twig twin draws it.
+    isAnchor(item) {
+      const type = this.itemType(item);
+
+      return type === 'link' || (type === 'toggle' && Boolean(item.href));
     },
 
     itemRole(item) {
@@ -225,7 +233,7 @@ export default {
     onItemClick(item, index, event) {
       const type = this.itemType(item);
 
-      if (type !== 'link' || !item.href) {
+      if (!this.isAnchor(item) || !item.href) {
         event.preventDefault();
       }
 
@@ -236,6 +244,13 @@ export default {
       if (type === 'submenu') {
         this.openSubmenu = this.openSubmenu === index ? null : index;
         this.$nextTick(() => this.placeSubmenu(event));
+
+        return;
+      }
+
+      // Followed, not flipped: the page it leads to comes back with the state.
+      if (type === 'toggle' && item.href) {
+        this.close();
 
         return;
       }

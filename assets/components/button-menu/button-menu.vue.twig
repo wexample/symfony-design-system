@@ -39,8 +39,8 @@
                         <component
                                 :is="itemTag(item)"
                                 :class="linkClasses(item)"
-                                :href="itemType(item) === 'link' ? itemHref(item) : null"
-                                :type="itemType(item) === 'link' ? null : 'button'"
+                                :href="isAnchor(item) ? itemHref(item) : null"
+                                :type="isAnchor(item) ? null : 'button'"
                                 :role="itemRole(item)"
                                 :aria-checked="itemType(item) === 'toggle' ? (item.checked ? 'true' : 'false') : null"
                                 :aria-haspopup="itemType(item) === 'submenu' ? 'menu' : null"
@@ -95,8 +95,8 @@
                                     <component
                                             :is="itemTag(child)"
                                             :class="linkClasses(child)"
-                                            :href="itemType(child) === 'link' ? itemHref(child) : null"
-                                            :type="itemType(child) === 'link' ? null : 'button'"
+                                            :href="isAnchor(child) ? itemHref(child) : null"
+                                            :type="isAnchor(child) ? null : 'button'"
                                             :role="itemRole(child)"
                                             :aria-checked="itemType(child) === 'toggle' ? (child.checked ? 'true' : 'false') : null"
                                             :disabled="child.disabled || null"

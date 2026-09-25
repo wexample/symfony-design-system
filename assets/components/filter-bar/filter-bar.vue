@@ -4,7 +4,7 @@ import buildTranslatedBindings from '../../js/Helper/TranslationHelper';
 import {
   filterClear,
   filterSelected,
-  filterSummary,
+  filterSummaryParts,
   filterToggle
 } from '../../js/Helper/FilterHelper';
 
@@ -52,7 +52,16 @@ export default {
     },
 
     summary(filter) {
-      return filterSummary(filter, this.modelValue);
+      const { value, more } = filterSummaryParts(filter, this.modelValue);
+
+      if (value === null) {
+        return filter.label;
+      }
+
+      return this.trans(
+        `WexampleSymfonyDesignSystemBundle.common.system::frontend.filter.${more ? 'summary_more' : 'summary'}`,
+        { '%label%': filter.label, '%value%': value, '%more%': more }
+      );
     },
 
     // The options as toggles, and a way back to nothing once something is on.

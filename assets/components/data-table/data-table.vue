@@ -227,9 +227,9 @@ export default {
   },
 
   watch: {
-    // What is no longer on screen cannot be acted on: a refresh or a page turn
-    // drops the keys it took away.
-    rows() {
+    // What is no longer on screen cannot be acted on: a refresh, a filter or a
+    // page turn drops the keys it took away.
+    shownRows() {
       // Fewer rows than before can leave the page past the last one.
       if (this.pagesCount && this.page > this.pagesCount - 1) {
         this.page = this.pagesCount - 1;

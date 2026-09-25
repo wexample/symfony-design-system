@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use Wexample\SymfonyTranslations\Translation\Translator;
 
 /**
  * The filters of a server table, kept in the page's query: what each one holds
@@ -15,8 +16,11 @@ use Twig\TwigFunction;
  */
 class FilterExtension extends AbstractExtension
 {
+    private const string TRANSLATION_PREFIX = 'WexampleSymfonyDesignSystemBundle.common.system'.Translator::DOMAIN_SEPARATOR.'frontend.filter.';
+
     public function __construct(
         private readonly RequestStack $requestStack,
+        private readonly Translator $translator,
     ) {
     }
 
@@ -46,7 +50,7 @@ class FilterExtension extends AbstractExtension
 
     /**
      * Its name while it narrows nothing, then what it narrows to: the one
-     * value, or the first and how many more.
+     * value, or the first and how many more — worded by the translations.
      */
     public function filterSummary(array $filter): string
     {
@@ -66,7 +70,12 @@ class FilterExtension extends AbstractExtension
             }
         }
 
-        return $filter['label'].': '.$shown.(count($selected) > 1 ? ' +'.(count($selected) - 1) : '');
+        $more = count($selected) - 1;
+
+        return $this->translator->trans(
+            self::TRANSLATION_PREFIX.($more ? 'summary_more' : 'summary'),
+            ['%label%' => $filter['label'], '%value%' => $shown, '%more%' => $more]
+        );
     }
 
     /**
