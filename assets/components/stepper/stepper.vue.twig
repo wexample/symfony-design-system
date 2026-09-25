@@ -1,7 +1,7 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
 
 {%- block vue_body -%}
-    <nav class="stepper" :aria-label="resolvedLabel">
+    <nav :class="['stepper', variant ? 'stepper--' + variant : null]" :aria-label="resolvedLabel">
         <ol class="stepper--list">
             <li
                     v-for="(step, index) in steps"

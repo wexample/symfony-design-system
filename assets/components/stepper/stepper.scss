@@ -107,3 +107,42 @@ button.stepper--step {
 .stepper--item:not(:last-child):has(+ .is-unknown)::after {
   border-top-style: dashed;
 }
+
+// Compact: the numbers, and the name of the step being done only — what fits
+// the header of a modal or a panel.
+.stepper--compact {
+  .stepper--index {
+    width: 1.5em;
+    height: 1.5em;
+    font-size: var(--font-size-1);
+  }
+
+  .stepper--item:not(.is-current) .stepper--label {
+    display: none;
+  }
+}
+
+// Dots: one per step, a line between them, and no word on screen — ●──●──●.
+// The names are still there for whoever reads the page aloud.
+.stepper--dots {
+  .stepper--index {
+    width: 0.625rem;
+    height: 0.625rem;
+    font-size: 0;
+    border-width: 2px;
+  }
+
+  .stepper--item.is-current .stepper--index {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  .stepper--label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}

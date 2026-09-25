@@ -31,6 +31,21 @@
     }
   }
 
+  // A stepper standing right under the header — a tunnel walked in the overlay
+  // — takes the loading bar's place: the line it draws is the one the eye
+  // already reads there.
+  .#{$name}-loading:has(+ .stepper) {
+    display: none;
+  }
+
+  .#{$name}-header + .#{$name}-loading + .stepper {
+    padding: var(--space-2) var(--space-4);
+    border-bottom: var(--border-separator);
+    @if $shrink-chrome {
+      flex-shrink: 0;
+    }
+  }
+
   .#{$name}-loading-bar {
     height: 100%;
     width: 0%;

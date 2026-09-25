@@ -32,6 +32,11 @@ export default {
       type: Boolean,
       default: true
     },
+    // `compact` names the current step only; `dots` draws a dot per step.
+    variant: {
+      type: String,
+      default: null
+    },
     // Steps without an href answer a click with `select` instead of staying inert.
     navigable: {
       type: Boolean,

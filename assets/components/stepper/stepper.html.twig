@@ -7,7 +7,11 @@
 {%- set steps = steps|default([]) -%}
 {%- set current = current|default(0) -%}
 {%- set numbered = numbered ?? true -%}
-<nav class="stepper{{ class is defined and class ? ' ' ~ class : '' }}"
+{#- `compact` keeps the numbers and names the current step only, for a header
+    with little room; `dots` draws a dot per step and names none on screen —
+    the names stay for whoever reads the page aloud. -#}
+{%- set variant = variant|default(null) -%}
+<nav class="stepper{{ variant ? ' stepper--' ~ variant }}{{ class is defined and class ? ' ' ~ class : '' }}"
      aria-label="{{ label|default('WexampleSymfonyDesignSystemBundle.common.system::frontend.stepper.label'|trans) }}">
     <ol class="stepper--list">
         {%- for step in steps -%}
