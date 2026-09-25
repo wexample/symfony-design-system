@@ -276,6 +276,13 @@ class MenuExtension extends AbstractTemplateExtension
                 continue;
             }
 
+            // A menu item is a link, followed with GET: an action route
+            // restricted to POST would answer it with a 405.
+            $methods = $route->getMethods();
+            if ($methods && ! in_array('GET', $methods, true)) {
+                continue;
+            }
+
             if ($this->isEntryPointRoute($controller, $defaults, $prefix, $name, $route)) {
                 $routes[$name] = $route;
             }
