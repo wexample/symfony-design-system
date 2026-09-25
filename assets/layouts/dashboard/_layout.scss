@@ -6,3 +6,6 @@
 // Code blocks available on all dashboard pages.
 @use '../../css/partials/code';
 
+// The page's one tooltip, which the layout places.
+@use '../../components/tooltip/tooltip';
+

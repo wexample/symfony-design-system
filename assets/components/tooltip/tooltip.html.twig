@@ -1,0 +1,9 @@
+{#- The one tooltip of the page, placed once by the layout and moved to
+    whatever asks for it: an element carrying `data-tooltip` — written by hand,
+    by `tooltip()` in twig, or bound in a vue — gets it under the pointer and
+    under the keyboard's focus. -#}
+<div class="tooltip" role="tooltip" id="tooltip" hidden>
+    <strong class="tooltip--title" hidden></strong>
+    <span class="tooltip--text"></span>
+    <span class="tooltip--arrow" aria-hidden="true"></span>
+</div>

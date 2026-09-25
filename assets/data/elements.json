@@ -1994,6 +1994,35 @@
             }
         },
         {
+            "key": "tooltip",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A few words about what the pointer or the focus is on, beside it and turned away from the window's edges. One for the page, placed by the layout; an element asks for it with data-tooltip, or tooltip() in twig.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/tooltip/tooltip.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/tooltip/tooltip.html.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/tooltip/tooltip.ts"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "waived",
+                "script": "expected",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "vue": "a vue binds the same data-tooltip attributes; nothing to mount"
+            }
+        },
+        {
             "key": "tree",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,

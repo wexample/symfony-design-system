@@ -1,0 +1,44 @@
+// A few words about what the pointer or the focus is on, beside it: inverted
+// on the page by default, on the page's own ground when `light`.
+@use '../../css/mixins/floating-arrow' as floating;
+
+.tooltip {
+  position: fixed;
+  z-index: var(--z-tooltip);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  max-width: min(20rem, calc(100vw - 1rem));
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-control);
+  background: var(--color-default-background-invert);
+  color: var(--color-default-text-invert);
+  font-size: var(--font-size-2);
+  line-height: 1.4;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+
+  &.is-visible {
+    opacity: 1;
+  }
+
+  @include floating.floating-arrow('.tooltip--arrow');
+}
+
+.tooltip--title {
+  font-weight: var(--font-weight-strong);
+}
+
+.tooltip--light {
+  border: var(--border-default);
+  background: var(--surface-3);
+  color: var(--color-default-text);
+  box-shadow: var(--shadow-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip {
+    transition: none;
+  }
+}

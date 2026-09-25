@@ -1,0 +1,41 @@
+// The arrow of a box floating beside an anchor, on the edge facing it and at
+// the anchor's middle (`--floating-arrow`), as FloatingHelper leaves them.
+// The arrow is a square turned on its point, of the box's own ground.
+@mixin floating-arrow($arrow-selector, $size: 8px) {
+  #{$arrow-selector} {
+    position: absolute;
+    width: $size;
+    height: $size;
+    background: inherit;
+    border: inherit;
+    transform: rotate(45deg);
+  }
+
+  &[data-side='top'] #{$arrow-selector} {
+    bottom: calc($size / -2);
+    left: calc(var(--floating-arrow, 50%) - $size / 2);
+    border-top: 0;
+    border-left: 0;
+  }
+
+  &[data-side='bottom'] #{$arrow-selector} {
+    top: calc($size / -2);
+    left: calc(var(--floating-arrow, 50%) - $size / 2);
+    border-bottom: 0;
+    border-right: 0;
+  }
+
+  &[data-side='left'] #{$arrow-selector} {
+    right: calc($size / -2);
+    top: calc(var(--floating-arrow, 50%) - $size / 2);
+    border-bottom: 0;
+    border-left: 0;
+  }
+
+  &[data-side='right'] #{$arrow-selector} {
+    left: calc($size / -2);
+    top: calc(var(--floating-arrow, 50%) - $size / 2);
+    border-top: 0;
+    border-right: 0;
+  }
+}
