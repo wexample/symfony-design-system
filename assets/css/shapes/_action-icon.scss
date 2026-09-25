@@ -9,3 +9,22 @@
   color: var(--text-color-muted);
   text-decoration: none;
 }
+
+// The same as a button, for an action that goes nowhere — refresh, toggle:
+// none of the browser's frame, and the pointer saying it can be pressed.
+button.action-icon {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.action-icon:is(a, button):hover,
+.action-icon:is(a, button):focus-visible {
+  color: var(--text-color-default);
+}
+
+button.action-icon:disabled {
+  cursor: default;
+}
