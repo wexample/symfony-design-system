@@ -7,7 +7,7 @@
             @click="toggle"
     >
         <span v-if="label && labelPosition === 'left'" class="switch--label">[[ label ]]</span>
-        <span class="switch--pill" role="switch" :aria-checked="String(isChecked)">
+        <span class="switch--pill" role="switch" :aria-checked="String(isChecked)" :aria-label="ariaLabel || null" :title="ariaLabel || null">
             <span class="switch--knob"></span>
             <span v-if="offInner" class="switch--inner switch--off-inner" v-html="offInner"></span>
             <span v-if="onInner" class="switch--inner switch--on-inner" v-html="onInner"></span>

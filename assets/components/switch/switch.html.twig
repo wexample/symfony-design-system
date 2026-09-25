@@ -1,13 +1,14 @@
 {#- `tone` colours the pill once it is on — a state (`warning` for a mode that
     carries a risk) or a `cat-*` colour. `confirm` ({ title, message, accept })
     is asked before switching on, and switching on only goes through if it is
-    accepted; switching off is never questioned. -#}
+    accepted; switching off is never questioned. `aria_label` names a switch
+    that shows no label — an icon in its pill — and is its tooltip too. -#}
 <div class="switch{% if label_position is defined and label_position == 'left' %} switch--label-left{% endif %}{% if tone is defined and tone %} switch--{{ tone }}{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-checked="{{ checked | default(false) ? 'true' : 'false' }}"
     {%- if confirm is defined and confirm %} data-confirm-title="{{ confirm.title|default('') }}" data-confirm-message="{{ confirm.message|default('') }}" data-confirm-accept="{{ confirm.accept|default('') }}"{% endif %}>
     {%- if label is defined and label_position is defined and label_position == 'left' -%}
         <span class="switch--label">{{ label | trans }}</span>
     {%- endif -%}
-    <span class="switch--pill" role="switch" aria-checked="{{ checked | default(false) ? 'true' : 'false' }}">
+    <span class="switch--pill" role="switch" aria-checked="{{ checked | default(false) ? 'true' : 'false' }}"{% if aria_label is defined and aria_label %} aria-label="{{ aria_label }}" title="{{ aria_label }}"{% endif %}>
         <span class="switch--knob"></span>
         {%- if off_inner is defined -%}
             <span class="switch--inner switch--off-inner">{{ off_inner | raw }}</span>

@@ -43,6 +43,11 @@ export default {
       type: String,
       default: null
     },
+    // The name of a switch that shows no label, and its tooltip.
+    ariaLabel: {
+      type: String,
+      default: null
+    },
     // { title, message, accept }, asked before switching on.
     confirm: {
       type: Object,
