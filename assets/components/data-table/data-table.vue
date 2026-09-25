@@ -5,6 +5,8 @@ import ButtonTarget from '../button-target/button-target.vue';
 import Marker from '../marker/marker.vue';
 import Pagination from '../pagination/pagination.vue';
 import FilePath from '../file-path/file-path.vue';
+import FilterBar from '../filter-bar/filter-bar.vue';
+import { filterMatches } from '../../js/Helper/FilterHelper';
 import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
 
 const translated = buildTranslatedBindings({
@@ -25,6 +27,7 @@ export default {
     ButtonTarget,
     DateDisplay,
     FilePath,
+    FilterBar,
     Pagination,
     Spinner,
     // Registered as `capsule`: `marker` is an svg element, which vue refuses
@@ -116,6 +119,26 @@ export default {
       type: Boolean,
       default: false
     },
+    // A filter bar at the head of the table: [{ key, label, options, multiple }].
+    // What it holds comes back through `v-model:filter-values`, for the page to
+    // ask its api with — the rows it gets back are already the narrowed ones.
+    filters: {
+      type: Array,
+      default: () => []
+    },
+    // The filters' values, for a parent that holds them. Left null, the table
+    // holds them itself.
+    filterValues: {
+      type: Object,
+      default: null
+    },
+    // The table narrows the rows it was given itself, reading each row's field
+    // of a filter's key: for a list held whole in the page rather than asked
+    // for.
+    filterRows: {
+      type: Boolean,
+      default: false
+    },
     // Rows shown at once, the others a page turn away. Paged here, on the rows
     // the table was given: a list the server pages hands one page at a time
     // and a pagination of its own. 0 shows them all.
@@ -125,12 +148,13 @@ export default {
     }
   },
 
-  emits: ['update:selected', 'bulk-action'],
+  emits: ['update:selected', 'bulk-action', 'update:filterValues'],
 
   data() {
     return {
       ownSelected: [],
       bulkActionIndex: '',
+      ownFilterValues: {},
       page: 0
     };
   },
@@ -138,8 +162,26 @@ export default {
   computed: {
     ...translated.computed,
 
+    resolvedFilterValues() {
+      return this.filterValues ?? this.ownFilterValues;
+    },
+
+    // The rows the table works on: all it was given, or those passing its
+    // filters when it narrows them itself.
+    shownRows() {
+      const rows = this.rows || [];
+
+      return this.filterRows
+        ? rows.filter((row) => this.isGroupRow(row) || filterMatches(row, this.resolvedFilterValues))
+        : rows;
+    },
+
+    hasBar() {
+      return this.hasBulkActions || this.showCount || this.filters.length > 0;
+    },
+
     pagesCount() {
-      return this.pageSize > 0 ? Math.ceil((this.rows || []).length / this.pageSize) : 0;
+      return this.pageSize > 0 ? Math.ceil(this.shownRows.length / this.pageSize) : 0;
     },
 
     pageOffset() {
@@ -148,7 +190,7 @@ export default {
 
     // The rows on screen: all of them, or the current page.
     visibleRows() {
-      const rows = this.rows || [];
+      const rows = this.shownRows;
 
       return this.pageSize > 0 ? rows.slice(this.pageOffset, this.pageOffset + this.pageSize) : rows;
     },
@@ -158,13 +200,13 @@ export default {
     },
 
     selectableKeys() {
-      return (this.rows || [])
+      return this.shownRows
         .map((row, index) => (this.isGroupRow(row) ? null : this.getRowKey(row, index)))
         .filter((key) => key !== null);
     },
 
     totalCount() {
-      return (this.rows || []).filter((row) => !this.isGroupRow(row)).length;
+      return this.shownRows.filter((row) => !this.isGroupRow(row)).length;
     },
 
     selectedCount() {
@@ -240,6 +282,13 @@ export default {
       return this.selectedKeys.includes(this.getRowKey(row, index));
     },
 
+    // Narrowed differently, the list starts again from its first page.
+    setFilterValues(values) {
+      this.ownFilterValues = values;
+      this.page = 0;
+      this.$emit('update:filterValues', values);
+    },
+
     setSelected(keys) {
       this.ownSelected = keys;
       this.$emit('update:selected', keys);
@@ -276,7 +325,7 @@ export default {
       this.$emit('bulk-action', {
         action,
         keys,
-        rows: this.rows.filter((row, index) => keys.includes(this.getRowKey(row, index)))
+        rows: this.shownRows.filter((row, index) => keys.includes(this.getRowKey(row, index)))
       });
 
       if (!action.href) {
@@ -304,7 +353,7 @@ export default {
       form.submit();
     },
     hasRows() {
-      return Array.isArray(this.rows) && this.rows.length > 0;
+      return this.shownRows.length > 0;
     },
     getRowKey(row, index) {
       return this.rowKey ? this.rowKey(row) : index;

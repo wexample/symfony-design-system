@@ -1,6 +1,8 @@
 frontend:
   loading: Loading...
   no_data: No data
+  filter:
+    clear: Clear
   pagination:
     label: Pagination
     previous: Previous

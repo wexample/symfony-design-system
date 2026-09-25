@@ -620,6 +620,36 @@
             }
         },
         {
+            "key": "filter-bar",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A row of filters, one discreet menu each, saying what it narrows to once it does. It holds no rows: in vue it produces a value for an api or a table, on the server each option is a link changing the page's query.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/filter-bar/filter-bar.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/filter-bar/filter-bar.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/filter-bar/filter-bar.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/filter-bar/filter-bar.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "its options are links on the server; the vue twin holds the value"
+            }
+        },
+        {
             "key": "form/button-input",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -2491,6 +2521,24 @@
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_page.scss",
             "description": "The page itself, and `page--fill` for the part of it sized by the room it is given rather than by what it holds."
+        },
+        {
+            "key": "page-actions",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_page-actions.scss",
+            "description": "What a page does, at its foot: its actions in one row, whatever holds the page \u2014 a modal, a panel, an embed, the page's own zone. The first group stands at the start, the last one at the end: previous and next, cancel and save."
+        },
+        {
+            "key": "page-loading",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_page-loading.scss",
+            "description": "A page on its way into the room it will fill \u2014 an embed today, a modal or a panel tomorrow: the manager wears `is-page-loading`, the page it held dims, and a spinner stands in the middle of the room."
+        },
+        {
+            "key": "page-transition",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_page-transition.scss",
+            "description": "A page replaced by the next inside what holds it \u2014 a step of a tunnel in a modal: the one leaving slides a few pixels the way the visitor goes and fades, the one arriving comes in from the other side. Only a page marked `data-page-transition=\"slide\"` moves; the classes are the page manager's."
         },
         {
             "key": "rail",

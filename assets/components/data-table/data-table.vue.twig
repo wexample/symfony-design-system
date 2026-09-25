@@ -12,6 +12,7 @@
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/marker') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/pagination') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/file-path') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/filter-bar') -}}
 {%- endblock -%}
 
 {%- block vue_body -%}
@@ -20,7 +21,13 @@
     <div class="data-table">
     {# What can be done to the ticked rows, above them — same bar as the server
        table, and the same post when an action has an address. #}
-    <div v-if="hasBulkActions || showCount" class="table--bulk">
+    <div v-if="hasBar" class="table--bulk">
+        <filter-bar
+                v-if="filters.length"
+                :filters="filters"
+                :model-value="resolvedFilterValues"
+                @update:model-value="setFilterValues"
+        ></filter-bar>
         <template v-if="hasBulkActions">
         <span class="table--bulk-count">[[ transTable('selected', { '%count%': selectedCount }) ]]</span>
         <template v-if="bulkActionsMode === 'select'">

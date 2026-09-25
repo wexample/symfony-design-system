@@ -59,15 +59,28 @@
             because it goes nowhere, and the panel stays open under it: a menu
             of filters is read by the handful, not one at a time. -#}
         <li class="button-menu--item" role="none">
-            <button type="button"
-                    class="button-menu--link button-menu--toggle{{ item.checked|default(false) ? ' is-checked' }}{{ item_class }}"
-                    role="menuitemcheckbox"
-                    aria-checked="{{ item.checked|default(false) ? 'true' : 'false' }}"
-                    {% if item.value is defined and item.value is not null %}data-value="{{ item.value }}"{% endif %}
-                    {% if item.disabled|default(false) %}disabled="disabled"{% endif %}
-                    {{ component_render_tag_attributes(item_attr) }}>
-                {{- menu.row(item, type) -}}
-            </button>
+            {%- if item.href|default(null) -%}
+                {#- A state kept in the address rather than on the page — a
+                    filter of a server table: the link turns it and the page
+                    comes back with it turned. -#}
+                <a class="button-menu--link button-menu--toggle{{ item.checked|default(false) ? ' is-checked' }}{{ item_class }}"
+                   href="{{ item.href }}"
+                   role="menuitemcheckbox"
+                   aria-checked="{{ item.checked|default(false) ? 'true' : 'false' }}"
+                   {{ component_render_tag_attributes(item_attr) }}>
+                    {{- menu.row(item, type) -}}
+                </a>
+            {%- else -%}
+                <button type="button"
+                        class="button-menu--link button-menu--toggle{{ item.checked|default(false) ? ' is-checked' }}{{ item_class }}"
+                        role="menuitemcheckbox"
+                        aria-checked="{{ item.checked|default(false) ? 'true' : 'false' }}"
+                        {% if item.value is defined and item.value is not null %}data-value="{{ item.value }}"{% endif %}
+                        {% if item.disabled|default(false) %}disabled="disabled"{% endif %}
+                        {{ component_render_tag_attributes(item_attr) }}>
+                    {{- menu.row(item, type) -}}
+                </button>
+            {%- endif -%}
         </li>
 
     {%- elseif type == 'submenu' -%}

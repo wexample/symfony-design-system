@@ -54,7 +54,9 @@ export default class extends Component {
       return;
     }
 
-    if (el.classList.contains('button-menu--toggle')) {
+    // A toggle that is a link keeps its state in the address it leads to:
+    // followed, not flipped.
+    if (el.classList.contains('button-menu--toggle') && el.tagName !== 'A') {
       event.preventDefault();
       this.toggleItem(el as HTMLButtonElement);
 

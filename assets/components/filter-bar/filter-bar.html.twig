@@ -1,0 +1,28 @@
+{#- A row of filters kept in the page's query: each option is a link to the
+    same page with that option turned, and the controller reads the same query
+    to narrow what it lists. `filters` is [{ key, label, options: [{ value,
+    label, count }], multiple }], the shape the vue twin takes. -#}
+{%- set filters = filters|default([]) -%}
+<div class="filter-bar{{ class is defined and class ? ' ' ~ class }}">
+    {%- for filter in filters -%}
+        {%- set selected = filter_selected(filter.key) -%}
+        {%- set items = [] -%}
+        {%- for option in filter.options -%}
+            {%- set items = items|merge([{
+                label: option.label,
+                count: option.count ?? null,
+                checked: (option.value ~ '') in selected,
+                href: filter_toggle_url(filter, option.value ~ ''),
+            }]) -%}
+        {%- endfor -%}
+        {%- if selected is not empty -%}
+            {%- set items = items|merge([
+                { separator: true },
+                { label: 'WexampleSymfonyDesignSystemBundle.common.system::frontend.filter.clear', icon: 'ph:bold/x', href: filter_clear_url(filter.key) },
+            ]) -%}
+        {%- endif -%}
+        {{ button_menu(null, filter_summary(filter), items, {
+            class: 'button--flat button--compact' ~ (selected is not empty ? ' is-active'),
+        }) }}
+    {%- endfor -%}
+</div>

@@ -1,0 +1,24 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/button-menu') -}}
+{%- endblock -%}
+
+{%- block vue_config -%}
+    {{ parent() }}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.filter.*') }}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <div class="filter-bar">
+        <button-menu
+                v-for="filter in filters"
+                :key="filter.key"
+                :label="summary(filter)"
+                :items="items(filter)"
+                :button-class="'button--flat button--compact' + (isActive(filter) ? ' is-active' : '')"
+                @toggle="onToggle(filter, $event)"
+                @select="onSelect(filter, $event)"
+        ></button-menu>
+    </div>
+{%- endblock -%}
