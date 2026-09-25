@@ -68,6 +68,18 @@
   @extend .container;
 }
 
+// Beside a neighbour, the page's regions keep a width they can be read at: a
+// window too narrow for all of them scrolls the row sideways rather than
+// squeezing each to nothing. The narrow ones — a tree, a column of their own
+// size — already keep theirs.
+.layout--body > .zone--split:has(> .zone ~ .zone) {
+  overflow-x: auto;
+
+  > .zone:not(.zone--narrow) {
+    min-width: var(--zone-body-min, 20rem);
+  }
+}
+
 .layout--body--wide,
 .layout--body:has(> .zone--split > .zone ~ .zone) {
   position: relative;

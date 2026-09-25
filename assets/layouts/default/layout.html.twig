@@ -27,23 +27,33 @@
         or pageZonesAfter|trim is not empty -%}
     <div class="zone zone--split">
         {{- pageZonesBefore -}}
-        {#- Its content carries the room, not the frame: a sticky header sticks to
-            the frame's edge rather than under a padding. -#}
-        <div class="zone zone--panel zone--measure{{ pageZonesScroll ? ' zone--scrollable' }}">
-            <div class="zone--content stack--vertical">
-                {%- if page_show_title|default(false) -%}
-                    {%- set pageTitleActions %}{% block page_title_actions %}{% endblock %}{%- endset -%}
-                    {%- set pageTitleActions = pageTitleActions|trim -%}
-                    {%- if pageTitleActions is not empty -%}
-                        <div class="toolbar">
-                            <h1 class="toolbar--title">{{ page_title | default('@page::page_title' | trans) }}</h1>
-                            <div class="toolbar--group">{{- pageTitleActions|raw -}}</div>
-                        </div>
-                    {%- else -%}
-                        <h1 class="page--title">{{ page_title | default('@page::page_title' | trans) }}</h1>
+        {#- The frame is the panel and never scrolls: a handle resizing it hangs
+            into the gap beside it, which a scrolling frame would clip. What
+            scrolls is the zone inside, and its content carries the room, so a
+            sticky header sticks to that zone's edge rather than under a padding.
+            A page naming `page_zone_resizable` gets the handle, and the width
+            the visitor leaves it at comes back with the page. -#}
+        {%- set pageZoneResizable = page_zone_resizable|default(null) -%}
+        <div class="zone zone--panel zone--measure"{% if pageZoneResizable %} {{ zone_state(pageZoneResizable) }}{% endif %}>
+            {%- if pageZoneResizable -%}
+                {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer') }}
+            {%- endif -%}
+            <div class="zone{{ pageZonesScroll ? ' zone--scrollable' }}">
+                <div class="zone--content stack--vertical">
+                    {%- if page_show_title|default(false) -%}
+                        {%- set pageTitleActions %}{% block page_title_actions %}{% endblock %}{%- endset -%}
+                        {%- set pageTitleActions = pageTitleActions|trim -%}
+                        {%- if pageTitleActions is not empty -%}
+                            <div class="toolbar">
+                                <h1 class="toolbar--title">{{ page_title | default('@page::page_title' | trans) }}</h1>
+                                <div class="toolbar--group">{{- pageTitleActions|raw -}}</div>
+                            </div>
+                        {%- else -%}
+                            <h1 class="page--title">{{ page_title | default('@page::page_title' | trans) }}</h1>
+                        {%- endif -%}
                     {%- endif -%}
-                {%- endif -%}
-                {{- block('page_body') -}}
+                    {{- block('page_body') -}}
+                </div>
             </div>
         </div>
         {{- pageZonesAfter -}}

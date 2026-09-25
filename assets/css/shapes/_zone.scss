@@ -54,12 +54,14 @@
 // is a width and nothing else: the room around the text is its content's, a
 // `zone--content` inside it. Written after the split's own rule, which sizes its
 // children with as many classes: the later of two equals is the one that holds.
+// A size the visitor dragged it to (`--zone-size`, set by a zone-resizer)
+// outweighs the measure: the measure is what it asks for, not a cap on them.
 .zone--measure {
-  max-width: var(--zone-measure, var(--content-size-m));
+  max-width: var(--zone-size, var(--zone-measure, var(--content-size-m)));
 }
 
 .zone--split > .zone--measure {
-  flex: 0 1 var(--zone-measure, var(--content-size-m));
+  flex: 0 1 var(--zone-size, var(--zone-measure, var(--content-size-m)));
 }
 
 // Without a floor, the flexible zones shrink to nothing instead of wrapping.
