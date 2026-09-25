@@ -13,6 +13,7 @@ frontend:
     select_all: Select all rows
     select_row: Select this row
     selected: "%count% selected"
+    total: "%count% in total"
     actions: Actions
     apply: Apply
   zone:

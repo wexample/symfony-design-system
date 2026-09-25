@@ -20,7 +20,8 @@
     <div class="data-table">
     {# What can be done to the ticked rows, above them — same bar as the server
        table, and the same post when an action has an address. #}
-    <div v-if="hasBulkActions" class="table--bulk">
+    <div v-if="hasBulkActions || showCount" class="table--bulk">
+        <template v-if="hasBulkActions">
         <span class="table--bulk-count">[[ transTable('selected', { '%count%': selectedCount }) ]]</span>
         <template v-if="bulkActionsMode === 'select'">
             <select
@@ -49,7 +50,7 @@
             <button
                     v-for="(action, actionIndex) in bulkActions"
                     :key="action.key ?? actionIndex"
-                    class="button table--bulk-action"
+                    :class="['button', 'table--bulk-action', action.class]"
                     type="button"
                     :disabled="!canRunBulkAction(action)"
                     @click="runBulkAction(action)"
@@ -58,6 +59,8 @@
                 <span>[[ action.label ]]</span>
             </button>
         </template>
+        </template>
+        <span v-if="showCount" class="table--total">[[ transTable('total', { '%count%': totalCount }) ]]</span>
     </div>
     <div class="table--frame" :class="{ 'table--frame--sticky': sticky }">
     <table class="table" :class="{ 'table--refreshing': loading && hasRows(), 'table--sticky': sticky, 'table--striped': striped, 'table--hover': hover }">

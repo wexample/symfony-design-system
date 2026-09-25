@@ -90,7 +90,8 @@ export default {
       type: Array,
       default: null
     },
-    // What can be done to the ticked rows: { key, label, icon, href, token }.
+    // What can be done to the ticked rows: { key, label, icon, href, token,
+    // class } — `class` for the one that leads, `button--invert`.
     // One marked `all` acts on every row, ticked or not, and can be pressed
     // with nothing ticked — "fix all" beside "fix selected".
     // One with an href posts them there, as the server table does; every one
@@ -109,6 +110,11 @@ export default {
     selectionName: {
       type: String,
       default: 'ids[]'
+    },
+    // How many rows the table holds, at the end of the bar above it.
+    showCount: {
+      type: Boolean,
+      default: false
     },
     // Rows shown at once, the others a page turn away. Paged here, on the rows
     // the table was given: a list the server pages hands one page at a time
@@ -155,6 +161,10 @@ export default {
       return (this.rows || [])
         .map((row, index) => (this.isGroupRow(row) ? null : this.getRowKey(row, index)))
         .filter((key) => key !== null);
+    },
+
+    totalCount() {
+      return (this.rows || []).filter((row) => !this.isGroupRow(row)).length;
     },
 
     selectedCount() {

@@ -273,6 +273,15 @@
   font-variant-numeric: tabular-nums;
 }
 
+// How many rows there are, at the far end of the bar: a figure about the
+// table, not a control.
+.table--total {
+  margin-left: auto;
+  font-size: var(--font-size-2);
+  color: var(--text-color-muted);
+  font-variant-numeric: tabular-nums;
+}
+
 .table--bulk-select {
   width: auto;
 }

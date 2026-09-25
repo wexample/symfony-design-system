@@ -9,6 +9,13 @@
     of its own, and forms do not nest, so the boxes join the bulk form by its id
     rather than by being inside it. -#}
 {% set bulk_form_id = 'data-table-bulk-' ~ random() %}
+{#- How many rows the table holds, at the end of the bar above it. -#}
+{% set show_count = options.show_count|default(false) %}
+{%- set total_count -%}
+    {%- if show_count -%}
+        <span class="table--total">{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.total'|trans({ '%count%': rows|filter(row => row.group is not defined)|length }) }}</span>
+    {%- endif -%}
+{%- endset -%}
 
 {#- One root, for the script to hang from: it keeps the select-all box, the
     count and the bulk actions in step with the rows that are ticked. -#}
@@ -40,7 +47,7 @@
                 {#- One marked `all` acts on every row and needs nothing ticked. -#}
                 {{ button(action.icon|default(null), action.label|default(''), {
                     type: 'submit',
-                    class: 'table--bulk-action' ~ (action.all|default(false) ? ' table--bulk-action--all'),
+                    class: 'table--bulk-action' ~ (action.all|default(false) ? ' table--bulk-action--all') ~ (action.class is defined ? ' ' ~ action.class),
                     formaction: action.href|default('#'),
                     name: '_token',
                     value: action.token|default(''),
@@ -48,7 +55,10 @@
                 }) }}
             {%- endfor -%}
         {%- endif -%}
+        {{ total_count }}
     </form>
+{%- elseif show_count -%}
+    <div class="table--bulk">{{ total_count }}</div>
 {%- endif -%}
 
 {#- The frame is what scrolls sideways when the columns are wider than the room:
@@ -155,17 +165,7 @@
                         {%- elseif column.cell == 'html' -%}
                             {{- value|raw -}}
                         {%- elseif column.cell == 'path' -%}
-                            {#- The markup of the file-path component: the name in
-                                full, the folders before it cut from their start. -#}
-                            {%- if value is not empty -%}
-                                {%- set cut = value|split('/') -%}
-                                <span class="file-path" title="{{ value }}">
-                                    {%- if cut|length > 1 -%}
-                                        <span class="file-path--folder"><span dir="ltr">{{ cut|slice(0, cut|length - 1)|join('/') }}/</span></span>
-                                    {%- endif -%}
-                                    <span class="file-path--name">{{ cut|last }}</span>
-                                </span>
-                            {%- endif -%}
+                            {{- file_path(value) -}}
                         {%- elseif column.cell == 'status' -%}
                             {#- A type name, or { type, count, title, label }. One
                                 capsule for the two: a mark and a count beside it
