@@ -1,0 +1,14 @@
+{#- A path read the way it is looked for: the file's name in full, and the
+    folders leading to it in grey before it, cut from their start when the room
+    runs out — the end of a path is what tells two files apart. The whole of it
+    stays in the tooltip. -#}
+{%- set path = path|default('') -%}
+{%- set cut = path|split('/') -%}
+{%- set name = cut|last -%}
+{%- set folder = cut|length > 1 ? cut|slice(0, cut|length - 1)|join('/') ~ '/' : '' -%}
+<span class="file-path{{ class is defined and class ? ' ' ~ class }}" title="{{ path }}">
+    {%- if folder -%}
+        <span class="file-path--folder"><span dir="ltr">{{ folder }}</span></span>
+    {%- endif -%}
+    <span class="file-path--name">{{ name }}</span>
+</span>

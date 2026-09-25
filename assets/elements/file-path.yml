@@ -1,0 +1,17 @@
+# Declares `file-path` to the design system registry.
+# Seeded from a scan of the assets; kept by hand from here on.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: A file path read the way it is looked for — the name in full, the folders before it in grey and cut from their start.
+formats:
+  style: true
+  template: true
+  vue: true
+  script: "it shows a path, and showing needs nothing to run"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

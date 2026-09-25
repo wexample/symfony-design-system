@@ -1,0 +1,32 @@
+// The folders give way before the name does, and give way from their start.
+.file-path {
+  display: inline-flex;
+  max-width: 100%;
+  min-width: 0;
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+
+// Laid right to left, the box cuts its overflow on the left, so the ellipsis
+// lands before the folders nearest the file; the text inside keeps reading left
+// to right, slashes where they belong.
+.file-path--folder {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  direction: rtl;
+  color: var(--text-color-muted);
+
+  > span {
+    unicode-bidi: embed;
+  }
+}
+
+// A name longer than the room is cut too, at its end, once the folders are gone.
+.file-path--name {
+  flex: 0 1 auto;
+  min-width: 2ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
