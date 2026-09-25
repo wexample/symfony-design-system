@@ -6,4 +6,5 @@ export default class extends AbstractOverlayPageManager {
   protected getContentSelector() { return '.panel--content'; }
   protected getCloseLinkSelector() { return '.panel-close a'; }
   protected getHashKeys(): [string, string, string] { return TARGET_HASH_KEYS[TARGET_PANEL]; }
+  protected getLayoutBase() { return 'panel'; }
 }

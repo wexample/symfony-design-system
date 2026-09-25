@@ -7,4 +7,5 @@ export default class extends AbstractOverlayPageManager {
   protected getCloseLinkSelector() { return '.modal-close a'; }
   protected getHashKeys(): [string, string, string] { return TARGET_HASH_KEYS[TARGET_MODAL]; }
   protected get useScopedMainClass() { return true; }
+  protected getLayoutBase() { return 'modal'; }
 }

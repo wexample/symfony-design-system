@@ -35,6 +35,10 @@ export default class extends PageManagerComponent {
     return this.contentEl;
   }
 
+  protected getLayoutBase(): string {
+    return 'embed';
+  }
+
   public setLayoutBody(body: string) {
     super.setLayoutBody(body);
 
