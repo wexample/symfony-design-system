@@ -57,6 +57,13 @@
                                         <div class="header--title">
                                             {{ page_title | default('@page::page_title' | trans) }}
                                         </div>
+                                        {#- What a page says about the thing it is titled
+                                            after, beside its name: a state, a version, a
+                                            branch — markers, mostly. -#}
+                                        {%- set headerTitleAside %}{% block header_title_aside %}{% endblock %}{% endset -%}
+                                        {%- if headerTitleAside|trim is not empty -%}
+                                            <div class="header--title-aside">{{ headerTitleAside }}</div>
+                                        {%- endif -%}
                                     {% endblock %}
                                 </div>
                                 {% block page_header_menu_right %}

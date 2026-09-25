@@ -21,6 +21,15 @@
     padding: var(--space-4);
   }
 
+  // Beside the title, level with it: no room of its own before, the title's
+  // padding already stands between them.
+  .header--title-aside {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding-block: var(--space-4);
+  }
+
   .header--title-block {
     @extend .bar--title-block;
     padding: var(--space-4);
