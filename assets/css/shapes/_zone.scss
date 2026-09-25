@@ -64,6 +64,15 @@
   flex: 0 1 var(--zone-size, var(--zone-measure, var(--content-size-m)));
 }
 
+// Folded to make room for a neighbour that has just been filled — an embed
+// showing what was picked in this zone. The width it folds to is its own to
+// declare, and never more than its measure; a width the visitor dragged it to
+// outweighs both, so a zone resized by hand stays where it was left.
+.zone--split > .zone--measure.zone--folded {
+  flex-basis: var(--zone-size, min(var(--zone-folded-size), var(--zone-measure, var(--content-size-m))));
+  max-width: var(--zone-size, min(var(--zone-folded-size), var(--zone-measure, var(--content-size-m))));
+}
+
 // Without a floor, the flexible zones shrink to nothing instead of wrapping.
 // Below that floor the body claims a full line and the narrow column moves above it.
 .zone--split.zone--split--wrap {

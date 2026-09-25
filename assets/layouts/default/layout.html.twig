@@ -34,7 +34,9 @@
             A page naming `page_zone_resizable` gets the handle, and the width
             the visitor leaves it at comes back with the page. -#}
         {%- set pageZoneResizable = page_zone_resizable|default(null) -%}
-        <div class="zone zone--panel zone--measure"{% if pageZoneResizable %} {{ zone_state(pageZoneResizable) }}{% endif %}>
+        {#- `page_zone_folded` is the width it folds to while an embed beside it
+            holds something, unless the visitor has sized it by hand. -#}
+        <div class="zone zone--panel zone--measure"{% if pageZoneResizable %} {{ zone_state(pageZoneResizable) }}{% endif %}{% if page_zone_folded|default(null) %} data-zone-folded-size="{{ page_zone_folded }}"{% endif %}>
             {%- if pageZoneResizable -%}
                 {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer') }}
             {%- endif -%}
