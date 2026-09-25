@@ -1,0 +1,49 @@
+// A page replaced by the next inside what holds it — a step of a tunnel in a
+// modal: the one leaving slides a few pixels the way the visitor goes and
+// fades, the one arriving comes in from the other side. Only a page marked
+// `data-page-transition="slide"` moves; the classes are the page manager's.
+$page-transition-shift: 8px;
+
+@keyframes page-transition-enter-forward {
+  from {
+    opacity: 0;
+    transform: translateX($page-transition-shift);
+  }
+}
+
+@keyframes page-transition-enter-back {
+  from {
+    opacity: 0;
+    transform: translateX(-$page-transition-shift);
+  }
+}
+
+[data-page-transition='slide'] {
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.is-page-leaving--forward [data-page-transition='slide'] {
+  opacity: 0;
+  transform: translateX(-$page-transition-shift);
+}
+
+.is-page-leaving--back [data-page-transition='slide'] {
+  opacity: 0;
+  transform: translateX($page-transition-shift);
+}
+
+.is-page-entering--forward [data-page-transition='slide'] {
+  animation: page-transition-enter-forward 180ms ease-out;
+}
+
+.is-page-entering--back [data-page-transition='slide'] {
+  animation: page-transition-enter-back 180ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-page-transition='slide'] {
+    transition: none;
+    animation: none !important;
+    transform: none !important;
+  }
+}
