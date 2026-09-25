@@ -55,6 +55,13 @@
                         {%- endif -%}
                     {%- endif -%}
                     {{- block('page_body') -}}
+                    {#- What the page does, below what it says — kept at the foot
+                        of the zone as it scrolls. The same block a modal, a panel
+                        or an embed draws in its own foot. -#}
+                    {%- set pageActions %}{% block page_actions %}{% endblock %}{% endset -%}
+                    {%- if pageActions|trim is not empty -%}
+                        <div class="page-actions page-actions--sticky">{{ pageActions }}</div>
+                    {%- endif -%}
                 </div>
             </div>
         </div>

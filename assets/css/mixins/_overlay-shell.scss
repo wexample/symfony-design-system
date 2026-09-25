@@ -50,6 +50,17 @@
     transition-delay: 0ms, 160ms;
   }
 
+  // The foot a page's actions stand in: outside the body, so they stay in view
+  // whatever it scrolls.
+  .#{$name}-actions {
+    padding: var(--space-3) var(--space-4);
+    border-top: var(--border-separator);
+    background: var(--surface-3);
+    @if $shrink-chrome {
+      flex-shrink: 0;
+    }
+  }
+
   .#{$name}-body {
     padding: var(--space-4);
     background: var(--surface-3);

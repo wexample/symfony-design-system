@@ -1,0 +1,28 @@
+// What a page does, at its foot: its actions in one row, whatever holds the
+// page — a modal, a panel, an embed, the page's own zone. The first group
+// stands at the start, the last one at the end: previous and next, cancel and
+// save.
+.page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+// In the page's own zone the row stays in view as the zone scrolls, on the
+// zone's ground so what passes under it does not show through.
+.page-actions--sticky {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  padding-block: var(--space-3);
+  border-top: var(--border-separator);
+  background: var(--surface-zone, var(--surface-page));
+}
+
+// At the foot of what holds a page on its own — an embed — the room between
+// the page and its actions.
+.embed-actions {
+  padding-top: var(--space-4);
+}

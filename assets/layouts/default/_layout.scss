@@ -9,6 +9,7 @@
 // The body of a page is a region standing on its own ground: the class is
 // written in this layout's markup, so the shape comes with it.
 @use '../../css/shapes/zone';
+@use '../../css/shapes/page-actions';
 @use '../../css/shapes/doc';
 @use '../../components/marker/marker';
 
