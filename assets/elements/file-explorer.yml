@@ -1,0 +1,17 @@
+# Declares `file-explorer` to the design system registry.
+# Seeded from a scan of the assets; kept by hand from here on.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "A file explorer the width of a page: folders on the side, a folder's content as a sortable list or a grid, back, forward and up, a filter, selection with the mouse and the keyboard, a status line. It asks a loader for each folder and takes file entities back; the twig twin draws one folder as links."
+formats:
+  style: true
+  template: true
+  vue: true
+  script: "the server twin is links; the vue one is the interactive explorer"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

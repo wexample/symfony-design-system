@@ -1,0 +1,268 @@
+// A file explorer the width of a page: a bar above, the folders on the side,
+// the listing in the rest, and a line of status below. It fills what holds
+// it — a zone, a panel — and each of its parts scrolls on its own.
+@use '../../css/shapes/action-icon';
+@use '../../css/shapes/disk-item';
+@use '../../css/shapes/disk-item-explorer';
+@use '../../css/shapes/empty';
+@use '../../css/shapes/form/base';
+@use '../../css/mixins/text' as text;
+@use '../../css/mixins/field' as field;
+@use '../breadcrumb/breadcrumb';
+@use '../tree/tree';
+@use '../date-display/date-display';
+@use '../spinner/spinner';
+@use '../button/button';
+
+.file-explorer {
+  --file-explorer-tree: var(--size-6);
+  --file-explorer-row: 2rem;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  height: 100%;
+  min-height: 24rem;
+  min-width: 0;
+  border: var(--border-default);
+  border-radius: var(--radius-box);
+  background: var(--surface-1);
+  overflow: hidden;
+}
+
+.file-explorer--toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border-bottom: var(--border-separator);
+  min-width: 0;
+}
+
+.file-explorer--navigation,
+.file-explorer--actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex: none;
+}
+
+.file-explorer--actions {
+  margin-left: auto;
+}
+
+.file-explorer--path {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.file-explorer--crumb {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--text-color-muted);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--text-color-default);
+  }
+}
+
+.file-explorer--filter {
+  width: 12rem;
+  padding-block: var(--space-1);
+}
+
+.action-icon.is-active {
+  background: var(--state-hover);
+  color: var(--text-color-default);
+}
+
+button.action-icon:disabled {
+  opacity: 0.4;
+}
+
+.file-explorer--body {
+  display: grid;
+  grid-template-columns: var(--file-explorer-tree) minmax(0, 1fr);
+  min-height: 0;
+}
+
+.file-explorer--no-tree .file-explorer--body {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.file-explorer--tree {
+  min-height: 0;
+  overflow: auto;
+  padding: var(--space-2);
+  border-right: var(--border-separator);
+}
+
+.file-explorer--main {
+  position: relative;
+  min-height: 0;
+  overflow: auto;
+  outline: none;
+}
+
+.file-explorer--state {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-6);
+}
+
+// The list: one grid for the whole listing, so the columns line up from the
+// heading to the last row whatever each row holds.
+.file-explorer--list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 6rem 6rem 10rem;
+  font-size: var(--font-size-2);
+}
+
+.file-explorer--head,
+.file-explorer--row {
+  display: contents;
+}
+
+.file-explorer--heading {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: var(--file-explorer-row);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-bottom: var(--border-separator);
+  background: var(--table-head-bg, var(--surface-head));
+  color: var(--table-head-color, var(--text-color-head));
+  font: inherit;
+  font-weight: var(--font-weight-strong);
+  text-align: left;
+  cursor: pointer;
+}
+
+.file-explorer--sort {
+  display: inline-flex;
+}
+
+// On the server twin a row is a link.
+a.file-explorer--row,
+a.disk-item {
+  color: inherit;
+  text-decoration: none;
+}
+
+.file-explorer--row > * {
+  display: flex;
+  align-items: center;
+  height: var(--file-explorer-row);
+  padding: 0 var(--space-3);
+  min-width: 0;
+  cursor: default;
+  user-select: none;
+}
+
+a.file-explorer--row > * {
+  cursor: pointer;
+}
+
+.file-explorer--row:hover > * {
+  background: var(--tint-2);
+}
+
+.file-explorer--row.is-selected > * {
+  background: var(--tint-4);
+}
+
+// The row the keyboard stands on, drawn only while the listing has the focus.
+.file-explorer--main:focus-visible .file-explorer--row.is-cursor > * {
+  box-shadow: inset 0 1px 0 var(--border-color-strong), inset 0 -1px 0 var(--border-color-strong);
+}
+
+.file-explorer--name {
+  gap: var(--space-2);
+}
+
+.file-explorer--label {
+  @include text.text-ellipsis;
+}
+
+.file-explorer--icon {
+  display: inline-flex;
+  flex: none;
+  color: var(--text-color-muted);
+
+  &.is-directory {
+    color: var(--color-cat-sunflower-fill);
+  }
+}
+
+.file-explorer--kind,
+.file-explorer--size,
+.file-explorer--date {
+  color: var(--text-color-muted);
+  white-space: nowrap;
+}
+
+.file-explorer--size {
+  justify-content: flex-end;
+  font-variant-numeric: tabular-nums;
+}
+
+// The grid: the disk items of the design system, selectable.
+.file-explorer--grid {
+  --disk-item-width: 7.5rem;
+  padding: var(--space-3);
+
+  .disk-item {
+    padding: var(--space-3) var(--space-2);
+    gap: var(--space-2);
+    background: transparent;
+    border: 1px solid transparent;
+    user-select: none;
+    cursor: default;
+
+    &:hover {
+      background: var(--tint-2);
+    }
+
+    &.is-selected {
+      background: var(--tint-4);
+      border-color: var(--border-color-default);
+    }
+  }
+
+  .disk-item--icon {
+    font-size: var(--font-size-7);
+    color: var(--text-color-muted);
+
+    &.is-directory {
+      color: var(--color-cat-sunflower-fill);
+    }
+  }
+
+  .disk-item--title-ellipsis {
+    font-size: var(--font-size-2);
+  }
+}
+
+.file-explorer--main:focus-visible .disk-item.is-cursor {
+  @include field.field-focus;
+}
+
+.file-explorer--more {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-2);
+}
+
+.file-explorer--status {
+  padding: var(--space-1) var(--space-3);
+  border-top: var(--border-separator);
+  color: var(--text-color-muted);
+  font-size: var(--font-size-1);
+  font-variant-numeric: tabular-nums;
+}

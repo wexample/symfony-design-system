@@ -590,6 +590,36 @@
             }
         },
         {
+            "key": "file-explorer",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A file explorer the width of a page: folders on the side, a folder's content as a sortable list or a grid, back, forward and up, a filter, selection with the mouse and the keyboard, a status line. It asks a loader for each folder and takes file entities back; the twig twin draws one folder as links.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/file-explorer/file-explorer.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/file-explorer/file-explorer.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/file-explorer/file-explorer.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/file-explorer/file-explorer.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "the server twin is links; the vue one is the interactive explorer"
+            }
+        },
+        {
             "key": "file-path",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A file path read the way it is looked for \u2014 the name in full, the folders before it in grey and cut from their start.",

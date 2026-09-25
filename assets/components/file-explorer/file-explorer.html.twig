@@ -1,0 +1,69 @@
+{#- The file explorer drawn by the server: one folder, as a list or a grid,
+    where each item is a link — a folder to the same page opened on it, a file
+    to wherever the page sends it. Nothing to run: the vue twin is the one that
+    selects, sorts and walks without leaving the page.
+
+    `items`: [{ name, type: directory | file, size, modifiedAt, href }], in the
+    order they are to be shown. `path`: [{ label, href }], the folders leading
+    to the one shown, the root first. `view`: list (default) or grid. -#}
+{%- set items = items|default([]) -%}
+{%- set path = path|default([]) -%}
+{%- set view = view|default('list') -%}
+{%- set domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.explorer.' -%}
+<div class="file-explorer file-explorer--no-tree{{ class is defined and class ? ' ' ~ class }}">
+    <div class="file-explorer--toolbar">
+        <nav class="breadcrumb file-explorer--path" aria-label="{{ (domain ~ 'path')|trans }}">
+            {%- for segment in path -%}
+                {%- if loop.last -%}
+                    <span class="breadcrumb--item breadcrumb--item--current"><span class="breadcrumb--label">{{ segment.label }}</span></span>
+                {%- else -%}
+                    <a class="breadcrumb--item file-explorer--crumb" href="{{ segment.href }}"><span class="breadcrumb--label">{{ segment.label }}</span></a>
+                    <span class="breadcrumb--separator">{{ icon('ph:bold/caret-right') }}</span>
+                {%- endif -%}
+            {%- endfor -%}
+        </nav>
+    </div>
+
+    <div class="file-explorer--body">
+        <div class="file-explorer--main">
+            {%- if items is empty -%}
+                <div class="empty">{{ (domain ~ 'empty')|trans }}</div>
+            {%- elseif view == 'grid' -%}
+                <div class="disk-item-explorer file-explorer--grid">
+                    {%- for item in items -%}
+                        {%- set directory = item.type|default('file') == 'directory' -%}
+                        <a class="disk-item file-explorer--cell {{ directory ? 'disk-item--directory' : 'disk-item--file' }}" href="{{ item.href|default('#') }}" title="{{ item.name }}">
+                            <span class="disk-item--icon{{ directory ? ' is-directory' }}">{{ icon(file_icon(item.name, directory)) }}</span>
+                            <span class="disk-item--title-ellipsis">{{ item.name }}</span>
+                        </a>
+                    {%- endfor -%}
+                </div>
+            {%- else -%}
+                <div class="file-explorer--list" role="grid">
+                    <div class="file-explorer--head" role="row">
+                        {%- for column in ['name', 'kind', 'size', 'modifiedAt'] -%}
+                            <span class="file-explorer--heading file-explorer--heading--{{ column }}" role="columnheader">{{ (domain ~ 'column.' ~ column)|trans }}</span>
+                        {%- endfor -%}
+                    </div>
+                    {%- for item in items -%}
+                        {%- set directory = item.type|default('file') == 'directory' -%}
+                        {%- set extension = item.name|split('.')|length > 1 ? (item.name|split('.')|last|upper) : '' -%}
+                        <a class="file-explorer--row file-explorer--cell" role="row" href="{{ item.href|default('#') }}">
+                            <span class="file-explorer--name">
+                                <span class="file-explorer--icon{{ directory ? ' is-directory' }}">{{ icon(file_icon(item.name, directory)) }}</span>
+                                <span class="file-explorer--label" title="{{ item.name }}">{{ item.name }}</span>
+                            </span>
+                            <span class="file-explorer--kind">{{ directory ? (domain ~ 'folder')|trans : (extension ?: (domain ~ 'file')|trans) }}</span>
+                            <span class="file-explorer--size">{{ directory ? '' : item.size|default(0)|file_bytes }}</span>
+                            <span class="file-explorer--date">
+                                {%- if item.modifiedAt|default(null) -%}{{ date_display(item.modifiedAt, 'date_time_short') }}{%- endif -%}
+                            </span>
+                        </a>
+                    {%- endfor -%}
+                </div>
+            {%- endif -%}
+        </div>
+    </div>
+
+    <div class="file-explorer--status">{{ (domain ~ 'count')|trans({ '%count%': items|length }) }}</div>
+</div>

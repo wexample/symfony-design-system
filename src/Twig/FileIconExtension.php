@@ -3,12 +3,15 @@
 namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 /**
  * What a file looks like, from its name: `file_icon(name, isDirectory)` gives
  * the icon for its extension, `file_kind(name, isDirectory)` the kind it
- * belongs to. The twin of FileIconHelper.ts, with the same table.
+ * belongs to. The twin of FileIconHelper.ts, with the same table. And
+ * `size|file_bytes`, written as js-helpers' bytesFormatBytes writes it, so a
+ * size reads the same from the server and from a vue.
  */
 class FileIconExtension extends AbstractExtension
 {
@@ -62,6 +65,27 @@ class FileIconExtension extends AbstractExtension
             new TwigFunction('file_icon', $this->fileIcon(...)),
             new TwigFunction('file_kind', $this->fileKind(...)),
         ];
+    }
+
+    public function getFilters(): array
+    {
+        return [
+            new TwigFilter('file_bytes', $this->fileBytes(...)),
+        ];
+    }
+
+    public function fileBytes(int|float|null $bytes, int $decimals = 1): string
+    {
+        $bytes = (float) ($bytes ?? 0);
+
+        if ($bytes <= 0) {
+            return '0 B';
+        }
+
+        $sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+        $index = min((int) floor(log($bytes, 1024)), count($sizes) - 1);
+
+        return (float) round($bytes / 1024 ** $index, $decimals).' '.$sizes[$index];
     }
 
     public function fileKind(string $name, bool $isDirectory = false): string

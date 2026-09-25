@@ -1,6 +1,30 @@
 frontend:
   loading: Loading...
   no_data: No data
+  explorer:
+    root: Files
+    back: Back
+    forward: Forward
+    up: Up one folder
+    path: Location
+    filter: Filter this folder
+    view_list: As a list
+    view_grid: As a grid
+    refresh: Read again
+    loading: Loading
+    failed: This folder could not be read.
+    empty: This folder is empty.
+    empty_filtered: Nothing here matches the filter.
+    more: "Show %count% more"
+    count: "%count% items"
+    selected: "%count% selected, %size%"
+    folder: Folder
+    file: File
+    column:
+      name: Name
+      kind: Kind
+      size: Size
+      modifiedAt: Modified
   filter:
     clear: Clear
     summary: "%label%: %value%"
