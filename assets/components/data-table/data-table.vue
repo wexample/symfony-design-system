@@ -3,6 +3,8 @@ import DateDisplay from '../date-display/date-display.vue';
 import Spinner from '../spinner/spinner.vue';
 import ButtonTarget from '../button-target/button-target.vue';
 import Marker from '../marker/marker.vue';
+import Pagination from '../pagination/pagination.vue';
+import FilePath from '../file-path/file-path.vue';
 import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
 
 const translated = buildTranslatedBindings({
@@ -22,6 +24,8 @@ export default {
   components: {
     ButtonTarget,
     DateDisplay,
+    FilePath,
+    Pagination,
     Spinner,
     // Registered as `capsule`: `marker` is an svg element, which vue refuses
     // as a component id and renders as itself — an invisible one.
@@ -103,6 +107,13 @@ export default {
     selectionName: {
       type: String,
       default: 'ids[]'
+    },
+    // Rows shown at once, the others a page turn away. Paged here, on the rows
+    // the table was given: a list the server pages hands one page at a time
+    // and a pagination of its own. 0 shows them all.
+    pageSize: {
+      type: Number,
+      default: 0
     }
   },
 
@@ -111,12 +122,28 @@ export default {
   data() {
     return {
       ownSelected: [],
-      bulkActionIndex: ''
+      bulkActionIndex: '',
+      page: 0
     };
   },
 
   computed: {
     ...translated.computed,
+
+    pagesCount() {
+      return this.pageSize > 0 ? Math.ceil((this.rows || []).length / this.pageSize) : 0;
+    },
+
+    pageOffset() {
+      return this.pageSize > 0 ? this.page * this.pageSize : 0;
+    },
+
+    // The rows on screen: all of them, or the current page.
+    visibleRows() {
+      const rows = this.rows || [];
+
+      return this.pageSize > 0 ? rows.slice(this.pageOffset, this.pageOffset + this.pageSize) : rows;
+    },
 
     selectedKeys() {
       return this.selected ?? this.ownSelected;
@@ -149,6 +176,11 @@ export default {
     // What is no longer on screen cannot be acted on: a refresh or a page turn
     // drops the keys it took away.
     rows() {
+      // Fewer rows than before can leave the page past the last one.
+      if (this.pagesCount && this.page > this.pagesCount - 1) {
+        this.page = this.pagesCount - 1;
+      }
+
       const present = new Set(this.selectableKeys);
       const kept = this.selectedKeys.filter((key) => present.has(key));
 
@@ -163,6 +195,10 @@ export default {
     // a word: it spans the table and names what follows.
     isGroupRow(row) {
       return Boolean(row) && row.group !== undefined;
+    },
+
+    isPathCell(column) {
+      return column?.cell === 'path';
     },
 
     isMarkerCell(column) {

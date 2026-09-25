@@ -590,6 +590,36 @@
             }
         },
         {
+            "key": "file-path",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A file path read the way it is looked for \u2014 the name in full, the folders before it in grey and cut from their start.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/file-path/file-path.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/file-path/file-path.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/file-path/file-path.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/file-path/file-path.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "it shows a path, and showing needs nothing to run"
+            }
+        },
+        {
             "key": "form/button-input",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,

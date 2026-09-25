@@ -10,6 +10,8 @@
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/spinner') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/button-target') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/marker') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/pagination') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/file-path') -}}
 {%- endblock -%}
 
 {%- block vue_body -%}
@@ -102,8 +104,8 @@
             </td>
         </tr>
         <tr
-                v-for="(row, index) in rows"
-                :key="getRowKey(row, index)"
+                v-for="(row, index) in visibleRows"
+                :key="getRowKey(row, pageOffset + index)"
                 class="table--row"
                 :class="{ 'table--row--group': isGroupRow(row) }"
         >
@@ -111,9 +113,9 @@
                 <input
                         class="table--select table--select-row"
                         type="checkbox"
-                        :checked="isRowSelected(row, index)"
+                        :checked="isRowSelected(row, pageOffset + index)"
                         :aria-label="transTable('select_row')"
-                        @change="toggleRow(row, index, $event.target.checked)"
+                        @change="toggleRow(row, pageOffset + index, $event.target.checked)"
                 >
             </td>
             <template v-if="isGroupRow(row)">
@@ -146,6 +148,9 @@
                                     :format="getDateFormat(column)"
                                     :title-format="getDateTitleFormat(column)"
                             ></date-display>
+                        </template>
+                        <template v-else-if="isPathCell(column)">
+                            <file-path v-if="getCellValue(row, column)" :path="getCellValue(row, column)"></file-path>
                         </template>
                         <template v-else-if="isMarkerCell(column)">
                             <capsule
@@ -228,5 +233,11 @@
         </tfoot>
     </table>
     </div>
+    <pagination
+            v-if="pagesCount > 1"
+            :page="page"
+            :pages-count="pagesCount"
+            @change="page = $event"
+    ></pagination>
     </div>
 {%- endblock -%}

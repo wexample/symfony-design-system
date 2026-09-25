@@ -153,6 +153,18 @@
                             {%- endif -%}
                         {%- elseif column.cell == 'html' -%}
                             {{- value|raw -}}
+                        {%- elseif column.cell == 'path' -%}
+                            {#- The markup of the file-path component: the name in
+                                full, the folders before it cut from their start. -#}
+                            {%- if value is not empty -%}
+                                {%- set cut = value|split('/') -%}
+                                <span class="file-path" title="{{ value }}">
+                                    {%- if cut|length > 1 -%}
+                                        <span class="file-path--folder"><span dir="ltr">{{ cut|slice(0, cut|length - 1)|join('/') }}/</span></span>
+                                    {%- endif -%}
+                                    <span class="file-path--name">{{ cut|last }}</span>
+                                </span>
+                            {%- endif -%}
                         {%- elseif column.cell == 'status' -%}
                             {#- A type name, or { type, count, title, label }. One
                                 capsule for the two: a mark and a count beside it
