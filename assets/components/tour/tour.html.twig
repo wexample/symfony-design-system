@@ -1,0 +1,21 @@
+{#- A guided tour: the element of the current step lit, the rest of the page
+    dimmed, and beside it a card saying what it is, with the way on and the
+    way out. Filled by tour.ts from the steps; see TourExtension. -#}
+{%- set domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.tour.' -%}
+<div class="tour" data-tour-id="{{ id }}" hidden>
+    <div class="tour--spotlight" aria-hidden="true"></div>
+    <div class="tour--popover" role="dialog" aria-modal="false" aria-labelledby="tour-{{ id }}-title">
+        <div class="tour--header">
+            <span class="tour--progress" data-label="{{ (domain ~ 'progress')|trans({ '%current%': '%current%', '%total%': '%total%' }) }}"></span>
+            <button type="button" class="action-icon tour--close" aria-label="{{ (domain ~ 'close')|trans }}" {{ tooltip((domain ~ 'close')|trans) }}>{{ icon('ph:bold/x') }}</button>
+        </div>
+        <strong class="tour--title" id="tour-{{ id }}-title"></strong>
+        <p class="tour--body"></p>
+        <div class="tour--footer">
+            {{ button('ph:bold/arrow-left', (domain ~ 'previous')|trans, { class: 'button--flat tour--previous' }) }}
+            {{ button('ph:bold/arrow-right', (domain ~ 'next')|trans, { class: 'button--invert tour--next' }) }}
+            {{ button('ph:bold/check', (domain ~ 'done')|trans, { class: 'button--invert tour--done' }) }}
+        </div>
+        <span class="tour--arrow" aria-hidden="true"></span>
+    </div>
+</div>

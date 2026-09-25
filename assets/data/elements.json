@@ -2023,6 +2023,35 @@
             }
         },
         {
+            "key": "tour",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A page shown step by step: the element of each step lit, a card beside it with the way on and the way out. Starts on its own until finished or dismissed, remembered in the ui state; data-tour-start plays it again.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/tour/tour.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/tour/tour.html.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/tour/tour.ts"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "todo",
+                "script": "expected",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "vue": "the twig tour is placed by the page, a vue page has no twin yet"
+            }
+        },
+        {
             "key": "tree",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,

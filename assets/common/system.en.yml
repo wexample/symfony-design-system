@@ -22,6 +22,12 @@ frontend:
     apply: Apply
   switch:
     cancel: Cancel
+  tour:
+    previous: Previous
+    next: Next
+    done: Done
+    close: Close the tour
+    progress: "%current% / %total%"
   zone:
     collapse: Collapse
     expand: Expand
