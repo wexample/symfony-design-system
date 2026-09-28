@@ -283,6 +283,12 @@ class MenuExtension extends AbstractTemplateExtension
                 continue;
             }
 
+            // Nor can a link fill a mandatory path parameter (/items/{id}):
+            // such a route is reached from a page, not from the menu.
+            if ([] !== array_diff($route->compile()->getPathVariables(), array_keys($defaults))) {
+                continue;
+            }
+
             if ($this->isEntryPointRoute($controller, $defaults, $prefix, $name, $route)) {
                 $routes[$name] = $route;
             }
