@@ -1,8 +1,8 @@
 import AbstractEntityManipulatorVueMixin from './AbstractEntityManipulatorVueMixin';
 import EventsService from '@wexample/symfony-loader/js/Services/EventsService';
 import LiveUpdatesService from '@wexample/symfony-loader/js/Services/LiveUpdatesService';
-import { reconcileEntityCollection } from '@wexample/js-api/Helper/ApiEntityCollectionHelper';
-import type AbstractApiEntity from '@wexample/js-api/Common/AbstractApiEntity';
+import { reconcileEntityCollection } from '@wexample/js-api-entity/Helper/ApiEntityCollectionHelper';
+import type AbstractApiEntity from '@wexample/js-api-entity/Common/AbstractApiEntity';
 
 const AbstractEntityCollectionVueMixin = {
   mixins: [AbstractEntityManipulatorVueMixin],
