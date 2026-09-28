@@ -12,6 +12,14 @@
   inherits: false;
 }
 
+// The floor under which a zone of a split is not squeezed, its own for the same
+// reason: a panel of a dashboard given a floor must not hand it to the panels
+// nested in it.
+@property --zone-min {
+  syntax: '*';
+  inherits: false;
+}
+
 .zone {
   width: 100%;
   height: 100%;
@@ -37,6 +45,15 @@
     // reaches a child that asks for no size of its own. Both are given back here.
     width: auto;
     height: auto;
+    min-width: var(--zone-min, 0);
+  }
+
+  // A plain zone a visitor resized keeps the size they left it at, along the
+  // split's axis — a row of a dashboard as well as a column — and its
+  // neighbours share what remains. The size is the zone's inline style, written
+  // by zone_state() and by the resizer, and gone again on a double click.
+  > .zone[style*="--zone-size"]:not(.zone--narrow, .zone--measure) {
+    flex: 0 0 var(--zone-size);
   }
 
   // Repeated here to outweigh the width reset of the sibling rule above.
@@ -95,10 +112,35 @@
 .zone--split.zone--split--vertical {
   flex-direction: column;
 
+  > .zone {
+    min-width: 0;
+    min-height: var(--zone-min, 0);
+  }
+
   > .zone--narrow {
     width: auto;
     height: var(--zone-size, fit-content);
   }
+}
+
+// Splits laid inside splits make a dashboard: a vertical split of rows, each
+// row a split of its own. Flush, the regions touch — a wall of screens rather
+// than objects on a desk — and a hairline is what tells two apart. The gap is
+// a variable the nested splits inherit, so one class makes the whole wall
+// flush; the lines are drawn in every split inside it for the same reason.
+.zone--split--flush {
+  --zone-gap: 0;
+}
+
+.zone--split--flush > .zone + .zone,
+.zone--split--flush .zone--split > .zone + .zone {
+  border-left: var(--border-separator);
+}
+
+.zone--split--flush.zone--split--vertical > .zone + .zone,
+.zone--split--flush .zone--split--vertical > .zone + .zone {
+  border-left: 0;
+  border-top: var(--border-separator);
 }
 
 // A row longer than the page: the regions keep the width they ask for and the
@@ -151,6 +193,13 @@
   flex: 1;
 }
 
+// A frame that scrolls sideways too: a dashboard whose panels ask for more
+// width, through their floors, than the screen has. The splits inside it
+// overflow and the frame is what moves, all the rows together.
+.zone--scrollable--x {
+  overflow-x: auto;
+}
+
 .zone--narrow {
   width: var(--zone-size, fit-content);
   max-width: 100%;
@@ -159,6 +208,10 @@
 @for $i from 1 through 9 {
   .zone--size-#{$i} {
     --zone-size: var(--size-#{$i});
+  }
+
+  .zone--min-#{$i} {
+    --zone-min: var(--size-#{$i});
   }
 }
 

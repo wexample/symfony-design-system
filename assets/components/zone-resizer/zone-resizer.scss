@@ -8,12 +8,15 @@
   position: relative;
 }
 
-// The handle is the gap and nothing else: exactly as wide, lying exactly where
-// it is, and drawing nothing — the cursor is what says it can be moved. The gap
-// is read from the split, which hands `--zone-gap` down to what it holds, with
-// the split's own fallback when it names none.
+// The handle is the gap and nothing else: lying exactly where it is, and drawing
+// nothing — the cursor is what says it can be moved. The gap is read from the
+// split, which hands `--zone-gap` down to what it holds, with the split's own
+// fallback when it names none. A gap narrower than a pointer can aim at — none,
+// in a flush split — still gets a handle that wide, centred on the seam.
 .zone-resizer {
-  --zone-resizer-reach: var(--zone-gap, var(--space-2));
+  --zone-resizer-gap: var(--zone-gap, var(--space-2));
+  --zone-resizer-reach: max(var(--zone-resizer-gap), var(--space-2));
+  --zone-resizer-offset: calc((var(--zone-resizer-reach) + var(--zone-resizer-gap)) / -2);
   position: absolute;
   z-index: 1;
   // Without this a finger scrolls the page instead of moving the handle.
@@ -37,11 +40,11 @@
 }
 
 .zone-resizer--end {
-  right: calc(var(--zone-resizer-reach) * -1);
+  right: var(--zone-resizer-offset);
 }
 
 .zone-resizer--start {
-  left: calc(var(--zone-resizer-reach) * -1);
+  left: var(--zone-resizer-offset);
 }
 
 // Down the column: the same handle turned, filling the gap under or over the
@@ -58,9 +61,9 @@
 }
 
 .zone-resizer--y.zone-resizer--end {
-  bottom: calc(var(--zone-resizer-reach) * -1);
+  bottom: var(--zone-resizer-offset);
 }
 
 .zone-resizer--y.zone-resizer--start {
-  top: calc(var(--zone-resizer-reach) * -1);
+  top: var(--zone-resizer-offset);
 }
