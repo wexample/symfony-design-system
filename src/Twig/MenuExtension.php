@@ -105,6 +105,12 @@ class MenuExtension extends AbstractTemplateExtension
                     $routes = $this->menuGetRoutesFromControllerNamespace($controllerNamespace);
                     $indexRoute = AbstractController::findIndexRoute($this->router, $controllerNamespace);
 
+                    // No index page under the namespace, e.g. its bundle is not enabled:
+                    // the entry has nowhere to lead, and must not break the layout.
+                    if (null === $indexRoute) {
+                        return '';
+                    }
+
                     $currentRoute = $this->requestStack->getCurrentRequest()?->attributes->get('_route', '');
                     $prefix = ClassHelper::normalizeNamespacePrefix($controllerNamespace);
                     $isOpen = false;
