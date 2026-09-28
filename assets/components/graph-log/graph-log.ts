@@ -1,5 +1,6 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
-import { graphLogColumns, graphLogLayout, graphLogSvg } from '../../js/Helper/GraphLogHelper';
+import { graphLogColumns, graphLogLayout, graphLogSvg } from '@wexample/js-graph-log/Helper/GraphLog';
+import { graphLogLaneColor } from '../../js/Helper/GraphLogHelper';
 
 // Draws the lanes of a server-rendered graph log: the rows say their id and
 // their parents, the helper lays the lanes out and draws each row, the same
@@ -19,7 +20,7 @@ export default class extends Component {
       const graphEl = el.querySelector('.graph-log--graph');
 
       if (graphEl) {
-        graphEl.innerHTML = graphLogSvg(rows[index], columns);
+        graphEl.innerHTML = graphLogSvg(rows[index], columns, graphLogLaneColor);
       }
     });
   }

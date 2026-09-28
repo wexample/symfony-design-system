@@ -1,7 +1,8 @@
 <script>
 import DateDisplay from '../date-display/date-display.vue';
 import Marker from '../marker/marker.vue';
-import { graphLogColumns, graphLogLayout, graphLogSvg } from '../../js/Helper/GraphLogHelper';
+import { graphLogColumns, graphLogLayout, graphLogSvg } from '@wexample/js-graph-log/Helper/GraphLog';
+import { graphLogLaneColor } from '../../js/Helper/GraphLogHelper';
 
 // The twin of graph-log.html.twig: the same rows, the same lanes, drawn from
 // the items as they change — a history growing at its head as commits come in.
@@ -35,7 +36,7 @@ export default {
 
   methods: {
     svg(index) {
-      return graphLogSvg(this.rows[index], this.columns);
+      return graphLogSvg(this.rows[index], this.columns, graphLogLaneColor);
     }
   }
 };
