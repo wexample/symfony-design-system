@@ -1,0 +1,5 @@
+{#- A link inside running text. An external one opens in a new window, and
+    tells the page it leaves nothing it can reach back into. -#}
+{%- set external = external|default(false) -%}
+<a class="text-link{{ class is defined and class ? ' ' ~ class }}" href="{{ href }}"
+    {%- if external %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ label }}</a>

@@ -1,0 +1,16 @@
+# Declares `text-link` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: A link inside running text — an external one opens in a new window, cut off from the page it leaves.
+formats:
+  template: true
+  vue: true
+  style: "it is a plain anchor, drawn by the text it sits in"
+  script: "a link needs nothing to run"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

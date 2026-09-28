@@ -1,0 +1,5 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <a class="text-link" :href="href" :target="external ? '_blank' : null" :rel="external ? 'noopener noreferrer' : null">[[ label ]]</a>
+{%- endblock -%}
