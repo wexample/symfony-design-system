@@ -565,6 +565,7 @@ export default {
       const classes = [];
       if (column?.className) classes.push(column.className);
       if (column?.align) classes.push(`table--cell--${column.align}`);
+      if (column?.width) classes.push(`table--cell--width-${column.width}`);
       if (column?.secondary) classes.push('table--cell--secondary');
       return classes.length ? classes.join(' ') : undefined;
     }

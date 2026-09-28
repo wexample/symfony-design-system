@@ -78,6 +78,23 @@
   white-space: nowrap;
 }
 
+// A column held to a width of the scale, so that what its cells say may change
+// — a state, a figure refreshed — without the columns around it moving. The
+// width is the column's own; a column left without one takes what remains.
+.table {
+  --table-column-width-xs: 4rem;
+  --table-column-width-s: 7rem;
+  --table-column-width-m: 10rem;
+  --table-column-width-l: 14rem;
+  --table-column-width-xl: 20rem;
+}
+
+@each $size in xs, s, m, l, xl {
+  .table--cell--width-#{$size} {
+    width: var(--table-column-width-#{$size});
+  }
+}
+
 .table--cell--center {
   text-align: center;
 }

@@ -60,6 +60,8 @@ class TableExtension extends AbstractTemplateExtension
                 'class' => implode(' ', array_filter([
                     $column['class'] ?? null,
                     isset($column['align']) ? 'table--cell--'.$column['align'] : null,
+                    // One of xs, s, m, l, xl: the column keeps it whatever its cells say.
+                    isset($column['width']) ? 'table--cell--width-'.$column['width'] : null,
                 ])),
             ];
         }

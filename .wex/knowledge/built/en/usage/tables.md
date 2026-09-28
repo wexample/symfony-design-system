@@ -6,11 +6,15 @@ while the page is open.
 
 ## Columns and cells
 
-A column is `{ key, label, cell, align, className, secondary }`. `cell` says how a value is
+A column is `{ key, label, cell, align, width, className, secondary }`. `cell` says how a value is
 drawn: `date`, `html`, `status` (a marker: a type name, or `{ type, count, title, label }`),
 `path` (a file path: the name whole, the folders before it cut from their start — the
 `file-path` component, `file_path()` in twig), or nothing for the value as text. A row
 carrying only `{ group: 'Label' }` is the line between two runs of rows.
+
+`width` holds a column to a step of the scale — `xs`, `s`, `m`, `l`, `xl`, the
+`--table-column-width-*` tokens — so that its cells may change, a state or a figure refreshed
+in place, without the columns beside it moving. Columns left without one share what remains.
 
 ## The bar above the table
 
