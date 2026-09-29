@@ -1,0 +1,5 @@
+composer:
+  placeholder: 'Écrivez un message...'
+  submit: Envoyer
+thread:
+  load_older: 'Charger les messages plus anciens'

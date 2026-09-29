@@ -1,0 +1,6 @@
+search:
+  placeholder: 'Filtrer la liste...'
+filter:
+  label: Filtrer
+empty:
+  label: '~ Vide ~'
