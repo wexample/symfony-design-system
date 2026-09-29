@@ -1,0 +1,5 @@
+composer:
+  placeholder: 写消息...
+  submit: 发送
+thread:
+  load_older: 加载更早的消息
