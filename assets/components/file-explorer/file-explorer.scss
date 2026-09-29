@@ -46,7 +46,7 @@
 }
 
 .file-explorer--actions {
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 
 .file-explorer--path {
@@ -96,7 +96,7 @@ button.action-icon:disabled {
   min-height: 0;
   overflow: auto;
   padding: var(--space-2);
-  border-right: var(--border-separator);
+  border-inline-end: var(--border-separator);
 }
 
 .file-explorer--main {
@@ -140,7 +140,7 @@ button.action-icon:disabled {
   color: var(--table-head-color, var(--text-color-head));
   font: inherit;
   font-weight: var(--font-weight-strong);
-  text-align: left;
+  text-align: start;
   cursor: pointer;
 }
 

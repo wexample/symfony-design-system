@@ -71,10 +71,10 @@
 
 @keyframes progress-sweep {
   from {
-    transform: translateX(-100%);
+    transform: translateX(calc(-100% * var(--direction-sign, 1)));
   }
   to {
-    transform: translateX(300%);
+    transform: translateX(calc(300% * var(--direction-sign, 1)));
   }
 }
 

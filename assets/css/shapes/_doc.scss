@@ -36,7 +36,7 @@
   // An address is one unbroken word, and would run out of its half.
   overflow-wrap: anywhere;
   padding: var(--space-4);
-  border-left: var(--border-separator);
+  border-inline-start: var(--border-separator);
 }
 
 @media (max-width: 768px) {
@@ -45,7 +45,7 @@
   }
 
   .doc-section--code {
-    border-left: none;
+    border-inline-start: none;
     border-top: var(--border-separator);
   }
 }

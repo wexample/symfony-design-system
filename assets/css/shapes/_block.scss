@@ -82,7 +82,7 @@
 }
 
 .block--title-trailing {
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 
 .block--body {
@@ -225,7 +225,7 @@
 // tone too, through the two variables it reads — the severity then holds in the
 // icon and not only in a line three pixels wide.
 %block-tone {
-  border-left: var(--feedback-bar-width) solid var(--feedback-color);
+  border-inline-start: var(--feedback-bar-width) solid var(--feedback-color);
   --avatar-bg: var(--feedback-bg);
   --avatar-color: var(--feedback-color);
 }

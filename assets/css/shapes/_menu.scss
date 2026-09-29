@@ -59,7 +59,7 @@
 // The logo the header opens with, on the edge the bar's content is packed
 // away from.
 .menu--header--logo {
-  margin-right: auto;
+  margin-inline-end: auto;
 }
 
 .menu--bar--icon {
@@ -129,7 +129,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-right: var(--space-2);
+  margin-inline-end: var(--space-2);
   overflow: hidden;
 }
 
@@ -140,18 +140,18 @@
 // How many of whatever the item leads to. It is a counter and nothing else —
 // all the item adds is the far end.
 .menu--item--count {
-  margin-left: auto;
+  margin-inline-start: auto;
   flex-shrink: 0;
 }
 
 .menu--vertical--left {
-  border-right: var(--border-separator);
+  border-inline-end: var(--border-separator);
 }
 
 .menu--vertical--right {
-  border-left: var(--border-separator);
+  border-inline-start: var(--border-separator);
 }
 
 .menu--sub-items > li > a {
-  padding-left: calc(var(--menu-item-padding) * 2 - var(--menu-item-inset, 0px));
+  padding-inline-start: calc(var(--menu-item-padding) * 2 - var(--menu-item-inset, 0px));
 }

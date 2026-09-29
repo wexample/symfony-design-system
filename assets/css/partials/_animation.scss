@@ -43,11 +43,11 @@
 }
 
 @keyframes ds-slide-in-right {
-  from { transform: translateX(100%); }
+  from { transform: translateX(calc(100% * var(--direction-sign, 1))); }
   to { transform: translateX(0); }
 }
 
 @keyframes ds-slide-out-right {
   from { transform: translateX(0); }
-  to { transform: translateX(100%); }
+  to { transform: translateX(calc(100% * var(--direction-sign, 1))); }
 }

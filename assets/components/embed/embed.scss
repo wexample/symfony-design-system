@@ -22,6 +22,6 @@
 .embed--close {
   position: absolute;
   top: var(--space-2);
-  right: var(--space-2);
+  inset-inline-end: var(--space-2);
   z-index: 2;
 }

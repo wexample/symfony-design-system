@@ -113,8 +113,8 @@
 }
 
 .button-menu.is-open .button--menu {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
 }
 
 .button-menu--invert .button--menu {
@@ -148,14 +148,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding-left: var(--space-2);
+  padding-inline-start: var(--space-2);
 }
 
 .button-menu--caret::before {
   content: '';
   width: 0.45em;
   height: 0.45em;
-  border-right: 2px solid currentColor;
+  border-inline-end: 2px solid currentColor;
   border-bottom: 2px solid currentColor;
   transform: rotate(45deg);
 }
@@ -171,7 +171,7 @@
   font-size: var(--font-size-3);
   position: absolute;
   top: calc(100% - 1px);
-  left: 0;
+  inset-inline-start: 0;
   min-width: 100%;
   width: max-content;
   background: var(--surface-3);
@@ -187,13 +187,13 @@
 }
 
 .button-menu--panel--right {
-  right: 0;
-  left: auto;
+  inset-inline-end: 0;
+  inset-inline-start: auto;
 }
 
 .button-menu--panel--left {
-  left: 0;
-  right: auto;
+  inset-inline-start: 0;
+  inset-inline-end: auto;
 }
 
 .button-menu--list {
@@ -243,7 +243,7 @@
   background: transparent;
   border: 0;
   font: inherit;
-  text-align: left;
+  text-align: start;
   cursor: pointer;
 }
 
@@ -339,7 +339,7 @@
   align-items: center;
   justify-content: center;
   flex: none;
-  margin-left: auto;
+  margin-inline-start: auto;
   line-height: 1;
 }
 
@@ -348,7 +348,7 @@
   width: 0.4em;
   height: 0.4em;
   border-top: 2px solid currentColor;
-  border-right: 2px solid currentColor;
+  border-inline-end: 2px solid currentColor;
   transform: rotate(45deg);
 }
 
@@ -363,7 +363,7 @@
   display: none;
   position: absolute;
   top: calc(var(--space-2) * -1);
-  left: 100%;
+  inset-inline-start: 100%;
   min-width: 100%;
   width: max-content;
   background: var(--surface-3);
@@ -380,8 +380,8 @@
 
 // Where the window ends before the branch does.
 .button-menu--sublist--left {
-  left: auto;
-  right: 100%;
+  inset-inline-start: auto;
+  inset-inline-end: 100%;
 }
 
 .button-menu--list--items-right .button-menu--link {
@@ -402,7 +402,7 @@
 }
 
 .button-menu--item-count {
-  margin-left: auto;
+  margin-inline-start: auto;
   flex-shrink: 0;
 }
 

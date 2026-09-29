@@ -31,7 +31,7 @@
 }
 
 .graph-log--graph {
-  padding-right: var(--space-2);
+  padding-inline-end: var(--space-2);
 }
 
 .graph-log--svg {
@@ -50,7 +50,7 @@
 
 .graph-log--main {
   gap: var(--space-1);
-  padding-right: var(--space-3);
+  padding-inline-end: var(--space-3);
 }
 
 .graph-log--title {
@@ -69,7 +69,7 @@ a.graph-log--title:hover {
 .graph-log--meta,
 .graph-log--date,
 .graph-log--code {
-  padding-right: var(--space-3);
+  padding-inline-end: var(--space-3);
   color: var(--text-color-muted);
   white-space: nowrap;
 }

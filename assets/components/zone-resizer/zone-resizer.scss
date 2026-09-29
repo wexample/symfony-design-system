@@ -40,11 +40,11 @@
 }
 
 .zone-resizer--end {
-  right: var(--zone-resizer-offset);
+  inset-inline-end: var(--zone-resizer-offset);
 }
 
 .zone-resizer--start {
-  left: var(--zone-resizer-offset);
+  inset-inline-start: var(--zone-resizer-offset);
 }
 
 // Down the column: the same handle turned, filling the gap under or over the
@@ -53,8 +53,8 @@
 .zone-resizer--y.zone-resizer--end {
   top: auto;
   bottom: auto;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   width: auto;
   height: var(--zone-resizer-reach);
   cursor: row-resize;

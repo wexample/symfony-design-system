@@ -1,6 +1,8 @@
 // The arrow of a box floating beside an anchor, on the edge facing it and at
 // the anchor's middle (`--floating-arrow`), as FloatingHelper leaves them.
 // The arrow is a square turned on its point, of the box's own ground.
+// physical-file: FloatingHelper places the box and names its side in screen
+// coordinates, so the arrow facing the anchor is placed in them too.
 @mixin floating-arrow($arrow-selector, $size: 8px) {
   #{$arrow-selector} {
     position: absolute;

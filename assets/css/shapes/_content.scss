@@ -60,7 +60,7 @@
   > p:last-child { margin-bottom: 0; }
 
   ul, ol {
-    padding-left: var(--space-5);
+    padding-inline-start: var(--space-5);
     margin-block: var(--space-5);
     li + li { margin-top: var(--space-2); }
   }
@@ -75,8 +75,8 @@
   }
 
   blockquote {
-    border-left: 3px solid var(--color-primary);
-    padding-left: var(--space-4);
+    border-inline-start: 3px solid var(--color-primary);
+    padding-inline-start: var(--space-4);
     color: var(--text-color-muted);
     font-style: italic;
   }
@@ -107,7 +107,7 @@
       padding: var(--space-3) var(--space-4);
       font-size: var(--font-size-3);
       border-bottom: var(--border-separator);
-      text-align: left;
+      text-align: start;
     }
 
     thead :is(th, td) { font-weight: var(--font-weight-strong); }
@@ -139,10 +139,10 @@
   }
 
   &--dropcap > p:first-of-type::first-letter {
-    float: left;
+    float: inline-start;
     font-size: 4.2em;
     line-height: 0.8;
-    padding-right: 0.08em;
+    padding-inline-end: 0.08em;
     padding-bottom: 0.05em;
     font-weight: var(--font-weight-bold);
   }

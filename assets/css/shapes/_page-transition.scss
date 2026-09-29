@@ -3,18 +3,20 @@
 // fades, the one arriving comes in from the other side. Only a page marked
 // `data-page-transition="slide"` moves; the classes are the page manager's.
 $page-transition-shift: 8px;
+// Toward the end of the line, whichever way it reads.
+$page-transition-shift-inline: calc(#{$page-transition-shift} * var(--direction-sign, 1));
 
 @keyframes page-transition-enter-forward {
   from {
     opacity: 0;
-    transform: translateX($page-transition-shift);
+    transform: translateX($page-transition-shift-inline);
   }
 }
 
 @keyframes page-transition-enter-back {
   from {
     opacity: 0;
-    transform: translateX(-$page-transition-shift);
+    transform: translateX(calc(#{$page-transition-shift-inline} * -1));
   }
 }
 
@@ -24,12 +26,12 @@ $page-transition-shift: 8px;
 
 .is-page-leaving--forward [data-page-transition='slide'] {
   opacity: 0;
-  transform: translateX(-$page-transition-shift);
+  transform: translateX(calc(#{$page-transition-shift-inline} * -1));
 }
 
 .is-page-leaving--back [data-page-transition='slide'] {
   opacity: 0;
-  transform: translateX($page-transition-shift);
+  transform: translateX($page-transition-shift-inline);
 }
 
 .is-page-entering--forward [data-page-transition='slide'] {

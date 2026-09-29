@@ -34,8 +34,8 @@
     position: absolute;
     top: var(--timeline-marker-size);
     bottom: 0;
-    left: calc(var(--timeline-marker-size) / 2);
-    border-left: var(--border-default);
+    inset-inline-start: calc(var(--timeline-marker-size) / 2);
+    border-inline-start: var(--border-default);
   }
 }
 
@@ -97,7 +97,7 @@
   }
 
   &:not(:last-child)::before {
-    border-left-color: var(--color-default-text);
+    border-inline-start-color: var(--color-default-text);
   }
 }
 
@@ -121,12 +121,12 @@
   }
 
   &:not(:last-child)::before {
-    border-left-style: dashed;
+    border-inline-start-style: dashed;
   }
 }
 
 .timeline--item:not(:last-child):has(+ .is-unknown)::before {
-  border-left-style: dashed;
+  border-inline-start-style: dashed;
 }
 
 .timeline--numbered > .timeline--item.is-unknown > .timeline--marker:empty::after {
