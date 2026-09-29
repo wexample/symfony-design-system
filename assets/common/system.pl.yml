@@ -1,0 +1,60 @@
+frontend:
+  loading: Ładowanie...
+  no_data: 'Brak danych'
+  explorer:
+    root: Pliki
+    back: Wstecz
+    forward: Dalej
+    up: 'Do góry o jeden folder'
+    path: Lokalizacja
+    filter: 'Filtruj ten folder'
+    view_list: 'Jako lista'
+    view_grid: 'Jako siatka'
+    refresh: 'Przeczytaj ponownie'
+    loading: Ładowanie
+    failed: 'Nie można odczytać tego folderu.'
+    empty: 'Ten folder jest pusty.'
+    empty_filtered: 'Nic tutaj nie pasuje do filtru.'
+    more: 'Pokaż %count% więcej'
+    count: '%count% elementów'
+    selected: '%count% wybranych, %size%'
+    folder: Folder
+    file: Plik
+    column:
+      name: Nazwa
+      kind: Rodzaj
+      size: Rozmiar
+      modifiedAt: Zmodyfikowany
+  filter:
+    clear: Wyczyść
+    summary: '%label%: %value%'
+    summary_more: '%label%: %value% +%more%'
+  pagination:
+    label: Pagowanie
+    previous: Poprzednia
+    next: Następna
+    page: Strona
+    ellipsis: …
+  stepper:
+    label: Kroki
+  table:
+    select_all: 'Wybierz wszystkie wiersze'
+    select_row: 'Wybierz ten wiersz'
+    selected: '%count% wybranych'
+    total: '%count% łącznie'
+    actions: Akcje
+    apply: Zastosuj
+  switch:
+    cancel: Anuluj
+  tour:
+    previous: Poprzedni
+    next: Następny
+    done: Zrobione
+    close: 'Zamknij wycieczkę'
+    progress: '%current% / %total%'
+  embed:
+    close: Zamknij
+  zone:
+    collapse: Zwiń
+    expand: Rozwiń
+    resize: 'Zmień rozmiar'

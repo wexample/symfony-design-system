@@ -1,0 +1,5 @@
+composer:
+  placeholder: 'پیامی بنویسید...'
+  submit: ارسال
+thread:
+  load_older: 'بارگذاری پیام‌های قدیمی‌تر'

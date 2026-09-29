@@ -1,0 +1,6 @@
+search:
+  placeholder: 'Liste filtern...'
+filter:
+  label: Filtern
+empty:
+  label: '~ Leer ~'

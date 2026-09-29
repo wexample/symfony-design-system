@@ -1,0 +1,5 @@
+composer:
+  placeholder: 'اكتب رسالة...'
+  submit: إرسال
+thread:
+  load_older: 'تحميل الرسائل السابقة'

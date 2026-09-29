@@ -1,0 +1,60 @@
+frontend:
+  loading: '로딩 중...'
+  no_data: '데이터가 없습니다'
+  explorer:
+    root: 파일
+    back: 뒤로
+    forward: 앞으로
+    up: '상위 폴더로 가기'
+    path: 위치
+    filter: '이 폴더 필터링'
+    view_list: '목록 보기'
+    view_grid: '그리드 보기'
+    refresh: '다시 읽기'
+    loading: '로딩 중'
+    failed: '이 폴더를 읽을 수 없습니다.'
+    empty: '이 폴더는 비어 있습니다.'
+    empty_filtered: '여기 필터에 맞는 항목이 없습니다.'
+    more: '%count%개 더 보기'
+    count: '%count% 항목'
+    selected: '%count% 선택됨, %size%'
+    folder: 폴더
+    file: 파일
+    column:
+      name: 이름
+      kind: 종류
+      size: 크기
+      modifiedAt: 수정됨
+  filter:
+    clear: 지우기
+    summary: '%label%: %value%'
+    summary_more: '%label%: %value% +%more%'
+  pagination:
+    label: 페이지네이션
+    previous: 이전
+    next: 다음
+    page: 페이지
+    ellipsis: …
+  stepper:
+    label: 단계
+  table:
+    select_all: '모든 행 선택'
+    select_row: '이 행 선택'
+    selected: '%count% 선택됨'
+    total: '총 %count%'
+    actions: 작업
+    apply: 적용
+  switch:
+    cancel: 취소
+  tour:
+    previous: 이전
+    next: 다음
+    done: 완료
+    close: '투어 닫기'
+    progress: '%current% / %total%'
+  embed:
+    close: 닫기
+  zone:
+    collapse: 축소
+    expand: 확장
+    resize: '크기 조정'

@@ -1,0 +1,60 @@
+frontend:
+  loading: 'جار التحميل...'
+  no_data: 'لا توجد بيانات'
+  explorer:
+    root: الملفات
+    back: رجوع
+    forward: التالي
+    up: 'مجلد واحد للأعلى'
+    path: الموقع
+    filter: 'تصفية هذا المجلد'
+    view_list: 'عرض كقائمة'
+    view_grid: 'عرض كشبكة'
+    refresh: 'إعادة القراءة'
+    loading: 'جار التحميل'
+    failed: 'لا يمكن قراءة هذا المجلد.'
+    empty: 'هذا المجلد فارغ.'
+    empty_filtered: 'لا شيء هنا يتطابق مع الفلتر.'
+    more: 'عرض %count% المزيد'
+    count: '%count% عنصر'
+    selected: '%count% محدد، %size%'
+    folder: مجلد
+    file: ملف
+    column:
+      name: الاسم
+      kind: النوع
+      size: الحجم
+      modifiedAt: 'تاريخ التعديل'
+  filter:
+    clear: مسح
+    summary: '%label%: %value%'
+    summary_more: '%label%: %value% +%more%'
+  pagination:
+    label: التصفح
+    previous: السابق
+    next: التالي
+    page: الصفحة
+    ellipsis: …
+  stepper:
+    label: الخطوات
+  table:
+    select_all: 'تحديد جميع الصفوف'
+    select_row: 'تحديد هذه الصف'
+    selected: '%count% محدد'
+    total: '%count% إجمالي'
+    actions: الإجراءات
+    apply: تطبيق
+  switch:
+    cancel: إلغاء
+  tour:
+    previous: السابق
+    next: التالي
+    done: تم
+    close: 'إغلاق الجولة'
+    progress: '%current% / %total%'
+  embed:
+    close: إغلاق
+  zone:
+    collapse: طي
+    expand: توسيع
+    resize: 'تغيير الحجم'

@@ -1,0 +1,60 @@
+frontend:
+  loading: 読み込み中...
+  no_data: データがありません
+  explorer:
+    root: ファイル
+    back: 戻る
+    forward: 進む
+    up: 一つ上のフォルダー
+    path: 場所
+    filter: このフォルダーをフィルター
+    view_list: リスト表示
+    view_grid: グリッド表示
+    refresh: 再読み込み
+    loading: 読み込み中
+    failed: このフォルダーは読み取れませんでした。
+    empty: このフォルダーは空です。
+    empty_filtered: フィルターに一致するものはありません。
+    more: さらに%count%件表示
+    count: '%count% 件'
+    selected: '%count%選択中、%size%'
+    folder: フォルダー
+    file: ファイル
+    column:
+      name: 名前
+      kind: 種類
+      size: サイズ
+      modifiedAt: 最終更新
+  filter:
+    clear: クリア
+    summary: '%label%: %value%'
+    summary_more: '%label%: %value% +%more%'
+  pagination:
+    label: ページネーション
+    previous: 前へ
+    next: 次へ
+    page: ページ
+    ellipsis: …
+  stepper:
+    label: ステップ
+  table:
+    select_all: すべての行を選択
+    select_row: この行を選択
+    selected: '%count%選択中'
+    total: 合計%count%
+    actions: アクション
+    apply: 適用
+  switch:
+    cancel: キャンセル
+  tour:
+    previous: 前へ
+    next: 次へ
+    done: 完了
+    close: ツアーを閉じる
+    progress: '%current% / %total%'
+  embed:
+    close: 閉じる
+  zone:
+    collapse: 折りたたむ
+    expand: 展開する
+    resize: サイズ変更

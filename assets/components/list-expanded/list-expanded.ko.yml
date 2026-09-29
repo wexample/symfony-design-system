@@ -1,0 +1,6 @@
+search:
+  placeholder: '목록 필터링...'
+filter:
+  label: 필터
+empty:
+  label: '~ 비어 있음 ~'

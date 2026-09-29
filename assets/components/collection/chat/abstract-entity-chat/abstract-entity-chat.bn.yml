@@ -1,0 +1,5 @@
+composer:
+  placeholder: 'একটি বার্তা লিখুন...'
+  submit: পাঠান
+thread:
+  load_older: 'পুরানো বার্তা লোড করুন'

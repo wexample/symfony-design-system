@@ -1,0 +1,6 @@
+search:
+  placeholder: 'تصفية القائمة...'
+filter:
+  label: تصفية
+empty:
+  label: '~ فارغ ~'

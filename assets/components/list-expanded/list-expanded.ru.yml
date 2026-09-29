@@ -1,0 +1,6 @@
+search:
+  placeholder: 'Отфильтровать список...'
+filter:
+  label: Фильтр
+empty:
+  label: '~ Пусто ~'

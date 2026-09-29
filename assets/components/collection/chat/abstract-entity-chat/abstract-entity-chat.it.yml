@@ -1,0 +1,5 @@
+composer:
+  placeholder: 'Scrivi un messaggio...'
+  submit: Invia
+thread:
+  load_older: 'Carica messaggi precedenti'

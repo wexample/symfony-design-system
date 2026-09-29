@@ -1,0 +1,6 @@
+search:
+  placeholder: 'Suodata lista...'
+filter:
+  label: Suodata
+empty:
+  label: '~ Tyhjää ~'

@@ -1,0 +1,5 @@
+composer:
+  placeholder: メッセージを入力...
+  submit: 送信
+thread:
+  load_older: 以前のメッセージを読み込む

@@ -1,0 +1,60 @@
+frontend:
+  loading: 'لوڈ ہورہا ہے...'
+  no_data: 'کوئی ڈیٹا نہیں'
+  explorer:
+    root: فائلیں
+    back: پیچھے
+    forward: آگے
+    up: 'ایک فولڈر اوپر'
+    path: مقام
+    filter: 'اس فولڈر کو فلٹر کریں'
+    view_list: 'فہرست کی شکل میں'
+    view_grid: 'گریڈ کی شکل میں'
+    refresh: 'دوبارہ پڑھیں'
+    loading: 'لوڈ ہورہا ہے'
+    failed: 'یہ فولڈر نہیں پڑھا جا سکا۔'
+    empty: 'یہ فولڈر خالی ہے۔'
+    empty_filtered: 'یہاں فلٹر کے مطابق کچھ نہیں ہے۔'
+    more: '%count% مزید دکھائیں'
+    count: '%count% اشیاء'
+    selected: '%count% منتخب، %size%'
+    folder: فولڈر
+    file: فائل
+    column:
+      name: نام
+      kind: قسم
+      size: سائز
+      modifiedAt: 'ترمیم شدہ'
+  filter:
+    clear: 'صاف کریں'
+    summary: '%label%: %value%'
+    summary_more: '%label%: %value% +%more%'
+  pagination:
+    label: 'صفحہ بندی'
+    previous: پچھلا
+    next: اگلا
+    page: صفحہ
+    ellipsis: …
+  stepper:
+    label: اقدامات
+  table:
+    select_all: 'تمام قطاریں منتخب کریں'
+    select_row: 'اس قطار کو منتخب کریں'
+    selected: '%count% منتخب'
+    total: 'مجموعی طور پر %count%'
+    actions: عملیات
+    apply: لگائیں
+  switch:
+    cancel: 'کینسل کریں'
+  tour:
+    previous: پچھلا
+    next: اگلا
+    done: 'ہو گیا'
+    close: 'سیر بند کریں'
+    progress: '%current% / %total%'
+  embed:
+    close: 'بند کریں'
+  zone:
+    collapse: 'کم کریں'
+    expand: کھولیں
+    resize: 'سائز تبدیل کریں'

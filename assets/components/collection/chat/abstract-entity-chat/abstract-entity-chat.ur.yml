@@ -1,0 +1,5 @@
+composer:
+  placeholder: 'پیغام لکھیں...'
+  submit: بھیجیں
+thread:
+  load_older: 'پرانے پیغامات لوڈ کریں'

@@ -1,0 +1,60 @@
+frontend:
+  loading: Ladataan...
+  no_data: 'Ei tietoja'
+  explorer:
+    root: Tiedostot
+    back: Takaisin
+    forward: Eteenpäin
+    up: 'Ylös yksi kansio'
+    path: Sijainti
+    filter: 'Suodata tämä kansio'
+    view_list: Listana
+    view_grid: Ruudukossa
+    refresh: 'Lue uudelleen'
+    loading: Ladataan
+    failed: 'Tätä kansiota ei voitu lukea.'
+    empty: 'Tämä kansio on tyhjö.'
+    empty_filtered: 'Täällä ei ole mitään, joka vastaa suodatusta.'
+    more: 'Näytä %count% lisää'
+    count: '%count% kohdetta'
+    selected: '%count% valittua, %size%'
+    folder: Kansio
+    file: Tiedosto
+    column:
+      name: Nimi
+      kind: Tyyppi
+      size: Koko
+      modifiedAt: Muokattu
+  filter:
+    clear: Tyhjennä
+    summary: '%label%: %value%'
+    summary_more: '%label%: %value% +%more%'
+  pagination:
+    label: Sivutus
+    previous: Edellinen
+    next: Seuraava
+    page: Sivu
+    ellipsis: …
+  stepper:
+    label: Vaiheet
+  table:
+    select_all: 'Valitse kaikki rivit'
+    select_row: 'Valitse tämä rivi'
+    selected: '%count% valittua'
+    total: '%count% yhteensä'
+    actions: Toiminnot
+    apply: Käytä
+  switch:
+    cancel: Peruuta
+  tour:
+    previous: Edellinen
+    next: Seuraava
+    done: Valmis
+    close: 'Sulje opastus'
+    progress: '%current% / %total%'
+  embed:
+    close: Sulje
+  zone:
+    collapse: Pienennä
+    expand: Laajenna
+    resize: 'Muuta kokoa'

@@ -1,0 +1,60 @@
+frontend:
+  loading: טוען...
+  no_data: 'אין נתונים'
+  explorer:
+    root: קבצים
+    back: חזרה
+    forward: קדימה
+    up: 'מעלה תיקייה אחת'
+    path: מיקום
+    filter: 'סנן את התיקייה הזו'
+    view_list: 'כמ список'
+    view_grid: 'כמו רשת'
+    refresh: 'קרא שוב'
+    loading: טוען
+    failed: 'לא ניתן לקרוא את התיקייה הזו.'
+    empty: 'התיקייה הזו ריקה.'
+    empty_filtered: 'אין כאן תוצאות שמתאימות לסינון.'
+    more: 'הראה %count% נוספים'
+    count: '%count% פריטים'
+    selected: '%count% שנבחרו, %size%'
+    folder: תיקייה
+    file: קובץ
+    column:
+      name: שם
+      kind: סוג
+      size: גודל
+      modifiedAt: שונה
+  filter:
+    clear: נקה
+    summary: '%label%: %value%'
+    summary_more: '%label%: %value% +%more%'
+  pagination:
+    label: דפים
+    previous: קודם
+    next: אחרון
+    page: עמוד
+    ellipsis: …
+  stepper:
+    label: שלבים
+  table:
+    select_all: 'בחר את כל השורות'
+    select_row: 'בחר שורה זו'
+    selected: '%count% נבחרו'
+    total: '%count% סך הכל'
+    actions: פעולות
+    apply: החלה
+  switch:
+    cancel: ביטול
+  tour:
+    previous: קודם
+    next: אחרון
+    done: גמר
+    close: 'סגור את הסיור'
+    progress: '%current% / %total%'
+  embed:
+    close: סגור
+  zone:
+    collapse: כווץ
+    expand: הרחב
+    resize: 'שנה גודל'

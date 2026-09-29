@@ -1,0 +1,60 @@
+frontend:
+  loading: กำลังโหลด...
+  no_data: ไม่มีข้อมูล
+  explorer:
+    root: ไฟล์
+    back: ย้อนกลับ
+    forward: ไปข้างหน้า
+    up: ขึ้นไปยังโฟลเดอร์หนึ่งระดับ
+    path: ที่ตั้ง
+    filter: กรองโฟลเดอร์นี้
+    view_list: ดูเป็นรายการ
+    view_grid: ดูเป็นตาราง
+    refresh: อ่านอีกครั้ง
+    loading: กำลังโหลด
+    failed: ไม่สามารถอ่านโฟลเดอร์นี้ได้
+    empty: โฟลเดอร์นี้ว่างเปล่า
+    empty_filtered: ไม่มีสิ่งใดตรงกับตัวกรองที่ตั้งไว้
+    more: 'แสดงเพิ่มอีก %count%'
+    count: '%count% รายการ'
+    selected: 'เลือกแล้ว %count% รายการ, %size%'
+    folder: โฟลเดอร์
+    file: ไฟล์
+    column:
+      name: ชื่อ
+      kind: ประเภท
+      size: ขนาด
+      modifiedAt: แก้ไขล่าสุด
+  filter:
+    clear: ล้าง
+    summary: '%label%: %value%'
+    summary_more: '%label%: %value% +%more%'
+  pagination:
+    label: การแบ่งหน้า
+    previous: ก่อนหน้า
+    next: ถัดไป
+    page: หน้า
+    ellipsis: …
+  stepper:
+    label: ขั้นตอน
+  table:
+    select_all: เลือกทุกแถว
+    select_row: เลือกแถวนี้
+    selected: 'เลือกแล้ว %count% รายการ'
+    total: 'ทั้งหมด %count%'
+    actions: การดำเนินการ
+    apply: ใช้
+  switch:
+    cancel: ยกเลิก
+  tour:
+    previous: ก่อนหน้า
+    next: ถัดไป
+    done: เสร็จสิ้น
+    close: ปิดทัวร์
+    progress: '%current% / %total%'
+  embed:
+    close: ปิด
+  zone:
+    collapse: ย่อ
+    expand: ขยาย
+    resize: ปรับขนาด

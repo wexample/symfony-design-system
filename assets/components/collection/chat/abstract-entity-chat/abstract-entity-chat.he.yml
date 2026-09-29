@@ -1,0 +1,5 @@
+composer:
+  placeholder: 'כתוב הודעה...'
+  submit: שלח
+thread:
+  load_older: 'טעון הודעות קודמות'

@@ -1,0 +1,6 @@
+search:
+  placeholder: 'তালিকাটি ফিল্টার করুন...'
+filter:
+  label: ফিল্টার
+empty:
+  label: '~ খালি ~'

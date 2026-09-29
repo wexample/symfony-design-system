@@ -1,0 +1,6 @@
+search:
+  placeholder: 'فهرست را فیلتر کنید...'
+filter:
+  label: فیلتر
+empty:
+  label: '~ خالی ~'

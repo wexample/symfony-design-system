@@ -1,0 +1,60 @@
+frontend:
+  loading: Caricamento...
+  no_data: 'Nessun dato'
+  explorer:
+    root: File
+    back: Indietro
+    forward: Avanti
+    up: 'Su una cartella'
+    path: Posizione
+    filter: 'Filtra questa cartella'
+    view_list: 'Come elenco'
+    view_grid: 'Come griglia'
+    refresh: Ricarica
+    loading: Caricamento
+    failed: 'Non è stato possibile leggere questa cartella.'
+    empty: 'Questa cartella è vuota.'
+    empty_filtered: 'Niente qui corrisponde al filtro.'
+    more: 'Mostra %count% di più'
+    count: '%count% elementi'
+    selected: '%count% selezionati, %size%'
+    folder: Cartella
+    file: File
+    column:
+      name: Nome
+      kind: Tipo
+      size: Dimensione
+      modifiedAt: Modificato
+  filter:
+    clear: Pulisci
+    summary: '%label%: %value%'
+    summary_more: '%label%: %value% +%more%'
+  pagination:
+    label: Paginazione
+    previous: Precedente
+    next: Successivo
+    page: Pagina
+    ellipsis: …
+  stepper:
+    label: Passi
+  table:
+    select_all: 'Seleziona tutte le righe'
+    select_row: 'Seleziona questa riga'
+    selected: '%count% selezionati'
+    total: '%count% in totale'
+    actions: Azioni
+    apply: Applica
+  switch:
+    cancel: Annulla
+  tour:
+    previous: Precedente
+    next: Successivo
+    done: Fatto
+    close: 'Chiudi il tour'
+    progress: '%current% / %total%'
+  embed:
+    close: Chiudi
+  zone:
+    collapse: Riduci
+    expand: Espandi
+    resize: Ridimensiona

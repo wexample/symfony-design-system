@@ -1,0 +1,6 @@
+search:
+  placeholder: "Filtra l'elenco..."
+filter:
+  label: Filtra
+empty:
+  label: '~ Vuoto ~'
