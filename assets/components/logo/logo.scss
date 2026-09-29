@@ -1,0 +1,14 @@
+// A one-colour logo: its colour is the text's, its height the variable's, its
+// width what the drawing's proportions make of it.
+.logo {
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.logo--svg {
+  display: block;
+  width: auto;
+  height: var(--logo-height, var(--space-5));
+}

@@ -56,6 +56,12 @@
   justify-content: flex-end;
 }
 
+// The logo the header opens with, on the edge the bar's content is packed
+// away from.
+.menu--header--logo {
+  margin-right: auto;
+}
+
 .menu--bar--icon {
   @extend .bar--icon;
   display: inline-flex;

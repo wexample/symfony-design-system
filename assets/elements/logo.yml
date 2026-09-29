@@ -1,0 +1,16 @@
+# Declares `logo` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: A one-colour logo written into the page, in the colour of the text around it — black or white with the scheme, from one file.
+formats:
+  style: true
+  template: true
+  vue: "the server reads the file and writes it in; a vue has no file to read"
+  script: "it is drawn, and drawing needs nothing to run"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

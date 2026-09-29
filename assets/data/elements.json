@@ -1350,6 +1350,33 @@
             }
         },
         {
+            "key": "logo",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A one-colour logo written into the page, in the colour of the text around it \u2014 black or white with the scheme, from one file.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/logo/logo.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/logo/logo.html.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "waived",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "vue": "the server reads the file and writes it in; a vue has no file to read",
+                "script": "it is drawn, and drawing needs nothing to run"
+            }
+        },
+        {
             "key": "marker",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "One capsule for everything said about a thing in a word: a state, a name, a version, a category. The tone is the whole of what tells them apart \u2014 the shape, the rhythm and the ink are one, because a reader meets them in one row.",

@@ -1,0 +1,10 @@
+{#- A one-colour logo in the colour of the text around it: the svg is the
+    page's own, handed `currentColor` by `logo()`. A link when it leads
+    somewhere, named for whoever cannot see it. -#}
+{%- set tag = href|default(null) ? 'a' : 'span' -%}
+<{{ tag }} class="logo{{ class|default(null) ? ' ' ~ class }}"
+    {%- if href|default(null) %} href="{{ href }}"{% endif %}
+    {%- if label|default(null) %} aria-label="{{ label }}" title="{{ label }}"{% endif %}
+    {%- if not label|default(null) %} aria-hidden="true"{% endif %}>
+    {{- svg|raw -}}
+</{{ tag }}>
