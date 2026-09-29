@@ -73,8 +73,10 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
     super.appendChildRenderNode(renderNode);
 
     if (renderNode instanceof Page) {
-      renderNode.ready(() => {
-        this.open({
+      // Awaited: whoever loaded the page gets it back once the overlay is
+      // open and the page holds the focus, not while it is still fading in.
+      renderNode.ready(async () => {
+        await this.open({
           instant: this.renderData.requestOptions['instant'],
         });
       });
@@ -129,7 +131,7 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
   }
 
   public async open(options: { instant?: boolean } = {}) {
-    (this as any).overlayOpen(options.instant);
+    await (this as any).overlayOpen(options.instant);
   }
 
   public async close(options: { instant?: boolean; userInitiated?: boolean } = {}) {
@@ -155,7 +157,7 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
       }
     }
 
-    (this as any).overlayClose(options.instant);
+    await (this as any).overlayClose(options.instant);
   }
 
   private onClickContent = async (event: Event) => {
