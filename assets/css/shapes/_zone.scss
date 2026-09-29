@@ -124,23 +124,19 @@
 }
 
 // Splits laid inside splits make a dashboard: a vertical split of rows, each
-// row a split of its own. Flush, the regions touch — a wall of screens rather
-// than objects on a desk — and a hairline is what tells two apart. The gap is
-// a variable the nested splits inherit, so one class makes the whole wall
-// flush; the lines are drawn in every split inside it for the same reason.
+// row a split of its own. Flush, the regions all but touch — a wall of screens
+// rather than objects on a desk — and the one pixel left between them shows the
+// wall's own ground, drawn in the colour of a separator. The gap is a variable
+// the nested splits inherit, so one class makes the whole wall flush.
 .zone--split--flush {
-  --zone-gap: 0;
+  --zone-gap: 1px;
+  background: var(--border-color-discreet);
 }
 
-.zone--split--flush > .zone + .zone,
-.zone--split--flush .zone--split > .zone + .zone {
-  border-left: var(--border-separator);
-}
-
-.zone--split--flush.zone--split--vertical > .zone + .zone,
-.zone--split--flush .zone--split--vertical > .zone + .zone {
-  border-left: 0;
-  border-top: var(--border-separator);
+// A region closed by what it held — an embed's close button — steps out of
+// its split, and the others share its room until it is filled again.
+.zone--split > .zone--closed {
+  display: none;
 }
 
 // A row longer than the page: the regions keep the width they ask for and the

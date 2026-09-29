@@ -4,6 +4,8 @@ import EmbedService from '@wexample/symfony-loader/js/Services/EmbedService';
 export default class extends PageManagerComponent {
   protected contentEl: HTMLElement;
 
+  private visibilityObserver?: IntersectionObserver;
+
   attachHtmlElements() {
     super.attachHtmlElements();
 
@@ -19,13 +21,18 @@ export default class extends PageManagerComponent {
 
     this.getEmbedService().register(this.options.name, this);
 
+    this.el.querySelector('.embed--close')?.addEventListener('click', () => this.closeEmbed());
+
     // Filled from the start when the page arrived with something in it.
     if (this.contentEl?.innerHTML.trim()) {
       this.foldNeighbours(true);
+    } else if (this.options.src) {
+      this.openSource();
     }
   }
 
   protected async unmounted(): Promise<void> {
+    this.visibilityObserver?.disconnect();
     this.getEmbedService().unregister(this.options.name);
 
     await super.unmounted();
@@ -44,6 +51,55 @@ export default class extends PageManagerComponent {
 
     this.contentEl.innerHTML = body || '';
     this.foldNeighbours(Boolean(body));
+
+    // A page arriving reopens an embed that was closed.
+    if (body) {
+      this.setClosed(false);
+    }
+  }
+
+  /**
+   * Empties the embed and takes the region holding it out of its split: the
+   * gesture its close button makes, and what a page can ask for. Whatever loads
+   * a page into it afterwards opens it again.
+   */
+  public closeEmbed(): void {
+    this.pageLoadingEnd();
+    this.setLayoutBody('');
+    this.setClosed(true);
+
+    this.el.dispatchEvent(new CustomEvent('embed:close', {
+      bubbles: true,
+      detail: { name: this.options.name },
+    }));
+  }
+
+  // The page the embed opens on: at once, or — `lazy` — once the embed is on
+  // screen, so a wall of them only asks for what is being looked at.
+  private openSource(): void {
+    const load = () => {
+      void this.getEmbedService().load(this.options.name, this.options.src);
+    };
+
+    if (!this.options.lazy || !('IntersectionObserver' in window)) {
+      load();
+
+      return;
+    }
+
+    this.visibilityObserver = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        this.visibilityObserver?.disconnect();
+        this.visibilityObserver = undefined;
+        load();
+      }
+    });
+    this.visibilityObserver.observe(this.el);
+  }
+
+  private setClosed(closed: boolean): void {
+    this.el.classList.toggle('embed--closed', closed);
+    this.splitZone()?.classList.toggle('zone--closed', closed);
   }
 
   // A region beside a filled embed makes room for it, if it says how far: the
@@ -51,11 +107,7 @@ export default class extends PageManagerComponent {
   // holds something, and give it back once it is emptied. A width the visitor
   // dragged still wins — that is the stylesheet's business, not this one's.
   private foldNeighbours(filled: boolean): void {
-    let zone: HTMLElement | null = this.el.closest('.zone');
-
-    while (zone && !zone.parentElement?.classList.contains('zone--split')) {
-      zone = zone.parentElement?.closest('.zone') ?? null;
-    }
+    const zone = this.splitZone();
 
     zone?.parentElement
       ?.querySelectorAll<HTMLElement>(':scope > .zone[data-zone-folded-size]')
@@ -67,6 +119,17 @@ export default class extends PageManagerComponent {
         neighbour.style.setProperty('--zone-folded-size', neighbour.dataset.zoneFoldedSize ?? '');
         neighbour.classList.toggle('zone--folded', filled);
       });
+  }
+
+  // The region of a split the embed stands in: the one its neighbours are.
+  private splitZone(): HTMLElement | null {
+    let zone: HTMLElement | null = this.el.closest('.zone');
+
+    while (zone && !zone.parentElement?.classList.contains('zone--split')) {
+      zone = zone.parentElement?.closest('.zone') ?? null;
+    }
+
+    return zone;
   }
 
   // open() and close() are left as they come: an embed is part of the page it

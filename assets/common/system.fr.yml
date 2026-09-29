@@ -52,6 +52,8 @@ frontend:
     done: Terminé
     close: 'Fermer la visite'
     progress: '%current% / %total%'
+  embed:
+    close: Fermer
   zone:
     collapse: Réduire
     expand: Agrandir

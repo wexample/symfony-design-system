@@ -1,6 +1,11 @@
 {#- Where a page is loaded into the page. `page_loading: false` keeps it from
-    showing a spinner while a slow one is on its way. -#}
+    showing a spinner while a slow one is on its way; `closable` gives it a
+    button that closes it. -#}
 <div class="embed"{% if page_loading is defined and page_loading is same as(false) %} data-page-loading="off"{% endif %}>
     <div class="embed--content"></div>
+    {%- if closable|default(false) -%}
+        {%- set close_label = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.embed.close'|trans -%}
+        <button type="button" class="action-icon embed--close" aria-label="{{ close_label }}" data-tooltip="{{ close_label }}">{{ icon('ph:bold/x') }}</button>
+    {%- endif -%}
     <div class="page-loading--spinner">{% include '@WexampleSymfonyDesignSystemBundle/components/spinner/spinner.html.twig' with { size: 'md' } %}</div>
 </div>

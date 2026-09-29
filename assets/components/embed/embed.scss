@@ -2,10 +2,26 @@
 @use '../../css/shapes/page-loading';
 @use '../../css/shapes/page-actions';
 @use '../../css/shapes/page-transition';
+@use '../../css/shapes/action-icon';
 @use '../spinner/spinner';
 // An embed brings no framing: what holds it decides the width, the border and
-// the scroll. It only makes sure the page it receives fills the room given.
-.embed,
+// the scroll. It only makes sure the page it receives fills the room given —
+// and, empty or waiting, that it still has a room, so the spinner stands in
+// the middle of it rather than at its top edge.
+.embed {
+  position: relative;
+  height: 100%;
+  min-height: var(--size-5);
+}
+
 .embed--content {
   height: 100%;
+}
+
+// Closing is the embed's own gesture, in its corner above the page it holds.
+.embed--close {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  z-index: 2;
 }
