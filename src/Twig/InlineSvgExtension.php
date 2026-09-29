@@ -11,13 +11,13 @@ use Twig\TwigFunction;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 /**
- * A one-colour logo, written into the page rather than linked, so it takes the
- * colour of the text around it: black on a light scheme, white on a dark one,
- * with no second file and no filter. Whatever colour the file was drawn in is
+ * A one-colour drawing — a logo, a mark, an illustration — written into the
+ * page rather than linked, so it takes the colour of the text around it: black
+ * on a light scheme, white on a dark one, with no second file and no filter. Whatever colour the file was drawn in is
  * handed to `currentColor`; what an editor leaves in it — its own metadata,
  * a fixed size — is dropped, the height being the stylesheet's.
  */
-class LogoExtension extends AbstractTemplateExtension
+class InlineSvgExtension extends AbstractTemplateExtension
 {
     private const EDITOR_NAMESPACES = [
         'http://www.inkscape.org/namespaces/inkscape',
@@ -39,12 +39,12 @@ class LogoExtension extends AbstractTemplateExtension
     {
         return [
             new TwigFunction(
-                'logo',
+                'inline_svg',
                 function (Environment $twig, $context, string $path, array $options = []): string {
                     return $this->renderComponent(
                         $twig,
                         $context,
-                        '@WexampleSymfonyDesignSystemBundle/components/logo',
+                        '@WexampleSymfonyDesignSystemBundle/components/inline-svg',
                         [
                             'svg' => $this->monochrome($path),
                             'href' => $options['href'] ?? null,
@@ -118,7 +118,7 @@ class LogoExtension extends AbstractTemplateExtension
             $svg->removeAttribute($attribute);
         }
 
-        $svg->setAttribute('class', 'logo--svg');
+        $svg->setAttribute('class', 'inline-svg--graphic');
         $svg->setAttribute('aria-hidden', 'true');
         $svg->setAttribute('focusable', 'false');
 

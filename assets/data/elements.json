@@ -1268,6 +1268,33 @@
             "notes": []
         },
         {
+            "key": "inline-svg",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A one-colour drawing \u2014 logo, mark, illustration \u2014 written into the page, in the colour of the text around it \u2014 black or white with the scheme, from one file.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/inline-svg/inline-svg.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/inline-svg/inline-svg.html.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "waived",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "vue": "the server reads the file and writes it in; a vue has no file to read",
+                "script": "it is drawn, and drawing needs nothing to run"
+            }
+        },
+        {
             "key": "list-expanded",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -1347,33 +1374,6 @@
                 "style": "wears the style of button and adds none of its own",
                 "template": "client-side by nature: it only makes sense inside a vue tree",
                 "script": "its behaviour is the vue component's"
-            }
-        },
-        {
-            "key": "logo",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": "A one-colour logo written into the page, in the colour of the text around it \u2014 black or white with the scheme, from one file.",
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/logo/logo.scss"
-                ],
-                "template": [
-                    "@WexampleSymfonyDesignSystemBundle/components/logo/logo.html.twig"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "expected",
-                "vue": "waived",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "vue": "the server reads the file and writes it in; a vue has no file to read",
-                "script": "it is drawn, and drawing needs nothing to run"
             }
         },
         {

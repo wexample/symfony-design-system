@@ -1,10 +1,10 @@
-# Declares `logo` to the design system registry.
+# Declares `inline-svg` to the design system registry.
 # formats, per format — whose move it is next:
 #   true            it is there, nothing is owed
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: A one-colour logo written into the page, in the colour of the text around it — black or white with the scheme, from one file.
+description: A one-colour drawing — logo, mark, illustration — written into the page, in the colour of the text around it — black or white with the scheme, from one file.
 formats:
   style: true
   template: true
