@@ -50,6 +50,9 @@ class InlineSvgExtension extends AbstractTemplateExtension
                             'href' => $options['href'] ?? null,
                             'label' => $options['label'] ?? null,
                             'class' => $options['class'] ?? null,
+                            // Red to the left, cyan to the right, as a worn tape
+                            // shifts its colours.
+                            'chromatic' => $options['chromatic'] ?? false,
                         ]
                     );
                 },
