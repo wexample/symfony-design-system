@@ -25,6 +25,9 @@
 
 .properties--value {
   margin: 0;
+  // A value takes the direction of what it says — an email in an Arabic page
+  // still reads left to right — and the alignment of the page around it.
+  unicode-bidi: plaintext;
   min-width: 0;
   overflow-wrap: anywhere;
   color: var(--color-default-text);

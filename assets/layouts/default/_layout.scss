@@ -68,3 +68,12 @@ body {
 [dir='ltr'] {
   --direction-sign: 1;
 }
+
+// A glyph that points along the line — an arrow, a caret, an indent — points
+// the other way in a page read from the right. Mirrored with `scale` and not
+// `transform`, so a caret a component already turns keeps its turn. Named by
+// the glyph, not listed one by one: the next arrow drawn is mirrored too. An
+// alignment glyph says which edge, not which way, and stays as it is.
+.icon:dir(rtl):is([class*='-left'], [class*='-right'], [class*='-indent'], [class*='-outdent']):not([class*='align-']) {
+  scale: -1 1;
+}

@@ -61,6 +61,8 @@
 
 .table--cell {
   padding: var(--space-3) var(--space-4);
+  // A cell reads in the direction of what it holds, aligned with the table.
+  unicode-bidi: plaintext;
   font-size: var(--font-size-3);
   border-bottom: var(--border-separator);
 }

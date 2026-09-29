@@ -1,3 +1,13 @@
+// Code reads left to right in any page, and keeps apart from the words around
+// it: a command inside an Arabic sentence is still the command.
+code,
+kbd,
+samp,
+pre {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
 pre:has(> code[class*='language-']),
 pre.code-block {
   border-radius: 0.5rem;

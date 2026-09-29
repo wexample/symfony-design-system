@@ -85,7 +85,8 @@ export default class extends Component {
     );
   }
 
-  // A branch opens to the right of the panel unless the window ends there.
+  // A branch opens toward the end of the line — the right, or the left in a
+  // page read from the right — unless the window ends there.
   private placeSubmenu(el: HTMLElement): void {
     const list = el.parentElement?.querySelector(
       '.button-menu--sublist'
@@ -95,10 +96,15 @@ export default class extends Component {
       return;
     }
 
-    list.classList.remove('button-menu--sublist--left');
+    const rtl = this.isRtl();
+    list.classList.toggle('button-menu--sublist--left', rtl);
 
-    if (list.getBoundingClientRect().right > window.innerWidth) {
+    const rect = list.getBoundingClientRect();
+
+    if (!rtl && rect.right > window.innerWidth) {
       list.classList.add('button-menu--sublist--left');
+    } else if (rtl && rect.left < 0) {
+      list.classList.remove('button-menu--sublist--left');
     }
   }
 
@@ -116,9 +122,11 @@ export default class extends Component {
       throw new Error('Button menu elements not found.');
     }
 
-    this.defaultAlign = this.panelEl.classList.contains('button-menu--panel--right')
-      ? 'right'
-      : 'left';
+    // The alignment asked for is along the line: its start is the left, or
+    // the right in a page read from the right. The placement itself is
+    // measured in screen coordinates, so it is turned here once.
+    const alignEnd = this.panelEl.classList.contains('button-menu--panel--right');
+    this.defaultAlign = alignEnd !== this.isRtl() ? 'right' : 'left';
     this.defaultVertical = this.panelEl.classList.contains('button-menu--panel--top')
       ? 'top'
       : 'bottom';
@@ -222,6 +230,10 @@ export default class extends Component {
 
       this.applyPlacement(align, vertical);
     });
+  }
+
+  private isRtl(): boolean {
+    return getComputedStyle(this.el).direction === 'rtl';
   }
 
   private resetPlacement(): void {

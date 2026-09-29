@@ -49,7 +49,12 @@ export function attachZoneResize(handle: HTMLElement, app: App): () => void {
 
   const axis: DragAxis = (handle.dataset.zoneResizerAxis as DragAxis)
     || (split.classList.contains('zone--split--vertical') ? 'y' : 'x');
-  const direction: 1 | -1 = handle.dataset.zoneResizerEdge === 'start' ? -1 : 1;
+  // The edge is named along the line: its end is on the right, or on the left
+  // in a page read from the right, where dragging toward it runs the other way.
+  const edgeSign: 1 | -1 = handle.dataset.zoneResizerEdge === 'start' ? -1 : 1;
+  const direction: 1 | -1 = axis === 'x' && getComputedStyle(zone).direction === 'rtl'
+    ? (edgeSign === 1 ? -1 : 1)
+    : edgeSign;
 
   // The axis is known here and not when the markup was written: the handle is
   // placed and announced once the split it belongs to has been read.

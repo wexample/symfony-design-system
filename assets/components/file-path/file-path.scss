@@ -1,6 +1,10 @@
 // The folders give way before the name does, and give way from their start.
 .file-path {
   display: inline-flex;
+  // A path reads left to right in any page, and keeps apart from the words
+  // around it.
+  direction: ltr;
+  unicode-bidi: isolate;
   max-width: 100%;
   min-width: 0;
   vertical-align: bottom;

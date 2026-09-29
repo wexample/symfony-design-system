@@ -187,13 +187,13 @@
 }
 
 .button-menu--panel--right {
-  inset-inline-end: 0;
-  inset-inline-start: auto;
+  right: 0; // physical: the script measures the panel in screen coordinates
+  left: auto; // physical: the script measures the panel in screen coordinates
 }
 
 .button-menu--panel--left {
-  inset-inline-start: 0;
-  inset-inline-end: auto;
+  left: 0; // physical: the script measures the panel in screen coordinates
+  right: auto; // physical: the script measures the panel in screen coordinates
 }
 
 .button-menu--list {
@@ -363,7 +363,7 @@
   display: none;
   position: absolute;
   top: calc(var(--space-2) * -1);
-  inset-inline-start: 100%;
+  left: 100%; // physical: the script measures the panel in screen coordinates
   min-width: 100%;
   width: max-content;
   background: var(--surface-3);
@@ -378,10 +378,11 @@
   display: flex;
 }
 
-// Where the window ends before the branch does.
+// Where the window ends before the branch does, and where a page read from
+// the right opens it.
 .button-menu--sublist--left {
-  inset-inline-start: auto;
-  inset-inline-end: 100%;
+  left: auto; // physical: the script measures the panel in screen coordinates
+  right: 100%; // physical: the script measures the panel in screen coordinates
 }
 
 .button-menu--list--items-right .button-menu--link {

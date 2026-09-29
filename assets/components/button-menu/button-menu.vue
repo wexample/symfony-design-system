@@ -208,7 +208,7 @@ export default {
       this.isOpen = false;
       this.openSubmenu = null;
       this.unwatchDocument();
-      this.align = this.menuAlign;
+      this.align = this.physicalAlign();
       this.vertical = this.menuVertical;
       this.$emit('close');
     },
@@ -282,10 +282,16 @@ export default {
         return;
       }
 
-      list.classList.remove('button-menu--sublist--left');
+      // Toward the end of the line, unless the window ends there.
+      const rtl = this.isRtl();
+      list.classList.toggle('button-menu--sublist--left', rtl);
 
-      if (list.getBoundingClientRect().right > window.innerWidth) {
+      const rect = list.getBoundingClientRect();
+
+      if (!rtl && rect.right > window.innerWidth) {
         list.classList.add('button-menu--sublist--left');
+      } else if (rtl && rect.left < 0) {
+        list.classList.remove('button-menu--sublist--left');
       }
     },
 
@@ -306,8 +312,22 @@ export default {
       const fitsBottom = buttonRect.bottom + panelRect.height <= window.innerHeight;
       const fitsTop = buttonRect.top - panelRect.height >= 0;
 
-      this.align = this.resolveSide(this.menuAlign, 'left', 'right', fitsLeft, fitsRight);
+      this.align = this.resolveSide(this.physicalAlign(), 'left', 'right', fitsLeft, fitsRight);
       this.vertical = this.resolveSide(this.menuVertical, 'bottom', 'top', fitsBottom, fitsTop);
+    },
+
+    // The alignment asked for is along the line; the placement is measured
+    // in screen coordinates, so a page read from the right turns it.
+    physicalAlign() {
+      if (!this.isRtl()) {
+        return this.menuAlign;
+      }
+
+      return this.menuAlign === 'right' ? 'left' : 'right';
+    },
+
+    isRtl() {
+      return Boolean(this.$el) && getComputedStyle(this.$el).direction === 'rtl';
     },
 
     resolveSide(asked, first, second, firstFits, secondFits) {
