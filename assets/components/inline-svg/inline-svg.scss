@@ -13,15 +13,3 @@
   height: var(--inline-svg-height, var(--space-5));
 }
 
-// The colours a worn tape lets slip: red a little to the left, cyan a little to
-// the right, under the drawing and not over it — a hint, not a glitch.
-.inline-svg--chromatic {
-  --inline-svg-chromatic-offset: 1.5px;
-  --inline-svg-chromatic-strength: 70%;
-
-  .inline-svg--graphic {
-    filter:
-      drop-shadow(calc(var(--inline-svg-chromatic-offset) * -1) 0 0 color-mix(in srgb, var(--color-cat-ruby-fill) var(--inline-svg-chromatic-strength), transparent))
-      drop-shadow(var(--inline-svg-chromatic-offset) 0 0 color-mix(in srgb, var(--color-cat-aqua-fill) var(--inline-svg-chromatic-strength), transparent));
-  }
-}
