@@ -255,6 +255,24 @@ export default {
       return column?.cell === 'path';
     },
 
+    // Where a cell leads when its column names a route: the same `route`,
+    // `params` and `target` an action takes, read off the column.
+    getCellLink(row, column) {
+      if (!column?.route) {
+        return null;
+      }
+
+      const parameters = typeof column.params === 'function'
+        ? column.params(row, column)
+        : (column.params ?? {});
+
+      return {
+        href: this.app.getServiceOrFail('routing').path(column.route, parameters),
+        target: column.target ?? '',
+        targetOptions: column.targetOptions ?? {},
+      };
+    },
+
     isMarkerCell(column) {
       return column?.cell === 'status';
     },

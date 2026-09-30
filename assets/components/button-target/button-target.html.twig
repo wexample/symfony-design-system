@@ -5,7 +5,11 @@
    data-target="{{ options.target }}"
    {% if options.target_options is defined %}data-target-options="{{ options.target_options|json_encode|e('html_attr') }}"{% endif %}
         {{ component_render_tag_attributes(options.attr|default({})) }}>
-    {%- if label -%}
+    {%- if html is defined and html -%}
+        {#- Whatever the caller drew — a file path — made to lead where a
+            target button leads. -#}
+        {{- html|raw -}}
+    {%- elseif label -%}
         <span class="button--icon">{{ icon(icon) }}</span>
         <span>{{ label | trans }}</span>
     {%- else -%}

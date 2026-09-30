@@ -34,3 +34,18 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+// A path leading to its file: the name takes the link's colour, the folders
+// keep their grey, and hovering underlines the name alone.
+.file-path--link {
+  color: inherit;
+  text-decoration: none;
+
+  .file-path--name {
+    color: var(--color-link);
+  }
+
+  &:hover .file-path--name {
+    text-decoration: underline;
+  }
+}

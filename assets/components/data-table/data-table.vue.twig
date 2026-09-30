@@ -160,7 +160,17 @@
                             ></date-display>
                         </template>
                         <template v-else-if="isPathCell(column)">
-                            <file-path v-if="getCellValue(row, column)" :path="getCellValue(row, column)"></file-path>
+                            {#- A column naming a `route` makes each path lead to its
+                                file, opened where its `target` says. -#}
+                            <button-target
+                                    v-if="getCellValue(row, column) && getCellLink(row, column)"
+                                    :app="app"
+                                    :href="getCellLink(row, column).href"
+                                    :target="getCellLink(row, column).target"
+                                    :target-options="getCellLink(row, column).targetOptions"
+                                    class-name="file-path--link"
+                            ><file-path :path="getCellValue(row, column)"></file-path></button-target>
+                            <file-path v-else-if="getCellValue(row, column)" :path="getCellValue(row, column)"></file-path>
                         </template>
                         <template v-else-if="isMarkerCell(column)">
                             <capsule

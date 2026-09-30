@@ -174,7 +174,12 @@
                         {%- elseif column.cell == 'html' -%}
                             {{- value|raw -}}
                         {%- elseif column.cell == 'path' -%}
-                            {{- file_path(value) -}}
+                            {#- A path, or { path, href, target } leading to it. -#}
+                            {%- if value is iterable -%}
+                                {{- file_path(value.path|default(''), { href: value.href|default(null), target: value.target|default(null) }) -}}
+                            {%- else -%}
+                                {{- file_path(value) -}}
+                            {%- endif -%}
                         {%- elseif column.cell == 'status' -%}
                             {#- A type name, or { type, count, title, label }. One
                                 capsule for the two: a mark and a count beside it

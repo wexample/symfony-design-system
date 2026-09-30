@@ -39,3 +39,28 @@
   min-height: 0;
   box-sizing: border-box;
 }
+
+// A form filling the page — an editor — hands the room to its text: whatever
+// holds the form and the form itself are columns, the group holding a text
+// area takes what the others leave, and the text area fills its group. Full
+// page or in a panel, the text is as tall as the room.
+.page--fill > :has(form),
+.page--fill form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.page--fill form :is(.form--group, .form--row, div):has(> textarea) {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.page--fill form textarea {
+  flex: 1;
+  min-height: var(--size-6);
+  resize: none;
+}

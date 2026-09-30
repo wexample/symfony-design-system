@@ -3,8 +3,16 @@
 {%- block vue_body -%}
     {# Client-side twin of components/button-target.html.twig: same options, same
        markup. A change to either is a change to both. #}
+    {#- Whatever the caller puts inside — a file path — led where the target
+        says, instead of the icon and the words. -#}
     <a
-            v-if="label"
+            v-if="$slots.default"
+            :class="className"
+            :href="href || '#'"
+            @click="onClick"
+    ><slot></slot></a>
+    <a
+            v-else-if="label"
             :class="className"
             :href="href || '#'"
             @click="onClick"
