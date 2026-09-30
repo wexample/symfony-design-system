@@ -27,3 +27,15 @@
   height: 100%;
   min-height: 0;
 }
+
+// Inside a zone, the column holding the page's content is sized by what it
+// holds — unless the page fills: then it takes the zone's height and becomes the
+// column the fill takes what is left of, so a conversation keeps its field at
+// the foot of the zone instead of under its last message.
+.zone--content:has(> .page--fill) {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+}
