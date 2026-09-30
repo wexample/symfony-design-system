@@ -20,6 +20,15 @@
   }
 }
 
+// Whatever holds a fill directly — a zone's content, a panel's body, a
+// modal's — is the column it takes what is left of. Said of the holder and not
+// of each place a page can be drawn in, so a new place needs nothing.
+:has(> .page--fill) {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
 // A page holding a fill is a page that fills: its layout wrapper trades its
 // minimum for a definite height, so the room is handed down to the fill instead
 // of the wrapper growing with the content. The page declares nothing else.
