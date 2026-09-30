@@ -54,6 +54,12 @@ export default {
       type: String,
       default: null
     },
+    // Splits the button: { href } leads somewhere, anything else is a button
+    // emitting `action`. The caret stuck to its end alone opens the menu.
+    action: {
+      type: Object,
+      default: null
+    },
     // From how many items the panel scrolls under a field narrowing it — for
     // the long list that asks for it; 0, the default, never.
     filterFrom: {
@@ -62,7 +68,7 @@ export default {
     }
   },
 
-  emits: ['select', 'toggle', 'open', 'close'],
+  emits: ['select', 'toggle', 'open', 'close', 'action'],
 
   data() {
     return {
@@ -84,7 +90,7 @@ export default {
 
   computed: {
     wrapperClasses() {
-      return ['button-menu', this.wrapperClass, this.isOpen ? 'is-open' : null];
+      return ['button-menu', this.action ? 'button-menu--split' : null, this.wrapperClass, this.isOpen ? 'is-open' : null];
     },
 
     buttonClasses() {
@@ -318,7 +324,8 @@ export default {
 
     // The asked-for side is kept unless it is the only one that does not fit.
     updatePlacement() {
-      const button = this.$refs.button;
+      // A split button's panel lines up with the whole of it, not its caret.
+      const button = this.$refs.group || this.$refs.button;
       const panel = this.$refs.panel;
 
       if (!button || !panel) {
@@ -335,6 +342,11 @@ export default {
 
       this.align = this.resolveSide(this.physicalAlign(), 'left', 'right', fitsLeft, fitsRight);
       this.vertical = this.resolveSide(this.menuVertical, 'bottom', 'top', fitsBottom, fitsTop);
+    },
+
+    onAction(event) {
+      this.close();
+      this.$emit('action', event);
     },
 
     itemVisible(item) {

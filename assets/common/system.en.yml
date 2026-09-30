@@ -55,6 +55,7 @@ frontend:
   embed:
     close: Close
   menu:
+    more: More options
     filter: Filter
     filter_empty: Nothing matches
   zone:

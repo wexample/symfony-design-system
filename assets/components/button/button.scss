@@ -117,7 +117,32 @@
   border-end-end-radius: 0;
 }
 
-.button-menu--invert .button--menu {
+// A split button: the body does the action, the caret stuck to its end opens
+// the menu. One object to the eye — the two halves share their inner edge,
+// and a line of the button's own colour tells where one ends.
+.button-menu--split-group {
+  display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.button-menu--action {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.button-menu--toggle {
+  padding-inline: var(--space-2);
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+  border-inline-start: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+}
+
+.button-menu--split.is-open .button-menu--action {
+  border-end-start-radius: 0;
+}
+
+.button-menu--invert :is(.button--menu, .button-menu--action) {
   background: var(--color-default-background-invert);
   color: var(--color-default-text-invert);
 }

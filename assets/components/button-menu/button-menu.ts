@@ -256,7 +256,8 @@ export default class extends Component {
         return;
       }
 
-      const buttonRect = this.buttonEl.getBoundingClientRect();
+      // A split button's panel lines up with the whole of it, not its caret.
+      const buttonRect = (this.el.querySelector('.button-menu--split-group') ?? this.buttonEl).getBoundingClientRect();
       const panelRect = this.panelEl.getBoundingClientRect();
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;

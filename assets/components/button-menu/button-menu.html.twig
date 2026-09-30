@@ -144,27 +144,54 @@
     list of languages, not a toolbar's handful of actions. Off unless asked. -#}
 {% set filter_from = options.filter_from ?? 0 %}
 {% set filterable = filter_from > 0 and items|filter(entry => not (entry.separator|default(false)))|length >= filter_from %}
-<div class="button-menu{% if wrapper_class %} {{ wrapper_class }}{% endif %}"
+{#- Given an `action` — `{ href }`, or `{ type: 'submit' }` in a form — the
+    button is split: its body does the action, a caret stuck to its end opens
+    the menu, and only the caret does. -#}
+{% set action = options.action|default(null) %}
+<div class="button-menu{% if action %} button-menu--split{% endif %}{% if wrapper_class %} {{ wrapper_class }}{% endif %}"
      {{ component_render_tag_attributes(wrapper_attr) }}>
-    <button class="button button--menu{% if options.class is defined %} {{ options.class }}{% endif %}"
-            type="{{ options.type|default('button') }}"
-            aria-haspopup="menu"
-            aria-expanded="false"
-            {{ component_render_tag_attributes(button_attr) }}>
-        {%- if icon -%}
-            <span class="button--icon">
-                {{ icon(icon) }}
-            </span>
-        {%- endif -%}
-        {%- if label -%}
-            <span class="button-menu--label">{{ label }}</span>
-        {%- endif -%}
-        {#- An icon on its own says it opens something by what it is — a caret
-            beside it is noise. Anything with a word keeps one. -#}
-        {%- if options.caret|default(label is not empty) -%}
-            <span class="button-menu--caret" aria-hidden="true"></span>
-        {%- endif -%}
-    </button>
+    {%- if action -%}
+        {%- set action_class = 'button button-menu--action' ~ (options.class is defined ? ' ' ~ options.class : '') -%}
+        {%- set more_label = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.more'|trans -%}
+        <div class="button-menu--split-group">
+            {%- if action.href|default(null) -%}
+                <a class="{{ action_class }}" href="{{ action.href }}" {{ component_render_tag_attributes(action.attr|default({})) }}>
+            {%- else -%}
+                <button class="{{ action_class }}" type="{{ action.type|default('button') }}" {{ component_render_tag_attributes(action.attr|default({})) }}>
+            {%- endif -%}
+                {%- if icon -%}<span class="button--icon">{{ icon(icon) }}</span>{%- endif -%}
+                {%- if label -%}<span class="button-menu--label">{{ label }}</span>{%- endif -%}
+            {%- if action.href|default(null) -%}</a>{%- else -%}</button>{%- endif -%}
+            <button class="button button--menu button-menu--toggle{% if options.class is defined %} {{ options.class }}{% endif %}"
+                    type="button"
+                    aria-haspopup="menu"
+                    aria-expanded="false"
+                    aria-label="{{ more_label }}"
+                    title="{{ more_label }}">
+                <span class="button-menu--caret" aria-hidden="true"></span>
+            </button>
+        </div>
+    {%- else -%}
+        <button class="button button--menu{% if options.class is defined %} {{ options.class }}{% endif %}"
+                type="{{ options.type|default('button') }}"
+                aria-haspopup="menu"
+                aria-expanded="false"
+                {{ component_render_tag_attributes(button_attr) }}>
+            {%- if icon -%}
+                <span class="button--icon">
+                    {{ icon(icon) }}
+                </span>
+            {%- endif -%}
+            {%- if label -%}
+                <span class="button-menu--label">{{ label }}</span>
+            {%- endif -%}
+            {#- An icon on its own says it opens something by what it is — a caret
+                beside it is noise. Anything with a word keeps one. -#}
+            {%- if options.caret|default(label is not empty) -%}
+                <span class="button-menu--caret" aria-hidden="true"></span>
+            {%- endif -%}
+        </button>
+    {%- endif -%}
     <div class="button-menu--panel button-menu--panel--{{ menu_align }}{% if menu_vertical == 'top' %} button-menu--panel--top{% endif %}{% if filterable %} button-menu--panel--long{% endif %}"
          role="menu"
          hidden="hidden">

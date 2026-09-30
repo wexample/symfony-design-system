@@ -8,7 +8,33 @@
     {#- Client-side twin of components/button-menu.html.twig: same markup, same
         classes, same item shapes. A change to either is a change to both. -#}
     <div :class="wrapperClasses">
+        {#- Split: the body does the action, the caret opens the menu. -#}
+        <div v-if="action" ref="group" class="button-menu--split-group">
+            <component
+                    :is="action.href ? 'a' : 'button'"
+                    :class="['button', 'button-menu--action', buttonClass]"
+                    :href="action.href || null"
+                    :type="action.href ? null : (action.type || 'button')"
+                    @click="onAction"
+            >
+                <span v-if="iconHtml" class="button--icon" v-html="iconHtml"></span>
+                <span v-if="label" class="button-menu--label">[[ label ]]</span>
+            </component>
+            <button
+                    ref="button"
+                    :class="['button', 'button--menu', 'button-menu--toggle', buttonClass]"
+                    type="button"
+                    aria-haspopup="menu"
+                    :aria-expanded="isOpen ? 'true' : 'false'"
+                    :aria-label="trans('@vue::menu.more')"
+                    :title="trans('@vue::menu.more')"
+                    @click.prevent="toggle"
+            >
+                <span class="button-menu--caret" aria-hidden="true"></span>
+            </button>
+        </div>
         <button
+                v-else
                 ref="button"
                 :class="buttonClasses"
                 type="button"
