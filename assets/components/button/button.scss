@@ -205,6 +205,38 @@
   gap: var(--space-1);
 }
 
+// A long menu: the list scrolls under the field that narrows it, and the
+// panel keeps a height a screen can hold.
+.button-menu--panel--long .button-menu--list {
+  max-height: var(--button-menu-max-height, min(60vh, var(--size-7)));
+  overflow-y: auto;
+}
+
+.button-menu--list > li[hidden] {
+  display: none;
+}
+
+.button-menu--filter {
+  padding: var(--space-2) var(--space-2) 0;
+}
+
+.button-menu--filter-input {
+  width: 100%;
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-default);
+  border-radius: var(--radius-control);
+  background: var(--surface-page);
+  color: inherit;
+  font: inherit;
+}
+
+.button-menu--filter-empty {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  color: var(--text-color-muted);
+  font-size: var(--font-size-2);
+}
+
 .button-menu--item {
   margin: 0;
   padding: 0;

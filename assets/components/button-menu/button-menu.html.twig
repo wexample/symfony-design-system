@@ -139,6 +139,11 @@
 {% set wrapper_class = options.wrapper_class|default('') %}
 {% set wrapper_attr = options.wrapper_attr|default({}) %}
 {% set button_attr = options.attr|default({}) %}
+{#- A menu past a handful of items is read by looking for one: from
+    `filter_from` of them (8 unless said otherwise, 0 never) the panel scrolls
+    under a field that narrows it. -#}
+{% set filter_from = options.filter_from ?? 8 %}
+{% set filterable = filter_from > 0 and items|filter(entry => not (entry.separator|default(false)))|length >= filter_from %}
 <div class="button-menu{% if wrapper_class %} {{ wrapper_class }}{% endif %}"
      {{ component_render_tag_attributes(wrapper_attr) }}>
     <button class="button button--menu{% if options.class is defined %} {{ options.class }}{% endif %}"
@@ -160,13 +165,23 @@
             <span class="button-menu--caret" aria-hidden="true"></span>
         {%- endif -%}
     </button>
-    <div class="button-menu--panel button-menu--panel--{{ menu_align }}{% if menu_vertical == 'top' %} button-menu--panel--top{% endif %}"
+    <div class="button-menu--panel button-menu--panel--{{ menu_align }}{% if menu_vertical == 'top' %} button-menu--panel--top{% endif %}{% if filterable %} button-menu--panel--long{% endif %}"
          role="menu"
          hidden="hidden">
+        {%- if filterable -%}
+            {%- set filter_label = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.filter'|trans -%}
+            <div class="button-menu--filter">
+                <input class="button-menu--filter-input" type="search" autocomplete="off"
+                       placeholder="{{ filter_label }}" aria-label="{{ filter_label }}">
+            </div>
+        {%- endif -%}
         <ul class="button-menu--list button-menu--list--items-{{ items_align }}">
             {% for item in items %}
                 {{ menu.item(item, 0) }}
             {% endfor %}
         </ul>
+        {%- if filterable -%}
+            <p class="button-menu--filter-empty" hidden>{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.filter_empty'|trans }}</p>
+        {%- endif -%}
     </div>
 </div>

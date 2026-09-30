@@ -1,5 +1,6 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
+import { filterTextMatches } from '../../js/Helper/FilterHelper';
 
 export default class extends Component {
   protected overlayUseBackdrop: boolean = false;
@@ -11,6 +12,16 @@ export default class extends Component {
   private panelEl?: HTMLElement;
   private itemLinks: HTMLElement[] = [];
   private submenuRows: HTMLElement[] = [];
+  private filterInput?: HTMLInputElement;
+  // What the field narrows the list to, as the visitor types.
+  private onFilterInput = () => this.applyFilter();
+  // Enter in the field follows the first item left.
+  private onFilterKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.visibleRows()[0]?.querySelector<HTMLElement>('a, button')?.click();
+    }
+  };
   private defaultAlign: 'left' | 'right' = 'left';
   private defaultVertical: 'bottom' | 'top' = 'bottom';
   private onDocumentMouseDown = (event: MouseEvent) => {
@@ -140,6 +151,10 @@ export default class extends Component {
     this.submenuRows.forEach((row) => {
       row.addEventListener('mouseenter', this.onSubmenuEnter);
     });
+
+    this.filterInput = this.el.querySelector<HTMLInputElement>('.button-menu--filter-input') ?? undefined;
+    this.filterInput?.addEventListener('input', this.onFilterInput);
+    this.filterInput?.addEventListener('keydown', this.onFilterKeyDown);
   }
 
   protected async deactivateListeners(): Promise<void> {
@@ -154,6 +169,42 @@ export default class extends Component {
     this.submenuRows.forEach((row) => {
       row.removeEventListener('mouseenter', this.onSubmenuEnter);
     });
+
+    this.filterInput?.removeEventListener('input', this.onFilterInput);
+    this.filterInput?.removeEventListener('keydown', this.onFilterKeyDown);
+  }
+
+  // The rows of the list the field has left, separators apart.
+  private visibleRows(): HTMLElement[] {
+    return Array.from(this.panelEl?.querySelectorAll<HTMLElement>(':scope > .button-menu--list > li:not(.button-menu--separator)') ?? [])
+      .filter((row) => !row.hidden);
+  }
+
+  private applyFilter(): void {
+    const query = this.filterInput?.value ?? '';
+    const rows = Array.from(this.panelEl?.querySelectorAll<HTMLElement>(':scope > .button-menu--list > li') ?? []);
+
+    rows.forEach((row) => {
+      if (row.classList.contains('button-menu--separator')) {
+        // A heading means nothing once its run is cut into.
+        row.hidden = query.trim() !== '';
+
+        return;
+      }
+
+      const target = row.querySelector<HTMLElement>('a, button');
+      row.hidden = !filterTextMatches(
+        query,
+        row.querySelector('.button-menu--item-label')?.textContent,
+        target?.dataset.filter,
+      );
+    });
+
+    const empty = this.panelEl?.querySelector<HTMLElement>('.button-menu--filter-empty');
+
+    if (empty) {
+      empty.hidden = this.visibleRows().length > 0;
+    }
   }
 
   overlayOnOpen(): void {
@@ -166,6 +217,13 @@ export default class extends Component {
 
     document.addEventListener('mousedown', this.onDocumentMouseDown);
     this.updatePlacement();
+
+    // A long menu opens on its field: the visitor types before they scroll.
+    if (this.filterInput) {
+      this.filterInput.value = '';
+      this.applyFilter();
+      requestAnimationFrame(() => this.filterInput?.focus());
+    }
   }
 
   overlayOnClose(): void {

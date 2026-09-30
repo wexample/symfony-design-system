@@ -1,5 +1,9 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
 
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.*') }}
+{%- endblock -%}
+
 {%- block vue_body -%}
     {#- Client-side twin of components/button-menu.html.twig: same markup, same
         classes, same item shapes. A change to either is a change to both. -#}
@@ -22,17 +26,30 @@
                 role="menu"
                 :hidden="!isOpen"
         >
+            <div v-if="filterable" class="button-menu--filter">
+                <input
+                        ref="filter"
+                        v-model="filterQuery"
+                        class="button-menu--filter-input"
+                        type="search"
+                        autocomplete="off"
+                        :placeholder="trans('@vue::menu.filter')"
+                        :aria-label="trans('@vue::menu.filter')"
+                        @keydown.enter.prevent="followFirstVisible"
+                >
+            </div>
             <ul :class="listClasses">
                 <template v-for="(item, index) in items" :key="index">
                     {#- Not an item but the line between two runs of them. Given a
                         word it becomes the heading of what follows. -#}
                     <li
                             v-if="itemType(item) === 'separator'"
+                            v-show="!filterQuery.trim()"
                             class="button-menu--separator"
                             :class="{ 'button-menu--separator--titled': item.label }"
                             role="separator"
                     >[[ item.label ]]</li>
-                    <li v-else :class="itemClasses(item, index)" role="none">
+                    <li v-else v-show="itemVisible(item)" :class="itemClasses(item, index)" role="none">
                         {#- One row for the three kinds: a link goes somewhere and
                             is an anchor, a toggle and a branch go nowhere and are
                             buttons. -#}
@@ -131,6 +148,7 @@
                     </li>
                 </template>
             </ul>
+            <p v-if="filterable && !anyVisible" class="button-menu--filter-empty">[[ trans('@vue::menu.filter_empty') ]]</p>
         </div>
     </div>
 {%- endblock -%}

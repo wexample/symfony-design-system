@@ -1,5 +1,6 @@
 <script>
 import IconService from '@wexample/symfony-loader/js/Services/IconService';
+import { filterTextMatches } from '../../js/Helper/FilterHelper';
 
 // The twin of components/button-menu: same classes, same panel, and above all
 // the same item shape — { type, icon, label, trailingIcon, count, href,
@@ -52,6 +53,11 @@ export default {
     wrapperClass: {
       type: String,
       default: null
+    },
+    // From how many items the panel scrolls under a field narrowing it; 0 never.
+    filterFrom: {
+      type: Number,
+      default: 8
     }
   },
 
@@ -66,7 +72,8 @@ export default {
       // What the panel resolved to this time round, which is not always what the
       // props asked for.
       align: this.menuAlign,
-      vertical: this.menuVertical
+      vertical: this.menuVertical,
+      filterQuery: ''
     };
   },
 
@@ -87,8 +94,18 @@ export default {
       return [
         'button-menu--panel',
         `button-menu--panel--${this.align}`,
-        this.vertical === 'top' ? 'button-menu--panel--top' : null
+        this.vertical === 'top' ? 'button-menu--panel--top' : null,
+        this.filterable ? 'button-menu--panel--long' : null
       ];
+    },
+
+    filterable() {
+      return this.filterFrom > 0
+        && this.items.filter((item) => this.itemType(item) !== 'separator').length >= this.filterFrom;
+    },
+
+    anyVisible() {
+      return this.items.some((item) => this.itemType(item) !== 'separator' && this.itemVisible(item));
     },
 
     listClasses() {
@@ -193,6 +210,9 @@ export default {
 
     open() {
       this.isOpen = true;
+      // A long menu opens on its field: the visitor types before they scroll.
+      this.filterQuery = '';
+      this.$nextTick(() => this.$refs.filter?.focus());
       document.addEventListener('mousedown', this.onDocumentMouseDown);
       document.addEventListener('keydown', this.onDocumentKeyDown);
       // Measured once it is on screen, since a hidden panel has no size.
@@ -314,6 +334,17 @@ export default {
 
       this.align = this.resolveSide(this.physicalAlign(), 'left', 'right', fitsLeft, fitsRight);
       this.vertical = this.resolveSide(this.menuVertical, 'bottom', 'top', fitsBottom, fitsTop);
+    },
+
+    itemVisible(item) {
+      return filterTextMatches(this.filterQuery, item.label, item.attr?.['data-filter']);
+    },
+
+    // Enter in the field follows the first item left.
+    followFirstVisible() {
+      const first = this.$refs.panel?.querySelector(':scope > .button-menu--list > li:not(.button-menu--separator):not([style*="display: none"]) a, :scope > .button-menu--list > li:not(.button-menu--separator):not([style*="display: none"]) button');
+
+      first?.click();
     },
 
     // The alignment asked for is along the line; the placement is measured

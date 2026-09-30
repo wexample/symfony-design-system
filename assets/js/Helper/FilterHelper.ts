@@ -109,3 +109,13 @@ export function filterMatches(row: Record<string, unknown>, values: FilterValues
     return held.some((entry) => selected.includes(entry));
   });
 }
+
+// A text the visitor typed found in another: case, accents and the spaces
+// around it do not count, so « fra » finds « Français » and « ara » « العربية »'s
+// code when the code is part of what is searched.
+export function filterTextMatches(query: string, ...texts: Array<string | null | undefined>): boolean {
+  const fold = (text: string): string => text.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().trim();
+  const needle = fold(query);
+
+  return needle === '' || texts.some((text) => text != null && fold(text).includes(needle));
+}
