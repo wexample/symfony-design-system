@@ -194,6 +194,15 @@
 // overflow and the frame is what moves, all the rows together.
 .zone--scrollable--x {
   overflow-x: auto;
+
+  // What it holds is as wide as its widest row asks — the floors of its
+  // regions, their text wrapping — and never narrower than the frame, so a
+  // short row stretches to meet a long one instead of stopping short when the
+  // frame scrolls.
+  > .zone {
+    width: min-content;
+    min-width: 100%;
+  }
 }
 
 .zone--narrow {
