@@ -1,0 +1,68 @@
+en:
+  label: Color scheme
+
+ar:
+  label: 'نظام الألوان'
+
+bn:
+  label: 'রঙের স্কিম'
+
+de:
+  label: Farbschema
+
+es:
+  label: 'Esquema de color'
+
+fa:
+  label: 'طرح رنگ'
+
+fi:
+  label: Väriteema
+
+fr:
+  label: 'Color scheme'
+
+he:
+  label: 'סכמת צבעים'
+
+hi:
+  label: 'रंग योजना'
+
+id:
+  label: 'Skema warna'
+
+it:
+  label: 'Schema colori'
+
+ja:
+  label: カラースキーム
+
+ko:
+  label: '색상 구성'
+
+nl:
+  label: Kleurschema
+
+pl:
+  label: 'Schemat kolorów'
+
+pt_BR:
+  label: 'Esquema de cores'
+
+ru:
+  label: 'Цветовая схема'
+
+th:
+  label: โทนสี
+
+tr:
+  label: 'Renk şeması'
+
+ur:
+  label: 'رنگوں کا منصوبہ'
+
+vi:
+  label: 'Bảng màu'
+
+zh:
+  label: 配色方案

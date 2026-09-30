@@ -1,0 +1,160 @@
+en:
+  composer:
+    placeholder: Write a message...
+    submit: Send
+  thread:
+    load_older: Load earlier messages
+
+ar:
+  composer:
+    placeholder: 'اكتب رسالة...'
+    submit: إرسال
+  thread:
+    load_older: 'تحميل الرسائل السابقة'
+
+bn:
+  composer:
+    placeholder: 'একটি বার্তা লিখুন...'
+    submit: পাঠান
+  thread:
+    load_older: 'পুরানো বার্তা লোড করুন'
+
+de:
+  composer:
+    placeholder: 'Nachricht schreiben...'
+    submit: Senden
+  thread:
+    load_older: 'Ältere Nachrichten laden'
+
+es:
+  composer:
+    placeholder: 'Escribe un mensaje...'
+    submit: Enviar
+  thread:
+    load_older: 'Cargar mensajes anteriores'
+
+fa:
+  composer:
+    placeholder: 'پیامی بنویسید...'
+    submit: ارسال
+  thread:
+    load_older: 'بارگذاری پیام‌های قدیمی‌تر'
+
+fi:
+  composer:
+    placeholder: 'Kirjoita viesti...'
+    submit: Lähetä
+  thread:
+    load_older: 'Lataa aikaisempia viestejä'
+
+fr:
+  composer:
+    placeholder: 'Écrivez un message...'
+    submit: Envoyer
+  thread:
+    load_older: 'Charger les messages plus anciens'
+
+he:
+  composer:
+    placeholder: 'כתוב הודעה...'
+    submit: שלח
+  thread:
+    load_older: 'טעון הודעות קודמות'
+
+hi:
+  composer:
+    placeholder: 'संदेश लिखें...'
+    submit: भेजें
+  thread:
+    load_older: 'पुराने संदेश लोड करें'
+
+id:
+  composer:
+    placeholder: 'Tulis pesan...'
+    submit: Kirim
+  thread:
+    load_older: 'Muat pesan sebelumnya'
+
+it:
+  composer:
+    placeholder: 'Scrivi un messaggio...'
+    submit: Invia
+  thread:
+    load_older: 'Carica messaggi precedenti'
+
+ja:
+  composer:
+    placeholder: メッセージを入力...
+    submit: 送信
+  thread:
+    load_older: 以前のメッセージを読み込む
+
+ko:
+  composer:
+    placeholder: '메시지를 작성하세요...'
+    submit: 전송
+  thread:
+    load_older: '이전 메시지 불러오기'
+
+nl:
+  composer:
+    placeholder: 'Schrijf een bericht...'
+    submit: Verstuur
+  thread:
+    load_older: 'Laad eerdere berichten'
+
+pl:
+  composer:
+    placeholder: 'Napisz wiadomość...'
+    submit: Wyślij
+  thread:
+    load_older: 'Załaduj wcześniejsze wiadomości'
+
+pt_BR:
+  composer:
+    placeholder: 'Escreva uma mensagem...'
+    submit: Enviar
+  thread:
+    load_older: 'Carregar mensagens anteriores'
+
+ru:
+  composer:
+    placeholder: 'Напишите сообщение...'
+    submit: Отправить
+  thread:
+    load_older: 'Загрузить более ранние сообщения'
+
+th:
+  composer:
+    placeholder: เขียนข้อความ...
+    submit: ส่ง
+  thread:
+    load_older: โหลดข้อความก่อนหน้า
+
+tr:
+  composer:
+    placeholder: 'Mesaj yazın...'
+    submit: Gönder
+  thread:
+    load_older: 'Daha eski mesajları yükle'
+
+ur:
+  composer:
+    placeholder: 'پیغام لکھیں...'
+    submit: بھیجیں
+  thread:
+    load_older: 'پرانے پیغامات لوڈ کریں'
+
+vi:
+  composer:
+    placeholder: 'Viết tin nhắn...'
+    submit: Gửi
+  thread:
+    load_older: 'Tải tin nhắn cũ hơn'
+
+zh:
+  composer:
+    placeholder: 写消息...
+    submit: 发送
+  thread:
+    load_older: 加载更早的消息

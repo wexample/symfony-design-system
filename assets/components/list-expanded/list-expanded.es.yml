@@ -1,6 +1,0 @@
-search:
-  placeholder: 'Filtrar la lista...'
-filter:
-  label: Filtrar
-empty:
-  label: '~ Vacío ~'

@@ -1,0 +1,91 @@
+en:
+  more:
+    label: Show %count% more
+
+ar:
+  more:
+    label: 'أظهر %count% المزيد'
+
+bn:
+  more:
+    label: 'আরও %count% দেখান'
+
+de:
+  more:
+    label: 'Zeige %count% mehr'
+
+es:
+  more:
+    label: 'Mostrar %count% más'
+
+fa:
+  more:
+    label: 'نمایش %count% مورد بیشتر'
+
+fi:
+  more:
+    label: 'Näytä %count% lisää'
+
+fr:
+  more:
+    label: 'Afficher %count% de plus'
+
+he:
+  more:
+    label: 'הצג %count% נוספים'
+
+hi:
+  more:
+    label: 'और %count% दिखाएँ'
+
+id:
+  more:
+    label: 'Tampilkan %count% lagi'
+
+it:
+  more:
+    label: 'Mostra %count% in più'
+
+ja:
+  more:
+    label: '%count% もっと表示'
+
+ko:
+  more:
+    label: '%count%개 더 보기'
+
+nl:
+  more:
+    label: 'Toon er %count% meer'
+
+pl:
+  more:
+    label: 'Pokaż %count% więcej'
+
+pt_BR:
+  more:
+    label: 'Mostrar %count% mais'
+
+ru:
+  more:
+    label: 'Показать еще %count%'
+
+th:
+  more:
+    label: 'แสดงเพิ่มเติม %count% รายการ'
+
+tr:
+  more:
+    label: '%count% daha fazla göster'
+
+ur:
+  more:
+    label: 'مزید %count% دکھائیں'
+
+vi:
+  more:
+    label: 'Hiện %count% mục nữa'
+
+zh:
+  more:
+    label: 显示%count%更多

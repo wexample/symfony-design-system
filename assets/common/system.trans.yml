@@ -1,0 +1,1495 @@
+en:
+  frontend:
+    loading: Loading...
+    no_data: No data
+    explorer:
+      root: Files
+      back: Back
+      forward: Forward
+      up: Up one folder
+      path: Location
+      filter: Filter this folder
+      view_list: As a list
+      view_grid: As a grid
+      refresh: Read again
+      loading: Loading
+      failed: This folder could not be read.
+      empty: This folder is empty.
+      empty_filtered: Nothing here matches the filter.
+      more: "Show %count% more"
+      count: "%count% items"
+      selected: "%count% selected, %size%"
+      folder: Folder
+      file: File
+      column:
+        name: Name
+        kind: Kind
+        size: Size
+        modifiedAt: Modified
+    filter:
+      clear: Clear
+      summary: "%label%: %value%"
+      summary_more: "%label%: %value% +%more%"
+    pagination:
+      label: Pagination
+      previous: Previous
+      next: Next
+      page: Page
+      ellipsis: "…"
+    stepper:
+      label: Steps
+    table:
+      select_all: Select all rows
+      select_row: Select this row
+      selected: "%count% selected"
+      total: "%count% in total"
+      actions: Actions
+      apply: Apply
+    switch:
+      cancel: Cancel
+    tour:
+      previous: Previous
+      next: Next
+      done: Done
+      close: Close the tour
+      progress: "%current% / %total%"
+    embed:
+      close: Close
+    menu:
+      more: More options
+      filter: Filter
+      filter_empty: Nothing matches
+    zone:
+      collapse: Collapse
+      expand: Expand
+      resize: Resize
+
+ar:
+  frontend:
+    loading: 'جار التحميل...'
+    no_data: 'لا توجد بيانات'
+    explorer:
+      root: الملفات
+      back: رجوع
+      forward: التالي
+      up: 'مجلد واحد للأعلى'
+      path: الموقع
+      filter: 'تصفية هذا المجلد'
+      view_list: 'عرض كقائمة'
+      view_grid: 'عرض كشبكة'
+      refresh: 'إعادة القراءة'
+      loading: 'جار التحميل'
+      failed: 'لا يمكن قراءة هذا المجلد.'
+      empty: 'هذا المجلد فارغ.'
+      empty_filtered: 'لا شيء هنا يتطابق مع الفلتر.'
+      more: 'عرض %count% المزيد'
+      count: '%count% عنصر'
+      selected: '%count% محدد، %size%'
+      folder: مجلد
+      file: ملف
+      column:
+        name: الاسم
+        kind: النوع
+        size: الحجم
+        modifiedAt: 'تاريخ التعديل'
+    filter:
+      clear: مسح
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: التصفح
+      previous: السابق
+      next: التالي
+      page: الصفحة
+      ellipsis: …
+    stepper:
+      label: الخطوات
+    table:
+      select_all: 'تحديد جميع الصفوف'
+      select_row: 'تحديد هذه الصف'
+      selected: '%count% محدد'
+      total: '%count% إجمالي'
+      actions: الإجراءات
+      apply: تطبيق
+    switch:
+      cancel: إلغاء
+    tour:
+      previous: السابق
+      next: التالي
+      done: تم
+      close: 'إغلاق الجولة'
+      progress: '%current% / %total%'
+    embed:
+      close: إغلاق
+    menu:
+      filter: تصفية
+      filter_empty: 'لا يوجد ما يتطابق'
+    zone:
+      collapse: طي
+      expand: توسيع
+      resize: 'تغيير الحجم'
+
+bn:
+  frontend:
+    loading: 'লোড হচ্ছে...'
+    no_data: 'কোন তথ্য নেই'
+    explorer:
+      root: ফাইল
+      back: পিছনে
+      forward: সামনে
+      up: 'একটি ফোল্ডার উপরে'
+      path: অবস্থান
+      filter: 'এই ফোল্ডারটিকে ফিল্টার করুন'
+      view_list: 'তালিকা হিসাবে'
+      view_grid: 'গ্রিড হিসাবে'
+      refresh: 'পুনরায় পড়ুন'
+      loading: 'লোড হচ্ছে'
+      failed: 'এই ফোল্ডারটি পড়া যায়নি।'
+      empty: 'এই ফোল্ডারটি খালি।'
+      empty_filtered: 'এখানে কিছুই ফিল্টারের সাথে মেলে না।'
+      more: 'আরো %count% দেখান'
+      count: '%count% আইটেম'
+      selected: '%count% নির্বাচিত, %size%'
+      folder: ফোল্ডার
+      file: ফাইল
+      column:
+        name: নাম
+        kind: প্রকার
+        size: আকার
+        modifiedAt: সংশোধিত
+    filter:
+      clear: 'পরিষ্কার করুন'
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: পৃষ্ঠাকরণ
+      previous: পূর্ববর্তী
+      next: পরবর্তী
+      page: পৃষ্ঠা
+      ellipsis: …
+    stepper:
+      label: ধাপ
+    table:
+      select_all: 'সকল সারি নির্বাচন করুন'
+      select_row: 'এই সারিটি নির্বাচন করুন'
+      selected: '%count% নির্বাচিত'
+      total: 'মোট %count%'
+      actions: কর্ম
+      apply: 'প্রযোজ্য করুন'
+    switch:
+      cancel: 'বাতিল করুন'
+    tour:
+      previous: পূর্ববর্তী
+      next: পরবর্তী
+      done: সম্পন্ন
+      close: 'ভ্রমণ বন্ধ করুন'
+      progress: '%current% / %total%'
+    embed:
+      close: 'বন্ধ করুন'
+    menu:
+      filter: ফিল্টার
+      filter_empty: 'কিছুই মেলে না'
+    zone:
+      collapse: 'সংকুচিত করুন'
+      expand: 'বিস্তৃত করুন'
+      resize: 'আকার পরিবর্তন করুন'
+
+de:
+  frontend:
+    loading: Laden...
+    no_data: 'Keine Daten'
+    explorer:
+      root: Dateien
+      back: Zurück
+      forward: Weiter
+      up: 'Eine Ebene nach oben'
+      path: Standort
+      filter: 'Diesen Ordner filtern'
+      view_list: 'Als Liste'
+      view_grid: 'Als Raster'
+      refresh: 'Neu laden'
+      loading: Laden
+      failed: 'Dieser Ordner konnte nicht gelesen werden.'
+      empty: 'Dieser Ordner ist leer.'
+      empty_filtered: 'Hier entspricht nichts dem Filter.'
+      more: 'Weitere %count% anzeigen'
+      count: '%count% Elemente'
+      selected: '%count% ausgewählt, %size%'
+      folder: Ordner
+      file: Datei
+      column:
+        name: Name
+        kind: Art
+        size: Größe
+        modifiedAt: Ändert
+    filter:
+      clear: Zurücksetzen
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: Seitenumbruch
+      previous: Vorherige
+      next: Nächste
+      page: Seite
+      ellipsis: …
+    stepper:
+      label: Schritte
+    table:
+      select_all: 'Alle Zeilen auswählen'
+      select_row: 'Diese Zeile auswählen'
+      selected: '%count% ausgewählt'
+      total: '%count% insgesamt'
+      actions: Aktionen
+      apply: Anwenden
+    switch:
+      cancel: Abbrechen
+    tour:
+      previous: Vorherige
+      next: Nächste
+      done: Fertig
+      close: 'Tour schließen'
+      progress: '%current% / %total%'
+    embed:
+      close: Schließen
+    menu:
+      filter: Filtern
+      filter_empty: 'Nichts entspricht'
+    zone:
+      collapse: Einklappen
+      expand: Ausklappen
+      resize: 'Größe ändern'
+
+es:
+  frontend:
+    loading: Cargando...
+    no_data: 'Sin datos'
+    explorer:
+      root: Archivos
+      back: Atrás
+      forward: Adelante
+      up: 'Subir una carpeta'
+      path: Ubicación
+      filter: 'Filtrar esta carpeta'
+      view_list: 'Como lista'
+      view_grid: 'Como cuadrícula'
+      refresh: 'Leer de nuevo'
+      loading: Cargando
+      failed: 'No se pudo leer esta carpeta.'
+      empty: 'Esta carpeta está vacía.'
+      empty_filtered: 'Nada aquí coincide con el filtro.'
+      more: 'Mostrar %count% más'
+      count: '%count% elementos'
+      selected: '%count% seleccionados, %size%'
+      folder: Carpeta
+      file: Archivo
+      column:
+        name: Nombre
+        kind: Tipo
+        size: Tamaño
+        modifiedAt: Modificado
+    filter:
+      clear: Borrar
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: Paginación
+      previous: Anterior
+      next: Siguiente
+      page: Página
+      ellipsis: …
+    stepper:
+      label: Pasos
+    table:
+      select_all: 'Seleccionar todas las filas'
+      select_row: 'Seleccionar esta fila'
+      selected: '%count% seleccionados'
+      total: '%count% en total'
+      actions: Acciones
+      apply: Aplicar
+    switch:
+      cancel: Cancelar
+    tour:
+      previous: Anterior
+      next: Siguiente
+      done: Hecho
+      close: 'Cerrar el tour'
+      progress: '%current% / %total%'
+    embed:
+      close: Cerrar
+    menu:
+      filter: Filtrar
+      filter_empty: 'Nada coincide'
+    zone:
+      collapse: Colapsar
+      expand: Expandir
+      resize: Redimensionar
+
+fa:
+  frontend:
+    loading: 'در حال بارگذاری...'
+    no_data: 'هیچ داده‌ای وجود ندارد'
+    explorer:
+      root: فایل‌ها
+      back: بازگشت
+      forward: جلو
+      up: 'بالا یک پوشه'
+      path: محل
+      filter: 'فیلتر این پوشه'
+      view_list: 'به صورت لیست'
+      view_grid: 'به صورت شبکه'
+      refresh: 'دوباره بخوان'
+      loading: 'در حال بارگذاری'
+      failed: 'این پوشه قابل خواندن نیست.'
+      empty: 'این پوشه خالی است.'
+      empty_filtered: 'هیچ چیزی در اینجا با فیلتر مطابقت ندارد.'
+      more: 'نمایش %count% بیشتر'
+      count: '%count% مورد'
+      selected: '%count% انتخاب شده، %size%'
+      folder: پوشه
+      file: فایل
+      column:
+        name: نام
+        kind: نوع
+        size: اندازه
+        modifiedAt: 'ویرایش شده'
+    filter:
+      clear: 'پاک کردن'
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: صفحه‌بندی
+      previous: قبلی
+      next: بعدی
+      page: صفحه
+      ellipsis: …
+    stepper:
+      label: مراحل
+    table:
+      select_all: 'انتخاب همه ردیف‌ها'
+      select_row: 'انتخاب این ردیف'
+      selected: '%count% انتخاب شده'
+      total: '%count% در مجموع'
+      actions: عملیات
+      apply: اعمال
+    switch:
+      cancel: لغو
+    tour:
+      previous: قبلی
+      next: بعدی
+      done: 'تمام شد'
+      close: 'بستن تور'
+      progress: '%current% / %total%'
+    embed:
+      close: بستن
+    menu:
+      filter: فیلتر
+      filter_empty: 'هیچ موردی مطابقت ندارد'
+    zone:
+      collapse: 'جمع کردن'
+      expand: 'گسترش دادن'
+      resize: 'تغییر اندازه'
+
+fi:
+  frontend:
+    loading: Ladataan...
+    no_data: 'Ei tietoja'
+    explorer:
+      root: Tiedostot
+      back: Takaisin
+      forward: Eteenpäin
+      up: 'Ylös yksi kansio'
+      path: Sijainti
+      filter: 'Suodata tämä kansio'
+      view_list: Listana
+      view_grid: Ruudukossa
+      refresh: 'Lue uudelleen'
+      loading: Ladataan
+      failed: 'Tätä kansiota ei voitu lukea.'
+      empty: 'Tämä kansio on tyhjö.'
+      empty_filtered: 'Täällä ei ole mitään, joka vastaa suodatusta.'
+      more: 'Näytä %count% lisää'
+      count: '%count% kohdetta'
+      selected: '%count% valittua, %size%'
+      folder: Kansio
+      file: Tiedosto
+      column:
+        name: Nimi
+        kind: Tyyppi
+        size: Koko
+        modifiedAt: Muokattu
+    filter:
+      clear: Tyhjennä
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: Sivutus
+      previous: Edellinen
+      next: Seuraava
+      page: Sivu
+      ellipsis: …
+    stepper:
+      label: Vaiheet
+    table:
+      select_all: 'Valitse kaikki rivit'
+      select_row: 'Valitse tämä rivi'
+      selected: '%count% valittua'
+      total: '%count% yhteensä'
+      actions: Toiminnot
+      apply: Käytä
+    switch:
+      cancel: Peruuta
+    tour:
+      previous: Edellinen
+      next: Seuraava
+      done: Valmis
+      close: 'Sulje opastus'
+      progress: '%current% / %total%'
+    embed:
+      close: Sulje
+    menu:
+      filter: Suodata
+      filter_empty: 'Ei mitään vastaa'
+    zone:
+      collapse: Pienennä
+      expand: Laajenna
+      resize: 'Muuta kokoa'
+
+fr:
+  frontend:
+    loading: Chargement...
+    no_data: 'Pas de données'
+    explorer:
+      root: Fichiers
+      back: Retour
+      forward: Suivant
+      up: "Monter d'un dossier"
+      path: Emplacement
+      filter: 'Filtrer ce dossier'
+      view_list: 'Sous forme de liste'
+      view_grid: 'Sous forme de grille'
+      refresh: Recharger
+      loading: Chargement
+      failed: "Ce dossier n'a pas pu être lu."
+      empty: 'Ce dossier est vide.'
+      empty_filtered: 'Rien ici ne correspond au filtre.'
+      more: 'Montrer %count% de plus'
+      count: '%count% éléments'
+      selected: '%count% sélectionnés, %size%'
+      folder: Dossier
+      file: Fichier
+      column:
+        name: Nom
+        kind: Type
+        size: Taille
+        modifiedAt: Modifié
+    filter:
+      clear: Effacer
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: Pagination
+      previous: Précédent
+      next: Suivant
+      page: Page
+      ellipsis: …
+    stepper:
+      label: Étapes
+    table:
+      select_all: 'Sélectionner toutes les lignes'
+      select_row: 'Sélectionner cette ligne'
+      selected: '%count% sélectionnés'
+      total: '%count% au total'
+      actions: Actions
+      apply: Appliquer
+    switch:
+      cancel: Annuler
+    tour:
+      previous: Précédent
+      next: Suivant
+      done: Terminé
+      close: 'Fermer la visite'
+      progress: '%current% / %total%'
+    embed:
+      close: Fermer
+    menu:
+      filter: Filtrer
+      filter_empty: 'Aucun résultat correspondant'
+    zone:
+      collapse: Réduire
+      expand: Agrandir
+      resize: Redimensionner
+
+he:
+  frontend:
+    loading: טוען...
+    no_data: 'אין נתונים'
+    explorer:
+      root: קבצים
+      back: חזרה
+      forward: קדימה
+      up: 'מעלה תיקייה אחת'
+      path: מיקום
+      filter: 'סנן את התיקייה הזו'
+      view_list: 'כמ список'
+      view_grid: 'כמו רשת'
+      refresh: 'קרא שוב'
+      loading: טוען
+      failed: 'לא ניתן לקרוא את התיקייה הזו.'
+      empty: 'התיקייה הזו ריקה.'
+      empty_filtered: 'אין כאן תוצאות שמתאימות לסינון.'
+      more: 'הראה %count% נוספים'
+      count: '%count% פריטים'
+      selected: '%count% שנבחרו, %size%'
+      folder: תיקייה
+      file: קובץ
+      column:
+        name: שם
+        kind: סוג
+        size: גודל
+        modifiedAt: שונה
+    filter:
+      clear: נקה
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: דפים
+      previous: קודם
+      next: אחרון
+      page: עמוד
+      ellipsis: …
+    stepper:
+      label: שלבים
+    table:
+      select_all: 'בחר את כל השורות'
+      select_row: 'בחר שורה זו'
+      selected: '%count% נבחרו'
+      total: '%count% סך הכל'
+      actions: פעולות
+      apply: החלה
+    switch:
+      cancel: ביטול
+    tour:
+      previous: קודם
+      next: אחרון
+      done: גמר
+      close: 'סגור את הסיור'
+      progress: '%current% / %total%'
+    embed:
+      close: סגור
+    menu:
+      filter: סנן
+      filter_empty: 'אין תוצאות תואמות'
+    zone:
+      collapse: כווץ
+      expand: הרחב
+      resize: 'שנה גודל'
+
+hi:
+  frontend:
+    loading: 'लोड हो रहा है...'
+    no_data: 'कोई डेटा नहीं'
+    explorer:
+      root: फाइलें
+      back: पीछे
+      forward: आगे
+      up: 'एक फ़ोल्डर ऊपर'
+      path: स्थान
+      filter: 'इस फ़ोल्डर को फ़िल्टर करें'
+      view_list: 'सूची के रूप में'
+      view_grid: 'ग्रिड के रूप में'
+      refresh: 'फिर से पढ़ें'
+      loading: 'लोड हो रहा है'
+      failed: 'इस फ़ोल्डर को नहीं पढ़ा जा सका।'
+      empty: 'यह फ़ोल्डर खाली है।'
+      empty_filtered: 'यहां फ़िल्टर से मेल खाने के लिए कुछ भी नहीं है।'
+      more: '%count% और दिखाएं'
+      count: '%count% आइटम'
+      selected: '%count% चयनित, %size%'
+      folder: फ़ोल्डर
+      file: फ़ाइल
+      column:
+        name: नाम
+        kind: प्रकार
+        size: आकार
+        modifiedAt: संशोधित
+    filter:
+      clear: 'साफ करें'
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: पृष्ठभूमि
+      previous: पिछला
+      next: अगला
+      page: पृष्ठ
+      ellipsis: …
+    stepper:
+      label: चरण
+    table:
+      select_all: 'सभी पंक्तियाँ चुनें'
+      select_row: 'इस पंक्ति को चुनें'
+      selected: '%count% चयनित'
+      total: 'कुल %count%'
+      actions: कार्य
+      apply: 'लागू करें'
+    switch:
+      cancel: 'रद्द करें'
+    tour:
+      previous: पिछला
+      next: अगला
+      done: पूर्ण
+      close: 'टूर बंद करें'
+      progress: '%current% / %total%'
+    embed:
+      close: 'बंद करें'
+    menu:
+      filter: फिल्टर
+      filter_empty: 'कोई मेल नहीं खाता'
+    zone:
+      collapse: 'संकुचित करें'
+      expand: 'विस्तारित करें'
+      resize: 'आकार बदलें'
+
+id:
+  frontend:
+    loading: Memuat...
+    no_data: 'Tidak ada data'
+    explorer:
+      root: Berkas
+      back: Kembali
+      forward: Maju
+      up: 'Naik satu folder'
+      path: Lokasi
+      filter: 'Saring folder ini'
+      view_list: 'Sebagai daftar'
+      view_grid: 'Sebagai grid'
+      refresh: 'Muat ulang'
+      loading: Memuat
+      failed: 'Folder ini tidak dapat dibaca.'
+      empty: 'Folder ini kosong.'
+      empty_filtered: 'Tidak ada yang cocok dengan filter.'
+      more: 'Tampilkan %count% lebih banyak'
+      count: '%count% item'
+      selected: '%count% terpilih, %size%'
+      folder: Folder
+      file: Berkas
+      column:
+        name: Nama
+        kind: Jenis
+        size: Ukuran
+        modifiedAt: Diubah
+    filter:
+      clear: Bersihkan
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: Pagination
+      previous: Sebelumnya
+      next: Berikutnya
+      page: Halaman
+      ellipsis: …
+    stepper:
+      label: Langkah
+    table:
+      select_all: 'Pilih semua baris'
+      select_row: 'Pilih baris ini'
+      selected: '%count% terpilih'
+      total: '%count% total'
+      actions: Aksi
+      apply: Terapkan
+    switch:
+      cancel: Batal
+    tour:
+      previous: Sebelumnya
+      next: Berikutnya
+      done: Selesai
+      close: 'Tutup tur'
+      progress: '%current% / %total%'
+    embed:
+      close: Tutup
+    menu:
+      filter: Saring
+      filter_empty: 'Tidak ada yang cocok'
+    zone:
+      collapse: Kecilkan
+      expand: Perbesar
+      resize: 'Ubah ukuran'
+
+it:
+  frontend:
+    loading: Caricamento...
+    no_data: 'Nessun dato'
+    explorer:
+      root: File
+      back: Indietro
+      forward: Avanti
+      up: 'Su una cartella'
+      path: Posizione
+      filter: 'Filtra questa cartella'
+      view_list: 'Come elenco'
+      view_grid: 'Come griglia'
+      refresh: Ricarica
+      loading: Caricamento
+      failed: 'Non è stato possibile leggere questa cartella.'
+      empty: 'Questa cartella è vuota.'
+      empty_filtered: 'Niente qui corrisponde al filtro.'
+      more: 'Mostra %count% di più'
+      count: '%count% elementi'
+      selected: '%count% selezionati, %size%'
+      folder: Cartella
+      file: File
+      column:
+        name: Nome
+        kind: Tipo
+        size: Dimensione
+        modifiedAt: Modificato
+    filter:
+      clear: Pulisci
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: Paginazione
+      previous: Precedente
+      next: Successivo
+      page: Pagina
+      ellipsis: …
+    stepper:
+      label: Passi
+    table:
+      select_all: 'Seleziona tutte le righe'
+      select_row: 'Seleziona questa riga'
+      selected: '%count% selezionati'
+      total: '%count% in totale'
+      actions: Azioni
+      apply: Applica
+    switch:
+      cancel: Annulla
+    tour:
+      previous: Precedente
+      next: Successivo
+      done: Fatto
+      close: 'Chiudi il tour'
+      progress: '%current% / %total%'
+    embed:
+      close: Chiudi
+    menu:
+      filter: Filtra
+      filter_empty: 'Nessun risultato'
+    zone:
+      collapse: Riduci
+      expand: Espandi
+      resize: Ridimensiona
+
+ja:
+  frontend:
+    loading: 読み込み中...
+    no_data: データがありません
+    explorer:
+      root: ファイル
+      back: 戻る
+      forward: 進む
+      up: 一つ上のフォルダー
+      path: 場所
+      filter: このフォルダーをフィルター
+      view_list: リスト表示
+      view_grid: グリッド表示
+      refresh: 再読み込み
+      loading: 読み込み中
+      failed: このフォルダーは読み取れませんでした。
+      empty: このフォルダーは空です。
+      empty_filtered: フィルターに一致するものはありません。
+      more: さらに%count%件表示
+      count: '%count% 件'
+      selected: '%count%選択中、%size%'
+      folder: フォルダー
+      file: ファイル
+      column:
+        name: 名前
+        kind: 種類
+        size: サイズ
+        modifiedAt: 最終更新
+    filter:
+      clear: クリア
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: ページネーション
+      previous: 前へ
+      next: 次へ
+      page: ページ
+      ellipsis: …
+    stepper:
+      label: ステップ
+    table:
+      select_all: すべての行を選択
+      select_row: この行を選択
+      selected: '%count%選択中'
+      total: 合計%count%
+      actions: アクション
+      apply: 適用
+    switch:
+      cancel: キャンセル
+    tour:
+      previous: 前へ
+      next: 次へ
+      done: 完了
+      close: ツアーを閉じる
+      progress: '%current% / %total%'
+    embed:
+      close: 閉じる
+    menu:
+      filter: フィルター
+      filter_empty: 一致するものはありません
+    zone:
+      collapse: 折りたたむ
+      expand: 展開する
+      resize: サイズ変更
+
+ko:
+  frontend:
+    loading: '로딩 중...'
+    no_data: '데이터가 없습니다'
+    explorer:
+      root: 파일
+      back: 뒤로
+      forward: 앞으로
+      up: '상위 폴더로 가기'
+      path: 위치
+      filter: '이 폴더 필터링'
+      view_list: '목록 보기'
+      view_grid: '그리드 보기'
+      refresh: '다시 읽기'
+      loading: '로딩 중'
+      failed: '이 폴더를 읽을 수 없습니다.'
+      empty: '이 폴더는 비어 있습니다.'
+      empty_filtered: '여기 필터에 맞는 항목이 없습니다.'
+      more: '%count%개 더 보기'
+      count: '%count% 항목'
+      selected: '%count% 선택됨, %size%'
+      folder: 폴더
+      file: 파일
+      column:
+        name: 이름
+        kind: 종류
+        size: 크기
+        modifiedAt: 수정됨
+    filter:
+      clear: 지우기
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: 페이지네이션
+      previous: 이전
+      next: 다음
+      page: 페이지
+      ellipsis: …
+    stepper:
+      label: 단계
+    table:
+      select_all: '모든 행 선택'
+      select_row: '이 행 선택'
+      selected: '%count% 선택됨'
+      total: '총 %count%'
+      actions: 작업
+      apply: 적용
+    switch:
+      cancel: 취소
+    tour:
+      previous: 이전
+      next: 다음
+      done: 완료
+      close: '투어 닫기'
+      progress: '%current% / %total%'
+    embed:
+      close: 닫기
+    menu:
+      filter: 필터
+      filter_empty: '일치하는 항목이 없습니다'
+    zone:
+      collapse: 축소
+      expand: 확장
+      resize: '크기 조정'
+
+nl:
+  frontend:
+    loading: Laden...
+    no_data: 'Geen gegevens'
+    explorer:
+      root: Bestanden
+      back: Terug
+      forward: Vooruit
+      up: 'Één map omhoog'
+      path: Locatie
+      filter: 'Filter deze map'
+      view_list: 'Als lijst'
+      view_grid: 'Als raster'
+      refresh: 'Opnieuw lezen'
+      loading: Laden
+      failed: 'Deze map kon niet worden gelezen.'
+      empty: 'Deze map is leeg.'
+      empty_filtered: 'Niets hier voldoet aan de filter.'
+      more: 'Toon %count% meer'
+      count: '%count% items'
+      selected: '%count% geselecteerd, %size%'
+      folder: Map
+      file: Bestand
+      column:
+        name: Naam
+        kind: Soort
+        size: Grootte
+        modifiedAt: Gewijzigd
+    filter:
+      clear: Wissen
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: Paginering
+      previous: Vorige
+      next: Volgende
+      page: Pagina
+      ellipsis: …
+    stepper:
+      label: Stappen
+    table:
+      select_all: 'Selecteer alle rijen'
+      select_row: 'Selecteer deze rij'
+      selected: '%count% geselecteerd'
+      total: '%count% in totaal'
+      actions: Acties
+      apply: Toepassen
+    switch:
+      cancel: Annuleren
+    tour:
+      previous: Vorige
+      next: Volgende
+      done: Klaar
+      close: 'Sluit de rondleiding'
+      progress: '%current% / %total%'
+    embed:
+      close: Sluiten
+    menu:
+      filter: Filter
+      filter_empty: 'Niets komt overeen'
+    zone:
+      collapse: Samenvouwen
+      expand: Uitvouwen
+      resize: 'Grootte wijzigen'
+
+pl:
+  frontend:
+    loading: Ładowanie...
+    no_data: 'Brak danych'
+    explorer:
+      root: Pliki
+      back: Wstecz
+      forward: Dalej
+      up: 'Do góry o jeden folder'
+      path: Lokalizacja
+      filter: 'Filtruj ten folder'
+      view_list: 'Jako lista'
+      view_grid: 'Jako siatka'
+      refresh: 'Przeczytaj ponownie'
+      loading: Ładowanie
+      failed: 'Nie można odczytać tego folderu.'
+      empty: 'Ten folder jest pusty.'
+      empty_filtered: 'Nic tutaj nie pasuje do filtru.'
+      more: 'Pokaż %count% więcej'
+      count: '%count% elementów'
+      selected: '%count% wybranych, %size%'
+      folder: Folder
+      file: Plik
+      column:
+        name: Nazwa
+        kind: Rodzaj
+        size: Rozmiar
+        modifiedAt: Zmodyfikowany
+    filter:
+      clear: Wyczyść
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: Pagowanie
+      previous: Poprzednia
+      next: Następna
+      page: Strona
+      ellipsis: …
+    stepper:
+      label: Kroki
+    table:
+      select_all: 'Wybierz wszystkie wiersze'
+      select_row: 'Wybierz ten wiersz'
+      selected: '%count% wybranych'
+      total: '%count% łącznie'
+      actions: Akcje
+      apply: Zastosuj
+    switch:
+      cancel: Anuluj
+    tour:
+      previous: Poprzedni
+      next: Następny
+      done: Zrobione
+      close: 'Zamknij wycieczkę'
+      progress: '%current% / %total%'
+    embed:
+      close: Zamknij
+    menu:
+      filter: Filtruj
+      filter_empty: 'Nic nie pasuje'
+    zone:
+      collapse: Zwiń
+      expand: Rozwiń
+      resize: 'Zmień rozmiar'
+
+pt_BR:
+  frontend:
+    loading: Carregando...
+    no_data: 'Nenhum dado'
+    explorer:
+      root: Arquivos
+      back: Voltar
+      forward: Avançar
+      up: 'Subir uma pasta'
+      path: Localização
+      filter: 'Filtrar esta pasta'
+      view_list: 'Como uma lista'
+      view_grid: 'Como uma grade'
+      refresh: 'Ler novamente'
+      loading: Carregando
+      failed: 'Esta pasta não pôde ser lida.'
+      empty: 'Esta pasta está vazia.'
+      empty_filtered: 'Nada aqui corresponde ao filtro.'
+      more: 'Mostrar %count% mais'
+      count: '%count% itens'
+      selected: '%count% selecionados, %size%'
+      folder: Pasta
+      file: Arquivo
+      column:
+        name: Nome
+        kind: Tipo
+        size: Tamanho
+        modifiedAt: Modificado
+    filter:
+      clear: Limpar
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: Paginação
+      previous: Anterior
+      next: Próximo
+      page: Página
+      ellipsis: …
+    stepper:
+      label: Passos
+    table:
+      select_all: 'Selecionar todas as linhas'
+      select_row: 'Selecionar esta linha'
+      selected: '%count% selecionados'
+      total: '%count% no total'
+      actions: Ações
+      apply: Aplicar
+    switch:
+      cancel: Cancelar
+    tour:
+      previous: Anterior
+      next: Próximo
+      done: Concluído
+      close: 'Fechar o tour'
+      progress: '%current% / %total%'
+    embed:
+      close: Fechar
+    menu:
+      filter: Filtrar
+      filter_empty: 'Nada corresponde'
+    zone:
+      collapse: Recolher
+      expand: Expandir
+      resize: Redimensionar
+
+ru:
+  frontend:
+    loading: Загрузка...
+    no_data: 'Нет данных'
+    explorer:
+      root: Файлы
+      back: Назад
+      forward: Вперед
+      up: 'На уровень выше'
+      path: Местоположение
+      filter: 'Фильтровать эту папку'
+      view_list: 'В виде списка'
+      view_grid: 'В виде сетки'
+      refresh: Обновить
+      loading: Загрузка
+      failed: 'Эту папку не удалось прочитать.'
+      empty: 'Эта папка пуста.'
+      empty_filtered: 'Здесь нет элементов, соответствующих фильтру.'
+      more: 'Показать еще %count%'
+      count: '%count% элементов'
+      selected: 'Выбрано %count%, %size%'
+      folder: Папка
+      file: Файл
+      column:
+        name: Имя
+        kind: Тип
+        size: Размер
+        modifiedAt: Изменено
+    filter:
+      clear: Очистить
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: Пагинация
+      previous: Предыдущая
+      next: Следующая
+      page: Страница
+      ellipsis: …
+    stepper:
+      label: Этапы
+    table:
+      select_all: 'Выбрать все строки'
+      select_row: 'Выбрать эту строку'
+      selected: 'Выбрано %count%'
+      total: 'Всего %count%'
+      actions: Действия
+      apply: Применить
+    switch:
+      cancel: Отмена
+    tour:
+      previous: Предыдущий
+      next: Следующий
+      done: Готово
+      close: 'Закрыть тур'
+      progress: '%current% / %total%'
+    embed:
+      close: Закрыть
+    menu:
+      filter: Фильтр
+      filter_empty: 'Ничего не найдено'
+    zone:
+      collapse: Свернуть
+      expand: Развернуть
+      resize: 'Изменить размер'
+
+th:
+  frontend:
+    loading: กำลังโหลด...
+    no_data: ไม่มีข้อมูล
+    explorer:
+      root: ไฟล์
+      back: ย้อนกลับ
+      forward: ไปข้างหน้า
+      up: ขึ้นไปยังโฟลเดอร์หนึ่งระดับ
+      path: ที่ตั้ง
+      filter: กรองโฟลเดอร์นี้
+      view_list: ดูเป็นรายการ
+      view_grid: ดูเป็นตาราง
+      refresh: อ่านอีกครั้ง
+      loading: กำลังโหลด
+      failed: ไม่สามารถอ่านโฟลเดอร์นี้ได้
+      empty: โฟลเดอร์นี้ว่างเปล่า
+      empty_filtered: ไม่มีสิ่งใดตรงกับตัวกรองที่ตั้งไว้
+      more: 'แสดงเพิ่มอีก %count%'
+      count: '%count% รายการ'
+      selected: 'เลือกแล้ว %count% รายการ, %size%'
+      folder: โฟลเดอร์
+      file: ไฟล์
+      column:
+        name: ชื่อ
+        kind: ประเภท
+        size: ขนาด
+        modifiedAt: แก้ไขล่าสุด
+    filter:
+      clear: ล้าง
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: การแบ่งหน้า
+      previous: ก่อนหน้า
+      next: ถัดไป
+      page: หน้า
+      ellipsis: …
+    stepper:
+      label: ขั้นตอน
+    table:
+      select_all: เลือกทุกแถว
+      select_row: เลือกแถวนี้
+      selected: 'เลือกแล้ว %count% รายการ'
+      total: 'ทั้งหมด %count%'
+      actions: การดำเนินการ
+      apply: ใช้
+    switch:
+      cancel: ยกเลิก
+    tour:
+      previous: ก่อนหน้า
+      next: ถัดไป
+      done: เสร็จสิ้น
+      close: ปิดทัวร์
+      progress: '%current% / %total%'
+    embed:
+      close: ปิด
+    menu:
+      filter: กรอง
+      filter_empty: ไม่มีรายการที่ตรงกัน
+    zone:
+      collapse: ย่อ
+      expand: ขยาย
+      resize: ปรับขนาด
+
+tr:
+  frontend:
+    loading: Yükleniyor...
+    no_data: 'Veri yok'
+    explorer:
+      root: Dosyalar
+      back: Geri
+      forward: İleri
+      up: 'Bir üst klasöre çık'
+      path: Konum
+      filter: 'Bu klasörü filtrele'
+      view_list: 'Liste olarak'
+      view_grid: 'Izgara olarak'
+      refresh: 'Yeniden oku'
+      loading: Yükleniyor
+      failed: 'Bu klasör okunamadı.'
+      empty: 'Bu klasör boş.'
+      empty_filtered: 'Burada filtreye uyan hiçbir şey yok.'
+      more: '%count% daha göster'
+      count: '%count% öge'
+      selected: '%count% seçildi, %size%'
+      folder: Klasör
+      file: Dosya
+      column:
+        name: İsim
+        kind: Tür
+        size: Boyut
+        modifiedAt: Değiştirilmiş
+    filter:
+      clear: Temizle
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: Sayfalama
+      previous: Önceki
+      next: Sonraki
+      page: Sayfa
+      ellipsis: …
+    stepper:
+      label: Adımlar
+    table:
+      select_all: 'Tüm satırları seç'
+      select_row: 'Bu satırı seç'
+      selected: '%count% seçildi'
+      total: 'Toplam %count%'
+      actions: Eylemler
+      apply: Uygula
+    switch:
+      cancel: İptal
+    tour:
+      previous: Önceki
+      next: Sonraki
+      done: Tamamlandı
+      close: 'Turu kapat'
+      progress: '%current% / %total%'
+    embed:
+      close: Kapat
+    menu:
+      filter: Filtrele
+      filter_empty: 'Hiçbiri uymuyor'
+    zone:
+      collapse: Daralt
+      expand: Genişlet
+      resize: Boyutlandır
+
+ur:
+  frontend:
+    loading: 'لوڈ ہورہا ہے...'
+    no_data: 'کوئی ڈیٹا نہیں'
+    explorer:
+      root: فائلیں
+      back: پیچھے
+      forward: آگے
+      up: 'ایک فولڈر اوپر'
+      path: مقام
+      filter: 'اس فولڈر کو فلٹر کریں'
+      view_list: 'فہرست کی شکل میں'
+      view_grid: 'گریڈ کی شکل میں'
+      refresh: 'دوبارہ پڑھیں'
+      loading: 'لوڈ ہورہا ہے'
+      failed: 'یہ فولڈر نہیں پڑھا جا سکا۔'
+      empty: 'یہ فولڈر خالی ہے۔'
+      empty_filtered: 'یہاں فلٹر کے مطابق کچھ نہیں ہے۔'
+      more: '%count% مزید دکھائیں'
+      count: '%count% اشیاء'
+      selected: '%count% منتخب، %size%'
+      folder: فولڈر
+      file: فائل
+      column:
+        name: نام
+        kind: قسم
+        size: سائز
+        modifiedAt: 'ترمیم شدہ'
+    filter:
+      clear: 'صاف کریں'
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: 'صفحہ بندی'
+      previous: پچھلا
+      next: اگلا
+      page: صفحہ
+      ellipsis: …
+    stepper:
+      label: اقدامات
+    table:
+      select_all: 'تمام قطاریں منتخب کریں'
+      select_row: 'اس قطار کو منتخب کریں'
+      selected: '%count% منتخب'
+      total: 'مجموعی طور پر %count%'
+      actions: عملیات
+      apply: لگائیں
+    switch:
+      cancel: 'کینسل کریں'
+    tour:
+      previous: پچھلا
+      next: اگلا
+      done: 'ہو گیا'
+      close: 'سیر بند کریں'
+      progress: '%current% / %total%'
+    embed:
+      close: 'بند کریں'
+    menu:
+      filter: 'فلٹر کریں'
+      filter_empty: 'کوئی چیز میل نہیں کھاتی'
+    zone:
+      collapse: 'کم کریں'
+      expand: کھولیں
+      resize: 'سائز تبدیل کریں'
+
+vi:
+  frontend:
+    loading: 'Đang tải...'
+    no_data: 'Không có dữ liệu'
+    explorer:
+      root: Tệp
+      back: 'Quay lại'
+      forward: 'Tiến tới'
+      up: 'Lên một thư mục'
+      path: 'Đường dẫn'
+      filter: 'Lọc thư mục này'
+      view_list: 'Dưới dạng danh sách'
+      view_grid: 'Dưới dạng lưới'
+      refresh: 'Đọc lại'
+      loading: 'Đang tải'
+      failed: 'Không thể đọc thư mục này.'
+      empty: 'Thư mục này trống.'
+      empty_filtered: 'Không có gì ở đây phù hợp với bộ lọc.'
+      more: 'Hiện %count% mục nữa'
+      count: '%count% mục'
+      selected: '%count% đã chọn, %size%'
+      folder: 'Thư mục'
+      file: Tệp
+      column:
+        name: Tên
+        kind: Loại
+        size: 'Kích thước'
+        modifiedAt: 'Đã sửa đổi'
+    filter:
+      clear: Xóa
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: 'Phân trang'
+      previous: Trước
+      next: 'Tiếp theo'
+      page: Trang
+      ellipsis: …
+    stepper:
+      label: 'Các bước'
+    table:
+      select_all: 'Chọn tất cả các hàng'
+      select_row: 'Chọn hàng này'
+      selected: '%count% đã chọn'
+      total: '%count% tổng cộng'
+      actions: 'Hành động'
+      apply: 'Áp dụng'
+    switch:
+      cancel: Hủy
+    tour:
+      previous: Trước
+      next: 'Tiếp theo'
+      done: 'Hoàn thành'
+      close: 'Đóng tour'
+      progress: '%current% / %total%'
+    embed:
+      close: Đóng
+    menu:
+      filter: Lọc
+      filter_empty: 'Không có kết quả phù hợp'
+    zone:
+      collapse: 'Thu gọn'
+      expand: 'Mở rộng'
+      resize: 'Thay đổi kích thước'
+
+zh:
+  frontend:
+    loading: 加载中...
+    no_data: 没有数据
+    explorer:
+      root: 文件
+      back: 返回
+      forward: 前进
+      up: 上一级文件夹
+      path: 位置
+      filter: 过滤此文件夹
+      view_list: 以列表形式
+      view_grid: 以网格形式
+      refresh: 重新读取
+      loading: 加载中
+      failed: 无法读取此文件夹。
+      empty: 此文件夹是空的。
+      empty_filtered: 这里没有与过滤器匹配的内容。
+      more: 显示%count%更多
+      count: '%count% 项'
+      selected: '%count% 已选中，%size%'
+      folder: 文件夹
+      file: 文件
+      column:
+        name: 名称
+        kind: 类型
+        size: 大小
+        modifiedAt: 修改时间
+    filter:
+      clear: 清除
+      summary: '%label%: %value%'
+      summary_more: '%label%: %value% +%more%'
+    pagination:
+      label: 分页
+      previous: 上一个
+      next: 下一个
+      page: 页面
+      ellipsis: …
+    stepper:
+      label: 步骤
+    table:
+      select_all: 选择所有行
+      select_row: 选择这一行
+      selected: '%count% 已选中'
+      total: '总计 %count%'
+      actions: 操作
+      apply: 应用
+    switch:
+      cancel: 取消
+    tour:
+      previous: 上一个
+      next: 下一个
+      done: 完成
+      close: 关闭导览
+      progress: '%current% / %total%'
+    embed:
+      close: 关闭
+    menu:
+      filter: 筛选
+      filter_empty: 没有符合条件的结果
+    zone:
+      collapse: 折叠
+      expand: 展开
+      resize: 调整大小

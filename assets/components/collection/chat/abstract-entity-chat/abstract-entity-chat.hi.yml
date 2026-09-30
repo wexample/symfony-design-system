@@ -1,5 +1,0 @@
-composer:
-  placeholder: 'संदेश लिखें...'
-  submit: भेजें
-thread:
-  load_older: 'पुराने संदेश लोड करें'

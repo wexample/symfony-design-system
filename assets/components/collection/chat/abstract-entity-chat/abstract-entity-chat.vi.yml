@@ -1,5 +1,0 @@
-composer:
-  placeholder: 'Viết tin nhắn...'
-  submit: Gửi
-thread:
-  load_older: 'Tải tin nhắn cũ hơn'

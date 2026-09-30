@@ -1,5 +1,0 @@
-composer:
-  placeholder: 'Tulis pesan...'
-  submit: Kirim
-thread:
-  load_older: 'Muat pesan sebelumnya'

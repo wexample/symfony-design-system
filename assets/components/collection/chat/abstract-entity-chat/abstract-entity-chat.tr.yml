@@ -1,5 +1,0 @@
-composer:
-  placeholder: 'Mesaj yazın...'
-  submit: Gönder
-thread:
-  load_older: 'Daha eski mesajları yükle'

@@ -1,5 +1,0 @@
-composer:
-  placeholder: 'Napisz wiadomość...'
-  submit: Wyślij
-thread:
-  load_older: 'Załaduj wcześniejsze wiadomości'

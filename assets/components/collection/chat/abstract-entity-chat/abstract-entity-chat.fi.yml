@@ -1,5 +1,0 @@
-composer:
-  placeholder: 'Kirjoita viesti...'
-  submit: Lähetä
-thread:
-  load_older: 'Lataa aikaisempia viestejä'

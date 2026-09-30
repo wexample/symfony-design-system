@@ -1,5 +1,0 @@
-composer:
-  placeholder: 'Напишите сообщение...'
-  submit: Отправить
-thread:
-  load_older: 'Загрузить более ранние сообщения'

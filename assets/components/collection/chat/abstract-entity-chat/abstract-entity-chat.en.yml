@@ -1,5 +1,0 @@
-composer:
-  placeholder: Write a message...
-  submit: Send
-thread:
-  load_older: Load earlier messages

@@ -1,0 +1,91 @@
+en:
+  label:
+    open_picker: Open emoji picker
+
+ar:
+  label:
+    open_picker: 'افتح قائمة الرموز التعبيرية'
+
+bn:
+  label:
+    open_picker: 'ইমোজি পিকার খুলুন'
+
+de:
+  label:
+    open_picker: 'Emoji-Auswahl öffnen'
+
+es:
+  label:
+    open_picker: 'Abrir selector de emojis'
+
+fa:
+  label:
+    open_picker: 'باز کردن انتخابگر اموجی'
+
+fi:
+  label:
+    open_picker: 'Avaa emoji-valitsin'
+
+fr:
+  label:
+    open_picker: "Ouvrir le sélecteur d'emoji"
+
+he:
+  label:
+    open_picker: "פתח את בורר האימוג'י"
+
+hi:
+  label:
+    open_picker: 'Open emoji picker'
+
+id:
+  label:
+    open_picker: 'Buka pemilih emoji'
+
+it:
+  label:
+    open_picker: 'Apri il selettore di emoji'
+
+ja:
+  label:
+    open_picker: 絵文字ピッカーを開く
+
+ko:
+  label:
+    open_picker: '이모지 선택기 열기'
+
+nl:
+  label:
+    open_picker: 'Open emoji-picker'
+
+pl:
+  label:
+    open_picker: 'Otwórz wybór emotikonów'
+
+pt_BR:
+  label:
+    open_picker: 'Abrir seletor de emojis'
+
+ru:
+  label:
+    open_picker: 'Открыть выбор эмодзи'
+
+th:
+  label:
+    open_picker: เปิดตัวเลือกอีโมจิ
+
+tr:
+  label:
+    open_picker: 'Emoji seçim aracını aç'
+
+ur:
+  label:
+    open_picker: 'ایموجی چننے والا کھولیں'
+
+vi:
+  label:
+    open_picker: 'Mở trình chọn emoji'
+
+zh:
+  label:
+    open_picker: 打开表情符号选择器

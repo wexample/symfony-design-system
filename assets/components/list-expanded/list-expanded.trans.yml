@@ -1,0 +1,183 @@
+en:
+  search:
+    placeholder: Filter the list...
+  filter:
+    label: Filter
+  empty:
+    label: ~ Empty ~
+
+ar:
+  search:
+    placeholder: 'تصفية القائمة...'
+  filter:
+    label: تصفية
+  empty:
+    label: '~ فارغ ~'
+
+bn:
+  search:
+    placeholder: 'তালিকাটি ফিল্টার করুন...'
+  filter:
+    label: ফিল্টার
+  empty:
+    label: '~ খালি ~'
+
+de:
+  search:
+    placeholder: 'Liste filtern...'
+  filter:
+    label: Filtern
+  empty:
+    label: '~ Leer ~'
+
+es:
+  search:
+    placeholder: 'Filtrar la lista...'
+  filter:
+    label: Filtrar
+  empty:
+    label: '~ Vacío ~'
+
+fa:
+  search:
+    placeholder: 'فهرست را فیلتر کنید...'
+  filter:
+    label: فیلتر
+  empty:
+    label: '~ خالی ~'
+
+fi:
+  search:
+    placeholder: 'Suodata lista...'
+  filter:
+    label: Suodata
+  empty:
+    label: '~ Tyhjää ~'
+
+fr:
+  search:
+    placeholder: 'Filtrer la liste...'
+  filter:
+    label: Filtrer
+  empty:
+    label: '~ Vide ~'
+
+he:
+  search:
+    placeholder: 'מסנן את הרשימה...'
+  filter:
+    label: סנן
+  empty:
+    label: '~ ריק ~'
+
+hi:
+  search:
+    placeholder: 'सूची को फ़िल्टर करें...'
+  filter:
+    label: फ़िल्टर
+  empty:
+    label: '~ खाली ~'
+
+id:
+  search:
+    placeholder: 'Saring daftar...'
+  filter:
+    label: Saring
+  empty:
+    label: '~ Kosong ~'
+
+it:
+  search:
+    placeholder: "Filtra l'elenco..."
+  filter:
+    label: Filtra
+  empty:
+    label: '~ Vuoto ~'
+
+ja:
+  search:
+    placeholder: リストをフィルタリング...
+  filter:
+    label: フィルタ
+  empty:
+    label: '~ 空 ~'
+
+ko:
+  search:
+    placeholder: '목록 필터링...'
+  filter:
+    label: 필터
+  empty:
+    label: '~ 비어 있음 ~'
+
+nl:
+  search:
+    placeholder: 'Filter de lijst...'
+  filter:
+    label: Filteren
+  empty:
+    label: '~ Leeg ~'
+
+pl:
+  search:
+    placeholder: 'Filtruj listę...'
+  filter:
+    label: Filtr
+  empty:
+    label: '~ Puste ~'
+
+pt_BR:
+  search:
+    placeholder: 'Filtrar a lista...'
+  filter:
+    label: Filtrar
+  empty:
+    label: '~ Vazio ~'
+
+ru:
+  search:
+    placeholder: 'Отфильтровать список...'
+  filter:
+    label: Фильтр
+  empty:
+    label: '~ Пусто ~'
+
+th:
+  search:
+    placeholder: กรองรายการ...
+  filter:
+    label: กรอง
+  empty:
+    label: '~ ว่าง ~'
+
+tr:
+  search:
+    placeholder: 'Listeyi filtrele...'
+  filter:
+    label: Filtre
+  empty:
+    label: '~ Boş ~'
+
+ur:
+  search:
+    placeholder: 'فہرست کو فلٹر کریں...'
+  filter:
+    label: 'فلٹر کریں'
+  empty:
+    label: '~ خالی ~'
+
+vi:
+  search:
+    placeholder: 'Lọc danh sách...'
+  filter:
+    label: Lọc
+  empty:
+    label: '~ Trống ~'
+
+zh:
+  search:
+    placeholder: 筛选列表...
+  filter:
+    label: 筛选
+  empty:
+    label: '~ 空 ~'

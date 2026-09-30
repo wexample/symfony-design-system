@@ -1,5 +1,0 @@
-composer:
-  placeholder: 'Schrijf een bericht...'
-  submit: Verstuur
-thread:
-  load_older: 'Laad eerdere berichten'
