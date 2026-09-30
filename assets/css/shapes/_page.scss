@@ -52,9 +52,12 @@
   min-height: 0;
 }
 
-.page--fill form :is(.form--group, .form--row, div):has(> textarea) {
+// Every level between the form and its text area — a field's group, the
+// group of its widget inside it — hands the room down the same way.
+.page--fill form :is(div, fieldset):has(textarea) {
   display: flex;
   flex-direction: column;
+  gap: var(--space-1);
   flex: 1;
   min-height: 0;
 }
