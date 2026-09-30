@@ -139,10 +139,10 @@
 {% set wrapper_class = options.wrapper_class|default('') %}
 {% set wrapper_attr = options.wrapper_attr|default({}) %}
 {% set button_attr = options.attr|default({}) %}
-{#- A menu past a handful of items is read by looking for one: from
-    `filter_from` of them (8 unless said otherwise, 0 never) the panel scrolls
-    under a field that narrows it. -#}
-{% set filter_from = options.filter_from ?? 8 %}
+{#- A menu that asks for it with `filter_from` is read by looking for one:
+    from that many items the panel scrolls under a field that narrows it — a
+    list of languages, not a toolbar's handful of actions. Off unless asked. -#}
+{% set filter_from = options.filter_from ?? 0 %}
 {% set filterable = filter_from > 0 and items|filter(entry => not (entry.separator|default(false)))|length >= filter_from %}
 <div class="button-menu{% if wrapper_class %} {{ wrapper_class }}{% endif %}"
      {{ component_render_tag_attributes(wrapper_attr) }}>

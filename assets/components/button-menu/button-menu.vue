@@ -54,10 +54,11 @@ export default {
       type: String,
       default: null
     },
-    // From how many items the panel scrolls under a field narrowing it; 0 never.
+    // From how many items the panel scrolls under a field narrowing it — for
+    // the long list that asks for it; 0, the default, never.
     filterFrom: {
       type: Number,
-      default: 8
+      default: 0
     }
   },
 
