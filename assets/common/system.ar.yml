@@ -54,6 +54,9 @@ frontend:
     progress: '%current% / %total%'
   embed:
     close: إغلاق
+  menu:
+    filter: تصفية
+    filter_empty: 'لا يوجد ما يتطابق'
   zone:
     collapse: طي
     expand: توسيع

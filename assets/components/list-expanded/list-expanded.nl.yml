@@ -1,0 +1,6 @@
+search:
+  placeholder: 'Filter de lijst...'
+filter:
+  label: Filteren
+empty:
+  label: '~ Leeg ~'

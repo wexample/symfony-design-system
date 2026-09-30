@@ -1,0 +1,63 @@
+frontend:
+  loading: Memuat...
+  no_data: 'Tidak ada data'
+  explorer:
+    root: Berkas
+    back: Kembali
+    forward: Maju
+    up: 'Naik satu folder'
+    path: Lokasi
+    filter: 'Saring folder ini'
+    view_list: 'Sebagai daftar'
+    view_grid: 'Sebagai grid'
+    refresh: 'Muat ulang'
+    loading: Memuat
+    failed: 'Folder ini tidak dapat dibaca.'
+    empty: 'Folder ini kosong.'
+    empty_filtered: 'Tidak ada yang cocok dengan filter.'
+    more: 'Tampilkan %count% lebih banyak'
+    count: '%count% item'
+    selected: '%count% terpilih, %size%'
+    folder: Folder
+    file: Berkas
+    column:
+      name: Nama
+      kind: Jenis
+      size: Ukuran
+      modifiedAt: Diubah
+  filter:
+    clear: Bersihkan
+    summary: '%label%: %value%'
+    summary_more: '%label%: %value% +%more%'
+  pagination:
+    label: Pagination
+    previous: Sebelumnya
+    next: Berikutnya
+    page: Halaman
+    ellipsis: …
+  stepper:
+    label: Langkah
+  table:
+    select_all: 'Pilih semua baris'
+    select_row: 'Pilih baris ini'
+    selected: '%count% terpilih'
+    total: '%count% total'
+    actions: Aksi
+    apply: Terapkan
+  switch:
+    cancel: Batal
+  tour:
+    previous: Sebelumnya
+    next: Berikutnya
+    done: Selesai
+    close: 'Tutup tur'
+    progress: '%current% / %total%'
+  embed:
+    close: Tutup
+  menu:
+    filter: Saring
+    filter_empty: 'Tidak ada yang cocok'
+  zone:
+    collapse: Kecilkan
+    expand: Perbesar
+    resize: 'Ubah ukuran'

@@ -54,6 +54,9 @@ frontend:
     progress: '%current% / %total%'
   embed:
     close: 'बंद करें'
+  menu:
+    filter: फिल्टर
+    filter_empty: 'कोई मेल नहीं खाता'
   zone:
     collapse: 'संकुचित करें'
     expand: 'विस्तारित करें'

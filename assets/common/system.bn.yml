@@ -54,6 +54,9 @@ frontend:
     progress: '%current% / %total%'
   embed:
     close: 'বন্ধ করুন'
+  menu:
+    filter: ফিল্টার
+    filter_empty: 'কিছুই মেলে না'
   zone:
     collapse: 'সংকুচিত করুন'
     expand: 'বিস্তৃত করুন'

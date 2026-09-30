@@ -1,0 +1,6 @@
+search:
+  placeholder: 'Saring daftar...'
+filter:
+  label: Saring
+empty:
+  label: '~ Kosong ~'

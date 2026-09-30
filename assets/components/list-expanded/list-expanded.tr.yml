@@ -1,0 +1,6 @@
+search:
+  placeholder: 'Listeyi filtrele...'
+filter:
+  label: Filtre
+empty:
+  label: '~ Boş ~'

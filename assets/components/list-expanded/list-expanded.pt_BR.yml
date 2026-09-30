@@ -1,0 +1,6 @@
+search:
+  placeholder: 'Filtrar a lista...'
+filter:
+  label: Filtrar
+empty:
+  label: '~ Vazio ~'

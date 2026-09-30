@@ -1,0 +1,63 @@
+frontend:
+  loading: 'Đang tải...'
+  no_data: 'Không có dữ liệu'
+  explorer:
+    root: Tệp
+    back: 'Quay lại'
+    forward: 'Tiến tới'
+    up: 'Lên một thư mục'
+    path: 'Đường dẫn'
+    filter: 'Lọc thư mục này'
+    view_list: 'Dưới dạng danh sách'
+    view_grid: 'Dưới dạng lưới'
+    refresh: 'Đọc lại'
+    loading: 'Đang tải'
+    failed: 'Không thể đọc thư mục này.'
+    empty: 'Thư mục này trống.'
+    empty_filtered: 'Không có gì ở đây phù hợp với bộ lọc.'
+    more: 'Hiện %count% mục nữa'
+    count: '%count% mục'
+    selected: '%count% đã chọn, %size%'
+    folder: 'Thư mục'
+    file: Tệp
+    column:
+      name: Tên
+      kind: Loại
+      size: 'Kích thước'
+      modifiedAt: 'Đã sửa đổi'
+  filter:
+    clear: Xóa
+    summary: '%label%: %value%'
+    summary_more: '%label%: %value% +%more%'
+  pagination:
+    label: 'Phân trang'
+    previous: Trước
+    next: 'Tiếp theo'
+    page: Trang
+    ellipsis: …
+  stepper:
+    label: 'Các bước'
+  table:
+    select_all: 'Chọn tất cả các hàng'
+    select_row: 'Chọn hàng này'
+    selected: '%count% đã chọn'
+    total: '%count% tổng cộng'
+    actions: 'Hành động'
+    apply: 'Áp dụng'
+  switch:
+    cancel: Hủy
+  tour:
+    previous: Trước
+    next: 'Tiếp theo'
+    done: 'Hoàn thành'
+    close: 'Đóng tour'
+    progress: '%current% / %total%'
+  embed:
+    close: Đóng
+  menu:
+    filter: Lọc
+    filter_empty: 'Không có kết quả phù hợp'
+  zone:
+    collapse: 'Thu gọn'
+    expand: 'Mở rộng'
+    resize: 'Thay đổi kích thước'

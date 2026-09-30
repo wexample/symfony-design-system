@@ -54,6 +54,9 @@ frontend:
     progress: '%current% / %total%'
   embed:
     close: ปิด
+  menu:
+    filter: กรอง
+    filter_empty: ไม่มีรายการที่ตรงกัน
   zone:
     collapse: ย่อ
     expand: ขยาย

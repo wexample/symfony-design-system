@@ -54,6 +54,9 @@ frontend:
     progress: '%current% / %total%'
   embed:
     close: Cerrar
+  menu:
+    filter: Filtrar
+    filter_empty: 'Nada coincide'
   zone:
     collapse: Colapsar
     expand: Expandir

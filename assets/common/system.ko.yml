@@ -54,6 +54,9 @@ frontend:
     progress: '%current% / %total%'
   embed:
     close: 닫기
+  menu:
+    filter: 필터
+    filter_empty: '일치하는 항목이 없습니다'
   zone:
     collapse: 축소
     expand: 확장

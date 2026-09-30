@@ -54,6 +54,9 @@ frontend:
     progress: '%current% / %total%'
   embed:
     close: Закрыть
+  menu:
+    filter: Фильтр
+    filter_empty: 'Ничего не найдено'
   zone:
     collapse: Свернуть
     expand: Развернуть

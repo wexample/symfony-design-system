@@ -1,0 +1,63 @@
+frontend:
+  loading: Laden...
+  no_data: 'Geen gegevens'
+  explorer:
+    root: Bestanden
+    back: Terug
+    forward: Vooruit
+    up: 'Één map omhoog'
+    path: Locatie
+    filter: 'Filter deze map'
+    view_list: 'Als lijst'
+    view_grid: 'Als raster'
+    refresh: 'Opnieuw lezen'
+    loading: Laden
+    failed: 'Deze map kon niet worden gelezen.'
+    empty: 'Deze map is leeg.'
+    empty_filtered: 'Niets hier voldoet aan de filter.'
+    more: 'Toon %count% meer'
+    count: '%count% items'
+    selected: '%count% geselecteerd, %size%'
+    folder: Map
+    file: Bestand
+    column:
+      name: Naam
+      kind: Soort
+      size: Grootte
+      modifiedAt: Gewijzigd
+  filter:
+    clear: Wissen
+    summary: '%label%: %value%'
+    summary_more: '%label%: %value% +%more%'
+  pagination:
+    label: Paginering
+    previous: Vorige
+    next: Volgende
+    page: Pagina
+    ellipsis: …
+  stepper:
+    label: Stappen
+  table:
+    select_all: 'Selecteer alle rijen'
+    select_row: 'Selecteer deze rij'
+    selected: '%count% geselecteerd'
+    total: '%count% in totaal'
+    actions: Acties
+    apply: Toepassen
+  switch:
+    cancel: Annuleren
+  tour:
+    previous: Vorige
+    next: Volgende
+    done: Klaar
+    close: 'Sluit de rondleiding'
+    progress: '%current% / %total%'
+  embed:
+    close: Sluiten
+  menu:
+    filter: Filter
+    filter_empty: 'Niets komt overeen'
+  zone:
+    collapse: Samenvouwen
+    expand: Uitvouwen
+    resize: 'Grootte wijzigen'

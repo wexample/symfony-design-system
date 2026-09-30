@@ -54,6 +54,9 @@ frontend:
     progress: '%current% / %total%'
   embed:
     close: Sulje
+  menu:
+    filter: Suodata
+    filter_empty: 'Ei mitään vastaa'
   zone:
     collapse: Pienennä
     expand: Laajenna

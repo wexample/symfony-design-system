@@ -1,0 +1,63 @@
+frontend:
+  loading: Carregando...
+  no_data: 'Nenhum dado'
+  explorer:
+    root: Arquivos
+    back: Voltar
+    forward: Avançar
+    up: 'Subir uma pasta'
+    path: Localização
+    filter: 'Filtrar esta pasta'
+    view_list: 'Como uma lista'
+    view_grid: 'Como uma grade'
+    refresh: 'Ler novamente'
+    loading: Carregando
+    failed: 'Esta pasta não pôde ser lida.'
+    empty: 'Esta pasta está vazia.'
+    empty_filtered: 'Nada aqui corresponde ao filtro.'
+    more: 'Mostrar %count% mais'
+    count: '%count% itens'
+    selected: '%count% selecionados, %size%'
+    folder: Pasta
+    file: Arquivo
+    column:
+      name: Nome
+      kind: Tipo
+      size: Tamanho
+      modifiedAt: Modificado
+  filter:
+    clear: Limpar
+    summary: '%label%: %value%'
+    summary_more: '%label%: %value% +%more%'
+  pagination:
+    label: Paginação
+    previous: Anterior
+    next: Próximo
+    page: Página
+    ellipsis: …
+  stepper:
+    label: Passos
+  table:
+    select_all: 'Selecionar todas as linhas'
+    select_row: 'Selecionar esta linha'
+    selected: '%count% selecionados'
+    total: '%count% no total'
+    actions: Ações
+    apply: Aplicar
+  switch:
+    cancel: Cancelar
+  tour:
+    previous: Anterior
+    next: Próximo
+    done: Concluído
+    close: 'Fechar o tour'
+    progress: '%current% / %total%'
+  embed:
+    close: Fechar
+  menu:
+    filter: Filtrar
+    filter_empty: 'Nada corresponde'
+  zone:
+    collapse: Recolher
+    expand: Expandir
+    resize: Redimensionar

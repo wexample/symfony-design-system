@@ -1,0 +1,63 @@
+frontend:
+  loading: Yükleniyor...
+  no_data: 'Veri yok'
+  explorer:
+    root: Dosyalar
+    back: Geri
+    forward: İleri
+    up: 'Bir üst klasöre çık'
+    path: Konum
+    filter: 'Bu klasörü filtrele'
+    view_list: 'Liste olarak'
+    view_grid: 'Izgara olarak'
+    refresh: 'Yeniden oku'
+    loading: Yükleniyor
+    failed: 'Bu klasör okunamadı.'
+    empty: 'Bu klasör boş.'
+    empty_filtered: 'Burada filtreye uyan hiçbir şey yok.'
+    more: '%count% daha göster'
+    count: '%count% öge'
+    selected: '%count% seçildi, %size%'
+    folder: Klasör
+    file: Dosya
+    column:
+      name: İsim
+      kind: Tür
+      size: Boyut
+      modifiedAt: Değiştirilmiş
+  filter:
+    clear: Temizle
+    summary: '%label%: %value%'
+    summary_more: '%label%: %value% +%more%'
+  pagination:
+    label: Sayfalama
+    previous: Önceki
+    next: Sonraki
+    page: Sayfa
+    ellipsis: …
+  stepper:
+    label: Adımlar
+  table:
+    select_all: 'Tüm satırları seç'
+    select_row: 'Bu satırı seç'
+    selected: '%count% seçildi'
+    total: 'Toplam %count%'
+    actions: Eylemler
+    apply: Uygula
+  switch:
+    cancel: İptal
+  tour:
+    previous: Önceki
+    next: Sonraki
+    done: Tamamlandı
+    close: 'Turu kapat'
+    progress: '%current% / %total%'
+  embed:
+    close: Kapat
+  menu:
+    filter: Filtrele
+    filter_empty: 'Hiçbiri uymuyor'
+  zone:
+    collapse: Daralt
+    expand: Genişlet
+    resize: Boyutlandır

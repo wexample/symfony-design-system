@@ -54,6 +54,9 @@ frontend:
     progress: '%current% / %total%'
   embed:
     close: 'بند کریں'
+  menu:
+    filter: 'فلٹر کریں'
+    filter_empty: 'کوئی چیز میل نہیں کھاتی'
   zone:
     collapse: 'کم کریں'
     expand: کھولیں

@@ -1,0 +1,6 @@
+search:
+  placeholder: 'Lọc danh sách...'
+filter:
+  label: Lọc
+empty:
+  label: '~ Trống ~'

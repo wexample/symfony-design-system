@@ -54,6 +54,9 @@ frontend:
     progress: '%current% / %total%'
   embed:
     close: 閉じる
+  menu:
+    filter: フィルター
+    filter_empty: 一致するものはありません
   zone:
     collapse: 折りたたむ
     expand: 展開する
