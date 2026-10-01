@@ -56,4 +56,23 @@ class QueryHelper
 
         return $query ? $path.'?'.http_build_query($query) : $path;
     }
+
+    /**
+     * `path` with the given keys of the table's part dropped — its filters —
+     * while one of them holds something; null when none does, the list being
+     * then empty for real rather than narrowed to nothing.
+     *
+     * @param string[] $keys
+     */
+    public static function clearUrl(string $path, array $query, array $keys, ?string $queryKey = null): ?string
+    {
+        $scoped = self::scoped($query, $queryKey);
+        $held = array_filter($keys, fn (string $key) => ! in_array($scoped[$key] ?? null, [null, '', []], true));
+
+        if (! $held) {
+            return null;
+        }
+
+        return self::url($path, $query, array_fill_keys($keys, null), $queryKey);
+    }
 }

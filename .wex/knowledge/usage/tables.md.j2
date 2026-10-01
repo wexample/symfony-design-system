@@ -98,6 +98,57 @@ dropped on a change is the one under the key. The controller reads the table's p
 `filter_selected(key, 'patients')`. The vue table holds its state in the page, and has no
 need of it.
 
+## From a list to a record
+
+A row opens — a record in a modal, most often — when one of its actions is marked `open`
+(`{ icon, label, href, target: 'modal', open: true }`): a double-click or Enter on the row
+presses that action, the same address in the same overlay as a click on it, and the action
+stays visible, so opening is never something only a double-click knows. The vue table also
+emits `row-activate` (`{ row, key }`), and `activatable` makes rows open with no such action,
+for a page that opens them itself. A double-click on a control of the row is the control's.
+
+An opening row is in the keyboard's path: one row of the table in the tab order — the first,
+then the last one reached — the arrows, Home and End from row to row, Tab on into the row's
+actions. The modal it opens takes the focus, keeps Tab inside, closes on Escape and gives the
+focus back to the row; see *Overlays* below.
+
+A row changed by an action comes back in the rows the page hands over again: with a
+`rowKey`, it is patched in place, and the order, the page and the ticked rows stay as they
+were. Asking before an irreversible action, and saying it is done, are the `confirm` and
+`toast` services' — the page's to call.
+
+## States in place of the rows
+
+- **Loading** — `loading`: rows already there are dimmed under a spinner, the table keeping
+  its height; none yet, a spinner row. The spinner is a `role="status"` region, named by
+  `loading-label`.
+- **Nothing because of the filters** — told apart from nothing at all: when a filter holds
+  something, the table says `frontend.table.empty_filtered` (`empty-filtered-label` /
+  `empty_filtered_label`) with a button clearing every filter — on the server, a link to
+  the same page without them, the order kept.
+- **Nothing at all** — `empty_label` / `empty-label`, or the page's own content: the `empty`
+  slot in vue, the `empty` option (markup) on the server — the action adding the first one.
+- **Failed** — vue only: `error` holds why, shown in place of the rows as an alert with a
+  "Try again" button emitting `retry`. A server table either has its rows or its page failed.
+
+## Columns a reader may not see
+
+A column the reader is not entitled to is left out of the columns **and** of the rows the
+page sends — built on the server, never hidden by CSS or by the browser: what is sent can be
+read. The table draws the columns it is given and nothing else, leaving no gap. A default
+order on a field the reader is not shown still orders the rows, with no header claiming
+it; give such a reader a default order on a column they see.
+
+## Overlays
+
+A modal or a panel is a `role="dialog"` with `aria-modal`, named by the first heading of the
+page it holds (`h1`–`h3`, or `[data-dialog-title]`). Opening moves the keyboard onto it, Tab
+and Shift+Tab go round inside, Escape closes it, and closing gives the focus back where it
+was taken from. A `confirm` is a `role="alertdialog"`, named by its title and described by
+its message, with the same trap and return. Its focus and Enter start on `defaultAction`,
+or — when one action is `destructive`, drawn `button--danger` — on the one that backs out,
+else on the primary one; Escape always backs out.
+
 ## Rows shown
 
 `striped` and `hover` for tables read across. `page_size` does not exist on the server,

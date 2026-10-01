@@ -50,6 +50,7 @@ class TableExtension extends AbstractTemplateExtension
                             // component cannot be registered without the pass.
                             'render_pass' => $context['render_pass'] ?? null,
                             'columns' => $this->describeSort($columns, $sort, $options),
+                            'filters_clear_url' => $this->getFiltersClearUrl($options),
                             'rows' => $rows,
                             'options' => $options,
                         ]
@@ -105,6 +106,22 @@ class TableExtension extends AbstractTemplateExtension
             SortHelper::allowedKeys($columns, $default),
             $default
         );
+    }
+
+    // Where "clear the filters" leads, while one of the table's filters holds
+    // something; null otherwise — the list is then empty for real.
+    private function getFiltersClearUrl(array $options): ?string
+    {
+        $request = $this->requestStack->getCurrentRequest();
+
+        return $request
+            ? QueryHelper::clearUrl(
+                $request->getBaseUrl().$request->getPathInfo(),
+                $request->query->all(),
+                array_column($options['filters'] ?? [], 'key'),
+                $options['query_key'] ?? null
+            )
+            : null;
     }
 
     // What each sortable header says of the order, and the address of the next

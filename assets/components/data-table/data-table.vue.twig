@@ -121,16 +121,37 @@
                 <spinner size="sm" :label="resolvedLoadingLabel"></spinner>
             </td>
         </tr>
+        {#- Read and failed: what went wrong, and a way to try again, in place of
+            the rows — never a blank table. -#}
+        <tr v-else-if="error" class="table--row table--row--error">
+            <td class="table--cell table--cell--state" :colspan="getEmptyColspan()" role="alert">
+                <span>[[ error ]]</span>
+                <button class="button button--compact" type="button" @click="$emit('retry')">[[ transTable('retry') ]]</button>
+            </td>
+        </tr>
+        {#- Nothing because of the filters, and the way out of them. -#}
+        <tr v-else-if="isFilteredEmpty()" class="table--row">
+            <td class="table--cell table--cell--state text-empty" :colspan="getEmptyColspan()">
+                <span>[[ resolvedEmptyFilteredLabel ]]</span>
+                <button class="button button--compact" type="button" @click="clearFilters">[[ transTable('clear_filters') ]]</button>
+            </td>
+        </tr>
+        {#- Nothing at all yet: the page says what to do about it in the `empty`
+            slot — the action that adds the first one. -#}
         <tr v-else-if="!hasRows()" class="table--row">
-            <td class="table--cell text-empty" :colspan="getEmptyColspan()">
-                [[ resolvedEmptyLabel ]]
+            <td class="table--cell table--cell--state text-empty" :colspan="getEmptyColspan()">
+                <slot name="empty">[[ resolvedEmptyLabel ]]</slot>
             </td>
         </tr>
         <tr
-                v-for="row in visibleRows"
+                v-for="row in (error ? [] : visibleRows)"
                 :key="getRowKey(row)"
                 class="table--row"
-                :class="{ 'table--row--group': isGroupRow(row) }"
+                :class="{ 'table--row--group': isGroupRow(row), 'table--row--activatable': isRowActivatable(row) }"
+                :tabindex="getRowTabIndex(row)"
+                @focus="onRowFocus(row)"
+                @dblclick="isRowActivatable(row) && onRowDoubleClick(row, $event)"
+                @keydown="isRowActivatable(row) && onRowKeyDown(row, $event)"
         >
             <td v-if="selectable && !isGroupRow(row)" class="table--cell table--cell--select">
                 <input
@@ -208,7 +229,8 @@
                                         <button
                                                 class="table--icon-button"
                                                 type="submit"
-                                                :title="action.label"
+                                                :title="action.label || null"
+                                                :aria-label="action.label || null"
                                                 v-html="renderIcon(action.icon)"
                                         ></button>
                                     </form>
@@ -222,6 +244,7 @@
                                             :icon="action.icon"
                                             :title="action.label || null"
                                             :aria-label="action.label || null"
+                                            :data-row-open="action.open ? '' : null"
                                             class-name="table--icon-link"
                                     ></button-target>
                                     <span

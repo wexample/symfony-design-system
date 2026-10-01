@@ -52,4 +52,21 @@ class QueryHelperTest extends TestCase
             QueryHelper::url('/list', $query, ['sort' => null], 'patients')
         );
     }
+
+    public function testClearUrlOnlyWhileAFilterHoldsSomething(): void
+    {
+        $keys = ['owner', 'state'];
+
+        $this->assertNull(QueryHelper::clearUrl('/list', ['sort' => 'name'], $keys));
+        $this->assertNull(QueryHelper::clearUrl('/list', ['owner' => '', 'state' => []], $keys));
+        $this->assertSame(
+            '/list?'.http_build_query(['sort' => 'name']),
+            QueryHelper::clearUrl('/list', ['owner' => ['a'], 'state' => 'open', 'sort' => 'name', 'page' => 3], $keys)
+        );
+        $this->assertSame(
+            '/list?'.http_build_query(['users' => ['owner' => ['z']]]),
+            QueryHelper::clearUrl('/list', ['patients' => ['owner' => ['a']], 'users' => ['owner' => ['z']]], $keys, 'patients')
+        );
+        $this->assertNull(QueryHelper::clearUrl('/list', ['users' => ['owner' => ['z']]], $keys, 'patients'));
+    }
 }

@@ -4,6 +4,11 @@ import Component from '@wexample/symfony-loader/js/Class/Component';
 // box in the header ticks them all, the count says how many, and an action
 // cannot be pressed with nothing to act on. A table without the option has
 // none of these, and this does nothing.
+//
+// And once a row holds an action marked `open`: the row is reached by the
+// keyboard — one row in the tab order, the arrows from row to row — and a
+// double-click or Enter on it presses that action, the same address in the
+// same overlay as a click on it. The vue twin does the same.
 export default class extends Component {
   private formEl?: HTMLFormElement | null;
   private selectAllEl?: HTMLInputElement | null;
@@ -16,6 +21,14 @@ export default class extends Component {
 
     this.el.addEventListener('change', this.onChange);
     this.formEl?.addEventListener('submit', this.onSubmit);
+    this.el.addEventListener('dblclick', this.onRowDoubleClick);
+    this.el.addEventListener('keydown', this.onRowKeyDown);
+    this.el.addEventListener('focusin', this.onRowFocus);
+
+    const firstRow = this.getActivatableRows()[0];
+    if (firstRow) {
+      firstRow.tabIndex = 0;
+    }
 
     this.update();
   }
@@ -23,6 +36,9 @@ export default class extends Component {
   protected async deactivateListeners(): Promise<void> {
     this.el.removeEventListener('change', this.onChange);
     this.formEl?.removeEventListener('submit', this.onSubmit);
+    this.el.removeEventListener('dblclick', this.onRowDoubleClick);
+    this.el.removeEventListener('keydown', this.onRowKeyDown);
+    this.el.removeEventListener('focusin', this.onRowFocus);
 
     await super.deactivateListeners();
   }
@@ -30,6 +46,66 @@ export default class extends Component {
   private getRowBoxes(): HTMLInputElement[] {
     return Array.from(this.el.querySelectorAll<HTMLInputElement>('.table--select-row'));
   }
+
+  private getActivatableRows(): HTMLTableRowElement[] {
+    return Array.from(this.el.querySelectorAll<HTMLTableRowElement>('tr[data-row-activatable]'));
+  }
+
+  private activateRow(row: HTMLElement): void {
+    const open = row.querySelector<HTMLElement>('[data-row-open]');
+    (open?.matches('a, button') ? open : open?.querySelector<HTMLElement>('a, button'))?.click();
+  }
+
+  private onRowDoubleClick = (event: MouseEvent): void => {
+    const target = event.target as HTMLElement;
+    const row = target.closest<HTMLElement>('tr[data-row-activatable]');
+
+    // A double-click on a control of the row is that control's.
+    if (row && !target.closest('a, button, input, select, textarea, label')) {
+      this.activateRow(row);
+    }
+  };
+
+  // The row the keyboard lands on becomes the one Tab comes back to.
+  private onRowFocus = (event: FocusEvent): void => {
+    const row = event.target as HTMLElement;
+
+    if (!row.matches?.('tr[data-row-activatable]')) {
+      return;
+    }
+
+    this.getActivatableRows().forEach((entry) => {
+      entry.tabIndex = entry === row ? 0 : -1;
+    });
+  };
+
+  private onRowKeyDown = (event: KeyboardEvent): void => {
+    const row = event.target as HTMLElement;
+
+    if (!row.matches?.('tr[data-row-activatable]')) {
+      return;
+    }
+
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.activateRow(row);
+      return;
+    }
+
+    const rows = this.getActivatableRows();
+    const index = rows.indexOf(row as HTMLTableRowElement);
+    const target = {
+      ArrowDown: rows[index + 1],
+      ArrowUp: rows[index - 1],
+      Home: rows[0],
+      End: rows[rows.length - 1],
+    }[event.key];
+
+    if (target) {
+      event.preventDefault();
+      target.focus();
+    }
+  };
 
   private getSelectEl(): HTMLSelectElement | null {
     return this.el.querySelector<HTMLSelectElement>('.table--bulk-select');

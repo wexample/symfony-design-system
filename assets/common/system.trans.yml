@@ -48,6 +48,9 @@ en:
       sorted_asc: "Sorted by %column%, ascending"
       sorted_desc: "Sorted by %column%, descending"
       sort_reset: "Back to the original order"
+      empty_filtered: "Nothing matches these filters."
+      clear_filters: "Clear the filters"
+      retry: "Try again"
     switch:
       cancel: Cancel
       checked: "On"

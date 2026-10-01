@@ -8,9 +8,14 @@ import FilePath from '../file-path/file-path.vue';
 import FilterBar from '../filter-bar/filter-bar.vue';
 import { filterMatches } from '../../js/Helper/FilterHelper';
 import { sortApply, sortAria, sortNext, sortValueAt } from '../../js/Helper/SortHelper';
+import { filterSelected } from '../../js/Helper/FilterHelper';
 import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
 
 const translated = buildTranslatedBindings({
+  resolvedEmptyFilteredLabel: [
+    'emptyFilteredLabel',
+    'WexampleSymfonyDesignSystemBundle.common.system::frontend.table.empty_filtered'
+  ],
   resolvedLoadingLabel: [
     'loadingLabel',
     'WexampleSymfonyDesignSystemBundle.common.system::frontend.loading'
@@ -173,10 +178,24 @@ export default {
     sortLocale: {
       type: String,
       default: null
+    },
+    // Rows that open: each one reached by the keyboard — Tab onto the list,
+    // the arrows from row to row — and opened by Enter or a double-click,
+    // which emit `row-activate` and press the row's action marked `open`.
+    // A row holding such an action is activatable without this.
+    activatable: {
+      type: Boolean,
+      default: false
+    },
+    // Why the rows could not be read, in place of them, with a way to try
+    // again (`retry`): never a blank table.
+    error: {
+      type: String,
+      default: ''
     }
   },
 
-  emits: ['update:selected', 'bulk-action', 'update:filterValues', 'update:sort'],
+  emits: ['update:selected', 'bulk-action', 'update:filterValues', 'update:sort', 'row-activate', 'retry'],
 
   data() {
     return {
@@ -184,6 +203,8 @@ export default {
       bulkActionIndex: '',
       ownFilterValues: {},
       ownSort: null,
+      // The row the keyboard is on, by key: the one Tab comes back to.
+      focusedKey: null,
       // Said to a screen reader once a header is pressed, not on load.
       sortMessage: '',
       page: 0
@@ -195,6 +216,15 @@ export default {
 
     resolvedFilterValues() {
       return this.filterValues ?? this.ownFilterValues;
+    },
+
+    // A column declaring an action marked `open`: every row then opens.
+    hasOpenAction() {
+      return this.columns.some((column) => {
+        const actions = column?.actions ?? (column?.action ? [column.action] : []);
+
+        return (Array.isArray(actions) ? actions : [actions]).some((action) => action?.open === true);
+      });
     },
 
     resolvedSort() {
@@ -478,6 +508,82 @@ export default {
     hasRows() {
       return this.shownRows.length > 0;
     },
+
+    // Nothing to show because the filters leave nothing, which is not the
+    // same as nothing at all: the way out is to loosen them.
+    isFilteredEmpty() {
+      return !this.hasRows()
+        && this.filters.some((filter) => filterSelected(this.resolvedFilterValues, filter.key).length > 0);
+    },
+
+    clearFilters() {
+      this.setFilterValues({});
+    },
+
+    isRowActivatable(row) {
+      return !this.isGroupRow(row) && (this.activatable || this.hasOpenAction);
+    },
+
+    // One row of the list in the tab order, the others reached by the arrows:
+    // Tab crosses the list in one step instead of one per row.
+    getRowTabIndex(row) {
+      if (!this.isRowActivatable(row)) {
+        return null;
+      }
+
+      const keys = this.visibleRows.filter((entry) => this.isRowActivatable(entry)).map((entry) => this.getRowKey(entry));
+      const current = keys.includes(this.focusedKey) ? this.focusedKey : keys[0];
+
+      return this.getRowKey(row) === current ? 0 : -1;
+    },
+
+    onRowFocus(row) {
+      this.focusedKey = this.getRowKey(row);
+    },
+
+    onRowDoubleClick(row, event) {
+      // A double-click on a control of the row is that control's.
+      if (event.target.closest('a, button, input, select, textarea, label')) {
+        return;
+      }
+
+      this.activateRow(row, event.currentTarget);
+    },
+
+    onRowKeyDown(row, event) {
+      if (event.target !== event.currentTarget) {
+        return;
+      }
+
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        this.activateRow(row, event.currentTarget);
+        return;
+      }
+
+      const rows = Array.from(event.currentTarget.parentElement.querySelectorAll('tr[tabindex]'));
+      const index = rows.indexOf(event.currentTarget);
+      const target = {
+        ArrowDown: rows[index + 1],
+        ArrowUp: rows[index - 1],
+        Home: rows[0],
+        End: rows[rows.length - 1],
+      }[event.key];
+
+      if (target) {
+        event.preventDefault();
+        target.focus();
+      }
+    },
+
+    // Said to the page, and pressed on the row's `open` action if it has one —
+    // the same address, the same overlay as a click on it.
+    activateRow(row, rowEl) {
+      this.$emit('row-activate', { row, key: this.getRowKey(row) });
+
+      const open = rowEl?.querySelector('[data-row-open]');
+      (open?.matches('a, button') ? open : open?.querySelector('a, button'))?.click();
+    },
     getRowKey(row) {
       return this.rowKey ? this.rowKey(row) : this.rowIndexes.get(row);
     },
@@ -547,6 +653,8 @@ export default {
           targetOptions: targetOptions ?? {},
           method,
           token: typeof action === 'object' ? action.token : undefined,
+          // What a double-click or Enter on the row presses.
+          open: typeof action === 'object' && action.open === true,
           label: typeof action === 'object' ? action.label : undefined,
           icon: iconName ?? '',
         };
