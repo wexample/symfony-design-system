@@ -57,6 +57,63 @@ fieldset.form--fieldset {
   }
 }
 
+// Fields side by side: as many columns as the room holds, each never narrower
+// than a field can be read at, and never more than the form asks for — three
+// by default, `form--columns-2` for two. One column on a phone, without a
+// breakpoint: the floor decides. On a section or on the form itself.
+.form--columns {
+  --form-columns: 3;
+  --form-column-min: 16rem;
+  --form-column-gap: var(--space-4);
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(max(var(--form-column-min), (100% - (var(--form-columns) - 1) * var(--form-column-gap)) / var(--form-columns)), 1fr)
+  );
+  column-gap: var(--form-column-gap);
+  align-items: start;
+}
+
+.form--columns-2 {
+  --form-columns: 2;
+}
+
+// A field that wants the whole line among columns — a long text, a choice of
+// many options — set on its row (`row_attr: { class: 'form--span' }`). What is
+// not a field — the heading of a section, the actions — always does: a floated
+// legend is a grid item like any other.
+.form--columns > .form--span,
+.form--columns > .form--actions,
+.form--columns > legend {
+  grid-column: 1 / -1;
+}
+
+// Sections as regions of their own, side by side when the room allows and one
+// under the other otherwise: each its own ground and edge, instead of a rule
+// between them. Wide enough each for its fields to keep their own columns.
+.form--zones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--form-zone-min, 24rem)), 1fr));
+  gap: var(--space-4);
+  align-items: start;
+
+  > .form--section,
+  > fieldset:not(.form--fieldset) {
+    padding: var(--space-4);
+    border: var(--border-discreet, var(--border-separator));
+    border-radius: var(--radius-box);
+    background: var(--surface-1);
+  }
+
+  > .form--section + .form--section,
+  > fieldset:not(.form--fieldset) + fieldset {
+    border-top: var(--border-discreet, var(--border-separator));
+  }
+
+  > .form--actions {
+    grid-column: 1 / -1;
+  }
+}
+
 .surface .form--row + .form--row {
   border-top: var(--border-separator);
 }
