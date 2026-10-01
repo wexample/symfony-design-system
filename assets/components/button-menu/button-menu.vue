@@ -46,6 +46,12 @@ export default {
       type: Boolean,
       default: null
     },
+    // Initials standing for a person, in place of the icon: the menu of their
+    // account.
+    avatar: {
+      type: String,
+      default: null
+    },
     buttonClass: {
       type: String,
       default: null
@@ -124,7 +130,7 @@ export default {
     },
 
     hasCaret() {
-      return this.caret ?? Boolean(this.label);
+      return this.caret ?? (Boolean(this.label) && !this.avatar);
     },
 
     // Drawn once and handed to every checked toggle, the mark being the same

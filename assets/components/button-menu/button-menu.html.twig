@@ -177,7 +177,11 @@
                 aria-haspopup="menu"
                 aria-expanded="false"
                 {{ component_render_tag_attributes(button_attr) }}>
-            {%- if icon -%}
+            {#- `avatar` — initials — stands for a person: the menu of their
+                account, opened from their face rather than from a word. -#}
+            {%- if options.avatar|default(null) -%}
+                <span class="avatar button-menu--avatar" aria-hidden="true">{{ options.avatar }}</span>
+            {%- elseif icon -%}
                 <span class="button--icon">
                     {{ icon(icon) }}
                 </span>
@@ -187,7 +191,7 @@
             {%- endif -%}
             {#- An icon on its own says it opens something by what it is — a caret
                 beside it is noise. Anything with a word keeps one. -#}
-            {%- if options.caret|default(label is not empty) -%}
+            {%- if options.caret|default(label is not empty and not options.avatar|default(null)) -%}
                 <span class="button-menu--caret" aria-hidden="true"></span>
             {%- endif -%}
         </button>

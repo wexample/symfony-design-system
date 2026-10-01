@@ -42,7 +42,8 @@
                 :aria-expanded="isOpen ? 'true' : 'false'"
                 @click.prevent="toggle"
         >
-            <span v-if="iconHtml" class="button--icon" v-html="iconHtml"></span>
+            <span v-if="avatar" class="avatar button-menu--avatar" aria-hidden="true">[[ avatar ]]</span>
+            <span v-else-if="iconHtml" class="button--icon" v-html="iconHtml"></span>
             <span v-if="label" class="button-menu--label">[[ label ]]</span>
             <span v-if="hasCaret" class="button-menu--caret" aria-hidden="true"></span>
         </button>

@@ -4,6 +4,7 @@
 @use '../../css/mixins/feedback' as feedback;
 @use '../spinner/spinner';
 @use '../../css/shapes/count';
+@use '../../css/shapes/avatar';
 
 .button {
   display: inline-flex;
@@ -159,6 +160,17 @@
 .button-menu--invert .button-menu--link:hover,
 .button-menu--invert .button-menu--link:focus-visible {
   background: var(--state-hover);
+}
+
+// Initials in a round frame, at text size: small enough to sit in a header,
+// set in the accent so the person reads apart from the actions around them.
+.button-menu--avatar {
+  --avatar-size: var(--space-6);
+  --avatar-bg: var(--accent-9);
+  --avatar-color: var(--accent-contrast);
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-strong);
+  letter-spacing: 0.02em;
 }
 
 .button-menu--label {
