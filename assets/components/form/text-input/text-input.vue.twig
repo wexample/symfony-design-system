@@ -1,6 +1,8 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/form-field/form-field.vue.twig' -%}
 
 {%- block field_control -%}
+    <div class="form--input-frame" :class="{ 'form--input-group': hasAddon }">
+    <span v-if="prefix" class="form--input-addon" :id="resolvedId + '-prefix'">[[ prefix ]]</span>
     <input
             class="form--input"
             :type="type"
@@ -13,6 +15,9 @@
             :aria-readonly="readonly ? 'true' : null"
             :disabled="disabled ? true : null"
             :autocomplete="autocomplete || null"
+            :aria-describedby="addonDescribedBy"
             @input="onInput"
     >
+    <span v-if="suffix" class="form--input-addon" :id="resolvedId + '-suffix'">[[ suffix ]]</span>
+    </div>
 {%- endblock -%}

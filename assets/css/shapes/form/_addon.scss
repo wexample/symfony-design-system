@@ -1,0 +1,59 @@
+// A field with a fixed word beside its value — a unit, a currency — that is
+// not part of it. The frame is the group's: it draws the field's border and
+// ground, the input inside drops its own, so the word and the value sit in one
+// field. The ring of focus goes round the whole, the frozen look too.
+@use '../../mixins/field' as field;
+
+// Without a word beside it, the frame is not there at all.
+.form--input-frame {
+  display: contents;
+}
+
+.form--input-group {
+  @include field.field-base;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+
+  > .form--input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    border-radius: inherit;
+    background: transparent;
+  }
+
+  > .form--input:focus {
+    box-shadow: none;
+  }
+
+  &:focus-within {
+    @include field.field-focus;
+  }
+
+  &:has(> .form--input[readonly]) {
+    border-style: dashed;
+  }
+}
+
+.form--group.has-error .form--input-group {
+  border: var(--border-focus);
+  border-color: var(--color-error-23);
+}
+
+// Read with the field, never written in: not focusable, not selectable with
+// the value.
+.form--input-addon {
+  padding-inline: var(--space-3);
+  color: var(--text-color-muted);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.form--input-addon:first-child {
+  padding-inline-end: 0;
+}
+
+.form--input-addon:last-child {
+  padding-inline-start: 0;
+}
