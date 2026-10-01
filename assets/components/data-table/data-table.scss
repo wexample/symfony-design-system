@@ -9,6 +9,7 @@
 @use '../button/button';
 @use '../../css/shapes/form/base';
 @use '../../css/shapes/form/select';
+@use '../../css/shapes/form/addon';
 
 // The root holds what it draws out of flow — the region announcing a new order
 // is absolutely placed — so none of it lands against the page body, outside the
@@ -352,4 +353,14 @@
   > * + * {
     margin-inline-start: var(--space-3);
   }
+}
+
+// The search box leads the bar: wide enough to read what is typed, never so
+// wide that the filters beside it wrap for nothing.
+.table--search {
+  flex: 0 1 16rem;
+}
+
+.table--search .form--input-addon {
+  display: inline-flex;
 }

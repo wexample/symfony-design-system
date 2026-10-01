@@ -40,3 +40,7 @@ Not checked in the browser: the design-system app answers 500 on every page, fro
 > **For the forms agent (symfony-forms)** — forward a `prefix` / `suffix` form option to the component options of `text-input` and `number-input`, e.g. in the theme: `component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/number-input', { …, suffix: form.vars.suffix ?? null })`, with `suffix` / `prefix` declared as options of the types (default `null`, translatable if you like — the component prints the string as given). Nothing else: the frozen rendering keeps working, the addon is not submitted.
 >
 > **For the Sapiens agent** — once the forms option exists: `'suffix' => 'kg'` on the field. In Vue: `<number-input suffix="kg" …>`.
+
+## Verification — done
+
+Checked in headless Chrome once the app was back: the four demo fields draw a 40 px frame like a plain input, the input inside has no border of its own, `aria-describedby` resolves to `kg` / `€` / `cm` / `min`, no addon is tabbable, the frozen one's frame is dashed, and the demo form's FormData holds `weight=72.5`, `price=42.00`, `height=178`, `duration=45` — values only.

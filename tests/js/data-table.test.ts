@@ -101,7 +101,7 @@ test('a new order goes back to the first page and is said aloud', () => {
   vm.toggleSort(NAME);
 
   assert.equal(vm.page, 0);
-  assert.equal(vm.sortMessage, 'sorted_asc {"%column%":"Name"}');
+  assert.equal(vm.statusMessage, 'sorted_asc {"%column%":"Name"}');
 });
 
 test('the ticked rows stay ticked, keyed or not', () => {
@@ -170,4 +170,101 @@ test('a default order on a column the reader is not shown still orders, and no h
 
   assert.deepEqual(vm.shownRows.map((row: { id: number }) => row.id), [3, 1, 4, 2, 5]);
   assert.equal(vm.getSortAria(NAME), 'none');
+});
+
+// Searching a list the table holds whole.
+
+const CITY = { key: 'city', label: 'City' };
+const people = () => [
+  { id: 1, first: 'Élodie', last: 'Durand', city: 'Lyon', measured: '2026-09-01' },
+  { id: 2, first: 'Eric', last: 'Martin', city: 'Évry', measured: '2026-09-02' },
+  { id: 3, first: 'Zoé', last: 'Petit', city: 'Lyon', measured: '2026-09-03' },
+  { id: 4, first: 'Adam', last: 'Leroy', city: 'Angers', measured: '2026-09-04' },
+];
+const type = (vm: any, text: string) => vm.onSearchInput({ target: { value: text } });
+
+test('the search finds what is typed, case and accents aside, on the searched columns only', () => {
+  const { vm } = mount({ rows: people(), columns: [NAME, CITY, { ...MEASURED, cell: 'date' }], searchable: true, app: {} });
+
+  type(vm, 'elodie');
+  assert.deepEqual(ids(vm.shownRows), [1]);
+
+  type(vm, 'EVRY');
+  assert.deepEqual(ids(vm.shownRows), [2]);
+
+  // The date column is not searched.
+  type(vm, '2026-09');
+  assert.deepEqual(ids(vm.shownRows), []);
+});
+
+test('a column can opt out of the search', () => {
+  const { vm } = mount({ rows: people(), columns: [NAME, { ...CITY, searchable: false }], searchable: true, app: {} });
+
+  type(vm, 'lyon');
+
+  assert.deepEqual(ids(vm.shownRows), []);
+});
+
+test('the search narrows with the filters, then the order and the pages cut it', () => {
+  const { vm } = mount({
+    rows: people(),
+    columns: [NAME, CITY],
+    searchable: true,
+    filters: [{ key: 'city', label: 'City', options: [] }],
+    filterRows: true,
+    filterValues: { city: ['Lyon'] },
+    sortRows: true,
+    pageSize: 1,
+    app: {},
+  });
+
+  vm.page = 1;
+  type(vm, 'o');
+  vm.toggleSort({ ...NAME });
+
+  assert.equal(vm.page, 0);
+  assert.deepEqual(ids(vm.shownRows), [1, 3]);
+  assert.deepEqual(ids(vm.visibleRows), [1]);
+});
+
+test('a search goes back to the first page and says how much it found', () => {
+  const { vm } = mount({ rows: people(), columns: [NAME, CITY], searchable: true, pageSize: 1, app: {} });
+
+  vm.page = 2;
+  type(vm, 'lyon');
+
+  assert.equal(vm.page, 0);
+  assert.equal(vm.statusMessage, 'results {"%count%":2}');
+});
+
+test('a search finding nothing is the filtered-empty state, and clearing empties the search too', () => {
+  const { vm } = mount({ rows: people(), columns: [NAME, CITY], searchable: true, app: {} });
+
+  type(vm, 'nobody');
+  assert.equal(vm.isFilteredEmpty(), true);
+
+  vm.clearFilters();
+  assert.equal(vm.search, '');
+  assert.deepEqual(ids(vm.shownRows), [1, 2, 3, 4]);
+});
+
+test('a group heading with none of its rows found goes too', () => {
+  const { vm } = mount({
+    rows: [{ group: 'North' }, ...people().slice(0, 2), { group: 'South' }, ...people().slice(2)],
+    columns: [NAME, CITY],
+    searchable: true,
+    app: {},
+  });
+
+  type(vm, 'angers');
+
+  assert.deepEqual(vm.shownRows.map((row: any) => row.group ?? row.id), ['South', 4]);
+});
+
+test('without the option, a table holds no search', () => {
+  const { vm } = mount({ rows: people(), columns: [NAME, CITY], app: {} });
+
+  vm.search = 'lyon';
+
+  assert.deepEqual(ids(vm.shownRows), [1, 2, 3, 4]);
 });

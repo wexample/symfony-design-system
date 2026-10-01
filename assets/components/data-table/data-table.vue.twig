@@ -22,6 +22,18 @@
     {# What can be done to the ticked rows, above them — same bar as the server
        table, and the same post when an action has an address. #}
     <div v-if="hasBar" class="table--bar">
+        <div v-if="searchable" class="form--input-group table--search">
+            <span class="form--input-addon" aria-hidden="true" v-html="searchIconHtml"></span>
+            <input
+                    class="form--input"
+                    type="search"
+                    :value="search"
+                    :placeholder="transTable('search')"
+                    :aria-label="transTable('search')"
+                    autocomplete="off"
+                    @input="onSearchInput"
+            >
+        </div>
         <filter-bar
                 v-if="filters.length"
                 :filters="filters"
@@ -282,8 +294,8 @@
         </tfoot>
     </table>
     </div>
-    {#- A new order said aloud: the arrow only shows it. -#}
-    <span class="visually-hidden" role="status">[[ sortMessage ]]</span>
+    {#- A new order, or what a search found, said aloud. -#}
+    <span class="visually-hidden" role="status">[[ statusMessage ]]</span>
     <pagination
             v-if="pagesCount > 1"
             :page="page"

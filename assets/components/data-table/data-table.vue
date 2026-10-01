@@ -6,7 +6,7 @@ import Marker from '../marker/marker.vue';
 import Pagination from '../pagination/pagination.vue';
 import FilePath from '../file-path/file-path.vue';
 import FilterBar from '../filter-bar/filter-bar.vue';
-import { filterMatches } from '../../js/Helper/FilterHelper';
+import { filterMatches, filterTextMatches } from '../../js/Helper/FilterHelper';
 import { sortApply, sortAria, sortNext, sortValueAt } from '../../js/Helper/SortHelper';
 import { filterSelected } from '../../js/Helper/FilterHelper';
 import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
@@ -179,6 +179,16 @@ export default {
       type: String,
       default: null
     },
+    // A search box at the head of the table, narrowing the rows it holds to
+    // those whose shown text holds what is typed — case and accents aside —
+    // with the filters, before the order and the pages. A column is searched
+    // unless it says `searchable: false`; actions, status and date columns
+    // never are, their text being an icon, a state or a worded instant. For a
+    // list held whole in the page: a table fed by an api has no box yet.
+    searchable: {
+      type: Boolean,
+      default: false
+    },
     // Why the rows could not be read, in place of them, with a way to try
     // again (`retry`): never a blank table.
     error: {
@@ -195,8 +205,9 @@ export default {
       bulkActionIndex: '',
       ownFilterValues: {},
       ownSort: null,
+      search: '',
       // Said to a screen reader once a header is pressed, not on load.
-      sortMessage: '',
+      statusMessage: '',
       page: 0
     };
   },
@@ -216,9 +227,13 @@ export default {
     // filters when it narrows them itself, in its own order when it sorts them
     // — the whole list, so that the pages cut it after.
     shownRows() {
-      const rows = this.filterRows
+      let rows = this.filterRows
         ? (this.rows || []).filter((row) => this.isGroupRow(row) || filterMatches(row, this.resolvedFilterValues))
         : (this.rows || []);
+
+      if (this.searchable && this.search.trim()) {
+        rows = this.dropEmptyGroups(rows.filter((row) => this.isGroupRow(row) || this.rowMatchesSearch(row)));
+      }
 
       if (!this.sortRows || !this.resolvedSort) {
         return rows;
@@ -250,7 +265,19 @@ export default {
     },
 
     hasBar() {
-      return this.hasBulkActions || this.showCount || this.filters.length > 0;
+      return this.searchable || this.hasBulkActions || this.showCount || this.filters.length > 0;
+    },
+
+    searchedColumns() {
+      return this.columns.filter((column) => typeof column === 'string' || (
+        column?.searchable !== false
+        && !this.hasCellActions(column)
+        && !['status', 'date', 'html'].includes(column?.cell)
+      ));
+    },
+
+    searchIconHtml() {
+      return this.renderIcon('ph:bold/magnifying-glass');
     },
 
     pagesCount() {
@@ -417,7 +444,7 @@ export default {
 
       this.ownSort = next;
       this.page = 0;
-      this.sortMessage = next
+      this.statusMessage = next
         ? this.transTable(`sorted_${next.direction}`, { '%column%': sorted ? this.getColumnLabel(sorted) : next.key })
         : this.transTable('sort_reset');
       this.$emit('update:sort', next);
@@ -492,13 +519,37 @@ export default {
 
     // Nothing to show because the filters leave nothing, which is not the
     // same as nothing at all: the way out is to loosen them.
+    // Nothing because of the filters or the search, and the way out of them.
     isFilteredEmpty() {
-      return !this.hasRows()
-        && this.filters.some((filter) => filterSelected(this.resolvedFilterValues, filter.key).length > 0);
+      return !this.hasRows() && (
+        (this.searchable && this.search.trim() !== '')
+        || this.filters.some((filter) => filterSelected(this.resolvedFilterValues, filter.key).length > 0)
+      );
     },
 
     clearFilters() {
+      this.search = '';
       this.setFilterValues({});
+    },
+
+    rowMatchesSearch(row) {
+      return filterTextMatches(this.search, ...this.searchedColumns.map((column) => String(this.getCellValue(row, column) ?? '')));
+    },
+
+    // A group heading with none of its rows left goes too.
+    dropEmptyGroups(rows) {
+      return rows.filter((row, index) => !this.isGroupRow(row)
+        || (index + 1 < rows.length && !this.isGroupRow(rows[index + 1])));
+    },
+
+    // Searched differently, the list starts again from its first page, and
+    // says how much it found.
+    onSearchInput(event) {
+      this.search = event.target.value;
+      this.page = 0;
+      this.statusMessage = this.search.trim()
+        ? this.transTable('results', { '%count%': this.shownRows.filter((row) => !this.isGroupRow(row)).length })
+        : '';
     },
 
     getRowKey(row) {
