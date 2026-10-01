@@ -50,6 +50,43 @@ rows depends on where they come from.
   passing when its field of the filter's key is one of the values (or, for a list, holds
   one). The table goes back to its first page, and ticked rows a filter hides are unticked.
 
+## Sorting
+
+A column is sorted on when it says `sortable`, never by default: an actions, a selection or
+a computed status column has no order of its own. It sorts on `sort_key` / `sortKey`, which
+may not be what it shows — a date shown worded sorts on its ISO value, a name shown "First
+Last" on the last name, a link cell on `source.label` (dots reach into a value). The vue
+one also takes `sortValue(row)`, for an order the row does not hold as such.
+
+`default_sort` / `defaultSort` is `{ key, direction }`, `asc` or `desc`: the order the list
+opens on, and the one its header shows from the start. Its key need not be a column's.
+Pressing a header sorts ascending, then descending, then back to the default — never to an
+order nobody declared; on the column the default already sorts, a press turns it and the
+next one comes back. With no default, the third press gives the rows their order back.
+
+Whatever sorts, the same rules: empty values (`null`, `''`) go last both ways; numbers and
+dates compare as quantities; words compare the way the page's locale orders them
+(`Intl.Collator` / `Collator`, numeric) — « Élodie » with the E's, « Room 9 » before
+« Room 10 »; rows comparing equal keep their order; a group row stays where it is, the rows
+under it sorted among themselves.
+
+- **Server table** — each sortable header is a link to the same page with
+  `?sort=<key>&direction=<asc|desc>`, the filters kept and the page number dropped; back to
+  the default, both keys go. The controller reads the order with
+  `SortHelper::fromQuery($request->query->all(), $allowedKeys, $default)`, which lets
+  through only the keys it was given — the one to call before an `ORDER BY`.
+  `sort_rows: true` makes the table order the rows itself, for a list handed over whole.
+- **Vue table fed by an api** — the default. The table only says what was pressed, through
+  `v-model:sort` (always a state, the default once the presses come back to it); the page
+  asks its api again, and goes back to its own first page.
+- **Vue table holding its rows** — `sort-rows` makes it sort them itself, all of them
+  before paging, and go back to its first page. `sort-locale` overrides the page's locale.
+
+The header is a button (a link on the server), reached and pressed from the keyboard,
+carrying `aria-sort`; the vue one says each new order aloud through a `role="status"`
+region. Ticked rows stay ticked: they are named by `rowKey`, or by their place among the
+rows given, which no order moves. The vue table sorts only with `show-header`.
+
 ## Rows shown
 
 `striped` and `hover` for tables read across. `page_size` does not exist on the server,

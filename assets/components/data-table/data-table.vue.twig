@@ -90,8 +90,21 @@
                         class="table--cell"
                         :class="getColumnClass(column)"
                         scope="col"
+                        :aria-sort="getSortAria(column)"
                 >
-                    [[ getColumnLabel(column) ]]
+                    {#- A real button, reached and pressed from the keyboard; the
+                        arrow says the order in force, the default one included. -#}
+                    <button
+                            v-if="isColumnSortable(column)"
+                            class="table--sort"
+                            :class="{ 'is-active': isColumnSorted(column) }"
+                            type="button"
+                            @click="toggleSort(column)"
+                    >
+                        <span>[[ getColumnLabel(column) ]]</span>
+                        <span class="table--sort-icon" aria-hidden="true" v-html="renderIcon(getSortIcon(column))"></span>
+                    </button>
+                    <template v-else>[[ getColumnLabel(column) ]]</template>
                 </th>
             </slot>
         </tr>
@@ -114,8 +127,8 @@
             </td>
         </tr>
         <tr
-                v-for="(row, index) in visibleRows"
-                :key="getRowKey(row, pageOffset + index)"
+                v-for="row in visibleRows"
+                :key="getRowKey(row)"
                 class="table--row"
                 :class="{ 'table--row--group': isGroupRow(row) }"
         >
@@ -123,9 +136,9 @@
                 <input
                         class="table--select table--select-row"
                         type="checkbox"
-                        :checked="isRowSelected(row, pageOffset + index)"
+                        :checked="isRowSelected(row)"
                         :aria-label="transTable('select_row')"
-                        @change="toggleRow(row, pageOffset + index, $event.target.checked)"
+                        @change="toggleRow(row, $event.target.checked)"
                 >
             </td>
             <template v-if="isGroupRow(row)">
@@ -253,6 +266,8 @@
         </tfoot>
     </table>
     </div>
+    {#- A new order said aloud: the arrow only shows it. -#}
+    <span class="visually-hidden" role="status">[[ sortMessage ]]</span>
     <pagination
             v-if="pagesCount > 1"
             :page="page"

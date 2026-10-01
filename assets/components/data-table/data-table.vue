@@ -7,6 +7,7 @@ import Pagination from '../pagination/pagination.vue';
 import FilePath from '../file-path/file-path.vue';
 import FilterBar from '../filter-bar/filter-bar.vue';
 import { filterMatches } from '../../js/Helper/FilterHelper';
+import { sortApply, sortAria, sortNext, sortValueAt } from '../../js/Helper/SortHelper';
 import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
 
 const translated = buildTranslatedBindings({
@@ -145,16 +146,46 @@ export default {
     pageSize: {
       type: Number,
       default: 0
+    },
+    // The order the list opens on, and comes back to: { key, direction }, the
+    // key a column's `sortKey` (or `key`) when it is `sortable`. Its header
+    // says so from the start — one always knows what the list is sorted by.
+    defaultSort: {
+      type: Object,
+      default: null
+    },
+    // The order pressed on a header, for a parent that holds it
+    // (`v-model:sort`) — always a state, the default one once the presses come
+    // back to it. Left null, the table holds it itself.
+    sort: {
+      type: Object,
+      default: null
+    },
+    // The table orders the rows it was given itself, all of them before
+    // paging: for a list held whole in the page. Left false, it only says what
+    // was pressed, for the page to ask its api with — a table holding one page
+    // of a list cannot sort the list.
+    sortRows: {
+      type: Boolean,
+      default: false
+    },
+    // The locale words are compared in; the page's when left empty.
+    sortLocale: {
+      type: String,
+      default: null
     }
   },
 
-  emits: ['update:selected', 'bulk-action', 'update:filterValues'],
+  emits: ['update:selected', 'bulk-action', 'update:filterValues', 'update:sort'],
 
   data() {
     return {
       ownSelected: [],
       bulkActionIndex: '',
       ownFilterValues: {},
+      ownSort: null,
+      // Said to a screen reader once a header is pressed, not on load.
+      sortMessage: '',
       page: 0
     };
   },
@@ -166,14 +197,45 @@ export default {
       return this.filterValues ?? this.ownFilterValues;
     },
 
-    // The rows the table works on: all it was given, or those passing its
-    // filters when it narrows them itself.
-    shownRows() {
-      const rows = this.rows || [];
+    resolvedSort() {
+      return this.sort ?? this.ownSort ?? this.defaultSort;
+    },
 
-      return this.filterRows
-        ? rows.filter((row) => this.isGroupRow(row) || filterMatches(row, this.resolvedFilterValues))
-        : rows;
+    // The rows the table works on: all it was given, or those passing its
+    // filters when it narrows them itself, in its own order when it sorts them
+    // — the whole list, so that the pages cut it after.
+    shownRows() {
+      const rows = this.filterRows
+        ? (this.rows || []).filter((row) => this.isGroupRow(row) || filterMatches(row, this.resolvedFilterValues))
+        : (this.rows || []);
+
+      if (!this.sortRows || !this.resolvedSort) {
+        return rows;
+      }
+
+      const column = this.columns.find((entry) => this.isColumnSortable(entry)
+        && this.getColumnSortKey(entry) === this.resolvedSort.key);
+
+      return sortApply(rows, this.resolvedSort, {
+        locale: this.resolvedSortLocale,
+        value: (row, key) => (typeof column?.sortValue === 'function' ? column.sortValue(row) : sortValueAt(row, key)),
+        isFixed: (row) => this.isGroupRow(row)
+      });
+    },
+
+    // Server locales write `fr_FR`, Intl wants `fr-FR`.
+    resolvedSortLocale() {
+      return this.sortLocale
+        || this.app?.layout?.vars?.locale
+        || (typeof document !== 'undefined' ? document.documentElement.lang : '')
+        || null;
+    },
+
+    // Where a row's key comes from when the table is given no `rowKey`: its
+    // place among the rows it was given, which neither a filter nor an order
+    // moves.
+    rowIndexes() {
+      return new Map((this.rows || []).map((row, index) => [row, index]));
     },
 
     hasBar() {
@@ -201,8 +263,8 @@ export default {
 
     selectableKeys() {
       return this.shownRows
-        .map((row, index) => (this.isGroupRow(row) ? null : this.getRowKey(row, index)))
-        .filter((key) => key !== null);
+        .filter((row) => !this.isGroupRow(row))
+        .map((row) => this.getRowKey(row));
     },
 
     totalCount() {
@@ -296,8 +358,8 @@ export default {
       return this.trans(`WexampleSymfonyDesignSystemBundle.common.system::frontend.table.${name}`, args);
     },
 
-    isRowSelected(row, index) {
-      return this.selectedKeys.includes(this.getRowKey(row, index));
+    isRowSelected(row) {
+      return this.selectedKeys.includes(this.getRowKey(row));
     },
 
     // Narrowed differently, the list starts again from its first page.
@@ -307,13 +369,56 @@ export default {
       this.$emit('update:filterValues', values);
     },
 
+    // Sortable only when the column says so: an actions, a selection or a
+    // computed status column has no order of its own.
+    isColumnSortable(column) {
+      return typeof column === 'object' && column?.sortable === true;
+    },
+
+    // What the column is sorted on, which is not always what it shows: a date
+    // shown worded sorts on its value, a name shown "First Last" on the last.
+    getColumnSortKey(column) {
+      return column?.sortKey ?? this.getColumnKey(column);
+    },
+
+    isColumnSorted(column) {
+      return this.isColumnSortable(column) && this.resolvedSort?.key === this.getColumnSortKey(column);
+    },
+
+    getSortAria(column) {
+      return this.isColumnSortable(column) ? sortAria(this.resolvedSort, this.getColumnSortKey(column)) : null;
+    },
+
+    getSortIcon(column) {
+      return {
+        ascending: 'ph:bold/caret-up',
+        descending: 'ph:bold/caret-down'
+      }[this.getSortAria(column)] ?? 'ph:bold/caret-up-down';
+    },
+
+    // Ascending, descending, then back to the default order. Sorted
+    // differently, the list starts again from its first page; the ticked rows
+    // stay ticked, being named by their key and not their place.
+    toggleSort(column) {
+      const next = sortNext(this.resolvedSort, this.getColumnSortKey(column), this.defaultSort);
+      const sorted = next && this.columns.find((entry) => this.isColumnSortable(entry)
+        && this.getColumnSortKey(entry) === next.key);
+
+      this.ownSort = next;
+      this.page = 0;
+      this.sortMessage = next
+        ? this.transTable(`sorted_${next.direction}`, { '%column%': sorted ? this.getColumnLabel(sorted) : next.key })
+        : this.transTable('sort_reset');
+      this.$emit('update:sort', next);
+    },
+
     setSelected(keys) {
       this.ownSelected = keys;
       this.$emit('update:selected', keys);
     },
 
-    toggleRow(row, index, checked) {
-      const key = this.getRowKey(row, index);
+    toggleRow(row, checked) {
+      const key = this.getRowKey(row);
       const others = this.selectedKeys.filter((selected) => selected !== key);
 
       this.setSelected(checked ? [...others, key] : others);
@@ -343,7 +448,7 @@ export default {
       this.$emit('bulk-action', {
         action,
         keys,
-        rows: this.shownRows.filter((row, index) => keys.includes(this.getRowKey(row, index)))
+        rows: this.shownRows.filter((row) => !this.isGroupRow(row) && keys.includes(this.getRowKey(row)))
       });
 
       if (!action.href) {
@@ -373,8 +478,8 @@ export default {
     hasRows() {
       return this.shownRows.length > 0;
     },
-    getRowKey(row, index) {
-      return this.rowKey ? this.rowKey(row) : index;
+    getRowKey(row) {
+      return this.rowKey ? this.rowKey(row) : this.rowIndexes.get(row);
     },
     hasCellActions(column) {
       return Boolean(column?.action || (Array.isArray(column?.actions) && column.actions.length));

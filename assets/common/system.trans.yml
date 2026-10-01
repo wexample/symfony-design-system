@@ -45,6 +45,9 @@ en:
       total: "%count% in total"
       actions: Actions
       apply: Apply
+      sorted_asc: "Sorted by %column%, ascending"
+      sorted_desc: "Sorted by %column%, descending"
+      sort_reset: "Back to the original order"
     switch:
       cancel: Cancel
     tour:

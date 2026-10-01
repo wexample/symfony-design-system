@@ -172,6 +172,39 @@
   background: var(--table-head-bg);
 }
 
+// A header that sorts is a button dressed as the header it sits in, so the row
+// of labels reads the same sortable or not. The arrow is always there: a faint
+// pair while the column does not order the list, one strong arrow once it does.
+.table--sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.table--sort:hover,
+.table--sort:focus-visible {
+  color: var(--text-color-default);
+}
+
+.table--sort-icon {
+  display: inline-flex;
+  color: var(--text-color-muted);
+  opacity: 0.5;
+}
+
+.table--sort.is-active .table--sort-icon {
+  color: inherit;
+  opacity: 1;
+}
+
 // A long table is read column by column as much as row by row, and a header
 // that scrolls away turns every mark below it into a mark of nothing. The page
 // says how far from the top the header stops, if something of its own is
