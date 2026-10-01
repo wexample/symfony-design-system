@@ -80,21 +80,21 @@
 }
 
 .status-icon--success {
-  --status-icon-color: var(--color-success-fill);
+  --status-icon-color: var(--success-9);
 }
 
 .status-icon--error {
-  --status-icon-color: var(--color-error-fill);
+  --status-icon-color: var(--error-9);
 }
 
 .status-icon--warning {
-  --status-icon-color: var(--color-warning-fill);
+  --status-icon-color: var(--warning-9);
 }
 
 // The one state that is a quantity: what is left to do is shown rather than
 // left blank, otherwise an early run reads as an empty circle.
 .status-icon--running {
-  --status-icon-color: var(--color-info-fill);
+  --status-icon-color: var(--info-9);
   --status-icon-track-color: color-mix(in srgb, currentColor 25%, transparent);
 }
 
@@ -103,12 +103,12 @@
 }
 
 .status-icon--paused {
-  --status-icon-color: var(--color-warning-fill);
+  --status-icon-color: var(--warning-9);
 }
 
 // Waiting for somebody to start it, which is an invitation and not a failure.
 .status-icon--play {
-  --status-icon-color: var(--color-info-fill);
+  --status-icon-color: var(--info-9);
 }
 
 .status-icon--skipped {
@@ -127,6 +127,6 @@
 // the app's to give, the design system having no word for what the stage is.
 @each $name in feedback.$category-names {
   .status-icon--cat-#{$name} {
-    --status-icon-color: var(--color-cat-#{$name}-fill);
+    --status-icon-color: var(--cat-#{$name}-9);
   }
 }

@@ -1,27 +1,10 @@
-@use './palette' as palette;
-@use '../../css/mixins/color-scheme' as color_scheme;
-@use '../../css/mixins/categories' as categories;
+@use '../../css/mixins/roles';
 
-// Dark face of the theme: softened background (no pure black) so raised
-// surfaces have room to separate, near-white text keeps the high contrast.
-$color-dark: #141414 !default;
-$color-light: #f2f2f2 !default;
-
-// Applied on layout / body
+// The dark face: the roles read the palette's dark scales — a softened ground,
+// no pure black, so raised surfaces have room to separate, and the page lifted
+// off it: a zone is a hole in the frame, and the gap between two is the frame.
 .usage-color-scheme-dark {
-  @include color_scheme.color-scheme(
-    $color-dark,
-    $color-light,
-    palette.$color-info,
-    palette.$color-success,
-    palette.$color-warning,
-    palette.$color-error
-  );
-  // The page is lifted off the deepest ground and the regions keep it: a zone
-  // is a hole in the frame, and the gap between two of them is the frame.
-  --surface-page: #1f1f1f;
-  --surface-zone: #{$color-dark};
-  @include color_scheme.color-scheme-categories($color-dark, $color-light, categories.$categories);
+  @include roles.roles(dark);
   background: var(--surface-page);
   color-scheme: dark;
 }
@@ -29,5 +12,5 @@ $color-light: #f2f2f2 !default;
 // Applied on body / sub-layouts
 .usage-color-scheme-dark,
 .usage-color-scheme-default .usage-color-scheme-dark {
-  color: var(--color-default-text);
+  color: var(--text-color-default);
 }

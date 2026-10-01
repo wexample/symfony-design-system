@@ -18,6 +18,6 @@
 // the control.
 @mixin field-focus {
   outline: none;
-  box-shadow: 0 0 0 var(--border-focus-width) var(--color-invert-transparent-2);
+  box-shadow: 0 0 0 var(--border-focus-width) var(--neutral-a3);
   transition: box-shadow 160ms ease, border-color 160ms ease;
 }

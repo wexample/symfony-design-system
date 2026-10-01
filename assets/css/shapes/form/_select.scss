@@ -12,6 +12,6 @@ select.form--input,
 
 .form--input--select option,
 .form--input--select optgroup {
-  color: var(--color-default-text);
-  background: var(--color-default-background);
+  color: var(--text-color-default);
+  background: var(--surface-zone);
 }

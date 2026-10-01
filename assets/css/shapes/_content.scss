@@ -32,10 +32,10 @@
     color: inherit;
     font-weight: var(--font-weight-strong);
     text-decoration: underline;
-    text-decoration-color: var(--color-invert-9);
+    text-decoration-color: var(--neutral-7);
     text-underline-offset: 0.2em;
     text-underline-position: under;
-    &:hover { color: var(--color-primary); }
+    &:hover { color: var(--accent-9); }
   }
 
   img {
@@ -50,7 +50,7 @@
   :not(pre) > code {
     font-family: var(--font-family-mono);
     font-size: 0.875em;
-    color: var(--color-default-text);
+    color: var(--text-color-default);
     background: var(--border-color-default);
     padding: 0.2em 0.6em;
     border-radius: var(--radius-pill);
@@ -75,7 +75,7 @@
   }
 
   blockquote {
-    border-inline-start: 3px solid var(--color-primary);
+    border-inline-start: 3px solid var(--accent-9);
     padding-inline-start: var(--space-4);
     color: var(--text-color-muted);
     font-style: italic;
@@ -126,7 +126,7 @@
 
   hr {
     border: none;
-    border-top: 1px solid var(--color-invert-9);
+    border-top: 1px solid var(--neutral-7);
   }
 
   &--media {

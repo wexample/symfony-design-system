@@ -92,23 +92,23 @@
 // The same three states as the stepper: behind, being done, ahead.
 .timeline--item.is-done {
   > .timeline--marker {
-    border-color: var(--color-default-text);
-    color: var(--color-default-text);
+    border-color: var(--text-color-default);
+    color: var(--text-color-default);
   }
 
   &:not(:last-child)::before {
-    border-inline-start-color: var(--color-default-text);
+    border-inline-start-color: var(--text-color-default);
   }
 }
 
 .timeline--item.is-current > .timeline--marker {
-  border-color: var(--color-default-background-invert);
-  background: var(--color-default-background-invert);
-  color: var(--color-default-text-invert);
+  border-color: var(--surface-invert);
+  background: var(--surface-invert);
+  color: var(--text-color-invert);
 }
 
 .timeline--item.is-current > .timeline--content > .timeline--title {
-  color: var(--color-default-text);
+  color: var(--text-color-default);
 }
 
 // Not decided yet: no number of its own, and dashes where the sequence is only

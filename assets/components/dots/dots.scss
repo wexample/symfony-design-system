@@ -47,7 +47,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--dots-gap);
-  color: var(--color-default-text);
+  color: var(--text-color-default);
 }
 
 .dots--dot {
@@ -82,5 +82,5 @@
 }
 
 .dots--invert {
-  color: var(--color-default-text-invert);
+  color: var(--text-color-invert);
 }

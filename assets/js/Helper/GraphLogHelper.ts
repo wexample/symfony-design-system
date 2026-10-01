@@ -9,4 +9,4 @@ const LANE_COLORS = [
 ];
 
 export const graphLogLaneColor: GraphLogLaneColor = (index) =>
-  `var(--color-cat-${LANE_COLORS[index % LANE_COLORS.length]}-fill)`;
+  `var(--cat-${LANE_COLORS[index % LANE_COLORS.length]}-9)`;

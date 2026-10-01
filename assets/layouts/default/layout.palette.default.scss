@@ -1,0 +1,5 @@
+@use './palette';
+@use '../../css/mixins/palette' as palette_mixins;
+
+// The `default` palette: every scale, for the light face and the dark one.
+@include palette_mixins.palette-usage(default, palette.$palette);

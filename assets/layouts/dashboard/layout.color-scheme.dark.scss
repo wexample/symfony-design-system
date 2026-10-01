@@ -1,34 +1,12 @@
-@use './palette' as palette;
-@use '../../css/mixins/color-scheme' as color_scheme;
-
 @use '../default/layout.color-scheme.dark';
 
-// Dark face of the theme: softened background (no pure black) so raised
-// surfaces have room to separate, near-white text keeps the high contrast.
-$color-dark: #141414 !default;
-$color-light: #f2f2f2 !default;
-
-// Applied on layout / body
+// The dashboard's dark face: the shell needs no lift of its own — it is the
+// same desk as the gaps between the zones.
 .usage-color-scheme-dark {
-  @include color_scheme.color-scheme(
-    $color-dark,
-    $color-light,
-    palette.$color-info,
-    palette.$color-success,
-    palette.$color-warning,
-    palette.$color-error,
-    $assist: palette.$color-assist
-  );
-  // Dark face: the page is lifted off the deepest ground and the regions keep
-  // it. A zone is then a hole in the frame rather than a panel on it, and the
-  // shell needs no lift of its own — it is the same desk as the gaps.
-  --surface-page: #1f1f1f;
-  --surface-zone: var(--color-default-background);
-  --state-hover: var(--color-invert-2);
-  --state-active: var(--color-invert-1);
-  --border-color-discreet: var(--color-default-background);
-  // A line reads much further on a near-black page than the same level does on
-  // white, so the dark face takes the region border well below the shared value.
-  --border-color-region: var(--color-invert-3);
-
+  --state-hover: var(--neutral-3);
+  --state-active: var(--neutral-2);
+  --border-color-discreet: var(--neutral-1);
+  // A line reads much further on a near-black page than the same step does on
+  // white, so the dark face takes the region border well below the shared one.
+  --border-color-region: var(--neutral-4);
 }

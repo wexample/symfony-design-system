@@ -10,11 +10,11 @@
 
 .confirm--title {
   @include feedback.feedback-title;
-  color: var(--color-default-text);
+  color: var(--text-color-default);
 }
 
 .confirm--message {
-  color: var(--color-default-text);
+  color: var(--text-color-default);
 }
 
 .confirm--actions {

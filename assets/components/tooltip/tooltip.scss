@@ -11,8 +11,8 @@
   max-width: min(20rem, calc(100vw - 1rem));
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-control);
-  background: var(--color-default-background-invert);
-  color: var(--color-default-text-invert);
+  background: var(--surface-invert);
+  color: var(--text-color-invert);
   font-size: var(--font-size-2);
   line-height: 1.4;
   pointer-events: none;
@@ -33,7 +33,7 @@
 .tooltip--light {
   border: var(--border-default);
   background: var(--surface-3);
-  color: var(--color-default-text);
+  color: var(--text-color-default);
   box-shadow: var(--shadow-2);
 }
 

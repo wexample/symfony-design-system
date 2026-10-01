@@ -1,8 +1,25 @@
-$color-dark: #000 !default;
-$color-light: #fff !default;
+@use '../../css/mixins/categories' as categories;
 
-$color-info: #2f6fed !default;
-$color-success: #1f9d55 !default;
-$color-warning: #f59f00 !default;
-$color-error: #e03131 !default;
+// The design system's own palette: blue for the brand and for what an agent
+// holds, pure greys, the four states and the categories. An application gives
+// its own by configuring this module — `@use '…/palette' with ($accent: …)` —
+// in its `layout.palette.default.scss`, and nowhere else.
+$accent: #2f6fed !default;
+// The greys' hue and chroma, in OKLCH: (0 0) is grey without a cast; a warm or
+// a cool neutral is a hue and a few thousandths of chroma.
+$neutral: (0 0) !default;
+$info: #2f6fed !default;
+$success: #1f9d55 !default;
+$warning: #f59f00 !default;
+$error: #e03131 !default;
+$categories: categories.$categories !default;
 
+$palette: (
+  'accent': $accent,
+  'neutral': $neutral,
+  'info': $info,
+  'success': $success,
+  'warning': $warning,
+  'error': $error,
+  'categories': $categories,
+);

@@ -22,7 +22,7 @@
     border: 0;
     background: transparent;
     padding: var(--space-3);
-    color: var(--color-default-text);
+    color: var(--text-color-default);
     outline: none;
     line-height: 1.4;
     white-space: pre-wrap;
@@ -38,7 +38,7 @@
   button {
     background: transparent;
     border: 0;
-    color: var(--color-default-text);
+    color: var(--text-color-default);
     cursor: pointer;
     opacity: var(--opacity-7);
     font-size: 1.2rem;
@@ -60,7 +60,7 @@
   .chat--action {
     background: transparent;
     border: 0;
-    color: var(--color-default-text);
+    color: var(--text-color-default);
     cursor: pointer;
     opacity: var(--opacity-7);
   }
@@ -114,7 +114,7 @@
 }
 
 .chat--message {
-  border: 1px solid var(--color-default-border);
+  border: 1px solid var(--border-color-default);
   border-radius: var(--radius-box);
   flex: 1 1 auto;
   min-width: 0;
@@ -148,7 +148,7 @@
 }
 
 .chat--message-date {
-  color: var(--color-default-text);
+  color: var(--text-color-default);
   opacity: var(--opacity-7);
   font-size: 0.875rem;
 }
@@ -193,11 +193,11 @@
 // jump when it is replaced by the answer that finally comes.
 .chat--message-row--error {
   .chat--message {
-    border-color: var(--color-error);
+    border-color: var(--error-9);
   }
 
   .chat--message-author,
   .chat--message-content {
-    color: var(--color-error);
+    color: var(--error-11);
   }
 }

@@ -1,0 +1,148 @@
+// The colours, as scales. A palette is an accent, a neutral, the four states
+// and the categories, and each of them is a scale of twelve tones — the way
+// Radix Themes and Material 3 lay a colour out. The palette never says light
+// or dark: it gives every scale twice, once for each face, and the colour
+// scheme picks which one the page reads. A component never reads a scale
+// either: it reads a role (see mixins/roles), and a role is a place on a scale.
+//
+// What a place on a scale is for, on both faces alike:
+//
+//    1  the ground of a work region
+//    2  the ground of the page, around and between the regions
+//    3  the ground of a field; the faint ground a state sits on
+//    4  a raised control; a hovered ground
+//    5  an elevated surface — a card, a block — and its discreet border
+//    6  a border
+//    7  a border between two regions
+//    8  a strong border, a focus ring
+//    9  the colour whole, filling what it marks
+//   10  the same, hovered
+//   11  the colour as ink: readable on the grounds above
+//   12  the colour as strong ink — for the neutral, the text itself
+//
+// `--<scale>-contrast` is the ink read on step 9.
+@use 'sass:color';
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+
+// The neutral, measured on the system as it was drawn before scales existed
+// (OKLCH lightness), so that moving to scales moved nothing on the page.
+$neutral-lightness: (
+  light: (98.5%, 95.2%, 94.6%, 92.5%, 90.4%, 86.4%, 82%, 77.9%, 69.3%, 62.5%, 55.9%, 22.6%),
+  dark: (19.1%, 23.9%, 24.8%, 27.7%, 30.5%, 35.6%, 40.9%, 45.7%, 55.2%, 62%, 68.6%, 96.1%),
+);
+
+// A colour's grounds, steps 1 to 8: how much of the colour over the region's
+// ground. Step 3 is where a state's ground always was.
+$scale-grounds: (4%, 8%, 23.5%, 30%, 38%, 48%, 60%, 75%);
+
+// A colour's inks, steps 10 to 12: how much of the text over the colour. Step
+// 11 is where a state's ink always was.
+$scale-inks: (12%, 37.5%, 70%);
+
+// Above this lightness a filled colour takes the dark ink: white on sunflower
+// is not read.
+$contrast-threshold: 75%;
+
+// A colour on whole channels, so the stylesheet says `#fafafa` and not ten
+// decimals of a percentage.
+@function whole($color) {
+  $color: color.to-gamut(color.to-space($color, rgb), $method: local-minde);
+
+  @return rgb(
+    math.round(color.channel($color, 'red', $space: rgb)),
+    math.round(color.channel($color, 'green', $space: rgb)),
+    math.round(color.channel($color, 'blue', $space: rgb)),
+    color.channel($color, 'alpha')
+  );
+}
+
+@function neutral-tone($appearance, $step, $hue: 0, $chroma: 0) {
+  $lightness: list.nth(map.get($neutral-lightness, $appearance), $step);
+
+  @return whole(oklch($lightness $chroma $hue));
+}
+
+@function contrast($color) {
+  @if color.channel($color, 'lightness', $space: oklch) > $contrast-threshold {
+    @return #000;
+  }
+
+  @return #fff;
+}
+
+// One coloured scale, for one face: its grounds mixed toward that face's
+// ground, its inks toward that face's text.
+@mixin scale($name, $color, $ground, $ink) {
+  @for $step from 1 through 8 {
+    --#{$name}-#{$step}: #{whole(color.mix($color, $ground, list.nth($scale-grounds, $step)))};
+  }
+
+  --#{$name}-9: #{$color};
+
+  @for $step from 10 through 12 {
+    --#{$name}-#{$step}: #{whole(color.mix($ink, $color, list.nth($scale-inks, $step - 9)))};
+  }
+
+  --#{$name}-contrast: #{contrast($color)};
+}
+
+// The neutral, for one face, and its see-through twin: `--neutral-a<step>` is
+// the text's ink at the strength that, laid on the region's ground, reads as
+// that step — for what is drawn over whatever it falls on (a stripe, a hover).
+@mixin neutral($appearance, $hue: 0, $chroma: 0) {
+  $ground-lightness: list.nth(map.get($neutral-lightness, $appearance), 1);
+  $ink-lightness: list.nth(map.get($neutral-lightness, $appearance), 12);
+
+  @for $step from 1 through 12 {
+    --neutral-#{$step}: #{neutral-tone($appearance, $step, $hue, $chroma)};
+
+    $lightness: list.nth(map.get($neutral-lightness, $appearance), $step);
+    $alpha: math.div($lightness - $ground-lightness, $ink-lightness - $ground-lightness);
+    --neutral-a#{$step}: #{color.change(neutral-tone($appearance, 12, $hue, $chroma), $alpha: math.max($alpha, 0))};
+  }
+
+  --neutral-contrast: #{contrast(neutral-tone($appearance, 9, $hue, $chroma))};
+}
+
+// Every scale of a palette, for one face. A palette is a map:
+//
+//   accent      the colour of the brand, which a field held by an agent wears too
+//   neutral     (hue chroma) of the greys — (0 0) for pure greys
+//   info, success, warning, error
+//   categories  a map of name → colour (see mixins/categories)
+@mixin palette-face($palette, $appearance) {
+  $neutral: map.get($palette, 'neutral');
+  $hue: list.nth($neutral, 1);
+  $chroma: list.nth($neutral, 2);
+  $ground: neutral-tone($appearance, 1, $hue, $chroma);
+  $ink: neutral-tone($appearance, 12, $hue, $chroma);
+
+  @include neutral($appearance, $hue, $chroma);
+  @include scale('accent', map.get($palette, 'accent'), $ground, $ink);
+
+  @each $state in ('info', 'success', 'warning', 'error') {
+    @include scale($state, map.get($palette, $state), $ground, $ink);
+  }
+
+  @each $name, $color in map.get($palette, 'categories') {
+    @include scale('cat-#{$name}', $color, $ground, $ink);
+  }
+}
+
+// A palette as a value of the `palette` usage: both faces, each under the
+// colour scheme that asks for it — on the page, and on a part of it a sub-layout
+// turned to the other face.
+@mixin palette-usage($name, $palette) {
+  .usage-palette-#{$name},
+  .usage-palette-#{$name} .usage-color-scheme-light,
+  .usage-palette-#{$name}.usage-color-scheme-light {
+    @include palette-face($palette, light);
+  }
+
+  .usage-palette-#{$name}.usage-color-scheme-dark,
+  .usage-palette-#{$name} .usage-color-scheme-dark {
+    @include palette-face($palette, dark);
+  }
+}

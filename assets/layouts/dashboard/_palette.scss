@@ -1,8 +1,3 @@
-$color-info: #2f6fed !default;
-$color-success: #1f9d55 !default;
-$color-warning: #f59f00 !default;
-$color-error: #e03131 !default;
-
-// What marks a field an agent is holding: the assisted outlines and every
-// --color-assist-N level derive from this one value, on each face.
-$color-assist: $color-info !default;
+// The dashboard draws with the design system's palette; configure it here or
+// there alike.
+@forward '../default/palette';

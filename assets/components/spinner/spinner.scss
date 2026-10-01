@@ -43,7 +43,7 @@
   width: var(--spinner-size);
   height: var(--spinner-size);
   flex: 0 0 var(--spinner-size);
-  color: var(--color-default-text);
+  color: var(--text-color-default);
 }
 
 .spinner--circle {
@@ -54,7 +54,7 @@
 }
 
 .spinner--circle-path {
-  stroke: var(--spinner-color, currentColor);
+  stroke: var(--spinner-color, var(--accent-9));
   stroke-width: var(--spinner-stroke);
   stroke-linecap: round;
   stroke-dasharray: 80 60;
@@ -84,5 +84,5 @@
 }
 
 .spinner--invert {
-  color: var(--color-default-text-invert);
+  color: var(--text-color-invert);
 }

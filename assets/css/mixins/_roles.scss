@@ -1,0 +1,107 @@
+// What a component reads: a role, never a scale. Each role is a place on a
+// scale of the palette (see mixins/palette), the same place on both faces, so
+// a palette changing its colours or a scheme changing its light leaves every
+// component as it is. A face nuances a role by setting it again after the
+// include.
+@mixin roles($appearance) {
+  // Surfaces: the grounds, from the region outward.
+  --surface-zone: var(--neutral-1); // the ground of a work region
+  --surface-page: var(--neutral-2); // the page, shown around and between the regions
+  --surface-shell: var(--surface-page); // persistent structure: menu, header, footer, tabs
+  --surface-1: var(--neutral-3); // subtle: inputs, fields
+  --surface-2: var(--neutral-4); // raised interactive: buttons, toolbar
+  --surface-3: var(--neutral-5); // elevated content: blocks, cards, modals
+  // The page turned over: a control that stands out by taking the text's
+  // colour for its ground, and the ground's for its text.
+  --surface-invert: var(--neutral-12);
+
+  // Interaction states: always readable above any surface level.
+  --state-hover: var(--neutral-2);
+  --state-active: var(--neutral-3);
+  // Where the keyboard is. A row in a list wears it as a ground rather than a
+  // ring: a ring is right around a field, which is a box the eye has to find,
+  // and wrong around a row, which is already one of a column of boxes. Set
+  // above hover, since a passing pointer says less than a deliberate move.
+  --state-focus: var(--neutral-5);
+
+  // Borders.
+  --border-color-discreet: var(--neutral-5);
+  --border-color-default: var(--neutral-6);
+  // Between two regions of the page, and not inside one: nothing else tells them
+  // apart, so this line has to be seen where a discreet one only has to be felt.
+  --border-color-region: var(--neutral-7);
+  --border-color-strong: var(--neutral-8);
+
+  // Text.
+  --text-color-default: var(--neutral-12);
+  --text-color-muted: var(--neutral-11); // secondary: labels, meta, subtitles
+  --text-color-subtle: var(--neutral-9); // tertiary: separators, empty states
+  --text-color-invert: var(--neutral-1);
+
+  // Links read as text a step apart, and the brand is not theirs to wear.
+  --color-link: var(--neutral-9);
+  --color-link-hover: var(--neutral-10);
+
+  // Activity: what goes in, what comes out, and the rest.
+  --color-activity-default: var(--neutral-10);
+  --color-activity-input: var(--success-9);
+  --color-activity-output: var(--info-9);
+
+  // Shadows. The skin draws the geometry — offset, blur, how heavy each layer
+  // is — and casts it in this colour, so a face that wants a warmer or a
+  // lighter shade changes one line here and no skin knows.
+  --shadow-color: var(--color-absolute-dark);
+  --color-absolute-dark: #000;
+  --color-absolute-light: #fff;
+
+  // Nuances: a scale finer than the steps, for the small worlds inside a
+  // surface — the rows of a table, the lines of a list — where one step is
+  // already a jump. They are inks and not colours: laid over whatever ground
+  // they fall on, so a nuance reads the same on a block as on the page.
+  //
+  // Two families, because two things are asked of them. A tint is the text's
+  // ink, and follows the scheme: it lifts a line in dark as it deepens one in
+  // light — what a stripe or a pointer wants, a mark and not a depth. Darken
+  // and lighten do not follow it: darker is darker on both faces, for what is
+  // meant as depth — a band that sits behind, like the head of a table.
+  --tint-1: color-mix(in srgb, var(--neutral-12) 1.5%, transparent);
+  --tint-2: color-mix(in srgb, var(--neutral-12) 3%, transparent);
+  --tint-3: color-mix(in srgb, var(--neutral-12) 5%, transparent);
+  --tint-4: color-mix(in srgb, var(--neutral-12) 8%, transparent);
+  --darken-1: rgba(0, 0, 0, 0.06);
+  --darken-2: rgba(0, 0, 0, 0.12);
+  --darken-3: rgba(0, 0, 0, 0.2);
+  --darken-4: rgba(0, 0, 0, 0.3);
+  --lighten-1: rgba(255, 255, 255, 0.03);
+  --lighten-2: rgba(255, 255, 255, 0.06);
+  --lighten-3: rgba(255, 255, 255, 0.1);
+  --lighten-4: rgba(255, 255, 255, 0.16);
+
+  // The head of a data world — the names above the columns of a table: a band
+  // that sits behind, and labels stepped back from the values under them. The
+  // two faces do not mirror here, and were tuned apart: a dark head wants more
+  // depth and less ink than a light one, where a faint label washes out.
+  @if $appearance == dark {
+    --surface-head: var(--darken-2);
+    --text-color-head: color-mix(in srgb, var(--neutral-12) 20%, transparent);
+  } @else {
+    --surface-head: var(--darken-1);
+    --text-color-head: color-mix(in srgb, var(--neutral-12) 40%, transparent);
+  }
+
+  // Code, coloured: what an editor and a highlighter paint a keyword, a string,
+  // a comment with. Taken from the categories, as ink — step 11 lightens a hue on
+  // the dark face and deepens it on the light one, the only way it stays
+  // readable on both.
+  --code-keyword: var(--cat-lavender-11);
+  --code-string: var(--cat-grass-11);
+  --code-number: var(--cat-bittersweet-11);
+  --code-property: var(--cat-aqua-11);
+  --code-tag: var(--cat-blue-jeans-11);
+  --code-function: var(--cat-sunflower-11);
+  --code-comment: var(--text-color-subtle);
+  --code-punctuation: var(--text-color-muted);
+  // Laid over the text rather than behind a line: see-through, so the words
+  // under it stay read.
+  --code-selection: color-mix(in srgb, var(--cat-blue-jeans-9) 35%, transparent);
+}

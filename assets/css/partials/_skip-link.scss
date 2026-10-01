@@ -5,7 +5,7 @@
   z-index: var(--z-toast);
   padding: var(--space-2) var(--space-4);
   background: var(--surface-page);
-  color: var(--color-default-text);
+  color: var(--text-color-default);
   border-radius: var(--radius-control);
   transform: translateX(calc(-200% * var(--direction-sign, 1)));
 

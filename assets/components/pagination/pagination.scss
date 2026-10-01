@@ -35,7 +35,7 @@
   border: var(--border-default);
   border-radius: var(--radius-control);
   background: var(--surface-1);
-  color: var(--color-default-text);
+  color: var(--text-color-default);
   font-size: inherit;
   line-height: 1;
   cursor: pointer;
@@ -54,13 +54,13 @@
 }
 
 .pagination--number--current {
-  background: var(--color-default-background-invert);
-  color: var(--color-default-text-invert);
+  background: var(--surface-invert);
+  color: var(--text-color-invert);
   cursor: default;
 }
 
 .pagination--number--current:hover:not(:disabled) {
-  background: var(--color-default-background-invert);
+  background: var(--surface-invert);
 }
 
 .pagination--control--icon {

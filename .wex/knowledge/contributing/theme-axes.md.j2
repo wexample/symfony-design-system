@@ -1,14 +1,15 @@
-A theme is not one thing but four independent decisions, and the design
+A theme is not one thing but five independent decisions, and the design
 system keeps them apart so that any value of one composes with any value of
 the others. Each is a loader *usage*: a body class `usage-<axis>-<value>`, a
 CSS file per value (`layout.<axis>.<value>.scss`), switched at runtime and
 remembered in session.
 
-## The four axes
+## The five axes
 
 | Axis | The question it answers | What it owns |
 |---|---|---|
-| `color_scheme` | How much light is there? | Colours, and nothing but colours — including the *colour* of every border and shadow |
+| `palette` | What colours are there? | Every colour, as scales — an accent, a neutral, the states, the categories — for both faces |
+| `color_scheme` | How much light is there? | Which face of the palette the page reads, and the roles that read it |
 | `density` | How much fits on a screen? | `--space-*`, `--size-*`, `--font-size-*` |
 | `skin` | How are things drawn? | Radii, shadow geometry, border width and style, separators, focus ring width |
 | `fonts` | What is it set in? | The three families and the four weights |
@@ -26,8 +27,59 @@ swap.
 
 The cut between them is what a shape reads. `--border-separator` is
 `1px solid var(--border-color-discreet)`: the skin owns the `1px solid`, the
-scheme owns the colour, and a skin that wants no separators writes
-`0 solid transparent` without knowing what colour the line would have had.
+colour comes from the palette through a role, and a skin that wants no
+separators writes `0 solid transparent` without knowing what colour the line
+would have had.
+
+## Colour: palette, scheme, roles
+
+The split is the one Radix Themes and Material 3 make, and it is why a
+palette, a scheme and a skin compose freely — a Windows 95 look is a palette
+and a skin, and it has a light face and a dark one like any other.
+
+- **The palette is the colour, and nothing else.** An accent (the brand, and
+  what a field held by an agent wears), a neutral, `info`, `success`,
+  `warning`, `error` and the categories — each a scale of twelve tones,
+  `--<scale>-1` to `--<scale>-12` and `--<scale>-contrast` for the ink read on
+  step 9. Every scale is given twice, once per face (`css/mixins/palette`).
+  The neutral was measured on the system as it was drawn before scales
+  existed, so moving to scales moved nothing on the page.
+- **The colour scheme picks the face** — `light`, `dark`, or `default` for the
+  system's — and declares the **roles** on it (`css/mixins/roles`). Its name is
+  the CSS one, `color-scheme`, for exactly this.
+- **A component reads a role, never a scale**: `--surface-*`, `--text-color-*`,
+  `--border-color-*`, `--state-*`, `--color-link`… A role is one place on a
+  scale, the same place on both faces. Where a component needs a colour no role
+  names — a state's ground and ink, a category — it reads the step whose
+  meaning it wants, never a hex.
+
+What a place on a scale is for, on every scale and both faces:
+
+| Step | For |
+|---|---|
+| 1 | the ground of a work region |
+| 2 | the ground of the page, around and between regions |
+| 3 | a field's ground; the faint ground a state sits on |
+| 4 | a raised control; a hovered ground |
+| 5 | a card, a block — and its discreet border |
+| 6 | a border |
+| 7 | a border between two regions |
+| 8 | a strong border, a focus ring |
+| 9 | the colour whole, filling what it marks |
+| 10 | the same, hovered |
+| 11 | the colour as ink, readable on the grounds |
+| 12 | strong ink — for the neutral, the text itself |
+
+An application brings its colours as a palette: its
+`layout.palette.default.scss` configures the design system's palette module
+with its accent (`@use '…/layouts/dashboard/palette' with ($accent: …)`) and
+includes `palette-usage(default, …)`. Every scale follows from it. The colour
+scheme files of an application only nuance roles — what goes in and out wears
+the brand, say.
+
+A test (`tests/Unit/Style/ColorRolesTest.php`) refuses any stylesheet still
+reading the levels the system drew with before (`--color-invert-*`,
+`--color-error-23`, `--color-info-fill`…): those no longer exist.
 
 ## Roles, not scales
 
@@ -75,8 +127,8 @@ otherwise inherit. Nothing inherits a radius; if a shape has none it has none.
   can carry — bevelled borders, a different layout of the same parts — never
   to restate a token.
 - **Colour stays out.** A skin that needs a component to take another colour
-  says which *role* it takes (`--tabs-surface: var(--color-info-8)`), and the
-  scheme decides what that role is on each face.
+  says which *place on a scale* it takes (`--tabs-surface: var(--info-8)`), and
+  the palette decides what that place is on each face.
 
 ## Where the files live
 
@@ -87,8 +139,8 @@ themselves on the render node's inheritance stack, so an app layout built on
 them gets all of it without a file of its own: the loader walks the stack and
 takes the first layout that carries the axis.
 
-An app writes its own file only to customise — the colour scheme with its
-palette, typically — and then it **must ship every value of that axis**: the
+An app writes its own file only to customise — the palette with its accent,
+typically — and then it **must ship every value of that axis**: the
 lookup stops at the first layout that has any file for an axis, so an app
 shipping `layout.density.default.scss` alone would silently lose `slim` and
 `fat`. Its file `@use`s the design system's, then adds what it adds.

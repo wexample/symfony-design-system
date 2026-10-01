@@ -37,7 +37,7 @@
   }
 
   &.is-done:not(:last-child)::after {
-    border-top-color: var(--color-default-text);
+    border-top-color: var(--text-color-default);
   }
 }
 
@@ -53,7 +53,7 @@
   @include transition.smooth(2);
 
   &:is(a, button):hover {
-    color: var(--color-default-text);
+    color: var(--text-color-default);
   }
 }
 
@@ -79,22 +79,22 @@ button.stepper--step {
 }
 
 .stepper--item.is-done .stepper--step {
-  color: var(--color-default-text);
+  color: var(--text-color-default);
 }
 
 .stepper--item.is-done .stepper--index {
-  border-color: var(--color-default-text);
+  border-color: var(--text-color-default);
 }
 
 .stepper--item.is-current .stepper--step {
-  color: var(--color-default-text);
+  color: var(--text-color-default);
   font-weight: 600;
 }
 
 .stepper--item.is-current .stepper--index {
-  border-color: var(--color-default-background-invert);
-  background: var(--color-default-background-invert);
-  color: var(--color-default-text-invert);
+  border-color: var(--surface-invert);
+  background: var(--surface-invert);
+  color: var(--text-color-invert);
 }
 
 // Not decided yet: drawn in dashes, and so is the line leading to it and away

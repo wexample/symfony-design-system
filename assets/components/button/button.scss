@@ -15,7 +15,7 @@
   border-radius: var(--radius-control);
   border: 0;
   background: var(--surface-2);
-  color: var(--color-default-text);
+  color: var(--text-color-default);
   font-size: var(--font-size-3);
   box-shadow: var(--shadow-1);
   cursor: pointer;
@@ -73,18 +73,18 @@
 }
 
 .button--invert {
-  background: var(--color-default-background-invert);
-  color: var(--color-default-text-invert);
+  background: var(--surface-invert);
+  color: var(--text-color-invert);
 }
 
 .button--success {
-  background: var(--color-success-fill);
+  background: var(--success-9);
   color: #fff;
   box-shadow: none;
 }
 
 .button--danger {
-  background: var(--color-error-fill);
+  background: var(--error-9);
   color: #fff;
   box-shadow: none;
 }
@@ -143,17 +143,17 @@
 }
 
 .button-menu--invert :is(.button--menu, .button-menu--action) {
-  background: var(--color-default-background-invert);
-  color: var(--color-default-text-invert);
+  background: var(--surface-invert);
+  color: var(--text-color-invert);
 }
 
 .button-menu--invert .button-menu--panel {
-  background: var(--color-default-background-invert);
-  color: var(--color-default-text-invert);
+  background: var(--surface-invert);
+  color: var(--text-color-invert);
 }
 
 .button-menu--invert .button-menu--link {
-  color: var(--color-default-text-invert);
+  color: var(--text-color-invert);
 }
 
 .button-menu--invert .button-menu--link:hover,
@@ -293,7 +293,7 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
-  color: var(--color-default-text);
+  color: var(--text-color-default);
   text-decoration: none;
   width: 100%;
   // A toggle and a branch are buttons, and a button brings a look of its own.
@@ -356,9 +356,9 @@
 }
 
 .button-menu--toggle--box.is-checked .button-menu--item-check {
-  border-color: var(--toggle-color, var(--color-default-background-invert));
-  background: var(--toggle-color, var(--color-default-background-invert));
-  color: var(--toggle-on-color, var(--color-default-text-invert));
+  border-color: var(--toggle-color, var(--surface-invert));
+  background: var(--toggle-color, var(--surface-invert));
+  color: var(--toggle-on-color, var(--text-color-invert));
 
   > * {
     visibility: visible;
