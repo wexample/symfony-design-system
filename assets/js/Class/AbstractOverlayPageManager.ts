@@ -6,6 +6,7 @@ import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin'
 import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAnimationMixin';
 import RequestOptionsInterface from '@wexample/symfony-loader/js/Interfaces/RequestOptions/RequestOptionsInterface';
 import ConfirmService from '@wexample/symfony-design-system/js/Services/ConfirmService';
+import KeyboardService from '@wexample/symfony-loader/js/Services/KeyboardService';
 import { hashParamDelete } from '../Helper/HashStateHelper';
 import { focusTrapCanReturn, focusTrapFocusables, focusTrapNext } from '../Helper/FocusTrapHelper';
 
@@ -145,7 +146,19 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
     this.el.addEventListener('mouseup', this.onMouseUpOverlayProxy);
     this.onFormDirtyProxy = this.onFormDirty.bind(this) as EventListener;
     this.el.addEventListener('form:dirty', this.onFormDirtyProxy);
-    this.el.addEventListener('keydown', this.onKeyDownTrap);
+
+    // Tab and Shift+Tab go round inside the dialog, never into the page
+    // behind — while it is the overlay on top: a confirm opened over it
+    // holds the keyboard its own way.
+    this.app.services.keyboard.registerKeyDown(
+      this,
+      KeyboardService.KEY_TAB,
+      (event: KeyboardEvent) => this.trapTab(event),
+      {
+        priority: 100,
+        enabled: () => (this as any).overlayIsOpen() && this.app.services.overlay.getActiveOverlay?.() === this,
+      }
+    );
   }
 
   protected async deactivateListeners(): Promise<void> {
@@ -159,7 +172,6 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
     if (this.onFormDirtyProxy) {
       this.el.removeEventListener('form:dirty', this.onFormDirtyProxy);
     }
-    this.el.removeEventListener('keydown', this.onKeyDownTrap);
 
     await super.deactivateListeners();
   }
@@ -229,13 +241,7 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
     await this.close({ userInitiated: true });
   };
 
-  // Tab and Shift+Tab go round inside the dialog: past its last element back to
-  // its first, never into the page behind.
-  private onKeyDownTrap = (event: KeyboardEvent) => {
-    if (event.key !== 'Tab' || !(this as any).overlayIsOpen()) {
-      return;
-    }
-
+  private trapTab(event: KeyboardEvent): boolean {
     const dialogEl = this.getDialogEl();
     const focusables = focusTrapFocusables(dialogEl);
     const active = document.activeElement as HTMLElement | null;
@@ -243,11 +249,15 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
       ? focusTrapNext(focusables, active && focusables.includes(active) ? active : null, event.shiftKey)
       : dialogEl;
 
-    if (next) {
-      event.preventDefault();
-      next.focus();
+    if (!next) {
+      return false;
     }
-  };
+
+    event.preventDefault();
+    next.focus();
+
+    return true;
+  }
 
   private onFormDirty(event: CustomEvent) {
     if (event.detail?.dirty === true) {

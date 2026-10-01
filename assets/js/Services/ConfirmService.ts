@@ -31,10 +31,6 @@ type ConfirmOptions = {
   stackId?: string;
   position?: 'tl' | 'tr' | 'bl' | 'br';
   toast?: boolean;
-  // The value of the action Enter takes and the focus starts on. Left out, the
-  // safe one when an action is `destructive` — a question about deactivating
-  // someone is not answered by a stray Enter — the primary one otherwise.
-  defaultAction?: string;
 };
 
 interface ConfirmInstance {
@@ -96,7 +92,6 @@ export default class ConfirmService extends AppService {
           title: options.title,
           message: options.message,
           actions,
-          defaultAction: options.defaultAction,
           variant: options.toast ? 'toast' : 'overlay',
           onResolve: async (action: ConfirmAction | string) => {
             const resolvedAction: ConfirmAction =

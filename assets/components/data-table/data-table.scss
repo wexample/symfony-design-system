@@ -346,14 +346,9 @@
   width: auto;
 }
 
-// A row that opens says so to the pointer, and shows where the keyboard is.
+// A row that opens on a double-click says so to the pointer.
 .table--row--activatable {
   cursor: pointer;
-}
-
-.table--row--activatable:focus-visible {
-  outline: var(--border-focus-width, 2px) solid var(--color-invert-transparent-2);
-  outline-offset: calc(-1 * var(--border-focus-width, 2px));
 }
 
 // A state in place of the rows — an error, nothing matching — and the one

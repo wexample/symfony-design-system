@@ -20,7 +20,16 @@ export default class extends Component {
       return;
     }
 
-    this.el.addEventListener('keydown', this.onKeyDownTrap);
+    // Tab goes round the answers, never into the page behind the question.
+    this.app.services.keyboard.registerKeyDown(
+      this,
+      KeyboardService.KEY_TAB,
+      (event: KeyboardEvent) => this.trapTab(event),
+      {
+        priority: 150,
+        enabled: () => this.isActiveOverlay(),
+      }
+    );
 
     this.app.services.keyboard.registerKeyDown(
       this,
@@ -41,12 +50,6 @@ export default class extends Component {
         enabled: (event: KeyboardEvent) => this.shouldHandleEnter(event),
       }
     );
-  }
-
-  protected async deactivateListeners(): Promise<void> {
-    this.el?.removeEventListener('keydown', this.onKeyDownTrap);
-
-    await super.deactivateListeners();
   }
 
   attachHtmlElements() {
@@ -130,21 +133,20 @@ export default class extends Component {
       .find((button) => button.dataset.confirmValue === action.value) ?? null;
   }
 
-  // Tab goes round the actions, never into the page behind the question.
-  private onKeyDownTrap = (event: KeyboardEvent) => {
-    if (event.key !== 'Tab' || !this.isActiveOverlay()) {
-      return;
-    }
-
+  private trapTab(event: KeyboardEvent): boolean {
     const focusables = focusTrapFocusables(this.el);
     const active = document.activeElement as HTMLElement | null;
     const next = focusTrapNext(focusables, active && focusables.includes(active) ? active : null, event.shiftKey);
 
-    if (next) {
-      event.preventDefault();
-      next.focus();
+    if (!next) {
+      return false;
     }
-  };
+
+    event.preventDefault();
+    next.focus();
+
+    return true;
+  }
 
   overlayOnClickOutside(): void {
     // Do not close confirms when clicking outside (box variant).
@@ -208,7 +210,7 @@ export default class extends Component {
   }
 
   private findDefaultAction(): PromptAction | null {
-    return promptActionDefault(this.options?.actions || [], this.options?.defaultAction);
+    return promptActionDefault(this.options?.actions || []);
   }
 
   private findCancelAction(): PromptAction | null {

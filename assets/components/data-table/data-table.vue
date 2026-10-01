@@ -179,14 +179,6 @@ export default {
       type: String,
       default: null
     },
-    // Rows that open: each one reached by the keyboard — Tab onto the list,
-    // the arrows from row to row — and opened by Enter or a double-click,
-    // which emit `row-activate` and press the row's action marked `open`.
-    // A row holding such an action is activatable without this.
-    activatable: {
-      type: Boolean,
-      default: false
-    },
     // Why the rows could not be read, in place of them, with a way to try
     // again (`retry`): never a blank table.
     error: {
@@ -195,7 +187,7 @@ export default {
     }
   },
 
-  emits: ['update:selected', 'bulk-action', 'update:filterValues', 'update:sort', 'row-activate', 'retry'],
+  emits: ['update:selected', 'bulk-action', 'update:filterValues', 'update:sort', 'retry'],
 
   data() {
     return {
@@ -203,8 +195,6 @@ export default {
       bulkActionIndex: '',
       ownFilterValues: {},
       ownSort: null,
-      // The row the keyboard is on, by key: the one Tab comes back to.
-      focusedKey: null,
       // Said to a screen reader once a header is pressed, not on load.
       sortMessage: '',
       page: 0
@@ -520,68 +510,20 @@ export default {
       this.setFilterValues({});
     },
 
+    // A row holding an action marked `open` opens on a double-click too: a
+    // shortcut for the pointer to the action every row shows, which the
+    // keyboard reaches with Tab like any link.
     isRowActivatable(row) {
-      return !this.isGroupRow(row) && (this.activatable || this.hasOpenAction);
+      return !this.isGroupRow(row) && this.hasOpenAction;
     },
 
-    // One row of the list in the tab order, the others reached by the arrows:
-    // Tab crosses the list in one step instead of one per row.
-    getRowTabIndex(row) {
-      if (!this.isRowActivatable(row)) {
-        return null;
-      }
-
-      const keys = this.visibleRows.filter((entry) => this.isRowActivatable(entry)).map((entry) => this.getRowKey(entry));
-      const current = keys.includes(this.focusedKey) ? this.focusedKey : keys[0];
-
-      return this.getRowKey(row) === current ? 0 : -1;
-    },
-
-    onRowFocus(row) {
-      this.focusedKey = this.getRowKey(row);
-    },
-
-    onRowDoubleClick(row, event) {
+    onRowDoubleClick(event) {
       // A double-click on a control of the row is that control's.
       if (event.target.closest('a, button, input, select, textarea, label')) {
         return;
       }
 
-      this.activateRow(row, event.currentTarget);
-    },
-
-    onRowKeyDown(row, event) {
-      if (event.target !== event.currentTarget) {
-        return;
-      }
-
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        this.activateRow(row, event.currentTarget);
-        return;
-      }
-
-      const rows = Array.from(event.currentTarget.parentElement.querySelectorAll('tr[tabindex]'));
-      const index = rows.indexOf(event.currentTarget);
-      const target = {
-        ArrowDown: rows[index + 1],
-        ArrowUp: rows[index - 1],
-        Home: rows[0],
-        End: rows[rows.length - 1],
-      }[event.key];
-
-      if (target) {
-        event.preventDefault();
-        target.focus();
-      }
-    },
-
-    // Said to the page, and pressed on the row's `open` action if it has one —
-    // the same address, the same overlay as a click on it.
-    activateRow(row, rowEl) {
-      this.$emit('row-activate', { row, key: this.getRowKey(row) });
-
-      const open = rowEl?.querySelector('[data-row-open]');
+      const open = event.currentTarget.querySelector('[data-row-open]');
       (open?.matches('a, button') ? open : open?.querySelector('a, button'))?.click();
     },
     getRowKey(row) {

@@ -122,15 +122,9 @@
             </td>
         </tr>
     {% elseif rows is empty %}
-        {#- Nothing at all yet: `empty` is the page's own markup — the action that
-            adds the first one — in place of the label. -#}
         <tr class="table--row">
-            <td class="table--cell table--cell--state text-empty" colspan="{{ columns_count }}">
-                {%- if options.empty is defined -%}
-                    {{- options.empty|raw -}}
-                {%- else -%}
-                    {{- options.empty_label|default('WexampleSymfonyDesignSystemBundle.common.system::frontend.no_data'|trans) -}}
-                {%- endif -%}
+            <td class="table--cell text-empty" colspan="{{ columns_count }}">
+                {{- options.empty_label|default('WexampleSymfonyDesignSystemBundle.common.system::frontend.no_data'|trans) -}}
             </td>
         </tr>
     {% else %}
@@ -142,11 +136,10 @@
                 <th class="table--cell table--cell--group" colspan="{{ columns_count }}" scope="colgroup">{{ row.group }}</th>
             </tr>
             {% else %}
-            {#- A row holding an action marked `open` is opened by a double-click
-                or Enter as by that action; data-table.ts does the pressing and
-                moves the keyboard from row to row. -#}
+            {#- A row holding an action marked `open` opens on a double-click too,
+                as by that action: data-table.ts presses it. -#}
             {%- set row_opens = columns|filter(column => column.cell == 'actions' and (attribute(row, column.key)|default([])|filter(action => action.open|default(false))) is not empty) is not empty -%}
-            <tr class="table--row{{ row_opens ? ' table--row--activatable' }}"{% if row_opens %} tabindex="-1" data-row-activatable{% endif %}>
+            <tr class="table--row{{ row_opens ? ' table--row--activatable' }}"{% if row_opens %} data-row-activatable{% endif %}>
                 {% if selectable %}
                     <td class="table--cell table--cell--select">
                         <input class="table--select table--select-row" type="checkbox"

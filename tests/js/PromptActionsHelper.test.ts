@@ -20,11 +20,6 @@ test('otherwise, the primary one', () => {
   assert.equal(promptActionDefault(save)?.value, 'ok');
 });
 
-test('a named default wins, whatever the roles', () => {
-  assert.equal(promptActionDefault(deactivate, 'deactivate')?.value, 'deactivate');
-  assert.equal(promptActionDefault(save, 'nowhere')?.value, 'ok');
-});
-
 test('the answer that backs out', () => {
   assert.equal(promptActionCancel(deactivate)?.value, 'cancel');
   assert.equal(promptActionCancel([{ key: 'x', value: 'stop', label: 'Stop', role: 'secondary' }])?.value, 'stop');

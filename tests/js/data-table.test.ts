@@ -127,73 +127,27 @@ test('a column can sort on what it computes', () => {
   assert.deepEqual(vm.shownRows.map((row: any) => row.first), ['Adam', 'Basile', 'Élodie', 'Eric', 'Zoé']);
 });
 
-// From a list to a record: the rows that open, the keyboard on them, and the
-// states that stand in for rows.
+// From a list to a record: the rows that open, and the states that stand in
+// for rows.
 
 const OPEN = { key: 'operations', actions: [{ name: 'show', route: 'record_show', open: true }] };
 
-test('a row opens when a column holds an action marked open, or when the table says so', () => {
+test('a row opens on a double-click only when a column holds an action marked open', () => {
   assert.equal(mount({ rows: rows(), columns: [NAME, OPEN], app: {} }).vm.isRowActivatable(rows()[0]), true);
-  assert.equal(mount({ rows: rows(), columns: [NAME], activatable: true, app: {} }).vm.isRowActivatable(rows()[0]), true);
   assert.equal(mount({ rows: rows(), columns: [NAME], app: {} }).vm.isRowActivatable(rows()[0]), false);
-  assert.equal(mount({ rows: [{ group: 'A' }], columns: [NAME], activatable: true, app: {} }).vm.isRowActivatable({ group: 'A' }), false);
+  assert.equal(mount({ rows: [{ group: 'A' }], columns: [NAME, OPEN], app: {} }).vm.isRowActivatable({ group: 'A' }), false);
 });
 
-test('one row of the list in the tab order: the first, then the last one focused', () => {
-  const given = rows();
-  const { vm } = mount({ rows: given, columns: [NAME], activatable: true, rowKey: (row: { id: number }) => row.id, app: {} });
-
-  assert.deepEqual(given.map((row) => vm.getRowTabIndex(row)), [0, -1, -1, -1, -1]);
-
-  vm.onRowFocus(given[2]);
-
-  assert.deepEqual(given.map((row) => vm.getRowTabIndex(row)), [-1, -1, 0, -1, -1]);
-  assert.equal(mount({ rows: given, columns: [NAME], app: {} }).vm.getRowTabIndex(given[0]), null);
-});
-
-// A row element as the handlers see it: what it holds, and the rows beside it.
-function rowElement(open: { matches: (s: string) => boolean; click: () => void } | null) {
-  const el: any = { focused: false, focus() { this.focused = true; }, querySelector: () => open };
-  return el;
-}
-
-test('double-click and Enter both open the row: said to the page, and its open action pressed', () => {
+test('a double-click on the row presses its open action, one on a control does not', () => {
   let pressed = 0;
   const open = { matches: () => true, click: () => { pressed++; } };
-  const given = rows();
-  const { vm, emitted } = mount({ rows: given, columns: [NAME, OPEN], rowKey: (row: { id: number }) => row.id, app: {} });
-  const el = rowElement(open);
+  const row = { querySelector: () => open };
+  const { vm } = mount({ rows: rows(), columns: [NAME, OPEN], app: {} });
 
-  vm.onRowDoubleClick(given[1], { target: { closest: () => null }, currentTarget: el });
-  vm.onRowKeyDown(given[1], { key: 'Enter', target: el, currentTarget: el, preventDefault() {} });
+  vm.onRowDoubleClick({ target: { closest: () => null }, currentTarget: row });
+  vm.onRowDoubleClick({ target: { closest: () => ({}) }, currentTarget: row });
 
-  assert.equal(pressed, 2);
-  assert.deepEqual(emitted, [['row-activate', { row: given[1], key: 2 }], ['row-activate', { row: given[1], key: 2 }]]);
-});
-
-test('a double-click on a control of the row is the control\'s, and Enter on it too', () => {
-  const given = rows();
-  const { vm, emitted } = mount({ rows: given, columns: [NAME], activatable: true, app: {} });
-  const el = rowElement(null);
-
-  vm.onRowDoubleClick(given[0], { target: { closest: () => ({}) }, currentTarget: el });
-  vm.onRowKeyDown(given[0], { key: 'Enter', target: {}, currentTarget: el, preventDefault() {} });
-
-  assert.deepEqual(emitted, []);
-});
-
-test('the arrows, Home and End move from row to row', () => {
-  const els = [0, 1, 2].map(() => rowElement(null));
-  const parent = { querySelectorAll: () => els };
-  els.forEach((el) => { el.parentElement = parent; });
-  const { vm } = mount({ rows: rows(), columns: [NAME], activatable: true, app: {} });
-  const press = (key: string, from: any) => vm.onRowKeyDown(rows()[0], { key, target: from, currentTarget: from, preventDefault() {} });
-
-  press('ArrowDown', els[0]);
-  press('End', els[0]);
-  press('ArrowUp', els[2]);
-
-  assert.deepEqual(els.map((el) => el.focused), [false, true, true]);
+  assert.equal(pressed, 1);
 });
 
 test('empty because of the filters is told apart from empty for real', () => {

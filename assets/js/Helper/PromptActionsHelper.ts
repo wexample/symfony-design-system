@@ -66,17 +66,11 @@ export function promptActionPrimary(actions: PromptAction[]): PromptAction | nul
 }
 
 /**
- * What Enter takes and the focus starts on: the action named, else the one
- * that backs out when another is destructive — a question about deactivating
- * someone is not answered by a stray Enter — else the primary one.
+ * What Enter takes and the focus starts on: the one that backs out when an
+ * answer is destructive — a question about deactivating someone is not
+ * answered by a stray Enter — else the primary one.
  */
-export function promptActionDefault(actions: PromptAction[], named?: string | null): PromptAction | null {
-  const chosen = named ? actions.find((action) => action.value === named) : null;
-
-  if (chosen) {
-    return chosen;
-  }
-
+export function promptActionDefault(actions: PromptAction[]): PromptAction | null {
   return actions.some((action) => action.role === 'destructive')
     ? promptActionCancel(actions)
     : promptActionPrimary(actions);

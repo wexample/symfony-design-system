@@ -84,3 +84,28 @@ Headless Chrome (DevTools key events): Twig table — ArrowDown to the next row,
 > - **Headings**: a record page in a modal must start with a heading (`h1`–`h3`) — it names the dialog.
 >
 > Open, belonging to other lines: the permission checks and audit trail of the actions (security / traceability lines).
+
+## Revision — trimmed to what carries real value (owner's request)
+
+The owner asked to stay critical of the ask and keep only what is worth it. Removed:
+
+- **Focusable rows with arrow / Home / End navigation and Enter on the row.** A half-made ARIA grid — rows taking focus with no grid semantics read badly in a screen reader — for a need the visible `open` action already covers: a link, reached by Tab, pressed by Enter, natively. Kept: double-click on the row presses that action, a pointer shortcut of a few lines.
+- **`activatable` and the `row-activate` event**: no caller; a page wanting its own opening gives the row an action.
+- **`defaultAction` on `confirm`**: the rule "a destructive answer is never the default" covers the need; an option without a caller is surface to maintain.
+- **The `empty` slot (Vue) and `empty` option (Twig, raw markup)**: the "add" action belongs in the page's toolbar, visible whatever the list holds; the Twig option injected raw HTML.
+
+Changed: the Tab traps of the modal / panel and of the confirm now go through the `keyboard` service (`KEY_TAB`, enabled only while the overlay is the active one, unregistered with the owner), like Escape; they were raw `keydown` listeners.
+
+Re-verified in headless Chrome: Enter on the row's open link opens the modal, focus on the dialog, Tab / Shift+Tab stay inside, Escape gives focus back to the link, double-click opens; confirm still focuses Cancel, traps Tab, Enter answers cancel and returns focus. 38 JS tests.
+
+### Reply, as revised
+
+**Verdict: real gaps, implemented — trimmed to modal and confirm accessibility, the safe default of a destructive confirm, a double-click shortcut to the row's open action, and two list states (nothing matches the filters, read failed).** The journey stays the application's.
+
+> **For the Sapiens agent — from a list to a record (revised)**
+>
+> - **Opening**: give each row an action `{ icon: 'ph:bold/eye', label: 'Open', href: <record route>, target: 'modal', open: true }`. It is the keyboard path (Tab, Enter); a double-click on the row presses it too. There is no row focus or arrow navigation — not needed, and not offered.
+> - **Destructive actions**: `confirm({ title: 'Deactivate Julien Gautier?', message, actions: [{ value: 'deactivate', label: 'Deactivate', role: 'destructive' }, { value: 'cancel', label: 'Cancel', role: 'secondary' }] })` — Cancel holds focus and Enter. Act only on `'deactivate'`, then `toast`, then hand the rows back with a `rowKey`.
+> - **States**: `loading` while reading; Vue `error` + `@retry` on failure; the filtered-empty state is automatic with `filters`. Your "add" button goes in your toolbar.
+> - **Columns by role**: built on the server, column *and* data, per role.
+> - **Headings**: a record page shown in a modal starts with `h1`–`h3`, which names the dialog.
