@@ -27,6 +27,12 @@
                 :sticky="sticky"
                 :loading="isLoading"
                 :row-key="getEntityKey"
+                :searchable="searchable"
+                :search-rows="false"
+                :default-sort="defaultSort"
+                :sort="sort"
+                @update:sort="onSortChange"
+                @update:search="onSearchChange"
         ></data-table>
 
         <pagination

@@ -183,11 +183,18 @@ export default {
     // those whose shown text holds what is typed — case and accents aside —
     // with the filters, before the order and the pages. A column is searched
     // unless it says `searchable: false`; actions, status and date columns
-    // never are, their text being an icon, a state or a worded instant. For a
-    // list held whole in the page: a table fed by an api has no box yet.
+    // never are, their text being an icon, a state or a worded instant.
     searchable: {
       type: Boolean,
       default: false
+    },
+    // The table narrows the rows it holds with what is typed itself: for a
+    // list held whole in the page. Left false, it only says what was typed
+    // (`update:search`), for the page to ask its api with — a table holding
+    // one page of a list cannot search the list.
+    searchRows: {
+      type: Boolean,
+      default: true
     },
     // Why the rows could not be read, in place of them, with a way to try
     // again (`retry`): never a blank table.
@@ -197,7 +204,7 @@ export default {
     }
   },
 
-  emits: ['update:selected', 'bulk-action', 'update:filterValues', 'update:sort', 'retry'],
+  emits: ['update:selected', 'bulk-action', 'update:filterValues', 'update:sort', 'update:search', 'retry'],
 
   data() {
     return {
@@ -231,7 +238,7 @@ export default {
         ? (this.rows || []).filter((row) => this.isGroupRow(row) || filterMatches(row, this.resolvedFilterValues))
         : (this.rows || []);
 
-      if (this.searchable && this.search.trim()) {
+      if (this.searchable && this.searchRows && this.search.trim()) {
         rows = this.dropEmptyGroups(rows.filter((row) => this.isGroupRow(row) || this.rowMatchesSearch(row)));
       }
 
@@ -528,7 +535,10 @@ export default {
     },
 
     clearFilters() {
-      this.search = '';
+      if (this.search !== '') {
+        this.search = '';
+        this.$emit('update:search', '');
+      }
       this.setFilterValues({});
     },
 
@@ -547,6 +557,13 @@ export default {
     onSearchInput(event) {
       this.search = event.target.value;
       this.page = 0;
+      this.$emit('update:search', this.search);
+
+      // What the api finds is not known yet: the page says it once it is.
+      if (!this.searchRows) {
+        return;
+      }
+
       this.statusMessage = this.search.trim()
         ? this.transTable('results', { '%count%': this.shownRows.filter((row) => !this.isGroupRow(row)).length })
         : '';

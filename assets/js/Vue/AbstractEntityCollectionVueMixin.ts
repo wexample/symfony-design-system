@@ -76,6 +76,12 @@ const AbstractEntityCollectionVueMixin = {
       return undefined;
     },
 
+    // What the reader asked the collection for — a search, an order — as
+    // query parameters, added to those the collection fetches with.
+    getCollectionQuery() {
+      return {};
+    },
+
     // Null disables pagination: the collection is fetched in a single request.
     getPageLength() {
       return this.pageLength;
@@ -107,9 +113,11 @@ const AbstractEntityCollectionVueMixin = {
 
     async fetchEntitiesPage(page) {
       const length = this.getPageLength();
+      const params = this.getEntitiesFetchParams() ?? {};
 
       return this.getEntityRepository().fetchListPaginated({
-        ...(this.getEntitiesFetchParams() ?? {}),
+        ...params,
+        query: { ...(params.query ?? {}), ...this.getCollectionQuery() },
         // A zero length is how the api is told to drop its own limit. Saying
         // nothing would leave the server's default in force, and a collection
         // that believes it holds everything would silently hold a first page.

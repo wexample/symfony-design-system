@@ -38,6 +38,26 @@ export function sortNext(current: SortState | null, key: string, defaultSort: So
   return state.direction === 'asc' ? { key, direction: 'desc' } : defaultSort;
 }
 
+// The order as an api is asked for it: the key, a leading `-` when it runs
+// down (`-createdAt`). Null asks for nothing, leaving the api its own order.
+export function sortToQuery(state: SortState | null): string | null {
+  if (!state) {
+    return null;
+  }
+
+  return state.direction === 'desc' ? `-${state.key}` : state.key;
+}
+
+export function sortFromQuery(value: string | null | undefined): SortState | null {
+  if (!value) {
+    return null;
+  }
+
+  return value.startsWith('-')
+    ? { key: value.slice(1), direction: 'desc' }
+    : { key: value, direction: 'asc' };
+}
+
 // What `aria-sort` says of the header of `key`.
 export function sortAria(state: SortState | null, key: string): SortAria {
   if (!state || state.key !== key) {

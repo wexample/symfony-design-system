@@ -2,7 +2,7 @@
 // tests/Unit/Helper/SortHelperTest.php holds the same cases.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { sortApply, sortAria, sortNext, type SortState } from '../../assets/js/Helper/SortHelper.ts';
+import { sortApply, sortAria, sortFromQuery, sortNext, sortToQuery, type SortState } from '../../assets/js/Helper/SortHelper.ts';
 
 const DEFAULT: SortState = { key: 'measured', direction: 'desc' };
 
@@ -86,4 +86,13 @@ test('equal rows keep their order, and the list given is left as it was', () => 
 
   assert.deepEqual(sorted.map((row) => row.id), [3, 1, 2]);
   assert.deepEqual(rows.map((row) => row.id), [1, 2, 3]);
+});
+
+test('the order goes to an api as its key, a leading dash when it runs down', () => {
+  assert.equal(sortToQuery(DEFAULT), '-measured');
+  assert.equal(sortToQuery({ key: 'name', direction: 'asc' }), 'name');
+  assert.equal(sortToQuery(null), null);
+  assert.deepEqual(sortFromQuery('-measured'), DEFAULT);
+  assert.deepEqual(sortFromQuery('name'), { key: 'name', direction: 'asc' });
+  assert.equal(sortFromQuery(''), null);
 });

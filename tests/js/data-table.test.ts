@@ -268,3 +268,17 @@ test('without the option, a table holds no search', () => {
 
   assert.deepEqual(ids(vm.shownRows), [1, 2, 3, 4]);
 });
+
+test('fed by an api, the search narrows nothing and says what was typed', () => {
+  const { vm, emitted } = mount({ rows: people(), columns: [NAME, CITY], searchable: true, searchRows: false, app: {} });
+
+  type(vm, 'lyon');
+
+  assert.deepEqual(ids(vm.shownRows), [1, 2, 3, 4]);
+  assert.deepEqual(emitted.filter(([event]) => event === 'update:search'), [['update:search', 'lyon']]);
+  assert.equal(vm.statusMessage, '');
+
+  vm.clearFilters();
+
+  assert.deepEqual(emitted.filter(([event]) => event === 'update:search').pop(), ['update:search', '']);
+});

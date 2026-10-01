@@ -3,6 +3,7 @@ import DataTable from "../../../data-table/data-table.vue";
 import Pagination from "../../../pagination/pagination.vue";
 import AbstractEntityCollectionVueMixin from "../../../../js/Vue/AbstractEntityCollectionVueMixin";
 import DateService from "@wexample/symfony-loader/js/Services/DateService";
+import { sortToQuery } from "../../../../js/Helper/SortHelper";
 
 export default {
   template: "#vue-template-wexample-symfony-design-system-bundle-vue-collection-table-abstract-entity-table",
@@ -20,12 +21,27 @@ export default {
       // The header stays in view while the rows scroll under it.
       sticky: false,
       // Set to null to fetch the whole collection in a single request.
-      pageLength: 10
+      pageLength: 10,
+      // A search box above the rows, its words sent to the api as `search`.
+      searchable: false,
+      // The order the list opens on: { key, direction }, the key a `sortable`
+      // column's `sortKey` (or `key`). Sent to the api as `sort`, `-key` when
+      // it runs down — the api must allow that key.
+      defaultSort: null,
+      sort: null,
+      search: '',
+      // Words typed in a row make one request, once the typing pauses.
+      searchDelayMs: 300,
+      searchTimer: null
     };
   },
 
   created() {
     this.columns = this.processColumns(this.getColumnsConfiguration());
+  },
+
+  beforeUnmount() {
+    clearTimeout(this.searchTimer);
   },
 
   methods: {
@@ -124,6 +140,38 @@ export default {
 
     getColumnsConfiguration() {
       return [];
+    },
+
+    getCollectionQuery() {
+      const query = {};
+      const sort = sortToQuery(this.sort ?? this.defaultSort);
+
+      if (this.search.trim()) {
+        query.search = this.search.trim();
+      }
+
+      if (sort) {
+        query.sort = sort;
+      }
+
+      return query;
+    },
+
+    // A new order or a new search reads the list again from its first page:
+    // the page the reader was on is not the same page anymore.
+    onSortChange(sort) {
+      this.sort = sort;
+      this.page = 0;
+      this.refreshEntitiesCollection();
+    },
+
+    onSearchChange(search) {
+      clearTimeout(this.searchTimer);
+      this.searchTimer = setTimeout(() => {
+        this.search = search;
+        this.page = 0;
+        this.refreshEntitiesCollection();
+      }, search ? this.searchDelayMs : 0);
     }
   }
 };

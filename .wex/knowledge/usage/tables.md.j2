@@ -97,8 +97,24 @@ table goes back to its first page, says how many it found in its `role="status"`
 and a search finding nothing is the "nothing matches" state, whose button empties the
 search and the filters.
 
-Only there, for now: a table fed by an api, or drawn by the server, has no search box — what
-it should ask, and of whom, is not settled.
+A vue table fed by an api takes `:search-rows="false"`: it narrows nothing itself and only
+says what was typed, through `update:search`, for the page to ask its api with — a table
+holding one page of a list cannot search the list. A table drawn by the server has no search
+box yet.
+
+## Entity tables
+
+`abstract-entity-table` is the vue table of an api collection: the page, the order and the
+search are the api's, the table only asks. A subclass sets `searchable`, `defaultSort` and
+`sortable` columns; the reading is sent through `fetchListPaginated` as query parameters:
+
+- `page`, `length` — the page, counted from 0;
+- `search` — the words typed, sent once the typing pauses;
+- `sort` — the key, with a leading `-` when it runs down: `-createdAt`.
+
+The endpoint must declare all three (an undeclared parameter is a `400`) and allow only
+the sort keys it knows. A new order or a new search reads again from the first page. A
+collection adds its own parameters by overriding `getCollectionQuery()`.
 
 ## Several tables on one page
 
