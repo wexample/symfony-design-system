@@ -1,5 +1,6 @@
 import AppService from '@wexample/symfony-loader/js/Class/AppService';
 import ComponentsService from '@wexample/symfony-loader/js/Services/ComponentsService';
+import LocaleService from '@wexample/symfony-loader/js/Services/LocaleService';
 import { focusTrapCanReturn } from '../Helper/FocusTrapHelper';
 
 export const CONFIRM_RESPONSE_YES = 'yes';
@@ -42,6 +43,8 @@ interface ConfirmInstance {
 
 export default class ConfirmService extends AppService {
   public static serviceName: string = 'confirm';
+  // The words of a form's question, when the form names none.
+  public static dependencies: typeof AppService[] = [LocaleService];
   private instances: Set<ConfirmInstance> = new Set();
 
   private presets: Record<ConfirmPreset, ConfirmAction[]> = {
@@ -62,6 +65,61 @@ export default class ConfirmService extends AppService {
       { key: 'y', value: CONFIRM_RESPONSE_CONTINUE, label: 'Continue', role: 'primary' },
       { key: 'n', value: CONFIRM_RESPONSE_CANCEL, label: 'Cancel', role: 'secondary' },
     ],
+  };
+
+  registerHooks() {
+    return {
+      app: {
+        hookInit: () => {
+          // Captured, so the question comes before whatever else sends the
+          // form — an ajax submission listening on the form itself.
+          document.addEventListener('submit', this.onSubmit, true);
+        },
+      },
+    };
+  }
+
+  /**
+   * A form, or the button sending it, carrying `data-confirm-message` asks
+   * before it goes: the safe answer holds the focus, the other one names the
+   * action (`data-confirm-accept`), `data-confirm-title` heads the question.
+   * Answered yes, the form is sent as it would have been, by the same button.
+   */
+  private onSubmit = async (event: SubmitEvent): Promise<void> => {
+    const form = event.target;
+    const submitter = event.submitter as HTMLElement | null;
+
+    if (!(form instanceof HTMLFormElement) || form.dataset.confirmState === 'confirmed') {
+      return;
+    }
+
+    const source = submitter?.dataset.confirmMessage ? submitter : (form.dataset.confirmMessage ? form : null);
+
+    if (!source) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const locale = this.app.getServiceOrFail(LocaleService) as LocaleService;
+    const domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.confirm.';
+    const answer = await this.confirm({
+      title: source.dataset.confirmTitle || undefined,
+      message: source.dataset.confirmMessage,
+      actions: [
+        { key: 'y', value: CONFIRM_RESPONSE_YES, label: source.dataset.confirmAccept || locale.trans(`${domain}accept`), role: 'destructive' },
+        { key: 'n', value: CONFIRM_RESPONSE_NO, label: source.dataset.confirmCancel || locale.trans(`${domain}cancel`), role: 'secondary' },
+      ],
+    });
+
+    if (answer !== CONFIRM_RESPONSE_YES) {
+      return;
+    }
+
+    form.dataset.confirmState = 'confirmed';
+    form.requestSubmit(submitter instanceof HTMLButtonElement || submitter instanceof HTMLInputElement ? submitter : undefined);
+    delete form.dataset.confirmState;
   };
 
   async confirm(options: ConfirmOptions): Promise<string> {

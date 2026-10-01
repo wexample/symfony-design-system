@@ -53,6 +53,9 @@ en:
       retry: "Try again"
       search: "Search"
       results: "%count% found"
+    confirm:
+      accept: Confirm
+      cancel: Cancel
     switch:
       cancel: Cancel
       checked: "On"
@@ -513,8 +516,21 @@ fr:
       total: '%count% au total'
       actions: Actions
       apply: Appliquer
+      sorted_asc: 'Trié par %column%, croissant'
+      sorted_desc: 'Trié par %column%, décroissant'
+      sort_reset: "Revenir à l'ordre d'origine"
+      empty_filtered: 'Aucun résultat.'
+      clear_filters: 'Tout afficher'
+      retry: Réessayer
+      search: Rechercher
+      results: '%count% trouvés'
+    confirm:
+      accept: Confirmer
+      cancel: Annuler
     switch:
       cancel: Annuler
+      checked: Activé
+      unchecked: Désactivé
     tour:
       previous: Précédent
       next: Suivant
@@ -523,7 +539,10 @@ fr:
       progress: '%current% / %total%'
     embed:
       close: Fermer
+    form:
+      optional: (facultatif)
     menu:
+      more: "Plus d'options"
       filter: Filtrer
       filter_empty: 'Aucun résultat correspondant'
     zone:
