@@ -196,6 +196,11 @@ export default {
       type: Boolean,
       default: true
     },
+    // What the box says it searches, in place of the generic word.
+    searchPlaceholder: {
+      type: String,
+      default: ''
+    },
     // Why the rows could not be read, in place of them, with a way to try
     // again (`retry`): never a blank table.
     error: {

@@ -28,7 +28,7 @@
                     class="form--input"
                     type="search"
                     :value="search"
-                    :placeholder="transTable('search')"
+                    :placeholder="searchPlaceholder || transTable('search')"
                     :aria-label="transTable('search')"
                     autocomplete="off"
                     @input="onSearchInput"

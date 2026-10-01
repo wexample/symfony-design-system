@@ -24,6 +24,7 @@ export default {
       pageLength: 10,
       // A search box above the rows, its words sent to the api as `search`.
       searchable: false,
+      searchPlaceholder: '',
       // The order the list opens on: { key, direction }, the key a `sortable`
       // column's `sortKey` (or `key`). Sent to the api as `sort`, `-key` when
       // it runs down — the api must allow that key.

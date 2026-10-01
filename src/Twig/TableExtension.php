@@ -99,6 +99,7 @@ class TableExtension extends AbstractTemplateExtension
             'show_count' => 'showCount',
             'empty_label' => 'emptyLabel',
             'searchable' => 'searchable',
+            'search_placeholder' => 'searchPlaceholder',
             'page_size' => 'pageSize',
             'filters' => 'filters',
             'hover' => 'hover',
