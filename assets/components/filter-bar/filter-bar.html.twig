@@ -2,18 +2,20 @@
     same page with that option turned, and the controller reads the same query
     to narrow what it lists. `filters` is [{ key, label, options: [{ value,
     label, count, tone }], multiple }], the shape the vue twin takes; a tone —
-    a state or a `cat-*` colour — colours the option's box. -#}
+    a state or a `cat-*` colour — colours the option's box. `query_key` keeps
+    them under that key of the query, for a page holding several tables. -#}
 {%- set filters = filters|default([]) -%}
+{%- set query_key = query_key|default(null) -%}
 <div class="filter-bar{{ class is defined and class ? ' ' ~ class }}">
     {%- for filter in filters -%}
-        {%- set selected = filter_selected(filter.key) -%}
+        {%- set selected = filter_selected(filter.key, query_key) -%}
         {%- set items = [] -%}
         {%- for option in filter.options -%}
             {%- set items = items|merge([{
                 label: option.label,
                 count: option.count ?? null,
                 checked: (option.value ~ '') in selected,
-                href: filter_toggle_url(filter, option.value ~ ''),
+                href: filter_toggle_url(filter, option.value ~ '', query_key),
                 box: true,
                 radio: not (filter.multiple ?? false),
                 tone: option.tone ?? null,
@@ -22,10 +24,10 @@
         {%- if selected is not empty -%}
             {%- set items = items|merge([
                 { separator: true },
-                { label: 'WexampleSymfonyDesignSystemBundle.common.system::frontend.filter.clear', icon: 'ph:bold/x', href: filter_clear_url(filter.key) },
+                { label: 'WexampleSymfonyDesignSystemBundle.common.system::frontend.filter.clear', icon: 'ph:bold/x', href: filter_clear_url(filter.key, query_key) },
             ]) -%}
         {%- endif -%}
-        {{ button_menu(null, filter_summary(filter), items, {
+        {{ button_menu(null, filter_summary(filter, query_key), items, {
             class: 'button--flat button--compact' ~ (selected is not empty ? ' is-active'),
         }) }}
     {%- endfor -%}

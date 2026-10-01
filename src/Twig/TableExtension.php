@@ -5,6 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 use Twig\TwigFunction;
+use Wexample\SymfonyDesignSystem\Helper\QueryHelper;
 use Wexample\SymfonyDesignSystem\Helper\SortHelper;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
@@ -48,7 +49,7 @@ class TableExtension extends AbstractTemplateExtension
                             // An actions cell may render a target button, and a
                             // component cannot be registered without the pass.
                             'render_pass' => $context['render_pass'] ?? null,
-                            'columns' => $this->describeSort($columns, $sort, $options['default_sort'] ?? null),
+                            'columns' => $this->describeSort($columns, $sort, $options),
                             'rows' => $rows,
                             'options' => $options,
                         ]
@@ -100,7 +101,7 @@ class TableExtension extends AbstractTemplateExtension
         $default = $options['default_sort'] ?? null;
 
         return SortHelper::fromQuery(
-            $this->requestStack->getCurrentRequest()?->query->all() ?? [],
+            QueryHelper::scoped($this->requestStack->getCurrentRequest()?->query->all() ?? [], $options['query_key'] ?? null),
             SortHelper::allowedKeys($columns, $default),
             $default
         );
@@ -108,9 +109,10 @@ class TableExtension extends AbstractTemplateExtension
 
     // What each sortable header says of the order, and the address of the next
     // one: a link, so the order works with no script at all.
-    private function describeSort(array $columns, ?array $sort, ?array $default): array
+    private function describeSort(array $columns, ?array $sort, array $options): array
     {
         $request = $this->requestStack->getCurrentRequest();
+        $default = $options['default_sort'] ?? null;
 
         foreach ($columns as &$column) {
             if (! $column['sortable']) {
@@ -120,7 +122,7 @@ class TableExtension extends AbstractTemplateExtension
             $next = SortHelper::next($sort, $column['sort_key'], $default);
             $column['sort_aria'] = SortHelper::aria($sort, $column['sort_key']);
             $column['sort_href'] = $request
-                ? SortHelper::url($request->getBaseUrl().$request->getPathInfo(), $request->query->all(), $next, $default)
+                ? SortHelper::url($request->getBaseUrl().$request->getPathInfo(), $request->query->all(), $next, $default, $options['query_key'] ?? null)
                 : '#';
         }
 

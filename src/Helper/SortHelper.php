@@ -103,18 +103,16 @@ class SortHelper
      * `path` with the query set to the order `sort`, its keys dropped for the
      * default one — and the page number dropped too: a list ordered
      * differently starts again from its first page. The rest of the query, the
-     * filters, is kept.
+     * filters and any other table's part, is kept.
      */
-    public static function url(string $path, array $query, ?array $sort, ?array $default = null): string
+    public static function url(string $path, array $query, ?array $sort, ?array $default = null, ?string $queryKey = null): string
     {
-        unset($query['page'], $query[self::QUERY_KEY], $query[self::QUERY_DIRECTION]);
+        $kept = $sort && ! self::equals($sort, $default);
 
-        if ($sort && ! self::equals($sort, $default)) {
-            $query[self::QUERY_KEY] = $sort['key'];
-            $query[self::QUERY_DIRECTION] = $sort['direction'];
-        }
-
-        return $query ? $path.'?'.http_build_query($query) : $path;
+        return QueryHelper::url($path, $query, [
+            self::QUERY_KEY => $kept ? $sort['key'] : null,
+            self::QUERY_DIRECTION => $kept ? $sort['direction'] : null,
+        ], $queryKey);
     }
 
     // Nothing to sort on: such a row goes last whichever way the list runs.

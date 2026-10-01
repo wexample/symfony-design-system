@@ -121,3 +121,9 @@ Without `rowKey`, a Vue row was keyed by its position in the *filtered* list: ti
 >
 > Yours still: column labels, which columns sort. Collation follows the page locale (French on Sapiens pages). On the default column a press toggles desc ↔ asc; on others asc → desc → default.
 
+
+## Follow-up — one query key per table
+
+Raised by the owner on the demo: `?sort=last` does not say which table it sorts. A server table now takes `query_key`: its order and its filters live under that key (`?patients[sort]=last&patients[owner][0]=a`), the page number dropped is its own, another table's part of the query is left alone. Shared by sort and filters through `src/Helper/QueryHelper.php`; `filter_*()` twig functions take the key as last argument. Tests: `QueryHelperTest`, `FilterExtensionTest`, `SortHelperTest::testUrlUnderAQueryKey`. The demo's Sorting table uses `query_key: 'people'`.
+
+> For the Sapiens agent: on a Twig page holding several tables, give each one `query_key`, and read its part with `$request->query->all('<key>')` before `SortHelper::fromQuery()`. Vue tables are not concerned.

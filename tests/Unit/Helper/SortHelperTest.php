@@ -158,4 +158,18 @@ class SortHelperTest extends TestCase
         );
         $this->assertSame('/list', SortHelper::url('/list', ['page' => 2, 'sort' => 'name'], null));
     }
+
+    public function testUrlUnderAQueryKey(): void
+    {
+        $query = ['patients' => ['sort' => 'last', 'direction' => 'asc', 'page' => 2], 'users' => ['sort' => 'email']];
+
+        $this->assertSame(
+            '/list?'.http_build_query(['patients' => ['sort' => 'last', 'direction' => 'desc'], 'users' => ['sort' => 'email']]),
+            SortHelper::url('/list', $query, ['key' => 'last', 'direction' => 'desc'], self::DEFAULT, 'patients')
+        );
+        $this->assertSame(
+            '/list?'.http_build_query(['users' => ['sort' => 'email']]),
+            SortHelper::url('/list', $query, self::DEFAULT, self::DEFAULT, 'patients')
+        );
+    }
 }

@@ -10,11 +10,13 @@
     rather than by being inside it. -#}
 {% set bulk_form_id = 'data-table-bulk-' ~ random() %}
 {#- Filters at the head of the bar, kept in the page's query: the controller
-    reads the same query to narrow the rows it hands the table. -#}
+    reads the same query to narrow the rows it hands the table. With a
+    `query_key`, the filters and the order live under that key alone, so two
+    tables on one page keep each their own. -#}
 {% set filters = options.filters|default([]) %}
 {%- set filter_bar -%}
     {%- if filters is not empty -%}
-        {% include '@WexampleSymfonyDesignSystemBundle/components/filter-bar/filter-bar.html.twig' with { filters: filters } %}
+        {% include '@WexampleSymfonyDesignSystemBundle/components/filter-bar/filter-bar.html.twig' with { filters: filters, query_key: options.query_key|default(null) } %}
     {%- endif -%}
 {%- endset -%}
 {#- How many rows the table holds, at the end of the bar above it. -#}
