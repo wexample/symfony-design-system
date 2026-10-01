@@ -7,6 +7,7 @@ import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAni
 import RequestOptionsInterface from '@wexample/symfony-loader/js/Interfaces/RequestOptions/RequestOptionsInterface';
 import ConfirmService from '@wexample/symfony-design-system/js/Services/ConfirmService';
 import { hashParamDelete } from '../Helper/HashStateHelper';
+import { focusTrapCanReturn, focusTrapFocusables, focusTrapNext } from '../Helper/FocusTrapHelper';
 
 export interface OverlayRequestOptionsInterface extends RequestOptionsInterface {
   closeOnEscape?: boolean;
@@ -32,6 +33,8 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
   protected confirmOnCloseWhenDirty = false;
   protected isDirty = false;
   protected onFormDirtyProxy?: EventListener;
+  // Where the keyboard was before the overlay opened, given back on close.
+  protected returnFocusEl: HTMLElement | null = null;
 
   protected abstract getContentSelector(): string;
   protected abstract getCloseLinkSelector(): string;
@@ -67,6 +70,35 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
     if (this.contentEl && this.layoutBody) {
       this.contentEl.innerHTML = this.layoutBody;
     }
+
+    // A dialog to assistive technologies, and one that holds the page behind
+    // it out of reach. The box can take focus itself, so opening hands it the
+    // keyboard before anything inside is chosen.
+    const dialogEl = this.getDialogEl();
+    dialogEl.setAttribute('role', 'dialog');
+    dialogEl.setAttribute('aria-modal', 'true');
+    dialogEl.setAttribute('tabindex', '-1');
+  }
+
+  protected getDialogEl(): HTMLElement {
+    return this.contentEl || this.el;
+  }
+
+  // Named by its first heading, which the page it holds has written.
+  protected labelDialog() {
+    const dialogEl = this.getDialogEl();
+    const heading = dialogEl.querySelector<HTMLElement>('h1, h2, h3, [data-dialog-title]');
+
+    if (!heading) {
+      dialogEl.removeAttribute('aria-labelledby');
+      return;
+    }
+
+    if (!heading.id) {
+      heading.id = `dialog-title-${Math.random().toString(36).slice(2, 10)}`;
+    }
+
+    dialogEl.setAttribute('aria-labelledby', heading.id);
   }
 
   appendChildRenderNode(renderNode: RenderNode) {
@@ -113,6 +145,7 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
     this.el.addEventListener('mouseup', this.onMouseUpOverlayProxy);
     this.onFormDirtyProxy = this.onFormDirty.bind(this) as EventListener;
     this.el.addEventListener('form:dirty', this.onFormDirtyProxy);
+    this.el.addEventListener('keydown', this.onKeyDownTrap);
   }
 
   protected async deactivateListeners(): Promise<void> {
@@ -126,6 +159,7 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
     if (this.onFormDirtyProxy) {
       this.el.removeEventListener('form:dirty', this.onFormDirtyProxy);
     }
+    this.el.removeEventListener('keydown', this.onKeyDownTrap);
 
     await super.deactivateListeners();
   }
@@ -195,6 +229,26 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
     await this.close({ userInitiated: true });
   };
 
+  // Tab and Shift+Tab go round inside the dialog: past its last element back to
+  // its first, never into the page behind.
+  private onKeyDownTrap = (event: KeyboardEvent) => {
+    if (event.key !== 'Tab' || !(this as any).overlayIsOpen()) {
+      return;
+    }
+
+    const dialogEl = this.getDialogEl();
+    const focusables = focusTrapFocusables(dialogEl);
+    const active = document.activeElement as HTMLElement | null;
+    const next = focusables.length
+      ? focusTrapNext(focusables, active && focusables.includes(active) ? active : null, event.shiftKey)
+      : dialogEl;
+
+    if (next) {
+      event.preventDefault();
+      next.focus();
+    }
+  };
+
   private onFormDirty(event: CustomEvent) {
     if (event.detail?.dirty === true) {
       this.isDirty = true;
@@ -227,14 +281,28 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
   }
 
   async overlayOnOpen(): Promise<void> {
+    const active = document.activeElement;
+    this.returnFocusEl = active && !this.el.contains(active) && focusTrapCanReturn(active) ? active : null;
+    this.labelDialog();
+
     await (this as FadeAnimationMixin).fadeOpen();
     this.page?.focus();
     this.page?.notifyTreeVisible();
+
+    // The keyboard follows the eye into the dialog, onto the box itself: its
+    // name is read, and Tab goes on to what it holds.
+    this.getDialogEl().focus({ preventScroll: true });
   }
 
   async overlayOnClose(): Promise<void> {
     hashParamDelete(...this.getHashKeys());
     this.page?.blur();
     this.callerPage?.focus();
+
+    // Back where it was taken from — the row, the button that opened it.
+    if (focusTrapCanReturn(this.returnFocusEl)) {
+      this.returnFocusEl.focus({ preventScroll: true });
+    }
+    this.returnFocusEl = null;
   }
 }

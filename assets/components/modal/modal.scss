@@ -72,3 +72,9 @@
 .modal-body {
   border-radius: 0 0 var(--radius-box) var(--radius-box);
 }
+
+// The box takes the keyboard on opening, to have its name read: a starting
+// point, not a control, so it draws no ring of its own.
+.modal--content[role='dialog']:focus {
+  outline: none;
+}

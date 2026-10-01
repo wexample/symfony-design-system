@@ -13,6 +13,7 @@ type PromptActionsOptions = {
 
 const defaultRoleClasses: Record<string, string> = {
   primary: 'button--invert',
+  destructive: 'button--danger',
 };
 
 export const renderPromptActions = (
@@ -49,3 +50,34 @@ export const renderPromptActions = (
     actionsEl.appendChild(button);
   });
 };
+
+// The answer that backs out: the one named cancel or no, else the `n` key,
+// else a secondary one, else the last.
+export function promptActionCancel(actions: PromptAction[]): PromptAction | null {
+  return actions.find((action) => ['cancel', 'no'].includes(action.value))
+    || actions.find((action) => action.key === 'n')
+    || actions.find((action) => action.role === 'secondary')
+    || actions[actions.length - 1]
+    || null;
+}
+
+export function promptActionPrimary(actions: PromptAction[]): PromptAction | null {
+  return actions.find((action) => action.role === 'primary') || actions[0] || null;
+}
+
+/**
+ * What Enter takes and the focus starts on: the action named, else the one
+ * that backs out when another is destructive — a question about deactivating
+ * someone is not answered by a stray Enter — else the primary one.
+ */
+export function promptActionDefault(actions: PromptAction[], named?: string | null): PromptAction | null {
+  const chosen = named ? actions.find((action) => action.value === named) : null;
+
+  if (chosen) {
+    return chosen;
+  }
+
+  return actions.some((action) => action.role === 'destructive')
+    ? promptActionCancel(actions)
+    : promptActionPrimary(actions);
+}

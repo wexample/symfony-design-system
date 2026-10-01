@@ -1,5 +1,6 @@
 import AppService from '@wexample/symfony-loader/js/Class/AppService';
 import ComponentsService from '@wexample/symfony-loader/js/Services/ComponentsService';
+import { focusTrapCanReturn } from '../Helper/FocusTrapHelper';
 
 export const CONFIRM_RESPONSE_YES = 'yes';
 export const CONFIRM_RESPONSE_NO = 'no';
@@ -30,6 +31,10 @@ type ConfirmOptions = {
   stackId?: string;
   position?: 'tl' | 'tr' | 'bl' | 'br';
   toast?: boolean;
+  // The value of the action Enter takes and the focus starts on. Left out, the
+  // safe one when an action is `destructive` — a question about deactivating
+  // someone is not answered by a stray Enter — the primary one otherwise.
+  defaultAction?: string;
 };
 
 interface ConfirmInstance {
@@ -75,6 +80,8 @@ export default class ConfirmService extends AppService {
     const actions = options.actions || this.presets[options.preset || 'yes_no'];
     const service = this.app.getServiceOrFail(ComponentsService) as ComponentsService;
     const mountTarget = this.getMountTarget(options);
+    // Given back once answered: the button or the row the question came from.
+    const returnFocusEl = options.toast ? null : document.activeElement;
     let instance: ConfirmInstance | null = null;
     let resolveConfirm!: (value: string) => void;
 
@@ -89,6 +96,7 @@ export default class ConfirmService extends AppService {
           title: options.title,
           message: options.message,
           actions,
+          defaultAction: options.defaultAction,
           variant: options.toast ? 'toast' : 'overlay',
           onResolve: async (action: ConfirmAction | string) => {
             const resolvedAction: ConfirmAction =
@@ -98,6 +106,10 @@ export default class ConfirmService extends AppService {
             resolveConfirm(resolvedAction.value);
             if (instance && !resolvedAction.keepOpen) {
               await this.closeInstance(instance, options.toast);
+
+              if (focusTrapCanReturn(returnFocusEl)) {
+                returnFocusEl.focus({ preventScroll: true });
+              }
             }
           },
         },

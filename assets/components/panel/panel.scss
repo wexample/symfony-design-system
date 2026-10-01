@@ -64,3 +64,9 @@
 .panel-body {
   flex: 1;
 }
+
+// The box takes the keyboard on opening, to have its name read: a starting
+// point, not a control, so it draws no ring of its own.
+.panel--content[role='dialog']:focus {
+  outline: none;
+}
