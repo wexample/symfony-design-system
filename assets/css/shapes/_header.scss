@@ -7,7 +7,7 @@
   @include gutters.gutters-horizontal;
   height: var(--size-3);
   background: var(--surface-shell);
-  border-bottom: var(--border-separator);
+  border-bottom: var(--border-shell);
 
   .header--body {
     @include gutters.gutters-body;

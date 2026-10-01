@@ -4,7 +4,7 @@
 .footer {
   @include gutters.gutters-horizontal;
   background: var(--surface-shell);
-  border-top: var(--border-separator);
+  border-top: var(--border-shell);
 
   .footer--body {
     @include gutters.gutters-body;

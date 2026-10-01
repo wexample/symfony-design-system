@@ -14,10 +14,12 @@
   // Depth comes back.
   @include shadow.shadow-vars;
 
-  // What was told apart by a line is told apart by the room around it. The
-  // borders that draw a thing rather than separate two — a field's — are not
-  // touched: a field with no edge is a field nobody finds.
-  --border-separator: 0 solid transparent;
+  // The shell is told apart from the page by the room around it, not by a
+  // line. What a page holds keeps its separators — the rows of a table, the
+  // runs of a list — and the borders that draw a thing rather than separate
+  // two, a field's, are not touched: a field with no edge is a field nobody
+  // finds.
+  --border-shell: 0 solid transparent;
   --border-discreet: 0 solid transparent;
 
   // A navigation item keeps a margin of its own and the link floats in it:
