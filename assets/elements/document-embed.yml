@@ -8,7 +8,7 @@
 description: null
 formats:
   template: true
-  style: "wears the style of media and adds none of its own"
+  style: true
   vue: true
   script: "it shows and does nothing"
   schema: todo

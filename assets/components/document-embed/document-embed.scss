@@ -1,0 +1,11 @@
+// A document shown inside the page — a mail, a pdf, a page of another site:
+// sized by media (a ratio, or the whole box it is given), and framed as a
+// sheet of its own. A document draws itself on white whatever the page's
+// scheme, and its edge says where the page stops and it begins.
+@use '../../css/shapes/media';
+
+.media:has(> iframe) {
+  border: var(--border-discreet);
+  border-radius: var(--radius-box);
+  background: var(--color-absolute-light);
+}
