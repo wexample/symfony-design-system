@@ -145,8 +145,7 @@
                 v-for="row in (error ? [] : visibleRows)"
                 :key="getRowKey(row)"
                 class="table--row"
-                :class="{ 'table--row--group': isGroupRow(row), 'table--row--activatable': isRowActivatable(row) }"
-                @dblclick="isRowActivatable(row) && onRowDoubleClick($event)"
+                :class="{ 'table--row--group': isGroupRow(row) }"
         >
             <td v-if="selectable && !isGroupRow(row)" class="table--cell table--cell--select">
                 <input
@@ -239,7 +238,6 @@
                                             :icon="action.icon"
                                             :title="action.label || null"
                                             :aria-label="action.label || null"
-                                            :data-row-open="action.open ? '' : null"
                                             class-name="table--icon-link"
                                     ></button-target>
                                     <span

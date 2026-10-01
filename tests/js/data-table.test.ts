@@ -127,28 +127,7 @@ test('a column can sort on what it computes', () => {
   assert.deepEqual(vm.shownRows.map((row: any) => row.first), ['Adam', 'Basile', 'Élodie', 'Eric', 'Zoé']);
 });
 
-// From a list to a record: the rows that open, and the states that stand in
-// for rows.
-
-const OPEN = { key: 'operations', actions: [{ name: 'show', route: 'record_show', open: true }] };
-
-test('a row opens on a double-click only when a column holds an action marked open', () => {
-  assert.equal(mount({ rows: rows(), columns: [NAME, OPEN], app: {} }).vm.isRowActivatable(rows()[0]), true);
-  assert.equal(mount({ rows: rows(), columns: [NAME], app: {} }).vm.isRowActivatable(rows()[0]), false);
-  assert.equal(mount({ rows: [{ group: 'A' }], columns: [NAME, OPEN], app: {} }).vm.isRowActivatable({ group: 'A' }), false);
-});
-
-test('a double-click on the row presses its open action, one on a control does not', () => {
-  let pressed = 0;
-  const open = { matches: () => true, click: () => { pressed++; } };
-  const row = { querySelector: () => open };
-  const { vm } = mount({ rows: rows(), columns: [NAME, OPEN], app: {} });
-
-  vm.onRowDoubleClick({ target: { closest: () => null }, currentTarget: row });
-  vm.onRowDoubleClick({ target: { closest: () => ({}) }, currentTarget: row });
-
-  assert.equal(pressed, 1);
-});
+// The states that stand in for rows, and a row changed in place.
 
 test('empty because of the filters is told apart from empty for real', () => {
   const filters = [{ key: 'owner', label: 'Owner', options: [] }];

@@ -346,11 +346,6 @@
   width: auto;
 }
 
-// A row that opens on a double-click says so to the pointer.
-.table--row--activatable {
-  cursor: pointer;
-}
-
 // A state in place of the rows — an error, nothing matching — and the one
 // thing to do about it beside the words.
 .table--cell--state {

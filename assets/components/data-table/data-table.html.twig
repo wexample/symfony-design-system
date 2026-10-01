@@ -136,10 +136,7 @@
                 <th class="table--cell table--cell--group" colspan="{{ columns_count }}" scope="colgroup">{{ row.group }}</th>
             </tr>
             {% else %}
-            {#- A row holding an action marked `open` opens on a double-click too,
-                as by that action: data-table.ts presses it. -#}
-            {%- set row_opens = columns|filter(column => column.cell == 'actions' and (attribute(row, column.key)|default([])|filter(action => action.open|default(false))) is not empty) is not empty -%}
-            <tr class="table--row{{ row_opens ? ' table--row--activatable' }}"{% if row_opens %} data-row-activatable{% endif %}>
+            <tr class="table--row">
                 {% if selectable %}
                     <td class="table--cell table--cell--select">
                         <input class="table--select table--select-row" type="checkbox"
@@ -159,7 +156,6 @@
                                         it, nor to one who does not know it: every action
                                         carries its label, as a tooltip and as its name. -#}
                                     {%- set action_label = action.label|default(null) -%}
-                                    {%- set action_open = action.open|default(false) -%}
                                     {%- if action.method|default('get')|lower == 'post' -%}
                                         <form method="post" action="{{ action.href|default('#') }}">
                                             {%- if action.token|default(null) -%}
@@ -172,12 +168,11 @@
                                         {{ button_target(action.icon, '', action.href|default('#'), action.target, {
                                             class: 'table--icon-link',
                                             target_options: action.target_options|default({}),
-                                            attr: (action_label ? { title: action_label, 'aria-label': action_label } : {})|merge(action_open ? { 'data-row-open': '' } : {}),
+                                            attr: action_label ? { title: action_label, 'aria-label': action_label } : {},
                                         }) }}
                                     {%- else -%}
                                         <a class="table--icon-link" href="{{ action.href|default('#') }}"
-                                           {%- if action_label %} title="{{ action_label }}" aria-label="{{ action_label }}"{% endif %}
-                                           {%- if action_open %} data-row-open{% endif %}>{{ icon(action.icon) }}</a>
+                                           {%- if action_label %} title="{{ action_label }}" aria-label="{{ action_label }}"{% endif %}>{{ icon(action.icon) }}</a>
                                     {%- endif -%}
                                 {%- endfor -%}
                             </span>

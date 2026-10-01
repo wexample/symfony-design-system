@@ -208,15 +208,6 @@ export default {
       return this.filterValues ?? this.ownFilterValues;
     },
 
-    // A column declaring an action marked `open`: every row then opens.
-    hasOpenAction() {
-      return this.columns.some((column) => {
-        const actions = column?.actions ?? (column?.action ? [column.action] : []);
-
-        return (Array.isArray(actions) ? actions : [actions]).some((action) => action?.open === true);
-      });
-    },
-
     resolvedSort() {
       return this.sort ?? this.ownSort ?? this.defaultSort;
     },
@@ -510,22 +501,6 @@ export default {
       this.setFilterValues({});
     },
 
-    // A row holding an action marked `open` opens on a double-click too: a
-    // shortcut for the pointer to the action every row shows, which the
-    // keyboard reaches with Tab like any link.
-    isRowActivatable(row) {
-      return !this.isGroupRow(row) && this.hasOpenAction;
-    },
-
-    onRowDoubleClick(event) {
-      // A double-click on a control of the row is that control's.
-      if (event.target.closest('a, button, input, select, textarea, label')) {
-        return;
-      }
-
-      const open = event.currentTarget.querySelector('[data-row-open]');
-      (open?.matches('a, button') ? open : open?.querySelector('a, button'))?.click();
-    },
     getRowKey(row) {
       return this.rowKey ? this.rowKey(row) : this.rowIndexes.get(row);
     },
@@ -595,8 +570,6 @@ export default {
           targetOptions: targetOptions ?? {},
           method,
           token: typeof action === 'object' ? action.token : undefined,
-          // What a double-click or Enter on the row presses.
-          open: typeof action === 'object' && action.open === true,
           label: typeof action === 'object' ? action.label : undefined,
           icon: iconName ?? '',
         };

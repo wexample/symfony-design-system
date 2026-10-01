@@ -109,3 +109,9 @@ Re-verified in headless Chrome: Enter on the row's open link opens the modal, fo
 > - **States**: `loading` while reading; Vue `error` + `@retry` on failure; the filtered-empty state is automatic with `filters`. Your "add" button goes in your toolbar.
 > - **Columns by role**: built on the server, column *and* data, per role.
 > - **Headings**: a record page shown in a modal starts with `h1`–`h3`, which names the dialog.
+
+## Revision 2 — no double-click
+
+The owner ruled the double-click a specification error: a row opens through its visible action, a link reached by Tab and pressed by Enter, nothing else. Removed the double-click, the `open: true` marker that served it, `data-row-open` / `data-row-activatable`, and their tests. Kept the `error` + `retry` state — not an error-handling channel, only what the table shows when the page tells it the read failed, so it no longer says "No data". Panel checked in headless Chrome like the modal (same base class): focus onto the dialog named by its heading, Tab / Shift+Tab inside, Escape gives focus back to the action. 36 JS tests.
+
+> For the Sapiens agent: drop `open: true` from the row action if you added it — a row opens through its visible "Open" action only.

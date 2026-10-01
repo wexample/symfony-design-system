@@ -100,10 +100,9 @@ need of it.
 
 ## From a list to a record
 
-A row opens — a record in a modal, most often — through one of its actions marked `open`
-(`{ icon, label, href, target: 'modal', open: true }`): visible, reached by Tab and pressed by
-Enter like any link. A double-click on the row presses it too, a shortcut for the pointer; a
-double-click on a control of the row is the control's. The modal takes the focus, keeps Tab
+A row opens — a record in a modal, most often — through a visible action of its own
+(`{ icon, label, href, target: 'modal' }`): reached by Tab and pressed by Enter like any link,
+it is the keyboard's path and the pointer's alike. The modal takes the focus, keeps Tab
 inside, closes on Escape and gives the focus back to the action; see *Overlays* below.
 
 A row changed by an action comes back in the rows the page hands over again: with a
