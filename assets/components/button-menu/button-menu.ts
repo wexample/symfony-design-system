@@ -1,6 +1,7 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
 import { filterTextMatches } from '../../js/Helper/FilterHelper';
+import { loadIntoTarget } from '../../js/Helper/TargetHelper';
 
 export default class extends Component {
   protected overlayUseBackdrop: boolean = false;
@@ -32,6 +33,17 @@ export default class extends Component {
 
     if (this.el.contains(target)) {
       return;
+    }
+
+    // A link with a target opens its page there — a panel, a modal — as a
+    // target button does. A modified click still opens a tab.
+    const mouse = event as MouseEvent;
+    const target = el.getAttribute('data-target');
+    const href = el.getAttribute('href');
+
+    if (target && href && href !== '#' && !(mouse.ctrlKey || mouse.metaKey || mouse.shiftKey || mouse.altKey)) {
+      event.preventDefault();
+      loadIntoTarget(this.app, target, href, {});
     }
 
     (this as any).overlayClose();
@@ -72,6 +84,17 @@ export default class extends Component {
       this.toggleItem(el as HTMLButtonElement);
 
       return;
+    }
+
+    // A link with a target opens its page there — a panel, a modal — as a
+    // target button does. A modified click still opens a tab.
+    const mouse = event as MouseEvent;
+    const target = el.getAttribute('data-target');
+    const href = el.getAttribute('href');
+
+    if (target && href && href !== '#' && !(mouse.ctrlKey || mouse.metaKey || mouse.shiftKey || mouse.altKey)) {
+      event.preventDefault();
+      loadIntoTarget(this.app, target, href, {});
     }
 
     (this as any).overlayClose();

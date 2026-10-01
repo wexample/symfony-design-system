@@ -121,10 +121,13 @@
                 {% set item_href = '#' %}
             {% endif %}
         {% endif %}
+        {#- `target` — panel, modal — opens the page there rather than in
+            place, as a target button does; a modified click still goes. -#}
         <li class="button-menu--item" role="none">
             <a class="button-menu--link{{ item_class }}"
                href="{{ item_href }}"
                role="menuitem"
+               {% if item.target|default(null) %}data-target="{{ item.target }}"{% endif %}
                {{ component_render_tag_attributes(item_attr) }}>
                 {{- menu.row(item, type) -}}
             </a>

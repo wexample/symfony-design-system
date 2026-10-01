@@ -1,4 +1,5 @@
 <script>
+import { loadIntoTarget } from '../../js/Helper/TargetHelper';
 import IconService from '@wexample/symfony-loader/js/Services/IconService';
 import { filterTextMatches } from '../../js/Helper/FilterHelper';
 
@@ -282,6 +283,16 @@ export default {
       if (type === 'submenu') {
         this.openSubmenu = this.openSubmenu === index ? null : index;
         this.$nextTick(() => this.placeSubmenu(event));
+
+        return;
+      }
+
+      // A link with a target opens its page there — a panel, a modal — as the
+      // twig twin does; a modified click still opens a tab.
+      if (item.target && item.href && !(event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)) {
+        event.preventDefault();
+        loadIntoTarget(this.app, item.target, this.itemHref(item), {});
+        this.close();
 
         return;
       }
