@@ -33,6 +33,7 @@ class BarExtension extends AbstractTemplateExtension
                             // stands at the far end.
                             'avatar' => $options['avatar'] ?? null,
                             'trailing' => $options['trailing'] ?? null,
+                            'meta' => $options['meta'] ?? null,
                             // What stands in the middle when a title is not
                             // what the line says: a figure, a bar of parts.
                             'body' => $options['body'] ?? null,

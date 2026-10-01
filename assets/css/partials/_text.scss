@@ -9,6 +9,13 @@
   color: var(--text-color-muted);
 }
 
+// A step further back than secondary: what qualifies the qualifier — a date
+// under a sender, a size under a name.
+.text-tertiary {
+  font-size: var(--font-size-1);
+  color: var(--text-color-subtle);
+}
+
 .text-empty {
   color: var(--text-color-subtle);
   font-style: italic;

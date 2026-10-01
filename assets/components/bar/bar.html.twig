@@ -23,6 +23,11 @@
             {%- if subtitle -%}
                 <div class="text-secondary text-ellipsis">{{ subtitle }}</div>
             {%- endif -%}
+            {#- A third line, further back, for a narrow column: what would
+                stand at the far end if there were room — a date, a size. -#}
+            {%- if meta|default(null) -%}
+                <div class="text-tertiary text-ellipsis">{{ meta|raw }}</div>
+            {%- endif -%}
         {%- endif -%}
     </div>
     {#- A slot, so it is markup: a date, a tag, a button row. -#}
