@@ -27,6 +27,8 @@
 .pagination--control,
 .pagination--number {
   display: inline-flex;
+  // The server's twin draws links, the vue's buttons: one look for both.
+  text-decoration: none;
   align-items: center;
   justify-content: center;
   gap: var(--space-1);
@@ -42,13 +44,14 @@
   @include transition.smooth(2);
 }
 
-.pagination--control:hover:not(:disabled),
-.pagination--number:hover:not(:disabled) {
+.pagination--control:hover:not(:disabled, [aria-disabled='true']),
+.pagination--number:hover:not(:disabled, [aria-disabled='true'], .pagination--number--current) {
   background: var(--state-hover);
 }
 
 .pagination--control:disabled,
-.pagination--number:disabled {
+.pagination--number:disabled,
+.pagination--control[aria-disabled='true'] {
   opacity: 0.5;
   cursor: not-allowed;
 }

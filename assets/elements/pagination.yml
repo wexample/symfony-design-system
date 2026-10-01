@@ -5,11 +5,11 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: The pages of a list — previous, next, and the numbers worth showing between them; links when the server draws it, a `change` event in vue.
 formats:
   style: true
   vue: true
-  template: "todo — nothing renders it server-side"
+  template: true
   script: "it shows and does nothing"
   schema: todo
   ai: todo

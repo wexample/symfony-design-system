@@ -1610,10 +1610,13 @@
         {
             "key": "pagination",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "The pages of a list \u2014 previous, next, and the numbers worth showing between them; links when the server draws it, a `change` event in vue.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/pagination/pagination.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/pagination/pagination.html.twig"
                 ],
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/pagination/pagination.vue.twig",
@@ -1622,7 +1625,7 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "todo",
+                "template": "expected",
                 "vue": "expected",
                 "script": "waived",
                 "schema": "todo",
@@ -1631,7 +1634,6 @@
                 "flutter": "todo"
             },
             "notes": {
-                "template": "nothing renders it server-side",
                 "script": "it shows and does nothing"
             }
         },
@@ -2569,6 +2571,12 @@
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_actions.scss",
             "description": "The row closing a form, where its buttons sit."
+        },
+        {
+            "key": "form/addon",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_addon.scss",
+            "description": "A field with a fixed word beside its value \u2014 a unit, a currency \u2014 that is not part of it. The frame is the group's: it draws the field's border and ground, the input inside drops its own, so the word and the value sit in one field. The ring of focus goes round the whole, the frozen look too."
         },
         {
             "key": "form/assisted",

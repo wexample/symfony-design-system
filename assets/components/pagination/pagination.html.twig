@@ -1,0 +1,41 @@
+{#- The pages of a list drawn by the server: links, since each page is an
+    address. The twin of pagination.vue, which emits a page instead; same
+    markup, same numbers shown (see PaginationExtension). -#}
+{%- set domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.pagination.' -%}
+<nav class="pagination" aria-label="{{ (domain ~ 'label') | trans }}">
+    {%- if previous_href -%}
+        <a class="pagination--control" href="{{ previous_href }}" rel="prev" aria-label="{{ (domain ~ 'previous') | trans }}">
+    {%- else -%}
+        <span class="pagination--control" aria-disabled="true">
+    {%- endif -%}
+        <span class="pagination--control--icon" aria-hidden="true">&lsaquo;</span>
+        <span class="pagination--control--label">{{ (domain ~ 'previous') | trans }}</span>
+    {%- if previous_href %}</a>{% else %}</span>{% endif -%}
+
+    {%- if compact -%}
+        <span class="pagination--status">{{ (domain ~ 'page') | trans }} {{ page }} / {{ pages_count }}</span>
+    {%- else -%}
+        <ol class="pagination--pages">
+            {%- for entry in entries -%}
+                <li class="pagination--pages--item">
+                    {%- if entry is null -%}
+                        <span class="pagination--ellipsis" aria-hidden="true">{{ (domain ~ 'ellipsis') | trans }}</span>
+                    {%- elseif entry.current -%}
+                        <span class="pagination--number pagination--number--current" aria-current="page">{{ entry.page }}</span>
+                    {%- else -%}
+                        <a class="pagination--number" href="{{ entry.href }}" aria-label="{{ (domain ~ 'page') | trans }} {{ entry.page }}">{{ entry.page }}</a>
+                    {%- endif -%}
+                </li>
+            {%- endfor -%}
+        </ol>
+    {%- endif -%}
+
+    {%- if next_href -%}
+        <a class="pagination--control" href="{{ next_href }}" rel="next" aria-label="{{ (domain ~ 'next') | trans }}">
+    {%- else -%}
+        <span class="pagination--control" aria-disabled="true">
+    {%- endif -%}
+        <span class="pagination--control--label">{{ (domain ~ 'next') | trans }}</span>
+        <span class="pagination--control--icon" aria-hidden="true">&rsaquo;</span>
+    {%- if next_href %}</a>{% else %}</span>{% endif -%}
+</nav>
