@@ -9,3 +9,15 @@
 // The page's one tooltip, which the layout places.
 @use '../../components/tooltip/tooltip';
 
+// What the layout draws itself — its header, its menus, the page's toolbar,
+// its footer and the trail in it. Said here and not by each application, which
+// would be the place it gets forgotten.
+@use '../../css/shapes/layout' as layout-shape;
+@use '../../css/shapes/gutters';
+@use '../../css/shapes/header';
+@use '../../css/shapes/menu';
+@use '../../css/shapes/toolbar';
+@use '../../css/shapes/footer';
+@use '../../css/utilities/align';
+@use '../../components/breadcrumb/breadcrumb';
+

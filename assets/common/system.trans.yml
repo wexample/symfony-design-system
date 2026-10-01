@@ -65,6 +65,8 @@ en:
       progress: "%current% / %total%"
     embed:
       close: Close
+    form:
+      optional: (optional)
     menu:
       more: More options
       filter: Filter

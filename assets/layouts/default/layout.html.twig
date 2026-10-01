@@ -17,6 +17,10 @@
     before, a detail after. Adding a neighbour is filling a block, never
     rebuilding the page's zone, so a page reads alike with or without one. -#}
 {%- block page_body_container -%}
+    {#- Words the stylesheets write themselves — the mark of an optional field
+        — in the page's language, as custom properties every rule can read.
+        Here and not in the layout's config, which a json response prints too. -#}
+    <style>:root { --form-optional-label: {{ ('WexampleSymfonyDesignSystemBundle.common.system::frontend.form.optional'|trans)|json_encode|raw }}; }</style>
     {%- set pageZonesBefore %}{% block page_zones_before %}{% endblock %}{% endset -%}
     {%- set pageZonesAfter %}{% block page_zones_after %}{% endblock %}{% endset -%}
     {#- Beside a neighbour the page stops scrolling and each zone scrolls on its

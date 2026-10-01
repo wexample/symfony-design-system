@@ -10,6 +10,8 @@
 // written in this layout's markup, so the shape comes with it.
 @use '../../css/shapes/zone';
 @use '../../css/shapes/page-actions';
+// The page's title with its actions beside it.
+@use '../../css/shapes/toolbar';
 @use '../../css/shapes/doc';
 @use '../../components/marker/marker';
 

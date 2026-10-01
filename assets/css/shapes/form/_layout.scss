@@ -26,6 +26,37 @@ fieldset.form--fieldset {
   min-width: 0;
 }
 
+// A part of a form gathering fields that belong together — identity, settings
+// — under a heading of its own. A fieldset in a form is one, whatever class it
+// was given: the browser's frame around it is never the design system's.
+.form--section,
+.form fieldset:not(.form--fieldset) {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+
+  + .form--section,
+  + fieldset {
+    padding-top: var(--space-4);
+    border-top: var(--border-separator);
+  }
+
+  > legend {
+    float: inline-start;
+    width: 100%;
+    margin-bottom: var(--space-2);
+    padding: 0;
+    color: var(--text-color-muted);
+    font-size: var(--font-size-2);
+    font-weight: var(--font-weight-strong);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+}
+
 .surface .form--row + .form--row {
   border-top: var(--border-separator);
 }
@@ -45,7 +76,8 @@ fieldset.form--fieldset {
 }
 
 .form--group.is-optional .form--label::after {
-  content: ' (optional)';
+  // The word in the page's language, which the layout hands down once.
+  content: ' ' var(--form-optional-label, '(optional)');
   color: var(--text-color-subtle);
   font-size: var(--font-size-2);
 }
