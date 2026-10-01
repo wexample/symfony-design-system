@@ -38,6 +38,12 @@ export default {
       type: Boolean,
       default: false
     },
+    // What to do about it, when there is one thing to do: { icon, label, href },
+    // the label already translated.
+    action: {
+      type: Object,
+      default: null
+    },
     extraClass: {
       type: String,
       default: null
@@ -68,7 +74,13 @@ export default {
     },
 
     iconHtml() {
-      return this.iconName ? this.app.getServiceOrFail('icon').icon(this.iconName) : '';
+      return this.iconName ? this.renderIcon(this.iconName) : '';
+    }
+  },
+
+  methods: {
+    renderIcon(name) {
+      return name ? this.app.getServiceOrFail('icon').icon(name) : '';
     }
   }
 };

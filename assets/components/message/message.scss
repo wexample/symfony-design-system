@@ -1,5 +1,6 @@
 @use '../../css/primitives/feedback' as feedback;
 @use '../../css/mixins/feedback' as feedback_semantic;
+@use '../button/button';
 
 .message {
   @include feedback.feedback-surface;
@@ -37,6 +38,13 @@
 // States a standing rule rather than reporting an event: it gives up the room
 // and the relief, keeping the bar — which is the one thing saying what kind of
 // message it is.
+.message--actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
 .message--compact {
   padding: var(--space-3) var(--space-4);
   box-shadow: none;

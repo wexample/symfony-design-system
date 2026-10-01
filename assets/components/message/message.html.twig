@@ -12,4 +12,10 @@
     {% if body is not empty %}
         <p>{{ body | trans }}</p>
     {% endif %}
+    {#- What to do about it, when there is one thing to do: { icon, label, href }. -#}
+    {% if options.action is defined and options.action %}
+        <div class="message--actions">
+            {{ button_link(options.action.icon, options.action.label | trans, options.action.href, { class: 'button--flat' }) }}
+        </div>
+    {% endif %}
 </div>

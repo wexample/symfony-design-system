@@ -8,5 +8,11 @@
             [[ title ]]
         </div>
         <p v-if="body">[[ body ]]</p>
+        <div v-if="action" class="message--actions">
+            <a class="button button--flat" :href="action.href">
+                <span class="button--icon" v-html="renderIcon(action.icon)"></span>
+                <span>[[ action.label ]]</span>
+            </a>
+        </div>
     </div>
 {%- endblock -%}
