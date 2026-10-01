@@ -573,10 +573,28 @@ export default {
       return this.rowKey ? this.rowKey(row) : this.rowIndexes.get(row);
     },
     hasCellActions(column) {
-      return Boolean(column?.action || (Array.isArray(column?.actions) && column.actions.length));
+      return column?.cell === 'actions'
+        || Boolean(column?.action || (Array.isArray(column?.actions) && column.actions.length));
     },
 
     getCellActions(row, column) {
+      // An actions cell whose column declares none reads them off the row,
+      // ready made — the server table's contract: { href, icon, label, method,
+      // token, target, target_options }, the addresses already resolved.
+      if (column?.cell === 'actions' && !column.actions && !column.action) {
+        const own = row?.[this.getColumnKey(column)];
+
+        return (Array.isArray(own) ? own : []).map((action) => ({
+          href: action.href ?? '',
+          target: action.target ?? '',
+          targetOptions: action.targetOptions ?? action.target_options ?? {},
+          method: String(action.method ?? 'get').toLowerCase(),
+          token: action.token,
+          label: action.label,
+          icon: action.icon ?? '',
+        })).filter((entry) => entry.icon);
+      }
+
       const actions = column?.actions
           ? (Array.isArray(column.actions) ? column.actions : [column.actions])
           : (column?.action ? [column.action] : []);

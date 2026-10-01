@@ -102,6 +102,15 @@ says what was typed, through `update:search`, for the page to ask its api with �
 holding one page of a list cannot search the list. A table drawn by the server has no search
 box yet.
 
+## A twig table drawn by vue
+
+`data_table(columns, rows, { vue: true, … })` hands the same columns and rows to the vue
+twin: it sorts (`sortable`, `default_sort`), searches (`searchable`), filters and pages
+(`page_size`) the whole list in the browser, with no page load. The options keep their twig
+names; an actions cell takes the same ready-made actions per row — `{ href, icon, label,
+method, token, target, target_options }`. For a list the page holds whole: a short one, or one
+no api serves. A list too long to hand over whole is an entity table.
+
 ## Entity tables
 
 `abstract-entity-table` is the vue table of an api collection: the page, the order and the

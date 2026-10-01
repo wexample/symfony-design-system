@@ -7,6 +7,7 @@ use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Helper\QueryHelper;
 use Wexample\SymfonyDesignSystem\Helper\SortHelper;
+use Wexample\SymfonyLoader\Service\VueService;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 class TableExtension extends AbstractTemplateExtension
@@ -14,6 +15,7 @@ class TableExtension extends AbstractTemplateExtension
     public function __construct(
         ComponentsExtension $componentsExtension,
         private readonly RequestStack $requestStack,
+        private readonly VueService $vueService,
     ) {
         parent::__construct($componentsExtension);
     }
@@ -31,6 +33,11 @@ class TableExtension extends AbstractTemplateExtension
                     array $options = [],
                 ) {
                     $context = is_array($context) ? $context : [];
+
+                    if ($options['vue'] ?? false) {
+                        return $this->renderVue($twig, $context, $columns, $rows, $options);
+                    }
+
                     $columns = $this->normalizeColumns($columns);
                     $sort = $this->getSort($columns, $options);
 
@@ -59,6 +66,57 @@ class TableExtension extends AbstractTemplateExtension
                 self::TEMPLATE_FUNCTION_OPTIONS + [self::FUNCTION_OPTION_NEEDS_CONTEXT => true]
             ),
         ];
+    }
+
+    /**
+     * The same table drawn by its vue twin, the whole list handed over: it
+     * sorts, searches and pages in the browser, without a round trip. For a
+     * list the page holds whole — a short one, or one no api serves.
+     */
+    private function renderVue(Environment $twig, array $context, array $columns, array $rows, array $options): string
+    {
+        $props = [
+            'columns' => array_map(fn ($column) => is_string($column) ? ['key' => $column] : array_filter([
+                'key' => $column['key'] ?? null,
+                'label' => $column['label'] ?? null,
+                'cell' => $column['cell'] ?? null,
+                'dateFormat' => $column['date_format'] ?? null,
+                'secondary' => $column['secondary'] ?? null,
+                'sortable' => $column['sortable'] ?? null,
+                'sortKey' => $column['sort_key'] ?? null,
+                'searchable' => $column['searchable'] ?? null,
+                'align' => $column['align'] ?? null,
+                'width' => $column['width'] ?? null,
+                'className' => $column['class'] ?? null,
+            ], fn ($value) => $value !== null), $columns),
+            'rows' => $rows,
+            'sortRows' => true,
+            'filterRows' => true,
+        ];
+
+        foreach ([
+            'default_sort' => 'defaultSort',
+            'show_count' => 'showCount',
+            'empty_label' => 'emptyLabel',
+            'searchable' => 'searchable',
+            'page_size' => 'pageSize',
+            'filters' => 'filters',
+            'hover' => 'hover',
+            'striped' => 'striped',
+            'sticky' => 'sticky',
+            'show_header' => 'showHeader',
+        ] as $option => $prop) {
+            if (array_key_exists($option, $options)) {
+                $props[$prop] = $options[$option];
+            }
+        }
+
+        return $this->vueService->vueRender(
+            twig: $twig,
+            renderPass: $context['render_pass'],
+            view: '@WexampleSymfonyDesignSystemBundle/components/data-table',
+            props: $props,
+        );
     }
 
     private function normalizeColumns(array $columns): array
