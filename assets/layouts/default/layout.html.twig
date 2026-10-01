@@ -40,7 +40,9 @@
         {%- set pageZoneResizable = page_zone_resizable|default(null) -%}
         {#- `page_zone_folded` is the width it folds to while an embed beside it
             holds something, unless the visitor has sized it by hand. -#}
-        <div class="zone zone--panel zone--measure"{% if pageZoneResizable %} {{ zone_state(pageZoneResizable) }}{% endif %}{% if page_zone_folded|default(null) %} data-zone-folded-size="{{ page_zone_folded }}"{% endif %}>
+        {#- Held to the reading measure, unless the page is wide: a table's
+            columns want the whole row, a text does not. -#}
+        <div class="zone zone--panel{{ page_body_mode|default('default') != 'wide' ? ' zone--measure' }}"{% if pageZoneResizable %} {{ zone_state(pageZoneResizable) }}{% endif %}{% if page_zone_folded|default(null) %} data-zone-folded-size="{{ page_zone_folded }}"{% endif %}>
             {%- if pageZoneResizable -%}
                 {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer') }}
             {%- endif -%}
