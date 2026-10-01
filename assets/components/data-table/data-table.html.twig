@@ -75,7 +75,7 @@
 {#- The frame is what scrolls sideways when the columns are wider than the room:
     the table keeps its own width, the page keeps its own. -#}
 <div class="table--frame{{ options.sticky|default(false) ? ' table--frame--sticky' }}{{ options.scroll|default(false) ? ' table--frame--scroll' }}">
-<table class="table{{ options.sticky|default(false) ? ' table--sticky' }}{{ options.striped|default(false) ? ' table--striped' }}{{ options.hover|default(false) ? ' table--hover' }}{{ options.class is defined ? ' ' ~ options.class }}">
+<table class="table{{ options.sticky|default(false) ? ' table--sticky' }}{{ (options.striped ?? true) ? ' table--striped' }}{{ (options.hover ?? true) ? ' table--hover' }}{{ options.class is defined ? ' ' ~ options.class }}">
     {% if options.show_header|default(true) %}
         <thead>
         <tr class="table--row">
@@ -136,7 +136,19 @@
                 <th class="table--cell table--cell--group" colspan="{{ columns_count }}" scope="colgroup">{{ row.group }}</th>
             </tr>
             {% else %}
-            <tr class="table--row">
+            {#- One action in the whole row, and a link: the row is pressed as
+                that link (data-table.ts). -#}
+            {%- set row_actions = [] -%}
+            {%- for column in columns -%}
+                {%- if column.cell == 'actions' -%}
+                    {%- set row_actions = row_actions|merge(attribute(row, column.key)|default([])) -%}
+                {%- endif -%}
+            {%- endfor -%}
+            {%- set row_only_action = row_actions|length == 1 ? row_actions|first : null -%}
+            {%- set row_link = row_only_action
+                and row_only_action.href|default(null)
+                and row_only_action.method|default('get')|lower != 'post' -%}
+            <tr class="table--row{{ row_link ? ' table--row--link' }}">
                 {% if selectable %}
                     <td class="table--cell table--cell--select">
                         <input class="table--select table--select-row" type="checkbox"

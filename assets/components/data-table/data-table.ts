@@ -1,9 +1,10 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
+import { rowLinkClick } from '../../js/Helper/RowLinkHelper';
 
 // What the server table needs of the browser once its rows can be ticked: the
 // box in the header ticks them all, the count says how many, and an action
 // cannot be pressed with nothing to act on. A table without the option has
-// none of these, and this does nothing.
+// none of these. A row whose only action is a link is pressed as that link.
 
 export default class extends Component {
   private formEl?: HTMLFormElement | null;
@@ -16,6 +17,7 @@ export default class extends Component {
     this.selectAllEl = this.el.querySelector('.table--select-all');
 
     this.el.addEventListener('change', this.onChange);
+    this.el.addEventListener('click', rowLinkClick);
     this.formEl?.addEventListener('submit', this.onSubmit);
 
     this.update();
@@ -23,6 +25,7 @@ export default class extends Component {
 
   protected async deactivateListeners(): Promise<void> {
     this.el.removeEventListener('change', this.onChange);
+    this.el.removeEventListener('click', rowLinkClick);
     this.formEl?.removeEventListener('submit', this.onSubmit);
 
     await super.deactivateListeners();

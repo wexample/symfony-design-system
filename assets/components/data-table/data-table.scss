@@ -291,6 +291,11 @@
 
 // The whole row under the pointer, for a table read one row at a time across
 // many columns. Above a stripe, below a ticked row, which keeps its ground.
+// A row pressed as its one link says so under the pointer.
+.table--row--link {
+  cursor: pointer;
+}
+
 .table--hover :where(tbody > .table--row:not(.table--row--group, .table--row--loading):not(:has(> .text-empty))):hover {
   background: var(--table-row-hover);
 }

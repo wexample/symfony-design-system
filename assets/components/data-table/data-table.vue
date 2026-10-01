@@ -9,6 +9,7 @@ import FilterBar from '../filter-bar/filter-bar.vue';
 import { filterMatches, filterTextMatches } from '../../js/Helper/FilterHelper';
 import { sortApply, sortAria, sortNext, sortValueAt } from '../../js/Helper/SortHelper';
 import { filterSelected } from '../../js/Helper/FilterHelper';
+import { rowLinkClick } from '../../js/Helper/RowLinkHelper';
 import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
 
 const translated = buildTranslatedBindings({
@@ -77,21 +78,21 @@ export default {
       type: Boolean,
       default: false
     },
-    // One row in two on a faint ground, for wide tables read across.
     // The table scrolls sideways on its own instead of overflowing to what
     // scrolls around it: for a container that does not scroll.
     scroll: {
       type: Boolean,
       default: false
     },
+    // One row in two on a faint ground, for wide tables read across.
     striped: {
       type: Boolean,
-      default: false
+      default: true
     },
     // The whole row lit under the pointer.
     hover: {
       type: Boolean,
-      default: false
+      default: true
     },
     // Rows that can be ticked, a box at the head of each. What names a row in
     // the selection is its key, so a table that selects wants a `rowKey`.
@@ -583,6 +584,23 @@ export default {
     getRowKey(row) {
       return this.rowKey ? this.rowKey(row) : this.rowIndexes.get(row);
     },
+    // One action in the whole row, and a link: the row is pressed as that link.
+    isRowLink(row) {
+      if (this.isGroupRow(row)) {
+        return false;
+      }
+
+      const actions = this.columns
+        .filter((column) => this.hasCellActions(column))
+        .flatMap((column) => this.getCellActions(row, column));
+
+      return actions.length === 1 && Boolean(actions[0].href) && actions[0].method !== 'post';
+    },
+
+    onRowClick(event) {
+      rowLinkClick(event);
+    },
+
     hasCellActions(column) {
       return column?.cell === 'actions'
         || Boolean(column?.action || (Array.isArray(column?.actions) && column.actions.length));

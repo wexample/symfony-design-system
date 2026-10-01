@@ -298,3 +298,15 @@ test('an actions cell with no actions declared reads them off the row, as the se
     { href: '/edit', target: 'panel', targetOptions: { closeOnEscape: true }, method: 'get', token: undefined, label: undefined, icon: 'ph:bold/pencil-simple' },
   ]);
 });
+
+test('a row whose only action is a link is pressed as that link; two actions, or a post, are not', () => {
+  const column = { key: 'operations', cell: 'actions' };
+  const { vm } = mount({ rows: [], columns: [{ key: 'name' }, column], app: {} });
+  const link = { icon: 'ph:bold/arrow-right', href: '/open' };
+
+  assert.equal(vm.isRowLink({ operations: [link] }), true);
+  assert.equal(vm.isRowLink({ operations: [link, { icon: 'ph:bold/trash', href: '/delete', method: 'post' }] }), false);
+  assert.equal(vm.isRowLink({ operations: [{ icon: 'ph:bold/trash', href: '/delete', method: 'post' }] }), false);
+  assert.equal(vm.isRowLink({ operations: [] }), false);
+  assert.equal(vm.isRowLink({ group: 'North' }), false);
+});

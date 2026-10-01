@@ -157,7 +157,8 @@
                 v-for="row in (error ? [] : visibleRows)"
                 :key="getRowKey(row)"
                 class="table--row"
-                :class="{ 'table--row--group': isGroupRow(row) }"
+                :class="{ 'table--row--group': isGroupRow(row), 'table--row--link': isRowLink(row) }"
+                @click="onRowClick"
         >
             <td v-if="selectable && !isGroupRow(row)" class="table--cell table--cell--select">
                 <input
