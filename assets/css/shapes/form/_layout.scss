@@ -87,6 +87,17 @@ fieldset.form--fieldset {
   grid-column: 1 / -1;
 }
 
+// A field carrying its words beside it — a switch — has no label above: among
+// columns it stands on the line of its neighbours' inputs, not of their
+// labels, in a box of an input's height (its padding, its border made
+// transparent, as a displayed value does).
+.form--columns > .form--group:has(.switch):not(:has(.form--label)) {
+  align-self: end;
+  padding-block: var(--space-2);
+  border: var(--border-default);
+  border-color: transparent;
+}
+
 // Sections as regions of their own, side by side when the room allows and one
 // under the other otherwise: each its own ground and edge, instead of a rule
 // between them. Wide enough each for its fields to keep their own columns.
