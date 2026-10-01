@@ -81,7 +81,7 @@
         </template>
         <span v-if="showCount" class="table--total">[[ transTable('total', { '%count%': totalCount }) ]]</span>
     </div>
-    <div class="table--frame" :class="{ 'table--frame--sticky': sticky }">
+    <div class="table--frame" :class="{ 'table--frame--sticky': sticky, 'table--frame--scroll': scroll }">
     <table class="table" :class="{ 'table--refreshing': loading && hasRows(), 'table--sticky': sticky, 'table--striped': striped, 'table--hover': hover }">
         <thead v-if="showHeader && columns.length">
         <tr class="table--row">

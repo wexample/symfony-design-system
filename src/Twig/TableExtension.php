@@ -105,6 +105,7 @@ class TableExtension extends AbstractTemplateExtension
             'hover' => 'hover',
             'striped' => 'striped',
             'sticky' => 'sticky',
+            'scroll' => 'scroll',
             'show_header' => 'showHeader',
         ] as $option => $prop) {
             if (array_key_exists($option, $options)) {

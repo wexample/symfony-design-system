@@ -102,6 +102,15 @@ says what was typed, through `update:search`, for the page to ask its api with �
 holding one page of a list cannot search the list. A table drawn by the server has no search
 box yet.
 
+## Wider than the room
+
+A table is drawn at the width its columns need. It has no scrollbar of its own: wider than
+the room, it overflows to whatever scrolls around it — a scrollable zone, the page — which
+moves it with everything else, rather than a second scrollbar inside the first. `scroll`
+(twig `scroll: true`, vue `:scroll`) gives it a frame that scrolls sideways on its own, for a
+table among other things in a container that does not scroll. A sticky table never scrolls on
+its own: its header sticks to the page.
+
 ## A twig table drawn by vue
 
 `data_table(columns, rows, { vue: true, … })` hands the same columns and rows to the vue

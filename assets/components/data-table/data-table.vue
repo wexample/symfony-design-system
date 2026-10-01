@@ -78,6 +78,12 @@ export default {
       default: false
     },
     // One row in two on a faint ground, for wide tables read across.
+    // The table scrolls sideways on its own instead of overflowing to what
+    // scrolls around it: for a container that does not scroll.
+    scroll: {
+      type: Boolean,
+      default: false
+    },
     striped: {
       type: Boolean,
       default: false
