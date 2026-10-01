@@ -45,3 +45,21 @@
     font-weight: var(--font-weight-medium);
   }
 }
+// The way back to the page above, alone, above a page's title: muted until
+// pointed at, its arrow saying which way it leads.
+.breadcrumb--back {
+  padding: 0;
+
+  .breadcrumb--item {
+    color: var(--text-color-muted);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--text-color-default);
+    }
+  }
+
+  .breadcrumb--back-icon {
+    display: flex;
+  }
+}

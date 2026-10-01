@@ -1,13 +1,33 @@
 {% set separator_icon = options.separator_icon|default('ph:bold/caret-right') %}
 
+{#- What an item reads: its own label, the current page's title, or the title
+    its route's page gives itself. -#}
+{% macro label(item, is_current, options) %}
+    {{- item.label ? item.label : (
+        is_current and options.current_label|default(null)
+            ? options.current_label
+            : (translation_build_domain_from_template_path(page_translation_path_from_route(item.route)) ~ '::page_title') | trans
+    ) -}}
+{% endmacro %}
+{% import _self as breadcrumb %}
+
+{#- `back`: the page above alone, as the way back to it — for a page whose
+    title already says where the reader is. Nothing above, nothing drawn. -#}
+{% if options.back|default(false) %}
+    {% set parent = items|length > 1 ? items[items|length - 2] : null %}
+    {% if parent and parent.route is defined %}
+        <nav class="breadcrumb breadcrumb--back{{ options.class is defined ? ' ' ~ options.class : '' }}">
+            <a class="breadcrumb--item" href="{{ path(parent.route, parent.params|default({})) }}">
+                <span class="breadcrumb--back-icon">{{ icon('ph:bold/arrow-left') }}</span>
+                <span class="breadcrumb--label">{{ breadcrumb.label(parent, false, options) }}</span>
+            </a>
+        </nav>
+    {% endif %}
+{% else %}
 <nav class="breadcrumb{{ options.class is defined ? ' ' ~ options.class : '' }}">
     {% for item in items %}
         {% set is_current = item.current|default(false) or loop.last %}
-        {% set label = item.label ? item.label : (
-            is_current and options.current_label|default(null)
-                ? options.current_label
-                : (translation_build_domain_from_template_path(page_translation_path_from_route(item.route)) ~ '::page_title') | trans
-        ) %}
+        {% set label = breadcrumb.label(item, is_current, options) %}
 
         {% if not is_current and item.route is defined %}
             <a class="breadcrumb--item" href="{{ path(item.route, item.params|default({})) }}">
@@ -24,3 +44,4 @@
         {% endif %}
     {% endfor %}
 </nav>
+{% endif %}

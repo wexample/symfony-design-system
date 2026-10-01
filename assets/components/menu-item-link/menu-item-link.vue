@@ -44,10 +44,16 @@ export default {
   },
 
   computed: {
+    // As the twig twin: the page it leads to, or the section the page stands
+    // in, the root lit on itself only.
     isActive() {
-      return this.active === null
-        ? this.href === window.location.pathname
-        : this.active;
+      if (this.active !== null) {
+        return this.active;
+      }
+
+      const path = window.location.pathname;
+
+      return this.href === path || (this.href !== '/' && path.startsWith(`${this.href}/`));
     },
 
     iconHtml() {

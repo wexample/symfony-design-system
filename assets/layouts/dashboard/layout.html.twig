@@ -38,6 +38,15 @@
             {{- block('page_layout_components') -}}
         </div>
     {%- else -%}
+    {#- The sections in the header (`layout_navigation: 'top'`) rather than in a
+        menu down the side: one bar, the page's title moving into the page with
+        the actions the toolbar held, the way back above it. -#}
+    {%- set navigationTop = layout_navigation|default('side') == 'top' -%}
+    {%- if navigationTop -%}
+        {%- set page_show_title = true -%}
+        {%- set page_trail = page_trail ?? 'back' -%}
+        {%- set page_title_actions_extra -%}{{ block('page_toolbar_left') }}{{ block('page_toolbar_right') }}{%- endset -%}
+    {%- endif -%}
     {# Rendered up front so the header toggle and the panel itself can both tell
        whether the page has anything to put in the right menu. #}
     {% set menuRight %}{% block page_menu_right_body %}{% endblock %}{% endset %}
@@ -46,6 +55,7 @@
     <div class="layout--horizontal">
         <div class="gutters--body layout--body--overlay-scope">
             <div class="layout--horizontal">
+                {%- if not navigationTop -%}
                 <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible{% if not ui_state_get('ui.layout.menu.left', true) %} gutters--collapsible--collapsed{% endif %}" data-menu-id="left">
                     {% block page_menu %}
                         <nav class="menu menu--vertical menu--vertical--left">
@@ -70,10 +80,25 @@
                         </nav>
                     {% endblock %}
                 </div>
+                {%- endif -%}
                 <div class="layout--body--scrollable">
                     <div class="layout--vertical" id="main-content" tabindex="-1">
                         {% block page_header %}
                             <header class="header">
+                                {%- if navigationTop -%}
+                                    <div class="header--brand">{{- block('page_menu_logo') -}}</div>
+                                    {#- One section has no tab: the mark leads home. -#}
+                                    {%- set headerTabs %}{{ block('page_menu_links') }}{% endset -%}
+                                    {%- if headerTabs|split('<li')|length > 2 -%}
+                                        {%- set tabsLabel = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.navigation'|trans -%}
+                                        <nav class="header--tabs" aria-label="{{ tabsLabel }}">
+                                            <ul class="header--tabs-list">{{ headerTabs }}</ul>
+                                            <button type="button" class="header--tabs-toggle" popovertarget="header-tabs-popover" aria-label="{{ tabsLabel }}" title="{{ tabsLabel }}">{{ icon('ph:bold/list') }}</button>
+                                            <ul class="header--tabs-popover" id="header-tabs-popover" popover>{{ headerTabs }}</ul>
+                                        </nav>
+                                    {%- endif -%}
+                                    <div class="header--body"></div>
+                                {%- else -%}
                                 {% block page_header_menu_left %}
                                     <nav class="header--menu">
                                         <a class="header--menu-item header--menu-item--icon" href="#" data-menu-target="left">
@@ -98,6 +123,7 @@
                                         {%- endif -%}
                                     {% endblock %}
                                 </div>
+                                {%- endif -%}
                                 {% block page_header_menu_right %}
                                     {% if menuRight is not empty %}
                                         <nav class="header--menu">
@@ -110,6 +136,7 @@
                             </header>
                         {% endblock %}
                         {% block page_navigation %}{% endblock %}
+                        {%- if not navigationTop -%}
                         {% block page_toolbar %}
                             {% set toolbarLeft %}{% block page_toolbar_left %}{% endblock %}{% endset %}
                             {% set toolbarRight %}{% block page_toolbar_right %}{% endblock %}{% endset %}
@@ -122,13 +149,17 @@
                                 </div>
                             {% endif %}
                         {% endblock %}
+                        {%- endif -%}
                         <section class="layout--body layout--body--{{ page_body_mode|default('default') }}">
                             {{- block('page_body_container') -}}
                         </section>
                         <footer class="footer">
                             <div class="footer--body">
                                 {% block footer_body %}
-                                    {{ breadcrumb_render({ current_label: page_title|default(null) }) }}
+                                    {#- On top, the trail stands above the title instead. -#}
+                                    {%- if not navigationTop -%}
+                                        {{ breadcrumb_render({ current_label: page_title|default(null) }) }}
+                                    {%- endif -%}
                                 {% endblock %}
                             </div>
                             {#- What the footer holds beside the trail: status widgets,

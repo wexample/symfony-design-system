@@ -71,6 +71,7 @@ en:
     form:
       optional: (optional)
     menu:
+      navigation: Navigation
       more: More options
       filter: Filter
       filter_empty: Nothing matches
@@ -542,6 +543,7 @@ fr:
     form:
       optional: (facultatif)
     menu:
+      navigation: Navigation
       more: "Plus d'options"
       filter: Filtrer
       filter_empty: 'Aucun résultat correspondant'

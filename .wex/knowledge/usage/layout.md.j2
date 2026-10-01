@@ -1,0 +1,36 @@
+## What a page tells the layout
+
+A page sets these variables at the top of its template, outside any block; an application layout sets them the same way for all its pages.
+
+| Variable | Values | What it does |
+|---|---|---|
+| `page_title` | text | The page's title; its translation `@page::page_title` otherwise. |
+| `page_show_title` | bool | The title drawn in the page, with the actions of `page_title_actions` beside it. |
+| `page_body_mode` | `default`, `wide` | `wide` leaves the reading measure: a table page, a workspace. |
+| `page_trail` | `back`, `breadcrumb` | Above the title: the way back to the page above, or the whole trail. Read from the controller's place under `Controller\Pages`. |
+| `page_focus` | bool | One thing to do and nothing around it — signing in, a code, terms: no menu, a narrow column under the application's mark. |
+| `layout_navigation` | `side`, `top` | Where the application's sections stand (dashboard layout). |
+
+## Sections in the header
+
+`layout_navigation: 'top'` draws the entries of `page_menu_links` as tabs in the header, after the application's mark (`page_menu_logo`), instead of a menu down the side. It suits an application with a handful of sections, whose side menu would stand mostly empty.
+
+- One bar: the page's title moves into the page (`page_show_title`), with what `page_toolbar_left` and `page_toolbar_right` held beside it, and the way back above it (`page_trail: 'back'` unless the page says otherwise). The footer no longer carries the trail.
+- A single section draws no tab: the mark leads home.
+- Too narrow for the row, the tabs fold into one button opening them as a list — a native `popover`, no script.
+- A menu entry is lit on its own page and on the pages under its address: `/dashboard` stays lit on `/dashboard/patients/12`. `/` is lit on itself only; `active` on the entry overrides.
+
+```twig
+{%- extends '@WexampleSymfonyDesignSystemBundle/layouts/dashboard/layout.html.twig' -%}
+
+{%- set layout_navigation = 'top' -%}
+
+{%- block page_menu_links -%}
+    {{ menu_item_link('ph:bold/heartbeat', 'Patients', path('dashboard_index')) }}
+    {{ menu_item_link('ph:bold/users', 'Users', path('users_index')) }}
+{%- endblock -%}
+```
+
+## The way back
+
+`breadcrumb_render({ back: true })` draws the page above the current one alone, as « ← its title »; nothing when there is none. The layout draws it above the title with `page_trail: 'back'`, the full trail with `page_trail: 'breadcrumb'`.

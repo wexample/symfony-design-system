@@ -48,8 +48,15 @@
             {%- endif -%}
             <div class="zone{{ pageZonesScroll ? ' zone--scrollable' }}">
                 <div class="zone--content stack--vertical">
+                    {#- Where the page hangs from, above its title (`page_trail`): the
+                        way back to the page above, or the whole trail. -#}
+                    {%- if page_trail|default(null) -%}
+                        {{ breadcrumb_render({ back: page_trail == 'back', current_label: page_title|default(null) }) }}
+                    {%- endif -%}
                     {%- if page_show_title|default(false) -%}
-                        {%- set pageTitleActions %}{% block page_title_actions %}{% endblock %}{%- endset -%}
+                        {#- The page's own actions, and those a layout hands down
+                            to stand beside the title (`page_title_actions_extra`). -#}
+                        {%- set pageTitleActions %}{% block page_title_actions %}{% endblock %}{{ page_title_actions_extra|default('') }}{%- endset -%}
                         {%- set pageTitleActions = pageTitleActions|trim -%}
                         {%- if pageTitleActions is not empty -%}
                             <div class="toolbar">
