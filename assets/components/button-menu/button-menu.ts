@@ -35,17 +35,6 @@ export default class extends Component {
       return;
     }
 
-    // A link with a target opens its page there — a panel, a modal — as a
-    // target button does. A modified click still opens a tab.
-    const mouse = event as MouseEvent;
-    const target = el.getAttribute('data-target');
-    const href = el.getAttribute('href');
-
-    if (target && href && href !== '#' && !(mouse.ctrlKey || mouse.metaKey || mouse.shiftKey || mouse.altKey)) {
-      event.preventDefault();
-      loadIntoTarget(this.app, target, href, {});
-    }
-
     (this as any).overlayClose();
   };
 
