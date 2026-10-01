@@ -17,6 +17,14 @@ export default {
     }
   },
 
+  computed: {
+    frozenText() {
+      const option = this.options.find((entry) => this.resolveOptionValue(entry) === this.modelValue);
+
+      return option ? this.resolveOptionLabel(option) : '';
+    }
+  },
+
   methods: {
     onChange(value) {
       this.$emit('update:modelValue', value);

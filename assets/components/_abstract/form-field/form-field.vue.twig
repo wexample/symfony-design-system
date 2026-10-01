@@ -33,8 +33,21 @@
             :class="{ 'has-error': hasErrors, 'is-disabled': controllerDisabled, 'is-assisted': isAssisted }"
             :inert="isAssisted ? true : null"
     >
-        {{ block('field_label') }}
-        {{ block('field_control') }}
+        <template v-if="isFrozenText">
+            <label v-if="hasLabel" class="form--label" :for="resolvedId">[[ resolveLabel(label) ]]</label>
+            <input
+                    class="form--input"
+                    type="text"
+                    :id="resolvedId"
+                    :value="frozenText"
+                    readonly
+                    aria-readonly="true"
+            >
+        </template>
+        <template v-else>
+            {{ block('field_label') }}
+            {{ block('field_control') }}
+        </template>
         {{ block('field_errors') }}
         {{ block('field_help') }}
     </div>

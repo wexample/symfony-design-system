@@ -5,31 +5,17 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { register } from 'node:module';
+import { vueInstance } from './vue-instance.ts';
 
 register('./hooks.mjs', import.meta.url);
 
 const { default: DataTable } = await import('../../assets/components/data-table/data-table.vue?script');
 
 function mount(props: Record<string, unknown>) {
-  const emitted: Array<[string, unknown]> = [];
-  const vm: any = {};
+  const mounted = vueInstance(DataTable, props);
+  mounted.vm.trans = (key: string, args: Record<string, unknown> = {}) => `${key.split('.').pop()} ${JSON.stringify(args)}`;
 
-  Object.entries(DataTable.props).forEach(([name, definition]: [string, any]) => {
-    vm[name] = typeof definition.default === 'function' && definition.type !== Function
-      ? definition.default()
-      : definition.default;
-  });
-  Object.assign(vm, props, DataTable.data.call(vm));
-  Object.entries(DataTable.computed).forEach(([name, getter]: [string, any]) => {
-    Object.defineProperty(vm, name, { get: () => getter.call(vm) });
-  });
-  Object.entries(DataTable.methods).forEach(([name, method]: [string, any]) => {
-    vm[name] = method.bind(vm);
-  });
-  vm.$emit = (event: string, payload: unknown) => emitted.push([event, payload]);
-  vm.trans = (key: string, args: Record<string, unknown> = {}) => `${key.split('.').pop()} ${JSON.stringify(args)}`;
-
-  return { vm, emitted };
+  return mounted;
 }
 
 const rows = () => [

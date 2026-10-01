@@ -1,5 +1,10 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/form-field/form-field.vue.twig' -%}
 
+{%- block vue_config -%}
+    {{ parent() }}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.switch.*') }}
+{%- endblock -%}
+
 {%- block field_label -%}{%- endblock -%}
 
 {%- block field_control -%}

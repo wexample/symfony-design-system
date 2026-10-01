@@ -37,6 +37,14 @@ export default {
       type: Boolean,
       default: false
     },
+    // A value someone may read and not change: settled, where `disabled` says
+    // unavailable. The field stays focusable, legible and selectable, and
+    // carries no `required` nobody could satisfy. It guards nothing — the
+    // server refuses what is posted for it.
+    readonly: {
+      type: Boolean,
+      default: false
+    },
     autocomplete: {
       type: String,
       default: ''
@@ -87,6 +95,22 @@ export default {
 
     resolvedId() {
       return this.id || this.name || null;
+    },
+
+    // What the field says once frozen, for a control HTML cannot make
+    // readonly — a select, radios, a switch, a file: their value in a readonly
+    // text field holding no name, so nothing of it is submitted. Null for a
+    // control that takes `readonly` itself.
+    frozenText() {
+      return null;
+    },
+
+    isFrozenText() {
+      return this.readonly && this.frozenText !== null;
+    },
+
+    isRequired() {
+      return this.required && !this.readonly;
     }
   },
 

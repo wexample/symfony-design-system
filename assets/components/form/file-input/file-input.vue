@@ -14,6 +14,22 @@ export default {
     accept: {
       type: String,
       default: ''
+    },
+    // What the field holds: the files chosen, or — once frozen — what the
+    // model keeps, a stored name or a path.
+    modelValue: {
+      type: [Array, String],
+      default: null
+    }
+  },
+
+  computed: {
+    frozenText() {
+      if (Array.isArray(this.modelValue)) {
+        return this.modelValue.map((file) => file?.name ?? String(file)).join(', ');
+      }
+
+      return this.modelValue ?? '';
     }
   },
 

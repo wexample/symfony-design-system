@@ -19,3 +19,28 @@
 .form--group.has-error .form--textarea:focus {
   @include field.field-focus;
 }
+
+// Frozen: a value settled, not a field unavailable. Nothing of `disabled` here —
+// no grey, no faded text, not even a ground of another shade: the value keeps
+// the very contrast of an editable one and stays focusable and selectable.
+// What changes is what invites writing: the solid frame turns dashed, the
+// pointer stops being a text cursor, and the pickers and steppers a browser
+// draws in a date or a number go. The focus ring stays: a field that can be
+// reached says so.
+.form--input[readonly],
+.form--textarea[readonly] {
+  border-style: dashed;
+  cursor: default;
+  caret-color: transparent;
+  resize: none;
+}
+
+.form--input[readonly]::-webkit-calendar-picker-indicator,
+.form--input[readonly]::-webkit-inner-spin-button,
+.form--input[readonly]::-webkit-outer-spin-button {
+  display: none;
+}
+
+.form--input[readonly][type='number'] {
+  appearance: textfield;
+}

@@ -49,3 +49,21 @@ fieldset.form--fieldset {
   color: var(--text-color-subtle);
   font-size: var(--font-size-2);
 }
+
+// A value shown in the order of the fields, and not a field: the same group,
+// the same label, and a line of the same height as an input — its border kept,
+// made transparent — so a row of them lines up with the fields beside it. No
+// frame, no ground, nothing to focus: it reads as what the record says. The
+// text starts where the labels do.
+.form--display-value {
+  padding-block: var(--space-2);
+  border: var(--border-default);
+  border-color: transparent;
+  font-size: var(--font-size-3);
+  overflow-wrap: anywhere;
+}
+
+// A dash, and not a blank: a blank reads as something missing from the page.
+.form--display-value--empty {
+  color: var(--text-color-muted);
+}

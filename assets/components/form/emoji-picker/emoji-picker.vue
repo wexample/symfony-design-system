@@ -17,6 +17,12 @@ export default {
     }
   },
 
+  computed: {
+    frozenText() {
+      return this.modelValue ?? '';
+    }
+  },
+
   methods: {
     onInput(event) {
       this.$emit('update:modelValue', event?.target?.value ?? '');

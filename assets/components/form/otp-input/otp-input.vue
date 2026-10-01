@@ -44,6 +44,10 @@ export default {
   },
 
   computed: {
+    frozenText() {
+      return this.value;
+    },
+
     cells() {
       return otpInputCells(this.value, this.length, this.caret);
     },

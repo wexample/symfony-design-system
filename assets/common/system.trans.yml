@@ -50,6 +50,8 @@ en:
       sort_reset: "Back to the original order"
     switch:
       cancel: Cancel
+      checked: "On"
+      unchecked: "Off"
     tour:
       previous: Previous
       next: Next

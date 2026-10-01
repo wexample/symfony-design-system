@@ -33,6 +33,12 @@ export default {
       }
 
       return this.resolveOptionValue(this.options[0]);
+    },
+
+    frozenText() {
+      const option = this.options.find((entry) => this.resolveOptionValue(entry) === this.resolvedValue);
+
+      return option ? this.resolveOptionLabel(option) : '';
     }
   },
 
