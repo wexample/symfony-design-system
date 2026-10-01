@@ -109,8 +109,15 @@
   text-align: center;
 }
 
+// A figure set to the right is read whole — 164 cm, 72,5 kg — never broken
+// over two lines by a narrow column.
 .table--cell--right {
   text-align: end;
+  white-space: nowrap;
+}
+
+.table--cell--nowrap {
+  white-space: nowrap;
 }
 
 .table--cell--left {

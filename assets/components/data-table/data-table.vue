@@ -132,6 +132,12 @@ export default {
       type: Boolean,
       default: false
     },
+    // How many there are in all, for a table holding one page of them — the
+    // api says it; left null, the table counts the rows it holds.
+    total: {
+      type: Number,
+      default: null
+    },
     // A filter bar at the head of the table: [{ key, label, options, multiple }].
     // What it holds comes back through `v-model:filter-values`, for the page to
     // ask its api with — the rows it gets back are already the narrowed ones.
@@ -325,7 +331,7 @@ export default {
     },
 
     totalCount() {
-      return this.shownRows.filter((row) => !this.isGroupRow(row)).length;
+      return this.total ?? this.shownRows.filter((row) => !this.isGroupRow(row)).length;
     },
 
     selectedCount() {
@@ -826,6 +832,7 @@ export default {
       const classes = [];
       if (column?.className) classes.push(column.className);
       if (column?.align) classes.push(`table--cell--${column.align}`);
+      if (column?.cell === 'date') classes.push('table--cell--nowrap');
       if (column?.width) classes.push(`table--cell--width-${column.width}`);
       if (column?.secondary) classes.push('table--cell--secondary');
       return classes.length ? classes.join(' ') : undefined;

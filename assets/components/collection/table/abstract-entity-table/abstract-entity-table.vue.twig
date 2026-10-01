@@ -30,6 +30,8 @@
                 :searchable="searchable"
                 :search-rows="false"
                 :search-placeholder="searchPlaceholder"
+                :show-count="showCount"
+                :total="pagination ? pagination.total : null"
                 :default-sort="defaultSort"
                 :sort="sort"
                 @update:sort="onSortChange"

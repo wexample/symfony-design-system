@@ -85,6 +85,7 @@ class TableExtension extends AbstractTemplateExtension
                 'sortable' => $column['sortable'] ?? null,
                 'sortKey' => $column['sort_key'] ?? null,
                 'searchable' => $column['searchable'] ?? null,
+                'tooltip' => $column['tooltip'] ?? null,
                 'align' => $column['align'] ?? null,
                 'width' => $column['width'] ?? null,
                 'className' => $column['class'] ?? null,
@@ -92,6 +93,8 @@ class TableExtension extends AbstractTemplateExtension
             'rows' => $rows,
             'sortRows' => true,
             'filterRows' => true,
+            // A table drawn from twig names its columns, as the server one does.
+            'showHeader' => $options['show_header'] ?? true,
         ];
 
         foreach ([
@@ -133,6 +136,8 @@ class TableExtension extends AbstractTemplateExtension
             $normalized[] = [
                 'key' => $column['key'] ?? null,
                 'label' => $column['label'] ?? null,
+                // The column's name whole, behind a short label.
+                'tooltip' => $column['tooltip'] ?? null,
                 'cell' => $column['cell'] ?? 'text',
                 // Read by a date cell, and by nothing else: one of the format
                 // names both sides of the stack answer to.
@@ -145,6 +150,8 @@ class TableExtension extends AbstractTemplateExtension
                 'class' => implode(' ', array_filter([
                     $column['class'] ?? null,
                     isset($column['align']) ? 'table--cell--'.$column['align'] : null,
+                    // A date is read whole, never broken over two lines.
+                    ($column['cell'] ?? null) === 'date' ? 'table--cell--nowrap' : null,
                     // One of xs, s, m, l, xl: the column keeps it whatever its cells say.
                     isset($column['width']) ? 'table--cell--width-'.$column['width'] : null,
                 ])),

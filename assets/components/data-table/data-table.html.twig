@@ -92,12 +92,16 @@
                         force, the default one included. -#}
                     <th class="table--cell{{ column.class ? ' ' ~ column.class }}" scope="col" aria-sort="{{ column.sort_aria }}">
                         <a class="table--sort{{ column.sort_aria != 'none' ? ' is-active' }}" href="{{ column.sort_href }}">
-                            <span>{{ column.label }}</span>
+                            <span{% if column.tooltip %} data-tooltip="{{ column.tooltip }}"{% endif %}>{{ column.label }}</span>
                             <span class="table--sort-icon" aria-hidden="true">{{ icon({ ascending: 'ph:bold/caret-up', descending: 'ph:bold/caret-down' }[column.sort_aria] ?? 'ph:bold/caret-up-down') }}</span>
                         </a>
                     </th>
                 {%- else -%}
-                    <th class="table--cell{{ column.class ? ' ' ~ column.class }}" scope="col">{{ column.label }}</th>
+                    {#- A short label says enough to read the column by; its
+                        tooltip says it whole (`tooltip`). -#}
+                    <th class="table--cell{{ column.class ? ' ' ~ column.class }}" scope="col">
+                        {%- if column.tooltip -%}<span data-tooltip="{{ column.tooltip }}">{{ column.label }}</span>{%- else -%}{{ column.label }}{%- endif -%}
+                    </th>
                 {%- endif -%}
             {% endfor %}
         </tr>

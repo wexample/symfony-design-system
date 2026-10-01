@@ -113,9 +113,10 @@
                             type="button"
                             @click="toggleSort(column)"
                     >
-                        <span>[[ getColumnLabel(column) ]]</span>
+                        <span :data-tooltip="column.tooltip || null">[[ getColumnLabel(column) ]]</span>
                         <span class="table--sort-icon" aria-hidden="true" v-html="renderIcon(getSortIcon(column))"></span>
                     </button>
+                    <span v-else-if="column.tooltip" :data-tooltip="column.tooltip">[[ getColumnLabel(column) ]]</span>
                     <template v-else>[[ getColumnLabel(column) ]]</template>
                 </th>
             </slot>
