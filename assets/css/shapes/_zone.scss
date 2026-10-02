@@ -148,6 +148,13 @@
   min-width: max-content;
 }
 
+// A row holding one is a row that scrolls: nothing in it gives way, each
+// region keeping the width it asks — a page held to its measure keeps it —
+// since what does not fit is scrolled to, not squeezed.
+.zone--split:has(> .zone--fit-content) > .zone {
+  flex-shrink: 0;
+}
+
 // A row longer than the page: the regions keep the width they ask for and the
 // split scrolls sideways instead of squeezing them. Nothing takes "what is
 // left" here — there is none, the row overflows on purpose — so a zone that
