@@ -5,7 +5,8 @@ import { filterTextMatches } from '../../js/Helper/FilterHelper';
 
 // The twin of components/button-menu: same classes, same panel, and above all
 // the same item shape — { type, icon, label, trailingIcon, count, href,
-// newWindow, checked, box, radio, tone, items, class } — so a menu written for one side can be
+// newWindow, target, method, token, confirm, checked, box, radio, tone, items,
+// class } — so a menu written for one side can be
 // handed to the other without being rewritten. What an item is follows from
 // what it carries: a target makes a link, a state makes a toggle, children make
 // a branch. What this adds over the server is the events, because in a vue page
@@ -287,6 +288,16 @@ export default {
         return;
       }
 
+      // An action and not a page: sent as the twig twin's form would be, through
+      // the same submit — the confirm service asks first when it says so.
+      if (String(item.method ?? 'get').toLowerCase() === 'post' && item.href) {
+        event.preventDefault();
+        this.close();
+        this.submitItem(item);
+
+        return;
+      }
+
       // A link with a target opens its page there — a panel, a modal — as the
       // twig twin does; a modified click still opens a tab.
       if (item.target && item.href && !(event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)) {
@@ -315,6 +326,30 @@ export default {
 
       this.$emit('select', item);
       this.close();
+    },
+
+    submitItem(item) {
+      const form = document.createElement('form');
+      form.method = 'post';
+      form.action = this.itemHref(item);
+      form.hidden = true;
+
+      if (item.token) {
+        const token = document.createElement('input');
+        token.type = 'hidden';
+        token.name = '_token';
+        token.value = item.token;
+        form.append(token);
+      }
+
+      if (item.confirm?.message) {
+        form.dataset.confirmMessage = item.confirm.message;
+        if (item.confirm.title) form.dataset.confirmTitle = item.confirm.title;
+        if (item.confirm.accept) form.dataset.confirmAccept = item.confirm.accept;
+      }
+
+      document.body.append(form);
+      form.requestSubmit();
     },
 
     // A branch opens to the right of the panel unless the window ends there.

@@ -121,6 +121,24 @@
                 {% set item_href = '#' %}
             {% endif %}
         {% endif %}
+        {#- An action and not a page: `method: 'post'` sends a form to the
+            address, with its `token`, and asks first when it says `confirm:
+            { title, message, accept }` — as a row action of a table does. -#}
+        {% if item.method|default('get')|lower == 'post' %}
+        {% set confirm = item.confirm|default(null) %}
+        <li class="button-menu--item" role="none">
+            <form class="button-menu--form" method="post" action="{{ item_href }}"
+                  {%- if confirm %} data-confirm-message="{{ confirm.message }}"{% if confirm.title is defined %} data-confirm-title="{{ confirm.title }}"{% endif %}{% if confirm.accept is defined %} data-confirm-accept="{{ confirm.accept }}"{% endif %}{% endif %}>
+                {%- if item.token|default(null) -%}
+                    <input type="hidden" name="_token" value="{{ item.token }}">
+                {%- endif -%}
+                <button type="submit" class="button-menu--link{{ item_class }}" role="menuitem"
+                        {{ component_render_tag_attributes(item_attr) }}>
+                    {{- menu.row(item, type) -}}
+                </button>
+            </form>
+        </li>
+        {% else %}
         {#- `target` — panel, modal — opens the page there rather than in
             place, as a target button does; a modified click still goes. -#}
         <li class="button-menu--item" role="none">
@@ -132,6 +150,7 @@
                 {{- menu.row(item, type) -}}
             </a>
         </li>
+        {% endif %}
     {%- endif -%}
 {% endmacro %}
 

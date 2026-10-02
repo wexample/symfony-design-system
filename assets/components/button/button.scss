@@ -173,6 +173,12 @@
   letter-spacing: 0.02em;
 }
 
+// An action of the menu is a form around its row: the form takes no room of
+// its own, and its button reads as any other row.
+.button-menu--form {
+  display: contents;
+}
+
 .button-menu--label {
   display: block;
   min-width: 0;
