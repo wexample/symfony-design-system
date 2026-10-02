@@ -34,3 +34,19 @@ A page sets these variables at the top of its template, outside any block; an ap
 ## The way back
 
 `breadcrumb_render({ back: true })` draws the page above the current one alone, as « ← its title »; nothing when there is none. The layout draws it above the title with `page_trail: 'back'`, the full trail with `page_trail: 'breadcrumb'`.
+
+## A region beside the page
+
+`page_zones_before` and `page_zones_after` add regions to the left and right of the page's own. With a neighbour, the body fills the window and each region scrolls down on its own; a row wider than the window scrolls sideways as one, its scrollbar at the foot of the window.
+
+`zone--fit-content` makes a region as wide as what it holds — a table of many columns — instead of the room left to it, so the row overflows and the whole row scrolls rather than the table alone:
+
+```twig
+{%- block page_zones_after -%}
+    <div class="zone zone--panel zone--fit-content">
+        <div class="zone zone--scrollable">
+            <div class="zone--content">{{ data_table(columns, rows) }}</div>
+        </div>
+    </div>
+{%- endblock -%}
+```

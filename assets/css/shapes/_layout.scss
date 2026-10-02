@@ -75,7 +75,7 @@
 .layout--body > .zone--split:has(> .zone ~ .zone) {
   overflow-x: auto;
 
-  > .zone:not(.zone--narrow) {
+  > .zone:not(.zone--narrow, .zone--fit-content) {
     min-width: var(--zone-body-min, 20rem);
   }
 }

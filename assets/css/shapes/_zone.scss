@@ -139,6 +139,15 @@
   display: none;
 }
 
+// A region as wide as what it holds — a table of many columns — rather than
+// the room left to it: the row it stands in overflows, and the row scrolls
+// sideways as one, its scrollbar at the foot of the window instead of under
+// the table alone. Each zone still scrolls down on its own.
+.zone--split > .zone--fit-content {
+  flex: 1 0 auto;
+  min-width: max-content;
+}
+
 // A row longer than the page: the regions keep the width they ask for and the
 // split scrolls sideways instead of squeezing them. Nothing takes "what is
 // left" here — there is none, the row overflows on purpose — so a zone that
