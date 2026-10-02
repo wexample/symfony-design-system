@@ -77,12 +77,14 @@
   resize: none;
 }
 
-// The page's title, and what it says of the thing it is titled after in a
-// line under it (`page_subtitle`): read after the name, a step back from it.
+// The page's title, and what it says of the thing it is titled after
+// (`page_subtitle`) on the same line, after the name and a step back from it;
+// it only drops under the name when the line runs out.
 .page--title-block {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-3);
   min-width: 0;
 
   > :is(.page--title, .toolbar--title) {
