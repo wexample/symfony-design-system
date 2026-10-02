@@ -76,3 +76,22 @@
   min-height: var(--size-6);
   resize: none;
 }
+
+// The page's title, and what it says of the thing it is titled after in a
+// line under it (`page_subtitle`): read after the name, a step back from it.
+.page--title-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+
+  > :is(.page--title, .toolbar--title) {
+    margin: 0;
+  }
+}
+
+.page--subtitle {
+  margin: 0;
+  font-size: var(--font-size-2);
+  color: var(--text-color-muted);
+}
