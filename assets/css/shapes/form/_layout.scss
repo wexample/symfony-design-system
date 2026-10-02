@@ -28,7 +28,8 @@ fieldset.form--fieldset {
 
 // A part of a form gathering fields that belong together — identity, settings
 // — under a heading of its own. A fieldset in a form is one, whatever class it
-// was given: the browser's frame around it is never the design system's.
+// was given: the browser's frame around it is never the design system's. Two
+// in a row are parted by the form's gap and their headings, no rule between.
 .form--section,
 .form fieldset:not(.form--fieldset) {
   display: grid;
@@ -37,12 +38,6 @@ fieldset.form--fieldset {
   margin: 0;
   padding: 0;
   border: none;
-
-  + .form--section,
-  + fieldset {
-    padding-top: var(--space-4);
-    border-top: var(--border-separator);
-  }
 
   > legend {
     float: inline-start;
@@ -101,20 +96,12 @@ fieldset.form--fieldset {
 // Sections side by side when the room allows, one under the other otherwise:
 // a distribution of the fields and no frame — the form already stands in its
 // card, and a frame per section inside it is a frame in a frame. Each keeps
-// its heading; space alone parts them, the rule between stacked sections
-// being dropped since they no longer stack.
+// its heading; space alone parts them.
 .form--zones {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--form-zone-min, 24rem)), 1fr));
   gap: var(--space-4) var(--space-6);
   align-items: start;
-
-  // Written to outweigh the rule between stacked sections, which reaches
-  // them through `.form fieldset:not(…)`.
-  > :is(.form--section, fieldset):not(.form--fieldset) + :is(.form--section, fieldset):not(.form--fieldset) {
-    padding-top: 0;
-    border-top: none;
-  }
 
   > .form--actions {
     grid-column: 1 / -1;
@@ -130,11 +117,6 @@ fieldset.form--fieldset {
     border: var(--border-discreet, var(--border-separator));
     border-radius: var(--radius-box);
     background: var(--surface-1);
-  }
-
-  > :is(.form--section, fieldset):not(.form--fieldset) + :is(.form--section, fieldset):not(.form--fieldset) {
-    padding-top: var(--space-4);
-    border-top: var(--border-discreet, var(--border-separator));
   }
 }
 
