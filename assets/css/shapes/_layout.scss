@@ -63,7 +63,12 @@
 .layout--body--scrollable > .layout--vertical > :not(.layout--body) {
   position: sticky;
   left: 0;
-  width: 100cqw;
+  // Capped at the window and not set to it: `100cqw` counts the vertical
+  // scrollbar in, and a bar that wide would push the page sideways by its
+  // width. Contained, it never widens the column either; it takes the
+  // column's width up to the window's.
+  max-width: 100cqw;
+  contain: inline-size;
 }
 
 // Sticky makes the header a stacking context: the menus it opens stack inside
