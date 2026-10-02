@@ -8,6 +8,9 @@ export type FloatingOptions = {
   offset?: number;
   // Room kept between what floats and the edges of the window.
   margin?: number;
+  // Above or below, where the box lines up with the anchor: its middle, or
+  // the anchor's start edge — a list under its field begins where it does.
+  align?: 'center' | 'start';
 };
 
 export type FloatingPosition = {
@@ -71,7 +74,11 @@ export function floatingCompute(
 
   if (side === 'top' || side === 'bottom') {
     const center = anchorRect.left + anchorRect.width / 2;
-    left = clamp(center - size.width / 2, margin, viewport.width - size.width - margin);
+    const rtl = document.dir === 'rtl' || document.documentElement.dir === 'rtl';
+    const wanted = options.align === 'start'
+      ? (rtl ? anchorRect.right - size.width : anchorRect.left)
+      : center - size.width / 2;
+    left = clamp(wanted, margin, viewport.width - size.width - margin);
     top = side === 'top' ? anchorRect.top - offset - size.height : anchorRect.bottom + offset;
     arrow = clamp(center - left, ARROW_INSET, size.width - ARROW_INSET);
   } else {

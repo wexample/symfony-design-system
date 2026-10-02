@@ -13,9 +13,9 @@
     <div class="select--dropdown" hidden>
         <ul class="select--list" role="listbox">
             {%- if placeholder is defined and placeholder is not null -%}
-                <li class="select--option{% if value is not defined or value == '' %} select--option--selected{% endif %}"
+                <li class="select--option{% if placeholder is empty %} select--option--empty{% endif %}{% if value is not defined or value == '' %} select--option--selected{% endif %}"
                     role="option" data-value="" aria-selected="{{ (value is not defined or value == '') ? 'true' : 'false' }}">
-                    {{ placeholder | trans }}
+                    {{ placeholder | trans ?: '—' }}
                 </li>
             {%- endif -%}
             {%- for option in options | default([]) -%}

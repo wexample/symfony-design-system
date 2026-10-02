@@ -23,6 +23,8 @@
   }
 }
 
+// Opened in the top layer and placed by the script (`popover`, fixed to the
+// window); without it, under the field as a plain absolute box.
 .select--dropdown {
   position: absolute;
   top: calc(100% + var(--space-1));
@@ -33,6 +35,15 @@
   border-radius: var(--radius-box);
   box-shadow: var(--shadow-float);
   z-index: var(--z-dropdown);
+}
+
+.select--dropdown[popover] {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  overflow: visible;
 }
 
 .select--search-wrap {
@@ -67,6 +78,12 @@
 .select--option {
   padding: var(--space-2) var(--space-3);
   cursor: pointer;
+
+  // The empty choice of a field that may stay empty: a dash, not a blank row.
+  &.select--option--empty,
+  &.select--option--empty.select--option--selected {
+    color: var(--text-color-muted);
+  }
 
   &:hover {
     background: var(--state-hover);

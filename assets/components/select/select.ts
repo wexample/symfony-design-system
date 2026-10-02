@@ -1,6 +1,7 @@
 import Field from '../../js/Class/Field';
 import OverlayService from '@wexample/symfony-design-system/js/Services/OverlayService';
 import KeyboardService from '@wexample/symfony-loader/js/Services/KeyboardService';
+import { floatingPlace } from '../../js/Helper/FloatingHelper';
 import {
   ASSISTANCE_STEP_DELAY_MS,
   assistanceWait,
@@ -29,6 +30,11 @@ export default class extends Field {
     this.keyboardService = this.app.getServiceOrFail(KeyboardService) as KeyboardService;
 
     this.overlayService.register(this);
+
+    // The list opens in the top layer, over the page and out of whatever
+    // clips or scrolls around the field — a block, a modal's body —, placed
+    // under it, or over it when the window ends first.
+    this.dropdownEl?.setAttribute('popover', 'manual');
 
     this.triggerEl?.addEventListener('click', this.onTriggerClick);
     this.listEl?.addEventListener('click', this.onOptionClick);
@@ -84,16 +90,33 @@ export default class extends Field {
   private open(): void {
     if (!this.dropdownEl) return;
     this.dropdownEl.hidden = false;
+    this.dropdownEl.showPopover?.();
+    this.place();
+    window.addEventListener('scroll', this.place, true);
+    window.addEventListener('resize', this.place);
     this.triggerEl?.setAttribute('aria-expanded', 'true');
     this.overlayService?.setActive(this);
   }
 
   private close(): void {
     if (!this.dropdownEl) return;
+    window.removeEventListener('scroll', this.place, true);
+    window.removeEventListener('resize', this.place);
+    if (this.dropdownEl.matches(':popover-open')) this.dropdownEl.hidePopover();
     this.dropdownEl.hidden = true;
     this.triggerEl?.setAttribute('aria-expanded', 'false');
     this.overlayService?.clearActive(this);
   }
+
+  // As wide as the field at least, and kept beside it while the page moves.
+  private place = (event?: Event): void => {
+    if (!this.dropdownEl || !this.triggerEl) return;
+    // The list scrolling its own options moves nothing.
+    if (event?.target instanceof Node && this.dropdownEl.contains(event.target)) return;
+
+    this.dropdownEl.style.minWidth = `${this.triggerEl.offsetWidth}px`;
+    floatingPlace(this.triggerEl, this.dropdownEl, { placement: 'bottom', align: 'start', offset: 4 });
+  };
 
   private onOptionClick = (e: Event): void => {
     const option = (e.target as HTMLElement).closest<HTMLElement>('.select--option');

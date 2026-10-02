@@ -19,9 +19,9 @@
         <div class="select--dropdown" hidden>
             <ul class="select--list" role="listbox">
                 {%- if placeholder is defined and placeholder is not null -%}
-                    <li class="select--option{% if selected is not defined or selected == '' %} select--option--selected{% endif %}"
+                    <li class="select--option{% if placeholder is empty %} select--option--empty{% endif %}{% if selected is not defined or selected == '' %} select--option--selected{% endif %}"
                         role="option" data-value="" aria-selected="{{ (selected is not defined or selected == '') ? 'true' : 'false' }}">
-                        {{ placeholder }}
+                        {{ placeholder ?: '—' }}
                     </li>
                 {%- endif -%}
                 {%- for choice in choices | default([]) -%}
@@ -45,6 +45,11 @@
             </ul>
         </div>
         <select class="select--native" name="{{ name }}" tabindex="-1" aria-hidden="true">
+            {#- The empty choice too: without it the browser takes the first
+                option as chosen, and the form sends what nobody picked. -#}
+            {%- if placeholder is defined and placeholder is not null -%}
+                <option value=""{% if selected is not defined or selected == '' %} selected{% endif %}></option>
+            {%- endif -%}
             {%- for choice in choices | default([]) -%}
                 <option
                     value="{{ choice.value }}"
