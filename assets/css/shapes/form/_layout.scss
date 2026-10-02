@@ -98,15 +98,31 @@ fieldset.form--fieldset {
   border-color: transparent;
 }
 
-// Sections as regions of their own, side by side when the room allows and one
-// under the other otherwise: each its own ground and edge, instead of a rule
-// between them. Wide enough each for its fields to keep their own columns.
+// Sections side by side when the room allows, one under the other otherwise:
+// a distribution of the fields and no frame — the form already stands in its
+// card, and a frame per section inside it is a frame in a frame. Each keeps
+// its heading; space alone parts them, the rule between stacked sections
+// being dropped since they no longer stack.
 .form--zones {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--form-zone-min, 24rem)), 1fr));
-  gap: var(--space-4);
+  gap: var(--space-4) var(--space-6);
   align-items: start;
 
+  > .form--section + .form--section,
+  > fieldset:not(.form--fieldset) + fieldset {
+    padding-top: 0;
+    border-top: none;
+  }
+
+  > .form--actions {
+    grid-column: 1 / -1;
+  }
+}
+
+// Each section a region of its own ground and edge, for a form standing on
+// the page rather than in a card.
+.form--zones--framed {
   > .form--section,
   > fieldset:not(.form--fieldset) {
     padding: var(--space-4);
@@ -117,11 +133,8 @@ fieldset.form--fieldset {
 
   > .form--section + .form--section,
   > fieldset:not(.form--fieldset) + fieldset {
+    padding-top: var(--space-4);
     border-top: var(--border-discreet, var(--border-separator));
-  }
-
-  > .form--actions {
-    grid-column: 1 / -1;
   }
 }
 
