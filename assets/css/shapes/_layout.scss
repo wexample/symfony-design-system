@@ -42,41 +42,31 @@
   flex-direction: column;
 }
 
+// The one thing of a dashboard that scrolls, on both axes, between a header
+// and a footer that stand still: the body slides under them, a page wider than
+// the window too. It takes the height the column leaves, so the column is the
+// window's height and never grows with the page.
+.layout--vertical:has(> .layout--body--scrollable) {
+  height: 100%;
+}
+
 .layout--body--scrollable {
+  display: flex;
+  flex-direction: column;
   overflow: auto;
-  // Its width is the one the header and footer below keep to. A container
-  // contains what is fixed in it too, and is a stacking context: what keeps to
-  // the window — toasts, tooltip, overlays — lives outside it.
-  container-type: inline-size;
 }
 
-// The body may be wider than the window — a row grown to its table — and
-// scroll sideways. The column then widens with it, so the header and footer
-// it holds have room to stay put: they keep the width of the window and
-// stick to its left edge instead of sliding out of it with the page. So does
-// any bar between them and the body — a page's own navigation —, which then
-// folds to the window and not to the table under it.
-.layout--body--scrollable > .layout--vertical {
-  min-width: min-content;
+// The body grows with the page and is never shorter than the room: its ground
+// reaches the footer under a short page, and the frame scrolls a long one.
+.layout--body--scrollable > .layout--body {
+  flex: 1 0 auto;
 }
 
-.layout--body--scrollable > .layout--vertical > :not(.layout--body) {
-  position: sticky;
-  left: 0;
-  // The scrollport's width, measured by the LayoutService — `100cqw` counts
-  // the vertical scrollbar in, and a bar that wide would push the page
-  // sideways by its width. Without the service, the column's width capped at
-  // the window's. Contained, it never widens the column either.
-  width: var(--layout-scrollport, auto);
-  max-width: 100cqw;
-  contain: inline-size;
-}
-
-// Sticky makes the header a stacking context: the menus it opens stack inside
-// it, and the page that follows would cover them. The header takes their
-// level, so they open over the page as they did before it stuck.
-.layout--body--scrollable > .layout--vertical > .header {
-  z-index: var(--z-dropdown);
+// Unless it is bounded on purpose — wide, holding zones side by side, or a
+// page that fills: then it is the room, and what it holds scrolls on its own.
+.layout--body--scrollable > :is(.layout--body--wide, .layout--body:has(> .zone--split > .zone ~ .zone), .layout--body:has(.page--fill)) {
+  flex: 1 1 0;
+  min-height: 0;
 }
 
 .layout--body--no-scroll {

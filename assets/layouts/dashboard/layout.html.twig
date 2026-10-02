@@ -81,8 +81,10 @@
                     {% endblock %}
                 </div>
                 {%- endif -%}
-                <div class="layout--body--scrollable">
-                    <div class="layout--vertical" id="main-content" tabindex="-1">
+                {#- What stands still — the header, the page's navigation, the
+                    footer — around the one thing that scrolls, the body, on
+                    both axes: a page wider than the window slides under them. -#}
+                <div class="layout--vertical" id="main-content" tabindex="-1">
                         {% block page_header %}
                             <header class="header">
                                 {%- if navigationTop -%}
@@ -150,9 +152,11 @@
                             {% endif %}
                         {% endblock %}
                         {%- endif -%}
-                        <section class="layout--body layout--body--{{ page_body_mode|default('default') }}">
-                            {{- block('page_body_container') -}}
-                        </section>
+                        <div class="layout--body--scrollable">
+                            <section class="layout--body layout--body--{{ page_body_mode|default('default') }}">
+                                {{- block('page_body_container') -}}
+                            </section>
+                        </div>
                         <footer class="footer">
                             <div class="footer--body">
                                 {% block footer_body %}
@@ -166,10 +170,7 @@
                                 a version number — each in its own footer-item. -#}
                             {% block footer_items %}{% endblock %}
                         </footer>
-                    </div>
                 </div>
-                {#- Outside the scroller: it contains what is fixed in it (see
-                    `.layout--body--scrollable`), and these keep to the window. -#}
                 {{- block('page_layout_components') -}}
             </div>
         </div>
