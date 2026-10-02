@@ -14,6 +14,20 @@
   min-height: var(--size-5);
 }
 
+// It fills the region it stands in, whatever that region pads it with: a page
+// still on its way — or shorter than the region — leaves its spinner in the
+// middle of the region and not at its top.
+.zone--content:has(> .embed) {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.zone--content > .embed {
+  flex: 1 0 auto;
+  height: auto;
+}
+
 .embed--content {
   height: 100%;
 }

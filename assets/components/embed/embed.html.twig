@@ -7,5 +7,5 @@
         {%- set close_label = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.embed.close'|trans -%}
         <button type="button" class="action-icon embed--close" aria-label="{{ close_label }}" data-tooltip="{{ close_label }}">{{ icon('ph:bold/x') }}</button>
     {%- endif -%}
-    <div class="page-loading--spinner">{% include '@WexampleSymfonyDesignSystemBundle/components/spinner/spinner.html.twig' with { size: 'md' } %}</div>
+    <div class="page-loading--spinner"><div class="page-loading--frame">{% include '@WexampleSymfonyDesignSystemBundle/components/spinner/spinner.html.twig' with { size: 'md' } %}</div></div>
 </div>

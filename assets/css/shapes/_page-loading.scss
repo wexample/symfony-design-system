@@ -13,11 +13,23 @@
     position: absolute;
     inset: 0;
     z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
     pointer-events: none;
   }
+}
+
+// The spinner stands in the middle of what is seen of the room, not of the
+// room itself: a page taller than the window, reloaded while scrolled down,
+// keeps it in view. Stuck to the top of whatever scrolls, never taller than
+// the window, and never out of the room it covers.
+.page-loading--frame {
+  position: sticky;
+  top: 0;
+  height: 100%;
+  max-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 // What was there stays readable enough to be recognised, and plainly not the
