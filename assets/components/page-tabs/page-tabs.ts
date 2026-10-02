@@ -10,17 +10,27 @@ export default class extends Component {
   private static readonly STEPS = ['0', '1', '2'];
 
   private observer?: ResizeObserver;
+  private width = -1;
+  private frame = 0;
 
   protected async activateListeners(): Promise<void> {
     await super.activateListeners();
 
-    this.observer = new ResizeObserver(() => this.fold());
+    // Its width alone: a step changes the bar's height, which must not ask
+    // for another step. And a frame later, out of the observer's own pass.
+    this.observer = new ResizeObserver(([entry]) => {
+      if (entry.contentRect.width === this.width) return;
+      this.width = entry.contentRect.width;
+      cancelAnimationFrame(this.frame);
+      this.frame = requestAnimationFrame(() => this.fold());
+    });
     this.observer.observe(this.el);
     this.fold();
   }
 
   protected async deactivateListeners(): Promise<void> {
     this.observer?.disconnect();
+    cancelAnimationFrame(this.frame);
 
     await super.deactivateListeners();
   }
