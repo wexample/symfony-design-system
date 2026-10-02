@@ -39,6 +39,7 @@
   // A length even at zero: calc() refuses to take a bare number off a rem.
   --menu-item-inset: 0px;
   --tabs-inset: 0px;
+  --tabs-radius: 0;
 
   // Feedback surfaces (toasts, banners): a line the colour of what they say,
   // and no relief. The offset is a length and not a shadow on purpose — the

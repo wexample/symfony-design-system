@@ -43,7 +43,9 @@
   align-items: center;
   justify-content: center;
   padding: calc(var(--space-4) - var(--tabs-inset, 0px)) var(--space-6);
-  border-radius: var(--radius-control);
+  // Square where the tab is flush with its bar, rounded where the skin lets it
+  // float inside a margin of its own (`--tabs-inset`): the skin says both.
+  border-radius: var(--tabs-radius, 0);
   color: var(--text-color-muted);
   text-decoration: none;
   min-width: 0;
