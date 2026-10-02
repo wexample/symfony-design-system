@@ -49,3 +49,34 @@
     text-decoration: underline;
   }
 }
+
+// Stacked: the name first and whole, wrapping where it must — a name cut is a
+// file lost —, the folders under it, set back, on one line cut from their
+// start. Neither asks the column for more room than a few letters: the folders
+// count for nothing in its width (`width: 0`) and fill whatever it is given
+// (`min-width: 100%`), so a table of paths fits its zone instead of widening it.
+.file-path--stacked {
+  display: flex;
+  flex-direction: column;
+  white-space: normal;
+  vertical-align: top;
+
+  .file-path--name {
+    order: -1;
+    min-width: 0;
+    overflow: visible;
+    overflow-wrap: anywhere;
+  }
+
+  .file-path--folder {
+    width: 0;
+    min-width: 100%;
+    white-space: nowrap;
+    font-size: var(--font-size-2);
+  }
+}
+
+// A stacked path is a block of two lines: the link holding it is one too.
+.file-path--link:has(> .file-path--stacked) {
+  display: block;
+}

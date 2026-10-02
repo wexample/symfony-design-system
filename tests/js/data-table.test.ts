@@ -310,3 +310,28 @@ test('a row whose only action is a link is pressed as that link; two actions, or
   assert.equal(vm.isRowLink({ operations: [] }), false);
   assert.equal(vm.isRowLink({ group: 'North' }), false);
 });
+
+test('row link: a row with an address opens it, in its own column', () => {
+  const app = { getServiceOrFail: () => ({ path: (route: string, params: { id: number }) => `/${route}/${params.id}` }) };
+  const byKey = mount({ rows: [{ id: 1, detail: '/run/1' }, { id: 2 }], columns: [NAME], rowLink: { key: 'detail', target: 'panel' }, app }).vm;
+
+  assert.equal(byKey.getRowLink({ id: 1, detail: '/run/1' }).href, '/run/1');
+  assert.equal(byKey.getRowLink({ id: 1, detail: '/run/1' }).target, 'panel');
+  assert.equal(byKey.getRowLink({ id: 2 }), null);
+  assert.equal(byKey.isRowLink({ id: 2 }), false);
+  assert.equal(byKey.getEmptyColspan(), 2);
+
+  const byRoute = mount({ rows: [], columns: [NAME], rowLink: { route: 'run', params: (row: { id: number }) => ({ id: row.id }) }, app }).vm;
+
+  assert.equal(byRoute.getRowLink({ id: 7 }).href, '/run/7');
+  assert.equal(byRoute.isRowLink({ id: 7 }), true);
+  assert.equal(byRoute.isRowLink({ group: 'Errors' }), false);
+});
+
+test('clamp: two lines unless the column says how many', () => {
+  const { vm } = mount({ rows: [], columns: [NAME], app: {} });
+
+  assert.equal(vm.isClampCell({ key: 'error', cell: 'clamp' }), true);
+  assert.deepEqual(vm.getClampStyle({ key: 'error', cell: 'clamp' }), { '--table-clamp': 2 });
+  assert.deepEqual(vm.getClampStyle({ key: 'error', cell: 'clamp', lines: 4 }), { '--table-clamp': 4 });
+});

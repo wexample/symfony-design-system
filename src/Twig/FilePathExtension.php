@@ -32,6 +32,7 @@ class FilePathExtension extends AbstractTemplateExtension
                         '@WexampleSymfonyDesignSystemBundle/components/file-path',
                         [
                             'path' => $path,
+                            'stacked' => $options['stacked'] ?? false,
                             'class' => $options['class'] ?? null,
                         ]
                     );

@@ -72,6 +72,14 @@ export default {
       type: Boolean,
       default: false
     },
+    // Each row opening its detail where `target` says — a panel, a modal, an
+    // embed: { key } the address in the row, or { href(row) }, or { route,
+    // params(row) }, and { target, targetOptions, label }. The link stands in
+    // a last column of its own, and a press on the row is a press on it.
+    rowLink: {
+      type: Object,
+      default: null
+    },
     // The header stays in view while the rows scroll under it. The page says
     // how far from the top it stops, through --table-sticky-top.
     sticky: {
@@ -380,6 +388,15 @@ export default {
       return column?.cell === 'path';
     },
 
+    // A long text held to `lines` lines (two unless said), whole in its tooltip.
+    isClampCell(column) {
+      return column?.cell === 'clamp';
+    },
+
+    getClampStyle(column) {
+      return { '--table-clamp': column?.lines ?? 2 };
+    },
+
     // Where a cell leads when its column names a route: the same `route`,
     // `params` and `target` an action takes, read off the column.
     getCellLink(row, column) {
@@ -414,7 +431,8 @@ export default {
 
     getEmptyColspan() {
       return (this.columns && this.columns.length ? this.columns.length : 1)
-        + (this.selectable ? 1 : 0);
+        + (this.selectable ? 1 : 0)
+        + (this.rowLink ? 1 : 0);
     },
 
     transTable(name, args = {}) {
@@ -596,11 +614,40 @@ export default {
         return false;
       }
 
+      if (this.getRowLink(row)) {
+        return true;
+      }
+
       const actions = this.columns
         .filter((column) => this.hasCellActions(column))
         .flatMap((column) => this.getCellActions(row, column));
 
       return actions.length === 1 && Boolean(actions[0].href) && actions[0].method !== 'post';
+    },
+
+    // Where a row leads under `rowLink`, or null for a row with no address.
+    getRowLink(row) {
+      const link = this.rowLink;
+
+      if (!link || this.isGroupRow(row)) {
+        return null;
+      }
+
+      let href = typeof link.href === 'function'
+        ? link.href(row)
+        : (row?.[link.key ?? 'href'] ?? null);
+
+      if (!href && link.route) {
+        const parameters = typeof link.params === 'function' ? link.params(row) : (link.params ?? {});
+        href = this.app.getServiceOrFail('routing').path(link.route, parameters);
+      }
+
+      return href ? {
+        href,
+        target: link.target ?? '',
+        targetOptions: link.targetOptions ?? {},
+        label: link.label || this.transTable('open'),
+      } : null;
     },
 
     onRowClick(event) {

@@ -3,7 +3,12 @@
    may be is where they part, and that is written in the component's
    declaration: this one is drawn once the data is known, the other before. #}
 {% set selectable = options.selectable|default(false) %}
-{% set columns_count = (columns|length ?: 1) + (selectable ? 1 : 0) %}
+{#- Each row opening its detail where `target` says — a panel, a modal, an
+    embed —: the row's address under `key`, already resolved. The link stands
+    in a last column of its own, reached from the keyboard, and a press on the
+    row is a press on it. -#}
+{% set row_link = options.row_link|default(null) %}
+{% set columns_count = (columns|length ?: 1) + (selectable ? 1 : 0) + (row_link ? 1 : 0) %}
 {% set bulk_actions = options.bulk_actions|default([]) %}
 {#- The checkboxes sit in the table and the form above it: a row may hold forms
     of its own, and forms do not nest, so the boxes join the bulk form by its id
@@ -104,6 +109,9 @@
                     </th>
                 {%- endif -%}
             {% endfor %}
+            {% if row_link %}
+                <th class="table--cell table--cell--row-open" scope="col"><span class="visually-hidden">{{ row_link.label|default('WexampleSymfonyDesignSystemBundle.common.system::frontend.table.open'|trans) }}</span></th>
+            {% endif %}
         </tr>
         </thead>
     {% endif %}
@@ -149,10 +157,11 @@
                 {%- endif -%}
             {%- endfor -%}
             {%- set row_only_action = row_actions|length == 1 ? row_actions|first : null -%}
-            {%- set row_link = row_only_action
+            {%- set row_href = row_link ? attribute(row, row_link.key|default('href'))|default(null) : null -%}
+            {%- set row_is_link = row_href or (row_only_action
                 and row_only_action.href|default(null)
-                and row_only_action.method|default('get')|lower != 'post' -%}
-            <tr class="table--row{{ row_link ? ' table--row--link' }}">
+                and row_only_action.method|default('get')|lower != 'post') -%}
+            <tr class="table--row{{ row_is_link ? ' table--row--link' }}">
                 {% if selectable %}
                     <td class="table--cell table--cell--select">
                         <input class="table--select table--select-row" type="checkbox"
@@ -214,10 +223,19 @@
                             {{- value|raw -}}
                         {%- elseif column.cell == 'path' -%}
                             {#- A path, or { path, href, target } leading to it. -#}
+                            {#- Stacked: the name over its folders, so a column of
+                                long paths fits the table instead of widening it. -#}
                             {%- if value is iterable -%}
-                                {{- file_path(value.path|default(''), { href: value.href|default(null), target: value.target|default(null) }) -}}
+                                {{- file_path(value.path|default(''), { href: value.href|default(null), target: value.target|default(null), stacked: true }) -}}
                             {%- else -%}
-                                {{- file_path(value) -}}
+                                {{- file_path(value, { stacked: true }) -}}
+                            {%- endif -%}
+                        {%- elseif column.cell == 'clamp' -%}
+                            {#- A long text — an error — held to `lines` lines,
+                                the whole of it in the tooltip and in the detail a
+                                `row_link` opens. -#}
+                            {%- if value is not same as(null) and value is not same as('') -%}
+                                <span class="table--clamp" style="--table-clamp: {{ column.lines }}" title="{{ value }}">{{ value }}</span>
                             {%- endif -%}
                         {%- elseif column.cell == 'status' -%}
                             {#- A type name, or { type, count, title, label }. One
@@ -240,6 +258,22 @@
                         {%- endif -%}
                     </td>
                 {% endfor %}
+                {% if row_link %}
+                    <td class="table--cell table--cell--row-open">
+                        {%- if row_href -%}
+                            {%- set row_open_label = row_link.label|default('WexampleSymfonyDesignSystemBundle.common.system::frontend.table.open'|trans) -%}
+                            {%- if row_link.target|default(null) -%}
+                                {{ button_target('ph:bold/caret-right', '', row_href, row_link.target, {
+                                    class: 'table--icon-link table--row-open',
+                                    target_options: row_link.target_options|default({}),
+                                    attr: { title: row_open_label, 'aria-label': row_open_label },
+                                }) }}
+                            {%- else -%}
+                                <a class="table--icon-link table--row-open" href="{{ row_href }}" title="{{ row_open_label }}" aria-label="{{ row_open_label }}">{{ icon('ph:bold/caret-right') }}</a>
+                            {%- endif -%}
+                        {%- endif -%}
+                    </td>
+                {% endif %}
             </tr>
             {% endif %}
         {% endfor %}

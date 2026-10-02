@@ -28,8 +28,35 @@
   height: auto;
 }
 
+// The page it receives is a column: as tall as what it holds, unless it fills
+// (`page--fill`) — then it takes the embed's whole height, which is what a
+// viewer, an editor or a conversation loaded in a pane counts on.
 .embed--content {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+// Every level the loader wraps the page in — the layout base, then the body —
+// hands the room down the same way.
+.embed--content > .layout-embed:has(.page--fill) {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-embed > .embed-body:has(> .page--fill) {
+  flex: 1;
+  min-height: 0;
+}
+
+// A region sized for what it holds — a portrait page — holds nothing yet while
+// its embed is empty: it is a plain zone of its row until a page arrives.
+// Closed, it has already stepped out of the row.
+.zone--split > .zone--portrait:has(.embed--content:empty) {
+  --zone-min: 0;
+  --zone-floor: var(--zone-body-min, 20rem);
 }
 
 // Closing is the embed's own gesture, in its corner above the page it holds.

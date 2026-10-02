@@ -1,3 +1,22 @@
+{#- The frame, and above it a bar holding the ways out of it — `open` in a
+    window of its own, `download` — which a browser's viewer hides once its
+    frame is narrow, and would cover were they laid over it. -#}
 <div class="{{ class }}">
-    <iframe src="{{ src }}" title="{{ title }}" loading="{{ loading }}"></iframe>
+    {%- if open_href or download_href -%}
+        <div class="toolbar toolbar--compact document-embed--toolbar">
+            <div class="toolbar--group">
+                {%- if open_href -%}
+                    {%- set open_label = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.document.open'|trans -%}
+                    <a class="action-icon" href="{{ open_href }}" target="_blank" rel="noopener" aria-label="{{ open_label }}" data-tooltip="{{ open_label }}">{{ icon('ph:bold/arrow-square-out') }}</a>
+                {%- endif -%}
+                {%- if download_href -%}
+                    {%- set download_label = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.document.download'|trans -%}
+                    <a class="action-icon" href="{{ download_href }}" download aria-label="{{ download_label }}" data-tooltip="{{ download_label }}">{{ icon('ph:bold/download-simple') }}</a>
+                {%- endif -%}
+            </div>
+        </div>
+    {%- endif -%}
+    <div class="{{ frame_class }}">
+        <iframe src="{{ src }}" title="{{ title }}" loading="{{ loading }}"></iframe>
+    </div>
 </div>

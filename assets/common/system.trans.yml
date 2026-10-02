@@ -53,6 +53,7 @@ en:
       retry: "Try again"
       search: "Search"
       results: "%count% found"
+      open: Open the detail
     confirm:
       accept: Confirm
       cancel: Cancel
@@ -68,6 +69,9 @@ en:
       progress: "%current% / %total%"
     embed:
       close: Close
+    document:
+      open: "Open in a new window"
+      download: "Download"
     form:
       optional: (optional)
     menu:

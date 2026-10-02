@@ -9,6 +9,11 @@ export default {
     path: {
       type: String,
       default: ''
+    },
+    // The folders under the name rather than before it.
+    stacked: {
+      type: Boolean,
+      default: false
     }
   },
 

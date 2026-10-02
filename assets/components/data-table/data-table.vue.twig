@@ -120,6 +120,7 @@
                     <template v-else>[[ getColumnLabel(column) ]]</template>
                 </th>
             </slot>
+            <th v-if="rowLink" class="table--cell table--cell--row-open" scope="col"><span class="visually-hidden">[[ rowLink.label || transTable('open') ]]</span></th>
         </tr>
         </thead>
         <tbody>
@@ -211,8 +212,16 @@
                                     :target="getCellLink(row, column).target"
                                     :target-options="getCellLink(row, column).targetOptions"
                                     class-name="file-path--link"
-                            ><file-path :path="getCellValue(row, column)"></file-path></button-target>
-                            <file-path v-else-if="getCellValue(row, column)" :path="getCellValue(row, column)"></file-path>
+                            ><file-path :path="getCellValue(row, column)" :stacked="true"></file-path></button-target>
+                            <file-path v-else-if="getCellValue(row, column)" :path="getCellValue(row, column)" :stacked="true"></file-path>
+                        </template>
+                        <template v-else-if="isClampCell(column)">
+                            <span
+                                    v-if="getCellValue(row, column) !== null && getCellValue(row, column) !== ''"
+                                    class="table--clamp"
+                                    :style="getClampStyle(column)"
+                                    :title="getCellValue(row, column)"
+                            >[[ getCellValue(row, column) ]]</span>
                         </template>
                         <template v-else-if="isMarkerCell(column)">
                             <capsule
@@ -291,6 +300,19 @@
                             [[ getCellValue(row, column) ]]
                         </template>
                     </template>
+                </td>
+                <td v-if="rowLink" class="table--cell table--cell--row-open">
+                    <button-target
+                            v-if="getRowLink(row)"
+                            :app="app"
+                            :href="getRowLink(row).href"
+                            :target="getRowLink(row).target"
+                            :target-options="getRowLink(row).targetOptions"
+                            icon="ph:bold/caret-right"
+                            :title="getRowLink(row).label"
+                            :aria-label="getRowLink(row).label"
+                            class-name="table--icon-link table--row-open"
+                    ></button-target>
                 </td>
             </template>
         </tr>

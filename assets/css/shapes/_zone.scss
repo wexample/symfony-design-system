@@ -186,6 +186,13 @@
   flex: 0 1 var(--zone-size, var(--zone-measure, var(--content-size-m)));
 }
 
+// Dragged to a width, it keeps it: a neighbour holding its floor is no reason
+// to take back what the visitor asked for, and a row short of room scrolls
+// sideways — the floor rows do — instead of squeezing the zone back.
+.zone--split > :where(.zone--measure[style*="--zone-size"]) {
+  flex-shrink: 0;
+}
+
 // Folded to make room for a neighbour that has just been filled — an embed
 // showing what was picked in this zone. The width it folds to is its own to
 // declare, and never more than its measure; a width the visitor dragged it to
@@ -200,6 +207,24 @@
 .zone--split > :where(.zone--fit-content) {
   flex: 1 0 auto;
   min-width: max-content;
+}
+
+// A region holding a page — a PDF read beside the text it came from: never
+// narrower than a portrait page (3:4) as tall as the region, so widening a
+// neighbour scrolls the row sideways instead of squeezing the page to a strip.
+// Its floor, for a row that has none and for one that has, is drawn from the
+// row's height: the row measures itself for it, which a row sized from outside
+// can do and a growing row — sized by its content — cannot, so that one is
+// left alone. A measured row contains what is fixed in it, as the scrolling
+// body does: what keeps to the window has to open in the top layer.
+.zone--split:has(> .zone--portrait):not(.zone--split--grow) {
+  container-type: size;
+}
+
+.zone--split > :where(.zone--portrait) {
+  --zone-min: calc(100cqh * 3 / 4);
+  // Never under the floor the row would have given it otherwise.
+  --zone-floor: max(var(--zone-body-min, 20rem), calc(100cqh * 3 / 4));
 }
 
 // The rows.

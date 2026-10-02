@@ -105,6 +105,7 @@ class TableExtension extends AbstractTemplateExtension
                 'key' => $column['key'] ?? null,
                 'label' => $column['label'] ?? null,
                 'cell' => $column['cell'] ?? null,
+                'lines' => $column['lines'] ?? null,
                 'dateFormat' => $column['date_format'] ?? null,
                 'secondary' => $column['secondary'] ?? null,
                 'sortable' => $column['sortable'] ?? null,
@@ -137,10 +138,17 @@ class TableExtension extends AbstractTemplateExtension
             'sticky' => 'sticky',
             'scroll' => 'scroll',
             'show_header' => 'showHeader',
+            'row_link' => 'rowLink',
         ] as $option => $prop) {
             if (array_key_exists($option, $options)) {
                 $props[$prop] = $options[$option];
             }
+        }
+
+        // Its keys spoken as the twin speaks them.
+        if (isset($props['rowLink']['target_options'])) {
+            $props['rowLink']['targetOptions'] = $props['rowLink']['target_options'];
+            unset($props['rowLink']['target_options']);
         }
 
         return $this->vueService->vueRender(
@@ -166,6 +174,8 @@ class TableExtension extends AbstractTemplateExtension
                 // The column's name whole, behind a short label.
                 'tooltip' => $column['tooltip'] ?? null,
                 'cell' => $column['cell'] ?? 'text',
+                // Read by a clamp cell: how many lines it shows of its text.
+                'lines' => $column['lines'] ?? 2,
                 // Read by a date cell, and by nothing else: one of the format
                 // names both sides of the stack answer to.
                 'date_format' => $column['date_format'] ?? 'auto',

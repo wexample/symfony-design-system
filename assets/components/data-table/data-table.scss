@@ -176,6 +176,25 @@
   white-space: nowrap;
 }
 
+// A long text — an error, a message — held to a few lines (`lines`, two by
+// default) and broken anywhere it must: a word longer than the column, a path,
+// a stack frame, wraps instead of widening the table past its zone.
+.table--clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--table-clamp, 2);
+  line-clamp: var(--table-clamp, 2);
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+// The column a `row_link` adds: as narrow as its arrow, at the row's end.
+.table--cell--row-open {
+  width: 1%;
+  padding-inline-start: 0;
+  text-align: end;
+}
+
 // A quantity's unit, after its figure and a step back from it: the eye runs
 // down the figures, the unit is read once.
 .table--unit {

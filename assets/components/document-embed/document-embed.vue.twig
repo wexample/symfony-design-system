@@ -1,7 +1,38 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
 
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.document.*') }}
+{%- endblock -%}
+
 {%- block vue_body -%}
-    <div :class="frameClass">
-        <iframe :src="src" :title="title" :loading="loading"></iframe>
+    {# Client-side twin of components/document-embed.html.twig: same options,
+       same markup. A change to either is a change to both. #}
+    <div :class="wrapperClass">
+        <div v-if="openHref || downloadHref" class="toolbar toolbar--compact document-embed--toolbar">
+            <div class="toolbar--group">
+                <a
+                        v-if="openHref"
+                        class="action-icon"
+                        :href="openHref"
+                        target="_blank"
+                        rel="noopener"
+                        :aria-label="openLabel"
+                        :data-tooltip="openLabel"
+                        v-html="openIconHtml"
+                ></a>
+                <a
+                        v-if="downloadHref"
+                        class="action-icon"
+                        :href="downloadHref"
+                        download
+                        :aria-label="downloadLabel"
+                        :data-tooltip="downloadLabel"
+                        v-html="downloadIconHtml"
+                ></a>
+            </div>
+        </div>
+        <div :class="frameClass">
+            <iframe :src="src" :title="title" :loading="loading"></iframe>
+        </div>
     </div>
 {%- endblock -%}

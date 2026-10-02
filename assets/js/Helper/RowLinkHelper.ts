@@ -8,6 +8,9 @@ const INTERACTIVE = 'a, button, input, select, textarea, label, summary, [role="
 
 export const ROW_LINK_SELECTOR = '.table--icon-link';
 
+// The link a table's `row_link` adds, which wins over the row's other links.
+export const ROW_OPEN_SELECTOR = '.table--row-open';
+
 export function rowLinkClick(event: MouseEvent): void {
   const target = event.target as HTMLElement | null;
   const row = target?.closest<HTMLElement>('.table--row--link');
@@ -16,5 +19,5 @@ export function rowLinkClick(event: MouseEvent): void {
     return;
   }
 
-  row.querySelector<HTMLElement>(ROW_LINK_SELECTOR)?.click();
+  (row.querySelector<HTMLElement>(ROW_OPEN_SELECTOR) ?? row.querySelector<HTMLElement>(ROW_LINK_SELECTOR))?.click();
 }
