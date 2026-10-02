@@ -176,7 +176,8 @@
   white-space: nowrap;
 }
 
-.table--cell--secondary {
+// A column's values set back; its header stays the size of the others.
+.table--cell--secondary:not(th) {
   font-size: var(--font-size-2);
   color: var(--text-color-muted);
 }
