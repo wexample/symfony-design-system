@@ -6,5 +6,6 @@
   --shadow-1: 0 1px 2px color-mix(in srgb, var(--shadow-color) 12%, transparent), 0 1px 1px color-mix(in srgb, var(--shadow-color) 8%, transparent);
   --shadow-2: 0 4px 8px color-mix(in srgb, var(--shadow-color) 10%, transparent), 0 2px 3px color-mix(in srgb, var(--shadow-color) 7%, transparent);
   --shadow-3: 0 6px 16px color-mix(in srgb, var(--shadow-color) 18%, transparent), 0 2px 4px color-mix(in srgb, var(--shadow-color) 10%, transparent);
+  --shadow-float: var(--shadow-3);
   --shadow-4: 0 14px 32px color-mix(in srgb, var(--shadow-color) 22%, transparent), 0 4px 12px color-mix(in srgb, var(--shadow-color) 12%, transparent), 0 2px 4px color-mix(in srgb, var(--shadow-color) 10%, transparent);
 }

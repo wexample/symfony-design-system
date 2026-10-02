@@ -27,6 +27,10 @@
   --shadow-2: none;
   --shadow-3: none;
   --shadow-4: none;
+  // What floats above the page — a menu, a list to choose from, a tooltip —
+  // keeps its depth even in a flat skin: without it, it reads as part of the
+  // page it covers.
+  --shadow-float: 0 6px 16px color-mix(in srgb, var(--shadow-color) 18%, transparent), 0 2px 4px color-mix(in srgb, var(--shadow-color) 10%, transparent);
 
   // Where the space of a navigation item goes. Density says how much there is;
   // the skin says whether the link takes it all (the hover hugs the column)

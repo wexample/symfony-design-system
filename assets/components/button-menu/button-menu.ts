@@ -3,7 +3,11 @@ import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin'
 import { filterTextMatches } from '../../js/Helper/FilterHelper';
 import { loadIntoTarget } from '../../js/Helper/TargetHelper';
 
-export default class extends Component {
+export default class ButtonMenu extends Component {
+  // How close to its bar's end a button stands to be at the end of it: the
+  // bar's own padding and the item's, not a neighbour's width.
+  private static readonly BAR_END_DISTANCE = 32;
+
   protected overlayUseBackdrop: boolean = false;
   protected overlayUseStack: boolean = false;
   protected overlaySetHiddenOnOpen: boolean = false;
@@ -300,7 +304,50 @@ export default class extends Component {
       }
 
       this.applyPlacement(align, vertical);
+      this.alignOnBar(buttonRect, align, vertical);
     });
+  }
+
+  // A menu opened from a bar — the header, a toolbar — starts where the bar
+  // ends, not where its button does, whatever the bar's thickness. And from a
+  // button standing at the bar's end, it lines up with the bar's edge rather
+  // than the button's: the header's edge being the window's, the last menu of
+  // the header hugs the window, while a toolbar inside the page keeps it to
+  // the toolbar's own edge.
+  private alignOnBar(
+    buttonRect: DOMRect,
+    align: 'left' | 'right',
+    vertical: 'top' | 'bottom'
+  ): void {
+    if (!this.panelEl) {
+      return;
+    }
+
+    const panelStyle = this.panelEl.style;
+    panelStyle.marginTop = '';
+    panelStyle.marginBottom = '';
+    panelStyle.left = '';
+    panelStyle.right = '';
+
+    const bar = this.el.closest<HTMLElement>('.header, .toolbar');
+
+    if (!bar) {
+      return;
+    }
+
+    const barRect = bar.getBoundingClientRect();
+
+    if (vertical === 'bottom') {
+      panelStyle.marginTop = `${Math.max(0, barRect.bottom - buttonRect.bottom)}px`;
+    } else {
+      panelStyle.marginBottom = `${Math.max(0, buttonRect.top - barRect.top)}px`;
+    }
+
+    const toEnd = align === 'right' ? barRect.right - buttonRect.right : buttonRect.left - barRect.left;
+
+    if (toEnd > 0 && toEnd <= ButtonMenu.BAR_END_DISTANCE) {
+      panelStyle[align] = `${-toEnd}px`;
+    }
   }
 
   private isRtl(): boolean {
@@ -309,6 +356,10 @@ export default class extends Component {
 
   private resetPlacement(): void {
     this.applyPlacement(this.defaultAlign, this.defaultVertical);
+
+    if (this.panelEl) {
+      Object.assign(this.panelEl.style, { marginTop: '', marginBottom: '', left: '', right: '' });
+    }
   }
 
   private applyPlacement(

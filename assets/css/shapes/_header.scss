@@ -172,7 +172,7 @@
   border: var(--border-discreet);
   border-radius: var(--radius-box);
   background: var(--surface-3);
-  box-shadow: var(--shadow-3, 0 8px 24px var(--darken-2));
+  box-shadow: var(--shadow-float);
 
   a {
     display: flex;

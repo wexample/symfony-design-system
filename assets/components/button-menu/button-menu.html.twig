@@ -184,7 +184,7 @@
                 {%- if icon -%}<span class="button--icon">{{ icon(icon) }}</span>{%- endif -%}
                 {%- if label -%}<span class="button-menu--label">{{ label }}</span>{%- endif -%}
             {%- if action.href|default(null) -%}</a>{%- else -%}</button>{%- endif -%}
-            <button class="button button--menu button-menu--toggle{% if options.class is defined %} {{ options.class }}{% endif %}"
+            <button class="button button--menu button-menu--split-toggle{% if options.class is defined %} {{ options.class }}{% endif %}"
                     type="button"
                     aria-haspopup="menu"
                     aria-expanded="false"

@@ -132,11 +132,19 @@
   border-end-end-radius: 0;
 }
 
-.button-menu--toggle {
-  padding-inline: var(--space-2);
+// The caret half. Its own name: `button-menu--toggle` is an entry of the
+// menu that is a state, and the two once shared it — each took the other's
+// padding and edge. The caret's own start padding is dropped here, the half's
+// padding standing on both sides of it alike.
+.button-menu--split-toggle {
+  padding-inline: var(--space-3);
   border-start-start-radius: 0;
   border-end-start-radius: 0;
   border-inline-start: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+
+  .button-menu--caret {
+    padding-inline-start: 0;
+  }
 }
 
 .button-menu--split.is-open .button-menu--action {
@@ -218,7 +226,7 @@
   min-width: 100%;
   width: max-content;
   background: var(--surface-3);
-  box-shadow: var(--shadow-1);
+  box-shadow: var(--shadow-float);
   border-radius: 0 0 var(--radius-box) var(--radius-box);
   z-index: var(--z-dropdown);
 }
@@ -291,6 +299,13 @@
 .button-menu--separator {
   margin: var(--space-1) 0;
   border-top: var(--border-separator);
+}
+
+// Nothing above it to part from: the first one of a list draws no rule, and
+// a titled one keeps only its words.
+.button-menu--list > .button-menu--separator:first-child {
+  margin-top: 0;
+  border-top: 0;
 }
 
 // The same line doing a second job: naming what follows it.
@@ -442,7 +457,7 @@
   min-width: 100%;
   width: max-content;
   background: var(--surface-3);
-  box-shadow: var(--shadow-1);
+  box-shadow: var(--shadow-float);
   border-radius: var(--radius-box);
   z-index: 1;
 }
