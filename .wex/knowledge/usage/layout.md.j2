@@ -50,3 +50,30 @@ A page sets these variables at the top of its template, outside any block; an ap
     </div>
 {%- endblock -%}
 ```
+
+## How a zone takes its room
+
+Two questions, answered apart (`css/shapes/_zone.scss`, its last block).
+
+What a zone asks — its own class:
+
+| Class | Asks |
+|---|---|
+| (none) | what is left, shared with the other plain zones |
+| `zone--narrow` | its size (`zone--size-N`), or its content's |
+| `zone--measure` | the reading measure, giving way below it |
+| `zone--fit-content` | as wide as what it holds |
+| resized | the size it was left at (`--zone-size`, written inline by the resizer) |
+
+`--zone-min` (`zone--min-N`) is a floor of its own, under which it is never squeezed.
+
+What its row does when the asks do not fit — the row's class:
+
+| Class | Does |
+|---|---|
+| (none) | the zones that may give way do, down to their floor |
+| `zone--split--scroll` | nothing gives way, the row scrolls sideways |
+| `zone--split--floor` | plain zones keep `--zone-floor` (20rem); past it the row scrolls. Any row laid straight in a page's body has it once it holds two zones. |
+| `zone--split--wrap` | below their floor, the zones go to the next line |
+
+A row holding a `zone--fit-content` scrolls of itself. Every rule of the block weighs the same, so the order of the file is the order of precedence — the asks, then the rows, which have the last word — and the block closes the file so that no rule written after it overrules a zone's place in its row.

@@ -68,18 +68,6 @@
   @extend .container;
 }
 
-// Beside a neighbour, the page's regions keep a width they can be read at: a
-// window too narrow for all of them scrolls the row sideways rather than
-// squeezing each to nothing. The narrow ones — a tree, a column of their own
-// size — already keep theirs.
-.layout--body > .zone--split:has(> .zone ~ .zone) {
-  overflow-x: auto;
-
-  > .zone:not(.zone--narrow, .zone--fit-content) {
-    min-width: var(--zone-body-min, 20rem);
-  }
-}
-
 .layout--body--wide,
 .layout--body:has(> .zone--split > .zone ~ .zone) {
   position: relative;
@@ -131,6 +119,14 @@
   padding: var(--space-4) var(--space-5);
 }
 
+// What the header offers anyone — a language, a scheme, the account — side
+// by side, as in the header itself, whose rules are scoped to `.header`.
+.layout--focus-header .header--menu {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
 .layout--focus-logo img,
 .layout--focus-logo svg {
   display: block;
@@ -147,5 +143,11 @@
 
   > .layout--body {
     padding: 0;
+  }
+
+  // The page's region stands on nothing of its own here: the column is the
+  // page, and the card it holds is the only ground drawn.
+  .zone--panel {
+    background: none;
   }
 }

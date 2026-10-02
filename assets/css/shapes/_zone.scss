@@ -27,156 +27,6 @@
   min-height: 0;
 }
 
-// Two regions of a page are two objects, not one panel cut in half: what tells
-// them apart is the room between them, through which the page shows. So a split
-// spaces what it holds, and no line is drawn anywhere.
-.zone--split {
-  display: flex;
-  gap: var(--zone-gap, var(--space-2));
-
-  > * {
-    min-width: 0;
-  }
-
-  > .zone {
-    flex: 1 1 0;
-    // A zone on its own is 100% of its parent, but in a split the parent is what
-    // sizes it: the main axis by flex, the cross axis by stretch — and stretch only
-    // reaches a child that asks for no size of its own. Both are given back here.
-    width: auto;
-    height: auto;
-    min-width: var(--zone-min, 0);
-  }
-
-  // A plain zone a visitor resized keeps the size they left it at, along the
-  // split's axis — a row of a dashboard as well as a column — and its
-  // neighbours share what remains. The size is the zone's inline style, written
-  // by zone_state() and by the resizer, and gone again on a double click.
-  > .zone[style*="--zone-size"]:not(.zone--narrow, .zone--measure) {
-    flex: 0 0 var(--zone-size);
-  }
-
-  // Repeated here to outweigh the width reset of the sibling rule above.
-  > .zone--narrow {
-    flex: 0 0 auto;
-    width: var(--zone-size, fit-content);
-  }
-}
-
-// A region the width of a text: what a container is to a page, a zone is here —
-// capped at the reading measure, so a document reads alike in a pane and on a
-// page of its own. In a split it asks for that measure and gives way below it;
-// what it leaves goes to a flexible neighbour, which is how the page shows
-// around a text instead of the text's ground running to the edge. The measure
-// is a width and nothing else: the room around the text is its content's, a
-// `zone--content` inside it. Written after the split's own rule, which sizes its
-// children with as many classes: the later of two equals is the one that holds.
-// A size the visitor dragged it to (`--zone-size`, set by a zone-resizer)
-// outweighs the measure: the measure is what it asks for, not a cap on them.
-.zone--measure {
-  max-width: var(--zone-size, var(--zone-measure, var(--content-size-m)));
-}
-
-.zone--split > .zone--measure {
-  flex: 0 1 var(--zone-size, var(--zone-measure, var(--content-size-m)));
-}
-
-// Folded to make room for a neighbour that has just been filled — an embed
-// showing what was picked in this zone. The width it folds to is its own to
-// declare, and never more than its measure; a width the visitor dragged it to
-// outweighs both, so a zone resized by hand stays where it was left.
-.zone--split > .zone--measure.zone--folded {
-  flex-basis: var(--zone-size, min(var(--zone-folded-size), var(--zone-measure, var(--content-size-m))));
-  max-width: var(--zone-size, min(var(--zone-folded-size), var(--zone-measure, var(--content-size-m))));
-}
-
-// Without a floor, the flexible zones shrink to nothing instead of wrapping.
-// Below that floor the body claims a full line and the narrow column moves above it.
-.zone--split.zone--split--wrap {
-  flex-wrap: wrap;
-
-  > .zone {
-    flex-basis: var(--zone-body-min, 20rem);
-    min-width: min(100%, var(--zone-body-min, 20rem));
-  }
-
-  > .zone--narrow {
-    flex-basis: auto;
-    min-width: 0;
-  }
-}
-
-// A split is an axis, not a direction. Turned vertical it keeps the same reading:
-// a plain zone takes what is free, a narrow one is sized, and `--zone-size` is
-// that size along whichever axis the split runs on.
-.zone--split.zone--split--vertical {
-  flex-direction: column;
-
-  > .zone {
-    min-width: 0;
-    min-height: var(--zone-min, 0);
-  }
-
-  > .zone--narrow {
-    width: auto;
-    height: var(--zone-size, fit-content);
-  }
-}
-
-// Splits laid inside splits make a dashboard: a vertical split of rows, each
-// row a split of its own. Flush, the regions all but touch — a wall of screens
-// rather than objects on a desk — and the one pixel left between them shows the
-// wall's own ground, drawn in the colour of a separator. The gap is a variable
-// the nested splits inherit, so one class makes the whole wall flush.
-.zone--split--flush {
-  --zone-gap: 1px;
-  background: var(--border-color-discreet);
-}
-
-// A region closed by what it held — an embed's close button — steps out of
-// its split, and the others share its room until it is filled again.
-.zone--split > .zone--closed {
-  display: none;
-}
-
-// A region as wide as what it holds — a table of many columns — rather than
-// the room left to it: the row it stands in overflows, and the row scrolls
-// sideways as one, its scrollbar at the foot of the window instead of under
-// the table alone. Each zone still scrolls down on its own.
-.zone--split > .zone--fit-content {
-  flex: 1 0 auto;
-  min-width: max-content;
-}
-
-// A row holding one is a row that scrolls: nothing in it gives way, each
-// region keeping the width it asks — a page held to its measure keeps it —
-// since what does not fit is scrolled to, not squeezed.
-.zone--split:has(> .zone--fit-content) > .zone {
-  flex-shrink: 0;
-}
-
-// A row longer than the page: the regions keep the width they ask for and the
-// split scrolls sideways instead of squeezing them. Nothing takes "what is
-// left" here — there is none, the row overflows on purpose — so a zone that
-// names no size falls back to a column wide enough to hold something.
-.zone--split.zone--split--scroll {
-  overflow-x: auto;
-
-  > .zone {
-    flex: 0 0 var(--zone-size, var(--size-7));
-  }
-
-  > .zone--narrow {
-    flex: 0 0 auto;
-  }
-}
-
-.zone--split.zone--split--equal {
-  display: grid;
-  grid-auto-columns: minmax(0, 1fr);
-  grid-auto-flow: column;
-}
-
 // Room around what a zone holds, on a zone that does not scroll.
 .zone--padded {
   padding: var(--space-4);
@@ -252,4 +102,197 @@
   // the ladder, which is right for a block standing on the page and wrong here:
   // a panel already stands there, so its chrome takes the step under it.
   --surface-shell: var(--surface-1);
+}
+
+// ─── How a zone takes its room in a row ──────────────────────────────────
+//
+// Two questions, answered apart:
+//
+//   what a zone asks — its own class:
+//     (none)              what is left, shared with the other plain zones
+//     zone--narrow        its size (`zone--size-N`), or its content's
+//     zone--measure       the reading measure, giving way below it
+//     zone--fit-content   as wide as what it holds
+//     a resized zone      the size it was left at (`--zone-size`, inline)
+//   and `--zone-min`, a floor of its own under which it is never squeezed.
+//
+//   what its row does when the asks do not fit — the row's class:
+//     (none)              the zones that may give way do, down to their floor
+//     zone--split--scroll nothing gives way, the row scrolls sideways
+//     zone--split--floor  the plain zones keep a floor (`--zone-floor`); past
+//                         it, the row scrolls — and any row laid straight in
+//                         a page's body, once it holds two zones
+//     zone--split--wrap   below their floor, the zones go to the next line
+//   A row holding a `zone--fit-content` scrolls of itself.
+//
+// Every rule below weighs the same — the row's class, the rest in `:where()`
+// — so this order is the order of precedence: the asks, then the rows, which
+// have the last word. Nothing here wins by being written with more classes,
+// and the block closes this file so that nothing written after it — a
+// scrolling zone's `flex: 1` — overrules a zone's place in its row.
+
+// Two regions of a page are two objects, not one panel cut in half: what tells
+// them apart is the room between them, through which the page shows. So a split
+// spaces what it holds, and no line is drawn anywhere.
+.zone--split {
+  display: flex;
+  gap: var(--zone-gap, var(--space-2));
+
+  > * {
+    min-width: 0;
+  }
+}
+
+// The asks.
+
+// A region the width of a text, outside a split as inside one.
+.zone--measure {
+  max-width: var(--zone-size, var(--zone-measure, var(--content-size-m)));
+}
+
+// What is left, shared. A zone on its own is 100% of its parent, but in a
+// split the parent is what sizes it: the main axis by flex, the cross axis by
+// stretch — and stretch only reaches a child that asks for no size of its own.
+.zone--split > :where(.zone) {
+  flex: 1 1 0;
+  width: auto;
+  height: auto;
+  min-width: var(--zone-min, 0);
+}
+
+// A plain zone a visitor resized keeps the size they left it at, along the
+// split's axis — a row of a dashboard as well as a column — and its
+// neighbours share what remains. The size is the zone's inline style, written
+// by zone_state() and by the resizer, and gone again on a double click.
+.zone--split > :where(.zone[style*="--zone-size"]:not(.zone--narrow, .zone--measure)) {
+  flex: 0 0 var(--zone-size);
+}
+
+.zone--split > :where(.zone--narrow) {
+  flex: 0 0 auto;
+  width: var(--zone-size, fit-content);
+}
+
+// A region the width of a text: what a container is to a page, a zone is here —
+// capped at the reading measure, so a document reads alike in a pane and on a
+// page of its own. In a split it asks for that measure and gives way below it;
+// what it leaves goes to a flexible neighbour, which is how the page shows
+// around a text instead of the text's ground running to the edge. A size the
+// visitor dragged it to (`--zone-size`, set by a zone-resizer) outweighs the
+// measure: the measure is what it asks for, not a cap on them.
+.zone--split > :where(.zone--measure) {
+  flex: 0 1 var(--zone-size, var(--zone-measure, var(--content-size-m)));
+}
+
+// Folded to make room for a neighbour that has just been filled — an embed
+// showing what was picked in this zone. The width it folds to is its own to
+// declare, and never more than its measure; a width the visitor dragged it to
+// outweighs both, so a zone resized by hand stays where it was left.
+.zone--split > :where(.zone--measure.zone--folded) {
+  flex-basis: var(--zone-size, min(var(--zone-folded-size), var(--zone-measure, var(--content-size-m))));
+  max-width: var(--zone-size, min(var(--zone-folded-size), var(--zone-measure, var(--content-size-m))));
+}
+
+// A region as wide as what it holds — a table of many columns — rather than
+// the room left to it, taking more if more is free.
+.zone--split > :where(.zone--fit-content) {
+  flex: 1 0 auto;
+  min-width: max-content;
+}
+
+// The rows.
+
+// A row longer than the page: the regions keep the width they ask for and the
+// split scrolls sideways instead of squeezing them. Nothing takes "what is
+// left" here — there is none, the row overflows on purpose — so a zone that
+// names no size falls back to a column wide enough to hold something.
+.zone--split:where(.zone--split--scroll) {
+  overflow-x: auto;
+}
+
+.zone--split:where(.zone--split--scroll) > :where(.zone) {
+  flex: 0 0 var(--zone-size, var(--size-7));
+}
+
+.zone--split:where(.zone--split--scroll) > :where(.zone--narrow) {
+  flex: 0 0 auto;
+}
+
+// A row holding a region as wide as its content is a row that scrolls:
+// nothing in it gives way — a page held to its measure keeps it — since what
+// does not fit is scrolled to, not squeezed. Its scrollbar is the row's, at
+// its foot, and not the table's alone; each zone still scrolls down on its own.
+.zone--split:where(:has(> .zone--fit-content)) {
+  overflow-x: auto;
+}
+
+.zone--split:where(:has(> .zone--fit-content)) > :where(.zone) {
+  flex-shrink: 0;
+}
+
+// The page's row — any row laid straight in a page's body — once it holds a
+// neighbour: its regions keep a width they can be read at, and a window too narrow for all of them scrolls the row
+// sideways rather than squeezing each to nothing. The narrow ones and the
+// content-wide ones already keep theirs.
+.zone--split:where(.zone--split--floor, .layout--body > *):where(:has(> .zone ~ .zone)) {
+  overflow-x: auto;
+}
+
+.zone--split:where(.zone--split--floor, .layout--body > *):where(:has(> .zone ~ .zone)) > :where(.zone:not(.zone--narrow, .zone--fit-content)) {
+  min-width: var(--zone-floor, var(--zone-body-min, 20rem));
+}
+
+// Without a floor, the flexible zones shrink to nothing instead of wrapping.
+// Below that floor the body claims a full line and the narrow column moves above it.
+.zone--split:where(.zone--split--wrap) {
+  flex-wrap: wrap;
+}
+
+.zone--split:where(.zone--split--wrap) > :where(.zone) {
+  flex-basis: var(--zone-body-min, 20rem);
+  min-width: min(100%, var(--zone-body-min, 20rem));
+}
+
+.zone--split:where(.zone--split--wrap) > :where(.zone--narrow) {
+  flex-basis: auto;
+  min-width: 0;
+}
+
+// A split is an axis, not a direction. Turned vertical it keeps the same reading:
+// a plain zone takes what is free, a narrow one is sized, and `--zone-size` is
+// that size along whichever axis the split runs on.
+.zone--split:where(.zone--split--vertical) {
+  flex-direction: column;
+}
+
+.zone--split:where(.zone--split--vertical) > :where(.zone) {
+  min-width: 0;
+  min-height: var(--zone-min, 0);
+}
+
+.zone--split:where(.zone--split--vertical) > :where(.zone--narrow) {
+  width: auto;
+  height: var(--zone-size, fit-content);
+}
+
+.zone--split:where(.zone--split--equal) {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+}
+
+// Splits laid inside splits make a dashboard: a vertical split of rows, each
+// row a split of its own. Flush, the regions all but touch — a wall of screens
+// rather than objects on a desk — and the one pixel left between them shows the
+// wall's own ground, drawn in the colour of a separator. The gap is a variable
+// the nested splits inherit, so one class makes the whole wall flush.
+.zone--split--flush {
+  --zone-gap: 1px;
+  background: var(--border-color-discreet);
+}
+
+// A region closed by what it held — an embed's close button — steps out of
+// its split, and the others share its room until it is filled again.
+.zone--split > .zone--closed {
+  display: none;
 }
