@@ -16,6 +16,11 @@ carrying only `{ group: 'Label' }` is the line between two runs of rows.
 `--table-column-width-*` tokens — so that its cells may change, a state or a figure refreshed
 in place, without the columns beside it moving. Columns left without one share what remains.
 
+`unit` makes a column of quantities: the cell holds the figure — a number, which sorts as one
+— and the table writes it in the page's locale, `digits` decimals at most (2 by default),
+then the unit, set back (`table--unit`). A value already worded, « 124/75 », is kept as it
+is. The cell never wraps. It is asked column by column, never guessed from the values.
+
 ## The bar above the table
 
 One bar, `table--bar`, holds what acts on the table rather than on a row, in this order:

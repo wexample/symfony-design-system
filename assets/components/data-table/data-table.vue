@@ -820,6 +820,18 @@ export default {
       return column?.cell === 'date';
     },
 
+    // A quantity's figure, in the page's locale (`digits` decimals at most);
+    // a value already worded — « 124/75 » — as it is.
+    formatNumber(value, column) {
+      if (typeof value !== 'number' && (typeof value !== 'string' || value.trim() === '' || isNaN(Number(value)))) {
+        return value;
+      }
+
+      const locale = (this.sortLocale || document.documentElement.lang || undefined)?.replace('_', '-');
+
+      return new Intl.NumberFormat(locale, { maximumFractionDigits: column?.digits ?? 2 }).format(Number(value));
+    },
+
     getDateFormat(column) {
       return column?.dateFormat ?? 'auto';
     },
@@ -832,7 +844,7 @@ export default {
       const classes = [];
       if (column?.className) classes.push(column.className);
       if (column?.align) classes.push(`table--cell--${column.align}`);
-      if (column?.cell === 'date') classes.push('table--cell--nowrap');
+      if (column?.cell === 'date' || column?.unit) classes.push('table--cell--nowrap');
       if (column?.width) classes.push(`table--cell--width-${column.width}`);
       if (column?.secondary) classes.push('table--cell--secondary');
       return classes.length ? classes.join(' ') : undefined;

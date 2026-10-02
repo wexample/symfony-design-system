@@ -231,6 +231,10 @@
                                     compact: true,
                                 }) }}
                             {%- endif -%}
+                        {%- elseif column.unit -%}
+                            {%- if value is not same as(null) and value is not same as('') -%}
+                                <span class="table--quantity">{{ value|table_number(column.digits) }}&nbsp;<span class="table--unit">{{ column.unit }}</span></span>
+                            {%- endif -%}
                         {%- else -%}
                             {{- value -}}
                         {%- endif -%}

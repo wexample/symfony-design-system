@@ -4,6 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Helper\QueryHelper;
 use Wexample\SymfonyDesignSystem\Helper\SortHelper;
@@ -18,6 +19,30 @@ class TableExtension extends AbstractTemplateExtension
         private readonly VueService $vueService,
     ) {
         parent::__construct($componentsExtension);
+    }
+
+    public function getFilters(): array
+    {
+        return [
+            // A quantity's figure, in the page's locale: what a column naming
+            // a `unit` shows before it.
+            new TwigFilter('table_number', $this->formatNumber(...)),
+        ];
+    }
+
+    public function formatNumber(mixed $value, ?int $digits = null): string
+    {
+        if (! is_numeric($value)) {
+            return (string) $value;
+        }
+
+        $formatter = new \NumberFormatter(
+            $this->requestStack->getCurrentRequest()?->getLocale() ?? \Locale::getDefault(),
+            \NumberFormatter::DECIMAL
+        );
+        $formatter->setAttribute(\NumberFormatter::MAX_FRACTION_DIGITS, $digits ?? 2);
+
+        return (string) $formatter->format((float) $value);
     }
 
     public function getFunctions(): array
@@ -86,6 +111,8 @@ class TableExtension extends AbstractTemplateExtension
                 'sortKey' => $column['sort_key'] ?? null,
                 'searchable' => $column['searchable'] ?? null,
                 'tooltip' => $column['tooltip'] ?? null,
+                'unit' => $column['unit'] ?? null,
+                'digits' => $column['digits'] ?? null,
                 'align' => $column['align'] ?? null,
                 'width' => $column['width'] ?? null,
                 'className' => $column['class'] ?? null,
@@ -143,6 +170,10 @@ class TableExtension extends AbstractTemplateExtension
                 // names both sides of the stack answer to.
                 'date_format' => $column['date_format'] ?? 'auto',
                 'secondary' => $column['secondary'] ?? false,
+                // A quantity: the cell holds the figure, the column its unit,
+                // written after it and set back.
+                'unit' => $column['unit'] ?? null,
+                'digits' => $column['digits'] ?? null,
                 // Sortable only when the column says so, on a key that may not be
                 // the one it shows: a date sorts on its value, a name on the last.
                 'sortable' => $column['sortable'] ?? false,
@@ -150,8 +181,8 @@ class TableExtension extends AbstractTemplateExtension
                 'class' => implode(' ', array_filter([
                     $column['class'] ?? null,
                     isset($column['align']) ? 'table--cell--'.$column['align'] : null,
-                    // A date is read whole, never broken over two lines.
-                    ($column['cell'] ?? null) === 'date' ? 'table--cell--nowrap' : null,
+                    // A date, a quantity: read whole, never broken over two lines.
+                    ($column['cell'] ?? null) === 'date' || isset($column['unit']) ? 'table--cell--nowrap' : null,
                     // One of xs, s, m, l, xl: the column keeps it whatever its cells say.
                     isset($column['width']) ? 'table--cell--width-'.$column['width'] : null,
                 ])),
