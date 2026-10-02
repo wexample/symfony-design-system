@@ -109,8 +109,9 @@ fieldset.form--fieldset {
   gap: var(--space-4) var(--space-6);
   align-items: start;
 
-  > .form--section + .form--section,
-  > fieldset:not(.form--fieldset) + fieldset {
+  // Written to outweigh the rule between stacked sections, which reaches
+  // them through `.form fieldset:not(…)`.
+  > :is(.form--section, fieldset):not(.form--fieldset) + :is(.form--section, fieldset):not(.form--fieldset) {
     padding-top: 0;
     border-top: none;
   }
@@ -131,8 +132,7 @@ fieldset.form--fieldset {
     background: var(--surface-1);
   }
 
-  > .form--section + .form--section,
-  > fieldset:not(.form--fieldset) + fieldset {
+  > :is(.form--section, fieldset):not(.form--fieldset) + :is(.form--section, fieldset):not(.form--fieldset) {
     padding-top: var(--space-4);
     border-top: var(--border-discreet, var(--border-separator));
   }
