@@ -35,6 +35,15 @@
     {%- set pageZonesGrow = page_body_mode|default('default') != 'wide' and not (page_measure ?? true) -%}
     <div class="zone zone--split{{ pageZonesGrow ? ' zone--split--grow' }}">
         {{- pageZonesBefore -}}
+        {#- What stands before the page — a tree — stays where it is: the page's
+            zone and those after it are a row of their own, which is what
+            scrolls sideways when they ask for more than the window has, with
+            its scrollbar under them alone. Not nested without one, so a page
+            with nothing before it keeps the one row. -#}
+        {%- set pageZonesHeld = pageZonesBefore|trim is not empty -%}
+        {%- if pageZonesHeld -%}
+            <div class="zone zone--split {{ pageZonesGrow ? 'zone--split--grow' : 'zone--split--floor' }}">
+        {%- endif -%}
         {#- The frame is the panel and never scrolls: a handle resizing it hangs
             into the gap beside it, which a scrolling frame would clip. What
             scrolls is the zone inside, and its content carries the room, so a
@@ -92,8 +101,14 @@
                         <div class="page-actions page-actions--sticky">{{ pageActions }}</div>
                     {%- endif -%}
                 </div>
+                {#- Under the page's content and out of its padding: the zone's
+                    whole width, scrolling with the page (`page_foot`). -#}
+                {%- block page_foot -%}{%- endblock -%}
             </div>
         </div>
         {{- pageZonesAfter -}}
+        {%- if pageZonesHeld -%}
+            </div>
+        {%- endif -%}
     </div>
 {%- endblock -%}
