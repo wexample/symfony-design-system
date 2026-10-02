@@ -63,10 +63,11 @@
 .layout--body--scrollable > .layout--vertical > :not(.layout--body) {
   position: sticky;
   left: 0;
-  // Capped at the window and not set to it: `100cqw` counts the vertical
-  // scrollbar in, and a bar that wide would push the page sideways by its
-  // width. Contained, it never widens the column either; it takes the
-  // column's width up to the window's.
+  // The scrollport's width, measured by the LayoutService — `100cqw` counts
+  // the vertical scrollbar in, and a bar that wide would push the page
+  // sideways by its width. Without the service, the column's width capped at
+  // the window's. Contained, it never widens the column either.
+  width: var(--layout-scrollport, auto);
   max-width: 100cqw;
   contain: inline-size;
 }
