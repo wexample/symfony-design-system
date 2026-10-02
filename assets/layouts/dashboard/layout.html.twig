@@ -15,6 +15,14 @@
     {{ component_frontend(render_pass, '@WexampleSymfonyDesignSystemBundle/components/overlay') }}
 {%- endblock -%}
 
+{#- The footer at the end of the page rather than under it (`layout_footer: 'page'`). -#}
+{%- block page_foot -%}
+    {#- A page asking for focus draws its own footer. -#}
+    {%- if layout_footer|default('fixed') == 'page' and not page_focus|default(false) -%}
+        {{- block('layout_footer') -}}
+    {%- endif -%}
+{%- endblock -%}
+
 {%- block page_composer_html -%}
     {#- A page asking for focus (`page_focus`) — signing in, a code, terms to
         accept — is one thing to do and nothing around it: no menu, no title
@@ -157,11 +165,16 @@
                                 {{- block('page_body_container') -}}
                             </section>
                         </div>
+                        {#- Where the footer stands (`layout_footer`): `fixed`, under the
+                            body that scrolls, always in view; `page`, at the end of the
+                            page, the panel's whole width, scrolling with it. -#}
+                        {%- if layout_footer|default('fixed') == 'fixed' -%}
+                        {%- block layout_footer -%}
                         <footer class="footer">
                             <div class="footer--body">
                                 {% block footer_body %}
                                     {#- On top, the trail stands above the title instead. -#}
-                                    {%- if not navigationTop -%}
+                                    {%- if not (navigationTop ?? false) -%}
                                         {{ breadcrumb_render({ current_label: page_title|default(null) }) }}
                                     {%- endif -%}
                                 {% endblock %}
@@ -170,6 +183,8 @@
                                 a version number — each in its own footer-item. -#}
                             {% block footer_items %}{% endblock %}
                         </footer>
+                        {%- endblock -%}
+                        {%- endif -%}
                 </div>
                 {{- block('page_layout_components') -}}
             </div>
