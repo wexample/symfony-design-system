@@ -11,6 +11,10 @@ A page sets these variables at the top of its template, outside any block; an ap
 | `page_focus` | bool | One thing to do and nothing around it — signing in, a code, terms: no menu, a narrow column under the application's mark. |
 | `layout_navigation` | `side`, `top` | Where the application's sections stand (dashboard layout). |
 
+## What stands still and what scrolls
+
+The dashboard layout holds three things still — the header, the page's own navigation (`page_tabs`), the footer — around the one thing that scrolls: the body, on both axes. A page wider than the window (`page_measure: false` under a table of many columns) widens its row to the table and slides under the bars, its scrollbar at the foot of the window; the bars keep the window's width without being told. Nothing of this is measured by a script: put a bar inside the scroller and it will travel with the page.
+
 ## Sections in the header
 
 `layout_navigation: 'top'` draws the entries of `page_menu_links` as tabs in the header, after the application's mark (`page_menu_logo`), instead of a menu down the side. It suits an application with a handful of sections, whose side menu would stand mostly empty.
