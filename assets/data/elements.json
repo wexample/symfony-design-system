@@ -1619,21 +1619,23 @@
                 ],
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/page-tabs/page-tabs.html.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/page-tabs/page-tabs.ts"
                 ]
             },
             "stances": {
                 "style": "expected",
                 "template": "expected",
                 "vue": "waived",
-                "script": "waived",
+                "script": "expected",
                 "schema": "todo",
                 "ai": "todo",
                 "react": "todo",
                 "flutter": "todo"
             },
             "notes": {
-                "vue": "a page's own navigation, drawn with the page by the server; each tab is a page load",
-                "script": "links and the actions it is handed, nothing to run"
+                "vue": "a page's own navigation, drawn with the page by the server; each tab is a page load"
             }
         },
         {

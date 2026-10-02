@@ -3,11 +3,19 @@
 @use '../tab/tab';
 @use '../breadcrumb/breadcrumb';
 @use '../../css/shapes/toolbar';
+@use '../../css/utilities/visually-hidden';
 
 .page-tabs {
   align-items: center;
   gap: var(--space-2);
   padding-inline: var(--space-4);
+  // Folded rather than wrapped (page-tabs.ts): what it holds keeps its width,
+  // so the bar can tell when it runs out.
+  white-space: nowrap;
+
+  > * {
+    flex-shrink: 0;
+  }
 }
 
 // Not a view of the thing but the way out of it: a word and an arrow, a rule
@@ -21,8 +29,42 @@
 
 .page-tabs--items {
   display: flex;
-  min-width: 0;
   gap: var(--tabs-inset, 0px);
+
+  .tabs--item {
+    max-width: none;
+  }
+}
+
+// The tabs gathered in one menu, named after the current one: the last fold.
+.page-tabs--fold {
+  display: none;
+}
+
+// First fold: the words give way to the icons — the current tab's excepted,
+// it says where the reader is —, kept for the screen readers and in a title.
+.page-tabs[data-fold='1'],
+.page-tabs[data-fold='2'] {
+  .page-tabs--back .breadcrumb--label,
+  .page-tabs--items .tabs--item:not(.tabs--item--active):has(.tabs--item-icon) .tabs--item-label,
+  .page-tabs--actions .button:has(> .button--icon) > span:not(.button--icon) {
+    @extend .visually-hidden;
+  }
+
+  // An icon needs less room around it than a word.
+  .page-tabs--items .tabs--item {
+    padding-inline: var(--space-3);
+  }
+}
+
+.page-tabs[data-fold='2'] {
+  .page-tabs--items {
+    display: none;
+  }
+
+  .page-tabs--fold {
+    display: flex;
+  }
 }
 
 .page-tabs--actions {

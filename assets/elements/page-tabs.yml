@@ -9,7 +9,7 @@ formats:
   style: true
   template: true
   vue: "a page's own navigation, drawn with the page by the server; each tab is a page load"
-  script: "links and the actions it is handed, nothing to run"
+  script: true
   schema: todo
   ai: todo
   react: todo

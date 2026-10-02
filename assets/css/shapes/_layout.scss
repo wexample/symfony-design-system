@@ -53,12 +53,14 @@
 // The body may be wider than the window — a row grown to its table — and
 // scroll sideways. The column then widens with it, so the header and footer
 // it holds have room to stay put: they keep the width of the window and
-// stick to its left edge instead of sliding out of it with the page.
+// stick to its left edge instead of sliding out of it with the page. So does
+// any bar between them and the body — a page's own navigation —, which then
+// folds to the window and not to the table under it.
 .layout--body--scrollable > .layout--vertical {
   min-width: min-content;
 }
 
-.layout--body--scrollable > .layout--vertical > :is(.header, .footer) {
+.layout--body--scrollable > .layout--vertical > :not(.layout--body) {
   position: sticky;
   left: 0;
   width: 100cqw;

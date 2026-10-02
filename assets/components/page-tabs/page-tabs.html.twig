@@ -2,7 +2,18 @@
     back to the list the thing was opened from — read from where the page
     stands (`back: true`), or given (`back: { href, label }`), or none — set
     apart from the tabs, which are the thing's own views. Each tab is a route
-    of its own, lit on it. At the far end, what can be done to the thing. -#}
+    of its own, lit on it. At the far end, what can be done to the thing.
+
+    Short of room, the bar folds rather than wraps or scrolls (page-tabs.ts):
+    first everything but the current tab gives up its words for its icon,
+    then the tabs gather in a menu named after the current one. -#}
+{%- set fold_items = [] -%}
+{%- set current = null -%}
+{%- for item in items -%}
+    {%- set is_current = route_is_current(item.route, item.params|default({}), 'current') == 'current' -%}
+    {%- if is_current -%}{%- set current = item -%}{%- endif -%}
+    {%- set fold_items = fold_items|merge([{ label: item.label, href: path(item.route, item.params|default({})), icon: item.icon|default(null), checked: is_current }]) -%}
+{%- endfor -%}
 <nav class="tabs page-tabs" aria-label="{{ label|default('WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.navigation'|trans) }}">
     {%- if back is iterable -%}
         <nav class="breadcrumb breadcrumb--back page-tabs--back">
@@ -18,6 +29,9 @@
         {%- for item in items -%}
             {{ tab_item(item.label, item.route, item.params|default({}), { count: item.count|default(null) }, item.icon|default(null)) }}
         {%- endfor -%}
+    </div>
+    <div class="page-tabs--fold">
+        {{ button_menu(current.icon|default('ph:bold/list'), current.label|default(label|default('WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.navigation'|trans)), fold_items, { class: 'button--flat', caret: true }) }}
     </div>
     {%- if actions -%}
         <div class="page-tabs--actions toolbar--group">{{ actions|raw }}</div>
