@@ -167,8 +167,10 @@
                             {% block footer_items %}{% endblock %}
                         </footer>
                     </div>
-                    {{- block('page_layout_components') -}}
                 </div>
+                {#- Outside the scroller: it contains what is fixed in it (see
+                    `.layout--body--scrollable`), and these keep to the window. -#}
+                {{- block('page_layout_components') -}}
             </div>
         </div>
         {% if menuRight is not empty %}

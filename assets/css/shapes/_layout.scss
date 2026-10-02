@@ -44,7 +44,9 @@
 
 .layout--body--scrollable {
   overflow: auto;
-  // Its width is the one the header and footer below keep to.
+  // Its width is the one the header and footer below keep to. A container
+  // contains what is fixed in it too, and is a stacking context: what keeps to
+  // the window — toasts, tooltip, overlays — lives outside it.
   container-type: inline-size;
 }
 
