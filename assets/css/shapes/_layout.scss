@@ -62,6 +62,13 @@
   width: 100cqw;
 }
 
+// Sticky makes the header a stacking context: the menus it opens stack inside
+// it, and the page that follows would cover them. The header takes their
+// level, so they open over the page as they did before it stuck.
+.layout--body--scrollable > .layout--vertical > .header {
+  z-index: var(--z-dropdown);
+}
+
 .layout--body--no-scroll {
   @extend .gutters--body;
   display: flex;
