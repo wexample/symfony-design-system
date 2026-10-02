@@ -123,6 +123,8 @@
 //                         it, the row scrolls — and any row laid straight in
 //                         a page's body, once it holds two zones
 //     zone--split--wrap   below their floor, the zones go to the next line
+//     zone--split--grow   the row widens to what its zones cannot do without,
+//                         and what holds the row is what scrolls
 //   A row holding a `zone--fit-content` scrolls of itself.
 //
 // Every rule below weighs the same — the row's class, the rest in `:where()`
@@ -240,6 +242,15 @@
 
 .zone--split:where(.zone--split--floor, .layout--body > *):where(:has(> .zone ~ .zone)) > :where(.zone:not(.zone--narrow, .zone--fit-content)) {
   min-width: var(--zone-floor, var(--zone-body-min, 20rem));
+}
+
+// A row that grows past the page rather than letting it overflow: a table of
+// many columns in a panel. Min-content and not max-content, so a paragraph
+// wraps as it did and only what cannot be narrowed — the table — widens the
+// row; the panel's ground then runs under the whole of it, and the page, or
+// the body, is what scrolls sideways, with its scrollbar where it always is.
+.zone--split:where(.zone--split--grow) {
+  min-width: min-content;
 }
 
 // Without a floor, the flexible zones shrink to nothing instead of wrapping.

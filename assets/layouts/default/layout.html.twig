@@ -29,7 +29,11 @@
     {%- set pageZonesScroll = page_body_mode|default('default') == 'wide'
         or pageZonesBefore|trim is not empty
         or pageZonesAfter|trim is not empty -%}
-    <div class="zone zone--split">
+    {#- Without a measure, the row widens to its content — a table wider than
+        the window — so the panel's ground runs under it all and the body is
+        what scrolls. Not in wide mode, where the zones scroll by themselves. -#}
+    {%- set pageZonesGrow = page_body_mode|default('default') != 'wide' and not (page_measure ?? true) -%}
+    <div class="zone zone--split{{ pageZonesGrow ? ' zone--split--grow' }}">
         {{- pageZonesBefore -}}
         {#- The frame is the panel and never scrolls: a handle resizing it hangs
             into the gap beside it, which a scrolling frame would clip. What
@@ -48,10 +52,7 @@
             {%- if pageZoneResizable -%}
                 {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer') }}
             {%- endif -%}
-            {#- Without a measure, a table wider than the screen scrolls
-                sideways inside the panel, its ground under it, the header
-                and the page staying put. -#}
-            <div class="zone{{ pageZonesScroll ? ' zone--scrollable' : (not (page_measure ?? true) ? ' zone--scrollable--x') }}">
+            <div class="zone{{ pageZonesScroll ? ' zone--scrollable' }}">
                 <div class="zone--content stack--vertical">
                     {#- Where the page hangs from, above its title (`page_trail`): the
                         way back to the page above, or the whole trail. -#}

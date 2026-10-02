@@ -44,6 +44,22 @@
 
 .layout--body--scrollable {
   overflow: auto;
+  // Its width is the one the header and footer below keep to.
+  container-type: inline-size;
+}
+
+// The body may be wider than the window — a row grown to its table — and
+// scroll sideways. The column then widens with it, so the header and footer
+// it holds have room to stay put: they keep the width of the window and
+// stick to its left edge instead of sliding out of it with the page.
+.layout--body--scrollable > .layout--vertical {
+  min-width: min-content;
+}
+
+.layout--body--scrollable > .layout--vertical > :is(.header, .footer) {
+  position: sticky;
+  left: 0;
+  width: 100cqw;
 }
 
 .layout--body--no-scroll {
