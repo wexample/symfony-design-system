@@ -20,7 +20,7 @@ A page sets these variables at the top of its template, outside any block; an ap
 - Too narrow for the row, the tabs fold into one button opening them as a list — a native `popover`, no script.
 - A menu entry is lit on its own page and on the pages under its address: `/dashboard` stays lit on `/dashboard/patients/12`. `/` is lit on itself only; `active` on the entry overrides.
 
-{% raw %}```twig
+```twig
 {%- extends '@WexampleSymfonyDesignSystemBundle/layouts/dashboard/layout.html.twig' -%}
 
 {%- set layout_navigation = 'top' -%}
@@ -29,7 +29,7 @@ A page sets these variables at the top of its template, outside any block; an ap
     {{ menu_item_link('ph:bold/heartbeat', 'Patients', path('dashboard_index')) }}
     {{ menu_item_link('ph:bold/users', 'Users', path('users_index')) }}
 {%- endblock -%}
-```{% endraw %}
+```
 
 ## The way back
 
@@ -41,7 +41,7 @@ A page sets these variables at the top of its template, outside any block; an ap
 
 `zone--fit-content` makes a region as wide as what it holds — a table of many columns — instead of the room left to it, so the row overflows and the whole row scrolls rather than the table alone:
 
-{% raw %}```twig
+```twig
 {%- block page_zones_after -%}
     <div class="zone zone--panel zone--fit-content">
         <div class="zone zone--scrollable">
@@ -49,7 +49,7 @@ A page sets these variables at the top of its template, outside any block; an ap
         </div>
     </div>
 {%- endblock -%}
-```{% endraw %}
+```
 
 ## How a zone takes its room
 

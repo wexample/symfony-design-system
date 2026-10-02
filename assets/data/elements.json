@@ -506,6 +506,9 @@
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
             "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/document-embed/document-embed.scss"
+                ],
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/document-embed/document-embed.html.twig"
                 ],
@@ -515,7 +518,7 @@
                 ]
             },
             "stances": {
-                "style": "waived",
+                "style": "expected",
                 "template": "expected",
                 "vue": "expected",
                 "script": "waived",
@@ -525,7 +528,6 @@
                 "flutter": "todo"
             },
             "notes": {
-                "style": "wears the style of media and adds none of its own",
                 "script": "it shows and does nothing"
             }
         },
@@ -1605,6 +1607,33 @@
             },
             "notes": {
                 "vue": "a mount point, not a drawing: its body is set from the options once the markup is in the document"
+            }
+        },
+        {
+            "key": "page-tabs",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "The views of one thing in a bar under the header \u2014 the way back, its tabs as routes, its actions at the far end.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/page-tabs/page-tabs.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/page-tabs/page-tabs.html.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "waived",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "vue": "a page's own navigation, drawn with the page by the server; each tab is a page load",
+                "script": "links and the actions it is handed, nothing to run"
             }
         },
         {

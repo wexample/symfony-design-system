@@ -1,0 +1,31 @@
+// The views of one thing under the header: the way back, apart; the tabs; the
+// actions at the far end. Drawn on the tabs' own bar.
+@use '../tab/tab';
+@use '../breadcrumb/breadcrumb';
+@use '../../css/shapes/toolbar';
+
+.page-tabs {
+  align-items: center;
+  gap: var(--space-2);
+  padding-inline: var(--space-4);
+}
+
+// Not a view of the thing but the way out of it: a word and an arrow, a rule
+// after it, so it is not read as one more tab. Within the bar, to outweigh the
+// back link's own reset of its padding, loaded on its own elsewhere.
+.page-tabs .page-tabs--back {
+  flex-shrink: 0;
+  padding-inline-end: var(--space-4);
+  border-inline-end: var(--border-separator);
+}
+
+.page-tabs--items {
+  display: flex;
+  min-width: 0;
+  gap: var(--tabs-inset, 0px);
+}
+
+.page-tabs--actions {
+  margin-inline-start: auto;
+  flex-shrink: 0;
+}

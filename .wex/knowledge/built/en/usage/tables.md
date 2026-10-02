@@ -50,6 +50,146 @@ rows depends on where they come from.
   passing when its field of the filter's key is one of the values (or, for a list, holds
   one). The table goes back to its first page, and ticked rows a filter hides are unticked.
 
+## Sorting
+
+A column is sorted on when it says `sortable`, never by default: an actions, a selection or
+a computed status column has no order of its own. It sorts on `sort_key` / `sortKey`, which
+may not be what it shows — a date shown worded sorts on its ISO value, a name shown "First
+Last" on the last name, a link cell on `source.label` (dots reach into a value). The vue
+one also takes `sortValue(row)`, for an order the row does not hold as such.
+
+`default_sort` / `defaultSort` is `{ key, direction }`, `asc` or `desc`: the order the list
+opens on, and the one its header shows from the start. Its key need not be a column's.
+Pressing a header sorts ascending, then descending, then back to the default — never to an
+order nobody declared; on the column the default already sorts, a press turns it and the
+next one comes back. With no default, the third press gives the rows their order back.
+
+Whatever sorts, the same rules: empty values (`null`, `''`) go last both ways; numbers and
+dates compare as quantities; words compare the way the page's locale orders them
+(`Intl.Collator` / `Collator`, numeric) — « Élodie » with the E's, « Room 9 » before
+« Room 10 »; rows comparing equal keep their order; a group row stays where it is, the rows
+under it sorted among themselves.
+
+- **Server table** — each sortable header is a link to the same page with
+  `?sort=<key>&direction=<asc|desc>`, the filters kept and the page number dropped; back to
+  the default, both keys go. The controller reads the order with
+  `SortHelper::fromQuery($request->query->all(), $allowedKeys, $default)`, which lets
+  through only the keys it was given — the one to call before an `ORDER BY`.
+  `sort_rows: true` makes the table order the rows itself, for a list handed over whole.
+- **Vue table fed by an api** — the default. The table only says what was pressed, through
+  `v-model:sort` (always a state, the default once the presses come back to it); the page
+  asks its api again, and goes back to its own first page.
+- **Vue table holding its rows** — `sort-rows` makes it sort them itself, all of them
+  before paging, and go back to its first page. `sort-locale` overrides the page's locale.
+
+The header is a button (a link on the server), reached and pressed from the keyboard,
+carrying `aria-sort`; the vue one says each new order aloud through a `role="status"`
+region. Ticked rows stay ticked: they are named by `rowKey`, or by their place among the
+rows given, which no order moves. The vue table sorts only with `show-header`.
+
+## Search
+
+`searchable` puts a search box at the head of a vue table holding its whole list: the rows
+narrow to those whose shown text holds what is typed — case and accents aside, "elodie"
+finds "Élodie" — with the filters, before the order and the pages. A column is searched
+unless it says `searchable: false`; actions, status, date and html columns never are. The
+table goes back to its first page, says how many it found in its `role="status"` region,
+and a search finding nothing is the "nothing matches" state, whose button empties the
+search and the filters.
+
+A vue table fed by an api takes `:search-rows="false"`: it narrows nothing itself and only
+says what was typed, through `update:search`, for the page to ask its api with — a table
+holding one page of a list cannot search the list. A table drawn by the server has no search
+box yet.
+
+## Wider than the room
+
+A table is drawn at the width its columns need. It has no scrollbar of its own: wider than
+the room, it overflows to whatever scrolls around it — a scrollable zone, the page — which
+moves it with everything else, rather than a second scrollbar inside the first. `scroll`
+(twig `scroll: true`, vue `:scroll`) gives it a frame that scrolls sideways on its own, for a
+table among other things in a container that does not scroll. A sticky table never scrolls on
+its own: its header sticks to the page.
+
+## A twig table drawn by vue
+
+`data_table(columns, rows, { vue: true, … })` hands the same columns and rows to the vue
+twin: it sorts (`sortable`, `default_sort`), searches (`searchable`), filters and pages
+(`page_size`) the whole list in the browser, with no page load. The options keep their twig
+names; an actions cell takes the same ready-made actions per row — `{ href, icon, label,
+method, token, target, target_options }`. For a list the page holds whole: a short one, or one
+no api serves. A list too long to hand over whole is an entity table.
+
+## Entity tables
+
+`abstract-entity-table` is the vue table of an api collection: the page, the order and the
+search are the api's, the table only asks. A subclass sets `searchable`, `defaultSort` and
+`sortable` columns; the reading is sent through `fetchListPaginated` as query parameters:
+
+- `page`, `length` — the page, counted from 0;
+- `search` — the words typed, sent once the typing pauses;
+- `sort` — the key, with a leading `-` when it runs down: `-createdAt`.
+
+The endpoint must declare all three (an undeclared parameter is a `400`) and allow only
+the sort keys it knows. A new order or a new search reads again from the first page. A
+collection adds its own parameters by overriding `getCollectionQuery()`.
+
+## Several tables on one page
+
+A server table keeps its filters and its order at the top of the page's query, which suits a
+page holding one table. Given `query_key: 'patients'`, it keeps them all under that key
+instead — `?patients[sort]=last&patients[owner][0]=a` — so two tables on one page each keep
+their own, and a link of one leaves the other's part of the query as it is. The page number
+dropped on a change is the one under the key. The controller reads the table's part with
+`$request->query->all('patients')`, and hands it to `SortHelper::fromQuery()`; in twig,
+`filter_selected(key, 'patients')`. The vue table holds its state in the page, and has no
+need of it.
+
+## From a list to a record
+
+A row opens — a record in a modal, most often — through a visible action of its own
+(`{ icon, label, href, target: 'modal' }`): reached by Tab and pressed by Enter like any link,
+it is the keyboard's path and the pointer's alike. The modal takes the focus, keeps Tab
+inside, closes on Escape and gives the focus back to the action; see *Overlays* below.
+
+A row changed by an action comes back in the rows the page hands over again: with a
+`rowKey`, it is patched in place, and the order, the page and the ticked rows stay as they
+were. Asking before an irreversible action, and saying it is done, are the `confirm` and
+`toast` services' — the page's to call.
+
+## States in place of the rows
+
+- **Loading** — `loading`: rows already there are dimmed under a spinner, the table keeping
+  its height; none yet, a spinner row. The spinner is a `role="status"` region, named by
+  `loading-label`.
+- **Nothing because of the filters** — told apart from nothing at all: when a filter holds
+  something — or a search, see below — the table says `frontend.table.empty_filtered`
+  (`empty-filtered-label` / `empty_filtered_label`) with a button clearing every filter — on the server, a link to
+  the same page without them, the order kept.
+- **Nothing at all** — `empty_label` / `empty-label`. The action adding the first one belongs
+  in the page's toolbar, where it is whatever the list holds.
+- **Failed** — vue only: `error` holds why, shown in place of the rows as an alert with a
+  "Try again" button emitting `retry`. A server table either has its rows or its page failed.
+
+## Columns a reader may not see
+
+A column the reader is not entitled to is left out of the columns **and** of the rows the
+page sends — built on the server, never hidden by CSS or by the browser: what is sent can be
+read. The table draws the columns it is given and nothing else, leaving no gap. A default
+order on a field the reader is not shown still orders the rows, with no header claiming
+it; give such a reader a default order on a column they see.
+
+## Overlays
+
+A modal or a panel is a `role="dialog"` with `aria-modal`, named by the first heading of the
+page it holds (`h1`–`h3`, or `[data-dialog-title]`). Opening moves the keyboard onto it, Tab
+and Shift+Tab go round inside, Escape closes it, and closing gives the focus back where it
+was taken from. A `confirm` is a `role="alertdialog"`, named by its title and described by
+its message, with the same trap and return. Its focus and Enter start on the answer that
+backs out when another is `destructive` (drawn `button--danger`), on the primary one
+otherwise; Escape always backs out. The traps go through the `keyboard` service, so the
+overlay on top is the one holding Tab.
+
 ## Rows shown
 
 `striped` and `hover` for tables read across. `page_size` does not exist on the server,

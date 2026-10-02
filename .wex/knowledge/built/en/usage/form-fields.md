@@ -1,0 +1,62 @@
+The inputs under `components/form/` exist twice, like every element of the design system: a
+twig component the Symfony form theme of `wexample/symfony-forms` draws, and a vue one
+extending the `form-field` base. This page is about what a field says of its state; how a
+form is built and submitted is the forms package's.
+
+## A unit beside the value
+
+`prefix` and `suffix` put a fixed word — a unit, a currency — in the field's frame, before or
+after the value: `kg`, `€`, `min`. It is not part of the value: a `<span>` outside the input,
+never submitted, never focused, and named to assistive technologies through the input's
+`aria-describedby` (`<id>-prefix`, `<id>-suffix`), so "Weight, 72.5, kg" is read as one.
+
+- **Twig** — `text-input` and `number-input` take `prefix` / `suffix`.
+- **Vue** — `prefix` / `suffix` on `text-input` and every input extending it: number,
+  e-mail, url, password, date, time, datetime.
+
+The frame is `.form--input-group`: it draws the border, the ground and the focus ring, the
+input inside dropping its own; a frozen input in it turns the frame dashed. Without a word,
+there is no frame, and the field is drawn as before.
+
+## A frozen field
+
+A frozen field holds a value someone may read and not change: settled, where `disabled` says
+unavailable. It is never greyed: the value keeps the very contrast of an editable field, in
+either scheme, and the field stays focusable and selectable — the forms package's reason is
+IEC 62366, and it holds for any application. What changes is what invites writing: the frame
+turns dashed, the pointer is no longer a text cursor, and the picker of a date and the
+steppers of a number go. The focus ring stays.
+
+The look hangs on `[readonly]` (`css/shapes/form/_state.scss`), so any `.form--input` or
+`.form--textarea` carrying it gets it:
+
+- **Twig** — `input_attr: 'readonly aria-readonly="true"'`, which is what the forms theme
+  passes for a field Symfony's `disabled` option freezes.
+- **Vue** — `readonly` on any input. A text, textarea, e-mail, url, password, number, date,
+  time or datetime input takes it itself, and drops its `required`, which nobody could
+  satisfy. A select, a radio group, a switch, a file, a code or an emoji, which HTML cannot
+  make readonly, shows its value instead in a readonly text field holding **no name**, so
+  nothing of it is submitted: the label of what is chosen, the files' names or the stored
+  one (`modelValue` on a file input), the code, the emoji. A switch says
+  `checkedLabel` / `uncheckedLabel`, "On" / "Off" when left empty — a switch is seldom "on"
+  and "off", so name the two.
+
+`readonly` guards nothing: a forged post carries what it likes, and a readonly text input is
+submitted like any other. The server refuses the value — with Symfony's `disabled`, in the
+forms package.
+
+## A display value
+
+Not a field: a label and what the record says, in the order of the fields so a record reads
+as one block. The forms package's `DisplayValueType` draws it; written by hand it is
+
+```html
+<div class="form--group form--group--display">
+    <span class="form--label">Created on</span>
+    <span class="form--display-value">12 April 2026</span>
+</div>
+```
+
+and `form--display-value--empty` with a dash when there is nothing — a blank reads as
+something missing from the page. The line is the height of an input, its text starting where
+the labels do; no frame, no ground, nothing to focus.

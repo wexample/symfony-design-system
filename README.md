@@ -1,6 +1,6 @@
 # symfony_design_system
 
-Version: 23.0.0
+Version: 25.0.0
 
 A Symfony bundle that ships a ready-made design system for web applications: Twig components (buttons, modals, toasts, forms, entity bars), SCSS layouts (`dashboard` and `default`), Vue mixins, and a suite of Twig extensions that wire them together. Every page flows through a `RenderPass` object managed by `AbstractDesignSystemController`, which handles template resolution, per-layout asset loading, and render-node–scoped translations. It targets Symfony developers who want consistent UI primitives and a structured front-end pipeline without building one from scratch.
 
@@ -135,6 +135,8 @@ The table pair is the oldest and the one with the most divergence. It is unavoid
 
 Shared column options: `key`, `label`, `align`, `secondary`, `class` (`className` in Vue), and `cell` for the cell kind — `text`, `html`, `icon`, `link`, `actions`. An `actions` cell entry may carry `target` and `target_options` (`targetOptions` in Vue), which both sides hand to the target button.
 
+Sorting is one rule written twice, assets/js/Helper/SortHelper.ts and src/Helper/SortHelper.php: the press cycle, empty values last, locale collation, groups kept in place. The two are tested on the same cases — tests/js/SortHelper.test.ts and tests/Unit/Helper/SortHelperTest.php — and a change to one is a change to the other. Where they part: the Vue header is a button and the order a `v-model:sort`, the Twig header a link and the order the page's query.
+
 ### Controllers
 
 src/Controller/UiStateController.php exposes `POST /_ui-state/set`. It reads `{key, value}` from the JSON body and writes `session['ui_state.{key}'] = value`. This is the default persistence target for menu-collapse state; apps that need server-side persistence override `App::persistUiState` on the JS side instead of calling this endpoint.
@@ -144,6 +146,8 @@ src/Controller/FixturesController.php serves `placeholder.svg` from `assets/fixt
 src/Traits/SymfonyDesignSystemBundleClassTrait.php returns `WexampleSymfonyDesignSystemBundle::class` as the bundle class name. A controller mixing it in tells the loader which bundle to resolve template namespaces and translation paths against; the preview controllers that do so live in the `symfony-design-system-demo` package, not here.
 
 ### Helper
+
+src/Helper/SortHelper.php holds the order of a server table, and what a controller calls to read it from the query: `fromQuery()` lets through only the keys it is given, which is what keeps a crafted address out of an `ORDER BY`.
 
 src/Helper/EntityDisplay.php is a value-object holding the three standard entity display identifiers (`bar`, `card`, `list-item`) that the `entity()` Twig function uses to resolve component paths. Custom formats beyond these are valid; the class documents the standard set rather than enforcing it.
 
@@ -179,6 +183,10 @@ Inside a template, calling `{{ button_target(..., 'modal') }}` invokes `ButtonEx
 
 UI state flows in the reverse direction: `menu-collapsible-panel.ts` fires `app.onMenuStateChange(id, open)` → `App::persistUiState` POSTs to `/_ui-state/set` → `UiStateController` writes to the session → on the next page load `ui_state_get('ui.layout.menu.left')` returns the saved value and `dashboard/layout.html.twig` renders the panel pre-collapsed or pre-open.
 
+### Tests
+
+PHP tests run with phpunit, in a container of an application that installs the bundle: `php vendor/bin/phpunit --testsuite unit` from the package directory. The TypeScript ones run on node alone, without any dependency, and need a node that strips types (22.18 and up): `node --test 'tests/js/*.test.ts'`. tests/js/hooks.mjs lets node resolve the assets as the bundler does, and load a vue component's script with the components it pulls in left empty, so a component's props, computed and methods can be run on a bare instance — the template is checked in the demo pages.
+
 ## Integration in the Suite
 
 This package is part of the Wexample Suite — a collection of high-quality, modular tools designed to work seamlessly together across multiple languages and environments.
@@ -192,8 +200,8 @@ Visit the [Wexample Suite documentation](https://docs.wexample.com) for the comp
 ## Dependencies
 
 - php: >=8.5
-- wexample/symfony-loader: >=15.0.0
-- wexample/symfony-routing: >=1.0.0
+- wexample/symfony-loader: >=16.0.0
+- wexample/symfony-routing: >=2.0.0
 - wexample/symfony-template: >=2.0.0
 
 ## Versioning & Compatibility Policy

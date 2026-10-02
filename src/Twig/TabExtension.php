@@ -60,6 +60,26 @@ class TabExtension extends AbstractTemplateExtension
                 },
                 self::TEMPLATE_FUNCTION_OPTIONS
             ),
+            // The views of one thing — a record and its measurements — as a
+            // bar under the header: the way back to the list it was opened
+            // from, its tabs, and what can be done to it at the far end.
+            new TwigFunction(
+                'page_tabs',
+                function (Environment $twig, $context, array $items, array $options = []) {
+                    return $this->renderComponent(
+                        $twig,
+                        $context,
+                        '@WexampleSymfonyDesignSystemBundle/components/page-tabs',
+                        [
+                            'items' => $items,
+                            'back' => $options['back'] ?? true,
+                            'actions' => $options['actions'] ?? null,
+                            'label' => $options['label'] ?? null,
+                        ]
+                    );
+                },
+                self::TEMPLATE_FUNCTION_OPTIONS
+            ),
         ];
     }
 }

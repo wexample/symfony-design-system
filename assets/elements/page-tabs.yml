@@ -1,0 +1,16 @@
+# Declares `page-tabs` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: The views of one thing in a bar under the header — the way back, its tabs as routes, its actions at the far end.
+formats:
+  style: true
+  template: true
+  vue: "a page's own navigation, drawn with the page by the server; each tab is a page load"
+  script: "links and the actions it is handed, nothing to run"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo
