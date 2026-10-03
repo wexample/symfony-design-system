@@ -17,7 +17,7 @@
             :href="href || '#'"
             @click="onClick"
     >
-        <span class="button--icon" v-html="iconHtml"></span>
+        <span v-if="iconHtml" class="button--icon" v-html="iconHtml"></span>
         <span>[[ label ]]</span>
     </a>
     {#- Without a label the icon is the button, and wrapping it would only reserve

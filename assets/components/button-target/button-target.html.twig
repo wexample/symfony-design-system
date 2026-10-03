@@ -12,7 +12,7 @@
             target button leads. -#}
         {{- html|raw -}}
     {%- elseif label -%}
-        <span class="button--icon">{{ icon(icon) }}</span>
+        {%- if icon -%}<span class="button--icon">{{ icon(icon) }}</span>{%- endif -%}
         <span>{{ label | trans }}</span>
     {%- else -%}
         {#- Without a label the icon is the button, and wrapping it would only
