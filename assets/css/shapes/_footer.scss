@@ -15,6 +15,16 @@
     padding: var(--space-1);
   }
 
+  // A link set as a button — terms, a policy, opened in a panel — takes the
+  // footer's small text and line: a button's own size and height are for the
+  // page, not for the strip closing it.
+  .footer-item > :is(.button, a.button) {
+    font-size: var(--font-size-2);
+    min-height: 0;
+    padding: 0 var(--space-1);
+    gap: var(--space-1);
+  }
+
   // A marker brings its own room: no padding above and below it, centred on
   // the footer's line, so the footer is as tall with it as without.
   .footer-item:has(> .marker) {
