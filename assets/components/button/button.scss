@@ -423,6 +423,20 @@
 .button-menu--toggle--success { @include feedback.feedback-success; }
 .button-menu--toggle--warning { @include feedback.feedback-warning; }
 .button-menu--toggle--error { @include feedback.feedback-error; }
+.button-menu--toggle--dev { @include feedback.feedback-dev; }
+
+// A section in a tone: its heading and its items' icons wear it, the words of
+// the items keep the text's colour.
+.button-menu--tone--info { @include feedback.feedback-info; }
+.button-menu--tone--success { @include feedback.feedback-success; }
+.button-menu--tone--warning { @include feedback.feedback-warning; }
+.button-menu--tone--error { @include feedback.feedback-error; }
+.button-menu--tone--dev { @include feedback.feedback-dev; }
+
+.button-menu--separator--titled[class*='button-menu--tone--'],
+.button-menu--link[class*='button-menu--tone--'] .button-menu--item-icon {
+  color: var(--feedback-color);
+}
 
 @each $name in feedback.$category-names {
   .button-menu--toggle--cat-#{$name} {

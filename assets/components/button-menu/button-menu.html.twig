@@ -45,6 +45,11 @@
     {% import _self as menu %}
     {% set type = menu.item_type(item)|trim %}
     {% set item_class = item.class is defined and item.class ? ' ' ~ item.class : '' %}
+    {#- `tone` — a state, `dev` — colours a section's heading and its items' icons:
+        what development alone shows, set apart from the product. Toggles take
+        theirs on the box instead (below). -#}
+    {% set tone_class = item.tone|default(null) and item.checked is not defined ? ' button-menu--tone--' ~ item.tone : '' %}
+    {% set item_class = item_class ~ tone_class %}
     {% set item_attr = item.attr|default({}) %}
 
     {%- if type == 'heading' -%}
@@ -62,7 +67,7 @@
         {#- Not an item but the line between two runs of them. Given a word it
             becomes the heading of what follows. -#}
         {% if item.label|default(null) %}
-            <li class="button-menu--separator button-menu--separator--titled" role="separator">{{ item.label | trans }}</li>
+            <li class="button-menu--separator button-menu--separator--titled{{ tone_class }}" role="separator">{{ item.label | trans }}</li>
         {% else %}
             <li class="button-menu--separator" role="separator"></li>
         {% endif %}

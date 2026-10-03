@@ -86,6 +86,26 @@ class MessageExtension extends AbstractTemplateExtension
                 },
                 self::TEMPLATE_FUNCTION_OPTIONS
             ),
+            // What development alone shows: gone in production, said apart.
+            new TwigFunction(
+                'message_dev',
+                function (Environment $twig, $context, string $title, ?string $body = null, array $options = []) {
+                    $options['icon'] = $options['icon'] ?? 'ph:bold/code';
+
+                    return $this->renderComponent(
+                        $twig,
+                        $context,
+                        '@WexampleSymfonyDesignSystemBundle/components/message',
+                        [
+                            'type' => 'dev',
+                            'title' => $title,
+                            'body' => $body,
+                            'options' => $options,
+                        ]
+                    );
+                },
+                self::TEMPLATE_FUNCTION_OPTIONS
+            ),
         ];
     }
 }

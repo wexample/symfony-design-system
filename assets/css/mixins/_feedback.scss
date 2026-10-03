@@ -56,6 +56,16 @@ $category-names: map.keys(categories.$categories);
   --feedback-on-fill: var(--error-contrast);
 }
 
+// What development alone shows: a tone of its own, so nothing that will be
+// gone in production passes for a state of the product.
+@mixin feedback-dev {
+  --feedback-color: var(--dev-11);
+  --feedback-bg: var(--dev-3);
+  --feedback-border-color: var(--feedback-color);
+  --feedback-fill: var(--dev-9);
+  --feedback-on-fill: var(--dev-contrast);
+}
+
 // A category rather than a state: one colour of the categorical palette, by
 // name, worn the way a state is worn — a component that takes `success` takes
 // `cat-mint` with nothing else to learn.

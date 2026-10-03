@@ -35,6 +35,10 @@
   @include feedback_semantic.feedback-error;
 }
 
+.message--dev {
+  @include feedback_semantic.feedback-dev;
+}
+
 // States a standing rule rather than reporting an event: it gives up the room
 // and the relief, keeping the bar — which is the one thing saying what kind of
 // message it is.

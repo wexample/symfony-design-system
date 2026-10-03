@@ -67,6 +67,10 @@
   @include feedback.feedback-error;
 }
 
+.marker--dev {
+  @include feedback.feedback-dev;
+}
+
 .marker--warning,
 .marker--paused {
   @include feedback.feedback-warning;

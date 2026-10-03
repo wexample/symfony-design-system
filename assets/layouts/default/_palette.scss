@@ -12,6 +12,9 @@ $info: #2f6fed !default;
 $success: #1f9d55 !default;
 $warning: #f59f00 !default;
 $error: #e03131 !default;
+// What exists for development alone and is gone in production — a mailbox,
+// a fixture's switch —: apart from every state of the product.
+$dev: #8e4ec6 !default;
 $categories: categories.$categories !default;
 
 $palette: (
@@ -21,5 +24,6 @@ $palette: (
   'success': $success,
   'warning': $warning,
   'error': $error,
+  'dev': $dev,
   'categories': $categories,
 );

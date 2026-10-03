@@ -111,6 +111,7 @@ $contrast-threshold: 75%;
 //   accent      the colour of the brand, which a field held by an agent wears too
 //   neutral     (hue chroma) of the greys — (0 0) for pure greys
 //   info, success, warning, error
+//   dev         what development alone shows (violet unless said)
 //   categories  a map of name → colour (see mixins/categories)
 @mixin palette-face($palette, $appearance) {
   $neutral: map.get($palette, 'neutral');
@@ -125,6 +126,8 @@ $contrast-threshold: 75%;
   @each $state in ('info', 'success', 'warning', 'error') {
     @include scale($state, map.get($palette, $state), $ground, $ink);
   }
+
+  @include scale('dev', if(map.has-key($palette, 'dev'), map.get($palette, 'dev'), #8e4ec6), $ground, $ink);
 
   @each $name, $color in map.get($palette, 'categories') {
     @include scale('cat-#{$name}', $color, $ground, $ink);
