@@ -75,6 +75,18 @@
   flex-direction: column;
 }
 
+// A footer at the end of the page (`layout_footer: 'page'`) never stands
+// above the foot of the window: the page's content takes the room a short
+// page leaves, a long one pushes it down as it grows.
+.zone:has(> .footer--page) {
+  display: flex;
+  flex-direction: column;
+
+  > .zone--content {
+    flex: 1 0 auto;
+  }
+}
+
 // What a body holds is a region, not a text: it takes the room the body was
 // given instead of the height of what it holds, so its ground covers the body
 // down to the footer rather than stopping where the words do. No floor of its

@@ -10,6 +10,27 @@ A page sets these variables at the top of its template, outside any block; an ap
 | `page_trail` | `back`, `breadcrumb` | Above the title: the way back to the page above, or the whole trail. Read from the controller's place under `Controller\Pages`. |
 | `page_focus` | bool | One thing to do and nothing around it — signing in, a code, terms: no menu, a narrow column under the application's mark. |
 | `layout_navigation` | `side`, `top` | Where the application's sections stand (dashboard layout). |
+| `layout_footer` | `fixed`, `page` | Where the footer stands (dashboard layout): under the body, always in view; or at the end of the page, never above the foot of the window. |
+| `page_measure` | bool | `false` drops the reading measure without filling the window: a table page that scrolls with the page. |
+
+## How a mode reaches the page
+
+Every mode of a layout runs the same three links, so an application's choices read the same from one to the next — no central configuration, each application sets its variables in its own layout:
+
+1. **The variable**, set once by the application layout or by a page.
+2. **The block** it makes the layout draw, and where.
+3. **The class** the layout puts on what it drew, which the stylesheet reads — never the place in the document alone.
+
+| Variable | Value | Block drawn | Class read by the CSS |
+|---|---|---|---|
+| `layout_navigation` | `side` | `page_menu` beside the body, `page_toolbar` above it | `menu--vertical--left`, `toolbar--top` |
+| | `top` | `page_menu_links` as tabs in the header | `header--tabs` |
+| `layout_footer` | `fixed` | `layout_footer` under the body that scrolls | `footer--fixed` |
+| | `page` | `layout_footer` inside `page_foot`, the page zone's whole width | `footer--page` |
+| `page_body_mode` | `wide` | the page zone fills the window, its zones scroll on their own | `layout--body--wide` |
+| `page_focus` | true | `page_body` alone in a narrow column, the focus header and footer | `layout--focus` |
+
+In use: the design system's demo and app-board keep the defaults (`side`, `fixed`); Sapiens runs `top` and `page`.
 
 ## What stands still and what scrolls
 

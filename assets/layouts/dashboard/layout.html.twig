@@ -170,7 +170,7 @@
                             page, the panel's whole width, scrolling with it. -#}
                         {%- if layout_footer|default('fixed') == 'fixed' -%}
                         {%- block layout_footer -%}
-                        <footer class="footer">
+                        <footer class="footer footer--{{ layout_footer|default('fixed') }}">
                             <div class="footer--body">
                                 {% block footer_body %}
                                     {#- On top, the trail stands above the title instead. -#}
