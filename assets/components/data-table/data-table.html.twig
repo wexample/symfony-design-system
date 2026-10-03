@@ -182,7 +182,9 @@
                                         carries its label, as a tooltip and as its name. -#}
                                     {%- set action_label = action.label|default(null) -%}
                                     {%- if action.method|default('get')|lower == 'post' -%}
-                                        <form method="post" action="{{ action.href|default('#') }}">
+                                        {#- An action that asks first carries what it asks (`confirm`). -#}
+                                        <form method="post" action="{{ action.href|default('#') }}"
+                                              {%- if action.confirm|default(null) %} data-confirm-title="{{ action.confirm.title|default('') }}" data-confirm-message="{{ action.confirm.message }}" data-confirm-accept="{{ action.confirm.accept|default('') }}"{% endif %}>
                                             {%- if action.token|default(null) -%}
                                                 <input type="hidden" name="_token" value="{{ action.token }}">
                                             {%- endif -%}

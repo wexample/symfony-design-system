@@ -258,6 +258,9 @@
                                             :key="`action-form-${actionIndex}`"
                                             :action="action.href"
                                             method="post"
+                                            :data-confirm-title="action.confirm ? action.confirm.title : null"
+                                            :data-confirm-message="action.confirm ? action.confirm.message : null"
+                                            :data-confirm-accept="action.confirm ? action.confirm.accept : null"
                                     >
                                         <input v-if="action.token" type="hidden" name="_token" :value="action.token">
                                         <button
