@@ -73,6 +73,14 @@
   width: auto;
 }
 
+// A page's own table fills the page — a page held to the measure, or one as
+// wide as what it holds and no narrower than the measure —: a short table
+// stretches to the measure and no further, a wide one gives the page its
+// width, so filling it is keeping its own.
+:is(.zone--measure, .zone--hug) > .zone > .zone--content :is(.data-table, .entity-table) {
+  width: auto;
+}
+
 // Asked for (`scroll`): the table scrolls sideways on its own, the page around
 // it staying put — for a table set among other things in a container that
 // does not scroll. A scroll container on one axis is one on both, so a sticky
