@@ -4,6 +4,8 @@
     {% if name is defined %}name="{{ name }}"{% endif %}
     {% if id is defined %}id="{{ id }}"{% endif %}
     {% if value is defined and value != '' %}value="{{ value }}"{% endif %}
+    {#- Standing outside the form it sends — in a card's or a modal's foot. -#}
+    {% if target_form is defined and target_form %}form="{{ target_form }}"{% endif %}
 >
     <span class="button--icon">
         {{ icon(icon is defined and icon ? icon : 'ph:bold/paper-plane-tilt') }}

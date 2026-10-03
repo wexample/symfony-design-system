@@ -1,0 +1,48 @@
+{#- A form's actions in one row: what leads elsewhere first (`secondary`, links
+    — forgotten password, cancel), then its buttons, the one that sends it at
+    the end. Drawn by the form's template unless the form was loaded with
+    `actions: false`: then its template leaves them out, and whoever placed it
+    draws them where it has room (`outside`) — a card's foot, a modal's —, the
+    buttons sending the form from there. -#}
+{#- The buttons sending the form — in it, those its template has not drawn
+    already; outside it, all of them, which it left out —,
+    in the order they were built, the primary one — what sends the
+    form as it is meant to be sent — last, at the row's end. -#}
+{%- set buttons = form.children|filter(child => 'submit' in child.vars.block_prefixes and (outside or not child.isRendered())) -%}
+{%- set buttons = buttons|filter(child => not (child.vars.primary ?? false))|merge(buttons|filter(child => child.vars.primary ?? false)) -%}
+{%- if not outside and form.vars.actions_outside|default(false) -%}
+    {%- for child in buttons -%}{%- do child.setRendered() -%}{%- endfor -%}
+{%- else -%}
+    <div class="form--actions">
+        {%- if secondary is not empty -%}
+            <div class="form--actions-secondary">
+                {%- for action in secondary -%}
+                    {%- if action.target|default(null) -%}
+                        {{ button_target(action.icon, action.label, action.href, action.target, { class: 'button--flat' }) }}
+                    {%- else -%}
+                        {{ button_link(action.icon, action.label, action.href, { class: 'button--flat' }) }}
+                    {%- endif -%}
+                {%- endfor -%}
+            </div>
+        {%- endif -%}
+        {%- for child in buttons -%}
+            {%- if outside -%}
+                {#- Already settled by the form, which left it out: drawn here as
+                    the theme draws it, sending the form from where it stands. -#}
+                {%- set label_key = child.vars.label is same as(false) ? child.vars.name : (child.vars.label ?? child.vars.name) -%}
+                {%- set label_key = label_key is same as(true) ? 'action.' ~ child.vars.name : label_key -%}
+                {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/submit-input', {
+                    name: child.vars.full_name,
+                    id: child.vars.id,
+                    label: child.vars.translation_domain is same as(false) ? label_key : label_key|trans(child.vars.label_translation_parameters ?? {}, child.vars.translation_domain),
+                    value: child.vars.value ?? null,
+                    icon: child.vars.icon ?? null,
+                    primary: child.vars.primary ?? false,
+                    target_form: form.vars.attr.id,
+                }) }}
+            {%- else -%}
+                {{ form_widget(child) }}
+            {%- endif -%}
+        {%- endfor -%}
+    </div>
+{%- endif -%}

@@ -8,6 +8,21 @@
   justify-content: flex-end;
 }
 
+// What leads elsewhere — a forgotten password, cancel —, at the start of the
+// row, the buttons sending the form at its end.
+.form--actions-secondary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-inline-end: auto;
+}
+
+// In the foot of what holds the form — a card, a modal —: the whole width of
+// it, the row's two ends at its two ends.
+:is(.block--footer, .page-actions) > .form--actions {
+  flex: 1;
+}
+
 .form input[type='submit'] {
   @extend .button;
 }

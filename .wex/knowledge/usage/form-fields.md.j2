@@ -60,3 +60,28 @@ as one block. The forms package's `DisplayValueType` draws it; written by hand i
 and `form--display-value--empty` with a dash when there is nothing — a blank reads as
 something missing from the page. The line is the height of an input, its text starting where
 the labels do; no frame, no ground, nothing to focus.
+
+## A form's actions
+
+A form's template never writes its row of buttons by hand: it calls `{{ form_actions(form) }}`, which draws the form's submit buttons — in the order they were built, the primary one last — in a `form--actions` row, inside the form, as before.
+
+Whoever places the form may want them elsewhere — in a card's foot, a modal's (`page_actions`), a tunnel's —: it loads the form with `actions: false` and draws them there.
+
+{% raw %}```twig
+<section class="block block--card">
+    <div class="block--body">
+        {{ form_load(render_pass, form, '@front/forms/login_form.html.twig', { actions: false }) }}
+    </div>
+    <div class="block--footer">
+        {{ form_actions(form, {
+            outside: true,
+            secondary: [{ icon: 'ph:bold/key', label: 'Forgot password?', href: path('password_forgot') }],
+        }) }}
+    </div>
+</section>
+```{% endraw %}
+
+- The buttons drawn outside send the form from there (`form="…"`, the form tag carrying an id): the browser sends the button that was pressed, a processor testing `isClicked()` reads it, and a form sent by script from a modal goes the same way.
+- `secondary` are links — a way out: forgotten password, cancel, back —, at the start of the row; `target` opens one in a modal or a panel.
+- The form's template is the same either way: what moves is decided by whoever places it, form by form, never for all of them at once.
+
