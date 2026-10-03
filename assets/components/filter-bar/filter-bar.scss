@@ -1,7 +1,6 @@
 // A row of filters, each drawn as a field — a select's frame and height, so
-// it stands in the bar beside the search as one of its kind —, its words in
-// the accent once it narrows the list, so what is being looked at is read
-// from the bar at a glance.
+// it stands in the bar beside the search as one of its kind. What it narrows
+// to is read in its words; no other mark while it does.
 @use '../button/button';
 @use '../../css/mixins/field' as field;
 
@@ -16,8 +15,4 @@
   @include field.field-base;
   padding: var(--space-2) var(--space-3);
   font-weight: normal;
-
-  &.is-active {
-    color: var(--accent-9);
-  }
 }
