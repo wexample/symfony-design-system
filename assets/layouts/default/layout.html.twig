@@ -85,7 +85,7 @@
                             <div class="toolbar page--title-bar">
                                 <div class="page--title-block">
                                     <h1 class="toolbar--title">{{ page_title | default('@page::page_title' | trans) }}</h1>
-                                    {{- page_title_aside|default('') -}}
+                                    {%- if page_title_aside|default('')|trim is not empty -%}<span class="page--title-aside">{{- page_title_aside -}}</span>{%- endif -%}
                                     {%- if pageSubtitle -%}<p class="page--subtitle">{{ pageSubtitle }}</p>{%- endif -%}
                                 </div>
                                 <div class="toolbar--group">{{- pageTitleActions|raw -}}</div>
@@ -93,7 +93,7 @@
                         {%- else -%}
                             <div class="page--title-block">
                                 <h1 class="page--title">{{ page_title | default('@page::page_title' | trans) }}</h1>
-                                {{- page_title_aside|default('') -}}
+                                {%- if page_title_aside|default('')|trim is not empty -%}<span class="page--title-aside">{{- page_title_aside -}}</span>{%- endif -%}
                                 {%- if pageSubtitle -%}<p class="page--subtitle">{{ pageSubtitle }}</p>{%- endif -%}
                             </div>
                         {%- endif -%}

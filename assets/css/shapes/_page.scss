@@ -92,6 +92,14 @@
   }
 }
 
+// The page's state beside its name — a marker —, centred on the title's line
+// rather than sitting on its baseline, where its padding drops it low.
+.page--title-aside {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+}
+
 .page--subtitle {
   margin: 0;
   font-size: var(--font-size-2);
