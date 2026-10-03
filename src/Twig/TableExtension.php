@@ -192,7 +192,8 @@ class TableExtension extends AbstractTemplateExtension
                 'sort_key' => $column['sort_key'] ?? $column['key'] ?? null,
                 'class' => implode(' ', array_filter([
                     $column['class'] ?? null,
-                    isset($column['align']) ? 'table--cell--'.$column['align'] : null,
+                    // A marker sits in the middle of its column unless told otherwise.
+                    isset($column['align']) ? 'table--cell--'.$column['align'] : (($column['cell'] ?? null) === 'status' ? 'table--cell--center' : null),
                     // A date, a quantity: read whole, never broken over two lines.
                     ($column['cell'] ?? null) === 'date' || isset($column['unit']) ? 'table--cell--nowrap' : null,
                     // One of xs, s, m, l, xl: the column keeps it whatever its cells say.

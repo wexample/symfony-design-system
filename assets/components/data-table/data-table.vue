@@ -912,7 +912,10 @@ export default {
     getColumnClass(column) {
       const classes = [];
       if (column?.className) classes.push(column.className);
-      if (column?.align) classes.push(`table--cell--${column.align}`);
+      // A marker sits in the middle of its column unless told otherwise: a
+      // column of capsules reads as one when they line up on their centre.
+      const align = column?.align ?? (column?.cell === 'status' ? 'center' : null);
+      if (align) classes.push(`table--cell--${align}`);
       if (column?.cell === 'date' || column?.unit) classes.push('table--cell--nowrap');
       if (column?.width) classes.push(`table--cell--width-${column.width}`);
       if (column?.secondary) classes.push('table--cell--secondary');
