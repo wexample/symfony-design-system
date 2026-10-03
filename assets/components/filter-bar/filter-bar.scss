@@ -1,6 +1,9 @@
-// A row of filters: discreet while they narrow nothing, standing out once one
-// does, so what is being looked at is read from the bar at a glance.
+// A row of filters, each drawn as a field — a select's frame and height, so
+// it stands in the bar beside the search as one of its kind —, its words in
+// the accent once it narrows the list, so what is being looked at is read
+// from the bar at a glance.
 @use '../button/button';
+@use '../../css/mixins/field' as field;
 
 .filter-bar {
   display: flex;
@@ -9,7 +12,12 @@
   gap: var(--space-1);
 }
 
-.filter-bar .button.is-active {
-  background: var(--state-hover);
-  color: var(--text-color-default);
+.filter-bar .button.filter-bar--button {
+  @include field.field-base;
+  padding: var(--space-2) var(--space-3);
+  font-weight: normal;
+
+  &.is-active {
+    color: var(--accent-9);
+  }
 }

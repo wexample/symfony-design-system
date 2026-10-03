@@ -16,7 +16,7 @@
                 :key="filter.key"
                 :label="summary(filter)"
                 :items="items(filter)"
-                :button-class="'button--flat button--compact' + (isActive(filter) ? ' is-active' : '')"
+                :button-class="'filter-bar--button' + (isActive(filter) ? ' is-active' : '')"
                 @toggle="onToggle(filter, $event)"
                 @select="onSelect(filter, $event)"
         ></button-menu>

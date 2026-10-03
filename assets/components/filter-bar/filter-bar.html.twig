@@ -28,7 +28,7 @@
             ]) -%}
         {%- endif -%}
         {{ button_menu(null, filter_summary(filter, query_key), items, {
-            class: 'button--flat button--compact' ~ (selected is not empty ? ' is-active'),
+            class: 'filter-bar--button' ~ (selected is not empty ? ' is-active'),
         }) }}
     {%- endfor -%}
 </div>
