@@ -114,7 +114,8 @@
 //     zone--measure       the reading measure, giving way below it
 //     zone--fit-content   as wide as what it holds
 //     zone--hug           as wide as what it holds, its text wrapping before
-//                         it widens the row — a table page
+//                         it widens the row, never narrower than the
+//                         measure — a table page
 //     zone--filler        what is left, holding nothing: the ground run to
 //                         the row's end, not counted as a neighbour
 //     a resized zone      the size it was left at (`--zone-size`, inline)
@@ -216,6 +217,9 @@
 .zone--split > :where(.zone--hug) {
   flex: 0 1 auto;
   width: fit-content;
+  // Never narrower than the reading measure, so a short table does not leave
+  // its page a narrow strip; past it, as wide as what it holds.
+  min-width: min(100%, var(--zone-measure, var(--content-size-m)));
 }
 
 .zone--split > :where(.zone--filler) {
