@@ -77,11 +77,14 @@
                         {#- What the page says of the thing it is titled after, in a
                             line under its name (`page_subtitle`): when it was made,
                             where it belongs. -#}
+                        {#- What the page's state is, beside its name (`page_title_aside`):
+                            a marker — active, offline. -#}
                         {%- set pageSubtitle = page_subtitle|default(null) -%}
                         {%- if pageTitleActions is not empty -%}
                             <div class="toolbar">
                                 <div class="page--title-block">
                                     <h1 class="toolbar--title">{{ page_title | default('@page::page_title' | trans) }}</h1>
+                                    {{- page_title_aside|default('') -}}
                                     {%- if pageSubtitle -%}<p class="page--subtitle">{{ pageSubtitle }}</p>{%- endif -%}
                                 </div>
                                 <div class="toolbar--group">{{- pageTitleActions|raw -}}</div>
@@ -89,6 +92,7 @@
                         {%- else -%}
                             <div class="page--title-block">
                                 <h1 class="page--title">{{ page_title | default('@page::page_title' | trans) }}</h1>
+                                {{- page_title_aside|default('') -}}
                                 {%- if pageSubtitle -%}<p class="page--subtitle">{{ pageSubtitle }}</p>{%- endif -%}
                             </div>
                         {%- endif -%}

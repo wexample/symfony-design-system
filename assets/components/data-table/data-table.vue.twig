@@ -21,7 +21,7 @@
     <div class="data-table">
     {# What can be done to the ticked rows, above them — same bar as the server
        table, and the same post when an action has an address. #}
-    <div v-if="hasBar" class="table--bar">
+    <div v-if="hasBar || hasBarEnd()" class="table--bar">
         <div v-if="searchable" class="form--input-group table--search">
             <span class="form--input-addon" aria-hidden="true" v-html="searchIconHtml"></span>
             <input
@@ -80,8 +80,21 @@
         </template>
         </template>
         <span v-if="showCount" class="table--total">[[ transTable('total', { '%count%': totalCount }) ]]</span>
+        {#- The end of the bar: the pagination above the rows when asked
+            (`paginationPosition`), on the line of what acts on them rather
+            than on a line of its own, and whatever the page puts there — the
+            pagination of a collection the server pages (`bar-end`). -#}
+        <div v-if="hasBarEnd()" class="table--bar-end">
+            <slot name="bar-end"></slot>
+            <pagination
+                    v-if="hasPaginationAt('top')"
+                    :page="page"
+                    :pages-count="pagesCount"
+                    @change="page = $event"
+            ></pagination>
+        </div>
     </div>
-    <div class="table--frame" :class="{ 'table--frame--sticky': sticky, 'table--frame--scroll': scroll }">
+    <div class="table--frame" :class="{ 'table--frame--sticky': sticky, 'table--frame--scroll': scroll, 'table--frame--fill': fill }">
     <table class="table" :class="{ 'table--refreshing': loading && hasRows(), 'table--sticky': sticky, 'table--striped': striped, 'table--hover': hover }">
         <thead v-if="showHeader && columns.length">
         <tr class="table--row">
@@ -327,7 +340,7 @@
     {#- A new order, or what a search found, said aloud. -#}
     <span class="visually-hidden" role="status">[[ statusMessage ]]</span>
     <pagination
-            v-if="pagesCount > 1"
+            v-if="hasPaginationAt('bottom')"
             :page="page"
             :pages-count="pagesCount"
             @change="page = $event"

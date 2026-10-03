@@ -92,6 +92,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // The whole row rather than the width of its columns.
+    fill: {
+      type: Boolean,
+      default: false
+    },
     // One row in two on a faint ground, for wide tables read across.
     striped: {
       type: Boolean,
@@ -172,6 +177,12 @@ export default {
     pageSize: {
       type: Number,
       default: 0
+    },
+    // Where the pagination stands: bottom, top or both — the same word an
+    // entity collection takes.
+    paginationPosition: {
+      type: String,
+      default: 'bottom'
     },
     // The order the list opens on, and comes back to: { key, direction }, the
     // key a column's `sortKey` (or `key`) when it is `sortable`. Its header
@@ -427,6 +438,15 @@ export default {
       }
 
       return typeof value === 'object' ? value : { type: value };
+    },
+
+    hasBarEnd() {
+      return Boolean(this.$slots['bar-end']) || this.hasPaginationAt('top');
+    },
+
+    hasPaginationAt(position) {
+      return this.pagesCount > 1
+        && (this.paginationPosition === position || this.paginationPosition === 'both');
     },
 
     getEmptyColspan() {

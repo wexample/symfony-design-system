@@ -132,11 +132,13 @@ class TableExtension extends AbstractTemplateExtension
             'searchable' => 'searchable',
             'search_placeholder' => 'searchPlaceholder',
             'page_size' => 'pageSize',
+            'pagination_position' => 'paginationPosition',
             'filters' => 'filters',
             'hover' => 'hover',
             'striped' => 'striped',
             'sticky' => 'sticky',
             'scroll' => 'scroll',
+            'fill' => 'fill',
             'show_header' => 'showHeader',
             'row_link' => 'rowLink',
         ] as $option => $prop) {

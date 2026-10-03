@@ -79,7 +79,7 @@
 
 {#- The frame is what scrolls sideways when the columns are wider than the room:
     the table keeps its own width, the page keeps its own. -#}
-<div class="table--frame{{ options.sticky|default(false) ? ' table--frame--sticky' }}{{ options.scroll|default(false) ? ' table--frame--scroll' }}">
+<div class="table--frame{{ options.sticky|default(false) ? ' table--frame--sticky' }}{{ options.scroll|default(false) ? ' table--frame--scroll' }}{{ options.fill|default(false) ? ' table--frame--fill' }}">
 <table class="table{{ options.sticky|default(false) ? ' table--sticky' }}{{ (options.striped ?? true) ? ' table--striped' }}{{ (options.hover ?? true) ? ' table--hover' }}{{ options.class is defined ? ' ' ~ options.class }}">
     {% if options.show_header|default(true) %}
         <thead>

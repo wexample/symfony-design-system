@@ -20,6 +20,8 @@ export default {
       showHeader: true,
       // The header stays in view while the rows scroll under it.
       sticky: false,
+      // The whole row rather than the width of its columns.
+      fill: false,
       // Set to null to fetch the whole collection in a single request.
       pageLength: 10,
       // A search box above the rows, its words sent to the api as `search`.

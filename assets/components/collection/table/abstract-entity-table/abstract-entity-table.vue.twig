@@ -13,18 +13,13 @@
 
 {%- block vue_body -%}
     <div class="entity-table">
-        <pagination
-                v-if="hasPaginationAt('top')"
-                v-bind="paginationProps"
-                @change="goToPage"
-        ></pagination>
-
         <data-table
                 :rows="entities"
                 :columns="columns"
                 :app="app"
                 :show-header="showHeader"
                 :sticky="sticky"
+                :fill="fill"
                 :loading="isLoading"
                 :row-key="getEntityKey"
                 :searchable="searchable"
@@ -36,7 +31,16 @@
                 :sort="sort"
                 @update:sort="onSortChange"
                 @update:search="onSearchChange"
-        ></data-table>
+        >
+            {#- The pages above the rows sit at the end of the table's bar,
+                on the line of its search and its count. -#}
+            <template v-if="hasPaginationAt('top')" #bar-end>
+                <pagination
+                        v-bind="paginationProps"
+                        @change="goToPage"
+                ></pagination>
+            </template>
+        </data-table>
 
         <pagination
                 v-if="hasPaginationAt('bottom')"

@@ -50,6 +50,15 @@
 // the first. The frame carries the margin.
 .table--frame {
   margin: 1rem 0;
+  // As wide as its columns ask and no wider: a table of four short columns
+  // does not spread them over the window. The bar above it (search, total)
+  // takes the same width, so the total ends where the table does.
+  width: fit-content;
+}
+
+// Asked for (`fill`): the table takes the whole row, its columns sharing it.
+.table--frame--fill {
+  width: auto;
 }
 
 // Asked for (`scroll`): the table scrolls sideways on its own, the page around
@@ -380,6 +389,31 @@
   font-size: var(--font-size-2);
   color: var(--text-color-muted);
   font-variant-numeric: tabular-nums;
+}
+
+// The pages, at the end of the bar, after the total when there is one: the
+// controls on the left act on the rows, these move through them.
+.table--bar-end {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-inline-start: auto;
+
+  .table--total + & {
+    margin-inline-start: 0;
+  }
+
+  .pagination {
+    margin: 0;
+  }
+}
+
+// Pages at the end of the bar are at the end below the rows too — the table's
+// own, and a collection's drawn right after it: the eye looks for them in one
+// place, above and below.
+.data-table:has(> .table--bar .table--bar-end .pagination) > .pagination,
+.data-table:has(> .table--bar .table--bar-end .pagination) + .pagination {
+  justify-content: flex-end;
 }
 
 .table--bulk-select {
