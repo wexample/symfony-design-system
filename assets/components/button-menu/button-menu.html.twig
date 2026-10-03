@@ -36,6 +36,9 @@
     {%- endif -%}
     {%- if item.trailing_icon|default(null) -%}
         <span class="button-menu--item-trailing">{{ icon(item.trailing_icon) }}</span>
+    {%- elseif item.new_window|default(false) -%}
+        {#- Opened beside the page: said at the end of the row, as the web says it. -#}
+        <span class="button-menu--item-trailing" aria-hidden="true">{{ icon('ph:bold/arrow-square-out') }}</span>
     {%- elseif type == 'submenu' -%}
         <span class="button-menu--item-trailing button-menu--item-caret" aria-hidden="true"></span>
     {%- endif -%}
