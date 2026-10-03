@@ -436,14 +436,12 @@
   }
 }
 
-// Pages at the end of the bar are at the end below the rows too — the table's
-// own, and a collection's drawn right after it: the eye looks for them in one
-// place, above and below.
-.data-table:has(> .table--bar .table--bar-end .pagination) > .pagination,
-.data-table:has(> .table--bar .table--bar-end .pagination) + .pagination {
+// A table's pages stand at its end, above it and below alike: the eye looks
+// for them in one place. Kept in view against the window's edge when the
+// table is wider than the window and the page scrolled sideways.
+.data-table > .pagination,
+.data-table + .pagination {
   justify-content: flex-end;
-  // At the table's end, and kept in view against the window's edge like the
-  // pages above when the table is wider than the window.
   width: fit-content;
   margin-inline-start: auto;
   position: sticky;
