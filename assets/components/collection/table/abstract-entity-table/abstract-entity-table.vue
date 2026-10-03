@@ -22,6 +22,8 @@ export default {
       sticky: false,
       // The whole row rather than the width of its columns.
       fill: false,
+      // What the table says when the api holds nothing; its own default when null.
+      emptyLabel: null,
       // Set to null to fetch the whole collection in a single request.
       pageLength: 10,
       // A search box above the rows, its words sent to the api as `search`.
