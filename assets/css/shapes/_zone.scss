@@ -261,11 +261,11 @@
 // neighbour: its regions keep a width they can be read at, and a window too narrow for all of them scrolls the row
 // sideways rather than squeezing each to nothing. The narrow ones and the
 // content-wide ones already keep theirs.
-.zone--split:where(.zone--split--floor, .layout--body > *):where(:has(> .zone ~ .zone)) {
+.zone--split:where(.zone--split--floor, .layout--body > *):where(:has(> .zone ~ .zone:not(.zone--filler))) {
   overflow-x: auto;
 }
 
-.zone--split:where(.zone--split--floor, .layout--body > *):where(:has(> .zone ~ .zone)) > :where(.zone:not(.zone--narrow, .zone--fit-content)) {
+.zone--split:where(.zone--split--floor, .layout--body > *):where(:has(> .zone ~ .zone:not(.zone--filler))) > :where(.zone:not(.zone--narrow, .zone--fit-content)) {
   min-width: var(--zone-floor, var(--zone-body-min, 20rem));
 }
 

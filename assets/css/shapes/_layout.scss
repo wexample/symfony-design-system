@@ -28,7 +28,7 @@
 // beside the page's own is wide without being told: two zones side by side
 // scroll each on its own, which only a body of bounded height allows.
 .layout--vertical:has(> .layout--body--wide),
-.layout--vertical:has(> .layout--body > .zone--split > .zone ~ .zone) {
+.layout--vertical:has(> .layout--body > .zone--split > .zone ~ .zone:not(.zone--filler)) {
   height: 100%;
 }
 
@@ -64,7 +64,7 @@
 
 // Unless it is bounded on purpose — wide, holding zones side by side, or a
 // page that fills: then it is the room, and what it holds scrolls on its own.
-.layout--body--scrollable > :is(.layout--body--wide, .layout--body:has(> .zone--split > .zone ~ .zone), .layout--body:has(.page--fill)) {
+.layout--body--scrollable > :is(.layout--body--wide, .layout--body:has(> .zone--split > .zone ~ .zone:not(.zone--filler)), .layout--body:has(.page--fill)) {
   flex: 1 1 0;
   min-height: 0;
 }
@@ -75,16 +75,18 @@
   flex-direction: column;
 }
 
-// A footer at the end of the page (`layout_footer: 'page'`) never stands
-// above the foot of the window: the page's content takes the room a short
-// page leaves, a long one pushes it down as it grows.
-.zone:has(> .footer--page) {
-  display: flex;
-  flex-direction: column;
+// A footer at the end of the page (`layout_footer: 'page'`) stands under the
+// row of zones, across all of them, and never above the foot of the window:
+// the row takes the room a short page leaves (`.layout--body > .zone`), a long
+// one pushes it down as it grows.
+.layout--body > .footer--page {
+  flex: none;
+}
 
-  > .zone--content {
-    flex: 1 0 auto;
-  }
+// The zone that runs a page's ground to the window's edge: what is left of
+// the row, nothing when there is none.
+.zone--filler {
+  min-width: 0;
 }
 
 // What a body holds is a region, not a text: it takes the room the body was
@@ -104,12 +106,12 @@
 }
 
 .layout--body--wide,
-.layout--body:has(> .zone--split > .zone ~ .zone) {
+.layout--body:has(> .zone--split > .zone ~ .zone:not(.zone--filler)) {
   position: relative;
   display: flex;
   flex-direction: column;
 
-  & > * {
+  & > :not(.footer) {
     flex: 1;
     min-height: 0;
   }

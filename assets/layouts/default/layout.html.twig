@@ -106,14 +106,21 @@
                         <div class="page-actions page-actions--sticky">{{ pageActions }}</div>
                     {%- endif -%}
                 </div>
-                {#- Under the page's content and out of its padding: the zone's
-                    whole width, scrolling with the page (`page_foot`). -#}
-                {%- block page_foot -%}{%- endblock -%}
             </div>
         </div>
         {{- pageZonesAfter -}}
+        {#- A page held to a width, with nothing beside it, still runs its ground
+            to the window's edge: a zone takes what is left of the row, the gap
+            between the two showing the page under them. It holds nothing, so
+            the page still scrolls as one (`zone--filler`). -#}
+        {%- if pageZonesAfter|trim is empty and page_body_mode|default('default') != 'wide' and (page_measure ?? true) -%}
+            <div class="zone zone--panel zone--filler" aria-hidden="true"></div>
+        {%- endif -%}
         {%- if pageZonesHeld -%}
             </div>
         {%- endif -%}
     </div>
+    {#- Under the row of zones and across all of them, scrolling with the page
+        (`page_foot`): a footer at the end of the page. -#}
+    {%- block page_foot -%}{%- endblock -%}
 {%- endblock -%}

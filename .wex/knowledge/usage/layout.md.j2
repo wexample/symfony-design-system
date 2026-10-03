@@ -26,13 +26,15 @@ Every mode of a layout runs the same three links, so an application's choices re
 | `layout_navigation` | `side` | `page_menu` beside the body, `page_toolbar` above it | `menu--vertical--left`, `toolbar--top` |
 | | `top` | `page_menu_links` as tabs in the header | `header--tabs` |
 | `layout_footer` | `fixed` | `layout_footer` under the body that scrolls | `footer--fixed` |
-| | `page` | `layout_footer` inside `page_foot`, the page zone's whole width | `footer--page` |
+| | `page` | `layout_footer` inside `page_foot`, under the row of zones and across all of them | `footer--page` |
 | `page_body_mode` | `wide` | the page zone fills the window, its zones scroll on their own | `layout--body--wide` |
 | `page_focus` | true | `page_body` alone in a narrow column, the focus header and footer | `layout--focus` |
 
 In use: the design system's demo and app-board keep the defaults (`side`, `fixed`); Sapiens runs `top` and `page`.
 
 ## What stands still and what scrolls
+
+A page held to a width (the reading measure) never leaves the window's edge bare: with nothing after it, the layout adds a zone that takes what is left of the row (`zone--filler`), the gap between the two showing the page under them. It holds nothing and does not count as a neighbour, so the page still scrolls as one.
 
 The dashboard layout holds three things still — the header, the page's own navigation (`page_tabs`), the footer — around the one thing that scrolls: the body, on both axes. A page wider than the window (`page_measure: false` under a table of many columns) widens its row to the table and slides under the bars, its scrollbar at the foot of the window; the bars keep the window's width without being told. Nothing of this is measured by a script: put a bar inside the scroller and it will travel with the page.
 
