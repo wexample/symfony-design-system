@@ -9,6 +9,15 @@ export default {
   template: "#vue-template-wexample-symfony-design-system-bundle-vue-collection-table-abstract-entity-table",
 
   mixins: [AbstractEntityCollectionVueMixin],
+
+  props: {
+    // What the page narrows the collection to, sent along with the query: an
+    // establishment, a patient — keys the api declares.
+    filters: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   components: {
     DataTable,
     Pagination
@@ -150,7 +159,7 @@ export default {
     },
 
     getCollectionQuery() {
-      const query = {};
+      const query = { ...this.filters };
       const sort = sortToQuery(this.sort ?? this.defaultSort);
 
       if (this.search.trim()) {
