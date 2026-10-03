@@ -34,6 +34,9 @@ export default {
       fill: false,
       // What the table says when the api holds nothing; its own default when null.
       emptyLabel: null,
+      // Its pages below at the foot of the page when the rows leave room
+      // above it, rather than right under a short list.
+      pagesAtFoot: false,
       // Set to null to fetch the whole collection in a single request.
       pageLength: 10,
       // A search box above the rows, its words sent to the api as `search`.

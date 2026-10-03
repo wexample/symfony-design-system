@@ -73,6 +73,37 @@
   width: auto;
 }
 
+// The pages at the foot of the page (`pagesAtFoot`): the page's content takes
+// the height the page has, the table — and whatever holds it there — what is
+// left of it, its pages below pushed down to the end. A long list, with no
+// room left, keeps them right under its last row.
+.zone--content:has(.entity-table--pages-at-foot) {
+  min-height: 100%;
+
+  > :has(.entity-table--pages-at-foot),
+  > .entity-table--pages-at-foot {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+:has(> .entity-table--pages-at-foot):not(.zone--content) {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.entity-table--pages-at-foot {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+
+  > .pagination:last-child {
+    margin-top: auto;
+  }
+}
+
 // A page's own table fills the page — a page held to the measure, or one as
 // wide as what it holds and no narrower than the measure —: a short table
 // stretches to the measure and no further, a wide one gives the page its

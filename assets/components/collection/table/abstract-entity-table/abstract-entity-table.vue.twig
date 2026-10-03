@@ -12,7 +12,7 @@
 {%- endblock -%}
 
 {%- block vue_body -%}
-    <div class="entity-table">
+    <div class="entity-table" :class="{ 'entity-table--pages-at-foot': pagesAtFoot }">
         <data-table
                 :rows="entities"
                 :columns="columns"
