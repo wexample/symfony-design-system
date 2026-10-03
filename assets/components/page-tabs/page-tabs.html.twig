@@ -9,7 +9,8 @@
     then the tabs gather in a menu named after the current one.
 
     `actions` is either markup the page draws itself, or a list of items —
-    { icon, label, href, target, method, token, confirm }, as a menu's items —
+    { icon, label, href, target, method, token, confirm, request }, as a
+    menu's items; `request: 'api'` posts without leaving the page —
     which the bar draws as buttons and gathers, at its last fold, in one ⋮
     menu: every action at hand on a desk, all of them in reach on a phone. -#}
 {%- set fold_items = [] -%}
@@ -47,6 +48,7 @@
             {%- for action in actions -%}
                 {%- if action.method|default('get') == 'post' -%}
                     <form class="page-tabs--action" method="post" action="{{ action.href }}"
+                          {%- if action.request|default(null) %} data-request="{{ action.request }}"{% endif %}
                           {%- if action.confirm|default(null) %} data-confirm-title="{{ action.confirm.title|default('') }}" data-confirm-message="{{ action.confirm.message }}" data-confirm-accept="{{ action.confirm.accept|default('') }}"{% endif %}>
                         {%- if action.token|default(null) -%}<input type="hidden" name="_token" value="{{ action.token }}">{%- endif -%}
                         {{ button(action.icon, action.label, { type: 'submit' }) }}
