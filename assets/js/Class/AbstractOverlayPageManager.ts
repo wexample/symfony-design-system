@@ -7,6 +7,7 @@ import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAni
 import RequestOptionsInterface from '@wexample/symfony-loader/js/Interfaces/RequestOptions/RequestOptionsInterface';
 import ConfirmService from '@wexample/symfony-design-system/js/Services/ConfirmService';
 import KeyboardService from '@wexample/symfony-loader/js/Services/KeyboardService';
+import EventsService from '@wexample/symfony-loader/js/Services/EventsService';
 import { hashParamDelete } from '../Helper/HashStateHelper';
 import { focusTrapCanReturn, focusTrapFocusables, focusTrapNext } from '../Helper/FocusTrapHelper';
 
@@ -21,6 +22,9 @@ export interface OverlayRequestOptionsInterface extends RequestOptionsInterface 
 }
 
 export default abstract class AbstractOverlayPageManager extends PageManagerComponent {
+  // What a modal or a panel says once it has closed.
+  public static readonly EVENT_CLOSED = 'overlay-page:closed';
+
   protected contentEl?: HTMLElement;
 
   protected closeOnOverlayClick = true;
@@ -204,6 +208,11 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
     }
 
     await (this as any).overlayClose(options.instant);
+
+    // Said once closed, for what the page under it shows to read itself again:
+    // a list a modal added to (a collection listens through its
+    // `getCollectionRefreshEvents()`).
+    this.app.getServiceOrFail(EventsService).trigger(AbstractOverlayPageManager.EVENT_CLOSED);
   }
 
   private onClickContent = async (event: Event) => {
