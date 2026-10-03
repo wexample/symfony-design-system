@@ -394,6 +394,22 @@
   font-variant-numeric: tabular-nums;
 }
 
+// The far end of the bar — the total, the pages —, kept in view against the
+// window's edge when the table is wider than the window and the page scrolled
+// sideways: what says where the reader is, and what moves on, at hand.
+.table--bar-tail,
+.table--bar > .table--total {
+  position: sticky;
+  inset-inline-end: var(--space-4);
+}
+
+.table--bar-tail {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-inline-start: auto;
+}
+
 // How many rows there are, at the far end of the bar: a figure about the
 // table, not a control.
 .table--total {

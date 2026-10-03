@@ -82,7 +82,7 @@
                             a marker — active, offline. -#}
                         {%- set pageSubtitle = page_subtitle|default(null) -%}
                         {%- if pageTitleActions is not empty -%}
-                            <div class="toolbar">
+                            <div class="toolbar page--title-bar">
                                 <div class="page--title-block">
                                     <h1 class="toolbar--title">{{ page_title | default('@page::page_title' | trans) }}</h1>
                                     {{- page_title_aside|default('') -}}

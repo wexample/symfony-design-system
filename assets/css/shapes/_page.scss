@@ -97,3 +97,10 @@
   font-size: var(--font-size-2);
   color: var(--text-color-muted);
 }
+
+// The page's actions, beside its title, kept in view against the window's edge
+// when the page is wider than the window and scrolled sideways.
+.page--title-bar > .toolbar--group {
+  position: sticky;
+  inset-inline-end: var(--space-4);
+}

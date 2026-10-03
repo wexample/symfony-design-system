@@ -79,6 +79,9 @@
             </button>
         </template>
         </template>
+        {#- The count and the pages, one tail kept in view at the bar's end
+            when the table is wider than the window. -#}
+        <div v-if="showCount || hasBarEnd()" class="table--bar-tail">
         <span v-if="showCount" class="table--total">[[ transTable('total', { '%count%': totalCount }) ]]</span>
         {#- The end of the bar: the pagination above the rows when asked
             (`paginationPosition`), on the line of what acts on them rather
@@ -92,6 +95,7 @@
                     :pages-count="pagesCount"
                     @change="page = $event"
             ></pagination>
+        </div>
         </div>
     </div>
     <div class="table--frame" :class="{ 'table--frame--sticky': sticky, 'table--frame--scroll': scroll, 'table--frame--fill': fill }">
