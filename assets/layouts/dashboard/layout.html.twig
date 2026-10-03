@@ -44,6 +44,7 @@
             </div>
             <footer class="footer">
                 <div class="footer--body"></div>
+                {{- block('footer_environment') -}}
                 {{- block('footer_items') -}}
             </footer>
             {{- block('page_layout_components') -}}
@@ -200,6 +201,17 @@
                                     {%- endif -%}
                                 {% endblock %}
                             </div>
+                            {#- Anything but production says so, in the dev tone: the
+                                environment named, what it means under the pointer. -#}
+                            {%- block footer_environment -%}
+                                {%- if app.environment != 'prod' -%}
+                                    <div class="footer-item">{{ marker('dev', app.environment, {
+                                        glyph: 'ph:bold/code',
+                                        title: 'WexampleSymfonyDesignSystemBundle.common.system::frontend.environment' | trans({ '%env%': app.environment }),
+                                        compact: true,
+                                    }) }}</div>
+                                {%- endif -%}
+                            {%- endblock -%}
                             {#- What the footer holds beside the trail: status widgets,
                                 a version number — each in its own footer-item. -#}
                             {% block footer_items %}{% endblock %}
