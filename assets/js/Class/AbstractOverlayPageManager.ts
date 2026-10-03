@@ -212,7 +212,7 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
     // Said once closed, for what the page under it shows to read itself again:
     // a list a modal added to (a collection listens through its
     // `getCollectionRefreshEvents()`).
-    this.app.getServiceOrFail(EventsService).trigger(AbstractOverlayPageManager.EVENT_CLOSED);
+    (this.app.getServiceOrFail(EventsService) as EventsService).trigger(AbstractOverlayPageManager.EVENT_CLOSED);
   }
 
   private onClickContent = async (event: Event) => {
