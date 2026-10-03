@@ -25,14 +25,18 @@
     {%- elseif back -%}
         {{ breadcrumb_render({ back: true, class: 'page-tabs--back' }) }}
     {%- endif -%}
+    {%- if items is not empty -%}
     <div class="page-tabs--items">
         {%- for item in items -%}
             {{ tab_item(item.label, item.route, item.params|default({}), { count: item.count|default(null) }, item.icon|default(null)) }}
         {%- endfor -%}
     </div>
+    {%- endif -%}
+    {%- if items is not empty -%}
     <div class="page-tabs--fold">
         {{ button_menu(current.icon|default('ph:bold/list'), current.label|default(label|default('WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.navigation'|trans)), fold_items, { class: 'button--flat', caret: true }) }}
     </div>
+    {%- endif -%}
     {%- if actions -%}
         <div class="page-tabs--actions toolbar--group">{{ actions|raw }}</div>
     {%- endif -%}

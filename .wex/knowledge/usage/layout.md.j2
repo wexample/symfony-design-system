@@ -40,7 +40,7 @@ The dashboard layout holds three things still — the header, the page's own nav
 
 `layout_navigation: 'top'` draws the entries of `page_menu_links` as tabs in the header, after the application's mark (`page_menu_logo`), instead of a menu down the side. It suits an application with a handful of sections, whose side menu would stand mostly empty.
 
-- One bar: the page's title moves into the page (`page_show_title`), with what `page_toolbar_left` and `page_toolbar_right` held beside it, and the way back above it (`page_trail: 'back'` unless the page says otherwise). The footer no longer carries the trail.
+- The page's title moves into the page (`page_show_title`). The way back (`page_trail: 'back'` unless the page says otherwise) stands in a bar under the header, with what `page_toolbar_left` and `page_toolbar_right` held at its far end — the same bar as a record's tabs (`page_tabs`), which a page drawing its own `page_navigation` replaces. A page with no way back keeps its actions beside its title. The footer no longer carries the trail.
 - A single section draws no tab: the mark leads home.
 - Too narrow for the row, the tabs fold into one button opening them as a list — a native `popover`, no script.
 - A menu entry is lit on its own page and on the pages under its address: `/dashboard` stays lit on `/dashboard/patients/12`. `/` is lit on itself only; `active` on the entry overrides.

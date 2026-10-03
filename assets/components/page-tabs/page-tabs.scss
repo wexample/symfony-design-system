@@ -9,6 +9,9 @@
   align-items: center;
   gap: var(--space-2);
   padding-inline: var(--space-4);
+  // A tab's height even without tabs — the way back and the actions alone —,
+  // so the bar does not change height from a record to a plain page.
+  min-height: calc(2 * var(--space-4) + 1lh);
   // Folded rather than wrapped (page-tabs.ts): what it holds keeps its width,
   // so the bar can tell when it runs out.
   white-space: nowrap;
@@ -21,7 +24,7 @@
 // Not a view of the thing but the way out of it: a word and an arrow, a rule
 // after it, so it is not read as one more tab. Within the bar, to outweigh the
 // back link's own reset of its padding, loaded on its own elsewhere.
-.page-tabs .page-tabs--back {
+.page-tabs .page-tabs--back:has(+ .page-tabs--items) {
   flex-shrink: 0;
   padding-inline-end: var(--space-4);
   border-inline-end: var(--border-separator);

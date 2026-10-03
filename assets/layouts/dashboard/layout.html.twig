@@ -16,6 +16,9 @@
 {%- endblock -%}
 
 {#- The footer at the end of the page rather than under it (`layout_footer: 'page'`). -#}
+{#- A page's own bar under the header: a record's tabs (`page_tabs`). -#}
+{%- block page_navigation -%}{%- endblock -%}
+
 {%- block page_foot -%}
     {#- A page asking for focus draws its own footer. -#}
     {%- if layout_footer|default('fixed') == 'page' and not page_focus|default(false) -%}
@@ -54,6 +57,20 @@
         {%- set page_show_title = true -%}
         {%- set page_trail = page_trail ?? 'back' -%}
         {%- set page_title_actions_extra -%}{{ block('page_toolbar_left') }}{{ block('page_toolbar_right') }}{%- endset -%}
+    {%- endif -%}
+    {#- The bar under the header: the page's own navigation (`page_navigation`,
+        a record's tabs), or else, on top, the way back at its start and the
+        page's actions at its end — a toolbar, the way a record's tabs stand,
+        and not a trail over the title with the actions beside it. -#}
+    {%- set pageNavigation %}{{ block('page_navigation') }}{% endset -%}
+    {%- if navigationTop and pageNavigation|trim is empty and page_trail == 'back' -%}
+        {%- set pageBack = breadcrumb_render({ back: true })|trim -%}
+        {%- if pageBack is not empty -%}
+            {%- set pageBarActions %}{{ block('page_title_actions') }}{{ page_title_actions_extra|default('') }}{% endset -%}
+            {%- set pageNavigation %}{{ page_tabs([], { back: true, actions: pageBarActions|trim ?: null }) }}{% endset -%}
+            {%- set page_trail = false -%}
+            {%- set page_title_actions_hidden = true -%}
+        {%- endif -%}
     {%- endif -%}
     {# Rendered up front so the header toggle and the panel itself can both tell
        whether the page has anything to put in the right menu. #}
@@ -145,7 +162,7 @@
                                 {% endblock %}
                             </header>
                         {% endblock %}
-                        {% block page_navigation %}{% endblock %}
+                        {{- pageNavigation -}}
                         {%- if not navigationTop -%}
                         {% block page_toolbar %}
                             {% set toolbarLeft %}{% block page_toolbar_left %}{% endblock %}{% endset %}

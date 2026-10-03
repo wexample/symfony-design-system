@@ -72,7 +72,8 @@
                         {#- The page's own actions, and those a layout hands down
                             to stand beside the title (`page_title_actions_extra`). -#}
                         {%- set pageTitleActions %}{% block page_title_actions %}{% endblock %}{{ page_title_actions_extra|default('') }}{%- endset -%}
-                        {%- set pageTitleActions = pageTitleActions|trim -%}
+                        {#- Unless a bar under the header holds them already. -#}
+                        {%- set pageTitleActions = page_title_actions_hidden|default(false) ? '' : pageTitleActions|trim -%}
                         {#- What the page says of the thing it is titled after, in a
                             line under its name (`page_subtitle`): when it was made,
                             where it belongs. -#}
