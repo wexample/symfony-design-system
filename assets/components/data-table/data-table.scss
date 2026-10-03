@@ -442,6 +442,12 @@
 .data-table:has(> .table--bar .table--bar-end .pagination) > .pagination,
 .data-table:has(> .table--bar .table--bar-end .pagination) + .pagination {
   justify-content: flex-end;
+  // At the table's end, and kept in view against the window's edge like the
+  // pages above when the table is wider than the window.
+  width: fit-content;
+  margin-inline-start: auto;
+  position: sticky;
+  inset-inline-end: var(--space-4);
 }
 
 .table--bulk-select {
