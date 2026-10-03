@@ -14,4 +14,12 @@
   .footer-item {
     padding: var(--space-1);
   }
+
+  // A marker brings its own room: no padding above and below it, centred on
+  // the footer's line, so the footer is as tall with it as without.
+  .footer-item:has(> .marker) {
+    display: flex;
+    align-items: center;
+    padding-block: 0;
+  }
 }
