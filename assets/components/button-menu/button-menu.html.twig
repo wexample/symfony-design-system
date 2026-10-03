@@ -4,6 +4,8 @@
 {% macro item_type(item) %}
     {%- if item.type is defined and item.type -%}
         {{- item.type -}}
+    {%- elseif item.heading is defined -%}
+        heading
     {%- elseif item.separator|default(false) -%}
         separator
     {%- elseif item.items|default([])|length -%}
@@ -45,7 +47,18 @@
     {% set item_class = item.class is defined and item.class ? ' ' ~ item.class : '' %}
     {% set item_attr = item.attr|default({}) %}
 
-    {%- if type == 'separator' -%}
+    {%- if type == 'heading' -%}
+        {#- Who or what the menu is about, at its head: a title (`heading`), lines
+            saying more of it under it (`lines`), a rule closing it. -#}
+        <li class="button-menu--heading" role="presentation">
+            <span class="button-menu--heading-title">{{ item.heading | trans }}</span>
+            {%- for line in item.lines|default([]) -%}
+                <span class="button-menu--heading-line">{{ line | trans }}</span>
+            {%- endfor -%}
+        </li>
+        <li class="button-menu--separator" role="separator"></li>
+
+    {%- elseif type == 'separator' -%}
         {#- Not an item but the line between two runs of them. Given a word it
             becomes the heading of what follows. -#}
         {% if item.label|default(null) %}
