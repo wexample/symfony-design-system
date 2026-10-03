@@ -388,12 +388,13 @@
 
 // A box, always drawn: a toggle that is one of several things to tick — a
 // filter — shows it can be ticked before it is. Empty and outlined, then
-// filled with the mark once on; a round one for a choice of one.
+// filled with the mark once on; square for a choice of one too, the mark
+// inside saying which.
 .button-menu--toggle--box .button-menu--item-check {
   visibility: visible;
   height: 1em;
   border: 0.125em solid var(--toggle-color, var(--text-color-muted));
-  border-radius: 0.2em;
+  border-radius: var(--radius-1);
   font-size: 0.875em;
   transition: background-color 120ms ease, border-color 120ms ease;
 
@@ -401,10 +402,6 @@
     visibility: hidden;
     font-size: 0.75em;
   }
-}
-
-.button-menu--toggle--radio .button-menu--item-check {
-  border-radius: 50%;
 }
 
 .button-menu--toggle--box.is-checked .button-menu--item-check {
