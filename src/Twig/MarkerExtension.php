@@ -47,6 +47,9 @@ class MarkerExtension extends AbstractTemplateExtension
                             // Read by the dozen, in a cell: gives up the room
                             // it takes standing alone in a sentence.
                             'compact' => $options['compact'] ?? false,
+                            // Smaller still: set in a line of small text — a
+                            // footer, a caption — whose height it keeps.
+                            'tiny' => $options['tiny'] ?? false,
                             // Overrides what a state would put inside; the
                             // only way a tone with no glyph of its own gets
                             // one.

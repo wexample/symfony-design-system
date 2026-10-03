@@ -9,7 +9,7 @@
     and a capsule has no room for one, so here it is named instead. -#}
 {% if not glyph and tone == 'running' %}{% set glyph = 'ph:bold/circle-notch' %}{% endif %}
 
-<span class="marker marker--{{ tone }}{{ compact|default(false) ? ' marker--compact' }}{% if class|default('') %} {{ class }}{% endif %}"
+<span class="marker marker--{{ tone }}{{ compact|default(false) ? ' marker--compact' }}{{ tiny|default(false) ? ' marker--tiny' }}{% if class|default('') %} {{ class }}{% endif %}"
       {% if title|default(null) %}title="{{ title }}"{% endif %}
       {{ component_render_tag_attributes(attr|default({})) }}>
     {%- if glyph -%}

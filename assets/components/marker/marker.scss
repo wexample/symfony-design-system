@@ -41,6 +41,15 @@
   padding: var(--space-1) var(--space-2);
 }
 
+// Smaller still, in a line of small text — a footer, a caption —: no height of
+// its own beyond the words', so the line beside it does not move.
+.marker--tiny {
+  gap: 0.25em;
+  padding: 0 var(--space-2);
+  font-size: var(--font-size-1);
+  line-height: 1.5;
+}
+
 .marker--glyph {
   display: inline-flex;
   align-items: center;
