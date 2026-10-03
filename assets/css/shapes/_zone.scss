@@ -221,6 +221,16 @@
 .zone--split > :where(.zone--filler) {
   flex: 1 1 0;
   min-width: 0;
+  // It carries the gap before it rather than leaving it to the row: drawn
+  // over the row's own gap, its first stretch left bare. Squeezed to nothing —
+  // the row scrolled to its end under a wide page —, the gap goes with it
+  // instead of closing the row on a strip of page.
+  margin-inline-start: calc(-1 * var(--zone-gap, var(--space-2)));
+  background: linear-gradient(to right, transparent var(--zone-gap, var(--space-2)), var(--surface-zone) 0);
+
+  &:dir(rtl) {
+    background: linear-gradient(to left, transparent var(--zone-gap, var(--space-2)), var(--surface-zone) 0);
+  }
 }
 
 // A region holding a page — a PDF read beside the text it came from: never
