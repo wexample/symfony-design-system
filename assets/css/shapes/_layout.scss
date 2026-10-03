@@ -83,12 +83,6 @@
   flex: none;
 }
 
-// The zone that runs a page's ground to the window's edge: what is left of
-// the row, nothing when there is none.
-.zone--filler {
-  min-width: 0;
-}
-
 // What a body holds is a region, not a text: it takes the room the body was
 // given instead of the height of what it holds, so its ground covers the body
 // down to the footer rather than stopping where the words do. No floor of its

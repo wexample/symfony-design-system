@@ -113,6 +113,10 @@
 //     zone--narrow        its size (`zone--size-N`), or its content's
 //     zone--measure       the reading measure, giving way below it
 //     zone--fit-content   as wide as what it holds
+//     zone--hug           as wide as what it holds, its text wrapping before
+//                         it widens the row — a table page
+//     zone--filler        what is left, holding nothing: the ground run to
+//                         the row's end, not counted as a neighbour
 //     a resized zone      the size it was left at (`--zone-size`, inline)
 //   and `--zone-min`, a floor of its own under which it is never squeezed.
 //
@@ -207,6 +211,16 @@
 .zone--split > :where(.zone--fit-content) {
   flex: 1 0 auto;
   min-width: max-content;
+}
+
+.zone--split > :where(.zone--hug) {
+  flex: 0 1 auto;
+  width: fit-content;
+}
+
+.zone--split > :where(.zone--filler) {
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 // A region holding a page — a PDF read beside the text it came from: never

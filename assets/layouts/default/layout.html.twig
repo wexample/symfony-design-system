@@ -54,10 +54,11 @@
         {#- `page_zone_folded` is the width it folds to while an embed beside it
             holds something, unless the visitor has sized it by hand. -#}
         {#- Held to the reading measure, unless the page is wide or says it
-            wants none (`page_measure: false`): a table's columns want the whole
-            row, a text does not. Wide also fills the window and scrolls its
+            wants none (`page_measure: false`): then as wide as what it holds —
+            a table's columns —, its text wrapping first. Wide also fills the window and scrolls its
             zones; `page_measure: false` alone keeps the page scrolling. -#}
-        <div class="zone zone--panel{{ (page_body_mode|default('default') != 'wide' and (page_measure ?? true)) ? ' zone--measure' }}"{% if pageZoneResizable %} {{ zone_state(pageZoneResizable) }}{% endif %}{% if page_zone_folded|default(null) %} data-zone-folded-size="{{ page_zone_folded }}"{% endif %}>
+        {%- set pageZoneWidth = page_body_mode|default('default') == 'wide' ? '' : ((page_measure ?? true) ? ' zone--measure' : ' zone--hug') -%}
+        <div class="zone zone--panel{{ pageZoneWidth }}"{% if pageZoneResizable %} {{ zone_state(pageZoneResizable) }}{% endif %}{% if page_zone_folded|default(null) %} data-zone-folded-size="{{ page_zone_folded }}"{% endif %}>
             {%- if pageZoneResizable -%}
                 {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer') }}
             {%- endif -%}
@@ -109,11 +110,12 @@
             </div>
         </div>
         {{- pageZonesAfter -}}
-        {#- A page held to a width, with nothing beside it, still runs its ground
-            to the window's edge: a zone takes what is left of the row, the gap
-            between the two showing the page under them. It holds nothing, so
-            the page still scrolls as one (`zone--filler`). -#}
-        {%- if pageZonesAfter|trim is empty and page_body_mode|default('default') != 'wide' and (page_measure ?? true) -%}
+        {#- A page held to a width — the measure, or its content's —, with
+            nothing beside it, still runs its ground to the window's edge: a
+            zone takes what is left of the row, the gap between the two showing
+            the page under them. It holds nothing, so the page still scrolls as
+            one (`zone--filler`). -#}
+        {%- if pageZonesAfter|trim is empty and page_body_mode|default('default') != 'wide' -%}
             <div class="zone zone--panel zone--filler" aria-hidden="true"></div>
         {%- endif -%}
         {%- if pageZonesHeld -%}
