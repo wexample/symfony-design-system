@@ -99,8 +99,11 @@
   display: flex;
   flex-direction: column;
 
+  // At the foot, the zone's own padding is its distance from the edge: no
+  // margin of its own below it.
   > .pagination:last-child {
     margin-top: auto;
+    margin-bottom: 0;
   }
 }
 
