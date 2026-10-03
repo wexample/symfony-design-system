@@ -15,7 +15,11 @@
     {#- What to do about it, when there is one thing to do: { icon, label, href }. -#}
     {% if options.action is defined and options.action %}
         <div class="message--actions">
-            {{ button_link(options.action.icon, options.action.label | trans, options.action.href, { class: 'button--flat' }) }}
+            {#- `new_window` opens it beside the page rather than in its place. -#}
+            {{ button_link(options.action.icon, options.action.label | trans, options.action.href, {
+                class: 'button--flat',
+                attr: options.action.new_window|default(false) ? { target: '_blank', rel: 'noopener noreferrer' } : {},
+            }) }}
         </div>
     {% endif %}
 </div>
