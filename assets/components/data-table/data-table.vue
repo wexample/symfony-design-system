@@ -684,7 +684,7 @@ export default {
     getCellActions(row, column) {
       // An actions cell whose column declares none reads them off the row,
       // ready made — the server table's contract: { href, icon, label, method,
-      // token, target, target_options }, the addresses already resolved.
+      // token, target, target_options, confirm }, the addresses already resolved.
       if (column?.cell === 'actions' && !column.actions && !column.action) {
         const own = row?.[this.getColumnKey(column)];
 
@@ -696,6 +696,8 @@ export default {
           token: action.token,
           label: action.label,
           icon: action.icon ?? '',
+          // What it asks before it goes ({ title, message, accept }).
+          confirm: action.confirm ?? null,
         })).filter((entry) => entry.icon);
       }
 
@@ -762,6 +764,7 @@ export default {
           token: typeof action === 'object' ? action.token : undefined,
           label: typeof action === 'object' ? action.label : undefined,
           icon: iconName ?? '',
+          confirm: typeof action === 'object' ? (action.confirm ?? null) : null,
         };
       }).filter((entry) => entry.icon);
     },
