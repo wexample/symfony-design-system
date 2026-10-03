@@ -44,6 +44,11 @@
   display: none;
 }
 
+// The actions gathered in one ⋮ menu, at the same fold.
+.page-tabs--actions-fold {
+  display: none;
+}
+
 // First fold: the words give way to the icons — the current tab's excepted,
 // it says where the reader is —, kept for the screen readers and in a title.
 .page-tabs[data-fold='1'],
@@ -61,11 +66,13 @@
 }
 
 .page-tabs[data-fold='2'] {
-  .page-tabs--items {
+  .page-tabs--items,
+  .page-tabs--action {
     display: none;
   }
 
-  .page-tabs--fold {
+  .page-tabs--fold,
+  .page-tabs--actions-fold {
     display: flex;
   }
 }

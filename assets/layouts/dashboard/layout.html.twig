@@ -69,7 +69,9 @@
         {%- set pageBack = breadcrumb_render({ back: true })|trim -%}
         {%- if pageBack is not empty -%}
             {%- set pageBarActions %}{{ block('page_title_actions') }}{{ page_title_actions_extra|default('') }}{% endset -%}
-            {%- set pageNavigation %}{{ page_tabs([], { back: true, actions: pageBarActions|trim ?: null }) }}{% endset -%}
+            {#- A list of actions (`page_bar_actions`, as a menu's items) rather
+                than markup: drawn as buttons, gathered in ⋮ on a phone. -#}
+            {%- set pageNavigation %}{{ page_tabs([], { back: true, actions: page_bar_actions ?? (pageBarActions|trim ?: null) }) }}{% endset -%}
             {%- set page_trail = false -%}
             {%- set page_title_actions_hidden = true -%}
         {%- endif -%}

@@ -6,7 +6,12 @@
 
     Short of room, the bar folds rather than wraps or scrolls (page-tabs.ts):
     first everything but the current tab gives up its words for its icon,
-    then the tabs gather in a menu named after the current one. -#}
+    then the tabs gather in a menu named after the current one.
+
+    `actions` is either markup the page draws itself, or a list of items —
+    { icon, label, href, target, method, token, confirm }, as a menu's items —
+    which the bar draws as buttons and gathers, at its last fold, in one ⋮
+    menu: every action at hand on a desk, all of them in reach on a phone. -#}
 {%- set fold_items = [] -%}
 {%- set current = null -%}
 {%- for item in items -%}
@@ -37,7 +42,30 @@
         {{ button_menu(current.icon|default('ph:bold/list'), current.label|default(label|default('WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.navigation'|trans)), fold_items, { class: 'button--flat', caret: true }) }}
     </div>
     {%- endif -%}
-    {%- if actions -%}
+    {%- if actions is iterable and actions is not empty -%}
+        <div class="page-tabs--actions toolbar--group">
+            {%- for action in actions -%}
+                {%- if action.method|default('get') == 'post' -%}
+                    <form class="page-tabs--action" method="post" action="{{ action.href }}"
+                          {%- if action.confirm|default(null) %} data-confirm-title="{{ action.confirm.title|default('') }}" data-confirm-message="{{ action.confirm.message }}" data-confirm-accept="{{ action.confirm.accept|default('') }}"{% endif %}>
+                        {%- if action.token|default(null) -%}<input type="hidden" name="_token" value="{{ action.token }}">{%- endif -%}
+                        {{ button(action.icon, action.label, { type: 'submit' }) }}
+                    </form>
+                {%- elseif action.target|default(null) -%}
+                    <span class="page-tabs--action">{{ button_target(action.icon, action.label, action.href, action.target) }}</span>
+                {%- else -%}
+                    <span class="page-tabs--action">{{ button_link(action.icon, action.label, action.href) }}</span>
+                {%- endif -%}
+            {%- endfor -%}
+            {%- set more_label = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.more'|trans -%}
+            <div class="page-tabs--actions-fold">
+                {{ button_menu('ph:bold/dots-three-vertical', null, actions, {
+                    menu_align: 'right',
+                    attr: { 'aria-label': more_label, title: more_label },
+                }) }}
+            </div>
+        </div>
+    {%- elseif actions -%}
         <div class="page-tabs--actions toolbar--group">{{ actions|raw }}</div>
     {%- endif -%}
 </nav>
