@@ -39,6 +39,13 @@ export default {
       default: null
     },
     // Tri-state: true, false, or null when the API did not tell.
+    // A single page hides the pager when true. Shown by default, its arrows
+    // off: a list that says nothing of its pages leaves the reader wondering
+    // whether there are more.
+    hideSingle: {
+      type: Boolean,
+      default: false
+    },
     hasMore: {
       default: null
     },
@@ -69,8 +76,8 @@ export default {
     },
 
     isVisible() {
-      if (this.pagesCount) {
-        return this.pagesCount > 1;
+      if (typeof this.pagesCount === 'number') {
+        return !this.hideSingle || this.pagesCount > 1;
       }
 
       return this.page > 0 || this.hasMore === true;
@@ -99,7 +106,7 @@ export default {
       const count = this.pagesCount;
 
       if (!count || count <= 1) {
-        return count === 1 ? [0] : [];
+        return [0];
       }
 
       const max = Math.max(5, this.maxVisiblePages);

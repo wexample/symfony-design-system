@@ -335,3 +335,20 @@ test('clamp: two lines unless the column says how many', () => {
   assert.deepEqual(vm.getClampStyle({ key: 'error', cell: 'clamp' }), { '--table-clamp': 2 });
   assert.deepEqual(vm.getClampStyle({ key: 'error', cell: 'clamp', lines: 4 }), { '--table-clamp': 4 });
 });
+
+test('pagination: at the bottom, unless asked above or on both sides', () => {
+  const many = Array.from({ length: 12 }, (_, index) => ({ id: index + 1, first: `n${index}` }));
+  const at = (paginationPosition?: string) => {
+    const { vm } = mount({ rows: many, columns: [NAME], pageSize: 5, app: {}, ...(paginationPosition ? { paginationPosition } : {}) });
+
+    return [vm.hasPaginationAt('top'), vm.hasPaginationAt('bottom')];
+  };
+
+  assert.deepEqual(at(), [false, true]);
+  assert.deepEqual(at('top'), [true, false]);
+  assert.deepEqual(at('both'), [true, true]);
+
+  const { vm } = mount({ rows: many.slice(0, 3), columns: [NAME], pageSize: 5, paginationPosition: 'both', app: {} });
+  // One page still shows its pages, arrows off.
+  assert.deepEqual([vm.hasPaginationAt('top'), vm.hasPaginationAt('bottom')], [true, true]);
+});

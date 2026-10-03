@@ -325,7 +325,7 @@ export default {
     },
 
     pagesCount() {
-      return this.pageSize > 0 ? Math.ceil(this.shownRows.length / this.pageSize) : 0;
+      return this.pageSize > 0 ? Math.max(1, Math.ceil(this.shownRows.length / this.pageSize)) : 0;
     },
 
     pageOffset() {
@@ -444,8 +444,10 @@ export default {
       return Boolean(this.$slots['bar-end']) || this.hasPaginationAt('top');
     },
 
+    // Paged (`pageSize`), the pages show even when there is one: the reader
+    // sees there are no more instead of wondering.
     hasPaginationAt(position) {
-      return this.pagesCount > 1
+      return this.pageSize > 0
         && (this.paginationPosition === position || this.paginationPosition === 'both');
     },
 

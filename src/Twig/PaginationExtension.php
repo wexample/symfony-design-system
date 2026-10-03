@@ -38,9 +38,13 @@ class PaginationExtension extends AbstractTemplateExtension
             new TwigFunction(
                 'pagination',
                 function (Environment $twig, $context, int $page, int $pagesCount, array $options = []): string {
-                    if ($pagesCount <= 1) {
+                    // One page still shows, its arrows off: a list that says
+                    // nothing of its pages leaves the reader wondering
+                    // whether there are more. `hide_single` hides it.
+                    if ($pagesCount <= 1 && ($options['hide_single'] ?? false)) {
                         return '';
                     }
+                    $pagesCount = max(1, $pagesCount);
 
                     $page = max(1, min($page, $pagesCount));
                     $href = $this->hrefBuilder($options);

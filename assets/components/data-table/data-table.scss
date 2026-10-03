@@ -50,14 +50,26 @@
 // the first. The frame carries the margin.
 .table--frame {
   margin: 1rem 0;
-  // As wide as its columns ask and no wider: a table of four short columns
-  // does not spread them over the window. The bar above it (search, total)
-  // takes the same width, so the total ends where the table does.
+}
+
+// As wide as its columns ask and no wider: a table of four short columns does
+// not spread them over the window. The whole of it — the bar above (search,
+// total, pages), the rows, the pages below — keeps that width, so the total
+// and the pages end where the table does; a bar wider than the columns
+// widens the table to meet it.
+.data-table,
+.entity-table {
   width: fit-content;
 }
 
+// A collection's table with its pages under it: the two keep one width.
+.entity-table > .data-table {
+  width: auto;
+}
+
 // Asked for (`fill`): the table takes the whole row, its columns sharing it.
-.table--frame--fill {
+.data-table:has(> .table--frame--fill),
+.entity-table:has(.table--frame--fill) {
   width: auto;
 }
 
