@@ -31,6 +31,10 @@
         accept — is one thing to do and nothing around it: no menu, no title
         bar, a narrow column under the application's mark, and only what the
         header offers anyone, a language, a scheme. -#}
+    {# Rendered up front so the header toggle and the panel itself can both tell
+       whether the page has anything to put in the right menu. #}
+    {% set menuRight %}{% block page_menu_right_body %}{% endblock %}{% endset %}
+    {% set menuRight = menuRight|trim %}
     {%- if page_focus|default(false) -%}
         <div class="layout--focus">
             <header class="layout--focus-header">
@@ -43,7 +47,7 @@
                 </section>
             </div>
             <footer class="footer">
-                <div class="footer--body"></div>
+                <div class="footer--body">{{- block('footer_start') -}}</div>
                 {{- block('footer_environment') -}}
                 {{- block('footer_items') -}}
             </footer>
@@ -77,10 +81,6 @@
             {%- set page_title_actions_hidden = true -%}
         {%- endif -%}
     {%- endif -%}
-    {# Rendered up front so the header toggle and the panel itself can both tell
-       whether the page has anything to put in the right menu. #}
-    {% set menuRight %}{% block page_menu_right_body %}{% endblock %}{% endset %}
-    {% set menuRight = menuRight|trim %}
 
     <div class="layout--horizontal">
         <div class="gutters--body layout--body--overlay-scope">
@@ -190,6 +190,10 @@
                         {#- Where the footer stands (`layout_footer`): `fixed`, under the
                             body that scrolls, always in view; `page`, at the end of the
                             page, the panel's whole width, scrolling with it. -#}
+                        {#- What the application puts at the footer's start, on every page,
+                            focused ones included (`footer_start`): links owed to everyone,
+                            legal texts. -#}
+                        {%- if false -%}{%- block footer_start -%}{%- endblock -%}{%- endif -%}
                         {%- if layout_footer|default('fixed') == 'fixed' -%}
                         {%- block layout_footer -%}
                         <footer class="footer footer--{{ layout_footer|default('fixed') }}">
@@ -200,6 +204,7 @@
                                         {{ breadcrumb_render({ current_label: page_title|default(null) }) }}
                                     {%- endif -%}
                                 {% endblock %}
+                                {{- block('footer_start') -}}
                             </div>
                             {#- Anything but production says so, in the dev tone: the
                                 environment named, what it means under the pointer. -#}

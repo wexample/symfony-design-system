@@ -139,7 +139,14 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--surface-page);
+  // The whole window is the one region: its ground is a zone's, and the header
+  // and the footer stand on it without one of their own.
+  background: var(--surface-zone);
+}
+
+.layout--focus > .footer {
+  background: none;
+  border-top-color: transparent;
 }
 
 .layout--focus-header {
@@ -171,6 +178,11 @@
   margin-inline: auto;
   padding-block: var(--space-6);
   outline: none;
+  // The one thing to do in the middle of the window, between the mark and
+  // the footer, and from the top when it is taller than the window.
+  display: flex;
+  flex-direction: column;
+  justify-content: safe center;
 
   > .layout--body {
     padding: 0;
