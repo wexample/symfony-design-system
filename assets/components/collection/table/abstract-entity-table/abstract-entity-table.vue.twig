@@ -30,8 +30,11 @@
                 :total="pagination ? pagination.total : null"
                 :default-sort="defaultSort"
                 :sort="sort"
+                :filters="barFilters"
+                :filter-values="barFilterValues"
                 @update:sort="onSortChange"
                 @update:search="onSearchChange"
+                @update:filter-values="onBarFilterValuesChange"
         >
             {#- The pages above the rows sit at the end of the table's bar,
                 on the line of its search and its count. -#}

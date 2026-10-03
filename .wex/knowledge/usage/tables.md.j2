@@ -53,6 +53,16 @@ rows depends on where they come from.
   gives what a filter holds.
 - **Vue table fed by an api** — the default. `filters` and `v-model:filter-values`: the page
   asks its api with the value and hands back rows already narrowed.
+  A table extending `abstract-entity-table` sets `barFilters` instead (in `created()`): its
+  values are sent with the query, each under its filter's key, and the list is read again
+  from its first page. Its `filters` prop stays what the page narrows to, out of the reader's
+  hands. A filter of several values (`multiple`) goes as one, its values joined by commas
+  (`status=active,archived`), which the api splits. Its starting values are the component's
+  `barFilterValues` — `{ status: ['active'] }`: one box ticked, the other not.
+- **Kept state** — a table extending `abstract-entity-table` whose `getStateKey()` names a key
+  keeps its order, its filters and its page in the interface's state (`ui_state`, in the
+  session, under `ui.table.<key>`): the reader finds the list as they left it, for the
+  session — never handed to the next one on a shared workstation. The address keeps nothing.
 - **Vue table holding its rows** — `filter-rows` makes the table narrow them itself, a row
   passing when its field of the filter's key is one of the values (or, for a list, holds
   one). The table goes back to its first page, and ticked rows a filter hides are unticked.

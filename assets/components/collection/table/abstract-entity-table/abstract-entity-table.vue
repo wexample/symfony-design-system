@@ -4,6 +4,7 @@ import Pagination from "../../../pagination/pagination.vue";
 import AbstractEntityCollectionVueMixin from "../../../../js/Vue/AbstractEntityCollectionVueMixin";
 import DateService from "@wexample/symfony-loader/js/Services/DateService";
 import { sortToQuery } from "../../../../js/Helper/SortHelper";
+import { uiStateGet, uiStateSet } from "../../../../js/Helper/UiStateHelper";
 
 export default {
   template: "#vue-template-wexample-symfony-design-system-bundle-vue-collection-table-abstract-entity-table",
@@ -48,12 +49,18 @@ export default {
       search: '',
       // Words typed in a row make one request, once the typing pauses.
       searchDelayMs: 300,
-      searchTimer: null
+      searchTimer: null,
+      // Menus in the table's bar the reader narrows the list with,
+      // `{ key, label, options: [{ value, label }], multiple }`: what they hold
+      // is sent to the api with the query, under each filter's key.
+      barFilters: [],
+      barFilterValues: {}
     };
   },
 
   created() {
     this.columns = this.processColumns(this.getColumnsConfiguration());
+    this.restoreTableState();
   },
 
   beforeUnmount() {
@@ -158,8 +165,38 @@ export default {
       return [];
     },
 
+    // Where the table's state is kept — its order, its filters, its page —, so
+    // the reader finds the list as they left it: a key of the interface's
+    // state (`ui_state`, kept in the session), or null to keep nothing.
+    getStateKey() {
+      return null;
+    },
+
+    restoreTableState() {
+      const key = this.getStateKey();
+      if (!key) {
+        return;
+      }
+
+      const state = uiStateGet(this.app, `ui.table.${key}`, null);
+      if (state) {
+        this.sort = state.sort ?? this.sort;
+        this.barFilterValues = state.filters ?? this.barFilterValues;
+        this.page = state.page ?? this.page;
+      }
+
+      this.$watch(
+        () => ({ sort: this.sort, filters: this.barFilterValues, page: this.page }),
+        (value) => uiStateSet(this.app, `ui.table.${key}`, value),
+        { deep: true }
+      );
+    },
+
     getCollectionQuery() {
-      const query = { ...this.filters };
+      // A filter of several values goes as one, its values joined by commas.
+      const barFilters = Object.fromEntries(Object.entries(this.barFilterValues ?? {})
+        .map(([key, value]) => [key, Array.isArray(value) ? value.join(',') : value]));
+      const query = { ...this.filters, ...barFilters };
       const sort = sortToQuery(this.sort ?? this.defaultSort);
 
       if (this.search.trim()) {
@@ -177,6 +214,12 @@ export default {
     // the page the reader was on is not the same page anymore.
     onSortChange(sort) {
       this.sort = sort;
+      this.page = 0;
+      this.refreshEntitiesCollection();
+    },
+
+    onBarFilterValuesChange(values) {
+      this.barFilterValues = values;
       this.page = 0;
       this.refreshEntitiesCollection();
     },
