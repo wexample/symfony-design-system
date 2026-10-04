@@ -75,17 +75,18 @@ export default {
     }
   },
 
-  beforeUnmount() {
-    clearTimeout(this.submitTimer);
-  },
-
   methods: {
     onBeforeInput(event) {
       if (event.inputType === 'insertText' && event.data !== null) {
         event.preventDefault();
         const text = otpInputClean(event.data, this.length, this.alphanumeric);
 
-        this.commit(text.length === this.length ? otpInputFrom(text, this.length) : otpInputWrite(this.state, text));
+        const whole = text.length === this.length;
+
+        this.commit(
+          whole ? otpInputFrom(text, this.length) : otpInputWrite(this.state, text),
+          whole || this.state.active + text.length >= this.length
+        );
       } else if (event.inputType === 'deleteContentBackward' || event.inputType === 'deleteContentForward') {
         event.preventDefault();
         this.commit(otpInputErase(this.state, event.inputType === 'deleteContentBackward'));
@@ -95,7 +96,7 @@ export default {
     // What the browser wrote by itself replaces the code.
     onInput(event) {
       if (event.target.value !== this.value) {
-        this.commit(otpInputFrom(otpInputClean(event.target.value, this.length, this.alphanumeric), this.length));
+        this.commit(otpInputFrom(otpInputClean(event.target.value, this.length, this.alphanumeric), this.length), true);
       }
     },
 
@@ -143,8 +144,8 @@ export default {
       });
     },
 
-    commit(state) {
-      const wasComplete = otpInputComplete(this.state);
+    // `last`: what was written reached the last cell, or was the whole code.
+    commit(state, last = false) {
       const input = this.$refs.input;
 
       this.state = state;
@@ -156,17 +157,12 @@ export default {
       this.$emit('update:modelValue', this.value);
       this.selectAll();
 
-      // Sent as soon as it is complete; a complete code corrected in place
-      // once the hand rests, so two digits changed in a row go together. Never
-      // for an agent: the submission stays with whoever asked for the code.
-      clearTimeout(this.submitTimer);
-
-      if (otpInputComplete(state) && !this.isAssisted) {
-        if (wasComplete) {
-          this.submitTimer = setTimeout(() => this.complete(input), 1000);
-        } else {
-          this.complete(input);
-        }
+      // Sent once the last cell is written, the code then complete: a digit
+      // corrected in the middle waits for the button, or for the last cell
+      // typed again. Never for an agent: the submission stays with whoever
+      // asked for the code.
+      if (last && otpInputComplete(state) && !this.isAssisted) {
+        this.complete(input);
       }
     },
 

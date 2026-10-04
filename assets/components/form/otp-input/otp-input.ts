@@ -11,9 +11,6 @@ import {
   type OtpInputState,
 } from '../../../js/Helper/OtpInputHelper';
 
-// How long a corrected code waits for another correction before it is sent.
-const OTP_INPUT_CORRECTION_DELAY = 1000;
-
 /**
  * The cells are what is written in, the input only what carries the code: a
  * click lands on the cell clicked, a key typed replaces what that cell held,
@@ -25,7 +22,6 @@ export default class extends Field {
   private inputEl: HTMLInputElement | null = null;
   private cellEls: HTMLElement[] = [];
   private state: OtpInputState = { chars: [], active: 0 };
-  private submitTimer?: number;
 
   attachHtmlElements() {
     super.attachHtmlElements();
@@ -63,7 +59,6 @@ export default class extends Field {
     input?.removeEventListener('focus', this.render);
     input?.removeEventListener('blur', this.render);
     this.el.querySelector('.otp-input--control')?.removeEventListener('mousedown', this.onMouseDown);
-    window.clearTimeout(this.submitTimer);
   }
 
   private get length(): number {
@@ -82,9 +77,13 @@ export default class extends Field {
       const text = otpInputClean(event.data, this.length, this.alphanumeric);
 
       // A whole code typed at once is the code, wherever the cell stood.
-      this.commit(text.length === this.length
-        ? otpInputFrom(text, this.length)
-        : otpInputWrite(this.state, text));
+      const whole = text.length === this.length;
+
+      this.commit(
+        whole ? otpInputFrom(text, this.length) : otpInputWrite(this.state, text),
+        true,
+        whole || this.state.active + text.length >= this.length
+      );
     } else if (event.inputType === 'deleteContentBackward' || event.inputType === 'deleteContentForward') {
       event.preventDefault();
       this.commit(otpInputErase(this.state, event.inputType === 'deleteContentBackward'));
@@ -99,7 +98,7 @@ export default class extends Field {
       return;
     }
 
-    this.commit(otpInputFrom(otpInputClean(input.value, this.length, this.alphanumeric), this.length), false);
+    this.commit(otpInputFrom(otpInputClean(input.value, this.length, this.alphanumeric), this.length), false, true);
   };
 
   private onKeyDown = (event: KeyboardEvent): void => {
@@ -132,14 +131,14 @@ export default class extends Field {
     this.render();
   };
 
-  private commit(state: OtpInputState, notify = true): void {
+  // `last`: what was written reached the last cell, or was the whole code.
+  private commit(state: OtpInputState, notify = true, last = false): void {
     const input = this.inputEl;
 
     if (!input) {
       return;
     }
 
-    const wasComplete = otpInputComplete(this.state);
     this.state = state;
     input.value = otpInputValue(state);
 
@@ -150,17 +149,11 @@ export default class extends Field {
 
     this.render();
 
-    // Sent as soon as it is complete; a complete code corrected in place —
-    // a refused one — once the hand rests, so that two digits changed in a row
-    // are sent together. An agent filling it hands the submission back.
-    window.clearTimeout(this.submitTimer);
-
-    if (otpInputComplete(state) && !this.isAssisted && input.dataset.autoSubmit !== undefined) {
-      if (wasComplete) {
-        this.submitTimer = window.setTimeout(() => this.submit(input), OTP_INPUT_CORRECTION_DELAY);
-      } else {
-        this.submit(input);
-      }
+    // Sent once the last cell is written, the code then complete: a digit
+    // corrected in the middle — a refused code — waits for the button, or for
+    // the last cell typed again. An agent filling it hands the submission back.
+    if (last && otpInputComplete(state) && !this.isAssisted && input.dataset.autoSubmit !== undefined) {
+      this.submit(input);
     }
   }
 
