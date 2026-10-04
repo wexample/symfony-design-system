@@ -3,8 +3,11 @@
 
 .stepper {
   // Too many steps for the width scroll rather than wrap: a sequence broken
-  // over two lines no longer reads as one.
+  // over two lines no longer reads as one. Sideways only: a pixel of the
+  // steps' height past the line — a font, a zoom — is no reason for a
+  // scrollbar of its own.
   overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .stepper--list {
