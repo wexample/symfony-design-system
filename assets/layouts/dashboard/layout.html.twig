@@ -183,7 +183,10 @@
                         {% endblock %}
                         {%- endif -%}
                         <div class="layout--body--scrollable">
-                            <section class="layout--body layout--body--{{ page_body_mode|default('default') }}">
+                            {#- A page held to no measure (`page_measure: false`) is as wide
+                                as what it holds, and so is the body under it: its ground
+                                and its footer follow a table wider than the window. -#}
+                            <section class="layout--body layout--body--{{ page_body_mode|default('default') }}{{ not (page_measure ?? true) and page_body_mode|default('default') != 'wide' ? ' layout--body--hug' }}">
                                 {{- block('page_body_container') -}}
                             </section>
                         </div>

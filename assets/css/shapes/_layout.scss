@@ -62,6 +62,15 @@
   flex: 1 0 auto;
 }
 
+// A page held to no measure (`layout--body--hug`) is as wide as what it holds,
+// never narrower than the room: the body follows a table wider than the
+// window, its ground and its footer with it. Every other page keeps the
+// room's width and its content wraps to it.
+.layout--body--scrollable > .layout--body--hug {
+  width: min-content;
+  min-width: 100%;
+}
+
 // Unless it is bounded on purpose — wide, holding zones side by side, or a
 // page that fills: then it is the room, and what it holds scrolls on its own.
 .layout--body--scrollable > :is(.layout--body--wide, .layout--body:has(> .zone--split > .zone ~ .zone:not(.zone--filler)), .layout--body:has(.page--fill)) {
