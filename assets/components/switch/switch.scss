@@ -68,9 +68,10 @@
   opacity: 0;
 }
 
-// Active state: the link colour, or the tone's fill when the switch has one.
+// Active state: the application's own colour — unmistakable against the grey
+// of off —, or the tone's fill when the switch has one.
 .switch[data-checked="true"] {
-  .switch--pill { background: var(--switch-on-color, var(--color-link)); }
+  .switch--pill { background: var(--switch-on-color, var(--accent-9)); }
   .switch--knob { transform: translateX(calc(var(--travel) * var(--direction-sign, 1))); }
   .switch--off-inner { opacity: 0; }
   .switch--on-inner  { opacity: 1; }
