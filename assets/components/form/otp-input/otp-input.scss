@@ -2,8 +2,8 @@
 @use '../../../css/mixins/field';
 
 // A code is the one thing asked on its step: its cells share the whole width
-// of the field, square, the characters set large enough to be read back at a
-// glance against the mail or the app.
+// of the field, upright as a character is (3:4), the characters set large
+// enough to be read back at a glance against the mail or the app.
 .otp-input--control {
   position: relative;
   display: grid;
@@ -20,7 +20,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 1;
+  aspect-ratio: 3 / 4;
   max-height: var(--size-5);
   font-family: var(--font-family-mono);
   font-size: var(--font-size-7);
