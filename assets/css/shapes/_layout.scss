@@ -216,6 +216,9 @@
   // the top.
   .zone--content > .page--head {
     flex: 1 1 0;
+    // Its own height as a floor: from nothing, the share of the room it is
+    // given would be all it gets, and a short window would crush it.
+    min-height: min-content;
     justify-content: flex-end;
   }
 
