@@ -41,7 +41,9 @@
                 <div class="layout--focus-logo">{{- block('page_menu_logo') -}}</div>
                 {{- block('page_header_menu_right') -}}
             </header>
-            <div class="layout--focus-body" id="main-content" tabindex="-1">
+            {#- `page_focus_width: 'reading'`: a text to read through — terms, codes
+                to keep — rather than a short form. -#}
+            <div class="layout--focus-body{{ page_focus_width|default(null) ? ' layout--focus-body--' ~ page_focus_width }}" id="main-content" tabindex="-1">
                 <section class="layout--body layout--body--{{ page_body_mode|default('default') }}">
                     {{- block('page_body_container') -}}
                 </section>

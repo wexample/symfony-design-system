@@ -14,6 +14,7 @@
             :id="resolvedId"
             :name="name || null"
             :checked="modelValue"
+            :required="required ? true : null"
             :disabled="isDisabled ? true : null"
             @change="onChange"
     >
