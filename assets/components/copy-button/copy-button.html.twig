@@ -1,0 +1,21 @@
+{#- A button copying a text: `value`, or the text of the element named by
+    `target` (an id). The copy glyph turns into a check once the clipboard took
+    it; refused, the button says so instead. -#}
+{%- set domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.copy.' -%}
+<button type="button"
+        class="copy-button{{ label|default(false) ? ' copy-button--labelled' }}{% if class|default('') %} {{ class }}{% endif %}"
+        {% if value|default(null) is not null %}data-copy-value="{{ value }}"{% endif %}
+        {% if target|default(null) %}data-copy-target="{{ target }}"{% endif %}
+        title="{{ (domain ~ 'copy') | trans }}"
+        aria-label="{{ (domain ~ 'copy') | trans }}"
+        data-copy-done="{{ (domain ~ 'copied') | trans }}"
+        data-copy-failed="{{ (domain ~ 'failed') | trans }}">
+    <span class="copy-button--icon copy-button--icon-copy" aria-hidden="true">{{ icon('ph:bold/copy') }}</span>
+    <span class="copy-button--icon copy-button--icon-done" aria-hidden="true">{{ icon('ph:bold/check') }}</span>
+    <span class="copy-button--icon copy-button--icon-failed" aria-hidden="true">{{ icon('ph:bold/x') }}</span>
+    {%- if label|default(false) -%}
+        <span class="copy-button--label">{{ (domain ~ 'copy') | trans }}</span>
+    {%- endif -%}
+    {#- What happened, said aloud. -#}
+    <span class="copy-button--status" role="status"></span>
+</button>

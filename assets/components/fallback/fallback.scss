@@ -1,5 +1,7 @@
 // The other way, when the first one fails: set back from what it stands in for,
 // in the small and quiet text of what is there only if needed.
+@use '../copy-button/copy-button';
+
 .fallback {
   display: flex;
   flex-direction: column;
@@ -24,31 +26,4 @@
 // A key is read and typed as it is: never cut, broken anywhere it must.
 .fallback--code {
   overflow-wrap: anywhere;
-}
-
-.fallback--copy {
-  flex: none;
-  display: inline-flex;
-  padding: var(--space-1);
-  border: 0;
-  border-radius: var(--radius-1);
-  background: none;
-  color: inherit;
-  cursor: pointer;
-
-  &:hover,
-  &:focus-visible {
-    color: var(--text-color-default);
-    background: var(--state-hover);
-  }
-}
-
-// Copied: the check stands where the copy glyph was, for a moment.
-.fallback--copied-icon,
-.fallback--copy.is-copied .fallback--copy-icon {
-  display: none;
-}
-
-.fallback--copy.is-copied .fallback--copied-icon {
-  display: inline-flex;
 }

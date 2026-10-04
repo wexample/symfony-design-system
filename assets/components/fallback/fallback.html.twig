@@ -1,7 +1,6 @@
 {#- The other way, when the first one fails: the question, then what to do
     instead — a value, copied in one click, or a link. Standing right under
     what it stands in for, and aligned with it. -#}
-{%- set domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.fallback.' -%}
 <div class="fallback{{ center|default(false) ? ' fallback--center' }}{% if class|default('') %} {{ class }}{% endif %}">
     <span class="fallback--question">{{ question | trans }}</span>
     {%- if href|default(null) -%}
@@ -10,12 +9,7 @@
         <span class="fallback--value">
             <code class="fallback--code">{{ value }}</code>
             {%- if copy|default(true) -%}
-                <button type="button" class="fallback--copy" data-fallback-copy="{{ value }}"
-                        title="{{ (domain ~ 'copy') | trans }}" aria-label="{{ (domain ~ 'copy') | trans }}"
-                        data-fallback-copied="{{ (domain ~ 'copied') | trans }}">
-                    <span class="fallback--copy-icon">{{ icon('ph:bold/copy') }}</span>
-                    <span class="fallback--copied-icon">{{ icon('ph:bold/check') }}</span>
-                </button>
+                {{ copy_button({ value: value }) }}
             {%- endif -%}
         </span>
     {%- endif -%}

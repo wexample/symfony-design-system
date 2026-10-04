@@ -84,9 +84,10 @@ en:
       collapse: Collapse
       expand: Expand
       resize: Resize
-    fallback:
+    copy:
       copy: Copy
       copied: Copied
+      failed: Could not copy, select the text instead
 
 ar:
   frontend:
@@ -560,9 +561,10 @@ fr:
       collapse: Réduire
       expand: Agrandir
       resize: Redimensionner
-    fallback:
+    copy:
       copy: Copier
       copied: Copié
+      failed: Copie impossible, sélectionnez le texte
 
 he:
   frontend:

@@ -1,0 +1,55 @@
+// A button putting a text in the clipboard, quiet until it is used: the copy
+// glyph, a check for a moment once copied, a cross when it could not be.
+.copy-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex: none;
+  padding: var(--space-1);
+  border: 0;
+  border-radius: var(--radius-1);
+  background: none;
+  color: var(--text-color-muted);
+  font: inherit;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--text-color-default);
+    background: var(--state-hover);
+  }
+}
+
+.copy-button--icon {
+  display: inline-flex;
+}
+
+.copy-button--icon-done,
+.copy-button--icon-failed,
+.copy-button.is-copied .copy-button--icon-copy,
+.copy-button.is-failed .copy-button--icon-copy {
+  display: none;
+}
+
+.copy-button.is-copied .copy-button--icon-done,
+.copy-button.is-failed .copy-button--icon-failed {
+  display: inline-flex;
+}
+
+.copy-button.is-copied {
+  color: var(--success-11);
+}
+
+.copy-button.is-failed {
+  color: var(--error-11);
+}
+
+// Said aloud, never shown.
+.copy-button--status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
