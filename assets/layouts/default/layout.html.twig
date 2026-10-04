@@ -64,39 +64,48 @@
             {%- endif -%}
             <div class="zone{{ pageZonesScroll ? ' zone--scrollable' }}">
                 <div class="zone--content stack--vertical">
-                    {#- Where the page hangs from, above its title (`page_trail`): the
-                        way back to the page above, or the whole trail. -#}
-                    {%- if page_trail|default(null) -%}
-                        {{ breadcrumb_render({ back: page_trail == 'back', current_label: page_title|default(null) }) }}
-                    {%- endif -%}
-                    {%- if page_show_title|default(false) -%}
-                        {#- The page's own actions, and those a layout hands down
-                            to stand beside the title (`page_title_actions_extra`). -#}
-                        {%- set pageTitleActions %}{% block page_title_actions %}{% endblock %}{{ page_title_actions_extra|default('') }}{%- endset -%}
-                        {#- Unless a bar under the header holds them already. -#}
-                        {%- set pageTitleActions = page_title_actions_hidden|default(false) ? '' : pageTitleActions|trim -%}
-                        {#- What the page says of the thing it is titled after, in a
-                            line under its name (`page_subtitle`): when it was made,
-                            where it belongs. -#}
-                        {#- What the page's state is, beside its name (`page_title_aside`):
-                            a marker — active, offline. -#}
-                        {%- set pageSubtitle = page_subtitle|default(null) -%}
-                        {%- if pageTitleActions is not empty -%}
-                            <div class="toolbar page--title-bar">
+                    {#- What heads the page — its trail, its title, and what a page
+                        adds under them (`page_head`): the steps of a tunnel. One
+                        piece, so a layout can set it apart from the body it heads. -#}
+                    {%- set pageHead -%}
+                        {#- Where the page hangs from, above its title (`page_trail`): the
+                            way back to the page above, or the whole trail. -#}
+                        {%- if page_trail|default(null) -%}
+                            {{ breadcrumb_render({ back: page_trail == 'back', current_label: page_title|default(null) }) }}
+                        {%- endif -%}
+                        {%- if page_show_title|default(false) -%}
+                            {#- The page's own actions, and those a layout hands down
+                                to stand beside the title (`page_title_actions_extra`). -#}
+                            {%- set pageTitleActions %}{% block page_title_actions %}{% endblock %}{{ page_title_actions_extra|default('') }}{%- endset -%}
+                            {#- Unless a bar under the header holds them already. -#}
+                            {%- set pageTitleActions = page_title_actions_hidden|default(false) ? '' : pageTitleActions|trim -%}
+                            {#- What the page says of the thing it is titled after, in a
+                                line under its name (`page_subtitle`): when it was made,
+                                where it belongs. -#}
+                            {#- What the page's state is, beside its name (`page_title_aside`):
+                                a marker — active, offline. -#}
+                            {%- set pageSubtitle = page_subtitle|default(null) -%}
+                            {%- if pageTitleActions is not empty -%}
+                                <div class="toolbar page--title-bar">
+                                    <div class="page--title-block">
+                                        <h1 class="toolbar--title">{{ page_title | default('@page::page_title' | trans) }}</h1>
+                                        {%- if page_title_aside|default('')|trim is not empty -%}<span class="page--title-aside">{{- page_title_aside -}}</span>{%- endif -%}
+                                        {%- if pageSubtitle -%}<p class="page--subtitle">{{ pageSubtitle }}</p>{%- endif -%}
+                                    </div>
+                                    <div class="toolbar--group">{{- pageTitleActions|raw -}}</div>
+                                </div>
+                            {%- else -%}
                                 <div class="page--title-block">
-                                    <h1 class="toolbar--title">{{ page_title | default('@page::page_title' | trans) }}</h1>
+                                    <h1 class="page--title">{{ page_title | default('@page::page_title' | trans) }}</h1>
                                     {%- if page_title_aside|default('')|trim is not empty -%}<span class="page--title-aside">{{- page_title_aside -}}</span>{%- endif -%}
                                     {%- if pageSubtitle -%}<p class="page--subtitle">{{ pageSubtitle }}</p>{%- endif -%}
                                 </div>
-                                <div class="toolbar--group">{{- pageTitleActions|raw -}}</div>
-                            </div>
-                        {%- else -%}
-                            <div class="page--title-block">
-                                <h1 class="page--title">{{ page_title | default('@page::page_title' | trans) }}</h1>
-                                {%- if page_title_aside|default('')|trim is not empty -%}<span class="page--title-aside">{{- page_title_aside -}}</span>{%- endif -%}
-                                {%- if pageSubtitle -%}<p class="page--subtitle">{{ pageSubtitle }}</p>{%- endif -%}
-                            </div>
+                            {%- endif -%}
                         {%- endif -%}
+                        {%- block page_head -%}{%- endblock -%}
+                    {%- endset -%}
+                    {%- if pageHead|trim is not empty -%}
+                        <div class="page--head stack--vertical">{{ pageHead }}</div>
                     {%- endif -%}
                     {{- block('page_body') -}}
                     {#- What the page does, below what it says — kept at the foot

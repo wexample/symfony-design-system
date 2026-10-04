@@ -187,14 +187,42 @@
   margin-inline: auto;
   padding-block: var(--space-6);
   outline: none;
-  // The one thing to do in the middle of the window, between the mark and
-  // the footer, and from the top when it is taller than the window.
   display: flex;
   flex-direction: column;
-  justify-content: safe center;
 
+  // The column's whole height, down to what the page writes, so the page has
+  // the room to stand in the middle of.
   > .layout--body {
+    flex: 1;
     padding: 0;
+  }
+
+  .zone--panel,
+  .zone--panel > .zone {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .zone--panel > .zone,
+  .zone--content {
+    flex: 1;
+  }
+
+  // The one thing to do in the middle of the window, as if what heads it —
+  // the title, a tunnel's steps (`page--head`) — were not there: the head
+  // takes the room above, as much of it as the room left below, and stands
+  // at its foot. Short of room it keeps its height and pushes the thing down
+  // rather than covering it; taller than the window, all of it reads from
+  // the top.
+  .zone--content > .page--head {
+    flex: 1 1 0;
+    justify-content: flex-end;
+  }
+
+  .zone--content::after,
+  .zone--content:not(:has(> .page--head))::before {
+    content: '';
+    flex: 1 1 0;
   }
 
   // The page's region stands on nothing of its own here: the column is the
