@@ -11,7 +11,12 @@
     display: flex;
   }
 
+  // Each item centred on the footer's line, whatever it holds: a text, a link
+  // set as a button, a marker. Left on the text's baseline, a button sits a
+  // little lower than the words beside it.
   .footer-item {
+    display: flex;
+    align-items: center;
     padding: var(--space-1);
   }
 
@@ -25,11 +30,9 @@
     gap: var(--space-1);
   }
 
-  // A marker brings its own room: no padding above and below it, centred on
-  // the footer's line, so the footer is as tall with it as without.
+  // A marker brings its own room: no padding above and below it, so the
+  // footer is as tall with it as without.
   .footer-item:has(> .marker) {
-    display: flex;
-    align-items: center;
     padding-block: 0;
   }
 }
