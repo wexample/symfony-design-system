@@ -127,7 +127,7 @@ $contrast-threshold: 75%;
     @include scale($state, map.get($palette, $state), $ground, $ink);
   }
 
-  @include scale('dev', if(map.has-key($palette, 'dev'), map.get($palette, 'dev'), #8e4ec6), $ground, $ink);
+  @include scale('dev', map.get($palette, 'dev') or #8e4ec6, $ground, $ink);
 
   @each $name, $color in map.get($palette, 'categories') {
     @include scale('cat-#{$name}', $color, $ground, $ink);
