@@ -75,6 +75,10 @@ export default {
     }
   },
 
+  beforeUnmount() {
+    clearTimeout(this.submitTimer);
+  },
+
   methods: {
     onBeforeInput(event) {
       if (event.inputType === 'insertText' && event.data !== null) {
@@ -152,16 +156,27 @@ export default {
       this.$emit('update:modelValue', this.value);
       this.selectAll();
 
-      // Only on what completes it, and never for an agent: the submission
-      // stays with whoever asked for the code to be written.
-      if (otpInputComplete(state) && !wasComplete && !this.isAssisted) {
-        this.$emit('complete', this.value);
+      // Sent as soon as it is complete; a complete code corrected in place
+      // once the hand rests, so two digits changed in a row go together. Never
+      // for an agent: the submission stays with whoever asked for the code.
+      clearTimeout(this.submitTimer);
 
-        if (this.autoSubmit && input?.form) {
-          // Through the form's own button, which then shows it on its way.
-          const button = Array.from(input.form.elements).find((element) => element.type === 'submit');
-          input.form.requestSubmit(button);
+      if (otpInputComplete(state) && !this.isAssisted) {
+        if (wasComplete) {
+          this.submitTimer = setTimeout(() => this.complete(input), 1000);
+        } else {
+          this.complete(input);
         }
+      }
+    },
+
+    complete(input) {
+      this.$emit('complete', this.value);
+
+      if (this.autoSubmit && input?.form) {
+        // Through the form's own button, which then shows it on its way.
+        const button = Array.from(input.form.elements).find((element) => element.type === 'submit');
+        input.form.requestSubmit(button);
       }
     },
 

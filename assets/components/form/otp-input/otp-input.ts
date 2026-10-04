@@ -11,6 +11,9 @@ import {
   type OtpInputState,
 } from '../../../js/Helper/OtpInputHelper';
 
+// How long a corrected code waits for another correction before it is sent.
+const OTP_INPUT_CORRECTION_DELAY = 1000;
+
 /**
  * The cells are what is written in, the input only what carries the code: a
  * click lands on the cell clicked, a key typed replaces what that cell held,
@@ -22,6 +25,7 @@ export default class extends Field {
   private inputEl: HTMLInputElement | null = null;
   private cellEls: HTMLElement[] = [];
   private state: OtpInputState = { chars: [], active: 0 };
+  private submitTimer?: number;
 
   attachHtmlElements() {
     super.attachHtmlElements();
@@ -59,6 +63,7 @@ export default class extends Field {
     input?.removeEventListener('focus', this.render);
     input?.removeEventListener('blur', this.render);
     this.el.querySelector('.otp-input--control')?.removeEventListener('mousedown', this.onMouseDown);
+    window.clearTimeout(this.submitTimer);
   }
 
   private get length(): number {
@@ -145,10 +150,17 @@ export default class extends Field {
 
     this.render();
 
-    // Only on what completes it: a code corrected in place is sent again by
-    // whoever corrects it, and an agent filling it hands the submission back.
-    if (otpInputComplete(state) && !wasComplete && !this.isAssisted && input.dataset.autoSubmit !== undefined) {
-      this.submit(input);
+    // Sent as soon as it is complete; a complete code corrected in place —
+    // a refused one — once the hand rests, so that two digits changed in a row
+    // are sent together. An agent filling it hands the submission back.
+    window.clearTimeout(this.submitTimer);
+
+    if (otpInputComplete(state) && !this.isAssisted && input.dataset.autoSubmit !== undefined) {
+      if (wasComplete) {
+        this.submitTimer = window.setTimeout(() => this.submit(input), OTP_INPUT_CORRECTION_DELAY);
+      } else {
+        this.submit(input);
+      }
     }
   }
 

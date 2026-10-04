@@ -1,15 +1,17 @@
 /* Component: form/otp_input */
 @use '../../../css/mixins/field';
 
+// A code is the one thing asked on its step: its cells share the whole width
+// of the field, square, the characters set large enough to be read back at a
+// glance against the mail or the app.
 .otp-input--control {
   position: relative;
-  display: inline-grid;
-  justify-self: start;
+  display: grid;
 }
 
 .otp-input--cells {
   display: grid;
-  grid-template-columns: repeat(var(--otp-input-length), var(--size-1));
+  grid-template-columns: repeat(var(--otp-input-length), minmax(0, 1fr));
   gap: var(--space-2);
 }
 
@@ -18,9 +20,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: var(--size-2);
+  aspect-ratio: 1;
+  max-height: var(--size-5);
   font-family: var(--font-family-mono);
-  font-size: var(--font-size-5);
+  font-size: var(--font-size-7);
   text-transform: uppercase;
 }
 
