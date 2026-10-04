@@ -84,6 +84,9 @@ en:
       collapse: Collapse
       expand: Expand
       resize: Resize
+    fallback:
+      copy: Copy
+      copied: Copied
 
 ar:
   frontend:
@@ -557,6 +560,9 @@ fr:
       collapse: Réduire
       expand: Agrandir
       resize: Redimensionner
+    fallback:
+      copy: Copier
+      copied: Copié
 
 he:
   frontend:
