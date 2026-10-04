@@ -3,7 +3,7 @@
 {#- The same single input over drawn cells as the server-rendered field: one
     value, and the browser's own paste, autofill and label. -#}
 {%- block field_control -%}
-    <div class="otp-input--control" :style="{ '--otp-input-length': length }">
+    <div class="otp-input--control" :style="{ '--otp-input-length': length }" @mousedown="onMouseDown">
         <input
                 ref="input"
                 class="otp-input--field"
@@ -18,9 +18,11 @@
                 autocapitalize="characters"
                 spellcheck="false"
                 :pattern="pattern"
+                @beforeinput="onBeforeInput"
                 @input="onInput"
-                @focus="onSelectionChange"
-                @blur="onSelectionChange"
+                @keydown="onKeyDown"
+                @focus="onFocus"
+                @blur="onBlur"
         >
         <div class="otp-input--cells" aria-hidden="true">
             <span
