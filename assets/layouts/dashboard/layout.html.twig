@@ -59,9 +59,16 @@
         the actions the toolbar held, the way back above it. -#}
     {%- set navigationTop = layout_navigation|default('side') == 'top' -%}
     {%- if navigationTop -%}
-        {%- set page_show_title = true -%}
+        {#- Unless the page says it has none (`page_show_title: false`): a
+            workspace — panes side by side — is its own heading, and keeps its
+            actions in the toolbar under the header, as on the side. -#}
+        {%- set page_show_title = page_show_title ?? true -%}
         {%- set page_trail = page_trail ?? 'back' -%}
-        {%- set page_title_actions_extra -%}{{ block('page_toolbar_left') }}{{ block('page_toolbar_right') }}{%- endset -%}
+        {#- Drawn once, where they stand: beside a title, or else in the toolbar —
+            a component drawn twice would leave one of its two copies unplaced. -#}
+        {%- if page_show_title -%}
+            {%- set page_title_actions_extra -%}{{ block('page_toolbar_left') }}{{ block('page_toolbar_right') }}{%- endset -%}
+        {%- endif -%}
         {#- The header holds no title on top: its aside follows the title into the page. -#}
         {%- set page_title_aside %}{{ block('header_title_aside') }}{% endset -%}
     {%- endif -%}
@@ -70,7 +77,7 @@
         page's actions at its end — a toolbar, the way a record's tabs stand,
         and not a trail over the title with the actions beside it. -#}
     {%- set pageNavigation %}{{ block('page_navigation') }}{% endset -%}
-    {%- if navigationTop and pageNavigation|trim is empty and page_trail == 'back' -%}
+    {%- if navigationTop and page_show_title and pageNavigation|trim is empty and page_trail == 'back' -%}
         {%- set pageBack = breadcrumb_render({ back: true })|trim -%}
         {%- if pageBack is not empty -%}
             {%- set pageBarActions %}{{ block('page_title_actions') }}{{ page_title_actions_extra|default('') }}{% endset -%}
@@ -168,7 +175,7 @@
                             </header>
                         {% endblock %}
                         {{- pageNavigation -}}
-                        {%- if not navigationTop -%}
+                        {%- if not navigationTop or not page_show_title -%}
                         {% block page_toolbar %}
                             {% set toolbarLeft %}{% block page_toolbar_left %}{% endblock %}{% endset %}
                             {% set toolbarRight %}{% block page_toolbar_right %}{% endblock %}{% endset %}
