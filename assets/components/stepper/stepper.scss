@@ -94,10 +94,12 @@ button.stepper--step {
   font-weight: 600;
 }
 
+// The number of the step being done in the application's own colour, its
+// name staying in the text's.
 .stepper--item.is-current .stepper--index {
-  border-color: var(--surface-invert);
-  background: var(--surface-invert);
-  color: var(--text-color-invert);
+  border-color: var(--accent-9);
+  background: var(--accent-9);
+  color: var(--accent-contrast);
 }
 
 // Not decided yet: drawn in dashes, and so is the line leading to it and away
@@ -109,6 +111,11 @@ button.stepper--step {
 .stepper--item.is-unknown:not(:last-child)::after,
 .stepper--item:not(:last-child):has(+ .is-unknown)::after {
   border-top-style: dashed;
+}
+
+// Short of room (stepper.ts): the current step alone keeps its name.
+.stepper[data-fold='1'] .stepper--item:not(.is-current) .stepper--label {
+  display: none;
 }
 
 // Compact: the numbers, and the name of the step being done only — what fits
