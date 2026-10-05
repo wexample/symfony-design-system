@@ -87,14 +87,11 @@
 }
 
 // A choice between two equals — light or dark, list or grid —, neither of
-// them "on": the pill keeps its ground on either side, and the glyph inside
-// it, not a colour, says which side is chosen (`tone: 'choice'`).
+// them "on": not the application's colour, which says a thing is on, but the
+// quieter one of links, enough for the pill to read on a light ground; the
+// glyph inside it says which side is chosen (`tone: 'choice'`).
 .switch--choice {
-  --switch-on-color: var(--neutral-a3);
-
-  .switch--on-inner {
-    color: var(--text-color-muted);
-  }
+  --switch-on-color: var(--color-link);
 }
 
 // A tone: the colour the pill takes once on, from the state or category
