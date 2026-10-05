@@ -86,6 +86,17 @@
   }
 }
 
+// A choice between two equals — light or dark, list or grid —, neither of
+// them "on": the pill keeps its ground on either side, and the glyph inside
+// it, not a colour, says which side is chosen (`tone: 'choice'`).
+.switch--choice {
+  --switch-on-color: var(--neutral-a3);
+
+  .switch--on-inner {
+    color: var(--text-color-muted);
+  }
+}
+
 // A tone: the colour the pill takes once on, from the state or category
 // tokens — a mode that carries a risk says so in `warning`.
 .switch--info { @include feedback.feedback-info; --switch-on-color: var(--feedback-fill); }
