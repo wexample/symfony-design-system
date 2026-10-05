@@ -7,7 +7,7 @@
         <div v-for="(item, index) in items" :key="index" :class="rowClass(item)">
             <dt class="properties--key">[[ item.key ]]</dt>
             <dd v-if="isEmpty(item)" class="properties--value properties--value--empty">&mdash;</dd>
-            <dd v-else class="properties--value">
+            <dd v-else class="properties--value" :class="{ 'properties--value--break': item.break }">
                 <span v-if="item.html" v-html="item.value"></span>
                 <template v-else>[[ item.value ]]</template>
             </dd>

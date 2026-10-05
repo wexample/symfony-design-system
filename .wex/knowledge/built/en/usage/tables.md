@@ -12,6 +12,8 @@ drawn: `date`, `html`, `status` (a marker: a type name, or `{ type, count, title
 `file-path` component, `file_path()` in twig), or nothing for the value as text. A row
 carrying only `{ group: 'Label' }` is the line between two runs of rows.
 
+A table is as wide as its columns ask and no wider; the bar above it (search, total) takes the same width. `fill` (twig and vue) stretches it over the whole row — rarely wanted: columns spread apart read worse than a narrow table.
+
 `width` holds a column to a step of the scale — `xs`, `s`, `m`, `l`, `xl`, the
 `--table-column-width-*` tokens — so that its cells may change, a state or a figure refreshed
 in place, without the columns beside it moving. Columns left without one share what remains.
@@ -51,6 +53,16 @@ rows depends on where they come from.
   gives what a filter holds.
 - **Vue table fed by an api** — the default. `filters` and `v-model:filter-values`: the page
   asks its api with the value and hands back rows already narrowed.
+  A table extending `abstract-entity-table` sets `barFilters` instead (in `created()`): its
+  values are sent with the query, each under its filter's key, and the list is read again
+  from its first page. Its `filters` prop stays what the page narrows to, out of the reader's
+  hands. A filter of several values (`multiple`) goes as one, its values joined by commas
+  (`status=active,archived`), which the api splits. Its starting values are the component's
+  `barFilterValues` — `{ status: ['active'] }`: one box ticked, the other not.
+- **Kept state** — a table extending `abstract-entity-table` whose `getStateKey()` names a key
+  keeps its order, its filters and its page in the interface's state (`ui_state`, in the
+  session, under `ui.table.<key>`): the reader finds the list as they left it, for the
+  session — never handed to the next one on a shared workstation. The address keeps nothing.
 - **Vue table holding its rows** — `filter-rows` makes the table narrow them itself, a row
   passing when its field of the filter's key is one of the values (or, for a list, holds
   one). The table goes back to its first page, and ticked rows a filter hides are unticked.

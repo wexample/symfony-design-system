@@ -1,7 +1,7 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
 
 {%- block vue_body -%}
-    <span class="file-path" :class="{ 'file-path--stacked': stacked }" :title="path">
+    <span class="file-path" :class="{ 'file-path--fit': fit, 'file-path--wrap': wrap }" :title="path">
         <span v-if="parts.folder" class="file-path--folder"><span dir="ltr">[[ parts.folder ]]</span></span>
         <span class="file-path--name">[[ parts.name ]]</span>
     </span>

@@ -1,14 +1,15 @@
 {#- A path read the way it is looked for: the file's name in full, and the
     folders leading to it in grey before it, cut from their start when the room
     runs out — the end of a path is what tells two files apart. The whole of it
-    stays in the tooltip. `stacked` lays the folders under the name, for a
-    column too narrow for both on one line: the name wraps rather than being
-    cut, the folders keep to one line and give way from their start. -#}
+    stays in the tooltip. `fit`, for a column of a table: the name whole, the
+    folders before it on what room the name leaves — none, if that is all
+    there is — and asking the column for no more than a few words of them.
+    `wrap`, where a path is read whole — a detail: all of it, broken anywhere. -#}
 {%- set path = path|default('') -%}
 {%- set cut = path|split('/') -%}
 {%- set name = cut|last -%}
 {%- set folder = cut|length > 1 ? cut|slice(0, cut|length - 1)|join('/') ~ '/' : '' -%}
-<span class="file-path{{ stacked|default(false) ? ' file-path--stacked' }}{{ class is defined and class ? ' ' ~ class }}" title="{{ path }}">
+<span class="file-path{{ fit|default(false) ? ' file-path--fit' }}{{ wrap|default(false) ? ' file-path--wrap' }}{{ class is defined and class ? ' ' ~ class }}" title="{{ path }}">
     {%- if folder -%}
         <span class="file-path--folder"><span dir="ltr">{{ folder }}</span></span>
     {%- endif -%}

@@ -63,7 +63,7 @@ the labels do; no frame, no ground, nothing to focus.
 
 ## A form's actions
 
-A form's template never writes its row of buttons by hand: it calls `{{ form_actions(form) }}`, which draws the form's submit buttons — in the order they were built, the primary one last — in a `form--actions` row, inside the form, as before.
+A form's template never writes its row of buttons by hand: it calls {% raw %}`{{ form_actions(form) }}`{% endraw %}, which draws the form's submit buttons — in the order they were built, the primary one last — in a `form--actions` row, inside the form, as before.
 
 Whoever places the form may want them elsewhere — in a card's foot, a modal's (`page_actions`), a tunnel's —: it loads the form with `actions: false` and draws them there.
 

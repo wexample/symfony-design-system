@@ -1,3 +1,4 @@
+@use '../../css/shapes/stack';
 @use '../../css/shapes/page-actions';
 @use '../../css/shapes/page-transition';
 @use '../../css/shapes/action-icon';
@@ -41,6 +42,13 @@
   flex-direction: column;
   transition: width 250ms ease;
   @include surface.surface-layer;
+}
+
+// On a dark page the shade above barely reads, and the body — the ground of a
+// zone — melts into the page darkened behind it: a tight black shade along the
+// panel detaches it.
+.usage-color-scheme-dark .panel--content {
+  box-shadow: var(--shadow-3), 0 2px 6px var(--color-absolute-dark);
 }
 
 .panel--content.is-opening {

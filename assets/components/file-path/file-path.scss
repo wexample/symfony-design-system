@@ -50,33 +50,46 @@
   }
 }
 
-// Stacked: the name first and whole, wrapping where it must — a name cut is a
-// file lost —, the folders under it, set back, on one line cut from their
-// start. Neither asks the column for more room than a few letters: the folders
-// count for nothing in its width (`width: 0`) and fill whatever it is given
-// (`min-width: 100%`), so a table of paths fits its zone instead of widening it.
-.file-path--stacked {
-  display: flex;
-  flex-direction: column;
-  white-space: normal;
+// Fit, for a column of a table: the name first and whole — on more lines if
+// it alone is wider than the column —, the folders before it on whatever room
+// it leaves, down to none, still cut from their start. The folders are a `1fr`
+// track, so they only ever get what the name did not take, and ask the column
+// for twenty characters at most: a table with room to spare does not hand it
+// all to its longest path. Shrunk to what it holds, the path stays at the
+// start of its cell instead of being pushed to its end by a folder track.
+.file-path--fit {
+  display: inline-grid;
+  grid-template-columns: minmax(0, 1fr) minmax(min-content, max-content);
   vertical-align: top;
 
-  .file-path--name {
-    order: -1;
-    min-width: 0;
-    overflow: visible;
-    overflow-wrap: anywhere;
+  .file-path--folder {
+    max-width: 20ch;
   }
 
-  .file-path--folder {
-    width: 0;
-    min-width: 100%;
-    white-space: nowrap;
-    font-size: var(--font-size-2);
+  // In its own track, folders or not.
+  .file-path--name {
+    grid-column: 2;
+    min-width: 0;
+    overflow: visible;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 }
 
-// A stacked path is a block of two lines: the link holding it is one too.
-.file-path--link:has(> .file-path--stacked) {
-  display: block;
+// Wrap, where a path is read whole — the detail of a file: all of it, in the
+// same two greys, broken anywhere, since a path has no word to break between.
+.file-path--wrap {
+  display: inline;
+  white-space: normal;
+  word-break: break-all;
+
+  .file-path--folder,
+  .file-path--name {
+    display: inline;
+    overflow: visible;
+  }
+
+  .file-path--folder {
+    direction: ltr;
+  }
 }

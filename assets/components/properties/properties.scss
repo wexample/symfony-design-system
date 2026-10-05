@@ -33,6 +33,12 @@
   color: var(--text-color-default);
 }
 
+// Broken anywhere rather than where it must: a path, an address, filling its
+// lines instead of leaving a ragged one before each long segment.
+.properties--value--break {
+  word-break: break-all;
+}
+
 .properties--bordered > .properties--row + .properties--row {
   border-top: var(--border-separator);
 }

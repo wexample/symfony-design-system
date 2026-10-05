@@ -1,3 +1,4 @@
+@use '../../css/shapes/stack';
 @use '../../css/shapes/action-icon';
 @use '../../css/shapes/page-actions';
 @use '../../css/shapes/page-transition';
@@ -65,6 +66,13 @@
   border-radius: var(--radius-box);
   box-shadow: var(--shadow-3);
   overflow: hidden;
+}
+
+// On a dark page the shade above barely reads, and the body — the ground of a
+// zone — melts into the page darkened behind it: a tight black shade under the
+// box detaches it.
+.usage-color-scheme-dark .layout-modal {
+  box-shadow: var(--shadow-3), 0 2px 6px var(--color-absolute-dark);
 }
 
 @include shell.overlay-shell('modal');

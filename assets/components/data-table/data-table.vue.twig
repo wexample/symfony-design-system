@@ -229,8 +229,8 @@
                                     :target="getCellLink(row, column).target"
                                     :target-options="getCellLink(row, column).targetOptions"
                                     class-name="file-path--link"
-                            ><file-path :path="getCellValue(row, column)" :stacked="true"></file-path></button-target>
-                            <file-path v-else-if="getCellValue(row, column)" :path="getCellValue(row, column)" :stacked="true"></file-path>
+                            ><file-path :path="getCellValue(row, column)" :fit="true"></file-path></button-target>
+                            <file-path v-else-if="getCellValue(row, column)" :path="getCellValue(row, column)" :fit="true"></file-path>
                         </template>
                         <template v-else-if="isClampCell(column)">
                             <span

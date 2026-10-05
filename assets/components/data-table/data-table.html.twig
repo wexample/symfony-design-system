@@ -225,12 +225,13 @@
                             {{- value|raw -}}
                         {%- elseif column.cell == 'path' -%}
                             {#- A path, or { path, href, target } leading to it. -#}
-                            {#- Stacked: the name over its folders, so a column of
-                                long paths fits the table instead of widening it. -#}
+                            {#- The name whole, the folders on what room it leaves:
+                                a column of long paths fits the table instead of
+                                widening it. -#}
                             {%- if value is iterable -%}
-                                {{- file_path(value.path|default(''), { href: value.href|default(null), target: value.target|default(null), stacked: true }) -}}
+                                {{- file_path(value.path|default(''), { href: value.href|default(null), target: value.target|default(null), fit: true }) -}}
                             {%- else -%}
-                                {{- file_path(value, { stacked: true }) -}}
+                                {{- file_path(value, { fit: true }) -}}
                             {%- endif -%}
                         {%- elseif column.cell == 'clamp' -%}
                             {#- A long text — an error — held to `lines` lines,

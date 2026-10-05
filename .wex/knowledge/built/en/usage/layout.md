@@ -10,8 +10,31 @@ A page sets these variables at the top of its template, outside any block; an ap
 | `page_trail` | `back`, `breadcrumb` | Above the title: the way back to the page above, or the whole trail. Read from the controller's place under `Controller\Pages`. |
 | `page_focus` | bool | One thing to do and nothing around it — signing in, a code, terms: no menu, a narrow column under the application's mark. |
 | `layout_navigation` | `side`, `top` | Where the application's sections stand (dashboard layout). |
+| `layout_footer` | `fixed`, `page` | Where the footer stands (dashboard layout): under the body, always in view; or at the end of the page, never above the foot of the window. |
+| `page_measure` | bool | `false` drops the reading measure without filling the window: a table page that scrolls with the page. |
+
+## How a mode reaches the page
+
+Every mode of a layout runs the same three links, so an application's choices read the same from one to the next — no central configuration, each application sets its variables in its own layout:
+
+1. **The variable**, set once by the application layout or by a page.
+2. **The block** it makes the layout draw, and where.
+3. **The class** the layout puts on what it drew, which the stylesheet reads — never the place in the document alone.
+
+| Variable | Value | Block drawn | Class read by the CSS |
+|---|---|---|---|
+| `layout_navigation` | `side` | `page_menu` beside the body, `page_toolbar` above it | `menu--vertical--left`, `toolbar--top` |
+| | `top` | `page_menu_links` as tabs in the header | `header--tabs` |
+| `layout_footer` | `fixed` | `layout_footer` under the body that scrolls | `footer--fixed` |
+| | `page` | `layout_footer` inside `page_foot`, under the row of zones and across all of them | `footer--page` |
+| `page_body_mode` | `wide` | the page zone fills the window, its zones scroll on their own | `layout--body--wide` |
+| `page_focus` | true | `page_body` alone in a narrow column, the focus header and footer | `layout--focus` |
+
+In use: the design system's demo and app-board keep the defaults (`side`, `fixed`); Sapiens runs `top` and `page`.
 
 ## What stands still and what scrolls
+
+A page held to a width (the reading measure) never leaves the window's edge bare: with nothing after it, the layout adds a zone that takes what is left of the row (`zone--filler`), the gap between the two showing the page under them. It holds nothing and does not count as a neighbour, so the page still scrolls as one.
 
 The dashboard layout holds three things still — the header, the page's own navigation (`page_tabs`), the footer — around the one thing that scrolls: the body, on both axes. A page wider than the window (`page_measure: false` under a table of many columns) widens its row to the table and slides under the bars, its scrollbar at the foot of the window; the bars keep the window's width without being told. Nothing of this is measured by a script: put a bar inside the scroller and it will travel with the page.
 
@@ -19,7 +42,7 @@ The dashboard layout holds three things still — the header, the page's own nav
 
 `layout_navigation: 'top'` draws the entries of `page_menu_links` as tabs in the header, after the application's mark (`page_menu_logo`), instead of a menu down the side. It suits an application with a handful of sections, whose side menu would stand mostly empty.
 
-- One bar: the page's title moves into the page (`page_show_title`), with what `page_toolbar_left` and `page_toolbar_right` held beside it, and the way back above it (`page_trail: 'back'` unless the page says otherwise). The footer no longer carries the trail.
+- The page's title moves into the page (`page_show_title`). The way back (`page_trail: 'back'` unless the page says otherwise) stands in a bar under the header, with what `page_toolbar_left` and `page_toolbar_right` held at its far end — the same bar as a record's tabs (`page_tabs`), which a page drawing its own `page_navigation` replaces. A page with no way back keeps its actions beside its title. The footer no longer carries the trail.
 - A single section draws no tab: the mark leads home.
 - Too narrow for the row, the tabs fold into one button opening them as a list — a native `popover`, no script.
 - A menu entry is lit on its own page and on the pages under its address: `/dashboard` stays lit on `/dashboard/patients/12`. `/` is lit on itself only; `active` on the entry overrides.

@@ -76,9 +76,16 @@
     }
   }
 
+  // The body is the ground of the page it holds, as the zone a full page is
+  // drawn in: the zone's surface, darker than the chrome around it, so that a
+  // block laid in it stands out as it does on a page — on the overlay's own
+  // surface it was grey on grey. The chrome it holds takes the step under it,
+  // as in a zone. Its rhythm is the page's too: a vertical stack, given by
+  // the base that draws it.
   .#{$name}-body {
     padding: var(--space-4);
-    background: var(--surface-3);
+    background: var(--surface-zone);
+    --surface-shell: var(--surface-1);
     overflow: auto;
   }
 }

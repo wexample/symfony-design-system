@@ -60,3 +60,43 @@ as one block. The forms package's `DisplayValueType` draws it; written by hand i
 and `form--display-value--empty` with a dash when there is nothing — a blank reads as
 something missing from the page. The line is the height of an input, its text starting where
 the labels do; no frame, no ground, nothing to focus.
+
+## A form's actions
+
+A form's template never writes its row of buttons by hand: it calls `{{ form_actions(form) }}`, which draws the form's submit buttons — in the order they were built, the primary one last — in a `form--actions` row, inside the form, as before.
+
+Whoever places the form may want them elsewhere — in a card's foot, a modal's (`page_actions`), a tunnel's —: it loads the form with `actions: false` and draws them there.
+
+```twig
+<section class="block block--card">
+    <div class="block--body">
+        {{ form_load(render_pass, form, '@front/forms/login_form.html.twig', { actions: false }) }}
+    </div>
+    <div class="block--footer">
+        {{ form_actions(form, {
+            outside: true,
+            secondary: [{ icon: 'ph:bold/key', label: 'Forgot password?', href: path('password_forgot') }],
+        }) }}
+    </div>
+</section>
+```
+
+- The buttons drawn outside send the form from there (`form="…"`, the form tag carrying an id): the browser sends the button that was pressed, a processor testing `isClicked()` reads it, and a form sent by script from a modal goes the same way.
+- `secondary` are links — a way out: forgotten password, cancel, back —, at the start of the row; `target` opens one in a modal or a panel.
+- The form's template is the same either way: what moves is decided by whoever places it, form by form, never for all of them at once.
+
+
+### Sent only once it can be
+
+A form built with `submit_when_valid: true` (symfony-forms, off by default) holds its submit buttons until every field holds a valid value, as the browser checks it: `required`, `pattern`, the type of the field. Each control's `validity` is read on every keystroke, which raises no `invalid` event: no error shows before the form is sent.
+
+```php
+$formProcessor->createForm(null, ['submit_when_valid' => true]);
+```
+
+- For a short form whose fields say all they need — a name, a code, an address —; a longer one is better sent and told what is missing.
+- A field whose value is checked by the server alone (an email already taken) keeps the button free: only what the browser can check holds it.
+
+## A field set large
+
+The one thing asked on a step — a name, an address — is set large with `row_attr: { class: 'form--group--hero' }`: the label a step up, the value written big. A code (`OtpInputType`) is drawn that way already, its cells across the field's width.

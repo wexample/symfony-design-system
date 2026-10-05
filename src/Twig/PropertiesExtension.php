@@ -53,6 +53,9 @@ class PropertiesExtension extends AbstractTemplateExtension
                 // In columns, what no column can hold without stretching the
                 // others takes the whole width instead.
                 'full' => $item['full'] ?? false,
+                // A value with no word to break between — a path, an address —
+                // broken anywhere, filling its lines.
+                'break' => $item['break'] ?? false,
             ];
         }
 

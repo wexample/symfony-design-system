@@ -10,8 +10,13 @@ export default {
       type: String,
       default: ''
     },
-    // The folders under the name rather than before it.
-    stacked: {
+    // For a column of a table: the name whole, the folders on what is left.
+    fit: {
+      type: Boolean,
+      default: false
+    },
+    // Read whole, broken anywhere: a path in a detail.
+    wrap: {
       type: Boolean,
       default: false
     }

@@ -9,9 +9,10 @@ export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-properties-properties',
 
   props: {
-    // Each item is { key, value, html, full }: html says the value is markup
-    // and is rendered as given, exactly as the `|raw` of the twig does, and
-    // full gives a value the whole width where the list is laid in columns.
+    // Each item is { key, value, html, full, break }: html says the value is
+    // markup and is rendered as given, exactly as the `|raw` of the twig does,
+    // full gives a value the whole width where the list is laid in columns,
+    // and break breaks it anywhere — a path, an address.
     items: {
       type: Array,
       required: true
