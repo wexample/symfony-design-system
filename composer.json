@@ -25,7 +25,7 @@
     "wexample/symfony-template": ">=2.0.5"
   },
   "require-dev": {
-    "phpunit/phpunit": "*"
+    "phpunit/phpunit": "^13"
   },
   "repositories": [
     {
