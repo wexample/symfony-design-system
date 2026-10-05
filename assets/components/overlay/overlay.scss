@@ -35,3 +35,13 @@
     width: 100%;
   }
 }
+
+// Waiting for a modal or a panel: the page dimmed as a modal dims it, from the
+// click rather than from the answer, the spinner in the middle. It holds the
+// clicks — the page under it is not to be pressed twice meanwhile — and a
+// click on it gives the request up.
+.overlay--loading .component-overlay {
+  background: rgba(0, 0, 0, 0.36);
+  pointer-events: auto;
+  cursor: progress;
+}
