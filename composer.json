@@ -24,6 +24,9 @@
     "wexample/symfony-routing": ">=2.0.0",
     "wexample/symfony-template": ">=2.0.5"
   },
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  },
   "repositories": [
     {
       "type": "path",
