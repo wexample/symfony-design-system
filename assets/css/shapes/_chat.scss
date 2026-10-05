@@ -114,7 +114,6 @@
 }
 
 .chat--message {
-  border: 1px solid var(--border-color-default);
   border-radius: var(--radius-box);
   flex: 1 1 auto;
   min-width: 0;
@@ -192,10 +191,6 @@
 // A failed turn holds the place a message would have had, so the thread does not
 // jump when it is replaced by the answer that finally comes.
 .chat--message-row--error {
-  .chat--message {
-    border-color: var(--error-9);
-  }
-
   .chat--message-author,
   .chat--message-content {
     color: var(--error-11);
