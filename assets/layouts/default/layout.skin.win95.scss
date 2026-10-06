@@ -45,7 +45,7 @@
 }
 
 // Pressed: the same edges turned in, as a button held down or a menu open.
-.usage-skin-win95 :is(.button:not(.button--bare):active, .button-menu.is-open > .button:not(.button--bare), .tabs--item.is-active) {
+.usage-skin-win95 :is(.button:not(.button--bare):active, .button-menu.is-open > .button:not(.button--bare), .tabs--item--active) {
   border-color: var(--win95-sunk-border);
   box-shadow: var(--win95-sunk-inner);
 }

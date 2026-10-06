@@ -1,0 +1,93 @@
+@use './palette' with (
+  $accent: #2f7de1,
+  $info: #2f7de1,
+  $success: #34a853,
+  $warning: #f5a623,
+  $error: #e2433d,
+  $dev: #8e4ec6,
+);
+@use '../../css/mixins/palette' as palette_mixins;
+
+// Aqua: the scales built from the blue of a default button of 2001, then the
+// grounds of its windows — white under fine stripes —, the pale grey of its
+// chrome, and the colours its skin draws with (`--aqua-*`): the stripes, the
+// gel's light, the three lights of a title bar.
+@include palette_mixins.palette-usage('aqua', palette.$palette);
+
+.usage-palette-aqua.usage-color-scheme-light,
+.usage-palette-aqua .usage-color-scheme-light {
+  --surface-page: #d8d8d8;
+  --surface-zone: #ffffff;
+  --surface-shell: #e6e6e6;
+  --surface-1: #ffffff;
+  --surface-2: #f2f2f2;
+  --surface-3: #ffffff;
+  --surface-invert: #2f7de1;
+
+  --state-hover: #e8f0fc;
+  --state-active: #cfe0f8;
+  --state-focus: #dbe7f9;
+
+  --border-color-discreet: #d4d4d4;
+  --border-color-default: #a8a8a8;
+  --border-color-region: #9a9a9a;
+  --border-color-strong: #6e6e6e;
+
+  --text-color-default: #000000;
+  --text-color-muted: #4d4d4d;
+  --text-color-subtle: #8a8a8a;
+  --text-color-invert: #ffffff;
+
+  --color-link: #1a5fc8;
+  --color-link-hover: #0b3f8f;
+
+  --aqua-stripe: rgb(0 0 0 / 0.035);
+  --aqua-chrome-top: #f7f7f7;
+  --aqua-chrome-bottom: #d0d0d0;
+  --aqua-chrome-edge: #9c9c9c;
+  --aqua-gel-highlight: rgb(255 255 255 / 0.85);
+  --aqua-gel-shade: rgb(0 0 0 / 0.28);
+  --aqua-light-close: #ff5f57;
+  --aqua-light-minimize: #febc2e;
+  --aqua-light-zoom: #28c840;
+}
+
+// The dark face is the brushed metal of the media applications of the time:
+// graphite grounds, a fine grain, the same gel blue.
+.usage-palette-aqua.usage-color-scheme-dark,
+.usage-palette-aqua .usage-color-scheme-dark {
+  --surface-page: #2b2b2b;
+  --surface-zone: #4a4a4a;
+  --surface-shell: #3c3c3c;
+  --surface-1: #5a5a5a;
+  --surface-2: #646464;
+  --surface-3: #555555;
+  --surface-invert: #2f7de1;
+
+  --state-hover: #5c6a80;
+  --state-active: #3a5b8f;
+  --state-focus: #4d6488;
+
+  --border-color-discreet: #3a3a3a;
+  --border-color-default: #2a2a2a;
+  --border-color-region: #1e1e1e;
+  --border-color-strong: #111111;
+
+  --text-color-default: #f2f2f2;
+  --text-color-muted: #c8c8c8;
+  --text-color-subtle: #9a9a9a;
+  --text-color-invert: #ffffff;
+
+  --color-link: #8ab8ff;
+  --color-link-hover: #c4dbff;
+
+  --aqua-stripe: rgb(255 255 255 / 0.03);
+  --aqua-chrome-top: #6a6a6a;
+  --aqua-chrome-bottom: #3e3e3e;
+  --aqua-chrome-edge: #1e1e1e;
+  --aqua-gel-highlight: rgb(255 255 255 / 0.55);
+  --aqua-gel-shade: rgb(0 0 0 / 0.45);
+  --aqua-light-close: #ff5f57;
+  --aqua-light-minimize: #febc2e;
+  --aqua-light-zoom: #28c840;
+}

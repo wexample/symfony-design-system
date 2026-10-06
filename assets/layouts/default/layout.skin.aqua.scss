@@ -1,0 +1,127 @@
+@use '../../css/mixins/skin' as skin;
+@use '../../css/mixins/shadow' as shadow;
+
+// Aqua: Mac OS X as it was in 2001 — buttons of gel, windows on fine
+// stripes, chrome brushed from light to grey, three lights in a title bar,
+// and wide soft shadows under whatever floats. Everything win95 is not. The
+// colours are the palette's (`--aqua-*`); this file says where the light
+// falls and how round things are. Without an aqua palette, it falls back on
+// the scheme's own grounds.
+.usage-skin-aqua {
+  @include skin.skin-basic;
+  @include shadow.shadow-vars;
+
+  --radius-control: var(--radius-pill);
+  --radius-box: var(--radius-3);
+  --radius-media: var(--radius-3);
+  --zone-radius: var(--radius-3);
+  --tabs-radius: var(--radius-pill);
+  --tabs-inset: var(--space-1);
+  --menu-item-inset: var(--space-1);
+
+  --shadow-float: 0 10px 30px rgb(0 0 0 / 0.35), 0 2px 6px rgb(0 0 0 / 0.2);
+
+  --border-shell: 1px solid var(--aqua-chrome-edge, var(--border-color-region));
+  --tabs-border: 0 solid transparent;
+  --feedback-border-width: 1px;
+
+  // The gloss of a gel: a white light on the upper half, cut sharp at the
+  // middle, and a faint glow coming back up from the bottom.
+  --aqua-gloss: linear-gradient(to bottom,
+    var(--aqua-gel-highlight, rgb(255 255 255 / 0.8)) 0%,
+    rgb(255 255 255 / 0.25) 50%,
+    rgb(255 255 255 / 0) 51%,
+    rgb(255 255 255 / 0.3) 100%);
+  --aqua-stripes: repeating-linear-gradient(to bottom,
+    var(--aqua-stripe, transparent) 0 2px,
+    transparent 2px 4px);
+  --aqua-chrome: linear-gradient(to bottom,
+    var(--aqua-chrome-top, var(--surface-shell)),
+    var(--aqua-chrome-bottom, var(--surface-shell)));
+}
+
+// Windows: the regions and the cards, on their fine stripes, floating.
+.usage-skin-aqua :is(.zone--panel:not(.zone--filler), .block--card) {
+  background-image: var(--aqua-stripes);
+  box-shadow: 0 4px 14px rgb(0 0 0 / 0.18);
+}
+
+// Chrome: the header, the bars under it, the footer, a card's title bar —
+// brushed from light at the top to grey at the bottom.
+.usage-skin-aqua :is(.header, .tabs, .toolbar--top, .footer, .block > .block--title) {
+  background-image: var(--aqua-chrome);
+}
+
+// A window's three lights, in a card's title bar: close, minimize, zoom.
+.usage-skin-aqua .block > .block--title::before {
+  content: '';
+  flex: none;
+  width: 50px;
+  height: 12px;
+  margin-inline-end: var(--space-2);
+  background:
+    radial-gradient(circle at 6px 6px, var(--aqua-light-close, #ff5f57) 5px, transparent 5.5px),
+    radial-gradient(circle at 24px 6px, var(--aqua-light-minimize, #febc2e) 5px, transparent 5.5px),
+    radial-gradient(circle at 42px 6px, var(--aqua-light-zoom, #28c840) 5px, transparent 5.5px);
+}
+
+// Buttons of gel: the gloss over their own colour — grey, or blue, green,
+// red for what they say —, an edge darker than they are, a little depth.
+.usage-skin-aqua .button:not(.button--bare, .button--flat) {
+  background-image: var(--aqua-gloss);
+  border: 1px solid var(--aqua-gel-shade, rgb(0 0 0 / 0.3));
+  box-shadow: inset 0 1px 1px rgb(255 255 255 / 0.6), 0 1px 3px rgb(0 0 0 / 0.25);
+}
+
+// The blue gel: what is chosen — the tab shown, a menu row under the
+// pointer, a switch turned on.
+.usage-skin-aqua :is(.tabs--item--active, .button-menu--link:hover, .button-menu--link:focus-visible) {
+  background-color: var(--surface-invert);
+  background-image: var(--aqua-gloss);
+  color: var(--text-color-invert);
+}
+
+.usage-skin-aqua .switch[data-checked='true'] .switch--pill {
+  background-image: var(--aqua-gloss);
+}
+
+// Menus: a pale translucent sheet the page shows through, blurred.
+.usage-skin-aqua .button-menu--panel {
+  background-color: color-mix(in srgb, var(--surface-zone) 88%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+// Fields: sunk a little, and ringed with a blue glow when written in.
+.usage-skin-aqua :is(.form--input, .form--textarea, .otp-input--cell) {
+  border-radius: var(--radius-1);
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.2);
+
+  &:focus {
+    box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.2), 0 0 0 3px color-mix(in srgb, var(--surface-invert) 55%, transparent);
+  }
+}
+
+// Scrollbars: a pale rail, a blue gel thumb, round at both ends. The thin
+// native bar wins over any drawing: given back to auto first.
+.usage-skin-aqua,
+.usage-skin-aqua * {
+  scrollbar-width: auto;
+  scrollbar-color: auto;
+}
+
+.usage-skin-aqua ::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+.usage-skin-aqua ::-webkit-scrollbar-track {
+  background: var(--aqua-stripes), var(--surface-2);
+}
+
+.usage-skin-aqua ::-webkit-scrollbar-thumb {
+  background-color: var(--surface-invert);
+  background-image: var(--aqua-gloss);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-radius: 999px;
+}

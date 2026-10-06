@@ -1,0 +1,14 @@
+@use '../../css/mixins/font' as font;
+
+// Aqua: Lucida Grande, the face of every Mac OS X dialog, where the machine
+// has it; Lucida Sans Unicode on Windows, Verdana after. Nothing fetched: the
+// Lucida family is not free to ship.
+.usage-fonts-aqua {
+  @include font.font-vars(
+    $base: ('Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif),
+    $heading: ('Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif),
+    $mono: (Monaco, 'Andale Mono', 'Lucida Console', monospace),
+    $weight-medium: 400,
+    $weight-strong: 700,
+  );
+}
