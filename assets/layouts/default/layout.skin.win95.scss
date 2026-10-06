@@ -114,3 +114,34 @@
     color: var(--color-link-hover);
   }
 }
+
+// Scrollbars of the time: square, a pale grey rail, a thumb in relief. The
+// thin native bar the other skins ask for (`scrollbar-width`) is rounded by
+// the browser and wins over any drawing of ours: given back to auto first.
+.usage-skin-win95,
+.usage-skin-win95 * {
+  scrollbar-width: auto;
+  scrollbar-color: auto;
+}
+
+.usage-skin-win95 ::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+.usage-skin-win95 ::-webkit-scrollbar-track {
+  background: color-mix(in srgb, var(--bevel-face, var(--surface-2)) 60%, var(--bevel-light, #fff));
+  border-radius: 0;
+}
+
+.usage-skin-win95 ::-webkit-scrollbar-thumb {
+  background: var(--bevel-face, var(--surface-2));
+  border: 2px solid;
+  border-color: var(--win95-raised-border);
+  border-radius: 0;
+  box-shadow: var(--win95-raised-inner);
+}
+
+.usage-skin-win95 ::-webkit-scrollbar-corner {
+  background: var(--bevel-face, var(--surface-2));
+}
