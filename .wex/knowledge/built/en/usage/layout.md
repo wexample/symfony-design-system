@@ -104,3 +104,25 @@ What its row does when the asks do not fit — the row's class:
 | `zone--split--wrap` | below their floor, the zones go to the next line |
 
 A row holding a `zone--fit-content` scrolls of itself. Every rule of the block weighs the same, so the order of the file is the order of precedence — the asks, then the rows, which have the last word — and the block closes the file so that no rule written after it overrules a zone's place in its row.
+
+## The development menu
+
+Outside production, every page's footer — the focus layout's too — carries the « dev » marker, naming the environment. When the installed bundles offer anything to whoever develops, the marker opens a menu, upwards, in the dev tone. Nothing of it is drawn in production.
+
+A bundle, or the app, adds its entries by implementing `DevMenuProviderInterface`; the tag follows the interface, nothing else to register:
+
+```php
+use Wexample\SymfonyDesignSystem\Interface\DevMenuProviderInterface;
+
+class ApiDocDevMenuProvider implements DevMenuProviderInterface
+{
+    public function getDevMenuItems(): array
+    {
+        return [['icon' => 'ph:bold/plugs-connected', 'label' => 'front.layouts.private.layout::menu.api_doc', 'href' => '/api/doc', 'new_window' => true]];
+    }
+}
+```
+
+- Each provider says itself whether its entry exists — a route routed in dev only, a firewall allowing it — and returns nothing otherwise: the menu holds only what can be reached.
+- The entries are `button_menu` items; `label` is translated.
+- Already provided: the mailbox (symfony-mail-ds), switching account (symfony-user-ds). The account's menu no longer has a development section.

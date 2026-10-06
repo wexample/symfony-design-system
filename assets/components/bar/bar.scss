@@ -12,6 +12,12 @@
   @include bar.bar-title-block;
 }
 
+// What qualifies the title: a sentence, so it wraps, and breaks a long word —
+// a path — where it must, rather than widening the bar past its column.
+.bar--subtitle {
+  overflow-wrap: anywhere;
+}
+
 .bar--icon {
   color: var(--text-color-muted);
 }

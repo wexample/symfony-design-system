@@ -15,7 +15,7 @@
                the title would have, the ends keeping theirs. #}
             <slot name="body">
                 <div class="text-strong text-ellipsis">[[ title ]]</div>
-                <div v-if="subtitle" class="text-secondary text-ellipsis">[[ subtitle ]]</div>
+                <div v-if="subtitle" class="text-secondary bar--subtitle">[[ subtitle ]]</div>
                 {# A third line, further back, for a narrow column. #}
                 <div v-if="$slots.meta" class="text-tertiary text-ellipsis"><slot name="meta"></slot></div>
             </slot>

@@ -21,7 +21,9 @@
         {%- else -%}
             <div class="text-strong text-ellipsis">{{ title }}</div>
             {%- if subtitle -%}
-                <div class="text-secondary text-ellipsis">{{ subtitle }}</div>
+                {#- What qualifies the title is a sentence, not a name: it wraps
+                    rather than holding the line at its own length. -#}
+                <div class="text-secondary bar--subtitle">{{ subtitle }}</div>
             {%- endif -%}
             {#- A third line, further back, for a narrow column: what would
                 stand at the far end if there were room — a date, a size. -#}
