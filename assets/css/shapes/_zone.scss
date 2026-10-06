@@ -43,9 +43,10 @@
 }
 
 // No room at all: what it holds is the frame's edge to edge — an editor's
-// text, a map — and carries whatever room it wants itself.
+// text, a map — and carries whatever room it wants itself. The padding and not
+// `--zone-padding`, which every zone nested inside would inherit.
 .zone--content--flush {
-  --zone-padding: 0;
+  padding: 0;
 }
 
 // A split spaces its zones on its own; this is for the page that wants more air
