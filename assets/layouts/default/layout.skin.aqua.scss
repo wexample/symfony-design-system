@@ -154,11 +154,35 @@
   box-shadow: inset 0 0 3px rgb(0 0 0 / 0.25);
 }
 
+// A capsule of gel lit across its width: a bright reflection on the near
+// half, a glow coming back up the far edge, fine stripes along its length. Lit
+// from above when it runs across, from the left when it runs down.
+@mixin aqua-capsule($across, $x, $y) {
+  background-image:
+    linear-gradient($across, rgb(255 255 255 / 0.95) 8%, rgb(255 255 255 / 0.35) 45%, transparent 50%),
+    linear-gradient($across, transparent 55%, rgb(255 255 255 / 0.45) 100%),
+    repeating-linear-gradient($across, rgb(255 255 255 / 0.12) 0 1px, transparent 1px 3px);
+  box-shadow:
+    inset 0 0 0 1px rgb(0 0 0 / 0.4),
+    inset ($x * -3px) ($y * -3px) 3px rgb(0 0 0 / 0.25);
+}
+
 .usage-skin-aqua ::-webkit-scrollbar-thumb {
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.7), inset 0 -2px 3px rgb(0 0 0 / 0.2);
   background-color: var(--surface-invert);
-  background-image: var(--aqua-gloss);
   border: 2px solid transparent;
   background-clip: padding-box;
   border-radius: 999px;
+}
+
+.usage-skin-aqua ::-webkit-scrollbar-thumb:horizontal {
+  @include aqua-capsule(to bottom, 0, 1);
+}
+
+.usage-skin-aqua ::-webkit-scrollbar-thumb:vertical {
+  @include aqua-capsule(to right, 1, 0);
+}
+
+// The window in the background: the gel turns graphite.
+.usage-skin-aqua ::-webkit-scrollbar-thumb:window-inactive {
+  background-color: #9aa3ad;
 }
