@@ -192,8 +192,11 @@
                                                     {%- if action_label %} title="{{ action_label }}" aria-label="{{ action_label }}"{% endif %}>{{ icon(action.icon) }}</button>
                                         </form>
                                     {%- elseif action.target|default(null) -%}
+                                        {#- A link of the row like the others, not a button: `link`
+                                            keeps button_target from adding its own class. -#}
                                         {{ button_target(action.icon, '', action.href|default('#'), action.target, {
                                             class: 'table--icon-link',
+                                            link: true,
                                             target_options: action.target_options|default({}),
                                             attr: action_label ? { title: action_label, 'aria-label': action_label } : {},
                                         }) }}
