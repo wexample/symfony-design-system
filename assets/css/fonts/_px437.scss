@@ -1,0 +1,11 @@
+// Px437 IBM VGA 8x16: the text mode of a PC's screen (VileR, CC BY-SA 4.0 —
+// see px437/), the fixed face a console of the time was read in.
+$font-family-px437: 'Px437 IBM VGA 8x16';
+
+@font-face {
+  font-family: 'Px437 IBM VGA 8x16';
+  src: url('./px437/Web437_IBM_VGA_8x16.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

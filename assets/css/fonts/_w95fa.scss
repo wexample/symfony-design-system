@@ -1,0 +1,12 @@
+// W95FA: the Windows 95 system font redrawn (Alina Sava, SIL OFL 1.1 — see w95fa/).
+// A bitmap face drawn on a pixel grid: sharp at its own size and its multiples.
+$font-family-w95fa: 'W95FA';
+
+@font-face {
+  font-family: 'W95FA';
+  src: url('./w95fa/w95fa.woff2') format('woff2'),
+    url('./w95fa/w95fa.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,14 +1,16 @@
+@use '../../css/fonts/w95fa' as w95fa;
+@use '../../css/fonts/px437' as px437;
 @use '../../css/mixins/font' as font;
 
-// Win95: the faces of the system dialogs — MS Sans Serif where it is still
-// installed, Tahoma after it, which every Windows since carries — and the
-// fixed face of a console. Nothing fetched: a font of the time drawn in
-// pixels would have to be licensed first.
+// Win95: the system font of the dialogs, redrawn (W95FA), and the text mode of
+// a PC for code (Px437 IBM VGA). Both shipped with the design system under
+// open licences, with the faces of the time — and Tahoma — behind them while
+// they load or where they would fail.
 .usage-fonts-win95 {
   @include font.font-vars(
-    $base: ('MS Sans Serif', 'Microsoft Sans Serif', Tahoma, Geneva, Verdana, sans-serif),
-    $heading: ('MS Sans Serif', 'Microsoft Sans Serif', Tahoma, Geneva, Verdana, sans-serif),
-    $mono: ('Fixedsys', 'Lucida Console', 'Courier New', monospace),
+    $base: (w95fa.$font-family-w95fa, 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, Geneva, Verdana, sans-serif),
+    $heading: (w95fa.$font-family-w95fa, 'MS Sans Serif', 'Microsoft Sans Serif', Tahoma, Geneva, Verdana, sans-serif),
+    $mono: (px437.$font-family-px437, 'Fixedsys', 'Lucida Console', 'Courier New', monospace),
     $weight-medium: 400,
     $weight-strong: 700,
   );
