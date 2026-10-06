@@ -10,7 +10,9 @@
         </div>
     {% endif %}
     {% if body is not empty %}
-        <p>{{ body | trans }}</p>
+        {#- `html`: a body the caller translated and marked up itself — a path
+            set in bold —, written as it is. -#}
+        <p>{{ options.html|default(false) ? body|raw : body | trans }}</p>
     {% endif %}
     {#- What to do about it, when there is one thing to do: { icon, label, href }. -#}
     {% if options.action is defined and options.action %}
