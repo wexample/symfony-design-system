@@ -34,6 +34,14 @@ pre.code-block {
 // ground of code, it takes the code's own ink.
 .code-block--copyable {
   position: relative;
+  // The block's own margin, taken from it: left on the block, it pushes the
+  // dark ground down inside the box the button is placed in, and the button
+  // ends up above the corner it belongs to.
+  margin-block: 1em;
+
+  > pre {
+    margin-block: 0;
+  }
 
   > .code-block--copy {
     position: absolute;
