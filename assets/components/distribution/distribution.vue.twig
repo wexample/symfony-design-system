@@ -20,7 +20,7 @@
                         :class="`distribution--part--${part.type}`"
                         :style="{ '--distribution-part': part.value }"
                         :href="part.href"
-                        :title="part.title"
+                        :data-tooltip="part.title"
                         :aria-label="part.title"
                 ></a>
                 <span
@@ -28,9 +28,9 @@
                         class="distribution--part"
                         :class="`distribution--part--${part.type}`"
                         :style="{ '--distribution-part': part.value }"
-                        :title="part.title"
-                        :aria-hidden="legend ? 'true' : null"
-                        :aria-label="legend ? null : part.title"
+                        :data-tooltip="part.title"
+                        :aria-hidden="showLegend ? 'true' : null"
+                        :aria-label="showLegend ? null : part.title"
                         @click="$emit('select', part)"
                 ></span>
             </template>
@@ -41,7 +41,7 @@
                     aria-hidden="true"
             ></span>
         </div>
-        <div v-if="legend && parts.length" class="distribution--legend">
+        <div v-if="showLegend && parts.length" class="distribution--legend">
             <template v-for="(part, index) in parts" :key="index">
                 <a v-if="part.href" class="distribution--legend--item" :href="part.href">
                     <capsule

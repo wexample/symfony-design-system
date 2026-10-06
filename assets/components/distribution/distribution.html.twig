@@ -4,6 +4,9 @@
     same shares. A change to either is a change to both. -#}
 {#- Nothing counted yet: drawn all the same, so a row keeps its shape. -#}
 {%- set empty = total <= 0 -%}
+{#- Compact, the bar alone: each part says what it is under the pointer, the
+    legend would take more room than the bar. -#}
+{%- set legend = legend|default(false) and not compact|default(false) -%}
 <div class="distribution{{ compact|default(false) ? ' distribution--compact' }}{{ empty ? ' distribution--empty' }}{% if class|default('') %} {{ class }}{% endif %}"
      {{ component_render_tag_attributes(attr|default({})) }}>
     {%- if label or show_value -%}
@@ -22,17 +25,17 @@
                 {%- set part_style = '--distribution-part: ' ~ part.value -%}
                 {#- Said in the legend already; repeating it here would read the
                     bar twice. Where there is no legend, the part says it itself. -#}
-                {%- set part_described = legend|default(false) -%}
+                {%- set part_described = legend -%}
                 {%- if part.href -%}
                     <a class="{{ part_class }}"
                        style="{{ part_style }}"
                        href="{{ part.href }}"
-                       title="{{ part.title }}"
+                       data-tooltip="{{ part.title }}"
                        aria-label="{{ part.title }}"></a>
                 {%- else -%}
                     <span class="{{ part_class }}"
                           style="{{ part_style }}"
-                          title="{{ part.title }}"
+                          data-tooltip="{{ part.title }}"
                           {% if part_described %}aria-hidden="true"{% else %}aria-label="{{ part.title }}"{% endif %}></span>
                 {%- endif -%}
             {%- endif -%}
@@ -41,7 +44,7 @@
             <span class="distribution--rest" style="--distribution-part: {{ rest }}" aria-hidden="true"></span>
         {%- endif -%}
     </div>
-    {%- if legend|default(false) and parts -%}
+    {%- if legend and parts -%}
         <div class="distribution--legend">
             {%- for part in parts -%}
                 {%- set capsule = marker(part.type, part.label, {

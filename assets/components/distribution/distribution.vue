@@ -34,7 +34,9 @@ export default {
       type: Boolean,
       default: false
     },
-    // The parts said in words, under the bar that says them in proportion.
+    // The parts said in words, under the bar that says them in proportion —
+    // not when compact: the bar alone, each part saying itself under the
+    // pointer.
     legend: {
       type: Boolean,
       default: true
@@ -58,6 +60,10 @@ export default {
 
     // Nothing counted yet: no total and no part — work not started, a tally
     // still out. The bar is drawn all the same, so a row keeps its shape.
+    showLegend() {
+      return this.legend && !this.compact;
+    },
+
     isEmpty() {
       return this.currentTotal <= 0;
     },
