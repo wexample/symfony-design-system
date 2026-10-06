@@ -85,6 +85,31 @@
   white-space: nowrap;
 }
 
+// The slot holding what a row says at its end — a count, a state —: held at
+// the edge of what is seen of the tree, so a long name scrolled past does not
+// take it out of view. It stands on the row's own ground, the name running
+// under it rather than through it — the zone's, lit as the row is on hover and
+// once selected. A slot and not a class for the thing itself: what it holds
+// keeps its own dress, a count its pill.
+.tree--trailing {
+  --tree-trailing-ground: var(--tree-ground, var(--surface-zone));
+
+  position: sticky;
+  inset-inline-end: 0;
+  flex: none;
+  margin-inline-start: auto;
+  padding-inline-start: var(--space-2);
+  background: var(--tree-trailing-ground);
+}
+
+.tree--row:hover > .tree--trailing {
+  background: linear-gradient(var(--state-hover), var(--state-hover)), var(--tree-trailing-ground);
+}
+
+.tree--item.is-selected > .tree--row > .tree--trailing {
+  background: linear-gradient(var(--state-active), var(--state-active)), var(--tree-trailing-ground);
+}
+
 // Not an item of the level but what is missing from it: it reads as an aside,
 // and takes the caret slot to stay aligned with the names above.
 .tree--row--more {
