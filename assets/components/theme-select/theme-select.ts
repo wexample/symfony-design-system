@@ -45,10 +45,9 @@ export default class extends Component {
     root.classList.add('is-switching-theme');
 
     try {
-      await Promise.all(Object.entries(axes).map(async ([usage, value]) => {
-        await (this.app.layout as any).setUsage(usage, value, true);
-        this.app.persistUiState(`ui.${usage}`, value);
-      }));
+      // Kept in one request, all the axes or none.
+      this.app.persistUiStates(Object.fromEntries(Object.entries(axes).map(([usage, value]) => [`ui.${usage}`, value])));
+      await Promise.all(Object.entries(axes).map(([usage, value]) => (this.app.layout as any).setUsage(usage, value, true)));
     } finally {
       // A frame for the new sheets to be applied before the page shows again.
       requestAnimationFrame(() => root.classList.remove('is-switching-theme'));

@@ -33,13 +33,18 @@ class UiStateController extends AbstractController
     public function set(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-        $key = $data['key'] ?? null;
+        // Several keys at once (`values`), or one (`key`, `value`).
+        $values = is_array($data['values'] ?? null)
+            ? $data['values']
+            : (isset($data['key']) ? [$data['key'] => $data['value'] ?? null] : []);
 
-        if ($key === null) {
+        if ([] === $values) {
             return new JsonResponse(['success' => false, 'error' => 'Missing key'], 400);
         }
 
-        $this->uiState->set($key, $data['value'] ?? null);
+        foreach ($values as $key => $value) {
+            $this->uiState->set((string) $key, $value);
+        }
 
         return new JsonResponse(['success' => true]);
     }
