@@ -14,6 +14,13 @@
   background: var(--surface-shell);
 }
 
+// The width the visitor left a resizable side menu at (`--menu-size`, set on
+// the panel holding it), else its own. The menu the panel holds and no other:
+// a menu inside what the column shows keeps its width.
+[data-resize-property='--menu-size'] > .menu {
+  width: var(--menu-size, var(--menu-width));
+}
+
 .menu--closed {
   display: none;
 }

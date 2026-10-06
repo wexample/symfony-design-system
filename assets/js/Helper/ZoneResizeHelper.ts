@@ -21,7 +21,9 @@ export function attachZoneResize(handle: HTMLElement, app: App): () => void {
   let split: HTMLElement | undefined;
 
   // The region this handle sizes is the one the split sizes: the nearest zone
-  // above it that a split holds directly. Walking up rather than taking the
+  // above it that a split holds directly — or any region that says it can be
+  // sized (`data-resize-state`, the key its size is kept under), a side menu of
+  // the layout, its row being what holds it. Walking up rather than taking the
   // parent, because a handle written inside a component is a grandchild of the
   // region once that component has been mounted.
   const resolveZone = (): HTMLElement | undefined => {
@@ -30,7 +32,8 @@ export function attachZoneResize(handle: HTMLElement, app: App): () => void {
     while (el) {
       const parent = el.parentElement;
 
-      if (el.classList.contains('zone') && parent?.classList.contains('zone--split')) {
+      if (parent && (el.dataset.resizeState
+        || (el.classList.contains('zone') && parent.classList.contains('zone--split')))) {
         split = parent;
         return el;
       }
@@ -65,15 +68,20 @@ export function attachZoneResize(handle: HTMLElement, app: App): () => void {
   const maxSize = (): number =>
     (axis === 'x' ? split!.clientWidth : split!.clientHeight) - NEIGHBOUR_ROOM;
 
+  // A zone reads its size from `--zone-size`; another region names the
+  // property it reads (`data-resize-property`).
+  const sizeProperty = zone.dataset.resizeProperty || '--zone-size';
+
   const applySize = (size: number): void => {
-    zone.style.setProperty('--zone-size', `${Math.round(size)}px`);
+    zone.style.setProperty(sizeProperty, `${Math.round(size)}px`);
   };
 
   const persistSize = (size: number | null): void => {
-    const id = zone.dataset.zoneId;
+    const key = zone.dataset.resizeState
+      || (zone.dataset.zoneId ? `ui.layout.zone.${zone.dataset.zoneId}.size` : null);
 
-    if (id) {
-      app.persistUiState(`ui.layout.zone.${id}.size`, size === null ? null : Math.round(size));
+    if (key) {
+      app.persistUiState(key, size === null ? null : Math.round(size));
     }
   };
 
@@ -92,7 +100,7 @@ export function attachZoneResize(handle: HTMLElement, app: App): () => void {
   // the one case where the pointer needs a way out that is not the pointer.
   const onDoubleClick = (event: Event): void => {
     event.preventDefault();
-    zone.style.removeProperty('--zone-size');
+    zone.style.removeProperty(sizeProperty);
     persistSize(null);
   };
 

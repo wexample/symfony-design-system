@@ -4,8 +4,19 @@
 // The handle is placed against the edges of the region holding it, so that
 // region is what it is placed against. Written here and not asked of the page,
 // which would forget it once.
-.zone:has(> .zone-resizer) {
+.zone:has(> .zone-resizer),
+[data-resize-state]:has(> .zone-resizer) {
   position: relative;
+}
+
+// A side menu meets the page with no gap: the handle is centred on the seam.
+// Folded, there is nothing to size.
+[data-resize-state]:has(> .zone-resizer) {
+  --zone-gap: 0px;
+}
+
+.gutters--collapsible--collapsed > .zone-resizer {
+  display: none;
 }
 
 // The handle is the gap and nothing else: lying exactly where it is, and drawing

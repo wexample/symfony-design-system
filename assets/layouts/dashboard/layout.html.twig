@@ -99,7 +99,17 @@
         <div class="gutters--body layout--body--overlay-scope">
             <div class="layout--horizontal">
                 {%- if not navigationTop -%}
-                <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible{% if not ui_state_get('ui.layout.menu.left', true) %} gutters--collapsible--collapsed{% endif %}" data-menu-id="left">
+                {#- A side menu the visitor may widen (`menu_left_resizable`,
+                    `menu_right_resizable`): an invisible handle on its edge
+                    against the page, the cursor saying it moves, and the width
+                    it is left at kept as its being open is. -#}
+                {%- set menuLeftResizable = menu_left_resizable|default(false) -%}
+                {%- set menuLeftSize = menuLeftResizable ? ui_state_get('ui.layout.menu.left.size') : null -%}
+                <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible{% if not ui_state_get('ui.layout.menu.left', true) %} gutters--collapsible--collapsed{% endif %}" data-menu-id="left"
+                    {%- if menuLeftResizable %} data-resize-state="ui.layout.menu.left.size" data-resize-property="--menu-size"{% if menuLeftSize > 0 %} style="--menu-size: {{ menuLeftSize|round }}px"{% endif %}{% endif %}>
+                    {%- if menuLeftResizable -%}
+                        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer', {}, { edge: 'end' }) }}
+                    {%- endif -%}
                     {% block page_menu %}
                         <nav class="menu menu--vertical menu--vertical--left">
                             {% block page_menu_header %}
@@ -246,7 +256,13 @@
             </div>
         </div>
         {% if menuRight is not empty %}
-            <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible{% if not ui_state_get('ui.layout.menu.right', false) %} gutters--collapsible--collapsed{% endif %}" data-menu-id="right">
+            {%- set menuRightResizable = menu_right_resizable|default(false) -%}
+            {%- set menuRightSize = menuRightResizable ? ui_state_get('ui.layout.menu.right.size') : null -%}
+            <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible{% if not ui_state_get('ui.layout.menu.right', false) %} gutters--collapsible--collapsed{% endif %}" data-menu-id="right"
+                {%- if menuRightResizable %} data-resize-state="ui.layout.menu.right.size" data-resize-property="--menu-size"{% if menuRightSize > 0 %} style="--menu-size: {{ menuRightSize|round }}px"{% endif %}{% endif %}>
+                {%- if menuRightResizable -%}
+                    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer', {}, { edge: 'start' }) }}
+                {%- endif -%}
                 {% block page_menu_right %}
                     <nav class="menu menu--vertical menu--vertical--right">
                         {% block page_menu_right_header %}
