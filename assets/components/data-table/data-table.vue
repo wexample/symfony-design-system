@@ -765,6 +765,11 @@ export default {
           label: typeof action === 'object' ? action.label : undefined,
           icon: iconName ?? '',
           confirm: typeof action === 'object' ? (action.confirm ?? null) : null,
+          // What a script does with the row instead of leading anywhere — a
+          // run asked for this one file —: a button calling it, the row given.
+          handler: typeof action === 'object' && typeof action.handler === 'function'
+            ? () => action.handler(row, column)
+            : null,
         };
       }).filter((entry) => entry.icon);
     },
