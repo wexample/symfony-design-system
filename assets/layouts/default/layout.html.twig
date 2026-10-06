@@ -66,12 +66,15 @@
             its ground and its room (`page_zone_plain`): the panels are the ones
             inside it, and the page shows between them as between any two zones. -#}
         {%- set pageZonePlain = page_zone_plain|default(false) -%}
+        {#- A page whose body is held edge to edge in its zone — an editor —
+            gives up the room inside it (`page_zone_flush`). -#}
+        {%- set pageZoneFlush = page_zone_flush|default(false) -%}
         <div class="zone{{ pageZonePlain ? '' : ' zone--panel' }}{{ pageZoneWidth }}"{% if pageZoneResizable %} {{ zone_state(pageZoneResizable) }}{% endif %}{% if page_zone_folded|default(null) %} data-zone-folded-size="{{ page_zone_folded }}"{% endif %}>
             {%- if pageZoneResizable -%}
                 {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer') }}
             {%- endif -%}
             <div class="zone{{ pageZonesScroll ? ' zone--scrollable' }}">
-                <div class="{{ pageZonePlain ? '' : 'zone--content ' }}stack--vertical">
+                <div class="{{ pageZonePlain ? '' : 'zone--content ' }}{{ pageZoneFlush ? 'zone--content--flush ' }}stack--vertical">
                     {#- What heads the page — its trail, its title, and what a page
                         adds under them (`page_head`): the steps of a tunnel. One
                         piece, so a layout can set it apart from the body it heads. -#}

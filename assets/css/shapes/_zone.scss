@@ -42,6 +42,12 @@
   padding: var(--zone-padding, var(--space-4));
 }
 
+// No room at all: what it holds is the frame's edge to edge — an editor's
+// text, a map — and carries whatever room it wants itself.
+.zone--content--flush {
+  --zone-padding: 0;
+}
+
 // A split spaces its zones on its own; this is for the page that wants more air
 // between two regions than the room they are given by default.
 .zone--gap {
