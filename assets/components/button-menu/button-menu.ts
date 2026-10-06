@@ -2,6 +2,7 @@ import Component from '@wexample/symfony-loader/js/Class/Component';
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
 import { filterTextMatches } from '../../js/Helper/FilterHelper';
 import { loadIntoTarget } from '../../js/Helper/TargetHelper';
+import { pageBusyShow } from '../../js/Helper/PageBusyHelper';
 
 export default class ButtonMenu extends Component {
   // How close to its bar's end a button stands to be at the end of it: the
@@ -159,6 +160,7 @@ export default class ButtonMenu extends Component {
       : 'bottom';
 
     this.buttonEl.addEventListener('click', this.onButtonClick);
+    this.panelEl.addEventListener('submit', this.onActionSubmit);
 
     this.itemLinks.forEach((link) => {
       link.addEventListener('click', this.onItemClick);
@@ -186,9 +188,21 @@ export default class ButtonMenu extends Component {
       row.removeEventListener('mouseenter', this.onSubmenuEnter);
     });
 
+    this.panelEl?.removeEventListener('submit', this.onActionSubmit);
     this.filterInput?.removeEventListener('input', this.onFilterInput);
     this.filterInput?.removeEventListener('keydown', this.onFilterKeyDown);
   }
+
+  // An action whose answer is a whole new page (`busy`): the window is held
+  // under a spinner meanwhile. Only once it really goes — a question asked
+  // first holds the submission, which comes back here once answered.
+  private onActionSubmit = (event: Event): void => {
+    const form = event.target;
+
+    if (form instanceof HTMLFormElement && form.dataset.busy !== undefined && !event.defaultPrevented) {
+      pageBusyShow(form.dataset.busy);
+    }
+  };
 
   // The rows of the list the field has left, separators apart.
   private visibleRows(): HTMLElement[] {

@@ -150,6 +150,10 @@
         <li class="button-menu--item" role="none">
             <form class="button-menu--form" method="post" action="{{ item_href }}"
                   {%- if item.request|default(null) %} data-request="{{ item.request }}"{% endif %}
+                  {#- `busy`: the answer is a whole new page, slow to come — the
+                      window is held under a spinner meanwhile; a string says
+                      what is being done. -#}
+                  {%- if item.busy|default(false) %} data-busy="{{ item.busy is same as(true) ? '' : item.busy }}"{% endif %}
                   {%- if confirm %} data-confirm-message="{{ confirm.message }}"{% if confirm.title is defined %} data-confirm-title="{{ confirm.title }}"{% endif %}{% if confirm.accept is defined %} data-confirm-accept="{{ confirm.accept }}"{% endif %}{% endif %}>
                 {%- if item.token|default(null) -%}
                     <input type="hidden" name="_token" value="{{ item.token }}">
