@@ -8,7 +8,9 @@
   // gives that height back below, so the bar stays as tall as density says.
   padding: var(--tabs-inset, 0px);
   gap: var(--tabs-inset, 0px);
-  border-bottom: var(--border-separator);
+  // A line under the bar, unless the skin parts the bar from the page by the
+  // room around it (`--tabs-border`).
+  border-bottom: var(--tabs-border, var(--border-separator));
   background: var(--surface-shell);
 }
 
