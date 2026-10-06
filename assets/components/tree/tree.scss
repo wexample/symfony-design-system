@@ -99,6 +99,8 @@
   flex: none;
   margin-inline-start: auto;
   padding-inline-start: var(--space-2);
+  // A step back from the edge of the row, as the name has from the other one.
+  padding-inline-end: var(--space-1);
   background: var(--tree-trailing-ground);
 }
 
