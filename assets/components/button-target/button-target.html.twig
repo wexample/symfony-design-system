@@ -1,8 +1,12 @@
 {# Client-side twin of vue/partials/button-target.vue: same options, same markup.
    A change to either is a change to both. #}
 {#- A button first, whatever is added to it (`class`), as button and
-    button_link have it: a flat one stays a button. -#}
-<a class="button{{ options.class|default('') ? ' ' ~ options.class }}"
+    button_link have it: a flat one stays a button. Unless it is a link in the
+    run of what it stands in (`link`) — a path among properties —, opening its
+    target all the same: then it wears its class alone, as the twin does given
+    a `className`. -#}
+{%- set buttonClass = options.link|default(false) ? '' : 'button' -%}
+<a class="{{ [buttonClass, options.class|default('')]|filter(c => c)|join(' ') }}"
    href="{{ options.href|default('#') }}"
    data-target="{{ options.target }}"
    {#- Where it opens when its target is not on the page — an embed a page

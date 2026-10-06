@@ -59,6 +59,8 @@ class FilePathExtension extends AbstractTemplateExtension
                                 'target' => $options['target'] ?? '',
                                 'target_options' => $options['target_options'] ?? [],
                                 'class' => 'file-path--link',
+                                // A link in the run of the text, not a button.
+                                'link' => true,
                             ],
                         ],
                         ['html' => $markup]
