@@ -1,0 +1,11 @@
+{#- A lit dot and, beside it, what it says: the tone is the state, `off` the
+    dot unlit. A dot alone is named by `title`, for the pointer and for whoever
+    reads the page aloud. -#}
+<span class="led led--{{ tone|default('off') }}{{ pulse|default(false) ? ' led--pulse' }}{% if class|default('') %} {{ class }}{% endif %}"
+      {% if title|default(null) %}title="{{ title }}"{% endif %}
+      {% if not label|default(null) and title|default(null) %}role="img" aria-label="{{ title }}"{% endif %}>
+    <span class="led--dot" aria-hidden="true"></span>
+    {%- if label|default(null) is not null and label != '' -%}
+        <span class="led--label">{{ label }}</span>
+    {%- endif -%}
+</span>

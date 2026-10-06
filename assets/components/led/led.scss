@@ -1,0 +1,71 @@
+@use '../../css/mixins/feedback' as feedback;
+
+// A lit dot: a state read at a glance in a line of text — ok, running, in
+// error, off —, by the dozen in a summary or a list of services. The tone is
+// the whole of what it says, as for the marker; it only shines, the light
+// spilling a little around it, where the marker is filled.
+.led {
+  @include feedback.feedback-base;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  vertical-align: middle;
+}
+
+.led--dot {
+  --led-size: 0.625em;
+
+  flex: none;
+  width: var(--led-size);
+  height: var(--led-size);
+  border-radius: 50%;
+  background: var(--feedback-fill);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--feedback-fill) 22%, transparent),
+    0 0 6px color-mix(in srgb, var(--feedback-fill) 55%, transparent);
+}
+
+.led--info,
+.led--running { @include feedback.feedback-info; }
+.led--success { @include feedback.feedback-success; }
+.led--warning { @include feedback.feedback-warning; }
+.led--error { @include feedback.feedback-error; }
+.led--dev { @include feedback.feedback-dev; }
+
+@each $name in feedback.$category-names {
+  .led--cat-#{$name} {
+    @include feedback.feedback-category($name);
+  }
+}
+
+// Unlit: the dot is there, giving no light, and its words step back with it —
+// a count at zero.
+.led--off {
+  .led--dot {
+    background: var(--neutral-7);
+    box-shadow: none;
+  }
+
+  .led--label {
+    color: var(--text-color-muted);
+  }
+}
+
+// Something under way: the light breathes. Still for whoever asked for less
+// motion.
+.led--pulse .led--dot {
+  animation: led-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes led-pulse {
+  50% {
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--feedback-fill) 12%, transparent),
+      0 0 10px color-mix(in srgb, var(--feedback-fill) 70%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .led--pulse .led--dot {
+    animation: none;
+  }
+}
