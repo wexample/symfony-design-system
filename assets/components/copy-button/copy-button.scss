@@ -1,6 +1,9 @@
 // A button putting a text in the clipboard, quiet until it is used: the copy
 // glyph, a check for a moment once copied, a cross when it could not be.
 .copy-button {
+  // What its status hangs from: placed against nothing nearer, it would land
+  // at the foot of the page, outside every scrolling frame, and lengthen it.
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
