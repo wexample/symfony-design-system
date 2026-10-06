@@ -76,8 +76,9 @@
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9), inset 0 -1px 2px rgb(0 0 0 / 0.08), 0 1px 2px rgb(0 0 0 / 0.1);
 }
 
-// A window's three lights, in a card's title bar: close, minimize, zoom.
-.usage-skin-aqua .block > .block--title::before {
+// A window's three lights, in the title bar of what is drawn as a window — a
+// card, a modal, a panel: close, minimize, zoom.
+.usage-skin-aqua :is(.block > .block--title, .modal-header, .panel-header)::before {
   content: '';
   flex: none;
   width: 50px;
@@ -87,6 +88,18 @@
     radial-gradient(circle at 6px 6px, var(--aqua-light-close, #ff5f57) 5px, transparent 5.5px),
     radial-gradient(circle at 24px 6px, var(--aqua-light-minimize, #febc2e) 5px, transparent 5.5px),
     radial-gradient(circle at 42px 6px, var(--aqua-light-zoom, #28c840) 5px, transparent 5.5px);
+}
+
+// A modal's and a panel's title bar is brushed chrome, as a card's is.
+.usage-skin-aqua :is(.modal-header, .panel-header) {
+  background-image: var(--aqua-chrome);
+  box-shadow: var(--aqua-emboss);
+}
+
+// The regions of a page are windows on the desk: the desk shows around them
+// as it does between them.
+.usage-skin-aqua .layout--body:has(> .zone--split) {
+  padding: var(--zone-gap, var(--space-2));
 }
 
 // Buttons of gel: the gloss over their own colour — grey, or blue, green,
