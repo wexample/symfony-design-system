@@ -116,6 +116,8 @@
 //     zone--hug           as wide as what it holds, its text wrapping before
 //                         it widens the row, never narrower than the
 //                         measure — a table page
+//     zone--rigid         with any of the above: never giving way, the row
+//                         scrolling instead
 //     zone--filler        what is left, holding nothing: the ground run to
 //                         the row's end, not counted as a neighbour
 //     a resized zone      the size it was left at (`--zone-size`, inline)
@@ -195,6 +197,13 @@
 // to take back what the visitor asked for, and a row short of room scrolls
 // sideways — the floor rows do — instead of squeezing the zone back.
 .zone--split > :where(.zone--measure[style*="--zone-size"]) {
+  flex-shrink: 0;
+}
+
+// Kept at the width it asks for, never giving way: past the window, the row
+// scrolls instead — the filler beside it gone to nothing first. A page held
+// to its measure for good (`page_measure: 'keep'`).
+.zone--split > :where(.zone--rigid) {
   flex-shrink: 0;
 }
 
@@ -294,12 +303,13 @@
 // The page's row — any row laid straight in a page's body — once it holds a
 // neighbour: its regions keep a width they can be read at, and a window too narrow for all of them scrolls the row
 // sideways rather than squeezing each to nothing. The narrow ones and the
-// content-wide ones already keep theirs.
+// content-wide ones already keep theirs; the filler is no region and keeps
+// none — it goes to nothing first, before any region gives way.
 .zone--split:where(.zone--split--floor, .layout--body > *):where(:has(> .zone ~ .zone:not(.zone--filler))) {
   overflow-x: auto;
 }
 
-.zone--split:where(.zone--split--floor, .layout--body > *):where(:has(> .zone ~ .zone:not(.zone--filler))) > :where(.zone:not(.zone--narrow, .zone--fit-content)) {
+.zone--split:where(.zone--split--floor, .layout--body > *):where(:has(> .zone ~ .zone:not(.zone--filler))) > :where(.zone:not(.zone--narrow, .zone--fit-content, .zone--filler)) {
   min-width: var(--zone-floor, var(--zone-body-min, 20rem));
 }
 

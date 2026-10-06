@@ -56,8 +56,11 @@
         {#- Held to the reading measure, unless the page is wide or says it
             wants none (`page_measure: false`): then as wide as what it holds —
             a table's columns —, its text wrapping first. Wide also fills the window and scrolls its
-            zones; `page_measure: false` alone keeps the page scrolling. -#}
-        {%- set pageZoneWidth = page_body_mode|default('default') == 'wide' ? '' : ((page_measure ?? true) ? ' zone--measure' : ' zone--hug') -%}
+            zones; `page_measure: false` alone keeps the page scrolling.
+            `page_measure: 'keep'` holds it to the measure for good: it never
+            gives way, the row scrolls past the window instead. -#}
+        {%- set pageMeasure = page_measure ?? true -%}
+        {%- set pageZoneWidth = page_body_mode|default('default') == 'wide' ? '' : (pageMeasure ? ' zone--measure' ~ (pageMeasure is same as('keep') ? ' zone--rigid') : ' zone--hug') -%}
         <div class="zone zone--panel{{ pageZoneWidth }}"{% if pageZoneResizable %} {{ zone_state(pageZoneResizable) }}{% endif %}{% if page_zone_folded|default(null) %} data-zone-folded-size="{{ page_zone_folded }}"{% endif %}>
             {%- if pageZoneResizable -%}
                 {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer') }}
