@@ -16,7 +16,12 @@ interface DevMenuProviderInterface
     /**
      * @return list<array<string, mixed>> button_menu items: `icon`, `label` (a
      *                                    translation key or words), `href`,
-     *                                    and `new_window` or `target`
+     *                                    and `new_window` or `target`;
+     *                                    `account: true` for an action on the
+     *                                    account signed in, listed after the
+     *                                    links, `disabled` while nobody is;
+     *                                    `order` to place it in its part
+     *                                    (0 by default, lower first)
      */
     public function getDevMenuItems(): array;
 }

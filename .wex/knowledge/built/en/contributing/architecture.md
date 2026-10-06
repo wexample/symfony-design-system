@@ -46,6 +46,25 @@ All Twig extensions extend src/Twig/AbstractTemplateExtension.php, which wraps `
 
 `button_target($icon, $label, $href, $target, $options)` takes the same first three arguments as `button_link()`, plus where the page it points at is loaded: `modal`, `panel`, or the name of an embed the page holds. It merges `href` and `target` into `$options` and renders `components/button-target`. The class list is the caller's — `options.class` replaces it entirely, defaulting to `button` — because the same behaviour has to sit on a `.button` and on a `.table--icon-link`.
 
+#### Three windows: modal, panel, dock
+
+A page the server renders can be loaded in a modal, a panel or a **dock** — `target` `modal`, `panel` or `dock` on a link, `loadIntoTarget()` in a script. The dock is a window docked at the foot of the screen, beside the page and not over it: no backdrop, no focus held, no place in the overlay stack, so the page stays usable while it is open. The docked windows share one row (`#dock-layer`), each folds to its title from its header (assets/components/dock/dock.ts). The loader knows it as a layout base like the two others (`__layout=dock`, `RenderPass::BASE_DOCK`, its shell in `bases/json/dock.html.twig`, `DockService`).
+
+The three also show what a script puts there itself, without a page from the server: `showInTarget(app, target, { title, body, actions })` in assets/js/Helper/TargetHelper.ts builds the window from its template — the dashboard layout puts the three on every page with `component_frontend()` — and draws the same shell a page gets, in the browser. `body` is markup, or an element moved in as it is, which the script can keep up to date: the uploads window is one.
+
+#### Uploads
+
+`upload_dropzone(directory, options)` draws a place files are dropped on or picked from; any kind of file, any size. The directory is the page's to choose and never the browser's: `upload_url()` signs an address for that one directory (src/Service/UploadTokenService.php, with the kernel secret), and src/Controller/UploadController.php at `/_upload/{token}` refuses any other. The loader's `UploadService` sends each file in pieces (`ChunkedUploadTransport`), sized under the request limits PHP announces, a lost piece sent again; src/Service/ChunkedUploadReceiver.php appends them in order and moves the whole into the directory, a name already there giving « name (2).ext ». `UploadTrayService` follows them in a dock: one row each, its progress, a way to give it up. The zone says `upload:done` — bubbling, with the stored name — for the page around it to read its list again.
+
+#### Where a link opens from an embedded page: `target-embedded`
+
+One page lives alone, in a panel, in a modal or in an embed, and what a link does depends on which. Two cases call for something else than the link's usual target, and both are answered by one setting, `target-embedded`:
+
+- **The page is embedded and the link is a plain one.** Left alone, it would replace the whole window and lose what lies under the panel or the modal. The managers drawing such pages — modal, panel, embed — take the click instead (`onLinkLeaving()` in the loader's `PageManagerComponent`, answered by `targetEmbeddedClick()` in assets/js/Helper/TargetHelper.ts). A page that asked for its links to stay in the manager (`data-page-navigation="contained"`) keeps that behaviour first.
+- **The link names an embed the page does not hold.** A page opened in a panel has none of the embeds its full-page self places — the PDF pane beside a document. `loadIntoTarget()` checks `EmbedService.has()` and opens the page where `target-embedded` says instead of failing.
+
+`target-embedded` is `panel` by default: a panel over a panel reads, and is less jarring than a panel then a modal. It is set on the link or on any element around it, `data-target-embedded="modal"` (or `panel`, or an embed's name), as `target_embedded` in `button_target()`'s options, `targetEmbedded` on the vue `<button-target>` or in `loadIntoTarget(app, target, href, { targetEmbedded })`. `none` keeps what the link would do otherwise — a link that really has to change page. External links and `target="_blank"` are never concerned.
+
 ### Runs the pages declare themselves into
 
 A menu written by hand is a list someone has to edit when a page appears, and a page shipped by a bundle has nobody to edit it — the application owning the template has never heard of it. src/Attribute/MenuItem.php turns that around: a controller action declares which run of items it joins, and the menu asks for the run.

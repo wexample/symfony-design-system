@@ -38,14 +38,33 @@ class DevMenuExtension extends AbstractTemplateExtension
                         return '';
                     }
 
-                    $items = [];
+                    // The links first, always there; then, under a rule, what
+                    // acts on the account signed in (`account`), unavailable
+                    // to whoever is not — so the menu keeps one shape.
+                    $links = [];
+                    $accountItems = [];
 
                     foreach ($this->providers as $provider) {
                         foreach ($provider->getDevMenuItems() as $item) {
                             // In the dev tone, as everything development alone shows.
-                            $items[] = $item + ['tone' => 'dev'];
+                            $item += ['tone' => 'dev'];
+
+                            if ($item['account'] ?? false) {
+                                $accountItems[] = $item;
+                            } else {
+                                $links[] = $item;
+                            }
                         }
                     }
+
+                    // Within each part, by `order` (0 by default), then as given.
+                    $byOrder = static fn (array $a, array $b): int => ($a['order'] ?? 0) <=> ($b['order'] ?? 0);
+                    usort($links, $byOrder);
+                    usort($accountItems, $byOrder);
+
+                    $items = $links && $accountItems
+                        ? [...$links, ['separator' => true], ...$accountItems]
+                        : [...$links, ...$accountItems];
 
                     return $this->renderComponent(
                         $twig,

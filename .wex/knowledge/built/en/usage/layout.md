@@ -11,7 +11,7 @@ A page sets these variables at the top of its template, outside any block; an ap
 | `page_focus` | bool | One thing to do and nothing around it — signing in, a code, terms: no menu, a narrow column under the application's mark. |
 | `layout_navigation` | `side`, `top` | Where the application's sections stand (dashboard layout). |
 | `layout_footer` | `fixed`, `page` | Where the footer stands (dashboard layout): under the body, always in view; or at the end of the page, never above the foot of the window. |
-| `page_measure` | bool | `false` drops the reading measure without filling the window: a table page that scrolls with the page. |
+| `page_measure` | bool, `'keep'` | `false` drops the reading measure without filling the window: a table page that scrolls with the page. `'keep'` holds the page to the measure for good: it never gives way, the row scrolls past the window instead. |
 
 ## How a mode reaches the page
 
@@ -34,7 +34,7 @@ In use: the design system's demo and app-board keep the defaults (`side`, `fixed
 
 ## What stands still and what scrolls
 
-A page held to a width (the reading measure) never leaves the window's edge bare: with nothing after it, the layout adds a zone that takes what is left of the row (`zone--filler`), the gap between the two showing the page under them. It holds nothing and does not count as a neighbour, so the page still scrolls as one.
+A row never leaves the window's edge bare: after the page held to a width (the reading measure) and whatever narrow column stands beside it, the layout adds a zone that takes what is left (`zone--filler`), the gap between the two showing the page under them. It holds nothing and does not count as a neighbour, so the page still scrolls as one; it keeps no floor, so it goes to nothing first when the window narrows, before any region gives way; and it steps aside where a zone of the row already takes what is left.
 
 The dashboard layout holds three things still — the header, the page's own navigation (`page_tabs`), the footer — around the one thing that scrolls: the body, on both axes. A page wider than the window (`page_measure: false` under a table of many columns) widens its row to the table and slides under the bars, its scrollbar at the foot of the window; the bars keep the window's width without being told. Nothing of this is measured by a script: put a bar inside the scroller and it will travel with the page.
 
@@ -78,6 +78,19 @@ The dashboard layout holds three things still — the header, the page's own nav
 {%- endblock -%}
 ```
 
+The same blocks are drawn when the page is loaded into an embed — the detail of
+a file read in an explorer's pane: the row then fills the embed instead of the
+window, and a page asking for no region keeps the single column it always had.
+A panel, a modal and the dock draw no regions: a page meant to be opened in one
+too puts beside it only what it can also stack, and reads
+`render_pass.layoutBase` to tell the two apart.
+
+## A side menu widened by its edge
+
+`menu_left_resizable` and `menu_right_resizable`, set by a layout or a page, give the side menu an invisible handle on its edge against the page: the cursor turns to `col-resize` over the seam, the menu follows the pointer — or the arrow keys once the handle has the focus —, and a double click gives it back its own width. The width is kept in the interface's state (`ui.layout.menu.left.size`) as the menu being open is, and comes back with the next page. Folded, the menu has no handle.
+
+The handle is the `zone-resizer` a zone uses; any region can carry one by naming the key its size is kept under (`data-resize-state`) and the property it reads it from (`data-resize-property`).
+
 ## How a zone takes its room
 
 Two questions, answered apart (`css/shapes/_zone.scss`, its last block).
@@ -89,6 +102,7 @@ What a zone asks — its own class:
 | (none) | what is left, shared with the other plain zones |
 | `zone--narrow` | its size (`zone--size-N`), or its content's |
 | `zone--measure` | the reading measure, giving way below it |
+| `zone--rigid` | with any of the others: never giving way, the row scrolling instead |
 | `zone--fit-content` | as wide as what it holds |
 | resized | the size it was left at (`--zone-size`, written inline by the resizer) |
 

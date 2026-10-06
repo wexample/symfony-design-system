@@ -164,6 +164,16 @@
                 </button>
             </form>
         </li>
+        {% elseif item.disabled|default(false) %}
+        {#- Out of reach for now — not gone: the row stays where it is, said
+            unavailable, and leads nowhere. -#}
+        <li class="button-menu--item" role="none">
+            <button type="button" class="button-menu--link{{ item_class }}" role="menuitem"
+                    disabled="disabled" aria-disabled="true"
+                    {{ component_render_tag_attributes(item_attr) }}>
+                {{- menu.row(item, type) -}}
+            </button>
+        </li>
         {% else %}
         {#- `target` — panel, modal — opens the page there rather than in
             place, as a target button does; a modified click still goes. -#}
