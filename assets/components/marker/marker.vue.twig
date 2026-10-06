@@ -3,7 +3,7 @@
 {%- block vue_body -%}
     {#- Client-side twin of marker.html.twig: same classes, same order. A change
         to either is a change to both. -#}
-    <span :class="classes" :title="title">
+    <span :class="classes" :data-tooltip="title || null" :aria-label="title && !hasLabel ? title : null">
         <span v-if="glyphHtml" class="marker--glyph" aria-hidden="true" v-html="glyphHtml"></span>
         <span v-if="hasLabel" class="marker--label">[[ label ]]</span>
         <span v-if="hasCount" class="marker--count">[[ count ]]</span>

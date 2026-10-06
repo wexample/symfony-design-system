@@ -237,7 +237,7 @@
                                     v-if="getCellValue(row, column) !== null && getCellValue(row, column) !== ''"
                                     class="table--clamp"
                                     :style="getClampStyle(column)"
-                                    :title="getCellValue(row, column)"
+                                    :data-tooltip="getCellValue(row, column)"
                             >[[ getCellValue(row, column) ]]</span>
                         </template>
                         <template v-else-if="isMarkerCell(column)">
@@ -246,7 +246,7 @@
                                     :tone="getMarker(getCellValue(row, column)).type"
                                     :label="getMarker(getCellValue(row, column)).label"
                                     :count="getMarker(getCellValue(row, column)).count"
-                                    :title="getMarker(getCellValue(row, column)).title"
+                                    :title="getMarker(getCellValue(row, column)).tooltip || getMarker(getCellValue(row, column)).title"
                                     :compact="true"
                             ></capsule>
                         </template>

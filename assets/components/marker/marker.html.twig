@@ -10,7 +10,10 @@
 {% if not glyph and tone == 'running' %}{% set glyph = 'ph:bold/circle-notch' %}{% endif %}
 
 <span class="marker marker--{{ tone }}{{ compact|default(false) ? ' marker--compact' }}{{ tiny|default(false) ? ' marker--tiny' }}{% if class|default('') %} {{ class }}{% endif %}"
-      {% if title|default(null) %}title="{{ title }}"{% endif %}
+      {#- What it says under the pointer, in the design system's tooltip and not
+          the browser's bubble — slow, small, not to be copied. The name of the
+          mark too, where its glyph is all there is. -#}
+      {% if title|default(null) %}data-tooltip="{{ title }}"{% if label is not defined or label is null or label == '' %} aria-label="{{ title }}"{% endif %}{% endif %}
       {{ component_render_tag_attributes(attr|default({})) }}>
     {%- if glyph -%}
         <span class="marker--glyph" aria-hidden="true">{{ icon(glyph) }}</span>

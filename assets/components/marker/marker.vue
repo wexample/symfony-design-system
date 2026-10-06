@@ -38,7 +38,8 @@ export default {
       type: String,
       default: null
     },
-    // Said out loud where the glyph is all there is.
+    // What it says under the pointer, in the design system's tooltip; said out
+    // loud where the glyph is all there is.
     title: {
       type: String,
       default: null

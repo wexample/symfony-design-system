@@ -238,17 +238,18 @@
                                 the whole of it in the tooltip and in the detail a
                                 `row_link` opens. -#}
                             {%- if value is not same as(null) and value is not same as('') -%}
-                                <span class="table--clamp" style="--table-clamp: {{ column.lines }}" title="{{ value }}">{{ value }}</span>
+                                <span class="table--clamp" style="--table-clamp: {{ column.lines }}" data-tooltip="{{ value }}">{{ value }}</span>
                             {%- endif -%}
                         {%- elseif column.cell == 'status' -%}
-                            {#- A type name, or { type, count, title, label }. One
+                            {#- A type name, or { type, count, tooltip, label } —
+                                `title` read as the tooltip too. One
                                 capsule for the two: a mark and a count beside it
                                 read as two objects, and a column of them as noise. -#}
                             {%- set state = value is iterable ? value : { type: value } -%}
                             {%- if state.type|default(null) -%}
                                 {{ marker(state.type, state.label|default(null), {
                                     count: state.count|default(null),
-                                    title: state.title|default(null),
+                                    title: state.tooltip|default(state.title|default(null)),
                                     compact: true,
                                 }) }}
                             {%- endif -%}
