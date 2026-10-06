@@ -1,0 +1,59 @@
+// A place files are dropped on, or picked from with its button. Dashed, as a
+// place waiting for something; lit while files are held over it.
+@use '../button/button';
+
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-4);
+  border: 2px dashed var(--border-color-default);
+  border-radius: var(--radius-box);
+  color: var(--text-color-muted);
+  text-align: center;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+// A line: the words, then the button at its end.
+.dropzone--compact {
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: var(--space-2) var(--space-3);
+  text-align: start;
+
+  .dropzone--hint {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+.dropzone--icon {
+  font-size: 1.75em;
+}
+
+.dropzone--compact .dropzone--icon {
+  font-size: 1.25em;
+}
+
+.dropzone.is-dragover {
+  border-color: var(--color-link);
+  background: var(--state-hover);
+  color: var(--text-color-default);
+}
+
+// The button alone, where a page only offers to upload — in a toolbar, beside
+// a title. Files dropped on it are taken as on a zone; it lights up the same.
+.dropzone--button {
+  display: inline-flex;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-control, var(--radius-box));
+
+  &.is-dragover {
+    background: none;
+    outline: 2px dashed var(--color-link);
+    outline-offset: 2px;
+  }
+}

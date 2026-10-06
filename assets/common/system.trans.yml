@@ -69,6 +69,19 @@ en:
       done: Done
       close: Close the tour
       progress: "%current% / %total%"
+    upload:
+      hint: Drop files here, or pick them
+      pick: Upload
+      title: Uploads
+      progress: "Uploads — %done% / %count%"
+      cancel: Cancel this upload
+      cancelled: Cancelled
+      failed: The upload failed
+      status:
+        queued: Waiting
+        uploading: Sending
+        success: Done
+        error: Failed
     embed:
       close: Close
     document:

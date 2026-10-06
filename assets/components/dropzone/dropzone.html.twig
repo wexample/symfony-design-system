@@ -1,0 +1,26 @@
+{#- A place files are dropped on, or picked from with its button: any kind of
+    file, any size — what they are for is the business of whatever reads the
+    directory they land in. Sent in pieces by the upload service, followed in
+    the uploads window docked at the foot of the screen. `compact` makes it a
+    line, where a page has little room; `button` the button alone — files
+    dropped on it are taken all the same. -#}
+{%- set pick_label = (label|default(null) ?: 'WexampleSymfonyDesignSystemBundle.common.system::frontend.upload.pick') | trans -%}
+{%- if button|default(false) -%}
+    <span class="dropzone dropzone--button{{ class|default(null) ? ' ' ~ class }}">
+        <input class="dropzone--input" type="file" multiple hidden>
+        <button type="button" class="button dropzone--pick">
+            <span class="button--icon">{{ icon('ph:bold/upload-simple') }}</span>
+            <span>{{ pick_label }}</span>
+        </button>
+    </span>
+{%- else -%}
+    <div class="dropzone{{ compact|default(false) ? ' dropzone--compact' }}{{ class|default(null) ? ' ' ~ class }}">
+        <input class="dropzone--input" type="file" multiple hidden>
+        {{ icon('ph:bold/cloud-arrow-up', 'dropzone--icon') }}
+        <span class="dropzone--hint">{{ (hint|default(null) ?: 'WexampleSymfonyDesignSystemBundle.common.system::frontend.upload.hint') | trans }}</span>
+        <button type="button" class="button dropzone--pick">
+            <span class="button--icon">{{ icon('ph:bold/upload-simple') }}</span>
+            <span>{{ pick_label }}</span>
+        </button>
+    </div>
+{%- endif -%}

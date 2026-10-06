@@ -1,0 +1,39 @@
+// The rows of the uploads window: the design system's progress bar for each
+// file — its name, how far it got —, and what came of it under it.
+@use '../../components/progress-bar/progress-bar';
+
+.upload-tray {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.upload-tray--row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+// The bar takes the line, the way to give it up stands at its end.
+.upload-tray--head {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+  min-width: 0;
+
+  > .progress {
+    flex: 1;
+  }
+}
+
+.upload-tray--status {
+  font-size: var(--font-size-2);
+  color: var(--text-color-muted);
+}
+
+.upload-tray--row[data-status='error'] .upload-tray--status {
+  color: var(--error-11);
+}
