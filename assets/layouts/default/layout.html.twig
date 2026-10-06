@@ -119,12 +119,13 @@
             </div>
         </div>
         {{- pageZonesAfter -}}
-        {#- A page held to a width — the measure, or its content's —, with
-            nothing beside it, still runs its ground to the window's edge: a
-            zone takes what is left of the row, the gap between the two showing
-            the page under them. It holds nothing, so the page still scrolls as
-            one (`zone--filler`). -#}
-        {%- if pageZonesAfter|trim is empty and page_body_mode|default('default') != 'wide' -%}
+        {#- A row always runs its ground to the window's edge: after the page
+            held to a width — the measure, or its content's — and whatever
+            narrow column stands beside it, a zone takes what is left, the gap
+            showing the page under them. It holds nothing, so the page still
+            scrolls as one (`zone--filler`), and it steps aside where a zone of
+            the row already takes what is left (_zone.scss). -#}
+        {%- if page_body_mode|default('default') != 'wide' -%}
             <div class="zone zone--panel zone--filler" aria-hidden="true"></div>
         {%- endif -%}
         {%- if pageZonesHeld -%}
