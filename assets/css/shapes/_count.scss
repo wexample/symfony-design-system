@@ -12,7 +12,12 @@
 // That is what a shape costs and it is the price of the rule — nothing renders
 // this, so the only way it can reach the markup is for whoever writes the
 // class to pull it in.
-.count {
+//
+// Weighing nothing (`:where`), for the same reason: copied into several
+// bundles, it is declared again by whichever stylesheet a page loads last, and
+// at a class's weight it would then win over the class a page puts beside it —
+// a tone — by the mere order the files came in.
+:where(.count) {
   border-radius: var(--radius-pill);
   padding: 0.1em 0.55em;
   background: var(--surface-2);
