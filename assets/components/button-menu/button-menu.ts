@@ -322,12 +322,13 @@ export default class ButtonMenu extends Component {
     });
   }
 
-  // A menu opened from a bar — the header, a toolbar — starts where the bar
-  // ends, not where its button does, whatever the bar's thickness. And from a
-  // button standing at the bar's end, it lines up with the bar's edge rather
-  // than the button's: the header's edge being the window's, the last menu of
-  // the header hugs the window, while a toolbar inside the page keeps it to
-  // the toolbar's own edge.
+  // A menu opened from the button at the end of a bar — the account's, in
+  // the header's corner — comes out of the bar itself: from where the bar
+  // ends, whatever its thickness, and lined up with its edge rather than the
+  // button's — the header's edge being the window's, it hugs the window, while
+  // a toolbar inside the page keeps it to the toolbar's own edge. Any other
+  // menu of a bar opens under its own button: started from the bar's foot, far
+  // from it, it would float apart from what opened it.
   private alignOnBar(
     buttonRect: DOMRect,
     align: 'left' | 'right',
@@ -350,6 +351,11 @@ export default class ButtonMenu extends Component {
     }
 
     const barRect = bar.getBoundingClientRect();
+    const toEnd = align === 'right' ? barRect.right - buttonRect.right : buttonRect.left - barRect.left;
+
+    if (toEnd < 0 || toEnd > ButtonMenu.BAR_END_DISTANCE) {
+      return;
+    }
 
     if (vertical === 'bottom') {
       panelStyle.marginTop = `${Math.max(0, barRect.bottom - buttonRect.bottom)}px`;
@@ -357,9 +363,7 @@ export default class ButtonMenu extends Component {
       panelStyle.marginBottom = `${Math.max(0, buttonRect.top - barRect.top)}px`;
     }
 
-    const toEnd = align === 'right' ? barRect.right - buttonRect.right : buttonRect.left - barRect.left;
-
-    if (toEnd > 0 && toEnd <= ButtonMenu.BAR_END_DISTANCE) {
+    if (toEnd > 0) {
       panelStyle[align] = `${-toEnd}px`;
     }
   }
