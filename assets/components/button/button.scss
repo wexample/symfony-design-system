@@ -69,6 +69,33 @@
   color: var(--text-color-default);
 }
 
+// Anything made a button — a marker, an image, a card — that keeps its own
+// look: the button draws nothing around what it holds, neither ground, frame
+// nor room, and still opens, submits, takes the focus and the keys. Only the
+// focus says it is one, ringed round what it holds.
+.button.button--bare {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-1);
+  background: none;
+  box-shadow: none;
+  color: inherit;
+  font: inherit;
+
+  &:hover,
+  &:focus-visible,
+  .button-menu.is-open > & {
+    background: none;
+    filter: brightness(1.08);
+  }
+
+  &:focus-visible {
+    outline: var(--border-focus-width, 2px) solid var(--neutral-a7, currentColor);
+    outline-offset: 2px;
+  }
+}
+
 .button--compact {
   @include density.density-compact;
 }
