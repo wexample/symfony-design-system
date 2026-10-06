@@ -29,11 +29,16 @@
   --feedback-shadow-offset: 0;
 }
 
-// Raised: buttons, windows — a region, a card, a menu, a dialog.
+// Raised: buttons, windows — a region, a card, a menu, a dialog. A button
+// keeps its own ground — a success's green, a danger's red —, only its edges
+// change; a window takes the face of the desk's objects.
 .usage-skin-win95 :is(.button:not(.button--bare), .zone--panel, .block--card, .button-menu--panel, .modal--content, .panel--content, .toast) {
   border: 2px solid;
   border-color: var(--win95-raised-border);
   box-shadow: var(--win95-raised-inner);
+}
+
+.usage-skin-win95 :is(.zone--panel, .block--card, .button-menu--panel, .modal--content, .panel--content) {
   background-color: var(--bevel-face, var(--surface-2));
 }
 

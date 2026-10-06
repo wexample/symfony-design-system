@@ -10,6 +10,8 @@
   --radius-control: var(--radius-3);
   --radius-box: var(--radius-3);
   --radius-media: var(--radius-4);
+  // The regions of a page are objects on a desk: rounded as the boxes they hold.
+  --zone-radius: var(--radius-box);
 
   // Depth comes back.
   @include shadow.shadow-vars;

@@ -105,6 +105,8 @@
   // and not from the page it no longer touches.
   @include surface-layer.surface-layer;
   background: var(--surface-zone);
+  // Square unless the skin rounds the regions of a page (`--zone-radius`).
+  border-radius: var(--zone-radius, 0);
   // The layer puts the chrome it holds — a toolbar, a tab bar — on the top of
   // the ladder, which is right for a block standing on the page and wrong here:
   // a panel already stands there, so its chrome takes the step under it.
