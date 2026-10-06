@@ -14,3 +14,22 @@
     transition: none;
   }
 }
+
+// A change of colour eased rather than flashed: a marker or a light turning
+// from one state to the next, a ground under the pointer. Hygiene, not
+// decoration — only the colours move, never the size or the place.
+@mixin colors($level: 2) {
+  $durations: (
+    1: 120ms,
+    2: 180ms,
+    3: 260ms
+  );
+
+  transition-property: background-color, color, border-color, outline-color, box-shadow, fill, stroke;
+  transition-duration: map.get($durations, $level);
+  transition-timing-function: ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}

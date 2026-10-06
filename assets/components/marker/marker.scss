@@ -1,4 +1,5 @@
 @use '../../css/mixins/feedback' as feedback;
+@use '../../css/mixins/transition' as transition;
 
 // One thing said about what stands beside it: a state, a name, a version, a
 // category. One capsule for all four, because a reader meets them in one row
@@ -24,6 +25,8 @@
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-pill);
   background: var(--feedback-fill);
+  // A state turning into the next one changes colour without a flash.
+  @include transition.colors;
   // Glyph, word and figure share the one ink the fill answers to: on a ground
   // that strong, a second ink reads as a fault, not as a nuance.
   color: var(--feedback-on-fill);

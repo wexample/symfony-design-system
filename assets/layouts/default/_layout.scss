@@ -45,6 +45,20 @@ body {
   @include writing.writing-vars;
 }
 
+// Scrolling to an anchor, or by a script that names no behaviour, glides
+// rather than jumps: the reader sees where the page went from. The page, and
+// the frames of a layout that scroll — the body, a scrolling zone. Instant
+// for whoever asked for less motion.
+html,
+.layout--body--scrollable,
+.zone--scrollable {
+  scroll-behavior: smooth;
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
 // A title may be set in another face than the text under it — an editorial set
 // does exactly that — so it asks for the heading family rather than inheriting.
 #{global.$selector-title-all} {

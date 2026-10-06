@@ -1,4 +1,5 @@
 @use '../../css/mixins/feedback' as feedback;
+@use '../../css/mixins/transition' as transition;
 
 // A lit dot: a state read at a glance in a line of text — ok, running, in
 // error, off —, by the dozen in a summary or a list of services. The tone is
@@ -21,6 +22,7 @@
   height: var(--led-size);
   border-radius: 50%;
   background: var(--feedback-fill);
+  @include transition.colors;
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--feedback-fill) 22%, transparent),
     0 0 6px color-mix(in srgb, var(--feedback-fill) 55%, transparent);
 }
@@ -36,6 +38,10 @@
   .led--cat-#{$name} {
     @include feedback.feedback-category($name);
   }
+}
+
+.led--label {
+  @include transition.colors;
 }
 
 // Unlit: the dot is there, giving no light, and its words step back with it —
