@@ -13,7 +13,8 @@ pre {
 
 pre:has(> code[class*='language-']),
 pre.code-block {
-  border-radius: 0.5rem;
+  // A box, rounded as the skin rounds boxes.
+  border-radius: var(--radius-box);
   overflow: hidden;
   font-size: 0.875rem;
   padding: 1rem 1.25rem;

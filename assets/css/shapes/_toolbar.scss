@@ -33,6 +33,13 @@
 // it keys on is `--title`, the bar's own word for what it heads, and not the
 // mere presence of a heading — a component dropped in the row is free to build
 // one of its own without the bar silently losing its room.
+// The bar under the header (the dashboard's `page_toolbar_*` blocks): part of
+// the shell, on its ground — the same as the page's in most skins, not where
+// the page shows a desk of its own.
+.toolbar--top {
+  background: var(--surface-shell);
+}
+
 .toolbar:not(.toolbar--shaded):has(.toolbar--title:is(h1, h2, h3, h4, h5, h6)) {
   --toolbar-padding: 0;
   --toolbar-font-size: 1rem;
