@@ -6,7 +6,6 @@
 {%- endfor -%}
 <div class="theme-select" data-themes="{{ themes|json_encode|e('html_attr') }}">
     {{ button_menu('ph:bold/palette', (current ?? 'WexampleSymfonyDesignSystemBundle.common.system::frontend.theme.custom' | trans)|capitalize, items, {
-        class: 'button--flat',
         menu_align: 'right',
         attr: { 'aria-label': 'WexampleSymfonyDesignSystemBundle.common.system::frontend.theme.label' | trans },
     }) }}
