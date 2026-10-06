@@ -221,9 +221,13 @@
                 aria-haspopup="menu"
                 aria-expanded="false"
                 {{ component_render_tag_attributes(button_attr) }}>
-            {#- `avatar` — initials — stands for a person: the menu of their
-                account, opened from their face rather than from a word. -#}
-            {%- if options.avatar|default(null) -%}
+            {#- `trigger` — markup — is the button's whole face: a marker that
+                opens a menu. `avatar` — initials — stands for a person: the
+                menu of their account, opened from their face rather than from
+                a word. -#}
+            {%- if options.trigger|default(null) -%}
+                {{- options.trigger|raw -}}
+            {%- elseif options.avatar|default(null) -%}
                 <span class="avatar button-menu--avatar" aria-hidden="true">{{ options.avatar }}</span>
             {%- elseif icon -%}
                 <span class="button--icon">
@@ -235,7 +239,7 @@
             {%- endif -%}
             {#- An icon on its own says it opens something by what it is — a caret
                 beside it is noise. Anything with a word keeps one. -#}
-            {%- if options.caret|default(label is not empty and not options.avatar|default(null)) -%}
+            {%- if options.caret|default(label is not empty and not options.avatar|default(null) and not options.trigger|default(null)) -%}
                 <span class="button-menu--caret" aria-hidden="true"></span>
             {%- endif -%}
         </button>

@@ -1,0 +1,19 @@
+{#- The « dev » marker of the footer: the environment named, what it means
+    under the pointer; and, when the installed bundles offer anything to whoever
+    develops (DevMenuProviderInterface), the menu it opens, upwards. -#}
+{%- set marker_html = marker('dev', environment, {
+    glyph: 'ph:bold/code',
+    title: 'WexampleSymfonyDesignSystemBundle.common.system::frontend.environment' | trans({ '%env%': environment }),
+    tiny: true,
+}) -%}
+{%- if items is empty -%}
+    {{ marker_html }}
+{%- else -%}
+    {{ button_menu(null, null, items, {
+        trigger: marker_html,
+        class: 'dev-menu--trigger',
+        menu_align: 'right',
+        menu_vertical: 'top',
+        attr: { 'aria-label': 'WexampleSymfonyDesignSystemBundle.common.system::frontend.dev_menu' | trans },
+    }) }}
+{%- endif -%}

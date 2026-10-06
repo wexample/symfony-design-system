@@ -1,0 +1,17 @@
+// The « dev » marker opening the development menu: the marker is the whole
+// button, which draws nothing of its own around it.
+.button.dev-menu--trigger {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+
+  &:hover > .marker,
+  &:focus-visible > .marker,
+  &[aria-expanded='true'] > .marker {
+    filter: brightness(1.1);
+    outline: var(--border-focus-width, 2px) solid var(--dev-7, currentColor);
+    outline-offset: 1px;
+  }
+}

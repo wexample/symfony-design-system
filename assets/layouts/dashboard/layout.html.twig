@@ -219,14 +219,11 @@
                                 {{- block('footer_start') -}}
                             </div>
                             {#- Anything but production says so, in the dev tone: the
-                                environment named, what it means under the pointer. -#}
+                                environment named, and the development menu it opens —
+                                what the installed bundles offer (dev_menu()). -#}
                             {%- block footer_environment -%}
                                 {%- if app.environment != 'prod' -%}
-                                    <div class="footer-item">{{ marker('dev', app.environment, {
-                                        glyph: 'ph:bold/code',
-                                        title: 'WexampleSymfonyDesignSystemBundle.common.system::frontend.environment' | trans({ '%env%': app.environment }),
-                                        tiny: true,
-                                    }) }}</div>
+                                    <div class="footer-item">{{ dev_menu() }}</div>
                                 {%- endif -%}
                             {%- endblock -%}
                             {#- What the footer holds beside the trail: status widgets,

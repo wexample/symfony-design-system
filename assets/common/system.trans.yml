@@ -2,6 +2,7 @@ en:
   frontend:
     loading: Loading...
     environment: "%env% environment: what is shown here is not production"
+    dev_menu: Development tools
     no_data: No data
     explorer:
       root: Files
@@ -482,6 +483,7 @@ fi:
 fr:
   frontend:
     environment: "Environnement %env% : ce qui est affiché ici n'est pas la production"
+    dev_menu: Outils de développement
     loading: Chargement...
     no_data: 'Pas de données'
     explorer:
