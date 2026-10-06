@@ -51,6 +51,21 @@
   min-height: 0;
 }
 
+// A page opening zones beside it is a row, and a row takes the whole room it is
+// given: its columns stand side by side for the embed's full height, as they do
+// when the page is drawn full.
+.embed--content > .layout-embed:has(> .embed-body--zones) {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-embed > .embed-body--zones {
+  flex: 1;
+  min-height: 0;
+}
+
 // A region sized for what it holds — a portrait page — holds nothing yet while
 // its embed is empty: it is a plain zone of its row until a page arrives.
 // Closed, it has already stepped out of the row.

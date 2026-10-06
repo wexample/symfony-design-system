@@ -78,6 +78,13 @@ The dashboard layout holds three things still — the header, the page's own nav
 {%- endblock -%}
 ```{% endraw %}
 
+The same blocks are drawn when the page is loaded into an embed — the detail of
+a file read in an explorer's pane: the row then fills the embed instead of the
+window, and a page asking for no region keeps the single column it always had.
+A panel, a modal and the dock draw no regions: a page meant to be opened in one
+too puts beside it only what it can also stack, and reads
+`render_pass.layoutBase` to tell the two apart.
+
 ## How a zone takes its room
 
 Two questions, answered apart (`css/shapes/_zone.scss`, its last block).
