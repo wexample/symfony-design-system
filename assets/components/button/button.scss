@@ -140,7 +140,12 @@
   max-width: 100%;
 }
 
+// Open, the trigger and its panel are one shape: its foot goes square, and
+// its head takes the panel's corners — a pill's, on a squared foot, would
+// round the whole height of the button.
 .button-menu.is-open .button--menu {
+  border-start-start-radius: min(var(--radius-control), var(--radius-box));
+  border-start-end-radius: min(var(--radius-control), var(--radius-box));
   border-end-start-radius: 0;
   border-end-end-radius: 0;
 }
@@ -175,7 +180,12 @@
 }
 
 .button-menu--split.is-open .button-menu--action {
+  border-start-start-radius: min(var(--radius-control), var(--radius-box));
   border-end-start-radius: 0;
+}
+
+.button-menu--split.is-open .button-menu--split-toggle {
+  border-start-start-radius: 0;
 }
 
 .button-menu--invert :is(.button--menu, .button-menu--action) {
