@@ -1,11 +1,12 @@
-// A round, muted icon button for a secondary action sitting in a corner — close, expand, dismiss.
+// A muted icon button for a secondary action sitting in a corner — close, expand,
+// dismiss —, its corners the controls' own: no button of the design system is round.
 .action-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 1.75rem;
   height: 1.75rem;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-control);
   color: var(--text-color-muted);
   text-decoration: none;
 }
