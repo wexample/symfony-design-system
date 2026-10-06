@@ -94,4 +94,10 @@
     --surface-shell: var(--surface-1);
     overflow: auto;
   }
+
+  // No room at all, the page asking (`page_zone_flush`): what it holds is the
+  // body's edge to edge, as in a flush zone.
+  .#{$name}-body--flush {
+    padding: 0;
+  }
 }
