@@ -230,6 +230,11 @@
                                     <div class="footer-item">{{ dev_menu() }}</div>
                                 {%- endif -%}
                             {%- endblock -%}
+                            {#- How what the page holds stands — an editor saving —, said
+                                from wherever it is drawn, an embed included: a component
+                                teleports its word here (`#footer-status`). Holding
+                                nothing, it takes no room. -#}
+                            <div class="footer-item footer-item--status text-secondary" id="footer-status"></div>
                             {#- What the footer holds beside the trail: status widgets,
                                 a version number — each in its own footer-item. -#}
                             {% block footer_items %}{% endblock %}

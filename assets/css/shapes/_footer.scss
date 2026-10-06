@@ -30,6 +30,12 @@
     gap: var(--space-1);
   }
 
+  // The place a page says how what it holds stands: nothing said, no room —
+  // nor the gap a footer-item leaves.
+  .footer-item--status:not(:has(*)) {
+    display: none;
+  }
+
   // A marker brings its own room: no padding above and below it, so the
   // footer is as tall with it as without.
   .footer-item:has(> .marker) {
