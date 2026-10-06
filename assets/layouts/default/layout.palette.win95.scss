@@ -1,0 +1,85 @@
+@use './palette' with (
+  $accent: #000080,
+  $info: #000080,
+  $success: #008000,
+  $warning: #808000,
+  $error: #c00000,
+  $dev: #800080,
+);
+@use '../../css/mixins/palette' as palette_mixins;
+
+// Win95: the scales built as any palette's, from the navy of a title bar and
+// the plain greens, olives and reds of sixteen colours.
+@include palette_mixins.palette-usage(win95, palette.$palette);
+
+// Then the grounds a desktop of 1995 had and no scale gives: the sarcelle
+// desktop around windows of #c0c0c0, white fields, black text. And the three
+// edges of its relief, which the win95 skin draws with (`--bevel-*`) — the
+// skin saying where the light comes from, the palette which colours it is.
+.usage-palette-win95.usage-color-scheme-light,
+.usage-palette-win95 .usage-color-scheme-light {
+  --surface-page: #008080;
+  --surface-zone: #c0c0c0;
+  --surface-shell: #c0c0c0;
+  --surface-1: #ffffff;
+  --surface-2: #c0c0c0;
+  --surface-3: #c0c0c0;
+  --surface-invert: #000080;
+
+  --state-hover: #d4d0c8;
+  --state-active: #a0a0a0;
+  --state-focus: #b0b0b0;
+
+  --border-color-discreet: #808080;
+  --border-color-default: #808080;
+  --border-color-region: #000000;
+  --border-color-strong: #000000;
+
+  --text-color-default: #000000;
+  --text-color-muted: #404040;
+  --text-color-subtle: #808080;
+  --text-color-invert: #ffffff;
+
+  --color-link: #0000ff;
+  --color-link-hover: #000080;
+
+  --bevel-light: #ffffff;
+  --bevel-shade: #808080;
+  --bevel-dark: #000000;
+  --bevel-face: #c0c0c0;
+}
+
+// The dark face is the high contrast of the same system: black grounds, white
+// lines and words, a cyan and a yellow for what is chosen and what leads.
+.usage-palette-win95.usage-color-scheme-dark,
+.usage-palette-win95 .usage-color-scheme-dark {
+  --surface-page: #000000;
+  --surface-zone: #000000;
+  --surface-shell: #000000;
+  --surface-1: #000000;
+  --surface-2: #000000;
+  --surface-3: #000000;
+  --surface-invert: #00ffff;
+
+  --state-hover: #202020;
+  --state-active: #404040;
+  --state-focus: #303030;
+
+  --border-color-discreet: #808080;
+  --border-color-default: #ffffff;
+  --border-color-region: #ffffff;
+  --border-color-strong: #ffffff;
+
+  --text-color-default: #ffffff;
+  --text-color-muted: #c0c0c0;
+  --text-color-subtle: #808080;
+  --text-color-invert: #000000;
+
+  --color-link: #ffff00;
+  --color-link-hover: #ffffff;
+
+  --bevel-light: #ffffff;
+  --bevel-shade: #808080;
+  --bevel-dark: #808080;
+  --bevel-face: #000000;
+}

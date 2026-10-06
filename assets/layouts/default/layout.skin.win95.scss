@@ -1,0 +1,65 @@
+@use '../../css/mixins/skin' as skin;
+
+// Win95: square, flat-coloured, and in relief — every window, button and bar
+// raised by a light edge on its top and left and a dark one on its bottom
+// and right, every field sunk by the same edges the other way round. The
+// edges are the palette's (`--bevel-*`): this file says where the light comes
+// from, never which colour it is. Without a win95 palette, they fall back on
+// the scheme's own lines.
+.usage-skin-win95 {
+  @include skin.skin-basic;
+
+  --radius-control: 0;
+  --radius-box: 0;
+  --radius-media: 0;
+  --tabs-radius: 0;
+
+  // Nothing floats softly: what is above the page casts a hard shadow.
+  --shadow-float: 2px 2px 0 var(--bevel-dark, var(--border-color-strong));
+
+  // The relief, raised and sunk, as a border and an inner line.
+  --win95-raised-border: var(--bevel-light, var(--border-color-discreet)) var(--bevel-dark, var(--border-color-strong)) var(--bevel-dark, var(--border-color-strong)) var(--bevel-light, var(--border-color-discreet));
+  --win95-raised-inner: inset -1px -1px 0 var(--bevel-shade, var(--border-color-default));
+  --win95-sunk-border: var(--bevel-shade, var(--border-color-default)) var(--bevel-light, var(--border-color-discreet)) var(--bevel-light, var(--border-color-discreet)) var(--bevel-shade, var(--border-color-default));
+  --win95-sunk-inner: inset 1px 1px 0 var(--bevel-dark, var(--border-color-strong));
+
+  --border-shell: 0 solid transparent;
+  --tabs-border: 0 solid transparent;
+  --feedback-border-width: 2px;
+  --feedback-shadow-offset: 0;
+}
+
+// Raised: buttons, windows — a region, a card, a menu, a dialog.
+.usage-skin-win95 :is(.button:not(.button--bare), .zone--panel, .block--card, .button-menu--panel, .modal--content, .panel--content, .toast) {
+  border: 2px solid;
+  border-color: var(--win95-raised-border);
+  box-shadow: var(--win95-raised-inner);
+  background-color: var(--bevel-face, var(--surface-2));
+}
+
+// Pressed: the same edges turned in, as a button held down or a menu open.
+.usage-skin-win95 :is(.button:not(.button--bare):active, .button-menu.is-open > .button:not(.button--bare), .tabs--item.is-active) {
+  border-color: var(--win95-sunk-border);
+  box-shadow: var(--win95-sunk-inner);
+}
+
+// Sunk: what is written in or read through — fields, a table's frame, a code.
+.usage-skin-win95 :is(.form--input, .form--textarea, .otp-input--cell, .table--frame) {
+  border: 2px solid;
+  border-color: var(--win95-sunk-border);
+  box-shadow: var(--win95-sunk-inner);
+}
+
+// A window's title bar: the head of a card, in the selection's colours.
+.usage-skin-win95 .block--card > .block--title {
+  background: var(--surface-invert);
+  color: var(--text-color-invert);
+  font-weight: var(--font-weight-strong);
+}
+
+// A flat button keeps its relief only under the pointer, as a toolbar's did.
+.usage-skin-win95 .button.button--flat:not(:hover, :focus-visible, :active) {
+  border-color: transparent;
+  box-shadow: none;
+  background-color: transparent;
+}
