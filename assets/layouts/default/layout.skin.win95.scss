@@ -88,9 +88,29 @@
 }
 
 .usage-skin-win95 .switch--knob {
+  width: 0.85rem;
+  height: 0.85rem;
   border-radius: 0;
   background: var(--surface-1);
   border: 1px solid;
   border-color: var(--win95-raised-border);
   box-shadow: none;
+}
+
+.usage-skin-win95 .switch--on-inner {
+  color: #fff;
+}
+
+// The link of the web of the time: blue and underlined, wherever it stands in
+// a text — an article, a paragraph, a lead, a message, a link to elsewhere.
+// Not the menus, tabs and buttons, which were controls and not links.
+.usage-skin-win95 :is(.content a, .text-link, p a, .lead a, .message a):not(.button) {
+  color: var(--color-link);
+  font-weight: inherit;
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+
+  &:hover {
+    color: var(--color-link-hover);
+  }
 }
