@@ -1,5 +1,5 @@
 <script>
-import { loadIntoTarget } from '../../js/Helper/TargetHelper';
+import { loadIntoTarget, targetEmbeddedOf } from '../../js/Helper/TargetHelper';
 
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-button-target-button-target',
@@ -22,6 +22,13 @@ export default {
     targetOptions: {
       type: Object,
       default: () => ({})
+    },
+    // Where it opens when its target is not on the page — an embed a page
+    // opened in a panel does not hold: `panel` unless said, or what an element
+    // around it says (`data-target-embedded`).
+    targetEmbedded: {
+      type: String,
+      default: null
     },
     icon: {
       type: String,
@@ -57,7 +64,10 @@ export default {
 
       event.preventDefault();
 
-      loadIntoTarget(this.app, this.target, this.href, { ...this.targetOptions });
+      loadIntoTarget(this.app, this.target, this.href, {
+        ...this.targetOptions,
+        targetEmbedded: targetEmbeddedOf(this.$el, this.targetEmbedded),
+      });
     }
   }
 };

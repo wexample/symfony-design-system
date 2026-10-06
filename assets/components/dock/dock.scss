@@ -1,0 +1,87 @@
+// A window docked at the foot of the screen: a page or a running task kept at
+// hand while the page beside it stays usable — nothing dims, nothing is held.
+// The windows share one row, from the end of the line, and each folds to its
+// title when it is not being looked at.
+@use '../../css/shapes/stack';
+@use '../../css/shapes/upload-tray';
+@use '../../css/shapes/action-icon';
+@use '../../css/shapes/page-actions';
+@use '../../css/mixins/surface-layer' as surface;
+@use '../../css/mixins/overlay-shell' as shell;
+
+.dock-layer {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline-end: var(--space-4);
+  z-index: var(--z-dropdown);
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  gap: var(--space-3);
+  max-width: calc(100vw - 2 * var(--space-4));
+  // The row itself is no wall: only the windows in it take the pointer.
+  pointer-events: none;
+}
+
+.dock {
+  display: flex;
+  flex-direction: column;
+  width: min(var(--size-7), 92vw);
+  max-height: min(70vh, 40rem);
+  pointer-events: auto;
+}
+
+.dock[hidden] {
+  display: none;
+}
+
+.dock--content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: var(--radius-box) var(--radius-box) 0 0;
+  background: var(--surface-3);
+  box-shadow: var(--shadow-3);
+  @include surface.surface-layer;
+}
+
+// On a dark page the shade above barely reads, and the body — the ground of a
+// zone — melts into the page darkened behind it: a tight black shade under the
+// window detaches it. Over `--shadow-float`, which every skin keeps — a flat
+// skin sets the depth scale to `none`, and `none` in a list of shadows voids
+// the whole declaration.
+.usage-color-scheme-dark .dock--content {
+  box-shadow: var(--shadow-float), 0 2px 6px var(--color-absolute-dark);
+}
+
+.layout-dock {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+@include shell.overlay-shell('dock', $shrink-chrome: true);
+
+.dock-body {
+  flex: 1;
+  min-height: 0;
+}
+
+// The header folds and unfolds the window: the whole of it is the handle.
+.dock-header {
+  cursor: pointer;
+  user-select: none;
+}
+
+// Folded: its title alone, still in its place in the row.
+.dock.is-collapsed {
+  .dock-body,
+  .dock-actions,
+  .dock-loading,
+  .dock-header + .dock-loading + .stepper {
+    display: none;
+  }
+}

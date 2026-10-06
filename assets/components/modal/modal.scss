@@ -70,9 +70,11 @@
 
 // On a dark page the shade above barely reads, and the body — the ground of a
 // zone — melts into the page darkened behind it: a tight black shade under the
-// box detaches it.
+// box detaches it. Over `--shadow-float`, which every skin keeps — a flat
+// skin sets the depth scale to `none`, and `none` in a list of shadows voids
+// the whole declaration.
 .usage-color-scheme-dark .layout-modal {
-  box-shadow: var(--shadow-3), 0 2px 6px var(--color-absolute-dark);
+  box-shadow: var(--shadow-float), 0 2px 6px var(--color-absolute-dark);
 }
 
 @include shell.overlay-shell('modal');

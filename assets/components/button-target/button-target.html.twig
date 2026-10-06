@@ -5,6 +5,9 @@
 <a class="button{{ options.class|default('') ? ' ' ~ options.class }}"
    href="{{ options.href|default('#') }}"
    data-target="{{ options.target }}"
+   {#- Where it opens when its target is not on the page — an embed a page
+       opened in a panel does not hold: `panel` unless said. -#}
+   {% if options.target_embedded is defined %}data-target-embedded="{{ options.target_embedded }}"{% endif %}
    {% if options.target_options is defined %}data-target-options="{{ options.target_options|json_encode|e('html_attr') }}"{% endif %}
         {{ component_render_tag_attributes(options.attr|default({})) }}>
     {%- if html is defined and html -%}

@@ -6,6 +6,8 @@ parameters:
             page_manager_component: '@@WexampleSymfonyDesignSystemBundle/components/modal'
         panel:
             page_manager_component: '@@WexampleSymfonyDesignSystemBundle/components/panel'
+        dock:
+            page_manager_component: '@@WexampleSymfonyDesignSystemBundle/components/dock'
 
 services:
     _defaults:

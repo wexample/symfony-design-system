@@ -13,6 +13,10 @@
     {{ component_frontend(render_pass, '@WexampleSymfonyDesignSystemBundle/components/confirm') }}
     {{ component_frontend(render_pass, '@WexampleSymfonyDesignSystemBundle/components/banner') }}
     {{ component_frontend(render_pass, '@WexampleSymfonyDesignSystemBundle/components/overlay') }}
+    {#- The three windows a script can show something in itself (showInTarget()). -#}
+    {{ component_frontend(render_pass, '@WexampleSymfonyDesignSystemBundle/components/modal') }}
+    {{ component_frontend(render_pass, '@WexampleSymfonyDesignSystemBundle/components/panel') }}
+    {{ component_frontend(render_pass, '@WexampleSymfonyDesignSystemBundle/components/dock') }}
 {%- endblock -%}
 
 {#- The footer at the end of the page rather than under it (`layout_footer: 'page'`). -#}

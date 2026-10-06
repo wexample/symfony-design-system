@@ -45,10 +45,12 @@
 }
 
 // On a dark page the shade above barely reads, and the body — the ground of a
-// zone — melts into the page darkened behind it: a tight black shade along the
-// panel detaches it.
+// zone — melts into the page darkened behind it: a tight black shade under the
+// panel detaches it. Over `--shadow-float`, which every skin keeps — a flat
+// skin sets the depth scale to `none`, and `none` in a list of shadows voids
+// the whole declaration.
 .usage-color-scheme-dark .panel--content {
-  box-shadow: var(--shadow-3), 0 2px 6px var(--color-absolute-dark);
+  box-shadow: var(--shadow-float), 0 2px 6px var(--color-absolute-dark);
 }
 
 .panel--content.is-opening {

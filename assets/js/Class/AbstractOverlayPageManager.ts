@@ -8,6 +8,7 @@ import RequestOptionsInterface from '@wexample/symfony-loader/js/Interfaces/Requ
 import ConfirmService from '@wexample/symfony-design-system/js/Services/ConfirmService';
 import KeyboardService from '@wexample/symfony-loader/js/Services/KeyboardService';
 import EventsService from '@wexample/symfony-loader/js/Services/EventsService';
+import { targetEmbeddedClick } from '../Helper/TargetHelper';
 import { hashParamDelete } from '../Helper/HashStateHelper';
 import { focusTrapCanReturn, focusTrapFocusables, focusTrapNext } from '../Helper/FocusTrapHelper';
 
@@ -24,6 +25,12 @@ export interface OverlayRequestOptionsInterface extends RequestOptionsInterface 
 export default abstract class AbstractOverlayPageManager extends PageManagerComponent {
   // What a modal or a panel says once it has closed.
   public static readonly EVENT_CLOSED = 'overlay-page:closed';
+
+  // A plain link of the page held here would leave the window, and what lies
+  // under this with it: it opens where `target-embedded` says instead.
+  protected onLinkLeaving(event: MouseEvent, link: HTMLAnchorElement): void {
+    targetEmbeddedClick(this.app, event, link);
+  }
 
   protected contentEl?: HTMLElement;
 

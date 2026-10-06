@@ -1,5 +1,6 @@
 import PageManagerComponent from '@wexample/symfony-loader/js/Class/PageManagerComponent';
 import EmbedService from '@wexample/symfony-loader/js/Services/EmbedService';
+import { targetEmbeddedClick } from '../../js/Helper/TargetHelper';
 
 export default class extends PageManagerComponent {
   protected contentEl: HTMLElement;
@@ -45,6 +46,13 @@ export default class extends PageManagerComponent {
   protected getLayoutBase(): string {
     return 'embed';
   }
+
+  // A plain link of the page held here would leave the window, and what lies
+  // under this with it: it opens where `target-embedded` says instead.
+  protected onLinkLeaving(event: MouseEvent, link: HTMLAnchorElement): void {
+    targetEmbeddedClick(this.app, event, link);
+  }
+
 
   public setLayoutBody(body: string) {
     super.setLayoutBody(body);

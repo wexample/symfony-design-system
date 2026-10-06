@@ -1,6 +1,6 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
 import { locationHashParamGet, locationHashParamSet } from '@wexample/js-helpers/Helper/Location';
-import { loadIntoTarget, TARGET_HASH_KEYS } from '../../js/Helper/TargetHelper';
+import { loadIntoTarget, targetEmbeddedOf, TARGET_HASH_KEYS } from '../../js/Helper/TargetHelper';
 
 export default class extends Component {
   private linkEl?: HTMLAnchorElement;
@@ -58,7 +58,10 @@ export default class extends Component {
       }
     }
 
-    loadIntoTarget(this.app, this.getTarget(), href, options);
+    loadIntoTarget(this.app, this.getTarget(), href, {
+      ...options,
+      targetEmbedded: targetEmbeddedOf(this.linkEl ?? null),
+    });
   }
 
   private onClick = (event: MouseEvent) => {

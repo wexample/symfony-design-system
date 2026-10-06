@@ -1,0 +1,17 @@
+# Declares `dock` to the design system registry.
+# Seeded from a scan of the assets; kept by hand from here on.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "A window docked at the foot of the screen, beside the page and not over it: a page loaded in it or what a script shows there, folded to its title at will."
+formats:
+  style: true
+  template: true
+  script: true
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo
+  vue: "a window the page or a script opens, never written in a vue template"
