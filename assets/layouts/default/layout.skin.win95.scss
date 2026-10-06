@@ -13,6 +13,8 @@
   --radius-box: 0;
   --radius-media: 0;
   --tabs-radius: 0;
+  // No pills in 1995: capsules, counters and code are square too.
+  --radius-pill: 0;
 
   // Nothing floats softly: what is above the page casts a hard shadow.
   --shadow-float: 2px 2px 0 var(--bevel-dark, var(--border-color-strong));
@@ -67,4 +69,12 @@
   border-color: transparent;
   box-shadow: none;
   background-color: transparent;
+}
+
+// What only runs a region's ground to the row's end (`zone--filler`) is the
+// desk itself here: no empty window beside the page.
+.usage-skin-win95 .zone--panel.zone--filler {
+  border: 0;
+  box-shadow: none;
+  background: none;
 }
