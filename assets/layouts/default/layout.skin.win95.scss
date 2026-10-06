@@ -77,6 +77,10 @@
   border: 0;
   box-shadow: none;
   background: none;
+
+  &::before {
+    display: none;
+  }
 }
 
 // A switch as the time would have drawn one: a sunk slot, and riding in it a

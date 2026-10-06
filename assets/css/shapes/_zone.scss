@@ -252,12 +252,20 @@
   // It carries the gap before it rather than leaving it to the row: drawn
   // over the row's own gap, its first stretch left bare. Squeezed to nothing —
   // the row scrolled to its end under a wide page —, the gap goes with it
-  // instead of closing the row on a strip of page.
+  // instead of closing the row on a strip of page. The ground is laid past
+  // that stretch on a layer of its own, so it keeps the region's corners —
+  // a gradient stop would square them, and leave a seam where it falls.
+  position: relative;
   margin-inline-start: calc(-1 * var(--zone-gap, var(--space-2)));
-  background: linear-gradient(to right, transparent var(--zone-gap, var(--space-2)), var(--surface-zone) 0);
+  background: none;
 
-  &:dir(rtl) {
-    background: linear-gradient(to left, transparent var(--zone-gap, var(--space-2)), var(--surface-zone) 0);
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    inset-inline-start: var(--zone-gap, var(--space-2));
+    background: var(--surface-zone);
+    border-radius: inherit;
   }
 }
 
