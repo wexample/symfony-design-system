@@ -1,4 +1,5 @@
 @use '../../components/copy-button/copy-button';
+@use '../shapes/corner-actions';
 
 // Code reads left to right in any page, and keeps apart from the words around
 // it: a command inside an Arabic sentence is still the command.
@@ -29,11 +30,10 @@ pre.code-block {
   }
 }
 
-// A block of code that can be copied: the button in its corner, out of the
-// way until the block is pointed at or reached by the keyboard. On the dark
-// ground of code, it takes the code's own ink.
+// A block of code that can be copied: the button in its corner, as any corner
+// action (shapes/corner-actions). On the dark ground of code, it takes the
+// code's own ink.
 .code-block--copyable {
-  position: relative;
   // The block's own margin, taken from it: left on the block, it pushes the
   // dark ground down inside the box the button is placed in, and the button
   // ends up above the corner it belongs to.
@@ -43,30 +43,13 @@ pre.code-block {
     margin-block: 0;
   }
 
-  > .code-block--copy {
-    position: absolute;
-    top: var(--space-2);
-    inset-inline-end: var(--space-2);
+  .code-block--copy {
     color: #d4d4d4;
-    opacity: 0;
-    transition: opacity 160ms ease;
 
     &:hover,
     &:focus-visible {
       color: #fff;
       background: rgb(255 255 255 / 0.1);
-    }
-  }
-
-  &:hover > .code-block--copy,
-  &:focus-within > .code-block--copy,
-  > .code-block--copy:is(.is-copied, .is-failed) {
-    opacity: 1;
-  }
-
-  @media (hover: none) {
-    > .code-block--copy {
-      opacity: 1;
     }
   }
 }

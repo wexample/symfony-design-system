@@ -1,0 +1,41 @@
+// Icon actions in the corner of a framed thing — a code block, a lead, a block,
+// a message —, out of the way until it is pointed at or reached by the keyboard.
+@use './action-icon';
+
+// The frame holding them: what the corner is measured from. A frame holding
+// running text keeps a column free at its end, so the words do not run under
+// the icons.
+.has-corner-actions {
+  position: relative;
+}
+
+.has-corner-actions:where(.lead, .block, .message) {
+  padding-inline-end: calc(var(--space-2) + var(--corner-actions-width, 1.75rem) + var(--space-2));
+}
+
+.corner-actions {
+  position: absolute;
+  top: var(--space-2);
+  inset-inline-end: var(--space-2);
+  z-index: 1;
+  display: flex;
+  gap: var(--space-1);
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+// Shown while the frame is pointed at or holds the keyboard, while one of them
+// says what came of it — copied, failed —, and always where there is no
+// pointer to bring them out, or where the page wants them seen (`--always`).
+.has-corner-actions:hover > .corner-actions,
+.has-corner-actions:focus-within > .corner-actions,
+.corner-actions:has(.is-copied, .is-failed),
+.corner-actions--always {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .corner-actions {
+    opacity: 1;
+  }
+}

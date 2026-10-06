@@ -1,10 +1,11 @@
-{#- `copy`: a button copying the code, shown while the pointer is over the
-    block or the keyboard inside it — always, on a screen without a pointer. -#}
+{#- `copy`: a button copying the code, in the block's corner (corner-actions):
+    shown while the pointer is over the block or the keyboard inside it —
+    always, on a screen without a pointer. -#}
 {%- if copy|default(false) -%}
     {%- set copy_id = copy_id|default('code-block-' ~ random()) -%}
-    <div class="code-block--copyable">
+    <div class="code-block--copyable has-corner-actions">
         <pre><code id="{{ copy_id }}" class="language-{{ lang | default('text') }}">{{ code|e }}</code></pre>
-        {{ copy_button({ target: copy_id, class: 'code-block--copy' }) }}
+        <div class="corner-actions">{{ copy_button({ target: copy_id, class: 'code-block--copy' }) }}</div>
     </div>
 {%- else -%}
     <pre><code class="language-{{ lang | default('text') }}">{{ code|e }}</code></pre>
