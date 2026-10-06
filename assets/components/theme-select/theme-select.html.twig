@@ -1,0 +1,13 @@
+{#- The app's themes in a menu, one of them ticked: choosing one applies all
+    its axes at once (theme-select.ts) and the page keeps it from then on. -#}
+{%- set items = [] -%}
+{%- for name, axes in themes -%}
+    {%- set items = items|merge([{ label: name|capitalize, value: name, radio: true, checked: name == current }]) -%}
+{%- endfor -%}
+<div class="theme-select" data-themes="{{ themes|json_encode|e('html_attr') }}">
+    {{ button_menu('ph:bold/palette', (current ?? 'WexampleSymfonyDesignSystemBundle.common.system::frontend.theme.custom' | trans)|capitalize, items, {
+        class: 'button--flat',
+        menu_align: 'right',
+        attr: { 'aria-label': 'WexampleSymfonyDesignSystemBundle.common.system::frontend.theme.label' | trans },
+    }) }}
+</div>
