@@ -59,9 +59,16 @@
   box-shadow: var(--aqua-emboss);
 }
 
+// The bars under the header lie straight on the regions: a line at their foot
+// would run across the gaps between them. Lit at the top only.
+.usage-skin-aqua :is(.toolbar--top, .page-tabs) {
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.85);
+}
+
 // A bar of tabs is a segmented control: a trough the tabs sit in.
+// Dug in from the top only, for the same reason: no light line at its foot.
 .usage-skin-aqua .tabs:not(.page-tabs) {
-  box-shadow: var(--aqua-sunk);
+  box-shadow: inset 0 2px 4px rgb(0 0 0 / 0.28);
 }
 
 // Leads and blocks without a frame of their own: a light on their top edge.
