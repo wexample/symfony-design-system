@@ -38,9 +38,20 @@ export default class extends Component {
       label.textContent = name.charAt(0).toUpperCase() + name.slice(1);
     }
 
-    for (const [usage, value] of Object.entries(axes)) {
-      await (this.app.layout as any).setUsage(usage, value, true);
-      this.app.persistUiState(`ui.${usage}`, value);
+    // The page hidden while the axes change — all at once, each loading its
+    // sheets before switching —, then shown again whole: never two skins mixed
+    // on screen, only one blank moment. The page keeps its size and scroll.
+    const root = document.documentElement;
+    root.classList.add('is-switching-theme');
+
+    try {
+      await Promise.all(Object.entries(axes).map(async ([usage, value]) => {
+        await (this.app.layout as any).setUsage(usage, value, true);
+        this.app.persistUiState(`ui.${usage}`, value);
+      }));
+    } finally {
+      // A frame for the new sheets to be applied before the page shows again.
+      requestAnimationFrame(() => root.classList.remove('is-switching-theme'));
     }
   };
 }

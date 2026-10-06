@@ -59,3 +59,10 @@
   margin: 0;
   color: var(--text-color-default);
 }
+
+// While a theme changes its axes (theme-select.ts), the page is hidden — kept
+// in place, size and scroll — rather than shown half in one skin, half in the
+// other: one blank moment instead of a mixed page.
+.is-switching-theme body {
+  visibility: hidden;
+}
