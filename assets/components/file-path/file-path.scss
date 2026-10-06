@@ -36,7 +36,9 @@
 }
 
 // A path leading to its file: the name takes the link's colour, the folders
-// keep their grey, and hovering underlines the name alone.
+// keep their grey, and hovering moves the name to the link's hover colour —
+// as every link of the design system, an underline being the mark of a link
+// in the run of an article's text alone.
 .file-path--link {
   color: inherit;
   text-decoration: none;
@@ -46,7 +48,7 @@
   }
 
   &:hover .file-path--name {
-    text-decoration: underline;
+    color: var(--color-link-hover);
   }
 }
 

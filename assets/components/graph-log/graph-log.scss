@@ -62,8 +62,10 @@
   text-decoration: none;
 }
 
+// A title leading somewhere says so in the link's hover colour, as every link
+// of the design system: an underline belongs to the run of an article's text.
 a.graph-log--title:hover {
-  text-decoration: underline;
+  color: var(--color-link-hover);
 }
 
 .graph-log--meta,
