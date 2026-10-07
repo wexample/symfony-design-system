@@ -204,11 +204,38 @@
 
 .block--figure-value {
   font-weight: var(--font-weight-strong);
+  // Figures of one width: a value refreshed in place does not shift its unit.
+  font-variant-numeric: tabular-nums;
 }
 
 .block--figure-label {
   font-size: var(--font-size-2);
   color: var(--text-color-muted);
+}
+
+// The unit after the value, set back: the eye reads the figure, the unit once.
+.block--figure-unit {
+  margin-inline-start: 0.25em;
+  font-size: var(--font-size-4);
+  font-weight: var(--font-weight-normal);
+  color: var(--text-color-muted);
+}
+
+// A line under the value saying what it is made of — « 7 to relaunch · 123
+// rugs ». Words, so it keeps the line height of words.
+.block--figure-sub {
+  font-size: var(--font-size-2);
+  line-height: 1.4;
+  color: var(--text-color-muted);
+}
+
+// A key figure laid from the line's start rather than centred: the label above,
+// the value, the line under it. A row of them reads down the labels, then across
+// the values. Whatever follows — a small chart one day — takes the same edge.
+.block--figure--start {
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: start;
 }
 
 .block--square {
