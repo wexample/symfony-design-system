@@ -18,6 +18,8 @@
 @use '../../css/shapes/menu';
 // A side menu may be widened by its edge (`menu_left_resizable`).
 @use '../../components/zone-resizer/zone-resizer';
+// Side menus that become drawers in a narrow window.
+@use '../../components/menu-collapsible-panel/menu-collapsible-panel';
 @use '../../css/shapes/toolbar';
 @use '../../css/shapes/footer';
 @use '../../css/utilities/align';

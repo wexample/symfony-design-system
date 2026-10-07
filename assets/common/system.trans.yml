@@ -96,6 +96,10 @@ en:
       optional: (optional)
     menu:
       navigation: Navigation
+      open_left: Open the menu
+      close_left: Close the menu
+      open_right: Open the side panel
+      close_right: Close the side panel
       more: More options
       filter: Filter
       filter_empty: Nothing matches

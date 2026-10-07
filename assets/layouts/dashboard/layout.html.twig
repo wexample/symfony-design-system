@@ -105,7 +105,7 @@
                     it is left at kept as its being open is. -#}
                 {%- set menuLeftResizable = menu_left_resizable|default(false) -%}
                 {%- set menuLeftSize = menuLeftResizable ? ui_state_get('ui.layout.menu.left.size') : null -%}
-                <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible{% if not ui_state_get('ui.layout.menu.left', true) %} gutters--collapsible--collapsed{% endif %}" data-menu-id="left"
+                <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible{% if not ui_state_get('ui.layout.menu.left', true) %} gutters--collapsible--collapsed{% endif %}" id="layout-menu-left" data-menu-id="left"
                     {%- if menuLeftResizable %} data-resize-state="ui.layout.menu.left.size" data-resize-property="--menu-size"{% if menuLeftSize > 0 %} style="--menu-size: {{ menuLeftSize|round }}px"{% endif %}{% endif %}>
                     {%- if menuLeftResizable -%}
                         {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer', {}, { edge: 'end' }) }}
@@ -117,7 +117,7 @@
                                     <div class="menu--bar--content menu--bar--content--end">
                                         {% block page_menu_logo %}{% endblock %}
                                         {% block page_menu_toggle_close %}
-                                            <a class="menu--bar--icon menu--toggle-close" href="#">
+                                            <a class="menu--bar--icon menu--toggle-close" href="#" role="button" aria-controls="layout-menu-left" aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.close_left'|trans }}" title="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.close_left'|trans }}">
                                                 {{ icon('ph:bold/text-outdent') }}
                                             </a>
                                         {% endblock %}
@@ -156,7 +156,7 @@
                                 {%- else -%}
                                 {% block page_header_menu_left %}
                                     <nav class="header--menu">
-                                        <a class="header--menu-item header--menu-item--icon" href="#" data-menu-target="left">
+                                        <a class="header--menu-item header--menu-item--icon" href="#" data-menu-target="left" role="button" aria-controls="layout-menu-left" aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.open_left'|trans }}" title="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.open_left'|trans }}">
                                             {{ icon('ph:bold/list') }}
                                         </a>
                                     </nav>
@@ -182,7 +182,7 @@
                                 {% block page_header_menu_right %}
                                     {% if menuRight is not empty %}
                                         <nav class="header--menu">
-                                            <a class="header--menu-item header--menu-item--icon" href="#" data-menu-target="right">
+                                            <a class="header--menu-item header--menu-item--icon" href="#" data-menu-target="right" role="button" aria-controls="layout-menu-right" aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.open_right'|trans }}" title="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.open_right'|trans }}">
                                                 {{ icon('ph:bold/sidebar-simple') }}
                                             </a>
                                         </nav>
@@ -258,7 +258,7 @@
         {% if menuRight is not empty %}
             {%- set menuRightResizable = menu_right_resizable|default(false) -%}
             {%- set menuRightSize = menuRightResizable ? ui_state_get('ui.layout.menu.right.size') : null -%}
-            <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible{% if not ui_state_get('ui.layout.menu.right', false) %} gutters--collapsible--collapsed{% endif %}" data-menu-id="right"
+            <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible{% if not ui_state_get('ui.layout.menu.right', false) %} gutters--collapsible--collapsed{% endif %}" id="layout-menu-right" data-menu-id="right"
                 {%- if menuRightResizable %} data-resize-state="ui.layout.menu.right.size" data-resize-property="--menu-size"{% if menuRightSize > 0 %} style="--menu-size: {{ menuRightSize|round }}px"{% endif %}{% endif %}>
                 {%- if menuRightResizable -%}
                     {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer', {}, { edge: 'start' }) }}
@@ -269,7 +269,7 @@
                             <div class="menu--header menu--bar">
                                 <div class="menu--bar--content menu--bar--content--start">
                                     {% block page_menu_right_toggle_close %}
-                                        <a class="menu--bar--icon menu--toggle-close" href="#">
+                                        <a class="menu--bar--icon menu--toggle-close" href="#" role="button" aria-controls="layout-menu-right" aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.close_right'|trans }}" title="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.close_right'|trans }}">
                                             {{ icon('ph:bold/text-indent') }}
                                         </a>
                                     {% endblock %}

@@ -1,0 +1,77 @@
+// A side menu of the layout — the sections on the left, a page's panel on the
+// right. Wide, it stands beside the page, folded or not as its reader left it.
+// Narrower than a large window (`l`), it leaves the row and waits off the edge,
+// slid over the page by the header's toggle: a drawer, the page dimmed under
+// it, closed by Escape or a press outside (menu-collapsible-panel.ts). Its
+// state there is the moment's, never kept: the reader's choice for a wide
+// window is left as it was.
+@use '../../css/mixins/window' as window;
+
+@include window.below(window.$window-l) {
+  .layout--horizontal > .gutters--collapsible[data-menu-id] {
+    // Read by the script: what the stylesheet decided, without a second width.
+    --menu-drawer: 1;
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+    display: flex;
+    // Wider than the folded column it was: the collapsed rule is the row's.
+    width: auto;
+    overflow: hidden;
+    background: transparent;
+    visibility: hidden;
+    pointer-events: none;
+    transition: background-color 200ms ease, visibility 0s linear 200ms;
+
+    > .menu {
+      width: min(var(--menu-size, var(--menu-width)), 85vw);
+      height: 100%;
+      box-shadow: var(--shadow-float);
+      transform: translateX(calc(-100% * var(--direction-sign, 1)));
+      transition: transform 200ms ease;
+    }
+
+    // Its edge is the drawer's, nothing to widen.
+    > .zone-resizer {
+      display: none;
+    }
+  }
+
+  // The right one waits off the other edge.
+  .layout--horizontal > .gutters--collapsible[data-menu-id='right'] {
+    justify-content: flex-end;
+
+    > .menu {
+      transform: translateX(calc(100% * var(--direction-sign, 1)));
+    }
+  }
+
+  .layout--horizontal > .gutters--collapsible[data-menu-id].is-drawer-open {
+    // The page dimmed as a modal dims it; a press on it closes.
+    background: rgba(0, 0, 0, 0.36);
+    visibility: visible;
+    pointer-events: auto;
+    transition: background-color 200ms ease;
+
+    > .menu {
+      transform: none;
+    }
+  }
+
+  // The toggle is the only way to the menu: always there, whatever the wide
+  // window's state hid.
+  .header .header--menu:has(> .header--menu-item[data-menu-target]) {
+    display: flex;
+  }
+
+  .header .header--menu .header--menu-item[data-menu-target][hidden] {
+    display: inline-flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layout--horizontal > .gutters--collapsible[data-menu-id],
+  .layout--horizontal > .gutters--collapsible[data-menu-id] > .menu {
+    transition: none;
+  }
+}

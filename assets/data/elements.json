@@ -1603,8 +1603,11 @@
         {
             "key": "menu-collapsible-panel",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A side menu of the layout, folded beside the page in a wide window, a drawer over it in a narrow one.",
             "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel/menu-collapsible-panel.scss"
+                ],
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel/menu-collapsible-panel.html.twig"
                 ],
@@ -1613,7 +1616,7 @@
                 ]
             },
             "stances": {
-                "style": "waived",
+                "style": "expected",
                 "template": "expected",
                 "vue": "todo",
                 "script": "expected",
@@ -1623,7 +1626,6 @@
                 "flutter": "todo"
             },
             "notes": {
-                "style": "wears the style of gutters and adds none of its own",
                 "vue": "a chantier of its own: the twig side is an empty placeholder binding to gutters the layout wrote, so a vue one has to own markup it does not own today"
             }
         },

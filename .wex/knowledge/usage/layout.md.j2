@@ -91,6 +91,32 @@ too puts beside it only what it can also stack, and reads
 
 The handle is the `zone-resizer` a zone uses; any region can carry one by naming the key its size is kept under (`data-resize-state`) and the property it reads it from (`data-resize-property`).
 
+## In a narrow window
+
+The widths a layout answers to are named as the loader names them
+(`loader.usages.responsive`: s 576, m 768, l 992, xl 1200 px) — a phone below `m`, a tablet
+upright below `l` — and live in one place, `css/mixins/_window.scss`: a rule says
+`@include window.below(window.$window-l)`, never a width of its own, so what changes at a
+size changes together. Media queries rather than the loader's `responsive-*` classes, which
+its script sets once the page runs: the layout is right from the first paint.
+
+- **The side menus become drawers** below `l`, the left one and a page's right one
+  alike. Out of the row, off their edge, they slide over the page from the header's toggle,
+  which is always shown there; the page is dimmed under them. Escape, a press on the dimmed
+  page or a link followed close them; meanwhile Tab stays inside, and the focus goes back
+  to the toggle. Their state there is the moment's and is never kept: the reader's choice
+  for a wide window (`ui.layout.menu.<id>`) is left as it was. The stylesheet decides when
+  the menu is a drawer (`--menu-drawer: 1`), the script reads it: no width written twice.
+- **The header's controls give up their words** below `m` — a language, a theme: the icon
+  stays, the word is still read by screen readers, the caret goes —, and the title is cut
+  short rather than run under them. The sections drawn in the header (`layout_navigation:
+  'top'`) fold into their popover at the same width.
+- The toggles are named (`frontend.menu.open_left`, `close_left`, `open_right`,
+  `close_right`) and say whether their menu shows (`aria-expanded`).
+
+What a page holds reflows by its own shapes: `grid` and `zone--split--wrap` go to the next
+line, a table scrolls in its frame, `page_tabs` folds into icons then into menus.
+
 ## How a zone takes its room
 
 Two questions, answered apart (`css/shapes/_zone.scss`, its last block).

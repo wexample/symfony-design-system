@@ -5,11 +5,11 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: A side menu of the layout, folded beside the page in a wide window, a drawer over it in a narrow one.
 formats:
   template: true
   script: true
-  style: "wears the style of gutters and adds none of its own"
+  style: true
   vue: "todo — a chantier of its own: the twig side is an empty placeholder binding to gutters the layout wrote, so a vue one has to own markup it does not own today"
   schema: todo
   ai: todo

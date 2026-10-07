@@ -1,0 +1,18 @@
+// The window's widths a layout answers to, named as the loader names them
+// (`loader.usages.responsive`: s 576, m 768, l 992, xl 1200) so the suite
+// speaks of one set of sizes — a phone below m, a tablet upright below l. A
+// rule says which it answers to, never a width of its own: what changes at a
+// size changes together, wherever it is written. Media queries, not the
+// `responsive-*` classes the loader's script sets: drawn right from the first
+// paint.
+$window-s: 576px;
+$window-m: 768px;
+$window-l: 992px;
+$window-xl: 1200px;
+
+// Narrower than `$size`.
+@mixin below($size) {
+  @media (max-width: calc(#{$size} - 0.02px)) {
+    @content;
+  }
+}

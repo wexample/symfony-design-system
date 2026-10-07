@@ -2,6 +2,8 @@
 @use '../mixins/gutters' as gutters;
 @use '../mixins/flex' as flex;
 @use '../../components/bar/bar';
+@use '../mixins/window' as window;
+@use '../mixins/visually-hidden' as visually-hidden;
 
 .header {
   @include gutters.gutters-horizontal;
@@ -19,6 +21,21 @@
     font-weight: var(--font-weight-strong);
     @include flex.flex-center;
     padding: var(--space-4);
+  }
+
+  // The title gives way to the controls beside it, cut short rather than
+  // run under them.
+  .header--body {
+    min-width: 0;
+    align-items: center;
+  }
+
+  .header--body > .header--title {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   // Beside the title, level with it: no room of its own before, the title's
@@ -199,12 +216,28 @@
   }
 }
 
-@media (max-width: 48rem) {
+@include window.below(window.$window-m) {
   .header--tabs-list {
     display: none;
   }
 
   .header--tabs-toggle {
     display: flex;
+  }
+}
+
+// A phone's header: the controls keep their icons and give up their words —
+// still read by screen readers —, and the caret a word carried; the title has
+// the room they leave.
+@include window.below(window.$window-m) {
+  .header .header--menu .button:has(> .button--icon) {
+    > .button-menu--label,
+    > span:not(.button--icon, .button-menu--caret, .button--spinner) {
+      @include visually-hidden.visually-hidden;
+    }
+
+    > .button-menu--caret {
+      display: none;
+    }
   }
 }
