@@ -1,6 +1,8 @@
+{#- `segmented`: the options as a strip of segments, for a few short ones —
+    a window of 3 or 6 months. The same radios, the same value sent. -#}
 <div {{ component_render_tag_attributes({class:'form--group'}) }}>
-    <label class="form--label">{{ label }}</label>
-    <div class="radio-group">
+    <label class="form--label" id="{{ id }}-label">{{ label }}</label>
+    <div class="radio-group{{ segmented|default(false) ? ' radio-group--segmented' }}" role="radiogroup" aria-labelledby="{{ id }}-label">
         {%- for choice in choices | default([]) -%}
             {%- set choice_id = id ~ '_' ~ loop.index0 -%}
             <div class="radio-option">

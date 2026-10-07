@@ -1,0 +1,33 @@
+// The label and the value it holds on one line, over the scale: the value is
+// read where the label is, and stays in place while the thumb moves.
+.range-input--head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.range-input--value {
+  font-weight: var(--font-weight-strong);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.range-input--suffix {
+  color: var(--text-color-muted);
+  font-weight: var(--font-weight-normal);
+}
+
+// The browser's own scale, in the accent: a thumb, a track, the keyboard's
+// arrows, Home and End — nothing redrawn that a skin would have to follow.
+.form--range {
+  width: 100%;
+  margin: 0;
+  accent-color: var(--accent-9);
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}

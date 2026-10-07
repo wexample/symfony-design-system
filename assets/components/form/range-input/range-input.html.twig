@@ -1,0 +1,29 @@
+{#- A value taken along a scale — a coefficient, a buffer —, shown beside the
+    label as it moves, in the page's locale (range-input.ts). `min`, `max`,
+    `step`; `suffix`, a word after the value shown, never submitted. -#}
+{%- set min = min|default(0) -%}
+{%- set max = max|default(100) -%}
+{%- set step = step|default(1) -%}
+{%- set suffix = suffix|default(null) -%}
+{%- set current = value is defined and value is not same as(null) and value is not same as('') ? value : min -%}
+<div {{ component_render_tag_attributes({class:'form--group'}) }}>
+    <div class="range-input--head">
+        <label class="form--label" for="{{ id }}">{{ label }}</label>
+        <output class="range-input--value" for="{{ id }}">
+            <span class="range-input--figure">{{ current }}</span>
+            {%- if suffix %}&nbsp;<span class="range-input--suffix">{{ suffix }}</span>{% endif -%}
+        </output>
+    </div>
+    <input
+        class="form--range"
+        id="{{ id }}"
+        type="range"
+        min="{{ min }}"
+        max="{{ max }}"
+        step="{{ step }}"
+        value="{{ current }}"
+        {% if name is defined %}name="{{ name }}"{% endif %}
+        {% if suffix %}data-suffix="{{ suffix }}"{% endif %}
+        {% if input_attr is defined %}{{ input_attr|raw }}{% endif %}
+    >
+</div>

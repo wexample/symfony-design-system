@@ -1,7 +1,17 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/form-field/form-field.vue.twig' -%}
 
+{#- The label names the group: no single control stands for it. -#}
+{%- block field_label -%}
+    <label v-if="hasLabel" class="form--label" :id="resolvedId + '-label'">[[ resolveLabel(label) ]]</label>
+{%- endblock -%}
+
 {%- block field_control -%}
-    <div class="radio-group">
+    <div
+            class="radio-group"
+            :class="{ 'radio-group--segmented': segmented }"
+            role="radiogroup"
+            :aria-labelledby="hasLabel ? resolvedId + '-label' : null"
+    >
         <div
                 v-for="(option, index) in options"
                 :key="index"

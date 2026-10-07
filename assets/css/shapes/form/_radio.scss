@@ -1,3 +1,6 @@
+@use '../../mixins/field' as field;
+@use '../../mixins/transition' as transition;
+
 // A group of radio options, and each option as a row that can be clicked whole.
 .radio-group {
   display: flex;
@@ -14,5 +17,61 @@
   .form--radio,
   .form--radio-label {
     cursor: pointer;
+  }
+}
+
+// One choice among a few, drawn as a strip of segments — a window of 3 or 6
+// months, a scale. The radios stay radios: the arrows move along them and the
+// form sends the one taken; only their dots go, under the label that is pressed.
+// The one taken stands raised on the sunken strip, in the same weight as the
+// others, so that taking one moves nothing beside it.
+.radio-group--segmented {
+  display: inline-flex;
+  flex-direction: row;
+  gap: 2px;
+  padding: 2px;
+  border: var(--border-default);
+  border-radius: var(--radius-control);
+  background: var(--surface-1);
+
+  .radio-option {
+    position: relative;
+    gap: 0;
+  }
+
+  // Over its label, invisible: a press anywhere on the segment takes it.
+  .form--radio {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+  }
+
+  .form--radio-label {
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-control);
+    color: var(--text-color-muted);
+    font-size: var(--font-size-3);
+    white-space: nowrap;
+    @include transition.smooth(1);
+  }
+
+  .form--radio:checked + .form--radio-label {
+    background: var(--surface-3);
+    box-shadow: var(--shadow-1);
+    color: var(--text-color-default);
+  }
+
+  .form--radio:focus-visible + .form--radio-label {
+    @include field.field-focus;
+  }
+
+  .form--radio:disabled,
+  .form--radio:disabled + .form--radio-label {
+    cursor: not-allowed;
+  }
+
+  .form--radio:disabled + .form--radio-label {
+    opacity: 0.6;
   }
 }

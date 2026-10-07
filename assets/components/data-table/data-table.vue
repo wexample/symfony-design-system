@@ -10,6 +10,7 @@ import { filterMatches, filterTextMatches } from '../../js/Helper/FilterHelper';
 import { sortApply, sortAria, sortNext, sortValueAt } from '../../js/Helper/SortHelper';
 import { filterSelected } from '../../js/Helper/FilterHelper';
 import { rowLinkClick } from '../../js/Helper/RowLinkHelper';
+import { numberFormat } from '../../js/Helper/NumberHelper';
 import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
 
 const translated = buildTranslatedBindings({
@@ -922,13 +923,7 @@ export default {
     // A quantity's figure, in the page's locale (`digits` decimals at most);
     // a value already worded — « 124/75 » — as it is.
     formatNumber(value, column) {
-      if (typeof value !== 'number' && (typeof value !== 'string' || value.trim() === '' || isNaN(Number(value)))) {
-        return value;
-      }
-
-      const locale = (this.sortLocale || document.documentElement.lang || undefined)?.replace('_', '-');
-
-      return new Intl.NumberFormat(locale, { maximumFractionDigits: column?.digits ?? 2 }).format(Number(value));
+      return numberFormat(value, column?.digits ?? 2, this.sortLocale);
     },
 
     getDateFormat(column) {

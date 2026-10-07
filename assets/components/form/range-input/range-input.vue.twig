@@ -1,0 +1,28 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/form-field/form-field.vue.twig' -%}
+
+{#- The value on the label's line, said as it moves: the scale emits on every
+    step, so a page recomputes as the thumb goes. -#}
+{%- block field_label -%}
+    <div class="range-input--head">
+        <label v-if="hasLabel" class="form--label" :for="resolvedId">[[ resolveLabel(label) ]]</label>
+        <output class="range-input--value" :for="resolvedId">
+            <span class="range-input--figure">[[ displayValue ]]</span><template v-if="suffix">&nbsp;<span class="range-input--suffix">[[ suffix ]]</span></template>
+        </output>
+    </div>
+{%- endblock -%}
+
+{%- block field_control -%}
+    <input
+            class="form--range"
+            :id="resolvedId"
+            type="range"
+            :name="name || null"
+            :min="min"
+            :max="max"
+            :step="step"
+            :value="currentValue"
+            :aria-valuetext="valueText"
+            :disabled="disabled ? true : null"
+            @input="onInput"
+    >
+{%- endblock -%}

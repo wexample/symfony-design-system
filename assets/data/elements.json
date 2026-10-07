@@ -1157,6 +1157,37 @@
             "notes": []
         },
         {
+            "key": "form/range-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A value taken along a scale \u2014 a coefficient, a buffer \u2014, shown beside its label as it moves.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/range-input/range-input.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/range-input/range-input.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/range-input/range-input.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/range-input/range-input.vue.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/range-input/range-input.ts"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "expected",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": []
+        },
+        {
             "key": "form/select-input",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -2840,7 +2871,7 @@
             "key": "form/radio",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_radio.scss",
-            "description": "A group of radio options, and each option as a row that can be clicked whole."
+            "description": null
         },
         {
             "key": "form/select",

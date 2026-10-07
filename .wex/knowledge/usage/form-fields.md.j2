@@ -18,6 +18,22 @@ The frame is `.form--input-group`: it draws the border, the ground and the focus
 input inside dropping its own; a frozen input in it turns the frame dashed. Without a word,
 there is no frame, and the field is drawn as before.
 
+## One choice among a few, a value along a scale
+
+`segmented` (twig) / `segmented` (vue) on `radio-input` draws the group as a strip of
+segments — a window of 3, 6 or 12 months —, the one taken raised on the sunken strip. They
+stay radios: the arrows move along them, the form sends the one taken, and the group is a
+`role="radiogroup"` named by its label. For a few short options; a long list stays a list.
+
+`range-input` takes a value along a scale: `min`, `max`, `step` (twig and vue). Its value
+stands at the end of the label's line, in the page's locale and with the decimals the step
+asks for — `0.05` shows two —, and `suffix` writes a word after it, never submitted. The
+same text is the input's `aria-valuetext`. The browser draws the scale, in the accent:
+arrows, Home and End move it. The vue one emits a number on every step, so a page can
+recompute as the thumb goes; frozen, it shows its value in a readonly field.
+
+Neither is wired to a Symfony form type yet: that is the forms package's to do.
+
 ## A frozen field
 
 A frozen field holds a value someone may read and not change: settled, where `disabled` says

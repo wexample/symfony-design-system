@@ -14,6 +14,11 @@ export default {
     options: {
       type: Array,
       default: () => []
+    },
+    // The options as a strip of segments, for a few short ones.
+    segmented: {
+      type: Boolean,
+      default: false
     }
   },
 
