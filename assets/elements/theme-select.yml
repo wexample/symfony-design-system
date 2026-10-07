@@ -1,16 +1,16 @@
-# Declares `stepper` to the design system registry.
+# Declares `theme-select` to the design system registry.
 # Seeded from a scan of the assets; kept by hand from here on.
 # formats, per format — whose move it is next:
 #   true            it is there, nothing is owed
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: Where a reader stands in a sequence of steps — done, current, ahead — joined by a line that fills as it is walked.
+description: "The menu choosing a theme — a skin, its palette, its fonts and its density at once — among those the application offers."
 formats:
-  style: true
   template: true
-  vue: true
   script: true
+  style: "it is a button menu and wears its style"
+  vue: "it switches the layout's stylesheets — a document-level choice, not a value a vue tree holds"
   schema: todo
   ai: todo
   react: todo

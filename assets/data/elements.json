@@ -413,6 +413,33 @@
             }
         },
         {
+            "key": "copy-button",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A button putting a text in the clipboard, quiet until it is used: the copy glyph, a check for a moment once copied, a cross when it could not be.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/copy-button/copy-button.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/copy-button/copy-button.html.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/copy-button/copy-button.ts"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "todo",
+                "script": "expected",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": []
+        },
+        {
             "key": "data-table",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A table of rows and columns, drawn from the same column definitions on both sides. Named `data-table` and not `table` because `<table>` is a native html element and vue refuses to redefine one. The two renderers part on what a cell value may be, and they have to: the client one runs before the data is known, so it takes functions for `format`, `href`, `icon` and `params` and resolves routes itself; the server one runs after, so it takes the result already computed in the row \u2014 `{label, href}` for a link, `{icon, href}` for an icon. `secondary` greys the header too on the client and only the body on the server, and the refreshing overlay has no server equivalent because a page that is being redrawn is not on screen.",
@@ -472,6 +499,31 @@
             }
         },
         {
+            "key": "dev-menu",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "The menu of what a developer reaches while working \u2014 a mailbox, an impersonation, a reset of the data \u2014 gathered from what each bundle contributes, shown only outside production.",
+            "formats": {
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/dev-menu/dev-menu.html.twig"
+                ]
+            },
+            "stances": {
+                "style": "waived",
+                "template": "expected",
+                "vue": "waived",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "style": "it is a button menu and wears its style",
+                "vue": "it is drawn by the server, from providers only the server knows",
+                "script": "it is a button menu and runs its script"
+            }
+        },
+        {
             "key": "distribution",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "What a total is made of, in one line: the parts in proportion, in the order they are given, named underneath with the status capsule. Where `progress-bar` says how far one value has got, this says how a whole divides.",
@@ -499,6 +551,36 @@
             },
             "notes": {
                 "script": "a part that leads somewhere is a link, and one that does not is read; neither needs a behaviour of its own"
+            }
+        },
+        {
+            "key": "dock",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A window docked at the foot of the screen, beside the page and not over it: a page loaded in it or what a script shows there, folded to its title at will.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/dock/dock.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/dock/dock.front.html.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/dock/dock.html.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/dock/dock.ts"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "waived",
+                "script": "expected",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "vue": "a window the page or a script opens, never written in a vue template"
             }
         },
         {
@@ -563,6 +645,33 @@
             "notes": []
         },
         {
+            "key": "dropzone",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A place files are dropped on or picked from, sent in pieces to the directory the page signed for, followed in the uploads window.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/dropzone/dropzone.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/dropzone/dropzone.html.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/dropzone/dropzone.ts"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "todo",
+                "script": "expected",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": []
+        },
+        {
             "key": "embed",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -589,6 +698,32 @@
             },
             "notes": {
                 "vue": "a mount point, not a drawing: the component puts a whole loaded page inside .embed--content"
+            }
+        },
+        {
+            "key": "fallback",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "What stands in for a value that is not there: a muted word asking a question, and, when there is one, the raw value it could be copied from.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/fallback/fallback.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/fallback/fallback.html.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "todo",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "it shows and does nothing"
             }
         },
         {
@@ -1297,6 +1432,32 @@
             }
         },
         {
+            "key": "led",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A small light saying a state at a glance \u2014 on, off, a tone \u2014 beside what it is the state of.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/led/led.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/led/led.html.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "todo",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "it shows and does nothing"
+            }
+        },
+        {
             "key": "list-expanded",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -1559,6 +1720,7 @@
                     "@WexampleSymfonyDesignSystemBundle/components/modal/modal.scss"
                 ],
                 "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/modal/modal.front.html.twig",
                     "@WexampleSymfonyDesignSystemBundle/components/modal/modal.html.twig"
                 ],
                 "script": [
@@ -1677,7 +1839,8 @@
                     "@WexampleSymfonyDesignSystemBundle/components/panel/panel.scss"
                 ],
                 "template": [
-                    "@WexampleSymfonyDesignSystemBundle/components/panel/panel.html.twig"
+                    "@WexampleSymfonyDesignSystemBundle/components/panel/panel.html.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/panel/panel.front.html.twig"
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/panel/panel.ts"
@@ -1922,21 +2085,22 @@
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/stepper/stepper.vue.twig",
                     "@WexampleSymfonyDesignSystemBundle/components/stepper/stepper.vue"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/stepper/stepper.ts"
                 ]
             },
             "stances": {
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "waived",
+                "script": "expected",
                 "schema": "todo",
                 "ai": "todo",
                 "react": "todo",
                 "flutter": "todo"
             },
-            "notes": {
-                "script": "it links, and a link needs nothing to run"
-            }
+            "notes": []
         },
         {
             "key": "switch",
@@ -2051,6 +2215,33 @@
             "notes": {
                 "style": "it is a plain anchor, drawn by the text it sits in",
                 "script": "a link needs nothing to run"
+            }
+        },
+        {
+            "key": "theme-select",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "The menu choosing a theme \u2014 a skin, its palette, its fonts and its density at once \u2014 among those the application offers.",
+            "formats": {
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/theme-select/theme-select.html.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/theme-select/theme-select.ts"
+                ]
+            },
+            "stances": {
+                "style": "waived",
+                "template": "expected",
+                "vue": "waived",
+                "script": "expected",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "style": "it is a button menu and wears its style",
+                "vue": "it switches the layout's stylesheets \u2014 a document-level choice, not a value a vue tree holds"
             }
         },
         {
@@ -2505,7 +2696,7 @@
             "key": "action-icon",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_action-icon.scss",
-            "description": "A round, muted icon button for a secondary action sitting in a corner \u2014 close, expand, dismiss."
+            "description": "A muted icon button for a secondary action sitting in a corner \u2014 close, expand, dismiss \u2014, its corners the controls' own: no button of the design system is round."
         },
         {
             "key": "action-link",
@@ -2550,10 +2741,16 @@
             "description": "Prose written elsewhere \u2014 an article, a description, rendered markdown \u2014 given spacing, headings and figures."
         },
         {
+            "key": "corner-actions",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_corner-actions.scss",
+            "description": "Icon actions in the corner of a framed thing \u2014 a code block, a lead, a block, a message \u2014, out of the way until it is pointed at or reached by the keyboard."
+        },
+        {
             "key": "count",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_count.scss",
-            "description": "How many of something there are, hanging from the row that leads to it: the unread of a menu item, the results of a tab, the entries behind a branch.  Not a marker, though it looks like a small one: a marker stands beside a thing and is sized in tokens, this one hangs from a line of text and is sized in ems, so it follows whatever it is attached to \u2014 a toolbar raising its font raises this with it. Nearly an exponent, and read like one.  Borrowed rather than owned: `menu`, `tab` and `button-menu` each `@use` it for the count they hang at the end of a row, so the rule below is copied into each of their bundles and a page that loads two of them ships it twice. That is what a shape costs and it is the price of the rule \u2014 nothing renders this, so the only way it can reach the markup is for whoever writes the class to pull it in."
+            "description": "How many of something there are, hanging from the row that leads to it: the unread of a menu item, the results of a tab, the entries behind a branch.  Not a marker, though it looks like a small one: a marker stands beside a thing and is sized in tokens, this one hangs from a line of text and is sized in ems, so it follows whatever it is attached to \u2014 a toolbar raising its font raises this with it. Nearly an exponent, and read like one.  Borrowed rather than owned: `menu`, `tab` and `button-menu` each `@use` it for the count they hang at the end of a row, so the rule below is copied into each of their bundles and a page that loads two of them ships it twice. That is what a shape costs and it is the price of the rule \u2014 nothing renders this, so the only way it can reach the markup is for whoever writes the class to pull it in.  Weighing nothing (`:where`), for the same reason: copied into several bundles, it is declared again by whichever stylesheet a page loads last, and at a class's weight it would then win over the class a page puts beside it \u2014 a tone \u2014 by the mere order the files came in."
         },
         {
             "key": "disk-item",
@@ -2784,6 +2981,12 @@
             "description": "A row of controls above or below what they act on, grouped and separated."
         },
         {
+            "key": "upload-tray",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_upload-tray.scss",
+            "description": "The rows of the uploads window: the design system's progress bar for each file \u2014 its name, how far it got \u2014, and what came of it under it."
+        },
+        {
             "key": "zone",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_zone.scss",
@@ -2799,6 +3002,7 @@
         "@WexampleSymfonyDesignSystemBundle/css/utilities",
         "@WexampleSymfonyDesignSystemBundle/fixtures",
         "@WexampleSymfonyDesignSystemBundle/js",
-        "@WexampleSymfonyDesignSystemBundle/layouts"
+        "@WexampleSymfonyDesignSystemBundle/layouts",
+        "@WexampleSymfonyDesignSystemBundle/partials"
     ]
 }

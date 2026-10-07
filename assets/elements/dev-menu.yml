@@ -1,16 +1,16 @@
-# Declares `stepper` to the design system registry.
+# Declares `dev-menu` to the design system registry.
 # Seeded from a scan of the assets; kept by hand from here on.
 # formats, per format — whose move it is next:
 #   true            it is there, nothing is owed
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: Where a reader stands in a sequence of steps — done, current, ahead — joined by a line that fills as it is walked.
+description: "The menu of what a developer reaches while working — a mailbox, an impersonation, a reset of the data — gathered from what each bundle contributes, shown only outside production."
 formats:
-  style: true
   template: true
-  vue: true
-  script: true
+  style: "it is a button menu and wears its style"
+  script: "it is a button menu and runs its script"
+  vue: "it is drawn by the server, from providers only the server knows"
   schema: todo
   ai: todo
   react: todo
