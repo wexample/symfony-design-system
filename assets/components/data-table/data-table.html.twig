@@ -1,3 +1,4 @@
+{% import _self as data_table -%}
 {# The server renderer of the data table. Its client twin is data-table.vue,
    beside it, and the two take the same column definitions — what a cell value
    may be is where they part, and that is written in the component's
@@ -256,10 +257,15 @@
                                     compact: true,
                                 }) }}
                             {%- endif -%}
-                        {%- elseif column.unit -%}
+                        {%- elseif column.cell == 'code' -%}
+                            {#- An identifier — a reference, an order number —, set
+                                in the mono face: 0 and O, 1 and l told apart, and
+                                codes of one length aligned down the column. -#}
                             {%- if value is not same as(null) and value is not same as('') -%}
-                                <span class="table--quantity">{{ value|table_number(column.digits) }}&nbsp;<span class="table--unit">{{ column.unit }}</span></span>
+                                <code class="table--code">{{ value }}</code>
                             {%- endif -%}
+                        {%- elseif column.cell == 'number' or column.unit -%}
+                            {{- data_table.figure(value, column) -}}
                         {%- else -%}
                             {{- value -}}
                         {%- endif -%}
@@ -286,6 +292,41 @@
         {% endfor %}
     {% endif %}
     </tbody>
+    {#- The totals, a row the page hands over (`totals`) and the table only
+        draws: it holds one page of a list, or a list a filter narrowed, and
+        cannot know what the sum is of. Its figures follow their column. -#}
+    {% set totals = options.totals|default(null) %}
+    {% if totals and rows is not empty %}
+    <tfoot>
+    <tr class="table--row table--row--totals">
+        {% if selectable %}<td class="table--cell table--cell--select"></td>{% endif %}
+        {% for column in columns %}
+            {% set value = column.key ? totals[column.key] ?? null : null %}
+            <td class="table--cell{{ column.class ? ' ' ~ column.class }}">
+                {%- if column.cell == 'number' or column.unit -%}
+                    {{- data_table.figure(value, column) -}}
+                {%- else -%}
+                    {{- value -}}
+                {%- endif -%}
+            </td>
+        {% endfor %}
+        {% if row_link %}<td class="table--cell table--cell--row-open"></td>{% endif %}
+    </tr>
+    </tfoot>
+    {% endif %}
 </table>
 </div>
 </div>
+
+{#- A figure in the page's locale, `digits` decimals at most, then its unit
+    set back — the rows and the totals under them alike. A value already
+    worded, « 124/75 », is kept as it is. Below zero, a column saying
+    `negative` draws it in the error tone. -#}
+{%- macro figure(value, column) -%}
+    {%- if value is not same as(null) and value is not same as('') -%}
+        <span class="table--quantity{{ column.negative and value < 0 ? ' table--quantity--negative' }}">
+            {{- value|table_number(column.digits) -}}
+            {%- if column.unit -%}&nbsp;<span class="table--unit">{{ column.unit }}</span>{%- endif -%}
+        </span>
+    {%- endif -%}
+{%- endmacro -%}

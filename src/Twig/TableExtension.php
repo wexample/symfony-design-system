@@ -114,6 +114,7 @@ class TableExtension extends AbstractTemplateExtension
                 'tooltip' => $column['tooltip'] ?? null,
                 'unit' => $column['unit'] ?? null,
                 'digits' => $column['digits'] ?? null,
+                'negative' => $column['negative'] ?? null,
                 'align' => $column['align'] ?? null,
                 'width' => $column['width'] ?? null,
                 'className' => $column['class'] ?? null,
@@ -141,6 +142,7 @@ class TableExtension extends AbstractTemplateExtension
             'fill' => 'fill',
             'show_header' => 'showHeader',
             'row_link' => 'rowLink',
+            'totals' => 'totals',
         ] as $option => $prop) {
             if (array_key_exists($option, $options)) {
                 $props[$prop] = $options[$option];
@@ -186,6 +188,9 @@ class TableExtension extends AbstractTemplateExtension
                 // written after it and set back.
                 'unit' => $column['unit'] ?? null,
                 'digits' => $column['digits'] ?? null,
+                // A figure below zero drawn in the error tone: asked by the
+                // column, for a quantity whose sign is news — a shortfall.
+                'negative' => $column['negative'] ?? false,
                 // Sortable only when the column says so, on a key that may not be
                 // the one it shows: a date sorts on its value, a name on the last.
                 'sortable' => $column['sortable'] ?? false,
@@ -194,8 +199,8 @@ class TableExtension extends AbstractTemplateExtension
                     $column['class'] ?? null,
                     // A marker sits in the middle of its column unless told otherwise.
                     isset($column['align']) ? 'table--cell--'.$column['align'] : (($column['cell'] ?? null) === 'status' ? 'table--cell--center' : null),
-                    // A date, a quantity: read whole, never broken over two lines.
-                    ($column['cell'] ?? null) === 'date' || isset($column['unit']) ? 'table--cell--nowrap' : null,
+                    // A date, a figure, a code: read whole, never broken over two lines.
+                    in_array($column['cell'] ?? null, ['date', 'number', 'code'], true) || isset($column['unit']) ? 'table--cell--nowrap' : null,
                     // One of xs, s, m, l, xl: the column keeps it whatever its cells say.
                     isset($column['width']) ? 'table--cell--width-'.$column['width'] : null,
                 ])),

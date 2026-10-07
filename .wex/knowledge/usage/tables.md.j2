@@ -6,10 +6,12 @@ while the page is open.
 
 ## Columns and cells
 
-A column is `{ key, label, cell, align, width, className, secondary }`. `cell` says how a value is
+A column is `{ key, label, cell, align, width, className, secondary, unit, digits, negative }`. `cell` says how a value is
 drawn: `date`, `html`, `status` (a marker: a type name, or `{ type, count, title, label }`),
 `path` (a file path: the name whole, the folders before it cut from their start — the
-`file-path` component, `file_path()` in twig), or nothing for the value as text. A row
+`file-path` component, `file_path()` in twig), `code` (an identifier — a reference, an
+order number — in the mono face, never broken), `number` (a figure, see below), or nothing
+for the value as text. A row
 carrying only `{ group: 'Label' }` is the line between two runs of rows.
 
 A table is as wide as its columns ask and no wider; the bar above it (search, total) takes the same width. `fill` (twig and vue) stretches it over the whole row — rarely wanted: columns spread apart read worse than a narrow table.
@@ -22,6 +24,21 @@ in place, without the columns beside it moving. Columns left without one share w
 — and the table writes it in the page's locale, `digits` decimals at most (2 by default),
 then the unit, set back (`table--unit`). A value already worded, « 124/75 », is kept as it
 is. The cell never wraps. It is asked column by column, never guessed from the values.
+`cell: 'number'` is the same figure with no unit after it — a count of pieces.
+
+`negative: true` on a figure column draws a value below zero in the error tone
+(`table--quantity--negative`), where the sign is news — a shortfall, a delay. The minus sign
+says it as well, so the colour is never alone. Asked by the column: a temperature below zero
+is no alarm.
+
+## Totals
+
+`totals` (twig and vue) is a row of `{ key: value }` drawn under the others, in a `tfoot`
+set apart by a rule: its figures follow their column — locale, unit, `negative` —, any other
+value is written as it is, a label under the first column for instance. The page hands it
+over; the table adds nothing up, since it holds one page of a list, or a list a filter
+narrowed, and cannot know what the sum is of. Nothing is drawn under an empty table. The vue
+table's `footer` slot draws the line itself instead, for a page wanting more than figures.
 
 ## The bar above the table
 

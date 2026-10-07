@@ -321,11 +321,18 @@
                         <template v-else-if="getCellHref(row, column)">
                             <a :href="getCellHref(row, column)">[[ getCellValue(row, column) ]]</a>
                         </template>
-                        <template v-else-if="column.unit">
+                        <template v-else-if="isCodeCell(column)">
+                            <code
+                                    v-if="getCellValue(row, column) !== null && getCellValue(row, column) !== ''"
+                                    class="table--code"
+                            >[[ getCellValue(row, column) ]]</code>
+                        </template>
+                        <template v-else-if="isNumberCell(column)">
                             <span
                                     v-if="getCellValue(row, column) !== null && getCellValue(row, column) !== ''"
                                     class="table--quantity"
-                            >[[ formatNumber(getCellValue(row, column), column) ]]&nbsp;<span class="table--unit">[[ column.unit ]]</span></span>
+                                    :class="{ 'table--quantity--negative': isNegative(getCellValue(row, column), column) }"
+                            >[[ formatNumber(getCellValue(row, column), column) ]]<template v-if="column.unit">&nbsp;<span class="table--unit">[[ column.unit ]]</span></template></span>
                         </template>
                         <template v-else>
                             [[ getCellValue(row, column) ]]
@@ -348,9 +355,29 @@
             </template>
         </tr>
         </tbody>
-        <tfoot v-if="$slots.footer">
-        <tr class="table--row">
+        {#- The totals the page hands over (`totals`), drawn and never summed
+            here: the rows held may be one page, or a list a filter narrowed. A
+            `footer` slot draws the line itself instead. -#}
+        <tfoot v-if="$slots.footer || (totals && hasRows() && !error)">
+        <tr v-if="$slots.footer" class="table--row">
             <slot name="footer" v-bind="{ columns }"></slot>
+        </tr>
+        <tr v-else class="table--row table--row--totals">
+            <td v-if="selectable" class="table--cell table--cell--select"></td>
+            <td
+                    v-for="(column, columnIndex) in columns"
+                    :key="getColumnKey(column, columnIndex)"
+                    class="table--cell"
+                    :class="getColumnClass(column)"
+            >
+                <span
+                        v-if="isNumberCell(column) && getCellValue(totals, column) !== null && getCellValue(totals, column) !== ''"
+                        class="table--quantity"
+                        :class="{ 'table--quantity--negative': isNegative(getCellValue(totals, column), column) }"
+                >[[ formatNumber(getCellValue(totals, column), column) ]]<template v-if="column.unit">&nbsp;<span class="table--unit">[[ column.unit ]]</span></template></span>
+                <template v-else-if="!isNumberCell(column)">[[ getCellValue(totals, column) ]]</template>
+            </td>
+            <td v-if="rowLink" class="table--cell table--cell--row-open"></td>
         </tr>
         </tfoot>
     </table>

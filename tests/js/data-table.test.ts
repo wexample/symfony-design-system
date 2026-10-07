@@ -352,3 +352,26 @@ test('pagination: at the bottom, unless asked above or on both sides', () => {
   // One page still shows its pages, arrows off.
   assert.deepEqual([vm.hasPaginationAt('top'), vm.hasPaginationAt('bottom')], [true, true]);
 });
+
+test('a figure: a number cell or a unit, never broken; a code cell, never broken either', () => {
+  const { vm } = mount({ rows: [], columns: [], app: {} });
+
+  assert.equal(vm.isNumberCell({ key: 'net', cell: 'number' }), true);
+  assert.equal(vm.isNumberCell({ key: 'area', unit: 'm²' }), true);
+  assert.equal(vm.isNumberCell({ key: 'item' }), false);
+  assert.equal(vm.isCodeCell({ key: 'sku', cell: 'code' }), true);
+  assert.equal(vm.getColumnClass({ key: 'net', cell: 'number', align: 'right' }), 'table--cell--right table--cell--nowrap');
+  assert.equal(vm.getColumnClass({ key: 'sku', cell: 'code' }), 'table--cell--nowrap');
+});
+
+test('below zero is news only where the column asks, and only for a figure', () => {
+  const { vm } = mount({ rows: [], columns: [], app: {} });
+  const NET = { key: 'net', cell: 'number', negative: true };
+
+  assert.equal(vm.isNegative(-4, NET), true);
+  assert.equal(vm.isNegative('-0.5', NET), true);
+  assert.equal(vm.isNegative(0, NET), false);
+  assert.equal(vm.isNegative('124/75', NET), false);
+  assert.equal(vm.isNegative('', NET), false);
+  assert.equal(vm.isNegative(-4, { key: 'net', cell: 'number' }), false);
+});

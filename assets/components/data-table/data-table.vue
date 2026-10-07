@@ -80,6 +80,12 @@ export default {
       type: Object,
       default: null
     },
+    // The totals under the rows, one value per column key — handed over by
+    // the page, which knows what they are the sum of; the table adds nothing.
+    totals: {
+      type: Object,
+      default: null
+    },
     // The header stays in view while the rows scroll under it. The page says
     // how far from the top it stops, through --table-sticky-top.
     sticky: {
@@ -897,6 +903,22 @@ export default {
       return column?.cell === 'date';
     },
 
+    // An identifier — a reference, an order number —, set in the mono face.
+    isCodeCell(column) {
+      return column?.cell === 'code';
+    },
+
+    // A figure, with its unit after it or bare (`cell: 'number'`).
+    isNumberCell(column) {
+      return column?.cell === 'number' || !!column?.unit;
+    },
+
+    // Below zero, in a column that asks for it: the error tone. A value
+    // already worded is no figure, and never negative.
+    isNegative(value, column) {
+      return !!column?.negative && value !== null && value !== '' && Number(value) < 0;
+    },
+
     // A quantity's figure, in the page's locale (`digits` decimals at most);
     // a value already worded — « 124/75 » — as it is.
     formatNumber(value, column) {
@@ -924,7 +946,7 @@ export default {
       // column of capsules reads as one when they line up on their centre.
       const align = column?.align ?? (column?.cell === 'status' ? 'center' : null);
       if (align) classes.push(`table--cell--${align}`);
-      if (column?.cell === 'date' || column?.unit) classes.push('table--cell--nowrap');
+      if (['date', 'code'].includes(column?.cell) || this.isNumberCell(column)) classes.push('table--cell--nowrap');
       if (column?.width) classes.push(`table--cell--width-${column.width}`);
       if (column?.secondary) classes.push('table--cell--secondary');
       return classes.length ? classes.join(' ') : undefined;
