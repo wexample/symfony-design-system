@@ -91,6 +91,8 @@ The attribute carries a group and a weight and nothing else, because everything 
 
 `| raw` is not optional there: twig escapes what it no longer knows came from a renderer once it has been through a variable.
 
+An entry is drawn only for a page the reader may open ({{ path("src/Service/RouteAccessService.php") }}): `menu_item()`, `menu_items()` and `menu_item_collapsible_from_controller()` ask the firewall's own question before drawing — `access_control`, decided as the access listener decides, then the controller's `#[IsGranted]` naming no subject; one with a subject needs the page's record and is left to the page. A run whose every entry is refused is the empty string, and its heading goes with it. Without the security bundle every route is open: {{ path("src/DependencyInjection/Compiler/RouteAccessPass.php") }} hands the service the access map, the decision manager and the token storage only when they exist. `menu_item_link()` takes an address, not a route, and is drawn as given.
+
 The same question is asked of the body of a page by {{ path("src/Attribute/PageSection.php") }}, its twin: a page names a zone and nothing else, and what fills it is declared on the other side.
 
 ```php

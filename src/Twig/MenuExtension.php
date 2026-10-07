@@ -9,6 +9,7 @@ use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\Helpers\Helper\ClassHelper;
 use Wexample\SymfonyDesignSystem\Attribute\MenuItem;
+use Wexample\SymfonyDesignSystem\Service\RouteAccessService;
 use Wexample\SymfonyDesignSystem\Service\RouteGroupRegistry;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
@@ -20,6 +21,7 @@ class MenuExtension extends AbstractTemplateExtension
         private readonly RouterInterface $router,
         private readonly RequestStack $requestStack,
         private readonly RouteGroupRegistry $routeGroupRegistry,
+        private readonly RouteAccessService $routeAccess,
     ) {
         parent::__construct($componentsExtension);
     }
@@ -105,9 +107,10 @@ class MenuExtension extends AbstractTemplateExtension
                     $routes = $this->menuGetRoutesFromControllerNamespace($controllerNamespace);
                     $indexRoute = AbstractController::findIndexRoute($this->router, $controllerNamespace);
 
-                    // No index page under the namespace, e.g. its bundle is not enabled:
-                    // the entry has nowhere to lead, and must not break the layout.
-                    if (null === $indexRoute) {
+                    // No index page under the namespace, e.g. its bundle is not enabled,
+                    // or one the reader may not open: the entry has nowhere to lead, and
+                    // must not break the layout.
+                    if (null === $indexRoute || ! $this->routeAccess->canOpen($indexRoute)) {
                         return '';
                     }
 
@@ -226,6 +229,12 @@ class MenuExtension extends AbstractTemplateExtension
         array $routeParams,
         array $options,
     ): string {
+        // A page the reader may not open has no entry: the menu shows where
+        // they can go, never a door onto a 403.
+        if (! $this->routeAccess->canOpen($route, $routeParams)) {
+            return '';
+        }
+
         $call = static fn (
             string $name,
             ...$arguments
