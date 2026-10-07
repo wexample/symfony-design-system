@@ -69,9 +69,12 @@ several charts, maps and tables.
 
 ## Left
 
-- `symfony-charts-ds` `chart.ts`: not touched — the whole package is uncommitted work in
-  progress. To do there: `LazyActivationMixin.apply(this)` in `init()`, the `schemeObserver`
-  replaced by `usage:change`.
+- ~~`symfony-charts-ds` `chart.ts`~~ — done 2026-10-07 (agent:app:main, symfony-charts): the mixin in
+  `init()`, `lazy` passed by `chart()` (true unless said), the `MutationObserver` replaced by
+  `usage:change`. Seen in a browser driven through DevTools on `/fr/charts/`: 2 charts initialised
+  at load in a 900px viewport, 9 once scrolled; switching dark → light redraws them (grid lines
+  `rgb(60,60,60)` → `rgb(210,210,210)`). Chrome's `--screenshot` mode never fires the observer: a
+  capture of a lazy page has to scroll it through DevTools.
 - Not seen in a browser: the Mojoe design system does not build `geo-map`'s script (no build
   file holds it), with or without this change. The mixin was checked by a throwaway test with a
   stand-in observer (seen → activated once; never seen → nothing taken down; `lazy: false`;
