@@ -7,7 +7,8 @@
     tiny: true,
 }) -%}
 {%- if items is empty -%}
-    {{ marker_html }}
+    {#- Markup kept in a variable is a string again: printed as it is. -#}
+    {{ marker_html|raw }}
 {%- else -%}
     {{ button_menu(null, null, items, {
         trigger: marker_html,
