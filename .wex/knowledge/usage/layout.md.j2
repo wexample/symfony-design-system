@@ -99,9 +99,8 @@ upright below `l` — and live in one place, `css/mixins/_window.scss`: a rule s
 `@include window.below(window.$window-l)`, never a width of its own, so what changes at a
 size changes together. Media queries rather than the loader's per-size files (`name-m.scss`,
 `responsive-*` classes): with scripts on, the loader adds those only once its script has
-measured, so a phone would see the wide layout first and then jump; it sizes a component by
-its own width, so a side menu is always `xs`; and a layout's per-size files are looked up
-under the application's layout, not the design system's.
+measured, so a phone would see the wide layout first and then jump; and it sizes a component
+by its own width, so a side menu is always `xs`.
 
 - **The side menus become drawers** below `l`, the left one and a page's right one
   alike. Out of the row, off their edge, they slide over the page from the header's toggle,

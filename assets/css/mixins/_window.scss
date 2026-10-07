@@ -7,10 +7,9 @@
 // Media queries, not the loader's per-size files (`name-m.scss`) nor its
 // `responsive-*` classes: with scripts on, the loader adds both only once its
 // script has measured, so a phone would first get the wide layout and see it
-// jump; it measures a component by its own width — a side menu is always
-// `xs` —, not the window's; and a layout's files are looked up under the
-// application's layout, not under this one. Kept for what is sized by its own
-// width, a page's `-m.ts` display for instance.
+// jump; and it measures a component by its own width — a side menu is always
+// `xs` —, not the window's. Kept for what is sized by its own width, a page's
+// `-m.ts` display for instance.
 $window-s: 576px;
 $window-m: 768px;
 $window-l: 992px;
