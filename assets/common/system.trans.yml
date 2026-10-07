@@ -80,6 +80,8 @@ en:
       cancel: Cancel this upload
       cancelled: Cancelled
       failed: The upload failed
+      refused_size: "%name% is larger than %max%, the most this place takes"
+      refused_type: "%name% is not a kind of file this place takes (%accept%)"
       status:
         queued: Waiting
         uploading: Sending

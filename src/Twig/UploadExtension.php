@@ -5,6 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 use Twig\TwigFunction;
+use Wexample\SymfonyDesignSystem\Class\UploadRules;
 use Wexample\SymfonyDesignSystem\Service\ChunkedUploadReceiver;
 use Wexample\SymfonyDesignSystem\Service\UploadTokenService;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
@@ -33,10 +34,18 @@ class UploadExtension extends AbstractTemplateExtension
             // Options: `name`, said again by the events of what it sends;
             // `label`, the button's words; `hint`, the words beside it;
             // `compact`, a line rather than a block; `button`, the button alone;
-            // `class`.
+            // `class`. `accept` — `['.xlsx']`, `'image/*'`, as the HTML
+            // attribute reads — and `max_size`, in bytes, are signed into the
+            // address and held by the server; the picker shows only the kinds
+            // accepted.
             new TwigFunction(
                 'upload_dropzone',
                 function (Environment $twig, $context, string $directory, array $options = []): string {
+                    $rules = new UploadRules(
+                        array_values((array) ($options['accept'] ?? [])),
+                        $options['max_size'] ?? null,
+                    );
+
                     return $this->renderComponent(
                         $twig,
                         $context,
@@ -47,9 +56,10 @@ class UploadExtension extends AbstractTemplateExtension
                             'compact' => $options['compact'] ?? false,
                             'button' => $options['button'] ?? false,
                             'class' => $options['class'] ?? null,
+                            'accept' => implode(',', $rules->accept),
                         ],
                         [
-                            'url' => $this->uploadUrl($directory),
+                            'url' => $this->uploadUrl($directory, $rules),
                             'chunkSize' => $this->receiver->chunkSize(),
                             'name' => $options['name'] ?? null,
                         ]
@@ -60,10 +70,10 @@ class UploadExtension extends AbstractTemplateExtension
         ];
     }
 
-    public function uploadUrl(string $directory): string
+    public function uploadUrl(string $directory, ?UploadRules $rules = null): string
     {
         return $this->urlGenerator->generate('wexample_design_system_upload_chunk', [
-            'token' => $this->tokens->issue($directory),
+            'token' => $this->tokens->issue($directory, rules: $rules),
         ]);
     }
 }

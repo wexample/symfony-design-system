@@ -3,6 +3,7 @@
 namespace Wexample\SymfonyDesignSystem\Service;
 
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Wexample\SymfonyDesignSystem\Class\UploadRules;
 
 /**
  * The address a browser sends files to names the directory they land in, and
@@ -21,12 +22,16 @@ final class UploadTokenService
     ) {
     }
 
-    public function issue(string $directory, int $ttl = self::DEFAULT_TTL): string
+    /**
+     * What the page lets in — kinds of file, a size — is signed with the
+     * directory: the browser can no more widen it than move it.
+     */
+    public function issue(string $directory, int $ttl = self::DEFAULT_TTL, ?UploadRules $rules = null): string
     {
         $payload = $this->encode((string) json_encode([
             'd' => rtrim($directory, '/'),
             'e' => time() + $ttl,
-        ]));
+        ] + ($rules?->toArray() ?? [])));
 
         return $payload.'.'.$this->sign($payload);
     }
@@ -36,6 +41,17 @@ final class UploadTokenService
      * here, was altered, or is past its time.
      */
     public function directory(string $token): ?string
+    {
+        return $this->read($token)['d'] ?? null;
+    }
+
+    // What a valid token lets in; nothing said, anything.
+    public function rules(string $token): UploadRules
+    {
+        return UploadRules::fromArray($this->read($token) ?? []);
+    }
+
+    private function read(string $token): ?array
     {
         $parts = explode('.', $token, 2);
 
@@ -49,7 +65,7 @@ final class UploadTokenService
             return null;
         }
 
-        return $data['d'];
+        return $data;
     }
 
     private function sign(string $payload): string
