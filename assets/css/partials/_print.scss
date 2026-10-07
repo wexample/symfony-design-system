@@ -1,0 +1,125 @@
+// What a page is on paper: what it holds, without what it is used with.
+//
+// The layout's chrome goes — the menus, their toggles, the bars of actions,
+// the footer, what floats over the page —; the header keeps its title, so the
+// sheet says what it is. Nothing scrolls on paper: every frame that scrolled
+// on screen is unrolled to its whole height. Ink on white whatever the scheme
+// and the palette: what a colour said is said again by a word or a sign —
+// a marker's label, a figure's minus —, the rule the design system holds to
+// on screen already.
+//
+// A page says what else is not for paper with `print-hidden`, and what is for
+// paper only — a heading naming the list and its date — with `print-only`.
+
+.print-only {
+  display: none !important;
+}
+
+@media print {
+  @page {
+    margin: 12mm;
+  }
+
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    color: #000 !important;
+  }
+
+  // A dark scheme would print its canvas: paper is the light one.
+  :root {
+    color-scheme: light;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  // The chrome of the layout, and what floats over the page.
+  .print-hidden,
+  .gutters--collapsible[data-menu-id],
+  .header--menu,
+  .header--tabs,
+  // The header keeps its title and what is said beside it, nothing an
+  // application put there to be used — a search.
+  .header--body > :not(.header--title, .header--title-aside),
+  // The page's own navigation, under the header (`page_navigation`).
+  .layout--vertical > .tabs,
+  .toolbar--top,
+  .page-tabs,
+  .page-actions,
+  .footer,
+  .skip-link,
+  .zone-resizer,
+  .toast-stack,
+  .tooltip,
+  .dock-layer,
+  .overlay,
+  // A table's controls: its filters and actions, its pages, the column of
+  // boxes, the column of arrows, the actions of a row.
+  .table--bar,
+  .pagination,
+  .table--cell--select,
+  .table--cell--row-open,
+  .table--actions {
+    display: none !important;
+  }
+
+  .print-only {
+    display: revert !important;
+  }
+
+  // Nothing scrolls: the frames that did hold their whole content, and the
+  // layout is as tall as the page it prints.
+  html,
+  body,
+  .layout--horizontal,
+  .layout--vertical,
+  .layout--body,
+  .layout--body--scrollable,
+  .zone,
+  .zone--scrollable,
+  .table--frame {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  // The header is the sheet's heading: its title, set in the page's flow.
+  .header {
+    height: auto;
+    border-bottom: 1px solid #000;
+  }
+
+  // Nothing sticks to a window that is not there.
+  .table--sticky thead,
+  .table--frame--sticky {
+    position: static !important;
+  }
+
+  // A table runs over pages: its head again on each, a row never cut in two.
+  thead {
+    display: table-header-group;
+  }
+
+  tr,
+  img,
+  .block {
+    break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  .table .table--cell {
+    border-bottom: 1px solid #999 !important;
+  }
+}

@@ -120,6 +120,27 @@ under the application's layout, not the design system's.
 What a page holds reflows by its own shapes: `grid` and `zone--split--wrap` go to the next
 line, a table scrolls in its frame, `page_tabs` folds into icons then into menus.
 
+## On paper
+
+Every layout prints what the page holds and nothing it is used with (`css/partials/_print.scss`):
+
+- **Gone**: the side menus, the header's controls and whatever an application added beside
+  its title, the page's own navigation, the toolbar, the page's actions, the footer, what
+  floats over the page; in a table, its bar, its pages, the columns of boxes and arrows, the
+  actions of a row.
+- **Kept**: the header's title and what stands beside it, as the sheet's heading.
+- **Unrolled**: nothing scrolls on paper; every frame that did prints its whole height, and a
+  table's head comes again on each sheet, a row never cut in two.
+- **Ink on white**, whatever the scheme and the palette: what a colour said is said again by
+  a word or a sign, the rule the design system keeps on screen.
+
+A page says what else is not for paper with `print-hidden`, and what is for paper only — a
+heading naming the list and the date it was drawn at — with `print-only`. A print button is
+`window.print()`, nothing more.
+
+The loader writes its stylesheets for every medium (`media="all"`): held to the screen, as
+they were, nothing applied to a printed page.
+
 ## How a zone takes its room
 
 Two questions, answered apart (`css/shapes/_zone.scss`, its last block).

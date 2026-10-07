@@ -24,6 +24,8 @@
 @use '../../css/partials/scrollbar';
 @use '../../css/partials/text';
 @use '../../css/partials/animation';
+// What a page is on paper.
+@use '../../css/partials/print';
 
 // Base mixins. What is missing here is not forgotten: spacing, sizes and the
 // type scale belong to the density axis, radii, shadows and borders to the
