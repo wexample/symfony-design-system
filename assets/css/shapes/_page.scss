@@ -78,9 +78,11 @@
 // A form filling the page — an editor — hands the room to its text: whatever
 // holds the form and the form itself are columns, the group holding a text
 // area takes what the others leave, and the text area fills its group. Full
-// page or in a panel, the text is as tall as the room.
-.page--fill > :has(form),
-.page--fill form {
+// page or in a panel, the text is as tall as the room. Only a form with a text
+// area to fill: a bar holding a button's form, a form kept hidden, are none of
+// this.
+.page--fill > :has(form textarea),
+.page--fill form:has(textarea) {
   display: flex;
   flex-direction: column;
   flex: 1;
