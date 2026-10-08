@@ -20,7 +20,10 @@ const T = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.explorer.';
 // is selected below. It knows nothing of where the files come from: it asks
 // `loadChildren` for a folder's content — the contract the tree already has —
 // and takes back file entities, or anything with their fields: { name, path,
-// type: directory | file, hasChildren, size, modifiedAt }.
+// type: directory | file, hasChildren, size, modifiedAt }. An item with a
+// `thumbnailUrl` shows it in the grid in place of its icon. A path is cut on
+// `/` into folders; when its parts are ids rather than names, the names come
+// from the folders the explorer has listed.
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-file-explorer-file-explorer',
 
@@ -66,6 +69,11 @@ export default {
     defaultView: {
       type: String,
       default: 'list'
+    },
+    // Off, one item at a time: what a picker asking for a single file wants.
+    multiple: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -88,7 +96,9 @@ export default {
       view: this.stateValue('view', this.defaultView),
       sort: this.stateValue('sort', { key: 'name', direction: 1 }),
       rootDirectories: [],
-      treeGeneration: 0
+      treeGeneration: 0,
+      // The name of each folder listed so far, by path.
+      labels: {}
     };
   },
 
@@ -101,7 +111,8 @@ export default {
       const segments = [{ label: this.resolvedRootLabel, path: null }];
 
       parts.forEach((part, index) => {
-        segments.push({ label: part, path: parts.slice(0, index + 1).join('/') });
+        const path = parts.slice(0, index + 1).join('/');
+        segments.push({ label: this.labels[path] ?? part, path });
       });
 
       return segments;
@@ -243,6 +254,7 @@ export default {
 
         this.items = reset ? items : [...this.items, ...items];
         this.total = result?.total ?? this.items.length;
+        this.learnLabels(items);
       } catch (error) {
         this.failed = true;
       } finally {
@@ -260,11 +272,20 @@ export default {
       const result = await this.loadChildren(item, page);
       const items = result?.items ?? [];
       const directories = items.filter((entry) => this.isDirectory(entry));
+      this.learnLabels(directories);
 
       return {
         items: directories,
         total: Math.max(directories.length, (result?.total ?? items.length) - (items.length - directories.length))
       };
+    },
+
+    learnLabels(items) {
+      items
+        .filter((item) => this.isDirectory(item) && item.path)
+        .forEach((item) => {
+          this.labels[item.path] = item.name;
+        });
     },
 
     async loadRootDirectories() {
@@ -352,7 +373,10 @@ export default {
       const item = this.shownItems[index];
       const key = this.itemKey(item);
 
-      if (event.shiftKey && this.anchorIndex !== null) {
+      if (!this.multiple) {
+        this.selectedKeys = [key];
+        this.anchorIndex = index;
+      } else if (event.shiftKey && this.anchorIndex !== null) {
         const [from, to] = [this.anchorIndex, index].sort((a, b) => a - b);
         this.selectedKeys = this.shownItems.slice(from, to + 1).map((entry) => this.itemKey(entry));
       } else if (event.ctrlKey || event.metaKey) {
@@ -422,7 +446,7 @@ export default {
       } else if (event.key === 'Backspace' && !event.target.closest('input')) {
         event.preventDefault();
         this.goUp();
-      } else if ((event.ctrlKey || event.metaKey) && event.key === 'a' && count) {
+      } else if ((event.ctrlKey || event.metaKey) && event.key === 'a' && count && this.multiple) {
         event.preventDefault();
         this.selectedKeys = this.shownItems.map((item) => this.itemKey(item));
         this.$emit('select', this.selectedItems);

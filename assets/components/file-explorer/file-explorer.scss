@@ -223,6 +223,15 @@ a.file-explorer--row > * {
     }
   }
 
+  // A picture is its own icon, as tall as the cell is wide, cropped to fill it.
+  .disk-item--thumbnail {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: var(--radius-box);
+    background: var(--tint-2);
+  }
+
   .disk-item--title-ellipsis {
     font-size: var(--font-size-2);
   }

@@ -43,6 +43,11 @@
                 <button type="button" class="toolbar--action" :aria-label="t('view_grid')" :data-tooltip="t('view_grid')" :aria-pressed="view === 'grid' ? 'true' : 'false'" @click="setView('grid')" v-html="renderIcon('ph:bold/squares-four')"></button>
                 <button type="button" class="toolbar--action" :aria-label="t('refresh')" :data-tooltip="t('refresh')" @click="refresh" v-html="renderIcon('ph:bold/arrows-clockwise')"></button>
             </div>
+            {#- What the page adds: an upload, a new folder, a deletion — given
+                the folder shown and what is selected. -#}
+            <div v-if="$slots.actions" class="toolbar--group file-explorer--actions">
+                <slot name="actions" :folder="currentFolder()" :selected="selectedItems"></slot>
+            </div>
         </div>
 
         {#- The folders and the listing are two regions of one split: the
@@ -119,7 +124,8 @@
                          :title="item.name"
                          @click="select(index, $event)"
                          @dblclick="open(item)">
-                        <span class="disk-item--icon" :class="{ 'is-directory': isDirectory(item) }" v-html="iconHtml(item)"></span>
+                        <img v-if="item.thumbnailUrl" class="disk-item--thumbnail" :src="item.thumbnailUrl" alt="" loading="lazy">
+                        <span v-else class="disk-item--icon" :class="{ 'is-directory': isDirectory(item) }" v-html="iconHtml(item)"></span>
                         <span class="disk-item--title-ellipsis">[[ item.name ]]</span>
                     </div>
                 </div>
