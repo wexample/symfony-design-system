@@ -42,6 +42,12 @@
 // A page with no ground of its own (`page_zone_plain`) is made of regions, and
 // what heads it is one of them: its title stands in a region of its own, the
 // page showing round it as between the regions of its body.
+// Its parts follow each other with nothing between: the region heading it and
+// what its body holds are set apart by their own grounds, not by a gap.
+.zone--plain .zone--content {
+  gap: 0;
+}
+
 .zone--plain .zone--content > .page--head {
   @include surface-layer.surface-layer;
   padding: var(--zone-padding, var(--space-4));
