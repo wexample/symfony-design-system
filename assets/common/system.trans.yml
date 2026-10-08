@@ -103,6 +103,8 @@ en:
       more: More options
       filter: Filter
       filter_empty: Nothing matches
+    toolstrip:
+      label: Tools
     zone:
       collapse: Collapse
       expand: Expand

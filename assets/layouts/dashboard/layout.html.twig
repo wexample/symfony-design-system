@@ -284,6 +284,15 @@
                 {% endblock %}
             </div>
         {% endif %}
+        {#- The strip of icons at the window's right edge (`page_toolstrip`), past
+            everything else: a page's tools, each opening or closing what it
+            names. Nothing drawn when the page has none. -#}
+        {%- set toolstrip %}{% block page_toolstrip %}{% endblock %}{% endset -%}
+        {%- if toolstrip|trim is not empty -%}
+            <nav class="toolstrip" aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.toolstrip.label'|trans }}">
+                {{- toolstrip -}}
+            </nav>
+        {%- endif -%}
     </div>
     {%- endif -%}
 {%- endblock -%}

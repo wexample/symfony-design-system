@@ -1,0 +1,24 @@
+@use './action-icon';
+
+// The strip of icons along the window's right edge, as an IDE has one: always
+// there, as narrow as an icon, whatever the page beside it does — each icon
+// opening or closing something of the page (`page_toolstrip`, dashboard
+// layout). It never scrolls sideways with the page: the page gives up the room
+// it takes.
+.toolstrip {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  height: 100%;
+  padding: var(--space-2) var(--space-1);
+  background: var(--surface-shell);
+  border-inline-start: var(--border-shell);
+}
+
+// An icon of the strip open on what it shows.
+.toolstrip .action-icon.is-active {
+  color: var(--text-color-default);
+  background: var(--state-active);
+}
