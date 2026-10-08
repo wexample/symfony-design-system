@@ -87,6 +87,10 @@
 // the window's edge: icons one under the other, on the ground a tab bar has.
 // Given with `zone--narrow`, it is as wide as an icon and never gives way.
 .zone--toolbar {
+  // Its own width, whatever a zone around it was sized or resized to: the
+  // size is a property the zones inside would otherwise inherit.
+  --zone-size: fit-content;
+  --zone-min: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
