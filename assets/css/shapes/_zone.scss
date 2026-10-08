@@ -95,6 +95,25 @@
   background: var(--surface-shell);
 }
 
+// Its icons in groups: the first along the top, the last pushed to the foot —
+// one open at a time in each (components/zone-toolbar).
+.zone--toolbar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.zone--toolbar-group--end {
+  margin-top: auto;
+}
+
+// An icon open on the zone it names.
+.zone--toolbar .action-icon[aria-pressed='true'] {
+  color: var(--text-color-default);
+  background: var(--state-active);
+}
+
 // A zone that takes back the room the row leaves between it and its neighbour,
 // standing against it — a bar of tools along the text it serves: before it
 // (`zone--joined-start`), after it (`zone--joined-end`), or both. The room is
