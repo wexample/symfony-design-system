@@ -7,8 +7,10 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Wexample\SymfonyDesignSystem\Class\UploadRules;
+use Wexample\SymfonyDesignSystem\Event\UploadCompletedEvent;
 use Wexample\SymfonyDesignSystem\Service\ChunkedUploadReceiver;
 use Wexample\SymfonyDesignSystem\Service\UploadTokenService;
 
@@ -31,6 +33,7 @@ class UploadController extends AbstractController
         UploadTokenService $tokens,
         ChunkedUploadReceiver $receiver,
         TranslatorInterface $translator,
+        EventDispatcherInterface $dispatcher,
     ): JsonResponse {
         $directory = $tokens->directory($token);
 
@@ -83,7 +86,18 @@ class UploadController extends AbstractController
             return $this->refuse($translator, 'refused_type', $fileName, $rules, 415);
         }
 
-        return new JsonResponse(['complete' => true, 'name' => basename($path)]);
+        // Whoever reads the directory may take the file from here, and say so.
+        $completed = $dispatcher->dispatch(new UploadCompletedEvent($directory, $path, $fileName, $request));
+
+        if (null !== $completed->getRefusal()) {
+            if (is_file($path)) {
+                unlink($path);
+            }
+
+            return new JsonResponse(['error' => $completed->getRefusal()], $completed->getRefusalStatus());
+        }
+
+        return new JsonResponse(['complete' => true, 'name' => basename($path)] + $completed->getData());
     }
 
     private function refuse(
