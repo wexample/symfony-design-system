@@ -4,7 +4,9 @@ import { floatingPlace, type FloatingSide } from '../../js/Helper/FloatingHelper
 // What an element says it wants, read off its attributes:
 //   data-tooltip            the text
 //   data-tooltip-title      a heading above it, for a richer one
-//   data-tooltip-placement  top (default), bottom, left, right
+//   data-tooltip-placement  top (default), bottom, left, right — on the
+//                           element or on any element around it: a bar of
+//                           tools along an edge says it once for its icons
 //   data-tooltip-variant    `light` for a tooltip on the page's ground
 const SELECTOR = '[data-tooltip]';
 
@@ -123,7 +125,7 @@ export default class extends Component {
     // Shown before it is placed: a hidden box has no size to place.
     this.el.hidden = false;
     floatingPlace(anchor, this.el, {
-      placement: (anchor.dataset.tooltipPlacement as FloatingSide) || 'top',
+      placement: ((anchor.closest('[data-tooltip-placement]') as HTMLElement | null)?.dataset.tooltipPlacement as FloatingSide) || 'top',
     });
     this.el.classList.add('is-visible');
 
