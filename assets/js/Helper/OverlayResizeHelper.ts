@@ -8,26 +8,38 @@ const WIDTH_MIN = 320;
 const HEIGHT_MIN = 200;
 const WINDOW_SHARE = 0.96;
 
-type Edge = 'start' | 'end' | 'top' | 'bottom';
+export type OverlayResizeEdge = 'start' | 'end' | 'top' | 'bottom';
 
-const EDGES: [Edge, DragAxis, 1 | -1][] = [
-  ['start', 'x', -1],
-  ['end', 'x', 1],
-  ['top', 'y', -1],
-  ['bottom', 'y', 1],
-];
+const EDGES: Record<OverlayResizeEdge, [DragAxis, 1 | -1]> = {
+  start: ['x', -1],
+  end: ['x', 1],
+  top: ['y', -1],
+  bottom: ['y', 1],
+};
 
-// Makes a box centred in the window — a modal — sized by its edges. Nothing is
-// drawn: each edge is a strip the pointer finds by its cursor. The box stays
-// centred, so an edge pulled grows it on both sides at once — what is
-// followed is half the size, and the size written is twice that.
+export interface OverlayResizeOptions {
+  // The edges the pointer may pull: all four of a box in the middle of the
+  // window, the one facing the page of a box held against a side.
+  edges: OverlayResizeEdge[];
+  // Centred in the window, the box grows on both sides of an edge pulled: what
+  // is followed is then half the size, and the size written twice that.
+  centered: boolean;
+  // Where the size is remembered, if anywhere.
+  stateKey?: string | null;
+}
+
+// Makes an overlay's box — a modal, a panel — sized by its edges. Nothing is
+// drawn: each edge is a strip the pointer finds by its cursor.
 //
 // The size is the box's `--overlay-width` and `--overlay-height`. Given a key
 // (`stateKey`), it is remembered as a resized zone is, and given back the next
 // time the box opens. A double click on an edge forgets it.
 //
 // Returns the function that detaches it.
-export function attachOverlayResize(box: HTMLElement, app: App, stateKey: string | null = null): () => void {
+export function attachOverlayResize(box: HTMLElement, app: App, options: OverlayResizeOptions): () => void {
+  const stateKey = options.stateKey ?? null;
+  const factor = options.centered ? 2 : 1;
+
   const property = (axis: DragAxis): string => (axis === 'x' ? '--overlay-width' : '--overlay-height');
   const stateName = (axis: DragAxis): string | null =>
     stateKey ? `ui.overlay.${stateKey}.${axis === 'x' ? 'width' : 'height'}` : null;
@@ -57,7 +69,8 @@ export function attachOverlayResize(box: HTMLElement, app: App, stateKey: string
     }
   });
 
-  const detachers = EDGES.map(([edge, axis, direction]) => {
+  const detachers = options.edges.map((edge) => {
+    const [axis, direction] = EDGES[edge];
     const handle = document.createElement('div');
     handle.className = `overlay-resizer overlay-resizer--${edge}`;
     handle.setAttribute('aria-hidden', 'true');
@@ -72,11 +85,11 @@ export function attachOverlayResize(box: HTMLElement, app: App, stateKey: string
       // A page read from the right puts its start on the right: the edge
       // named `start` is then pulled the other way.
       direction: axis === 'x' && getComputedStyle(box).direction === 'rtl' ? (direction === 1 ? -1 : 1) : direction,
-      start: () => current() / 2,
-      min: () => (axis === 'x' ? WIDTH_MIN : HEIGHT_MIN) / 2,
-      max: () => (windowSize() * WINDOW_SHARE) / 2,
-      onMove: (half) => apply(axis, half * 2),
-      onEnd: (half) => persist(axis, half * 2),
+      start: () => current() / factor,
+      min: () => (axis === 'x' ? WIDTH_MIN : HEIGHT_MIN) / factor,
+      max: () => (windowSize() * WINDOW_SHARE) / factor,
+      onMove: (share) => apply(axis, share * factor),
+      onEnd: (share) => persist(axis, share * factor),
     });
 
     const onDoubleClick = (event: Event): void => {

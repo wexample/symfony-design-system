@@ -11,6 +11,7 @@ import EventsService from '@wexample/symfony-loader/js/Services/EventsService';
 import { targetEmbeddedClick } from '../Helper/TargetHelper';
 import { hashParamDelete } from '../Helper/HashStateHelper';
 import { focusTrapCanReturn, focusTrapFocusables, focusTrapNext } from '../Helper/FocusTrapHelper';
+import { attachOverlayResize, OverlayResizeOptions } from '../Helper/OverlayResizeHelper';
 
 export interface OverlayRequestOptionsInterface extends RequestOptionsInterface {
   closeOnEscape?: boolean;
@@ -20,7 +21,7 @@ export interface OverlayRequestOptionsInterface extends RequestOptionsInterface 
   confirmOnCloseTitle?: string;
   confirmOnCloseDirtyMessage?: string;
   confirmOnCloseWhenDirty?: boolean;
-  // Sized by its edges with the pointer — a modal: see OverlayResizeHelper.
+  // Sized by its edges with the pointer: see OverlayResizeHelper.
   resizable?: boolean;
   // Where the size it is left at is remembered, if anywhere.
   resizeState?: string;
@@ -56,6 +57,12 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
   protected abstract getCloseLinkSelector(): string;
   protected abstract getHashKeys(): [string, string, string];
   protected get useScopedMainClass(): boolean { return false; }
+
+  // Which edges of the box the pointer may pull, and whether it grows on both
+  // sides of one — or null for a box that cannot be sized at all.
+  protected getResizeOptions(): Omit<OverlayResizeOptions, 'stateKey'> | null { return null; }
+
+  private detachResize?: () => void;
 
   async init() {
     FadeAnimationMixin.apply(this);
@@ -141,6 +148,29 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
     if (this.contentEl) {
       this.contentEl.innerHTML = body || '';
     }
+
+    // The page is written into the box, which takes its edges with it: they
+    // are laid again over the new page.
+    if (this.detachResize) {
+      this.detachResize();
+      this.attachResize();
+    }
+  }
+
+  // Sized by its edges when asked to (`resizable`), and remembered under
+  // `resizeState` when given one.
+  private attachResize(): void {
+    const options = this.renderData?.requestOptions as OverlayRequestOptionsInterface | undefined;
+    const resize = this.getResizeOptions();
+
+    if (options?.resizable && resize && this.contentEl) {
+      this.detachResize = attachOverlayResize(this.contentEl, this.app, {
+        ...resize,
+        // A modal and a panel opened on the same page are two boxes, each
+        // remembered for itself.
+        stateKey: options.resizeState ? `${options.resizeState}.${(this as any).overlayDepthGroup}` : null,
+      });
+    }
   }
 
   protected async activateListeners(): Promise<void> {
@@ -162,6 +192,8 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
     this.onFormDirtyProxy = this.onFormDirty.bind(this) as EventListener;
     this.el.addEventListener('form:dirty', this.onFormDirtyProxy);
 
+    this.attachResize();
+
     // Tab and Shift+Tab go round inside the dialog, never into the page
     // behind — while it is the overlay on top: a confirm opened over it
     // holds the keyboard its own way.
@@ -177,6 +209,8 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
   }
 
   protected async deactivateListeners(): Promise<void> {
+    this.detachResize?.();
+    this.detachResize = undefined;
     this.contentEl?.removeEventListener('click', this.onClickContent);
     if (this.onMouseDownOverlayProxy) {
       this.el.removeEventListener('mousedown', this.onMouseDownOverlayProxy);

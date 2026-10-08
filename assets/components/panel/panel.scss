@@ -1,6 +1,7 @@
 @use '../../css/shapes/stack';
 @use '../../css/shapes/page-actions';
 @use '../../css/shapes/page-transition';
+@use '../../css/shapes/overlay-resizer';
 @use '../../css/shapes/action-icon';
 @use '../../css/mixins/animation' as animation;
 @use '../../css/mixins/surface-layer' as surface;
@@ -34,7 +35,8 @@
 .panel--content {
   position: relative;
   z-index: var(--z-raised);
-  width: calc(min(92vw, var(--size-8)) + var(--overlay-depth, 0) * 16px);
+  // Its own width, unless its edge was pulled (`--overlay-width`).
+  width: calc(var(--overlay-width, min(92vw, var(--size-8))) + var(--overlay-depth, 0) * 16px);
   height: 100%;
   overflow: hidden;
   box-shadow: var(--shadow-3);
@@ -42,6 +44,16 @@
   flex-direction: column;
   transition: width 250ms ease;
   @include surface.surface-layer;
+}
+
+// Its edge lies inside it: the box clips what passes its border.
+.panel--content > .overlay-resizer--start {
+  inset-inline-start: 0;
+}
+
+// Pulled by its edge, it follows the pointer rather than catching up with it.
+.panel--content[style*='--overlay-width'] {
+  transition: none;
 }
 
 // On a dark page the shade above barely reads, and the body — the ground of a

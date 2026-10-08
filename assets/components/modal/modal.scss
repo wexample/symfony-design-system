@@ -2,6 +2,7 @@
 @use '../../css/shapes/action-icon';
 @use '../../css/shapes/page-actions';
 @use '../../css/shapes/page-transition';
+@use '../../css/shapes/overlay-resizer';
 @use '../../css/mixins/size' as size;
 @use '../../css/mixins/animation' as animation;
 @use '../../css/mixins/surface-layer' as surface;
@@ -89,46 +90,6 @@
     flex: 1;
     min-height: 0;
   }
-}
-
-// The edges of a box that can be sized: strips lying across its border, drawn
-// nothing — the cursor is what says the edge can be pulled.
-.overlay-resizer {
-  position: absolute;
-  z-index: 1;
-  touch-action: none;
-}
-
-.overlay-resizer--start,
-.overlay-resizer--end {
-  top: var(--space-2);
-  bottom: var(--space-2);
-  width: var(--space-2);
-  cursor: ew-resize;
-}
-
-.overlay-resizer--start {
-  inset-inline-start: calc(var(--space-2) / -2);
-}
-
-.overlay-resizer--end {
-  inset-inline-end: calc(var(--space-2) / -2);
-}
-
-.overlay-resizer--top,
-.overlay-resizer--bottom {
-  left: var(--space-2);
-  right: var(--space-2);
-  height: var(--space-2);
-  cursor: ns-resize;
-}
-
-.overlay-resizer--top {
-  top: calc(var(--space-2) / -2);
-}
-
-.overlay-resizer--bottom {
-  bottom: calc(var(--space-2) / -2);
 }
 
 @include shell.overlay-shell('modal');
