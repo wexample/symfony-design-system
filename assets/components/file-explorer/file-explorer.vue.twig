@@ -11,10 +11,11 @@
 {%- block vue_config -%}
     {{ parent() }}
     {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.explorer.*') }}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.*') }}
 {%- endblock -%}
 
 {%- block vue_body -%}
-    <div class="block block--card file-explorer">
+    <div class="file-explorer" :class="framed ? 'block block--card' : 'file-explorer--flush'">
         <div v-if="title" class="block--title">[[ title ]]</div>
         {#- The way back and forth, where it stands, and how it is shown. -#}
         <div class="toolbar toolbar--shaded toolbar--compact file-explorer--toolbar">
@@ -53,7 +54,7 @@
         {#- The folders and the listing are two regions of one split: the
             folders a column the reader may widen, the listing the rest. -#}
         <div class="zone zone--split file-explorer--body">
-            <div v-if="showTree" class="zone zone--narrow file-explorer--tree">
+            <div v-if="showTree" class="zone zone--narrow file-explorer--tree" :class="{ 'zone--panel': !framed }">
                 {#- What scrolls is inside: the handle stays on the edge of the
                     column however far down the folders go. -#}
                 <div class="file-explorer--tree-scroll">
@@ -70,7 +71,7 @@
                 <zone-resizer></zone-resizer>
             </div>
 
-            <div ref="main" class="zone file-explorer--main" tabindex="0" @keydown="onKeyDown">
+            <div ref="main" class="zone file-explorer--main" :class="{ 'zone--panel': !framed }" tabindex="0" @keydown="onKeyDown">
                 <div v-if="loading && !items.length" class="file-explorer--state">
                     <spinner size="sm" :label="t('loading')"></spinner>
                 </div>
@@ -138,6 +139,12 @@
             </div>
         </div>
 
-        <div class="status-bar file-explorer--status" aria-live="polite">[[ status ]]</div>
+        <div class="status-bar file-explorer--status">
+            <span aria-live="polite">[[ status ]]</span>
+            {#- What the page adds at the foot: a picker's choice. -#}
+            <div v-if="$slots.status" class="status-bar--end">
+                <slot name="status" :selected="selectedItems"></slot>
+            </div>
+        </div>
     </div>
 {%- endblock -%}

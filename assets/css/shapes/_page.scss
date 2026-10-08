@@ -29,6 +29,14 @@
   min-height: 0;
 }
 
+// A page held edge to edge in its zone (`page_zone_flush`) gives up the room
+// around its body, not around its title: what heads it keeps the zone's room,
+// and the body starts under it at the edge.
+.zone--content--flush > .page--head {
+  padding: var(--zone-padding, var(--space-4));
+  padding-block-end: 0;
+}
+
 // A page holding a fill is a page that fills: its layout wrapper trades its
 // minimum for a definite height, so the room is handed down to the fill instead
 // of the wrapper growing with the content. The page declares nothing else.

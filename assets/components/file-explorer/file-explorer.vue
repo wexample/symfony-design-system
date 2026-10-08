@@ -42,6 +42,12 @@ export default {
       type: String,
       default: ''
     },
+    // Drawn as a card of its own — or not, when it is the whole of what holds
+    // it, a page's zone or a modal's body, which is then its frame.
+    framed: {
+      type: Boolean,
+      default: true
+    },
     // Called with the folder opened — an item, or { path, type } when it is
     // reached by its path — or null for the root, and a page number. Answers
     // { items, total }: total is what the folder holds in all, which is how the

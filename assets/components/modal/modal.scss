@@ -37,7 +37,8 @@
 .modal--content {
   position: relative;
   z-index: var(--z-raised);
-  width: min(92vw, var(--size-8));
+  // Its own width, unless its edges were pulled (`--overlay-width`).
+  width: var(--overlay-width, min(92vw, var(--size-8)));
   max-height: 90vh;
   transform: translate(
     calc(var(--overlay-depth, 0) * -12px),
@@ -75,6 +76,57 @@
 // the whole declaration.
 .usage-color-scheme-dark .layout-modal {
   box-shadow: var(--shadow-float), 0 2px 6px var(--color-absolute-dark);
+}
+
+// A box pulled taller than what it holds keeps that height, its body taking
+// what the head and the foot leave.
+.modal--content[style*='--overlay-height'] > .layout-modal {
+  height: min(var(--overlay-height), 90vh);
+
+  > .modal-body {
+    flex: 1;
+    min-height: 0;
+  }
+}
+
+// The edges of a box that can be sized: strips lying across its border, drawn
+// nothing — the cursor is what says the edge can be pulled.
+.overlay-resizer {
+  position: absolute;
+  z-index: 1;
+  touch-action: none;
+}
+
+.overlay-resizer--start,
+.overlay-resizer--end {
+  top: var(--space-2);
+  bottom: var(--space-2);
+  width: var(--space-2);
+  cursor: ew-resize;
+}
+
+.overlay-resizer--start {
+  inset-inline-start: calc(var(--space-2) / -2);
+}
+
+.overlay-resizer--end {
+  inset-inline-end: calc(var(--space-2) / -2);
+}
+
+.overlay-resizer--top,
+.overlay-resizer--bottom {
+  left: var(--space-2);
+  right: var(--space-2);
+  height: var(--space-2);
+  cursor: ns-resize;
+}
+
+.overlay-resizer--top {
+  top: calc(var(--space-2) / -2);
+}
+
+.overlay-resizer--bottom {
+  bottom: calc(var(--space-2) / -2);
 }
 
 @include shell.overlay-shell('modal');

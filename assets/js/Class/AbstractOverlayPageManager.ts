@@ -20,6 +20,10 @@ export interface OverlayRequestOptionsInterface extends RequestOptionsInterface 
   confirmOnCloseTitle?: string;
   confirmOnCloseDirtyMessage?: string;
   confirmOnCloseWhenDirty?: boolean;
+  // Sized by its edges with the pointer — a modal: see OverlayResizeHelper.
+  resizable?: boolean;
+  // Where the size it is left at is remembered, if anywhere.
+  resizeState?: string;
 }
 
 export default abstract class AbstractOverlayPageManager extends PageManagerComponent {

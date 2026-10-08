@@ -25,6 +25,9 @@
 @use '../zone-resizer/zone-resizer';
 
 .file-explorer {
+  // What the listing is drawn on, under its sticky heading: the card's ground,
+  // or the region's when the explorer has no card of its own.
+  --file-explorer-ground: var(--surface-3);
   --file-explorer-tree: var(--size-6);
   --file-explorer-row: 2rem;
   display: flex;
@@ -36,6 +39,34 @@
 
 .file-explorer--toolbar {
   border-bottom: var(--border-separator);
+}
+
+// The whole of what holds it — a page's zone, a modal's or a panel's body —
+// and that is its frame: no card, the bar standing under the header as a
+// second one, the status bar at the foot as the foot of a page's actions.
+.file-explorer--flush {
+  --file-explorer-ground: var(--surface-zone);
+
+  > .file-explorer--toolbar {
+    border-bottom: var(--border-shell);
+  }
+
+  // The folders and the listing as two regions of a page: apart, the page's
+  // ground showing between them, the folders' edge the handle that sizes them.
+  > .file-explorer--body {
+    --zone-gap: var(--space-2);
+    background: var(--surface-page);
+  }
+
+  .file-explorer--tree {
+    border-inline-end: 0;
+  }
+
+  > .file-explorer--status {
+    padding: var(--space-2) var(--space-4);
+    border-top: var(--border-shell);
+    background: var(--surface-3);
+  }
 }
 
 .file-explorer--toolbar > .toolbar--group {
@@ -122,7 +153,7 @@
   border-bottom: var(--border-separator);
   // The head's nuance is an ink, and rows scrolling under an ink show through
   // it: the card's own ground goes underneath, so the band stays opaque.
-  background: linear-gradient(var(--surface-head), var(--surface-head)), var(--surface-3);
+  background: linear-gradient(var(--surface-head), var(--surface-head)), var(--file-explorer-ground);
   color: var(--table-head-color, var(--text-color-head));
   font-weight: var(--font-weight-strong);
 }
