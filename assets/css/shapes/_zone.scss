@@ -87,16 +87,24 @@
 // the window's edge: icons one under the other, on the ground a tab bar has.
 // Given with `zone--narrow`, it is as wide as an icon and never gives way.
 .zone--toolbar {
-  // Its own width, whatever a zone around it was sized or resized to: the
-  // size is a property the zones inside would otherwise inherit.
-  --zone-size: fit-content;
-  --zone-min: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-1);
   padding: var(--space-2) var(--space-1);
   background: var(--surface-shell);
+}
+
+// A zone that takes back the room the row leaves between it and its neighbour,
+// standing against it — a bar of tools along the text it serves: before it
+// (`zone--joined-start`), after it (`zone--joined-end`), or both. The room is
+// the row's gap, so it is taken back by a margin, as the filler does.
+.zone--split > :where(.zone--joined-start) {
+  margin-inline-start: calc(-1 * var(--zone-gap, var(--space-2)));
+}
+
+.zone--split > :where(.zone--joined-end) {
+  margin-inline-end: calc(-1 * var(--zone-gap, var(--space-2)));
 }
 
 @for $i from 1 through 9 {
@@ -137,6 +145,7 @@
 //     (none)              what is left, shared with the other plain zones
 //     zone--narrow        its size (`zone--size-N`), or its content's
 //                         — with `zone--toolbar`, a bar of icons on end
+//     zone--joined-start / -end  against its neighbour, without the gap
 //     zone--measure       the reading measure, giving way below it
 //     zone--fit-content   as wide as what it holds
 //     zone--hug           as wide as what it holds, its text wrapping before
