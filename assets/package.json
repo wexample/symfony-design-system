@@ -5,6 +5,7 @@
     "@emoji-mart/data": "^1.2.1",
     "@wexample/js-api": "*",
     "@wexample/js-api-entity": "*",
+    "@wexample/js-graph-log": "^1.0.5",
     "emoji-mart": "^5.6.0"
   }
 }
