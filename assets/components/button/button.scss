@@ -5,6 +5,7 @@
 @use '../spinner/spinner';
 @use '../../css/shapes/count';
 @use '../../css/shapes/avatar';
+@use '../../css/shapes/form/filter';
 
 .button {
   display: inline-flex;
@@ -306,16 +307,6 @@
 
 .button-menu--filter {
   padding: var(--space-2) var(--space-2) 0;
-}
-
-.button-menu--filter-input {
-  width: 100%;
-  padding: var(--space-1) var(--space-2);
-  border: var(--border-default);
-  border-radius: var(--radius-control);
-  background: var(--surface-page);
-  color: inherit;
-  font: inherit;
 }
 
 .button-menu--filter-empty {

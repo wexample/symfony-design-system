@@ -3,16 +3,18 @@
 // it — a zone, a panel — and each of its parts scrolls on its own.
 //
 // Assembled from the design system's own pieces — a card, a toolbar, a split
-// of zones with a handle, the sorting headings of a table — so a skin dresses
-// it as it dresses them. What is written here is only how they fit together.
+// of zones with a handle, the sorting headings of a table, a filter field, a
+// status bar — so a skin dresses it as it dresses them. What is written here
+// is only how they fit together.
 @use '../../css/shapes/block';
 @use '../../css/shapes/toolbar';
 @use '../../css/shapes/zone';
 @use '../../css/shapes/table-sort';
+@use '../../css/shapes/status-bar';
 @use '../../css/shapes/disk-item';
 @use '../../css/shapes/disk-item-explorer';
 @use '../../css/shapes/empty';
-@use '../../css/shapes/form/base';
+@use '../../css/shapes/form/filter';
 @use '../../css/mixins/text' as text;
 @use '../../css/mixins/field' as field;
 @use '../breadcrumb/breadcrumb';
@@ -25,8 +27,8 @@
 .file-explorer {
   --file-explorer-tree: var(--size-6);
   --file-explorer-row: 2rem;
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   min-height: 24rem;
   min-width: 0;
@@ -61,13 +63,13 @@
 
 .file-explorer--filter {
   width: 12rem;
-  padding-block: var(--space-1);
 }
 
 // The two regions meet on a line rather than across a gap: one object cut in
 // two, not two objects on a desk.
 .file-explorer--body {
   --zone-gap: 0px;
+  flex: 1 1 auto;
   min-height: 0;
 }
 
@@ -118,7 +120,9 @@
   height: var(--file-explorer-row);
   padding: 0 var(--space-3);
   border-bottom: var(--border-separator);
-  background: var(--table-head-bg, var(--surface-head));
+  // The head's nuance is an ink, and rows scrolling under an ink show through
+  // it: the card's own ground goes underneath, so the band stays opaque.
+  background: linear-gradient(var(--surface-head), var(--surface-head)), var(--surface-3);
   color: var(--table-head-color, var(--text-color-head));
   font-weight: var(--font-weight-strong);
 }
@@ -232,12 +236,4 @@ a.file-explorer--row > * {
   display: flex;
   justify-content: center;
   padding: var(--space-2);
-}
-
-.file-explorer--status {
-  padding: var(--space-1) var(--space-3);
-  border-top: var(--border-separator);
-  color: var(--text-color-muted);
-  font-size: var(--font-size-1);
-  font-variant-numeric: tabular-nums;
 }

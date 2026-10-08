@@ -34,6 +34,11 @@ export default {
 
   props: {
     ...translated.props,
+    // A title bar above the toolbar, the card's own: what the explorer shows.
+    title: {
+      type: String,
+      default: ''
+    },
     // Called with the folder opened — an item, or { path, type } when it is
     // reached by its path — or null for the root, and a page number. Answers
     // { items, total }: total is what the folder holds in all, which is how the

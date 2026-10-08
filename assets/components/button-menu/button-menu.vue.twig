@@ -54,16 +54,19 @@
                 :hidden="!isOpen"
         >
             <div v-if="filterable" class="button-menu--filter">
-                <input
-                        ref="filter"
-                        v-model="filterQuery"
-                        class="button-menu--filter-input"
-                        type="search"
-                        autocomplete="off"
-                        :placeholder="trans('@vue::menu.filter')"
-                        :aria-label="trans('@vue::menu.filter')"
-                        @keydown.enter.prevent="followFirstVisible"
-                >
+                <div class="form--input-group form--filter form--filter--compact">
+                    <span class="form--input-addon" aria-hidden="true" v-html="renderIcon('ph:bold/magnifying-glass')"></span>
+                    <input
+                            ref="filter"
+                            v-model="filterQuery"
+                            class="form--input button-menu--filter-input"
+                            type="search"
+                            autocomplete="off"
+                            :placeholder="trans('@vue::menu.filter')"
+                            :aria-label="trans('@vue::menu.filter')"
+                            @keydown.enter.prevent="followFirstVisible"
+                    >
+                </div>
             </div>
             <ul :class="listClasses">
                 <template v-for="(item, index) in items" :key="index">

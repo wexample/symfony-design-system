@@ -23,7 +23,9 @@
     background: transparent;
   }
 
+  // The ring is the group's, drawn round the word and the value together.
   > .form--input:focus {
+    outline: none;
     box-shadow: none;
   }
 

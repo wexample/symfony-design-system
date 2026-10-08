@@ -12,7 +12,10 @@
     </button>
     <div class="select--dropdown" hidden>
         <div class="select--search-wrap">
-            <input class="select--search-input" type="search" autocomplete="off" placeholder="{{ '@component::search_placeholder' | trans }}">
+            <div class="form--input-group form--filter form--filter--compact">
+                <span class="form--input-addon" aria-hidden="true">{{ icon('ph:bold/magnifying-glass') }}</span>
+                <input class="form--input select--search-input" type="search" autocomplete="off" placeholder="{{ '@component::search_placeholder' | trans }}">
+            </div>
         </div>
         <ul class="select--list" role="listbox">
             {% for option in options | default([]) %}

@@ -1,5 +1,6 @@
 @use '../../css/mixins/field' as field;
 @use '../../css/mixins/assisted' as assisted;
+@use '../../css/shapes/form/filter';
 
 .select,
 .select--search {
@@ -37,6 +38,12 @@
   z-index: var(--z-dropdown);
 }
 
+// A dropdown with its own search field is never narrower than what that field
+// needs to be read, however short the value that opens it.
+.select--search .select--dropdown {
+  min-width: max(100%, 12rem);
+}
+
 .select--dropdown[popover] {
   position: fixed;
   inset: auto;
@@ -51,11 +58,6 @@
   border-bottom: var(--border-separator);
 }
 
-.select--search-input {
-  @include field.field-base;
-  width: 100%;
-  padding: var(--space-1) var(--space-2);
-}
 
 .select--list {
   list-style: none;

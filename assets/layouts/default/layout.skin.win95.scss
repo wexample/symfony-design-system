@@ -51,7 +51,8 @@
 }
 
 // Sunk: what is written in or read through — fields, a table's frame, a code.
-.usage-skin-win95 :is(.form--input, .form--textarea, .otp-input--cell, .table--frame) {
+// A field with a word beside it is sunk as a whole: the group is its frame.
+.usage-skin-win95 :is(.form--input:not(.form--input-group > *), .form--input-group, .form--textarea, .otp-input--cell, .table--frame) {
   border: 2px solid;
   border-color: var(--win95-sunk-border);
   box-shadow: var(--win95-sunk-inner);

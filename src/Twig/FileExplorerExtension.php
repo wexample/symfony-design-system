@@ -27,6 +27,7 @@ class FileExplorerExtension extends AbstractTemplateExtension
                             'path' => $path,
                             'view' => $options['view'] ?? 'list',
                             'class' => $options['class'] ?? null,
+                            'title' => $options['title'] ?? null,
                         ]
                     );
                 },

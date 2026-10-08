@@ -5,12 +5,16 @@
 
     `items`: [{ name, type: directory | file, size, modifiedAt, href }], in the
     order they are to be shown. `path`: [{ label, href }], the folders leading
-    to the one shown, the root first. `view`: list (default) or grid. -#}
+    to the one shown, the root first. `view`: list (default) or grid.
+    `title`: a title bar above the toolbar, the card's own. -#}
 {%- set items = items|default([]) -%}
 {%- set path = path|default([]) -%}
 {%- set view = view|default('list') -%}
 {%- set domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.explorer.' -%}
 <div class="block block--card file-explorer{{ class is defined and class ? ' ' ~ class }}">
+    {%- if title is defined and title -%}
+        <div class="block--title">{{ title }}</div>
+    {%- endif -%}
     <div class="toolbar toolbar--shaded toolbar--compact file-explorer--toolbar">
         <nav class="breadcrumb file-explorer--path" aria-label="{{ (domain ~ 'path')|trans }}">
             {%- for segment in path -%}
@@ -65,5 +69,5 @@
         </div>
     </div>
 
-    <div class="file-explorer--status">{{ (domain ~ 'count')|trans({ '%count%': items|length }) }}</div>
+    <div class="status-bar file-explorer--status">{{ (domain ~ 'count')|trans({ '%count%': items|length }) }}</div>
 </div>

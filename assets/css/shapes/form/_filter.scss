@@ -1,0 +1,27 @@
+// A field narrowing what is shown beside it — a table's rows, a menu's items,
+// a folder's files: a magnifier and what is typed, in one frame. Written on a
+// field with a word beside it (`form--input-group`), the magnifier being that
+// word:
+//
+//   <div class="form--input-group form--filter">
+//     <span class="form--input-addon" aria-hidden="true">{{ icon('ph:bold/magnifying-glass') }}</span>
+//     <input class="form--input" type="search">
+//   </div>
+@use './base';
+@use './addon';
+
+.form--filter > .form--input-addon {
+  display: inline-flex;
+}
+
+// Inside a bar or a dropdown, among controls smaller than a form's: the same
+// field, with the height of what stands around it.
+.form--filter--compact {
+  > .form--input {
+    padding: var(--space-1) var(--space-2);
+  }
+
+  > .form--input-addon:first-child {
+    padding-inline-start: var(--space-2);
+  }
+}

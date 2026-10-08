@@ -15,6 +15,7 @@
 
 {%- block vue_body -%}
     <div class="block block--card file-explorer">
+        <div v-if="title" class="block--title">[[ title ]]</div>
         {#- The way back and forth, where it stands, and how it is shown. -#}
         <div class="toolbar toolbar--shaded toolbar--compact file-explorer--toolbar">
             <div class="toolbar--group">
@@ -34,7 +35,10 @@
                 </template>
             </nav>
             <div class="toolbar--group">
-                <input v-model="filter" type="search" class="form--input file-explorer--filter" :placeholder="t('filter')" :aria-label="t('filter')">
+                <div class="form--input-group form--filter form--filter--compact file-explorer--filter">
+                    <span class="form--input-addon" aria-hidden="true" v-html="renderIcon('ph:bold/magnifying-glass')"></span>
+                    <input v-model="filter" type="search" class="form--input" :placeholder="t('filter')" :aria-label="t('filter')">
+                </div>
                 <button type="button" class="toolbar--action" :aria-label="t('view_list')" :data-tooltip="t('view_list')" :aria-pressed="view === 'list' ? 'true' : 'false'" @click="setView('list')" v-html="renderIcon('ph:bold/list')"></button>
                 <button type="button" class="toolbar--action" :aria-label="t('view_grid')" :data-tooltip="t('view_grid')" :aria-pressed="view === 'grid' ? 'true' : 'false'" @click="setView('grid')" v-html="renderIcon('ph:bold/squares-four')"></button>
                 <button type="button" class="toolbar--action" :aria-label="t('refresh')" :data-tooltip="t('refresh')" @click="refresh" v-html="renderIcon('ph:bold/arrows-clockwise')"></button>
@@ -128,6 +132,6 @@
             </div>
         </div>
 
-        <div class="file-explorer--status" aria-live="polite">[[ status ]]</div>
+        <div class="status-bar file-explorer--status" aria-live="polite">[[ status ]]</div>
     </div>
 {%- endblock -%}

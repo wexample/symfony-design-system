@@ -163,12 +163,13 @@
   backdrop-filter: blur(12px);
 }
 
-// Fields: sunk a little, and ringed with a blue glow when written in.
-.usage-skin-aqua :is(.form--input, .form--textarea, .otp-input--cell) {
+// Fields: sunk a little, and ringed with a blue glow when written in. A field
+// with a word beside it is sunk as a whole: the group is its frame.
+.usage-skin-aqua :is(.form--input:not(.form--input-group > *), .form--input-group, .form--textarea, .otp-input--cell) {
   border-radius: var(--radius-1);
   box-shadow: var(--aqua-sunk);
 
-  &:focus {
+  &:is(:focus, :focus-within) {
     box-shadow: var(--aqua-sunk), 0 0 0 3px color-mix(in srgb, var(--surface-invert) 55%, transparent);
   }
 }

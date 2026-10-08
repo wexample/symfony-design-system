@@ -22,7 +22,7 @@
     {# What can be done to the ticked rows, above them — same bar as the server
        table, and the same post when an action has an address. #}
     <div v-if="hasBar || hasBarEnd()" class="table--bar">
-        <div v-if="searchable" class="form--input-group table--search">
+        <div v-if="searchable" class="form--input-group form--filter table--search">
             <span class="form--input-addon" aria-hidden="true" v-html="searchIconHtml"></span>
             <input
                     class="form--input"
