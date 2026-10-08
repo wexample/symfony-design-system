@@ -1,0 +1,86 @@
+// What part of an image to keep: the image, and over it the area kept, the
+// rest dimmed round it. A corner sizes the area, the area itself moves.
+//
+// physical-file: an image has a left and a right whatever the language of the
+// page, and the area is placed in its pixels by the script — mirrored, it would
+// show one part of the image and cut another.
+@use '../../css/mixins/field' as field;
+
+.image-crop {
+  // How tall the image may be shown: a tall portrait stays on the screen.
+  --image-crop-max-height: 24rem;
+  display: inline-block;
+  max-width: 100%;
+  user-select: none;
+}
+
+.image-crop--stage {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-media, var(--radius-box));
+  // The ground a transparent image — a signature — is read against.
+  background: repeating-conic-gradient(var(--surface-2) 0 25%, var(--surface-1) 0 50%) 0 0 / 16px 16px;
+  line-height: 0;
+}
+
+.image-crop--image {
+  display: block;
+  max-width: 100%;
+  max-height: var(--image-crop-max-height);
+  pointer-events: none;
+}
+
+// The dimming is the area's own shadow, spread over the whole image: one
+// element, which nothing outside it can get out of step with.
+.image-crop--area {
+  position: absolute;
+  box-sizing: border-box;
+  border: 1px solid rgb(255 255 255 / 0.9);
+  box-shadow: 0 0 0 100vmax rgb(0 0 0 / 0.5);
+  cursor: move;
+  touch-action: none;
+
+  &:focus-visible {
+    @include field.field-focus;
+    outline: 2px solid var(--accent-9);
+  }
+}
+
+// A portrait cut square and shown round.
+.image-crop--round .image-crop--area {
+  border-radius: 50%;
+}
+
+.image-crop--handle {
+  position: absolute;
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 1px solid rgb(0 0 0 / 0.4);
+  border-radius: 2px;
+  background: #fff;
+  touch-action: none;
+}
+
+.image-crop--handle--nw {
+  top: -0.375rem;
+  left: -0.375rem;
+  cursor: nwse-resize;
+}
+
+.image-crop--handle--ne {
+  top: -0.375rem;
+  right: -0.375rem;
+  cursor: nesw-resize;
+}
+
+.image-crop--handle--sw {
+  bottom: -0.375rem;
+  left: -0.375rem;
+  cursor: nesw-resize;
+}
+
+.image-crop--handle--se {
+  bottom: -0.375rem;
+  right: -0.375rem;
+  cursor: nwse-resize;
+}

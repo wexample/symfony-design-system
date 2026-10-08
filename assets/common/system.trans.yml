@@ -107,6 +107,9 @@ en:
       collapse: Collapse
       expand: Expand
       resize: Resize
+    crop:
+      area: Crop area
+      handle: Resize the crop area
     copy:
       copy: Copy
       copied: Copied
@@ -588,6 +591,9 @@ fr:
       collapse: Réduire
       expand: Agrandir
       resize: Redimensionner
+    crop:
+      area: Zone de recadrage
+      handle: Redimensionner la zone de recadrage
     copy:
       copy: Copier
       copied: Copié

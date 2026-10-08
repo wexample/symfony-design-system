@@ -1,0 +1,33 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ parent() }}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.crop.*') }}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <div class="image-crop" :class="{ 'image-crop--round': round }">
+        <div ref="stage" class="image-crop--stage">
+            <img ref="image" class="image-crop--image" :src="src" alt="" draggable="false" crossorigin="anonymous" @load="onLoad">
+            {#- What is kept: the rest of the image dimmed round it. Dragged to
+                move it, by a corner to size it; the arrows move it too, and
+                with Shift they size it. -#}
+            <div v-if="ready"
+                 class="image-crop--area"
+                 :style="areaStyle"
+                 role="slider"
+                 tabindex="0"
+                 :aria-label="trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.crop.area')"
+                 :aria-valuetext="valueText"
+                 @pointerdown="startDrag($event, 'move')"
+                 @keydown="onKey">
+                <span v-for="corner in corners"
+                      :key="corner"
+                      class="image-crop--handle"
+                      :class="'image-crop--handle--' + corner"
+                      :title="trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.crop.handle')"
+                      @pointerdown.stop="startDrag($event, corner)"></span>
+            </div>
+        </div>
+    </div>
+{%- endblock -%}
