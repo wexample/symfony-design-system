@@ -83,6 +83,18 @@
   max-width: 100%;
 }
 
+// A zone that is a bar of tools standing on its end, as an IDE has one along
+// the window's edge: icons one under the other, on the ground a tab bar has.
+// Given with `zone--narrow`, it is as wide as an icon and never gives way.
+.zone--toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-1);
+  background: var(--surface-shell);
+}
+
 @for $i from 1 through 9 {
   .zone--size-#{$i} {
     --zone-size: var(--size-#{$i});
@@ -120,6 +132,7 @@
 //   what a zone asks — its own class:
 //     (none)              what is left, shared with the other plain zones
 //     zone--narrow        its size (`zone--size-N`), or its content's
+//                         — with `zone--toolbar`, a bar of icons on end
 //     zone--measure       the reading measure, giving way below it
 //     zone--fit-content   as wide as what it holds
 //     zone--hug           as wide as what it holds, its text wrapping before
