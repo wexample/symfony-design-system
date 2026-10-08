@@ -438,3 +438,10 @@
 .zone--split > .zone--closed {
   display: none;
 }
+
+// A split laid in a split — a side column of zones one over the other — whose
+// zones are all closed steps out the same way: nothing left to show, no room
+// kept for it.
+.zone--split > .zone--split:has(> .zone):not(:has(> .zone:not(.zone--closed))) {
+  display: none;
+}
