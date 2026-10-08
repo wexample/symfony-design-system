@@ -24,8 +24,7 @@
 
 .overlay-resizer--top,
 .overlay-resizer--bottom {
-  left: var(--space-2);
-  right: var(--space-2);
+  inset-inline: var(--space-2);
   height: var(--space-2);
   cursor: ns-resize;
 }
@@ -36,4 +35,55 @@
 
 .overlay-resizer--bottom {
   bottom: calc(var(--space-2) / -2);
+}
+
+// Where two edges meet, the corner pulls both: a square across the corner,
+// over the ends of the two strips.
+.overlay-resizer--top-start,
+.overlay-resizer--top-end,
+.overlay-resizer--bottom-start,
+.overlay-resizer--bottom-end {
+  z-index: 2;
+  width: var(--space-3);
+  height: var(--space-3);
+}
+
+.overlay-resizer--top-start,
+.overlay-resizer--top-end {
+  top: calc(var(--space-3) / -2);
+}
+
+.overlay-resizer--bottom-start,
+.overlay-resizer--bottom-end {
+  bottom: calc(var(--space-3) / -2);
+}
+
+.overlay-resizer--top-start,
+.overlay-resizer--bottom-start {
+  inset-inline-start: calc(var(--space-3) / -2);
+}
+
+.overlay-resizer--top-end,
+.overlay-resizer--bottom-end {
+  inset-inline-end: calc(var(--space-3) / -2);
+}
+
+// The cursor slants the way the corner pulls: from the top left to the bottom
+// right, or across the other way — mirrored with the page.
+.overlay-resizer--top-start,
+.overlay-resizer--bottom-end {
+  cursor: nwse-resize;
+}
+
+.overlay-resizer--top-end,
+.overlay-resizer--bottom-start {
+  cursor: nesw-resize;
+}
+
+:dir(rtl) > :is(.overlay-resizer--top-start, .overlay-resizer--bottom-end) {
+  cursor: nesw-resize;
+}
+
+:dir(rtl) > :is(.overlay-resizer--top-end, .overlay-resizer--bottom-start) {
+  cursor: nwse-resize;
 }

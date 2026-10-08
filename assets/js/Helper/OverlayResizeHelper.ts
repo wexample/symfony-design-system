@@ -69,43 +69,133 @@ export function attachOverlayResize(box: HTMLElement, app: App, options: Overlay
     }
   });
 
-  const detachers = options.edges.map((edge) => {
+  const rtl = (): boolean => getComputedStyle(box).direction === 'rtl';
+  // Which way the pointer goes for the box to grow, along the edge's axis. A
+  // page read from the right puts its start on the right: the edge named
+  // `start` is then pulled the other way.
+  const sign = (edge: OverlayResizeEdge): 1 | -1 => {
     const [axis, direction] = EDGES[edge];
+
+    return axis === 'x' && rtl() ? (direction === 1 ? -1 : 1) : direction;
+  };
+  const current = (axis: DragAxis): number => (axis === 'x' ? box.offsetWidth : box.offsetHeight);
+  const clamp = (axis: DragAxis, size: number): number => Math.min(
+    Math.max(size, axis === 'x' ? WIDTH_MIN : HEIGHT_MIN),
+    (axis === 'x' ? window.innerWidth : window.innerHeight) * WINDOW_SHARE
+  );
+
+  const addHandle = (name: string): HTMLElement => {
     const handle = document.createElement('div');
-    handle.className = `overlay-resizer overlay-resizer--${edge}`;
+    handle.className = `overlay-resizer overlay-resizer--${name}`;
     handle.setAttribute('aria-hidden', 'true');
     box.appendChild(handle);
 
-    const current = (): number => (axis === 'x' ? box.offsetWidth : box.offsetHeight);
-    const windowSize = (): number => (axis === 'x' ? window.innerWidth : window.innerHeight);
+    return handle;
+  };
 
-    const detachDrag = dragAxis({
-      handle,
-      axis,
-      // A page read from the right puts its start on the right: the edge
-      // named `start` is then pulled the other way.
-      direction: axis === 'x' && getComputedStyle(box).direction === 'rtl' ? (direction === 1 ? -1 : 1) : direction,
-      start: () => current() / factor,
-      min: () => (axis === 'x' ? WIDTH_MIN : HEIGHT_MIN) / factor,
-      max: () => (windowSize() * WINDOW_SHARE) / factor,
-      onMove: (share) => apply(axis, share * factor),
-      onEnd: (share) => persist(axis, share * factor),
-    });
-
+  // Back to the size the page gave it, on the axes the handle pulls.
+  const resetOnDoubleClick = (handle: HTMLElement, axes: DragAxis[]): () => void => {
     const onDoubleClick = (event: Event): void => {
       event.preventDefault();
-      apply(axis, null);
-      persist(axis, null);
+      axes.forEach((axis) => {
+        apply(axis, null);
+        persist(axis, null);
+      });
     };
 
     handle.addEventListener('dblclick', onDoubleClick);
 
+    return (): void => handle.removeEventListener('dblclick', onDoubleClick);
+  };
+
+  const edgeDetachers = options.edges.map((edge) => {
+    const [axis] = EDGES[edge];
+    const handle = addHandle(edge);
+
+    const detachDrag = dragAxis({
+      handle,
+      axis,
+      direction: sign(edge),
+      start: () => current(axis) / factor,
+      min: () => (axis === 'x' ? WIDTH_MIN : HEIGHT_MIN) / factor,
+      max: () => ((axis === 'x' ? window.innerWidth : window.innerHeight) * WINDOW_SHARE) / factor,
+      onMove: (share) => apply(axis, share * factor),
+      onEnd: (share) => persist(axis, share * factor),
+    });
+    const detachReset = resetOnDoubleClick(handle, [axis]);
+
     return (): void => {
       detachDrag();
-      handle.removeEventListener('dblclick', onDoubleClick);
+      detachReset();
       handle.remove();
     };
   });
 
-  return (): void => detachers.forEach((detach) => detach());
+  // Where an edge across meets an edge down, a corner pulls both at once.
+  const xEdges = options.edges.filter((edge) => EDGES[edge][0] === 'x');
+  const yEdges = options.edges.filter((edge) => EDGES[edge][0] === 'y');
+  const cornerDetachers = yEdges.flatMap((yEdge) => xEdges.map((xEdge) => {
+    const handle = addHandle(`${yEdge}-${xEdge}`);
+    let gesture: { id: number; x: number; y: number; width: number; height: number; userSelect: string } | null = null;
+    let width = 0;
+    let height = 0;
+
+    const onPointerMove = (event: PointerEvent): void => {
+      if (gesture?.id !== event.pointerId) {
+        return;
+      }
+
+      width = clamp('x', gesture.width + (event.clientX - gesture.x) * sign(xEdge) * factor);
+      height = clamp('y', gesture.height + (event.clientY - gesture.y) * sign(yEdge) * factor);
+      apply('x', width);
+      apply('y', height);
+    };
+
+    const onPointerUp = (event: PointerEvent): void => {
+      if (gesture?.id !== event.pointerId) {
+        return;
+      }
+
+      handle.releasePointerCapture(event.pointerId);
+      document.body.style.userSelect = gesture.userSelect;
+      gesture = null;
+      handle.removeEventListener('pointermove', onPointerMove);
+      handle.removeEventListener('pointerup', onPointerUp);
+      handle.removeEventListener('pointercancel', onPointerUp);
+      persist('x', width);
+      persist('y', height);
+    };
+
+    // The pointer is captured on the corner, so the gesture survives leaving
+    // it, as an edge's does.
+    const onPointerDown = (event: PointerEvent): void => {
+      if (gesture || event.button !== 0) {
+        return;
+      }
+
+      event.preventDefault();
+      width = current('x');
+      height = current('y');
+      gesture = { id: event.pointerId, x: event.clientX, y: event.clientY, width, height, userSelect: document.body.style.userSelect };
+      document.body.style.userSelect = 'none';
+      handle.setPointerCapture(event.pointerId);
+      handle.addEventListener('pointermove', onPointerMove);
+      handle.addEventListener('pointerup', onPointerUp);
+      handle.addEventListener('pointercancel', onPointerUp);
+    };
+
+    handle.addEventListener('pointerdown', onPointerDown);
+    const detachReset = resetOnDoubleClick(handle, ['x', 'y']);
+
+    return (): void => {
+      handle.removeEventListener('pointerdown', onPointerDown);
+      handle.removeEventListener('pointermove', onPointerMove);
+      handle.removeEventListener('pointerup', onPointerUp);
+      handle.removeEventListener('pointercancel', onPointerUp);
+      detachReset();
+      handle.remove();
+    };
+  }));
+
+  return (): void => [...edgeDetachers, ...cornerDetachers].forEach((detach) => detach());
 }
