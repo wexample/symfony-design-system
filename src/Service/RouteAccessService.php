@@ -20,7 +20,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  * `access_control` (`security.access_map`, decided as the access listener
  * decides), then the `#[IsGranted]` of the controller — those naming no
  * subject, the only ones a link can be judged by before the page loads its
- * record. Without the security bundle, every route is open.
+ * record.
  */
 final class RouteAccessService
 {
@@ -30,19 +30,14 @@ final class RouteAccessService
     public function __construct(
         private readonly RouterInterface $router,
         private readonly RequestStack $requestStack,
-        // Set by RouteAccessPass when the security bundle is there.
-        private readonly ?AccessMapInterface $accessMap = null,
-        private readonly ?AccessDecisionManagerInterface $accessDecisionManager = null,
-        private readonly ?TokenStorageInterface $tokenStorage = null,
+        private readonly AccessMapInterface $accessMap,
+        private readonly AccessDecisionManagerInterface $accessDecisionManager,
+        private readonly TokenStorageInterface $tokenStorage,
     ) {
     }
 
     public function canOpen(string $route, array $parameters = []): bool
     {
-        if (null === $this->accessDecisionManager) {
-            return true;
-        }
-
         $key = $route.'?'.http_build_query($parameters);
 
         return $this->decided[$key] ??= $this->decide($route, $parameters);
@@ -50,7 +45,7 @@ final class RouteAccessService
 
     private function decide(string $route, array $parameters): bool
     {
-        $token = $this->tokenStorage?->getToken() ?? new NullToken();
+        $token = $this->tokenStorage->getToken() ?? new NullToken();
 
         try {
             $path = $this->router->generate($route, $parameters);
@@ -62,12 +57,10 @@ final class RouteAccessService
         $current = $this->requestStack->getCurrentRequest();
         $target = Request::create($path, server: $current?->server->all() ?? []);
 
-        if ($this->accessMap) {
-            [$attributes] = $this->accessMap->getPatterns($target);
+        [$attributes] = $this->accessMap->getPatterns($target);
 
-            if ($attributes && ! $this->accessDecisionManager->decide($token, $attributes, $target, null, true)) {
-                return false;
-            }
+        if ($attributes && ! $this->accessDecisionManager->decide($token, $attributes, $target, null, true)) {
+            return false;
         }
 
         foreach ($this->isGrantedAttributes($route) as $attribute) {

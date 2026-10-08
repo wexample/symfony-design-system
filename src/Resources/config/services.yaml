@@ -29,6 +29,11 @@ services:
     Wexample\SymfonyDesignSystem\Service\:
         resource: '../../Service/'
 
+    Wexample\SymfonyDesignSystem\Service\RouteAccessService:
+        arguments:
+            # SecurityBundle aliases the two others by interface, not this one.
+            $accessMap: '@security.access_map'
+
     Wexample\SymfonyDesignSystem\Service\RouteGroupRegistry:
         arguments:
             $voters: !tagged_iterator wexample.symfony_design_system.route_group_voter

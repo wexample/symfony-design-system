@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Http\AccessMapInterface;
@@ -20,13 +21,6 @@ use Wexample\SymfonyDesignSystem\Service\RouteAccessService;
  */
 class RouteAccessServiceTest extends TestCase
 {
-    public function testWithoutSecurityEveryRouteIsOpen(): void
-    {
-        $service = new RouteAccessService($this->router(), new RequestStack());
-
-        $this->assertTrue($service->canOpen('admin'));
-    }
-
     public function testAccessControlDecidesFirst(): void
     {
         $service = $this->service(granted: ['ROLE_USER'], accessControl: ['/admin' => ['ROLE_ADMIN']]);
@@ -58,7 +52,16 @@ class RouteAccessServiceTest extends TestCase
             fn (TokenInterface $token, array $attributes) => [] !== array_intersect($attributes, $granted)
         );
 
-        return new RouteAccessService($this->router(), new RequestStack(), $accessMap, $decision);
+        // No token: the firewall reads an anonymous visitor, as on a first visit.
+        $tokens = $this->createStub(TokenStorageInterface::class);
+
+        return new RouteAccessService(
+            $this->router(),
+            new RequestStack(),
+            $accessMap,
+            $decision,
+            $tokens,
+        );
     }
 
     private function router(): RouterInterface
