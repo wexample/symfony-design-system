@@ -52,9 +52,9 @@
   box-shadow: 0 4px 14px rgb(0 0 0 / 0.18);
 }
 
-// Chrome: the header, the bars under it, the footer, a card's title bar —
-// brushed from light at the top to grey at the bottom.
-.usage-skin-aqua :is(.header, .tabs, .toolbar--top, .footer, .block > .block--title) {
+// Chrome: the header, the bars under it, a panel's bar, the footer, a card's
+// title bar — brushed from light at the top to grey at the bottom.
+.usage-skin-aqua :is(.header, .tabs, .toolbar--top, .toolbar--shaded, .footer, .block > .block--title) {
   background-image: var(--aqua-chrome);
   box-shadow: var(--aqua-emboss);
 }

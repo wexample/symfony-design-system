@@ -119,6 +119,20 @@
     background: var(--state-hover);
     color: var(--text-color-default);
   }
+
+  // A toggle of the bar — a view, a mode — while it is on.
+  &:is(.is-active, [aria-pressed='true']) {
+    background: var(--state-hover);
+    color: var(--text-color-default);
+  }
+
+  // Nowhere to go from here: back at the first step, up at the root.
+  &:disabled {
+    background: none;
+    color: var(--text-color-muted);
+    opacity: 0.4;
+    cursor: default;
+  }
 }
 
 // Between two runs of actions that have nothing to do with each other. It takes

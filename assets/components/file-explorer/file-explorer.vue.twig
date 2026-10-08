@@ -5,6 +5,7 @@
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/tree-row-directory') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/date-display') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/spinner') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer') -}}
 {%- endblock -%}
 
 {%- block vue_config -%}
@@ -13,13 +14,13 @@
 {%- endblock -%}
 
 {%- block vue_body -%}
-    <div class="file-explorer" :class="{ 'file-explorer--no-tree': !showTree }">
+    <div class="block block--card file-explorer">
         {#- The way back and forth, where it stands, and how it is shown. -#}
-        <div class="file-explorer--toolbar">
-            <div class="file-explorer--navigation">
-                <button type="button" class="action-icon" :disabled="!backStack.length" :aria-label="t('back')" :data-tooltip="t('back')" @click="goBack" v-html="renderIcon('ph:bold/caret-left')"></button>
-                <button type="button" class="action-icon" :disabled="!forwardStack.length" :aria-label="t('forward')" :data-tooltip="t('forward')" @click="goForward" v-html="renderIcon('ph:bold/caret-right')"></button>
-                <button type="button" class="action-icon" :disabled="!path" :aria-label="t('up')" :data-tooltip="t('up')" @click="goUp" v-html="renderIcon('ph:bold/arrow-up')"></button>
+        <div class="toolbar toolbar--shaded toolbar--compact file-explorer--toolbar">
+            <div class="toolbar--group">
+                <button type="button" class="toolbar--action" :disabled="!backStack.length" :aria-label="t('back')" :data-tooltip="t('back')" @click="goBack" v-html="renderIcon('ph:bold/caret-left')"></button>
+                <button type="button" class="toolbar--action" :disabled="!forwardStack.length" :aria-label="t('forward')" :data-tooltip="t('forward')" @click="goForward" v-html="renderIcon('ph:bold/caret-right')"></button>
+                <button type="button" class="toolbar--action" :disabled="!path" :aria-label="t('up')" :data-tooltip="t('up')" @click="goUp" v-html="renderIcon('ph:bold/arrow-up')"></button>
             </div>
             <nav class="breadcrumb file-explorer--path" :aria-label="t('path')">
                 <template v-for="(segment, index) in segments" :key="index">
@@ -32,16 +33,21 @@
                     <span v-if="index < segments.length - 1" class="breadcrumb--separator" v-html="renderIcon('ph:bold/caret-right')"></span>
                 </template>
             </nav>
-            <div class="file-explorer--actions">
+            <div class="toolbar--group">
                 <input v-model="filter" type="search" class="form--input file-explorer--filter" :placeholder="t('filter')" :aria-label="t('filter')">
-                <button type="button" class="action-icon" :class="{ 'is-active': view === 'list' }" :aria-label="t('view_list')" :data-tooltip="t('view_list')" :aria-pressed="view === 'list' ? 'true' : 'false'" @click="setView('list')" v-html="renderIcon('ph:bold/list')"></button>
-                <button type="button" class="action-icon" :class="{ 'is-active': view === 'grid' }" :aria-label="t('view_grid')" :data-tooltip="t('view_grid')" :aria-pressed="view === 'grid' ? 'true' : 'false'" @click="setView('grid')" v-html="renderIcon('ph:bold/squares-four')"></button>
-                <button type="button" class="action-icon" :aria-label="t('refresh')" :data-tooltip="t('refresh')" @click="refresh" v-html="renderIcon('ph:bold/arrows-clockwise')"></button>
+                <button type="button" class="toolbar--action" :aria-label="t('view_list')" :data-tooltip="t('view_list')" :aria-pressed="view === 'list' ? 'true' : 'false'" @click="setView('list')" v-html="renderIcon('ph:bold/list')"></button>
+                <button type="button" class="toolbar--action" :aria-label="t('view_grid')" :data-tooltip="t('view_grid')" :aria-pressed="view === 'grid' ? 'true' : 'false'" @click="setView('grid')" v-html="renderIcon('ph:bold/squares-four')"></button>
+                <button type="button" class="toolbar--action" :aria-label="t('refresh')" :data-tooltip="t('refresh')" @click="refresh" v-html="renderIcon('ph:bold/arrows-clockwise')"></button>
             </div>
         </div>
 
-        <div class="file-explorer--body">
-            <div v-if="showTree" class="file-explorer--tree">
+        {#- The folders and the listing are two regions of one split: the
+            folders a column the reader may widen, the listing the rest. -#}
+        <div class="zone zone--split file-explorer--body">
+            <div v-if="showTree" class="zone zone--narrow file-explorer--tree">
+                {#- What scrolls is inside: the handle stays on the edge of the
+                    column however far down the folders go. -#}
+                <div class="file-explorer--tree-scroll">
                 <tree
                         :key="treeGeneration"
                         :items="rootDirectories"
@@ -51,9 +57,11 @@
                         :item-key="(item) => item.path"
                         @select="onTreeSelect"
                 ></tree>
+                </div>
+                <zone-resizer></zone-resizer>
             </div>
 
-            <div ref="main" class="file-explorer--main" tabindex="0" @keydown="onKeyDown">
+            <div ref="main" class="zone file-explorer--main" tabindex="0" @keydown="onKeyDown">
                 <div v-if="loading && !items.length" class="file-explorer--state">
                     <spinner size="sm" :label="t('loading')"></spinner>
                 </div>
@@ -64,17 +72,17 @@
                     each column sorted by its heading. -#}
                 <div v-else-if="view === 'list'" class="file-explorer--list" role="grid" :aria-busy="loading ? 'true' : null">
                     <div class="file-explorer--head" role="row">
-                        <button v-for="column in ['name', 'kind', 'size', 'modifiedAt']"
-                                :key="column"
-                                type="button"
-                                role="columnheader"
-                                class="file-explorer--heading"
-                                :class="'file-explorer--heading--' + column"
-                                :aria-sort="sort.key === column ? (sort.direction > 0 ? 'ascending' : 'descending') : null"
-                                @click="sortBy(column)">
-                            <span>[[ t('column.' + column) ]]</span>
-                            <span v-if="sortMark(column)" class="file-explorer--sort" v-html="renderIcon(sortMark(column))"></span>
-                        </button>
+                        <span v-for="column in ['name', 'kind', 'size', 'modifiedAt']"
+                              :key="column"
+                              role="columnheader"
+                              class="file-explorer--heading"
+                              :class="'file-explorer--heading--' + column"
+                              :aria-sort="sort.key === column ? (sort.direction > 0 ? 'ascending' : 'descending') : null">
+                            <button type="button" class="table--sort" :class="{ 'is-active': sort.key === column }" @click="sortBy(column)">
+                                <span>[[ t('column.' + column) ]]</span>
+                                <span class="table--sort-icon" aria-hidden="true" v-html="renderIcon(sortIcon(column))"></span>
+                            </button>
+                        </span>
                     </div>
                     <div v-for="(item, index) in shownItems"
                          :key="itemKey(item)"

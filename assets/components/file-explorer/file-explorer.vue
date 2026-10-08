@@ -3,6 +3,7 @@ import Tree from '../tree/tree.vue';
 import TreeRowDirectory from '../tree-row-directory/tree-row-directory.vue';
 import DateDisplay from '../date-display/date-display.vue';
 import Spinner from '../spinner/spinner.vue';
+import ZoneResizer from '../zone-resizer/zone-resizer.vue';
 import buildTranslatedBindings from '../../js/Helper/TranslationHelper';
 import { fileExtension, fileIcon } from '../../js/Helper/FileIconHelper';
 import { uiStateGet, uiStateSet } from '../../js/Helper/UiStateHelper';
@@ -27,7 +28,8 @@ export default {
     DateDisplay,
     Spinner,
     Tree,
-    TreeRowDirectory
+    TreeRowDirectory,
+    ZoneResizer
   },
 
   props: {
@@ -322,9 +324,11 @@ export default {
       this.remember('sort', this.sort);
     },
 
-    sortMark(key) {
+    // The arrow of a sortable heading, as a table draws it: a faint pair while
+    // the column does not order the list, one arrow once it does.
+    sortIcon(key) {
       if (this.sort.key !== key) {
-        return '';
+        return 'ph:bold/caret-up-down';
       }
 
       return this.sort.direction > 0 ? 'ph:bold/caret-up' : 'ph:bold/caret-down';

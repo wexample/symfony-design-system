@@ -10,8 +10,8 @@
 {%- set path = path|default([]) -%}
 {%- set view = view|default('list') -%}
 {%- set domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.explorer.' -%}
-<div class="file-explorer file-explorer--no-tree{{ class is defined and class ? ' ' ~ class }}">
-    <div class="file-explorer--toolbar">
+<div class="block block--card file-explorer{{ class is defined and class ? ' ' ~ class }}">
+    <div class="toolbar toolbar--shaded toolbar--compact file-explorer--toolbar">
         <nav class="breadcrumb file-explorer--path" aria-label="{{ (domain ~ 'path')|trans }}">
             {%- for segment in path -%}
                 {%- if loop.last -%}
@@ -24,8 +24,8 @@
         </nav>
     </div>
 
-    <div class="file-explorer--body">
-        <div class="file-explorer--main">
+    <div class="zone zone--split file-explorer--body">
+        <div class="zone file-explorer--main">
             {%- if items is empty -%}
                 <div class="empty">{{ (domain ~ 'empty')|trans }}</div>
             {%- elseif view == 'grid' -%}

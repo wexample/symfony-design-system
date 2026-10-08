@@ -1,7 +1,14 @@
 // A file explorer the width of a page: a bar above, the folders on the side,
 // the listing in the rest, and a line of status below. It fills what holds
 // it — a zone, a panel — and each of its parts scrolls on its own.
-@use '../../css/shapes/action-icon';
+//
+// Assembled from the design system's own pieces — a card, a toolbar, a split
+// of zones with a handle, the sorting headings of a table — so a skin dresses
+// it as it dresses them. What is written here is only how they fit together.
+@use '../../css/shapes/block';
+@use '../../css/shapes/toolbar';
+@use '../../css/shapes/zone';
+@use '../../css/shapes/table-sort';
 @use '../../css/shapes/disk-item';
 @use '../../css/shapes/disk-item-explorer';
 @use '../../css/shapes/empty';
@@ -13,6 +20,7 @@
 @use '../date-display/date-display';
 @use '../spinner/spinner';
 @use '../button/button';
+@use '../zone-resizer/zone-resizer';
 
 .file-explorer {
   --file-explorer-tree: var(--size-6);
@@ -22,31 +30,14 @@
   height: 100%;
   min-height: 24rem;
   min-width: 0;
-  border: var(--border-default);
-  border-radius: var(--radius-box);
-  background: var(--surface-1);
-  overflow: hidden;
 }
 
 .file-explorer--toolbar {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2);
   border-bottom: var(--border-separator);
-  min-width: 0;
 }
 
-.file-explorer--navigation,
-.file-explorer--actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-1);
+.file-explorer--toolbar > .toolbar--group {
   flex: none;
-}
-
-.file-explorer--actions {
-  margin-inline-start: auto;
 }
 
 .file-explorer--path {
@@ -73,30 +64,23 @@
   padding-block: var(--space-1);
 }
 
-.action-icon.is-active {
-  background: var(--state-hover);
-  color: var(--text-color-default);
-}
-
-button.action-icon:disabled {
-  opacity: 0.4;
-}
-
+// The two regions meet on a line rather than across a gap: one object cut in
+// two, not two objects on a desk.
 .file-explorer--body {
-  display: grid;
-  grid-template-columns: var(--file-explorer-tree) minmax(0, 1fr);
+  --zone-gap: 0px;
   min-height: 0;
-}
-
-.file-explorer--no-tree .file-explorer--body {
-  grid-template-columns: minmax(0, 1fr);
 }
 
 .file-explorer--tree {
+  --zone-size: var(--file-explorer-tree);
   min-height: 0;
+  border-inline-end: var(--border-separator);
+}
+
+.file-explorer--tree-scroll {
+  height: 100%;
   overflow: auto;
   padding: var(--space-2);
-  border-inline-end: var(--border-separator);
 }
 
 .file-explorer--main {
@@ -131,21 +115,12 @@ button.action-icon:disabled {
   z-index: 1;
   display: flex;
   align-items: center;
-  gap: var(--space-1);
   height: var(--file-explorer-row);
   padding: 0 var(--space-3);
-  border: 0;
   border-bottom: var(--border-separator);
   background: var(--table-head-bg, var(--surface-head));
   color: var(--table-head-color, var(--text-color-head));
-  font: inherit;
   font-weight: var(--font-weight-strong);
-  text-align: start;
-  cursor: pointer;
-}
-
-.file-explorer--sort {
-  display: inline-flex;
 }
 
 // On the server twin a row is a link.
