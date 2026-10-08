@@ -46,6 +46,12 @@
 // second one, the status bar at the foot as the foot of a page's actions.
 .file-explorer--flush {
   --file-explorer-ground: var(--surface-zone);
+  // Where it is the whole of what holds it, it is laid out as a page is: its
+  // bar, the gap between its regions and its foot stand on the page's ground,
+  // as the bar under a page's header does — whatever ground the box holding
+  // it gave its chrome. Its height is the box's, never one of its own.
+  --surface-shell: var(--surface-page);
+  min-height: 0;
 
   > .file-explorer--toolbar {
     border-bottom: var(--border-shell);

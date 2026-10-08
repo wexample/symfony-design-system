@@ -78,10 +78,12 @@
   box-shadow: var(--shadow-float), 0 2px 6px var(--color-absolute-dark);
 }
 
-// A box pulled taller than what it holds keeps that height, its body taking
-// what the head and the foot leave.
-.modal--content[style*='--overlay-height'] > .layout-modal {
-  height: min(var(--overlay-height), 90vh);
+// A box pulled to a height keeps it, its body taking what the head and the
+// foot leave. So does a box holding a page that fills (`page--fill`): such a
+// page has no height of its own and takes the box's, which is then given one.
+.modal--content[style*='--overlay-height'] > .layout-modal,
+.modal--content > .layout-modal:has(.page--fill) {
+  height: min(var(--overlay-height, var(--modal-fill-height, 36rem)), 90vh);
 
   > .modal-body {
     flex: 1;
