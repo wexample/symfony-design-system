@@ -59,10 +59,8 @@
 
   // The folders and the listing as two regions of a page: apart, the page's
   // ground showing between them, the folders' edge the handle that sizes them.
-  // The regions keep the gap they have between them from the box's sides too.
   > .file-explorer--body {
     --zone-gap: var(--space-2);
-    padding-inline: var(--zone-gap);
     background: var(--surface-page);
   }
 
@@ -76,6 +74,12 @@
     border-top: 0;
     background: var(--surface-page);
   }
+}
+
+// In a modal or a panel, the regions keep the gap they have between them
+// from the box's sides too. In a page, the page's zone is already the side.
+:is(.modal-body, .panel-body) .file-explorer--flush > .file-explorer--body {
+  padding-inline: var(--zone-gap);
 }
 
 .file-explorer--toolbar > .toolbar--group {
