@@ -26,6 +26,15 @@ button.action-icon {
   color: var(--text-color-default);
 }
 
+// Switched on — a tool whose zone is open, a mode in force (`aria-pressed`):
+// in the application's own colour, pointer or not.
+.action-icon[aria-pressed='true'],
+.action-icon[aria-pressed='true']:is(a, button):hover,
+.action-icon[aria-pressed='true']:is(a, button):focus-visible {
+  color: var(--accent-contrast);
+  background: var(--accent-9);
+}
+
 button.action-icon:disabled {
   cursor: default;
 }

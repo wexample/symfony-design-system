@@ -96,7 +96,8 @@
 }
 
 // Its icons in groups: the first along the top, the last pushed to the foot —
-// one open at a time in each (components/zone-toolbar).
+// one open at a time in each (components/zone-toolbar), an open one switched
+// on (`aria-pressed`, shapes/action-icon).
 .zone--toolbar-group {
   display: flex;
   flex-direction: column;
@@ -106,12 +107,6 @@
 
 .zone--toolbar-group--end {
   margin-top: auto;
-}
-
-// An icon open on the zone it names.
-.zone--toolbar .action-icon[aria-pressed='true'] {
-  color: var(--text-color-default);
-  background: var(--state-active);
 }
 
 // A zone that takes back the room the row leaves between it and its neighbour,
