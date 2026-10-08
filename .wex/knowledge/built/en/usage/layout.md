@@ -91,6 +91,55 @@ too puts beside it only what it can also stack, and reads
 
 The handle is the `zone-resizer` a zone uses; any region can carry one by naming the key its size is kept under (`data-resize-state`) and the property it reads it from (`data-resize-property`).
 
+## In a narrow window
+
+The widths a layout answers to are named as the loader names them
+(`loader.usages.responsive`: s 576, m 768, l 992, xl 1200 px) — a phone below `m`, a tablet
+upright below `l` — and live in one place, `css/mixins/_window.scss`: a rule says
+`@include window.below(window.$window-l)`, never a width of its own, so what changes at a
+size changes together. Media queries rather than the loader's per-size files (`name-m.scss`,
+`responsive-*` classes): with scripts on, the loader adds those only once its script has
+measured, so a phone would see the wide layout first and then jump; and it sizes a component
+by its own width, so a side menu is always `xs`.
+
+- **The side menus become drawers** below `l`, the left one and a page's right one
+  alike. Out of the row, off their edge, they slide over the page from the header's toggle,
+  which is always shown there; the page is dimmed under them. Escape, a press on the dimmed
+  page or a link followed close them; meanwhile Tab stays inside, and the focus goes back
+  to the toggle. Their state there is the moment's and is never kept: the reader's choice
+  for a wide window (`ui.layout.menu.<id>`) is left as it was. The stylesheet decides when
+  the menu is a drawer (`--menu-drawer: 1`), the script reads it: no width written twice.
+- **The header's controls give up their words** below `m` — a language, a theme: the icon
+  stays, the word is still read by screen readers, the caret goes —, and the title is cut
+  short rather than run under them. The sections drawn in the header (`layout_navigation:
+  'top'`) fold into their popover at the same width.
+- The toggles are named (`frontend.menu.open_left`, `close_left`, `open_right`,
+  `close_right`) and say whether their menu shows (`aria-expanded`).
+
+What a page holds reflows by its own shapes: `grid` and `zone--split--wrap` go to the next
+line, a table scrolls in its frame, `page_tabs` folds into icons then into menus.
+
+## On paper
+
+Every layout prints what the page holds and nothing it is used with (`css/partials/_print.scss`):
+
+- **Gone**: the side menus, the header's controls and whatever an application added beside
+  its title, the page's own navigation, the toolbar, the page's actions, the footer, what
+  floats over the page; in a table, its bar, its pages, the columns of boxes and arrows, the
+  actions of a row.
+- **Kept**: the header's title and what stands beside it, as the sheet's heading.
+- **Unrolled**: nothing scrolls on paper; every frame that did prints its whole height, and a
+  table's head comes again on each sheet, a row never cut in two.
+- **Ink on white**, whatever the scheme and the palette: what a colour said is said again by
+  a word or a sign, the rule the design system keeps on screen.
+
+A page says what else is not for paper with `print-hidden`, and what is for paper only — a
+heading naming the list and the date it was drawn at — with `print-only`. A print button is
+`window.print()`, nothing more.
+
+The loader writes its stylesheets for every medium (`media="all"`): held to the screen, as
+they were, nothing applied to a printed page.
+
 ## How a zone takes its room
 
 Two questions, answered apart (`css/shapes/_zone.scss`, its last block).

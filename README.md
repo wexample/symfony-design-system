@@ -1,6 +1,6 @@
 # symfony_design_system
 
-Version: 31.0.0
+Version: 32.0.0
 
 A Symfony bundle that ships a ready-made design system for web applications: Twig components (buttons, modals, toasts, forms, entity bars), SCSS layouts (`dashboard` and `default`), Vue mixins, and a suite of Twig extensions that wire them together. Every page flows through a `RenderPass` object managed by `AbstractDesignSystemController`, which handles template resolution, per-layout asset loading, and render-node–scoped translations. It targets Symfony developers who want consistent UI primitives and a structured front-end pipeline without building one from scratch.
 
@@ -70,7 +70,7 @@ The three also show what a script puts there itself, without a page from the ser
 
 #### Uploads
 
-`upload_dropzone(directory, options)` draws a place files are dropped on or picked from; any kind of file, any size. The directory is the page's to choose and never the browser's: `upload_url()` signs an address for that one directory (src/Service/UploadTokenService.php, with the kernel secret), and src/Controller/UploadController.php at `/_upload/{token}` refuses any other. The loader's `UploadService` sends each file in pieces (`ChunkedUploadTransport`), sized under the request limits PHP announces, a lost piece sent again; src/Service/ChunkedUploadReceiver.php appends them in order and moves the whole into the directory, a name already there giving « name (2).ext ». `UploadTrayService` follows them in a dock: one row each, its progress, a way to give it up. The zone says `upload:done` — bubbling, with the stored name — for the page around it to read its list again.
+`upload_dropzone(directory, options)` draws a place files are dropped on or picked from; any kind of file, any size, unless the page says `accept` (extensions or MIME types, as the HTML attribute reads them) or `max_size` (bytes). Those are signed into the address with the directory (src/Class/UploadRules.php): the picker offers only the kinds accepted, and the controller refuses the rest — a file too large or of an extension not taken on its first piece, one whose name says nothing of an accepted kind by its content once whole, deleted then —, with a translated reason the uploads window shows. The directory is the page's to choose and never the browser's: `upload_url()` signs an address for that one directory (src/Service/UploadTokenService.php, with the kernel secret), and src/Controller/UploadController.php at `/_upload/{token}` refuses any other. The loader's `UploadService` sends each file in pieces (`ChunkedUploadTransport`), sized under the request limits PHP announces, a lost piece sent again; src/Service/ChunkedUploadReceiver.php appends them in order and moves the whole into the directory, a name already there giving « name (2).ext ». `UploadTrayService` follows them in a dock: one row each, its progress, a way to give it up. The zone says `upload:done` — bubbling, with the stored name — for the page around it to read its list again.
 
 #### Where a link opens from an embedded page: `target-embedded`
 
@@ -106,6 +106,8 @@ src/Service/RouteGroupRegistry.php walks `RouterInterface::getRouteCollection()`
 ```
 
 `| raw` is not optional there: twig escapes what it no longer knows came from a renderer once it has been through a variable.
+
+An entry is drawn only for a page the reader may open (src/Service/RouteAccessService.php): `menu_item()`, `menu_items()` and `menu_item_collapsible_from_controller()` ask the firewall's own question before drawing — `access_control`, decided as the access listener decides, then the controller's `#[IsGranted]` naming no subject; one with a subject needs the page's record and is left to the page. A run whose every entry is refused is the empty string, and its heading goes with it. The bundle requires `symfony/security-bundle`, so the three services the answer is read from are always there; `security.access_map` alone is named in src/Resources/config/services.yaml, SecurityBundle aliasing the other two by interface. `menu_item_link()` takes an address, not a route, and is drawn as given.
 
 The same question is asked of the body of a page by src/Attribute/PageSection.php, its twin: a page names a zone and nothing else, and what fills it is declared on the other side.
 
@@ -219,7 +221,8 @@ Visit the [Wexample Suite documentation](https://docs.wexample.com) for the comp
 ## Dependencies
 
 - php: >=8.5
-- wexample/symfony-loader: >=21.0.0
+- wexample/symfony-loader: >=22.0.0
+- symfony/security-bundle: ^7.4 || ^8.0
 - wexample/symfony-routing: >=2.0.0
 - wexample/symfony-template: >=2.0.5
 
