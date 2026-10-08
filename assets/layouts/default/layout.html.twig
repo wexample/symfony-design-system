@@ -70,7 +70,7 @@
         {#- A page whose body is held edge to edge in its zone — an editor —
             gives up the room inside it (`page_zone_flush`). -#}
         {%- set pageZoneFlush = page_zone_flush|default(false) -%}
-        <div class="zone{{ pageZonePlain ? '' : ' zone--panel' }}{{ pageZoneWidth }}"{% if pageZoneResizable %} {{ zone_state(pageZoneResizable) }}{% endif %}{% if page_zone_folded|default(null) %} data-zone-folded-size="{{ page_zone_folded }}"{% endif %}>
+        <div class="zone{{ pageZonePlain ? ' zone--plain' : ' zone--panel' }}{{ pageZoneWidth }}"{% if pageZoneResizable %} {{ zone_state(pageZoneResizable) }}{% endif %}{% if page_zone_folded|default(null) %} data-zone-folded-size="{{ page_zone_folded }}"{% endif %}>
             {%- if pageZoneResizable -%}
                 {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer') }}
             {%- endif -%}

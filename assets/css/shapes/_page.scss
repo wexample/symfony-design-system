@@ -1,3 +1,5 @@
+@use '../mixins/surface-layer' as surface-layer;
+
 // The page itself, and `page--fill` for the part of it sized by the room it is given rather than by what it holds.
 .page {
   height: 100%;
@@ -35,6 +37,16 @@
 .zone--content--flush > .page--head {
   padding: var(--zone-padding, var(--space-4));
   padding-block-end: 0;
+}
+
+// A page with no ground of its own (`page_zone_plain`) is made of regions, and
+// what heads it is one of them: its title stands in a region of its own, the
+// page showing round it as between the regions of its body.
+.zone--plain .zone--content > .page--head {
+  @include surface-layer.surface-layer;
+  padding: var(--zone-padding, var(--space-4));
+  background: var(--surface-zone);
+  border-radius: var(--zone-radius, 0);
 }
 
 // A page holding a fill is a page that fills: its layout wrapper trades its
