@@ -228,9 +228,10 @@
 
 // A phone's header: the controls keep their icons and give up their words —
 // still read by screen readers —, and the caret a word carried; the title has
-// the room they leave.
+// the room they leave. The focused layout's header — sign-in, a password —
+// holds the same controls and folds the same way.
 @include window.below(window.$window-m) {
-  .header .header--menu .button:has(> .button--icon) {
+  :is(.header, .layout--focus-header) .header--menu .button:has(> .button--icon) {
     > .button-menu--label,
     > span:not(.button--icon, .button-menu--caret, .button--spinner) {
       @include visually-hidden.visually-hidden;
