@@ -72,6 +72,9 @@ export default class extends Component {
       el.classList.toggle('tabs--item--active', el.getAttribute('data-tab') === tabName);
     });
 
+    // A bar scrolled sideways — a phone — brings the tab it lit into view.
+    this.el.querySelector<HTMLElement>('.tabs--item--active')?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+
     const panels = this.el.parentElement?.querySelector<HTMLElement>('.tabs-panels');
     if (panels) {
       panels.querySelectorAll<HTMLElement>('[data-tab]').forEach(panel => {

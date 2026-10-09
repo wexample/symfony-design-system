@@ -302,6 +302,11 @@ a.file-explorer--row > * {
     display: none;
   }
 
+  // Its bar on two lines rather than its last actions off the screen.
+  .file-explorer--toolbar {
+    flex-wrap: wrap;
+  }
+
   .file-explorer--list {
     grid-template-columns: minmax(0, 1fr) 5rem;
   }

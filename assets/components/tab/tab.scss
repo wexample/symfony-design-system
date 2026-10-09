@@ -21,8 +21,21 @@
 .tabs--fill .tabs--item {
   flex: 1 1 0;
   justify-content: center;
-  min-width: 0;
+  // Equal shares of the bar while each tab's word fits; past that, the bar
+  // scrolls rather than cutting the words down to a letter.
+  min-width: max-content;
   max-width: none;
+}
+
+// A bar of tabs short of room scrolls sideways, its tabs keeping their words
+// — the bar of a page's views folds instead (page-tabs), and is left alone.
+.tabs:not(.page-tabs) {
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  > .tabs--item {
+    flex-shrink: 0;
+  }
 }
 
 // A tab is a bigger target than a button and does not give up the same
