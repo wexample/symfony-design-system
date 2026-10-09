@@ -8,15 +8,18 @@
 {%- block vue_body -%}
     <div ref="focusableRoot" class="list-expanded">
         <div v-if="showHeader" class="list-expanded--header">
-            <input
-                    ref="searchInput"
-                    class="form--input list-expanded--search"
-                    type="text"
-                    :placeholder="resolvedSearchPlaceholder"
-                    :value="searchValue"
-                    @input="onSearchInput"
-                    @keydown.tab="onSearchTab"
-            >
+            <div class="form--input-group form--filter list-expanded--search">
+                <span class="form--input-addon" aria-hidden="true" v-html="searchIconHtml"></span>
+                <input
+                        ref="searchInput"
+                        class="form--input"
+                        type="search"
+                        :placeholder="resolvedSearchPlaceholder"
+                        :value="searchValue"
+                        @input="onSearchInput"
+                        @keydown.tab="onSearchTab"
+                >
+            </div>
             <button
                     v-if="showFilterButton"
                     type="button"

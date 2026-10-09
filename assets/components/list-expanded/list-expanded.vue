@@ -46,6 +46,10 @@ export default {
   },
 
   computed: {
+    searchIconHtml() {
+      return this.app.getServiceOrFail('icon').icon('ph:bold/magnifying-glass');
+    },
+
     ...translated.computed
   },
 
