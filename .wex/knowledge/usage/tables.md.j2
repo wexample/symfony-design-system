@@ -145,6 +145,17 @@ moves it with everything else, rather than a second scrollbar inside the first. 
 table among other things in a container that does not scroll. A sticky table never scrolls on
 its own: its header sticks to the page.
 
+`natural` (twig `natural: true`, vue `:natural`) holds every column to the width of what it
+holds, on one line: the table is neither stretched to the room nor squeezed into it, and what
+holds it scrolls it when it is wider.
+
+## A zone given to a table
+
+`<div class="zone zone--table">` gives a region to a table whole, server or vue alike: what
+drives it — search, filters, bulk actions — at the top and its pages at the foot, both out of
+what scrolls; between them the table's ground runs to the bottom of the zone however few rows
+there are, scrolling both ways under a header that stays.
+
 ## A twig table drawn by vue
 
 `data_table(columns, rows, { vue: true, … })` hands the same columns and rows to the vue

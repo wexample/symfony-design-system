@@ -32,6 +32,8 @@ export default {
       sticky: false,
       // The whole row rather than the width of its columns.
       fill: false,
+      // Its columns as wide as what they hold, whatever the room.
+      natural: false,
       // What the table says when the api holds nothing; its own default when null.
       emptyLabel: null,
       // Its pages below at the foot of the page when the rows leave room

@@ -140,6 +140,7 @@ class TableExtension extends AbstractTemplateExtension
             'sticky' => 'sticky',
             'scroll' => 'scroll',
             'fill' => 'fill',
+            'natural' => 'natural',
             'show_header' => 'showHeader',
             'row_link' => 'rowLink',
             'totals' => 'totals',

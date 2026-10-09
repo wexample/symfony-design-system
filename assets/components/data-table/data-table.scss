@@ -118,6 +118,13 @@
   width: auto;
 }
 
+// Asked for (`natural`): the columns as wide as what they hold, on one line,
+// whatever the room — neither stretched to it nor squeezed into it. What holds
+// the table scrolls it when it is wider.
+.table--frame--natural > .table {
+  width: max-content;
+}
+
 // Asked for (`scroll`): the table scrolls sideways on its own, the page around
 // it staying put — for a table set among other things in a container that
 // does not scroll. A scroll container on one axis is one on both, so a sticky

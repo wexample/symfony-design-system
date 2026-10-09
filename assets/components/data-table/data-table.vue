@@ -104,6 +104,13 @@ export default {
       type: Boolean,
       default: false
     },
+    // Its columns as wide as what they hold, on one line, whatever the room:
+    // the table is never stretched nor squeezed by what holds it, which
+    // scrolls it when it is wider.
+    natural: {
+      type: Boolean,
+      default: false
+    },
     // One row in two on a faint ground, for wide tables read across.
     striped: {
       type: Boolean,
