@@ -1405,6 +1405,37 @@
             "notes": []
         },
         {
+            "key": "form/week-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "An ISO week, picked as a whole: the value is the week key `2026-W29`, the one `php-date` and `js-date` read.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/week-input/week-input.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/week-input/week-input.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/week-input/week-input.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/week-input/week-input.vue.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/week-input/week-input.ts"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "expected",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": []
+        },
+        {
             "key": "graph-log",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "Items in a line of descent, newest first, drawn on coloured lanes with their merges and forks: a git history \u2014 symfony-coding gives it one \u2014 or anything that branches, versions of a document, runs that fork.",
@@ -1434,6 +1465,34 @@
                 "flutter": "todo"
             },
             "notes": []
+        },
+        {
+            "key": "image-crop",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "What part of an image to keep \u2014 a portrait, a signature \u2014 chosen over the image: an area held to a ratio or free, said in the image's own pixels, and cut in the browser when the cut is what is sent.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/image-crop/image-crop.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/image-crop/image-crop.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/image-crop/image-crop.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "waived",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "template": "a tool worked with the pointer: nothing of it stands without its script",
+                "script": "a vue component, its behaviour in the component"
+            }
         },
         {
             "key": "inline-svg",
@@ -2044,36 +2103,6 @@
             "notes": []
         },
         {
-            "key": "stage",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/stage/stage.scss"
-                ],
-                "template": [
-                    "@WexampleSymfonyDesignSystemBundle/components/stage/stage.html.twig"
-                ],
-                "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/stage/stage.vue.twig",
-                    "@WexampleSymfonyDesignSystemBundle/components/stage/stage.vue"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "expected",
-                "vue": "expected",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "script": "it shows and does nothing"
-            }
-        },
-        {
             "key": "status-icon",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -2622,6 +2651,32 @@
                 "flutter": "todo"
             },
             "notes": []
+        },
+        {
+            "key": "zone-toolbar",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A bar of tools on the end of a row of zones, as an IDE has one: each icon opens or closes a zone of the row, one open at a time in a group, its state kept.",
+            "formats": {
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-toolbar/zone-toolbar.html.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-toolbar/zone-toolbar.ts"
+                ]
+            },
+            "stances": {
+                "style": "waived",
+                "template": "expected",
+                "vue": "todo",
+                "script": "expected",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "style": "it is drawn by the toolbar and zone shapes it attaches to"
+            }
         }
     ],
     "abstracts": [
@@ -2852,6 +2907,12 @@
             "description": "What every input and textarea looks like before anything is said about it."
         },
         {
+            "key": "form/filter",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_filter.scss",
+            "description": "A field narrowing what is shown beside it \u2014 a table's rows, a menu's items, a folder's files: a magnifier and what is typed, in one frame. Written on a field with a word beside it (`form--input-group`), the magnifier being that word:  <div class=\"form--input-group form--filter\"> <span class=\"form--input-addon\" aria-hidden=\"true\">{{ icon('ph:bold/magnifying-glass') }}</span> <input class=\"form--input\" type=\"search\"> </div>"
+        },
+        {
             "key": "form/layout",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_layout.scss",
@@ -2960,10 +3021,16 @@
             "description": "A thin line of secondary information between two separators, its groups pushed to either end."
         },
         {
+            "key": "overlay-resizer",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_overlay-resizer.scss",
+            "description": "The edges of a box that can be sized: strips lying across its border, drawn nothing \u2014 the cursor is what says the edge can be pulled."
+        },
+        {
             "key": "page",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_page.scss",
-            "description": "The page itself, and `page--fill` for the part of it sized by the room it is given rather than by what it holds."
+            "description": null
         },
         {
             "key": "page-actions",
@@ -2996,10 +3063,22 @@
             "description": "Children laid in a row or a column with one gap, optionally split at a point or divided by rules."
         },
         {
+            "key": "status-bar",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_status-bar.scss",
+            "description": "The line at the foot of what it describes \u2014 a listing, an editor, a card \u2014 saying where it stands: how many there are, which language, whether what is shown is saved. Read and never acted on: what is done to the thing is its footer's (`block--footer`), and what leads to it is a breadcrumb's.  Its height is its own, the same empty or not, so what it sits under does not jump when a word comes and goes. The part said last, at the far end, is `status-bar--end`."
+        },
+        {
             "key": "surface",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_surface.scss",
             "description": "The raised ground a block sits on, and the class that tells its children they are on one."
+        },
+        {
+            "key": "table-sort",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_table-sort.scss",
+            "description": "A header that sorts \u2014 a table's, a listing's \u2014 is a button dressed as the header it sits in, so the row of labels reads the same sortable or not. The arrow is always there: a faint pair while the column does not order the list, one strong arrow once it does."
         },
         {
             "key": "timeline",
