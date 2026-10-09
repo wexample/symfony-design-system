@@ -28,3 +28,25 @@
   grid-template-columns: repeat(auto-fit, minmax(var(--grid-min), var(--grid-max)));
   justify-content: start;
 }
+
+// The page's subject and, beside it, what accompanies it — a summary, a help —
+// at a width of its own. When the two do not fit side by side, the aside goes
+// under the subject, with no breakpoint: the subject wraps it away as soon as
+// it would get narrower than `--grid-main-min`.
+.grid--aside {
+  --grid-aside: 20rem;
+  --grid-main-min: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-4);
+
+  > :first-child {
+    flex: 999 1 0;
+    min-width: var(--grid-main-min);
+  }
+
+  > :last-child {
+    flex: 1 1 var(--grid-aside);
+  }
+}
