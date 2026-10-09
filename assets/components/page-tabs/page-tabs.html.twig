@@ -12,11 +12,14 @@
     { icon, label, href, target, method, token, confirm, request }, as a
     menu's items; `request: 'api'` posts without leaving the page —
     which the bar draws as buttons and gathers, at its last fold, in one ⋮
-    menu: every action at hand on a desk, all of them in reach on a phone. -#}
+    menu: every action at hand on a desk, all of them in reach on a phone.
+
+    A tab is lit on its own route, or as it says (`active`): one tab standing
+    for a family of pages. -#}
 {%- set fold_items = [] -%}
 {%- set current = null -%}
 {%- for item in items -%}
-    {%- set is_current = route_is_current(item.route, item.params|default({}), 'current') == 'current' -%}
+    {%- set is_current = item.active is defined ? item.active : route_is_current(item.route, item.params|default({}), 'current') == 'current' -%}
     {%- if is_current -%}{%- set current = item -%}{%- endif -%}
     {%- set fold_items = fold_items|merge([{ label: item.label, href: path(item.route, item.params|default({})), icon: item.icon|default(null), checked: is_current }]) -%}
 {%- endfor -%}
@@ -34,13 +37,17 @@
     {%- if items is not empty -%}
     <div class="page-tabs--items">
         {%- for item in items -%}
-            {{ tab_item(item.label, item.route, item.params|default({}), { count: item.count|default(null) }, item.icon|default(null)) }}
+            {%- if item.active is defined -%}
+                {{ tab_item_link(item.label, path(item.route, item.params|default({})), { active: item.active, count: item.count|default(null) }, item.icon|default(null)) }}
+            {%- else -%}
+                {{ tab_item(item.label, item.route, item.params|default({}), { count: item.count|default(null) }, item.icon|default(null)) }}
+            {%- endif -%}
         {%- endfor -%}
     </div>
     {%- endif -%}
     {%- if items is not empty -%}
     <div class="page-tabs--fold">
-        {{ button_menu(current.icon|default('ph:bold/list'), current.label|default(label|default('WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.navigation'|trans)), fold_items, { class: 'button--flat', caret: true }) }}
+        {{ button_menu(current.icon|default('ph:bold/list'), current ? current.label|trans : (label|default('WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.navigation'|trans)), fold_items, { class: 'button--flat', caret: true }) }}
     </div>
     {%- endif -%}
     {%- if actions is iterable and actions is not empty -%}
