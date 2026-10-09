@@ -34,3 +34,23 @@
   margin: 0;
   padding-inline-start: var(--space-4);
 }
+
+// How much of a limited text is used, at the end of the field: quiet until
+// the limit is near, in the warning's colour then, the error's once reached.
+.form--counter {
+  font-size: var(--font-size-1);
+  color: var(--text-color-subtle);
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+  margin-block-start: calc(var(--space-1) * -1);
+
+  &.is-near {
+    @include feedback_semantic.feedback-warning;
+    color: var(--feedback-color);
+  }
+
+  &.is-full {
+    @include feedback_semantic.feedback-error;
+    color: var(--feedback-color);
+  }
+}

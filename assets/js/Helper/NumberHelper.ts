@@ -34,3 +34,18 @@ export function numberStepDigits(step: number | string | null | undefined): numb
 
   return point === -1 ? 0 : text.length - point - 1;
 }
+
+// A figure as a person writes or copies it — « 1,5 », « 1 234,50 »,
+// « 1.234,5 », « 1,234.5 » — read as a number, or null when it is none. The
+// last of a comma or a point is the decimal one; spaces and the other mark
+// only group the thousands.
+export function numberParse(text: string): number | null {
+  let value = text.trim().replace(/[\s  ']/g, '');
+  const decimal = Math.max(value.lastIndexOf(','), value.lastIndexOf('.'));
+
+  if (decimal !== -1) {
+    value = value.slice(0, decimal).replace(/[.,]/g, '') + '.' + value.slice(decimal + 1);
+  }
+
+  return /^[-+]?(\d+\.?\d*|\.\d+)$/.test(value) ? Number(value) : null;
+}

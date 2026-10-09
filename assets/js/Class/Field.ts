@@ -52,6 +52,8 @@ export default abstract class Field extends Component implements FieldController
   private formEl: HTMLFormElement | null = null;
   private assisted: boolean = false;
   private assistanceAbort: AbortController | null = null;
+  private counterControl: HTMLInputElement | HTMLTextAreaElement | null = null;
+  private counterEl: HTMLElement | null = null;
 
   get fieldName(): string {
     return (this.el.querySelector<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[name]'))?.name ?? '';
@@ -71,6 +73,7 @@ export default abstract class Field extends Component implements FieldController
     // the announcement. Whichever comes second finds the first.
     document.addEventListener(FORM_FIELD_COLLECT, this.onFormCollect);
     this.announceToForm();
+    this.counterActivate();
   }
 
   protected async deactivateListeners(): Promise<void> {
@@ -79,6 +82,8 @@ export default abstract class Field extends Component implements FieldController
     this.formEl?.removeEventListener('loading:start', this.onFormLoadingStart);
     this.formEl?.removeEventListener('loading:end', this.onFormLoadingEnd);
     document.removeEventListener(FORM_FIELD_COLLECT, this.onFormCollect);
+    this.counterControl?.removeEventListener('input', this.counterUpdate);
+    this.counterEl?.remove();
 
     this.el.dispatchEvent(new CustomEvent(FORM_FIELD_UNREGISTER, {
       bubbles: true,
@@ -101,6 +106,40 @@ export default abstract class Field extends Component implements FieldController
       detail: { field: this },
     }));
   }
+
+  /**
+   * A text with a length limit — the `maxlength` symfony-forms sets from a
+   * Length constraint — says, under it, how much of it is used. Said aloud
+   * only near the end, where it starts to matter.
+   */
+  private counterActivate(): void {
+    const control = this.el.querySelector<HTMLInputElement | HTMLTextAreaElement>(
+      'textarea[maxlength], input[maxlength]:not([type="hidden"]):not([type="number"])'
+    );
+
+    if (!control || control.maxLength <= 0) {
+      return;
+    }
+
+    this.counterControl = control;
+    this.counterEl = document.createElement('div');
+    this.counterEl.className = 'form--counter';
+    control.insertAdjacentElement('afterend', this.counterEl);
+    control.addEventListener('input', this.counterUpdate);
+    this.counterUpdate();
+  }
+
+  private counterUpdate = (): void => {
+    const control = this.counterControl!;
+    const max = control.maxLength;
+    const length = control.value.length;
+    const near = length >= max * 0.9;
+
+    this.counterEl!.textContent = `${length} / ${max}`;
+    this.counterEl!.classList.toggle('is-near', near);
+    this.counterEl!.classList.toggle('is-full', length >= max);
+    this.counterEl!.setAttribute('aria-live', near ? 'polite' : 'off');
+  };
 
   private onFormCollect = (event: Event): void => {
     const form = event.target;
