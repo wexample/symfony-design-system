@@ -10,11 +10,14 @@
 .stack--horizontal {
   @extend %stack-base;
   flex-direction: row;
-  flex-wrap: nowrap;
+  // Equal shares of the row while each can be read; below the floor its
+  // children ask for (`--stack-item-min`), they go to the next line rather
+  // than being squeezed a letter wide.
+  flex-wrap: wrap;
 }
 
 .stack--horizontal > * {
-  flex: 1 1 0;
+  flex: 1 1 var(--stack-item-min, 10rem);
   min-width: 0;
 }
 
