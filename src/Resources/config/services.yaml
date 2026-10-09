@@ -23,6 +23,9 @@ services:
         arguments:
             $commands: !tagged_iterator wexample.symfony_design_system.slash_command
 
+    Wexample\SymfonyDesignSystem\DevMenu\:
+        resource: '../../DevMenu/'
+
     Wexample\SymfonyDesignSystem\Command\:
         resource: '../../Command/'
 
