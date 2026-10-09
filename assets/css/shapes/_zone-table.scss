@@ -1,0 +1,61 @@
+// A zone given whole to a table: the table is the region, not a sheet laid in
+// it. Whatever drives the table — its search, its filters, its bulk actions —
+// stands at the top, its pages at the foot, both out of what scrolls; between
+// them the table's own ground runs to the bottom of the zone however few rows
+// there are, and the rows scroll under a header that stays.
+//
+// Any table of the system goes in it, written by the server or by a vue, with
+// whatever holds it on the way — a collection, a mounted component: each of
+// them, down to the table's frame, becomes a column handing its height on.
+.zone--table {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--surface-zone);
+
+  :has(.table--frame) {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    width: auto;
+  }
+
+  .table--bar,
+  .pagination {
+    flex: none;
+    margin: 0;
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .table--bar {
+    border-block-end: var(--border-separator);
+  }
+
+  .pagination {
+    border-block-start: var(--border-separator);
+  }
+
+  // The body: the table's ground, the whole height left, scrolling both ways.
+  .table--frame {
+    flex: 1;
+    min-height: 0;
+    margin: 0;
+    overflow: auto;
+    background: var(--surface-2);
+  }
+
+  // The zone is the table's edge: no sheet of its own inside it.
+  .table {
+    border: 0;
+    border-radius: 0;
+  }
+
+  thead .table--cell {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: linear-gradient(var(--table-head-bg), var(--table-head-bg)), var(--surface-2);
+  }
+}

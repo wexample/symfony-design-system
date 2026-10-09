@@ -12,6 +12,7 @@
 @use '../../css/shapes/form/addon';
 @use '../../css/shapes/form/filter';
 @use '../../css/shapes/table-sort';
+@use '../../css/shapes/zone-table';
 
 // The root holds what it draws out of flow — the region announcing a new order
 // is absolutely placed — so none of it lands against the page body, outside the
