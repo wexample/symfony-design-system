@@ -26,12 +26,15 @@
 .block--split {
   display: flex;
   flex-direction: row;
+  // What the block says first, what can be done about it after: under it
+  // when the row has no room for both, rather than pushed off the screen.
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-4);
 }
 
 .block--split > :first-child {
-  flex: 1 1 auto;
+  flex: 1 1 16rem;
 }
 
 .block--vertical {

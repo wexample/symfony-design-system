@@ -87,6 +87,9 @@
 
 .toolbar--group {
   display: flex;
+  // A run of actions short of room goes on a second line rather than pushing
+  // its last ones off the screen: a button cannot be cut short.
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-2);
 }
