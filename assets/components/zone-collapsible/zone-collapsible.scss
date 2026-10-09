@@ -1,6 +1,7 @@
 // A region that folds to its bar, and the bar that turns on its side with it.
 @use '../../css/shapes/zone';
 @use '../../css/shapes/toolbar';
+@use '../../css/mixins/writing';
 
 .zone-collapsible {
   display: flex;
@@ -72,7 +73,7 @@
   }
 
   .zone-collapsible--title {
-    writing-mode: var(--writing-mode-vertical);
+    @include writing.vertical-text;
     min-height: 0;
     max-height: 100%;
     overflow: hidden;

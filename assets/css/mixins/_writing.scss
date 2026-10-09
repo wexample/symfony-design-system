@@ -13,3 +13,16 @@
   // left comes out pointing down, which is where the text now goes.
   --rotate-quarter: -90deg;
 }
+
+// A text set sideways, one way or the other. Down is the system's reading —
+// a spine, a folded region's title. Up is the half turn of it, the way the
+// label of a band reads along its edge — a lane of a process, the axis of a
+// chart —, its start at the foot. Both read the same vertical mode, so the
+// two ways only ever differ by that turn.
+@mixin vertical-text($way: down) {
+  writing-mode: var(--writing-mode-vertical);
+
+  @if $way == up {
+    transform: rotate(180deg);
+  }
+}
