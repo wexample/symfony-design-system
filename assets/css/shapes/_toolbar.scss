@@ -45,6 +45,13 @@
   --toolbar-font-size: 1rem;
 }
 
+// A bar whose parts may go to a second line when the row runs short — a hint
+// and the buttons acting on it —, rather than cutting a button off: what the
+// bar holds then keeps its width, as a button cannot be cut short.
+.toolbar--wrap {
+  flex-wrap: wrap;
+}
+
 // A bar that is the header of a panel rather than the head of a page: it gives
 // up its room, and what it holds gives up its own along with it.
 .toolbar--compact {
