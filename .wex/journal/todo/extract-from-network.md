@@ -33,4 +33,4 @@ network's components are mostly covered by this package and its demo. This todo 
 
 ## Do not
 
-- Charts go to symfony-charts, the Stripe front to symfony-stripe, money formatting to symfony-money.
+- Charts go to symfony-charts, the Stripe front to symfony-payment-ds (the provider itself is symfony-remote-payment-stripe; there is no symfony-stripe), money formatting to symfony-money.
