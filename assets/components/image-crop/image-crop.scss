@@ -42,7 +42,7 @@
 
   &:focus-visible {
     @include field.field-focus;
-    outline: 2px solid var(--accent-9);
+    outline: 2px solid var(--color-selected);
   }
 }
 

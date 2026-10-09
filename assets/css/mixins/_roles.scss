@@ -24,6 +24,13 @@
   // above hover, since a passing pointer says less than a deliberate move.
   --state-focus: var(--neutral-5);
 
+  // What is picked, switched on or lit on the screen — a selection, the step
+  // being done, a tool in force, the path a diagram walks: in the
+  // application's own colour, where the states above stay grey. The ink read
+  // on it goes with it.
+  --color-selected: var(--accent-9);
+  --color-selected-contrast: var(--accent-contrast);
+
   // Borders.
   --border-color-discreet: var(--neutral-5);
   --border-color-default: var(--neutral-6);

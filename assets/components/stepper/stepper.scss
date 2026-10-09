@@ -97,9 +97,9 @@ button.stepper--step {
 // The number of the step being done in the application's own colour, its
 // name staying in the text's.
 .stepper--item.is-current .stepper--index {
-  border-color: var(--accent-9);
-  background: var(--accent-9);
-  color: var(--accent-contrast);
+  border-color: var(--color-selected);
+  background: var(--color-selected);
+  color: var(--color-selected-contrast);
 }
 
 // Not decided yet: drawn in dashes, and so is the line leading to it and away

@@ -31,8 +31,8 @@ button.action-icon {
 .action-icon[aria-pressed='true'],
 .action-icon[aria-pressed='true']:is(a, button):hover,
 .action-icon[aria-pressed='true']:is(a, button):focus-visible {
-  color: var(--accent-contrast);
-  background: var(--accent-9);
+  color: var(--color-selected-contrast);
+  background: var(--color-selected);
 }
 
 button.action-icon:disabled {
