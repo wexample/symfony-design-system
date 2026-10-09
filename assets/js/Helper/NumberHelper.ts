@@ -40,8 +40,9 @@ export function numberStepDigits(step: number | string | null | undefined): numb
 // null when it is none, or when it could be read two ways. The locale says
 // which mark is the decimal one: a comma groups thousands in English and
 // splits decimals in French; a grouping mark is followed by three digits,
-// or it is not one. A point alone, « 1.5 », is decimal everywhere, as a
-// number control reads it.
+// or it is not one — « 72,5 » is then a decimal comma whatever the page.
+// A point alone, « 1.5 », is decimal everywhere, as a number control reads
+// it. « 1,234 » on an English page stays a thousand and more.
 export function numberParse(text: string, locale?: string | null): number | null {
   const resolved = (locale || (typeof document !== 'undefined' ? document.documentElement.lang : '') || undefined)?.replace('_', '-');
   const decimal = new Intl.NumberFormat(resolved).formatToParts(1.5).find((part) => part.type === 'decimal')?.value === ',' ? ',' : '.';
@@ -50,6 +51,18 @@ export function numberParse(text: string, locale?: string | null): number | null
 
   if (decimal === ',' && !value.includes(',') && value.split('.').length === 2) {
     return /^[-+]?(\d+\.?\d*|\.\d+)$/.test(value) ? Number(value) : null;
+  }
+
+  // « 72,5 » on an English page: a comma followed by anything but three
+  // digits groups nothing — it can only be a decimal one, from elsewhere.
+  if (decimal === '.' && !value.includes('.') && /^[-+]?\d+,(\d{1,2}|\d{4,})$/.test(value)) {
+    return Number(value.replace(',', '.'));
+  }
+
+  // « 72,5 » on an English page: a comma followed by anything but three
+  // digits groups nothing — it can only be a decimal one, from elsewhere.
+  if (decimal === '.' && !value.includes('.') && /^[-+]?\d+,(\d{1,2}|\d{4,})$/.test(value)) {
+    return Number(value.replace(',', '.'));
   }
 
   const [whole, fraction, ...rest] = value.split(decimal);
