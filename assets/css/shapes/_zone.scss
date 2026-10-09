@@ -121,18 +121,6 @@
   margin-inline-end: calc(-1 * var(--zone-gap, var(--space-2)));
 }
 
-// In a column, against the zone above it (`-start`) or below it (`-end`): a
-// bar under the tabs it belongs to.
-.zone--split:where(.zone--split--vertical) > :where(.zone--joined-start) {
-  margin-inline-start: 0;
-  margin-block-start: calc(-1 * var(--zone-gap, var(--space-2)));
-}
-
-.zone--split:where(.zone--split--vertical) > :where(.zone--joined-end) {
-  margin-inline-end: 0;
-  margin-block-end: calc(-1 * var(--zone-gap, var(--space-2)));
-}
-
 @for $i from 1 through 9 {
   .zone--size-#{$i} {
     --zone-size: var(--size-#{$i});
@@ -171,8 +159,7 @@
 //     (none)              what is left, shared with the other plain zones
 //     zone--narrow        its size (`zone--size-N`), or its content's
 //                         — with `zone--toolbar`, a bar of icons on end
-//     zone--joined-start / -end  against its neighbour, without the gap —
-//                         before or after it, in a row as in a column
+//     zone--joined-start / -end  against its neighbour, without the gap
 //     zone--measure       the reading measure, giving way below it
 //     zone--fit-content   as wide as what it holds
 //     zone--hug           as wide as what it holds, its text wrapping before
@@ -439,6 +426,13 @@
 .zone--split--flush {
   --zone-gap: 1px;
   background: var(--border-color-discreet);
+}
+
+// One panel cut into rows — its tabs, a bar of the tab open, its body — rather
+// than regions apart: its zones stand one against the other. Its own gap only,
+// not one the splits nested in it inherit.
+.zone--split:where(.zone--split--joined) {
+  gap: 0;
 }
 
 // A region closed by what it held — an embed's close button — steps out of
