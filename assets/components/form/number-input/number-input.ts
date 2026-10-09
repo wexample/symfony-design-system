@@ -1,9 +1,10 @@
 import Field from '../../../js/Class/Field';
 import { numberParse } from '../../../js/Helper/NumberHelper';
 
-// A number field takes a figure pasted as it was written elsewhere — « 1,5 »
-// from a French text, « 1 234,50 » from a spreadsheet —, which the browser
-// would otherwise drop, a number control knowing the point alone.
+// A number field takes a figure pasted as the page's language writes it —
+// « 1,5 » or « 1 234,50 » in French, « 1,234.5 » in English —, which the
+// browser would otherwise drop or misread, a number control knowing the
+// point alone.
 export default class extends Field {
   private inputEl: HTMLInputElement | null = null;
 
