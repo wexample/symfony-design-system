@@ -28,6 +28,9 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  min-width: 0;
+  // A class name is one unbroken word too.
+  overflow-wrap: anywhere;
   padding: var(--space-4);
 }
 
@@ -40,8 +43,10 @@
 }
 
 @media (max-width: 768px) {
+  // One column, from zero as the two halves are: a bare `1fr` would widen
+  // to the longest word it holds, past the screen.
   .doc-section {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .doc-section--code {
