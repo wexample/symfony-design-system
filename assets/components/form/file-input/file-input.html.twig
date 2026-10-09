@@ -1,13 +1,30 @@
-<div {{ component_render_tag_attributes({class:'form--group'}) }}>
+{#- A file field shaped as a place to drop it on: the file dragged there or
+    chosen with the button, named once taken — and shown, when it is an
+    image. The control itself stays in the form, out of sight, so the form
+    sends and checks it as any other. -#}
+{%- set system = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.file_input.' -%}
+{%- set many = multiple is defined and multiple -%}
+<div {{ component_render_tag_attributes({class:'form--group file-input'}) }}
+     data-hint="{{ (system ~ (many ? 'hint_many' : 'hint_one')) | trans }}"
+     data-count="{{ (system ~ 'count') | trans }}">
     <label class="form--label" for="{{ id }}">{{ label }}</label>
-    <input
-        class="form--input form--input-file"
-        id="{{ id }}"
-        type="file"
-        {% if name is defined %}name="{{ name }}"{% endif %}
-        {% if required is defined and required %}required{% endif %}
-        {% if multiple is defined and multiple %}multiple{% endif %}
-        {% if accept is defined %}accept="{{ accept }}"{% endif %}
-        {% if input_attr is defined %}{{ input_attr|raw }}{% endif %}
-    >
+    <div class="dropzone dropzone--compact file-input--zone">
+        <input
+            class="form--input-file file-input--control"
+            id="{{ id }}"
+            type="file"
+            {% if name is defined %}name="{{ name }}"{% endif %}
+            {% if required is defined and required %}required{% endif %}
+            {% if many %}multiple{% endif %}
+            {% if accept is defined and accept %}accept="{{ accept }}"{% endif %}
+            {% if input_attr is defined %}{{ input_attr|raw }}{% endif %}
+        >
+        {{ icon('ph:bold/file-arrow-up', 'dropzone--icon') }}
+        <span class="dropzone--hint file-input--names">{{ (system ~ (many ? 'hint_many' : 'hint_one')) | trans }}</span>
+        <button type="button" class="button file-input--pick" tabindex="-1">
+            <span class="button--icon">{{ icon('ph:bold/folder-open') }}</span>
+            <span>{{ (system ~ 'pick') | trans }}</span>
+        </button>
+    </div>
+    <div class="file-input--previews" hidden></div>
 </div>

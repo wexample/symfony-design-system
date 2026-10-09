@@ -1,1 +1,43 @@
 /* Component: form/file_input */
+@use '../../dropzone/dropzone';
+@use '../../../css/mixins/visually-hidden' as visually-hidden;
+
+// The control is the zone's: out of sight, still focused and checked by the
+// browser — its focus shown on the zone around it.
+.file-input--control {
+  @include visually-hidden.visually-hidden;
+}
+
+.file-input--zone {
+  position: relative;
+  cursor: pointer;
+
+  &:focus-within {
+    border-color: var(--color-link);
+  }
+}
+
+.file-input--names {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-input.is-filled .file-input--names {
+  color: var(--text-color-default);
+}
+
+// The images taken, small, under the zone.
+.file-input--previews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+
+  img {
+    width: 4.5rem;
+    height: 4.5rem;
+    object-fit: cover;
+    border-radius: var(--radius-media, var(--radius-box));
+    border: 1px solid var(--border-color-discreet);
+  }
+}
