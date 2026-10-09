@@ -1,0 +1,26 @@
+// A period and the way to the next ones: the kind of period, the arrows
+// around its name, the way back to today — in a row, wrapping when narrow.
+@use '../../css/shapes/form/radio';
+@use '../button/button';
+
+.period-nav {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.period-nav--steps {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+// Wide enough for the longest month, so the arrows stay where they are.
+.period-nav--label {
+  min-width: 10em;
+  text-align: center;
+  font-weight: var(--font-weight-medium);
+  text-transform: capitalize;
+  font-variant-numeric: tabular-nums;
+}

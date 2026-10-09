@@ -1,0 +1,16 @@
+# Declares `period-nav` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: A year or a month to look at — the one before, the one after, today —, kept in the address if asked; a `change` event with its bounds, for a list or a chart to read.
+formats:
+  style: true
+  vue: true
+  template: "it drives what a vue shows, and has nothing to show on its own"
+  script: "its behaviour is the vue component's"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

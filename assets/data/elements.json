@@ -2015,6 +2015,34 @@
             }
         },
         {
+            "key": "period-nav",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A year or a month to look at \u2014 the one before, the one after, today \u2014, kept in the address if asked; a `change` event with its bounds, for a list or a chart to read.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/period-nav/period-nav.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/period-nav/period-nav.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/period-nav/period-nav.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "waived",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "template": "it drives what a vue shows, and has nothing to show on its own",
+                "script": "its behaviour is the vue component's"
+            }
+        },
+        {
             "key": "progress-bar",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "Work under way, as a bar. Named `progress-bar` and not `progress` because `<progress>` is a native html element and vue refuses to redefine one.",

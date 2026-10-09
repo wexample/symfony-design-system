@@ -1,0 +1,26 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ parent() }}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.period.*') }}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <nav class="period-nav" :aria-label="t('label')">
+        <div v-if="units.length > 1" class="radio-group radio-group--segmented" role="radiogroup" :aria-label="t('unit')">
+            <div v-for="option in units" :key="option" class="radio-option">
+                <input class="form--radio" type="radio" :id="`${uid}-${option}`" :name="uid" :value="option"
+                       :checked="current.unit === option" @change="setUnit(option)">
+                <label class="form--radio-label" :for="`${uid}-${option}`">[[ t(`unit_${option}`) ]]</label>
+            </div>
+        </div>
+        <div class="period-nav--steps">
+            <button type="button" class="button button--flat button--compact" :disabled="!hasPrevious"
+                    :aria-label="t('previous')" :title="t('previous')" @click="step(-1)" v-html="icon('ph:bold/caret-left')"></button>
+            <span class="period-nav--label" aria-live="polite">[[ label ]]</span>
+            <button type="button" class="button button--flat button--compact" :disabled="!hasNext"
+                    :aria-label="t('next')" :title="t('next')" @click="step(1)" v-html="icon('ph:bold/caret-right')"></button>
+        </div>
+        <button type="button" class="button button--compact" :disabled="isToday" @click="today">[[ t('today') ]]</button>
+    </nav>
+{%- endblock -%}
