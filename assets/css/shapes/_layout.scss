@@ -15,6 +15,10 @@
 .layout--vertical {
   @extend .gutters--vertical;
   width: 100%;
+  // A column beside the side menu gives way to it: without this its floor is
+  // the widest thing it holds, and a wide table pushes the header, the tabs
+  // and the page past the window — the body scrolls sideways instead.
+  min-width: 0;
   min-height: 100%;
 }
 
