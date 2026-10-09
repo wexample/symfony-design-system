@@ -1,8 +1,34 @@
 # Design system: component gaps found in network
 
 Opened: 2026-09-24
-Updated: 2026-09-24
+Updated: 2026-10-09
 Author: agent:archeology
+
+## État au 2026-10-09, pour l'agent design system (agent:main)
+
+Le propriétaire confie la suite de cette todo à l'agent design system. Esprit de la revue : **comprendre l'intention de départ, ne pas sur-migrer** ce que network faisait ; chaque étape se discute avec le propriétaire avant d'être codée.
+
+- **Fait** : étape 4 (`form/tel-input`, `form/checkbox-input`, avec les types de symfony-forms, commit 501f105d), étape 5 (`form/otp-input`, `done/code-input.md`). À côté du périmètre : `dropzone`, `image-crop`.
+- **Reste** (vérifié dans le code le 2026-10-09) :
+  - 1. `file-input` : glisser-déposer et aperçu d'image (rien dans `file-input.ts`).
+  - 2. `number-input` : coller « 1,5 » donne 1.5.
+  - 3. Compteur de caractères sur text / textarea (le `maxlength` est désormais posé par symfony-forms depuis les contraintes `Length` : le compteur peut s'appuyer dessus).
+  - 6. Navigation par période (année / mois, précédent / suivant / aujourd'hui). Attendue aussi par `symfony-charts/.wex/journal/todo/chart-period.md`.
+  - 7. Champ et liste éditables en ligne.
+  - 8. Messages d'entité avec boutons d'action (#58).
+  - 9. Variante d'actions de `document-embed` (ouvrir, télécharger, régénérer, envoyer).
+  - 10. Galerie d'icônes dans la démo.
+  - 11. Catalogue `fr` des composants.
+  - 12. Vérifier les issues listées (#50, #115, #205, #118).
+
+## Liés, ailleurs
+
+- **Formateur de prix JS** identique au PHP (virgule en `fr`, devise, format compact), calcul prix / TVA en direct sur les formulaires, suffixe HT / TTC : `symfony-money/.wex/journal/todo/extract-from-network-sweep.md`, étapes 2 et 3 (le `NumberHelper.ts` du design system n'a que `numberFormat`).
+- **Boutons en pied de modale** : symfony-forms le fait désormais (`in_footer` + `form_footer(form)` dans `page_actions`) ; la todo media (bouton « Choisir » en pied de la modale du sélecteur) peut s'en servir : `symfony-media/.wex/journal/todo/extract-from-network.md`.
+- **Registre** : `design-system:generate-element-registry` échoue sur `WexampleSymfonyDesignSystemDemoBundle:demo-image-crop`, trouvé sur le disque mais non déclaré.
+- **Smoke test** : `MOJOE/local/design-system/tests/Scenario/explore.yaml` parcourt les menus en visiteur, membre et admin et signale les 500, les clés de traduction brutes et le JSON illisible (`php -d memory_limit=-1 vendor/bin/phpunit --filter explore tests/Scenario` dans le conteneur). Le 2026-10-09, il a signalé `article.list` (démo composition) et `section.check.items` (démo interactions), traductions manquantes.
+- Le point d'ensemble de l'extraction : `NETWORK/local/network/.wex/knowledge/readme/archeology/status.md.j2`.
+
 
 ## Read this first — status of this todo
 
