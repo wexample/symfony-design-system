@@ -1,0 +1,16 @@
+{#- A box ticked or not, its label beside it: the plain checkbox. The switch
+    says the same thing drawn as a switch; the application picks. -#}
+<div {{ component_render_tag_attributes({class:'form--group'}) }}>
+    <div class="checkbox-option">
+        <input
+            class="form--checkbox"
+            type="checkbox"
+            id="{{ id }}"
+            {% if name is defined %}name="{{ name }}"{% endif %}
+            value="{{ value | default('1') }}"
+            {% if required | default(false) %}required{% endif %}
+            {% if checked | default(false) %}checked{% endif %}
+        >
+        <label class="form--checkbox-label" for="{{ id }}">{{ label }}</label>
+    </div>
+</div>

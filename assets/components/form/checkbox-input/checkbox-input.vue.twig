@@ -1,0 +1,24 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/form-field/form-field.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ parent() }}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.switch.*') }}
+{%- endblock -%}
+
+{%- block field_label -%}{%- endblock -%}
+
+{%- block field_control -%}
+    <div class="checkbox-option">
+        <input
+                class="form--checkbox"
+                type="checkbox"
+                :id="resolvedId"
+                :name="name || null"
+                :checked="modelValue"
+                :required="required ? true : null"
+                :disabled="isDisabled ? true : null"
+                @change="onChange"
+        >
+        <label class="form--checkbox-label" :for="resolvedId">[[ resolveLabel(label) ]]</label>
+    </div>
+{%- endblock -%}
