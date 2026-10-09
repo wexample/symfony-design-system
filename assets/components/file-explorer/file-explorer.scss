@@ -35,6 +35,9 @@
   height: 100%;
   min-height: 24rem;
   min-width: 0;
+  // It measures itself, not the window: an explorer in a narrow region folds
+  // as one on a phone does.
+  container: file-explorer / inline-size;
 }
 
 .file-explorer--toolbar {
@@ -289,4 +292,25 @@ a.file-explorer--row > * {
   display: flex;
   justify-content: center;
   padding: var(--space-2);
+}
+
+// Narrow — a phone, a column —: the listing alone, its name and size. The
+// folders on the side are reached through the path and the way up, the kind
+// and the date are what a narrow listing does without.
+@container file-explorer (max-width: 36rem) {
+  .file-explorer--tree {
+    display: none;
+  }
+
+  .file-explorer--list {
+    grid-template-columns: minmax(0, 1fr) 5rem;
+  }
+
+  :is(.file-explorer--heading--kind, .file-explorer--heading--modifiedAt, .file-explorer--kind, .file-explorer--date) {
+    display: none;
+  }
+
+  .file-explorer--filter {
+    width: 8rem;
+  }
 }
