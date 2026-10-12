@@ -79,11 +79,13 @@
         {%- set page_title_aside %}{{ block('header_title_aside') }}{% endset -%}
     {%- endif -%}
     {#- The bar under the header: the page's own navigation (`page_navigation`,
-        a record's tabs), or else, on top, the way back at its start and the
-        page's actions at its end — a toolbar, the way a record's tabs stand,
-        and not a trail over the title with the actions beside it. -#}
+        a record's tabs), or else the way back at its start and the page's
+        actions at its end — a toolbar, the way a record's tabs stand, and not
+        a trail over the title with the actions beside it. On top, every page
+        with a parent has it; on the side, the pages saying so
+        (`page_trail: 'back'`), the menu already telling where one is. -#}
     {%- set pageNavigation %}{{ block('page_navigation') }}{% endset -%}
-    {%- if navigationTop and page_show_title and pageNavigation|trim is empty and page_trail == 'back' -%}
+    {%- if page_show_title|default(false) and pageNavigation|trim is empty and page_trail|default(null) == 'back' -%}
         {%- set pageBack = breadcrumb_render({ back: true })|trim -%}
         {%- if pageBack is not empty -%}
             {%- set pageBarActions %}{{ block('page_title_actions') }}{{ page_title_actions_extra|default('') }}{% endset -%}
