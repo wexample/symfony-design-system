@@ -6,7 +6,8 @@
 {% for notifications in app.flashes(['success', 'error', 'warning', 'info']) %}
     {% for notification in notifications %}
         {% set pending_notifications = pending_notifications|merge([
-            notification|merge({message: notification.message|trans})
+            notification|merge({message: notification.message|trans}
+                |merge(notification.action is defined ? {action: notification.action|merge({label: notification.action.label|trans})} : {}))
         ]) %}
     {% endfor %}
 {% endfor %}

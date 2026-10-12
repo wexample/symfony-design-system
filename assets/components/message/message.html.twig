@@ -17,11 +17,19 @@
     {#- What to do about it, when there is one thing to do: { icon, label, href }. -#}
     {% if options.action is defined and options.action %}
         <div class="message--actions">
-            {#- `new_window` opens it beside the page rather than in its place. -#}
-            {{ button_link(options.action.icon, options.action.label | trans, options.action.href, {
-                class: 'button--flat',
-                attr: options.action.new_window|default(false) ? { target: '_blank', rel: 'noopener noreferrer' } : {},
-            }) }}
+            {%- if options.action.target|default(null) -%}
+                {#- `target` opens it where a target button would — `panel`,
+                    `modal` —, without leaving the page. -#}
+                {{ button_target(options.action.icon|default(''), options.action.label | trans, options.action.href, options.action.target, {
+                    class: 'button--flat',
+                }) }}
+            {%- else -%}
+                {#- `new_window` opens it beside the page rather than in its place. -#}
+                {{ button_link(options.action.icon|default(''), options.action.label | trans, options.action.href, {
+                    class: 'button--flat',
+                    attr: options.action.new_window|default(false) ? { target: '_blank', rel: 'noopener noreferrer' } : {},
+                }) }}
+            {%- endif -%}
         </div>
     {% endif %}
 </div>

@@ -8,4 +8,15 @@
     {% if message is defined and message %}
         <div class="toast--message">{{ message | trans }}</div>
     {% endif %}
+    {#- What to do next: { icon, label, href, target }, `target` opening it
+        where a target button would — `panel`, `modal` —, beside the page. -#}
+    {% if action is defined and action %}
+        <div class="toast--actions">
+            {%- if action.target|default(null) -%}
+                {{ button_target(action.icon|default(''), action.label | trans, action.href, action.target, { class: 'button--flat' }) }}
+            {%- else -%}
+                {{ button_link(action.icon|default(''), action.label | trans, action.href, { class: 'button--flat' }) }}
+            {%- endif -%}
+        </div>
+    {% endif %}
 </div>

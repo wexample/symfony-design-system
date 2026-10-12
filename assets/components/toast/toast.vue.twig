@@ -1,5 +1,9 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
 
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/button-target') -}}
+{%- endblock -%}
+
 {%- block vue_body -%}
     <div :class="toastClass">
         <button class="toast--close" type="button" @click="$emit('close')">
@@ -7,5 +11,15 @@
         </button>
         <div v-if="title" class="toast--title">[[ title ]]</div>
         <div v-if="message" class="toast--message">[[ message ]]</div>
+        <div v-if="action" class="toast--actions">
+            <button-target
+                    :app="app"
+                    :href="action.href"
+                    :target="action.target || ''"
+                    :icon="action.icon || ''"
+                    :label="action.label"
+                    class-name="button button--flat"
+            ></button-target>
+        </div>
     </div>
 {%- endblock -%}

@@ -1,4 +1,5 @@
 <script>
+import ButtonTarget from '../button-target/button-target.vue';
 
 // The twin of toast.html.twig — the inline one. The .front shell beside it is
 // the service's, and so is the closing: toast.ts runs an animation before it
@@ -6,6 +7,10 @@
 // is emitted rather than done, and the parent drops the item.
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-toast-toast',
+
+  components: {
+    ButtonTarget,
+  },
 
   emits: ['close'],
 
@@ -17,6 +22,12 @@ export default {
     },
     message: {
       type: String,
+      default: null
+    },
+    // What to do next: { icon, label, href, target }, the label already
+    // translated. `target` opens it where a target button would.
+    action: {
+      type: Object,
       default: null
     },
     // info, success, warning, error — anything else wears the neutral surface.

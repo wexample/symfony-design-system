@@ -1,4 +1,5 @@
 <script>
+import ButtonTarget from '../button-target/button-target.vue';
 
 // The twin of message.html.twig. The four flavours carry the icon the twig
 // functions of MessageExtension put in for the caller; naming them here keeps
@@ -12,6 +13,10 @@ const DEFAULT_ICONS = {
 
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-message-message',
+
+  components: {
+    ButtonTarget,
+  },
 
   props: {
     type: {
@@ -38,8 +43,9 @@ export default {
       type: Boolean,
       default: false
     },
-    // What to do about it, when there is one thing to do: { icon, label, href },
-    // the label already translated.
+    // What to do about it, when there is one thing to do: { icon, label, href,
+    // target }, the label already translated. `target` opens it where a target
+    // button would — `panel`, `modal` —, without leaving the page.
     action: {
       type: Object,
       default: null

@@ -2,8 +2,12 @@ import Component from '@wexample/symfony-loader/js/Class/Component';
 import FadeAnimationMixin from '@wexample/symfony-loader/js/Class/Mixins/FadeAnimationMixin';
 import AutoCloseMixin from '@wexample/symfony-loader/js/Class/Mixins/AutoCloseMixin';
 import ActionLinksMixin from '@wexample/symfony-loader/js/Class/Mixins/ActionLinksMixin';
+import type { NotificationActionInterface } from '@wexample/symfony-loader/js/Interfaces/FormResponsePayloadInterface';
+import { loadIntoTarget, targetEmbeddedOf } from '../../js/Helper/TargetHelper';
 
 export default class extends Component {
+  private actionEl?: HTMLAnchorElement;
+
   async init() {
     FadeAnimationMixin.apply(this);
     AutoCloseMixin.apply(this);
@@ -48,6 +52,8 @@ export default class extends Component {
     }
     }
 
+    this.renderAction();
+
     if (!this.options?.sticky) {
       const timeout = this.options?.timeout ?? 4000;
       (this as any).startAutoClose(timeout, () => this.close());
@@ -61,10 +67,57 @@ export default class extends Component {
   protected async unmounted(): Promise<void> {
     const closeEl = this.el.querySelector('[data-toast-close]') as HTMLElement | null;
     closeEl?.removeEventListener('click', this.onClickClose);
+    this.actionEl?.removeEventListener('click', this.onClickAction);
     (this as any).unbindActionLinks();
     (this as any).clearAutoClose();
     await super.unmounted();
   }
+
+  // What to do next, as a button under the message: a link, or with a
+  // `target` the page opened where a target button would — `panel`, `modal`.
+  private renderAction(): void {
+    const action = this.options?.action as NotificationActionInterface | undefined;
+    const actionsEl = this.el.querySelector('[data-toast-actions]') as HTMLElement | null;
+
+    if (!action || !actionsEl) {
+      return;
+    }
+
+    const link = document.createElement('a');
+    link.className = 'button button--flat';
+    link.href = action.href;
+
+    if (action.icon) {
+      const iconEl = document.createElement('span');
+      iconEl.className = 'button--icon';
+      iconEl.innerHTML = (this.app.getServiceOrFail('icon') as any).icon(action.icon);
+      link.append(iconEl);
+    }
+
+    const labelEl = document.createElement('span');
+    labelEl.textContent = action.label;
+    link.append(labelEl);
+
+    link.addEventListener('click', this.onClickAction);
+    actionsEl.append(link);
+    actionsEl.removeAttribute('hidden');
+    this.actionEl = link;
+  }
+
+  private onClickAction = (event: MouseEvent) => {
+    const action = this.options?.action as NotificationActionInterface | undefined;
+
+    // A modified click stays a navigation, as a target button keeps it.
+    if (!action?.target || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) {
+      return;
+    }
+
+    event.preventDefault();
+    loadIntoTarget(this.app, action.target, action.href, {
+      targetEmbedded: targetEmbeddedOf(this.actionEl ?? null),
+    });
+    this.close();
+  };
 
   private onClickClose = () => {
     this.close();
