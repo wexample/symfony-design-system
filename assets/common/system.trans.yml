@@ -605,6 +605,7 @@ fr:
       retry: Réessayer
       search: Rechercher
       results: '%count% trouvés'
+      open: 'Ouvrir le détail'
     confirm:
       accept: Confirmer
       cancel: Annuler
@@ -618,12 +619,34 @@ fr:
       done: Terminé
       close: 'Fermer la visite'
       progress: '%current% / %total%'
+    upload:
+      hint: 'Déposez des fichiers ici, ou choisissez-les'
+      pick: Envoyer
+      title: Envois
+      progress: 'Envois — %done% / %count%'
+      cancel: 'Annuler cet envoi'
+      cancelled: Annulé
+      failed: "L'envoi a échoué"
+      refused_size: '%name% dépasse %max%, la taille maximale acceptée ici'
+      refused_type: "%name% n'est pas un type de fichier accepté ici (%accept%)"
+      status:
+        queued: En attente
+        uploading: Envoi en cours
+        success: Terminé
+        error: Échec
     embed:
       close: Fermer
+    document:
+      open: 'Ouvrir dans une nouvelle fenêtre'
+      download: Télécharger
     form:
       optional: (facultatif)
     menu:
       navigation: Navigation
+      open_left: 'Ouvrir le menu'
+      close_left: 'Fermer le menu'
+      open_right: 'Ouvrir le panneau latéral'
+      close_right: 'Fermer le panneau latéral'
       more: "Plus d'options"
       filter: Filtrer
       filter_empty: 'Aucun résultat correspondant'
