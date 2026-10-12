@@ -1,0 +1,17 @@
+# Declares `count-badge` to the design system registry.
+# Seeded from a scan of the assets; kept by hand from here on.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: How many wait to be seen, as a pill — `99+` past its maximum, a word (« New ») or a dot instead, red on the corner of an icon or in the tone of a line; `countApply()` keeps it current.
+formats:
+  style: true
+  template: true
+  script: "it shows and does nothing"
+  vue: todo
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

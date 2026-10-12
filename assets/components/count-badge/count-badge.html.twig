@@ -1,0 +1,13 @@
+{#- How many of something wait to be seen, as a pill: a figure — `99+` past
+    `max` —, a word instead (`label`: « New »), or a dot alone (`dot`). Hung
+    on the corner of what it counts (`corner`, in a `.has-count` parent) or
+    in the run of a line. Nothing shows at zero, unless `show_zero`; its
+    place stays, for a script to fill (`countApply`). -#}
+{%- set figure = label ?: (value is null ? '' : (max and value > max ? max ~ '+' : value)) -%}
+{%- set empty = not label and not dot and (value is null or (value == 0 and not show_zero)) -%}
+<span class="{{ ['count', corner ? 'count--corner', dot ? 'count--dot', tone ? 'count--tone-' ~ tone, class]|filter(c => c)|join(' ') }}"
+      data-count-max="{{ max }}"
+      {%- if title %} title="{{ title }}" aria-label="{{ title }}"{% endif %}
+      {%- if empty or (dot and not value and not show_zero) %} hidden{% endif %}>
+    {{- dot ? '' : figure -}}
+</span>

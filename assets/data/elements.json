@@ -440,6 +440,32 @@
             "notes": []
         },
         {
+            "key": "count-badge",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "How many wait to be seen, as a pill \u2014 `99+` past its maximum, a word (\u00ab New \u00bb) or a dot instead, red on the corner of an icon or in the tone of a line; `countApply()` keeps it current.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/count-badge/count-badge.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/count-badge/count-badge.html.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "todo",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "it shows and does nothing"
+            }
+        },
+        {
             "key": "data-table",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A table of rows and columns, drawn from the same column definitions on both sides. Named `data-table` and not `table` because `<table>` is a native html element and vue refuses to redefine one. The two renderers part on what a cell value may be, and they have to: the client one runs before the data is known, so it takes functions for `format`, `href`, `icon` and `params` and resolves routes itself; the server one runs after, so it takes the result already computed in the row \u2014 `{label, href}` for a link, `{icon, href}` for an icon. `secondary` greys the header too on the client and only the body on the server, and the refreshing overlay has no server equivalent because a page that is being redrawn is not on screen.",
@@ -2928,7 +2954,7 @@
             "key": "count",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_count.scss",
-            "description": "How many of something there are, hanging from the row that leads to it: the unread of a menu item, the results of a tab, the entries behind a branch.  Not a marker, though it looks like a small one: a marker stands beside a thing and is sized in tokens, this one hangs from a line of text and is sized in ems, so it follows whatever it is attached to \u2014 a toolbar raising its font raises this with it. Nearly an exponent, and read like one.  Borrowed rather than owned: `menu`, `tab` and `button-menu` each `@use` it for the count they hang at the end of a row, so the rule below is copied into each of their bundles and a page that loads two of them ships it twice. That is what a shape costs and it is the price of the rule \u2014 nothing renders this, so the only way it can reach the markup is for whoever writes the class to pull it in.  Weighing nothing (`:where`), for the same reason: copied into several bundles, it is declared again by whichever stylesheet a page loads last, and at a class's weight it would then win over the class a page puts beside it \u2014 a tone \u2014 by the mere order the files came in."
+            "description": null
         },
         {
             "key": "disk-item",

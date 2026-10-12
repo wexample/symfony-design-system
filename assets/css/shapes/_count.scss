@@ -1,3 +1,5 @@
+@use '../mixins/feedback' as feedback;
+
 // How many of something there are, hanging from the row that leads to it: the
 // unread of a menu item, the results of a tab, the entries behind a branch.
 //
@@ -27,4 +29,68 @@
   display: inline-block;
   line-height: 1.6;
   white-space: nowrap;
+}
+
+// A count in a colour (`count--tone-*`), filled whole as a marker is: what
+// asks to be seen — unread, waiting — rather than said in passing.
+
+.count--tone-info,
+.count--tone-success,
+.count--tone-warning,
+.count--tone-error,
+.count--tone-accent {
+  background: var(--feedback-fill);
+  color: var(--feedback-on-fill);
+}
+
+.count--tone-info { @include feedback.feedback-info; }
+.count--tone-success { @include feedback.feedback-success; }
+.count--tone-warning { @include feedback.feedback-warning; }
+.count--tone-error { @include feedback.feedback-error; }
+
+.count--tone-accent {
+  --feedback-fill: var(--accent-9);
+  --feedback-on-fill: var(--accent-contrast);
+}
+
+// Hung on the corner of what it counts — an icon, an avatar, a button —,
+// which `.has-count` makes the place it is measured from. Small, round when
+// a single figure, ringed with the ground so it detaches from the icon.
+.has-count {
+  position: relative;
+}
+
+// Its start set on the corner rather than its end: a longer figure, a word,
+// grows away from the icon, never over it or over what stands before.
+.count--corner {
+  position: absolute;
+  inset-block-start: -0.45em;
+  inset-inline-start: calc(100% - 0.55em);
+  min-width: 1.6em;
+  padding: 0 0.4em;
+  font-size: 0.6em;
+  line-height: 1.6;
+  text-align: center;
+  box-shadow: 0 0 0 2px var(--surface-page, var(--surface-1));
+  pointer-events: none;
+}
+
+// A dot and no figure: something is there, how much does not matter.
+.count--dot {
+  min-width: 0;
+  width: 0.6em;
+  height: 0.6em;
+  padding: 0;
+  font-size: inherit;
+  line-height: 0;
+}
+
+.count--corner.count--dot {
+  inset-block-start: -0.1em;
+  inset-inline-start: calc(100% - 0.5em);
+}
+
+// None: the place stays, nothing shows.
+:where(.count)[hidden] {
+  display: none;
 }
