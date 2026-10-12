@@ -42,11 +42,6 @@ export default {
       default: () => []
     }
   },
-    download: {
-      type: [Boolean, String],
-      default: false
-    }
-  },
 
   computed: {
     wrapperClass() {
