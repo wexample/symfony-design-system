@@ -29,7 +29,13 @@
                     <span v-if="index === segments.length - 1" class="breadcrumb--item breadcrumb--item--current">
                         <span class="breadcrumb--label">[[ segment.label ]]</span>
                     </span>
-                    <button v-else type="button" class="breadcrumb--item file-explorer--crumb" @click="navigate(segment.path)">
+                    {#- A folder above, and what is dragged may be dropped on it. -#}
+                    <button v-else type="button" class="breadcrumb--item file-explorer--crumb"
+                            :class="{ 'is-dragover': isDropTarget(segment.path) }"
+                            @click="navigate(segment.path)"
+                            @dragover="onDragOver(segment.path, $event)"
+                            @dragleave="onDragLeave(segment.path)"
+                            @drop="onDrop(segment.path ? { path: segment.path, type: 'directory' } : null, $event)">
                         <span class="breadcrumb--label">[[ segment.label ]]</span>
                     </button>
                     <span v-if="index < segments.length - 1" class="breadcrumb--separator" v-html="renderIcon('ph:bold/caret-right')"></span>
@@ -98,8 +104,14 @@
                          :key="itemKey(item)"
                          role="row"
                          class="file-explorer--row file-explorer--cell"
-                         :class="{ 'is-selected': isSelected(item), 'is-cursor': index === cursorIndex }"
+                         :class="{ 'is-selected': isSelected(item), 'is-cursor': index === cursorIndex, 'is-dragover': isDropTarget(item.path) }"
                          :aria-selected="isSelected(item) ? 'true' : 'false'"
+                         :draggable="movable ? 'true' : null"
+                         @dragstart="onDragStart(item, $event)"
+                         @dragend="onDragEnd"
+                         @dragover="isDirectory(item) && onDragOver(item.path, $event)"
+                         @dragleave="onDragLeave(item.path)"
+                         @drop="isDirectory(item) && onDrop(item, $event)"
                          @click="select(index, $event)"
                          @dblclick="open(item)">
                         <span class="file-explorer--name">
@@ -120,9 +132,15 @@
                          :key="itemKey(item)"
                          role="gridcell"
                          class="disk-item file-explorer--cell"
-                         :class="[isDirectory(item) ? 'disk-item--directory' : 'disk-item--file', { 'is-selected': isSelected(item), 'is-cursor': index === cursorIndex }]"
+                         :class="[isDirectory(item) ? 'disk-item--directory' : 'disk-item--file', { 'is-selected': isSelected(item), 'is-cursor': index === cursorIndex, 'is-dragover': isDropTarget(item.path) }]"
                          :aria-selected="isSelected(item) ? 'true' : 'false'"
                          :title="item.name"
+                         :draggable="movable ? 'true' : null"
+                         @dragstart="onDragStart(item, $event)"
+                         @dragend="onDragEnd"
+                         @dragover="isDirectory(item) && onDragOver(item.path, $event)"
+                         @dragleave="onDragLeave(item.path)"
+                         @drop="isDirectory(item) && onDrop(item, $event)"
                          @click="select(index, $event)"
                          @dblclick="open(item)">
                         <img v-if="item.thumbnailUrl" class="disk-item--thumbnail" :src="item.thumbnailUrl" alt="" loading="lazy">

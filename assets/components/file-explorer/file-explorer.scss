@@ -203,6 +203,19 @@ a.file-explorer--row > * {
   background: var(--tint-4);
 }
 
+// A folder something dragged would land in, as a drop zone lights up.
+.file-explorer--row.is-dragover > * {
+  background: var(--state-hover);
+  box-shadow: inset 0 2px 0 var(--color-link), inset 0 -2px 0 var(--color-link);
+}
+
+.disk-item.is-dragover,
+.file-explorer--crumb.is-dragover {
+  background: var(--state-hover);
+  outline: 2px dashed var(--color-link);
+  outline-offset: -2px;
+}
+
 // The row the keyboard stands on, drawn only while the listing has the focus.
 .file-explorer--main:focus-visible .file-explorer--row.is-cursor > * {
   box-shadow: inset 0 1px 0 var(--border-color-strong), inset 0 -1px 0 var(--border-color-strong);

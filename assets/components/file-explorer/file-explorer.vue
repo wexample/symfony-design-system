@@ -81,10 +81,17 @@ export default {
     multiple: {
       type: Boolean,
       default: true
+    },
+    // What is listed may be dragged onto a folder, or a folder of the path:
+    // `move` tells the page, { items, target } — target a folder, or null for
+    // the root —, which moves them and refreshes.
+    movable: {
+      type: Boolean,
+      default: false
     }
   },
 
-  emits: ['navigate', 'select', 'open'],
+  emits: ['navigate', 'select', 'open', 'move'],
 
   data() {
     return {
@@ -105,7 +112,10 @@ export default {
       rootDirectories: [],
       treeGeneration: 0,
       // The name of each folder listed so far, by path.
-      labels: {}
+      labels: {},
+      // What is being dragged, and the path of the folder it hovers.
+      dragItems: [],
+      dropPath: undefined
     };
   },
 
@@ -402,6 +412,64 @@ export default {
 
     isSelected(item) {
       return this.selectedKeys.includes(this.itemKey(item));
+    },
+
+    // A selected item drags the whole selection; another, itself alone.
+    onDragStart(item, event) {
+      if (!this.movable) {
+        return;
+      }
+
+      this.dragItems = this.isSelected(item) ? this.selectedItems : [item];
+      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.setData('text/plain', this.dragItems.map((dragged) => dragged.name).join('\n'));
+    },
+
+    onDragEnd() {
+      this.dragItems = [];
+      this.dropPath = undefined;
+    },
+
+    // Not where it already is, not into itself, nor into a folder it holds.
+    canDropOn(path) {
+      const target = path || '';
+
+      return this.dragItems.length > 0 && this.dragItems.every((item) => {
+        const itemPath = item.path || '';
+        const parent = itemPath.split('/').slice(0, -1).join('/');
+
+        return parent !== target && itemPath !== target && !target.startsWith(`${itemPath}/`);
+      });
+    },
+
+    isDropTarget(path) {
+      return this.dragItems.length > 0 && this.dropPath === (path || '');
+    },
+
+    onDragOver(path, event) {
+      if (!this.canDropOn(path)) {
+        return;
+      }
+
+      event.preventDefault();
+      event.dataTransfer.dropEffect = 'move';
+      this.dropPath = path || '';
+    },
+
+    onDragLeave(path) {
+      if (this.dropPath === (path || '')) {
+        this.dropPath = undefined;
+      }
+    },
+
+    onDrop(target, event) {
+      if (!this.canDropOn(target?.path ?? null)) {
+        return;
+      }
+
+      event.preventDefault();
+      this.$emit('move', { items: this.dragItems, target });
+      this.onDragEnd();
     },
 
     // A folder is walked into; a file is handed to the page, which knows what

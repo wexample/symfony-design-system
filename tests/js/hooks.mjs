@@ -8,6 +8,9 @@ import { fileURLToPath } from 'node:url';
 
 const STUBS = {
   '@wexample/js-api/Helper/Assistance': './stubs/Assistance.mjs',
+  '@wexample/symfony-loader/js/Class/App': './stubs/App.mjs',
+  '@wexample/js-helpers/Helper/Bytes': './stubs/Bytes.mjs',
+  '@wexample/js-helpers/Helper/Keyboard': './stubs/Keyboard.mjs',
 };
 
 export async function resolve(specifier, context, next) {
