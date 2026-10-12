@@ -8,6 +8,7 @@ import buildTranslatedBindings from '../../js/Helper/TranslationHelper';
 import { fileExtension, fileIcon } from '../../js/Helper/FileIconHelper';
 import { uiStateGet, uiStateSet } from '../../js/Helper/UiStateHelper';
 import { bytesFormatBytes } from '@wexample/js-helpers/Helper/Bytes';
+import { keyboardShortcutMatches } from '@wexample/js-helpers/Helper/Keyboard';
 
 const translated = buildTranslatedBindings({
   resolvedRootLabel: ['rootLabel', 'WexampleSymfonyDesignSystemBundle.common.system::frontend.explorer.root']
@@ -452,7 +453,7 @@ export default {
       } else if (event.key === 'Backspace' && !event.target.closest('input')) {
         event.preventDefault();
         this.goUp();
-      } else if ((event.ctrlKey || event.metaKey) && event.key === 'a' && count && this.multiple) {
+      } else if (keyboardShortcutMatches(event, 'Mod+A') && count && this.multiple) {
         event.preventDefault();
         this.selectedKeys = this.shownItems.map((item) => this.itemKey(item));
         this.$emit('select', this.selectedItems);

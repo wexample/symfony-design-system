@@ -54,3 +54,29 @@ pre.code-block {
     }
   }
 }
+
+// A key of the keyboard, as a shortcut is written — <kbd>⌘</kbd><kbd>S</kbd>:
+// a small cap, raised by its lower edge, `is-pressed` pushing it down.
+kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0.1em 0.4em;
+  border: 1px solid var(--border-color-default);
+  border-bottom-width: 3px;
+  border-radius: var(--radius-control);
+  background: var(--surface-2);
+  color: var(--text-color-default);
+  font-family: var(--font-family-mono);
+  font-size: 0.85em;
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+
+  &.is-pressed {
+    border-bottom-width: 1px;
+    transform: translateY(2px);
+    background: var(--accent-9);
+    border-color: var(--accent-9);
+    color: var(--accent-contrast);
+  }
+}
