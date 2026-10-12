@@ -287,15 +287,15 @@ test('an actions cell with no actions declared reads them off the row, as the se
   const { vm } = mount({ rows: [], columns: [], app: {} });
   const column = { key: 'operations', cell: 'actions' };
   const row = { operations: [
-    { icon: 'ph:bold/trash', href: '/delete', method: 'POST', token: 't', label: 'Delete' },
+    { icon: 'ph:bold/trash', href: '/delete', method: 'POST', token: 't', label: 'Delete', confirm: 'Delete it?' },
     { icon: 'ph:bold/pencil-simple', href: '/edit', target: 'panel', target_options: { closeOnEscape: true } },
     { href: '/nothing-to-draw' },
   ] };
 
   assert.equal(vm.hasCellActions(column), true);
   assert.deepEqual(vm.getCellActions(row, column), [
-    { href: '/delete', target: '', targetOptions: {}, method: 'post', token: 't', label: 'Delete', icon: 'ph:bold/trash' },
-    { href: '/edit', target: 'panel', targetOptions: { closeOnEscape: true }, method: 'get', token: undefined, label: undefined, icon: 'ph:bold/pencil-simple' },
+    { href: '/delete', target: '', targetOptions: {}, method: 'post', token: 't', label: 'Delete', icon: 'ph:bold/trash', confirm: 'Delete it?' },
+    { href: '/edit', target: 'panel', targetOptions: { closeOnEscape: true }, method: 'get', token: undefined, label: undefined, icon: 'ph:bold/pencil-simple', confirm: null },
   ]);
 });
 
