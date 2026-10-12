@@ -2,7 +2,7 @@
 // sized by media (a ratio, or the whole box it is given), and framed as a
 // sheet of its own. A document draws itself on white whatever the page's
 // scheme, and its edge says where the page stops and it begins. Above it, a bar
-// for the ways out of the frame, when asked for.
+// for what the application does with the document, when it gives actions.
 @use '../../css/shapes/media';
 @use '../../css/shapes/action-icon';
 @use '../../css/shapes/toolbar';
@@ -30,7 +30,7 @@
   background: var(--color-absolute-light);
 }
 
-// The ways out stand in a bar of their own above the frame, at its end: laid
+// The actions stand in a bar of their own above the frame, at its end: laid
 // over the frame they would cover the viewer's own bar.
 .document-embed--toolbar {
   justify-content: flex-end;

@@ -1,18 +1,25 @@
-{#- The frame, and above it a bar holding the ways out of it — `open` in a
-    window of its own, `download` — which a browser's viewer hides once its
-    frame is narrow, and would cover were they laid over it. -#}
+{#- The frame, and above it a bar holding what the application does with
+    the document — open it elsewhere, download it from its own route,
+    regenerate it —, which a browser's viewer hides once its frame is narrow,
+    and would cover were they laid over it. Each action is an icon, its label
+    its tooltip: { icon, label, href, target?, download?, new_window? }. -#}
 <div class="{{ class }}">
-    {%- if open_href or download_href -%}
+    {%- if actions -%}
         <div class="toolbar toolbar--compact document-embed--toolbar">
             <div class="toolbar--group">
-                {%- if open_href -%}
-                    {%- set open_label = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.document.open'|trans -%}
-                    <a class="action-icon" href="{{ open_href }}" target="_blank" rel="noopener" aria-label="{{ open_label }}" data-tooltip="{{ open_label }}">{{ icon('ph:bold/arrow-square-out') }}</a>
-                {%- endif -%}
-                {%- if download_href -%}
-                    {%- set download_label = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.document.download'|trans -%}
-                    <a class="action-icon" href="{{ download_href }}" download aria-label="{{ download_label }}" data-tooltip="{{ download_label }}">{{ icon('ph:bold/download-simple') }}</a>
-                {%- endif -%}
+                {%- for action in actions -%}
+                    {%- set action_label = action.label | trans -%}
+                    {%- set action_attr = { 'aria-label': action_label, 'data-tooltip': action_label } -%}
+                    {%- if action.target|default(null) -%}
+                        {#- Opened where a target button would — `panel`, `modal`. -#}
+                        {{ button_target(action.icon, '', action.href, action.target, { link: true, class: 'action-icon', attr: action_attr }) }}
+                    {%- else -%}
+                        <a class="action-icon" href="{{ action.href }}"
+                           {%- if action.download|default(false) %} download{% endif -%}
+                           {%- if action.new_window|default(false) %} target="_blank" rel="noopener"{% endif %}
+                           {{ component_render_tag_attributes(action_attr) }}>{{ icon(action.icon) }}</a>
+                    {%- endif -%}
+                {%- endfor -%}
             </div>
         </div>
     {%- endif -%}

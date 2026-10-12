@@ -1,34 +1,38 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
 
-{%- block vue_config -%}
-    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.document.*') }}
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/button-target') -}}
 {%- endblock -%}
 
 {%- block vue_body -%}
     {# Client-side twin of components/document-embed.html.twig: same options,
        same markup. A change to either is a change to both. #}
     <div :class="wrapperClass">
-        <div v-if="openHref || downloadHref" class="toolbar toolbar--compact document-embed--toolbar">
+        <div v-if="actions.length" class="toolbar toolbar--compact document-embed--toolbar">
             <div class="toolbar--group">
-                <a
-                        v-if="openHref"
-                        class="action-icon"
-                        :href="openHref"
-                        target="_blank"
-                        rel="noopener"
-                        :aria-label="openLabel"
-                        :data-tooltip="openLabel"
-                        v-html="openIconHtml"
-                ></a>
-                <a
-                        v-if="downloadHref"
-                        class="action-icon"
-                        :href="downloadHref"
-                        download
-                        :aria-label="downloadLabel"
-                        :data-tooltip="downloadLabel"
-                        v-html="downloadIconHtml"
-                ></a>
+                <template v-for="action in actions" :key="action.href">
+                    <button-target
+                            v-if="action.target"
+                            :app="app"
+                            :href="action.href"
+                            :target="action.target"
+                            :icon="action.icon"
+                            class-name="action-icon"
+                            :aria-label="action.label"
+                            :data-tooltip="action.label"
+                    ></button-target>
+                    <a
+                            v-else
+                            class="action-icon"
+                            :href="action.href"
+                            :download="action.download ? '' : null"
+                            :target="action.new_window ? '_blank' : null"
+                            :rel="action.new_window ? 'noopener' : null"
+                            :aria-label="action.label"
+                            :data-tooltip="action.label"
+                            v-html="renderIcon(action.icon)"
+                    ></a>
+                </template>
             </div>
         </div>
         <div :class="frameClass">

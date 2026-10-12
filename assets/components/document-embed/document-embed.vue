@@ -1,12 +1,15 @@
 <script>
+import ButtonTarget from '../button-target/button-target.vue';
 
-const T = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.document.';
-
-// The twin of document-embed.html.twig. The classes and the addresses the twig
-// side builds in DocumentExtension are built here from the same options, so a
-// frame written by vue sits in its parent exactly as a rendered one does.
+// The twin of document-embed.html.twig. The classes the twig side builds in
+// DocumentExtension are built here from the same options, so a frame written
+// by vue sits in its parent exactly as a rendered one does.
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-document-embed-document-embed',
+
+  components: {
+    ButtonTarget,
+  },
 
   props: {
     src: {
@@ -31,12 +34,14 @@ export default {
       type: String,
       default: null
     },
-    // The ways out of the frame: true for the document's own address, or
-    // another one — a route serving it as an attachment.
-    open: {
-      type: [Boolean, String],
-      default: false
-    },
+    // What the application does with the document, none given by default:
+    // [{ icon, label, href, target?, download?, new_window? }], the labels
+    // already translated.
+    actions: {
+      type: Array,
+      default: () => []
+    }
+  },
     download: {
       type: [Boolean, String],
       default: false
@@ -60,40 +65,12 @@ export default {
 
     frameClass() {
       return `media ${this.ratio ? `media--${this.ratio}` : 'media--fill'}`;
-    },
-
-    openHref() {
-      return this.resolveHref(this.open);
-    },
-
-    downloadHref() {
-      return this.resolveHref(this.download);
-    },
-
-    openLabel() {
-      return this.trans(`${T}open`);
-    },
-
-    downloadLabel() {
-      return this.trans(`${T}download`);
-    },
-
-    openIconHtml() {
-      return this.app.getServiceOrFail('icon').icon('ph:bold/arrow-square-out');
-    },
-
-    downloadIconHtml() {
-      return this.app.getServiceOrFail('icon').icon('ph:bold/download-simple');
     }
   },
 
   methods: {
-    resolveHref(option) {
-      if (option === true) {
-        return this.src;
-      }
-
-      return option || null;
+    renderIcon(name) {
+      return this.app.getServiceOrFail('icon').icon(name);
     }
   }
 };

@@ -11,8 +11,9 @@ class DocumentExtension extends AbstractTemplateExtension
     {
         return [
             // Options: `ratio` ('16-9', '4-3'…) or the parent's height without
-            // one, `loading`, `class`, and `open` / `download` — true for the
-            // document's own address, or another one.
+            // one, `loading`, `class`, and `actions` — the application's own,
+            // none given by default: [{ icon, label, href, target?, download?,
+            // new_window? }].
             new TwigFunction(
                 'document_embed',
                 function (
@@ -32,8 +33,7 @@ class DocumentExtension extends AbstractTemplateExtension
                             'loading' => $options['loading'] ?? 'lazy',
                             'class' => $this->buildClass($options),
                             'frame_class' => $this->buildFrameClass($options),
-                            'open_href' => $this->resolveHref($options['open'] ?? false, $src),
-                            'download_href' => $this->resolveHref($options['download'] ?? false, $src),
+                            'actions' => $options['actions'] ?? [],
                         ]
                     );
                 },
@@ -64,16 +64,5 @@ class DocumentExtension extends AbstractTemplateExtension
         return empty($options['ratio'])
             ? 'media media--fill'
             : 'media media--'.$options['ratio'];
-    }
-
-    // `open` and `download` lead to the document itself when true, elsewhere
-    // when given an address — a download route serving it as an attachment.
-    private function resolveHref(bool|string $option, string $src): ?string
-    {
-        if (true === $option) {
-            return $src;
-        }
-
-        return $option ?: null;
     }
 }
