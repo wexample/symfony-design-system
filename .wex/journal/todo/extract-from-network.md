@@ -20,7 +20,7 @@ Le propriétaire confie la suite de cette todo à l'agent design system. Esprit 
 
 ## Liés, ailleurs
 
-- **Formateur de prix JS** identique au PHP (virgule en `fr`, devise, format compact), calcul prix / TVA en direct sur les formulaires, suffixe HT / TTC : `symfony-money/.wex/journal/todo/extract-from-network-sweep.md`, étapes 2 et 3 (le `NumberHelper.ts` du design system n'a que `numberFormat`).
+- ~~**Formateur de prix JS**~~ fait (2026-10-12) : `numberFormatMoney`, testé contre les sorties PHP ; suffixe HT / TTC côté Twig ; calcul en direct reporté à l'interface de la compta. Ancienne note : identique au PHP (virgule en `fr`, devise, format compact), calcul prix / TVA en direct sur les formulaires, suffixe HT / TTC : `symfony-money/.wex/journal/todo/extract-from-network-sweep.md`, étapes 2 et 3 (le `NumberHelper.ts` du design system n'a que `numberFormat`).
 - **Boutons en pied de modale** : symfony-forms le fait désormais (`in_footer` + `form_footer(form)` dans `page_actions`) ; la todo media (bouton « Choisir » en pied de la modale du sélecteur) peut s'en servir : `symfony-media/.wex/journal/todo/extract-from-network.md`.
 - **Registre** : réparé le 2026-10-09 (`demo-image-crop` déclaré).
 - **Smoke test** : `MOJOE/local/design-system/tests/Scenario/explore.yaml` parcourt les menus en visiteur, membre et admin et signale les 500, les clés de traduction brutes et le JSON illisible (`php -d memory_limit=-1 vendor/bin/phpunit --filter explore tests/Scenario` dans le conteneur). Le 2026-10-09, il a signalé `article.list` (démo composition) et `section.check.items` (démo interactions) : corrigé (listes lues élément par élément).

@@ -2,7 +2,7 @@
 // the scale both show.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { numberFormat, numberStepDigits } from '../../assets/js/Helper/NumberHelper.ts';
+import { numberFormat, numberFormatMoney, numberStepDigits } from '../../assets/js/Helper/NumberHelper.ts';
 
 test('a figure in the locale named, decimals capped', () => {
   assert.equal(numberFormat(1234.567, 2, 'en'), '1,234.57');
@@ -21,4 +21,16 @@ test('the decimals of a step', () => {
   assert.equal(numberStepDigits(0.05), 2);
   assert.equal(numberStepDigits('0.5'), 1);
   assert.equal(numberStepDigits(null), 0);
+});
+
+// The same strings as the `price` filter of symfony-money
+// (its tests/Unit/MoneyFormatterTest.php), spaces aside.
+test('an amount in minor units, as the server writes it', () => {
+  const spaces = (value: string) => value.replace(/[\u00a0\u202f]/g, ' ');
+
+  assert.equal(spaces(numberFormatMoney(123456, 'EUR', 'fr')), '1 234,56 €');
+  assert.equal(numberFormatMoney(123456, 'EUR', 'en'), '€1,234.56');
+  assert.equal(numberFormatMoney(500, 'JPY', 'en'), '¥500');
+  assert.equal(numberFormatMoney(-5, 'USD', 'en'), '-$0.05');
+  assert.equal(numberFormatMoney(null, 'EUR', 'en'), '');
 });
