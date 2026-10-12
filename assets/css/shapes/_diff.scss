@@ -1,0 +1,60 @@
+// What changes, field by field: what it was and what it becomes, facing each
+// other across an arrow — the value that goes struck, the one that stays in
+// full. Read in a sync under review, a record's history, a change to confirm.
+.diff {
+  display: grid;
+  grid-template-columns: minmax(8rem, auto) 1fr auto 1fr;
+  gap: var(--space-1) var(--space-3);
+  align-items: baseline;
+  padding: var(--space-2) var(--space-3);
+  border-inline-start: 2px solid var(--info-9);
+  border-radius: 0 var(--radius-box) var(--radius-box) 0;
+  background: var(--surface-1);
+  font-size: var(--font-size-2);
+}
+
+.diff--head {
+  color: var(--text-color-muted);
+  font-size: var(--font-size-1);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.diff--field {
+  font-family: var(--font-family-mono);
+  color: var(--text-color-muted);
+}
+
+.diff--value {
+  overflow-wrap: anywhere;
+}
+
+.diff--value--old {
+  color: var(--text-color-muted);
+  text-decoration: line-through;
+}
+
+.diff--value--new {
+  font-weight: var(--font-weight-strong);
+}
+
+// Nothing there, on one side: said, not left blank.
+.diff--value--none {
+  color: var(--text-color-subtle);
+  font-style: italic;
+  text-decoration: none;
+}
+
+.diff--arrow {
+  display: inline-flex;
+  color: var(--text-color-subtle);
+}
+
+// The choices a reviewer has, under the whole.
+.diff--actions {
+  display: flex;
+  grid-column: 1 / -1;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}

@@ -4,6 +4,11 @@ en:
     environment: "%env% environment: what is shown here is not production"
     dev_menu: Development tools
     develop_toolbar: Develop toolbar
+    diff:
+      none: (nothing)
+    number_stepper:
+      less: One less
+      more: One more
     period:
       label: Period
       unit: Kind of period
@@ -17,6 +22,7 @@ en:
       hint_many: Drop files here, or choose them
       pick: Choose
       count: "%count% files"
+      remove: Remove
     theme:
       label: Theme
       custom: Custom
@@ -524,6 +530,11 @@ fr:
     environment: "Environnement %env% : ce qui est affiché ici n'est pas la production"
     dev_menu: Outils de développement
     develop_toolbar: Barre de développement
+    diff:
+      none: (rien)
+    number_stepper:
+      less: Un de moins
+      more: Un de plus
     period:
       label: Période
       unit: Type de période
@@ -537,6 +548,7 @@ fr:
       hint_many: Déposez des fichiers ici, ou choisissez-les
       pick: Choisir
       count: "%count% fichiers"
+      remove: Retirer
     theme:
       label: Thème
       custom: Personnalisé

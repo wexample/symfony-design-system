@@ -1,0 +1,23 @@
+{#- What changes, field by field: `rows` of `field`, `before`, `after` — the
+    one that goes struck, the one that stays in full —, under a head naming
+    the two sides (`before_label`, `after_label`). An empty side says so. -#}
+{%- set nothing = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.diff.none' | trans -%}
+<div class="diff{{ class ? ' ' ~ class }}">
+    {%- if before_label or after_label -%}
+        <span class="diff--head"></span>
+        <span class="diff--head">{{ before_label }}</span>
+        <span class="diff--head"></span>
+        <span class="diff--head">{{ after_label }}</span>
+    {%- endif -%}
+    {%- for row in rows -%}
+        <span class="diff--field">{{ row.field }}</span>
+        {%- for side in ['before', 'after'] -%}
+            {%- set value = attribute(row, side) ?? null -%}
+            {%- set empty = value is null or value == '' -%}
+            <span class="diff--value diff--value--{{ side == 'before' ? 'old' : 'new' }}{{ empty ? ' diff--value--none' }}">{{ empty ? nothing : value }}</span>
+            {%- if loop.first -%}
+                <span class="diff--arrow" aria-hidden="true">{{ icon('ph:bold/arrow-right') }}</span>
+            {%- endif -%}
+        {%- endfor -%}
+    {%- endfor -%}
+</div>

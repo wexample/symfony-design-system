@@ -1,12 +1,13 @@
 {#- A file field shaped as a place to drop it on: the file dragged there or
-    chosen with the button, named once taken — and shown, when it is an
-    image. The control itself stays in the form, out of sight, so the form
+    chosen with the button, named once taken, then a chip each — the image
+    itself when it is one. The control itself stays in the form, out of sight, so the form
     sends and checks it as any other. -#}
 {%- set system = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.file_input.' -%}
 {%- set many = multiple is defined and multiple -%}
 <div {{ component_render_tag_attributes({class:'form--group file-input'}) }}
      data-hint="{{ (system ~ (many ? 'hint_many' : 'hint_one')) | trans }}"
-     data-count="{{ (system ~ 'count') | trans }}">
+     data-count="{{ (system ~ 'count') | trans }}"
+     data-remove="{{ (system ~ 'remove') | trans }}">
     <label class="form--label" for="{{ id }}">{{ label }}</label>
     <div class="dropzone dropzone--compact file-input--zone">
         <input
@@ -26,5 +27,5 @@
             <span>{{ (system ~ 'pick') | trans }}</span>
         </button>
     </div>
-    <div class="file-input--previews" hidden></div>
+    <ul class="file-chips file-input--files" hidden></ul>
 </div>

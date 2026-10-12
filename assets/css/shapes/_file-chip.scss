@@ -1,0 +1,57 @@
+// Files held by a field, one chip each: a thumbnail when it is an image, its
+// kind's icon otherwise, its name — cut, whole in its title —, and the way to
+// take it out. What a media picker shows of its choice, what a file field
+// shows of the files dropped on it.
+@use '../../components/button/button';
+
+.file-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.file-chip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 16rem;
+  padding: var(--space-1);
+  border: var(--border-default);
+  border-radius: var(--radius-box);
+  background: var(--surface-1);
+}
+
+.file-chip--media,
+.file-chip--icon {
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-box);
+}
+
+.file-chip--media {
+  object-fit: cover;
+}
+
+.file-chip--icon {
+  display: grid;
+  place-items: center;
+  color: var(--text-color-muted);
+  background: var(--tint-2);
+}
+
+.file-chip--name {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: var(--font-size-2);
+  color: inherit;
+}
+
+.file-chip--remove {
+  flex: none;
+}

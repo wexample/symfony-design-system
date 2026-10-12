@@ -1,9 +1,10 @@
 import Field from '../../../js/Class/Field';
 import type { AssistanceWriteOptions } from '@wexample/js-api/Helper/Assistance';
+import { fileIcon } from '../../../js/Helper/FileIconHelper';
 
 // A file field the file can be dropped on: the zone lights while it is held
 // over it, the files taken become the control's, their names are said in the
-// zone, the images shown under it.
+// zone, each one as a chip under it — the image itself when it is one.
 export default class extends Field {
   private controlEl: HTMLInputElement | null = null;
   private previewUrls: string[] = [];
@@ -112,29 +113,71 @@ export default class extends Field {
     this.el.classList.toggle('is-filled', files.length > 0);
     this.previewsClear();
 
-    const previews = this.el.querySelector<HTMLElement>('.file-input--previews');
-    const images = files.filter((file) => file.type.startsWith('image/'));
+    const list = this.el.querySelector<HTMLElement>('.file-input--files');
 
-    if (!previews) {
+    if (!list) {
       return;
     }
 
-    images.forEach((file) => {
-      const url = URL.createObjectURL(file);
-      const image = document.createElement('img');
+    // A chip a file, as the design system shows files held: the image itself
+    // or its kind's icon, the name, the way to take it out.
+    files.forEach((file, index) => {
+      const chip = document.createElement('li');
+      const name = document.createElement('span');
+      const remove = document.createElement('button');
 
-      this.previewUrls.push(url);
-      image.src = url;
-      image.alt = file.name;
-      previews.appendChild(image);
+      chip.className = 'file-chip';
+
+      if (file.type.startsWith('image/')) {
+        const url = URL.createObjectURL(file);
+        const image = document.createElement('img');
+
+        this.previewUrls.push(url);
+        image.className = 'file-chip--media';
+        image.src = url;
+        image.alt = '';
+        chip.appendChild(image);
+      } else {
+        const icon = document.createElement('span');
+
+        icon.className = 'file-chip--icon';
+        icon.innerHTML = (this.app.getServiceOrFail('icon') as any).icon(fileIcon(file.name));
+        chip.appendChild(icon);
+      }
+
+      name.className = 'file-chip--name';
+      name.textContent = file.name;
+      name.title = file.name;
+      remove.type = 'button';
+      remove.className = 'button button--flat button--compact file-chip--remove';
+      remove.setAttribute('aria-label', `${this.el.dataset.remove ?? ''} ${file.name}`.trim());
+      remove.innerHTML = (this.app.getServiceOrFail('icon') as any).icon('ph:bold/x');
+      remove.addEventListener('click', (event) => {
+        event.stopPropagation();
+        this.removeFile(index);
+      });
+      chip.append(name, remove);
+      list.appendChild(chip);
     });
-    previews.hidden = images.length === 0;
+    list.hidden = files.length === 0;
+  }
+
+  // One file taken out of the control, the others kept.
+  private removeFile(index: number): void {
+    if (!this.controlEl) {
+      return;
+    }
+
+    const kept = Array.from(this.controlEl.files ?? []).filter((_, position) => position !== index);
+
+    this.controlEl.files = this.toFileList(kept) ?? new DataTransfer().files;
+    this.notifyChanged(this.controlEl);
   }
 
   private previewsClear(): void {
     this.previewUrls.forEach((url) => URL.revokeObjectURL(url));
     this.previewUrls = [];
-    this.el.querySelector('.file-input--previews')?.replaceChildren();
+    this.el.querySelector('.file-input--files')?.replaceChildren();
   }
 
   /**

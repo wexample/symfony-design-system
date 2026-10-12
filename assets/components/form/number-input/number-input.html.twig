@@ -1,10 +1,18 @@
 {#- `prefix` and `suffix`: a fixed word beside the value — a unit, a currency —
-    shown in the field's frame, read with the field, never submitted. -#}
+    shown in the field's frame, read with the field, never submitted.
+    `stepper`: a button on each side to take one step down or up, held within
+    the field's `min` and `max` — a quantity. -#}
+{%- set stepper = stepper|default(false) -%}
+{%- set system = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.number_stepper.' -%}
 {%- set prefix = prefix|default(null) -%}
 {%- set suffix = suffix|default(null) -%}
 {%- set described_by = [prefix ? id ~ '-prefix', suffix ? id ~ '-suffix']|filter(entry => entry) -%}
 <div {{ component_render_tag_attributes({class:'form--group'}) }}>
     <label class="form--label" for="{{ id }}">{{ label }}</label>
+    {%- if stepper %}
+    <div class="form--stepper">
+        <button type="button" class="button button--flat button--compact form--stepper-down" aria-label="{{ (system ~ 'less') | trans }}" title="{{ (system ~ 'less') | trans }}">{{ icon('ph:bold/minus') }}</button>
+    {%- endif %}
     {%- if described_by is not empty %}
     <div class="form--input-group">
         {%- if prefix %}<span class="form--input-addon" id="{{ id }}-prefix">{{ prefix }}</span>{% endif -%}
@@ -23,6 +31,10 @@
     >
     {%- if described_by is not empty %}
         {%- if suffix %}<span class="form--input-addon" id="{{ id }}-suffix">{{ suffix }}</span>{% endif -%}
+    </div>
+    {%- endif %}
+    {%- if stepper %}
+        <button type="button" class="button button--flat button--compact form--stepper-up" aria-label="{{ (system ~ 'more') | trans }}" title="{{ (system ~ 'more') | trans }}">{{ icon('ph:bold/plus') }}</button>
     </div>
     {%- endif %}
 </div>

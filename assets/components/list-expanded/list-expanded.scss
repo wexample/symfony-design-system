@@ -53,6 +53,13 @@
   background: var(--state-hover);
 }
 
+// The row whose thing is open beside the list (`aria-current`) — the mail
+// being read, the record shown —: it stays marked while the focus moves on.
+.list-expanded--items > [aria-current='true'],
+.list-expanded--items > [aria-current='page'] {
+  background: var(--state-active);
+}
+
 // A ground and not a ring, as everywhere a row is walked with the keyboard:
 // the row spans the list, so the eye has nothing to find — only to be told
 // which one it is on. Stronger than hover, a deliberate move saying more than

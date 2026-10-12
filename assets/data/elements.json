@@ -550,6 +550,32 @@
             }
         },
         {
+            "key": "diff",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "What changes, field by field \u2014 the value that goes struck, the one that stays in full, facing across an arrow; a record's history, a change to confirm, a sync under review.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/diff/diff.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/diff/diff.html.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "todo",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "it shows and does nothing"
+            }
+        },
+        {
             "key": "distribution",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "What a total is made of, in one line: the parts in proportion, in the order they are given, named underneath with the status capsule. Where `progress-bar` says how far one value has got, this says how a whole divides.",
@@ -2957,6 +2983,12 @@
             "description": null
         },
         {
+            "key": "diff",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_diff.scss",
+            "description": "What changes, field by field: what it was and what it becomes, facing each other across an arrow \u2014 the value that goes struck, the one that stays in full. Read in a sync under review, a record's history, a change to confirm."
+        },
+        {
             "key": "disk-item",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_disk-item.scss",
@@ -2979,6 +3011,12 @@
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_empty.scss",
             "description": "What stands where a list, a table or a panel has nothing to show: said once, in the middle of the room the rows would have taken, and quietly \u2014 nothing having happened is not an error."
+        },
+        {
+            "key": "file-chip",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_file-chip.scss",
+            "description": "Files held by a field, one chip each: a thumbnail when it is an image, its kind's icon otherwise, its name \u2014 cut, whole in its title \u2014, and the way to take it out. What a media picker shows of its choice, what a file field shows of the files dropped on it."
         },
         {
             "key": "flow",
@@ -3069,6 +3107,12 @@
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_state.scss",
             "description": "What a field looks like when it is focused, in error, or refusing input."
+        },
+        {
+            "key": "form/stepper",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_stepper.scss",
+            "description": "A number changed one step at a time \u2014 a quantity \u2014: a button on each side of its figure. The figure keeps the width of a few digits, centred; the browser's own spinner, too small to aim at, is left out."
         },
         {
             "key": "form/surface",
