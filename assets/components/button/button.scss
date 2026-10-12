@@ -244,7 +244,7 @@
   content: '';
   width: 0.45em;
   height: 0.45em;
-  border-inline-end: 2px solid currentColor;
+  border-right: 2px solid currentColor; // physical: two edges turned into a chevron pointing down, in any direction
   border-bottom: 2px solid currentColor;
   transform: rotate(45deg);
 }
@@ -496,8 +496,13 @@
   width: 0.4em;
   height: 0.4em;
   border-top: 2px solid currentColor;
-  border-inline-end: 2px solid currentColor;
+  border-right: 2px solid currentColor; // physical: two edges turned into a chevron, pointed towards the end below
   transform: rotate(45deg);
+}
+
+// Right to left, the branch opens on the left: the chevron points there.
+.button-menu--item-caret:dir(rtl)::before {
+  transform: rotate(225deg);
 }
 
 // A branch and what hangs under it. Opened by the pointer and by the keyboard
