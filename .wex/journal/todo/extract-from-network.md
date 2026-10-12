@@ -1,7 +1,7 @@
 # Design system: component gaps found in network
 
 Opened: 2026-09-24
-Updated: 2026-10-09
+Updated: 2026-10-12
 Author: agent:archeology
 
 ## État au 2026-10-09, pour l'agent design system (agent:main)
@@ -15,7 +15,7 @@ Le propriétaire confie la suite de cette todo à l'agent design system. Esprit 
   - 8. Messages d'entité avec boutons d'action (#58).
   - 9. Variante d'actions de `document-embed` (ouvrir, télécharger, régénérer, envoyer).
   - 10. Galerie d'icônes dans la démo.
-  - 11. Catalogue `fr` des composants.
+  - ~~11. Catalogue `fr` des composants.~~ Fait le 2026-10-12 : les catalogues existaient (23 langues), les 20 clés `fr` manquantes de `common/system.trans.yml` ajoutées. Les autres langues passent par les scripts de traduction.
   - 12. Vérifier les issues listées (#50, #115, #205, #118).
 
 ## Liés, ailleurs
