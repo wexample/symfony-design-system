@@ -10,13 +10,13 @@ Le propriétaire confie la suite de cette todo à l'agent design system. Esprit 
 
 - **Fait** : étape 4 (`form/tel-input`, `form/checkbox-input`, avec les types de symfony-forms, commit 501f105d), étape 5 (`form/otp-input`, `done/code-input.md`). À côté du périmètre : `dropzone`, `image-crop`.
 - **Fait le 2026-10-09 (agent design system)** : 1. `file-input` glisser-déposer + aperçu d'image ; 2. `number-input` coller « 1,5 » (`numberParse`) ; 3. compteur de caractères sur tout champ à `maxlength` (`Field`) ; 6. `period-nav` (année / mois, hash, bornes, événement `change` avec `from`/`to`), démo sur la page Lists. Le jumeau Vue de `file-input` n'a pas le glisser-déposer.
-- **Reste** :
-  - 7. Champ et liste éditables en ligne.
-  - 8. Messages d'entité avec boutons d'action (#58).
-  - 9. Variante d'actions de `document-embed` (ouvrir, télécharger, régénérer, envoyer).
-  - 10. Galerie d'icônes dans la démo.
-  - ~~11. Catalogue `fr` des composants.~~ Fait le 2026-10-12 : les catalogues existaient (23 langues), les 20 clés `fr` manquantes de `common/system.trans.yml` ajoutées. Les autres langues passent par les scripts de traduction.
-  - 12. Vérifier les issues listées (#50, #115, #205, #118).
+- **Clos le 2026-10-12 (arbitrage avec le propriétaire)** :
+  - 7. Champ et liste éditables en ligne : reporté dans `drawer-editable-grid.md`, le même sujet, arbitré là-bas une seule fois.
+  - 8. Messages avec actions (#58) : le `entity-messages.vue` de network était vide. Fait sous une forme générique : une action `{ icon, label, href, target }` sur `message` et sur les toasts, que `setNotification()` de symfony-forms transmet depuis le serveur. Premier appelant : l'ajout au panier de symfony-shop-ds (« Ouvrir le panier », en panel).
+  - 9. `document-embed` : plus d'action prête à l'emploi (`open` / `download` retirés), une liste `actions` fournie par l'app. app-board migré.
+  - 10. Galerie d'icônes : abandonnée. Le DS utilise Phosphor, que `icon_list` ne liste pas, et son site fait déjà la galerie.
+  - 11. Catalogue `fr` : les 20 clés manquantes de `common/system.trans.yml` ajoutées ; les autres langues passent par les scripts de traduction.
+  - 12. Issues #50, #115, #205, #118 : déjà couvertes (modale scrollable, select en `popover`, spinner de chargement, confirmation à la fermeture d'un formulaire rempli, `PageBusyHelper`, `object-fit`) ; #115 visait l'ancienne API d'onglets.
 
 ## Liés, ailleurs
 
