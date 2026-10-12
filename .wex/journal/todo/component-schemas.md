@@ -14,7 +14,7 @@ n'en étant qu'un cas) : une fois les schémas écrits, le builder est surtout u
 
 Le form builder de network (`NETWORK/archeo/proposed-packages/dismiss/symfony-form-builder`)
 est classé : ~590 lignes jamais en prod, quatre types de champs, rien à
-récupérer que l'idée. Il renaît comme cas particulier du page builder.
+récupérer que l'idée. Il renaît comme cas particulier du page builder. Le page builder a son package : `symfony-builder/.wex/journal/todo/page-builder.md`.
 
 ## Ce qui existe
 
