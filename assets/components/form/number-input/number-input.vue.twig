@@ -1,1 +1,11 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/form/text-input/text-input.vue.twig' -%}
+
+{%- block field_control -%}
+    <div :class="{ 'form--stepper': stepper }">
+    <button v-if="stepper" type="button" class="button button--flat button--compact form--stepper-down"
+            :aria-label="t('less')" :title="t('less')" :disabled="!canStepDown" @click="stepBy(-1)" v-html="icon('ph:bold/minus')"></button>
+    {{ parent() }}
+    <button v-if="stepper" type="button" class="button button--flat button--compact form--stepper-up"
+            :aria-label="t('more')" :title="t('more')" :disabled="!canStepUp" @click="stepBy(1)" v-html="icon('ph:bold/plus')"></button>
+    </div>
+{%- endblock -%}

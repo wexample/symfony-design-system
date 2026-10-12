@@ -1,15 +1,36 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/form-field/form-field.vue.twig' -%}
 
 {%- block field_control -%}
-    <input
-            class="form--input"
-            type="file"
-            :name="name || null"
-            :id="resolvedId"
-            :multiple="multiple ? true : null"
-            :accept="accept || null"
-            :required="required ? true : null"
-            :disabled="disabled ? true : null"
-            @change="onChange"
-    >
+    <div class="file-input" :class="{ 'is-filled': files.length > 0 }">
+    <div class="dropzone dropzone--compact file-input--zone" :class="{ 'is-dragover': dragDepth > 0 }"
+         @click="onZoneClick" @dragenter.prevent="onDragEnter" @dragover.prevent @dragleave="onDragLeave" @drop.prevent="onDrop">
+        <input
+                ref="control"
+                class="form--input-file file-input--control"
+                type="file"
+                :name="name || null"
+                :id="resolvedId"
+                :multiple="multiple ? true : null"
+                :accept="accept || null"
+                :required="required ? true : null"
+                :disabled="disabled ? true : null"
+                @change="onChange"
+        >
+        <span class="dropzone--icon" v-html="icon('ph:bold/file-arrow-up')"></span>
+        <span class="dropzone--hint file-input--names" :title="namesTitle || null">[[ namesText ]]</span>
+        <button type="button" class="button file-input--pick" tabindex="-1">
+            <span class="button--icon" v-html="icon('ph:bold/folder-open')"></span>
+            <span>[[ t('pick') ]]</span>
+        </button>
+    </div>
+    <ul v-if="files.length" class="file-chips file-input--files">
+        <li v-for="(file, index) in files" :key="file.name + index" class="file-chip">
+            <img v-if="previews[index]" class="file-chip--media" :src="previews[index]" alt="">
+            <span v-else class="file-chip--icon" v-html="fileIconHtml(file)"></span>
+            <span class="file-chip--name" :title="file.name">[[ file.name ]]</span>
+            <button type="button" class="button button--flat button--compact file-chip--remove"
+                    :aria-label="t('remove') + ' ' + file.name" @click.stop="removeFile(index)" v-html="icon('ph:bold/x')"></button>
+        </li>
+    </ul>
+    </div>
 {%- endblock -%}

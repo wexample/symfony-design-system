@@ -16,6 +16,7 @@
             :disabled="disabled ? true : null"
             :autocomplete="autocomplete || null"
             :aria-describedby="addonDescribedBy"
+            v-bind="inputAttrs"
             @input="onInput"
     >
     <span v-if="suffix" class="form--input-addon" :id="resolvedId + '-suffix'">[[ suffix ]]</span>

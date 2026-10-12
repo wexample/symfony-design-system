@@ -43,6 +43,11 @@ export default {
       ].filter(Boolean);
 
       return ids.length ? ids.join(' ') : null;
+    },
+
+    // What a kind of field adds to its input — a number its bounds.
+    inputAttrs() {
+      return {};
     }
   },
 
