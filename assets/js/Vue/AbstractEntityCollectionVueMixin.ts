@@ -13,6 +13,7 @@ const AbstractEntityCollectionVueMixin = {
       collectionRefreshHandlers: [],
       isLoading: false,
       isLoadingOlder: false,
+      isLoadingNewer: false,
       page: 0,
       // Null fetches the collection in a single request: a list that holds no
       // more than the eye does has nothing to page through.
@@ -23,6 +24,8 @@ const AbstractEntityCollectionVueMixin = {
       // Read backwards, which page is the topmost one displayed. Null until the
       // first read, since that is what says how many pages there are.
       oldestLoadedPage: null,
+      // Read as it grows, how many pages are held from the first one on.
+      appendedPagesCount: 1,
       pagination: null,
       // What keeps the collection true after the first read. A collection may
       // declare none, one or several of the three: they are not alternatives,
@@ -40,6 +43,10 @@ const AbstractEntityCollectionVueMixin = {
   computed: {
     hasOlderEntities() {
       return this.oldestLoadedPage !== null && this.oldestLoadedPage > 0;
+    },
+
+    hasNewerEntities() {
+      return this.appendsPages() && Boolean(this.pagination?.hasMore);
     },
 
     // What the pagination partial needs, whichever shape the collection wears.
@@ -96,6 +103,13 @@ const AbstractEntityCollectionVueMixin = {
     // "more" means older. The order the api answers in does not change: what
     // changes is where the reading starts and which way it walks.
     startsAtLastPage() {
+      return false;
+    },
+
+    // A collection that grows downwards as it is read — a wall scrolled
+    // through — rather than turning its pages: each page is added under the
+    // ones held, and reading the collection again reads all of them.
+    appendsPages() {
       return false;
     },
 
@@ -158,7 +172,9 @@ const AbstractEntityCollectionVueMixin = {
         // A negative page is read by the api as counted back from the end, which
         // is the only way to ask for the freshest slice without first asking how
         // many there are.
-        const result = await this.fetchEntitiesPage(reversed ? -1 : this.page);
+        const result = reversed
+          ? await this.fetchEntitiesPage(-1)
+          : await this.fetchHeldEntities();
 
         this.pagination = result.pagination;
 
@@ -209,6 +225,42 @@ const AbstractEntityCollectionVueMixin = {
       }
 
       this.entities = [...this.entities, ...unknown];
+    },
+
+    // The page being read, or for a collection that grows, every page it
+    // holds in one request: the first one made as long as all of them.
+    async fetchHeldEntities() {
+      const length = this.getPageLength();
+
+      if (!this.appendsPages() || !length || this.appendedPagesCount <= 1) {
+        return this.fetchEntitiesPage(this.page);
+      }
+
+      const params = this.getEntitiesFetchParams() ?? {};
+
+      return this.getEntityRepository().fetchListPaginated({
+        ...params,
+        query: { ...(params.query ?? {}), ...this.getCollectionQuery() },
+        page: 0,
+        length: length * this.appendedPagesCount,
+      });
+    },
+
+    async loadNewerEntities() {
+      if (this.isLoadingNewer || !this.hasNewerEntities) {
+        return;
+      }
+
+      this.isLoadingNewer = true;
+      try {
+        const result = await this.fetchEntitiesPage(this.appendedPagesCount);
+
+        this.appendedPagesCount++;
+        this.pagination = result.pagination;
+        this.entities = [...this.entities, ...this.filterUnknownEntities(result.items)];
+      } finally {
+        this.isLoadingNewer = false;
+      }
     },
 
     async loadOlderEntities() {

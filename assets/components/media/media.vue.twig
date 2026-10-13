@@ -1,0 +1,24 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <component
+            :is="href ? 'a' : 'div'"
+            class="media media--placeholder"
+            :href="href || null"
+            :title="caption || null"
+    >
+        <img
+                v-if="src"
+                :src="src"
+                :srcset="srcset || null"
+                :sizes="sizes || null"
+                :alt="alt"
+                :loading="loading"
+                :width="width || null"
+                :height="height || null"
+        >
+        <span v-if="caption || $slots.caption" class="media--caption">
+            <slot name="caption">[[ caption ]]</slot>
+        </span>
+    </component>
+{%- endblock -%}

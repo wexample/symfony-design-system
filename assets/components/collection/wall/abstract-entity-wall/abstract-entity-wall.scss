@@ -1,0 +1,10 @@
+@use '../../../../css/shapes/wall';
+@use '../../../../css/shapes/empty';
+@use '../../../media/media';
+@use '../../../spinner/spinner';
+
+.entity-wall--more {
+  display: flex;
+  justify-content: center;
+  padding-block: var(--space-3);
+}

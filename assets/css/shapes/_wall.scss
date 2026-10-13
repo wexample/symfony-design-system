@@ -1,0 +1,79 @@
+// Pictures of every height packed side by side with no holes, each one at
+// its own ratio, as a photo wall is hung.
+//
+// The rows are a twelfth of a column's width, so a tile is as tall as its
+// ratio says by spanning that many twelfths: `grid-row-end: span 9` for a
+// 4:3 landscape — what wallSpan() and the wall template work out from a
+// width and a height. Measuring a column needs the wall to be a container,
+// which is why the tiles sit in a box of their own: a grid cannot read its
+// own width.
+//
+// <div class="wall">
+//   <div class="wall--tiles">
+//     <a class="wall--tile media media--placeholder" style="grid-row-end: span 9">…</a>
+//   </div>
+// </div>
+.wall {
+  container-type: inline-size;
+}
+
+.wall--tiles {
+  --wall-columns: 1;
+  --wall-gap: var(--space-4);
+  // A twelfth of a column: WALL_ROWS_PER_COLUMN in WallHelper.
+  --wall-row: calc((100cqi - (var(--wall-columns) - 1) * var(--wall-gap)) / var(--wall-columns) / 12);
+  display: grid;
+  grid-template-columns: repeat(var(--wall-columns), minmax(0, 1fr));
+  grid-auto-rows: var(--wall-row);
+  // The space between two tiles of a column is each tile's own margin: a row
+  // gap would be added once per row spanned.
+  column-gap: var(--wall-gap);
+  // A short tile goes back to fill the hole a tall one left above it.
+  grid-auto-flow: dense;
+}
+
+@container (min-width: 30rem) {
+  .wall--tiles {
+    --wall-columns: 2;
+  }
+}
+
+@container (min-width: 46rem) {
+  .wall--tiles {
+    --wall-columns: 3;
+  }
+}
+
+@container (min-width: 62rem) {
+  .wall--tiles {
+    --wall-columns: 4;
+  }
+}
+
+@container (min-width: 80rem) {
+  .wall--tiles {
+    --wall-columns: 5;
+  }
+}
+
+.wall--tile {
+  // A twelfth by default: a tile that does not say its ratio stands square.
+  grid-row-end: span 12;
+  margin-block-end: var(--wall-gap);
+  border-radius: var(--radius-media);
+  box-shadow: var(--shadow-2);
+
+  img {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+a.wall--tile {
+  transition: box-shadow 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    box-shadow: var(--shadow-3);
+  }
+}

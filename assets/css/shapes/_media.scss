@@ -74,3 +74,26 @@
   position: relative;
   z-index: var(--z-raised);
 }
+
+// What stands in the frame while the picture loads, and in its place when
+// there is none: a glow, never an empty box. The picture covers it once it
+// is there.
+.media--placeholder {
+  background: radial-gradient(circle at center, var(--neutral-5), var(--neutral-8));
+}
+
+// A line of text over the foot of the picture, readable whatever it shows.
+.media--caption {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  z-index: var(--z-raised);
+  padding: var(--space-2) var(--space-3);
+  background: rgb(0 0 0 / 35%);
+  color: white;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 60%);
+  font-size: var(--font-size-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

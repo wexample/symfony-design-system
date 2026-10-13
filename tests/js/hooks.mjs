@@ -11,6 +11,11 @@ const STUBS = {
   '@wexample/symfony-loader/js/Class/App': './stubs/App.mjs',
   '@wexample/js-helpers/Helper/Bytes': './stubs/Bytes.mjs',
   '@wexample/js-helpers/Helper/Keyboard': './stubs/Keyboard.mjs',
+  '@wexample/js-api-entity/Helper/ApiEntityCollectionHelper': './stubs/ApiEntityCollectionHelper.mjs',
+  '@wexample/symfony-loader/js/Services/ApiService': './stubs/Service.mjs',
+  '@wexample/symfony-loader/js/Services/EntityService': './stubs/Service.mjs',
+  '@wexample/symfony-loader/js/Services/EventsService': './stubs/Service.mjs',
+  '@wexample/symfony-loader/js/Services/LiveUpdatesService': './stubs/Service.mjs',
 };
 
 export async function resolve(specifier, context, next) {

@@ -1,0 +1,13 @@
+{#- Pictures hung on a wall (css/shapes/_wall.scss), each one a media frame
+    spanning the rows its ratio takes. `items`: [{ src, alt, width, height,
+    srcset, sizes, href, caption, span }], `span` worked out by wall(). -#}
+<div class="wall{{ class|default(null) ? ' ' ~ class }}">
+    <div class="wall--tiles">
+        {%- for item in items -%}
+            {{ media(item.src|default(null), item.alt|default(''), item|merge({
+                class: 'wall--tile',
+                style: 'grid-row-end: span ' ~ item.span,
+            })) }}
+        {%- endfor -%}
+    </div>
+</div>

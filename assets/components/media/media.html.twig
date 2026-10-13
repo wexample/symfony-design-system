@@ -1,0 +1,21 @@
+{#- A picture in its frame: a link when it leads somewhere, the glow of
+    media--placeholder until it loads and in its place when there is none, a
+    caption over its foot. `width` and `height` are the picture's own, which
+    the browser reserves before it loads. `class` and `style` are the frame's,
+    what a wall hangs it by. -#}
+{%- set tag = href|default(null) ? 'a' : 'div' -%}
+<{{ tag }} class="media media--placeholder{{ class|default(null) ? ' ' ~ class }}"
+    {%- if tag == 'a' %} href="{{ href }}"{% endif -%}
+    {%- if style|default(null) %} style="{{ style }}"{% endif -%}
+    {%- if caption|default(null) %} title="{{ caption }}"{% endif %}>
+    {%- if src|default(null) -%}
+        <img src="{{ src }}" alt="{{ alt|default('') }}" loading="{{ loading|default('lazy') }}"
+            {%- if srcset|default(null) %} srcset="{{ srcset }}"{% endif -%}
+            {%- if sizes|default(null) %} sizes="{{ sizes }}"{% endif -%}
+            {%- if width|default(null) %} width="{{ width }}"{% endif -%}
+            {%- if height|default(null) %} height="{{ height }}"{% endif %}>
+    {%- endif -%}
+    {%- if caption|default(null) -%}
+        <span class="media--caption">{{ caption }}</span>
+    {%- endif -%}
+</{{ tag }}>

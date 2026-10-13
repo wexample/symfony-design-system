@@ -1,0 +1,55 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ parent() }}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.*') }}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.components.collection.wall.abstract-entity-wall.abstract-entity-wall::*') }}
+{%- endblock -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/media') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/load-more') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/spinner') -}}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <div class="wall entity-wall">
+        <div v-if="isLoading && !hasTiles" class="empty">
+            <spinner size="sm" :label="resolvedLoadingLabel"></spinner>
+        </div>
+        <div v-else-if="!hasTiles" class="empty">[[ resolvedEmptyLabel ]]</div>
+
+        <div v-else class="wall--tiles">
+            {#- One picture per entity: a wall whose tiles are drawn otherwise
+                replaces this block, and keeps the rest. -#}
+            {%- block wall_tile -%}
+            <media
+                    v-for="tile in tiles"
+                    :key="tile.key"
+                    class="wall--tile"
+                    :class="tile.class"
+                    :style="{ gridRowEnd: 'span ' + tile.span }"
+                    :src="tile.src"
+                    :srcset="tile.srcset"
+                    :sizes="tile.sizes"
+                    :alt="tile.alt"
+                    :width="tile.width"
+                    :height="tile.height"
+                    :href="tile.href"
+                    :caption="tile.caption"
+            ></media>
+            {%- endblock -%}
+        </div>
+
+        {#- Read as it is scrolled: the next page comes when this line nears
+            the screen, or on its button. -#}
+        <div v-if="hasNewerEntities" ref="more" class="entity-wall--more">
+            <load-more
+                    :label="resolvedLoadMoreLabel"
+                    icon="ph:bold/caret-down"
+                    :is-loading="isLoadingNewer"
+                    @load="loadNewerEntities"
+            ></load-more>
+        </div>
+    </div>
+{%- endblock -%}
