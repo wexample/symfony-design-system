@@ -2,11 +2,11 @@
 
 A face for whoever has no picture, drawn by an engine from a seed and served as an SVG an `img` shows — in a page, a vue component or a mail alike.
 
-```twig
+{% raw %}```twig
 {{ avatar(user.id, { label: user.displayName }) }}
 {{ avatar(user.id, { engine: 'wexies-2020', size: '4rem' }) }}
 <img src="{{ avatar_url(user.id) }}" alt="">
-```
+```{% endraw %}
 
 - **The seed** is what does not change — an id. Never the name: a face that changes with a rename is someone else's.
 - **`label`** is the name the face stands for, for an engine that writes something of it (`initials`), and the image's `alt` unless `alt` is given.
