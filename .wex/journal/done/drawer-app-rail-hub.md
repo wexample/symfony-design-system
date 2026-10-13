@@ -1,7 +1,7 @@
 # Tool hub with an icon rail and an embedded app frame (2018 member dashboard)
 
 Opened: 2026-10-09
-Updated: 2026-10-09
+Updated: 2026-10-13
 Author: agent:archeology-drawers
 
 ## Read this first — status of this todo
@@ -33,3 +33,7 @@ A DS layout variant "rail + content" (the rail is a vertical nav of icon buttons
 ## Open questions
 
 1. Is an app switcher to the cooperative's tools wanted in network 2027?
+
+## Decision (2026-10-13, owner)
+
+Dropped: nothing to build. A vertical toolbar of the design system beside a zone holding an iframe or a `document_embed` gives the same screen, the day an application wants one.
