@@ -1,0 +1,188 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{#- The input of one cell, for a saved row (`row`) or the one typed at the foot
+    (`null`): the same markup, read and written through the grid's methods. A
+    saved cell saves as it is left; the new row only keeps what is typed. -#}
+{%- macro editor(row) -%}
+    <input
+            v-if="column.editor === 'checkbox'"
+            class="entity-grid--check"
+            type="checkbox"
+            :data-grid-column="column.key"
+            :aria-label="column.label"
+            :checked="cellChecked({{ row }}, column)"
+            {% if row == 'null' -%}
+            @change="onDraftInput(column, $event.target.checked)"
+            {%- else -%}
+            @change="onCellChange({{ row }}, column, $event.target.checked ? '1' : '0')"
+            {%- endif %}
+            @keydown="onCellKeydown({{ row }}, column, $event)"
+    >
+    <select
+            v-else-if="column.editor === 'select'"
+            class="entity-grid--input"
+            :class="{ 'entity-grid--input--invalid': isCellInvalid({{ row }}, column) }"
+            :data-grid-column="column.key"
+            :aria-label="column.label"
+            :value="cellText({{ row }}, column)"
+            {% if row == 'null' -%}
+            @change="onDraftInput(column, $event.target.value)"
+            {%- else -%}
+            @change="onCellChange({{ row }}, column, $event.target.value)"
+            {%- endif %}
+            @keydown="onCellKeydown({{ row }}, column, $event)"
+    >
+        <option v-if="!column.required" value=""></option>
+        <option
+                v-for="option in column.options"
+                :key="String(option.value)"
+                :value="String(option.value)"
+        >[[ option.label ]]</option>
+    </select>
+    <input
+            v-else
+            class="entity-grid--input"
+            :class="{ 'entity-grid--input--figure': isFigureEditor(column), 'entity-grid--input--invalid': isCellInvalid({{ row }}, column) }"
+            type="text"
+            :inputmode="isFigureEditor(column) ? 'decimal' : null"
+            :data-grid-column="column.key"
+            :aria-label="column.label"
+            :aria-invalid="isCellInvalid({{ row }}, column) ? 'true' : null"
+            :value="cellText({{ row }}, column)"
+            {% if row == 'null' -%}
+            :placeholder="column.placeholder || null"
+            @input="onDraftInput(column, $event.target.value)"
+            @paste="onDraftPaste"
+            {%- else -%}
+            @change="onCellChange({{ row }}, column, $event.target.value)"
+            {%- endif %}
+            @keydown="onCellKeydown({{ row }}, column, $event)"
+    >
+{%- endmacro -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/data-table') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/pagination') -}}
+{%- endblock -%}
+
+{%- block vue_config -%}
+    {%- if entityName is defined and entityName is not empty -%}
+        {{- trans_js(render_pass, '@entity.' ~ entityName ~ '::field.*') -}}
+    {%- endif -%}
+    {{- trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.grid.*') -}}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    {%- import _self as grid -%}
+    <div class="entity-grid">
+        <data-table
+                :rows="entities"
+                :columns="columns"
+                :app="app"
+                :show-header="showHeader"
+                :sticky="sticky"
+                :fill="fill"
+                :natural="natural"
+                :striped="false"
+                :hover="false"
+                :empty-label="emptyLabel"
+                :loading="isLoading"
+                :row-key="getEntityKey"
+        >
+            <template
+                    v-for="column in editorColumns"
+                    :key="column.key"
+                    #[cellSlot(column)]="{ row }"
+            >
+                {{ grid.editor('row') }}
+            </template>
+
+            {#- The row a new entry is typed in, created with Enter. -#}
+            <template v-if="creatable" #rows-end>
+                <tr class="table--row entity-grid--new" data-grid-new>
+                    <td
+                            v-for="column in columns"
+                            :key="column.key"
+                            class="table--cell"
+                    >
+                        <template v-if="column.editor && !column.compute">
+                            {{ grid.editor('null') }}
+                        </template>
+                        <template v-else-if="column.compute">[[ computedText(null, column) ]]</template>
+                        <button
+                                v-else-if="column.key === 'grid-delete'"
+                                class="table--icon-button"
+                                type="button"
+                                :title="t('add')"
+                                :aria-label="t('add')"
+                                @click="createDraft"
+                                v-html="app.getServiceOrFail('icon').icon('ph:bold/plus')"
+                        ></button>
+                    </td>
+                </tr>
+            </template>
+        </data-table>
+
+        <div class="entity-grid--foot">
+            <span
+                    class="entity-grid--status"
+                    :class="{ 'entity-grid--status--error': saveState === 'error' }"
+                    role="status"
+            >[[ saveStateText() ]]</span>
+            <template v-if="importable && canReadTableFiles()">
+                <button class="button button--compact" type="button" @click="pickTableFile">[[ t('import.file') ]]</button>
+                <input ref="tableFile" type="file" hidden @change="onTableFile">
+            </template>
+        </div>
+
+        {#- A table pasted or read, before it is sent: what each of its columns
+            holds, said by the reader, and what that reads as. -#}
+        <div v-if="table" class="entity-grid--import">
+            <div class="entity-grid--import-bar">
+                <label class="entity-grid--import-header">
+                    <input type="checkbox" v-model="table.header">
+                    [[ t('import.header') ]]
+                </label>
+                <span v-if="tableMissing()" class="entity-grid--status entity-grid--status--error">[[ t('import.missing', { '%columns%': tableMissing() }) ]]</span>
+            </div>
+            <div class="table--wrapper">
+                <table class="table">
+                    <thead>
+                    <tr class="table--row">
+                        <th v-for="(key, index) in table.columns" :key="index" class="table--cell">
+                            <select v-model="table.columns[index]" class="entity-grid--input" :aria-label="t('import.column', { '%index%': index + 1 })">
+                                <option value="">[[ t('import.skip') ]]</option>
+                                <option v-for="column in importColumns" :key="column.key" :value="column.key">[[ column.label ]]</option>
+                            </select>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr
+                            v-for="(row, rowIndex) in table.rows"
+                            :key="rowIndex"
+                            class="table--row"
+                            :class="{ 'entity-grid--import-skipped': table.header && rowIndex === 0 }"
+                    >
+                        <td
+                                v-for="(key, columnIndex) in table.columns"
+                                :key="columnIndex"
+                                class="table--cell"
+                                :class="{ 'entity-grid--import-invalid': isTableCellInvalid(rowIndex, columnIndex) }"
+                        >[[ row[columnIndex] ?? '' ]]</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="entity-grid--import-actions">
+                <button
+                        class="button button--invert"
+                        type="button"
+                        :disabled="!tableReady"
+                        @click="importTable"
+                >[[ t('import.submit', { '%count%': tableRecords.length }) ]]</button>
+                <button class="button" type="button" @click="table = null">[[ t('import.cancel') ]]</button>
+            </div>
+        </div>
+    </div>
+{%- endblock -%}

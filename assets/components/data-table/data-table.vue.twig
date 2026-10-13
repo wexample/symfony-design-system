@@ -201,7 +201,16 @@
                         class="table--cell"
                         :class="getColumnClass(column)"
                 >
-                    <template v-if="$slots.cell">
+                    {#- One column's cells drawn by the parent, `cell:<key>` — an
+                        input where the value can be changed —, the others drawn
+                        here. -#}
+                    <template v-if="$slots['cell:' + getColumnKey(column, columnIndex)]">
+                        <slot
+                                :name="'cell:' + getColumnKey(column, columnIndex)"
+                                v-bind="{ row, column, value: getCellValue(row, column) }"
+                        ></slot>
+                    </template>
+                    <template v-else-if="$slots.cell">
                         <slot
                                 name="cell"
                                 v-bind="{ row, column, value: getCellValue(row, column) }"
@@ -354,6 +363,9 @@
                 </td>
             </template>
         </tr>
+        {#- Rows the parent adds after the others, whatever they hold — the
+            row a new entry is typed in. -#}
+        <slot name="rows-end" v-bind="{ columns }"></slot>
         </tbody>
         {#- The totals the page hands over (`totals`), drawn and never summed
             here: the rows held may be one page, or a list a filter narrowed. A

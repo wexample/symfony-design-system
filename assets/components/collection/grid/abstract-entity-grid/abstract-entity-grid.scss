@@ -1,0 +1,96 @@
+// An entity table written in place: each editable cell an input as wide as
+// its column, quiet until it is pointed at or written in, the row typed at the
+// foot set apart, a line of status under the rows, and the table pasted or
+// read waiting above its buttons.
+@use '../../../data-table/data-table';
+@use '../../../button/button';
+@use '../../../../css/mixins/field' as field;
+
+.entity-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  .entity-grid--input {
+    @include field.field-base;
+    width: 100%;
+    min-width: 4rem;
+    padding: var(--space-1) var(--space-2);
+    border-color: transparent;
+    background: transparent;
+    font-size: inherit;
+
+    &:hover {
+      border-color: var(--neutral-6);
+    }
+
+    &:focus {
+      @include field.field-focus;
+      border-color: var(--neutral-8);
+      background: var(--surface-1);
+    }
+  }
+
+  .entity-grid--input--figure {
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .entity-grid--input--invalid,
+  .entity-grid--input--invalid:hover {
+    border-color: var(--error-9);
+    background: var(--error-3);
+  }
+
+  .entity-grid--new > .table--cell {
+    border-top: var(--border-default);
+
+    .entity-grid--input {
+      border-color: var(--neutral-6);
+      background: var(--surface-1);
+    }
+  }
+
+  .entity-grid--foot,
+  .entity-grid--import-bar,
+  .entity-grid--import-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .entity-grid--status {
+    flex: 1;
+    color: var(--text-color-muted);
+    font-size: var(--font-size-2);
+  }
+
+  .entity-grid--status--error {
+    color: var(--error-11);
+  }
+
+  .entity-grid--import {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    border: var(--border-default);
+    border-radius: var(--radius-box);
+  }
+
+  .entity-grid--import-header {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .entity-grid--import-skipped {
+    opacity: 0.5;
+    text-decoration: line-through;
+  }
+
+  .entity-grid--import-invalid {
+    background: var(--error-3);
+    color: var(--error-11);
+  }
+}

@@ -79,6 +79,21 @@ en:
       search: "Search"
       results: "%count% found"
       open: Open the detail
+    grid:
+      add: Add this row
+      delete: Delete this row
+      saving: Saving…
+      saved: Saved
+      error: Not saved
+      import:
+        file: Import a file
+        no_table: No table was found in this file.
+        header: The first row names the columns
+        missing: "No column holds: %columns%"
+        column: "Column %index%"
+        skip: Leave out
+        submit: "Add %count% rows"
+        cancel: Cancel
     confirm:
       accept: Confirm
       cancel: Cancel
@@ -590,6 +605,21 @@ fr:
       ellipsis: …
     stepper:
       label: Étapes
+    grid:
+      add: Ajouter cette ligne
+      delete: Supprimer cette ligne
+      saving: Enregistrement…
+      saved: Enregistré
+      error: Non enregistré
+      import:
+        file: Importer un fichier
+        no_table: Aucun tableau trouvé dans ce fichier.
+        header: La première ligne nomme les colonnes
+        missing: "Aucune colonne ne contient : %columns%"
+        column: "Colonne %index%"
+        skip: Ignorer
+        submit: "Ajouter %count% lignes"
+        cancel: Annuler
     table:
       select_all: 'Sélectionner toutes les lignes'
       select_row: 'Sélectionner cette ligne'
