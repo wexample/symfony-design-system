@@ -15,6 +15,7 @@
                         :key="refIndex"
                         :tone="ref.tone || 'neutral'"
                         :label="ref.label"
+                        :title="ref.label"
                         :compact="true"
                 ></capsule>
                 <a v-if="item.href" class="graph-log--title" :href="item.href" :title="item.title">[[ item.title ]]</a>

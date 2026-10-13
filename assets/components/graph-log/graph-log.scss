@@ -51,10 +51,27 @@
 .graph-log--main {
   gap: var(--space-1);
   padding-inline-end: var(--space-3);
+  overflow: hidden;
+}
+
+// A ref named by a whole path — `acme/ldp-production-planning-manager/v1.0.7`
+// — gives up its end rather than run over the columns after it; its whole
+// name stays under the pointer.
+.graph-log--main > .marker {
+  flex: 0 1 auto;
+  min-width: 2.5em;
+}
+
+.graph-log--main > .marker .marker--label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .graph-log--title {
-  min-width: 0;
+  // Whatever room the refs leave, a little of it at least.
+  flex: 1 1 0;
+  min-width: 3em;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

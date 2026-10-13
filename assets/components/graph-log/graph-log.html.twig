@@ -12,7 +12,7 @@
             <span class="graph-log--graph"></span>
             <span class="graph-log--main">
                 {%- for ref in item.refs|default([]) -%}
-                    {{ marker(ref.tone|default('neutral'), ref.label, { compact: true }) }}
+                    {{ marker(ref.tone|default('neutral'), ref.label, { compact: true, title: ref.label }) }}
                 {%- endfor -%}
                 {%- if item.href is defined and item.href -%}
                     <a class="graph-log--title" href="{{ item.href }}"{% if item.title %} title="{{ item.title }}"{% endif %}>{{ item.title }}</a>
