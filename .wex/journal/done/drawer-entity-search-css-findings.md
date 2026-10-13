@@ -29,3 +29,11 @@ growing a third copy.
 
 What the menu needs and the helper does not have: the alignment on a bar's edge
 (`alignOnBar`), which is its own business and would stay. The flip itself is the duplicate.
+
+## Decision (2026-10-13, owner)
+
+- `.form--group`: applied, `grid-template-columns: minmax(0, 1fr)` (d6c1f031). The `min-width: 0` guard of symfony-search's field can go, at that package's discretion.
+- `button-menu` onto `FloatingHelper`: dropped. Not a duplicate:
+  - The menu's panel is absolute in its container, aligned on a start or end edge, and keeps its default when nothing fits.
+  - The helper computes fixed coordinates and slides the box. It has no end alignment, and falls back to the roomiest of four sides.
+  - The shared part, the top/bottom flip, is about fifteen lines, not worth changing every menu's behaviour.
