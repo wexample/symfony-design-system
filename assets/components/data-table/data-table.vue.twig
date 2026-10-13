@@ -363,9 +363,22 @@
                 </td>
             </template>
         </tr>
-        {#- Rows the parent adds after the others, whatever they hold — the
-            row a new entry is typed in. -#}
-        <slot name="rows-end" v-bind="{ columns }"></slot>
+        {#- A row after the others whose cells the parent fills, column by
+            column (`append-row`) — the row a new entry is typed in. The row
+            and its cells are drawn here: a template read from the DOM would
+            lift a `tr` handed through a slot out of the table. -#}
+        <tr v-if="$slots['append-row']" class="table--row table--row--append">
+            <td v-if="selectable" class="table--cell table--cell--select"></td>
+            <td
+                    v-for="(column, columnIndex) in columns"
+                    :key="getColumnKey(column, columnIndex)"
+                    class="table--cell"
+                    :class="getColumnClass(column)"
+            >
+                <slot name="append-row" v-bind="{ column }"></slot>
+            </td>
+            <td v-if="rowLink" class="table--cell table--cell--row-open"></td>
+        </tr>
         </tbody>
         {#- The totals the page hands over (`totals`), drawn and never summed
             here: the rows held may be one page, or a list a filter narrowed. A

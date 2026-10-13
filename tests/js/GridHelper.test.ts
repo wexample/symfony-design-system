@@ -85,3 +85,9 @@ test('a table read into values, its bad cells named, its blank rows dropped', ()
     { row: 3, values: {}, invalid: ['price', 'title'] },
   ]);
 });
+
+test('a field no column feeds takes its default', () => {
+  const records = gridTableRead({ rows: [['Design', '10']], columns: ['title', 'price'], header: false }, [title, price, { ...rate, required: true, default: 2000 }], 'en');
+
+  assert.deepEqual(records, [{ row: 0, values: { title: 'Design', price: 1000, rate: 2000 }, invalid: [] }]);
+});

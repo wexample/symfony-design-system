@@ -4,7 +4,8 @@ import { numberParse } from './NumberHelper';
 // kind of value — `text`, `number`, `money`, `select`, `checkbox` —, `scale`
 // what a number is stored multiplied by (a quantity kept ×100), `currency` the
 // one a money amount is held in the minor unit of, `options` what a select
-// offers, `required` a value a new row cannot go without.
+// offers, `required` a value a new row cannot go without, `default` the value
+// it takes when nothing gives it one.
 export type GridColumn = {
   key: string;
   label?: string;
@@ -13,6 +14,7 @@ export type GridColumn = {
   currency?: string;
   options?: { value: unknown; label: string }[];
   required?: boolean;
+  default?: unknown;
 };
 
 // A table waiting for its columns: the rows as they came, the column each one
@@ -166,7 +168,8 @@ export function gridTableGuess(rows: string[][], columns: GridColumn[], locale?:
 
 // The rows of a table read as values of the grid, header aside, and each
 // one's cells that could not be read — or that a required field left empty.
-// A row whose chosen cells are all blank is no row.
+// A field no column feeds takes its default. A row whose chosen cells are all
+// blank is no row.
 export function gridTableRead(table: GridTable, columns: GridColumn[], locale?: string | null): GridRecord[] {
   const chosen = table.columns
     .map((key, index) => ({ index, column: columns.find((column) => column.key === key) }))
@@ -196,6 +199,10 @@ export function gridTableRead(table: GridTable, columns: GridColumn[], locale?: 
     }
 
     for (const column of columns) {
+      if (!table.columns.includes(column.key) && column.default !== undefined && column.default !== null) {
+        values[column.key] = column.default;
+      }
+
       if (column.required && !(column.key in values) && !invalid.includes(column.key)) {
         invalid.push(column.key);
       }

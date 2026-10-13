@@ -89,37 +89,31 @@
                 :loading="isLoading"
                 :row-key="getEntityKey"
         >
+            {#- Read from the DOM, the template has its attribute names put in
+                lower case: a slot named by a member, not by a method. -#}
             <template
-                    v-for="column in editorColumns"
-                    :key="column.key"
-                    #[cellSlot(column)]="{ row }"
+                    v-for="{ name, column } in editorSlots"
+                    :key="name"
+                    #[name]="{ row }"
             >
                 {{ grid.editor('row') }}
             </template>
 
             {#- The row a new entry is typed in, created with Enter. -#}
-            <template v-if="creatable" #rows-end>
-                <tr class="table--row entity-grid--new" data-grid-new>
-                    <td
-                            v-for="column in columns"
-                            :key="column.key"
-                            class="table--cell"
-                    >
-                        <template v-if="column.editor && !column.compute">
-                            {{ grid.editor('null') }}
-                        </template>
-                        <template v-else-if="column.compute">[[ computedText(null, column) ]]</template>
-                        <button
-                                v-else-if="column.key === 'grid-delete'"
-                                class="table--icon-button"
-                                type="button"
-                                :title="t('add')"
-                                :aria-label="t('add')"
-                                @click="createDraft"
-                                v-html="app.getServiceOrFail('icon').icon('ph:bold/plus')"
-                        ></button>
-                    </td>
-                </tr>
+            <template v-if="creatable" #append-row="{ column }">
+                <template v-if="column.editor && !column.compute">
+                    {{ grid.editor('null') }}
+                </template>
+                <template v-else-if="column.compute">[[ computedText(null, column) ]]</template>
+                <button
+                        v-else-if="column.key === 'grid-delete'"
+                        class="table--icon-button"
+                        type="button"
+                        :title="t('add')"
+                        :aria-label="t('add')"
+                        @click="createDraft"
+                        v-html="app.getServiceOrFail('icon').icon('ph:bold/plus')"
+                ></button>
             </template>
         </data-table>
 

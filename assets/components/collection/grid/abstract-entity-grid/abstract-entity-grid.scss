@@ -42,7 +42,7 @@
     background: var(--error-3);
   }
 
-  .entity-grid--new > .table--cell {
+  .table--row--append > .table--cell {
     border-top: var(--border-default);
 
     .entity-grid--input {

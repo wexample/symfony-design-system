@@ -63,6 +63,11 @@ export default {
       return this.columns.filter((column) => column.editor && !column.compute);
     },
 
+    // The cells the grid draws itself, in the table's `cell:<key>` slots.
+    editorSlots() {
+      return this.editorColumns.map((column) => ({ name: `cell:${column.key}`, column }));
+    },
+
     // The columns a table's cells may feed.
     importColumns() {
       return this.editorColumns.filter((column) => column.importable !== false && column.editor !== 'checkbox');
@@ -137,15 +142,12 @@ export default {
       }];
     },
 
-    // A column as GridHelper reads it, its currency resolved.
+    // A column as GridHelper reads it, its currency and its default resolved.
     resolveColumn(column, row = null) {
       const currency = typeof column.currency === 'function' ? column.currency(row) : column.currency;
+      const value = typeof column.default === 'function' ? column.default() : column.default;
 
-      return { ...column, currency: currency || this.currency };
-    },
-
-    cellSlot(column) {
-      return `cell:${column.key}`;
+      return { ...column, currency: currency || this.currency, default: value };
     },
 
     cellId(row, column) {
@@ -291,7 +293,7 @@ export default {
       this.$nextTick(() => {
         const wanted = key ?? this.editorColumns[0]?.key;
 
-        this.$el.querySelector(`[data-grid-new] [data-grid-column="${wanted}"]`)?.focus();
+        this.$el.querySelector(`.table--row--append [data-grid-column="${wanted}"]`)?.focus();
       });
     },
 
