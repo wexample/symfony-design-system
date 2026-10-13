@@ -3,7 +3,7 @@
   "description": "Design system assets for Symfony",
   "type": "library",
   "license": "MIT",
-  "version": "32.0.3",
+  "version": "34.0.0",
   "keywords": [
     "symfony-ux"
   ],
@@ -20,9 +20,9 @@
   ],
   "require": {
     "php": ">=8.5",
-    "wexample/symfony-loader": ">=22.0.0",
+    "wexample/symfony-loader": ">=23.0.0",
     "symfony/security-bundle": "^7.4 || ^8.0",
-    "wexample/symfony-routing": ">=2.0.0",
+    "wexample/symfony-routing": ">=2.1.0",
     "wexample/symfony-template": ">=2.0.5"
   },
   "require-dev": {
