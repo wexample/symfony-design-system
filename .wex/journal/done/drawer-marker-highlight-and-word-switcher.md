@@ -41,3 +41,9 @@ A one-page landing for wexample.com (GitLab `wexample/blog-v2`, never part of ne
 ## Decision (2026-10-13, owner)
 
 Where such effects live is settled: `symfony-design-system-effects`, one package for the brand effects, the design system staying plain. The two effects themselves are still to be built there when a page wants them.
+
+Built and validated the same day, in `symfony-design-system-effects`:
+- `text_highlight(text, { tone })`: the felt-pen pill drawn from the middle outwards once in view, several drawn one after the other; the colour comes from the categorical palette.
+- `word_switcher(words, { interval, roll })`: it scrambles as many letters as the coming word. Screen readers get the list once, never the scramble (question 2).
+
+Both stay still under `prefers-reduced-motion`. Demo: Content › Effects. The hero itself (texts, hexagon) stays the public home's business.
