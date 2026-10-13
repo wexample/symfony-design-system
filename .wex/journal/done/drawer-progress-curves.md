@@ -1,7 +1,7 @@
 # Step-driven "progress curves" backdrop (from network's tunnel layout)
 
 Opened: 2026-10-09
-Updated: 2026-10-09
+Updated: 2026-10-13
 Author: agent:archeology-drawers
 
 ## Read this first — status of this todo
@@ -74,3 +74,7 @@ The owner's remembered "SVG animated according to the current tunnel step" (memb
 2. Should it animate on every step, or only on completion steps (pay → thanks)?
 3. How should unknown future steps (branching tunnels, `unknown` steps in the stepper) map to stroke ranges?
 4. Is the white floating card with layered side shadows worth a DS skin token ("soft" skin?), or is it dropped?
+
+## Decision (2026-10-13, owner)
+
+Dropped. Nothing to build for the mechanism: where a tunnel stands already reaches the front through `tunnel_stepper(tunnelCursor)`, which feeds the design system's `stepper` — a backdrop following the steps would read the same data. The artwork alone is not worth a component.

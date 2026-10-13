@@ -1,7 +1,7 @@
 # Shape-filling spinner (network's logo "ripple" loader)
 
 Opened: 2026-10-09
-Updated: 2026-10-09
+Updated: 2026-10-13
 Author: agent:archeology-drawers
 
 ## Read this first — status of this todo
@@ -58,3 +58,7 @@ network's global loading indicator (fos branch, 2022-11) is a 150 px wex hexagon
 1. Is a brand-shaped loader wanted in network 2027 at all, or is the DS circle enough?
 2. Loop or one-shot? The original was one-shot, which looks frozen on long loads.
 3. Should the same "ripple fill" be reused as a progress indicator (fill ratio = progress) instead of a spinner?
+
+## Decision (2026-10-13, owner)
+
+Dropped. The design system has its spinner; this one was a brand variant, not a gap.

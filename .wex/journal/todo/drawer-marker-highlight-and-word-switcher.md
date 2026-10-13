@@ -1,7 +1,7 @@
 # Animated marker highlight and slot-machine word switcher (wexample.com hero, 2022)
 
 Opened: 2026-10-09
-Updated: 2026-10-09
+Updated: 2026-10-13
 Author: agent:archeology-drawers
 
 ## Read this first — status of this todo
@@ -37,3 +37,7 @@ A one-page landing for wexample.com (GitLab `wexample/blog-v2`, never part of ne
 
 1. Wanted in the DS, or only in the network public pages?
 2. Keep the scramble effect (accessibility: screen readers must not read random strings)?
+
+## Decision (2026-10-13, owner)
+
+Where such effects live is settled: `symfony-design-system-effects`, one package for the brand effects, the design system staying plain. The two effects themselves are still to be built there when a page wants them.

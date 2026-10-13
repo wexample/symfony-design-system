@@ -1,7 +1,7 @@
 # Generated "wexie" avatar (seeded colour + eyes glyph)
 
 Opened: 2026-10-09
-Updated: 2026-10-09
+Updated: 2026-10-13
 Author: agent:archeology-drawers
 
 ## Read this first — status of this todo
@@ -79,3 +79,26 @@ Do **not** port:
 3. Seed: user id/uuid (stable) or username (portable across apps)?
 4. Animated version (#119 asked for animated profile pictures): eyes blinking or looking at the cursor would be cheap with SVG. Wanted?
 5. Mails: is a server-rendered PNG needed?
+
+## Decision (2026-10-13, owner)
+
+Built as one engine among others:
+- `symfony-design-system`:
+  - `Interface/AvatarEngineInterface` (name, `render(seed, label)` → square SVG), autoconfigured;
+  - `Service/AvatarService`;
+  - `Helper/AvatarHelper` (`avatarPick`, `avatarColor`, `avatarInitials`);
+  - the `initials` engine;
+  - the route `/_design-system/avatar/{engine}/{seed}.svg`, cached a year;
+  - the Twig functions `avatar(seed, { engine, label, size })` and `avatar_url()`;
+  - default engine parameter `wexample_symfony_design_system.avatar.default_engine`.
+- `symfony-design-system-effects` (new package, brand effects): the `wexies-2020` engine, the 26 eyes normalised to one square.
+- `symfony-design-system-demo`: page Content › Avatars.
+
+Answers to the questions:
+1. The eyes are in the effects package, not the DS.
+2. Free hue with fixed saturation and lightness; no shape variation.
+3. Seed = a stable id.
+4. Not animated.
+5. No PNG: the SVG is served at an address an `img` reads.
+
+Not done: the fallback in `symfony-user-ds` (another package).
