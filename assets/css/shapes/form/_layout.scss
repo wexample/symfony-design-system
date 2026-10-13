@@ -16,6 +16,10 @@
 
 .form--group {
   display: grid;
+  // As wide as its column and no wider: a field whose content cannot shrink —
+  // one line that never wraps — would otherwise widen the group, the form,
+  // and scroll the page sideways.
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-2);
 }
 
