@@ -1,7 +1,7 @@
 # Editable grid (spreadsheet-like data-table mode)
 
 Opened: 2026-10-09
-Updated: 2026-10-09
+Updated: 2026-10-13
 Author: agent:archeology-drawers
 
 ## Read this first — status of this todo
@@ -93,3 +93,9 @@ The descendant to compare with: `/home/weeger/Desktop/WIP/WEB/WEXAMPLE/NETWORK/l
 2. Per-cell autosave, batch save, or both? The prod invoice editor chose batch plus a guard.
 3. Is spreadsheet paste wanted in the generic component, or only in the invoice editor?
 4. Should virtualisation (long lists) be in scope from the start?
+
+## Decision (2026-10-13, owner)
+
+Built, on the entity collection pipe rather than beside it: `components/collection/grid/abstract-entity-grid` extends `abstract-entity-table` and writes through the entity's repository — a cell left changed is an `update` of that field alone, the row typed at the foot a `create`, a row removed a `delete`, a pasted or uploaded table (columns named by the reader, previewed) one `postEntities('import')`. Columns: `editor` (text, number, money, select, checkbox), `scale`, `currency`, `options`, `required`, `default`, `compute(values)`. Keys: Enter down the column (creates on the new row), Escape restores, Tab native. `data-table` gained the `cell:<key>` and `append-row` slots. Value reading in `js/Helper/GridHelper.ts`, tested.
+
+Answers to the questions: a component of its own extending the entity table (1); per-cell save only (2); paste generic (3); no virtualisation (4). First consumer: `symfony-accounting-ds` `invoice-item-grid`, after symfony-accounting was aligned on the entity/DTO model.
