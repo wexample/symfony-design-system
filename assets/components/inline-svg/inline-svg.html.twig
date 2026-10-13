@@ -1,6 +1,6 @@
-{#- A one-colour drawing in the colour of the text around it: the svg is the
-    page's own, handed `currentColor` by `inline_svg()`. A link when it leads
-    somewhere, named for whoever cannot see it. -#}
+{#- A drawing written into the page: what it paints in `currentColor` takes the
+    colour of the text around it, its other colours stay its own. A link when
+    it leads somewhere, named for whoever cannot see it. -#}
 {%- set tag = href|default(null) ? 'a' : 'span' -%}
 <{{ tag }} class="inline-svg{{ class|default(null) ? ' ' ~ class }}"
     {%- if href|default(null) %} href="{{ href }}"{% endif %}

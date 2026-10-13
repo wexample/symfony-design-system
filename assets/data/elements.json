@@ -1611,7 +1611,7 @@
         {
             "key": "inline-svg",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": "A one-colour drawing \u2014 logo, mark, illustration \u2014 written into the page, in the colour of the text around it \u2014 black or white with the scheme, from one file.",
+            "description": "A drawing \u2014 logo, mark, illustration \u2014 written into the page, what it paints in currentColor following the text around it \u2014 black or white with the scheme, its brand colours kept, from one file.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/inline-svg/inline-svg.scss"

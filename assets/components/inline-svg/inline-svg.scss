@@ -1,5 +1,5 @@
-// A one-colour drawing: its colour is the text's, its height the variable's, its
-// width what the drawing's proportions make of it.
+// A drawing written into the page: its `currentColor` is the text's, its height
+// the variable's, its width what the drawing's proportions make of it.
 .inline-svg {
   display: inline-flex;
   align-items: center;

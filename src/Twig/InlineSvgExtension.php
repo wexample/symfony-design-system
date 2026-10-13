@@ -11,11 +11,14 @@ use Twig\TwigFunction;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 /**
- * A one-colour drawing — a logo, a mark, an illustration — written into the
- * page rather than linked, so it takes the colour of the text around it: black
- * on a light scheme, white on a dark one, with no second file and no filter. Whatever colour the file was drawn in is
- * handed to `currentColor`; what an editor leaves in it — its own metadata,
- * a fixed size — is dropped, the height being the stylesheet's.
+ * A drawing — a logo, a mark, an illustration — written into the page rather
+ * than linked, so that what the file paints in `currentColor` takes the colour
+ * of the text around it: black on a light scheme, white on a dark one, with no
+ * second file and no filter. The other colours are the file's and stay as they
+ * are — a brand's red is the same on both schemes. The file says which is
+ * which; `monochrome` hands every colour to `currentColor`, for a one-colour
+ * drawing exported as drawn. What an editor leaves in it — its own metadata, a
+ * fixed size — is dropped, the height being the stylesheet's.
  */
 class InlineSvgExtension extends AbstractTemplateExtension
 {
@@ -24,7 +27,7 @@ class InlineSvgExtension extends AbstractTemplateExtension
         'http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd',
     ];
 
-    /** @var array<string, string> the markup of each file, read once per request */
+    /** @var array<string, string> the markup of each file and mode, read once per request */
     private array $svgs = [];
 
     public function __construct(
@@ -46,7 +49,7 @@ class InlineSvgExtension extends AbstractTemplateExtension
                         $context,
                         '@WexampleSymfonyDesignSystemBundle/components/inline-svg',
                         [
-                            'svg' => $this->monochrome($path),
+                            'svg' => $this->render($path, (bool) ($options['monochrome'] ?? false)),
                             'href' => $options['href'] ?? null,
                             'label' => $options['label'] ?? null,
                             'class' => $options['class'] ?? null,
@@ -60,18 +63,22 @@ class InlineSvgExtension extends AbstractTemplateExtension
 
     /**
      * @param string $path under the public directory, as `asset()` takes it
+     * @param bool $monochrome every colour handed to `currentColor`, not only
+     *                         the ones the file already gave it
      */
-    public function monochrome(string $path): string
+    public function render(string $path, bool $monochrome = false): string
     {
-        if (isset($this->svgs[$path])) {
-            return $this->svgs[$path];
+        $key = ($monochrome ? 'monochrome:' : '').$path;
+
+        if (isset($this->svgs[$key])) {
+            return $this->svgs[$key];
         }
 
         $file = $this->publicDir.'/'.ltrim($path, '/');
         $document = new DOMDocument();
 
         if (! is_file($file) || ! @$document->loadXML((string) file_get_contents($file))) {
-            return $this->svgs[$path] = '';
+            return $this->svgs[$key] = '';
         }
 
         $svg = $document->documentElement;
@@ -96,18 +103,28 @@ class InlineSvgExtension extends AbstractTemplateExtension
                 }
             }
 
-            foreach (['fill', 'stroke'] as $paint) {
-                $value = $element->getAttribute($paint);
+            if ($monochrome) {
+                foreach (['fill', 'stroke'] as $paint) {
+                    $value = $element->getAttribute($paint);
 
-                if ($value !== '' && $value !== 'none') {
-                    $element->setAttribute($paint, 'currentColor');
+                    if ($value !== '' && $value !== 'none') {
+                        $element->setAttribute($paint, 'currentColor');
+                    }
+                }
+
+                if ($element->hasAttribute('style')) {
+                    $element->setAttribute('style', preg_replace(
+                        '/\b(fill|stroke)\s*:\s*(?!none\b)[^;]+/',
+                        '$1:currentColor',
+                        $element->getAttribute('style')
+                    ));
                 }
             }
 
             if ($element->hasAttribute('style')) {
                 $element->setAttribute('style', preg_replace(
-                    ['/\b(fill|stroke)\s*:\s*(?!none\b)[^;]+/', '/-inkscape-[\w-]+\s*:[^;]*;?/'],
-                    ['$1:currentColor', ''],
+                    '/-inkscape-[\w-]+\s*:[^;]*;?/',
+                    '',
                     $element->getAttribute('style')
                 ));
             }
@@ -129,6 +146,6 @@ class InlineSvgExtension extends AbstractTemplateExtension
             $markup = preg_replace('/\s+xmlns:\w+="'.preg_quote($namespace, '/').'"/', '', $markup);
         }
 
-        return $this->svgs[$path] = $markup;
+        return $this->svgs[$key] = $markup;
     }
 }

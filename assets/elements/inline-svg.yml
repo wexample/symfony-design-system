@@ -4,7 +4,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: A one-colour drawing — logo, mark, illustration — written into the page, in the colour of the text around it — black or white with the scheme, from one file.
+description: A drawing — logo, mark, illustration — written into the page, what it paints in currentColor following the text around it — black or white with the scheme, its brand colours kept, from one file.
 formats:
   style: true
   template: true
