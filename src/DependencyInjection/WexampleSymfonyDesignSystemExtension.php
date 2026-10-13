@@ -9,6 +9,7 @@ use Wexample\SymfonyDesignSystem\Chat\SlashCommand\Attribute\AsSlashCommand;
 use Wexample\SymfonyDesignSystem\Chat\SlashCommand\SlashCommandRegistry;
 use Wexample\SymfonyDesignSystem\Class\ElementSource;
 use Wexample\SymfonyDesignSystem\Interface\DesignSystemElementsBundleInterface;
+use Wexample\SymfonyDesignSystem\Interface\AvatarEngineInterface;
 use Wexample\SymfonyDesignSystem\Interface\DevMenuProviderInterface;
 use Wexample\SymfonyDesignSystem\Interface\RouteGroupVoterInterface;
 use Wexample\SymfonyHelpers\DependencyInjection\AbstractWexampleSymfonyExtension;
@@ -43,6 +44,11 @@ class WexampleSymfonyDesignSystemExtension extends AbstractWexampleSymfonyExtens
         $container
             ->registerForAutoconfiguration(RouteGroupVoterInterface::class)
             ->addTag(RouteGroupVoterInterface::TAG);
+
+        // And for the engines that draw avatars.
+        $container
+            ->registerForAutoconfiguration(AvatarEngineInterface::class)
+            ->addTag(AvatarEngineInterface::TAG);
 
         // Same for what a bundle — or the app — puts in the development menu.
         $container

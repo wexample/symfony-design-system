@@ -20,3 +20,8 @@
   object-fit: cover;
   display: block;
 }
+
+// A face an engine drew (`avatar()`): it brings its own colour.
+.avatar--generated {
+  background: none;
+}
