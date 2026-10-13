@@ -1,0 +1,16 @@
+# Declares `isolated` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "A world of its own inside the page: drawn in a shadow root, no rule nor inherited value of the page entering it."
+formats:
+  style: "It brings none: what it holds brings its own, inside the root."
+  template: true
+  vue: todo
+  script: true
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

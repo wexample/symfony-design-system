@@ -1,0 +1,12 @@
+{#- A world of its own inside the page — a slide, a printed page, a mail as
+    it will be read: what it holds is drawn in a shadow root, where no rule of
+    the page enters and nothing is inherited from it, neither the font, nor
+    the scheme, nor the skin. What it holds brings its own style, in a
+    `<style>` of its body. From outside, only the box it stands in is set: its
+    size, its place, its shadow.
+
+    The body waits in a template until the script moves it into the root: a
+    template is inert, so nothing of it is drawn, or styled by the page, in
+    between. -#}
+{%- set slots = slots|default({}) -%}
+<div class="isolated{{ class|default(null) ? ' ' ~ class : '' }}"><template>{{- slots.body|default('')|raw -}}</template></div>
