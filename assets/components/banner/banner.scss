@@ -20,6 +20,31 @@
   z-index: var(--z-banner);
 }
 
+.banner--floating.banner--bottom {
+  top: auto;
+  bottom: 0;
+}
+
+// A bubble: as wide as its message, centred, held off the edge it floats
+// against so it does not read as part of the page chrome.
+.banner--compact {
+  --banner-padding-y: var(--space-2);
+  --banner-edge-gap: var(--space-4);
+  width: fit-content;
+  max-width: calc(100% - 2 * var(--banner-edge-gap));
+  margin-inline: auto;
+  border-radius: var(--radius-box);
+}
+
+.banner--floating.banner--compact {
+  top: var(--banner-edge-gap);
+}
+
+.banner--floating.banner--compact.banner--bottom {
+  top: auto;
+  bottom: var(--banner-edge-gap);
+}
+
 .banner.is-opening {
   animation: ds-banner-open 180ms ease-out;
 

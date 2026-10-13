@@ -22,6 +22,16 @@ export default {
       type: Boolean,
       default: false
     },
+    // A bubble the width of its message rather than a bar across the page.
+    compact: {
+      type: Boolean,
+      default: false
+    },
+    // top or bottom: the edge a floating banner holds to.
+    position: {
+      type: String,
+      default: 'top'
+    },
     extraClass: {
       type: String,
       default: null
@@ -38,6 +48,14 @@ export default {
 
       if (this.floating) {
         classes.push('banner--floating');
+      }
+
+      if (this.compact) {
+        classes.push('banner--compact');
+      }
+
+      if (this.position === 'bottom') {
+        classes.push('banner--bottom');
       }
 
       if (this.extraClass) {

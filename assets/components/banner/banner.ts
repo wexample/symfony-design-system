@@ -20,6 +20,12 @@ export default class extends Component {
     if (this.options?.floating) {
       this.el.classList.add('banner--floating');
     }
+    if (this.options?.compact) {
+      this.el.classList.add('banner--compact');
+    }
+    if (this.options?.position === 'bottom') {
+      this.el.classList.add('banner--bottom');
+    }
 
     const messageEl = this.el.querySelector('[data-banner-message]') as HTMLElement;
 
