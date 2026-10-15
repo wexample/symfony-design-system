@@ -24,7 +24,9 @@
 // Lying along the top, what the start of the bar opens is what the page is read
 // in — the source — and what its end opens a side to it: until the visitor
 // drags the line between them, the first takes twice the room of the second.
-.tool-dock--zones.zone--split > .tool-dock--lead {
+// Dragged, it is the size it was left at and grows no more: the split's own
+// rule for that is weightless (`:where`), so this one has to step aside.
+.tool-dock--zones.zone--split > .tool-dock--lead:not([style*='--zone-size']) {
   flex-grow: 2;
 }
 
