@@ -2,26 +2,25 @@
 
 namespace Wexample\SymfonyDesignSystem\Service;
 
-use Symfony\Component\HttpFoundation\RequestStack;
+use Wexample\SymfonyDesignSystem\Interface\UiStateStorageInterface;
 
 /**
- * What the interface remembers of a visitor between two pages.
+ * What the interface remembers of a visitor between two pages: a menu folded,
+ * a zone dragged wider, a tool left open.
  *
- * The session and not the database: it holds for someone who never signed in,
- * it is already per user once they have, and it costs no schema. An app that
- * wants these choices to follow a user from one machine to another overrides
- * `App::persistUiState` on the client and never reaches this controller.
+ * Kept where the app chose (`wexample_symfony_design_system.ui_state.storage`,
+ * see UiStateStorage): the session by default, or the database — per user, or
+ * shared by everybody in a tool without accounts. Written by the client through
+ * UiStateController and read back here while the page is drawn, so it arrives
+ * as it was left rather than jumping to it; both ends go through this service,
+ * which is why changing the storage needs nothing on the client.
  *
- * Keys read like paths — `ui.layout.menu.left`, `ui.layout.zone.<id>.size` —
- * and live under one session namespace, so what belongs to the interface is
- * told apart from the rest of the session at a glance.
+ * Keys read like paths — `ui.layout.menu.left`, `ui.layout.zone.<id>.size`.
  */
 class UiStateService
 {
-    private const NAMESPACE = 'ui_state.';
-
     public function __construct(
-        private readonly RequestStack $requestStack,
+        private readonly UiStateStorageInterface $storage,
     ) {
     }
 
@@ -29,33 +28,25 @@ class UiStateService
         string $key,
         mixed $default = null,
     ): mixed {
-        return $this->requestStack->getSession()->get(self::NAMESPACE.$key, $default);
+        return $this->storage->get($key, $default);
     }
 
     /**
-     * Everything the interface remembers, keyed without the namespace — what the
-     * layout hands to the page once, so a component restoring its state reads it
-     * where it stands instead of every page passing it down.
+     * Everything the interface remembers — what the layout hands to the page
+     * once, so a component restoring its state reads it where it stands instead
+     * of every page passing it down.
      *
      * @return array<string, mixed>
      */
     public function all(): array
     {
-        $state = [];
-
-        foreach ($this->requestStack->getSession()->all() as $key => $value) {
-            if (str_starts_with($key, self::NAMESPACE)) {
-                $state[substr($key, strlen(self::NAMESPACE))] = $value;
-            }
-        }
-
-        return $state;
+        return $this->storage->all();
     }
 
     public function set(
         string $key,
         mixed $value,
     ): void {
-        $this->requestStack->getSession()->set(self::NAMESPACE.$key, $value);
+        $this->storage->set($key, $value);
     }
 }

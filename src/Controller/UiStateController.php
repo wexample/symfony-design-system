@@ -9,17 +9,13 @@ use Symfony\Component\Routing\Attribute\Route;
 use Wexample\SymfonyDesignSystem\Service\UiStateService;
 
 /**
- * Generic UI state persistence via PHP session.
+ * Where the client writes what the interface remembers (App::persistUiState):
+ * a menu folded, a zone dragged, a tool left open. Keys follow the format
+ * `ui.layout.menu.{menuId}`, `ui.layout.zone.{id}.size`.
  *
- * This is the default fallback implementation for apps using the DS bundle.
- * Apps that need server-side user config (e.g. Syrtis) override App::persistUiState
- * in their own AppManager class instead of calling this endpoint.
- *
- * JS hook: App::onMenuStateChange → App::persistUiState (override point)
- * Component: menu-collapsible-panel fires onMenuStateChange on every toggle.
- *
- * Session keys follow the format: ui.layout.menu.{menuId}
- * Where they are kept is UiStateService's business, not this controller's.
+ * Where they are kept is UiStateService's business, not this controller's:
+ * the session, or the database once the app sets
+ * `wexample_symfony_design_system.ui_state.storage` — the client is the same.
  */
 #[Route(path: '/_ui-state/', name: 'wexample_design_system_ui_state_')]
 class UiStateController extends AbstractController

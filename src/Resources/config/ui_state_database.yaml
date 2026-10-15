@@ -1,0 +1,12 @@
+# Loaded only when the app keeps what the interface remembers in the database
+# (`wexample_symfony_design_system.ui_state.storage`): every other app goes on
+# without Doctrine being asked for anything.
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Wexample\SymfonyDesignSystem\UiState\Repository\UiStateRepository: ~
+
+    Wexample\SymfonyDesignSystem\UiState\Service\DatabaseUiStateStorage: ~

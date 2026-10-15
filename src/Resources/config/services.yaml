@@ -4,6 +4,12 @@ parameters:
     # The engine `avatar()` draws with when it is not told one.
     wexample_symfony_design_system.avatar.default_engine: initials
 
+    # Where what the interface remembers is kept (Enum\UiStateStorage): the
+    # session, or the database per user (`user`) or for everybody (`shared`, a
+    # tool without accounts). The database ones need the `ui_state` table, which
+    # a migration of the app creates once the parameter is set.
+    wexample_symfony_design_system.ui_state.storage: session
+
     wexample_symfony_design_system.loader.layout_bases:
         modal:
             page_manager_component: '@@WexampleSymfonyDesignSystemBundle/components/modal'
