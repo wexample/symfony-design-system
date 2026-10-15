@@ -59,6 +59,15 @@
   position: relative;
 }
 
+// What a tool opens stands on the shell as a page's regions do: the room
+// between them all round it — the window's edges, the bar —, so it reads as
+// one of them, its corners those the skin gives a region (`--zone-radius`).
+// Against the page, the row's own gap already is that room.
+.layout--horizontal > .tool-dock--layout {
+  padding-block: var(--zone-gap, var(--space-2));
+  padding-inline-end: var(--zone-gap, var(--space-2));
+}
+
 // Said rather than left to the content, so the bar and what stops at its edge
 // cannot drift apart.
 .layout--horizontal > .zone--toolbar {
@@ -76,6 +85,11 @@
     inset-inline-end: var(--tool-dock-bar-size);
     z-index: var(--z-dropdown);
     width: min(var(--zone-size, 24rem), 85vw);
+  }
+
+  // The depth under what it opens and not under the column: the room round
+  // them is the page's, seen through.
+  .layout--horizontal > .tool-dock--layout > .zone {
     box-shadow: var(--shadow-float);
   }
 
