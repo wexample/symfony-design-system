@@ -47,6 +47,16 @@ class ToolDockExtensionTest extends TestCase
         );
     }
 
+    public function testWhatTheVisitorOpenedWinsOverWhatThePageOpens(): void
+    {
+        $tools = ToolDockExtension::arrangeTools('demo', [
+            ['name' => 'detail', 'group' => 'end', 'open' => true],
+            ['name' => 'history', 'group' => 'end'],
+        ], ['history' => true]);
+
+        $this->assertSame([false, true], array_column($tools, 'open'));
+    }
+
     public function testEachToolHasItsZoneAndItsKey(): void
     {
         $tool = ToolDockExtension::arrangeTools('board.file', [['name' => 'detail']])[0];

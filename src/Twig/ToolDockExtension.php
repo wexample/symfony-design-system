@@ -5,7 +5,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 use InvalidArgumentException;
 use Twig\Environment;
 use Twig\TwigFunction;
-use Wexample\SymfonyDesignSystem\Service\UiStateService;
+use Wexample\SymfonyPreference\Service\PreferenceService;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 /**
@@ -34,7 +34,7 @@ class ToolDockExtension extends AbstractTemplateExtension
 
     public function __construct(
         ComponentsExtension $componentsExtension,
-        private readonly UiStateService $uiState,
+        private readonly PreferenceService $preferences,
     ) {
         parent::__construct($componentsExtension);
     }
@@ -63,7 +63,7 @@ class ToolDockExtension extends AbstractTemplateExtension
                         $name = $tool['name'] ?? null;
 
                         if (is_string($name)) {
-                            $states[$name] = $this->uiState->get(self::stateKey($id, $name));
+                            $states[$name] = $this->preferences->get(self::stateKey($id, $name));
                         }
                     }
 
@@ -92,8 +92,9 @@ class ToolDockExtension extends AbstractTemplateExtension
     /**
      * The tools as the dock draws them: those of the top of the bar first, each
      * open as the visitor left it (`$states`, null when never touched) or as the
-     * page wants it the first time (`open`), and one only open in a group — the
-     * first, should the states say otherwise.
+     * page wants it the first time (`open`), and one only open in a group: one
+     * the visitor opened before one the page opens by default, the first of
+     * them should the states say otherwise.
      *
      * A tool shows a page loaded the first time it opens (`url`), or what the
      * page drew for it (`content`) — edge to edge and taking the zone's height
@@ -108,7 +109,10 @@ class ToolDockExtension extends AbstractTemplateExtension
     public static function arrangeTools(string $id, array $tools, array $states = []): array
     {
         $arranged = array_fill_keys(self::GROUPS, []);
-        $groupOpen = array_fill_keys(self::GROUPS, false);
+        // The tool a group opens: the first the visitor opened, or failing
+        // that the first the page opens and the visitor did not close.
+        $chosen = array_fill_keys(self::GROUPS, null);
+        $byDefault = array_fill_keys(self::GROUPS, null);
 
         foreach ($tools as $tool) {
             $name = $tool['name'] ?? null;
@@ -122,9 +126,13 @@ class ToolDockExtension extends AbstractTemplateExtension
                 throw new InvalidArgumentException('The tool "'.$name.'" of the dock "'.$id.'" is in an unknown group "'.$group.'".');
             }
 
-            $open = (bool) ($states[$name] ?? $tool['open'] ?? false);
-            $open = $open && ! $groupOpen[$group];
-            $groupOpen[$group] = $groupOpen[$group] || $open;
+            $state = $states[$name] ?? null;
+
+            if (true === $state) {
+                $chosen[$group] ??= $name;
+            } elseif (null === $state && ($tool['open'] ?? false)) {
+                $byDefault[$group] ??= $name;
+            }
 
             $arranged[$group][] = [
                 'name' => $name,
@@ -133,11 +141,19 @@ class ToolDockExtension extends AbstractTemplateExtension
                 'group' => $group,
                 'zone' => 'tool-dock-'.self::slug($id).'-'.self::slug($name),
                 'state' => self::stateKey($id, $name),
-                'open' => $open,
+                'open' => false,
                 'url' => $tool['url'] ?? null,
                 'content' => $tool['content'] ?? null,
                 'fill' => (bool) ($tool['fill'] ?? false),
             ];
+        }
+
+        foreach ($arranged as $group => &$groupTools) {
+            $open = $chosen[$group] ?? $byDefault[$group];
+
+            foreach ($groupTools as &$tool) {
+                $tool['open'] = $tool['name'] === $open;
+            }
         }
 
         return array_merge(...array_values($arranged));
