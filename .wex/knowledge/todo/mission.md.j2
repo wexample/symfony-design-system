@@ -13,7 +13,7 @@
 ### Render nodes contract
 - Shared package `wexample/php-web-render-node` exposes DTOs and schema helpers (`RenderPass`, `AbstractRenderNode`, `InitialLayoutRenderNode`, `PageRenderNode`, etc.).
 - DS nodes extend them via `DesignSystemRenderNodeTrait` / `DesignSystemLayoutRenderNodeTrait` to add IDs, default views, translation domains, etc.
-- Contract/schema source of truth: `packages/COMMON/repo/web-render-node/schema.json`.
+- Contract/schema source of truth: `SERVICES/backup/web-render-node/schema.json` (archived repository, from the WEXAMPLE root).
 
 ### Next milestones (legacy recap)
 1. Render nodes must serialize the full contract (view, id, vars, assets, translations, usages) and hydrate `<script id="layout-data">` and asset placeholders.
@@ -31,7 +31,7 @@
 
 ### Render nodes & contract
 - DTOs for view/id/components/vars/usages/assets live inside `wexample/php-web-render-node`, extended in this bundle with DS-specific traits for defaults and ID generation.
-- Contract tracked via `.wex/knowledge` and `packages/COMMON/repo/web-render-node/schema.json`.
+- Contract tracked via `.wex/knowledge` and `SERVICES/backup/web-render-node/schema.json` (archived repository, from the WEXAMPLE root).
 
 ### Assets & usages
 - Usage types restored (default, responsive, color_scheme, margins, animations, fonts); configs read from `design_system.usages.*`. `RenderPass` now stores both `usagesConfig` and current `usages`.
@@ -58,7 +58,7 @@ Steps:
 1. **Spec first** – formalize JSON output from `RenderNode::toRenderData()` (node fields, `assets.css/js`, translations, etc.) and document it as the canonical contract.
 2. **Split packages** – minimal `php-web-render-node` / `js-web-render-node` packages exposing the same schema/DTOs/types and nothing else.
 3. **Adopt incrementally** – Symfony bundle serializes via the PHP contract, while the legacy front-end consumes through the JS contract until everything targets the new schema.
-4. **Protocol repo** – language-agnostic schema in `packages/COMMON/repo/web-render-node`, with PHP/JS packages just implementing that spec.
+4. **Protocol repo** – language-agnostic schema in `SERVICES/backup/web-render-node` (archived), with PHP/JS packages just implementing that spec.
 
 Outcome: predictable render-node payloads across the stack, simplifying future refactors and third-party consumers.
 
