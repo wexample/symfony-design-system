@@ -4,7 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Twig\Environment;
 use Twig\TwigFunction;
-use Wexample\SymfonyDesignSystem\Service\UiStateService;
+use Wexample\SymfonyPreference\Service\PreferenceService;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 /**
@@ -21,7 +21,7 @@ class TourExtension extends AbstractTemplateExtension
 
     public function __construct(
         ComponentsExtension $componentsExtension,
-        private readonly UiStateService $uiState,
+        private readonly PreferenceService $preferences,
     ) {
         parent::__construct($componentsExtension);
     }
@@ -57,7 +57,7 @@ class TourExtension extends AbstractTemplateExtension
 
     public function tourStatus(string $id): ?string
     {
-        $status = $this->uiState->get(self::KEY_PREFIX.$id);
+        $status = $this->preferences->get(self::KEY_PREFIX.$id);
 
         return is_string($status) ? $status : null;
     }

@@ -4,7 +4,7 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
-use Wexample\SymfonyDesignSystem\Service\UiStateService;
+use Wexample\SymfonyPreference\Service\PreferenceService;
 
 /**
  * What a region of a layout carries of what the visitor did to it.
@@ -20,7 +20,7 @@ class ZoneExtension extends AbstractExtension
     private const KEY_PREFIX = 'ui.layout.zone.';
 
     public function __construct(
-        private readonly UiStateService $uiState,
+        private readonly PreferenceService $preferences,
     ) {
     }
 
@@ -38,7 +38,7 @@ class ZoneExtension extends AbstractExtension
     public function zoneState(string $id): string
     {
         $attributes = 'data-zone-id="'.htmlspecialchars($id, ENT_QUOTES).'"';
-        $size = $this->uiState->get(self::KEY_PREFIX.$id.'.size');
+        $size = $this->preferences->get(self::KEY_PREFIX.$id.'.size');
 
         if (is_numeric($size)) {
             $attributes .= ' style="--zone-size: '.((int) $size).'px"';
