@@ -123,10 +123,11 @@
     {%- set dockTools = (layout_dock_tools|default([]))|merge(page_dock_tools|default([])) -%}
 
     {#- The dock is a region of the layout's row and not of the page: it stands
-        beside everything the page has — its header, its footer —, so the row
-        spaces it from them and takes it out of the row when nothing in it is
-        open (shapes/zone). -#}
-    <div class="layout--horizontal{{ dockTools is not empty ? ' zone--split' }}">
+        beside everything the page has — its header, its footer —, and the row
+        takes it out when nothing in it is open (shapes/zone). Joined, as the
+        side menus stand against the page: the room round what a tool opens is
+        the dock's own (components/tool-dock). -#}
+    <div class="layout--horizontal{{ dockTools is not empty ? ' zone--split zone--split--joined' }}">
         <div class="gutters--body layout--body--overlay-scope">
             <div class="layout--horizontal">
                 {%- if not navigationTop -%}
