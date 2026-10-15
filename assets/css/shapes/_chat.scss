@@ -119,6 +119,13 @@
   min-width: 0;
 }
 
+// A word longer than the line — a path, a URL — breaks where it has to rather
+// than pushing the thread sideways: a narrow column is where a chat is read.
+// Only where the text wraps at all, so a block of code keeps its lines.
+.chat--message-content {
+  overflow-wrap: anywhere;
+}
+
 .chat--message-row {
   display: flex;
   align-items: flex-start;
