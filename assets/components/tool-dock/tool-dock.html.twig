@@ -1,11 +1,12 @@
 {#- Tools as an IDE has them (tool_dock()): a bar of icons, each opening a zone,
     one open at a time in each of the bar's two groups.
 
-    Standing on its end (`vertical`), the bar closes the page's row and opens a
-    column beside the page's own zone, so the dock is written in the page's
-    `page_zones_after`: the column is dragged wider from its start edge and is
-    gone when nothing in it is open, what the top of the bar opened standing
-    over what its foot opened.
+    Standing on its end (`vertical`), the bar closes the row it is in and opens
+    a column beside what the row holds — the page's own zones, written in its
+    `page_zones_after`, or the page as a whole, header and footer included
+    (`layout_dock_tools`, layouts/dashboard): the column is dragged wider from
+    its start edge and is gone when nothing in it is open, what the top of the
+    bar opened standing over what its foot opened.
 
     Lying along the top (`horizontal`), it is the page's body, written in a
     `page--fill`: what the start of the bar opened stands beside what its end

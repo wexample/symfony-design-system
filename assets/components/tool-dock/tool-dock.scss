@@ -3,6 +3,7 @@
 @use '../../css/shapes/stack';
 @use '../../css/shapes/page';
 @use '../../css/shapes/action-icon';
+@use '../../css/mixins/window' as window;
 @use '../zone-resizer/zone-resizer';
 @use '../embed/embed';
 
@@ -38,4 +39,48 @@
 
 :is(.tool-dock--vertical, .tool-dock--zones) > .tool-dock--lead:not(:has(~ .zone:not(.zone--closed))) > .zone-resizer {
   display: none;
+}
+
+// ─── The dock of a layout ─────────────────────────────────────────────────
+//
+// The same bar, standing against the window's end rather than inside a page:
+// the layout's row holds it beside the page as a whole — its header, its
+// footer —, so the bar runs the window's height and what it opens stands
+// against it, from top to bottom.
+
+.layout--horizontal:has(> .tool-dock--layout) {
+  // The bar's width — an icon and the room around it (shapes/zone,
+  // shapes/action-icon) —, named here because both the bar and what it opens
+  // read it: on a narrow window what it opens slides over the page and stops
+  // at the bar's edge.
+  --tool-dock-bar-size: calc(1.75rem + 2 * var(--space-1));
+  // What a tool opens is positioned against this row, and not against the
+  // page it covers.
+  position: relative;
+}
+
+// Said rather than left to the content, so the bar and what stops at its edge
+// cannot drift apart.
+.layout--horizontal > .zone--toolbar {
+  width: var(--tool-dock-bar-size);
+}
+
+@include window.below(window.$window-l) {
+  // Narrower than a large window, the page keeps its room: what a tool opens
+  // stands over it, against the bar, as the side menus become drawers at that
+  // width (components/menu-collapsible-panel). The bar itself stays — it is an
+  // icon wide, and it is the only way to the tools.
+  .layout--horizontal > .tool-dock--layout {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: var(--tool-dock-bar-size);
+    z-index: var(--z-dropdown);
+    width: min(var(--zone-size, 24rem), 85vw);
+    box-shadow: var(--shadow-float);
+  }
+
+  // A width taken over the page is the width it is: nothing to drag.
+  .layout--horizontal > .tool-dock--layout > .zone-resizer {
+    display: none;
+  }
 }

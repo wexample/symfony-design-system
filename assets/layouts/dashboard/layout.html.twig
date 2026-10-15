@@ -113,8 +113,20 @@
             {%- set page_title_actions_hidden = true -%}
         {%- endif -%}
     {%- endif -%}
+    {#- The bar of tools standing against the window's end, as an IDE has one
+        (tool_dock()): the application's, written once by its layout
+        (`layout_dock_tools`), and what the page adds to them for itself
+        (`page_dock_tools`) — the findings of the file it shows, a preview of
+        it. One list, so a page names its tools and nothing else: where they
+        stand, what each one opened and the width it was left at are the
+        dock's to keep. No tool, no bar. -#}
+    {%- set dockTools = (layout_dock_tools|default([]))|merge(page_dock_tools|default([])) -%}
 
-    <div class="layout--horizontal">
+    {#- The dock is a region of the layout's row and not of the page: it stands
+        beside everything the page has — its header, its footer —, so the row
+        spaces it from them and takes it out of the row when nothing in it is
+        open (shapes/zone). -#}
+    <div class="layout--horizontal{{ dockTools is not empty ? ' zone--split' }}">
         <div class="gutters--body layout--body--overlay-scope">
             <div class="layout--horizontal">
                 {%- if not navigationTop -%}
@@ -307,6 +319,9 @@
                 {% endblock %}
             </div>
         {% endif %}
+        {%- if dockTools is not empty -%}
+            {{ tool_dock('layout', dockTools, { class: 'tool-dock--layout' }) }}
+        {%- endif -%}
     </div>
     {%- endif -%}
 {%- endblock -%}
