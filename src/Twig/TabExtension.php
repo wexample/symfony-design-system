@@ -4,9 +4,18 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Twig\Environment;
 use Twig\TwigFunction;
+use Wexample\SymfonyDesignSystem\Service\NavigationService;
+use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 class TabExtension extends AbstractTemplateExtension
 {
+    public function __construct(
+        ComponentsExtension $componentsExtension,
+        private readonly NavigationService $navigation,
+    ) {
+        parent::__construct($componentsExtension);
+    }
+
     public function getFunctions(): array
     {
         return [
@@ -63,18 +72,23 @@ class TabExtension extends AbstractTemplateExtension
             // The views of one thing — a record and its measurements — as a
             // bar under the header: the way back to the list it was opened
             // from, its tabs, and what can be done to it at the far end.
+            // Given a navigation (NavigationService) or its bare items, of
+            // which the tabs show the level the page stands in; the options
+            // say better what the navigation says.
             new TwigFunction(
                 'page_tabs',
-                function (Environment $twig, $context, array $items, array $options = []) {
+                function (Environment $twig, $context, array $navigation, array $options = []) {
+                    $navigation = NavigationService::currentLevel($this->navigation->normalize($navigation));
+
                     return $this->renderComponent(
                         $twig,
                         $context,
                         '@WexampleSymfonyDesignSystemBundle/components/page-tabs',
                         [
-                            'items' => $items,
-                            'back' => $options['back'] ?? true,
-                            'actions' => $options['actions'] ?? null,
-                            'label' => $options['label'] ?? null,
+                            'items' => $navigation['items'],
+                            'back' => $options['back'] ?? $navigation['back'] ?? true,
+                            'actions' => $options['actions'] ?? $navigation['actions'],
+                            'label' => $options['label'] ?? $navigation['label'],
                         ]
                     );
                 },

@@ -85,6 +85,23 @@
         with a parent has it; on the side, the pages saying so
         (`page_trail: 'back'`), the menu already telling where one is. -#}
     {%- set pageNavigation %}{{ block('page_navigation') }}{% endset -%}
+    {#- The views of the section a page stands in (`page_section_navigation`,
+        NavigationService), written once by the section and drawn as the app
+        chooses (`layout_section_navigation`): tabs under the header, or the
+        side menu standing for the section — its way back out first —, the
+        bar then keeping the section's actions alone. A page drawing its own
+        navigation keeps it. -#}
+    {%- set sectionNavigation = page_section_navigation|default(null) -%}
+    {%- set sectionNavigationMenu = sectionNavigation and layout_section_navigation|default('tabs') == 'menu' -%}
+    {%- if sectionNavigation and pageNavigation|trim is empty -%}
+        {%- if sectionNavigationMenu -%}
+            {%- if sectionNavigation.actions|default(null) -%}
+                {%- set pageNavigation %}{{ page_tabs([], { back: false, actions: sectionNavigation.actions }) }}{% endset -%}
+            {%- endif -%}
+        {%- else -%}
+            {%- set pageNavigation %}{{ page_tabs(sectionNavigation) }}{% endset -%}
+        {%- endif -%}
+    {%- endif -%}
     {%- if page_show_title|default(false) and pageNavigation|trim is empty and page_trail|default(null) == 'back' -%}
         {%- set pageBack = breadcrumb_render({ back: true })|trim -%}
         {%- if pageBack is not empty -%}
@@ -128,7 +145,11 @@
                             {% endblock %}
                             <div class="menu--body">
                                 <ul class="menu--items">
-                                    {% block page_menu_links %}{% endblock %}
+                                    {%- if sectionNavigationMenu -%}
+                                        {{ menu_navigation(sectionNavigation) }}
+                                    {%- else -%}
+                                        {% block page_menu_links %}{% endblock %}
+                                    {%- endif -%}
                                 </ul>
                             </div>
                             {% block page_menu_footer %}{% endblock %}
@@ -145,7 +166,7 @@
                                 {%- if navigationTop -%}
                                     <div class="header--brand">{{- block('page_menu_logo') -}}</div>
                                     {#- One section has no tab: the mark leads home. -#}
-                                    {%- set headerTabs %}{{ block('page_menu_links') }}{% endset -%}
+                                    {%- set headerTabs %}{{ sectionNavigationMenu ? menu_navigation(sectionNavigation) : block('page_menu_links') }}{% endset -%}
                                     {%- if headerTabs|split('<li')|length > 2 -%}
                                         {%- set tabsLabel = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.navigation'|trans -%}
                                         <nav class="header--tabs" aria-label="{{ tabsLabel }}">

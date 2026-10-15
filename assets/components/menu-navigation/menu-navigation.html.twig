@@ -1,0 +1,27 @@
+{#- A section's navigation drawn as the side menu (menu_navigation()), whole: the
+    way back out of the section first — the visitor came into it from
+    somewhere —, then its name, then its views, an item holding views of its
+    own folding them under it, open while one of them is the page. A navigation
+    giving no way back (`back`) has none drawn: the side menu must always lead
+    out, so a section shown here names where it is left for. -#}
+{%- if navigation.back is iterable -%}
+    {{ menu_item_link('ph:bold/arrow-left', navigation.back.label, navigation.back.href, { active: false }) }}
+{%- endif -%}
+{%- if navigation.label -%}
+    {{ menu_separator(navigation.label) }}
+{%- endif -%}
+{%- for item in navigation.items -%}
+    {%- set icon_name = item.icon ?: 'ph:bold/dot-outline' -%}
+    {%- if item.children is not empty -%}
+        {%- set sub_items -%}
+            <ul class="menu--sub-items">
+                {%- for child in item.children -%}
+                    {{ menu_item_link(child.icon ?: 'ph:bold/dot-outline', child.label, child.href, { active: child.active, count: child.count }) }}
+                {%- endfor -%}
+            </ul>
+        {%- endset -%}
+        {{ menu_item_collapsible(render_pass, icon_name, item.label|trans, item.href, sub_items, item.active) }}
+    {%- else -%}
+        {{ menu_item_link(icon_name, item.label, item.href, { active: item.active, count: item.count }) }}
+    {%- endif -%}
+{%- endfor -%}

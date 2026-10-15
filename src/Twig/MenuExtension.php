@@ -9,6 +9,7 @@ use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\Helpers\Helper\ClassHelper;
 use Wexample\SymfonyDesignSystem\Attribute\MenuItem;
+use Wexample\SymfonyDesignSystem\Service\NavigationService;
 use Wexample\SymfonyDesignSystem\Service\RouteAccessService;
 use Wexample\SymfonyDesignSystem\Service\RouteGroupRegistry;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
@@ -22,6 +23,7 @@ class MenuExtension extends AbstractTemplateExtension
         private readonly RequestStack $requestStack,
         private readonly RouteGroupRegistry $routeGroupRegistry,
         private readonly RouteAccessService $routeAccess,
+        private readonly NavigationService $navigation,
     ) {
         parent::__construct($componentsExtension);
     }
@@ -200,6 +202,23 @@ class MenuExtension extends AbstractTemplateExtension
                             'href' => $href,
                             'content' => $content,
                             'is_open' => $isOpen,
+                        ]
+                    );
+                },
+                self::TEMPLATE_FUNCTION_OPTIONS
+            ),
+            // A section's navigation (NavigationService) as the side menu: the
+            // way back out of it first, then what the section is, then its
+            // views — the menu standing for the section while one is in it.
+            new TwigFunction(
+                'menu_navigation',
+                function (Environment $twig, $context, array $navigation) {
+                    return $this->renderComponent(
+                        $twig,
+                        $context,
+                        '@WexampleSymfonyDesignSystemBundle/components/menu-navigation',
+                        [
+                            'navigation' => $this->navigation->normalize($navigation),
                         ]
                     );
                 },

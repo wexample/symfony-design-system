@@ -14,14 +14,14 @@
     which the bar draws as buttons and gathers, at its last fold, in one ⋮
     menu: every action at hand on a desk, all of them in reach on a phone.
 
-    A tab is lit on its own route, or as it says (`active`): one tab standing
-    for a family of pages. -#}
+    The items come from a navigation (NavigationService), which gave each its
+    address and told whether it is lit: on its own route, on a family of pages
+    (`match`), or as it says (`active`). -#}
 {%- set fold_items = [] -%}
 {%- set current = null -%}
 {%- for item in items -%}
-    {%- set is_current = item.active is defined ? item.active : route_is_current(item.route, item.params|default({}), 'current') == 'current' -%}
-    {%- if is_current -%}{%- set current = item -%}{%- endif -%}
-    {%- set fold_items = fold_items|merge([{ label: item.label, href: path(item.route, item.params|default({})), icon: item.icon|default(null), checked: is_current }]) -%}
+    {%- if item.active -%}{%- set current = item -%}{%- endif -%}
+    {%- set fold_items = fold_items|merge([{ label: item.label, href: item.href, icon: item.icon, checked: item.active }]) -%}
 {%- endfor -%}
 <nav class="tabs page-tabs" aria-label="{{ label|default('WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.navigation'|trans) }}">
     {%- if back is iterable -%}
@@ -37,11 +37,7 @@
     {%- if items is not empty -%}
     <div class="page-tabs--items">
         {%- for item in items -%}
-            {%- if item.active is defined -%}
-                {{ tab_item_link(item.label, path(item.route, item.params|default({})), { active: item.active, count: item.count|default(null) }, item.icon|default(null)) }}
-            {%- else -%}
-                {{ tab_item(item.label, item.route, item.params|default({}), { count: item.count|default(null) }, item.icon|default(null)) }}
-            {%- endif -%}
+            {{ tab_item_link(item.label, item.href, { active: item.active, count: item.count }, item.icon) }}
         {%- endfor -%}
     </div>
     {%- endif -%}
