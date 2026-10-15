@@ -9,10 +9,12 @@ use Wexample\SymfonyDesignSystem\Service\UiStateService;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 /**
- * Tools along the edge of a page, as an IDE has them: a bar of icons, each
- * opening a zone beside the page's own, in a column split between the bar's
- * groups — what the top of the bar opens stands in the upper part of the
- * column, what its foot opens in the lower part, one open at a time in each.
+ * Tools as an IDE has them: a bar of icons, each opening a zone, the zones
+ * split between the bar's two groups — one open at a time in each. Standing
+ * on its end (`vertical`), the bar is at the end of the page's row and opens a
+ * column beside it, what its top opens over what its foot opens. Lying along
+ * the top (`horizontal`), it is the whole body of the page: what its start
+ * opens stands beside what its end opens, under it.
  *
  * A page describes its tools and nothing else: the column, its zones, their
  * handles and the bar are drawn from that description, so where a tool stands
@@ -25,6 +27,8 @@ class ToolDockExtension extends AbstractTemplateExtension
     public const GROUP_END = 'end';
 
     private const GROUPS = [self::GROUP_START, self::GROUP_END];
+
+    private const ORIENTATIONS = ['vertical', 'horizontal'];
 
     private const STATE_PREFIX = 'ui.layout.dock.';
 
@@ -47,6 +51,12 @@ class ToolDockExtension extends AbstractTemplateExtension
                     array $tools,
                     array $options = [],
                 ) {
+                    $orientation = $options['orientation'] ?? 'vertical';
+
+                    if (! in_array($orientation, self::ORIENTATIONS, true)) {
+                        throw new InvalidArgumentException('The dock "'.$id.'" has an unknown orientation "'.$orientation.'".');
+                    }
+
                     $states = [];
 
                     foreach ($tools as $tool) {
@@ -64,6 +74,7 @@ class ToolDockExtension extends AbstractTemplateExtension
                         [
                             'id' => $id,
                             'tools' => self::arrangeTools($id, $tools, $states),
+                            'orientation' => $orientation,
                             'class' => $options['class'] ?? null,
                         ]
                     );
@@ -85,7 +96,9 @@ class ToolDockExtension extends AbstractTemplateExtension
      * first, should the states say otherwise.
      *
      * A tool shows a page loaded the first time it opens (`url`), or what the
-     * page drew for it (`content`).
+     * page drew for it (`content`) — edge to edge and taking the zone's height
+     * when it is sized by the room rather than by what it holds (`fill`): an
+     * editor.
      *
      * @param array<int, array<string, mixed>> $tools
      * @param array<string, bool|null>        $states
@@ -123,6 +136,7 @@ class ToolDockExtension extends AbstractTemplateExtension
                 'open' => $open,
                 'url' => $tool['url'] ?? null,
                 'content' => $tool['content'] ?? null,
+                'fill' => (bool) ($tool['fill'] ?? false),
             ];
         }
 

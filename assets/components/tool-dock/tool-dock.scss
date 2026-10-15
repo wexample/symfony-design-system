@@ -1,30 +1,32 @@
-// Tools along the end of a page: a column of zones and the bar opening them.
+// Tools as an IDE has them: a bar of icons and the zones it opens.
 @use '../../css/shapes/zone';
 @use '../../css/shapes/stack';
+@use '../../css/shapes/page';
 @use '../../css/shapes/action-icon';
 @use '../zone-resizer/zone-resizer';
 @use '../embed/embed';
 
-// Room for what a tool holds to read whole — properties, a list of findings —
-// and never narrower, dragged or not, than what they still read at. A page
-// gives its own width through the column's class.
-.tool-dock {
+// Standing on its end, beside the page: room for what a tool holds to read
+// whole — properties, a list of findings — and never narrower, dragged or not,
+// than what they still read at. A page gives its own width through the dock's
+// class.
+.tool-dock--vertical {
   --zone-size: 24rem;
   --zone-min: 18rem;
 }
 
 // The zones one over the other in it: their own height, the column's floor
 // being a width only.
-.tool-dock > .zone {
+.tool-dock--vertical > .zone {
   --zone-min: 0;
 }
 
-// Alone in the column — nothing open under it —, what the top of the bar opened
-// takes all of it, whatever height it was left at, and there is nothing to drag.
-.tool-dock > .tool-dock--top:not(:has(~ .zone:not(.zone--closed))) {
+// Alone — nothing open after it —, what the first group opened takes the room
+// whole, whatever size it was left at, and there is nothing to drag.
+:is(.tool-dock--vertical, .tool-dock--zones) > .tool-dock--lead:not(:has(~ .zone:not(.zone--closed))) {
   flex: 1 1 0;
 }
 
-.tool-dock > .tool-dock--top:not(:has(~ .zone:not(.zone--closed))) > .zone-resizer {
+:is(.tool-dock--vertical, .tool-dock--zones) > .tool-dock--lead:not(:has(~ .zone:not(.zone--closed))) > .zone-resizer {
   display: none;
 }

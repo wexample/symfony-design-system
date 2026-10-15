@@ -109,6 +109,23 @@
   margin-top: auto;
 }
 
+// The same bar lying along the top of what it opens: icons side by side, the
+// last group pushed to the far end. Given with `zone--narrow`, it is as tall as
+// an icon.
+.zone--toolbar--horizontal {
+  flex-direction: row;
+  padding: var(--space-1) var(--space-2);
+
+  > .zone--toolbar-group {
+    flex-direction: row;
+  }
+
+  > .zone--toolbar-group--end {
+    margin-top: 0;
+    margin-inline-start: auto;
+  }
+}
+
 // A zone that takes back the room the row leaves between it and its neighbour,
 // standing against it — a bar of tools along the text it serves: before it
 // (`zone--joined-start`), after it (`zone--joined-end`), or both. The room is
@@ -158,7 +175,8 @@
 //   what a zone asks — its own class:
 //     (none)              what is left, shared with the other plain zones
 //     zone--narrow        its size (`zone--size-N`), or its content's
-//                         — with `zone--toolbar`, a bar of icons on end
+//                         — with `zone--toolbar`, a bar of icons on end,
+//                           or along the top (`zone--toolbar--horizontal`)
 //     zone--joined-start / -end  against its neighbour, without the gap
 //     zone--measure       the reading measure, giving way below it
 //     zone--fit-content   as wide as what it holds

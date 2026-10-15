@@ -1,17 +1,25 @@
-{#- Tools along the end of a page (tool_dock()): a column of zones, then the bar
-    of icons opening them. Both are regions of the row the page's own zone stands
-    in, so the dock is written in its `page_zones_after`.
+{#- Tools as an IDE has them (tool_dock()): a bar of icons, each opening a zone,
+    one open at a time in each of the bar's two groups.
 
-    The column is dragged wider from its start edge, and is gone when nothing in
-    it is open. What the top of the bar opens stands in its upper part, its
-    height dragged from its foot against what the foot of the bar opened under
-    it; alone, it takes the column whole. -#}
-<div class="zone zone--narrow zone--split zone--split--vertical tool-dock{{ class ? ' ' ~ class }}" {{ zone_state(id) }}>
-    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer', {}, { edge: 'start' }) }}
+    Standing on its end (`vertical`), the bar closes the page's row and opens a
+    column beside the page's own zone, so the dock is written in the page's
+    `page_zones_after`: the column is dragged wider from its start edge and is
+    gone when nothing in it is open, what the top of the bar opened standing
+    over what its foot opened.
+
+    Lying along the top (`horizontal`), it is the page's body, written in a
+    `page--fill`: what the start of the bar opened stands beside what its end
+    opened, under it.
+
+    Either way the zone of the first group is the one sized against the other
+    (`tool-dock--lead`), and alone it takes the room whole. -#}
+{%- set horizontal = orientation == 'horizontal' -%}
+
+{%- set zones -%}
     {%- for tool in tools -%}
-        {%- set top = tool.group == 'start' -%}
-        <div id="{{ tool.zone }}" class="zone zone--panel{{ top ? ' tool-dock--top' }}{{ tool.open ? '' : ' zone--closed' }}"{% if top %} {{ zone_state(id ~ '.' ~ tool.name ~ '-height') }}{% endif %}>
-            {%- if top -%}
+        {%- set lead = tool.group == 'start' -%}
+        <div id="{{ tool.zone }}" class="zone zone--panel{{ lead ? ' tool-dock--lead' }}{{ tool.open ? '' : ' zone--closed' }}"{% if lead %} {{ zone_state(id ~ '.' ~ tool.name ~ (horizontal ? '-width' : '-height')) }}{% endif %}>
+            {%- if lead -%}
                 {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer') }}
             {%- endif -%}
             {#- What a tool holds scrolls inside the frame, which keeps still,
@@ -23,31 +31,49 @@
                         src: tool.url,
                         lazy: true,
                     }) }}
+                {%- elseif tool.fill -%}
+                    <div class="zone--content zone--content--flush"><div class="page--fill">{{ tool.content|raw }}</div></div>
                 {%- else -%}
                     <div class="zone--content stack--vertical">{{ tool.content|raw }}</div>
                 {%- endif -%}
             </div>
         </div>
     {%- endfor -%}
-</div>
-<div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-toolbar') }} zone zone--narrow zone--toolbar zone--joined-start" data-tooltip-placement="left">
-    {%- for group in ['start', 'end'] -%}
-        {%- set group_tools = tools|filter(tool => tool.group == group) -%}
-        {%- if group_tools is not empty -%}
-            <div class="zone--toolbar-group{{ group == 'end' ? ' zone--toolbar-group--end' }}">
-                {%- for tool in group_tools -%}
-                    <button type="button"
-                            class="action-icon"
-                            data-zone-toggle="{{ tool.zone }}"
-                            data-ui-state="{{ tool.state }}"
-                            aria-pressed="{{ tool.open ? 'true' : 'false' }}"
-                            aria-controls="{{ tool.zone }}"
-                            aria-label="{{ tool.label }}"
-                            data-tooltip="{{ tool.label }}">
-                        {{- icon(tool.icon) -}}
-                    </button>
-                {%- endfor -%}
-            </div>
-        {%- endif -%}
-    {%- endfor -%}
-</div>
+{%- endset -%}
+
+{%- set toolbar -%}
+    <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-toolbar') }} zone zone--narrow zone--toolbar{{ horizontal ? ' zone--toolbar--horizontal' : ' zone--joined-start' }}" data-tooltip-placement="{{ horizontal ? 'bottom' : 'left' }}">
+        {%- for group in ['start', 'end'] -%}
+            {%- set group_tools = tools|filter(tool => tool.group == group) -%}
+            {%- if group_tools is not empty -%}
+                <div class="zone--toolbar-group{{ group == 'end' ? ' zone--toolbar-group--end' }}">
+                    {%- for tool in group_tools -%}
+                        <button type="button"
+                                class="action-icon"
+                                data-zone-toggle="{{ tool.zone }}"
+                                data-ui-state="{{ tool.state }}"
+                                aria-pressed="{{ tool.open ? 'true' : 'false' }}"
+                                aria-controls="{{ tool.zone }}"
+                                aria-label="{{ tool.label }}"
+                                data-tooltip="{{ tool.label }}">
+                            {{- icon(tool.icon) -}}
+                        </button>
+                    {%- endfor -%}
+                </div>
+            {%- endif -%}
+        {%- endfor -%}
+    </div>
+{%- endset -%}
+
+{%- if horizontal -%}
+    <div class="zone zone--split zone--split--vertical zone--split--joined tool-dock tool-dock--horizontal{{ class ? ' ' ~ class }}">
+        {{ toolbar }}
+        <div class="zone zone--split tool-dock--zones">{{ zones }}</div>
+    </div>
+{%- else -%}
+    <div class="zone zone--narrow zone--split zone--split--vertical tool-dock tool-dock--vertical{{ class ? ' ' ~ class }}" {{ zone_state(id) }}>
+        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer', {}, { edge: 'start' }) }}
+        {{ zones }}
+    </div>
+    {{ toolbar }}
+{%- endif -%}
