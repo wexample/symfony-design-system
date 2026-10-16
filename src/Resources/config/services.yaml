@@ -38,6 +38,10 @@ services:
     Wexample\SymfonyDesignSystem\Service\:
         resource: '../../Service/'
 
+    # The usages a visitor chose — a colour scheme — read back by the loader
+    # where the interface keeps them (symfony-preference).
+    Wexample\SymfonyLoader\Interface\UsageChoiceReaderInterface: '@Wexample\SymfonyDesignSystem\Service\PreferenceUsageChoiceReader'
+
     Wexample\SymfonyDesignSystem\Service\RouteAccessService:
         arguments:
             # SecurityBundle aliases the two others by interface, not this one.
