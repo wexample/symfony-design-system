@@ -11,8 +11,8 @@
   // Said to a split too, which has the last word on the floor of the zones it
   // holds and reads theirs from `--zone-min` (shapes/zone): a bar standing in
   // one is never thinner.
-  min-height: calc(2 * var(--toolbar-padding) + #{density.$control-size});
-  --zone-min: calc(2 * var(--toolbar-padding) + #{density.$control-size});
+  min-height: calc(2 * var(--toolbar-padding) + var(--control-size));
+  --zone-min: calc(2 * var(--toolbar-padding) + var(--control-size));
   display: flex;
   align-items: center;
   justify-content: space-between;

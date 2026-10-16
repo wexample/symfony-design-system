@@ -54,7 +54,7 @@
   // shapes/toolbar) —, named here because both the bar and what it opens read
   // it: on a narrow window what it opens slides over the page and stops at
   // the bar's edge.
-  --tool-dock-bar-size: calc(2 * var(--space-3) + #{density.$control-size});
+  --tool-dock-bar-size: calc(2 * var(--space-3) + var(--control-size));
   // What a tool opens is positioned against this row, and not against the
   // page it covers.
   position: relative;

@@ -1,3 +1,7 @@
+// The line a control's text stands on — a button's, a field's —, at the size
+// they are set in (`--font-size-3`).
+$control-line: calc(var(--font-size-3) * 1.375);
+
 // Region sizes at a given density: 1 is the reference, a density multiplies.
 @mixin size-vars($factor: 1) {
   --size-1: #{2rem * $factor};
@@ -9,6 +13,11 @@
   --size-7: #{32rem * $factor};
   --size-8: #{64rem * $factor};
   --size-9: #{128rem * $factor};
+  // The height of a control — a button, a field, a menu —, its padding and its
+  // line: what every control stands at whatever it holds, and what a bar keeps
+  // room for, so two bars side by side line up (shapes/toolbar). A compact
+  // region says its own (mixins/density).
+  --control-size: calc(2 * var(--space-2) + #{$control-line});
 }
 
 @mixin size-expanded {

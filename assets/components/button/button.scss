@@ -14,6 +14,8 @@
   // else — see mixins/density.
   gap: var(--density-gap, var(--space-2));
   padding: var(--density-padding-block, var(--space-2)) var(--density-padding-inline, var(--space-3));
+  // As tall as any control of its density, whatever its label is set in.
+  min-height: var(--control-size);
   border-radius: var(--radius-control);
   border: 0;
   background: var(--surface-2);

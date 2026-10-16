@@ -9,6 +9,11 @@
   padding: var(--space-2) var(--space-3);
 }
 
+// A field of one line stands as tall as a button beside it.
+.form--input {
+  min-height: var(--control-size);
+}
+
 .form--input--inline {
   width: auto;
 }

@@ -1,3 +1,5 @@
+@use './size' as size;
+
 // How tightly a region is packed.
 //
 // Compactness is a property of a region and not of a widget: a bar declared
@@ -25,9 +27,5 @@
   --density-padding-block: var(--space-1);
   --density-padding-inline: var(--space-2);
   --density-gap: var(--space-1);
+  --control-size: calc(2 * var(--space-1) + #{size.$control-line});
 }
-
-// What a control stands across a bar — a button, a menu, a switch —, its
-// padding and its line: the room a bar keeps for one whatever it holds, so a
-// bar of icons and a bar with a button in it, side by side, are as thick.
-$control-size: calc(2 * var(--space-1) + 1.375rem);
