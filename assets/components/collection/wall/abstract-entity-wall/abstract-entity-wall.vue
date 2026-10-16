@@ -1,5 +1,5 @@
 <script>
-import AbstractEntityCollectionVueMixin from "../../../../js/Vue/AbstractEntityCollectionVueMixin";
+import AbstractEntityScrollCollectionVueMixin from "../../../../js/Vue/AbstractEntityScrollCollectionVueMixin";
 import buildTranslatedBindings from "../../../../js/Helper/TranslationHelper";
 import { wallSpan } from "../../../../js/Helper/WallHelper";
 import LoadMore from "../../../load-more/load-more.vue";
@@ -23,12 +23,13 @@ const translated = buildTranslatedBindings({
 
 // A collection read as pictures hung on a wall (css/shapes/_wall.scss), each
 // as tall as its ratio says, and read as it is scrolled: the next page is
-// added under the others when the foot of the wall nears the screen. The
-// table's sibling, on the same mixin and the same three ways of keeping up.
+// added under the others when the foot of the wall nears the screen
+// (AbstractEntityScrollCollectionVueMixin). The table's sibling, on the same
+// collection and the same three ways of keeping up.
 export default {
   template: "#vue-template-wexample-symfony-design-system-bundle-components-collection-wall-abstract-entity-wall-abstract-entity-wall",
 
-  mixins: [AbstractEntityCollectionVueMixin],
+  mixins: [AbstractEntityScrollCollectionVueMixin],
 
   components: {
     LoadMore,
@@ -42,13 +43,7 @@ export default {
 
   data() {
     return {
-      pageLength: 24,
-      // How far below the screen the foot of the wall is when the next page
-      // is asked for: read before it is reached.
-      loadMoreMargin: '400px',
-      moreObserver: null,
-      observedMore: null,
-      moreInView: false
+      pageLength: 24
     };
   },
 
@@ -73,31 +68,7 @@ export default {
     }
   },
 
-  mounted() {
-    if (typeof IntersectionObserver !== 'undefined') {
-      this.moreObserver = new IntersectionObserver(
-        (entries) => this.onMoreIntersection(entries),
-        { rootMargin: this.loadMoreMargin }
-      );
-    }
-
-    this.observeMore();
-  },
-
-  updated() {
-    this.observeMore();
-  },
-
-  beforeUnmount() {
-    this.moreObserver?.disconnect();
-    this.moreObserver = null;
-  },
-
   methods: {
-    appendsPages() {
-      return true;
-    },
-
     /**
      * What to draw of the entity, the only thing the wall knows of it:
      *
@@ -119,48 +90,6 @@ export default {
         caption: entity?.name ?? entity?.title ?? null,
         class: null
       };
-    },
-
-    // The foot of the wall comes and goes with what is left to read.
-    observeMore() {
-      const more = this.$refs.more ?? null;
-
-      if (!this.moreObserver || more === this.observedMore) {
-        return;
-      }
-
-      if (this.observedMore) {
-        this.moreObserver.unobserve(this.observedMore);
-      }
-      if (more) {
-        this.moreObserver.observe(more);
-      }
-      this.observedMore = more;
-      this.moreInView = false;
-    },
-
-    onMoreIntersection(entries) {
-      this.moreInView = entries.some((entry) => entry.isIntersecting);
-
-      if (this.moreInView) {
-        this.loadNewerEntities();
-      }
-    },
-
-    // A page too short to push the foot off the screen calls for the next
-    // one at once: the observer only speaks when the foot crosses its edge.
-    async loadNewerEntities() {
-      if (this.isLoadingNewer || !this.hasNewerEntities) {
-        return;
-      }
-
-      await AbstractEntityCollectionVueMixin.methods.loadNewerEntities.call(this);
-
-      this.$nextTick(() => {
-        if (this.moreInView) {
-          this.loadNewerEntities();
-        }
-      });
     }
   }
 };

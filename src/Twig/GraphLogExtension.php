@@ -7,8 +7,8 @@ use Twig\TwigFunction;
 
 /**
  * Items on coloured lanes: `graph_log(items)`, each item { id, parents, title,
- * href, refs, code, meta, date }. A git history is one — symfony-coding's
- * `git_graph_items()` gives it — but anything branching is.
+ * href, refs, code, meta, date }. A git history is one — symfony-git-ds draws
+ * it, read page after page — but anything branching is.
  */
 class GraphLogExtension extends AbstractTemplateExtension
 {
