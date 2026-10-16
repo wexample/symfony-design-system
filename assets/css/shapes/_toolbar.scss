@@ -6,6 +6,9 @@
   --toolbar-padding: var(--space-3);
   --toolbar-font-size: var(--font-size-5);
   padding: var(--toolbar-padding);
+  // As thick as a control and its room, whatever it holds: two bars side by
+  // side line up, the one holding a menu and the one holding an icon alike.
+  min-height: calc(2 * var(--toolbar-padding) + #{density.$control-size});
   display: flex;
   align-items: center;
   justify-content: space-between;

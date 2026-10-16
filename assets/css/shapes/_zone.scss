@@ -1,5 +1,6 @@
 // A region of a layout given its own size, splittable, scrollable, and never handing that size to its children.
 @use './surface';
+@use '../mixins/density' as density;
 @use '../mixins/surface-layer' as surface-layer;
 
 // The size a zone is given is its own and never its children's. Left to inherit,
@@ -84,9 +85,10 @@
 }
 
 // The side of one of its tools: an icon and the room around it, at the
-// density's scale. Whatever the skin, so the bar keeps its width — the skin
-// only decides how much of it stays around the tools.
-$toolbar-item-size: calc(1rem + 2 * var(--space-2));
+// density's scale — a notch less in a compact bar. Whatever the skin, so the
+// bar keeps its width: the skin only decides how much of it stays around them.
+$toolbar-item-size: calc(1rem + 2 * var(--space-3));
+$toolbar-item-size-compact: calc(1rem + 2 * var(--space-2));
 
 // A zone that is a bar of tools standing on its end, as an IDE has one along
 // the window's edge: icons one under the other, on the ground a tab bar has —
@@ -95,12 +97,24 @@ $toolbar-item-size: calc(1rem + 2 * var(--space-2));
 // rounded where it does. Given with `zone--narrow`, it is as wide as its tools
 // and never gives way.
 .zone--toolbar {
+  --zone-toolbar-item-size: #{$toolbar-item-size};
+  // What a toolbar of the same density keeps around its controls
+  // (shapes/toolbar): lying along the top, the bar is as thick as one.
+  --zone-toolbar-padding: var(--space-3);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--tabs-inset, 0px);
   padding: var(--tabs-inset, 0px);
   background: var(--surface-shell);
+}
+
+// A bar that is part of a panel rather than of the page — the tools of one
+// file —, a notch smaller, as a compact toolbar is.
+.zone--toolbar--compact {
+  @include density.density-compact;
+  --zone-toolbar-item-size: #{$toolbar-item-size-compact};
+  --zone-toolbar-padding: var(--space-2);
 }
 
 // Its icons in groups: the first along the top, the last pushed to the foot —
@@ -114,8 +128,8 @@ $toolbar-item-size: calc(1rem + 2 * var(--space-2));
 }
 
 .zone--toolbar-group > .action-icon {
-  width: $toolbar-item-size;
-  height: $toolbar-item-size;
+  width: var(--zone-toolbar-item-size);
+  height: var(--zone-toolbar-item-size);
   border-radius: var(--tabs-radius, 0);
 }
 
@@ -124,13 +138,23 @@ $toolbar-item-size: calc(1rem + 2 * var(--space-2));
 }
 
 // The same bar lying along the top of what it opens: icons side by side, the
-// last group pushed to the far end. Given with `zone--narrow`, it is as tall as
-// its tools.
+// last group pushed to the far end. As thick as a toolbar of its density, so
+// it lines up with one standing beside it — the bar over a tree beside the bar
+// over a file —, its tools taking that thickness whole. Said by its groups and
+// not by the bar: a zone's own floor (`min-height: 0`) comes again with every
+// stylesheet that draws a zone, and would win over the bar's by coming later.
 .zone--toolbar--horizontal {
   flex-direction: row;
+  align-items: stretch;
 
   > .zone--toolbar-group {
     flex-direction: row;
+    align-items: stretch;
+    min-height: calc(2 * var(--zone-toolbar-padding) + #{density.$control-size} - 2 * var(--tabs-inset, 0px));
+  }
+
+  > .zone--toolbar-group > .action-icon {
+    height: auto;
   }
 
   > .zone--toolbar-group--end {

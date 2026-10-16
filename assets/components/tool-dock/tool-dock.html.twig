@@ -43,7 +43,7 @@
 {%- endset -%}
 
 {%- set toolbar -%}
-    <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-toolbar') }} zone zone--narrow zone--toolbar{{ horizontal ? ' zone--toolbar--horizontal' : ' zone--joined-start' }}" data-tooltip-placement="{{ horizontal ? 'bottom' : 'left' }}">
+    <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-toolbar') }} zone zone--narrow zone--toolbar{{ compact|default(false) ? ' zone--toolbar--compact' }}{{ horizontal ? ' zone--toolbar--horizontal' : ' zone--joined-start' }}" data-tooltip-placement="{{ horizontal ? 'bottom' : 'left' }}">
         {%- for group in ['start', 'end'] -%}
             {%- set group_tools = tools|filter(tool => tool.group == group) -%}
             {%- if group_tools is not empty -%}

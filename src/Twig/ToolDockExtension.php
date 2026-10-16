@@ -75,6 +75,9 @@ class ToolDockExtension extends AbstractTemplateExtension
                             'id' => $id,
                             'tools' => self::arrangeTools($id, $tools, $states),
                             'orientation' => $orientation,
+                            // A bar a notch smaller, part of a panel rather
+                            // than of the page (zone--toolbar--compact).
+                            'compact' => (bool) ($options['compact'] ?? false),
                             'class' => $options['class'] ?? null,
                         ]
                     );
