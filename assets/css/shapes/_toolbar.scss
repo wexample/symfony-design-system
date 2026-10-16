@@ -110,6 +110,38 @@
   gap: var(--space-2);
 }
 
+// What a bar holds besides buttons, as an editor's bar of options holds it: a
+// field, a choice, a toggle, at the height of the bar's controls (the density
+// it is drawn at) and as wide as it asks rather than the whole line. A field
+// and its action together (`form--inline`) take the room the bar leaves.
+.toolbar .form--input {
+  width: auto;
+  // As wide as what it holds — a size, a mode —, as a bar of options draws
+  // its fields, and never narrower than a short value. Where the browser
+  // cannot size a field by its content, it keeps its own width.
+  field-sizing: content;
+  min-width: 4ch;
+}
+
+.toolbar > .form--inline,
+.toolbar--group > .form--inline {
+  flex: 1 1 auto;
+}
+
+// A setting of the bar: its name, then its value, on the bar's line — a size,
+// a mode, a toggle. The name says what the value is and steps back for it.
+.toolbar--field {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--density-gap, var(--space-2));
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.toolbar--field-label {
+  color: var(--text-color-muted);
+}
+
 .toolbar--link {
   display: inline-flex;
   align-items: center;

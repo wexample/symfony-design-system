@@ -28,6 +28,11 @@
 .radio-group--segmented {
   display: inline-flex;
   flex-direction: row;
+  // A control like any other: as tall as a button of its density, its
+  // segments taking that height — so it sits in a compact bar without
+  // thickening it.
+  box-sizing: border-box;
+  height: var(--control-size);
   gap: 2px;
   padding: 2px;
   border: var(--border-default);
@@ -37,6 +42,7 @@
   .radio-option {
     position: relative;
     gap: 0;
+    align-self: stretch;
   }
 
   // Over its label, invisible: a press anywhere on the segment takes it.
@@ -48,7 +54,10 @@
   }
 
   .form--radio-label {
-    padding: var(--space-1) var(--space-3);
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 var(--density-padding-inline, var(--space-3));
     border-radius: var(--radius-control);
     color: var(--text-color-muted);
     font-size: var(--font-size-3);

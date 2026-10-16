@@ -1,0 +1,20 @@
+// A field and what acts on it, on one line: a message and its Send, a name and
+// its Add, a search and its filter. The field takes the room, what acts on it
+// keeps its width and never goes to another line — the shape a bar of options
+// holds (shapes/toolbar), and a form of one question anywhere else.
+.form--inline {
+  display: flex;
+  align-items: center;
+  gap: var(--density-gap, var(--space-2));
+  min-width: 0;
+
+  > * {
+    flex: none;
+  }
+
+  > :is(.form--input, .form--input-group) {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+  }
+}

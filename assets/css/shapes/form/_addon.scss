@@ -14,10 +14,13 @@
   display: flex;
   align-items: center;
   min-width: 0;
+  // The control's height is the frame's, which draws the border.
+  height: var(--control-size);
 
   > .form--input {
     flex: 1;
     min-width: 0;
+    height: 100%;
     border: 0;
     border-radius: inherit;
     background: transparent;

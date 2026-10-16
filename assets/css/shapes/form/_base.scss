@@ -6,12 +6,18 @@
 .form--textarea {
   @include field.field-base;
   width: 100%;
-  padding: var(--space-2) var(--space-3);
+  // Given up where the region it stands in is packed tight, as a button's —
+  // see mixins/density —, so a field in a compact bar stands at the bar's
+  // controls' height and the bar keeps its thickness.
+  padding: var(--density-padding-block, var(--space-2)) var(--density-padding-inline, var(--space-3));
 }
 
-// A field of one line stands as tall as a button beside it.
-.form--input {
-  min-height: var(--control-size);
+// A field of one line stands exactly as tall as a button beside it, its
+// border included: the height of a control of its density, whatever its text
+// is set in. Not what holds several lines, the class given to a text area or
+// a list open on several options.
+.form--input:not(textarea, select[multiple], select[size]) {
+  height: var(--control-size);
 }
 
 .form--input--inline {
