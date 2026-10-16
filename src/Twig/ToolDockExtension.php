@@ -104,6 +104,11 @@ class ToolDockExtension extends AbstractTemplateExtension
      * when it is sized by the room rather than by what it holds (`fill`): an
      * editor.
      *
+     * An icon given an `href` opens no zone: it is a link of the bar, opening
+     * its page where its `target` says — `panel`, `modal`, `dock` (as
+     * button_target does), `_blank` for another window, or in place when
+     * nothing is said. The settings, a page read and closed.
+     *
      * @param array<int, array<string, mixed>> $tools
      * @param array<string, bool|null>        $states
      *
@@ -129,11 +134,12 @@ class ToolDockExtension extends AbstractTemplateExtension
                 throw new InvalidArgumentException('The tool "'.$name.'" of the dock "'.$id.'" is in an unknown group "'.$group.'".');
             }
 
-            $state = $states[$name] ?? null;
+            $href = $tool['href'] ?? null;
+            $state = null === $href ? ($states[$name] ?? null) : null;
 
             if (true === $state) {
                 $chosen[$group] ??= $name;
-            } elseif (null === $state && ($tool['open'] ?? false)) {
+            } elseif (null === $state && null === $href && ($tool['open'] ?? false)) {
                 $byDefault[$group] ??= $name;
             }
 
@@ -148,6 +154,8 @@ class ToolDockExtension extends AbstractTemplateExtension
                 'url' => $tool['url'] ?? null,
                 'content' => $tool['content'] ?? null,
                 'fill' => (bool) ($tool['fill'] ?? false),
+                'href' => $href,
+                'target' => $tool['target'] ?? null,
             ];
         }
 

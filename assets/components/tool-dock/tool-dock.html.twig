@@ -17,7 +17,8 @@
 {%- set horizontal = orientation == 'horizontal' -%}
 
 {%- set zones -%}
-    {%- for tool in tools -%}
+    {#- The links of the bar open no zone. -#}
+    {%- for tool in tools|filter(tool => not tool.href) -%}
         {%- set lead = tool.group == 'start' -%}
         <div id="{{ tool.zone }}" class="zone zone--panel{{ lead ? ' tool-dock--lead' }}{{ tool.open ? '' : ' zone--closed' }}"{% if lead %} {{ zone_state(id ~ '.' ~ tool.name ~ (horizontal ? '-width' : '-height')) }}{% endif %}>
             {%- if lead -%}
@@ -49,16 +50,36 @@
             {%- if group_tools is not empty -%}
                 <div class="zone--toolbar-group{{ group == 'end' ? ' zone--toolbar-group--end' }}">
                     {%- for tool in group_tools -%}
-                        <button type="button"
-                                class="action-icon"
-                                data-zone-toggle="{{ tool.zone }}"
-                                data-ui-state="{{ tool.state }}"
-                                aria-pressed="{{ tool.open ? 'true' : 'false' }}"
-                                aria-controls="{{ tool.zone }}"
-                                aria-label="{{ tool.label }}"
-                                data-tooltip="{{ tool.label }}">
-                            {{- icon(tool.icon) -}}
-                        </button>
+                        {%- if tool.href -%}
+                            {#- A link of the bar: where its page opens is its
+                                target's — an overlay, another window, or here. -#}
+                            {%- if tool.target in ['panel', 'modal', 'dock'] -%}
+                                {{ button_target(tool.icon, '', tool.href, tool.target, {
+                                    link: true,
+                                    class: 'action-icon',
+                                    attr: { 'aria-label': tool.label, 'data-tooltip': tool.label },
+                                }) }}
+                            {%- else -%}
+                                <a class="action-icon"
+                                   href="{{ tool.href }}"
+                                   {%- if tool.target %} target="{{ tool.target }}"{% if tool.target == '_blank' %} rel="noopener"{% endif %}{% endif %}
+                                   aria-label="{{ tool.label }}"
+                                   data-tooltip="{{ tool.label }}">
+                                    {{- icon(tool.icon) -}}
+                                </a>
+                            {%- endif -%}
+                        {%- else -%}
+                            <button type="button"
+                                    class="action-icon"
+                                    data-zone-toggle="{{ tool.zone }}"
+                                    data-ui-state="{{ tool.state }}"
+                                    aria-pressed="{{ tool.open ? 'true' : 'false' }}"
+                                    aria-controls="{{ tool.zone }}"
+                                    aria-label="{{ tool.label }}"
+                                    data-tooltip="{{ tool.label }}">
+                                {{- icon(tool.icon) -}}
+                            </button>
+                        {%- endif -%}
                     {%- endfor -%}
                 </div>
             {%- endif -%}
@@ -66,15 +87,21 @@
     </div>
 {%- endset -%}
 
+{#- A bar of links alone opens nothing beside it. -#}
+{%- set has_zones = tools|filter(tool => not tool.href) is not empty -%}
 {%- if horizontal -%}
     <div class="zone zone--split zone--split--vertical zone--split--joined tool-dock tool-dock--horizontal{{ class ? ' ' ~ class }}">
         {{ toolbar }}
+        {%- if has_zones %}
         <div class="zone zone--split tool-dock--zones">{{ zones }}</div>
+        {%- endif %}
     </div>
 {%- else -%}
+    {%- if has_zones -%}
     <div class="zone zone--narrow zone--split zone--split--vertical tool-dock tool-dock--vertical{{ class ? ' ' ~ class }}" {{ zone_state(id) }}>
         {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer', {}, { edge: 'start' }) }}
         {{ zones }}
     </div>
+    {%- endif -%}
     {{ toolbar }}
 {%- endif -%}

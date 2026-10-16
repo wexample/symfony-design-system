@@ -65,6 +65,19 @@ class ToolDockExtensionTest extends TestCase
         $this->assertSame('ui.layout.dock.board.file.detail', $tool['state']);
     }
 
+    public function testALinkOpensNoZoneAndIsNeverOpen(): void
+    {
+        $tools = ToolDockExtension::arrangeTools('demo', [
+            ['name' => 'settings', 'group' => 'end', 'href' => '/settings', 'target' => 'panel', 'open' => true],
+            ['name' => 'history', 'group' => 'end'],
+        ], ['settings' => true]);
+
+        $this->assertSame(['/settings', null], array_column($tools, 'href'));
+        $this->assertSame(['panel', null], array_column($tools, 'target'));
+        // Neither the page nor a state left behind opens a link.
+        $this->assertSame([false, false], array_column($tools, 'open'));
+    }
+
     public function testAnUnknownGroupIsRefused(): void
     {
         $this->expectException(InvalidArgumentException::class);
