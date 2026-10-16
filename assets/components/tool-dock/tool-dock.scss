@@ -72,11 +72,11 @@
   border-inline-start: var(--border-shell);
 }
 
-// Said rather than left to the content, so the bar and what stops at its edge
-// cannot drift apart. Its line too, between it and what stands before it —
-// the page, or what it opened.
+// The line between the bar and what stands before it — the page, or what it
+// opened. Added to the bar's width and not taken from it: its tools stay as
+// large as its thickness says (shapes/zone), and what slides over the page on
+// a narrow window covers the line rather than stopping short of the bar.
 .layout--horizontal > .zone--toolbar {
-  width: var(--tool-dock-bar-size);
   border-inline-start: var(--border-shell);
 }
 
