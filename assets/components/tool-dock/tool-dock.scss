@@ -3,6 +3,7 @@
 @use '../../css/shapes/stack';
 @use '../../css/shapes/page';
 @use '../../css/shapes/action-icon';
+@use '../../css/mixins/density' as density;
 @use '../../css/mixins/window' as window;
 @use '../zone-resizer/zone-resizer';
 @use '../embed/embed';
@@ -49,11 +50,11 @@
 // against it, from top to bottom.
 
 .layout--horizontal:has(> .tool-dock--layout) {
-  // The bar's width — its tools and the room the skin keeps around them
-  // (shapes/zone) —, named here because both the bar and what it opens read
+  // The bar's width — a toolbar's thickness at this density (shapes/zone,
+  // shapes/toolbar) —, named here because both the bar and what it opens read
   // it: on a narrow window what it opens slides over the page and stops at
   // the bar's edge.
-  --tool-dock-bar-size: calc(#{zone.$toolbar-item-size} + 2 * var(--tabs-inset, 0px));
+  --tool-dock-bar-size: calc(2 * var(--space-3) + #{density.$control-size});
   // What a tool opens is positioned against this row, and not against the
   // page it covers.
   position: relative;

@@ -8,7 +8,11 @@
   padding: var(--toolbar-padding);
   // As thick as a control and its room, whatever it holds: two bars side by
   // side line up, the one holding a menu and the one holding an icon alike.
+  // Said to a split too, which has the last word on the floor of the zones it
+  // holds and reads theirs from `--zone-min` (shapes/zone): a bar standing in
+  // one is never thinner.
   min-height: calc(2 * var(--toolbar-padding) + #{density.$control-size});
+  --zone-min: calc(2 * var(--toolbar-padding) + #{density.$control-size});
   display: flex;
   align-items: center;
   justify-content: space-between;
