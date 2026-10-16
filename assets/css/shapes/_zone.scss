@@ -83,15 +83,23 @@
   max-width: 100%;
 }
 
+// The side of one of its tools: an icon and the room around it, at the
+// density's scale. Whatever the skin, so the bar keeps its width — the skin
+// only decides how much of it stays around the tools.
+$toolbar-item-size: calc(1rem + 2 * var(--space-2));
+
 // A zone that is a bar of tools standing on its end, as an IDE has one along
-// the window's edge: icons one under the other, on the ground a tab bar has.
-// Given with `zone--narrow`, it is as wide as an icon and never gives way.
+// the window's edge: icons one under the other, on the ground a tab bar has —
+// and drawn as a tab bar is (components/tab): flush and square where the skin
+// keeps no room around a tab (`--tabs-inset`, `--tabs-radius`), floating and
+// rounded where it does. Given with `zone--narrow`, it is as wide as its tools
+// and never gives way.
 .zone--toolbar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-1);
-  padding: var(--space-2) var(--space-1);
+  gap: var(--tabs-inset, 0px);
+  padding: var(--tabs-inset, 0px);
   background: var(--surface-shell);
 }
 
@@ -102,7 +110,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-1);
+  gap: var(--tabs-inset, 0px);
+}
+
+.zone--toolbar-group > .action-icon {
+  width: $toolbar-item-size;
+  height: $toolbar-item-size;
+  border-radius: var(--tabs-radius, 0);
 }
 
 .zone--toolbar-group--end {
@@ -111,10 +125,9 @@
 
 // The same bar lying along the top of what it opens: icons side by side, the
 // last group pushed to the far end. Given with `zone--narrow`, it is as tall as
-// an icon.
+// its tools.
 .zone--toolbar--horizontal {
   flex-direction: row;
-  padding: var(--space-1) var(--space-2);
 
   > .zone--toolbar-group {
     flex-direction: row;

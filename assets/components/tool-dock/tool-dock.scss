@@ -49,11 +49,11 @@
 // against it, from top to bottom.
 
 .layout--horizontal:has(> .tool-dock--layout) {
-  // The bar's width — an icon and the room around it (shapes/zone,
-  // shapes/action-icon) —, named here because both the bar and what it opens
-  // read it: on a narrow window what it opens slides over the page and stops
-  // at the bar's edge.
-  --tool-dock-bar-size: calc(1.75rem + 2 * var(--space-1));
+  // The bar's width — its tools and the room the skin keeps around them
+  // (shapes/zone) —, named here because both the bar and what it opens read
+  // it: on a narrow window what it opens slides over the page and stops at
+  // the bar's edge.
+  --tool-dock-bar-size: calc(#{zone.$toolbar-item-size} + 2 * var(--tabs-inset, 0px));
   // What a tool opens is positioned against this row, and not against the
   // page it covers.
   position: relative;
