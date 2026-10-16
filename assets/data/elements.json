@@ -301,6 +301,34 @@
             }
         },
         {
+            "key": "collection/grid/abstract-entity-grid",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/collection/grid/abstract-entity-grid/abstract-entity-grid.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/collection/grid/abstract-entity-grid/abstract-entity-grid.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/collection/grid/abstract-entity-grid/abstract-entity-grid.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "waived",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's"
+            }
+        },
+        {
             "key": "collection/table/abstract-entity-table",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -322,6 +350,34 @@
             },
             "notes": {
                 "style": "wears the style of table and adds none of its own",
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's"
+            }
+        },
+        {
+            "key": "collection/wall/abstract-entity-wall",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/collection/wall/abstract-entity-wall/abstract-entity-wall.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/collection/wall/abstract-entity-wall/abstract-entity-wall.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/collection/wall/abstract-entity-wall/abstract-entity-wall.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "waived",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
                 "template": "client-side by nature: it only makes sense inside a vue tree",
                 "script": "its behaviour is the vue component's"
             }
@@ -1636,6 +1692,32 @@
             }
         },
         {
+            "key": "isolated",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A world of its own inside the page: drawn in a shadow root, no rule nor inherited value of the page entering it.",
+            "formats": {
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/isolated/isolated.html.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/isolated/isolated.ts"
+                ]
+            },
+            "stances": {
+                "style": "waived",
+                "template": "expected",
+                "vue": "todo",
+                "script": "expected",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "style": "It brings none: what it holds brings its own, inside the root."
+            }
+        },
+        {
             "key": "led",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A small light saying a state at a glance \u2014 on, off, a tone \u2014 beside what it is the state of.",
@@ -1774,6 +1856,36 @@
             }
         },
         {
+            "key": "media",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/media/media.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/media/media.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/media/media.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/media/media.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "it shows and does nothing"
+            }
+        },
+        {
             "key": "menu-collapsible-panel",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A side menu of the layout, folded beside the page in a wide window, a drawer over it in a narrow one.",
@@ -1857,6 +1969,31 @@
             "notes": {
                 "style": "wears the style of menu and adds none of its own",
                 "script": "it shows and does nothing"
+            }
+        },
+        {
+            "key": "menu-navigation",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/menu-navigation/menu-navigation.html.twig"
+                ]
+            },
+            "stances": {
+                "style": "waived",
+                "template": "expected",
+                "vue": "waived",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "style": "wears the style of menu and adds none of its own",
+                "vue": "drawn by the server, as the menu it fills",
+                "script": "its folding is menu-item-collapsible's"
             }
         },
         {
@@ -2538,6 +2675,33 @@
             }
         },
         {
+            "key": "tool-dock",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/tool-dock/tool-dock.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/tool-dock/tool-dock.html.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "waived",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "vue": "drawn by the server: its tools are what a page describes, and a vue tree has none to describe",
+                "script": "its bar is zone-toolbar's, its handles zone-resizer's"
+            }
+        },
+        {
             "key": "tooltip",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A few words about what the pointer or the focus is on, beside it and turned away from the window's edges. One for the page, placed by the layout; an element asks for it with data-tooltip, or tooltip() in twig.",
@@ -2730,6 +2894,33 @@
             },
             "notes": {
                 "vue": "a form with a file input and a slot, reachable from inside a vue tree"
+            }
+        },
+        {
+            "key": "wall",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/wall/wall.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/wall/wall.html.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "waived",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "vue": "its client-side twin is the entity wall (collection/wall/abstract-entity-wall)",
+                "script": "it shows and does nothing"
             }
         },
         {
@@ -3073,6 +3264,12 @@
             "description": "A field narrowing what is shown beside it \u2014 a table's rows, a menu's items, a folder's files: a magnifier and what is typed, in one frame. Written on a field with a word beside it (`form--input-group`), the magnifier being that word:  <div class=\"form--input-group form--filter\"> <span class=\"form--input-addon\" aria-hidden=\"true\">{{ icon('ph:bold/magnifying-glass') }}</span> <input class=\"form--input\" type=\"search\"> </div>"
         },
         {
+            "key": "form/inline",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_inline.scss",
+            "description": "A field and what acts on it, on one line: a message and its Send, a name and its Add, a search and its filter. The field takes the room, what acts on it keeps its width and never goes to another line \u2014 the shape a bar of options holds (shapes/toolbar), and a form of one question anywhere else."
+        },
+        {
             "key": "form/layout",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_layout.scss",
@@ -3263,6 +3460,12 @@
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_upload-tray.scss",
             "description": "The rows of the uploads window: the design system's progress bar for each file \u2014 its name, how far it got \u2014, and what came of it under it."
+        },
+        {
+            "key": "wall",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_wall.scss",
+            "description": "Pictures of every height packed side by side with no holes, each one at its own ratio, as a photo wall is hung.  The rows are a twelfth of a column's width, so a tile is as tall as its ratio says by spanning that many twelfths: `grid-row-end: span 9` for a 4:3 landscape \u2014 what wallSpan() and the wall template work out from a width and a height. Measuring a column needs the wall to be a container, which is why the tiles sit in a box of their own: a grid cannot read its own width.  <div class=\"wall\"> <div class=\"wall--tiles\"> <a class=\"wall--tile media media--placeholder\" style=\"grid-row-end: span 9\">\u2026</a> </div> </div>"
         },
         {
             "key": "zone",
