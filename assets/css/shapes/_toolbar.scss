@@ -69,6 +69,15 @@
   --toolbar-font-size: var(--font-size-4);
 }
 
+// Chrome is one line: a compact bar keeps the thickness its density gives it,
+// so a run of its actions never goes to a second line nor gives way — what
+// gives way is what can ellipsise, the title or a menu's label beside them.
+// A wide bar keeps wrapping, where a button would otherwise be cut short.
+.toolbar--compact > .toolbar--group {
+  flex: none;
+  flex-wrap: nowrap;
+}
+
 // A toolbar is chrome, like a header, a tab bar or a menu: it takes the shell
 // surface and not an elevation of its own. Reading the token rather than naming
 // a level is also what makes it follow inside a modal or a panel, where the
