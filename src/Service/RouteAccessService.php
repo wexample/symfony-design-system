@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Http\AccessMapInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Contracts\Service\ResetInterface;
 
 /**
  * Whether the reader may open the page a route serves, asked before a link to
@@ -22,7 +23,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  * subject, the only ones a link can be judged by before the page loads its
  * record.
  */
-final class RouteAccessService
+final class RouteAccessService implements ResetInterface
 {
     /** @var array<string, bool> */
     private array $decided = [];
@@ -34,6 +35,15 @@ final class RouteAccessService
         private readonly AccessDecisionManagerInterface $accessDecisionManager,
         private readonly TokenStorageInterface $tokenStorage,
     ) {
+    }
+
+    /**
+     * A decision is the current user's: kept, the next visitor of a worker
+     * would see the links the previous one was allowed to open.
+     */
+    public function reset(): void
+    {
+        $this->decided = [];
     }
 
     public function canOpen(string $route, array $parameters = []): bool
