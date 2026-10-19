@@ -2,6 +2,7 @@
 import { loadIntoTarget } from '../../js/Helper/TargetHelper';
 import IconService from '@wexample/symfony-loader/js/Services/IconService';
 import { filterTextMatches } from '../../js/Helper/FilterHelper';
+import { floatingBounds } from '../../js/Helper/FloatingHelper';
 
 // The twin of components/button-menu: same classes, same panel, and above all
 // the same item shape — { type, icon, label, trailingIcon, count, href,
@@ -387,10 +388,13 @@ export default {
       const buttonRect = button.getBoundingClientRect();
       const panelRect = panel.getBoundingClientRect();
 
-      const fitsLeft = buttonRect.left + panelRect.width <= window.innerWidth;
-      const fitsRight = buttonRect.right - panelRect.width >= 0;
-      const fitsBottom = buttonRect.bottom + panelRect.height <= window.innerHeight;
-      const fitsTop = buttonRect.top - panelRect.height >= 0;
+      // The room is the zone the menu opens in, not the window: a zone that
+      // clips cuts a panel the window would still have shown.
+      const bounds = floatingBounds(this.$el);
+      const fitsLeft = buttonRect.left + panelRect.width <= bounds.right;
+      const fitsRight = buttonRect.right - panelRect.width >= bounds.left;
+      const fitsBottom = buttonRect.bottom + panelRect.height <= bounds.bottom;
+      const fitsTop = buttonRect.top - panelRect.height >= bounds.top;
 
       this.align = this.resolveSide(this.physicalAlign(), 'left', 'right', fitsLeft, fitsRight);
       this.vertical = this.resolveSide(this.menuVertical, 'bottom', 'top', fitsBottom, fitsTop);

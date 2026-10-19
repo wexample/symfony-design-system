@@ -110,3 +110,35 @@ export function floatingPlace(anchor: Element, floating: HTMLElement, options: F
 
   return position;
 }
+
+export type FloatingBounds = { left: number; top: number; right: number; bottom: number };
+
+/**
+ * The part of the window where something opened from `el` can still be seen:
+ * the window, cut down by every ancestor that clips what overflows it — a
+ * page's scrolling zone, a panel. A menu that fits the window but runs past
+ * the zone it opens in is cut all the same, so its room is measured here.
+ */
+export function floatingBounds(el: Element): FloatingBounds {
+  const bounds: FloatingBounds = { left: 0, top: 0, right: window.innerWidth, bottom: window.innerHeight };
+
+  for (let node = el.parentElement; node && node !== document.body; node = node.parentElement) {
+    const style = getComputedStyle(node);
+    const rect = node.getBoundingClientRect();
+
+    if (style.overflowX !== 'visible') {
+      bounds.left = Math.max(bounds.left, rect.left);
+      bounds.right = Math.min(bounds.right, rect.right);
+    }
+    if (style.overflowY !== 'visible') {
+      bounds.top = Math.max(bounds.top, rect.top);
+      bounds.bottom = Math.min(bounds.bottom, rect.bottom);
+    }
+    // Past a fixed box, the ancestors no longer hold it.
+    if (style.position === 'fixed') {
+      break;
+    }
+  }
+
+  return bounds;
+}

@@ -1,6 +1,7 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
 import { filterTextMatches } from '../../js/Helper/FilterHelper';
+import { floatingBounds, FloatingBounds } from '../../js/Helper/FloatingHelper';
 import { loadIntoTarget } from '../../js/Helper/TargetHelper';
 import { pageBusyShow } from '../../js/Helper/PageBusyHelper';
 
@@ -289,13 +290,14 @@ export default class ButtonMenu extends Component {
       // A split button's panel lines up with the whole of it, not its caret.
       const buttonRect = (this.el.querySelector('.button-menu--split-group') ?? this.buttonEl).getBoundingClientRect();
       const panelRect = this.panelEl.getBoundingClientRect();
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
+      // The room is the zone the menu opens in, not the window: a zone that
+      // clips cuts a panel the window would still have shown.
+      const bounds = floatingBounds(this.el);
 
-      const leftCandidate = this.getHorizontalCandidate(buttonRect, panelRect, viewportWidth, 'left');
-      const rightCandidate = this.getHorizontalCandidate(buttonRect, panelRect, viewportWidth, 'right');
-      const topCandidate = this.getVerticalCandidate(buttonRect, panelRect, viewportHeight, 'top');
-      const bottomCandidate = this.getVerticalCandidate(buttonRect, panelRect, viewportHeight, 'bottom');
+      const leftCandidate = this.getHorizontalCandidate(buttonRect, panelRect, bounds, 'left');
+      const rightCandidate = this.getHorizontalCandidate(buttonRect, panelRect, bounds, 'right');
+      const topCandidate = this.getVerticalCandidate(buttonRect, panelRect, bounds, 'top');
+      const bottomCandidate = this.getVerticalCandidate(buttonRect, panelRect, bounds, 'bottom');
 
       let align = this.defaultAlign;
       if (leftCandidate.fits && !rightCandidate.fits) {
@@ -404,18 +406,18 @@ export default class ButtonMenu extends Component {
   private getHorizontalCandidate(
     buttonRect: DOMRect,
     panelRect: DOMRect,
-    viewportWidth: number,
+    bounds: FloatingBounds,
     mode: 'left' | 'right'
   ) {
     const left = mode === 'left'
       ? buttonRect.left
       : buttonRect.right - panelRect.width;
     const right = left + panelRect.width;
-    const overflow = Math.max(0, -left) + Math.max(0, right - viewportWidth);
+    const overflow = Math.max(0, bounds.left - left) + Math.max(0, right - bounds.right);
 
     return {
       mode,
-      fits: left >= 0 && right <= viewportWidth,
+      fits: left >= bounds.left && right <= bounds.right,
       overflow
     };
   }
@@ -423,18 +425,18 @@ export default class ButtonMenu extends Component {
   private getVerticalCandidate(
     buttonRect: DOMRect,
     panelRect: DOMRect,
-    viewportHeight: number,
+    bounds: FloatingBounds,
     mode: 'top' | 'bottom'
   ) {
     const top = mode === 'bottom'
       ? buttonRect.bottom - 1
       : buttonRect.top - panelRect.height + 1;
     const bottom = top + panelRect.height;
-    const overflow = Math.max(0, -top) + Math.max(0, bottom - viewportHeight);
+    const overflow = Math.max(0, bounds.top - top) + Math.max(0, bottom - bounds.bottom);
 
     return {
       mode,
-      fits: top >= 0 && bottom <= viewportHeight,
+      fits: top >= bounds.top && bottom <= bounds.bottom,
       overflow
     };
   }
