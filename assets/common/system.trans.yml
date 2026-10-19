@@ -153,6 +153,31 @@ en:
 ar:
   frontend:
     loading: 'جار التحميل...'
+    environment: '%env% بيئة: ما هو معروض هنا ليس بيئة الإنتاج'
+    dev_menu: 'أدوات التطوير'
+    develop_toolbar: 'شريط أدوات التطوير'
+    diff:
+      none: '(لا شيء)'
+    number_stepper:
+      less: 'أقل بواحدة'
+      more: 'أكثر بواحدة'
+    period:
+      label: الفترة
+      unit: 'نوع الفترة'
+      unit_month: شهر
+      unit_year: سنة
+      previous: السابق
+      next: التالي
+      today: اليوم
+    file_input:
+      hint_one: 'اسحب ملفًا هنا، أو اختره'
+      hint_many: 'اسحب ملفات هنا، أو اخترها'
+      pick: اختر
+      count: '%count% ملفات'
+      remove: إزالة
+    theme:
+      label: الثيم
+      custom: مخصص
     no_data: 'لا توجد بيانات'
     explorer:
       root: الملفات
@@ -197,23 +222,85 @@ ar:
       total: '%count% إجمالي'
       actions: الإجراءات
       apply: تطبيق
+      sorted_asc: 'مرتبة بواسطة %column%، تصاعديًا'
+      sorted_desc: 'مرتبة بواسطة %column%، تنازليًا'
+      sort_reset: 'العودة إلى الترتيب الأصلي'
+      empty_filtered: 'لا يوجد تطابق.'
+      clear_filters: 'عرض كل شيء'
+      retry: 'حاول مرة أخرى'
+      search: بحث
+      results: '%count% تم العثور عليها'
+      open: 'فتح التفاصيل'
+    grid:
+      add: 'إضافة هذا الصف'
+      delete: 'حذف هذا الصف'
+      saving: 'جارٍ الحفظ…'
+      saved: 'تم الحفظ'
+      error: 'لم يتم الحفظ'
+      import:
+        file: 'استيراد ملف'
+        no_table: 'لم يتم العثور على جدول في هذا الملف.'
+        header: 'الصف الأول يحدد أسماء الأعمدة'
+        missing: 'لا يوجد عمود يحمل: %columns%'
+        column: 'العمود %index%'
+        skip: تجاهل
+        submit: 'إضافة %count% صفوف'
+        cancel: إلغاء
+    confirm:
+      accept: تأكيد
+      cancel: إلغاء
     switch:
       cancel: إلغاء
+      checked: مفعل
+      unchecked: 'غير مفعل'
     tour:
       previous: السابق
       next: التالي
       done: تم
       close: 'إغلاق الجولة'
       progress: '%current% / %total%'
+    upload:
+      hint: 'اسحب الملفات هنا، أو اخترها'
+      pick: تحميل
+      title: التحميلات
+      progress: 'التحميلات — %done% / %count%'
+      cancel: 'إلغاء هذا التحميل'
+      cancelled: 'تم الإلغاء'
+      failed: 'فشل التحميل'
+      refused_size: '%name% أكبر من %max%، الحد الأقصى الذي يمكن أن يستوعبه هذا المكان'
+      refused_type: '%name% ليس نوع الملف الذي يقبله هذا المكان (%accept%)'
+      status:
+        queued: 'في الانتظار'
+        uploading: 'جارٍ الإرسال'
+        success: تم
+        error: فشل
     embed:
       close: إغلاق
+    document:
+      open: 'افتح في نافذة جديدة'
+      download: تحميل
+    form:
+      optional: (اختياري)
     menu:
+      navigation: الملاحة
+      open_left: 'فتح القائمة'
+      close_left: 'إغلاق القائمة'
+      open_right: 'فتح اللوحة الجانبية'
+      close_right: 'إغلاق اللوحة الجانبية'
+      more: 'خيارات أكثر'
       filter: تصفية
       filter_empty: 'لا يوجد ما يتطابق'
     zone:
       collapse: طي
       expand: توسيع
       resize: 'تغيير الحجم'
+    crop:
+      area: 'منطقة القص'
+      handle: 'تغيير حجم منطقة القص'
+    copy:
+      copy: نسخ
+      copied: 'تم النسخ'
+      failed: 'لم يتمكن من النسخ، اختر النص بدلاً من ذلك'
 
 bn:
   frontend:
@@ -1605,6 +1692,31 @@ vi:
 zh:
   frontend:
     loading: 加载中...
+    environment: '%env% 环境：这里显示的不是生产环境'
+    dev_menu: 开发工具
+    develop_toolbar: 开发工具栏
+    diff:
+      none: (无)
+    number_stepper:
+      less: 少一个
+      more: 多一个
+    period:
+      label: 周期
+      unit: 周期类型
+      unit_month: 月
+      unit_year: 年
+      previous: 上一个
+      next: 下一个
+      today: 今天
+    file_input:
+      hint_one: 将文件拖到这里，或选择它
+      hint_many: 将文件拖到这里，或选择它们
+      pick: 选择
+      count: '%count% 个文件'
+      remove: 移除
+    theme:
+      label: 主题
+      custom: 自定义
     no_data: 没有数据
     explorer:
       root: 文件
@@ -1649,20 +1761,82 @@ zh:
       total: '总计 %count%'
       actions: 操作
       apply: 应用
+      sorted_asc: '按 %column% 排序，升序'
+      sorted_desc: '按 %column% 排序，降序'
+      sort_reset: 返回原始顺序
+      empty_filtered: 没有匹配项。
+      clear_filters: 显示所有内容
+      retry: 再试一次
+      search: 搜索
+      results: '找到 %count% 个'
+      open: 打开详情
+    grid:
+      add: 添加此行
+      delete: 删除此行
+      saving: 保存中…
+      saved: 已保存
+      error: 未保存
+      import:
+        file: 导入文件
+        no_table: 此文件中未找到表格。
+        header: 第一行命名列
+        missing: '没有列包含： %columns%'
+        column: '列 %index%'
+        skip: 跳过
+        submit: '添加 %count% 行'
+        cancel: 取消
+    confirm:
+      accept: 确认
+      cancel: 取消
     switch:
       cancel: 取消
+      checked: 开启
+      unchecked: 关闭
     tour:
       previous: 上一个
       next: 下一个
       done: 完成
       close: 关闭导览
       progress: '%current% / %total%'
+    upload:
+      hint: 将文件拖到这里，或选择它们
+      pick: 上传
+      title: 上传
+      progress: '上传中 — %done% / %count%'
+      cancel: 取消此次上传
+      cancelled: 已取消
+      failed: 上传失败
+      refused_size: '%name% 大于 %max%，此处最多接受的大小'
+      refused_type: '%name% 不是此处接受的文件类型 (%accept%)'
+      status:
+        queued: 等待中
+        uploading: 发送中
+        success: 完成
+        error: 失败
     embed:
       close: 关闭
+    document:
+      open: 在新窗口中打开
+      download: 下载
+    form:
+      optional: (可选)
     menu:
+      navigation: 导航
+      open_left: 打开菜单
+      close_left: 关闭菜单
+      open_right: 打开侧边面板
+      close_right: 关闭侧边面板
+      more: 更多选项
       filter: 筛选
       filter_empty: 没有符合条件的结果
     zone:
       collapse: 折叠
       expand: 展开
       resize: 调整大小
+    crop:
+      area: 裁剪区域
+      handle: 调整裁剪区域大小
+    copy:
+      copy: 复制
+      copied: 已复制
+      failed: 无法复制，请选择文本
