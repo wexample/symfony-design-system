@@ -9,6 +9,7 @@ use Wexample\SymfonyDesignSystem\Class\ElementCompilation;
 use Wexample\SymfonyDesignSystem\Class\ElementInventory;
 use Wexample\SymfonyDesignSystem\Service\ElementRegistryService;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
+use Wexample\SymfonyHelpers\Attribute\WorkerSafe;
 
 /**
  * Hands a template the registries of the bundles holding elements, merged.
@@ -32,6 +33,7 @@ class InventoryExtension extends AbstractExtension
      * The walk is worth doing once per request, not once per function the page
      * calls: the registry and its problems come out of the same compilation.
      */
+    #[WorkerSafe('The element inventory compiled from the templates, the same for every request.')]
     private ?ElementCompilation $compiled = null;
 
     public function __construct(

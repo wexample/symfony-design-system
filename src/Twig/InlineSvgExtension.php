@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
+use Wexample\SymfonyHelpers\Attribute\WorkerSafe;
 
 /**
  * A drawing — a logo, a mark, an illustration — written into the page rather
@@ -28,6 +29,7 @@ class InlineSvgExtension extends AbstractTemplateExtension
     ];
 
     /** @var array<string, string> the markup of each file and mode, read once per request */
+    #[WorkerSafe('The SVG files read once, the same for every request.')]
     private array $svgs = [];
 
     public function __construct(

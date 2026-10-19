@@ -6,6 +6,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Wexample\SymfonyDesignSystem\Attribute\AbstractRouteGroup;
 use Wexample\SymfonyDesignSystem\Interface\RouteGroupVoterInterface;
 use Wexample\SymfonyHelpers\Helper\RouteHelper;
+use Wexample\SymfonyHelpers\Attribute\WorkerSafe;
 
 /**
  * Which routes asked to join which run, for every attribute that asks it.
@@ -30,6 +31,7 @@ class RouteGroupRegistry
      * @var array<class-string<AbstractRouteGroup>, array<string, string[]>> route names by
      *                                                                      group, by attribute, filled as each attribute is first asked for
      */
+    #[WorkerSafe('What the routes declare, the same for every request; the voters filter it at each call.')]
     private array $collected = [];
 
     /**
