@@ -9,3 +9,60 @@ zh:
 
 ar:
   load_more: 'عرض المزيد'
+
+hi:
+  load_more: 'और दिखाएँ'
+
+he:
+  load_more: 'הצג יותר'
+
+fa:
+  load_more: 'نمایش بیشتر'
+
+ur:
+  load_more: 'مزید دکھائیں'
+
+ja:
+  load_more: さらに表示
+
+ko:
+  load_more: '더 보기'
+
+bn:
+  load_more: 'আরো দেখান'
+
+th:
+  load_more: แสดงเพิ่มเติม
+
+de:
+  load_more: 'Mehr anzeigen'
+
+fi:
+  load_more: 'Näytä lisää'
+
+ru:
+  load_more: 'Показать больше'
+
+pl:
+  load_more: 'Pokaż więcej'
+
+es:
+  load_more: 'Mostrar más'
+
+it:
+  load_more: 'Mostra di più'
+
+pt_BR:
+  load_more: 'Mostrar mais'
+
+tr:
+  load_more: 'Daha fazla göster'
+
+vi:
+  load_more: 'Hiển thị thêm'
+
+id:
+  load_more: 'Tampilkan lebih banyak'
+
+nl:
+  load_more: 'Toon meer'

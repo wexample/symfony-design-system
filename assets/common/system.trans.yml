@@ -305,6 +305,31 @@ ar:
 bn:
   frontend:
     loading: 'লোড হচ্ছে...'
+    environment: '%env% পরিবেশ: এখানে যা দেখানো হয়েছে তা উৎপাদন নয়'
+    dev_menu: 'ডেভেলপমেন্ট টুলস'
+    develop_toolbar: 'ডেভেলপ টুলবার'
+    diff:
+      none: '(কিছুই না)'
+    number_stepper:
+      less: 'একটি কম'
+      more: 'একটি বেশি'
+    period:
+      label: পর্ব
+      unit: 'পর্বের প্রকার'
+      unit_month: মাস
+      unit_year: বছর
+      previous: পূর্ববর্তী
+      next: পরবর্তী
+      today: আজ
+    file_input:
+      hint_one: 'এখানে একটি ফাইল ড্রপ করুন, অথবা নির্বাচন করুন'
+      hint_many: 'এখানে ফাইল ড্রপ করুন, অথবা নির্বাচন করুন'
+      pick: 'নির্বাচন করুন'
+      count: '%count% ফাইল'
+      remove: 'অপসারণ করুন'
+    theme:
+      label: থিম
+      custom: কাস্টম
     no_data: 'কোন তথ্য নেই'
     explorer:
       root: ফাইল
@@ -349,27 +374,114 @@ bn:
       total: 'মোট %count%'
       actions: কর্ম
       apply: 'প্রযোজ্য করুন'
+      sorted_asc: '%column% দ্বারা সাজানো, বৃদ্ধি'
+      sorted_desc: '%column% দ্বারা সাজানো, হ্রাস'
+      sort_reset: 'মৌলিক অবস্থায় ফিরে যান'
+      empty_filtered: 'কিছুই মেলে না।'
+      clear_filters: 'সবকিছু দেখান'
+      retry: 'আবার চেষ্টা করুন'
+      search: 'অনুসন্ধান করুন'
+      results: '%count% পাওয়া গেছে'
+      open: 'বিস্তারিত খুলুন'
+    grid:
+      add: 'এই সারিটি যোগ করুন'
+      delete: 'এই সারিটি মুছুন'
+      saving: 'সংরক্ষণ হচ্ছে…'
+      saved: সংরক্ষিত
+      error: 'সংরক্ষিত হয়নি'
+      import:
+        file: 'একটি ফাইল আমদানি করুন'
+        no_table: 'এই ফাইলে কোনো টেবিল পাওয়া যায়নি।'
+        header: 'প্রথম সারিটি কলামগুলির নাম দেয়'
+        missing: 'কোনও কলাম ধারণ করে না: %columns%'
+        column: 'কলাম %index%'
+        skip: 'ছেড়ে দিন'
+        submit: '%count% সারি যোগ করুন'
+        cancel: 'বাতিল করুন'
+    confirm:
+      accept: 'নিশ্চিত করুন'
+      cancel: 'বাতিল করুন'
     switch:
       cancel: 'বাতিল করুন'
+      checked: চালু
+      unchecked: বন্ধ
     tour:
       previous: পূর্ববর্তী
       next: পরবর্তী
       done: সম্পন্ন
       close: 'ভ্রমণ বন্ধ করুন'
       progress: '%current% / %total%'
+    upload:
+      hint: 'এখানে ফাইল ড্রপ করুন, বা নির্বাচন করুন'
+      pick: 'আপলোড করুন'
+      title: আপলোডস
+      progress: 'আপলোড — %done% / %count%'
+      cancel: 'এই আপলোড বাতিল করুন'
+      cancelled: 'বাতিল করা হয়েছে'
+      failed: 'আপলোড ব্যর্থ হয়েছে'
+      refused_size: '%name% %max% এর চেয়ে বড়, এই জায়গায় সর্বাধিক যা গ্রহণ করে'
+      refused_type: '%name% এই জায়গায় গ্রহণযোগ্য ফাইলের একটি প্রকার নয় (%accept%)'
+      status:
+        queued: 'অপেক্ষা করছে'
+        uploading: 'পাঠানো হচ্ছে'
+        success: সম্পন্ন
+        error: ব্যর্থ
     embed:
       close: 'বন্ধ করুন'
+    document:
+      open: 'নতুন উইন্ডোতে খুলুন'
+      download: 'ডাউনলোড করুন'
+    form:
+      optional: (ঐচ্ছিক)
     menu:
+      navigation: নেভিগেশন
+      open_left: 'মেনু খুলুন'
+      close_left: 'মেনু বন্ধ করুন'
+      open_right: 'সাইড প্যানেল খুলুন'
+      close_right: 'সাইড প্যানেল বন্ধ করুন'
+      more: 'আরও বিকল্প'
       filter: ফিল্টার
       filter_empty: 'কিছুই মেলে না'
     zone:
       collapse: 'সংকুচিত করুন'
       expand: 'বিস্তৃত করুন'
       resize: 'আকার পরিবর্তন করুন'
+    crop:
+      area: 'কাটা এলাকা'
+      handle: 'কাটা এলাকার আকার পরিবর্তন করুন'
+    copy:
+      copy: কপি
+      copied: 'কপি করা হয়েছে'
+      failed: 'কপি করা যায়নি, বরং টেক্সটটি নির্বাচন করুন'
 
 de:
   frontend:
     loading: Laden...
+    environment: '%env% Umgebung: das hier angezeigte ist nicht die Produktion'
+    dev_menu: Entwicklungstools
+    develop_toolbar: Entwicklungswerkzeugleiste
+    diff:
+      none: (nichts)
+    number_stepper:
+      less: 'Eine weniger'
+      more: 'Eine mehr'
+    period:
+      label: Periode
+      unit: 'Art der Periode'
+      unit_month: Monat
+      unit_year: Jahr
+      previous: Vorherige
+      next: Nächste
+      today: Heute
+    file_input:
+      hint_one: 'Eine Datei hier ablegen oder auswählen'
+      hint_many: 'Dateien hier ablegen oder auswählen'
+      pick: Wählen
+      count: '%count% Dateien'
+      remove: Entfernen
+    theme:
+      label: Thema
+      custom: Benutzerdefiniert
     no_data: 'Keine Daten'
     explorer:
       root: Dateien
@@ -414,27 +526,114 @@ de:
       total: '%count% insgesamt'
       actions: Aktionen
       apply: Anwenden
+      sorted_asc: 'Sortiert nach %column%, aufsteigend'
+      sorted_desc: 'Sortiert nach %column%, absteigend'
+      sort_reset: 'Zurück zur ursprünglichen Reihenfolge'
+      empty_filtered: 'Nichts passt.'
+      clear_filters: 'Alles anzeigen'
+      retry: 'Erneut versuchen'
+      search: Suchen
+      results: '%count% gefunden'
+      open: 'Details öffnen'
+    grid:
+      add: 'Diese Zeile hinzufügen'
+      delete: 'Diese Zeile löschen'
+      saving: Speichern…
+      saved: Gespeichert
+      error: 'Nicht gespeichert'
+      import:
+        file: 'Eine Datei importieren'
+        no_table: 'Keine Tabelle in dieser Datei gefunden.'
+        header: 'Die erste Zeile benennt die Spalten'
+        missing: 'Keine Spalte enthält: %columns%'
+        column: 'Spalte %index%'
+        skip: Auslassen
+        submit: '%count% Zeilen hinzufügen'
+        cancel: Abbrechen
+    confirm:
+      accept: Bestätigen
+      cancel: Abbrechen
     switch:
       cancel: Abbrechen
+      checked: Ein
+      unchecked: Aus
     tour:
       previous: Vorherige
       next: Nächste
       done: Fertig
       close: 'Tour schließen'
       progress: '%current% / %total%'
+    upload:
+      hint: 'Dateien hier ablegen oder auswählen'
+      pick: Hochladen
+      title: Uploads
+      progress: 'Uploads — %done% / %count%'
+      cancel: 'Dieses Hochladen abbrechen'
+      cancelled: Abgebrochen
+      failed: 'Der Upload ist fehlgeschlagen'
+      refused_size: '%name% ist größer als %max%, das Maximum für diesen Ort'
+      refused_type: '%name% ist keine Art von Datei, die dieser Ort akzeptiert (%accept%)'
+      status:
+        queued: Warten
+        uploading: Senden
+        success: Fertig
+        error: Fehlgeschlagen
     embed:
       close: Schließen
+    document:
+      open: 'In einem neuen Fenster öffnen'
+      download: Herunterladen
+    form:
+      optional: (optional)
     menu:
+      navigation: Navigation
+      open_left: 'Menü öffnen'
+      close_left: 'Menü schließen'
+      open_right: 'Seitenbereich öffnen'
+      close_right: 'Seitenbereich schließen'
+      more: 'Mehr Optionen'
       filter: Filtern
       filter_empty: 'Nichts entspricht'
     zone:
       collapse: Einklappen
       expand: Ausklappen
       resize: 'Größe ändern'
+    crop:
+      area: Zuschneidebereich
+      handle: 'Zuschneidebereich anpassen'
+    copy:
+      copy: Kopieren
+      copied: Kopiert
+      failed: 'Konnte nicht kopiert werden, wähle stattdessen den Text aus'
 
 es:
   frontend:
     loading: Cargando...
+    environment: '%env% entorno: lo que se muestra aquí no es producción'
+    dev_menu: 'Herramientas de desarrollo'
+    develop_toolbar: 'Barra de herramientas de desarrollo'
+    diff:
+      none: (nada)
+    number_stepper:
+      less: 'Uno menos'
+      more: 'Uno más'
+    period:
+      label: Período
+      unit: 'Tipo de período'
+      unit_month: Mes
+      unit_year: Año
+      previous: Anterior
+      next: Siguiente
+      today: Hoy
+    file_input:
+      hint_one: 'Suelta un archivo aquí, o elígelo'
+      hint_many: 'Suelta archivos aquí, o elígelos'
+      pick: Elegir
+      count: '%count% archivos'
+      remove: Eliminar
+    theme:
+      label: Tema
+      custom: Personalizado
     no_data: 'Sin datos'
     explorer:
       root: Archivos
@@ -479,27 +678,114 @@ es:
       total: '%count% en total'
       actions: Acciones
       apply: Aplicar
+      sorted_asc: 'Ordenado por %column%, ascendente'
+      sorted_desc: 'Ordenado por %column%, descendente'
+      sort_reset: 'Volver al orden original'
+      empty_filtered: 'Nada coincide.'
+      clear_filters: 'Mostrar todo'
+      retry: 'Inténtalo de nuevo'
+      search: Buscar
+      results: '%count% encontrados'
+      open: 'Abrir el detalle'
+    grid:
+      add: 'Agregar esta fila'
+      delete: 'Eliminar esta fila'
+      saving: Guardando…
+      saved: Guardado
+      error: 'No guardado'
+      import:
+        file: 'Importar un archivo'
+        no_table: 'No se encontró ninguna tabla en este archivo.'
+        header: 'La primera fila nombra las columnas'
+        missing: 'Ninguna columna contiene: %columns%'
+        column: 'Columna %index%'
+        skip: Omitir
+        submit: 'Agregar %count% filas'
+        cancel: Cancelar
+    confirm:
+      accept: Confirmar
+      cancel: Cancelar
     switch:
       cancel: Cancelar
+      checked: Activado
+      unchecked: Desactivado
     tour:
       previous: Anterior
       next: Siguiente
       done: Hecho
       close: 'Cerrar el tour'
       progress: '%current% / %total%'
+    upload:
+      hint: 'Suelta archivos aquí, o selecciónalos'
+      pick: Subir
+      title: Subidas
+      progress: 'Subidas — %done% / %count%'
+      cancel: 'Cancelar esta subida'
+      cancelled: Cancelado
+      failed: 'La subida falló'
+      refused_size: '%name% es más grande que %max%, lo máximo que este lugar acepta'
+      refused_type: '%name% no es un tipo de archivo que este lugar acepta (%accept%)'
+      status:
+        queued: Esperando
+        uploading: Enviando
+        success: Hecho
+        error: Fallido
     embed:
       close: Cerrar
+    document:
+      open: 'Abrir en una nueva ventana'
+      download: Descargar
+    form:
+      optional: (opcional)
     menu:
+      navigation: Navegación
+      open_left: 'Abrir el menú'
+      close_left: 'Cerrar el menú'
+      open_right: 'Abrir el panel lateral'
+      close_right: 'Cerrar el panel lateral'
+      more: 'Más opciones'
       filter: Filtrar
       filter_empty: 'Nada coincide'
     zone:
       collapse: Colapsar
       expand: Expandir
       resize: Redimensionar
+    crop:
+      area: 'Área de recorte'
+      handle: 'Redimensionar el área de recorte'
+    copy:
+      copy: Copiar
+      copied: Copiado
+      failed: 'No se pudo copiar, selecciona el texto en su lugar'
 
 fa:
   frontend:
     loading: 'در حال بارگذاری...'
+    environment: '%env% محیط: آنچه در اینجا نشان داده می‌شود تولید نیست'
+    dev_menu: 'ابزارهای توسعه'
+    develop_toolbar: 'نوار ابزار توسعه'
+    diff:
+      none: (هیچ‌چیز)
+    number_stepper:
+      less: 'یک کمتر'
+      more: 'یک بیشتر'
+    period:
+      label: دوره
+      unit: 'نوع دوره'
+      unit_month: ماه
+      unit_year: سال
+      previous: قبلی
+      next: بعدی
+      today: امروز
+    file_input:
+      hint_one: 'یک فایل را اینجا رها کنید یا انتخاب کنید'
+      hint_many: 'فایل‌ها را اینجا رها کنید یا انتخاب کنید'
+      pick: 'انتخاب کنید'
+      count: '%count% فایل'
+      remove: حذف
+    theme:
+      label: تم
+      custom: سفارشی
     no_data: 'هیچ داده‌ای وجود ندارد'
     explorer:
       root: فایل‌ها
@@ -544,27 +830,114 @@ fa:
       total: '%count% در مجموع'
       actions: عملیات
       apply: اعمال
+      sorted_asc: 'مرتب‌شده بر اساس %column%، صعودی'
+      sorted_desc: 'مرتب‌شده بر اساس %column%، نزولی'
+      sort_reset: 'بازگشت به ترتیب اصلی'
+      empty_filtered: 'هیچ چیزی مطابق نیست.'
+      clear_filters: 'همه چیز را نمایش بده'
+      retry: 'دوباره تلاش کنید'
+      search: جستجو
+      results: '%count% پیدا شد'
+      open: 'باز کردن جزئیات'
+    grid:
+      add: 'این ردیف را اضافه کنید'
+      delete: 'این ردیف را حذف کنید'
+      saving: 'در حال ذخیره…'
+      saved: 'ذخیره شد'
+      error: 'ذخیره نشد'
+      import:
+        file: 'وارد کردن یک فایل'
+        no_table: 'هیچ جدولی در این فایل پیدا نشد.'
+        header: 'ردیف اول نام ستون‌ها را مشخص می‌کند'
+        missing: 'هیچ ستونی شامل: %columns% نیست'
+        column: 'ستون %index%'
+        skip: 'رد کردن'
+        submit: 'اضافه کردن %count% ردیف'
+        cancel: لغو
+    confirm:
+      accept: تأیید
+      cancel: لغو
     switch:
       cancel: لغو
+      checked: روشن
+      unchecked: خاموش
     tour:
       previous: قبلی
       next: بعدی
       done: 'تمام شد'
       close: 'بستن تور'
       progress: '%current% / %total%'
+    upload:
+      hint: 'فایل‌ها را اینجا رها کنید یا انتخاب کنید'
+      pick: آپلود
+      title: آپلودها
+      progress: 'آپلودها — %done% / %count%'
+      cancel: 'این آپلود را لغو کنید'
+      cancelled: 'لغو شد'
+      failed: 'آپلود ناموفق بود'
+      refused_size: '%name% بزرگ‌تر از %max% است، حداکثر اندازه‌ای که اینجا پذیرفته می‌شود'
+      refused_type: '%name% نوع فایل مورد قبول اینجا نیست (%accept%)'
+      status:
+        queued: 'در انتظار'
+        uploading: 'در حال ارسال'
+        success: 'انجام شد'
+        error: ناموفق
     embed:
       close: بستن
+    document:
+      open: 'در یک پنجره جدید باز کنید'
+      download: دانلود
+    form:
+      optional: (اختیاری)
     menu:
+      navigation: ناوبری
+      open_left: 'باز کردن منو'
+      close_left: 'بستن منو'
+      open_right: 'باز کردن پنل جانبی'
+      close_right: 'بستن پنل جانبی'
+      more: 'گزینه‌های بیشتر'
       filter: فیلتر
       filter_empty: 'هیچ موردی مطابقت ندارد'
     zone:
       collapse: 'جمع کردن'
       expand: 'گسترش دادن'
       resize: 'تغییر اندازه'
+    crop:
+      area: 'منطقه برش'
+      handle: 'تغییر اندازه منطقه برش'
+    copy:
+      copy: کپی
+      copied: 'کپی شد'
+      failed: 'نتوانست کپی کند، متن را به جای آن انتخاب کنید'
 
 fi:
   frontend:
     loading: Ladataan...
+    environment: '%env% ympäristö: täällä näkyvä ei ole tuotanto'
+    dev_menu: Kehitystyökalut
+    develop_toolbar: Kehitystyökalupalkki
+    diff:
+      none: '(ei mitään)'
+    number_stepper:
+      less: 'Yksi vähemmän'
+      more: 'Yksi enemmän'
+    period:
+      label: Jakso
+      unit: 'Jakson tyyppi'
+      unit_month: Kuukausi
+      unit_year: Vuosi
+      previous: Edellinen
+      next: Seuraava
+      today: Tänään
+    file_input:
+      hint_one: 'Vedä tiedosto tänne tai valitse se'
+      hint_many: 'Vedä tiedostoja tänne tai valitse ne'
+      pick: Valitse
+      count: '%count% tiedostoa'
+      remove: Poista
+    theme:
+      label: Teema
+      custom: Mukautettu
     no_data: 'Ei tietoja'
     explorer:
       root: Tiedostot
@@ -609,23 +982,85 @@ fi:
       total: '%count% yhteensä'
       actions: Toiminnot
       apply: Käytä
+      sorted_asc: 'Lajiteltu %column% mukaan, nouseva'
+      sorted_desc: 'Lajiteltu %column% mukaan, laskeva'
+      sort_reset: 'Palaa alkuperäiseen järjestykseen'
+      empty_filtered: 'Mikään ei vastaa.'
+      clear_filters: 'Näytä kaikki'
+      retry: 'Yritä uudelleen'
+      search: Hae
+      results: '%count% löytyi'
+      open: 'Avaa yksityiskohdat'
+    grid:
+      add: 'Lisää tämä rivi'
+      delete: 'Poista tämä rivi'
+      saving: Tallennetaan…
+      saved: Tallennettu
+      error: 'Ei tallennettu'
+      import:
+        file: 'Tuo tiedosto'
+        no_table: 'Tässä tiedostossa ei löytynyt taulukkoa.'
+        header: 'Ensimmäinen rivi nimeää sarakkeet'
+        missing: 'Yksikään sarake ei sisällä: %columns%'
+        column: 'Sarake %index%'
+        skip: 'Jätä pois'
+        submit: 'Lisää %count% riviä'
+        cancel: Peruuta
+    confirm:
+      accept: Vahvista
+      cancel: Peruuta
     switch:
       cancel: Peruuta
+      checked: Päällä
+      unchecked: 'Pois päältä'
     tour:
       previous: Edellinen
       next: Seuraava
       done: Valmis
       close: 'Sulje opastus'
       progress: '%current% / %total%'
+    upload:
+      hint: 'Vedä tiedostoja tänne tai valitse ne'
+      pick: Lataa
+      title: Lataukset
+      progress: 'Lataukset — %done% / %count%'
+      cancel: 'Peruuta tämä lataus'
+      cancelled: Peruttu
+      failed: 'Lataus epäonnistui'
+      refused_size: '%name% on suurempi kuin %max%, enintään mitä tämä paikka ottaa'
+      refused_type: '%name% ei ole tämän paikan hyväksymä tiedostotyyppi (%accept%)'
+      status:
+        queued: Odottaa
+        uploading: Lähetetään
+        success: Valmis
+        error: Epäonnistui
     embed:
       close: Sulje
+    document:
+      open: 'Avaa uudessa ikkunassa'
+      download: Lataa
+    form:
+      optional: (valinnainen)
     menu:
+      navigation: Navigointi
+      open_left: 'Avaa valikko'
+      close_left: 'Sulje valikko'
+      open_right: 'Avaa sivupaneeli'
+      close_right: 'Sulje sivupaneeli'
+      more: 'Lisää vaihtoehtoja'
       filter: Suodata
       filter_empty: 'Ei mitään vastaa'
     zone:
       collapse: Pienennä
       expand: Laajenna
       resize: 'Muuta kokoa'
+    crop:
+      area: Rajausalue
+      handle: 'Muuta rajausaluetta'
+    copy:
+      copy: Kopioi
+      copied: Kopioitu
+      failed: 'Kopiointi ei onnistunut, valitse teksti sen sijaan'
 
 fr:
   frontend:
@@ -782,6 +1217,31 @@ fr:
 he:
   frontend:
     loading: טוען...
+    environment: '%env% סביבה: מה שמוצג כאן אינו סביבה של ייצור'
+    dev_menu: 'כלי פיתוח'
+    develop_toolbar: 'סרגל הכלים לפיתוח'
+    diff:
+      none: '(אין כלום)'
+    number_stepper:
+      less: 'פחות אחד'
+      more: 'עוד אחד'
+    period:
+      label: תקופה
+      unit: 'סוג תקופה'
+      unit_month: חודש
+      unit_year: שנה
+      previous: קודם
+      next: הבא
+      today: היום
+    file_input:
+      hint_one: 'שחרר כאן קובץ, או בחר אותו'
+      hint_many: 'שחרר קבצים כאן, או בחר אותם'
+      pick: בחר
+      count: '%count% קבצים'
+      remove: הסר
+    theme:
+      label: עיצוב
+      custom: 'מותאם אישית'
     no_data: 'אין נתונים'
     explorer:
       root: קבצים
@@ -826,27 +1286,114 @@ he:
       total: '%count% סך הכל'
       actions: פעולות
       apply: החלה
+      sorted_asc: 'ממויין לפי %column%, בסדר עולה'
+      sorted_desc: 'ממויין לפי %column%, בסדר יורד'
+      sort_reset: 'חזרה לסדר המקורי'
+      empty_filtered: 'אין תוצאות תואמות.'
+      clear_filters: 'הצג הכל'
+      retry: 'נסה שוב'
+      search: חפש
+      results: '%count% נמצאו'
+      open: 'פתח את הפרטים'
+    grid:
+      add: 'הוסף שורה זו'
+      delete: 'מחק שורה זו'
+      saving: שמור…
+      saved: נשמר
+      error: 'לא נשמר'
+      import:
+        file: 'ייבא קובץ'
+        no_table: 'לא נמצאה טבלה בקובץ הזה.'
+        header: 'השורה הראשונה קובעת את שמות העמודות'
+        missing: 'לא נמצאה עמודה: %columns%'
+        column: 'עמודה %index%'
+        skip: דלג
+        submit: 'הוסף %count% שורות'
+        cancel: ביטול
+    confirm:
+      accept: אשר
+      cancel: ביטול
     switch:
       cancel: ביטול
+      checked: פעיל
+      unchecked: 'לא פעיל'
     tour:
       previous: קודם
       next: אחרון
       done: גמר
       close: 'סגור את הסיור'
       progress: '%current% / %total%'
+    upload:
+      hint: 'שחרר קבצים כאן, או בחר אותם'
+      pick: העלה
+      title: העלאות
+      progress: 'העלאות — %done% / %count%'
+      cancel: 'ביטול ההעלאה הזאת'
+      cancelled: בוטל
+      failed: 'ההעלאה נכשלה'
+      refused_size: '%name% גדול מ-%max%, המקסימום שהמקום הזה מקבל'
+      refused_type: '%name% אינו סוג הקובץ שהמקום הזה מקבל (%accept%)'
+      status:
+        queued: ממתין
+        uploading: שולח
+        success: הושלם
+        error: נכשל
     embed:
       close: סגור
+    document:
+      open: 'פתח בחלון חדש'
+      download: הורד
+    form:
+      optional: (אופציונלי)
     menu:
+      navigation: ניווט
+      open_left: 'פתח את התפריט'
+      close_left: 'סגור את התפריט'
+      open_right: 'פתח את הפאנל הצדדי'
+      close_right: 'סגור את הפאנל הצדדי'
+      more: 'עוד אפשרויות'
       filter: סנן
       filter_empty: 'אין תוצאות תואמות'
     zone:
       collapse: כווץ
       expand: הרחב
       resize: 'שנה גודל'
+    crop:
+      area: 'אזור חיתוך'
+      handle: 'שנה את גודל אזור החיתוך'
+    copy:
+      copy: העתק
+      copied: הועתק
+      failed: 'לא ניתן להעתיק, בחר את הטקסט במקום'
 
 hi:
   frontend:
     loading: 'लोड हो रहा है...'
+    environment: '%env% वातावरण: यहाँ प्रदर्शित किया गया है कि यह उत्पादन नहीं है'
+    dev_menu: 'विकास उपकरण'
+    develop_toolbar: 'विकास टूलबार'
+    diff:
+      none: '(कुछ नहीं)'
+    number_stepper:
+      less: 'एक कम'
+      more: 'एक अधिक'
+    period:
+      label: अवधि
+      unit: 'अवधि का प्रकार'
+      unit_month: महिना
+      unit_year: साल
+      previous: पिछला
+      next: अगला
+      today: आज
+    file_input:
+      hint_one: 'यहाँ एक फ़ाइल छोड़ें, या इसे चुनें'
+      hint_many: 'यहाँ फ़ाइलें छोड़ें, या उन्हें चुनें'
+      pick: चुनें
+      count: '%count% फ़ाइलें'
+      remove: हटाएं
+    theme:
+      label: थीम
+      custom: कस्टम
     no_data: 'कोई डेटा नहीं'
     explorer:
       root: फाइलें
@@ -891,27 +1438,114 @@ hi:
       total: 'कुल %count%'
       actions: कार्य
       apply: 'लागू करें'
+      sorted_asc: '%column% द्वारा क्रमबद्ध, आरोही'
+      sorted_desc: '%column% द्वारा क्रमबद्ध, अवरोही'
+      sort_reset: 'मूल क्रम में वापस'
+      empty_filtered: 'कुछ भी मेल नहीं खाता।'
+      clear_filters: 'सब कुछ दिखाएं'
+      retry: 'फिर से कोशिश करें'
+      search: खोजें
+      results: '%count% पाए गए'
+      open: 'विवरण खोलें'
+    grid:
+      add: 'इस पंक्ति को जोड़ें'
+      delete: 'इस पंक्ति को हटाएं'
+      saving: 'सहेज रहा है…'
+      saved: 'सहेजा गया'
+      error: 'सहेजा नहीं गया'
+      import:
+        file: 'एक फ़ाइल आयात करें'
+        no_table: 'इस फ़ाइल में कोई तालिका नहीं मिली।'
+        header: 'पहली पंक्ति कॉलम का नाम देती है'
+        missing: 'कोई कॉलम नहीं है: %columns%'
+        column: 'कॉलम %index%'
+        skip: छोड़ें
+        submit: '%count% पंक्तियाँ जोड़ें'
+        cancel: 'रद्द करें'
+    confirm:
+      accept: 'पुष्टि करें'
+      cancel: 'रद्द करें'
     switch:
       cancel: 'रद्द करें'
+      checked: चालू
+      unchecked: बंद
     tour:
       previous: पिछला
       next: अगला
       done: पूर्ण
       close: 'टूर बंद करें'
       progress: '%current% / %total%'
+    upload:
+      hint: 'यहाँ फ़ाइलें छोड़ें, या उन्हें चुनें'
+      pick: 'अपलोड करें'
+      title: अपलोड
+      progress: 'अपलोड — %done% / %count%'
+      cancel: 'इस अपलोड को रद्द करें'
+      cancelled: 'रद्द किया गया'
+      failed: 'अपलोड विफल हुआ'
+      refused_size: '%name% %max% से बड़ा है, जो इस स्थान का अधिकतम है'
+      refused_type: '%name% इस स्थान के लिए फ़ाइल का प्रकार नहीं है (%accept%)'
+      status:
+        queued: 'प्रतीक्षा कर रहा है'
+        uploading: 'भेज रहा है'
+        success: 'पूरा हुआ'
+        error: विफल
     embed:
       close: 'बंद करें'
+    document:
+      open: 'नए विंडो में खोलें'
+      download: 'डाउनलोड करें'
+    form:
+      optional: (वैकल्पिक)
     menu:
+      navigation: नेविगेशन
+      open_left: 'मेनू खोलें'
+      close_left: 'मेनू बंद करें'
+      open_right: 'साइड पैनल खोलें'
+      close_right: 'साइड पैनल बंद करें'
+      more: 'अधिक विकल्प'
       filter: फिल्टर
       filter_empty: 'कोई मेल नहीं खाता'
     zone:
       collapse: 'संकुचित करें'
       expand: 'विस्तारित करें'
       resize: 'आकार बदलें'
+    crop:
+      area: 'क्रॉप क्षेत्र'
+      handle: 'क्रॉप क्षेत्र का आकार बदलें'
+    copy:
+      copy: 'कॉपी करें'
+      copied: 'कॉपी किया गया'
+      failed: 'कॉपी नहीं कर सका, इसके बजाय टेक्स्ट चुनें'
 
 id:
   frontend:
     loading: Memuat...
+    environment: '%env% lingkungan: apa yang ditampilkan di sini bukan produksi'
+    dev_menu: 'Alat pengembangan'
+    develop_toolbar: 'Toolbar pengembang'
+    diff:
+      none: '(tidak ada)'
+    number_stepper:
+      less: 'Satu kurang'
+      more: 'Satu lebih'
+    period:
+      label: Periode
+      unit: 'Jenis periode'
+      unit_month: Bulan
+      unit_year: Tahun
+      previous: Sebelumnya
+      next: Selanjutnya
+      today: 'Hari ini'
+    file_input:
+      hint_one: 'Seret file ke sini, atau pilih'
+      hint_many: 'Seret file ke sini, atau pilih'
+      pick: Pilih
+      count: '%count% file'
+      remove: Hapus
+    theme:
+      label: Tema
+      custom: Kustom
     no_data: 'Tidak ada data'
     explorer:
       root: Berkas
@@ -956,27 +1590,114 @@ id:
       total: '%count% total'
       actions: Aksi
       apply: Terapkan
+      sorted_asc: 'Diurutkan berdasarkan %column%, naik'
+      sorted_desc: 'Diurutkan berdasarkan %column%, turun'
+      sort_reset: 'Kembali ke urutan asli'
+      empty_filtered: 'Tidak ada yang cocok.'
+      clear_filters: 'Tampilkan semuanya'
+      retry: 'Coba lagi'
+      search: Cari
+      results: '%count% ditemukan'
+      open: 'Buka detail'
+    grid:
+      add: 'Tambahkan baris ini'
+      delete: 'Hapus baris ini'
+      saving: Menyimpan…
+      saved: Tersimpan
+      error: 'Tidak tersimpan'
+      import:
+        file: 'Impor file'
+        no_table: 'Tidak ada tabel yang ditemukan di file ini.'
+        header: 'Baris pertama menamai kolom-kolomnya'
+        missing: 'Tidak ada kolom yang memuat: %columns%'
+        column: 'Kolom %index%'
+        skip: Lewati
+        submit: 'Tambahkan %count% baris'
+        cancel: Batal
+    confirm:
+      accept: Konfirmasi
+      cancel: Batal
     switch:
       cancel: Batal
+      checked: Hidup
+      unchecked: Mati
     tour:
       previous: Sebelumnya
       next: Berikutnya
       done: Selesai
       close: 'Tutup tur'
       progress: '%current% / %total%'
+    upload:
+      hint: 'Seret file ke sini, atau pilih'
+      pick: Unggah
+      title: Unggahan
+      progress: 'Unggahan — %done% / %count%'
+      cancel: 'Batalkan unggahan ini'
+      cancelled: Dibatalkan
+      failed: 'Unggahan gagal'
+      refused_size: '%name% lebih besar dari %max%, yang paling banyak dapat ditampung tempat ini'
+      refused_type: '%name% bukan jenis file yang diterima tempat ini (%accept%)'
+      status:
+        queued: Menunggu
+        uploading: Mengirim
+        success: Selesai
+        error: Gagal
     embed:
       close: Tutup
+    document:
+      open: 'Buka di jendela baru'
+      download: Unduh
+    form:
+      optional: (opsional)
     menu:
+      navigation: Navigasi
+      open_left: 'Buka menu'
+      close_left: 'Tutup menu'
+      open_right: 'Buka panel samping'
+      close_right: 'Tutup panel samping'
+      more: 'Opsi lainnya'
       filter: Saring
       filter_empty: 'Tidak ada yang cocok'
     zone:
       collapse: Kecilkan
       expand: Perbesar
       resize: 'Ubah ukuran'
+    crop:
+      area: 'Area pemotongan'
+      handle: 'Ubah ukuran area pemotongan'
+    copy:
+      copy: Salin
+      copied: Disalin
+      failed: 'Tidak dapat menyalin, pilih teks sebagai gantinya'
 
 it:
   frontend:
     loading: Caricamento...
+    environment: '%env% ambiente: quello che è mostrato qui non è produzione'
+    dev_menu: 'Strumenti di sviluppo'
+    develop_toolbar: 'Barra degli strumenti di sviluppo'
+    diff:
+      none: (niente)
+    number_stepper:
+      less: 'Uno in meno'
+      more: 'Uno in più'
+    period:
+      label: Periodo
+      unit: 'Tipo di periodo'
+      unit_month: Mese
+      unit_year: Anno
+      previous: Precedente
+      next: Successivo
+      today: Oggi
+    file_input:
+      hint_one: 'Trascina un file qui, oppure scegli'
+      hint_many: 'Trascina file qui, oppure scegli'
+      pick: Scegli
+      count: '%count% file'
+      remove: Rimuovi
+    theme:
+      label: Tema
+      custom: Personalizzato
     no_data: 'Nessun dato'
     explorer:
       root: File
@@ -1021,27 +1742,114 @@ it:
       total: '%count% in totale'
       actions: Azioni
       apply: Applica
+      sorted_asc: 'Ordinato per %column%, crescente'
+      sorted_desc: 'Ordinato per %column%, decrescente'
+      sort_reset: "Torna all'ordine originale"
+      empty_filtered: 'Niente corrisponde.'
+      clear_filters: 'Mostra tutto'
+      retry: Riprova
+      search: Cerca
+      results: '%count% trovati'
+      open: 'Apri il dettaglio'
+    grid:
+      add: 'Aggiungi questa riga'
+      delete: 'Elimina questa riga'
+      saving: Salvataggio…
+      saved: Salvato
+      error: 'Non salvato'
+      import:
+        file: 'Importa un file'
+        no_table: 'Nessuna tabella trovata in questo file.'
+        header: 'La prima riga nomina le colonne'
+        missing: 'Nessuna colonna contiene: %columns%'
+        column: 'Colonna %index%'
+        skip: Ometti
+        submit: 'Aggiungi %count% righe'
+        cancel: Annulla
+    confirm:
+      accept: Conferma
+      cancel: Annulla
     switch:
       cancel: Annulla
+      checked: Attivo
+      unchecked: Disattivo
     tour:
       previous: Precedente
       next: Successivo
       done: Fatto
       close: 'Chiudi il tour'
       progress: '%current% / %total%'
+    upload:
+      hint: 'Trascina file qui, oppure scegli'
+      pick: Carica
+      title: Caricamenti
+      progress: 'Caricamenti — %done% / %count%'
+      cancel: 'Annulla questo caricamento'
+      cancelled: Annullato
+      failed: 'Il caricamento è fallito'
+      refused_size: '%name% è più grande di %max%, il massimo che questo luogo accetta'
+      refused_type: '%name% non è un tipo di file che questo luogo accetta (%accept%)'
+      status:
+        queued: 'In attesa'
+        uploading: Invio
+        success: Fatto
+        error: Fallito
     embed:
       close: Chiudi
+    document:
+      open: 'Apri in una nuova finestra'
+      download: Scarica
+    form:
+      optional: (opzionale)
     menu:
+      navigation: Navigazione
+      open_left: 'Apri il menu'
+      close_left: 'Chiudi il menu'
+      open_right: 'Apri il pannello laterale'
+      close_right: 'Chiudi il pannello laterale'
+      more: 'Altre opzioni'
       filter: Filtra
       filter_empty: 'Nessun risultato'
     zone:
       collapse: Riduci
       expand: Espandi
       resize: Ridimensiona
+    crop:
+      area: 'Area di ritaglio'
+      handle: "Ridimensiona l'area di ritaglio"
+    copy:
+      copy: Copia
+      copied: Copiato
+      failed: 'Impossibile copiare, seleziona il testo invece'
 
 ja:
   frontend:
     loading: 読み込み中...
+    environment: '%env% 環境: ここに表示されているのは本番環境ではありません'
+    dev_menu: 開発ツール
+    develop_toolbar: 開発ツールバー
+    diff:
+      none: (何もありません)
+    number_stepper:
+      less: 1つ少ない
+      more: 1つ多い
+    period:
+      label: 期間
+      unit: 期間の種類
+      unit_month: 月
+      unit_year: 年
+      previous: 前
+      next: 次
+      today: 今日
+    file_input:
+      hint_one: ここにファイルをドロップするか、選択してください
+      hint_many: ここにファイルをドロップするか、選択してください
+      pick: 選択
+      count: '%count% ファイル'
+      remove: 削除
+    theme:
+      label: テーマ
+      custom: カスタム
     no_data: データがありません
     explorer:
       root: ファイル
@@ -1086,27 +1894,114 @@ ja:
       total: 合計%count%
       actions: アクション
       apply: 適用
+      sorted_asc: '%column% で昇順にソート'
+      sorted_desc: '%column% で降順にソート'
+      sort_reset: 元の順序に戻す
+      empty_filtered: 一致するものはありません。
+      clear_filters: すべて表示
+      retry: 再試行
+      search: 検索
+      results: '%count% 件見つかりました'
+      open: 詳細を開く
+    grid:
+      add: この行を追加
+      delete: この行を削除
+      saving: 保存中…
+      saved: 保存完了
+      error: 保存できませんでした
+      import:
+        file: ファイルをインポート
+        no_table: このファイルにテーブルが見つかりませんでした。
+        header: 最初の行が列名です
+        missing: '列に %columns% が含まれていません'
+        column: '列 %index%'
+        skip: 省略
+        submit: '%count% 行を追加'
+        cancel: キャンセル
+    confirm:
+      accept: 確認
+      cancel: キャンセル
     switch:
       cancel: キャンセル
+      checked: オン
+      unchecked: オフ
     tour:
       previous: 前へ
       next: 次へ
       done: 完了
       close: ツアーを閉じる
       progress: '%current% / %total%'
+    upload:
+      hint: ここにファイルをドロップするか、選択してください
+      pick: アップロード
+      title: アップロード
+      progress: 'アップロード中 — %done% ／ %count%'
+      cancel: このアップロードをキャンセル
+      cancelled: キャンセルされました
+      failed: アップロードに失敗しました
+      refused_size: '%name% は %max% より大きく、この場所が受け入れる最大サイズです'
+      refused_type: '%name% はこの場所が受け入れるファイルの種類ではありません (%accept%)'
+      status:
+        queued: 待機中
+        uploading: 送信中
+        success: 完了
+        error: 失敗
     embed:
       close: 閉じる
+    document:
+      open: 新しいウィンドウで開く
+      download: ダウンロード
+    form:
+      optional: (任意)
     menu:
+      navigation: ナビゲーション
+      open_left: メニューを開く
+      close_left: メニューを閉じる
+      open_right: サイドパネルを開く
+      close_right: サイドパネルを閉じる
+      more: その他のオプション
       filter: フィルター
       filter_empty: 一致するものはありません
     zone:
       collapse: 折りたたむ
       expand: 展開する
       resize: サイズ変更
+    crop:
+      area: トリミングエリア
+      handle: トリミングエリアのサイズ変更
+    copy:
+      copy: コピー
+      copied: コピーしました
+      failed: コピーできませんでした。テキストを選択してください。
 
 ko:
   frontend:
     loading: '로딩 중...'
+    environment: '%env% 환경: 여기 표시된 것은 운영 환경이 아닙니다'
+    dev_menu: '개발 도구'
+    develop_toolbar: '개발 도구 모음'
+    diff:
+      none: (없음)
+    number_stepper:
+      less: '하나 적게'
+      more: '하나 더'
+    period:
+      label: 기간
+      unit: '기간 종류'
+      unit_month: 월
+      unit_year: 년
+      previous: 이전
+      next: 다음
+      today: 오늘
+    file_input:
+      hint_one: '여기에 파일을 드롭하거나 선택하세요'
+      hint_many: '여기에 파일을 드롭하거나 선택하세요'
+      pick: 선택
+      count: '%count% 파일'
+      remove: 제거
+    theme:
+      label: 테마
+      custom: '사용자 정의'
     no_data: '데이터가 없습니다'
     explorer:
       root: 파일
@@ -1151,27 +2046,114 @@ ko:
       total: '총 %count%'
       actions: 작업
       apply: 적용
+      sorted_asc: '%column% 기준으로 오름차순 정렬됨'
+      sorted_desc: '%column% 기준으로 내림차순 정렬됨'
+      sort_reset: '원래 순서로 돌아가기'
+      empty_filtered: '일치하는 항목이 없습니다.'
+      clear_filters: '모두 표시'
+      retry: '다시 시도'
+      search: 검색
+      results: '%count% 발견됨'
+      open: '상세 정보 열기'
+    grid:
+      add: '이 행 추가'
+      delete: '이 행 삭제'
+      saving: '저장 중…'
+      saved: 저장됨
+      error: '저장되지 않음'
+      import:
+        file: '파일 가져오기'
+        no_table: '이 파일에서 테이블을 찾을 수 없습니다.'
+        header: '첫 번째 행이 열 이름을 지정합니다'
+        missing: '열이 없습니다: %columns%'
+        column: '열 %index%'
+        skip: 생략
+        submit: '%count% 행 추가'
+        cancel: 취소
+    confirm:
+      accept: 확인
+      cancel: 취소
     switch:
       cancel: 취소
+      checked: 켜짐
+      unchecked: 꺼짐
     tour:
       previous: 이전
       next: 다음
       done: 완료
       close: '투어 닫기'
       progress: '%current% / %total%'
+    upload:
+      hint: '여기에 파일을 드롭하거나 선택하세요'
+      pick: 업로드
+      title: 업로드
+      progress: '업로드 — %done% / %count%'
+      cancel: '이 업로드 취소'
+      cancelled: 취소됨
+      failed: '업로드 실패'
+      refused_size: '%name%는 %max%보다 큽니다, 이 공간이 허용하는 최대 크기입니다'
+      refused_type: '%name%는 이 공간에서 허용되는 파일 종류가 아닙니다 (%accept%)'
+      status:
+        queued: '대기 중'
+        uploading: '전송 중'
+        success: 완료
+        error: 실패
     embed:
       close: 닫기
+    document:
+      open: '새 창에서 열기'
+      download: 다운로드
+    form:
+      optional: '(선택 사항)'
     menu:
+      navigation: 탐색
+      open_left: '메뉴 열기'
+      close_left: '메뉴 닫기'
+      open_right: '사이드 패널 열기'
+      close_right: '사이드 패널 닫기'
+      more: '더 많은 옵션'
       filter: 필터
       filter_empty: '일치하는 항목이 없습니다'
     zone:
       collapse: 축소
       expand: 확장
       resize: '크기 조정'
+    crop:
+      area: '자르기 영역'
+      handle: '자르기 영역 크기 조정'
+    copy:
+      copy: 복사
+      copied: 복사됨
+      failed: '복사할 수 없습니다. 대신 텍스트를 선택하세요.'
 
 nl:
   frontend:
     loading: Laden...
+    environment: '%env% omgeving: wat hier wordt weergegeven is niet productie'
+    dev_menu: Ontwikkelingstools
+    develop_toolbar: Ontwikkelwerkbalk
+    diff:
+      none: (niets)
+    number_stepper:
+      less: 'Één minder'
+      more: 'Één meer'
+    period:
+      label: Periode
+      unit: 'Soort periode'
+      unit_month: Maand
+      unit_year: Jaar
+      previous: Vorige
+      next: Volgende
+      today: Vandaag
+    file_input:
+      hint_one: 'Sleep een bestand hierheen, of kies het'
+      hint_many: 'Sleep bestanden hierheen, of kies ze'
+      pick: Kies
+      count: '%count% bestanden'
+      remove: Verwijderen
+    theme:
+      label: Thema
+      custom: Aangepast
     no_data: 'Geen gegevens'
     explorer:
       root: Bestanden
@@ -1216,27 +2198,114 @@ nl:
       total: '%count% in totaal'
       actions: Acties
       apply: Toepassen
+      sorted_asc: 'Gesorteerd op %column%, oplopend'
+      sorted_desc: 'Gesorteerd op %column%, aflopend'
+      sort_reset: 'Terug naar de originele volgorde'
+      empty_filtered: 'Niets komt overeen.'
+      clear_filters: 'Toon alles'
+      retry: 'Probeer opnieuw'
+      search: Zoeken
+      results: '%count% gevonden'
+      open: 'Open de details'
+    grid:
+      add: 'Deze rij toevoegen'
+      delete: 'Deze rij verwijderen'
+      saving: Opslaan…
+      saved: Opgeslagen
+      error: 'Niet opgeslagen'
+      import:
+        file: 'Een bestand importeren'
+        no_table: 'Er is geen tabel gevonden in dit bestand.'
+        header: 'De eerste rij benoemt de kolommen'
+        missing: 'Geen kolom bevat: %columns%'
+        column: 'Kolom %index%'
+        skip: Overslaan
+        submit: 'Voeg %count% rijen toe'
+        cancel: Annuleren
+    confirm:
+      accept: Bevestigen
+      cancel: Annuleren
     switch:
       cancel: Annuleren
+      checked: Aan
+      unchecked: Uit
     tour:
       previous: Vorige
       next: Volgende
       done: Klaar
       close: 'Sluit de rondleiding'
       progress: '%current% / %total%'
+    upload:
+      hint: 'Sleep bestanden hierheen, of kies ze'
+      pick: Uploaden
+      title: Uploads
+      progress: 'Uploads — %done% / %count%'
+      cancel: 'Annuleer deze upload'
+      cancelled: Geannuleerd
+      failed: 'De upload is mislukt'
+      refused_size: '%name% is groter dan %max%, het maximale dat deze plaats aanneemt'
+      refused_type: '%name% is geen soort bestand die deze plaats aanneemt (%accept%)'
+      status:
+        queued: Wachten
+        uploading: Verzenden
+        success: Klaar
+        error: Mislukt
     embed:
       close: Sluiten
+    document:
+      open: 'Open in een nieuw venster'
+      download: Downloaden
+    form:
+      optional: (optioneel)
     menu:
+      navigation: Navigatie
+      open_left: 'Open het menu'
+      close_left: 'Sluit het menu'
+      open_right: 'Open het zijpaneel'
+      close_right: 'Sluit het zijpaneel'
+      more: 'Meer opties'
       filter: Filter
       filter_empty: 'Niets komt overeen'
     zone:
       collapse: Samenvouwen
       expand: Uitvouwen
       resize: 'Grootte wijzigen'
+    crop:
+      area: Bijsnijdgebied
+      handle: 'Bijsnijdgebied aanpassen'
+    copy:
+      copy: Kopiëren
+      copied: Gekopieerd
+      failed: 'Kon niet kopiëren, selecteer de tekst in plaats daarvan'
 
 pl:
   frontend:
     loading: Ładowanie...
+    environment: '%env% środowisko: to co jest tutaj pokazane, to nie produkcja'
+    dev_menu: 'Narzędzia deweloperskie'
+    develop_toolbar: 'Pasek narzędzi dewelopera'
+    diff:
+      none: (nic)
+    number_stepper:
+      less: 'Jedna mniej'
+      more: 'Jedna więcej'
+    period:
+      label: Okres
+      unit: 'Rodzaj okresu'
+      unit_month: Miesiąc
+      unit_year: Rok
+      previous: Poprzedni
+      next: Następny
+      today: Dziś
+    file_input:
+      hint_one: 'Przeciągnij plik tutaj lub wybierz go'
+      hint_many: 'Przeciągnij pliki tutaj lub wybierz je'
+      pick: Wybierz
+      count: '%count% plików'
+      remove: Usuń
+    theme:
+      label: Motyw
+      custom: Niestandardowy
     no_data: 'Brak danych'
     explorer:
       root: Pliki
@@ -1281,27 +2350,114 @@ pl:
       total: '%count% łącznie'
       actions: Akcje
       apply: Zastosuj
+      sorted_asc: 'Posortowane według %column%, rosnąco'
+      sorted_desc: 'Posortowane według %column%, malejąco'
+      sort_reset: 'Powrót do pierwotnej kolejności'
+      empty_filtered: 'Nic nie pasuje.'
+      clear_filters: 'Pokaż wszystko'
+      retry: 'Spróbuj ponownie'
+      search: Szukaj
+      results: 'Znaleziono %count%'
+      open: 'Otwórz szczegóły'
+    grid:
+      add: 'Dodaj ten wiersz'
+      delete: 'Usuń ten wiersz'
+      saving: Zapisywanie…
+      saved: Zapisano
+      error: 'Nie zapisano'
+      import:
+        file: 'Importuj plik'
+        no_table: 'Nie znaleziono tabeli w tym pliku.'
+        header: 'Pierwszy wiersz nazywa kolumny'
+        missing: 'Brak kolumny: %columns%'
+        column: 'Kolumna %index%'
+        skip: Pomiń
+        submit: 'Dodaj %count% wierszy'
+        cancel: Anuluj
+    confirm:
+      accept: Potwierdź
+      cancel: Anuluj
     switch:
       cancel: Anuluj
+      checked: Włączony
+      unchecked: Wyłączony
     tour:
       previous: Poprzedni
       next: Następny
       done: Zrobione
       close: 'Zamknij wycieczkę'
       progress: '%current% / %total%'
+    upload:
+      hint: 'Przeciągnij pliki tutaj lub wybierz je'
+      pick: Prześlij
+      title: Przesyłanie
+      progress: 'Przesyłanie — %done% / %count%'
+      cancel: 'Anuluj to przesyłanie'
+      cancelled: Anulowane
+      failed: 'Przesyłanie nie powiodło się'
+      refused_size: '%name% jest większy niż %max%, maksymalnie to miejsce przyjmuje'
+      refused_type: '%name% nie jest rodzajem pliku, który to miejsce przyjmuje (%accept%)'
+      status:
+        queued: Oczekiwanie
+        uploading: Wysyłanie
+        success: Zrobione
+        error: Niepowodzenie
     embed:
       close: Zamknij
+    document:
+      open: 'Otwórz w nowym oknie'
+      download: Pobierz
+    form:
+      optional: (opcjonalne)
     menu:
+      navigation: Nawigacja
+      open_left: 'Otwórz menu'
+      close_left: 'Zamknij menu'
+      open_right: 'Otwórz panel boczny'
+      close_right: 'Zamknij panel boczny'
+      more: 'Więcej opcji'
       filter: Filtruj
       filter_empty: 'Nic nie pasuje'
     zone:
       collapse: Zwiń
       expand: Rozwiń
       resize: 'Zmień rozmiar'
+    crop:
+      area: 'Obszar przycinania'
+      handle: 'Zmień rozmiar obszaru przycinania'
+    copy:
+      copy: Kopiuj
+      copied: Skopiowano
+      failed: 'Nie można skopiować, wybierz tekst zamiast tego'
 
 pt_BR:
   frontend:
     loading: Carregando...
+    environment: '%env% ambiente: o que está mostrado aqui não é produção'
+    dev_menu: 'Ferramentas de desenvolvimento'
+    develop_toolbar: 'Barra de ferramentas de desenvolvimento'
+    diff:
+      none: (nada)
+    number_stepper:
+      less: 'Um a menos'
+      more: 'Um a mais'
+    period:
+      label: Período
+      unit: 'Tipo de período'
+      unit_month: Mês
+      unit_year: Ano
+      previous: Anterior
+      next: Próximo
+      today: Hoje
+    file_input:
+      hint_one: 'Solte um arquivo aqui ou escolha-o'
+      hint_many: 'Solte arquivos aqui ou escolha-os'
+      pick: Escolher
+      count: '%count% arquivos'
+      remove: Remover
+    theme:
+      label: Tema
+      custom: Personalizado
     no_data: 'Nenhum dado'
     explorer:
       root: Arquivos
@@ -1346,27 +2502,114 @@ pt_BR:
       total: '%count% no total'
       actions: Ações
       apply: Aplicar
+      sorted_asc: 'Ordenado por %column%, em ordem crescente'
+      sorted_desc: 'Ordenado por %column%, em ordem decrescente'
+      sort_reset: 'Voltar à ordem original'
+      empty_filtered: 'Nada corresponde.'
+      clear_filters: 'Mostrar tudo'
+      retry: 'Tente novamente'
+      search: Pesquisar
+      results: '%count% encontrados'
+      open: 'Abrir os detalhes'
+    grid:
+      add: 'Adicionar esta linha'
+      delete: 'Excluir esta linha'
+      saving: Salvando…
+      saved: Salvo
+      error: 'Não salvo'
+      import:
+        file: 'Importar um arquivo'
+        no_table: 'Nenhuma tabela foi encontrada neste arquivo.'
+        header: 'A primeira linha nomeia as colunas'
+        missing: 'Nenhuma coluna contém: %columns%'
+        column: 'Coluna %index%'
+        skip: 'Deixar de fora'
+        submit: 'Adicionar %count% linhas'
+        cancel: Cancelar
+    confirm:
+      accept: Confirmar
+      cancel: Cancelar
     switch:
       cancel: Cancelar
+      checked: Ligado
+      unchecked: Desligado
     tour:
       previous: Anterior
       next: Próximo
       done: Concluído
       close: 'Fechar o tour'
       progress: '%current% / %total%'
+    upload:
+      hint: 'Solte arquivos aqui ou escolha-os'
+      pick: Enviar
+      title: Envios
+      progress: 'Envios — %done% / %count%'
+      cancel: 'Cancelar este envio'
+      cancelled: Cancelado
+      failed: 'O envio falhou'
+      refused_size: '%name% é maior que %max%, o máximo que este local aceita'
+      refused_type: '%name% não é um tipo de arquivo que este local aceita (%accept%)'
+      status:
+        queued: Aguardando
+        uploading: Enviando
+        success: Feito
+        error: Falhou
     embed:
       close: Fechar
+    document:
+      open: 'Abrir em uma nova janela'
+      download: Baixar
+    form:
+      optional: (opcional)
     menu:
+      navigation: Navegação
+      open_left: 'Abrir o menu'
+      close_left: 'Fechar o menu'
+      open_right: 'Abrir o painel lateral'
+      close_right: 'Fechar o painel lateral'
+      more: 'Mais opções'
       filter: Filtrar
       filter_empty: 'Nada corresponde'
     zone:
       collapse: Recolher
       expand: Expandir
       resize: Redimensionar
+    crop:
+      area: 'Área de recorte'
+      handle: 'Redimensionar a área de recorte'
+    copy:
+      copy: Copiar
+      copied: Copiado
+      failed: 'Não foi possível copiar, selecione o texto em vez disso'
 
 ru:
   frontend:
     loading: Загрузка...
+    environment: '%env% окружение: то, что показано здесь, не является производственным'
+    dev_menu: 'Инструменты разработки'
+    develop_toolbar: 'Панель разработчика'
+    diff:
+      none: (ничего)
+    number_stepper:
+      less: 'На один меньше'
+      more: 'На один больше'
+    period:
+      label: Период
+      unit: 'Тип периода'
+      unit_month: Месяц
+      unit_year: Год
+      previous: Предыдущий
+      next: Следующий
+      today: Сегодня
+    file_input:
+      hint_one: 'Переместите файл сюда или выберите его'
+      hint_many: 'Переместите файлы сюда или выберите их'
+      pick: Выбрать
+      count: '%count% файлов'
+      remove: Удалить
+    theme:
+      label: Тема
+      custom: Пользовательская
     no_data: 'Нет данных'
     explorer:
       root: Файлы
@@ -1411,27 +2654,114 @@ ru:
       total: 'Всего %count%'
       actions: Действия
       apply: Применить
+      sorted_asc: 'Сортировка по %column%, по возрастанию'
+      sorted_desc: 'Сортировка по %column%, по убыванию'
+      sort_reset: 'Вернуться к исходному порядку'
+      empty_filtered: 'Ничего не найдено.'
+      clear_filters: 'Показать все'
+      retry: 'Попробовать снова'
+      search: Поиск
+      results: '%count% найдено'
+      open: 'Открыть детали'
+    grid:
+      add: 'Добавить эту строку'
+      delete: 'Удалить эту строку'
+      saving: Сохранение…
+      saved: Сохранено
+      error: 'Не сохранено'
+      import:
+        file: 'Импортировать файл'
+        no_table: 'В этом файле не найдена ни одна таблица.'
+        header: 'Первая строка называет столбцы'
+        missing: 'Нет столбца с: %columns%'
+        column: 'Столбец %index%'
+        skip: Пропустить
+        submit: 'Добавить %count% строк'
+        cancel: Отмена
+    confirm:
+      accept: Подтвердить
+      cancel: Отменить
     switch:
       cancel: Отмена
+      checked: Включено
+      unchecked: Выключено
     tour:
       previous: Предыдущий
       next: Следующий
       done: Готово
       close: 'Закрыть тур'
       progress: '%current% / %total%'
+    upload:
+      hint: 'Переместите файлы сюда или выберите их'
+      pick: Загрузить
+      title: Загрузки
+      progress: 'Загрузки — %done% / %count%'
+      cancel: 'Отменить эту загрузку'
+      cancelled: Отменено
+      failed: 'Загрузка не удалась'
+      refused_size: '%name% больше чем %max%, максимум, что может принять это место'
+      refused_type: '%name% не является тем типом файла, который может принять это место (%accept%)'
+      status:
+        queued: Ожидание
+        uploading: Отправка
+        success: Готово
+        error: Ошибка
     embed:
       close: Закрыть
+    document:
+      open: 'Открыть в новом окне'
+      download: Скачать
+    form:
+      optional: '(по желанию)'
     menu:
+      navigation: Навигация
+      open_left: 'Открыть меню'
+      close_left: 'Закрыть меню'
+      open_right: 'Открыть боковую панель'
+      close_right: 'Закрыть боковую панель'
+      more: 'Дополнительные опции'
       filter: Фильтр
       filter_empty: 'Ничего не найдено'
     zone:
       collapse: Свернуть
       expand: Развернуть
       resize: 'Изменить размер'
+    crop:
+      area: 'Область обрезки'
+      handle: 'Изменить размер области обрезки'
+    copy:
+      copy: Копировать
+      copied: Скопировано
+      failed: 'Не удалось скопировать, выберите текст вместо этого'
 
 th:
   frontend:
     loading: กำลังโหลด...
+    environment: '%env% สภาพแวดล้อม: สิ่งที่แสดงที่นี่ไม่ใช่การผลิต'
+    dev_menu: เครื่องมือพัฒนา
+    develop_toolbar: แถบเครื่องมือพัฒนา
+    diff:
+      none: (ไม่มีอะไร)
+    number_stepper:
+      less: น้อยลงหนึ่ง
+      more: เพิ่มอีกหนึ่ง
+    period:
+      label: ช่วงเวลา
+      unit: ประเภทของช่วงเวลา
+      unit_month: เดือน
+      unit_year: ปี
+      previous: ก่อนหน้า
+      next: ถัดไป
+      today: วันนี้
+    file_input:
+      hint_one: 'วางไฟล์ที่นี่ หรือเลือกไฟล์'
+      hint_many: 'วางไฟล์ที่นี่ หรือเลือกไฟล์'
+      pick: เลือก
+      count: '%count% ไฟล์'
+      remove: ลบ
+    theme:
+      label: ธีม
+      custom: กำหนดเอง
     no_data: ไม่มีข้อมูล
     explorer:
       root: ไฟล์
@@ -1476,27 +2806,114 @@ th:
       total: 'ทั้งหมด %count%'
       actions: การดำเนินการ
       apply: ใช้
+      sorted_asc: 'เรียงโดย %column%, จากน้อยไปมาก'
+      sorted_desc: 'เรียงโดย %column%, จากมากไปน้อย'
+      sort_reset: กลับไปยังลำดับเดิม
+      empty_filtered: ไม่มีสิ่งที่ตรงกันเลย.
+      clear_filters: แสดงทุกอย่าง
+      retry: ลองอีกครั้ง
+      search: ค้นหา
+      results: '%count% พบแล้ว'
+      open: เปิดรายละเอียด
+    grid:
+      add: เพิ่มแถวนี้
+      delete: ลบแถวนี้
+      saving: กำลังบันทึก…
+      saved: บันทึกแล้ว
+      error: ไม่สามารถบันทึกได้
+      import:
+        file: นำเข้าไฟล์
+        no_table: ไม่พบตารางในไฟล์นี้.
+        header: แถวแรกตั้งชื่อคอลัมน์
+        missing: 'ไม่มีคอลัมน์ที่ถือ: %columns%'
+        column: 'คอลัมน์ %index%'
+        skip: ข้ามไป
+        submit: 'เพิ่มแถว %count%'
+        cancel: ยกเลิก
+    confirm:
+      accept: ยืนยัน
+      cancel: ยกเลิก
     switch:
       cancel: ยกเลิก
+      checked: เปิด
+      unchecked: ปิด
     tour:
       previous: ก่อนหน้า
       next: ถัดไป
       done: เสร็จสิ้น
       close: ปิดทัวร์
       progress: '%current% / %total%'
+    upload:
+      hint: 'วางไฟล์ที่นี่ หรือเลือกไฟล์'
+      pick: อัปโหลด
+      title: การอัปโหลด
+      progress: 'การอัปโหลด — %done% / %count%'
+      cancel: ยกเลิกการอัปโหลดนี้
+      cancelled: ถูกยกเลิก
+      failed: การอัปโหลดล้มเหลว
+      refused_size: '%name% ใหญ่เกินไปสำหรับ %max% ขนาดสูงสุดที่พื้นที่นี้รับได้'
+      refused_type: '%name% ไม่ใช่ประเภทไฟล์ที่พื้นที่นี้รับได้ (%accept%)'
+      status:
+        queued: กำลังรอ
+        uploading: กำลังส่ง
+        success: เสร็จสิ้น
+        error: ล้มเหลว
     embed:
       close: ปิด
+    document:
+      open: เปิดในหน้าต่างใหม่
+      download: ดาวน์โหลด
+    form:
+      optional: (ไม่บังคับ)
     menu:
+      navigation: การนำทาง
+      open_left: เปิดเมนู
+      close_left: ปิดเมนู
+      open_right: เปิดแผงด้านข้าง
+      close_right: ปิดแผงด้านข้าง
+      more: ตัวเลือกเพิ่มเติม
       filter: กรอง
       filter_empty: ไม่มีรายการที่ตรงกัน
     zone:
       collapse: ย่อ
       expand: ขยาย
       resize: ปรับขนาด
+    crop:
+      area: พื้นที่ตัด
+      handle: ปรับขนาดพื้นที่ตัด
+    copy:
+      copy: คัดลอก
+      copied: คัดลอกแล้ว
+      failed: 'ไม่สามารถคัดลอกได้ กรุณาเลือกข้อความแทน'
 
 tr:
   frontend:
     loading: Yükleniyor...
+    environment: '%env% ortam: buradaki görüntü üretim değil'
+    dev_menu: 'Geliştirme araçları'
+    develop_toolbar: 'Geliştirme araç çubuğu'
+    diff:
+      none: '(hiçbir şey)'
+    number_stepper:
+      less: 'Biraz az'
+      more: 'Biraz fazla'
+    period:
+      label: Dönem
+      unit: 'Dönem türü'
+      unit_month: Ay
+      unit_year: Yıl
+      previous: Önceki
+      next: Sonraki
+      today: Bugün
+    file_input:
+      hint_one: 'Bir dosyayı buraya bırakın veya seçin'
+      hint_many: 'Dosyaları buraya bırakın veya seçin'
+      pick: Seç
+      count: '%count% dosya'
+      remove: Kaldır
+    theme:
+      label: Tema
+      custom: Özel
     no_data: 'Veri yok'
     explorer:
       root: Dosyalar
@@ -1541,27 +2958,114 @@ tr:
       total: 'Toplam %count%'
       actions: Eylemler
       apply: Uygula
+      sorted_asc: '%column% göre sıralı, artan'
+      sorted_desc: '%column% göre sıralı, azalan'
+      sort_reset: 'Orijinal sıraya dön'
+      empty_filtered: 'Hiçbir şey eşleşmiyor.'
+      clear_filters: 'Her şeyi göster'
+      retry: 'Tekrar dene'
+      search: Ara
+      results: '%count% bulundu'
+      open: 'Detayı aç'
+    grid:
+      add: 'Bu satırı ekle'
+      delete: 'Bu satırı sil'
+      saving: Kaydediliyor…
+      saved: Kaydedildi
+      error: Kaydedilemedi
+      import:
+        file: 'Bir dosya içe aktar'
+        no_table: 'Bu dosyada tablo bulunamadı.'
+        header: 'İlk satır sütunları adlandırır'
+        missing: 'Hiçbir sütun şunu içermiyor: %columns%'
+        column: 'Sütun %index%'
+        skip: Atla
+        submit: '%count% satır ekle'
+        cancel: 'İptal et'
+    confirm:
+      accept: Onayla
+      cancel: 'İptal et'
     switch:
       cancel: İptal
+      checked: Açık
+      unchecked: Kapalı
     tour:
       previous: Önceki
       next: Sonraki
       done: Tamamlandı
       close: 'Turu kapat'
       progress: '%current% / %total%'
+    upload:
+      hint: 'Dosyaları buraya bırakın veya seçin'
+      pick: Yükle
+      title: Yüklemeler
+      progress: 'Yüklemeler — %done% / %count%'
+      cancel: 'Bu yüklemeyi iptal et'
+      cancelled: 'İptal edildi'
+      failed: 'Yükleme başarısız oldu'
+      refused_size: "%name% %max%'den büyük, bu alanın alabileceği en fazla boyut"
+      refused_type: '%name% bu alanın alabileceği bir dosya türü değil (%accept%)'
+      status:
+        queued: Bekliyor
+        uploading: Gönderiliyor
+        success: Tamamlandı
+        error: Başarısız
     embed:
       close: Kapat
+    document:
+      open: 'Yeni bir pencerede aç'
+      download: İndir
+    form:
+      optional: '(isteğe bağlı)'
     menu:
+      navigation: Navigasyon
+      open_left: 'Menüyü aç'
+      close_left: 'Menüyü kapat'
+      open_right: 'Yan paneli aç'
+      close_right: 'Yan paneli kapat'
+      more: 'Daha fazla seçenek'
       filter: Filtrele
       filter_empty: 'Hiçbiri uymuyor'
     zone:
       collapse: Daralt
       expand: Genişlet
       resize: Boyutlandır
+    crop:
+      area: 'Kırpma alanı'
+      handle: 'Kırpma alanını yeniden boyutlandır'
+    copy:
+      copy: Kopyala
+      copied: Kopyalandı
+      failed: 'Kopyalanamadı, bunun yerine metni seçin'
 
 ur:
   frontend:
     loading: 'لوڈ ہورہا ہے...'
+    environment: '%env% ماحول: جو یہاں دکھایا گیا ہے وہ پروڈکشن نہیں ہے'
+    dev_menu: 'ترقیاتی ٹولز'
+    develop_toolbar: 'ترقیاتی ٹول بار'
+    diff:
+      none: '(کچھ بھی نہیں)'
+    number_stepper:
+      less: 'ایک کم'
+      more: 'ایک زیادہ'
+    period:
+      label: مدت
+      unit: 'مدت کی قسم'
+      unit_month: مہینہ
+      unit_year: سال
+      previous: پچھلا
+      next: اگلا
+      today: آج
+    file_input:
+      hint_one: 'یہاں ایک فائل چھوڑیں، یا منتخب کریں'
+      hint_many: 'یہاں فائلیں چھوڑیں، یا منتخب کریں'
+      pick: 'منتخب کریں'
+      count: '%count% فائلیں'
+      remove: ہٹائیں
+    theme:
+      label: تھیم
+      custom: 'حسب ضرورت'
     no_data: 'کوئی ڈیٹا نہیں'
     explorer:
       root: فائلیں
@@ -1606,27 +3110,114 @@ ur:
       total: 'مجموعی طور پر %count%'
       actions: عملیات
       apply: لگائیں
+      sorted_asc: 'ترتیب دیا گیا %column% کے مطابق، بڑھتا ہوا'
+      sorted_desc: 'ترتیب دیا گیا %column% کے مطابق، گھٹتا ہوا'
+      sort_reset: 'ابتدائی ترتیب پر واپس جائیں'
+      empty_filtered: 'کچھ بھی نہیں ملتا۔'
+      clear_filters: 'سب کچھ دکھائیں'
+      retry: 'پھر سے کوشش کریں'
+      search: 'تلاش کریں'
+      results: '%count% ملے'
+      open: 'تفصیل کھولیں'
+    grid:
+      add: 'اس قطار کو شامل کریں'
+      delete: 'اس قطار کو حذف کریں'
+      saving: 'محفوظ کیا جا رہا ہے…'
+      saved: 'محفوظ ہو گیا'
+      error: 'محفوظ نہیں ہوا'
+      import:
+        file: 'ایک فائل درآمد کریں'
+        no_table: 'اس فائل میں کوئی میز نہیں ملی۔'
+        header: 'پہلی قطار کالموں کے نام دیتی ہے'
+        missing: 'کوئی کالم نہیں رکھتا: %columns%'
+        column: 'کالم %index%'
+        skip: 'چھوڑ دیں'
+        submit: '%count% قطاریں شامل کریں'
+        cancel: 'منسوخ کریں'
+    confirm:
+      accept: 'تصدیق کریں'
+      cancel: 'منسوخ کریں'
     switch:
       cancel: 'کینسل کریں'
+      checked: آن
+      unchecked: آف
     tour:
       previous: پچھلا
       next: اگلا
       done: 'ہو گیا'
       close: 'سیر بند کریں'
       progress: '%current% / %total%'
+    upload:
+      hint: 'یہاں فائلیں چھوڑیں، یا منتخب کریں'
+      pick: 'اپ لوڈ کریں'
+      title: 'اپ لوڈ'
+      progress: 'اپ لوڈ — %done% / %count%'
+      cancel: 'اس اپ لوڈ کو منسوخ کریں'
+      cancelled: 'منسوخ کر دیا گیا'
+      failed: 'اپ لوڈ ناکام ہو گیا'
+      refused_size: '%name% %max% سے بڑا ہے، اس جگہ کی زیادہ سے زیادہ گنجائش'
+      refused_type: '%name% اس جگہ کی قبول کردہ فائل کی قسم نہیں ہے (%accept%)'
+      status:
+        queued: 'انتظار کر رہا ہے'
+        uploading: بھیجنا
+        success: 'ہو گیا'
+        error: ناکام
     embed:
       close: 'بند کریں'
+    document:
+      open: 'ایک نئے ونڈو میں کھولیں'
+      download: 'ڈاؤن لوڈ کریں'
+    form:
+      optional: (اختیاری)
     menu:
+      navigation: نیویگیشن
+      open_left: 'مینوں کھولیں'
+      close_left: 'مینوں بند کریں'
+      open_right: 'سائیڈ پینل کھولیں'
+      close_right: 'سائیڈ پینل بند کریں'
+      more: 'مزید اختیارات'
       filter: 'فلٹر کریں'
       filter_empty: 'کوئی چیز میل نہیں کھاتی'
     zone:
       collapse: 'کم کریں'
       expand: کھولیں
       resize: 'سائز تبدیل کریں'
+    crop:
+      area: 'کٹائی کا علاقہ'
+      handle: 'کٹائی کے علاقے کا سائز تبدیل کریں'
+    copy:
+      copy: 'کاپی کریں'
+      copied: 'کاپی ہو گیا'
+      failed: 'کاپی نہیں کر سکا، اس کے بجائے متن منتخب کریں'
 
 vi:
   frontend:
     loading: 'Đang tải...'
+    environment: '%env% môi trường: những gì hiển thị ở đây không phải là sản xuất'
+    dev_menu: 'Công cụ phát triển'
+    develop_toolbar: 'Thanh công cụ phát triển'
+    diff:
+      none: '(không có gì)'
+    number_stepper:
+      less: 'Giảm một'
+      more: 'Tăng một'
+    period:
+      label: 'Thời gian'
+      unit: 'Loại thời gian'
+      unit_month: Tháng
+      unit_year: Năm
+      previous: Trước
+      next: 'Tiếp theo'
+      today: 'Hôm nay'
+    file_input:
+      hint_one: 'Kéo thả một tệp ở đây, hoặc chọn nó'
+      hint_many: 'Kéo thả các tệp ở đây, hoặc chọn chúng'
+      pick: Chọn
+      count: '%count% tệp'
+      remove: Xóa
+    theme:
+      label: 'Chủ đề'
+      custom: 'Tùy chỉnh'
     no_data: 'Không có dữ liệu'
     explorer:
       root: Tệp
@@ -1671,23 +3262,85 @@ vi:
       total: '%count% tổng cộng'
       actions: 'Hành động'
       apply: 'Áp dụng'
+      sorted_asc: 'Sắp xếp theo %column%, tăng dần'
+      sorted_desc: 'Sắp xếp theo %column%, giảm dần'
+      sort_reset: 'Quay lại thứ tự ban đầu'
+      empty_filtered: 'Không có gì phù hợp.'
+      clear_filters: 'Hiển thị tất cả'
+      retry: 'Thử lại'
+      search: 'Tìm kiếm'
+      results: '%count% tìm thấy'
+      open: 'Mở chi tiết'
+    grid:
+      add: 'Thêm hàng này'
+      delete: 'Xóa hàng này'
+      saving: 'Đang lưu…'
+      saved: 'Đã lưu'
+      error: 'Chưa lưu'
+      import:
+        file: 'Nhập một tệp'
+        no_table: 'Không tìm thấy bảng nào trong tệp này.'
+        header: 'Hàng đầu tiên đặt tên cho các cột'
+        missing: 'Không có cột nào chứa: %columns%'
+        column: 'Cột %index%'
+        skip: 'Bỏ qua'
+        submit: 'Thêm %count% hàng'
+        cancel: 'Hủy bỏ'
+    confirm:
+      accept: 'Xác nhận'
+      cancel: Hủy
     switch:
       cancel: Hủy
+      checked: Bật
+      unchecked: Tắt
     tour:
       previous: Trước
       next: 'Tiếp theo'
       done: 'Hoàn thành'
       close: 'Đóng tour'
       progress: '%current% / %total%'
+    upload:
+      hint: 'Kéo thả các tệp ở đây, hoặc chọn chúng'
+      pick: 'Tải lên'
+      title: 'Tải lên'
+      progress: 'Tải lên — %done% / %count%'
+      cancel: 'Hủy bỏ tải lên này'
+      cancelled: 'Đã hủy'
+      failed: 'Tải lên không thành công'
+      refused_size: '%name% lớn hơn %max%, kích thước tối đa mà nơi này chấp nhận'
+      refused_type: '%name% không phải là loại tệp mà nơi này chấp nhận (%accept%)'
+      status:
+        queued: 'Đang chờ'
+        uploading: 'Đang gửi'
+        success: 'Hoàn tất'
+        error: 'Thất bại'
     embed:
       close: Đóng
+    document:
+      open: 'Mở trong cửa sổ mới'
+      download: 'Tải xuống'
+    form:
+      optional: '(tùy chọn)'
     menu:
+      navigation: 'Điều hướng'
+      open_left: 'Mở menu'
+      close_left: 'Đóng menu'
+      open_right: 'Mở bảng bên'
+      close_right: 'Đóng bảng bên'
+      more: 'Thêm tùy chọn'
       filter: Lọc
       filter_empty: 'Không có kết quả phù hợp'
     zone:
       collapse: 'Thu gọn'
       expand: 'Mở rộng'
       resize: 'Thay đổi kích thước'
+    crop:
+      area: 'Khu vực cắt'
+      handle: 'Thay đổi kích thước khu vực cắt'
+    copy:
+      copy: 'Sao chép'
+      copied: 'Đã sao chép'
+      failed: 'Không thể sao chép, hãy chọn văn bản thay thế'
 
 zh:
   frontend:
