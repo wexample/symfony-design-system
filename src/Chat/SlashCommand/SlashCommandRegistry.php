@@ -20,24 +20,29 @@ class SlashCommandRegistry
     /**
      * @var array<string, AsSlashCommand>
      */
-    private array $attributes = [];
+    private readonly array $attributes;
 
     /**
      * @var array<string, callable>
      */
-    private array $commands = [];
+    private readonly array $commands;
 
     /**
      * @param iterable<object> $commands services tagged as slash commands
      */
     public function __construct(iterable $commands)
     {
+        $attributesByName = [];
+        $commandsByName = [];
         foreach ($commands as $command) {
             $attribute = self::readAttribute($command);
 
-            $this->attributes[$attribute->name] = $attribute;
-            $this->commands[$attribute->name] = $command;
+            $attributesByName[$attribute->name] = $attribute;
+            $commandsByName[$attribute->name] = $command;
         }
+
+        $this->attributes = $attributesByName;
+        $this->commands = $commandsByName;
     }
 
     /**

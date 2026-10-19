@@ -18,7 +18,7 @@ class AvatarService
     /**
      * @var array<string, AvatarEngineInterface>
      */
-    private array $engines = [];
+    private readonly array $engines;
 
     /**
      * @param iterable<AvatarEngineInterface> $engines
@@ -28,9 +28,12 @@ class AvatarService
         iterable $engines,
         private readonly UrlGeneratorInterface $urlGenerator,
     ) {
+        $byName = [];
         foreach ($engines as $engine) {
-            $this->engines[$engine::getName()] = $engine;
+            $byName[$engine::getName()] = $engine;
         }
+
+        $this->engines = $byName;
     }
 
     /**

@@ -15,13 +15,13 @@ use Wexample\SymfonyLoader\Controller\Pages\AbstractDesignSystemController;
 )]
 class FixturesController extends AbstractController
 {
-    private string $assetsDir = __DIR__ . '/../../assets/fixtures/';
+    private const string ASSETS_DIR = __DIR__ . '/../../assets/fixtures/';
 
     #[Route('placeholder.svg', name: 'placeholder_svg')]
     public function placeholderSvg(): Response
     {
         return new Response(
-            file_get_contents($this->assetsDir . 'placeholder.svg'),
+            file_get_contents(self::ASSETS_DIR . 'placeholder.svg'),
             Response::HTTP_OK,
             [
                 'Content-Type' => 'image/svg+xml',
@@ -70,7 +70,7 @@ class FixturesController extends AbstractController
     public function placeholderPdf(): Response
     {
         return new Response(
-            file_get_contents($this->assetsDir . 'placeholder.pdf'),
+            file_get_contents(self::ASSETS_DIR . 'placeholder.pdf'),
             Response::HTTP_OK,
             [
                 'Content-Type' => 'application/pdf',
