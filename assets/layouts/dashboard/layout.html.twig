@@ -216,11 +216,33 @@
                                 </div>
                                 {%- endif -%}
                                 {% block page_header_menu_right %}
-                                    {% if menuRight is not empty %}
+                                    {#- The application's controls, in three parts: those always
+                                        in the bar (`header_menu_start`, `header_menu_end`, around
+                                        the side panel's toggle), and those a phone or a tablet
+                                        folds behind one button (`header_menu_overflow`) — the GitHub link,
+                                        a theme, the color scheme. Wide enough, the fold is not
+                                        seen: its items stand in the bar with the others. -#}
+                                    {%- set headerMenuStart -%}{% block header_menu_start %}{% endblock %}{%- endset -%}
+                                    {%- set headerMenuOverflow -%}{% block header_menu_overflow %}{% endblock %}{%- endset -%}
+                                    {%- set headerMenuEnd -%}{% block header_menu_end %}{% endblock %}{%- endset -%}
+                                    {% if menuRight is not empty or headerMenuStart|trim or headerMenuOverflow|trim or headerMenuEnd|trim %}
                                         <nav class="header--menu">
-                                            <a class="header--menu-item header--menu-item--icon" href="#" data-menu-target="right" role="button" aria-controls="layout-menu-right" aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.open_right'|trans }}" title="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.open_right'|trans }}">
-                                                {{ icon('ph:bold/sidebar-simple') }}
-                                            </a>
+                                            {{- headerMenuStart -}}
+                                            {%- if headerMenuOverflow|trim -%}
+                                                {%- set overflowLabel = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.more'|trans -%}
+                                                <button type="button" class="header--menu-item header--menu-item--icon header--overflow-toggle" popovertarget="header-menu-overflow" aria-label="{{ overflowLabel }}" title="{{ overflowLabel }}">
+                                                    {{ icon('ph:bold/dots-three') }}
+                                                </button>
+                                                <div class="header--overflow" id="header-menu-overflow" popover>
+                                                    {{- headerMenuOverflow -}}
+                                                </div>
+                                            {%- endif -%}
+                                            {%- if menuRight is not empty -%}
+                                                <a class="header--menu-item header--menu-item--icon" href="#" data-menu-target="right" role="button" aria-controls="layout-menu-right" aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.open_right'|trans }}" title="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.open_right'|trans }}">
+                                                    {{ icon('ph:bold/sidebar-simple') }}
+                                                </a>
+                                            {%- endif -%}
+                                            {{- headerMenuEnd -}}
                                         </nav>
                                     {% endif %}
                                 {% endblock %}

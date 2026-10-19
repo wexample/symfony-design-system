@@ -231,7 +231,8 @@
 // the room they leave. The focused layout's header — sign-in, a password —
 // holds the same controls and folds the same way.
 @include window.below(window.$window-m) {
-  :is(.header, .layout--focus-header) .header--menu .button:has(> .button--icon) {
+  // Not in the fold: there each control has the room for its word.
+  :is(.header, .layout--focus-header) .header--menu .button:not(.header--overflow .button):has(> .button--icon) {
     > .button-menu--label,
     > span:not(.button--icon, .button-menu--caret, .button--spinner) {
       @include visually-hidden.visually-hidden;
@@ -239,6 +240,66 @@
 
     > .button-menu--caret {
       display: none;
+    }
+  }
+}
+
+// What a phone or an upright tablet folds behind one button
+// (`header_menu_overflow`): below `l`, where a search beside the title already
+// leaves it little room. Wide enough,
+// the container generates no box: its items stand in the bar with the others,
+// one set of controls, never a copy whose state would drift. Narrower, it is
+// the native popover the button opens — no script, dismissed by Escape or a
+// press elsewhere —, the controls listed with their words.
+.header--overflow {
+  display: contents;
+}
+
+// Through the menu, to outweigh the icon style of the bar's items.
+.header .header--menu .header--menu-item.header--overflow-toggle {
+  display: none;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+// A word an item shows in the fold only: in the bar its icon and its
+// `aria-label` say it.
+.header--menu-item-label {
+  display: none;
+}
+
+@include window.below(window.$window-l) {
+  .header .header--menu .header--menu-item.header--overflow-toggle {
+    display: inline-flex;
+  }
+
+  .header--overflow:not(:popover-open) {
+    display: none;
+  }
+
+  .header--overflow:popover-open {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-1);
+    margin: 0;
+    inset: var(--size-3) var(--space-4) auto auto;
+    min-width: 14rem;
+    padding: var(--space-2);
+    border: var(--border-discreet);
+    border-radius: var(--radius-box);
+    background: var(--surface-3);
+    box-shadow: var(--shadow-float);
+
+    .header--menu-item {
+      height: auto;
+      gap: var(--space-2);
+    }
+
+    .header--menu-item-label {
+      display: inline;
     }
   }
 }
