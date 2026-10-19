@@ -4,8 +4,8 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Twig\Environment;
 use Twig\TwigFunction;
-use Wexample\SymfonyPreference\Service\PreferenceService;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
+use Wexample\SymfonyPreference\Service\PreferenceService;
 
 /**
  * A guided tour of a page: `tour(id, steps, options)`, each step pointing at

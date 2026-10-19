@@ -8,8 +8,8 @@ use DOMXPath;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Twig\Environment;
 use Twig\TwigFunction;
-use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 use Wexample\SymfonyHelpers\Attribute\WorkerSafe;
+use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 /**
  * A drawing — a logo, a mark, an illustration — written into the page rather

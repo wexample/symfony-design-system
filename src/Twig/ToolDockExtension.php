@@ -5,8 +5,8 @@ namespace Wexample\SymfonyDesignSystem\Twig;
 use InvalidArgumentException;
 use Twig\Environment;
 use Twig\TwigFunction;
-use Wexample\SymfonyPreference\Service\PreferenceService;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
+use Wexample\SymfonyPreference\Service\PreferenceService;
 
 /**
  * Tools as an IDE has them: a bar of icons, each opening a zone, the zones

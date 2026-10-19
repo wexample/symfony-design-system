@@ -1,6 +1,6 @@
 # symfony_design_system
 
-Version: 35.0.1
+Version: 37.0.0
 
 A Symfony bundle that ships a ready-made design system for web applications: Twig components (buttons, modals, toasts, forms, entity bars), SCSS layouts (`dashboard` and `default`), Vue mixins, and a suite of Twig extensions that wire them together. Every page flows through a `RenderPass` object managed by `AbstractDesignSystemController`, which handles template resolution, per-layout asset loading, and render-node–scoped translations. It targets Symfony developers who want consistent UI primitives and a structured front-end pipeline without building one from scratch.
 
@@ -160,7 +160,7 @@ Sorting is one rule written twice, assets/js/Helper/SortHelper.ts and src/Helper
 
 ### Controllers
 
-src/Controller/UiStateController.php exposes `POST /_ui-state/set`. It reads `{key, value}` from the JSON body and writes `session['ui_state.{key}'] = value`. This is the default persistence target for menu-collapse state; apps that need server-side persistence override `App::persistUiState` on the JS side instead of calling this endpoint.
+What the interface remembers — a collapsed menu, a theme — is kept as preferences of `symfony-preference`: `App::persistUiStates` posts the values to `POST /api/preference/set`, an endpoint served by `symfony-platform`, and `PreferenceService` keeps them where the app chose (`wexample_symfony_preference.storage`: the session, or the database). src/Twig/UiStateExtension.php reads them back through `ui_state_get()` and `ui_state_all()`. Changing where they are kept needs nothing on the client.
 
 src/Controller/FixturesController.php serves `placeholder.svg` from `assets/fixtures/` at the design-system base route.
 
@@ -182,7 +182,7 @@ Assets live in `assets/` and are divided into five directories.
 
 - `modal` and `panel` both extend `AbstractOverlayPageManager` (assets/js/Class/AbstractOverlayPageManager.ts), which layers `FadeAnimationMixin`, `FocusableComponentMixin`, and `OverlayMixin` from the loader. It handles open/close with optional confirm-on-close and dirty-form detection.
 - `button-target` (assets/components/button-target/button-target.ts) intercepts clicks on its anchor, reads `data-target` and `data-target-options`, and hands the href to `loadIntoTarget()` from assets/js/Helper/TargetHelper.ts, which dispatches to `ModalService`, `PanelService` or `EmbedService`. The two overlays keep their place in URL hash params, so a persistent one reopens on reload; an embed does not, belonging to the page that placed it. A modified click is left to the browser, so every target stays openable as a full page.
-- `menu-collapsible-panel` (assets/components/menu-collapsible-panel/menu-collapsible-panel.ts) toggles `gutters--collapsible--collapsed` on its element and calls `app.onMenuStateChange(menuId, open)` on every toggle, which is the point where the host app or the default `UiStateController` persist the state to the session.
+- `menu-collapsible-panel` (assets/components/menu-collapsible-panel/menu-collapsible-panel.ts) toggles `gutters--collapsible--collapsed` on its element and calls `app.onMenuStateChange(menuId, open)` on every toggle, which is the point where the state is persisted as a preference.
 - `toast` applies `FadeAnimationMixin`, `AutoCloseMixin`, and `ActionLinksMixin`; it self-removes after 4 s unless `sticky` is set.
 
 **`js/`** contains shared TypeScript classes and Vue mixins.
@@ -202,7 +202,7 @@ A typical page request arrives at a controller that calls `renderPage('index')`.
 
 Inside a template, calling `{{ button_target(..., 'modal') }}` invokes `ButtonExtension`, which calls the loader's `ComponentsExtension::component()`. That function renders `components/button-target/button-target.html.twig` server-side and registers the component with the render pass so the loader emits the correct JS bootstrap data. When the browser executes that bootstrap data, `button-target.ts` mounts, listens for clicks, and delegates to `ModalService`, which fetches the target page and hands it to `modal.ts` — an `AbstractOverlayPageManager` — to display.
 
-UI state flows in the reverse direction: `menu-collapsible-panel.ts` fires `app.onMenuStateChange(id, open)` → `App::persistUiState` POSTs to `/_ui-state/set` → `UiStateController` writes to the session → on the next page load `ui_state_get('ui.layout.menu.left')` returns the saved value and `dashboard/layout.html.twig` renders the panel pre-collapsed or pre-open.
+UI state flows in the reverse direction: `menu-collapsible-panel.ts` fires `app.onMenuStateChange(id, open)` → `App::persistUiState` POSTs to `/api/preference/set` → `PreferenceService` keeps it → on the next page load `ui_state_get('ui.layout.menu.left')` returns the saved value and `dashboard/layout.html.twig` renders the panel pre-collapsed or pre-open.
 
 ### Tests
 
@@ -216,15 +216,14 @@ This package is part of the Wexample Suite — a collection of high-quality, mod
 
 The suite includes packages for configuration management, file handling, prompts, and more. Each package can be used independently or as part of the integrated suite.
 
-Visit the [Wexample Suite documentation](https://docs.wexample.com) for the complete package ecosystem.
-
 ## Dependencies
 
 - php: >=8.5
-- wexample/symfony-loader: >=23.0.0
+- wexample/symfony-loader: >=23.1.0
 - symfony/security-bundle: ^7.4 || ^8.0
-- wexample/symfony-routing: >=2.1.0
-- wexample/symfony-template: >=2.0.5
+- wexample/symfony-routing: >=2.2.0
+- wexample/symfony-template: >=2.1.0
+- wexample/symfony-preference: >=2.0.0
 
 ## Versioning & Compatibility Policy
 
@@ -249,6 +248,8 @@ Free to use in both personal and commercial projects.
 This packages suite embodies this spirit. Trusted by professionals and enthusiasts alike, it delivers a consistent, high-quality foundation for modern development — open, elegant, and battle-tested. Its reputation is built on years of collaboration, refinement, and rigorous attention to detail, making it a natural choice for those who demand both robustness and beauty in their tools.
 
 Wexample cultivates a culture of mastery. Each package, each contribution carries the mark of a community that values precision, ethics, and innovation — a community proud to shape the future of digital craftsmanship.
+
+Built and maintained by [Romain Weeger](https://weeger.io).
 
 ## Migration Notes
 

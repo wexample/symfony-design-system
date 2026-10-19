@@ -8,8 +8,8 @@ use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Class\ElementCompilation;
 use Wexample\SymfonyDesignSystem\Class\ElementInventory;
 use Wexample\SymfonyDesignSystem\Service\ElementRegistryService;
-use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 use Wexample\SymfonyHelpers\Attribute\WorkerSafe;
+use Wexample\SymfonyHelpers\Twig\AbstractExtension;
 
 /**
  * Hands a template the registries of the bundles holding elements, merged.

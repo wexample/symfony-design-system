@@ -5,8 +5,8 @@ namespace Wexample\SymfonyDesignSystem\Service;
 use Symfony\Component\Routing\RouterInterface;
 use Wexample\SymfonyDesignSystem\Attribute\AbstractRouteGroup;
 use Wexample\SymfonyDesignSystem\Interface\RouteGroupVoterInterface;
-use Wexample\SymfonyHelpers\Helper\RouteHelper;
 use Wexample\SymfonyHelpers\Attribute\WorkerSafe;
+use Wexample\SymfonyHelpers\Helper\RouteHelper;
 
 /**
  * Which routes asked to join which run, for every attribute that asks it.
