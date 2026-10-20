@@ -255,8 +255,9 @@
   display: contents;
 }
 
-// Through the menu, to outweigh the icon style of the bar's items.
-.header .header--menu .header--menu-item.header--overflow-toggle {
+// Through the menu, to outweigh the icon style of the bar's items. The
+// focused layout's header folds the same way.
+:is(.header, .layout--focus-header) .header--menu .header--menu-item.header--overflow-toggle {
   display: none;
   border: 0;
   background: none;
@@ -271,7 +272,7 @@
 }
 
 @include window.below(window.$window-l) {
-  .header .header--menu .header--menu-item.header--overflow-toggle {
+  :is(.header, .layout--focus-header) .header--menu .header--menu-item.header--overflow-toggle {
     display: inline-flex;
   }
 
