@@ -62,6 +62,8 @@ The dashboard layout holds three things still — the header, the page's own nav
 
 `breadcrumb_render({ back: true })` draws the page above the current one alone, as « ← its title »; nothing when there is none. The layout draws it above the title with `page_trail: 'back'`, the full trail with `page_trail: 'breadcrumb'`.
 
+The trail the layout draws for the page — above the title, or in the footer — is also told to the search engines, as a schema.org `BreadcrumbList` (`structured_data: true`): the labels and addresses drawn, whole even where only the way back is shown, once a page and only from two steps on.
+
 ## A region beside the page
 
 `page_zones_before` and `page_zones_after` add regions to the left and right of the page's own. With a neighbour, the body fills the window and each region scrolls down on its own; a row wider than the window scrolls sideways as one, its scrollbar at the foot of the window.
