@@ -20,7 +20,7 @@ fi:
   label: Väriteema
 
 fr:
-  label: 'Color scheme'
+  label: 'Mode clair ou sombre'
 
 he:
   label: 'סכמת צבעים'

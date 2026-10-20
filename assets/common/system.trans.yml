@@ -263,7 +263,7 @@ ar:
       progress: '%current% / %total%'
     upload:
       hint: 'اسحب الملفات هنا، أو اخترها'
-      pick: تحميل
+      pick: 'رفع'
       title: التحميلات
       progress: 'التحميلات — %done% / %count%'
       cancel: 'إلغاء هذا التحميل'
@@ -1177,7 +1177,7 @@ fr:
       progress: '%current% / %total%'
     upload:
       hint: 'Déposez des fichiers ici, ou choisissez-les'
-      pick: Envoyer
+      pick: 'Téléverser'
       title: Envois
       progress: 'Envois — %done% / %count%'
       cancel: 'Annuler cet envoi'
@@ -1207,8 +1207,8 @@ fr:
       filter: Filtrer
       filter_empty: 'Aucun résultat correspondant'
     zone:
-      collapse: Réduire
-      expand: Agrandir
+      collapse: 'Replier'
+      expand: 'Déplier'
       resize: Redimensionner
     crop:
       area: Zone de recadrage
