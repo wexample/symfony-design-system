@@ -91,7 +91,7 @@ export default {
 
   computed: {
     options() {
-      return [...this.units, ...this.rolling.map((days) => `${days}d`)];
+      return this.optionsOffered();
     },
 
     selected() {
@@ -158,7 +158,12 @@ export default {
       const fromHash = this.hashKey ? periodParse(new URLSearchParams(window.location.hash.slice(1)).get(this.hashKey)) : null;
       const given = fromHash ?? periodParse(this.value);
 
-      return given && this.options.includes(periodOption(given)) ? given : this.first();
+      // Read while the data is built: no computed property exists yet.
+      return given && this.optionsOffered().includes(periodOption(given)) ? given : this.first();
+    },
+
+    optionsOffered() {
+      return [...this.units, ...this.rolling.map((days) => `${days}d`)];
     },
 
     first() {
