@@ -7,11 +7,11 @@
 
 {%- block vue_body -%}
     <nav class="period-nav" :aria-label="t('label')">
-        <div v-if="units.length > 1" class="radio-group radio-group--segmented" role="radiogroup" :aria-label="t('unit')">
-            <div v-for="option in units" :key="option" class="radio-option">
+        <div v-if="options.length > 1" class="radio-group radio-group--segmented" role="radiogroup" :aria-label="t('unit')">
+            <div v-for="option in options" :key="option" class="radio-option">
                 <input class="form--radio" type="radio" :id="`${uid}-${option}`" :name="uid" :value="option"
-                       :checked="current.unit === option" @change="setUnit(option)">
-                <label class="form--radio-label" :for="`${uid}-${option}`">[[ t(`unit_${option}`) ]]</label>
+                       :checked="selected === option" @change="setUnit(option)">
+                <label class="form--radio-label" :for="`${uid}-${option}`">[[ optionLabel(option) ]]</label>
             </div>
         </div>
         <div class="period-nav--steps">

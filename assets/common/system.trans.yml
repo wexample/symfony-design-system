@@ -14,6 +14,8 @@ en:
       unit: Kind of period
       unit_month: Month
       unit_year: Year
+      unit_days: "%days% days"
+      last_days: "Last %days% days"
       previous: Previous
       next: Next
       today: Today
@@ -1077,6 +1079,8 @@ fr:
       unit: Type de période
       unit_month: Mois
       unit_year: Année
+      unit_days: "%days% jours"
+      last_days: "%days% derniers jours"
       previous: Précédente
       next: Suivante
       today: Aujourd'hui

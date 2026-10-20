@@ -3,9 +3,16 @@ const T = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.period.';
 
 const pad = (value) => String(value).padStart(2, '0');
 
-// A period as it is written in an address: « 2026 », « 2026-10 ». Anything
-// else is no period — an address typed by hand, an old link —, and is left.
+// A period as it is written in an address: « 2026 », « 2026-10 », or the
+// last days up to today, « 30d ». Anything else is no period — an address
+// typed by hand, an old link —, and is left.
 function periodParse(text) {
+  const rolling = /^(\d{1,3})d$/.exec(String(text ?? ''));
+
+  if (rolling) {
+    return { unit: 'days', days: Number(rolling[1]), year: null, month: null };
+  }
+
   const match = /^(\d{4})(?:-(\d{2}))?$/.exec(String(text ?? ''));
 
   if (!match || (match[2] && (Number(match[2]) < 1 || Number(match[2]) > 12))) {
@@ -18,16 +25,28 @@ function periodParse(text) {
 }
 
 function periodKey(period) {
+  if (period.unit === 'days') {
+    return `${period.days}d`;
+  }
+
   return period.unit === 'month' ? `${period.year}-${pad(period.month)}` : String(period.year);
+}
+
+// What a period is offered as, among the kinds: its unit, or its days.
+function periodOption(period) {
+  return period.unit === 'days' ? periodKey(period) : period.unit;
 }
 
 let uidCounter = 0;
 
 // A period to look at, a year or a month: the one before, the one after,
-// the current one. What it shows is the caller's — a list, a chart —, told
-// on each change with its bounds (`from` inclusive, `to` exclusive, ISO
-// dates). Kept in the address (`hashKey`), it survives a reload and a link;
-// bounded (`min`, `max`, written as periods), it stops there.
+// the current one — or the last days up to today (`rolling`: 7, 30, 90),
+// which have neither. What it shows is the caller's — a list, a chart —,
+// told on each change with its bounds (`from` inclusive, `to` exclusive,
+// ISO dates), through `change` and through a `period-change` event bubbling
+// from the element, for what is no Vue component of the page — a chart.
+// Kept in the address (`hashKey`), it survives a reload and a link; bounded
+// (`min`, `max`, written as periods), it stops there.
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-period-nav-period-nav',
 
@@ -53,6 +72,11 @@ export default {
     hashKey: {
       type: String,
       default: null
+    },
+    // Numbers of days offered as « the last N days », beside the units.
+    rolling: {
+      type: Array,
+      default: () => []
     }
   },
 
@@ -66,7 +90,19 @@ export default {
   },
 
   computed: {
+    options() {
+      return [...this.units, ...this.rolling.map((days) => `${days}d`)];
+    },
+
+    selected() {
+      return periodOption(this.current);
+    },
+
     label() {
+      if (this.current.unit === 'days') {
+        return this.trans(`${T}last_days`, { '%days%': this.current.days });
+      }
+
       const locale = (document.documentElement.lang || undefined)?.replace('_', '-');
       const date = new Date(this.current.year, (this.current.month ?? 1) - 1, 1);
 
@@ -76,15 +112,15 @@ export default {
     },
 
     hasPrevious() {
-      return this.allowed(this.shifted(-1));
+      return this.current.unit !== 'days' && this.allowed(this.shifted(-1));
     },
 
     hasNext() {
-      return this.allowed(this.shifted(1));
+      return this.current.unit !== 'days' && this.allowed(this.shifted(1));
     },
 
     isToday() {
-      return periodKey(this.current) === periodKey(this.now(this.current.unit));
+      return this.current.unit === 'days' || periodKey(this.current) === periodKey(this.now(this.current.unit));
     }
   },
 
@@ -93,11 +129,14 @@ export default {
       window.addEventListener('hashchange', this.onHashChange);
     }
 
+    // What starts listening after this announced its period asks for it.
+    document.addEventListener('period-request', this.onPeriodRequest);
     this.announce(false);
   },
 
   beforeUnmount() {
     window.removeEventListener('hashchange', this.onHashChange);
+    document.removeEventListener('period-request', this.onPeriodRequest);
   },
 
   methods: {
@@ -109,11 +148,21 @@ export default {
       return this.app.getServiceOrFail('icon').icon(name);
     },
 
+    optionLabel(option) {
+      const rolling = periodParse(option);
+
+      return rolling ? this.trans(`${T}unit_days`, { '%days%': rolling.days }) : this.t(`unit_${option}`);
+    },
+
     initial() {
       const fromHash = this.hashKey ? periodParse(new URLSearchParams(window.location.hash.slice(1)).get(this.hashKey)) : null;
       const given = fromHash ?? periodParse(this.value);
 
-      return given && this.units.includes(given.unit) ? given : this.now(this.units[0]);
+      return given && this.options.includes(periodOption(given)) ? given : this.first();
+    },
+
+    first() {
+      return this.units.length ? this.now(this.units[0]) : periodParse(`${this.rolling[0]}d`);
     },
 
     now(unit) {
@@ -154,16 +203,27 @@ export default {
     },
 
     // Another kind of period, around the same time: the year of the month
-    // shown, or its first month — the current one in the current year.
-    setUnit(unit) {
-      const now = this.now('month');
-      const month = this.current.year === now.year ? now.month : 1;
+    // shown, or its first month — the current one in the current year. The
+    // last days end today, wherever the period stood.
+    setUnit(option) {
+      const rolling = periodParse(option);
 
-      this.go({ unit, year: this.current.year, month: unit === 'month' ? month : null });
+      if (rolling) {
+        this.go(rolling);
+
+        return;
+      }
+
+      const unit = option;
+      const now = this.now('month');
+      const year = this.current.year ?? now.year;
+      const month = year === now.year ? now.month : 1;
+
+      this.go({ unit, year, month: unit === 'month' ? month : null });
     },
 
     go(period) {
-      if (!this.allowed(period)) {
+      if (period.unit !== 'days' && !this.allowed(period)) {
         return;
       }
 
@@ -174,9 +234,7 @@ export default {
     // The period and its bounds, to whoever listens; in the address, without
     // a step in the history for each click.
     announce(write) {
-      const { unit, year, month } = this.current;
-      const from = new Date(year, unit === 'month' ? month - 1 : 0, 1);
-      const to = unit === 'month' ? new Date(year, month, 1) : new Date(year + 1, 0, 1);
+      const { from, to } = this.bounds();
       const iso = (date) => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 
       if (write && this.hashKey) {
@@ -185,13 +243,36 @@ export default {
         window.history.replaceState(window.history.state, '', `#${params.toString()}`);
       }
 
-      this.$emit('change', { ...this.current, key: periodKey(this.current), from: iso(from), to: iso(to) });
+      const detail = { ...this.current, key: periodKey(this.current), from: iso(from), to: iso(to) };
+
+      this.$emit('change', detail);
+      this.$el.dispatchEvent(new CustomEvent('period-change', { bubbles: true, detail }));
+    },
+
+    bounds() {
+      const { unit, year, month, days } = this.current;
+
+      if (unit === 'days') {
+        const today = new Date();
+        const to = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+
+        return { from: new Date(to.getFullYear(), to.getMonth(), to.getDate() - days), to };
+      }
+
+      return {
+        from: new Date(year, unit === 'month' ? month - 1 : 0, 1),
+        to: unit === 'month' ? new Date(year, month, 1) : new Date(year + 1, 0, 1),
+      };
+    },
+
+    onPeriodRequest() {
+      this.announce(false);
     },
 
     onHashChange() {
       const period = periodParse(new URLSearchParams(window.location.hash.slice(1)).get(this.hashKey));
 
-      if (period && this.units.includes(period.unit) && periodKey(period) !== periodKey(this.current)) {
+      if (period && this.options.includes(periodOption(period)) && periodKey(period) !== periodKey(this.current)) {
         this.go(period);
       }
     }
