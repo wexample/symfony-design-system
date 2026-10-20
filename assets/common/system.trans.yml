@@ -168,6 +168,8 @@ ar:
       unit: 'نوع الفترة'
       unit_month: شهر
       unit_year: سنة
+      unit_days: '%days% أيام'
+      last_days: 'آخر %days% أيام'
       previous: السابق
       next: التالي
       today: اليوم
@@ -263,7 +265,7 @@ ar:
       progress: '%current% / %total%'
     upload:
       hint: 'اسحب الملفات هنا، أو اخترها'
-      pick: 'رفع'
+      pick: رفع
       title: التحميلات
       progress: 'التحميلات — %done% / %count%'
       cancel: 'إلغاء هذا التحميل'
@@ -320,6 +322,8 @@ bn:
       unit: 'পর্বের প্রকার'
       unit_month: মাস
       unit_year: বছর
+      unit_days: '%days% দিন'
+      last_days: 'গত %days% দিন'
       previous: পূর্ববর্তী
       next: পরবর্তী
       today: আজ
@@ -472,6 +476,8 @@ de:
       unit: 'Art der Periode'
       unit_month: Monat
       unit_year: Jahr
+      unit_days: '%days% Tage'
+      last_days: 'Letzte %days% Tage'
       previous: Vorherige
       next: Nächste
       today: Heute
@@ -624,6 +630,8 @@ es:
       unit: 'Tipo de período'
       unit_month: Mes
       unit_year: Año
+      unit_days: '%days% días'
+      last_days: 'Últimos %days% días'
       previous: Anterior
       next: Siguiente
       today: Hoy
@@ -776,6 +784,8 @@ fa:
       unit: 'نوع دوره'
       unit_month: ماه
       unit_year: سال
+      unit_days: '%days% روز'
+      last_days: 'آخرین %days% روز'
       previous: قبلی
       next: بعدی
       today: امروز
@@ -928,6 +938,8 @@ fi:
       unit: 'Jakson tyyppi'
       unit_month: Kuukausi
       unit_year: Vuosi
+      unit_days: '%days% päivää'
+      last_days: 'Viimeiset %days% päivää'
       previous: Edellinen
       next: Seuraava
       today: Tänään
@@ -1234,6 +1246,8 @@ he:
       unit: 'סוג תקופה'
       unit_month: חודש
       unit_year: שנה
+      unit_days: '%days% ימים'
+      last_days: 'הימים האחרונים %days%'
       previous: קודם
       next: הבא
       today: היום
@@ -1386,6 +1400,8 @@ hi:
       unit: 'अवधि का प्रकार'
       unit_month: महिना
       unit_year: साल
+      unit_days: '%days% दिन'
+      last_days: 'पिछले %days% दिन'
       previous: पिछला
       next: अगला
       today: आज
@@ -1538,6 +1554,8 @@ id:
       unit: 'Jenis periode'
       unit_month: Bulan
       unit_year: Tahun
+      unit_days: '%days% hari'
+      last_days: 'Hari terakhir %days%'
       previous: Sebelumnya
       next: Selanjutnya
       today: 'Hari ini'
@@ -1690,6 +1708,8 @@ it:
       unit: 'Tipo di periodo'
       unit_month: Mese
       unit_year: Anno
+      unit_days: '%days% giorni'
+      last_days: 'Ultimi %days% giorni'
       previous: Precedente
       next: Successivo
       today: Oggi
@@ -1842,6 +1862,8 @@ ja:
       unit: 期間の種類
       unit_month: 月
       unit_year: 年
+      unit_days: '%days% 日'
+      last_days: '過去 %days% 日間'
       previous: 前
       next: 次
       today: 今日
@@ -1994,6 +2016,8 @@ ko:
       unit: '기간 종류'
       unit_month: 월
       unit_year: 년
+      unit_days: '%days% 일'
+      last_days: '지난 %days% 일'
       previous: 이전
       next: 다음
       today: 오늘
@@ -2146,6 +2170,8 @@ nl:
       unit: 'Soort periode'
       unit_month: Maand
       unit_year: Jaar
+      unit_days: '%days% dagen'
+      last_days: 'Laatste %days% dagen'
       previous: Vorige
       next: Volgende
       today: Vandaag
@@ -2298,6 +2324,8 @@ pl:
       unit: 'Rodzaj okresu'
       unit_month: Miesiąc
       unit_year: Rok
+      unit_days: '%days% dni'
+      last_days: 'Ostatnie %days% dni'
       previous: Poprzedni
       next: Następny
       today: Dziś
@@ -2450,6 +2478,8 @@ pt_BR:
       unit: 'Tipo de período'
       unit_month: Mês
       unit_year: Ano
+      unit_days: '%days% dias'
+      last_days: 'Últimos %days% dias'
       previous: Anterior
       next: Próximo
       today: Hoje
@@ -2602,6 +2632,8 @@ ru:
       unit: 'Тип периода'
       unit_month: Месяц
       unit_year: Год
+      unit_days: '%days% дней'
+      last_days: 'Последние %days% дней'
       previous: Предыдущий
       next: Следующий
       today: Сегодня
@@ -2754,6 +2786,8 @@ th:
       unit: ประเภทของช่วงเวลา
       unit_month: เดือน
       unit_year: ปี
+      unit_days: '%days% วัน'
+      last_days: 'ช่วงเวลา %days% วันที่ผ่านมา'
       previous: ก่อนหน้า
       next: ถัดไป
       today: วันนี้
@@ -2906,6 +2940,8 @@ tr:
       unit: 'Dönem türü'
       unit_month: Ay
       unit_year: Yıl
+      unit_days: '%days% gün'
+      last_days: 'Son %days% gün'
       previous: Önceki
       next: Sonraki
       today: Bugün
@@ -3058,6 +3094,8 @@ ur:
       unit: 'مدت کی قسم'
       unit_month: مہینہ
       unit_year: سال
+      unit_days: '%days% دن'
+      last_days: 'آخری %days% دن'
       previous: پچھلا
       next: اگلا
       today: آج
@@ -3210,6 +3248,8 @@ vi:
       unit: 'Loại thời gian'
       unit_month: Tháng
       unit_year: Năm
+      unit_days: '%days% ngày'
+      last_days: '%days% ngày qua'
       previous: Trước
       next: 'Tiếp theo'
       today: 'Hôm nay'
@@ -3362,6 +3402,8 @@ zh:
       unit: 周期类型
       unit_month: 月
       unit_year: 年
+      unit_days: '%days% 天'
+      last_days: '过去 %days% 天'
       previous: 上一个
       next: 下一个
       today: 今天
