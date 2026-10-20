@@ -285,7 +285,7 @@
                                 {% block footer_body %}
                                     {#- On top, the trail stands above the title instead. -#}
                                     {%- if not (navigationTop ?? false) -%}
-                                        {{ breadcrumb_render({ current_label: page_title|default(null) }) }}
+                                        {{ breadcrumb_render({ current_label: page_title|default(null), structured_data: true }) }}
                                     {%- endif -%}
                                 {% endblock %}
                                 {{- block('footer_start') -}}

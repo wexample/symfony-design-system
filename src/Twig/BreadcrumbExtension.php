@@ -16,6 +16,8 @@ class BreadcrumbExtension extends AbstractTemplateExtension
 {
     private const STACK_ATTRIBUTE = '_breadcrumb_stack';
 
+    private const DESCRIBED_ATTRIBUTE = '_breadcrumb_described';
+
     /**
      * Where the pages of an app or a bundle start: the namespaces above it are
      * the bundle's, not steps of a trail.
@@ -62,6 +64,11 @@ class BreadcrumbExtension extends AbstractTemplateExtension
                 [$this, 'breadcrumbStack']
             ),
             new TwigFunction(
+                'breadcrumb_structured_data',
+                [$this, 'breadcrumbStructuredData'],
+                ['is_safe' => ['html']]
+            ),
+            new TwigFunction(
                 'breadcrumb_render',
                 function (Environment $twig, $context, array $options = []) {
                     return $this->renderComponent(
@@ -94,6 +101,42 @@ class BreadcrumbExtension extends AbstractTemplateExtension
         ];
 
         $request->attributes->set(self::STACK_ATTRIBUTE, $stack);
+    }
+
+    /**
+     * The trail as the search engines read it, a schema.org BreadcrumbList,
+     * from the labels and addresses the component drew — once a page, the
+     * trail of its layout. JSON-LD is read wherever it stands in the page;
+     * a `</script>` in a label is written in hex, not closing it.
+     *
+     * @param list<array{name: string, url: ?string}> $items
+     */
+    public function breadcrumbStructuredData(array $items): string
+    {
+        $request = $this->getCurrentRequest();
+
+        if (count($items) < 2 || ! $request || $request->attributes->get(self::DESCRIBED_ATTRIBUTE)) {
+            return '';
+        }
+
+        $request->attributes->set(self::DESCRIBED_ATTRIBUTE, true);
+        $elements = [];
+
+        foreach (array_values($items) as $index => $item) {
+            $elements[] = array_filter([
+                '@type' => 'ListItem',
+                'position' => $index + 1,
+                // The label as drawn, its HTML escaping undone.
+                'name' => html_entity_decode(trim((string) $item['name']), \ENT_QUOTES | \ENT_HTML5),
+                'item' => $item['url'] ?? null,
+            ]);
+        }
+
+        return '<script type="application/ld+json">'.json_encode([
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => $elements,
+        ], \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE | \JSON_HEX_TAG | \JSON_THROW_ON_ERROR).'</script>';
     }
 
     public function breadcrumbStack(): array

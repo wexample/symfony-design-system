@@ -45,3 +45,12 @@
     {% endfor %}
 </nav>
 {% endif %}
+
+{#- `structured_data`: the trail the layout draws for the page, told to the
+    engines as well — whole, even where only the way back is drawn. -#}
+{% if options.structured_data|default(false) %}
+    {{ breadcrumb_structured_data(items|map((item, index) => {
+        name: breadcrumb.label(item, item.current|default(false) or index == items|length - 1, options),
+        url: item.route is defined and item.route ? url(item.route, item.params|default({})) : null,
+    })|filter(item => item.url or item.name|trim)) }}
+{% endif %}
