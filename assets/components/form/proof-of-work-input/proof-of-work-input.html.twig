@@ -1,0 +1,10 @@
+{#- Nothing a person sees: the solution the browser works out from the
+    challenge, and a field only a program finds to fill in — kept out of the
+    tab order, the autofill and what a screen reader reads. -#}
+<div {{ component_render_tag_attributes({class:'proof-of-work-input'}) }} data-challenge="{{ challenge|json_encode|e('html_attr') }}">
+    <input class="proof-of-work-input--solution" type="hidden" name="{{ solution_name }}" value="">
+    <div class="visually-hidden" aria-hidden="true">
+        <label for="{{ trap_id }}">{{ trap_name }}</label>
+        <input id="{{ trap_id }}" type="text" name="{{ trap_name }}" value="" tabindex="-1" autocomplete="off">
+    </div>
+</div>

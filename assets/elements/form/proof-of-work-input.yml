@@ -1,0 +1,16 @@
+# Declares `form/proof-of-work-input` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: The captcha of a form open to anyone — work the browser does while the form is filled in, nothing to solve by hand.
+formats:
+  style: Nothing of it is seen; the utility class hiding the trap is enough.
+  template: true
+  vue: Drawn by symfony-forms' ProofOfWorkInputType, inside a form the server renders; a client-built form has no challenge to solve.
+  script: true
+  schema: todo
+  ai: An agent filling a form in has nothing to do with it; the browser solves it.
+  react: todo
+  flutter: todo
