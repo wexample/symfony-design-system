@@ -74,7 +74,9 @@ class TabExtension extends AbstractTemplateExtension
             // from, its tabs, and what can be done to it at the far end.
             // Given a navigation (NavigationService) or its bare items, of
             // which the tabs show the level the page stands in; the options
-            // say better what the navigation says.
+            // say better what the navigation says. No way back unless the
+            // navigation or the options give one: the pages of a section are
+            // reached from the menu, which already tells where one is.
             new TwigFunction(
                 'page_tabs',
                 function (Environment $twig, $context, array $navigation, array $options = []) {
@@ -86,7 +88,7 @@ class TabExtension extends AbstractTemplateExtension
                         '@WexampleSymfonyDesignSystemBundle/components/page-tabs',
                         [
                             'items' => $navigation['items'],
-                            'back' => $options['back'] ?? $navigation['back'] ?? true,
+                            'back' => $options['back'] ?? $navigation['back'] ?? false,
                             'actions' => $options['actions'] ?? $navigation['actions'],
                             'label' => $options['label'] ?? $navigation['label'],
                         ]
