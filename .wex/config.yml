@@ -6,7 +6,7 @@ git:
 global:
   name: symfony_design_system
   type: app
-  version: 39.0.2
+  version: 39.0.3
 wex:
   migration: 2
   version: 6.0.150
