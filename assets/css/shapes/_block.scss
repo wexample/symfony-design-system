@@ -161,6 +161,13 @@
   border-top: var(--border-separator);
 }
 
+// A footer holding only the way on — an action, the link to the rest of what
+// the block shows —: at the end of the line, where the eye leaves the block,
+// with no empty first child to push it there.
+.block--footer--end {
+  justify-content: flex-end;
+}
+
 // A whole block that is a link: `<a class="block block--link">`, for a choice
 // made by picking one card among several — a plan, a branch, a template. It
 // reads as text and not as a muted action, and says it can be picked by what
