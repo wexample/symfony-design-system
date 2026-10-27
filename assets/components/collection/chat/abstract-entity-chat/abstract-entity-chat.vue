@@ -3,6 +3,7 @@ import AbstractEntityCollectionVueMixin from "../../../../js/Vue/AbstractEntityC
 import buildTranslatedBindings from "../../../../js/Helper/TranslationHelper";
 import DateDisplay from "../../../date-display/date-display.vue";
 import LoadMore from "../../../load-more/load-more.vue";
+import Dots from "../../../dots/dots.vue";
 
 const translated = buildTranslatedBindings({
   resolvedPlaceholder: [
@@ -26,6 +27,7 @@ export default {
 
   components: {
     DateDisplay,
+    Dots,
     LoadMore
   },
 
@@ -52,7 +54,10 @@ export default {
       isSubmitting: false,
       // How far the thread was from its bottom when older messages were asked
       // for. Null means the thread should simply go to the bottom.
-      threadScrollAnchor: null
+      threadScrollAnchor: null,
+      // A message was sent and its answer has not arrived yet: the thread
+      // shows it is coming (expectsReply()).
+      awaitingReply: false
     };
   },
 
@@ -82,7 +87,13 @@ export default {
   },
 
   watch: {
-    entities() {
+    entities(entities) {
+      // The answer is in once the thread ends on a message someone else wrote.
+      const last = entities[entities.length - 1];
+      if (this.awaitingReply && last && !this.isOwnMessage(last)) {
+        this.awaitingReply = false;
+      }
+
       this.$nextTick(() => this.settleThreadScroll());
     }
   },
@@ -142,6 +153,19 @@ export default {
       return null;
     },
 
+    // Whether a message sent here is answered by someone else — an agent —,
+    // the thread showing the answer is coming until it arrives. A chat whose
+    // messages wait for nobody leaves it off.
+    expectsReply() {
+      return false;
+    },
+
+    // Whether a message of the thread was written by whoever reads it: what
+    // ends the wait for an answer is a message that is not.
+    isOwnMessage() {
+      return true;
+    },
+
     async submitMessage() {
       if (!this.canSubmit) {
         return;
@@ -159,6 +183,7 @@ export default {
           // in: the endpoint reads the slash and answers it, so the composer has
           // one way out and only one.
           await this.getEntityRepository().createEntity(this.buildMessageEntity(content));
+          this.awaitingReply = this.expectsReply();
         }
 
         this.draft = '';

@@ -8,6 +8,7 @@
 {%- block vue_require -%}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/date-display') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/load-more') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/dots') -}}
 {%- endblock -%}
 
 {%- block vue_body -%}
@@ -40,6 +41,10 @@
                     </div>
                     <div class="chat--message-content">[[ message.content ]]</div>
                 </div>
+            </div>
+
+            <div v-if="awaitingReply" class="chat--message-row chat--message-row--awaiting">
+                <dots size="sm"></dots>
             </div>
         </div>
 

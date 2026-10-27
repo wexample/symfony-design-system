@@ -132,6 +132,12 @@
   gap: var(--space-4);
 }
 
+// The answer on its way: the dots stand where it will appear, under the
+// avatars' column.
+.chat--message-row--awaiting {
+  padding-inline-start: calc(var(--space-5) + var(--space-4));
+}
+
 .chat--message-row .avatar {
   --avatar-size: var(--space-5);
   width: var(--avatar-size);
