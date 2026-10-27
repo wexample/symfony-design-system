@@ -202,8 +202,11 @@
                                         {%- if not (page_show_title|default(false)) -%}
                                             <h1 class="visually-hidden">{{ page_title|default(null) ?: '@page::page_title'|trans }}</h1>
                                         {%- endif -%}
+                                        {#- The header may name the thing the page is about
+                                            (`header_title`: the account opened) while the
+                                            page keeps its own title. -#}
                                         <div class="header--title">
-                                            {{ page_title|default(null) ?: '@page::page_title'|trans }}
+                                            {{ header_title|default(null) ?: page_title|default(null) ?: '@page::page_title'|trans }}
                                         </div>
                                         {#- What a page says about the thing it is titled
                                             after, beside its name: a state, a version, a
