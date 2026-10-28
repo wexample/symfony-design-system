@@ -67,7 +67,7 @@ export default {
     // The thread reads this and nothing else: what a message is made of is
     // decided by the projections below, never by the shape of the entity.
     messages() {
-      return this.entities.map((entity, index) => ({
+      return this.entities.filter((entity) => this.isMessageShown(entity)).map((entity, index) => ({
         key: this.getMessageKey(entity, index),
         author: this.getMessageAuthor(entity),
         content: this.getMessageContent(entity),
@@ -125,6 +125,12 @@ export default {
     // system notice differently from a spoken turn. Null keeps the plain row.
     getMessageVariant() {
       return null;
+    },
+
+    // Whether a message of the thread is drawn: one that is only plumbing —
+    // what the page answered to a tool — stays in the thread and out of sight.
+    isMessageShown() {
+      return true;
     },
 
     renderIcon(name) {
