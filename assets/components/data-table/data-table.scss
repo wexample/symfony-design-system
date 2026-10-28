@@ -146,6 +146,15 @@
   unicode-bidi: plaintext;
   font-size: var(--font-size-3);
   border-bottom: var(--border-separator);
+  // A row reads as one line: a name, a date, a state broken over two lines
+  // doubles the row for a few characters. A column of sentences says so
+  // (`wrap`); the table grows sideways otherwise, which its zone scrolls.
+  white-space: nowrap;
+}
+
+// A column of sentences — a description, a message —: its cells wrap.
+.table--cell--wrap {
+  white-space: normal;
 }
 
 .table--cell--fit {
@@ -253,6 +262,8 @@
 // default) and broken anywhere it must: a word longer than the column, a path,
 // a stack frame, wraps instead of widening the table past its zone.
 .table--clamp {
+  // Its own lines, whatever the cell says of wrapping.
+  white-space: normal;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: var(--table-clamp, 2);

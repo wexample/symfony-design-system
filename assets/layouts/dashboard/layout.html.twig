@@ -202,9 +202,9 @@
                                         {%- if not (page_show_title|default(false)) -%}
                                             <h1 class="visually-hidden">{{ page_title|default(null) ?: '@page::page_title'|trans }}</h1>
                                         {%- endif -%}
-                                        {#- The header may name the thing the page is about
-                                            (`header_title`: the account opened) while the
-                                            page keeps its own title. -#}
+                                        {#- On a record's page, the header says what kind of
+                                            thing it is (`header_title`: « Account ») and the
+                                            page names the one opened (`page_title`). -#}
                                         <div class="header--title">
                                             {{ header_title|default(null) ?: page_title|default(null) ?: '@page::page_title'|trans }}
                                         </div>

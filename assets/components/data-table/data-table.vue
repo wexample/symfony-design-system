@@ -950,6 +950,8 @@ export default {
       if (align) classes.push(`table--cell--${align}`);
       if (['date', 'code'].includes(column?.cell) || this.isNumberCell(column)) classes.push('table--cell--nowrap');
       if (column?.width) classes.push(`table--cell--width-${column.width}`);
+      // A column of sentences: its cells wrap, where every other keeps to one line.
+      if (column?.wrap) classes.push('table--cell--wrap');
       if (column?.secondary) classes.push('table--cell--secondary');
       return classes.length ? classes.join(' ') : undefined;
     }

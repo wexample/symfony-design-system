@@ -6,7 +6,7 @@ while the page is open.
 
 ## Columns and cells
 
-A column is `{ key, label, cell, align, width, className, secondary, unit, digits, negative }`. `cell` says how a value is
+A column is `{ key, label, cell, align, width, wrap, className, secondary, unit, digits, negative }`. `cell` says how a value is
 drawn: `date`, `html`, `status` (a marker: a type name, or `{ type, count, title, label }`),
 `path` (a file path: the name whole, the folders before it cut from their start — the
 `file-path` component, `file_path()` in twig), `code` (an identifier — a reference, an
@@ -19,6 +19,11 @@ A table is as wide as its columns ask and no wider; the bar above it (search, to
 `width` holds a column to a step of the scale — `xs`, `s`, `m`, `l`, `xl`, the
 `--table-column-width-*` tokens — so that its cells may change, a state or a figure refreshed
 in place, without the columns beside it moving. Columns left without one share what remains.
+
+A cell keeps to one line: a name, a date, a state broken in two doubles its row for a few
+characters, and a table wider than its zone scrolls sideways instead. `wrap: true` gives a
+column of sentences — a description, a message — its lines back. A text held to a few lines
+(`cell: 'clamp'`) wraps within them whatever the column says.
 
 `unit` makes a column of quantities: the cell holds the figure — a number, which sorts as one
 — and the table writes it in the page's locale, `digits` decimals at most (2 by default),

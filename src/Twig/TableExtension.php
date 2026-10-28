@@ -117,6 +117,7 @@ class TableExtension extends AbstractTemplateExtension
                 'negative' => $column['negative'] ?? null,
                 'align' => $column['align'] ?? null,
                 'width' => $column['width'] ?? null,
+                'wrap' => $column['wrap'] ?? null,
                 'className' => $column['class'] ?? null,
             ], fn ($value) => $value !== null), $columns),
             'rows' => $rows,
@@ -202,6 +203,8 @@ class TableExtension extends AbstractTemplateExtension
                     isset($column['align']) ? 'table--cell--'.$column['align'] : (($column['cell'] ?? null) === 'status' ? 'table--cell--center' : null),
                     // A date, a figure, a code: read whole, never broken over two lines.
                     in_array($column['cell'] ?? null, ['date', 'number', 'code'], true) || isset($column['unit']) ? 'table--cell--nowrap' : null,
+                    // A column of sentences: its cells wrap, where every other keeps to one line.
+                    ($column['wrap'] ?? false) ? 'table--cell--wrap' : null,
                     // One of xs, s, m, l, xl: the column keeps it whatever its cells say.
                     isset($column['width']) ? 'table--cell--width-'.$column['width'] : null,
                 ])),
