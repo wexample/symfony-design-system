@@ -58,6 +58,16 @@ The dashboard layout holds three things still — the header, the page's own nav
 {%- endblock -%}
 ```
 
+## A record's pages
+
+Every page about one record — an account, a model — says the same three things in the same three places, so a reader knows where to look and a page written tomorrow reads like the others:
+
+- **The header says what kind of thing it is** (`header_title`): « Account », « Model » — the record page's own `page_title` translated, never the record's name.
+- **The page names the one opened** (`page_title` set to the record's name, `page_show_title: true`): it is also the document's title, which is what a browser tab and the history show.
+- **The way back is the layout's** — never a link written in the page: a record with tabs draws them with `page_tabs(…, { back: true })`, the list at their start; a record without sets `page_trail: 'back'`, which draws the same « ← list » in the bar under the header. Its label is the title of the page above, read from where the controller stands.
+
+What qualifies the record — its family, its state, a version — stands beside the header's title (`header_title_aside`, a marker mostly) or in the page, never in the title itself.
+
 ## The way back
 
 `breadcrumb_render({ back: true })` draws the page above the current one alone, as « ← its title »; nothing when there is none. The layout draws it above the title with `page_trail: 'back'`, the full trail with `page_trail: 'breadcrumb'`.
