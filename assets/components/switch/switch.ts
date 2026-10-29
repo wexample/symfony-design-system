@@ -1,26 +1,37 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
+import type { AgentActionsImplementation } from '@wexample/symfony-loader/js/Interfaces/AgentNodeInterface';
 import type ConfirmService from '../../js/Services/ConfirmService';
 
 // Flips the switch and says so: `switch:change`, with the new state, bubbles
 // from the switch for whatever the page hangs on it. A switch carrying a
 // confirmation asks it before switching on, and stays off when refused.
+//
+// An agent turns it the same way a click does, confirmation included.
 export default class extends Component {
-  private checked: boolean = false;
+  protected checked: boolean = false;
   private asking: boolean = false;
 
   private onToggle = async () => {
-    if (this.asking) {
-      return;
+    await this.switchTo(!this.checked);
+  };
+
+  // Whether the switch ended in that state: false when a confirmation was
+  // refused, or another one is already being asked.
+  protected async switchTo(next: boolean): Promise<boolean> {
+    if (next === this.checked) {
+      return true;
     }
 
-    const next = !this.checked;
+    if (this.asking) {
+      return false;
+    }
 
     if (next && this.el.dataset.confirmMessage) {
       this.asking = true;
 
       try {
         if (!(await this.askConfirmation())) {
-          return;
+          return false;
         }
       } finally {
         this.asking = false;
@@ -28,13 +39,20 @@ export default class extends Component {
     }
 
     this.setChecked(next);
+    await this.changed(next);
+
+    return true;
+  }
+
+  // What switching does, once switched.
+  protected async changed(checked: boolean): Promise<void> {
     this.el.dispatchEvent(new CustomEvent('switch:change', {
       bubbles: true,
-      detail: { checked: next },
+      detail: { checked },
     }));
-  };
+  }
 
-  private setChecked(checked: boolean): void {
+  protected setChecked(checked: boolean): void {
     this.checked = checked;
     this.el.setAttribute('data-checked', String(checked));
     this.el.querySelector('.switch--pill')?.setAttribute('aria-checked', String(checked));
@@ -63,6 +81,29 @@ export default class extends Component {
     });
 
     return result === 'ok';
+  }
+
+  // What the actions of `switch.ai.yml` do: the same as a click.
+  protected getAgentActions(): AgentActionsImplementation {
+    const outcome = (switched: boolean) => ({ checked: this.checked, switched });
+
+    return {
+      get: () => ({ checked: this.checked }),
+      set: async ({ checked }) => outcome(await this.switchTo(checked === true)),
+      toggle: async () => outcome(await this.switchTo(!this.checked)),
+    };
+  }
+
+  protected getAgentState(): Record<string, any> {
+    return { checked: this.checked };
+  }
+
+  // Named as the reader sees it: its label, or the name a switch showing none
+  // carries for assistive technologies.
+  protected getAgentLabel(): string | undefined {
+    return this.el.querySelector('.switch--label')?.textContent?.trim()
+      || this.el.querySelector('.switch--pill')?.getAttribute('aria-label')
+      || undefined;
   }
 
   protected async activateListeners(): Promise<void> {

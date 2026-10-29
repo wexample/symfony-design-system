@@ -395,6 +395,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/color-scheme-switch/color-scheme-switch.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/color-scheme-switch/color-scheme-switch.ai.yml"
                 ]
             },
             "stances": {
@@ -403,7 +406,7 @@
                 "vue": "waived",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -1263,6 +1266,34 @@
                 "flutter": "todo"
             },
             "notes": []
+        },
+        {
+            "key": "form/proof-of-work-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "The captcha of a form open to anyone \u2014 work the browser does while the form is filled in, nothing to solve by hand.",
+            "formats": {
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/proof-of-work-input/proof-of-work-input.html.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/proof-of-work-input/proof-of-work-input.ts"
+                ]
+            },
+            "stances": {
+                "style": "waived",
+                "template": "expected",
+                "vue": "waived",
+                "script": "expected",
+                "schema": "todo",
+                "ai": "waived",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "style": "Nothing of it is seen; the utility class hiding the trap is enough.",
+                "vue": "Drawn by symfony-forms' ProofOfWorkInputType, inside a form the server renders; a client-built form has no challenge to solve.",
+                "ai": "An agent filling a form in has nothing to do with it; the browser solves it."
+            }
         },
         {
             "key": "form/radio-input",
@@ -2460,6 +2491,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/switch/switch.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/switch/switch.ai.yml"
                 ]
             },
             "stances": {
@@ -2468,7 +2502,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },

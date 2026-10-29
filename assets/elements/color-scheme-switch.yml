@@ -12,6 +12,6 @@ formats:
   script: true
   vue: "it reads the render pass for the current scheme and reloads the layout's stylesheets — a document-level switch, not a value a vue tree holds"
   schema: todo
-  ai: todo
+  ai: true
   react: todo
   flutter: todo

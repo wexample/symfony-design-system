@@ -1,5 +1,5 @@
 <div class="switch switch--choice color-scheme-switch" data-checked="{{ render_pass.usages['color_scheme']|default('light') != 'dark' ? 'true' : 'false' }}">
-    <span class="switch--pill">
+    <span class="switch--pill" role="switch" aria-label="{{ '@component::label' | trans }}">
         <span class="switch--knob"></span>
         <span class="switch--inner switch--off-inner">{{ icon('ph:bold/moon') }}</span>
         <span class="switch--inner switch--on-inner">{{ icon('ph:bold/sun') }}</span>

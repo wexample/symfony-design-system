@@ -1,0 +1,3 @@
+# A switch, said what it is for.
+extends: '@WexampleSymfonyDesignSystemBundle/components/switch/switch'
+description: "Light or dark colours for the interface: on is light, off is dark. The choice is kept for the next visits."

@@ -3,7 +3,10 @@
     neither of which is "on". `confirm` ({ title, message, accept })
     is asked before switching on, and switching on only goes through if it is
     accepted; switching off is never questioned. `aria_label` names a switch
-    that shows no label — an icon in its pill — and is its tooltip too. -#}
+    that shows no label — an icon in its pill — and is its tooltip too.
+    `agent` shows the switch to an agent reading the page (true, or the actions
+    it may run: `['get', 'toggle']`), `agent_description`, in english, tells it
+    what the switch is for when its label does not; see `switch.ai.yml`. -#}
 <div class="switch{% if label_position is defined and label_position == 'left' %} switch--label-left{% endif %}{% if tone is defined and tone %} switch--{{ tone }}{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-checked="{{ checked | default(false) ? 'true' : 'false' }}"
     {%- if confirm is defined and confirm %} data-confirm-title="{{ confirm.title|default('') }}" data-confirm-message="{{ confirm.message|default('') }}" data-confirm-accept="{{ confirm.accept|default('') }}"{% endif %}>
     {%- if label is defined and label_position is defined and label_position == 'left' -%}
