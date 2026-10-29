@@ -1,9 +1,13 @@
 <script>
 import AbstractEntityCollectionVueMixin from "../../../../js/Vue/AbstractEntityCollectionVueMixin";
+import AgentToolsService from "@wexample/symfony-loader/js/Services/AgentToolsService";
 import buildTranslatedBindings from "../../../../js/Helper/TranslationHelper";
 import DateDisplay from "../../../date-display/date-display.vue";
 import LoadMore from "../../../load-more/load-more.vue";
 import Dots from "../../../dots/dots.vue";
+
+// Where the chat's own words are, for a line it writes itself.
+const DOMAIN = 'WexampleSymfonyDesignSystemBundle.components.collection.chat.abstract-entity-chat.abstract-entity-chat::';
 
 const translated = buildTranslatedBindings({
   resolvedPlaceholder: [
@@ -70,7 +74,9 @@ export default {
       return this.entities.filter((entity) => this.isMessageShown(entity)).map((entity, index) => ({
         key: this.getMessageKey(entity, index),
         author: this.getMessageAuthor(entity),
-        content: this.getMessageContent(entity),
+        content: this.readToolCall(entity)
+          ? this.getToolCallContent(this.readToolCall(entity))
+          : this.getMessageContent(entity),
         date: this.getMessageDate(entity),
         iconHtml: this.renderIcon(this.getMessageIcon(entity)),
         variant: this.getMessageVariant(entity)
@@ -88,9 +94,10 @@ export default {
 
   watch: {
     entities(entities) {
-      // The answer is in once the thread ends on a message someone else wrote.
+      // The answer is in once the thread ends on a message someone else wrote
+      // — not on the lines a tool adds on the way.
       const last = entities[entities.length - 1];
-      if (this.awaitingReply && last && !this.isOwnMessage(last)) {
+      if (this.awaitingReply && last && !this.isOwnMessage(last) && !this.isToolLine(last)) {
         this.awaitingReply = false;
       }
 
@@ -129,8 +136,84 @@ export default {
 
     // Whether a message of the thread is drawn: one that is only plumbing —
     // what the page answered to a tool — stays in the thread and out of sight.
-    isMessageShown() {
-      return true;
+    isMessageShown(entity) {
+      return !this.isToolResult(entity);
+    },
+
+    // Tool calls. The agent asks the page to run one of its tools with a line
+    // of the thread (AgentToolsService); the page runs it once, however many
+    // times the line reaches it, and answers with another line. A subclass
+    // says how its entity carries both, and where the answer is sent.
+
+    // The call a line carries — `{name, arguments}` —, null for any other line.
+    // Read from the entity, or from the raw message a live topic carries.
+    readToolCall() {
+      return null;
+    },
+
+    // Whether a line is what the page answered to a call.
+    isToolResult() {
+      return false;
+    },
+
+    isToolLine(entity) {
+      return Boolean(this.readToolCall(entity)) || this.isToolResult(entity);
+    },
+
+    // What names a call, the same each time it reaches the page.
+    getToolCallId(entity) {
+      return entity?.secureId ?? entity?.id ?? null;
+    },
+
+    // Tells the agent what came of a call: `results` is `[value]`, or
+    // `[{error}]`.
+    async postToolResult() {
+      throw new Error('postToolResult(call, callId, results) must be implemented by a chat whose agent calls tools.');
+    },
+
+    // By tool name, what draws its call in the thread: `(call) => string`.
+    // None by default: a call is a short line naming the tool.
+    getToolRenderers() {
+      return {};
+    },
+
+    getToolCallContent(call) {
+      const render = this.getToolRenderers()[call.name];
+
+      return render ? render(call) : `${this.trans(`${DOMAIN}thread.tool`)} · ${call.name}`;
+    },
+
+    // A call arrives on the live topic like any line of the thread.
+    onLiveSourceMessage(payload, source) {
+      AbstractEntityCollectionVueMixin.methods.onLiveSourceMessage.call(this, payload, source);
+
+      const event = this.getLiveSource()?.event;
+      const entity = payload?.data?.entity ?? payload?.data;
+
+      if (entity && (!event || payload?.event === event) && this.readToolCall(entity)) {
+        this.runToolCall(entity);
+      }
+    },
+
+    async runToolCall(entity) {
+      const call = this.readToolCall(entity);
+      const callId = this.getToolCallId(entity);
+
+      if (!call || !callId) {
+        return;
+      }
+
+      // Null when the call already ran here, and the agent has its answer.
+      const outcome = await this.app.getServiceOrFail(AgentToolsService).run(callId, call.name, call.arguments ?? {});
+      if (outcome === null) {
+        return;
+      }
+
+      await this.postToolResult(
+        call,
+        callId,
+        [outcome.error !== undefined ? {error: outcome.error} : outcome.value]
+      );
     },
 
     renderIcon(name) {

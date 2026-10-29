@@ -4,6 +4,7 @@ en:
     submit: Send
   thread:
     load_older: Load earlier messages
+    tool: 'Tool'
 
 ar:
   composer:
@@ -11,6 +12,7 @@ ar:
     submit: إرسال
   thread:
     load_older: 'تحميل الرسائل السابقة'
+    tool: 'أداة'
 
 bn:
   composer:
@@ -18,6 +20,7 @@ bn:
     submit: পাঠান
   thread:
     load_older: 'পুরানো বার্তা লোড করুন'
+    tool: 'টুল'
 
 de:
   composer:
@@ -25,6 +28,7 @@ de:
     submit: Senden
   thread:
     load_older: 'Ältere Nachrichten laden'
+    tool: 'Werkzeug'
 
 es:
   composer:
@@ -32,6 +36,7 @@ es:
     submit: Enviar
   thread:
     load_older: 'Cargar mensajes anteriores'
+    tool: 'Herramienta'
 
 fa:
   composer:
@@ -39,6 +44,7 @@ fa:
     submit: ارسال
   thread:
     load_older: 'بارگذاری پیام‌های قدیمی‌تر'
+    tool: 'ابزار'
 
 fi:
   composer:
@@ -46,6 +52,7 @@ fi:
     submit: Lähetä
   thread:
     load_older: 'Lataa aikaisempia viestejä'
+    tool: 'Työkalu'
 
 fr:
   composer:
@@ -53,6 +60,7 @@ fr:
     submit: Envoyer
   thread:
     load_older: 'Charger les messages plus anciens'
+    tool: 'Outil'
 
 he:
   composer:
@@ -60,6 +68,7 @@ he:
     submit: שלח
   thread:
     load_older: 'טעון הודעות קודמות'
+    tool: 'כלי'
 
 hi:
   composer:
@@ -67,6 +76,7 @@ hi:
     submit: भेजें
   thread:
     load_older: 'पुराने संदेश लोड करें'
+    tool: 'टूल'
 
 id:
   composer:
@@ -74,6 +84,7 @@ id:
     submit: Kirim
   thread:
     load_older: 'Muat pesan sebelumnya'
+    tool: 'Alat'
 
 it:
   composer:
@@ -81,6 +92,7 @@ it:
     submit: Invia
   thread:
     load_older: 'Carica messaggi precedenti'
+    tool: 'Strumento'
 
 ja:
   composer:
@@ -88,6 +100,7 @@ ja:
     submit: 送信
   thread:
     load_older: 以前のメッセージを読み込む
+    tool: 'ツール'
 
 ko:
   composer:
@@ -95,6 +108,7 @@ ko:
     submit: 전송
   thread:
     load_older: '이전 메시지 불러오기'
+    tool: '도구'
 
 nl:
   composer:
@@ -102,6 +116,7 @@ nl:
     submit: Verstuur
   thread:
     load_older: 'Laad eerdere berichten'
+    tool: 'Hulpmiddel'
 
 pl:
   composer:
@@ -109,6 +124,7 @@ pl:
     submit: Wyślij
   thread:
     load_older: 'Załaduj wcześniejsze wiadomości'
+    tool: 'Narzędzie'
 
 pt_BR:
   composer:
@@ -116,6 +132,7 @@ pt_BR:
     submit: Enviar
   thread:
     load_older: 'Carregar mensagens anteriores'
+    tool: 'Ferramenta'
 
 ru:
   composer:
@@ -123,6 +140,7 @@ ru:
     submit: Отправить
   thread:
     load_older: 'Загрузить более ранние сообщения'
+    tool: 'Инструмент'
 
 th:
   composer:
@@ -130,6 +148,7 @@ th:
     submit: ส่ง
   thread:
     load_older: โหลดข้อความก่อนหน้า
+    tool: 'เครื่องมือ'
 
 tr:
   composer:
@@ -137,6 +156,7 @@ tr:
     submit: Gönder
   thread:
     load_older: 'Daha eski mesajları yükle'
+    tool: 'Araç'
 
 ur:
   composer:
@@ -144,6 +164,7 @@ ur:
     submit: بھیجیں
   thread:
     load_older: 'پرانے پیغامات لوڈ کریں'
+    tool: 'ٹول'
 
 vi:
   composer:
@@ -151,6 +172,7 @@ vi:
     submit: Gửi
   thread:
     load_older: 'Tải tin nhắn cũ hơn'
+    tool: 'Công cụ'
 
 zh:
   composer:
@@ -158,3 +180,4 @@ zh:
     submit: 发送
   thread:
     load_older: 加载更早的消息
+    tool: '工具'
