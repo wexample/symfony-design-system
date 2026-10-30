@@ -2,6 +2,8 @@
 
 namespace Wexample\SymfonyDesignSystem\Service\AgentTool;
 
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Wexample\SymfonyDesignSystem\Service\RouteAccessService;
@@ -21,6 +23,9 @@ final readonly class ListPagesAgentTool implements AgentBackToolInterface
     public function __construct(
         private RouterInterface $router,
         private RouteAccessService $routeAccess,
+        private RequestStack $requestStack,
+        #[Autowire(param: 'kernel.default_locale')]
+        private string $defaultLocale,
     ) {
     }
 
@@ -31,7 +36,7 @@ final readonly class ListPagesAgentTool implements AgentBackToolInterface
 
     public function getDescription(): string
     {
-        return 'Lists the pages of the application the user may open, each with its route name, its address and the parameters it needs, if any. `query` keeps the pages whose route or address holds a text.';
+        return 'Lists the pages of the application the user may open, each with its route name and its address — `navigate` opens it. A page showing one record gives its address with a {parameter} to fill in, and the parameters it needs. `query` keeps the pages whose route or address holds a text.';
     }
 
     public function getInputSchema(): array
@@ -71,7 +76,7 @@ final readonly class ListPagesAgentTool implements AgentBackToolInterface
 
             $pages[] = [
                 'route' => $name,
-                'path' => $route->getPath(),
+                'url' => $this->urlOf($name, $route, $required),
                 ...($required ? ['parameters' => $required] : []),
             ];
 
@@ -81,6 +86,34 @@ final readonly class ListPagesAgentTool implements AgentBackToolInterface
         }
 
         return ['count' => count($pages), 'pages' => $pages];
+    }
+
+    /**
+     * The address as the user's browser opens it — its locale and defaults
+     * filled in by the router —; a page needing a record keeps its
+     * placeholders for them, `{id}`, its other parameters filled in.
+     *
+     * @param string[] $required
+     */
+    private function urlOf(string $name, Route $route, array $required): string
+    {
+        $placeholders = array_combine($required, array_map(static fn (string $parameter): string => '__'.$parameter.'__', $required));
+
+        try {
+            $url = $this->router->generate($name, $placeholders);
+        } catch (\Throwable) {
+            // A parameter whose format the placeholder does not match: the
+            // path itself, in the user's language.
+            $locale = $this->requestStack->getCurrentRequest()?->getLocale() ?? $this->defaultLocale;
+
+            return str_replace('{_locale}', $locale, $route->getPath());
+        }
+
+        foreach ($required as $parameter) {
+            $url = str_replace('__'.$parameter.'__', '{'.$parameter.'}', $url);
+        }
+
+        return $url;
     }
 
     private function isPage(Route $route): bool
