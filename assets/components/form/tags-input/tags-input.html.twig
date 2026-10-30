@@ -1,0 +1,26 @@
+{#- Words kept as tags. The text input is the field: it is what the form posts,
+    the words joined by `separator`, and what is left when no script runs. The
+    script sets it aside and draws each word as a tag beside an entry where the
+    next is typed. -#}
+<div {{ component_render_tag_attributes({ class: 'form--group tags-input' }) }}>
+    <label class="form--label" for="{{ id }}">{{ label }}</label>
+    <input
+        class="form--input tags-input--source"
+        id="{{ id }}"
+        type="text"
+        {% if name is defined %}name="{{ name }}"{% endif %}
+        {% if required is defined and required %}required{% endif %}
+        {% if value is defined %}value="{{ value }}"{% endif %}
+        {% if input_attr is defined %}{{ input_attr|raw }}{% endif %}
+        {% if placeholder is defined and placeholder %}placeholder="{{ placeholder }}"{% endif %}
+    >
+    <div class="tags-input--frame" hidden>
+        <span class="tags-input--list" data-remove-label="{{ '@component::label.remove' | trans }}"></span>
+        <input
+            class="tags-input--entry"
+            type="text"
+            aria-label="{{ label }}"
+            {% if placeholder is defined and placeholder %}placeholder="{{ placeholder }}"{% endif %}
+        >
+    </div>
+</div>

@@ -1,0 +1,72 @@
+/* Component: form/tags_input */
+@use '../../../css/mixins/field';
+
+// Set aside from sight, not from the form: still posted, still pointed at by
+// the browser when it is required and left empty.
+.tags-input--source-aside {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+// The frame draws the field: the tags and the entry sit in it as in one input.
+.tags-input--frame {
+  @include field.field-base;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--control-size);
+  height: auto;
+  cursor: text;
+
+  &:focus-within {
+    @include field.field-focus;
+  }
+}
+
+.tags-input--list {
+  display: contents;
+}
+
+.tags-input--tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0.1em 0.3em 0.1em 0.6em;
+  border-radius: var(--radius-pill);
+  background: var(--border-color-default);
+  font-size: var(--font-size-2);
+  line-height: 1.4;
+}
+
+.tags-input--remove {
+  border: 0;
+  padding: 0 0.2em;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.6;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+  }
+}
+
+.tags-input--entry {
+  flex: 1;
+  min-width: 8ch;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+
+  &:focus {
+    outline: none;
+  }
+}
