@@ -7,12 +7,14 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Wexample\SymfonyDesignSystem\Service\RouteAccessService;
+use Psr\Log\LoggerInterface;
+use Wexample\SymfonyHelpers\Attribute\RouteDescription;
 use Wexample\SymfonyLoader\Attribute\AgentRoute;
 use Wexample\SymfonyLoader\Interface\AgentBackToolInterface;
 
 /**
- * The pages offered to the agents (`#[AgentRoute]` on their controller) that
- * the user may open: answered to GET, and let through by the firewall as a
+ * The pages offered to the agents (`#[AgentRoute]` on their controller,
+ * described by `#[RouteDescription]`) that the user may open: answered to GET, and let through by the firewall as a
  * menu decides which entries to draw (RouteAccessService). A page needing a
  * record to show — `/model/{id}` — says what it needs.
  */
@@ -26,6 +28,7 @@ final readonly class ListPagesAgentTool implements AgentBackToolInterface
         private RequestStack $requestStack,
         #[Autowire(param: 'kernel.default_locale')]
         private string $defaultLocale,
+        private LoggerInterface $logger,
     ) {
     }
 
@@ -60,13 +63,13 @@ final readonly class ListPagesAgentTool implements AgentBackToolInterface
         $pages = [];
 
         foreach ($this->router->getRouteCollection()->all() as $name => $route) {
-            $offered = $this->isPage($route) ? $this->agentRouteOf($route) : null;
+            $description = $this->isPage($route) ? $this->offeredDescription($name, $route) : null;
 
-            if (! $offered) {
+            if (null === $description) {
                 continue;
             }
 
-            if ('' !== $needle && ! str_contains(mb_strtolower($offered->description.' '.$name.' '.$route->getPath()), $needle)) {
+            if ('' !== $needle && ! str_contains(mb_strtolower($description.' '.$name.' '.$route->getPath()), $needle)) {
                 continue;
             }
 
@@ -77,7 +80,7 @@ final readonly class ListPagesAgentTool implements AgentBackToolInterface
             }
 
             $pages[] = [
-                ...($offered->description ? ['description' => $offered->description] : []),
+                'description' => $description,
                 'route' => $name,
                 'url' => $this->urlOf($name, $route, $required),
                 ...($required ? ['parameters' => $required] : []),
@@ -120,10 +123,11 @@ final readonly class ListPagesAgentTool implements AgentBackToolInterface
     }
 
     /**
-     * What the controller says of the page, its method before its class;
-     * null for a page not offered to the agents.
+     * What a page offered to the agents is for — its method or its class
+     * offering it —; null for a page not offered, or offered without saying
+     * what it is for, which the log reports.
      */
-    private function agentRouteOf(Route $route): ?AgentRoute
+    private function offeredDescription(string $name, Route $route): ?string
     {
         $controller = $route->getDefault('_controller');
 
@@ -137,13 +141,21 @@ final readonly class ListPagesAgentTool implements AgentBackToolInterface
             return null;
         }
 
-        foreach ([new \ReflectionMethod($class, $method), new \ReflectionClass($class)] as $reflection) {
-            if ($attribute = $reflection->getAttributes(AgentRoute::class)[0] ?? null) {
-                return $attribute->newInstance();
-            }
+        $reflection = new \ReflectionMethod($class, $method);
+
+        if (! $reflection->getAttributes(AgentRoute::class) && ! (new \ReflectionClass($class))->getAttributes(AgentRoute::class)) {
+            return null;
         }
 
-        return null;
+        $described = $reflection->getAttributes(RouteDescription::class)[0] ?? null;
+
+        if (! $described) {
+            $this->logger->warning(sprintf('The page "%s" is offered to agents (#[AgentRoute]) without saying what it is for (#[RouteDescription]): it is left out of list_pages.', $name));
+
+            return null;
+        }
+
+        return $described->newInstance()->description;
     }
 
     private function isPage(Route $route): bool
