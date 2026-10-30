@@ -110,6 +110,10 @@
                     ></button>
                 </li>
             </ul>
+            {#- What a chat sets about the next message besides its words — how it
+                is sent, for a chat that lets its reader choose —, over the
+                field. Nothing by default. -#}
+            {%- block chat_composer_before -%}{%- endblock -%}
             <div class="chat-textarea">
                 <textarea
                         ref="input"
