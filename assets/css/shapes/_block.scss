@@ -114,6 +114,23 @@
   padding: var(--space-4);
 }
 
+// A part of the block among others stacked in it — what was said, then how,
+// then where it stands —: parted from the one above by the same separator as
+// the title and the footer, and inset as the body is. The first, or one under
+// the title, has no line of its own: the title's is there.
+.block--section {
+  padding: var(--space-4);
+}
+
+:is(.block--body, .block--row, .block--section, .block--media) + .block--section {
+  border-top: var(--border-separator);
+}
+
+// What brings its own grounds — tiles —: held one joint from the edges, no more.
+.block--section--snug {
+  padding: var(--space-1);
+}
+
 // Sections side by side rather than stacked: parted by the same separator as
 // a block's title and footer, standing upright. What the row holds takes the
 // width an aside leaves it.
@@ -204,6 +221,7 @@
   }
 
   > .block--body,
+  > .block--section:not(.block--section--snug),
   > .block--row > .block--body {
     padding: var(--space-2);
   }
