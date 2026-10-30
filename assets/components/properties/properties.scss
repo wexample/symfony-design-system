@@ -95,8 +95,9 @@
 // stands on, so it reads the same in a card, a panel or the page.
 //
 // How many to a row is the list's to decide, on its own width rather than the
-// window's: a card in a column is narrow on a wide screen.
-$tile-min: 8rem;
+// window's: a card in a column is narrow on a wide screen. One row as long as
+// it can hold: a tile is as narrow as a short id.
+$tile-min: 5rem;
 $tile-gap: 0.25rem;
 
 .properties--tiles {
@@ -111,8 +112,8 @@ $tile-gap: 0.25rem;
   flex-direction: column;
   flex: 1 1 $tile-min;
   min-width: 0;
-  gap: var(--space-1);
-  padding: var(--space-2) var(--space-3);
+  gap: 0;
+  padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-control);
   background: var(--tint-3);
 }
