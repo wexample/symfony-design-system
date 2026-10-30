@@ -1,0 +1,29 @@
+@use '../copy-button/copy-button';
+
+// An identifier and the button copying it, on one line: the button hangs from
+// the end of the value, a step closer than it would stand from a word.
+.identifier {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+  vertical-align: middle;
+}
+
+// In the mono face, a step smaller since that face reads larger, broken
+// anywhere when shown whole: it has no word to break between.
+.identifier--value {
+  min-width: 0;
+  font-family: var(--font-family-mono);
+  font-size: 0.9em;
+  word-break: break-all;
+}
+
+// A short one says there is more to it, under the pointer.
+.identifier--value[data-tooltip] {
+  cursor: help;
+}
+
+.identifier--copy {
+  padding: 0;
+}

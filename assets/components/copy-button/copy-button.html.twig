@@ -1,11 +1,12 @@
 {#- A button copying a text: `value`, or the text of the element named by
     `target` (an id). The copy glyph turns into a check once the clipboard took
-    it; refused, the button says so instead. -#}
+    it; refused, the button says so instead — in a toast too, with `toast`. -#}
 {%- set domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.copy.' -%}
 <button type="button"
         class="copy-button{{ label|default(false) ? ' copy-button--labelled' }}{% if class|default('') %} {{ class }}{% endif %}"
         {% if value|default(null) is not null %}data-copy-value="{{ value }}"{% endif %}
         {% if target|default(null) %}data-copy-target="{{ target }}"{% endif %}
+        {% if toast|default(false) %}data-copy-toast{% endif %}
         title="{{ (domain ~ 'copy') | trans }}"
         aria-label="{{ (domain ~ 'copy') | trans }}"
         data-copy-done="{{ (domain ~ 'copied') | trans }}"

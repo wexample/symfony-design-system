@@ -57,8 +57,11 @@ class PropertiesExtension extends AbstractTemplateExtension
                 // A value with no word to break between — a path, an address —
                 // broken anywhere, filling its lines.
                 'break' => $item['break'] ?? false,
-                // A value read as code — an id, a hash —: in the mono face.
+                // An identifier — an id, a hash —, read as code; kept to its
+                // end (`short`), copied whole (`copy`).
                 'code' => $item['code'] ?? false,
+                'short' => $item['short'] ?? false,
+                'copy' => $item['copy'] ?? false,
             ];
         }
 

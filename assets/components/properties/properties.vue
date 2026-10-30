@@ -1,4 +1,5 @@
 <script>
+import Identifier from '../identifier/identifier.vue';
 
 // The twin of properties.html.twig. The modifiers the twig side builds in
 // PropertiesExtension are props here, listed once in MODIFIERS so the two
@@ -8,12 +9,17 @@ const MODIFIERS = ['bordered', 'split', 'compact', 'stacked', 'columns', 'tiles'
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-properties-properties',
 
+  components: {
+    Identifier
+  },
+
   props: {
-    // Each item is { key, value, html, full, break, code }: html says the
-    // value is markup and is rendered as given, exactly as the `|raw` of the
-    // twig does, full gives a value the whole width where the list is laid in
-    // columns or tiles, break breaks it anywhere — a path, an address —, and
-    // code reads it as code — an id, a hash.
+    // Each item is { key, value, html, full, break, code, short, copy }: html
+    // says the value is markup and is rendered as given, exactly as the `|raw`
+    // of the twig does, full gives a value the whole width where the list is
+    // laid in columns or tiles, break breaks it anywhere — a path, an address
+    // —, and code reads it as an identifier (`identifier`), kept to its end
+    // with short, copied with copy.
     items: {
       type: Array,
       required: true
@@ -59,8 +65,7 @@ export default {
 
     valueClass(item) {
       return {
-        'properties--value--break': item.break,
-        'properties--value--code': item.code
+        'properties--value--break': item.break
       };
     },
 

@@ -1,3 +1,5 @@
+@use '../identifier/identifier';
+
 // Key / value pairs, built on <dl>. Rows are subgrids of the list so every key
 // column stays aligned while each row remains a real box able to carry a border.
 .properties {
@@ -116,15 +118,6 @@
 // A tile is small: its key a step down, so the value is what the eye lands on.
 .properties--tiles .properties--key {
   font-size: var(--font-size-1);
-}
-
-// A value read as code — an id, a hash, a reference —: in the mono face, a
-// step smaller since that face reads larger, and broken anywhere, since it has
-// no word to break between.
-.properties--value--code {
-  font-family: var(--font-family-mono);
-  font-size: 0.9em;
-  word-break: break-all;
 }
 
 // A field nobody filled. It is said with a dash rather than left blank: an

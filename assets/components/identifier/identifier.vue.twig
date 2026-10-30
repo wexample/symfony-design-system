@@ -1,0 +1,14 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/copy-button') -}}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    {#- Client-side twin of identifier.html.twig: same classes, same order. A
+        change to either is a change to both. -#}
+    <span class="identifier">
+        <code class="identifier--value" :data-tooltip="shown !== full ? full : null">[[ shown ]]</code>
+        <copy-button v-if="copy" class="identifier--copy" :value="full" toast></copy-button>
+    </span>
+{%- endblock -%}

@@ -1,0 +1,14 @@
+{#- An identifier — an id, a hash, a reference — read as code. `short` keeps
+    its last characters, eight by default or as many as given: an id built on
+    a time (a uuid v7) shares its start with every one made the same minute,
+    and its end is what tells it apart. The whole of it stays in the tooltip.
+    `copy` puts the whole of it in the clipboard, and says so in a toast. -#}
+{%- set value = value|default('') ~ '' -%}
+{%- set length = short is same as(true) ? 8 : (short|default(0)) -%}
+{%- set shown = length > 0 and value|length > length ? value|slice(-length) : value -%}
+<span class="identifier{{ class|default(null) ? ' ' ~ class }}">
+    <code class="identifier--value"{% if shown != value %} data-tooltip="{{ value }}"{% endif %}>{{ shown }}</code>
+    {%- if copy|default(false) -%}
+        {{ copy_button({ value: value, toast: true, class: 'identifier--copy' }) }}
+    {%- endif -%}
+</span>

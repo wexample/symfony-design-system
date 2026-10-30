@@ -35,6 +35,10 @@ class CopyExtension extends AbstractTemplateExtension
                             // The word beside the icon; the icon alone, where
                             // the button sits on what it copies.
                             'label' => $options['label'] ?? false,
+                            // Says it copied in a toast too: where the button
+                            // is small, beside what it copies, and its check
+                            // is easily missed.
+                            'toast' => $options['toast'] ?? false,
                             'class' => $options['class'] ?? null,
                         ]
                     );

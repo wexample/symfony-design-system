@@ -19,6 +19,12 @@ export default {
     label: {
       type: Boolean,
       default: false
+    },
+    // Says it copied in a toast too: where the button is small, beside what
+    // it copies, and its check is easily missed.
+    toast: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -61,6 +67,10 @@ export default {
   methods: {
     async onClick() {
       this.copied = await clipboardCopy(this.value);
+
+      if (this.toast) {
+        this.app.services.toast?.show({ type: this.copied ? 'success' : 'error', message: this.status });
+      }
 
       window.clearTimeout(this.timer);
       this.timer = window.setTimeout(() => {

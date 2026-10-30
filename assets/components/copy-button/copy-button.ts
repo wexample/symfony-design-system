@@ -42,6 +42,10 @@ export default class extends Component {
     button.title = said;
     button.querySelector('.copy-button--status')!.textContent = said;
 
+    if (button.dataset.copyToast !== undefined) {
+      this.app.services.toast?.show({ type: copied ? 'success' : 'error', message: said });
+    }
+
     window.clearTimeout(this.timer);
     this.timer = window.setTimeout(() => {
       button.classList.remove('is-copied', 'is-failed');
