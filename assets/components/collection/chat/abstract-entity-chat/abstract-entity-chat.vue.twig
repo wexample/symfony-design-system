@@ -6,7 +6,7 @@
 {%- endblock -%}
 
 {%- block vue_require -%}
-    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/date-display') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/collection/chat/chat-message') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/load-more') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/dots') -}}
 {%- endblock -%}
@@ -33,29 +33,15 @@
                 ></load-more>
             </div>
 
-            <div
-                    v-for="message in messages"
-                    :key="message.key"
-                    class="chat--message-row"
-                    :class="[message.variant ? 'chat--message-row--' + message.variant : null, message.own ? 'chat--message-row--own' : null]"
-            >
-                <div class="avatar" v-html="message.iconHtml"></div>
-                <div class="chat--message">
-                    <div class="chat--message-meta">
-                        <span class="chat--message-author">[[ message.author ]]</span>
-                        <date-display
-                                v-if="message.date"
-                                class="chat--message-date"
-                                :value="message.date"
-                        ></date-display>
-                    </div>
-                    <div v-if="message.html" class="chat--message-content content" v-html="message.html"></div>
-                    <div v-else class="chat--message-content">[[ message.content ]]</div>
-                    {#- What a chat shows under a message's words, from its
-                        `details` projection: none here. -#}
-                    {%- block chat_message_details -%}{%- endblock -%}
-                </div>
-            </div>
+            {#- Each line drawn by the component the chat names for it: the
+                conversation's line by default, whatever a chat's lines are
+                otherwise. -#}
+            <component
+                    v-for="item in messages"
+                    :key="item.key"
+                    :is="getMessageComponent(item.entity)"
+                    v-bind="getMessageProps(item.entity)"
+            ></component>
 
             <div v-if="awaitingReply" class="chat--message-row chat--message-row--awaiting">
                 <dots size="sm"></dots>

@@ -1,0 +1,24 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.copy.*') }}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    {#- Client-side twin of copy-button.html.twig: same classes, same order. A
+        change to either is a change to both. -#}
+    <button
+            type="button"
+            class="copy-button"
+            :class="{ 'copy-button--labelled': label, 'is-copied': copied === true, 'is-failed': copied === false }"
+            :title="status || copyLabel"
+            :aria-label="copyLabel"
+            @click="onClick"
+    >
+        <span class="copy-button--icon copy-button--icon-copy" aria-hidden="true" v-html="iconsHtml.copy"></span>
+        <span class="copy-button--icon copy-button--icon-done" aria-hidden="true" v-html="iconsHtml.done"></span>
+        <span class="copy-button--icon copy-button--icon-failed" aria-hidden="true" v-html="iconsHtml.failed"></span>
+        <span v-if="label" class="copy-button--label">[[ copyLabel ]]</span>
+        <span class="copy-button--status" role="status">[[ status ]]</span>
+    </button>
+{%- endblock -%}

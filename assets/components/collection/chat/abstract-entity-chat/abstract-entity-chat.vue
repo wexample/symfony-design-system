@@ -3,7 +3,7 @@ import AbstractEntityCollectionVueMixin from "../../../../js/Vue/AbstractEntityC
 import buildTranslatedBindings from "../../../../js/Helper/TranslationHelper";
 import {markdownRender} from "../../../../js/Helper/MarkdownHelper";
 import {uiStateGet, uiStateSet} from "../../../../js/Helper/UiStateHelper";
-import DateDisplay from "../../../date-display/date-display.vue";
+import ChatMessage from "../chat-message/chat-message.vue";
 import LoadMore from "../../../load-more/load-more.vue";
 import Dots from "../../../dots/dots.vue";
 
@@ -56,7 +56,6 @@ export default {
   mixins: [AbstractEntityCollectionVueMixin],
 
   components: {
-    DateDisplay,
     Dots,
     LoadMore
   },
@@ -106,22 +105,12 @@ export default {
   computed: {
     ...translated.computed,
 
-    // The thread reads this and nothing else: what a message is made of is
-    // decided by the projections below, never by the shape of the entity.
+    // The lines of the thread, each with the entity it draws: what a line
+    // looks like is the component's business (getMessageComponent).
     messages() {
       return this.entities.filter((entity) => this.isMessageShown(entity)).map((entity, index) => ({
         key: this.getMessageKey(entity, index),
-        author: this.getMessageAuthor(entity),
-        content: this.getMessageText(entity),
-        // Drawn from markdown, or null for a line shown as the text it is.
-        html: this.isMessageMarkdown(entity) ? markdownRender(this.getMessageContent(entity)) : null,
-        date: this.getMessageDate(entity),
-        iconHtml: this.renderIcon(this.getMessageIcon(entity)),
-        variant: this.getMessageVariant(entity),
-        own: this.isOwnMessage(entity),
-        // What a chat shows of a message besides its words, drawn by its
-        // template's `chat_message_details` block; null shows nothing.
-        details: this.getMessageDetails(entity)
+        entity
       }));
     },
 
@@ -222,10 +211,34 @@ export default {
       return true;
     },
 
-    // What the thread shows under a message's words — an editor's view of
-    // it, its stamps —, as the chat's own template draws it; none by default.
-    getMessageDetails() {
-      return null;
+    // What draws a line of the thread: a line of conversation by default. A
+    // chat whose lines are something else — an inspector's block, a card —
+    // returns its own component, imported and named in its template's
+    // vue_require like any other it uses.
+    getMessageComponent() {
+      return ChatMessage;
+    },
+
+    // What that component is handed: the projection below for the line of
+    // conversation; a chat with its own component passes what it reads,
+    // typically `{ entity }`.
+    getMessageProps(entity) {
+      return {message: this.getMessage(entity)};
+    },
+
+    // A line as a conversation reads it, drawn from the projections above:
+    // never from the shape of the entity.
+    getMessage(entity) {
+      return {
+        author: this.getMessageAuthor(entity),
+        content: this.getMessageText(entity),
+        // Drawn from markdown, or null for a line shown as the text it is.
+        html: this.isMessageMarkdown(entity) ? markdownRender(this.getMessageContent(entity)) : null,
+        date: this.getMessageDate(entity),
+        iconHtml: this.renderIcon(this.getMessageIcon(entity)),
+        variant: this.getMessageVariant(entity),
+        own: this.isOwnMessage(entity)
+      };
     },
 
     // What the thread shows of a line: its content, or what a layer makes
