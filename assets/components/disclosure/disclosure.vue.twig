@@ -1,0 +1,16 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    {#- Client-side twin of disclosure.html.twig: same classes, same order. A
+        change to either is a change to both. -#}
+    <details class="disclosure" :class="{ 'disclosure--quiet': quiet }" :open="isOpen" @toggle="onToggle">
+        <summary class="disclosure--head">
+            <span class="disclosure--caret" aria-hidden="true" v-html="caretHtml"></span>
+            <span v-if="iconHtml" class="disclosure--icon" aria-hidden="true" v-html="iconHtml"></span>
+            <span class="disclosure--label">[[ label ]]</span>
+            <span v-if="hasCount" class="count">[[ count ]]</span>
+            <span v-if="$slots.actions" class="disclosure--actions"><slot name="actions"></slot></span>
+        </summary>
+        <div v-if="isOpen" class="disclosure--body"><slot></slot></div>
+    </details>
+{%- endblock -%}

@@ -1,0 +1,20 @@
+{#- A detail folded inside what holds it — a block, a card, a list —: one line
+    to open it, what it hides under it, nothing else. No bar, no frame, no
+    scroll of its own: the zone that folds a page is zone-collapsible.
+
+    `{% component '@WexampleSymfonyDesignSystemBundle/components/disclosure'
+        with { label, count, icon, open, quiet } %}`, its content in the `body`
+    slot, what can be done about it in `actions`, at the end of the line.
+    `quiet`, small and muted, for the foot of a block. -#}
+{%- set slots = slots|default({}) -%}
+{%- set actions = slots.actions|default('')|trim -%}
+<details class="disclosure{{ quiet|default(false) ? ' disclosure--quiet' }}{{ class|default(null) ? ' ' ~ class }}"{{ open|default(false) ? ' open' }}>
+    <summary class="disclosure--head">
+        <span class="disclosure--caret" aria-hidden="true">{{ icon('ph:bold/caret-right') }}</span>
+        {%- if icon is defined and icon %}<span class="disclosure--icon" aria-hidden="true">{{ icon(icon) }}</span>{% endif %}
+        <span class="disclosure--label">{{ label|default('') }}</span>
+        {%- if count is defined and count is not null %}<span class="count">{{ count }}</span>{% endif %}
+        {%- if actions %}<span class="disclosure--actions">{{ actions|raw }}</span>{% endif %}
+    </summary>
+    <div class="disclosure--body">{{ slots.body|default('')|raw }}</div>
+</details>

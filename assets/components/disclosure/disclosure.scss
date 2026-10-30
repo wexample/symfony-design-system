@@ -1,0 +1,93 @@
+@use '../../css/mixins/field' as field;
+// The number beside the label is the design system's counter.
+@use '../../css/shapes/count';
+
+// A detail folded inside what holds it: the line that opens it, and under it
+// what it hides, flush with that line — no frame, no ground of its own.
+.disclosure {
+  // The height opens from nothing to what the content takes.
+  interpolate-size: allow-keywords;
+}
+
+// The whole line opens it, as a button would, the keyboard included.
+.disclosure--head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-block: var(--space-1);
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  border-radius: var(--radius-control);
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:focus-visible {
+    @include field.field-focus;
+  }
+}
+
+.disclosure--caret,
+.disclosure--icon {
+  display: inline-flex;
+  flex: none;
+  color: var(--text-color-muted);
+}
+
+// Pointing at what it opens, then down at what it opened.
+.disclosure--caret {
+  transition: transform 160ms ease;
+
+  &:dir(rtl) {
+    transform: scaleX(-1);
+  }
+}
+
+.disclosure[open] > .disclosure--head > .disclosure--caret {
+  transform: rotate(90deg);
+}
+
+.disclosure--label {
+  min-width: 0;
+}
+
+// What can be done about it, at the end of the line: clicked, it does not
+// open or close the line it sits in.
+.disclosure--actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-inline-start: auto;
+}
+
+.disclosure--body {
+  padding-block-start: var(--space-2);
+}
+
+// Opened and closed at a measured pace where the browser knows how.
+.disclosure::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition:
+    block-size 200ms ease,
+    content-visibility 200ms allow-discrete;
+}
+
+.disclosure[open]::details-content {
+  block-size: auto;
+}
+
+// The foot of a block: small, muted, the content keeping its own size.
+.disclosure--quiet > .disclosure--head {
+  font-size: var(--font-size-2);
+  color: var(--text-color-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disclosure--caret,
+  .disclosure::details-content {
+    transition: none;
+  }
+}
