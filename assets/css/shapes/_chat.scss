@@ -137,6 +137,15 @@
   opacity: var(--opacity-7);
 }
 
+// What can be done to the conversation itself, under the composer: flat and
+// small, the field staying what the eye meets first.
+.chat--composer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  padding-block-start: var(--space-2);
+}
+
 .chat-thread {
   display: flex;
   flex-direction: column;

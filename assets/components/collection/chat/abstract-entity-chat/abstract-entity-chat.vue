@@ -102,6 +102,8 @@ export default {
       awaitingSince: null,
       activityFrame: 0,
       activityNow: Date.now(),
+      // The composer action under way, by its key: the others wait for it.
+      runningComposerAction: null,
       soundEnabled: true,
       // The messages a sound was made for: one live message may be published
       // more than once.
@@ -160,6 +162,14 @@ export default {
       }
 
       return this.getEmptyText() || null;
+    },
+
+    composerActions() {
+      return this.getComposerActions().map((action, index) => ({
+        ...action,
+        key: action.key ?? index,
+        iconHtml: this.renderIcon(action.icon)
+      }));
     },
 
     submitIconHtml() {
@@ -290,6 +300,42 @@ export default {
     // is about, how to start it. None by default.
     getEmptyText() {
       return null;
+    },
+
+    // What can be done to the conversation, under the composer: [{ key, icon,
+    // label, onClick | href, confirm: { title, message } }]. `onClick` is
+    // handed the chat — to reload its thread (reloadEntitiesCollection) once
+    // it is emptied —, and awaited; `confirm` is asked first. None by default.
+    getComposerActions() {
+      return [];
+    },
+
+    async runComposerAction(action) {
+      if (action.confirm?.message && !(await this.askComposerConfirmation(action.confirm))) {
+        return;
+      }
+
+      this.runningComposerAction = action.key;
+
+      try {
+        await action.onClick?.(this);
+      } finally {
+        this.runningComposerAction = null;
+      }
+    },
+
+    async askComposerConfirmation(confirm) {
+      const confirmService = this.app.services.confirm;
+
+      if (!confirmService) {
+        return window.confirm(confirm.message);
+      }
+
+      return (await confirmService.confirm({
+        title: confirm.title || undefined,
+        message: confirm.message,
+        preset: 'ok_cancel'
+      })) === 'ok';
     },
 
     // What draws a line of the thread: a line of conversation by default. A

@@ -81,6 +81,27 @@
                         @click="submitMessage"
                 ></button>
             </div>
+            {#- What can be done to the conversation itself — start it over,
+                attach a file —, under the composer and quieter than it. None
+                unless the chat gives some (getComposerActions). -#}
+            <div v-if="composerActions.length" class="chat--composer-actions">
+                <template v-for="action in composerActions" :key="action.key">
+                    <a v-if="action.href" class="button button--flat button--compact" :href="action.href">
+                        <span v-if="action.iconHtml" class="button--icon" v-html="action.iconHtml"></span>
+                        <span>[[ action.label ]]</span>
+                    </a>
+                    <button
+                            v-else
+                            type="button"
+                            class="button button--flat button--compact"
+                            :disabled="runningComposerAction !== null"
+                            @click="runComposerAction(action)"
+                    >
+                        <span v-if="action.iconHtml" class="button--icon" v-html="action.iconHtml"></span>
+                        <span>[[ action.label ]]</span>
+                    </button>
+                </template>
+            </div>
         </div>
     </div>
 {%- endblock -%}

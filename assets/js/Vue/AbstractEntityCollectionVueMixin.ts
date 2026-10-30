@@ -162,6 +162,18 @@ const AbstractEntityCollectionVueMixin = {
       }
     },
 
+    // The collection read again from nothing, as when first shown: what it
+    // held is dropped rather than merged — rows deleted on the server leave,
+    // which a refresh of a collection read backwards keeps (receiveLastPage).
+    async reloadEntitiesCollection() {
+      this.entities = [];
+      this.oldestLoadedPage = null;
+      this.appendedPagesCount = 1;
+      this.pagination = null;
+
+      await this.refreshEntitiesCollection();
+    },
+
     async readEntitiesCollection({ silent = false } = {}) {
       const reversed = this.startsAtLastPage();
 
