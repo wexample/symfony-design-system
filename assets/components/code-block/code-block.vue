@@ -1,7 +1,10 @@
 <script>
+import { codeHighlight } from '../../js/Helper/CodeHighlightHelper';
 
 // The twin of code-block.html.twig. The twig runs the code through `|e`; here
-// the interpolation escapes it, which is the same promise kept differently.
+// the highlighter escapes it before colouring it, which is the same promise
+// kept differently. Coloured client-side only, for the languages the
+// highlighter knows (CodeHighlightHelper).
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-code-block-code-block',
 
@@ -13,6 +16,12 @@ export default {
     lang: {
       type: String,
       default: 'text'
+    }
+  },
+
+  computed: {
+    html() {
+      return codeHighlight(this.code, this.lang);
     }
   }
 };

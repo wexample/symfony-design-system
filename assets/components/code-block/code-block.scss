@@ -1,0 +1,22 @@
+// The inks a highlighter paints code with (CodeHighlightHelper), from the
+// design system's `--code-*` roles: a key, a string, a number, a literal, the
+// punctuation between them.
+.code--property {
+  color: var(--code-property);
+}
+
+.code--string {
+  color: var(--code-string);
+}
+
+.code--number {
+  color: var(--code-number);
+}
+
+.code--keyword {
+  color: var(--code-keyword);
+}
+
+.code--punctuation {
+  color: var(--code-punctuation);
+}
