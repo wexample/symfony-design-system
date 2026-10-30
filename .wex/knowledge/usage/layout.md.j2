@@ -68,7 +68,22 @@ Every page about one record — an account, a model — says the same three thin
 
 What qualifies the record — its family, its state, a version — stands beside the header's title (`header_title_aside`, a marker mostly) or in the page, never in the title itself.
 
-## The way back
+## A bundle's screen in the application's layout
+
+A bundle cannot know the layout its screens belong in: the members of a project sit in the project's pages, with its menu, its header and its urls, which no bundle has heard of. So a bundle ships a screen as a **component** drawn by a twig function, `memberships(group)`, extending `AbstractTemplateExtension`: the function builds what the screen shows and hands it to the component, which loads its own stylesheet, script and translations wherever it is drawn. The application draws it in a page of its own, under its own layout:
+
+```twig
+{%- extends '@front/layouts/project/layout.html.twig' -%}
+
+{%- block page_body -%}
+    {{ memberships(project) }}
+{%- endblock -%}
+```
+
+A page the bundle ships beside it — `/memberships/team:…` extending `@front/layouts/private` — is a default host and nothing more: it holds the call above, for an application with no page of its own. Where the screen leads somewhere afterwards — a form reloading the list, a menu linking to it —, the bundle asks the application for its page through an interface the application implements (`HostsMembershipsInterface::getMembershipsUrl()`), and sends its own page's visitors there: an application hosting the screen never shows the bundle's page, which can go once every application hosts it.
+
+A bundle writing a page for a screen, instead of a component a page draws, has chosen a layout for every application using it.
+
 
 `breadcrumb_render({ back: true })` draws the page above the current one alone, as « ← its title »; nothing when there is none. The layout draws it above the title with `page_trail: 'back'`, the full trail with `page_trail: 'breadcrumb'`.
 
