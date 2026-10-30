@@ -12,7 +12,7 @@
 {%- endblock -%}
 
 {%- block vue_body -%}
-    <div class="chat">
+    <div class="chat" :class="'chat--' + layout">
         <div v-if="hasToolbar" class="toolbar chat--toolbar">
             <button
                     type="button"
@@ -37,7 +37,7 @@
                     v-for="message in messages"
                     :key="message.key"
                     class="chat--message-row"
-                    :class="message.variant ? 'chat--message-row--' + message.variant : null"
+                    :class="[message.variant ? 'chat--message-row--' + message.variant : null, message.own ? 'chat--message-row--own' : null]"
             >
                 <div class="avatar" v-html="message.iconHtml"></div>
                 <div class="chat--message">

@@ -161,6 +161,30 @@
   gap: var(--space-4);
 }
 
+// Two ways to lay the lines (the chat's `layout`). Flat, the default: every
+// line at the start with its author first, as a channel reads — nothing to
+// add. Aligned: the reader's own lines at the end side, the others at the
+// start, each no wider than most of the thread, as a messenger reads.
+.chat--aligned {
+  .chat--message-row {
+    max-width: 80%;
+    align-self: flex-start;
+  }
+
+  .chat--message-row--own {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+
+    .chat--message-meta {
+      justify-content: flex-end;
+    }
+  }
+
+  .chat--message-row--awaiting {
+    align-self: flex-start;
+  }
+}
+
 // The answer on its way: the dots stand where it will appear, under the
 // avatars' column.
 .chat--message-row--awaiting {

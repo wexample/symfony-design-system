@@ -337,10 +337,19 @@ const AbstractEntityCollectionVueMixin = {
      * each of its own rows. A row that does not exist yet has no topic, and it
      * is precisely the row that appears which the reader is waiting for.
      *
-     * Omit `event` to redraw on anything published there.
+     * Omit `event` to redraw on anything published there; name several —
+     * `event: ['message.save', 'request.event']` — to hear each of them.
      */
     getLiveSource() {
       return null;
+    },
+
+    /**
+     * Whether a payload of the source's topic is one of the events it listens
+     * for: any, when it names none.
+     */
+    isLiveSourceEvent(source, event) {
+      return !source?.event || [].concat(source.event).includes(event);
     },
 
     async connectToLiveSource() {
@@ -367,7 +376,7 @@ const AbstractEntityCollectionVueMixin = {
      * the server the only one deciding what the collection holds.
      */
     onLiveSourceMessage(payload, source) {
-      if (!source.event || payload?.event === source.event) {
+      if (this.isLiveSourceEvent(source, payload?.event)) {
         this.refreshEntitiesCollection({ silent: true });
       }
     },

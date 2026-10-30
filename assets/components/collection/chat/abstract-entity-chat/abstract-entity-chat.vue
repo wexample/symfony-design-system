@@ -22,8 +22,10 @@ document.addEventListener('overlay:change', syncChats);
 // waited for before the agent is told what came of it.
 const NOTIFICATIONS_SETTLE_MS = 600;
 
-// How long the thread shows an answer is coming, at most — and how recent the
-// last line waiting for one has to be, the thread opened again, to say so.
+// How recent the last line waiting for an answer has to be, the thread opened
+// again, for the thread to show the answer is still coming. While the thread
+// stays open, it shows it until the other side is done (isReplyComplete), as
+// long as it takes.
 const PENDING_ANSWER_MS = 2 * 60 * 1000;
 
 // How long a press said to leave the page is given to do it.
@@ -79,6 +81,14 @@ export default {
     slashCommands: {
       type: Array,
       default: () => []
+    },
+
+    // How the lines are laid: `flat`, every line at the start with its author
+    // first, as a channel reads; `aligned`, the reader's own lines at the end
+    // side and the others at the start, as a messenger reads.
+    layout: {
+      type: String,
+      default: 'flat'
     }
   },
 
@@ -115,7 +125,8 @@ export default {
         html: this.isMessageMarkdown(entity) ? markdownRender(this.getMessageContent(entity)) : null,
         date: this.getMessageDate(entity),
         iconHtml: this.renderIcon(this.getMessageIcon(entity)),
-        variant: this.getMessageVariant(entity)
+        variant: this.getMessageVariant(entity),
+        own: this.isOwnMessage(entity)
       }));
     },
 
@@ -155,18 +166,6 @@ export default {
   },
 
   watch: {
-    // An answer that never comes — the agent stopped on an error — does not
-    // leave the thread waiting for ever: past a while, it stops saying so.
-    awaitingReply(waiting) {
-      window.clearTimeout(this.awaitingTimer);
-
-      if (waiting) {
-        this.awaitingTimer = window.setTimeout(() => {
-          this.awaitingReply = false;
-        }, PENDING_ANSWER_MS);
-      }
-    },
-
     entities(entities) {
       // The answer is in once the thread ends on a message someone else wrote
       // — not on the lines a tool adds on the way.
@@ -285,14 +284,18 @@ export default {
       return render ? render(call) : `${this.trans(`${DOMAIN}thread.tool`)} · ${call.name}`;
     },
 
-    // A call arrives on the live topic like any line of the thread.
+    // A call arrives on the live topic like any line of the thread. Every
+    // payload of the topic is also asked whether the other side is done.
     onLiveSourceMessage(payload, source) {
       AbstractEntityCollectionVueMixin.methods.onLiveSourceMessage.call(this, payload, source);
 
-      const event = this.getLiveSource()?.event;
+      if (this.awaitingReply && this.isReplyComplete(payload, source)) {
+        this.awaitingReply = false;
+      }
+
       const entity = payload?.data?.entity ?? payload?.data;
 
-      if (!entity || (event && payload?.event !== event)) {
+      if (!entity || !this.isLiveSourceEvent(source, payload?.event)) {
         return;
       }
 
@@ -378,11 +381,26 @@ export default {
       ));
     },
 
+    // Whether the other side being done is what this payload of the live
+    // topic says: by default a message of the thread written by the other
+    // side, not a line a tool adds. A chat whose engine says so otherwise —
+    // an event closing the request — reads it here, and the thread stops
+    // showing an answer is coming only then, however long it takes.
+    isReplyComplete(payload, source) {
+      const entity = payload?.data?.entity ?? payload?.data;
+
+      return Boolean(entity)
+        && this.isLiveSourceEvent(source, payload?.event)
+        && !this.isOwnMessage(entity)
+        && !this.isToolLine(entity);
+    },
+
     // Whether a message from the other side — a person, an agent — arriving
-    // while the chat is open makes a sound, the reader free to turn it off.
-    // A chat nobody else writes in has none to make.
+    // while the chat is open makes a sound, the reader free to turn it off:
+    // a chat talked to by an agent says so; a chat between people, by
+    // default, makes none.
     hasSound() {
-      return true;
+      return false;
     },
 
     toggleSound() {
