@@ -1,0 +1,16 @@
+{#- Lines each led by a mark. An item is { label, icon, tone }: `icon` a name
+    of the design system's icons (`ph:bold/check`) or a text of its own — an
+    emoji, « ✓ » —; `tone` (info, success, warning, error) colours the mark,
+    or the whole line when the list is `toned: 'line'`. -#}
+<ul class="item-list{{ toned|default('mark') == 'line' ? ' item-list--toned-line' }}{{ class|default(null) ? ' ' ~ class }}">
+    {%- for item in items %}
+        <li class="item-list--item{{ item.tone|default(null) ? ' item-list--item--' ~ item.tone }}">
+            <span class="item-list--mark" aria-hidden="true">
+                {%- if item.icon|default(null) -%}
+                    {%- if item.icon matches '/^[\\w-]+:[\\w-]+\\/[\\w-]+$/' -%}{{ icon(item.icon) }}{%- else -%}{{ item.icon }}{%- endif -%}
+                {%- endif -%}
+            </span>
+            <span class="item-list--label">{{ item.label }}</span>
+        </li>
+    {%- endfor %}
+</ul>

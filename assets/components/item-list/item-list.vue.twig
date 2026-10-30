@@ -1,0 +1,13 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    {#- Client-side twin of item-list.html.twig: same classes, same order. A
+        change to either is a change to both. -#}
+    <ul class="item-list" :class="{ 'item-list--toned-line': toned === 'line' }">
+        <li v-for="(item, index) in items" :key="index" :class="itemClass(item)">
+            <span v-if="isIconName(item.icon)" class="item-list--mark" aria-hidden="true" v-html="iconHtml(item.icon)"></span>
+            <span v-else class="item-list--mark" aria-hidden="true">[[ item.icon || '' ]]</span>
+            <span class="item-list--label">[[ item.label ]]</span>
+        </li>
+    </ul>
+{%- endblock -%}
