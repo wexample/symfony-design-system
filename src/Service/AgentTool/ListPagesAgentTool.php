@@ -7,14 +7,14 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Wexample\SymfonyDesignSystem\Service\RouteAccessService;
+use Wexample\SymfonyLoader\Attribute\AgentRoute;
 use Wexample\SymfonyLoader\Interface\AgentBackToolInterface;
 
 /**
- * The pages of the application the user may open: the routes a person
- * reads — answered to GET, not under `/_` nor `/api/`, which programs reach —
- * that the firewall lets them through, as a menu decides which entries to
- * draw (RouteAccessService). A page needing a record to show — `/model/{id}` —
- * says what it needs, and is opened from the list it is reached by.
+ * The pages offered to the agents (`#[AgentRoute]` on their controller) that
+ * the user may open: answered to GET, and let through by the firewall as a
+ * menu decides which entries to draw (RouteAccessService). A page needing a
+ * record to show — `/model/{id}` — says what it needs.
  */
 final readonly class ListPagesAgentTool implements AgentBackToolInterface
 {
@@ -36,7 +36,7 @@ final readonly class ListPagesAgentTool implements AgentBackToolInterface
 
     public function getDescription(): string
     {
-        return 'Lists the pages of the application the user may open, each with its route name and its address — `navigate` opens it. A page showing one record gives its address with a {parameter} to fill in, and the parameters it needs. `query` keeps the pages whose route or address holds a text.';
+        return 'Lists the pages of the application the user may open, each with what it is for, its route name and its address — `navigate` opens it. A page showing one record gives its address with a {parameter} to fill in, and the parameters it needs. `query` keeps the pages whose description, route or address holds a text.';
     }
 
     public function getInputSchema(): array
@@ -44,7 +44,7 @@ final readonly class ListPagesAgentTool implements AgentBackToolInterface
         return [
             'type' => 'object',
             'properties' => [
-                'query' => ['type' => 'string', 'description' => 'Only the pages whose route name or address holds this text: "model", "account".'],
+                'query' => ['type' => 'string', 'description' => 'Only the pages whose description, route name or address holds this text: "model", "account".'],
             ],
         ];
     }
@@ -60,11 +60,13 @@ final readonly class ListPagesAgentTool implements AgentBackToolInterface
         $pages = [];
 
         foreach ($this->router->getRouteCollection()->all() as $name => $route) {
-            if (! $this->isPage($route)) {
+            $offered = $this->isPage($route) ? $this->agentRouteOf($route) : null;
+
+            if (! $offered) {
                 continue;
             }
 
-            if ('' !== $needle && ! str_contains(mb_strtolower($name.' '.$route->getPath()), $needle)) {
+            if ('' !== $needle && ! str_contains(mb_strtolower($offered->description.' '.$name.' '.$route->getPath()), $needle)) {
                 continue;
             }
 
@@ -75,6 +77,7 @@ final readonly class ListPagesAgentTool implements AgentBackToolInterface
             }
 
             $pages[] = [
+                ...($offered->description ? ['description' => $offered->description] : []),
                 'route' => $name,
                 'url' => $this->urlOf($name, $route, $required),
                 ...($required ? ['parameters' => $required] : []),
@@ -114,6 +117,33 @@ final readonly class ListPagesAgentTool implements AgentBackToolInterface
         }
 
         return $url;
+    }
+
+    /**
+     * What the controller says of the page, its method before its class;
+     * null for a page not offered to the agents.
+     */
+    private function agentRouteOf(Route $route): ?AgentRoute
+    {
+        $controller = $route->getDefault('_controller');
+
+        if (! is_string($controller) || ! str_contains($controller, '::')) {
+            return null;
+        }
+
+        [$class, $method] = explode('::', $controller, 2);
+
+        if (! class_exists($class) || ! method_exists($class, $method)) {
+            return null;
+        }
+
+        foreach ([new \ReflectionMethod($class, $method), new \ReflectionClass($class)] as $reflection) {
+            if ($attribute = $reflection->getAttributes(AgentRoute::class)[0] ?? null) {
+                return $attribute->newInstance();
+            }
+        }
+
+        return null;
     }
 
     private function isPage(Route $route): bool
