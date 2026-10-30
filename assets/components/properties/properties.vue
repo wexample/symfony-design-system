@@ -3,16 +3,17 @@
 // The twin of properties.html.twig. The modifiers the twig side builds in
 // PropertiesExtension are props here, listed once in MODIFIERS so the two
 // sides can be read against each other.
-const MODIFIERS = ['bordered', 'split', 'compact', 'stacked', 'columns'];
+const MODIFIERS = ['bordered', 'split', 'compact', 'stacked', 'columns', 'tiles'];
 
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-properties-properties',
 
   props: {
-    // Each item is { key, value, html, full, break }: html says the value is
-    // markup and is rendered as given, exactly as the `|raw` of the twig does,
-    // full gives a value the whole width where the list is laid in columns,
-    // and break breaks it anywhere — a path, an address.
+    // Each item is { key, value, html, full, break, code }: html says the
+    // value is markup and is rendered as given, exactly as the `|raw` of the
+    // twig does, full gives a value the whole width where the list is laid in
+    // columns or tiles, break breaks it anywhere — a path, an address —, and
+    // code reads it as code — an id, a hash.
     items: {
       type: Array,
       required: true
@@ -37,6 +38,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // Each pair a tile of its own, as many side by side as the width holds.
+    tiles: {
+      type: Boolean,
+      default: false
+    },
     extraClass: {
       type: String,
       default: null
@@ -49,6 +55,13 @@ export default {
     // thing described, which is the truth.
     isEmpty(item) {
       return item.value === null || item.value === undefined || item.value === '';
+    },
+
+    valueClass(item) {
+      return {
+        'properties--value--break': item.break,
+        'properties--value--code': item.code
+      };
     },
 
     rowClass(item) {

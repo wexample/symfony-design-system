@@ -13,6 +13,7 @@ class PropertiesExtension extends AbstractTemplateExtension
         'compact',
         'stacked',
         'columns',
+        'tiles',
     ];
 
     public function getFunctions(): array
@@ -56,6 +57,8 @@ class PropertiesExtension extends AbstractTemplateExtension
                 // A value with no word to break between — a path, an address —
                 // broken anywhere, filling its lines.
                 'break' => $item['break'] ?? false,
+                // A value read as code — an id, a hash —: in the mono face.
+                'code' => $item['code'] ?? false,
             ];
         }
 

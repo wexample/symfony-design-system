@@ -87,6 +87,46 @@
   grid-column: 1 / -1;
 }
 
+// Short pairs read at a glance — the identity card of a record, the fields of
+// a message under inspection —: each pair a tile of its own, laid side by side
+// as many as the width holds. The tile is a tint over whatever ground the list
+// stands on, so it reads the same in a card, a panel or the page.
+.properties--tiles {
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--properties-tile-min, 8rem), 1fr)
+  );
+  gap: var(--space-1);
+}
+
+.properties--tiles > .properties--row {
+  display: flex;
+  flex-direction: column;
+  grid-column: auto;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-control);
+  background: var(--tint-3);
+}
+
+.properties--tiles > .properties--row--full {
+  grid-column: 1 / -1;
+}
+
+// A tile is small: its key a step down, so the value is what the eye lands on.
+.properties--tiles .properties--key {
+  font-size: var(--font-size-1);
+}
+
+// A value read as code — an id, a hash, a reference —: in the mono face, a
+// step smaller since that face reads larger, and broken anywhere, since it has
+// no word to break between.
+.properties--value--code {
+  font-family: var(--font-family-mono);
+  font-size: 0.9em;
+  word-break: break-all;
+}
+
 // A field nobody filled. It is said with a dash rather than left blank: an
 // empty line reads as a bug, a dash reads as an answer — nothing here.
 .properties--value--empty {

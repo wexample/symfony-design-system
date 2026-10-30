@@ -8,7 +8,7 @@
             {% if item.value is null or item.value == '' %}
                 <dd class="properties--value properties--value--empty">&mdash;</dd>
             {% else %}
-                <dd class="properties--value{{ item.break ? ' properties--value--break' }}">
+                <dd class="properties--value{{ item.break ? ' properties--value--break' }}{{ item.code ? ' properties--value--code' }}">
                     {%- if item.html ?? false -%}
                         {{- item.value|raw -}}
                     {%- else -%}
