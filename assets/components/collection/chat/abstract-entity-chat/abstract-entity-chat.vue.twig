@@ -51,6 +51,9 @@
                     </div>
                     <div v-if="message.html" class="chat--message-content content" v-html="message.html"></div>
                     <div v-else class="chat--message-content">[[ message.content ]]</div>
+                    {#- What a chat shows under a message's words, from its
+                        `details` projection: none here. -#}
+                    {%- block chat_message_details -%}{%- endblock -%}
                 </div>
             </div>
 

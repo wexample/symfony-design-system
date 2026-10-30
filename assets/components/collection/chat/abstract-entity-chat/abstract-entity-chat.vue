@@ -118,7 +118,10 @@ export default {
         date: this.getMessageDate(entity),
         iconHtml: this.renderIcon(this.getMessageIcon(entity)),
         variant: this.getMessageVariant(entity),
-        own: this.isOwnMessage(entity)
+        own: this.isOwnMessage(entity),
+        // What a chat shows of a message besides its words, drawn by its
+        // template's `chat_message_details` block; null shows nothing.
+        details: this.getMessageDetails(entity)
       }));
     },
 
@@ -217,6 +220,12 @@ export default {
     // machinery. Every line is spoken by default.
     isSpoken() {
       return true;
+    },
+
+    // What the thread shows under a message's words — an editor's view of
+    // it, its stamps —, as the chat's own template draws it; none by default.
+    getMessageDetails() {
+      return null;
     },
 
     // What the thread shows of a line: its content, or what a layer makes
