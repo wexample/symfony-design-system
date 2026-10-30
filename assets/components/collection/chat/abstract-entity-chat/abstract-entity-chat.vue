@@ -151,6 +151,17 @@ export default {
       return minutes ? `${minutes}m${seconds % 60}s` : `${seconds % 60}s`;
     },
 
+    // Shown once the first page is read (`pagination` set by it), nothing in
+    // it, and the chat has something to say; gone with the first message,
+    // live ones included.
+    emptyText() {
+      if (this.isLoading || this.pagination === null || this.messages.length) {
+        return null;
+      }
+
+      return this.getEmptyText() || null;
+    },
+
     submitIconHtml() {
       return this.renderIcon('ph:bold/paper-plane-right');
     },
@@ -273,6 +284,12 @@ export default {
     // machinery. Every line is spoken by default.
     isSpoken() {
       return true;
+    },
+
+    // What the thread says while it holds no message — what the conversation
+    // is about, how to start it. None by default.
+    getEmptyText() {
+      return null;
     },
 
     // What draws a line of the thread: a line of conversation by default. A

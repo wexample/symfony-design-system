@@ -10,6 +10,8 @@
 // A message dates itself, and the date carries its own tooltip cursor.
 @use '../../components/date-display/date-display';
 @use '../../components/dots/dots';
+// An empty thread says so in the empty shape.
+@use './empty';
 
 .chat-textarea {
   @extend .form--textarea;
@@ -141,6 +143,15 @@
   gap: var(--space-4);
   overflow-y: auto;
   padding: var(--space-4);
+}
+
+// The thread's room taken whole, the words centred in it; a long text — what
+// the conversation is about — at a reading width, its own line breaks kept.
+.chat--empty {
+  flex: 1 0 auto;
+  align-self: center;
+  max-width: 60ch;
+  white-space: pre-line;
 }
 
 // What sits above the oldest message held: the way back up the thread.

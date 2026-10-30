@@ -47,6 +47,10 @@
                 ></component>
             </div>
 
+
+            {#- A thread read and found empty: what the chat says before the
+                first message, in the middle of the room the lines will take. -#}
+            <div v-if="emptyText" class="empty chat--empty">[[ emptyText ]]</div>
         </div>
 
         <div class="chat--footer">
