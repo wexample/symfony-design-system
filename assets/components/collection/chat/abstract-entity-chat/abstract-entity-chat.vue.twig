@@ -158,14 +158,15 @@
                 unless the chat gives some (getComposerActions). -#}
             <div v-if="composerActions.length" class="chat--composer-actions">
                 <template v-for="action in composerActions" :key="action.key">
-                    <a v-if="action.href" class="button button--flat button--compact" :href="action.href">
+                    <a v-if="action.href" class="button button--compact" :class="{ 'button--flat': action.flat !== false }" :href="action.href">
                         <span v-if="action.iconHtml" class="button--icon" v-html="action.iconHtml"></span>
                         <span>[[ action.label ]]</span>
                     </a>
                     <button
                             v-else
                             type="button"
-                            class="button button--flat button--compact"
+                            class="button button--compact"
+                            :class="{ 'button--flat': action.flat !== false }"
                             :disabled="runningComposerAction !== null"
                             @click="runComposerAction(action)"
                     >

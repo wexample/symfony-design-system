@@ -358,7 +358,9 @@ export default {
     },
 
     // What can be done to the conversation, under the composer: [{ key, icon,
-    // label, onClick | href, confirm: { title, message } }]. `onClick` is
+    // label, onClick | href, confirm: { title, message }, flat }]. Flat by
+    // default; `flat: false` keeps a button's ground, for an action that
+    // should read as one. `onClick` is
     // handed the chat — to reload its thread (reloadEntitiesCollection) once
     // it is emptied —, and awaited; `confirm` is asked first. None by default.
     getComposerActions() {
