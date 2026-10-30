@@ -13,7 +13,10 @@ pre {
 
 pre:has(> code[class*='language-']),
 pre.code-block {
-  // A box, rounded as the skin rounds boxes.
+  // A box, rounded as the skin rounds boxes. Spaced by what holds it, as any
+  // box is — a flow, a block's body —: the browser's own margin around a
+  // `pre` would add to it.
+  margin-block: 0;
   border-radius: var(--radius-box);
   overflow: hidden;
   font-size: 0.875rem;
@@ -35,15 +38,6 @@ pre.code-block {
 // action (shapes/corner-actions). On the dark ground of code, it takes the
 // code's own ink.
 .code-block--copyable {
-  // The block's own margin, taken from it: left on the block, it pushes the
-  // dark ground down inside the box the button is placed in, and the button
-  // ends up above the corner it belongs to.
-  margin-block: 1em;
-
-  > pre {
-    margin-block: 0;
-  }
-
   .code-block--copy {
     color: #d4d4d4;
 

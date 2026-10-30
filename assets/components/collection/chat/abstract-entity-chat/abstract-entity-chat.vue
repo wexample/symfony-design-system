@@ -110,7 +110,9 @@ export default {
     messages() {
       return this.entities.filter((entity) => this.isMessageShown(entity)).map((entity, index) => ({
         key: this.getMessageKey(entity, index),
-        entity
+        entity,
+        // Sent by the reader: the side the `aligned` layout puts it on.
+        own: this.isOwnMessage(entity)
       }));
     },
 

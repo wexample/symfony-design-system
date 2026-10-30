@@ -161,18 +161,33 @@
   gap: var(--space-4);
 }
 
+// A line of the thread, whatever draws it: the thread is a column that
+// scrolls, and a line keeps its whole height there.
+.chat--item {
+  flex-shrink: 0;
+  min-width: 0;
+}
+
 // Two ways to lay the lines (the chat's `layout`). Flat, the default: every
 // line at the start with its author first, as a channel reads — nothing to
-// add. Aligned: the reader's own lines at the end side, the others at the
-// start, each no wider than most of the thread, as a messenger reads.
+// add. Aligned: the lines sent at the end side, the ones received at the
+// start, each on four fifths of the thread, as a messenger reads. The line
+// placed, what draws it fills the room or fits its words: a bubble fits.
 .chat--aligned {
-  .chat--message-row {
-    max-width: 80%;
+  .chat--item {
+    width: 80%;
     align-self: flex-start;
   }
 
-  .chat--message-row--own {
+  .chat--item--own {
     align-self: flex-end;
+  }
+
+  .chat--message {
+    flex: 0 1 auto;
+  }
+
+  .chat--message-row--own {
     flex-direction: row-reverse;
 
     .chat--message-meta {

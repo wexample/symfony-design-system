@@ -35,13 +35,18 @@
 
             {#- Each line drawn by the component the chat names for it: the
                 conversation's line by default, whatever a chat's lines are
-                otherwise. -#}
-            <component
+                otherwise. The layout places the line, whatever draws it. -#}
+            <div
                     v-for="item in messages"
                     :key="item.key"
-                    :is="getMessageComponent(item.entity)"
-                    v-bind="getMessageProps(item.entity)"
-            ></component>
+                    class="chat--item"
+                    :class="{ 'chat--item--own': item.own }"
+            >
+                <component
+                        :is="getMessageComponent(item.entity)"
+                        v-bind="getMessageProps(item.entity)"
+                ></component>
+            </div>
 
             <div v-if="awaitingReply" class="chat--message-row chat--message-row--awaiting">
                 <dots size="sm"></dots>
