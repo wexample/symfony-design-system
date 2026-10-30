@@ -39,7 +39,7 @@ final readonly class ListPagesAgentTool implements AgentBackToolInterface
 
     public function getDescription(): string
     {
-        return 'Lists the pages of the application the user may open, each with what it is for, its route name and its address — `navigate` opens it. A page showing one record gives its address with a {parameter} to fill in, and the parameters it needs. `query` keeps the pages whose description, route or address holds a text.';
+        return 'Lists the pages of the application the user may open, each with what it is for, its route name and its address — `navigate` opens it. `query` keeps the pages whose description, route or address holds a text.';
     }
 
     public function getInputSchema(): array
