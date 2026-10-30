@@ -1,6 +1,10 @@
 // A conversation — the thread of messages, their authors and dates, and the composer under it.
 @use '../mixins/field' as field;
 @use './form/base';
+// A line drawn from markdown is prose (`.content`), at the size of the thread.
+@use './content';
+// The bar above the thread is the toolbar shape.
+@use './toolbar';
 // The thread head holds a load-more, which is a button showing dots while it waits.
 @use '../../components/button/button';
 // A message dates itself, and the date carries its own tooltip cursor.
@@ -88,6 +92,14 @@
   }
 }
 
+// What concerns the conversation itself — its sound —, above the thread and
+// out of its way: a thin bar, its controls at the end.
+.chat--toolbar {
+  flex: 0 0 auto;
+  justify-content: flex-end;
+  --toolbar-padding: var(--space-1);
+}
+
 // The thread insets itself because it is what scrolls — the scrollbar hugs the
 // edge while the messages stay in from it. The composer insets nothing because
 // it is the field, border included. So the room around the composer, and the
@@ -124,6 +136,23 @@
 // Only where the text wraps at all, so a block of code keeps its lines.
 .chat--message-content {
   overflow-wrap: anywhere;
+}
+
+// Markdown in a bubble: the prose shape, brought down to the thread's size —
+// paragraphs closer, headings no taller than a strong line.
+.chat--message-content.content {
+  font-size: inherit;
+  line-height: 1.5;
+
+  > * + * { margin-top: var(--space-2); }
+  > * + :is(h1, h2, h3, h4, h5, h6) { margin-top: var(--space-3); }
+
+  :is(h1, h2, h3, h4, h5, h6) { font-size: inherit; }
+
+  pre {
+    overflow-x: auto;
+    overflow-wrap: normal;
+  }
 }
 
 .chat--message-row {

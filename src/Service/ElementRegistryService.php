@@ -73,8 +73,8 @@ class ElementRegistryService
      * - a format declared expected and not found;
      * - a format found that the declaration says is not carried — whether it
      *   was waived or left to do, the sentence has outlived what it described;
-     * - a contract for agents with no script beside it, which declares actions
-     *   nothing runs.
+     * - a contract for agents with neither script nor vue beside it, which
+     *   declares actions nothing runs.
      *
      * A format neither found nor ruled on is not a failure but a decision not
      * yet made: it is counted and named, never fatal.
@@ -140,11 +140,12 @@ class ElementRegistryService
                 $entry->setStance($format, $stance, $declaration->getNote($format));
             }
 
-            if ($entry->has(ElementFormat::AI) && ! $entry->has(ElementFormat::SCRIPT)) {
+            if ($entry->has(ElementFormat::AI) && ! $entry->has(ElementFormat::SCRIPT) && ! $entry->has(ElementFormat::VUE)) {
                 $problems[] = sprintf(
-                    '%s: an agent contract and no script to run its actions — write %s, or delete %s.',
+                    '%s: an agent contract and nothing to run its actions — write %s or %s, or delete %s.',
                     $entry->getId(),
                     ElementFormat::SCRIPT->getPrimarySuffix(),
+                    ElementFormat::VUE->getPrimarySuffix(),
                     ElementFormat::AI->getPrimarySuffix()
                 );
             }

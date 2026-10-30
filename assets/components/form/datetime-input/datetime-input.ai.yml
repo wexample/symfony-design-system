@@ -1,0 +1,2 @@
+extends: '@WexampleSymfonyDesignSystemBundle/components/form/date-input/date-input'
+description: "A field of a form holding a date and a time, as `YYYY-MM-DDTHH:MM`."

@@ -1,4 +1,5 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
+import type { AgentActionsImplementation } from '@wexample/symfony-loader/js/Interfaces/AgentNodeInterface';
 import type { FieldControllerInterface } from '@wexample/js-api/Vue/FieldControllerInterface';
 import {
   assistanceWriteText,
@@ -59,6 +60,76 @@ export default abstract class Field extends Component implements FieldController
     return (this.el.querySelector<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[name]'))?.name ?? '';
   }
 
+  // What the field is set to, as the form would send it: a box ticked or
+  // not, a choice's value, a text. A field made of several controls says it
+  // its own way.
+  get fieldValue(): unknown {
+    const control = this.assistedControl;
+
+    if (control instanceof HTMLInputElement && (control.type === 'checkbox' || control.type === 'radio')) {
+      return control.checked;
+    }
+
+    return control?.value ?? '';
+  }
+
+  // What the field holds once written — and, in a form, that nothing is
+  // saved until the form is sent.
+  protected agentValueState(): Record<string, any> {
+    return { value: this.fieldValue, ...(this.formEl ? { saved: false } : {}) };
+  }
+
+  // What the field is called, as the reader sees it: its label, or what
+  // its control says of itself.
+  public getAgentLabel(): string | undefined {
+    const label = this.el.querySelector<HTMLElement>('.form--label')?.textContent?.trim();
+
+    return label
+      || this.assistedControl?.getAttribute('aria-label')
+      || this.assistedControl?.getAttribute('placeholder')
+      || undefined;
+  }
+
+  // What an agent reads of the field: its name, what it holds, whether it
+  // is wanted, and what the form said of its last value. A kind of field
+  // adds its own — the choices of a select.
+  public getAgentState(): Record<string, any> {
+    const control = this.assistedControl;
+    const errors = Array.from(this.el.querySelectorAll('.form--field-errors li'))
+      .map((item) => item.textContent?.trim() ?? '')
+      .filter(Boolean);
+
+    return {
+      name: this.fieldName,
+      value: this.fieldValue,
+      required: Boolean(control?.required),
+      disabled: Boolean(control?.disabled),
+      ...(errors.length ? { errors } : {}),
+    };
+  }
+
+  // What an agent does to the field (the `.ai.yml` beside each kind): set
+  // as a person would — spelled out, picked —, the field framed meanwhile.
+  public getAgentActions(): AgentActionsImplementation {
+    return {
+      get: () => ({ value: this.fieldValue }),
+      set: async ({ value }) => {
+        if (value === undefined) {
+          throw new Error('set needs a value.');
+        }
+
+        await this.setValueAssisted(value);
+
+        return this.agentValueState();
+      },
+      clear: async () => {
+        await this.setValueAssisted('');
+
+        return this.agentValueState();
+      },
+    };
+  }
+
   protected async activateListeners(): Promise<void> {
     await super.activateListeners();
 
@@ -68,6 +139,7 @@ export default abstract class Field extends Component implements FieldController
     // data — disabling on submit would empty the POST.
     this.formEl?.addEventListener('loading:start', this.onFormLoadingStart);
     this.formEl?.addEventListener('loading:end', this.onFormLoadingEnd);
+    this.el.addEventListener('change', this.onUserChange);
 
     // A form ready after this field asks for its fields; one ready before hears
     // the announcement. Whichever comes second finds the first.
@@ -81,6 +153,7 @@ export default abstract class Field extends Component implements FieldController
 
     this.formEl?.removeEventListener('loading:start', this.onFormLoadingStart);
     this.formEl?.removeEventListener('loading:end', this.onFormLoadingEnd);
+    this.el.removeEventListener('change', this.onUserChange);
     document.removeEventListener(FORM_FIELD_COLLECT, this.onFormCollect);
     this.counterControl?.removeEventListener('input', this.counterUpdate);
     this.counterEl?.remove();
@@ -147,6 +220,12 @@ export default abstract class Field extends Component implements FieldController
     if (form instanceof HTMLElement && form.contains(this.el)) {
       this.announceToForm();
     }
+  };
+
+  // Said once the reader is done with the field — on change, not at each
+  // key —, without what was typed: that the field was edited is enough.
+  private onUserChange = (): void => {
+    this.logAgentEvent(`Edited the field "${this.getAgentLabel() ?? this.fieldName}"`, { key: 'edited' });
   };
 
   private onFormLoadingStart = (): void => {

@@ -1,0 +1,9 @@
+# What an agent is told about a panel; the script runs the action. In english,
+# never translated: see AgentContractService.
+type: panel
+description: "A page opened beside the current one, which stays in reach: what the panel shows stands inside it."
+actions:
+  close:
+    description: Closes the panel, as its close button does.
+    annotations:
+      idempotentHint: true

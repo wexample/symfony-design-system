@@ -2,7 +2,7 @@
 .page-overlay-full {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.36);
+  background: var(--surface-backdrop, rgba(0, 0, 0, 0.36));
   z-index: var(--z-modal);
 }
 

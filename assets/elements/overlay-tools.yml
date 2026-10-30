@@ -1,0 +1,16 @@
+# Declares `overlay-tools` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "The tools that follow the reader over a modal's veil: a dock of the overlay layer."
+formats:
+  style: true
+  template: true
+  script: true
+  vue: "a layout's, drawn once with the page; a vue tree has no veil of its own"
+  schema: todo
+  ai: "the tools it holds have their own contracts; the bar itself is reached as the layout's dock is"
+  react: todo
+  flutter: todo

@@ -1,0 +1,52 @@
+// The dock of the overlay layer (components/overlay-tools): over the veil, at
+// the window's end, while a modal holds the page.
+@use '../../css/shapes/zone';
+@use '../tool-dock/tool-dock';
+
+.overlay-tools {
+  display: none;
+  position: fixed;
+  inset-block: 0;
+  inset-inline-end: 0;
+  // Over every modal of the stack (OverlayService steps them by two from
+  // `--z-modal`), under what the window shows over all — a toast, a frame.
+  z-index: calc(var(--z-modal) + 40);
+}
+
+body.has-overlay-backdrop .overlay-tools {
+  display: flex;
+}
+
+// What a tool opens stands on the shell as the layout's dock does, against
+// its bar.
+.overlay-tools > .tool-dock--overlay {
+  padding-block: var(--zone-gap, var(--space-2));
+  padding-inline-start: var(--zone-gap, var(--space-2));
+  background: var(--surface-shell);
+  border-inline-start: var(--border-shell);
+}
+
+.overlay-tools > .zone--toolbar {
+  border-inline-start: var(--border-shell);
+}
+
+// Over a modal, the veil is the ground: the bar is a bare icon on it, and
+// what it opens stands on the veil with no shell under it — this is not a
+// dock of the application but the one thing that follows the reader over
+// the veil. Beside a panel, which is a shell of its own, the bar keeps the
+// shell's dress.
+body[data-overlay-kind='modal'] .overlay-tools > :is(.zone--toolbar, .tool-dock--overlay) {
+  background: transparent;
+  border: 0;
+}
+
+// The modal moves over: centred in what the dock leaves of the window, and
+// never wider than that. The panel, standing at the window's end, moves the
+// same way: the chat opens between it and the edge.
+body.has-overlay-backdrop :is(.modal, .panel) {
+  padding-inline-end: var(--overlay-aside, 0px);
+}
+
+body.has-overlay-backdrop :is(.modal--content, .panel--content) {
+  max-width: calc(100vw - var(--overlay-aside, 0px) - 2 * var(--space-4));
+}

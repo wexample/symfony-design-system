@@ -1,0 +1,22 @@
+# What an agent is told about a date of a form; `Field` runs the actions.
+# In english, never translated.
+type: date-field
+description: "A field of a form holding a date."
+actions:
+  get:
+    description: Tells the date in the field, as `YYYY-MM-DD`.
+    annotations:
+      readOnlyHint: true
+  set:
+    description: Sets the date, given as `YYYY-MM-DD`.
+    input_schema:
+      properties:
+        value:
+          type: string
+      required: [value]
+    annotations:
+      idempotentHint: true
+  clear:
+    description: Empties the field.
+    annotations:
+      idempotentHint: true

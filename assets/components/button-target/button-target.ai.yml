@@ -1,0 +1,7 @@
+# What an agent is told about a button opening its target; the script runs
+# the action. In english, never translated: see AgentContractService.
+type: button
+description: "A button opening what it leads to beside the page — a panel, a modal — rather than in its place (state `opens`)."
+actions:
+  click:
+    description: Presses the button, as the user would. The page stays; what opens is a piece of it, to read again.

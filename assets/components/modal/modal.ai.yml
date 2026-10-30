@@ -1,0 +1,9 @@
+# What an agent is told about a modal; the script runs the action. In english,
+# never translated: see AgentContractService.
+type: modal
+description: "A page opened over the current one, which holds the user until it is closed: what it shows stands inside it."
+actions:
+  close:
+    description: Closes the modal, as its close button does, and the page under it is reached again.
+    annotations:
+      idempotentHint: true

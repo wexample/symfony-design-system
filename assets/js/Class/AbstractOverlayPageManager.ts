@@ -1,5 +1,6 @@
 import Page from '@wexample/symfony-loader/js/Class/Page';
 import PageManagerComponent from '@wexample/symfony-loader/js/Class/PageManagerComponent';
+import type { AgentActionsImplementation } from '@wexample/symfony-loader/js/Interfaces/AgentNodeInterface';
 import RenderNode from '@wexample/symfony-loader/js/Class/RenderNode';
 import FocusableComponentMixin from '@wexample/symfony-loader/js/Class/Mixins/FocusableComponentMixin';
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
@@ -105,6 +106,31 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
 
   protected getDialogEl(): HTMLElement {
     return this.contentEl || this.el;
+  }
+
+  // What an agent reads and does (`modal.ai.yml`, `panel.ai.yml`): the
+  // overlay, named by the heading of the page it holds, closed as its own
+  // button closes it. What it holds are nodes of their own, inside it.
+  public getAgentLabel(): string | undefined {
+    return this.getDialogEl().querySelector<HTMLElement>('h1, h2, h3, [data-dialog-title]')?.textContent?.trim() || undefined;
+  }
+
+  public getAgentState(): Record<string, any> {
+    return { open: Boolean((this as any).overlayIsOpen?.()) };
+  }
+
+  public getAgentFrameElement(): HTMLElement | null {
+    return this.getDialogEl();
+  }
+
+  public getAgentActions(): AgentActionsImplementation {
+    return {
+      close: () => {
+        (this as any).overlayClose();
+
+        return { open: false };
+      },
+    };
   }
 
   // Named by its first heading, which the page it holds has written.

@@ -1,0 +1,22 @@
+# What an agent is told about a text field of a form; `Field` runs the
+# actions. In english, never translated: see AgentContractService.
+type: text-field
+description: "A field of a form holding a text."
+actions:
+  get:
+    description: Tells the text in the field.
+    annotations:
+      readOnlyHint: true
+  set:
+    description: Writes a text in the field, as a person types it. What was there goes.
+    input_schema:
+      properties:
+        value:
+          type: string
+      required: [value]
+    annotations:
+      idempotentHint: true
+  clear:
+    description: Empties the field.
+    annotations:
+      idempotentHint: true

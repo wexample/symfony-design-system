@@ -13,6 +13,16 @@
 
 {%- block vue_body -%}
     <div class="chat">
+        <div v-if="hasToolbar" class="toolbar chat--toolbar">
+            <button
+                    type="button"
+                    class="button button--flat"
+                    :aria-pressed="soundEnabled ? 'true' : 'false'"
+                    :aria-label="soundLabel"
+                    :title="soundLabel"
+                    @click="toggleSound"
+            ><span class="button--icon" v-html="soundIconHtml"></span></button>
+        </div>
         <div ref="thread" class="chat-thread">
             <div v-if="hasOlderEntities" class="chat--thread-head">
                 <load-more
@@ -39,7 +49,8 @@
                                 :value="message.date"
                         ></date-display>
                     </div>
-                    <div class="chat--message-content">[[ message.content ]]</div>
+                    <div v-if="message.html" class="chat--message-content content" v-html="message.html"></div>
+                    <div v-else class="chat--message-content">[[ message.content ]]</div>
                 </div>
             </div>
 

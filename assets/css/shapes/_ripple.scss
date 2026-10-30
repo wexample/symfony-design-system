@@ -1,0 +1,39 @@
+// A press answered where it landed: a wave spreading from the point touched,
+// inside the element pressed (RippleHelper). An agent's press wears the accent,
+// as its outline does, so the reader sees who touched.
+@keyframes ripple-spread {
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+// Only while a wave runs: the element keeps its own layout the rest of the time.
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple--wave {
+  position: absolute;
+  top: var(--ripple-y);
+  left: var(--ripple-x); // physical: where the pointer touched, measured from the top-left corner whatever the writing direction
+  width: var(--ripple-size);
+  height: var(--ripple-size);
+  margin: calc(var(--ripple-size) / -2) 0 0 calc(var(--ripple-size) / -2);
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.25;
+  pointer-events: none;
+  transform: scale(0);
+  animation: ripple-spread 500ms ease-out forwards;
+
+  &--agent {
+    background: var(--accent-9);
+    opacity: 0.4;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation-duration: 1ms;
+  }
+}

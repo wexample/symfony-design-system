@@ -1,4 +1,5 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
+import type { AgentActionsImplementation, AgentNodeProviderInterface } from '@wexample/symfony-loader/js/Interfaces/AgentNodeInterface';
 import KeyboardService from '@wexample/symfony-loader/js/Services/KeyboardService';
 import { focusTrapCanReturn, focusTrapFocusables, focusTrapNext } from '../../js/Helper/FocusTrapHelper';
 
@@ -8,6 +9,9 @@ import { focusTrapCanReturn, focusTrapFocusables, focusTrapNext } from '../../js
 // it a drawer (`--menu-drawer`), the toggles slide it over the page instead,
 // for the moment only: it holds the keyboard as a dialog does, and Escape, a
 // press outside or a link followed close it.
+//
+// To an agent it is the side menu, folded or not (`menu-collapsible-panel.ai.yml`);
+// its entries are pieces of their own, and pointing at one unfolds it.
 export default class extends Component {
   private menuId?: string;
   private closeEl?: HTMLElement;
@@ -57,9 +61,7 @@ export default class extends Component {
 
   // Whether the reader sees the menu, said by both toggles.
   private syncExpanded(): void {
-    const expanded = this.isDrawer()
-      ? this.isDrawerOpen()
-      : !this.el.classList.contains('gutters--collapsible--collapsed');
+    const expanded = this.isOpen();
 
     this.openEl?.setAttribute('aria-expanded', String(expanded));
     this.closeEl?.setAttribute('aria-expanded', String(expanded));
@@ -99,7 +101,39 @@ export default class extends Component {
 
   private onClose = (e: Event): void => {
     e.preventDefault();
+    this.close();
+  };
 
+  private onOpen = (e: Event): void => {
+    e.preventDefault();
+    this.open();
+  };
+
+  // Whether the reader sees the menu: a drawer slid over the page, or a side
+  // menu not folded.
+  private isOpen(): boolean {
+    return this.isDrawer()
+      ? this.isDrawerOpen()
+      : !this.el.classList.contains('gutters--collapsible--collapsed');
+  }
+
+  private open(): void {
+    if (this.isDrawer()) {
+      if (!this.isDrawerOpen()) {
+        this.openDrawer();
+      }
+      return;
+    }
+
+    this.el.classList.remove('gutters--collapsible--collapsed');
+    if (this.openEl) {
+      this.openEl.hidden = true;
+    }
+    this.syncExpanded();
+    this.app.onMenuStateChange(this.menuId, true);
+  }
+
+  private close(): void {
     if (this.isDrawer()) {
       this.closeDrawer();
       return;
@@ -111,23 +145,7 @@ export default class extends Component {
     }
     this.syncExpanded();
     this.app.onMenuStateChange(this.menuId, false);
-  };
-
-  private onOpen = (e: Event): void => {
-    e.preventDefault();
-
-    if (this.isDrawer()) {
-      this.openDrawer();
-      return;
-    }
-
-    this.el.classList.remove('gutters--collapsible--collapsed');
-    if (this.openEl) {
-      this.openEl.hidden = true;
-    }
-    this.syncExpanded();
-    this.app.onMenuStateChange(this.menuId, true);
-  };
+  }
 
   // A press on the dimmed page closes; a link followed in the menu too — the
   // page it leads to is what the reader asked for, not the menu again.
@@ -177,4 +195,25 @@ export default class extends Component {
 
     this.syncExpanded();
   };
+
+  public getAgentActions(): AgentActionsImplementation {
+    return {
+      expand: () => {
+        this.open();
+        return { expanded: true };
+      },
+      collapse: () => {
+        this.close();
+        return { expanded: false };
+      },
+    };
+  }
+
+  public getAgentState(): Record<string, any> {
+    return { expanded: this.isOpen() };
+  }
+
+  public async revealAgentChild(child: AgentNodeProviderInterface): Promise<void> {
+    this.open();
+  }
 }

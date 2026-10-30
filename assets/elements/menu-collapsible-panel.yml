@@ -12,6 +12,6 @@ formats:
   style: true
   vue: "todo — a chantier of its own: the twig side is an empty placeholder binding to gutters the layout wrote, so a vue one has to own markup it does not own today"
   schema: todo
-  ai: todo
+  ai: true
   react: todo
   flutter: todo

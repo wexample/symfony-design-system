@@ -5,6 +5,9 @@ en:
   thread:
     load_older: Load earlier messages
     tool: 'Tool'
+  toolbar:
+    sound_on: 'Turn sound on'
+    sound_off: 'Turn sound off'
 
 ar:
   composer:
@@ -13,6 +16,9 @@ ar:
   thread:
     load_older: 'تحميل الرسائل السابقة'
     tool: 'أداة'
+  toolbar:
+    sound_on: 'تشغيل الصوت'
+    sound_off: 'إيقاف الصوت'
 
 bn:
   composer:
@@ -21,6 +27,9 @@ bn:
   thread:
     load_older: 'পুরানো বার্তা লোড করুন'
     tool: 'টুল'
+  toolbar:
+    sound_on: 'শব্দ চালু করুন'
+    sound_off: 'শব্দ বন্ধ করুন'
 
 de:
   composer:
@@ -29,6 +38,9 @@ de:
   thread:
     load_older: 'Ältere Nachrichten laden'
     tool: 'Werkzeug'
+  toolbar:
+    sound_on: 'Ton einschalten'
+    sound_off: 'Ton ausschalten'
 
 es:
   composer:
@@ -37,6 +49,9 @@ es:
   thread:
     load_older: 'Cargar mensajes anteriores'
     tool: 'Herramienta'
+  toolbar:
+    sound_on: 'Activar el sonido'
+    sound_off: 'Desactivar el sonido'
 
 fa:
   composer:
@@ -45,6 +60,9 @@ fa:
   thread:
     load_older: 'بارگذاری پیام‌های قدیمی‌تر'
     tool: 'ابزار'
+  toolbar:
+    sound_on: 'روشن کردن صدا'
+    sound_off: 'خاموش کردن صدا'
 
 fi:
   composer:
@@ -53,6 +71,9 @@ fi:
   thread:
     load_older: 'Lataa aikaisempia viestejä'
     tool: 'Työkalu'
+  toolbar:
+    sound_on: 'Ääni päälle'
+    sound_off: 'Ääni pois'
 
 fr:
   composer:
@@ -61,6 +82,9 @@ fr:
   thread:
     load_older: 'Charger les messages plus anciens'
     tool: 'Outil'
+  toolbar:
+    sound_on: 'Activer le son'
+    sound_off: 'Couper le son'
 
 he:
   composer:
@@ -69,6 +93,9 @@ he:
   thread:
     load_older: 'טעון הודעות קודמות'
     tool: 'כלי'
+  toolbar:
+    sound_on: 'הפעלת צליל'
+    sound_off: 'השתקת צליל'
 
 hi:
   composer:
@@ -77,6 +104,9 @@ hi:
   thread:
     load_older: 'पुराने संदेश लोड करें'
     tool: 'टूल'
+  toolbar:
+    sound_on: 'ध्वनि चालू करें'
+    sound_off: 'ध्वनि बंद करें'
 
 id:
   composer:
@@ -85,6 +115,9 @@ id:
   thread:
     load_older: 'Muat pesan sebelumnya'
     tool: 'Alat'
+  toolbar:
+    sound_on: 'Nyalakan suara'
+    sound_off: 'Matikan suara'
 
 it:
   composer:
@@ -93,6 +126,9 @@ it:
   thread:
     load_older: 'Carica messaggi precedenti'
     tool: 'Strumento'
+  toolbar:
+    sound_on: 'Attiva l''audio'
+    sound_off: 'Disattiva l''audio'
 
 ja:
   composer:
@@ -101,6 +137,9 @@ ja:
   thread:
     load_older: 以前のメッセージを読み込む
     tool: 'ツール'
+  toolbar:
+    sound_on: 'サウンドをオン'
+    sound_off: 'サウンドをオフ'
 
 ko:
   composer:
@@ -109,6 +148,9 @@ ko:
   thread:
     load_older: '이전 메시지 불러오기'
     tool: '도구'
+  toolbar:
+    sound_on: '소리 켜기'
+    sound_off: '소리 끄기'
 
 nl:
   composer:
@@ -117,6 +159,9 @@ nl:
   thread:
     load_older: 'Laad eerdere berichten'
     tool: 'Hulpmiddel'
+  toolbar:
+    sound_on: 'Geluid aan'
+    sound_off: 'Geluid uit'
 
 pl:
   composer:
@@ -125,6 +170,9 @@ pl:
   thread:
     load_older: 'Załaduj wcześniejsze wiadomości'
     tool: 'Narzędzie'
+  toolbar:
+    sound_on: 'Włącz dźwięk'
+    sound_off: 'Wyłącz dźwięk'
 
 pt_BR:
   composer:
@@ -133,6 +181,9 @@ pt_BR:
   thread:
     load_older: 'Carregar mensagens anteriores'
     tool: 'Ferramenta'
+  toolbar:
+    sound_on: 'Ativar som'
+    sound_off: 'Desativar som'
 
 ru:
   composer:
@@ -141,6 +192,9 @@ ru:
   thread:
     load_older: 'Загрузить более ранние сообщения'
     tool: 'Инструмент'
+  toolbar:
+    sound_on: 'Включить звук'
+    sound_off: 'Выключить звук'
 
 th:
   composer:
@@ -149,6 +203,9 @@ th:
   thread:
     load_older: โหลดข้อความก่อนหน้า
     tool: 'เครื่องมือ'
+  toolbar:
+    sound_on: 'เปิดเสียง'
+    sound_off: 'ปิดเสียง'
 
 tr:
   composer:
@@ -157,6 +214,9 @@ tr:
   thread:
     load_older: 'Daha eski mesajları yükle'
     tool: 'Araç'
+  toolbar:
+    sound_on: 'Sesi aç'
+    sound_off: 'Sesi kapat'
 
 ur:
   composer:
@@ -165,6 +225,9 @@ ur:
   thread:
     load_older: 'پرانے پیغامات لوڈ کریں'
     tool: 'ٹول'
+  toolbar:
+    sound_on: 'آواز آن کریں'
+    sound_off: 'آواز بند کریں'
 
 vi:
   composer:
@@ -173,6 +236,9 @@ vi:
   thread:
     load_older: 'Tải tin nhắn cũ hơn'
     tool: 'Công cụ'
+  toolbar:
+    sound_on: 'Bật âm thanh'
+    sound_off: 'Tắt âm thanh'
 
 zh:
   composer:
@@ -181,3 +247,6 @@ zh:
   thread:
     load_older: 加载更早的消息
     tool: '工具'
+  toolbar:
+    sound_on: '开启声音'
+    sound_off: '关闭声音'

@@ -12,6 +12,6 @@ formats:
   vue: "todo — the same route table as menu-item, plus the open state to hold"
   script: true
   schema: todo
-  ai: todo
+  ai: true
   react: todo
   flutter: todo

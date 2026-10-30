@@ -97,7 +97,7 @@
                         them itself with `sort_rows`. The arrow says the order in
                         force, the default one included. Not a page of its own
                         for a crawler (`nofollow`): the same rows, ordered. -#}
-                    <th class="table--cell{{ column.class ? ' ' ~ column.class }}" scope="col" aria-sort="{{ column.sort_aria }}">
+                    <th class="table--cell{{ column.class ? ' ' ~ column.class }}" scope="col" aria-sort="{{ column.sort_aria }}" data-column-key="{{ column.key }}">
                         <a class="table--sort{{ column.sort_aria != 'none' ? ' is-active' }}" href="{{ column.sort_href }}" rel="nofollow">
                             <span{% if column.tooltip %} data-tooltip="{{ column.tooltip }}"{% endif %}>{{ column.label }}</span>
                             <span class="table--sort-icon" aria-hidden="true">{{ icon({ ascending: 'ph:bold/caret-up', descending: 'ph:bold/caret-down' }[column.sort_aria] ?? 'ph:bold/caret-up-down') }}</span>
@@ -106,7 +106,7 @@
                 {%- else -%}
                     {#- A short label says enough to read the column by; its
                         tooltip says it whole (`tooltip`). -#}
-                    <th class="table--cell{{ column.class ? ' ' ~ column.class }}" scope="col">
+                    <th class="table--cell{{ column.class ? ' ' ~ column.class }}" scope="col" data-column-key="{{ column.key }}">
                         {%- if column.tooltip -%}<span data-tooltip="{{ column.tooltip }}">{{ column.label }}</span>{%- else -%}{{ column.label }}{%- endif -%}
                     </th>
                 {%- endif -%}
@@ -163,7 +163,9 @@
             {%- set row_is_link = row_href or (row_only_action
                 and row_only_action.href|default(null)
                 and row_only_action.method|default('get')|lower != 'post') -%}
-            <tr class="table--row{{ row_is_link ? ' table--row--link' }}">
+            {#- Named for an agent pointing at it (data-table.ai.yml): by what
+                the selection names it, or its place in the rows. -#}
+            <tr class="table--row{{ row_is_link ? ' table--row--link' }}" data-row-key="{{ attribute(row, options.selection_key|default('id'))|default(loop.index0) }}">
                 {% if selectable %}
                     <td class="table--cell table--cell--select">
                         <input class="table--select table--select-row" type="checkbox"
@@ -175,7 +177,7 @@
                 {% endif %}
                 {% for column in columns %}
                     {% set value = column.key ? attribute(row, column.key) : null %}
-                    <td class="table--cell{{ column.class ? ' ' ~ column.class }}{{ column.secondary ? ' table--cell--secondary' }}">
+                    <td class="table--cell{{ column.class ? ' ' ~ column.class }}{{ column.secondary ? ' table--cell--secondary' }}" data-column-key="{{ column.key }}">
                         {%- if column.cell == 'actions' -%}
                             <span class="table--actions">
                                 {%- for action in value -%}

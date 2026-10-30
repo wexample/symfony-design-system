@@ -12,6 +12,8 @@
 @use '../../css/shapes/page-actions';
 // The page's title with its actions beside it.
 @use '../../css/shapes/toolbar';
+// What an agent points at, framed over the page wherever it stands.
+@use '../../css/shapes/agent-frame';
 @use '../../css/shapes/doc';
 @use '../../components/marker/marker';
 

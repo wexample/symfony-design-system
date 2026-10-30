@@ -1,0 +1,9 @@
+# What an agent is told about a file of a form. A file is the user's to pick:
+# no script may put one in, so the field is read and pointed at, no more.
+type: file-field
+description: "A field of a form holding a file, which only the user can pick: ask them to."
+actions:
+  get:
+    description: Tells the name of the file picked, if any.
+    annotations:
+      readOnlyHint: true

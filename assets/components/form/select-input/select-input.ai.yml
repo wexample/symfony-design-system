@@ -1,0 +1,31 @@
+# What an agent is told about a choice of a form, one among a list; the
+# select's script runs the actions. In english, never translated.
+type: select-field
+description: "A field of a form choosing one among a list: the choices are in its state, as `value (label)`."
+actions:
+  get:
+    description: Tells the choice made, by its value and its label.
+    annotations:
+      readOnlyHint: true
+  choose:
+    description: Picks a choice, by its value or its label, as a person opens the list and takes one.
+    input_schema:
+      properties:
+        option:
+          type: string
+      required: [option]
+    annotations:
+      idempotentHint: true
+  set:
+    description: The same as choose, the choice given as `value`.
+    input_schema:
+      properties:
+        value:
+          type: string
+      required: [value]
+    annotations:
+      idempotentHint: true
+  clear:
+    description: Takes the choice back, leaving none.
+    annotations:
+      idempotentHint: true

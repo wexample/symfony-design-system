@@ -12,6 +12,6 @@ formats:
   script: true
   vue: "a mount point, not a drawing: its content is a page the router loads into .modal--content"
   schema: todo
-  ai: todo
+  ai: true
   react: todo
   flutter: todo

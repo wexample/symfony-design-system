@@ -1,0 +1,9 @@
+{#- The tools that follow the reader over a veil: when a modal holds the page,
+    its chat is out of reach under the veil, so the tools marked for it
+    (`overlay: true` in layout_dock_tools) stand again at the window's end,
+    over the veil — a dock of the overlay layer, with its own state. Shown
+    while a veil is up (`has-overlay-backdrop`, OverlayService); what it opens
+    pushes the modal aside (`--overlay-aside`). -#}
+<div class="overlay-tools zone--split zone--split--joined" data-overlay-rise>
+    {{ tool_dock('overlay', tools, { class: 'tool-dock--overlay' }) }}
+</div>

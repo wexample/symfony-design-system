@@ -96,6 +96,15 @@
     --text-color-head: color-mix(in srgb, var(--neutral-12) 40%, transparent);
   }
 
+  // The veil over the page while a modal holds it: on a dark page a light
+  // veil washes the page grey instead of putting it away, so it goes much
+  // deeper there.
+  @if $appearance == dark {
+    --surface-backdrop: rgba(0, 0, 0, 0.85);
+  } @else {
+    --surface-backdrop: rgba(0, 0, 0, 0.36);
+  }
+
   // Code, coloured: what an editor and a highlighter paint a keyword, a string,
   // a comment with. Taken from the categories, as ink — step 11 lightens a hue on
   // the dark face and deepens it on the light one, the only way it stays

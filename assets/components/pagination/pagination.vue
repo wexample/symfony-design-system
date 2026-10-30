@@ -1,5 +1,6 @@
 <script>
 import buildTranslatedBindings from '../../js/Helper/TranslationHelper';
+import { rippleAgentPress } from '../../js/Helper/RippleHelper';
 
 const translated = buildTranslatedBindings({
   resolvedLabel: [
@@ -145,6 +146,37 @@ export default {
   },
 
   methods: {
+    // What an agent reads and does (`pagination.ai.yml`): pages counted from
+    // one, as the reader counts them.
+    getAgentState() {
+      return {
+        page: this.page + 1,
+        pages: this.pagesCount ?? undefined,
+        hasPrevious: this.hasPrevious,
+        hasNext: this.hasNext
+      };
+    },
+
+    getAgentActions() {
+      return {
+        go: async ({ page }) => this.selectAssisted(Number(page) - 1, this.$el.querySelector(`.pagination--number[aria-label$=" ${Number(page)}"]`)),
+        next: async () => this.selectAssisted(this.page + 1, this.$el.querySelectorAll('.pagination--control')[1]),
+        previous: async () => this.selectAssisted(this.page - 1, this.$el.querySelector('.pagination--control'))
+      };
+    },
+
+    // Pressed where the reader sees it, when the page is drawn, then selected.
+    async selectAssisted(page, button) {
+      if (page < 0 || (this.pagesCount && page > this.pagesCount - 1)) {
+        throw new Error(`No page ${page + 1}.`);
+      }
+
+      await rippleAgentPress(this.app, button ?? null);
+      this.select(page);
+
+      return { page: page + 1 };
+    },
+
     select(page) {
       if (this.disabled || page === this.page || page < 0) {
         return;
@@ -155,6 +187,7 @@ export default {
       }
 
       this.$emit('change', page);
+      this.logAgentEvent(`Went to page ${page + 1}`, { key: 'page', detail: { page: page + 1 } });
     }
   }
 };

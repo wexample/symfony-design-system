@@ -1,0 +1,22 @@
+# What an agent is told about a search field; the vue runs the actions.
+# In english, never translated: see AgentContractService.
+type: search
+description: A field narrowing what is listed beside it to what matches the text typed in.
+actions:
+  get:
+    description: Tells the text in the field.
+    annotations:
+      readOnlyHint: true
+  set:
+    description: Types a text in the field, as a person would, and the list narrows to it.
+    input_schema:
+      properties:
+        value:
+          type: string
+      required: [value]
+    annotations:
+      idempotentHint: true
+  clear:
+    description: Empties the field, and the list shows everything again.
+    annotations:
+      idempotentHint: true

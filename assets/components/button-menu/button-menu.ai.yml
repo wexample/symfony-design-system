@@ -1,0 +1,34 @@
+# What an agent is told about a button opening a menu — a filter of a table,
+# the actions of a record —; the vue runs the actions. In english, never
+# translated: see AgentContractService.
+type: menu-button
+description: "A button opening a menu of items: links, choices to tick, actions."
+actions:
+  items:
+    description: "The items of the menu: each named (`item`), ticked or not when it is a choice, with its link when it leads somewhere."
+    annotations:
+      readOnlyHint: true
+  open:
+    description: Opens the menu, as a press on the button does.
+    annotations:
+      idempotentHint: true
+  close:
+    description: Closes the menu.
+    annotations:
+      idempotentHint: true
+  select:
+    description: "Presses an item, by its name: a choice is ticked or unticked, a link followed, an action run."
+    input_schema:
+      properties:
+        item:
+          type: string
+      required: [item]
+  point:
+    description: Opens the menu and shows the user an item, by its name.
+    input_schema:
+      properties:
+        item:
+          type: string
+      required: [item]
+    annotations:
+      idempotentHint: true

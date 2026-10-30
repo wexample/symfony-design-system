@@ -1,0 +1,16 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <div class="form--input-group form--filter search-input">
+        <span class="form--input-addon" aria-hidden="true" v-html="iconHtml"></span>
+        <input
+                class="form--input"
+                type="search"
+                :value="modelValue"
+                :placeholder="placeholder"
+                :aria-label="resolvedLabel"
+                autocomplete="off"
+                @input="onInput"
+        >
+    </div>
+{%- endblock -%}

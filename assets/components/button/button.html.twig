@@ -1,9 +1,13 @@
 {#- The options double as attributes, so the two the tag already writes itself
     are taken out of them: left in, they came back out a second time and the tag
-    carried `type` and `class` twice. -#}
+    carried `type` and `class` twice. `confirm` ({ title, message, accept })
+    is asked before the button does anything — whoever presses it, the reader
+    or an agent — and nothing happens when it is refused. -#}
+{%- set confirm = options.confirm|default(null) -%}
 <button class="button{% if options.class is defined %} {{ options.class }}{% endif %}"
         type="{{ options.type|default('button') }}"
-        {{ component_render_tag_attributes(options|merge({ type: null, class: null })) }}>
+        {%- if confirm %} data-confirm-title="{{ confirm.title|default('')|trans }}" data-confirm-message="{{ confirm.message|default('')|trans }}" data-confirm-accept="{{ (confirm.accept|default('WexampleSymfonyDesignSystemBundle.common.system::frontend.confirm.accept'))|trans }}" data-confirm-cancel="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.confirm.cancel'|trans }}"{% endif %}
+        {{ component_render_tag_attributes(options|merge({ type: null, class: null, confirm: null })) }}>
     <span class="button--icon">
         {% if icon is defined and icon %}{{ icon(icon) }}{% endif %}
     </span>

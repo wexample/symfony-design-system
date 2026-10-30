@@ -1,0 +1,17 @@
+# What an agent is told about a pager; the vue runs the actions. In english,
+# never translated: see AgentContractService.
+type: pagination
+description: "The pages of a list, counted from one: the page being read, and the way to another."
+actions:
+  go:
+    description: Goes to a page, by its number.
+    input_schema:
+      properties:
+        page:
+          type: integer
+          minimum: 1
+      required: [page]
+  next:
+    description: Goes to the next page.
+  previous:
+    description: Goes to the previous page.

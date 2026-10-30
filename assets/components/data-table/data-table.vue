@@ -6,6 +6,10 @@ import Marker from '../marker/marker.vue';
 import Pagination from '../pagination/pagination.vue';
 import FilePath from '../file-path/file-path.vue';
 import FilterBar from '../filter-bar/filter-bar.vue';
+import SearchInput from '../search-input/search-input.vue';
+import { rippleAgentPress } from '../../js/Helper/RippleHelper';
+import { confirmAskFor } from '../../js/Helper/ConfirmHelper';
+import AgentNavigation from '@wexample/symfony-loader/js/Class/AgentNavigation';
 import { filterMatches, filterTextMatches } from '../../js/Helper/FilterHelper';
 import { sortApply, sortAria, sortNext, sortValueAt } from '../../js/Helper/SortHelper';
 import { filterSelected } from '../../js/Helper/FilterHelper';
@@ -37,6 +41,7 @@ export default {
     FilePath,
     FilterBar,
     Pagination,
+    SearchInput,
     Spinner,
     // Registered as `capsule`: `marker` is an svg element, which vue refuses
     // as a component id and renders as itself — an invisible one.
@@ -334,10 +339,6 @@ export default {
       ));
     },
 
-    searchIconHtml() {
-      return this.renderIcon('ph:bold/magnifying-glass');
-    },
-
     pagesCount() {
       return this.pageSize > 0 ? Math.max(1, Math.ceil(this.shownRows.length / this.pageSize)) : 0;
     },
@@ -484,6 +485,7 @@ export default {
       this.ownFilterValues = values;
       this.page = 0;
       this.$emit('update:filterValues', values);
+      this.logAgentEvent(`Changed the filters of the table${this.agentTableName()}`, { key: 'filters', detail: values });
     },
 
     // Sortable only when the column says so: an actions, a selection or a
@@ -517,7 +519,12 @@ export default {
     // differently, the list starts again from its first page; the ticked rows
     // stay ticked, being named by their key and not their place.
     toggleSort(column) {
-      const next = sortNext(this.resolvedSort, this.getColumnSortKey(column), this.defaultSort);
+      this.applySort(sortNext(this.resolvedSort, this.getColumnSortKey(column), this.defaultSort));
+    },
+
+    // The order in force from here on — null for the default one —, said out
+    // loud and handed to whoever holds the rows.
+    applySort(next) {
       const sorted = next && this.columns.find((entry) => this.isColumnSortable(entry)
         && this.getColumnSortKey(entry) === next.key);
 
@@ -527,6 +534,9 @@ export default {
         ? this.transTable(`sorted_${next.direction}`, { '%column%': sorted ? this.getColumnLabel(sorted) : next.key })
         : this.transTable('sort_reset');
       this.$emit('update:sort', next);
+      this.logAgentEvent(next
+        ? `Sorted the table${this.agentTableName()} by "${sorted ? this.getColumnLabel(sorted) : next.key}" ${next.direction}`
+        : `Reset the order of the table${this.agentTableName()}`, { key: 'sort', detail: next ?? undefined });
     },
 
     setSelected(keys) {
@@ -626,10 +636,13 @@ export default {
 
     // Searched differently, the list starts again from its first page, and
     // says how much it found.
-    onSearchInput(event) {
-      this.search = event.target.value;
+    onSearchInput(value) {
+      this.search = value;
       this.page = 0;
       this.$emit('update:search', this.search);
+      this.logAgentEvent(this.search.trim()
+        ? `Searched "${this.search.trim()}" in the table${this.agentTableName()}`
+        : `Cleared the search of the table${this.agentTableName()}`, { key: 'search' });
 
       // What the api finds is not known yet: the page says it once it is.
       if (!this.searchRows) {
@@ -790,6 +803,243 @@ export default {
 
     renderIcon(name) {
       return name ? this.app.getServiceOrFail('icon').icon(name) : '';
+    },
+
+    // What an agent reads of the table and does to it (`data-table.ai.yml`):
+    // its columns, order, rows, and the pieces it points the reader at.
+    getAgentLabel() {
+      return this.$el?.querySelector('caption')?.textContent?.trim() || undefined;
+    },
+
+    // The table named in what the user did to it, when it has a name.
+    agentTableName() {
+      const label = this.getAgentLabel();
+
+      return label ? ` "${label}"` : '';
+    },
+
+    getAgentState() {
+      const sort = this.resolvedSort;
+
+      return {
+        total: this.totalCount,
+        rowsShown: this.visibleRows.filter((row) => !this.isGroupRow(row)).length,
+        page: this.pageSize > 0 ? this.page + 1 : undefined,
+        pages: this.pageSize > 0 ? this.pagesCount : undefined,
+        columns: this.columns.map((column, index) => ({
+          key: this.getColumnKey(column, index),
+          label: this.getColumnLabel(column),
+          sortable: this.isColumnSortable(column)
+        })),
+        sort: sort ? { column: sort.key, direction: sort.direction } : null,
+        search: this.searchable ? this.search : undefined,
+        filters: this.filters.length ? this.resolvedFilterValues : undefined
+      };
+    },
+
+    getAgentActions() {
+      return {
+        sort: async ({ column, direction }) => {
+          const target = this.findAgentColumn(column);
+
+          if (!this.isColumnSortable(target)) {
+            throw new Error(`Column "${column}" cannot be sorted.`);
+          }
+
+          await rippleAgentPress(this.app, this.findColumnHeader(target)?.querySelector('.table--sort'));
+
+          if (direction === 'asc' || direction === 'desc') {
+            this.applySort({ key: this.getColumnSortKey(target), direction });
+          } else {
+            this.toggleSort(target);
+          }
+
+          // Answered once whoever holds the rows took the order.
+          await this.$nextTick();
+
+          return this.getAgentState().sort;
+        },
+        reset_sort: async () => {
+          this.applySort(this.defaultSort ?? null);
+          await this.$nextTick();
+
+          return this.getAgentState().sort;
+        },
+        rows: () => this.visibleRows
+          .filter((row) => !this.isGroupRow(row))
+          .map((row) => ({
+            row: String(this.getRowKey(row)),
+            ...Object.fromEntries(this.columns.map((column, index) => [
+              this.getColumnKey(column, index),
+              this.readCellText(row, column)
+            ]))
+          })),
+        point_row: (args, context) => this.pointAt([this.findRowElement(args.row)], context),
+        point_cell: (args, context) => this.pointAt(
+          [this.findRowElement(args.row)?.querySelector(`[data-column-key="${CSS.escape(this.getColumnKey(this.findAgentColumn(args.column)))}"]`)],
+          context
+        ),
+        point_column: (args, context) => {
+          const key = this.getColumnKey(this.findAgentColumn(args.column));
+
+          return this.pointAt(Array.from(this.$el.querySelectorAll(`[data-column-key="${CSS.escape(key)}"]`)), context);
+        },
+        clear_filters: async () => {
+          this.clearFilters();
+          await this.$nextTick();
+
+          return { search: this.search, filters: this.resolvedFilterValues };
+        },
+        row_actions: ({ row }) => this.readRowActions(this.findAgentRow(row)).map(({ action, name, kind }) => ({
+          action: name,
+          ...(kind === 'post' ? { posts: true } : {}),
+          ...(action.confirm ? { confirms: true } : {}),
+          ...(action.target ? { opens: action.target } : {}),
+          ...(action.href && !action.target && kind !== 'post' ? { leaves: true } : {})
+        })),
+        run_row_action: async ({ row, action }) => this.runRowAction(this.findAgentRow(row), action)
+      };
+    },
+
+    // The row of the rows shown, by the key `rows` returned.
+    findAgentRow(key) {
+      const wanted = String(key ?? '');
+      const row = this.visibleRows.find((entry) => !this.isGroupRow(entry) && String(this.getRowKey(entry)) === wanted);
+
+      if (!row) {
+        throw new Error(`No row "${key}" shown in the table.`);
+      }
+
+      return row;
+    },
+
+    // What may be done to a row: the actions of its action columns, each with
+    // the element pressing it, and the row's own link, named `open`.
+    readRowActions(row) {
+      const tr = this.findRowElement(this.getRowKey(row));
+      const read = [];
+
+      this.columns.forEach((column, columnIndex) => {
+        if (!this.hasCellActions(column)) {
+          return;
+        }
+
+        const cell = tr.querySelector(`[data-column-key="${CSS.escape(this.getColumnKey(column, columnIndex))}"]`);
+
+        this.getCellActions(row, column).forEach((action, index) => {
+          read.push({
+            action,
+            name: action.label || `${this.getColumnKey(column, columnIndex)}:${index}`,
+            kind: action.handler ? 'handler' : (action.method === 'post' && action.href ? 'post' : (action.href ? 'link' : 'none')),
+            el: cell?.querySelector(`[data-row-action="${index}"]`) ?? null
+          });
+        });
+      });
+
+      const link = this.getRowLink(row);
+
+      if (link) {
+        read.push({
+          action: { ...link, confirm: null },
+          name: link.label,
+          kind: 'link',
+          el: tr.querySelector('[data-row-action="open"]')
+        });
+      }
+
+      return read;
+    },
+
+    // Pressed as the reader presses it: a form posted — asked first when it
+    // says so —, a link followed or opened where it says, a script run.
+    async runRowAction(row, name) {
+      const wanted = String(name ?? '').toLowerCase();
+      const found = this.readRowActions(row).find((entry) => entry.name.toLowerCase() === wanted);
+
+      if (!found || !found.el) {
+        throw new Error(`No action "${name}" on this row.`);
+      }
+
+      const { action, kind, el } = found;
+      const pressed = kind === 'post' ? el.querySelector('button') : el;
+      const result = { row: String(this.getRowKey(row)), action: found.name };
+
+      if (kind === 'none') {
+        throw new Error(`"${found.name}" does nothing here.`);
+      }
+
+      await rippleAgentPress(this.app, pressed);
+
+      if (kind === 'post') {
+        if (!(await confirmAskFor(this.app, el))) {
+          return { ...result, refused: true };
+        }
+
+        return new AgentNavigation(() => {
+          el.dataset.confirmState = 'confirmed';
+          el.requestSubmit(pressed ?? undefined);
+          delete el.dataset.confirmState;
+        }, result);
+      }
+
+      if (kind === 'link' && !action.target) {
+        return new AgentNavigation(() => pressed.click(), result);
+      }
+
+      pressed.click();
+
+      return { ...result, ...(action.target ? { opened: action.target } : {}) };
+    },
+
+    // A column by its key or its label, as the agent read them.
+    findAgentColumn(name) {
+      const wanted = String(name ?? '').toLowerCase();
+      const column = this.columns.find((entry, index) => this.getColumnKey(entry, index).toLowerCase() === wanted
+        || String(this.getColumnLabel(entry)).toLowerCase() === wanted);
+
+      if (!column) {
+        throw new Error(`No column "${name}" in the table.`);
+      }
+
+      return column;
+    },
+
+    findColumnHeader(column) {
+      return this.$el.querySelector(`th[data-column-key="${CSS.escape(this.getColumnKey(column))}"]`);
+    },
+
+    findRowElement(key) {
+      const el = this.$el.querySelector(`tr[data-row-key="${CSS.escape(String(key ?? ''))}"]`);
+
+      if (!el) {
+        throw new Error(`No row "${key}" shown in the table.`);
+      }
+
+      return el;
+    },
+
+    // Framed for the agent that asked (AgentToolsService.point).
+    pointAt(elements, context) {
+      this.app.services.agentTools?.pointer.point(elements, context);
+
+      return { pointed: elements.filter(Boolean).length };
+    },
+
+    // A cell's value as text, whatever drew it.
+    readCellText(row, column) {
+      const value = this.getCellValue(row, column);
+
+      if (value === null || value === undefined) {
+        return '';
+      }
+
+      if (typeof value === 'object') {
+        return value.label ?? value.name ?? value.title ?? JSON.stringify(value);
+      }
+
+      const text = String(value);
+
+      return this.isHtmlCell(column) ? text.replace(/<[^>]*>/g, '').trim() : text;
     },
 
     getCellIcon(row, column) {

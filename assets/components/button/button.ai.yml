@@ -1,0 +1,7 @@
+# What an agent is told about a button; `button.ts` runs the action.
+# In english, never translated: see AgentContractService.
+type: button
+description: A button of the page.
+actions:
+  click:
+    description: "Presses the button, as the user would. A button that asks for confirmation (state `confirms`) asks the user first: `refused` is true when they declined. A button submitting a form (state `submits`) leaves the page: the answer comes from the page reached. What the page told the user afterwards — its notifications — comes with the answer (`notifications`)."

@@ -1,0 +1,36 @@
+// The frames an agent draws round what it points at or presses
+// (AgentFrameLayer, in the loader): a layer of their own over the page, so
+// that no ancestor hiding its overflow cuts them. Each wears the assisted
+// outline the fields wear, pulsing.
+//
+// The page's layer stands under the veil an overlay draws (`--z-modal` less
+// the veil's slot), so what was pointed at in the page dims with it; an
+// overlay's own layer (`--inner`) stands in the overlay, at its corner,
+// above what it holds.
+@use '../mixins/assisted' as assisted;
+
+.agent-frame-layer {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-modal, 1000) - 2);
+  pointer-events: none;
+
+  &--inner {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 0;
+    height: 0;
+    overflow: visible;
+    z-index: 2147482000;
+  }
+}
+
+// Rounded as a box is, whatever it frames — a row has square corners, the
+// frame round ones —, and as much as the element when it is rounder: a pill.
+.agent-frame {
+  position: absolute;
+  box-sizing: border-box;
+  border-radius: max(var(--agent-frame-element-radius, 0px), var(--radius-box));
+  pointer-events: none;
+  @include assisted.assisted-outline;
+}

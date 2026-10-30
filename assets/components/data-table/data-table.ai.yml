@@ -1,0 +1,74 @@
+# What an agent is told about a table; the vue runs the actions. In english,
+# never translated: see AgentContractService.
+type: table
+description: "A table of rows, searched, filtered, sorted and paged. Only the rows of the current page are shown (`rowsShown` of `total`): the others are reached through the pagination beside or inside it, or by typing in its search field. The search field, the filters (menus) and the pagination are pieces of their own."
+actions:
+  rows:
+    description: "The rows shown now — the current page only —, each with its `row` key and its text by column key, as the user sees them. Read before pointing at one."
+    annotations:
+      readOnlyHint: true
+  sort:
+    description: "Sorts by a column (its key or label). Without a direction, cycles as a click on its header does: ascending, descending, then the default order."
+    input_schema:
+      properties:
+        column:
+          type: string
+        direction:
+          type: string
+          enum: [asc, desc]
+      required: [column]
+  reset_sort:
+    description: Back to the default order.
+    annotations:
+      idempotentHint: true
+  point_row:
+    description: Shows the user a row, by the `row` key rows returned.
+    input_schema:
+      properties:
+        row:
+          type: string
+      required: [row]
+    annotations:
+      idempotentHint: true
+  point_cell:
+    description: Shows the user one cell, by its row key and its column.
+    input_schema:
+      properties:
+        row:
+          type: string
+        column:
+          type: string
+      required: [row, column]
+    annotations:
+      idempotentHint: true
+  point_column:
+    description: Shows the user a column, header and cells.
+    input_schema:
+      properties:
+        column:
+          type: string
+      required: [column]
+    annotations:
+      idempotentHint: true
+  clear_filters:
+    description: Empties the search and every filter, and the table shows everything again.
+    annotations:
+      idempotentHint: true
+  row_actions:
+    description: "What may be done to a row, by its `row` key: each action named as the user reads it, saying whether it posts, asks for confirmation (`confirms`), opens beside the page (`opens`) or leaves it (`leaves`)."
+    input_schema:
+      properties:
+        row:
+          type: string
+      required: [row]
+    annotations:
+      readOnlyHint: true
+  run_row_action:
+    description: "Presses an action of a row, as the user would, by the row key and the action's name. One that asks for confirmation asks the user first: `refused` is true when they declined. One that posts or leaves the page is answered from the page reached."
+    input_schema:
+      properties:
+        row:
+          type: string
+        action:
+          type: string
+      required: [row, action]

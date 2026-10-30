@@ -1,6 +1,7 @@
 @use '../../css/mixins/density' as density;
 @use '../../css/mixins/transition' as transition;
 @use '../../css/mixins/assisted' as assisted;
+@use '../../css/shapes/ripple';
 @use '../../css/mixins/feedback' as feedback;
 @use '../spinner/spinner';
 @use '../../css/shapes/count';

@@ -12,6 +12,6 @@ formats:
   vue: true
   script: true
   schema: todo
-  ai: todo
+  ai: true
   react: todo
   flutter: todo

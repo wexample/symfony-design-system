@@ -1,0 +1,7 @@
+# What an agent is told about an entry of a menu; the script runs the actions.
+# In english, never translated: see AgentContractService.
+type: menu-item
+description: An entry of a menu, leading to a page.
+actions:
+  open:
+    description: "Goes to the page the entry leads to, as a click on it does. The page is replaced: the answer comes from the page reached, with its address and title."

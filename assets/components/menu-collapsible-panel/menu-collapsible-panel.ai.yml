@@ -1,0 +1,13 @@
+# What an agent is told about a side menu of the layout; the script runs the
+# actions. In english, never translated: see AgentContractService.
+type: side-menu
+description: A side menu of the application, which the user may fold away. Its entries are pieces of their own.
+actions:
+  expand:
+    description: Unfolds the menu, as its toggle does.
+    annotations:
+      idempotentHint: true
+  collapse:
+    description: Folds the menu away, as its toggle does.
+    annotations:
+      idempotentHint: true

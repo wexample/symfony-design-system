@@ -1,5 +1,8 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
+import type { AgentNodeProviderInterface } from '@wexample/symfony-loader/js/Interfaces/AgentNodeInterface';
 
+// What folds what it holds under a toggle: open while `is-open`. An agent
+// pointing at something folded inside has it unfolded first.
 export default abstract class AbstractCollapsibleComponent extends Component {
   private toggleEl?: HTMLElement;
 
@@ -15,6 +18,18 @@ export default abstract class AbstractCollapsibleComponent extends Component {
   }
 
   private onToggleClick = () => {
-    this.el.classList.toggle('is-open');
+    this.setOpen(!this.isOpen());
   };
+
+  protected isOpen(): boolean {
+    return this.el.classList.contains('is-open');
+  }
+
+  protected setOpen(open: boolean): void {
+    this.el.classList.toggle('is-open', open);
+  }
+
+  public async revealAgentChild(child: AgentNodeProviderInterface): Promise<void> {
+    this.setOpen(true);
+  }
 }

@@ -1,0 +1,16 @@
+# Declares `search-input` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "A field narrowing a list to what matches its text."
+formats:
+  style: "wears the form shapes (form--input-group, form--filter) and adds none of its own"
+  template: "todo — the twig twin, for a list the server narrows"
+  vue: true
+  script: "the vue holds the behaviour; nothing binds to server markup yet"
+  schema: todo
+  ai: true
+  react: todo
+  flutter: todo

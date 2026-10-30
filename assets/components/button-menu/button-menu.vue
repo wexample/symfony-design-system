@@ -1,4 +1,6 @@
 <script>
+import { rippleAgentPress } from '../../js/Helper/RippleHelper';
+import AgentNavigation from '@wexample/symfony-loader/js/Class/AgentNavigation';
 import { loadIntoTarget } from '../../js/Helper/TargetHelper';
 import IconService from '@wexample/symfony-loader/js/Services/IconService';
 import { filterTextMatches } from '../../js/Helper/FilterHelper';
@@ -224,6 +226,101 @@ export default {
       return this.isOpen ? this.close() : this.open();
     },
 
+    // What an agent reads and does (`button-menu.ai.yml`). An item is named
+    // by its label or its value, as `items` returned them; chosen, it is
+    // pressed as the reader presses it, so whatever it does follows.
+    getAgentLabel() {
+      return this.label || this.$refs.button?.getAttribute('aria-label') || undefined;
+    },
+
+    getAgentState() {
+      return { open: this.isOpen };
+    },
+
+    getAgentFrameElement() {
+      return this.$refs.button ?? this.$el;
+    },
+
+    getAgentActions() {
+      return {
+        open: async () => {
+          if (!this.isOpen) {
+            await rippleAgentPress(this.app, this.$refs.button);
+            this.open();
+          }
+
+          return { open: true };
+        },
+        close: () => {
+          this.close();
+
+          return { open: false };
+        },
+        items: () => this.items
+          .filter((item) => this.itemType(item) !== 'separator')
+          .map((item, index) => ({
+            item: this.agentItemName(item),
+            ...(item.value !== undefined ? { value: String(item.value) } : {}),
+            ...(this.itemType(item) === 'toggle' ? { checked: Boolean(item.checked) } : {}),
+            ...(item.href ? { href: item.href } : {}),
+            ...(item.disabled ? { disabled: true } : {})
+          })),
+        select: async ({ item }) => {
+          const { entry, el } = this.findAgentItem(item);
+
+          if (!this.isOpen) {
+            this.open();
+            await this.$nextTick();
+          }
+
+          const pressed = el.querySelector('a, button') ?? el;
+          await rippleAgentPress(this.app, pressed);
+
+          // An item leading somewhere is answered from the page reached: the
+          // press is left to whoever holds the answer (AgentNavigation).
+          if (pressed instanceof HTMLAnchorElement && pressed.href && pressed.target !== '_blank') {
+            return new AgentNavigation(() => pressed.click(), { item: this.agentItemName(entry), href: pressed.href });
+          }
+
+          pressed.click();
+
+          return {
+            item: this.agentItemName(entry),
+            ...(this.itemType(entry) === 'toggle' ? { checked: Boolean(entry.checked) } : {})
+          };
+        },
+        point: async (args, context) => {
+          const { el } = this.findAgentItem(args.item);
+
+          if (!this.isOpen) {
+            this.open();
+            await this.$nextTick();
+          }
+
+          this.app.services.agentTools?.pointer.point([el], context);
+
+          return { pointed: 1 };
+        }
+      };
+    },
+
+    agentItemName(item) {
+      return String(item.label ?? item.value ?? '');
+    },
+
+    findAgentItem(name) {
+      const wanted = String(name ?? '').toLowerCase();
+      const index = this.items.findIndex((item) => this.itemType(item) !== 'separator'
+        && (this.agentItemName(item).toLowerCase() === wanted || String(item.value ?? '').toLowerCase() === wanted));
+      const el = index >= 0 ? this.$el.querySelector(`[data-item-index="${index}"]`) : null;
+
+      if (!el) {
+        throw new Error(`No item "${name}" in the menu.`);
+      }
+
+      return { entry: this.items[index], el };
+    },
+
     open() {
       this.isOpen = true;
       // A long menu opens on its field: the visitor types before they scroll.
@@ -326,6 +423,7 @@ export default {
       }
 
       this.$emit('select', item);
+      this.logAgentEvent(`Chose "${item.label ?? item.value ?? ''}" in the menu "${this.getAgentLabel() ?? 'menu'}"`, { key: 'select', detail: { item: item.value ?? item.label } });
       this.close();
     },
 

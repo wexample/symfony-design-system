@@ -1,0 +1,22 @@
+# What an agent is told about a box of a form; `Field` runs the actions.
+# In english, never translated.
+type: toggle-field
+description: "A field of a form that is on or off."
+actions:
+  get:
+    description: Tells whether it is on (`value` true).
+    annotations:
+      readOnlyHint: true
+  set:
+    description: Turns it on (`value` true) or off (false).
+    input_schema:
+      properties:
+        value:
+          type: boolean
+      required: [value]
+    annotations:
+      idempotentHint: true
+  clear:
+    description: Turns it off.
+    annotations:
+      idempotentHint: true

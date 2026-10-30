@@ -111,6 +111,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/button/button.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/button/button.ai.yml"
                 ]
             },
             "stances": {
@@ -119,7 +122,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -169,6 +172,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/button-menu/button-menu.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/button-menu/button-menu.ai.yml"
                 ]
             },
             "stances": {
@@ -177,7 +183,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -202,6 +208,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/button-target/button-target.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/button-target/button-target.ai.yml"
                 ]
             },
             "stances": {
@@ -210,7 +219,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -541,6 +550,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/data-table/data-table.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/data-table/data-table.ai.yml"
                 ]
             },
             "stances": {
@@ -549,7 +561,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -974,6 +986,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/checkbox-input/checkbox-input.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/checkbox-input/checkbox-input.ai.yml"
                 ]
             },
             "stances": {
@@ -982,7 +997,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -1005,6 +1020,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/date-input/date-input.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/date-input/date-input.ai.yml"
                 ]
             },
             "stances": {
@@ -1013,7 +1031,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -1036,6 +1054,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/datetime-input/datetime-input.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/datetime-input/datetime-input.ai.yml"
                 ]
             },
             "stances": {
@@ -1044,7 +1065,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -1067,6 +1088,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/email-input/email-input.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/email-input/email-input.ai.yml"
                 ]
             },
             "stances": {
@@ -1075,7 +1099,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -1129,6 +1153,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/file-input/file-input.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/file-input/file-input.ai.yml"
                 ]
             },
             "stances": {
@@ -1137,7 +1164,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -1191,6 +1218,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/number-input/number-input.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/number-input/number-input.ai.yml"
                 ]
             },
             "stances": {
@@ -1199,7 +1229,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -1253,6 +1283,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/password-input/password-input.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/password-input/password-input.ai.yml"
                 ]
             },
             "stances": {
@@ -1261,7 +1294,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -1374,6 +1407,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/select-input/select-input.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/select-input/select-input.ai.yml"
                 ]
             },
             "stances": {
@@ -1382,7 +1418,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -1436,6 +1472,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/switch-input/switch-input.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/switch-input/switch-input.ai.yml"
                 ]
             },
             "stances": {
@@ -1444,7 +1483,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -1467,6 +1506,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/tel-input/tel-input.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/tel-input/tel-input.ai.yml"
                 ]
             },
             "stances": {
@@ -1475,7 +1517,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -1498,6 +1540,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/text-input/text-input.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/text-input/text-input.ai.yml"
                 ]
             },
             "stances": {
@@ -1506,7 +1551,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -1529,6 +1574,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/textarea-input/textarea-input.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/textarea-input/textarea-input.ai.yml"
                 ]
             },
             "stances": {
@@ -1537,7 +1585,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -1560,6 +1608,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/time-input/time-input.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/time-input/time-input.ai.yml"
                 ]
             },
             "stances": {
@@ -1568,7 +1619,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -1591,6 +1642,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/url-input/url-input.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/url-input/url-input.ai.yml"
                 ]
             },
             "stances": {
@@ -1599,7 +1653,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -1929,6 +1983,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel/menu-collapsible-panel.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel/menu-collapsible-panel.ai.yml"
                 ]
             },
             "stances": {
@@ -1937,7 +1994,7 @@
                 "vue": "todo",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -1958,6 +2015,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/menu-item-collapsible/menu-item-collapsible.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/menu-item-collapsible/menu-item-collapsible.ai.yml"
                 ]
             },
             "stances": {
@@ -1966,7 +2026,7 @@
                 "vue": "todo",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -1985,21 +2045,26 @@
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/menu-item-link/menu-item-link.vue",
                     "@WexampleSymfonyDesignSystemBundle/components/menu-item-link/menu-item-link.vue.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/menu-item-link/menu-item-link.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/menu-item-link/menu-item-link.ai.yml"
                 ]
             },
             "stances": {
                 "style": "waived",
                 "template": "expected",
                 "vue": "expected",
-                "script": "waived",
+                "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
             "notes": {
-                "style": "wears the style of menu and adds none of its own",
-                "script": "it shows and does nothing"
+                "style": "wears the style of menu and adds none of its own"
             }
         },
         {
@@ -2099,6 +2164,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/modal/modal.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/modal/modal.ai.yml"
                 ]
             },
             "stances": {
@@ -2107,7 +2175,7 @@
                 "vue": "waived",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -2143,6 +2211,36 @@
             },
             "notes": {
                 "vue": "a mount point, not a drawing: its body is set from the options once the markup is in the document"
+            }
+        },
+        {
+            "key": "overlay-tools",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "The tools that follow the reader over a modal's veil: a dock of the overlay layer.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/overlay-tools/overlay-tools.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/overlay-tools/overlay-tools.html.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/overlay-tools/overlay-tools.ts"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "waived",
+                "script": "expected",
+                "schema": "todo",
+                "ai": "waived",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "vue": "a layout's, drawn once with the page; a vue tree has no veil of its own",
+                "ai": "the tools it holds have their own contracts; the bar itself is reached as the layout's dock is"
             }
         },
         {
@@ -2188,6 +2286,9 @@
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/pagination/pagination.vue.twig",
                     "@WexampleSymfonyDesignSystemBundle/components/pagination/pagination.vue"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/pagination/pagination.ai.yml"
                 ]
             },
             "stances": {
@@ -2196,7 +2297,7 @@
                 "vue": "expected",
                 "script": "waived",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -2218,6 +2319,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/panel/panel.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/panel/panel.ai.yml"
                 ]
             },
             "stances": {
@@ -2226,7 +2330,7 @@
                 "vue": "waived",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -2321,6 +2425,35 @@
             },
             "notes": {
                 "script": "it shows and does nothing"
+            }
+        },
+        {
+            "key": "search-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A field narrowing a list to what matches its text.",
+            "formats": {
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/search-input/search-input.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/search-input/search-input.vue.twig"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/search-input/search-input.ai.yml"
+                ]
+            },
+            "stances": {
+                "style": "waived",
+                "template": "todo",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "expected",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "style": "wears the form shapes (form--input-group, form--filter) and adds none of its own",
+                "template": "the twig twin, for a list the server narrows",
+                "script": "the vue holds the behaviour; nothing binds to server markup yet"
             }
         },
         {
@@ -3160,6 +3293,12 @@
             "description": "An inline link with an icon beside its label, muted until hovered, for a secondary action inside text or a row."
         },
         {
+            "key": "agent-frame",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_agent-frame.scss",
+            "description": "The frames an agent draws round what it points at or presses (AgentFrameLayer, in the loader): a layer of their own over the page, so that no ancestor hiding its overflow cuts them. Each wears the assisted outline the fields wear, pulsing."
+        },
+        {
             "key": "avatar",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_avatar.scss",
@@ -3454,6 +3593,12 @@
             "description": "A column with a scrolling track between fixed ends, for a side panel or a toolbar of its own."
         },
         {
+            "key": "ripple",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_ripple.scss",
+            "description": "A press answered where it landed: a wave spreading from the point touched, inside the element pressed (RippleHelper). An agent's press wears the accent, as its outline does, so the reader sees who touched."
+        },
+        {
             "key": "stack",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_stack.scss",
@@ -3524,6 +3669,7 @@
         "@WexampleSymfonyDesignSystemBundle/fixtures",
         "@WexampleSymfonyDesignSystemBundle/js",
         "@WexampleSymfonyDesignSystemBundle/layouts",
-        "@WexampleSymfonyDesignSystemBundle/partials"
+        "@WexampleSymfonyDesignSystemBundle/partials",
+        "@WexampleSymfonyDesignSystemBundle/sounds"
     ]
 }

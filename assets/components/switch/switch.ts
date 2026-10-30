@@ -1,6 +1,7 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
 import type { AgentActionsImplementation } from '@wexample/symfony-loader/js/Interfaces/AgentNodeInterface';
-import type ConfirmService from '../../js/Services/ConfirmService';
+import { confirmAskFor } from '../../js/Helper/ConfirmHelper';
+import { rippleAgentPress } from '../../js/Helper/RippleHelper';
 
 // Flips the switch and says so: `switch:change`, with the new state, bubbles
 // from the switch for whatever the page hangs on it. A switch carrying a
@@ -40,6 +41,7 @@ export default class extends Component {
 
     this.setChecked(next);
     await this.changed(next);
+    this.logAgentEvent(`Switched "${this.getAgentLabel() ?? 'switch'}" ${next ? 'on' : 'off'}`, { key: 'switched', detail: { checked: next } });
 
     return true;
   }
@@ -58,49 +60,41 @@ export default class extends Component {
     this.el.querySelector('.switch--pill')?.setAttribute('aria-checked', String(checked));
   }
 
-  // The system's confirm where the app has one, the browser's otherwise: a
-  // switch that should ask is never turned on without asking.
-  private async askConfirmation(): Promise<boolean> {
-    const { confirmTitle, confirmMessage, confirmAccept } = this.el.dataset;
-    const confirmService = (this.app.services as Record<string, unknown>).confirm as ConfirmService | undefined;
-
-    if (!confirmService) {
-      return window.confirm(confirmMessage);
-    }
-
-    const result = await confirmService.confirm({
-      title: confirmTitle || undefined,
-      message: confirmMessage ?? '',
-      preset: 'ok_cancel',
-      actions: confirmAccept
-        ? [
-          { key: 'y', value: 'ok', label: confirmAccept, role: 'primary' },
-          { key: 'n', value: 'cancel', label: this.trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.switch.cancel'), role: 'secondary' },
-        ]
-        : undefined,
-    });
-
-    return result === 'ok';
+  // A switch that should ask is never turned on without asking.
+  private askConfirmation(): Promise<boolean> {
+    return confirmAskFor(
+      this.app,
+      this.el,
+      this.trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.switch.cancel')
+    );
   }
 
   // What the actions of `switch.ai.yml` do: the same as a click.
-  protected getAgentActions(): AgentActionsImplementation {
+  public getAgentActions(): AgentActionsImplementation {
     const outcome = (switched: boolean) => ({ checked: this.checked, switched });
+    // Pressed where the reader sees it, then switched.
+    const press = () => rippleAgentPress(this.app, this.el.querySelector<HTMLElement>('.switch--pill'));
 
     return {
       get: () => ({ checked: this.checked }),
-      set: async ({ checked }) => outcome(await this.switchTo(checked === true)),
-      toggle: async () => outcome(await this.switchTo(!this.checked)),
+      set: async ({ checked }) => {
+        await press();
+        return outcome(await this.switchTo(checked === true));
+      },
+      toggle: async () => {
+        await press();
+        return outcome(await this.switchTo(!this.checked));
+      },
     };
   }
 
-  protected getAgentState(): Record<string, any> {
+  public getAgentState(): Record<string, any> {
     return { checked: this.checked };
   }
 
   // Named as the reader sees it: its label, or the name a switch showing none
   // carries for assistive technologies.
-  protected getAgentLabel(): string | undefined {
+  public getAgentLabel(): string | undefined {
     return this.el.querySelector('.switch--label')?.textContent?.trim()
       || this.el.querySelector('.switch--pill')?.getAttribute('aria-label')
       || undefined;

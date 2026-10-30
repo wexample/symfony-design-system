@@ -13,6 +13,7 @@
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/pagination') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/file-path') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/filter-bar') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/search-input') -}}
 {%- endblock -%}
 
 {%- block vue_body -%}
@@ -22,18 +23,14 @@
     {# What can be done to the ticked rows, above them — same bar as the server
        table, and the same post when an action has an address. #}
     <div v-if="hasBar || hasBarEnd()" class="table--bar">
-        <div v-if="searchable" class="form--input-group form--filter table--search">
-            <span class="form--input-addon" aria-hidden="true" v-html="searchIconHtml"></span>
-            <input
-                    class="form--input"
-                    type="search"
-                    :value="search"
-                    :placeholder="searchPlaceholder || transTable('search')"
-                    :aria-label="transTable('search')"
-                    autocomplete="off"
-                    @input="onSearchInput"
-            >
-        </div>
+        <search-input
+                v-if="searchable"
+                class="table--search"
+                :model-value="search"
+                :placeholder="searchPlaceholder || transTable('search')"
+                :label="transTable('search')"
+                @update:model-value="onSearchInput"
+        ></search-input>
         <filter-bar
                 v-if="filters.length"
                 :filters="filters"
@@ -116,6 +113,7 @@
                 <th
                         v-for="(column, columnIndex) in columns"
                         :key="getColumnKey(column, columnIndex)"
+                        :data-column-key="getColumnKey(column, columnIndex)"
                         class="table--cell"
                         :class="getColumnClass(column)"
                         scope="col"
@@ -175,6 +173,7 @@
         <tr
                 v-for="row in (error ? [] : visibleRows)"
                 :key="getRowKey(row)"
+                :data-row-key="getRowKey(row)"
                 class="table--row"
                 :class="{ 'table--row--group': isGroupRow(row), 'table--row--link': isRowLink(row) }"
                 @click="onRowClick"
@@ -198,6 +197,7 @@
                 <td
                         v-for="(column, columnIndex) in columns"
                         :key="getColumnKey(column, columnIndex)"
+                        :data-column-key="getColumnKey(column, columnIndex)"
                         class="table--cell"
                         :class="getColumnClass(column)"
                 >
@@ -233,6 +233,7 @@
                                 file, opened where its `target` says. -#}
                             <button-target
                                     v-if="getCellValue(row, column) && getCellLink(row, column)"
+                                    :agent="false"
                                     :app="app"
                                     :href="getCellLink(row, column).href"
                                     :target="getCellLink(row, column).target"
@@ -260,11 +261,14 @@
                             ></capsule>
                         </template>
                         <template v-else-if="hasCellActions(column)">
+                            {#- An agent reaches these through the table (`row_actions`):
+                                a part of the row each, not a node of the page. -#}
                             <span class="table--actions">
                                 <template v-for="(action, actionIndex) in getCellActions(row, column)">
                                     <button
                                             v-if="action.handler"
                                             :key="`action-handler-${actionIndex}`"
+                                            :data-row-action="actionIndex"
                                             class="table--icon-button"
                                             type="button"
                                             :title="action.label || null"
@@ -276,6 +280,7 @@
                                     <form
                                             v-else-if="action.method === 'post' && action.href"
                                             :key="`action-form-${actionIndex}`"
+                                            :data-row-action="actionIndex"
                                             :action="action.href"
                                             method="post"
                                             :data-confirm-title="action.confirm ? action.confirm.title : null"
@@ -294,6 +299,8 @@
                                     <button-target
                                             v-else-if="action.href"
                                             :key="`action-link-${actionIndex}`"
+                                            :data-row-action="actionIndex"
+                                            :agent="false"
                                             :app="app"
                                             :href="action.href"
                                             :target="action.target"
@@ -306,6 +313,7 @@
                                     <span
                                             v-else
                                             :key="`action-icon-${actionIndex}`"
+                                            :data-row-action="actionIndex"
                                             class="table--icon"
                                             :title="action.label || null"
                                             :aria-label="action.label || null"
@@ -351,6 +359,8 @@
                 <td v-if="rowLink" class="table--cell table--cell--row-open">
                     <button-target
                             v-if="getRowLink(row)"
+                            data-row-action="open"
+                            :agent="false"
                             :app="app"
                             :href="getRowLink(row).href"
                             :target="getRowLink(row).target"

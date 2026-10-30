@@ -1,0 +1,15 @@
+# What an agent is told about an entry of a menu folding others under it; the
+# script runs the actions. In english, never translated: see AgentContractService.
+type: menu-group
+description: An entry of a menu leading to a page, with the entries folded under it.
+actions:
+  expand:
+    description: Unfolds the entries under it.
+    annotations:
+      idempotentHint: true
+  collapse:
+    description: Folds the entries under it.
+    annotations:
+      idempotentHint: true
+  open:
+    description: "Goes to the page the entry itself leads to. The page is replaced: the answer comes from the page reached."

@@ -79,7 +79,7 @@
                             :class="{ 'button-menu--separator--titled': item.label }"
                             role="separator"
                     >[[ item.label ]]</li>
-                    <li v-else v-show="itemVisible(item)" :class="itemClasses(item, index)" role="none">
+                    <li v-else v-show="itemVisible(item)" :class="itemClasses(item, index)" :data-item-index="index" role="none">
                         {#- One row for the three kinds: a link goes somewhere and
                             is an anchor, a toggle and a branch go nowhere and are
                             buttons. -#}

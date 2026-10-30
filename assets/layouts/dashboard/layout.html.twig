@@ -135,9 +135,12 @@
                     `menu_right_resizable`): an invisible handle on its edge
                     against the page, the cursor saying it moves, and the width
                     it is left at kept as its being open is. -#}
+                {#- `menu_left_agent` shows the menu to an agent reading the page,
+                    and every entry in it with it — or holds it back (false).
+                    Unsaid, the menu follows the application (`layout_agent`). -#}
                 {%- set menuLeftResizable = menu_left_resizable|default(false) -%}
                 {%- set menuLeftSize = menuLeftResizable ? ui_state_get('ui.layout.menu.left.size') : null -%}
-                <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel') }} gutters--collapsible{% if not ui_state_get('ui.layout.menu.left', true) %} gutters--collapsible--collapsed{% endif %}" id="layout-menu-left" data-menu-id="left"
+                <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel', menu_left_agent is defined ? { agent: menu_left_agent } : {}) }} gutters--collapsible{% if not ui_state_get('ui.layout.menu.left', true) %} gutters--collapsible--collapsed{% endif %}" id="layout-menu-left" data-menu-id="left"
                     {%- if menuLeftResizable %} data-resize-state="ui.layout.menu.left.size" data-resize-property="--menu-size"{% if menuLeftSize > 0 %} style="--menu-size: {{ menuLeftSize|round }}px"{% endif %}{% endif %}>
                     {%- if menuLeftResizable -%}
                         {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer', {}, { edge: 'end' }) }}
@@ -349,5 +352,11 @@
             {{ tool_dock('layout', dockTools, { class: 'tool-dock--layout' }) }}
         {%- endif -%}
     </div>
+    {#- The tools that follow the reader over a modal's veil (`overlay: true`):
+        a dock of the overlay layer, closed when the veil goes up. -#}
+    {%- set overlayTools = dockTools|filter(tool => tool.overlay|default(false))|map(tool => tool|merge({ open: false })) -%}
+    {%- if overlayTools is not empty -%}
+        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/overlay-tools', {}, { tools: overlayTools }) }}
+    {%- endif -%}
     {%- endif -%}
 {%- endblock -%}

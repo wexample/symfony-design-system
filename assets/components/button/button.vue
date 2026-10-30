@@ -1,6 +1,7 @@
 <script>
 
 import Spinner from '../spinner/spinner.vue';
+import { rippleAgentPress } from '../../js/Helper/RippleHelper';
 
 // The twin of button.html.twig: the same three spans, the same classes. What the
 // twig reads off its options, this reads off props; the click it cannot handle
@@ -44,6 +45,33 @@ export default {
   computed: {
     iconHtml() {
       return this.icon ? this.app.getServiceOrFail('icon').icon(this.icon) : '';
+    }
+  },
+
+  methods: {
+    // What an agent reads and does (`button.ai.yml`, shared with the twig
+    // twin): pressed as the reader presses it, the parent hearing the click.
+    getAgentLabel() {
+      return this.label || undefined;
+    },
+
+    getAgentState() {
+      return { disabled: this.disabled || this.isLoading, submits: this.type === 'submit', confirms: false };
+    },
+
+    getAgentActions() {
+      return {
+        click: async () => {
+          if (this.disabled || this.isLoading) {
+            throw new Error(`"${this.label}" is disabled.`);
+          }
+
+          await rippleAgentPress(this.app, this.$el);
+          this.$el.click();
+
+          return { clicked: this.label };
+        }
+      };
     }
   }
 };

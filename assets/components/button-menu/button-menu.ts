@@ -1,9 +1,13 @@
+import AgentNavigation from '@wexample/symfony-loader/js/Class/AgentNavigation';
 import Component from '@wexample/symfony-loader/js/Class/Component';
 import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin';
 import { filterTextMatches } from '../../js/Helper/FilterHelper';
 import { floatingBounds, FloatingBounds } from '../../js/Helper/FloatingHelper';
 import { loadIntoTarget } from '../../js/Helper/TargetHelper';
 import { pageBusyShow } from '../../js/Helper/PageBusyHelper';
+import { rippleAgentPress } from '../../js/Helper/RippleHelper';
+import type { AgentActionsImplementation, AgentNodeProviderInterface } from '@wexample/symfony-loader/js/Interfaces/AgentNodeInterface';
+import type { AgentCallContext } from '@wexample/symfony-loader/js/Interfaces/AgentToolInterface';
 
 export default class ButtonMenu extends Component {
   // How close to its bar's end a button stands to be at the end of it: the
@@ -275,6 +279,102 @@ export default class ButtonMenu extends Component {
   overlayOnEscape(): void {
     (this as any).overlayClose();
     this.buttonEl?.focus();
+  }
+
+  // What an agent reads and does (`button-menu.ai.yml`, shared with the vue
+  // twin). An item is named by its label or its value, as `items` returned
+  // them; chosen, it is pressed as the reader presses it, so whatever it
+  // does follows — a page, a toggle said out loud, an action posted.
+  public getAgentLabel(): string | undefined {
+    return this.buttonEl?.getAttribute('aria-label')
+      || this.buttonEl?.textContent?.trim()
+      || undefined;
+  }
+
+  public getAgentState(): Record<string, any> {
+    return { open: (this as any).overlayIsOpen() };
+  }
+
+  public getAgentFrameElement(): HTMLElement | null {
+    return this.buttonEl ?? this.el;
+  }
+
+  public async revealAgentChild(child: AgentNodeProviderInterface): Promise<void> {
+    (this as any).overlayOpen();
+  }
+
+  public getAgentActions(): AgentActionsImplementation {
+    return {
+      open: async () => {
+        if (!(this as any).overlayIsOpen()) {
+          await rippleAgentPress(this.app, this.buttonEl);
+          (this as any).overlayOpen();
+        }
+
+        return { open: true };
+      },
+      close: () => {
+        (this as any).overlayClose();
+
+        return { open: false };
+      },
+      items: () => this.itemLinks.map((link) => this.readAgentItem(link)),
+      select: async ({ item }) => {
+        const link = this.findAgentItem(item);
+
+        (this as any).overlayOpen();
+        await rippleAgentPress(this.app, link);
+
+        // An item leading somewhere is answered from the page reached.
+        if (link instanceof HTMLAnchorElement && link.href && link.target !== '_blank') {
+          return new AgentNavigation(() => link.click(), this.readAgentItem(link));
+        }
+
+        link.click();
+
+        return this.readAgentItem(link);
+      },
+      point: (args: Record<string, any>, context?: AgentCallContext) => {
+        const link = this.findAgentItem(args.item);
+
+        (this as any).overlayOpen();
+        this.app.services.agentTools?.pointer.point([link.closest('li') ?? link], context);
+
+        return { pointed: 1 };
+      },
+    };
+  }
+
+  private readAgentItem(link: HTMLElement): Record<string, any> {
+    const checked = link.getAttribute('aria-checked');
+    const href = link.getAttribute('href');
+
+    return {
+      item: this.agentItemName(link),
+      ...(link.dataset.value !== undefined ? { value: link.dataset.value } : {}),
+      ...(checked !== null ? { checked: checked === 'true' } : {}),
+      ...(href && href !== '#' ? { href } : {}),
+      ...((link as HTMLButtonElement).disabled ? { disabled: true } : {}),
+    };
+  }
+
+  private agentItemName(link: HTMLElement): string {
+    return link.querySelector('.button-menu--item-label')?.textContent?.trim()
+      || link.dataset.value
+      || link.textContent?.trim()
+      || '';
+  }
+
+  private findAgentItem(name: unknown): HTMLElement {
+    const wanted = String(name ?? '').toLowerCase();
+    const link = this.itemLinks.find((candidate) => this.agentItemName(candidate).toLowerCase() === wanted
+      || (candidate.dataset.value ?? '').toLowerCase() === wanted);
+
+    if (!link) {
+      throw new Error(`No item "${name}" in the menu.`);
+    }
+
+    return link;
   }
 
   private updatePlacement(): void {

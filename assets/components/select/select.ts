@@ -1,3 +1,4 @@
+import type { AgentActionsImplementation } from '@wexample/symfony-loader/js/Interfaces/AgentNodeInterface';
 import Field from '../../js/Class/Field';
 import OverlayService from '@wexample/symfony-design-system/js/Services/OverlayService';
 import KeyboardService from '@wexample/symfony-loader/js/Services/KeyboardService';
@@ -150,6 +151,47 @@ export default class extends Field {
 
     await assistanceWait(delay, options.signal);
     this.close();
+  }
+
+  // The choices, as the agent may name them: by value or by label.
+  private readChoices(): { value: string; label: string }[] {
+    return Array.from(this.listEl?.querySelectorAll<HTMLElement>('.select--option') ?? [])
+      .map((option) => ({ value: option.dataset.value ?? '', label: option.textContent?.trim() ?? '' }));
+  }
+
+  get fieldValue(): unknown {
+    return this.hiddenEl?.value ?? this.el.dataset.value ?? '';
+  }
+
+  public getAgentState(): Record<string, any> {
+    const choices = this.readChoices();
+    const value = String(this.fieldValue);
+
+    return {
+      ...super.getAgentState(),
+      label: choices.find((choice) => choice.value === value)?.label ?? '',
+      choices: choices.filter((choice) => choice.value !== '').map((choice) => choice.label === choice.value ? choice.value : `${choice.value} (${choice.label})`),
+    };
+  }
+
+  // `set` takes a choice's value or its label; `choose` is the same, said
+  // as the contract says it.
+  public getAgentActions(): AgentActionsImplementation {
+    const choose = async ({ value, option }: Record<string, any>) => {
+      const wanted = String(option ?? value ?? '').toLowerCase();
+      const choice = this.readChoices().find((candidate) => candidate.value.toLowerCase() === wanted
+        || candidate.label.toLowerCase() === wanted);
+
+      if (!choice) {
+        throw new Error(`No choice "${option ?? value}": ${this.readChoices().map((candidate) => candidate.label).join(', ')}.`);
+      }
+
+      await this.setValueAssisted(choice.value);
+
+      return { value: choice.value, label: choice.label };
+    };
+
+    return { ...super.getAgentActions(), set: choose, choose };
   }
 
   private applySelection(value: string): void {

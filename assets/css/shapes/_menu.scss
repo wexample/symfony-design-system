@@ -3,6 +3,7 @@
 @use '../mixins/text' as text;
 @use '../../components/bar/bar';
 @use './count';
+@use './ripple';
 
 .menu {
   --menu-width: var(--size-6);

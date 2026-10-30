@@ -12,6 +12,6 @@ formats:
   template: true
   script: "it shows and does nothing"
   schema: todo
-  ai: todo
+  ai: true
   react: todo
   flutter: todo

@@ -1,5 +1,6 @@
 <script>
 import { loadIntoTarget, targetEmbeddedOf } from '../../js/Helper/TargetHelper';
+import { rippleAgentPress } from '../../js/Helper/RippleHelper';
 
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-button-target-button-target',
@@ -51,6 +52,27 @@ export default {
   },
 
   methods: {
+    // What an agent reads and does (`button-target.ai.yml`, shared with the
+    // twig twin).
+    getAgentLabel() {
+      return this.label || this.$el?.getAttribute('aria-label') || this.$el?.getAttribute('title') || undefined;
+    },
+
+    getAgentState() {
+      return { opens: this.target || null };
+    },
+
+    getAgentActions() {
+      return {
+        click: async () => {
+          await rippleAgentPress(this.app, this.$el);
+          this.$el.click();
+
+          return { clicked: this.getAgentLabel(), opened: this.target || null };
+        }
+      };
+    },
+
     onClick(event) {
       if (!this.target || !this.href) {
         return;
