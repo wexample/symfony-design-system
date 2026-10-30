@@ -10,6 +10,8 @@
 // A message dates itself, and the date carries its own tooltip cursor.
 @use '../../components/date-display/date-display';
 @use '../../components/dots/dots';
+// The files going with a message are chips.
+@use './file-chip';
 // An empty thread says so in the empty shape.
 @use './empty';
 
@@ -135,6 +137,17 @@
 .chat--activity-elapsed {
   font-variant-numeric: tabular-nums;
   opacity: var(--opacity-7);
+}
+
+// The files going with the next message, above the field.
+.chat--attachments {
+  padding-block-end: var(--space-2);
+}
+
+// Files dragged over the composer: it says it takes them.
+.chat--footer.is-dragging {
+  outline: 2px dashed var(--accent-9);
+  outline-offset: calc(var(--space-1) * -1);
 }
 
 // What can be done to the conversation itself, under the composer: flat and

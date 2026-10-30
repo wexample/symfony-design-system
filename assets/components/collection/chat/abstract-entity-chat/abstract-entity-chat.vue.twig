@@ -78,7 +78,14 @@
             <div v-if="emptyText" class="empty chat--empty">[[ emptyText ]]</div>
         </div>
 
-        <div class="chat--footer">
+        <div
+                class="chat--footer"
+                :class="{ 'is-dragging': attachDragDepth > 0 }"
+                @dragenter="onAttachDragEnter"
+                @dragover="onAttachDragOver"
+                @dragleave="onAttachDragLeave"
+                @drop="onAttachDrop"
+        >
             {#- While the other side works: what it is doing, and for how long.
                 Gone once it answered. -#}
             <div v-if="awaitingReply" class="chat--activity" role="status">
@@ -86,6 +93,23 @@
                 <span class="chat--activity-label">[[ activityLabel ]]</span>
                 <span class="chat--activity-elapsed" aria-hidden="true">[[ activityElapsed ]]</span>
             </div>
+            {#- The files going with the next message, each taken back by its
+                cross. -#}
+            <ul v-if="attachments.length" class="file-chips chat--attachments">
+                <li v-for="(file, index) in attachments" :key="file.name + index" class="file-chip">
+                    <img v-if="attachmentPreviews[index]" class="file-chip--media" :src="attachmentPreviews[index]" alt="">
+                    <span v-else class="file-chip--icon" v-html="attachmentIconHtml(file)"></span>
+                    <span class="file-chip--name" :title="file.name">[[ file.name ]]</span>
+                    <button
+                            type="button"
+                            class="button button--flat button--compact file-chip--remove"
+                            :aria-label="attachRemoveLabel + ' ' + file.name"
+                            :disabled="isSubmitting"
+                            @click="removeAttachment(index)"
+                            v-html="removeIconHtml"
+                    ></button>
+                </li>
+            </ul>
             <div class="chat-textarea">
                 <textarea
                         ref="input"
@@ -96,6 +120,25 @@
                         v-model="draft"
                         @keydown.enter.exact.prevent="submitMessage"
                 ></textarea>
+                <template v-if="acceptsAttachments()">
+                    <input
+                            ref="attachInput"
+                            type="file"
+                            multiple
+                            hidden
+                            :accept="getAttachmentAccept()"
+                            @change="onAttachPicked"
+                    >
+                    <button
+                            class="chat--attach"
+                            type="button"
+                            :disabled="isSubmitting || attachmentsFull"
+                            :aria-label="attachLabel"
+                            :title="attachLabel"
+                            v-html="attachIconHtml"
+                            @click="$refs.attachInput.click()"
+                    ></button>
+                </template>
                 <button
                         class="chat--submit"
                         type="button"

@@ -6,6 +6,7 @@ import {uiStateGet, uiStateSet} from "../../../../js/Helper/UiStateHelper";
 import ChatMessage from "../chat-message/chat-message.vue";
 import LoadMore from "../../../load-more/load-more.vue";
 import Disclosure from "../../../disclosure/disclosure.vue";
+import { fileIcon } from "../../../../js/Helper/FileIconHelper";
 
 // The chats open in the page, whatever draws them: one conversation may be
 // shown twice — in the dock, and again over the veil of a modal —, and one
@@ -104,6 +105,11 @@ export default {
       awaitingSince: null,
       activityFrame: 0,
       activityNow: Date.now(),
+      // The files going with the next message, a preview for each image, and
+      // how deep a drag is over the composer (children fire their own).
+      attachments: [],
+      attachmentPreviews: [],
+      attachDragDepth: 0,
       // The composer action under way, by its key: the others wait for it.
       runningComposerAction: null,
       soundEnabled: true,
@@ -215,8 +221,31 @@ export default {
       return this.trans(`${DOMAIN}toolbar.${this.soundEnabled ? 'sound_off' : 'sound_on'}`);
     },
 
+    // A text, or files alone.
     canSubmit() {
-      return !this.isSubmitting && Boolean(this.draft.trim());
+      return !this.isSubmitting && (Boolean(this.draft.trim()) || this.attachments.length > 0);
+    },
+
+    attachIconHtml() {
+      return this.renderIcon('ph:bold/paperclip');
+    },
+
+    removeIconHtml() {
+      return this.renderIcon('ph:bold/x');
+    },
+
+    attachLabel() {
+      return this.trans(`${DOMAIN}composer.attach`);
+    },
+
+    attachRemoveLabel() {
+      return this.trans(`${DOMAIN}composer.attach_remove`);
+    },
+
+    attachmentsFull() {
+      const limit = this.getAttachmentLimit();
+
+      return limit !== null && this.attachments.length >= limit;
     }
   },
 
@@ -228,6 +257,7 @@ export default {
 
   beforeUnmount() {
     this.stopActivity();
+    this.clearAttachments();
     chatsOpen.delete(this);
     syncChats();
   },
@@ -376,6 +406,94 @@ export default {
 
     isMessageGroupOpen() {
       return false;
+    },
+
+    // Whether files can go with a message — a paperclip by the send button,
+    // files dropped on the composer —, handed to postMessage(content, files).
+    acceptsAttachments() {
+      return false;
+    },
+
+    // The `accept` of the picker: types, extensions. Null takes any file.
+    getAttachmentAccept() {
+      return null;
+    },
+
+    // How many files a message takes at most. Null for no limit.
+    getAttachmentLimit() {
+      return null;
+    },
+
+    attachmentIconHtml(file) {
+      return this.renderIcon(fileIcon(file.name));
+    },
+
+    addAttachments(files) {
+      const limit = this.getAttachmentLimit();
+      const added = limit === null ? files : files.slice(0, Math.max(0, limit - this.attachments.length));
+
+      this.attachments = [...this.attachments, ...added];
+      this.attachmentPreviews = [
+        ...this.attachmentPreviews,
+        ...added.map((file) => (file.type.startsWith('image/') ? URL.createObjectURL(file) : null))
+      ];
+    },
+
+    removeAttachment(index) {
+      const preview = this.attachmentPreviews[index];
+
+      if (preview) {
+        URL.revokeObjectURL(preview);
+      }
+
+      this.attachments = this.attachments.filter((_, position) => position !== index);
+      this.attachmentPreviews = this.attachmentPreviews.filter((_, position) => position !== index);
+    },
+
+    clearAttachments() {
+      this.attachmentPreviews.forEach((url) => url && URL.revokeObjectURL(url));
+      this.attachments = [];
+      this.attachmentPreviews = [];
+    },
+
+    onAttachPicked(event) {
+      this.addAttachments([...(event.target.files ?? [])]);
+      // Picked again, the same file is a change again.
+      event.target.value = '';
+    },
+
+    // Only a drag carrying files, only where files are taken.
+    isAttachDrag(event) {
+      return this.acceptsAttachments() && !this.isSubmitting && [...(event.dataTransfer?.types ?? [])].includes('Files');
+    },
+
+    onAttachDragEnter(event) {
+      if (this.isAttachDrag(event)) {
+        event.preventDefault();
+        this.attachDragDepth++;
+      }
+    },
+
+    onAttachDragOver(event) {
+      if (this.isAttachDrag(event)) {
+        event.preventDefault();
+      }
+    },
+
+    onAttachDragLeave(event) {
+      if (this.isAttachDrag(event)) {
+        this.attachDragDepth = Math.max(0, this.attachDragDepth - 1);
+      }
+    },
+
+    onAttachDrop(event) {
+      if (!this.isAttachDrag(event)) {
+        return;
+      }
+
+      event.preventDefault();
+      this.attachDragDepth = 0;
+      this.addAttachments([...(event.dataTransfer.files ?? [])]);
     },
 
     // What draws a line of the thread: a line of conversation by default. A
@@ -539,7 +657,10 @@ export default {
 
     // Sends what the reader wrote: written as the entity the chat is the
     // collection of. A layer sending more with it says so here.
-    async postMessage(content) {
+    // `files`, the browser's File objects the reader attached: a chat that
+    // accepts them (acceptsAttachments) posts them as it must; by default the
+    // text alone is written.
+    async postMessage(content, files = []) {
       await this.getEntityRepository().createEntity(this.buildMessageEntity(content));
     },
 
@@ -592,7 +713,9 @@ export default {
       }
 
       const content = this.draft.trim();
-      const frontCommand = this.findFrontSlashCommand(content);
+      const files = [...this.attachments];
+      // A message carrying files is a message, whatever its text says.
+      const frontCommand = files.length ? null : this.findFrontSlashCommand(content);
       this.isSubmitting = true;
 
       try {
@@ -602,11 +725,12 @@ export default {
           // A command running on the server travels as the message it was typed
           // in: the endpoint reads the slash and answers it, so the composer has
           // one way out and only one.
-          await this.postMessage(content);
+          await this.postMessage(content, files);
           this.awaitingReply = this.expectsReply();
         }
 
         this.draft = '';
+        this.clearAttachments();
         await this.refreshEntitiesCollection();
       } finally {
         this.isSubmitting = false;

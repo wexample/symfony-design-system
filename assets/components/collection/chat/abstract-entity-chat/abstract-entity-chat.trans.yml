@@ -2,6 +2,8 @@ en:
   activity:
     thinking: "Thinking…"
   composer:
+    attach: "Attach files"
+    attach_remove: "Remove"
     placeholder: Write a message...
     submit: Send
   thread:
@@ -15,6 +17,8 @@ ar:
   activity:
     thinking: "يفكّر…"
   composer:
+    attach: "إرفاق ملفات"
+    attach_remove: "إزالة"
     placeholder: 'اكتب رسالة...'
     submit: إرسال
   thread:
@@ -28,6 +32,8 @@ bn:
   activity:
     thinking: "ভাবছে…"
   composer:
+    attach: "ফাইল সংযুক্ত করুন"
+    attach_remove: "সরান"
     placeholder: 'একটি বার্তা লিখুন...'
     submit: পাঠান
   thread:
@@ -41,6 +47,8 @@ de:
   activity:
     thinking: "Denkt nach…"
   composer:
+    attach: "Dateien anhängen"
+    attach_remove: "Entfernen"
     placeholder: 'Nachricht schreiben...'
     submit: Senden
   thread:
@@ -54,6 +62,8 @@ es:
   activity:
     thinking: "Pensando…"
   composer:
+    attach: "Adjuntar archivos"
+    attach_remove: "Quitar"
     placeholder: 'Escribe un mensaje...'
     submit: Enviar
   thread:
@@ -67,6 +77,8 @@ fa:
   activity:
     thinking: "در حال فکر…"
   composer:
+    attach: "پیوست فایل‌ها"
+    attach_remove: "حذف"
     placeholder: 'پیامی بنویسید...'
     submit: ارسال
   thread:
@@ -80,6 +92,8 @@ fi:
   activity:
     thinking: "Miettii…"
   composer:
+    attach: "Liitä tiedostoja"
+    attach_remove: "Poista"
     placeholder: 'Kirjoita viesti...'
     submit: Lähetä
   thread:
@@ -93,6 +107,8 @@ fr:
   activity:
     thinking: "Réflexion…"
   composer:
+    attach: "Joindre des fichiers"
+    attach_remove: "Retirer"
     placeholder: 'Écrivez un message...'
     submit: Envoyer
   thread:
@@ -106,6 +122,8 @@ he:
   activity:
     thinking: "חושב…"
   composer:
+    attach: "צירוף קבצים"
+    attach_remove: "הסרה"
     placeholder: 'כתוב הודעה...'
     submit: שלח
   thread:
@@ -119,6 +137,8 @@ hi:
   activity:
     thinking: "सोच रहा है…"
   composer:
+    attach: "फ़ाइलें जोड़ें"
+    attach_remove: "हटाएँ"
     placeholder: 'संदेश लिखें...'
     submit: भेजें
   thread:
@@ -132,6 +152,8 @@ id:
   activity:
     thinking: "Berpikir…"
   composer:
+    attach: "Lampirkan berkas"
+    attach_remove: "Hapus"
     placeholder: 'Tulis pesan...'
     submit: Kirim
   thread:
@@ -145,6 +167,8 @@ it:
   activity:
     thinking: "Sta pensando…"
   composer:
+    attach: "Allega file"
+    attach_remove: "Rimuovi"
     placeholder: 'Scrivi un messaggio...'
     submit: Invia
   thread:
@@ -158,6 +182,8 @@ ja:
   activity:
     thinking: "考え中…"
   composer:
+    attach: "ファイルを添付"
+    attach_remove: "削除"
     placeholder: メッセージを入力...
     submit: 送信
   thread:
@@ -171,6 +197,8 @@ ko:
   activity:
     thinking: "생각하는 중…"
   composer:
+    attach: "파일 첨부"
+    attach_remove: "제거"
     placeholder: '메시지를 작성하세요...'
     submit: 전송
   thread:
@@ -184,6 +212,8 @@ nl:
   activity:
     thinking: "Denkt na…"
   composer:
+    attach: "Bestanden bijvoegen"
+    attach_remove: "Verwijderen"
     placeholder: 'Schrijf een bericht...'
     submit: Verstuur
   thread:
@@ -197,6 +227,8 @@ pl:
   activity:
     thinking: "Myśli…"
   composer:
+    attach: "Załącz pliki"
+    attach_remove: "Usuń"
     placeholder: 'Napisz wiadomość...'
     submit: Wyślij
   thread:
@@ -210,6 +242,8 @@ pt_BR:
   activity:
     thinking: "Pensando…"
   composer:
+    attach: "Anexar arquivos"
+    attach_remove: "Remover"
     placeholder: 'Escreva uma mensagem...'
     submit: Enviar
   thread:
@@ -223,6 +257,8 @@ ru:
   activity:
     thinking: "Думает…"
   composer:
+    attach: "Прикрепить файлы"
+    attach_remove: "Убрать"
     placeholder: 'Напишите сообщение...'
     submit: Отправить
   thread:
@@ -236,6 +272,8 @@ th:
   activity:
     thinking: "กำลังคิด…"
   composer:
+    attach: "แนบไฟล์"
+    attach_remove: "นำออก"
     placeholder: เขียนข้อความ...
     submit: ส่ง
   thread:
@@ -249,6 +287,8 @@ tr:
   activity:
     thinking: "Düşünüyor…"
   composer:
+    attach: "Dosya ekle"
+    attach_remove: "Kaldır"
     placeholder: 'Mesaj yazın...'
     submit: Gönder
   thread:
@@ -262,6 +302,8 @@ ur:
   activity:
     thinking: "سوچ رہا ہے…"
   composer:
+    attach: "فائلیں منسلک کریں"
+    attach_remove: "ہٹائیں"
     placeholder: 'پیغام لکھیں...'
     submit: بھیجیں
   thread:
@@ -275,6 +317,8 @@ vi:
   activity:
     thinking: "Đang suy nghĩ…"
   composer:
+    attach: "Đính kèm tệp"
+    attach_remove: "Gỡ"
     placeholder: 'Viết tin nhắn...'
     submit: Gửi
   thread:
@@ -288,6 +332,8 @@ zh:
   activity:
     thinking: "思考中…"
   composer:
+    attach: "附加文件"
+    attach_remove: "移除"
     placeholder: 写消息...
     submit: 发送
   thread:
