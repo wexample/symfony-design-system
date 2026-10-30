@@ -150,19 +150,11 @@
                 <th class="table--cell table--cell--group" colspan="{{ columns_count }}" scope="colgroup">{{ row.group }}</th>
             </tr>
             {% else %}
-            {#- One action in the whole row, and a link: the row is pressed as
-                that link (data-table.ts). -#}
-            {%- set row_actions = [] -%}
-            {%- for column in columns -%}
-                {%- if column.cell == 'actions' -%}
-                    {%- set row_actions = row_actions|merge(attribute(row, column.key)|default([])) -%}
-                {%- endif -%}
-            {%- endfor -%}
-            {%- set row_only_action = row_actions|length == 1 ? row_actions|first : null -%}
+            {#- A row is pressed as a link only when the table says where rows
+                lead (`row_link`): its actions stay buttons of their own, so
+                every table answers a press on a row the same way. -#}
             {%- set row_href = row_link ? attribute(row, row_link.key|default('href'))|default(null) : null -%}
-            {%- set row_is_link = row_href or (row_only_action
-                and row_only_action.href|default(null)
-                and row_only_action.method|default('get')|lower != 'post') -%}
+            {%- set row_is_link = row_href -%}
             {#- Named for an agent pointing at it (data-table.ai.yml): by what
                 the selection names it, or its place in the rows. -#}
             <tr class="table--row{{ row_is_link ? ' table--row--link' }}" data-row-key="{{ attribute(row, options.selection_key|default('id'))|default(loop.index0) }}">

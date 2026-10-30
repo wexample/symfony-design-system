@@ -657,21 +657,11 @@ export default {
     getRowKey(row) {
       return this.rowKey ? this.rowKey(row) : this.rowIndexes.get(row);
     },
-    // One action in the whole row, and a link: the row is pressed as that link.
+    // A row is pressed as a link only when the table says where rows lead
+    // (`rowLink`): its actions stay buttons of their own, so every table
+    // answers a press on a row the same way.
     isRowLink(row) {
-      if (this.isGroupRow(row)) {
-        return false;
-      }
-
-      if (this.getRowLink(row)) {
-        return true;
-      }
-
-      const actions = this.columns
-        .filter((column) => this.hasCellActions(column))
-        .flatMap((column) => this.getCellActions(row, column));
-
-      return actions.length === 1 && Boolean(actions[0].href) && actions[0].method !== 'post';
+      return !this.isGroupRow(row) && Boolean(this.getRowLink(row));
     },
 
     // Where a row leads under `rowLink`, or null for a row with no address.

@@ -9,7 +9,7 @@ import { rowLinkClick } from '../../js/Helper/RowLinkHelper';
 // What the server table needs of the browser once its rows can be ticked: the
 // box in the header ticks them all, the count says how many, and an action
 // cannot be pressed with nothing to act on. A table without the option has
-// none of these. A row whose only action is a link is pressed as that link.
+// none of these. A row is pressed as a link only under the table's `row_link`.
 
 // The server's table: the rows it holds are those of the page, and an order
 // or a filter asked for is a page asked again. To an agent (`data-table.ai.yml`,
