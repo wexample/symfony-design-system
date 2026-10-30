@@ -194,6 +194,24 @@
   justify-content: flex-end;
 }
 
+// A block read by the dozen — a message under inspection, a line of a log —:
+// each of its zones closer to its edges, so the list shows more of them.
+.block--compact {
+  > .block--title,
+  > .block--footer {
+    padding: var(--space-1) var(--space-3);
+  }
+
+  > .block--body,
+  > .block--row > .block--body {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  > .block--row > .block--aside {
+    padding: var(--space-2);
+  }
+}
+
 // A whole block that is a link: `<a class="block block--link">`, for a choice
 // made by picking one card among several — a plan, a branch, a template. It
 // reads as text and not as a muted action, and says it can be picked by what
