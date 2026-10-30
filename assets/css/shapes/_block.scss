@@ -197,14 +197,15 @@
 // A block read by the dozen — a message under inspection, a line of a log —:
 // each of its zones closer to its edges, so the list shows more of them.
 .block--compact {
+  // The same inset at the side of every zone, so what they hold lines up.
   > .block--title,
   > .block--footer {
-    padding: var(--space-1) var(--space-3);
+    padding: var(--space-1) var(--space-2);
   }
 
   > .block--body,
   > .block--row > .block--body {
-    padding: var(--space-2) var(--space-3);
+    padding: var(--space-2);
   }
 
   > .block--row > .block--aside {
