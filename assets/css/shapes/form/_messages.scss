@@ -35,14 +35,15 @@
   padding-inline-start: var(--space-4);
 }
 
-// How much of a limited text is used, at the end of the field: quiet until
-// the limit is near, in the warning's colour then, the error's once reached.
+// How much of a limited text is used: quiet until the limit is near, in the
+// warning's colour then, the error's once reached. On the label's line, at its
+// end — under the field, it would make the group a line taller than the ones
+// beside it, and fields in columns would no longer line up.
 .form--counter {
   font-size: var(--font-size-1);
   color: var(--text-color-subtle);
   text-align: end;
   font-variant-numeric: tabular-nums;
-  margin-block-start: calc(var(--space-1) * -1);
 
   &.is-near {
     @include feedback_semantic.feedback-warning;
@@ -52,5 +53,26 @@
   &.is-full {
     @include feedback_semantic.feedback-error;
     color: var(--feedback-color);
+  }
+}
+
+.form--group:has(> .form--label):has(> .form--counter) {
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--space-2);
+
+  > * {
+    grid-column: 1 / -1;
+  }
+
+  > .form--label {
+    grid-row: 1;
+    grid-column: 1;
+    align-self: baseline;
+  }
+
+  > .form--counter {
+    grid-row: 1;
+    grid-column: 2;
+    align-self: baseline;
   }
 }

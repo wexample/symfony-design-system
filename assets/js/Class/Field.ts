@@ -182,7 +182,7 @@ export default abstract class Field extends Component implements FieldController
 
   /**
    * A text with a length limit — the `maxlength` symfony-forms sets from a
-   * Length constraint — says, under it, how much of it is used. Said aloud
+   * Length constraint — says, on its label's line, how much of it is used. Said aloud
    * only near the end, where it starts to matter.
    */
   private counterActivate(): void {
@@ -197,7 +197,8 @@ export default abstract class Field extends Component implements FieldController
     this.counterControl = control;
     this.counterEl = document.createElement('div');
     this.counterEl.className = 'form--counter';
-    control.insertAdjacentElement('afterend', this.counterEl);
+    // Held by the group, which sets it on its label's line.
+    (control.closest('.form--group') ?? this.el).appendChild(this.counterEl);
     control.addEventListener('input', this.counterUpdate);
     this.counterUpdate();
   }
