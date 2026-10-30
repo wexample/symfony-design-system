@@ -20,6 +20,9 @@
   gap: var(--space-2);
   min-height: var(--control-size);
   height: auto;
+  // Inset as a field is at its sides, so the entry's text starts where any
+  // field's does; less above and below, where the tags are taller than text.
+  padding: var(--space-1) var(--density-padding-inline, var(--space-3));
   cursor: text;
 
   &:focus-within {
