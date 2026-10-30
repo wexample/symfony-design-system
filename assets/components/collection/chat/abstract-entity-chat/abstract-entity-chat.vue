@@ -307,7 +307,9 @@ export default {
       const call = this.readToolCall(entity);
       const callId = this.getToolCallId(entity);
 
-      if (!call || !callId) {
+      // A call the application's server answered itself — one of its own
+      // tools — is shown in the thread and not run here.
+      if (!call || !callId || call.runBy === 'back') {
         return;
       }
 
