@@ -8,7 +8,6 @@
 {%- block vue_require -%}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/collection/chat/chat-message') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/load-more') -}}
-    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/dots') -}}
 {%- endblock -%}
 
 {%- block vue_body -%}
@@ -48,12 +47,16 @@
                 ></component>
             </div>
 
-            <div v-if="awaitingReply" class="chat--message-row chat--message-row--awaiting">
-                <dots size="sm"></dots>
-            </div>
         </div>
 
         <div class="chat--footer">
+            {#- While the other side works: what it is doing, and for how long.
+                Gone once it answered. -#}
+            <div v-if="awaitingReply" class="chat--activity" role="status">
+                <span class="chat--activity-glyph" aria-hidden="true">[[ activityGlyph ]]</span>
+                <span class="chat--activity-label">[[ activityLabel ]]</span>
+                <span class="chat--activity-elapsed" aria-hidden="true">[[ activityElapsed ]]</span>
+            </div>
             <div class="chat-textarea">
                 <textarea
                         ref="input"

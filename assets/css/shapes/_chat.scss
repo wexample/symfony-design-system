@@ -110,6 +110,31 @@
   border-top: var(--border-separator);
 }
 
+// The other side at work, above the composer and only while it lasts: a mark
+// turning, what it is doing, for how long. Small and quiet: the reader writes
+// under it, it is not a message.
+.chat--activity {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding-block-end: var(--space-2);
+  font-size: var(--font-size-2);
+  color: var(--text-color-muted);
+}
+
+// One glyph wide whatever the frame, so the words beside it never move.
+.chat--activity-glyph {
+  display: inline-block;
+  width: 1em;
+  text-align: center;
+  color: var(--accent-9);
+}
+
+.chat--activity-elapsed {
+  font-variant-numeric: tabular-nums;
+  opacity: var(--opacity-7);
+}
+
 .chat-thread {
   display: flex;
   flex-direction: column;
@@ -194,16 +219,6 @@
       justify-content: flex-end;
     }
   }
-
-  .chat--message-row--awaiting {
-    align-self: flex-start;
-  }
-}
-
-// The answer on its way: the dots stand where it will appear, under the
-// avatars' column.
-.chat--message-row--awaiting {
-  padding-inline-start: calc(var(--space-5) + var(--space-4));
 }
 
 .chat--message-row .avatar {

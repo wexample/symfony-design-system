@@ -1,4 +1,6 @@
 en:
+  activity:
+    thinking: "Thinking…"
   composer:
     placeholder: Write a message...
     submit: Send
@@ -9,6 +11,8 @@ en:
     sound_off: 'Turn sound off'
 
 ar:
+  activity:
+    thinking: "يفكّر…"
   composer:
     placeholder: 'اكتب رسالة...'
     submit: إرسال
@@ -19,6 +23,8 @@ ar:
     sound_off: 'إيقاف الصوت'
 
 bn:
+  activity:
+    thinking: "ভাবছে…"
   composer:
     placeholder: 'একটি বার্তা লিখুন...'
     submit: পাঠান
@@ -29,6 +35,8 @@ bn:
     sound_off: 'শব্দ বন্ধ করুন'
 
 de:
+  activity:
+    thinking: "Denkt nach…"
   composer:
     placeholder: 'Nachricht schreiben...'
     submit: Senden
@@ -39,6 +47,8 @@ de:
     sound_off: 'Ton ausschalten'
 
 es:
+  activity:
+    thinking: "Pensando…"
   composer:
     placeholder: 'Escribe un mensaje...'
     submit: Enviar
@@ -49,6 +59,8 @@ es:
     sound_off: 'Desactivar el sonido'
 
 fa:
+  activity:
+    thinking: "در حال فکر…"
   composer:
     placeholder: 'پیامی بنویسید...'
     submit: ارسال
@@ -59,6 +71,8 @@ fa:
     sound_off: 'خاموش کردن صدا'
 
 fi:
+  activity:
+    thinking: "Miettii…"
   composer:
     placeholder: 'Kirjoita viesti...'
     submit: Lähetä
@@ -69,6 +83,8 @@ fi:
     sound_off: 'Ääni pois'
 
 fr:
+  activity:
+    thinking: "Réflexion…"
   composer:
     placeholder: 'Écrivez un message...'
     submit: Envoyer
@@ -79,6 +95,8 @@ fr:
     sound_off: 'Couper le son'
 
 he:
+  activity:
+    thinking: "חושב…"
   composer:
     placeholder: 'כתוב הודעה...'
     submit: שלח
@@ -89,6 +107,8 @@ he:
     sound_off: 'השתקת צליל'
 
 hi:
+  activity:
+    thinking: "सोच रहा है…"
   composer:
     placeholder: 'संदेश लिखें...'
     submit: भेजें
@@ -99,6 +119,8 @@ hi:
     sound_off: 'ध्वनि बंद करें'
 
 id:
+  activity:
+    thinking: "Berpikir…"
   composer:
     placeholder: 'Tulis pesan...'
     submit: Kirim
@@ -109,6 +131,8 @@ id:
     sound_off: 'Matikan suara'
 
 it:
+  activity:
+    thinking: "Sta pensando…"
   composer:
     placeholder: 'Scrivi un messaggio...'
     submit: Invia
@@ -119,6 +143,8 @@ it:
     sound_off: 'Disattiva l''audio'
 
 ja:
+  activity:
+    thinking: "考え中…"
   composer:
     placeholder: メッセージを入力...
     submit: 送信
@@ -129,6 +155,8 @@ ja:
     sound_off: 'サウンドをオフ'
 
 ko:
+  activity:
+    thinking: "생각하는 중…"
   composer:
     placeholder: '메시지를 작성하세요...'
     submit: 전송
@@ -139,6 +167,8 @@ ko:
     sound_off: '소리 끄기'
 
 nl:
+  activity:
+    thinking: "Denkt na…"
   composer:
     placeholder: 'Schrijf een bericht...'
     submit: Verstuur
@@ -149,6 +179,8 @@ nl:
     sound_off: 'Geluid uit'
 
 pl:
+  activity:
+    thinking: "Myśli…"
   composer:
     placeholder: 'Napisz wiadomość...'
     submit: Wyślij
@@ -159,6 +191,8 @@ pl:
     sound_off: 'Wyłącz dźwięk'
 
 pt_BR:
+  activity:
+    thinking: "Pensando…"
   composer:
     placeholder: 'Escreva uma mensagem...'
     submit: Enviar
@@ -169,6 +203,8 @@ pt_BR:
     sound_off: 'Desativar som'
 
 ru:
+  activity:
+    thinking: "Думает…"
   composer:
     placeholder: 'Напишите сообщение...'
     submit: Отправить
@@ -179,6 +215,8 @@ ru:
     sound_off: 'Выключить звук'
 
 th:
+  activity:
+    thinking: "กำลังคิด…"
   composer:
     placeholder: เขียนข้อความ...
     submit: ส่ง
@@ -189,6 +227,8 @@ th:
     sound_off: 'ปิดเสียง'
 
 tr:
+  activity:
+    thinking: "Düşünüyor…"
   composer:
     placeholder: 'Mesaj yazın...'
     submit: Gönder
@@ -199,6 +239,8 @@ tr:
     sound_off: 'Sesi kapat'
 
 ur:
+  activity:
+    thinking: "سوچ رہا ہے…"
   composer:
     placeholder: 'پیغام لکھیں...'
     submit: بھیجیں
@@ -209,6 +251,8 @@ ur:
     sound_off: 'آواز بند کریں'
 
 vi:
+  activity:
+    thinking: "Đang suy nghĩ…"
   composer:
     placeholder: 'Viết tin nhắn...'
     submit: Gửi
@@ -219,6 +263,8 @@ vi:
     sound_off: 'Tắt âm thanh'
 
 zh:
+  activity:
+    thinking: "思考中…"
   composer:
     placeholder: 写消息...
     submit: 发送

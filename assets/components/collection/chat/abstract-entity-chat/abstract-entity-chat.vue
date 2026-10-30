@@ -5,7 +5,6 @@ import {markdownRender} from "../../../../js/Helper/MarkdownHelper";
 import {uiStateGet, uiStateSet} from "../../../../js/Helper/UiStateHelper";
 import ChatMessage from "../chat-message/chat-message.vue";
 import LoadMore from "../../../load-more/load-more.vue";
-import Dots from "../../../dots/dots.vue";
 
 // The chats open in the page, whatever draws them: one conversation may be
 // shown twice — in the dock, and again over the veil of a modal —, and one
@@ -26,6 +25,10 @@ const PENDING_ANSWER_MS = 2 * 60 * 1000;
 // What a message from the other side sounds like, bundled with the chat
 // (sounds/CREDITS.md).
 const SOUND_MESSAGE = new URL('../../../../sounds/chat-message.mp3', import.meta.url).href;
+
+// What turns while the other side works, a frame at a time.
+const ACTIVITY_FRAMES = ['·', '✧', '✦', '◆', '✦', '✧'];
+const ACTIVITY_FRAME_MS = 150;
 
 // Whether messages make that sound, kept for the reader across pages.
 const UI_STATE_SOUND = 'ui.chat.sound';
@@ -56,7 +59,6 @@ export default {
   mixins: [AbstractEntityCollectionVueMixin],
 
   components: {
-    Dots,
     LoadMore
   },
 
@@ -95,6 +97,11 @@ export default {
       // A message was sent and its answer has not arrived yet: the thread
       // shows it is coming (expectsReply()).
       awaitingReply: false,
+      // When the wait began, the frame the activity shows, and the time it
+      // is measured against: kept while the wait lasts, and only then.
+      awaitingSince: null,
+      activityFrame: 0,
+      activityNow: Date.now(),
       soundEnabled: true,
       // The messages a sound was made for: one live message may be published
       // more than once.
@@ -114,6 +121,34 @@ export default {
         // Sent by the reader: the side the `aligned` layout puts it on.
         own: this.isOwnMessage(entity)
       }));
+    },
+
+    // A reader asking for less motion sees the mark still.
+    activityGlyph() {
+      return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+        ? ACTIVITY_FRAMES[2]
+        : ACTIVITY_FRAMES[this.activityFrame % ACTIVITY_FRAMES.length];
+    },
+
+    activityLabel() {
+      return this.trans(`${DOMAIN}activity.thinking`);
+    },
+
+    // 45s, 13m5s, 2h4m: how long the other side has been at it.
+    activityElapsed() {
+      if (this.awaitingSince === null) {
+        return '';
+      }
+
+      const seconds = Math.max(0, Math.floor((this.activityNow - this.awaitingSince) / 1000));
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+
+      if (hours) {
+        return `${hours}h${minutes}m`;
+      }
+
+      return minutes ? `${minutes}m${seconds % 60}s` : `${seconds % 60}s`;
     },
 
     submitIconHtml() {
@@ -146,17 +181,28 @@ export default {
   },
 
   beforeUnmount() {
+    this.stopActivity();
     chatsOpen.delete(this);
     syncChats();
   },
 
   watch: {
+    awaitingReply(awaiting) {
+      if (awaiting) {
+        this.startActivity();
+      } else {
+        this.stopActivity();
+      }
+    },
+
     entities(entities) {
       // The answer is in once the thread ends on a line someone else spoke.
       const last = entities[entities.length - 1];
       if (this.awaitingReply && last && !this.isOwnMessage(last) && this.isSpoken(last)) {
         this.awaitingReply = false;
       } else if (!this.awaitingReply && last && this.isAnswerPending(last)) {
+        // Measured from the line still waiting, not from the thread opening.
+        this.awaitingSince = new Date(this.getMessageDate(last)).getTime();
         this.awaitingReply = true;
       }
 
@@ -165,6 +211,22 @@ export default {
   },
 
   methods: {
+    startActivity() {
+      this.awaitingSince = this.awaitingSince ?? Date.now();
+      this.activityNow = Date.now();
+      window.clearInterval(this.activityTimer);
+      this.activityTimer = window.setInterval(() => {
+        this.activityFrame++;
+        this.activityNow = Date.now();
+      }, ACTIVITY_FRAME_MS);
+    },
+
+    stopActivity() {
+      window.clearInterval(this.activityTimer);
+      this.activityTimer = null;
+      this.awaitingSince = null;
+    },
+
     // Projections. A subclass overrides the ones its entity does not already
     // answer to under these names.
     getMessageKey(entity, index) {
