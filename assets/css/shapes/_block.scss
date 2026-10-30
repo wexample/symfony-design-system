@@ -114,6 +114,32 @@
   padding: var(--space-4);
 }
 
+// Sections side by side rather than stacked: parted by the same separator as
+// a block's title and footer, standing upright. What the row holds takes the
+// width an aside leaves it.
+.block--row {
+  display: flex;
+  align-items: stretch;
+}
+
+.block--row > * + * {
+  border-inline-start: var(--border-separator);
+}
+
+.block--row > .block--body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+// A narrow column at the side of a row — who speaks, what kind of thing it
+// is —: as wide as what it holds, its content at the top.
+.block--aside {
+  flex: none;
+  display: flex;
+  justify-content: center;
+  padding: var(--space-4) var(--space-3);
+}
+
 .block--media {
   width: 100%;
   height: 8rem;
