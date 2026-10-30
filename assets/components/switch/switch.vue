@@ -1,4 +1,5 @@
 <script>
+import { rippleAgentPress } from '../../js/Helper/RippleHelper';
 
 // The twin of switch.html.twig. Server-side the toggling is switch.ts flipping
 // a data attribute; here it is state, so the component is usable with v-model
@@ -86,16 +87,58 @@ export default {
   },
 
   methods: {
-    async toggle() {
-      const next = !this.isChecked;
+    toggle() {
+      return this.switchTo(!this.isChecked);
+    },
+
+    // Whether it switched: a switch asking before turning on stays off when
+    // the reader refuses.
+    async switchTo(next) {
+      if (next === this.isChecked) {
+        return true;
+      }
 
       if (next && this.confirm?.message && !(await this.askConfirmation())) {
-        return;
+        return false;
       }
 
       this.innerChecked = next;
       this.$emit('update:modelValue', next);
       this.$emit('change', next);
+
+      return true;
+    },
+
+    // What an agent reads and does (`switch.ai.yml`, shared with switch.ts):
+    // the same as a click, confirmation included.
+    getAgentLabel() {
+      return this.label || this.ariaLabel || undefined;
+    },
+
+    getAgentState() {
+      return { checked: this.isChecked };
+    },
+
+    getAgentActions() {
+      // Read once the parent bound to v-model has taken the new value.
+      const outcome = async (switched) => {
+        await this.$nextTick();
+        return { checked: this.isChecked, switched };
+      };
+      // Pressed where the reader sees it, then switched.
+      const press = () => rippleAgentPress(this.app, this.$el.querySelector('.switch--pill'));
+
+      return {
+        get: () => ({ checked: this.isChecked }),
+        set: async ({ checked }) => {
+          await press();
+          return outcome(await this.switchTo(checked === true));
+        },
+        toggle: async () => {
+          await press();
+          return outcome(await this.switchTo(!this.isChecked));
+        }
+      };
     },
 
     async askConfirmation() {
