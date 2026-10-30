@@ -159,6 +159,25 @@
   padding-block-start: var(--space-2);
 }
 
+// The actions said to stand at the end of the row: the first of them takes
+// the room left, the others follow it.
+.chat--composer-action--end {
+  margin-inline-start: auto;
+}
+
+.chat--composer-action--end ~ .chat--composer-action--end {
+  margin-inline-start: 0;
+}
+
+// Under the actions, what the chat lets its reader set; gone when empty.
+.chat--composer-panel {
+  padding-block-start: var(--space-2);
+}
+
+.chat--composer-panel:empty {
+  display: none;
+}
+
 .chat-thread {
   display: flex;
   flex-direction: column;

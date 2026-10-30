@@ -358,13 +358,22 @@ export default {
     },
 
     // What can be done to the conversation, under the composer: [{ key, icon,
-    // label, onClick | href, confirm: { title, message }, flat }]. Flat by
-    // default; `flat: false` keeps a button's ground, for an action that
-    // should read as one. `onClick` is
+    // label, onClick | href, confirm: { title, message }, flat, iconOnly, end,
+    // pressed }]. Flat by default; `flat: false` keeps a button's ground, for
+    // an action that should read as one. `iconOnly` says the label only under
+    // the pointer, `end` sets the action at the end of the row, `pressed`
+    // states a toggle. `onClick` is
     // handed the chat — to reload its thread (reloadEntitiesCollection) once
     // it is emptied —, and awaited; `confirm` is asked first. None by default.
     getComposerActions() {
       return [];
+    },
+
+    composerActionClass(action) {
+      return {
+        'button--flat': action.flat !== false,
+        'chat--composer-action--end': Boolean(action.end)
+      };
     },
 
     async runComposerAction(action) {

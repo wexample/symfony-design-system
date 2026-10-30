@@ -110,10 +110,6 @@
                     ></button>
                 </li>
             </ul>
-            {#- What a chat sets about the next message besides its words — how it
-                is sent, for a chat that lets its reader choose —, over the
-                field. Nothing by default. -#}
-            {%- block chat_composer_before -%}{%- endblock -%}
             <div class="chat-textarea">
                 <textarea
                         ref="input"
@@ -158,22 +154,38 @@
                 unless the chat gives some (getComposerActions). -#}
             <div v-if="composerActions.length" class="chat--composer-actions">
                 <template v-for="action in composerActions" :key="action.key">
-                    <a v-if="action.href" class="button button--compact" :class="{ 'button--flat': action.flat !== false }" :href="action.href">
+                    <a
+                            v-if="action.href"
+                            class="button button--compact"
+                            :class="composerActionClass(action)"
+                            :href="action.href"
+                            :title="action.iconOnly ? action.label : null"
+                            :aria-label="action.iconOnly ? action.label : null"
+                    >
                         <span v-if="action.iconHtml" class="button--icon" v-html="action.iconHtml"></span>
-                        <span>[[ action.label ]]</span>
+                        <span v-if="!action.iconOnly">[[ action.label ]]</span>
                     </a>
                     <button
                             v-else
                             type="button"
                             class="button button--compact"
-                            :class="{ 'button--flat': action.flat !== false }"
+                            :class="composerActionClass(action)"
+                            :title="action.iconOnly ? action.label : null"
+                            :aria-label="action.iconOnly ? action.label : null"
+                            :aria-pressed="action.pressed === undefined ? null : String(action.pressed)"
                             :disabled="runningComposerAction !== null"
                             @click="runComposerAction(action)"
                     >
                         <span v-if="action.iconHtml" class="button--icon" v-html="action.iconHtml"></span>
-                        <span>[[ action.label ]]</span>
+                        <span v-if="!action.iconOnly">[[ action.label ]]</span>
                     </button>
                 </template>
+            </div>
+            {#- What a chat lets its reader set about the next messages besides
+                their words — how they are sent —, under its actions, shown
+                when the chat says so. Nothing by default. -#}
+            <div class="chat--composer-panel">
+                {%- block chat_composer_panel -%}{%- endblock -%}
             </div>
         </div>
     </div>
