@@ -5,6 +5,7 @@ import {markdownRender} from "../../../../js/Helper/MarkdownHelper";
 import {uiStateGet, uiStateSet} from "../../../../js/Helper/UiStateHelper";
 import ChatMessage from "../chat-message/chat-message.vue";
 import LoadMore from "../../../load-more/load-more.vue";
+import Disclosure from "../../../disclosure/disclosure.vue";
 
 // The chats open in the page, whatever draws them: one conversation may be
 // shown twice — in the dock, and again over the veil of a modal —, and one
@@ -59,6 +60,7 @@ export default {
   mixins: [AbstractEntityCollectionVueMixin],
 
   components: {
+    Disclosure,
     LoadMore
   },
 
@@ -123,6 +125,29 @@ export default {
         // Sent by the reader: the side the `aligned` layout puts it on.
         own: this.isOwnMessage(entity)
       }));
+    },
+
+    // What the thread draws: the lines, those the chat groups gathered — the
+    // consecutive ones of the same group key — into `{ key, group: true,
+    // groupKey, lines }`. A group is keyed by its first line, so one growing
+    // at its end — a line arriving live — stays as it is, open or not.
+    threadItems() {
+      const items = [];
+
+      for (const line of this.messages) {
+        const groupKey = this.getMessageGroupKey(line.entity);
+        const last = items[items.length - 1];
+
+        if (groupKey === null || groupKey === undefined) {
+          items.push(line);
+        } else if (last?.group && last.groupKey === groupKey) {
+          last.lines.push(line);
+        } else {
+          items.push({ key: `group-${line.key}`, group: true, groupKey, lines: [line] });
+        }
+      }
+
+      return items;
     },
 
     // A reader asking for less motion sees the mark still.
@@ -336,6 +361,21 @@ export default {
         message: confirm.message,
         preset: 'ok_cancel'
       })) === 'ok';
+    },
+
+    // Lines gathered under one folded line: consecutive lines of the same
+    // key form a group. Null, the default, leaves a line alone.
+    getMessageGroupKey() {
+      return null;
+    },
+
+    // What the folded line of a group says: how many lines it holds.
+    getMessageGroupLabel(group) {
+      return this.trans(`${DOMAIN}thread.group`, { '%count%': group.lines.length });
+    },
+
+    isMessageGroupOpen() {
+      return false;
     },
 
     // What draws a line of the thread: a line of conversation by default. A

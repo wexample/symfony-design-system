@@ -5,6 +5,7 @@ en:
     placeholder: Write a message...
     submit: Send
   thread:
+    group: "%count% messages"
     load_older: Load earlier messages
   toolbar:
     sound_on: 'Turn sound on'
@@ -17,6 +18,7 @@ ar:
     placeholder: 'اكتب رسالة...'
     submit: إرسال
   thread:
+    group: "%count% رسائل"
     load_older: 'تحميل الرسائل السابقة'
   toolbar:
     sound_on: 'تشغيل الصوت'
@@ -29,6 +31,7 @@ bn:
     placeholder: 'একটি বার্তা লিখুন...'
     submit: পাঠান
   thread:
+    group: "%count% বার্তা"
     load_older: 'পুরানো বার্তা লোড করুন'
   toolbar:
     sound_on: 'শব্দ চালু করুন'
@@ -41,6 +44,7 @@ de:
     placeholder: 'Nachricht schreiben...'
     submit: Senden
   thread:
+    group: "%count% Nachrichten"
     load_older: 'Ältere Nachrichten laden'
   toolbar:
     sound_on: 'Ton einschalten'
@@ -53,6 +57,7 @@ es:
     placeholder: 'Escribe un mensaje...'
     submit: Enviar
   thread:
+    group: "%count% mensajes"
     load_older: 'Cargar mensajes anteriores'
   toolbar:
     sound_on: 'Activar el sonido'
@@ -65,6 +70,7 @@ fa:
     placeholder: 'پیامی بنویسید...'
     submit: ارسال
   thread:
+    group: "%count% پیام"
     load_older: 'بارگذاری پیام‌های قدیمی‌تر'
   toolbar:
     sound_on: 'روشن کردن صدا'
@@ -77,6 +83,7 @@ fi:
     placeholder: 'Kirjoita viesti...'
     submit: Lähetä
   thread:
+    group: "%count% viestiä"
     load_older: 'Lataa aikaisempia viestejä'
   toolbar:
     sound_on: 'Ääni päälle'
@@ -89,6 +96,7 @@ fr:
     placeholder: 'Écrivez un message...'
     submit: Envoyer
   thread:
+    group: "%count% messages"
     load_older: 'Charger les messages plus anciens'
   toolbar:
     sound_on: 'Activer le son'
@@ -101,6 +109,7 @@ he:
     placeholder: 'כתוב הודעה...'
     submit: שלח
   thread:
+    group: "%count% הודעות"
     load_older: 'טעון הודעות קודמות'
   toolbar:
     sound_on: 'הפעלת צליל'
@@ -113,6 +122,7 @@ hi:
     placeholder: 'संदेश लिखें...'
     submit: भेजें
   thread:
+    group: "%count% संदेश"
     load_older: 'पुराने संदेश लोड करें'
   toolbar:
     sound_on: 'ध्वनि चालू करें'
@@ -125,6 +135,7 @@ id:
     placeholder: 'Tulis pesan...'
     submit: Kirim
   thread:
+    group: "%count% pesan"
     load_older: 'Muat pesan sebelumnya'
   toolbar:
     sound_on: 'Nyalakan suara'
@@ -137,6 +148,7 @@ it:
     placeholder: 'Scrivi un messaggio...'
     submit: Invia
   thread:
+    group: "%count% messaggi"
     load_older: 'Carica messaggi precedenti'
   toolbar:
     sound_on: 'Attiva l''audio'
@@ -149,6 +161,7 @@ ja:
     placeholder: メッセージを入力...
     submit: 送信
   thread:
+    group: "%count% 件のメッセージ"
     load_older: 以前のメッセージを読み込む
   toolbar:
     sound_on: 'サウンドをオン'
@@ -161,6 +174,7 @@ ko:
     placeholder: '메시지를 작성하세요...'
     submit: 전송
   thread:
+    group: "메시지 %count%개"
     load_older: '이전 메시지 불러오기'
   toolbar:
     sound_on: '소리 켜기'
@@ -173,6 +187,7 @@ nl:
     placeholder: 'Schrijf een bericht...'
     submit: Verstuur
   thread:
+    group: "%count% berichten"
     load_older: 'Laad eerdere berichten'
   toolbar:
     sound_on: 'Geluid aan'
@@ -185,6 +200,7 @@ pl:
     placeholder: 'Napisz wiadomość...'
     submit: Wyślij
   thread:
+    group: "%count% wiadomości"
     load_older: 'Załaduj wcześniejsze wiadomości'
   toolbar:
     sound_on: 'Włącz dźwięk'
@@ -197,6 +213,7 @@ pt_BR:
     placeholder: 'Escreva uma mensagem...'
     submit: Enviar
   thread:
+    group: "%count% mensagens"
     load_older: 'Carregar mensagens anteriores'
   toolbar:
     sound_on: 'Ativar som'
@@ -209,6 +226,7 @@ ru:
     placeholder: 'Напишите сообщение...'
     submit: Отправить
   thread:
+    group: "%count% сообщений"
     load_older: 'Загрузить более ранние сообщения'
   toolbar:
     sound_on: 'Включить звук'
@@ -221,6 +239,7 @@ th:
     placeholder: เขียนข้อความ...
     submit: ส่ง
   thread:
+    group: "%count% ข้อความ"
     load_older: โหลดข้อความก่อนหน้า
   toolbar:
     sound_on: 'เปิดเสียง'
@@ -233,6 +252,7 @@ tr:
     placeholder: 'Mesaj yazın...'
     submit: Gönder
   thread:
+    group: "%count% mesaj"
     load_older: 'Daha eski mesajları yükle'
   toolbar:
     sound_on: 'Sesi aç'
@@ -245,6 +265,7 @@ ur:
     placeholder: 'پیغام لکھیں...'
     submit: بھیجیں
   thread:
+    group: "%count% پیغامات"
     load_older: 'پرانے پیغامات لوڈ کریں'
   toolbar:
     sound_on: 'آواز آن کریں'
@@ -257,6 +278,7 @@ vi:
     placeholder: 'Viết tin nhắn...'
     submit: Gửi
   thread:
+    group: "%count% tin nhắn"
     load_older: 'Tải tin nhắn cũ hơn'
   toolbar:
     sound_on: 'Bật âm thanh'
@@ -269,6 +291,7 @@ zh:
     placeholder: 写消息...
     submit: 发送
   thread:
+    group: "%count% 条消息"
     load_older: 加载更早的消息
   toolbar:
     sound_on: '开启声音'

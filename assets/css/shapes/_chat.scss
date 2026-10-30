@@ -213,6 +213,19 @@
   min-width: 0;
 }
 
+// Lines gathered under one folded line: the group takes the thread's width
+// whatever the layout, its lines laid inside as the thread lays them.
+.chat--group {
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.chat--group-lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
 // Two ways to lay the lines (the chat's `layout`). Flat, the default: every
 // line at the start with its author first, as a channel reads — nothing to
 // add. Aligned: the lines sent at the end side, the ones received at the

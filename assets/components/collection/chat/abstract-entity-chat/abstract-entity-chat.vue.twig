@@ -8,6 +8,7 @@
 {%- block vue_require -%}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/collection/chat/chat-message') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/load-more') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/disclosure') -}}
 {%- endblock -%}
 
 {%- block vue_body -%}
@@ -35,17 +36,41 @@
             {#- Each line drawn by the component the chat names for it: the
                 conversation's line by default, whatever a chat's lines are
                 otherwise. The layout places the line, whatever draws it. -#}
-            <div
-                    v-for="item in messages"
-                    :key="item.key"
-                    class="chat--item"
-                    :class="{ 'chat--item--own': item.own }"
-            >
-                <component
-                        :is="getMessageComponent(item.entity)"
-                        v-bind="getMessageProps(item.entity)"
-                ></component>
-            </div>
+            <template v-for="item in threadItems" :key="item.key">
+                {#- Lines of a kind gathered, folded under one line: what the
+                    chat groups (getMessageGroupKey), each drawn as any line. -#}
+                <div v-if="item.group" class="chat--group">
+                    <disclosure
+                            :label="getMessageGroupLabel(item)"
+                            :open="isMessageGroupOpen(item)"
+                            quiet
+                    >
+                        <div class="chat--group-lines">
+                            <div
+                                    v-for="line in item.lines"
+                                    :key="line.key"
+                                    class="chat--item"
+                                    :class="{ 'chat--item--own': line.own }"
+                            >
+                                <component
+                                        :is="getMessageComponent(line.entity)"
+                                        v-bind="getMessageProps(line.entity)"
+                                ></component>
+                            </div>
+                        </div>
+                    </disclosure>
+                </div>
+                <div
+                        v-else
+                        class="chat--item"
+                        :class="{ 'chat--item--own': item.own }"
+                >
+                    <component
+                            :is="getMessageComponent(item.entity)"
+                            v-bind="getMessageProps(item.entity)"
+                    ></component>
+                </div>
+            </template>
 
 
             {#- A thread read and found empty: what the chat says before the
