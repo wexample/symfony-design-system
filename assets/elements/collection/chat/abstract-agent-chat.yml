@@ -1,0 +1,16 @@
+# Declares `collection/chat/abstract-agent-chat` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "A chat talked to by an agent acting in the page: the calls, their answers, the lines kept out of sight, over abstract-entity-chat"
+formats:
+  vue: true
+  style: "the chat's own, abstract-entity-chat's"
+  template: "client-side by nature: it only makes sense inside a vue tree"
+  script: "its behaviour is the vue component's"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

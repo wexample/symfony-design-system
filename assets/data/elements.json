@@ -282,6 +282,32 @@
             }
         },
         {
+            "key": "collection/chat/abstract-agent-chat",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A chat talked to by an agent acting in the page: the calls, their answers, the lines kept out of sight, over abstract-entity-chat",
+            "formats": {
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/collection/chat/abstract-agent-chat/abstract-agent-chat.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/collection/chat/abstract-agent-chat/abstract-agent-chat.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "waived",
+                "template": "waived",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "style": "the chat's own, abstract-entity-chat's",
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's"
+            }
+        },
+        {
             "key": "collection/chat/abstract-entity-chat",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -3296,7 +3322,7 @@
             "key": "agent-frame",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_agent-frame.scss",
-            "description": "The frames an agent draws round what it points at or presses (AgentFrameLayer, in the loader): a layer of their own over the page, so that no ancestor hiding its overflow cuts them. Each wears the assisted outline the fields wear, pulsing."
+            "description": "The frames an agent draws round what it points at or presses (AgentFrameLayer, in the loader): a layer of their own over the page, so that no ancestor hiding its overflow cuts them. Each wears the assisted outline the fields wear, pulsing.  The page's layer stands under the veil an overlay draws (`--z-modal` less the veil's slot), so what was pointed at in the page dims with it; an overlay's own layer (`--inner`) stands in the overlay, at its corner, above what it holds."
         },
         {
             "key": "avatar",

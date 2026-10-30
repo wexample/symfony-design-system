@@ -1,6 +1,5 @@
 <script>
 import AbstractEntityCollectionVueMixin from "../../../../js/Vue/AbstractEntityCollectionVueMixin";
-import AgentToolsService from "@wexample/symfony-loader/js/Services/AgentToolsService";
 import buildTranslatedBindings from "../../../../js/Helper/TranslationHelper";
 import {markdownRender} from "../../../../js/Helper/MarkdownHelper";
 import {uiStateGet, uiStateSet} from "../../../../js/Helper/UiStateHelper";
@@ -18,18 +17,11 @@ const chatsOpen = new Set();
 const syncChats = () => chatsOpen.forEach((chat) => chat.syncListening());
 document.addEventListener('overlay:change', syncChats);
 
-// How long what an action shows — a toast once a request is answered — is
-// waited for before the agent is told what came of it.
-const NOTIFICATIONS_SETTLE_MS = 600;
-
 // How recent the last line waiting for an answer has to be, the thread opened
 // again, for the thread to show the answer is still coming. While the thread
 // stays open, it shows it until the other side is done (isReplyComplete), as
 // long as it takes.
 const PENDING_ANSWER_MS = 2 * 60 * 1000;
-
-// How long a press said to leave the page is given to do it.
-const NAVIGATION_GRACE_MS = 2000;
 
 // What a message from the other side sounds like, bundled with the chat
 // (sounds/CREDITS.md).
@@ -40,6 +32,8 @@ const UI_STATE_SOUND = 'ui.chat.sound';
 
 // Where the chat's own words are, for a line it writes itself.
 const DOMAIN = 'WexampleSymfonyDesignSystemBundle.components.collection.chat.abstract-entity-chat.abstract-entity-chat::';
+
+export { chatsOpen };
 
 const translated = buildTranslatedBindings({
   resolvedPlaceholder: [
@@ -118,9 +112,7 @@ export default {
       return this.entities.filter((entity) => this.isMessageShown(entity)).map((entity, index) => ({
         key: this.getMessageKey(entity, index),
         author: this.getMessageAuthor(entity),
-        content: this.readToolCall(entity)
-          ? this.getToolCallContent(this.readToolCall(entity))
-          : this.getMessageContent(entity),
+        content: this.getMessageText(entity),
         // Drawn from markdown, or null for a line shown as the text it is.
         html: this.isMessageMarkdown(entity) ? markdownRender(this.getMessageContent(entity)) : null,
         date: this.getMessageDate(entity),
@@ -156,7 +148,6 @@ export default {
   mounted() {
     chatsOpen.add(this);
     this.soundEnabled = uiStateGet(this.app, UI_STATE_SOUND, true);
-    this.sendHeldToolResults();
     this.runWhenAppReady(() => syncChats());
   },
 
@@ -167,10 +158,9 @@ export default {
 
   watch: {
     entities(entities) {
-      // The answer is in once the thread ends on a message someone else wrote
-      // — not on the lines a tool adds on the way.
+      // The answer is in once the thread ends on a line someone else spoke.
       const last = entities[entities.length - 1];
-      if (this.awaitingReply && last && !this.isOwnMessage(last) && !this.isToolLine(last)) {
+      if (this.awaitingReply && last && !this.isOwnMessage(last) && this.isSpoken(last)) {
         this.awaitingReply = false;
       } else if (!this.awaitingReply && last && this.isAnswerPending(last)) {
         this.awaitingReply = true;
@@ -210,82 +200,33 @@ export default {
     },
 
     // Whether a line is written in markdown and drawn from it: what the other
-    // side says — an agent writes markdown —, never what the reader typed,
-    // nor the lines a tool adds.
+    // side speaks — an agent writes markdown —, never what the reader typed.
     isMessageMarkdown(entity) {
-      return !this.isOwnMessage(entity) && !this.isToolLine(entity);
+      return !this.isOwnMessage(entity) && this.isSpoken(entity);
     },
 
-    // Whether a message of the thread is drawn: one that is only plumbing —
-    // what the page answered to a tool, what the user did in the page —
-    // stays in the thread and out of sight.
-    isMessageShown(entity) {
-      return !this.isToolResult(entity) && !this.isUserEvent(entity);
+    // Whether a message of the thread is drawn at all. A layer keeping lines
+    // in the thread that nobody reads — a page's answer to a tool — says
+    // which; every line is drawn by default.
+    isMessageShown() {
+      return true;
     },
 
-    // Whether a line is what the page said the user did (AgentUserEvents),
-    // sent with the message that followed.
-    isUserEvent() {
-      return false;
+    // Whether a line is someone speaking — what ends a wait, makes a sound,
+    // is read as markdown —, rather than a line the thread carries for its
+    // machinery. Every line is spoken by default.
+    isSpoken() {
+      return true;
     },
 
-    // What the user did in the page since the agent last heard from it,
-    // taken to be sent with what goes to it now: nothing for a chat whose
-    // messages wait for nobody.
-    takeUserEvents() {
-      if (!this.expectsReply()) {
-        return [];
-      }
-
-      return this.app.services.agentTools?.events.take() ?? [];
+    // What the thread shows of a line: its content, or what a layer makes
+    // of a line that is not spoken.
+    getMessageText(entity) {
+      return this.getMessageContent(entity);
     },
 
-    // Tool calls. The agent asks the page to run one of its tools with a line
-    // of the thread (AgentToolsService); the page runs it once, however many
-    // times the line reaches it, and answers with another line. A subclass
-    // says how its entity carries both, and where the answer is sent.
-
-    // The call a line carries — `{name, arguments}` —, null for any other line.
-    // Read from the entity, or from the raw message a live topic carries.
-    readToolCall() {
-      return null;
-    },
-
-    // Whether a line is what the page answered to a call.
-    isToolResult() {
-      return false;
-    },
-
-    isToolLine(entity) {
-      return Boolean(this.readToolCall(entity)) || this.isToolResult(entity);
-    },
-
-    // What names a call, the same each time it reaches the page.
-    getToolCallId(entity) {
-      return entity?.secureId ?? entity?.id ?? null;
-    },
-
-    // Tells the agent what came of a call: `results` is `[value]`, or
-    // `[{error}]`; `userEvents` what the user did in the page meanwhile, for
-    // a chat that passes it on.
-    async postToolResult() {
-      throw new Error('postToolResult(call, callId, results) must be implemented by a chat whose agent calls tools.');
-    },
-
-    // By tool name, what draws its call in the thread: `(call) => string`.
-    // None by default: a call is a short line naming the tool.
-    getToolRenderers() {
-      return {};
-    },
-
-    getToolCallContent(call) {
-      const render = this.getToolRenderers()[call.name];
-
-      return render ? render(call) : `${this.trans(`${DOMAIN}thread.tool`)} · ${call.name}`;
-    },
-
-    // A call arrives on the live topic like any line of the thread. Every
-    // payload of the topic is also asked whether the other side is done.
+    // A line arriving on the live topic: every payload of the topic is asked
+    // whether the other side is done, then the line is handed to onLiveEntity.
     onLiveSourceMessage(payload, source) {
       AbstractEntityCollectionVueMixin.methods.onLiveSourceMessage.call(this, payload, source);
 
@@ -299,86 +240,16 @@ export default {
         return;
       }
 
-      if (this.readToolCall(entity)) {
-        this.runToolCall(entity);
-      } else if (!this.isOwnMessage(entity) && !this.isToolResult(entity) && !this.isUserEvent(entity)) {
+      this.onLiveEntity(entity, payload);
+    },
+
+    // A line that just arrived on the live topic: someone else speaking is
+    // heard. A layer doing more with a line — running what it asks — says so
+    // here.
+    onLiveEntity(entity) {
+      if (!this.isOwnMessage(entity) && this.isSpoken(entity)) {
         this.playMessageSound(entity);
       }
-    },
-
-    async runToolCall(entity) {
-      const call = this.readToolCall(entity);
-      const callId = this.getToolCallId(entity);
-
-      // A call the application's server answered itself — one of its own
-      // tools — is shown in the thread and not run here.
-      if (!call || !callId || call.runBy === 'back') {
-        return;
-      }
-
-      // Null when the call already ran here, and the agent has its answer.
-      // Made for this conversation: what it leaves in the page is its own.
-      const agentTools = this.app.getServiceOrFail(AgentToolsService);
-      const conversation = this.getConversationKey();
-      const startedAt = Date.now();
-      const outcome = await agentTools.run(callId, call.name, call.arguments ?? {}, {caller: conversation ?? undefined});
-      if (outcome === null) {
-        return;
-      }
-
-      const results = [outcome.error !== undefined ? {error: outcome.error} : outcome.value];
-
-      // A call leaving the page is answered from the page reached, once the
-      // conversation is open there again to hear what comes next. A press
-      // that ends up not leaving — a form sent in the background — is
-      // answered from here after all.
-      if (outcome.navigation && conversation) {
-        agentTools.held.hold(conversation, {callId, call, results});
-
-        let leaving = false;
-        const onLeave = () => {
-          leaving = true;
-        };
-        window.addEventListener('beforeunload', onLeave, {once: true});
-        outcome.navigation.go();
-
-        window.setTimeout(() => {
-          window.removeEventListener('beforeunload', onLeave);
-
-          if (!leaving) {
-            this.sendHeldToolResults();
-          }
-        }, NAVIGATION_GRACE_MS);
-
-        return;
-      }
-
-      // A call that only read has nothing to wait for.
-      await this.postToolResult(
-        call,
-        callId,
-        this.withNotifications(results, outcome.readOnly ? [] : await this.collectNotifications(startedAt)),
-        this.takeUserEvents()
-      );
-      outcome.navigation?.go();
-    },
-
-    // What the page told the reader in toasts from that moment on — what an
-    // action did, as the reader saw it —, once it had time to say it.
-    async collectNotifications(since) {
-      await new Promise((resolve) => window.setTimeout(resolve, NOTIFICATIONS_SETTLE_MS));
-
-      return this.app.services.toast?.shownSince(since) ?? [];
-    },
-
-    withNotifications(results, notifications) {
-      if (!notifications.length) {
-        return results;
-      }
-
-      return results.map((result) => (
-        result && typeof result === 'object' && !result.error ? {...result, notifications} : result
-      ));
     },
 
     // Whether the other side being done is what this payload of the live
@@ -392,7 +263,7 @@ export default {
       return Boolean(entity)
         && this.isLiveSourceEvent(source, payload?.event)
         && !this.isOwnMessage(entity)
-        && !this.isToolLine(entity);
+        && this.isSpoken(entity);
     },
 
     // Whether a message from the other side — a person, an agent — arriving
@@ -460,45 +331,11 @@ export default {
       new Audio(SOUND_MESSAGE).play().catch(() => {});
     },
 
-    // What names the conversation across pages: the answers of calls that
-    // left a page are held under it. Null for a chat that cannot tell.
+    // What names the conversation across pages and across the chats open on
+    // it — the one in the dock, the one over a veil. Null for a chat that
+    // cannot tell.
     getConversationKey() {
       return null;
-    },
-
-    // The answers held for this conversation by the page it was open in
-    // before, sent from here, with where the page now is.
-    async sendHeldToolResults() {
-      const conversation = this.getConversationKey();
-      if (!conversation) {
-        return;
-      }
-
-      const agentTools = this.app.getServiceOrFail(AgentToolsService);
-
-      if (!agentTools.held.has(conversation)) {
-        return;
-      }
-
-      // What the page reached says on arriving — the flashes of the action,
-      // as toasts — is part of the answer.
-      const notifications = await this.collectNotifications(performance.timeOrigin);
-      const arrived = {url: window.location.href, title: document.title};
-
-      // The agent answers from what is sent here: the thread says so.
-      this.awaitingReply = this.expectsReply();
-
-      for (const held of agentTools.held.take(conversation)) {
-        await this.postToolResult(
-          held.call,
-          held.callId,
-          this.withNotifications(
-            held.results.map((result) => (result && typeof result === 'object' && !result.error ? {...result, arrived} : result)),
-            notifications
-          ),
-          this.takeUserEvents()
-        );
-      }
     },
 
     renderIcon(name) {
@@ -511,10 +348,9 @@ export default {
       throw new Error('buildMessageEntity(content) must be implemented.');
     },
 
-    // Sends what the reader wrote, with what they did in the page since the
-    // other side last heard from it (`userEvents`): a chat whose other side
-    // reads it passes it on; this one writes the message alone.
-    async postMessage(content, userEvents) {
+    // Sends what the reader wrote: written as the entity the chat is the
+    // collection of. A layer sending more with it says so here.
+    async postMessage(content) {
       await this.getEntityRepository().createEntity(this.buildMessageEntity(content));
     },
 
@@ -541,12 +377,12 @@ export default {
       return false;
     },
 
-    // A thread opened — a page reached after an agent's action, a reload —
-    // whose last line still waits for the other side: the reader's own, or a
-    // tool's, written lately. Older than that, the answer is not coming, and
-    // the thread does not pretend it is.
+    // A thread opened — a page reached, a reload — whose last line still waits
+    // for the other side: the reader's own, or one not spoken, written lately.
+    // Older than that, the answer is not coming, and the thread does not
+    // pretend it is.
     isAnswerPending(last) {
-      if (!this.expectsReply() || (!this.isOwnMessage(last) && !this.isToolLine(last))) {
+      if (!this.expectsReply() || (!this.isOwnMessage(last) && this.isSpoken(last))) {
         return false;
       }
 
@@ -577,7 +413,7 @@ export default {
           // A command running on the server travels as the message it was typed
           // in: the endpoint reads the slash and answers it, so the composer has
           // one way out and only one.
-          await this.postMessage(content, this.takeUserEvents());
+          await this.postMessage(content);
           this.awaitingReply = this.expectsReply();
         }
 

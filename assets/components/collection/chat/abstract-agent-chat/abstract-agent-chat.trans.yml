@@ -1,0 +1,91 @@
+en:
+  thread:
+    tool: 'Tool'
+
+ar:
+  thread:
+    tool: 'أداة'
+
+bn:
+  thread:
+    tool: 'টুল'
+
+de:
+  thread:
+    tool: 'Werkzeug'
+
+es:
+  thread:
+    tool: 'Herramienta'
+
+fa:
+  thread:
+    tool: 'ابزار'
+
+fi:
+  thread:
+    tool: 'Työkalu'
+
+fr:
+  thread:
+    tool: 'Outil'
+
+he:
+  thread:
+    tool: 'כלי'
+
+hi:
+  thread:
+    tool: 'टूल'
+
+id:
+  thread:
+    tool: 'Alat'
+
+it:
+  thread:
+    tool: 'Strumento'
+
+ja:
+  thread:
+    tool: 'ツール'
+
+ko:
+  thread:
+    tool: '도구'
+
+nl:
+  thread:
+    tool: 'Hulpmiddel'
+
+pl:
+  thread:
+    tool: 'Narzędzie'
+
+pt_BR:
+  thread:
+    tool: 'Ferramenta'
+
+ru:
+  thread:
+    tool: 'Инструмент'
+
+th:
+  thread:
+    tool: 'เครื่องมือ'
+
+tr:
+  thread:
+    tool: 'Araç'
+
+ur:
+  thread:
+    tool: 'ٹول'
+
+vi:
+  thread:
+    tool: 'Công cụ'
+
+zh:
+  thread:
+    tool: '工具'
