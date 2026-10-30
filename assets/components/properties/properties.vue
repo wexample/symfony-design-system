@@ -84,6 +84,12 @@ export default {
         }
       });
 
+      // How many tiles, so the rows stay even: what takes a row of its own
+      // is not counted.
+      if (this.tiles) {
+        classes.push(`properties--tiles-${this.items.filter((item) => !item.full).length}`);
+      }
+
       if (this.extraClass) {
         classes.push(this.extraClass);
       }

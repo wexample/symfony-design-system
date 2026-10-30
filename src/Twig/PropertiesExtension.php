@@ -32,8 +32,8 @@ class PropertiesExtension extends AbstractTemplateExtension
                         $context,
                         '@WexampleSymfonyDesignSystemBundle/components/properties',
                         [
-                            'items' => $this->normalizeItems($items),
-                            'class' => $this->buildClass($options),
+                            'items' => $normalized = $this->normalizeItems($items),
+                            'class' => $this->buildClass($options, $normalized),
                         ]
                     );
                 },
@@ -68,7 +68,7 @@ class PropertiesExtension extends AbstractTemplateExtension
         return $normalized;
     }
 
-    private function buildClass(array $options): string
+    private function buildClass(array $options, array $items): string
     {
         $classes = ['properties'];
 
@@ -76,6 +76,12 @@ class PropertiesExtension extends AbstractTemplateExtension
             if ($options[$modifier] ?? false) {
                 $classes[] = 'properties--'.$modifier;
             }
+        }
+
+        // How many tiles, so the rows stay even: what takes a row of its own
+        // is not counted.
+        if ($options['tiles'] ?? false) {
+            $classes[] = 'properties--tiles-'.count(array_filter($items, fn (array $item) => ! $item['full']));
         }
 
         if (! empty($options['class'])) {
