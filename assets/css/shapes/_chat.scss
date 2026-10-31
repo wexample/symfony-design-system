@@ -111,7 +111,8 @@
 .chat--footer {
   flex: 0 0 auto;
   padding: var(--space-3) var(--space-4);
-  border-top: var(--border-separator);
+  // Parted from the thread by the shell's own ground, as the layout's bars are.
+  border-top: 1px solid var(--surface-shell);
 }
 
 // The other side at work, above the composer and only while it lasts: a mark
