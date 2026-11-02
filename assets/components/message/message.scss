@@ -7,8 +7,11 @@
   // A message is standing text on the page — a box outlined in the colour
   // reads as loud as a toast, which is something that interrupts. So the
   // colour is a bar down the side, and the other three sides are nothing. How
-  // thick the bar is belongs to the skin, like every other line.
-  border-width: 0 0 0 var(--feedback-bar-width);
+  // thick the bar is belongs to the skin, like every other line. In its own
+  // `& {}`: after the rules the surface nests, and still over its border.
+  & {
+    border-width: 0 0 0 var(--feedback-bar-width);
+  }
 }
 
 .message--title {
