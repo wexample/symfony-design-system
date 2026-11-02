@@ -43,6 +43,36 @@ export default {
   },
 
   methods: {
+    // A choice is taken, not spelled out.
+    async writeValueAssisted(value) {
+      this.$emit('update:modelValue', String(value ?? ''));
+    },
+
+    // `set` takes a choice's value or its label; `choose` is the same, said
+    // as the contract says it — as the twig select does (select/select.ts).
+    getAgentActions() {
+      const choose = async ({ value, option }) => {
+        const wanted = String(option ?? value ?? '').toLowerCase();
+        const choice = this.options.find((candidate) => this.resolveOptionValue(candidate).toLowerCase() === wanted
+          || String(this.resolveOptionLabel(candidate)).toLowerCase() === wanted);
+
+        if (!choice) {
+          throw new Error(`No choice "${option ?? value}": ${this.options.map((candidate) => this.resolveOptionLabel(candidate)).join(', ')}.`);
+        }
+
+        await this.setValueAssisted(this.resolveOptionValue(choice));
+
+        return { value: this.resolveOptionValue(choice), label: this.resolveOptionLabel(choice) };
+      };
+
+      return {
+        ...FormField.methods.getAgentActions.call(this),
+        get: () => ({ value: this.resolvedValue, label: this.frozenText }),
+        set: choose,
+        choose
+      };
+    },
+
     onChange(event) {
       this.$emit('update:modelValue', event?.target?.value ?? '');
     },

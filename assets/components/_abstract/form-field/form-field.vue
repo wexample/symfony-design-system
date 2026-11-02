@@ -188,6 +188,28 @@ export default {
       }
 
       return this.translate ? this.trans(label) : label;
+    },
+
+    // What an agent does to the field (its `.ai.yml`), as the twig field's
+    // script does it (js/Class/Field): read, set as a person would, emptied.
+    getAgentActions() {
+      return {
+        get: () => ({ value: this.modelValue ?? '' }),
+        set: async ({ value }) => {
+          if (value === undefined) {
+            throw new Error('set needs a value.');
+          }
+
+          await this.setValueAssisted(value);
+
+          return { value: this.modelValue ?? value };
+        },
+        clear: async () => {
+          await this.setValueAssisted('');
+
+          return { value: '' };
+        }
+      };
     }
   }
 };
