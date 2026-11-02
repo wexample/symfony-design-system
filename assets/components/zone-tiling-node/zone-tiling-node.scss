@@ -57,10 +57,11 @@
 }
 
 // The zone being arranged: what it is and what can be done to it, in its
-// middle, its ground marked as a place to work on.
+// middle, its edge the one of a place still to be filled (`--border-placeholder`,
+// as a placeholder block's).
 .zone-tiling--zone.is-editing {
-  outline: 1px dashed var(--border-color-strong);
-  outline-offset: -1px;
+  outline: var(--border-placeholder);
+  outline-offset: calc(-1 * var(--border-width, 1px));
 }
 
 .zone-tiling--edit {
