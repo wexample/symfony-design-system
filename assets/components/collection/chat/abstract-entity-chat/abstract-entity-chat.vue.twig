@@ -78,6 +78,15 @@
             <div v-if="emptyText" class="empty chat--empty">[[ emptyText ]]</div>
         </div>
 
+        {#- While the other side works: what it is doing, and for how long, at
+            the foot of the thread — where its answer will come. Gone once it
+            answered. -#}
+        <div v-if="hasThread && awaitingReply" class="chat--activity" role="status">
+            <span class="chat--activity-glyph" aria-hidden="true">[[ activityGlyph ]]</span>
+            <span class="chat--activity-label">[[ activityLabel ]]</span>
+            <span class="chat--activity-elapsed" aria-hidden="true">[[ activityElapsed ]]</span>
+        </div>
+
         <div
                 v-if="hasComposer"
                 class="chat--footer"
@@ -87,13 +96,6 @@
                 @dragleave="onAttachDragLeave"
                 @drop="onAttachDrop"
         >
-            {#- While the other side works: what it is doing, and for how long.
-                Gone once it answered. -#}
-            <div v-if="awaitingReply" class="chat--activity" role="status">
-                <span class="chat--activity-glyph" aria-hidden="true">[[ activityGlyph ]]</span>
-                <span class="chat--activity-label">[[ activityLabel ]]</span>
-                <span class="chat--activity-elapsed" aria-hidden="true">[[ activityElapsed ]]</span>
-            </div>
             {#- The files going with the next message, each taken back by its
                 cross. -#}
             <ul v-if="attachments.length" class="file-chips chat--attachments">

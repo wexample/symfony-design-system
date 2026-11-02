@@ -115,14 +115,15 @@
   border-top: 1px solid var(--surface-shell);
 }
 
-// The other side at work, above the composer and only while it lasts: a mark
-// turning, what it is doing, for how long. Small and quiet: the reader writes
-// under it, it is not a message.
+// The other side at work, at the foot of the thread and only while it lasts:
+// a mark turning, what it is doing, for how long. Small and quiet: it is not
+// a message. Inset as the thread is.
 .chat--activity {
+  flex: none;
   display: flex;
   align-items: baseline;
   gap: var(--space-2);
-  padding-block-end: var(--space-2);
+  padding: var(--space-2) var(--space-4);
   font-size: var(--font-size-2);
   color: var(--text-color-muted);
 }
