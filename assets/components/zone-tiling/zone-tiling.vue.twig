@@ -12,6 +12,7 @@
     <div class="zone zone-tiling" :class="{ 'zone--split--flush': flush }">
         <zone-tiling-node :node="layout">
             <template #zone="scope"><slot name="zone" v-bind="scope"></slot></template>
+            <template #toolbar="scope"><slot name="toolbar" v-bind="scope"></slot></template>
         </zone-tiling-node>
     </div>
 {%- endblock -%}

@@ -35,6 +35,10 @@ export default {
       return Array.isArray(this.node.children);
     },
 
+    hasBar() {
+      return Boolean(this.node.toolbar);
+    },
+
     isVertical() {
       return this.node.split === 'v';
     },

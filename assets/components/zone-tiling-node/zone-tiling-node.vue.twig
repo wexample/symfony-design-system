@@ -9,51 +9,60 @@
 {%- endblock -%}
 
 {%- block vue_body -%}
-    <div
-            v-if="isSplit"
-            ref="split"
-            class="zone zone--split zone-tiling--split"
-            :class="{ 'zone--split--vertical': isVertical }"
-    >
-        <div
-                v-for="(child, index) in node.children"
-                :key="child.id"
-                class="zone zone-tiling--cell"
-                :style="cellStyle(child)"
-        >
-            <zone-tiling-node :node="child">
-                <template #zone="scope"><slot name="zone" v-bind="scope"></slot></template>
-            </zone-tiling-node>
-            <div
-                    v-if="index < node.children.length - 1"
-                    class="zone-resizer zone-resizer--end"
-                    :class="{ 'zone-resizer--y': isVertical }"
-                    role="separator"
-                    tabindex="0"
-                    :aria-orientation="isVertical ? 'horizontal' : 'vertical'"
-                    :title="trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.resize')"
-                    @pointerdown="onSeamDown(index, $event)"
-                    @keydown="onSeamKey(index, $event)"
-                    @dblclick="onSeamReset(index)"
-            ></div>
+    <div class="zone zone-tiling--node">
+        {#- A bar over the node — a section, or a zone —, what it holds the
+            page's (`toolbar` slot): set on the node (`toolbar`), it holds for
+            everything under it. -#}
+        <div v-if="hasBar" class="zone--panel toolbar toolbar--shaded toolbar--compact zone-tiling--bar">
+            <slot name="toolbar" :node="node" :tiling="zoneTiling"></slot>
         </div>
-    </div>
-    <div v-else class="zone zone--panel zone-tiling--zone" :data-zone-id="node.id">
-        {#- What the zone shows: the page's. Nothing given, the zone says it is
-            empty. -#}
-        <slot name="zone" :zone="node" :tiling="zoneTiling">
-            <div class="empty zone-tiling--empty">[[ trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.empty') ]]</div>
-        </slot>
-        {#- Its menu, in its corner while the pointer is over it. -#}
-        <div class="zone-tiling--tools">
-            <button-menu
-                    icon="ph:bold/gear-six"
-                    :items="menuItems"
-                    menu-align="end"
-                    button-class="action-icon"
-                    :caret="false"
-                    @select="zoneTiling.onMenuSelect(node, $event)"
-            ></button-menu>
+        <div
+                v-if="isSplit"
+                ref="split"
+                class="zone zone--split zone-tiling--split"
+                :class="{ 'zone--split--vertical': isVertical }"
+        >
+            <div
+                    v-for="(child, index) in node.children"
+                    :key="child.id"
+                    class="zone zone-tiling--cell"
+                    :style="cellStyle(child)"
+            >
+                <zone-tiling-node :node="child">
+                    <template #zone="scope"><slot name="zone" v-bind="scope"></slot></template>
+                <template #toolbar="scope"><slot name="toolbar" v-bind="scope"></slot></template>
+                </zone-tiling-node>
+                <div
+                        v-if="index < node.children.length - 1"
+                        class="zone-resizer zone-resizer--end"
+                        :class="{ 'zone-resizer--y': isVertical }"
+                        role="separator"
+                        tabindex="0"
+                        :aria-orientation="isVertical ? 'horizontal' : 'vertical'"
+                        :title="trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.resize')"
+                        @pointerdown="onSeamDown(index, $event)"
+                        @keydown="onSeamKey(index, $event)"
+                        @dblclick="onSeamReset(index)"
+                ></div>
+            </div>
+        </div>
+        <div v-else class="zone zone--panel zone-tiling--zone" :data-zone-id="node.id">
+            {#- What the zone shows: the page's. Nothing given, the zone says it is
+                empty. -#}
+            <slot name="zone" :zone="node" :tiling="zoneTiling">
+                <div class="empty zone-tiling--empty">[[ trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.empty') ]]</div>
+            </slot>
+            {#- Its menu, in its corner while the pointer is over it. -#}
+            <div class="zone-tiling--tools">
+                <button-menu
+                        icon="ph:bold/gear-six"
+                        :items="menuItems"
+                        menu-align="end"
+                        button-class="action-icon"
+                        :caret="false"
+                        @select="zoneTiling.onMenuSelect(node, $event)"
+                ></button-menu>
+            </div>
         </div>
     </div>
 {%- endblock -%}

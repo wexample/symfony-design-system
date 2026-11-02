@@ -26,7 +26,8 @@ const clone = (value) => JSON.parse(JSON.stringify(value));
 // whatever else a zone carries is the page's (what it shows, a subject), kept
 // as it is. `size` is a weight among siblings, not pixels: the arrangement
 // holds on any screen. What a zone shows is the `zone` slot's; the design
-// system knows nothing of it.
+// system knows nothing of it. A node — a zone, or a split, a section of the
+// screen — naming a `toolbar` gets a bar over it, drawn by the `toolbar` slot.
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-zone-tiling-zone-tiling',
 
@@ -104,6 +105,14 @@ export default {
     // The tree as it now is, told to whoever holds it.
     commit() {
       this.$emit('update:modelValue', clone(this.layout));
+    },
+
+    // The node holding the zone, or the zone itself at the top: what a bar
+    // set from a zone's menu stands over — its section.
+    sectionOf(id) {
+      const found = this.find(id);
+
+      return found ? (found.parent ?? found.node) : null;
     },
 
     find(id, node = this.layout, parent = null) {
