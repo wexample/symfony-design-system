@@ -467,11 +467,13 @@
 // Splits laid inside splits make a dashboard: a vertical split of rows, each
 // row a split of its own. Flush, the regions all but touch — a wall of screens
 // rather than objects on a desk — and the one pixel left between them shows the
-// wall's own ground, drawn in the colour of a separator. The gap is a variable
-// the nested splits inherit, so one class makes the whole wall flush.
+// wall's own ground, drawn in the colour of a border. Not the discreet one: a
+// dark scheme gives it the ground of a region (`--neutral-1`), and the line
+// between two regions would be the regions' own colour, gone. The gap is a
+// variable the nested splits inherit, so one class makes the whole wall flush.
 .zone--split--flush {
   --zone-gap: 1px;
-  background: var(--border-color-discreet);
+  background: var(--border-color-default);
 }
 
 // One panel cut into rows — its tabs, a bar of the tab open, its body — rather
