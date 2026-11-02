@@ -6,6 +6,7 @@ import Component from '@wexample/symfony-loader/js/Class/Component';
 // one closes the other. Pressing the open one closes it. An icon naming a
 // `data-ui-state` key has its state kept there, the page drawing it as it was
 // left; the page draws the first state itself (`aria-pressed`, `zone--closed`).
+// A control of the bar a zone owns (`data-zone-control-for`) is shown with it.
 export default class extends Component {
   protected async activateListeners(): Promise<void> {
     await super.activateListeners();
@@ -51,6 +52,11 @@ export default class extends Component {
   private toggle(button: HTMLElement, open: boolean, states: Record<string, boolean>): void {
     button.setAttribute('aria-pressed', String(open));
     document.getElementById(button.dataset.zoneToggle ?? '')?.classList.toggle('zone--closed', !open);
+
+    // The controls of the bar the zone owns come and go with it.
+    this.el.querySelectorAll<HTMLElement>(`[data-zone-control-for="${button.dataset.zoneToggle}"]`).forEach((control) => {
+      control.hidden = !open;
+    });
 
     if (button.dataset.uiState) {
       states[button.dataset.uiState] = open;

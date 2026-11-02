@@ -30,6 +30,14 @@ class ToolDockExtension extends AbstractTemplateExtension
 
     private const ORIENTATIONS = ['vertical', 'horizontal'];
 
+    // What an item of the bar is: a tool — an icon opening a zone, or a link —,
+    // a line between items, or a control drawn by the page (a picker, a select).
+    public const string TYPE_TOOL = 'tool';
+    public const string TYPE_SEPARATOR = 'separator';
+    public const string TYPE_CONTROL = 'control';
+
+    private const array TYPES = [self::TYPE_TOOL, self::TYPE_SEPARATOR, self::TYPE_CONTROL];
+
     private const STATE_PREFIX = 'ui.layout.dock.';
 
     public function __construct(
@@ -109,6 +117,11 @@ class ToolDockExtension extends AbstractTemplateExtension
      * button_target does), `_blank` for another window, or in place when
      * nothing is said. The settings, a page read and closed.
      *
+     * Between the tools, other items of the bar (`type`): a line setting groups
+     * of them apart (`separator`), or a control the page draws (`control`,
+     * its `content`) — a picker, a select —, which a tool's zone may own
+     * (`for`: the tool's name): shown while that zone is open, hidden closed.
+     *
      * @param array<int, array<string, mixed>> $tools
      * @param array<string, bool|null>        $states
      *
@@ -125,14 +138,35 @@ class ToolDockExtension extends AbstractTemplateExtension
         foreach ($tools as $tool) {
             $name = $tool['name'] ?? null;
             $group = $tool['group'] ?? self::GROUP_START;
+            $type = $tool['type'] ?? self::TYPE_TOOL;
+
+            if (! in_array($type, self::TYPES, true)) {
+                throw new InvalidArgumentException('An item of the dock "'.$id.'" is of an unknown type "'.$type.'".');
+            }
+
+            if (! in_array($group, self::GROUPS, true)) {
+                throw new InvalidArgumentException('An item of the dock "'.$id.'" is in an unknown group "'.$group.'".');
+            }
+
+            // What stands in the bar beside the tools: a line between them, or a
+            // control — shown only while the zone of the tool it is `for` is open.
+            if (self::TYPE_TOOL !== $type) {
+                $for = $tool['for'] ?? null;
+                $arranged[$group][] = [
+                    'type' => $type,
+                    'group' => $group,
+                    'content' => $tool['content'] ?? null,
+                    'for' => $for,
+                    'for_zone' => is_string($for) ? 'tool-dock-'.self::slug($id).'-'.self::slug($for) : null,
+                ];
+
+                continue;
+            }
 
             if (! is_string($name) || '' === $name) {
                 throw new InvalidArgumentException('A tool of the dock "'.$id.'" has no name.');
             }
 
-            if (! in_array($group, self::GROUPS, true)) {
-                throw new InvalidArgumentException('The tool "'.$name.'" of the dock "'.$id.'" is in an unknown group "'.$group.'".');
-            }
 
             $href = $tool['href'] ?? null;
             $state = null === $href ? ($states[$name] ?? null) : null;
@@ -144,6 +178,7 @@ class ToolDockExtension extends AbstractTemplateExtension
             }
 
             $arranged[$group][] = [
+                'type' => self::TYPE_TOOL,
                 'name' => $name,
                 'label' => $tool['label'] ?? $name,
                 'icon' => $tool['icon'] ?? null,
@@ -163,11 +198,31 @@ class ToolDockExtension extends AbstractTemplateExtension
             $open = $chosen[$group] ?? $byDefault[$group];
 
             foreach ($groupTools as &$tool) {
-                $tool['open'] = $tool['name'] === $open;
+                if (self::TYPE_TOOL === $tool['type']) {
+                    $tool['open'] = $tool['name'] === $open;
+                }
+            }
+        }
+        unset($groupTools, $tool);
+
+        $items = array_merge(...array_values($arranged));
+        $openZones = [];
+        foreach ($items as $item) {
+            if (self::TYPE_TOOL === $item['type'] && $item['open']) {
+                $openZones[$item['zone']] = true;
             }
         }
 
-        return array_merge(...array_values($arranged));
+        // A control for a tool is drawn as its zone is: shown open, hidden closed.
+        foreach ($items as &$item) {
+            if (self::TYPE_CONTROL === $item['type']) {
+                $item['shown'] = null === $item['for_zone'] || isset($openZones[$item['for_zone']]);
+            }
+        }
+        unset($item);
+
+        return $items;
+
     }
 
     private static function slug(string $value): string

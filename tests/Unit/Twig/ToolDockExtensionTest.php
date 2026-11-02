@@ -84,4 +84,39 @@ class ToolDockExtensionTest extends TestCase
 
         ToolDockExtension::arrangeTools('demo', [['name' => 'detail', 'group' => 'left']]);
     }
+
+    public function testSeparatorsAndControlsStandBetweenTheTools(): void
+    {
+        $items = ToolDockExtension::arrangeTools('demo', [
+            ['name' => 'job'],
+            ['type' => 'separator'],
+            ['name' => 'session', 'group' => 'end', 'open' => true],
+            ['type' => 'control', 'group' => 'end', 'for' => 'session', 'content' => '<input>'],
+        ]);
+
+        $this->assertSame(['tool', 'separator', 'tool', 'control'], array_column($items, 'type'));
+        $this->assertSame('<input>', $items[3]['content']);
+        $this->assertSame('tool-dock-demo-session', $items[3]['for_zone']);
+    }
+
+    public function testAControlShowsWithTheZoneItBelongsTo(): void
+    {
+        $control = ['type' => 'control', 'group' => 'end', 'for' => 'session', 'content' => '<input>'];
+
+        $open = ToolDockExtension::arrangeTools('demo', [['name' => 'session', 'group' => 'end', 'open' => true], $control]);
+        $closed = ToolDockExtension::arrangeTools('demo', [['name' => 'session', 'group' => 'end'], $control]);
+        $free = ToolDockExtension::arrangeTools('demo', [['type' => 'control', 'content' => '<input>']]);
+
+        $this->assertTrue($open[1]['shown']);
+        $this->assertFalse($closed[1]['shown']);
+        // Owned by no zone, always there.
+        $this->assertTrue($free[0]['shown']);
+    }
+
+    public function testAnUnknownTypeIsRefused(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        ToolDockExtension::arrangeTools('demo', [['type' => 'slider']]);
+    }
 }
