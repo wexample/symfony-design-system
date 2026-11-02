@@ -10,7 +10,10 @@ export const ZONE_TILING_ACTION_SPLIT_H = 'zone-tiling:split-h';
 export const ZONE_TILING_ACTION_SPLIT_V = 'zone-tiling:split-v';
 export const ZONE_TILING_ACTION_CLOSE = 'zone-tiling:close';
 
-const newId = () => (crypto.randomUUID?.() ?? `${Date.now()}-${Math.random()}`).slice(0, 8);
+// An id for a zone or a split, unique in its tree. Random, not drawn from the
+// clock: a split makes two in the same millisecond. `randomUUID` exists only
+// in a secure context — a development host served over http has none.
+const newId = () => crypto.randomUUID?.() ?? `${Math.random().toString(36).slice(2)}${Math.random().toString(36).slice(2)}`;
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
