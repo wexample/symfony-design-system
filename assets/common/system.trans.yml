@@ -141,6 +141,10 @@ en:
       filter: Filter
       filter_empty: Nothing matches
     zone:
+      split_h: "Split side by side"
+      split_v: "Split one above the other"
+      close: "Close"
+      empty: "Empty zone"
       collapse: Collapse
       expand: Expand
       resize: Resize
@@ -295,6 +299,10 @@ ar:
       filter: تصفية
       filter_empty: 'لا يوجد ما يتطابق'
     zone:
+      split_h: "تقسيم جنبًا إلى جنب"
+      split_v: "تقسيم واحدة فوق الأخرى"
+      close: "إغلاق"
+      empty: "منطقة فارغة"
       collapse: طي
       expand: توسيع
       resize: 'تغيير الحجم'
@@ -449,6 +457,10 @@ bn:
       filter: ফিল্টার
       filter_empty: 'কিছুই মেলে না'
     zone:
+      split_h: "পাশাপাশি ভাগ করুন"
+      split_v: "উপর-নিচে ভাগ করুন"
+      close: "বন্ধ করুন"
+      empty: "খালি অংশ"
       collapse: 'সংকুচিত করুন'
       expand: 'বিস্তৃত করুন'
       resize: 'আকার পরিবর্তন করুন'
@@ -603,6 +615,10 @@ de:
       filter: Filtern
       filter_empty: 'Nichts entspricht'
     zone:
+      split_h: "Nebeneinander teilen"
+      split_v: "Untereinander teilen"
+      close: "Schließen"
+      empty: "Leerer Bereich"
       collapse: Einklappen
       expand: Ausklappen
       resize: 'Größe ändern'
@@ -757,6 +773,10 @@ es:
       filter: Filtrar
       filter_empty: 'Nada coincide'
     zone:
+      split_h: "Dividir lado a lado"
+      split_v: "Dividir una sobre otra"
+      close: "Cerrar"
+      empty: "Zona vacía"
       collapse: Colapsar
       expand: Expandir
       resize: Redimensionar
@@ -911,6 +931,10 @@ fa:
       filter: فیلتر
       filter_empty: 'هیچ موردی مطابقت ندارد'
     zone:
+      split_h: "تقسیم کنار هم"
+      split_v: "تقسیم روی هم"
+      close: "بستن"
+      empty: "ناحیهٔ خالی"
       collapse: 'جمع کردن'
       expand: 'گسترش دادن'
       resize: 'تغییر اندازه'
@@ -1065,6 +1089,10 @@ fi:
       filter: Suodata
       filter_empty: 'Ei mitään vastaa'
     zone:
+      split_h: "Jaa vierekkäin"
+      split_v: "Jaa päällekkäin"
+      close: "Sulje"
+      empty: "Tyhjä alue"
       collapse: Pienennä
       expand: Laajenna
       resize: 'Muuta kokoa'
@@ -1219,6 +1247,10 @@ fr:
       filter: Filtrer
       filter_empty: 'Aucun résultat correspondant'
     zone:
+      split_h: "Couper côte à côte"
+      split_v: "Couper l’une au-dessus de l’autre"
+      close: "Fermer"
+      empty: "Zone vide"
       collapse: 'Replier'
       expand: 'Déplier'
       resize: Redimensionner
@@ -1373,6 +1405,10 @@ he:
       filter: סנן
       filter_empty: 'אין תוצאות תואמות'
     zone:
+      split_h: "פיצול זה לצד זה"
+      split_v: "פיצול זה מעל זה"
+      close: "סגירה"
+      empty: "אזור ריק"
       collapse: כווץ
       expand: הרחב
       resize: 'שנה גודל'
@@ -1527,6 +1563,10 @@ hi:
       filter: फिल्टर
       filter_empty: 'कोई मेल नहीं खाता'
     zone:
+      split_h: "अगल-बगल बाँटें"
+      split_v: "ऊपर-नीचे बाँटें"
+      close: "बंद करें"
+      empty: "खाली क्षेत्र"
       collapse: 'संकुचित करें'
       expand: 'विस्तारित करें'
       resize: 'आकार बदलें'
@@ -1681,6 +1721,10 @@ id:
       filter: Saring
       filter_empty: 'Tidak ada yang cocok'
     zone:
+      split_h: "Bagi berdampingan"
+      split_v: "Bagi atas bawah"
+      close: "Tutup"
+      empty: "Zona kosong"
       collapse: Kecilkan
       expand: Perbesar
       resize: 'Ubah ukuran'
@@ -1835,6 +1879,10 @@ it:
       filter: Filtra
       filter_empty: 'Nessun risultato'
     zone:
+      split_h: "Dividi affiancate"
+      split_v: "Dividi una sopra l’altra"
+      close: "Chiudi"
+      empty: "Zona vuota"
       collapse: Riduci
       expand: Espandi
       resize: Ridimensiona
@@ -1989,6 +2037,10 @@ ja:
       filter: フィルター
       filter_empty: 一致するものはありません
     zone:
+      split_h: "左右に分割"
+      split_v: "上下に分割"
+      close: "閉じる"
+      empty: "空の領域"
       collapse: 折りたたむ
       expand: 展開する
       resize: サイズ変更
@@ -2143,6 +2195,10 @@ ko:
       filter: 필터
       filter_empty: '일치하는 항목이 없습니다'
     zone:
+      split_h: "좌우로 분할"
+      split_v: "상하로 분할"
+      close: "닫기"
+      empty: "빈 영역"
       collapse: 축소
       expand: 확장
       resize: '크기 조정'
@@ -2297,6 +2353,10 @@ nl:
       filter: Filter
       filter_empty: 'Niets komt overeen'
     zone:
+      split_h: "Naast elkaar splitsen"
+      split_v: "Onder elkaar splitsen"
+      close: "Sluiten"
+      empty: "Lege zone"
       collapse: Samenvouwen
       expand: Uitvouwen
       resize: 'Grootte wijzigen'
@@ -2451,6 +2511,10 @@ pl:
       filter: Filtruj
       filter_empty: 'Nic nie pasuje'
     zone:
+      split_h: "Podziel obok siebie"
+      split_v: "Podziel jeden nad drugim"
+      close: "Zamknij"
+      empty: "Pusta strefa"
       collapse: Zwiń
       expand: Rozwiń
       resize: 'Zmień rozmiar'
@@ -2605,6 +2669,10 @@ pt_BR:
       filter: Filtrar
       filter_empty: 'Nada corresponde'
     zone:
+      split_h: "Dividir lado a lado"
+      split_v: "Dividir uma acima da outra"
+      close: "Fechar"
+      empty: "Zona vazia"
       collapse: Recolher
       expand: Expandir
       resize: Redimensionar
@@ -2759,6 +2827,10 @@ ru:
       filter: Фильтр
       filter_empty: 'Ничего не найдено'
     zone:
+      split_h: "Разделить по горизонтали"
+      split_v: "Разделить по вертикали"
+      close: "Закрыть"
+      empty: "Пустая зона"
       collapse: Свернуть
       expand: Развернуть
       resize: 'Изменить размер'
@@ -2913,6 +2985,10 @@ th:
       filter: กรอง
       filter_empty: ไม่มีรายการที่ตรงกัน
     zone:
+      split_h: "แบ่งซ้ายขวา"
+      split_v: "แบ่งบนล่าง"
+      close: "ปิด"
+      empty: "พื้นที่ว่าง"
       collapse: ย่อ
       expand: ขยาย
       resize: ปรับขนาด
@@ -3067,6 +3143,10 @@ tr:
       filter: Filtrele
       filter_empty: 'Hiçbiri uymuyor'
     zone:
+      split_h: "Yan yana böl"
+      split_v: "Üst üste böl"
+      close: "Kapat"
+      empty: "Boş alan"
       collapse: Daralt
       expand: Genişlet
       resize: Boyutlandır
@@ -3221,6 +3301,10 @@ ur:
       filter: 'فلٹر کریں'
       filter_empty: 'کوئی چیز میل نہیں کھاتی'
     zone:
+      split_h: "ساتھ ساتھ تقسیم کریں"
+      split_v: "اوپر نیچے تقسیم کریں"
+      close: "بند کریں"
+      empty: "خالی حصہ"
       collapse: 'کم کریں'
       expand: کھولیں
       resize: 'سائز تبدیل کریں'
@@ -3375,6 +3459,10 @@ vi:
       filter: Lọc
       filter_empty: 'Không có kết quả phù hợp'
     zone:
+      split_h: "Chia cạnh nhau"
+      split_v: "Chia trên dưới"
+      close: "Đóng"
+      empty: "Vùng trống"
       collapse: 'Thu gọn'
       expand: 'Mở rộng'
       resize: 'Thay đổi kích thước'
@@ -3529,6 +3617,10 @@ zh:
       filter: 筛选
       filter_empty: 没有符合条件的结果
     zone:
+      split_h: "左右拆分"
+      split_v: "上下拆分"
+      close: "关闭"
+      empty: "空区域"
       collapse: 折叠
       expand: 展开
       resize: 调整大小

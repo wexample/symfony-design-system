@@ -1,0 +1,56 @@
+// One node of a zone-tiling: a split of zones, or a zone and its menu.
+@use '../../css/shapes/zone';
+@use '../../css/shapes/empty';
+@use '../../css/shapes/action-icon';
+@use '../zone-resizer/zone-resizer';
+// The menu's button and panel are drawn by the button shape.
+@use '../button/button';
+
+// A split and a zone fill the cell they stand in, as a zone does a split.
+.zone-tiling--split,
+.zone-tiling--zone {
+  width: 100%;
+  height: 100%;
+}
+
+// The cell's weight is its inline `flex`; the floor keeps a seam to drag.
+.zone-tiling--cell {
+  display: flex;
+  min-width: 5rem;
+  min-height: 5rem;
+}
+
+.zone-tiling--zone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.zone-tiling--empty {
+  flex: 1;
+}
+
+// The menu stands in the corner while the pointer is over the zone, or the
+// keyboard inside it — and while it is open, its button keeping the focus.
+.zone-tiling--tools {
+  position: absolute;
+  inset-block-start: var(--space-1);
+  inset-inline-end: var(--space-1);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+.zone-tiling--zone:hover > .zone-tiling--tools,
+.zone-tiling--zone:focus-within > .zone-tiling--tools,
+.zone-tiling--tools:has([aria-expanded='true']) {
+  opacity: 1;
+}
+
+// On a screen without a pointer, always there.
+@media (hover: none) {
+  .zone-tiling--tools {
+    opacity: 1;
+  }
+}

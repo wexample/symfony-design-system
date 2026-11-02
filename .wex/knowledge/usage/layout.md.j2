@@ -195,6 +195,10 @@ What its row does when the asks do not fit — the row's class:
 
 A row holding a `zone--fit-content` scrolls of itself. Every rule of the block weighs the same, so the order of the file is the order of precedence — the asks, then the rows, which have the last word — and the block closes the file so that no rule written after it overrules a zone's place in its row.
 
+## Zones the reader cuts
+
+`zone-tiling` (vue) is a screen the reader composes: one zone at first, a menu in its corner under the pointer to split it side by side or one above the other, or close it; every zone split again, every seam dragged (arrows on a focused seam, a double click evens the pair out). The arrangement is a tree in `v-model` — a split `{ id, split: 'h' | 'v', size, children }`, a zone `{ id, size, … }` — `size` a weight among siblings, so it holds on any screen; whatever else a zone carries is the page's and kept as it is. What a zone shows is the `zone` slot's (`{ zone, tiling }`), an empty zone says so otherwise. `zoneMenu(zone, items, tiling)` adds the page's own entries (an item's `run(zone, tiling)`); `tiling.update(id, patch)`, `split(id, dir)`, `close(id)` change the tree. `flush` lays the zones as a wall of screens. The design system knows nothing of widgets: `symfony-workspace`'s board is built on it.
+
 ## The development menu
 
 Outside production, every page's footer — the focus layout's too — carries the « dev » marker, naming the environment. When the installed bundles offer anything to whoever develops, the marker opens a menu, upwards, in the dev tone. Nothing of it is drawn in production.

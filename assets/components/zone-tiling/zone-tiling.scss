@@ -1,0 +1,14 @@
+// A screen of zones the reader cuts and sizes (zone-tiling-node draws them).
+@use '../zone-tiling-node/zone-tiling-node';
+
+// The whole of the room it is given, its splits sharing it.
+.zone-tiling {
+  display: flex;
+  min-height: 0;
+}
+
+// Flush, the line between two zones is the wall's own ground: a border's
+// colour, not the discreet one — that is a region's ground in a dark scheme.
+.zone-tiling.zone--split--flush {
+  background: var(--border-color-default);
+}

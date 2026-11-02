@@ -1,0 +1,17 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.*') }}
+{%- endblock -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-tiling-node') -}}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <div class="zone zone-tiling" :class="{ 'zone--split--flush': flush }">
+        <zone-tiling-node :node="layout">
+            <template #zone="scope"><slot name="zone" v-bind="scope"></slot></template>
+        </zone-tiling-node>
+    </div>
+{%- endblock -%}
