@@ -62,3 +62,25 @@
 .form--input-addon:last-child {
   padding-inline-start: 0;
 }
+
+// An action of the field, in its frame after what is typed — a search's
+// settings, its Add —: an icon, set apart from the value and from the next
+// action by a line, as tall as the frame.
+.form--input-action {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  padding-inline: var(--space-2);
+  border: 0;
+  border-inline-start: 1px solid var(--border-color-default);
+  background: transparent;
+  color: var(--text-color-muted);
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--text-color-default);
+  }
+}
