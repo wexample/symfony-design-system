@@ -1,12 +1,8 @@
 <script>
+import AbstractEntityThread from "../../thread/abstract-entity-thread/abstract-entity-thread.vue";
 import AbstractEntityCollectionVueMixin from "../../../../js/Vue/AbstractEntityCollectionVueMixin";
-import buildTranslatedBindings from "../../../../js/Helper/TranslationHelper";
-import {markdownRender} from "../../../../js/Helper/MarkdownHelper";
 import {uiStateGet, uiStateSet} from "../../../../js/Helper/UiStateHelper";
-import ChatMessage from "../chat-message/chat-message.vue";
-import LoadMore from "../../../load-more/load-more.vue";
-import Disclosure from "../../../disclosure/disclosure.vue";
-import { fileIcon } from "../../../../js/Helper/FileIconHelper";
+import Composer from "../../../composer/composer.vue";
 
 // The chats open in the page, whatever draws them: one conversation may be
 // shown twice — in the dock, and again over the veil of a modal —, and one
@@ -18,19 +14,9 @@ const chatsOpen = new Set();
 const syncChats = () => chatsOpen.forEach((chat) => chat.syncListening());
 document.addEventListener('overlay:change', syncChats);
 
-// How recent the last line waiting for an answer has to be, the thread opened
-// again, for the thread to show the answer is still coming. While the thread
-// stays open, it shows it until the other side is done (isReplyComplete), as
-// long as it takes.
-const PENDING_ANSWER_MS = 2 * 60 * 1000;
-
 // What a message from the other side sounds like, bundled with the chat
 // (sounds/CREDITS.md).
 const SOUND_MESSAGE = new URL('../../../../sounds/chat-message.mp3', import.meta.url).href;
-
-// What turns while the other side works, a frame at a time.
-const ACTIVITY_FRAMES = ['·', '✧', '✦', '◆', '✦', '✧'];
-const ACTIVITY_FRAME_MS = 150;
 
 // Whether messages make that sound, kept for the reader across pages.
 const UI_STATE_SOUND = 'ui.chat.sound';
@@ -40,33 +26,32 @@ const DOMAIN = 'WexampleSymfonyDesignSystemBundle.components.collection.chat.abs
 
 export { chatsOpen };
 
-const translated = buildTranslatedBindings({
-  resolvedPlaceholder: [
-    'placeholder',
-    'WexampleSymfonyDesignSystemBundle.components.collection.chat.abstract-entity-chat.abstract-entity-chat::composer.placeholder'
-  ],
-  resolvedSubmitLabel: [
-    'submitLabel',
-    'WexampleSymfonyDesignSystemBundle.components.collection.chat.abstract-entity-chat.abstract-entity-chat::composer.submit'
-  ],
-  resolvedLoadOlderLabel: [
-    'loadOlderLabel',
-    'WexampleSymfonyDesignSystemBundle.components.collection.chat.abstract-entity-chat.abstract-entity-chat::thread.load_older'
-  ]
-});
-
+// A conversation one reads and writes to: the thread of its messages
+// (abstract-entity-thread) and, under it, the composer that sends the next
+// one (composer). Over the two it holds what belongs to the conversation
+// itself — the sound a message makes, which of the chats open on it listens
+// —, and sends what the composer hands it: as the entity it is the
+// collection of, or as a command the server or the page answers.
 export default {
+  extends: AbstractEntityThread,
+
   template: "#vue-template-wexample-symfony-design-system-bundle-vue-collection-chat-abstract-entity-chat",
 
-  mixins: [AbstractEntityCollectionVueMixin],
-
   components: {
-    Disclosure,
-    LoadMore
+    Composer
   },
 
   props: {
-    ...translated.props,
+    // The composer's words, when the chat's are not its own.
+    placeholder: {
+      type: String,
+      default: ''
+    },
+
+    submitLabel: {
+      type: String,
+      default: ''
+    },
 
     // Both are handed over by slash_commands_js() from the chat's vue_config:
     // what the composer accepts besides text is declared on the server, and the
@@ -79,47 +64,11 @@ export default {
     slashCommands: {
       type: Array,
       default: () => []
-    },
-
-    // How the lines are laid: `flat`, every line at the start with its author
-    // first, as a channel reads; `aligned`, the reader's own lines at the end
-    // side and the others at the start, as a messenger reads.
-    layout: {
-      type: String,
-      default: 'flat'
-    },
-
-    // What of the chat is drawn: its thread, its composer, or both. Apart,
-    // each is a piece of a screen composed of others — the thread in one
-    // zone, what sends to it in another —, the conversation the same.
-    parts: {
-      type: Array,
-      default: () => ['thread', 'composer']
     }
   },
 
   data() {
     return {
-      draft: '',
-      isSubmitting: false,
-      // How far the thread was from its bottom when older messages were asked
-      // for. Null means the thread should simply go to the bottom.
-      threadScrollAnchor: null,
-      // A message was sent and its answer has not arrived yet: the thread
-      // shows it is coming (expectsReply()).
-      awaitingReply: false,
-      // When the wait began, the frame the activity shows, and the time it
-      // is measured against: kept while the wait lasts, and only then.
-      awaitingSince: null,
-      activityFrame: 0,
-      activityNow: Date.now(),
-      // The files going with the next message, a preview for each image, and
-      // how deep a drag is over the composer (children fire their own).
-      attachments: [],
-      attachmentPreviews: [],
-      attachDragDepth: 0,
-      // The composer action under way, by its key: the others wait for it.
-      runningComposerAction: null,
       soundEnabled: true,
       // The messages a sound was made for: one live message may be published
       // more than once.
@@ -128,91 +77,13 @@ export default {
   },
 
   computed: {
-    ...translated.computed,
-
-    // The lines of the thread, each with the entity it draws: what a line
-    // looks like is the component's business (getMessageComponent).
-    messages() {
-      return this.entities.filter((entity) => this.isMessageShown(entity)).map((entity, index) => ({
-        key: this.getMessageKey(entity, index),
-        entity,
-        // Sent by the reader: the side the `aligned` layout puts it on.
-        own: this.isOwnMessage(entity)
-      }));
-    },
-
-    // What the thread draws: the lines, those the chat groups gathered — the
-    // consecutive ones of the same group key — into `{ key, group: true,
-    // groupKey, lines }`. A group is keyed by its first line, so one growing
-    // at its end — a line arriving live — stays as it is, open or not.
-    threadItems() {
-      const items = [];
-
-      for (const line of this.messages) {
-        const groupKey = this.getMessageGroupKey(line.entity);
-        const last = items[items.length - 1];
-
-        if (groupKey === null || groupKey === undefined) {
-          items.push(line);
-        } else if (last?.group && last.groupKey === groupKey) {
-          last.lines.push(line);
-        } else {
-          items.push({ key: `group-${line.key}`, group: true, groupKey, lines: [line] });
-        }
-      }
-
-      return items;
-    },
-
-    // A reader asking for less motion sees the mark still.
-    activityGlyph() {
-      return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-        ? ACTIVITY_FRAMES[2]
-        : ACTIVITY_FRAMES[this.activityFrame % ACTIVITY_FRAMES.length];
-    },
-
-    activityLabel() {
-      return this.trans(`${DOMAIN}activity.thinking`);
-    },
-
-    // 45s, 13m5s, 2h4m: how long the other side has been at it.
-    activityElapsed() {
-      if (this.awaitingSince === null) {
-        return '';
-      }
-
-      const seconds = Math.max(0, Math.floor((this.activityNow - this.awaitingSince) / 1000));
-      const hours = Math.floor(seconds / 3600);
-      const minutes = Math.floor((seconds % 3600) / 60);
-
-      if (hours) {
-        return `${hours}h${minutes}m`;
-      }
-
-      return minutes ? `${minutes}m${seconds % 60}s` : `${seconds % 60}s`;
-    },
-
-    // Shown once the first page is read (`pagination` set by it), nothing in
-    // it, and the chat has something to say; gone with the first message,
-    // live ones included.
-    emptyText() {
-      if (this.isLoading || this.pagination === null || this.messages.length) {
-        return null;
-      }
-
-      return this.getEmptyText() || null;
-    },
-
+    // What the chat lets be done to the conversation, as the composer takes
+    // it: each action's `onClick` handed the chat.
     composerActions() {
-      return this.getComposerActions().map((action, index) => ({
+      return this.getComposerActions().map((action) => ({
         ...action,
-        key: action.key ?? index,
-        iconHtml: this.renderIcon(action.icon)
+        onClick: action.onClick ? () => action.onClick(this) : undefined
       }));
-    },
-
-    submitIconHtml() {
-      return this.renderIcon('ph:bold/paper-plane-right');
     },
 
     // The bar above the thread holds what concerns the conversation itself,
@@ -227,41 +98,6 @@ export default {
 
     soundLabel() {
       return this.trans(`${DOMAIN}toolbar.${this.soundEnabled ? 'sound_off' : 'sound_on'}`);
-    },
-
-    hasThread() {
-      return this.parts.includes('thread');
-    },
-
-    hasComposer() {
-      return this.parts.includes('composer');
-    },
-
-    // A text, or files alone.
-    canSubmit() {
-      return !this.isSubmitting && (Boolean(this.draft.trim()) || this.attachments.length > 0);
-    },
-
-    attachIconHtml() {
-      return this.renderIcon('ph:bold/paperclip');
-    },
-
-    removeIconHtml() {
-      return this.renderIcon('ph:bold/x');
-    },
-
-    attachLabel() {
-      return this.trans(`${DOMAIN}composer.attach`);
-    },
-
-    attachRemoveLabel() {
-      return this.trans(`${DOMAIN}composer.attach_remove`);
-    },
-
-    attachmentsFull() {
-      const limit = this.getAttachmentLimit();
-
-      return limit !== null && this.attachments.length >= limit;
     }
   },
 
@@ -272,167 +108,18 @@ export default {
   },
 
   beforeUnmount() {
-    this.stopActivity();
-    this.clearAttachments();
     chatsOpen.delete(this);
     syncChats();
   },
 
-  watch: {
-    awaitingReply(awaiting) {
-      if (awaiting) {
-        this.startActivity();
-      } else {
-        this.stopActivity();
-      }
-    },
-
-    entities(entities) {
-      // The answer is in once the thread ends on a line someone else spoke.
-      const last = entities[entities.length - 1];
-      if (this.awaitingReply && last && !this.isOwnMessage(last) && this.isSpoken(last)) {
-        this.awaitingReply = false;
-      } else if (!this.awaitingReply && last && this.isAnswerPending(last)) {
-        // Measured from the line still waiting, not from the thread opening.
-        this.awaitingSince = new Date(this.getMessageDate(last)).getTime();
-        this.awaitingReply = true;
-      }
-
-      this.$nextTick(() => this.settleThreadScroll());
-    }
-  },
-
   methods: {
-    startActivity() {
-      this.awaitingSince = this.awaitingSince ?? Date.now();
-      this.activityNow = Date.now();
-      window.clearInterval(this.activityTimer);
-      this.activityTimer = window.setInterval(() => {
-        this.activityFrame++;
-        this.activityNow = Date.now();
-      }, ACTIVITY_FRAME_MS);
-    },
-
-    stopActivity() {
-      window.clearInterval(this.activityTimer);
-      this.activityTimer = null;
-      this.awaitingSince = null;
-    },
-
-    // Projections. A subclass overrides the ones its entity does not already
-    // answer to under these names.
-    getMessageKey(entity, index) {
-      return entity?.id ?? entity?.secureId ?? index;
-    },
-
-    getMessageAuthor(entity) {
-      return entity?.author ?? '';
-    },
-
-    getMessageContent(entity) {
-      return entity?.content ?? '';
-    },
-
-    getMessageDate(entity) {
-      return entity?.createdAt ?? null;
-    },
-
-    getMessageIcon() {
-      return 'ph:bold/user';
-    },
-
-    // Names the kind of line this is, so the thread can draw a tool call or a
-    // system notice differently from a spoken turn. Null keeps the plain row.
-    getMessageVariant() {
-      return null;
-    },
-
-    // Whether a line is written in markdown and drawn from it: what the other
-    // side speaks — an agent writes markdown —, never what the reader typed.
-    isMessageMarkdown(entity) {
-      return !this.isOwnMessage(entity) && this.isSpoken(entity);
-    },
-
-    // Whether a message of the thread is drawn at all. A layer keeping lines
-    // in the thread that nobody reads — a page's answer to a tool — says
-    // which; every line is drawn by default.
-    isMessageShown() {
-      return true;
-    },
-
-    // Whether a line is someone speaking — what ends a wait, makes a sound,
-    // is read as markdown —, rather than a line the thread carries for its
-    // machinery. Every line is spoken by default.
-    isSpoken() {
-      return true;
-    },
-
-    // What the thread says while it holds no message — what the conversation
-    // is about, how to start it. None by default.
-    getEmptyText() {
-      return null;
-    },
-
     // What can be done to the conversation, under the composer: [{ key, icon,
     // label, onClick | href, confirm: { title, message }, flat, iconOnly, end,
-    // pressed }]. Flat by default; `flat: false` keeps a button's ground, for
-    // an action that should read as one. `iconOnly` says the label only under
-    // the pointer, `end` sets the action at the end of the row, `pressed`
-    // states a toggle. `onClick` is
+    // pressed }] as the composer reads them (composer `actions`), `onClick`
     // handed the chat — to reload its thread (reloadEntitiesCollection) once
-    // it is emptied —, and awaited; `confirm` is asked first. None by default.
+    // it is emptied — and awaited. None by default.
     getComposerActions() {
       return [];
-    },
-
-    composerActionClass(action) {
-      return {
-        'button--flat': action.flat !== false,
-        'chat--composer-action--end': Boolean(action.end)
-      };
-    },
-
-    async runComposerAction(action) {
-      if (action.confirm?.message && !(await this.askComposerConfirmation(action.confirm))) {
-        return;
-      }
-
-      this.runningComposerAction = action.key;
-
-      try {
-        await action.onClick?.(this);
-      } finally {
-        this.runningComposerAction = null;
-      }
-    },
-
-    async askComposerConfirmation(confirm) {
-      const confirmService = this.app.services.confirm;
-
-      if (!confirmService) {
-        return window.confirm(confirm.message);
-      }
-
-      return (await confirmService.confirm({
-        title: confirm.title || undefined,
-        message: confirm.message,
-        preset: 'ok_cancel'
-      })) === 'ok';
-    },
-
-    // Lines gathered under one folded line: consecutive lines of the same
-    // key form a group. Null, the default, leaves a line alone.
-    getMessageGroupKey() {
-      return null;
-    },
-
-    // What the folded line of a group says: how many lines it holds.
-    getMessageGroupLabel(group) {
-      return this.trans(`${DOMAIN}thread.group`, { '%count%': group.lines.length });
-    },
-
-    isMessageGroupOpen() {
-      return false;
     },
 
     // Whether files can go with a message — a paperclip by the send button,
@@ -451,132 +138,6 @@ export default {
       return null;
     },
 
-    attachmentIconHtml(file) {
-      return this.renderIcon(fileIcon(file.name));
-    },
-
-    addAttachments(files) {
-      const limit = this.getAttachmentLimit();
-      const added = limit === null ? files : files.slice(0, Math.max(0, limit - this.attachments.length));
-
-      this.attachments = [...this.attachments, ...added];
-      this.attachmentPreviews = [
-        ...this.attachmentPreviews,
-        ...added.map((file) => (file.type.startsWith('image/') ? URL.createObjectURL(file) : null))
-      ];
-    },
-
-    removeAttachment(index) {
-      const preview = this.attachmentPreviews[index];
-
-      if (preview) {
-        URL.revokeObjectURL(preview);
-      }
-
-      this.attachments = this.attachments.filter((_, position) => position !== index);
-      this.attachmentPreviews = this.attachmentPreviews.filter((_, position) => position !== index);
-    },
-
-    clearAttachments() {
-      this.attachmentPreviews.forEach((url) => url && URL.revokeObjectURL(url));
-      this.attachments = [];
-      this.attachmentPreviews = [];
-    },
-
-    onAttachPicked(event) {
-      this.addAttachments([...(event.target.files ?? [])]);
-      // Picked again, the same file is a change again.
-      event.target.value = '';
-    },
-
-    // Only a drag carrying files, only where files are taken.
-    isAttachDrag(event) {
-      return this.acceptsAttachments() && !this.isSubmitting && [...(event.dataTransfer?.types ?? [])].includes('Files');
-    },
-
-    onAttachDragEnter(event) {
-      if (this.isAttachDrag(event)) {
-        event.preventDefault();
-        this.attachDragDepth++;
-      }
-    },
-
-    onAttachDragOver(event) {
-      if (this.isAttachDrag(event)) {
-        event.preventDefault();
-      }
-    },
-
-    onAttachDragLeave(event) {
-      if (this.isAttachDrag(event)) {
-        this.attachDragDepth = Math.max(0, this.attachDragDepth - 1);
-      }
-    },
-
-    onAttachDrop(event) {
-      if (!this.isAttachDrag(event)) {
-        return;
-      }
-
-      event.preventDefault();
-      this.attachDragDepth = 0;
-      this.addAttachments([...(event.dataTransfer.files ?? [])]);
-    },
-
-    // What draws a line of the thread: a line of conversation by default. A
-    // chat whose lines are something else — an inspector's block, a card —
-    // returns its own component, imported and named in its template's
-    // vue_require like any other it uses.
-    getMessageComponent() {
-      return ChatMessage;
-    },
-
-    // What that component is handed: the projection below for the line of
-    // conversation; a chat with its own component passes what it reads,
-    // typically `{ entity }`.
-    getMessageProps(entity) {
-      return {message: this.getMessage(entity)};
-    },
-
-    // A line as a conversation reads it, drawn from the projections above:
-    // never from the shape of the entity.
-    getMessage(entity) {
-      return {
-        author: this.getMessageAuthor(entity),
-        content: this.getMessageText(entity),
-        // Drawn from markdown, or null for a line shown as the text it is.
-        html: this.isMessageMarkdown(entity) ? markdownRender(this.getMessageContent(entity)) : null,
-        date: this.getMessageDate(entity),
-        iconHtml: this.renderIcon(this.getMessageIcon(entity)),
-        variant: this.getMessageVariant(entity),
-        own: this.isOwnMessage(entity)
-      };
-    },
-
-    // What the thread shows of a line: its content, or what a layer makes
-    // of a line that is not spoken.
-    getMessageText(entity) {
-      return this.getMessageContent(entity);
-    },
-
-    // A line arriving on the live topic: every payload of the topic is asked
-    // whether the other side is done, then the line is handed to onLiveEntity.
-    onLiveSourceMessage(payload, source) {
-      AbstractEntityCollectionVueMixin.methods.onLiveSourceMessage.call(this, payload, source);
-
-      if (this.awaitingReply && this.isReplyComplete(payload, source)) {
-        this.awaitingReply = false;
-      }
-
-      const entity = payload?.data?.entity ?? payload?.data;
-
-      if (!entity || !this.isLiveSourceEvent(source, payload?.event)) {
-        return;
-      }
-
-      this.onLiveEntity(entity, payload);
-    },
-
     // A line that just arrived on the live topic: someone else speaking is
     // heard. A layer doing more with a line — running what it asks — says so
     // here.
@@ -584,20 +145,6 @@ export default {
       if (!this.isOwnMessage(entity) && this.isSpoken(entity)) {
         this.playMessageSound(entity);
       }
-    },
-
-    // Whether the other side being done is what this payload of the live
-    // topic says: by default a message of the thread written by the other
-    // side, not a line a tool adds. A chat whose engine says so otherwise —
-    // an event closing the request — reads it here, and the thread stops
-    // showing an answer is coming only then, however long it takes.
-    isReplyComplete(payload, source) {
-      const entity = payload?.data?.entity ?? payload?.data;
-
-      return Boolean(entity)
-        && this.isLiveSourceEvent(source, payload?.event)
-        && !this.isOwnMessage(entity)
-        && this.isSpoken(entity);
     },
 
     // Whether a message from the other side — a person, an agent — arriving
@@ -621,10 +168,7 @@ export default {
     // Whether this chat is the one of its conversation that listens and is
     // heard: not behind a veil, or the only one; the first opened among
     // equals — the dock's, before the one over the veil while no veil is up.
-    //
-    // Peers are the same conversation drawn the same way: its thread in one
-    // zone and its composer in another are two parts, each listening. A chat
-    // that cannot name its conversation is a peer of none.
+    // A chat that cannot name its conversation is a peer of none.
     isHeard() {
       const conversation = this.getConversationKey();
 
@@ -632,8 +176,7 @@ export default {
         return true;
       }
 
-      const parts = this.parts.join();
-      const peers = [...chatsOpen].filter((chat) => chat.getConversationKey() === conversation && chat.parts.join() === parts);
+      const peers = [...chatsOpen].filter((chat) => chat.getConversationKey() === conversation);
       const front = peers.filter((chat) => !chat.isCovered());
 
       return (front.length ? front : peers)[0] === this;
@@ -682,10 +225,6 @@ export default {
       return null;
     },
 
-    renderIcon(name) {
-      return name ? this.app.getServiceOrFail('icon').icon(name) : '';
-    },
-
     // What the composer turns into before it is sent. Only a subclass knows
     // which entity that is and which of its fields carries the text.
     buildMessageEntity() {
@@ -701,81 +240,23 @@ export default {
       await this.getEntityRepository().createEntity(this.buildMessageEntity(content));
     },
 
-    // What the thread hangs from, since a browser opens the page before a single
-    // message exists: the only name it can subscribe to is the one already there.
-    // `{entityName, id, event}`, the event being what the server publishes on it
-    // when a message is written. Null leaves the thread without live updates.
-    // The thread the chat listens to, in the words the collection speaks: a chat
-    // is a collection watching the session it belongs to, like any other.
-    getLiveSource() {
-      return this.getLiveThread();
-    },
-
-    // Kept as the chat's own word for it, since a thread is what a chat calls
-    // the thing it is the collection of.
-    getLiveThread() {
-      return null;
-    },
-
-    // Whether a message sent here is answered by someone else — an agent —,
-    // the thread showing the answer is coming until it arrives. A chat whose
-    // messages wait for nobody leaves it off.
-    expectsReply() {
-      return false;
-    },
-
-    // A thread opened — a page reached, a reload — whose last line still waits
-    // for the other side: the reader's own, or one not spoken, written lately.
-    // Older than that, the answer is not coming, and the thread does not
-    // pretend it is.
-    isAnswerPending(last) {
-      if (!this.expectsReply() || (!this.isOwnMessage(last) && this.isSpoken(last))) {
-        return false;
-      }
-
-      const date = this.getMessageDate(last);
-
-      return Boolean(date) && Date.now() - new Date(date).getTime() < PENDING_ANSWER_MS;
-    },
-
-    // Whether a message of the thread was written by whoever reads it: what
-    // ends the wait for an answer is a message that is not.
-    isOwnMessage() {
-      return true;
-    },
-
-    async submitMessage() {
-      if (!this.canSubmit) {
-        return;
-      }
-
-      const content = this.draft.trim();
-      const files = [...this.attachments];
-      // A message carrying files is a message, whatever its text says.
+    // What the composer hands the chat: a message, or a command the page
+    // keeps for itself. A message carrying files is a message, whatever its
+    // text says.
+    async submitMessage(content, files = []) {
       const frontCommand = files.length ? null : this.findFrontSlashCommand(content);
-      this.isSubmitting = true;
 
-      try {
-        if (frontCommand) {
-          await this.runFrontSlashCommand(frontCommand.command, frontCommand.text);
-        } else {
-          // A command running on the server travels as the message it was typed
-          // in: the endpoint reads the slash and answers it, so the composer has
-          // one way out and only one.
-          await this.postMessage(content, files);
-          this.awaitingReply = this.expectsReply();
-        }
-
-        this.draft = '';
-        this.clearAttachments();
-        await this.refreshEntitiesCollection();
-      } finally {
-        this.isSubmitting = false;
-        // The field was disabled while the message travelled, which took the
-        // caret out of it, and whoever just wrote a line is about to write the
-        // next one.
-        this.$nextTick(() => this.$refs.input?.focus());
+      if (frontCommand) {
+        await this.runFrontSlashCommand(frontCommand.command, frontCommand.text);
+      } else {
+        // A command running on the server travels as the message it was typed
+        // in: the endpoint reads the slash and answers it, so the composer has
+        // one way out and only one.
+        await this.postMessage(content, files);
+        this.expectReply();
       }
+
+      await this.refreshEntitiesCollection();
     },
 
     // A command stands either first or last in the message, and is separated
@@ -819,34 +300,6 @@ export default {
       }
 
       await new definition().run(this, text);
-    },
-
-    // Older messages are added above what is being read, so the thread must stay
-    // on the same line: what is held constant is the distance to the bottom,
-    // since everything that appeared is higher up.
-    async loadOlderMessages() {
-      const thread = this.$refs.thread;
-
-      this.threadScrollAnchor = thread ? thread.scrollHeight - thread.scrollTop : null;
-
-      await this.loadOlderEntities();
-    },
-
-    settleThreadScroll() {
-      const thread = this.$refs.thread;
-
-      if (!thread) {
-        return;
-      }
-
-      if (this.threadScrollAnchor === null) {
-        thread.scrollTop = thread.scrollHeight;
-
-        return;
-      }
-
-      thread.scrollTop = thread.scrollHeight - this.threadScrollAnchor;
-      this.threadScrollAnchor = null;
     }
   }
 };

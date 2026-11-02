@@ -1,0 +1,137 @@
+en:
+  activity:
+    thinking: Thinking…
+  group: '%count% messages'
+  load_older: Load earlier messages
+
+ar:
+  activity:
+    thinking: يفكّر…
+  group: '%count% رسائل'
+  load_older: تحميل الرسائل السابقة
+
+bn:
+  activity:
+    thinking: ভাবছে…
+  group: '%count% বার্তা'
+  load_older: পুরানো বার্তা লোড করুন
+
+de:
+  activity:
+    thinking: Denkt nach…
+  group: '%count% Nachrichten'
+  load_older: Ältere Nachrichten laden
+
+es:
+  activity:
+    thinking: Pensando…
+  group: '%count% mensajes'
+  load_older: Cargar mensajes anteriores
+
+fa:
+  activity:
+    thinking: در حال فکر…
+  group: '%count% پیام'
+  load_older: بارگذاری پیام‌های قدیمی‌تر
+
+fi:
+  activity:
+    thinking: Miettii…
+  group: '%count% viestiä'
+  load_older: Lataa aikaisempia viestejä
+
+fr:
+  activity:
+    thinking: Réflexion…
+  group: '%count% messages'
+  load_older: Charger les messages plus anciens
+
+he:
+  activity:
+    thinking: חושב…
+  group: '%count% הודעות'
+  load_older: טעון הודעות קודמות
+
+hi:
+  activity:
+    thinking: सोच रहा है…
+  group: '%count% संदेश'
+  load_older: पुराने संदेश लोड करें
+
+id:
+  activity:
+    thinking: Berpikir…
+  group: '%count% pesan'
+  load_older: Muat pesan sebelumnya
+
+it:
+  activity:
+    thinking: Sta pensando…
+  group: '%count% messaggi'
+  load_older: Carica messaggi precedenti
+
+ja:
+  activity:
+    thinking: 考え中…
+  group: '%count% 件のメッセージ'
+  load_older: 以前のメッセージを読み込む
+
+ko:
+  activity:
+    thinking: 생각하는 중…
+  group: 메시지 %count%개
+  load_older: 이전 메시지 불러오기
+
+nl:
+  activity:
+    thinking: Denkt na…
+  group: '%count% berichten'
+  load_older: Laad eerdere berichten
+
+pl:
+  activity:
+    thinking: Myśli…
+  group: '%count% wiadomości'
+  load_older: Załaduj wcześniejsze wiadomości
+
+pt_BR:
+  activity:
+    thinking: Pensando…
+  group: '%count% mensagens'
+  load_older: Carregar mensagens anteriores
+
+ru:
+  activity:
+    thinking: Думает…
+  group: '%count% сообщений'
+  load_older: Загрузить более ранние сообщения
+
+th:
+  activity:
+    thinking: กำลังคิด…
+  group: '%count% ข้อความ'
+  load_older: โหลดข้อความก่อนหน้า
+
+tr:
+  activity:
+    thinking: Düşünüyor…
+  group: '%count% mesaj'
+  load_older: Daha eski mesajları yükle
+
+ur:
+  activity:
+    thinking: سوچ رہا ہے…
+  group: '%count% پیغامات'
+  load_older: پرانے پیغامات لوڈ کریں
+
+vi:
+  activity:
+    thinking: Đang suy nghĩ…
+  group: '%count% tin nhắn'
+  load_older: Tải tin nhắn cũ hơn
+
+zh:
+  activity:
+    thinking: 思考中…
+  group: '%count% 条消息'
+  load_older: 加载更早的消息

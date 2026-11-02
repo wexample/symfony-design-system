@@ -1,0 +1,241 @@
+// The lines of a conversation read in order, the latest at the foot: a column
+// that scrolls, the way back up to older lines at its head, what the other
+// side is doing at its foot while it works. And the line of conversation
+// itself — an avatar, an author and a date, the words.
+// A line drawn from markdown is prose (`.content`), at the size of the thread.
+@use './content';
+// The thread head holds a load-more, which is a button showing dots while it waits.
+@use '../../components/button/button';
+// A message dates itself, and the date carries its own tooltip cursor.
+@use '../../components/date-display/date-display';
+@use '../../components/dots/dots';
+// An empty thread says so in the empty shape.
+@use './empty';
+
+// The thread takes the room it is given and scrolls inside it: what holds it
+// says how tall it is.
+.thread {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+}
+
+// The lines, in the column that scrolls. It insets itself because it is what
+// scrolls — the scrollbar hugs the edge while the lines stay in from it.
+.thread--lines {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  overflow-y: auto;
+  padding: var(--space-4);
+}
+
+// What sits above the oldest line held: the way back up the thread.
+.thread--head {
+  display: flex;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+// A line of the thread, whatever draws it: the column scrolls, and a line
+// keeps its whole height in it.
+.thread--item {
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+// Lines gathered under one folded line: the group takes the thread's width
+// whatever the layout, its lines laid inside as the thread lays them.
+.thread--group {
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+// Opened, the group holds its lines against a rule down their leading edge:
+// where it starts and where it ends read at a glance, and the thread after it
+// is not taken for part of it.
+.thread--group-lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-inline-start: var(--space-4);
+  border-inline-start: 2px solid var(--border-color-default);
+}
+
+// The thread's room taken whole, the words centred in it; a long text — what
+// the conversation is about — at a reading width, its own line breaks kept.
+.thread--empty {
+  flex: 1 0 auto;
+  align-self: center;
+  max-width: 60ch;
+  white-space: pre-line;
+}
+
+// The other side at work, at the foot of the thread and only while it lasts:
+// a mark turning, what it is doing, for how long. Small and quiet: it is not
+// a message. Inset as the lines are.
+.thread--activity {
+  flex: none;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-2);
+  color: var(--text-color-muted);
+}
+
+// One glyph wide whatever the frame, so the words beside it never move.
+.thread--activity-glyph {
+  display: inline-block;
+  width: 1em;
+  text-align: center;
+  color: var(--accent-9);
+}
+
+.thread--activity-elapsed {
+  font-variant-numeric: tabular-nums;
+  opacity: var(--opacity-7);
+}
+
+// Two ways to lay the lines (the thread's `layout`). Flat, the default: every
+// line at the start with its author first, as a channel reads — nothing to
+// add. Aligned: the lines sent at the end side, the ones received at the
+// start, each on four fifths of the thread, as a messenger reads. The line
+// placed, what draws it fills the room or fits its words: a bubble fits.
+.thread--aligned {
+  .thread--item {
+    // Four fifths by default; a thread with room to spare widens it.
+    width: var(--thread-aligned-width, 80%);
+    align-self: flex-start;
+  }
+
+  .thread--item--own {
+    align-self: flex-end;
+  }
+
+  .thread-message--body {
+    flex: 0 1 auto;
+  }
+
+  .thread-message--own {
+    flex-direction: row-reverse;
+
+    .thread-message--meta {
+      justify-content: flex-end;
+    }
+  }
+}
+
+// The line of conversation: an avatar, then the words under their author and
+// date.
+.thread-message {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.thread-message .avatar {
+  --avatar-size: var(--space-5);
+  width: var(--avatar-size);
+  min-width: var(--avatar-size);
+  height: var(--avatar-size);
+  aspect-ratio: 1 / 1;
+  flex: 0 0 var(--avatar-size);
+  flex-shrink: 0;
+}
+
+.thread-message--body {
+  border-radius: var(--radius-box);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.thread-message--meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.thread-message--author {
+  font-weight: var(--font-weight-bold);
+}
+
+.thread-message--date {
+  color: var(--text-color-default);
+  opacity: var(--opacity-7);
+  font-size: 0.875rem;
+}
+
+// A word longer than the line — a path, a URL — breaks where it has to rather
+// than pushing the thread sideways: a narrow column is where a thread is read.
+// Only where the text wraps at all, so a block of code keeps its lines.
+.thread-message--content {
+  overflow-wrap: anywhere;
+}
+
+// Markdown in a line: the prose shape, brought down to the thread's size —
+// paragraphs closer, headings no taller than a strong line.
+.thread-message--content.content {
+  font-size: inherit;
+  line-height: 1.5;
+
+  > * + * { margin-top: var(--space-2); }
+  > * + :is(h1, h2, h3, h4, h5, h6) { margin-top: var(--space-3); }
+
+  :is(h1, h2, h3, h4, h5, h6) { font-size: inherit; }
+
+  pre {
+    overflow-x: auto;
+    overflow-wrap: normal;
+  }
+}
+
+// A tool call is machine talk: the line keeps its avatar but the body is read
+// as code, so it never competes with a spoken turn for attention.
+.thread-message--tool {
+  .thread-message--content {
+    font-family: var(--font-family-mono);
+    font-size: 0.875rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
+
+// A system line is not somebody speaking: no avatar, no frame, centred and
+// dimmed, so the eye reads it as a break between turns rather than a turn.
+.thread-message--system {
+  justify-content: center;
+
+  .avatar {
+    display: none;
+  }
+
+  .thread-message--body {
+    border: 0;
+    flex: 0 1 auto;
+    text-align: center;
+  }
+
+  .thread-message--meta {
+    justify-content: center;
+  }
+
+  .thread-message--content {
+    opacity: var(--opacity-7);
+    font-size: 0.875rem;
+  }
+}
+
+// A failed turn holds the place a message would have had, so the thread does
+// not jump when it is replaced by the answer that finally comes.
+.thread-message--error {
+  .thread-message--author,
+  .thread-message--content {
+    color: var(--error-11);
+  }
+}

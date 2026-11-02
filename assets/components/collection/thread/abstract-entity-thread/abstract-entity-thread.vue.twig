@@ -1,0 +1,83 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ parent() }}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.components.collection.thread.abstract-entity-thread.abstract-entity-thread::*') }}
+{%- endblock -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/collection/thread/thread-message') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/load-more') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/disclosure') -}}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    {#- The thread stands alone here; a chat draws it among its own parts
+        (block thread). -#}
+    {%- block thread -%}
+    <div class="thread" :class="'thread--' + layout">
+        <div ref="lines" class="thread--lines">
+            <div v-if="hasOlderEntities" class="thread--head">
+                <load-more
+                        :label="resolvedLoadOlderLabel"
+                        icon="ph:bold/caret-up"
+                        :is-loading="isLoadingOlder"
+                        @load="loadOlderMessages"
+                ></load-more>
+            </div>
+
+            {#- Each line drawn by the component the thread names for it: the
+                conversation's line by default, whatever a thread's lines are
+                otherwise. The layout places the line, whatever draws it. -#}
+            <template v-for="item in threadItems" :key="item.key">
+                {#- Lines of a kind gathered, folded under one line: what the
+                    thread groups (getMessageGroupKey), each drawn as any line. -#}
+                <div v-if="item.group" class="thread--group">
+                    <disclosure
+                            :label="getMessageGroupLabel(item)"
+                            :open="isMessageGroupOpen(item)"
+                            quiet
+                    >
+                        <div class="thread--group-lines">
+                            <div
+                                    v-for="line in item.lines"
+                                    :key="line.key"
+                                    class="thread--item"
+                                    :class="{ 'thread--item--own': line.own }"
+                            >
+                                <component
+                                        :is="getMessageComponent(line.entity)"
+                                        v-bind="getMessageProps(line.entity)"
+                                ></component>
+                            </div>
+                        </div>
+                    </disclosure>
+                </div>
+                <div
+                        v-else
+                        class="thread--item"
+                        :class="{ 'thread--item--own': item.own }"
+                >
+                    <component
+                            :is="getMessageComponent(item.entity)"
+                            v-bind="getMessageProps(item.entity)"
+                    ></component>
+                </div>
+            </template>
+
+            {#- A thread read and found empty: what it says before the first
+                message, in the middle of the room the lines will take. -#}
+            <div v-if="emptyText" class="empty thread--empty">[[ emptyText ]]</div>
+        </div>
+
+        {#- While the other side works: what it is doing, and for how long, at
+            the foot of the thread — where its answer will come. Gone once it
+            answered. -#}
+        <div v-if="awaitingReply" class="thread--activity" role="status">
+            <span class="thread--activity-glyph" aria-hidden="true">[[ activityGlyph ]]</span>
+            <span class="thread--activity-label">[[ activityLabel ]]</span>
+            <span class="thread--activity-elapsed" aria-hidden="true">[[ activityElapsed ]]</span>
+        </div>
+    </div>
+    {%- endblock -%}
+{%- endblock -%}

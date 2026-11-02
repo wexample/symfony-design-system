@@ -1,0 +1,110 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.components.composer.composer::*') }}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <div
+            class="composer"
+            :class="{ 'is-dragging': attachDragDepth > 0 }"
+            @dragenter="onAttachDragEnter"
+            @dragover="onAttachDragOver"
+            @dragleave="onAttachDragLeave"
+            @drop="onAttachDrop"
+    >
+        {#- The files going with the next message, each taken back by its
+            cross. -#}
+        <ul v-if="attachments.length" class="file-chips composer--attachments">
+            <li v-for="(file, index) in attachments" :key="file.name + index" class="file-chip">
+                <img v-if="attachmentPreviews[index]" class="file-chip--media" :src="attachmentPreviews[index]" alt="">
+                <span v-else class="file-chip--icon" v-html="attachmentIconHtml(file)"></span>
+                <span class="file-chip--name" :title="file.name">[[ file.name ]]</span>
+                <button
+                        type="button"
+                        class="button button--flat button--compact file-chip--remove"
+                        :aria-label="attachRemoveLabel + ' ' + file.name"
+                        :disabled="isBusy"
+                        @click="removeAttachment(index)"
+                        v-html="removeIconHtml"
+                ></button>
+            </li>
+        </ul>
+        <div class="composer--field">
+            <textarea
+                    ref="input"
+                    rows="1"
+                    class="composer--textarea"
+                    :placeholder="resolvedPlaceholder"
+                    :disabled="isBusy"
+                    v-model="draft"
+                    @keydown.enter.exact.prevent="submitMessage"
+            ></textarea>
+            <template v-if="acceptsAttachments">
+                <input
+                        ref="attachInput"
+                        type="file"
+                        multiple
+                        hidden
+                        :accept="attachmentAccept"
+                        @change="onAttachPicked"
+                >
+                <button
+                        class="composer--attach"
+                        type="button"
+                        :disabled="isBusy || attachmentsFull"
+                        :aria-label="attachLabel"
+                        :title="attachLabel"
+                        v-html="attachIconHtml"
+                        @click="$refs.attachInput.click()"
+                ></button>
+            </template>
+            <button
+                    class="composer--submit"
+                    type="button"
+                    :disabled="!canSubmit"
+                    :aria-label="resolvedSubmitLabel"
+                    :title="resolvedSubmitLabel"
+                    v-html="submitIconHtml"
+                    @click="submitMessage"
+            ></button>
+        </div>
+        {#- What can be done besides writing, under the field and quieter
+            than it. None unless given some (`actions`). -#}
+        <div v-if="resolvedActions.length" class="composer--actions">
+            <template v-for="action in resolvedActions" :key="action.key">
+                <a
+                        v-if="action.href"
+                        class="button button--compact"
+                        :class="actionClass(action)"
+                        :href="action.href"
+                        :title="action.iconOnly ? action.label : null"
+                        :aria-label="action.iconOnly ? action.label : null"
+                >
+                    <span v-if="action.iconHtml" class="button--icon" v-html="action.iconHtml"></span>
+                    <span v-if="!action.iconOnly">[[ action.label ]]</span>
+                </a>
+                <button
+                        v-else
+                        type="button"
+                        class="button button--compact"
+                        :class="actionClass(action)"
+                        :title="action.iconOnly ? action.label : null"
+                        :aria-label="action.iconOnly ? action.label : null"
+                        :aria-pressed="action.pressed === undefined ? null : String(action.pressed)"
+                        :disabled="runningAction !== null"
+                        @click="runAction(action)"
+                >
+                    <span v-if="action.iconHtml" class="button--icon" v-html="action.iconHtml"></span>
+                    <span v-if="!action.iconOnly">[[ action.label ]]</span>
+                </button>
+            </template>
+        </div>
+        {#- Under the actions, what whoever holds the composer lets the
+            reader set about the next messages besides their words — how they
+            are sent. Nothing unless given. -#}
+        <div v-if="$slots.panel" class="composer--panel">
+            <slot name="panel"></slot>
+        </div>
+    </div>
+{%- endblock -%}

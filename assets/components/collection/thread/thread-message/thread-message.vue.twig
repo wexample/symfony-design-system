@@ -1,0 +1,26 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/date-display') -}}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <div
+            class="thread-message"
+            :class="[message.variant ? 'thread-message--' + message.variant : null, message.own ? 'thread-message--own' : null]"
+    >
+        <div class="avatar" v-html="message.iconHtml"></div>
+        <div class="thread-message--body">
+            <div class="thread-message--meta">
+                <span class="thread-message--author">[[ message.author ]]</span>
+                <date-display
+                        v-if="message.date"
+                        class="thread-message--date"
+                        :value="message.date"
+                ></date-display>
+            </div>
+            <div v-if="message.html" class="thread-message--content content" v-html="message.html"></div>
+            <div v-else class="thread-message--content">[[ message.content ]]</div>
+        </div>
+    </div>
+{%- endblock -%}

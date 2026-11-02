@@ -1,0 +1,120 @@
+// What writes a message: a field growing with its lines, what sends it beside
+// its last line, the files going with it above, and under it what can be done
+// besides writing. It insets nothing: it is the field, border included, and
+// the room around it is for whoever holds it to give.
+@use '../mixins/field' as field;
+@use './form/base';
+// The files going with a message are chips, their cross a button.
+@use './file-chip';
+@use '../../components/button/button';
+
+.composer {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+// Files dragged over it: it says it takes them.
+.composer.is-dragging {
+  outline: 2px dashed var(--accent-9);
+  outline-offset: calc(var(--space-1) * -1);
+}
+
+// The files going with the next message, above the field.
+.composer--attachments {
+  padding-block-end: var(--space-2);
+}
+
+// The field and what stands beside it, in one frame: the frame is the
+// textarea's, the focus ring given to it while the focus is taken inside.
+.composer--field {
+  @extend .form--textarea;
+  padding: 0;
+  display: flex;
+  // The field grows downwards, so what stands beside it follows the last line.
+  align-items: flex-end;
+  gap: var(--space-1);
+
+  textarea {
+    width: 100%;
+    flex: 1 1 auto;
+    resize: none;
+    border: 0;
+    background: transparent;
+    padding: var(--space-3);
+    color: var(--text-color-default);
+    outline: none;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    // One line until a second one is typed, then as tall as what it holds.
+    field-sizing: content;
+    // Twenty lines at most, and never more than a slice of the window: what
+    // stands above has to stay in sight on a short screen.
+    max-height: min(20lh, 40dvh);
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  // What stands beside the field — sends, attaches —: a glyph on the field's
+  // ground, sitting on its last line, off its edge as the text is.
+  button {
+    background: transparent;
+    border: 0;
+    color: var(--text-color-default);
+    cursor: pointer;
+    opacity: var(--opacity-7);
+    font-size: 1.2rem;
+    display: flex;
+    padding-bottom: var(--space-3);
+  }
+
+  button:hover {
+    opacity: var(--opacity-8);
+  }
+
+  button:disabled {
+    cursor: default;
+    opacity: var(--opacity-5);
+  }
+}
+
+.composer--field:focus-within {
+  @include field.field-focus;
+}
+
+// Tools before the field — what a page offers to put in a message —, on the
+// field's ground as what stands after it.
+.composer--tools {
+  display: inline-flex;
+  align-items: center;
+  padding-inline-start: var(--space-1);
+}
+
+// What can be done besides writing, under the field: flat and small, the
+// field staying what the eye meets first.
+.composer--actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  padding-block-start: var(--space-2);
+}
+
+// The actions said to stand at the end of the row: the first of them takes
+// the room left, the others follow it.
+.composer--action--end {
+  margin-inline-start: auto;
+}
+
+.composer--action--end ~ .composer--action--end {
+  margin-inline-start: 0;
+}
+
+// Under the actions, what the reader may set; gone when empty.
+.composer--panel {
+  padding-block-start: var(--space-2);
+}
+
+.composer--panel:empty {
+  display: none;
+}
