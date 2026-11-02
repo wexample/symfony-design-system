@@ -71,7 +71,8 @@
   justify-content: safe center;
   gap: var(--space-3);
   padding: var(--space-4);
-  overflow: auto;
+  // Its actions wrap in a narrow zone; only a short one scrolls, down.
+  overflow: hidden auto;
 }
 
 .zone-tiling--edit-label {
@@ -80,6 +81,7 @@
 }
 
 .zone-tiling--edit-actions {
+  max-width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
