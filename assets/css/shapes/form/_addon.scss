@@ -23,7 +23,9 @@
     height: 100%;
     border: 0;
     border-radius: inherit;
-    background: transparent;
+    // The colour alone: a select's caret is its background image, and goes
+    // with a shorthand.
+    background-color: transparent;
   }
 
   // The ring is the group's, drawn round the word and the value together.
