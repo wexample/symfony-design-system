@@ -1,0 +1,56 @@
+{#- One choice among options laid out whole, each a line one presses: its
+    icon, its name, a line saying more of it. What a zone shows, a model a
+    task runs with, a template a page starts from — the options read before
+    one is taken, where a select would hide them. An item is { value, label,
+    icon, description, disabled }; `value` the one chosen, ticked at the end
+    of its line. Past `filter_from` options (none by default), a field
+    narrows them. `label` names the list for whoever reads the page aloud.
+    Chosen, the list says so: `choice-list:change`, { value }, bubbling from
+    it (choice-list.ts). -#}
+{%- set items = items|default([]) -%}
+{%- set value = value ?? null -%}
+{%- set filter_from = filter_from|default(0) -%}
+{%- set filterable = filter_from > 0 and items|length >= filter_from -%}
+<div class="choice-list{{ class|default(null) ? ' ' ~ class }}">
+    {%- if filterable -%}
+        <div class="form--input-group form--filter form--filter--compact choice-list--filter">
+            <span class="form--input-addon" aria-hidden="true">{{ icon('ph:bold/magnifying-glass') }}</span>
+            <input
+                class="form--input choice-list--filter-input"
+                type="search"
+                autocomplete="off"
+                placeholder="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.choice_list.filter'|trans }}"
+                aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.choice_list.filter'|trans }}"
+            >
+        </div>
+    {%- endif -%}
+    <ul class="choice-list--items" role="radiogroup"{% if label|default(null) %} aria-label="{{ label }}"{% endif %}>
+        {%- for item in items -%}
+            {%- set chosen = value is not null and item.value == value -%}
+            <li class="choice-list--item">
+                <button
+                    type="button"
+                    class="choice-list--choice"
+                    role="radio"
+                    aria-checked="{{ chosen ? 'true' : 'false' }}"
+                    data-value="{{ item.value }}"
+                    {%- if item.disabled|default(false) %} disabled{% endif %}
+                >
+                    {%- if item.icon|default(null) -%}
+                        <span class="choice-list--icon" aria-hidden="true">{{ icon(item.icon) }}</span>
+                    {%- endif -%}
+                    <span class="choice-list--text">
+                        <span class="choice-list--label">{{ item.label }}</span>
+                        {%- if item.description|default(null) -%}
+                            <span class="choice-list--description">{{ item.description }}</span>
+                        {%- endif -%}
+                    </span>
+                    <span class="choice-list--check" aria-hidden="true">{{ icon('ph:bold/check') }}</span>
+                </button>
+            </li>
+        {%- endfor -%}
+    </ul>
+    {%- if filterable -%}
+        <p class="choice-list--empty" hidden>{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.choice_list.filter_empty'|trans }}</p>
+    {%- endif -%}
+</div>

@@ -1,0 +1,19 @@
+# What an agent is told about a list of choices — a widget for a zone, a
+# model, a template —; choice-list.ts and the vue run the actions. In
+# english, never translated: see AgentContractService.
+type: choice-list
+description: "One choice among options shown whole, each with its name and often a line describing it; the one chosen is ticked."
+actions:
+  items:
+    description: "The options: each with its value, its name (`item`), whether it is the one chosen, whether it can be chosen."
+    annotations:
+      readOnlyHint: true
+  select:
+    description: "Chooses an option, by its value or its name, as a press on it does."
+    input_schema:
+      properties:
+        item:
+          type: string
+      required: [item]
+    annotations:
+      idempotentHint: true

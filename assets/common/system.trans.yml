@@ -63,6 +63,9 @@ en:
       next: Next
       page: Page
       ellipsis: "…"
+    choice_list:
+      filter: "Filter…"
+      filter_empty: "Nothing matches."
     stepper:
       label: Steps
     table:
@@ -221,6 +224,9 @@ ar:
       next: التالي
       page: الصفحة
       ellipsis: …
+    choice_list:
+      filter: "تصفية…"
+      filter_empty: "لا شيء يطابق."
     stepper:
       label: الخطوات
     table:
@@ -379,6 +385,9 @@ bn:
       next: পরবর্তী
       page: পৃষ্ঠা
       ellipsis: …
+    choice_list:
+      filter: "ফিল্টার…"
+      filter_empty: "কিছুই মেলে না।"
     stepper:
       label: ধাপ
     table:
@@ -537,6 +546,9 @@ de:
       next: Nächste
       page: Seite
       ellipsis: …
+    choice_list:
+      filter: "Filtern…"
+      filter_empty: "Nichts passt."
     stepper:
       label: Schritte
     table:
@@ -695,6 +707,9 @@ es:
       next: Siguiente
       page: Página
       ellipsis: …
+    choice_list:
+      filter: "Filtrar…"
+      filter_empty: "Nada coincide."
     stepper:
       label: Pasos
     table:
@@ -853,6 +868,9 @@ fa:
       next: بعدی
       page: صفحه
       ellipsis: …
+    choice_list:
+      filter: "فیلتر…"
+      filter_empty: "چیزی مطابقت ندارد."
     stepper:
       label: مراحل
     table:
@@ -1011,6 +1029,9 @@ fi:
       next: Seuraava
       page: Sivu
       ellipsis: …
+    choice_list:
+      filter: "Suodata…"
+      filter_empty: "Mikään ei vastaa."
     stepper:
       label: Vaiheet
     table:
@@ -1169,6 +1190,9 @@ fr:
       next: Suivant
       page: Page
       ellipsis: …
+    choice_list:
+      filter: "Filtrer…"
+      filter_empty: "Rien ne correspond."
     stepper:
       label: Étapes
     grid:
@@ -1327,6 +1351,9 @@ he:
       next: אחרון
       page: עמוד
       ellipsis: …
+    choice_list:
+      filter: "סינון…"
+      filter_empty: "אין התאמה."
     stepper:
       label: שלבים
     table:
@@ -1485,6 +1512,9 @@ hi:
       next: अगला
       page: पृष्ठ
       ellipsis: …
+    choice_list:
+      filter: "फ़िल्टर करें…"
+      filter_empty: "कुछ भी मेल नहीं खाता।"
     stepper:
       label: चरण
     table:
@@ -1643,6 +1673,9 @@ id:
       next: Berikutnya
       page: Halaman
       ellipsis: …
+    choice_list:
+      filter: "Saring…"
+      filter_empty: "Tidak ada yang cocok."
     stepper:
       label: Langkah
     table:
@@ -1801,6 +1834,9 @@ it:
       next: Successivo
       page: Pagina
       ellipsis: …
+    choice_list:
+      filter: "Filtra…"
+      filter_empty: "Nessuna corrispondenza."
     stepper:
       label: Passi
     table:
@@ -1959,6 +1995,9 @@ ja:
       next: 次へ
       page: ページ
       ellipsis: …
+    choice_list:
+      filter: "絞り込み…"
+      filter_empty: "一致するものはありません。"
     stepper:
       label: ステップ
     table:
@@ -2117,6 +2156,9 @@ ko:
       next: 다음
       page: 페이지
       ellipsis: …
+    choice_list:
+      filter: "필터…"
+      filter_empty: "일치하는 항목이 없습니다."
     stepper:
       label: 단계
     table:
@@ -2275,6 +2317,9 @@ nl:
       next: Volgende
       page: Pagina
       ellipsis: …
+    choice_list:
+      filter: "Filteren…"
+      filter_empty: "Niets komt overeen."
     stepper:
       label: Stappen
     table:
@@ -2433,6 +2478,9 @@ pl:
       next: Następna
       page: Strona
       ellipsis: …
+    choice_list:
+      filter: "Filtruj…"
+      filter_empty: "Brak dopasowań."
     stepper:
       label: Kroki
     table:
@@ -2749,6 +2797,9 @@ ru:
       next: Следующая
       page: Страница
       ellipsis: …
+    choice_list:
+      filter: "Фильтр…"
+      filter_empty: "Ничего не найдено."
     stepper:
       label: Этапы
     table:
@@ -2907,6 +2958,9 @@ th:
       next: ถัดไป
       page: หน้า
       ellipsis: …
+    choice_list:
+      filter: "กรอง…"
+      filter_empty: "ไม่มีรายการที่ตรงกัน"
     stepper:
       label: ขั้นตอน
     table:
@@ -3065,6 +3119,9 @@ tr:
       next: Sonraki
       page: Sayfa
       ellipsis: …
+    choice_list:
+      filter: "Filtrele…"
+      filter_empty: "Eşleşen bir şey yok."
     stepper:
       label: Adımlar
     table:
@@ -3223,6 +3280,9 @@ ur:
       next: اگلا
       page: صفحہ
       ellipsis: …
+    choice_list:
+      filter: "فلٹر کریں…"
+      filter_empty: "کچھ بھی مماثل نہیں۔"
     stepper:
       label: اقدامات
     table:
@@ -3381,6 +3441,9 @@ vi:
       next: 'Tiếp theo'
       page: Trang
       ellipsis: …
+    choice_list:
+      filter: "Lọc…"
+      filter_empty: "Không có kết quả phù hợp."
     stepper:
       label: 'Các bước'
     table:
@@ -3539,6 +3602,9 @@ zh:
       next: 下一个
       page: 页面
       ellipsis: …
+    choice_list:
+      filter: "筛选…"
+      filter_empty: "没有匹配项。"
     stepper:
       label: 步骤
     table:
