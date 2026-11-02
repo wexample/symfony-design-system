@@ -4,6 +4,10 @@
     {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.*') }}
 {%- endblock -%}
 
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/button-menu') -}}
+{%- endblock -%}
+
 {%- block vue_body -%}
     <div class="zone zone-tiling--node">
         {#- A bar over the node — a section, or a zone —, what it holds the
@@ -27,6 +31,7 @@
                 <zone-tiling-node :node="child">
                     <template #zone="scope"><slot name="zone" v-bind="scope"></slot></template>
                 <template #toolbar="scope"><slot name="toolbar" v-bind="scope"></slot></template>
+                <template #edit="scope"><slot name="edit" v-bind="scope"></slot></template>
                 </zone-tiling-node>
                 <div
                         v-if="index < node.children.length - 1"
@@ -51,22 +56,25 @@
                     <div class="empty zone-tiling--empty">[[ trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.empty') ]]</div>
                 </slot>
             </div>
-            {#- The screen being arranged: what the zone is, and what can be done
-                to it, in its middle. -#}
+            {#- The screen being arranged: a bar over the zone, what it is at its
+                start and what can be done to it under the pencil at its end;
+                under it, what the page offers to put in it (`edit` slot). -#}
             <div v-if="zoneTiling.editing" class="zone-tiling--edit">
-                <p v-if="label" class="zone-tiling--edit-label">[[ label ]]</p>
-                <div class="zone-tiling--edit-actions">
-                    <template v-for="(item, index) in menuItems" :key="item.value || index">
-                        <button
-                                v-if="!item.separator"
-                                type="button"
-                                class="button button--compact"
-                                @click="zoneTiling.onMenuSelect(node, item)"
-                        >
-                            <span v-if="item.icon" class="button--icon" v-html="renderIcon(item.icon)"></span>
-                            <span>[[ item.label ]]</span>
-                        </button>
-                    </template>
+                <div class="toolbar toolbar--compact zone-tiling--edit-bar">
+                    <span v-if="label" class="toolbar--title zone-tiling--edit-label">[[ label ]]</span>
+                    <div class="toolbar--group zone-tiling--edit-tools">
+                        <button-menu
+                                icon="ph:bold/pencil-simple"
+                                :items="menuItems"
+                                menu-align="end"
+                                button-class="action-icon"
+                                :caret="false"
+                                @select="zoneTiling.onMenuSelect(node, $event)"
+                        ></button-menu>
+                    </div>
+                </div>
+                <div class="zone-tiling--edit-body">
+                    <slot name="edit" :zone="node" :tiling="zoneTiling"></slot>
                 </div>
             </div>
         </div>

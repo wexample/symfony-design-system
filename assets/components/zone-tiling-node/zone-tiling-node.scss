@@ -2,6 +2,7 @@
 @use '../../css/shapes/zone';
 @use '../../css/shapes/toolbar';
 @use '../../css/shapes/empty';
+@use '../../css/shapes/action-icon';
 @use '../zone-resizer/zone-resizer';
 // The menu's button and panel are drawn by the button shape.
 @use '../button/button';
@@ -68,23 +69,23 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: safe center;
-  gap: var(--space-3);
-  padding: var(--space-4);
-  // Its actions wrap in a narrow zone; only a short one scrolls, down.
-  overflow: hidden auto;
+  min-height: 0;
 }
 
-.zone-tiling--edit-label {
-  margin: 0;
-  font-weight: var(--font-weight-strong);
+// Over the zone and on its ground: what it is, the pencil at its end.
+.zone-tiling--edit-bar {
+  flex: none;
+  background: transparent;
 }
 
-.zone-tiling--edit-actions {
-  max-width: 100%;
+.zone-tiling--edit-tools {
+  margin-inline-start: auto;
+}
+
+.zone-tiling--edit-body {
+  flex: 1;
+  min-height: 0;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--space-2);
+  flex-direction: column;
+  overflow: hidden auto;
 }

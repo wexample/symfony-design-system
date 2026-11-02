@@ -1,4 +1,5 @@
 <script>
+import ButtonMenu from '../button-menu/button-menu.vue';
 // What a zone may not be dragged below: a zone dragged to nothing leaves a
 // seam nobody can find again.
 const SIZE_MIN = 80;
@@ -15,6 +16,10 @@ export default {
   name: 'ZoneTilingNode',
 
   template: '#vue-template-wexample-symfony-design-system-bundle-components-zone-tiling-node-zone-tiling-node',
+
+  components: {
+    ButtonMenu
+  },
 
   inject: ['zoneTiling'],
 
@@ -49,10 +54,6 @@ export default {
   },
 
   methods: {
-    renderIcon(name) {
-      return this.app.getServiceOrFail('icon').icon(name);
-    },
-
     cellStyle(child) {
       return { flex: `${child.size ?? 1} 1 0` };
     },
