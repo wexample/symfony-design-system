@@ -77,10 +77,38 @@
   border-inline-start: 1px solid var(--border-color-default);
   background: transparent;
   color: var(--text-color-muted);
+  // The glyph — an icon of the font — on the middle of the frame: the
+  // browser's own font and line height for a button would set each icon at
+  // its own height, as a button's icon is not (`button--icon`).
+  font: inherit;
+  line-height: 1;
   cursor: pointer;
+
+  > .icon {
+    display: block;
+  }
 
   &:hover,
   &:focus-visible {
     color: var(--text-color-default);
+    background: var(--state-hover);
+  }
+
+  // The ring is the frame's (`:focus-within`), round the field and its
+  // actions together.
+  &:focus-visible {
+    outline: none;
+  }
+
+  // The last one closes the frame: its ground follows the frame's corners.
+  &:last-child {
+    border-start-end-radius: inherit;
+    border-end-end-radius: inherit;
+  }
+
+  // As a button of the design system is when it cannot be pressed.
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 }
