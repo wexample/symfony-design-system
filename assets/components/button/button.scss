@@ -110,8 +110,9 @@
 }
 
 // Switched on — a mode in force, a toggle held down (`aria-pressed`): in the
-// application's own colour, as a switched-on action icon is.
-.button[aria-pressed='true'] {
+// application's own colour, as a switched-on action icon is. Not a flat one,
+// which says it is on by its glyph — the chat's sound.
+.button:not(.button--flat)[aria-pressed='true'] {
   background: var(--color-selected);
   color: var(--color-selected-contrast);
   box-shadow: none;
