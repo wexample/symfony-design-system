@@ -1,6 +1,4 @@
 <script>
-import ButtonMenu from '../button-menu/button-menu.vue';
-
 // What a zone may not be dragged below: a zone dragged to nothing leaves a
 // seam nobody can find again.
 const SIZE_MIN = 80;
@@ -10,16 +8,13 @@ const KEYBOARD_STEP = 16;
 
 // One node of a zone-tiling: a split, drawing its children side by side or
 // one above the other with a seam between each two, or a zone, drawing what
-// the page puts in it under its menu. Drawn by itself, as deep as the tree
+// the page puts in it — or, while the screen is arranged, what can be done
+// to it. Drawn by itself, as deep as the tree
 // goes; what it changes is the tiling's (`zoneTiling`), which holds the tree.
 export default {
   name: 'ZoneTilingNode',
 
   template: '#vue-template-wexample-symfony-design-system-bundle-components-zone-tiling-node-zone-tiling-node',
-
-  components: {
-    ButtonMenu
-  },
 
   inject: ['zoneTiling'],
 
@@ -45,10 +40,19 @@ export default {
 
     menuItems() {
       return this.zoneTiling.menuItems(this.node);
+    },
+
+    // What the zone is, said while the screen is arranged: the page's words.
+    label() {
+      return this.zoneTiling.zoneLabel ? this.zoneTiling.zoneLabel(this.node) : null;
     }
   },
 
   methods: {
+    renderIcon(name) {
+      return this.app.getServiceOrFail('icon').icon(name);
+    },
+
     cellStyle(child) {
       return { flex: `${child.size ?? 1} 1 0` };
     },

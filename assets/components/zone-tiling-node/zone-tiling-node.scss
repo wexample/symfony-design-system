@@ -2,7 +2,6 @@
 @use '../../css/shapes/zone';
 @use '../../css/shapes/toolbar';
 @use '../../css/shapes/empty';
-@use '../../css/shapes/action-icon';
 @use '../zone-resizer/zone-resizer';
 // The menu's button and panel are drawn by the button shape.
 @use '../button/button';
@@ -49,26 +48,40 @@
   flex: 1;
 }
 
-// The menu stands in the corner while the pointer is over the zone, or the
-// keyboard inside it — and while it is open, its button keeping the focus.
-.zone-tiling--tools {
-  position: absolute;
-  inset-block-start: var(--space-1);
-  inset-inline-end: var(--space-1);
-  z-index: 2;
-  opacity: 0;
-  transition: opacity 120ms ease;
+// What the zone shows fills it, hidden while the screen is arranged.
+.zone-tiling--content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.zone-tiling--zone:hover > .zone-tiling--tools,
-.zone-tiling--zone:focus-within > .zone-tiling--tools,
-.zone-tiling--tools:has([aria-expanded='true']) {
-  opacity: 1;
+// The zone being arranged: what it is and what can be done to it, in its
+// middle, its ground marked as a place to work on.
+.zone-tiling--zone.is-editing {
+  outline: 1px dashed var(--border-color-strong);
+  outline-offset: -1px;
 }
 
-// On a screen without a pointer, always there.
-@media (hover: none) {
-  .zone-tiling--tools {
-    opacity: 1;
-  }
+.zone-tiling--edit {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: safe center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  overflow: auto;
+}
+
+.zone-tiling--edit-label {
+  margin: 0;
+  font-weight: var(--font-weight-strong);
+}
+
+.zone-tiling--edit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
 }

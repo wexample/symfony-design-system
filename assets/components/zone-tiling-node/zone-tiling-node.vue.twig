@@ -4,10 +4,6 @@
     {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.*') }}
 {%- endblock -%}
 
-{%- block vue_require -%}
-    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/button-menu') -}}
-{%- endblock -%}
-
 {%- block vue_body -%}
     <div class="zone zone-tiling--node">
         {#- A bar over the node — a section, or a zone —, what it holds the
@@ -46,22 +42,32 @@
                 ></div>
             </div>
         </div>
-        <div v-else class="zone zone--panel zone-tiling--zone" :data-zone-id="node.id">
+        <div v-else class="zone zone--panel zone-tiling--zone" :class="{ 'is-editing': zoneTiling.editing }" :data-zone-id="node.id">
             {#- What the zone shows: the page's. Nothing given, the zone says it is
-                empty. -#}
-            <slot name="zone" :zone="node" :tiling="zoneTiling">
-                <div class="empty zone-tiling--empty">[[ trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.empty') ]]</div>
-            </slot>
-            {#- Its menu, in its corner while the pointer is over it. -#}
-            <div class="zone-tiling--tools">
-                <button-menu
-                        icon="ph:bold/gear-six"
-                        :items="menuItems"
-                        menu-align="end"
-                        button-class="action-icon"
-                        :caret="false"
-                        @select="zoneTiling.onMenuSelect(node, $event)"
-                ></button-menu>
+                empty. Hidden while the screen is being arranged, not unmounted:
+                what it shows keeps its state. -#}
+            <div v-show="!zoneTiling.editing" class="zone-tiling--content">
+                <slot name="zone" :zone="node" :tiling="zoneTiling">
+                    <div class="empty zone-tiling--empty">[[ trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.empty') ]]</div>
+                </slot>
+            </div>
+            {#- The screen being arranged: what the zone is, and what can be done
+                to it, in its middle. -#}
+            <div v-if="zoneTiling.editing" class="zone-tiling--edit">
+                <p v-if="label" class="zone-tiling--edit-label">[[ label ]]</p>
+                <div class="zone-tiling--edit-actions">
+                    <template v-for="(item, index) in menuItems" :key="item.value || index">
+                        <button
+                                v-if="!item.separator"
+                                type="button"
+                                class="button button--compact"
+                                @click="zoneTiling.onMenuSelect(node, item)"
+                        >
+                            <span v-if="item.icon" class="button--icon" v-html="renderIcon(item.icon)"></span>
+                            <span>[[ item.label ]]</span>
+                        </button>
+                    </template>
+                </div>
             </div>
         </div>
     </div>

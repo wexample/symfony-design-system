@@ -18,15 +18,16 @@ const newId = () => crypto.randomUUID?.() ?? `${Math.random().toString(36).slice
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
 // A screen made of zones the reader cuts and sizes: one zone at first, a
-// split side by side or one above the other from the menu each zone shows
-// under the pointer, every zone cut again as it likes, every seam dragged.
+// split side by side or one above the other from what each zone offers while
+// the screen is arranged (`editing`), every zone cut again as it likes, every
+// seam dragged.
 //
 // The arrangement is a tree, handed in and out with `v-model`: a split is
 // `{ id, split: 'h' | 'v', size, children }`, a zone `{ id, size, ... }` —
 // whatever else a zone carries is the page's (what it shows, a subject), kept
 // as it is. `size` is a weight among siblings, not pixels: the arrangement
 // holds on any screen. What a zone shows is the `zone` slot's; the design
-// system knows nothing of it. A node — a zone, or a split, a section of the
+// system knows nothing of it. The zones are cut and closed while `editing`. A node — a zone, or a split, a section of the
 // screen — naming a `toolbar` gets a bar over it, drawn by the `toolbar` slot.
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-zone-tiling-zone-tiling',
@@ -58,6 +59,18 @@ export default {
     // and close actions given, with the page's own. An item the page adds
     // runs its `run(zone, tiling)`, and is told (`action`) either way.
     zoneMenu: {
+      type: Function,
+      default: null
+    },
+    // The screen being arranged: every zone hides what it shows and offers
+    // what can be done to it — split, close, the page's own —, in its middle.
+    // Arranged out of this mode only by its seams.
+    editing: {
+      type: Boolean,
+      default: false
+    },
+    // `(zone) => string`: what a zone is called while the screen is arranged.
+    zoneLabel: {
       type: Function,
       default: null
     }
