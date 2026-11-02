@@ -109,6 +109,14 @@
   color: var(--text-color-invert);
 }
 
+// Switched on — a mode in force, a toggle held down (`aria-pressed`): in the
+// application's own colour, as a switched-on action icon is.
+.button[aria-pressed='true'] {
+  background: var(--color-selected);
+  color: var(--color-selected-contrast);
+  box-shadow: none;
+}
+
 .button--success {
   background: var(--success-9);
   color: #fff;
