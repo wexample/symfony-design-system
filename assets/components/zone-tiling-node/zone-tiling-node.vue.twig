@@ -31,7 +31,7 @@
                     role="separator"
                     tabindex="0"
                     :aria-orientation="isVertical ? 'horizontal' : 'vertical'"
-                    :title="trans('@vue::zone.resize')"
+                    :title="trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.resize')"
                     @pointerdown="onSeamDown(index, $event)"
                     @keydown="onSeamKey(index, $event)"
                     @dblclick="onSeamReset(index)"
@@ -42,7 +42,7 @@
         {#- What the zone shows: the page's. Nothing given, the zone says it is
             empty. -#}
         <slot name="zone" :zone="node" :tiling="zoneTiling">
-            <div class="empty zone-tiling--empty">[[ trans('@vue::zone.empty') ]]</div>
+            <div class="empty zone-tiling--empty">[[ trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.empty') ]]</div>
         </slot>
         {#- Its menu, in its corner while the pointer is over it. -#}
         <div class="zone-tiling--tools">

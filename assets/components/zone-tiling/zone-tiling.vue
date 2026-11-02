@@ -178,14 +178,14 @@ export default {
 
     menuItems(zone) {
       const items = [
-        { value: ZONE_TILING_ACTION_SPLIT_H, icon: 'ph:bold/columns', label: this.trans('@vue::zone.split_h') },
-        { value: ZONE_TILING_ACTION_SPLIT_V, icon: 'ph:bold/rows', label: this.trans('@vue::zone.split_v') }
+        { value: ZONE_TILING_ACTION_SPLIT_H, icon: 'ph:bold/columns', label: this.trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.split_h') },
+        { value: ZONE_TILING_ACTION_SPLIT_V, icon: 'ph:bold/rows', label: this.trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.split_v') }
       ];
 
       if (!this.isRoot(zone)) {
         items.push(
           { separator: true },
-          { value: ZONE_TILING_ACTION_CLOSE, icon: 'ph:bold/x', label: this.trans('@vue::zone.close') }
+          { value: ZONE_TILING_ACTION_CLOSE, icon: 'ph:bold/x', label: this.trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.close') }
         );
       }
 
