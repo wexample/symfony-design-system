@@ -87,6 +87,14 @@ export default {
     layout: {
       type: String,
       default: 'flat'
+    },
+
+    // What of the chat is drawn: its thread, its composer, or both. Apart,
+    // each is a piece of a screen composed of others — the thread in one
+    // zone, what sends to it in another —, the conversation the same.
+    parts: {
+      type: Array,
+      default: () => ['thread', 'composer']
     }
   },
 
@@ -219,6 +227,14 @@ export default {
 
     soundLabel() {
       return this.trans(`${DOMAIN}toolbar.${this.soundEnabled ? 'sound_off' : 'sound_on'}`);
+    },
+
+    hasThread() {
+      return this.parts.includes('thread');
+    },
+
+    hasComposer() {
+      return this.parts.includes('composer');
     },
 
     // A text, or files alone.
@@ -605,9 +621,19 @@ export default {
     // Whether this chat is the one of its conversation that listens and is
     // heard: not behind a veil, or the only one; the first opened among
     // equals — the dock's, before the one over the veil while no veil is up.
+    //
+    // Peers are the same conversation drawn the same way: its thread in one
+    // zone and its composer in another are two parts, each listening. A chat
+    // that cannot name its conversation is a peer of none.
     isHeard() {
       const conversation = this.getConversationKey();
-      const peers = [...chatsOpen].filter((chat) => chat.getConversationKey() === conversation);
+
+      if (conversation === null) {
+        return true;
+      }
+
+      const parts = this.parts.join();
+      const peers = [...chatsOpen].filter((chat) => chat.getConversationKey() === conversation && chat.parts.join() === parts);
       const front = peers.filter((chat) => !chat.isCovered());
 
       return (front.length ? front : peers)[0] === this;

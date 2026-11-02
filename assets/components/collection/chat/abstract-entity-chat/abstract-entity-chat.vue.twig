@@ -13,7 +13,7 @@
 
 {%- block vue_body -%}
     <div class="chat" :class="'chat--' + layout">
-        <div v-if="hasToolbar" class="toolbar chat--toolbar">
+        <div v-if="hasThread && hasToolbar" class="toolbar chat--toolbar">
             <button
                     type="button"
                     class="button button--flat"
@@ -23,7 +23,7 @@
                     @click="toggleSound"
             ><span class="button--icon" v-html="soundIconHtml"></span></button>
         </div>
-        <div ref="thread" class="chat-thread">
+        <div v-if="hasThread" ref="thread" class="chat-thread">
             <div v-if="hasOlderEntities" class="chat--thread-head">
                 <load-more
                         :label="resolvedLoadOlderLabel"
@@ -79,6 +79,7 @@
         </div>
 
         <div
+                v-if="hasComposer"
                 class="chat--footer"
                 :class="{ 'is-dragging': attachDragDepth > 0 }"
                 @dragenter="onAttachDragEnter"
