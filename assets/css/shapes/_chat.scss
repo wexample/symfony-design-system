@@ -272,7 +272,8 @@
 // placed, what draws it fills the room or fits its words: a bubble fits.
 .chat--aligned {
   .chat--item {
-    width: 80%;
+    // Four fifths by default; a chat with room to spare widens it.
+    width: var(--chat-aligned-width, 80%);
     align-self: flex-start;
   }
 
