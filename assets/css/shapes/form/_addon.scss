@@ -32,7 +32,9 @@
     box-shadow: none;
   }
 
-  &:focus-within {
+  // While the value is written in, not while an action of the field
+  // (`form--input-action`) has the focus: pressing one is not writing.
+  &:has(> .form--input:focus) {
     @include field.field-focus;
   }
 
@@ -94,8 +96,8 @@
     background: var(--state-hover);
   }
 
-  // The ring is the frame's (`:focus-within`), round the field and its
-  // actions together.
+  // Reached with the keyboard, it says so by its ground, as when pointed at;
+  // the frame's ring is the value's alone.
   &:focus-visible {
     outline: none;
   }
