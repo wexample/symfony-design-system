@@ -77,9 +77,28 @@ export default {
   },
 
   methods: {
-    // A tree handed in as it was saved, or nothing: one zone.
+    // A tree handed in as it was saved, or nothing: one zone. An id met twice
+    // — a tree saved while ids could repeat — is given a new one, so no zone
+    // passes for another.
     normalize(value) {
-      return value ? clone(value) : { id: newId(), size: 1 };
+      if (!value) {
+        return { id: newId(), size: 1 };
+      }
+
+      const tree = clone(value);
+      const seen = new Set();
+      const walk = (node) => {
+        if (!node.id || seen.has(node.id)) {
+          node.id = newId();
+        }
+
+        seen.add(node.id);
+        (node.children ?? []).forEach(walk);
+      };
+
+      walk(tree);
+
+      return tree;
     },
 
     // The tree as it now is, told to whoever holds it.
