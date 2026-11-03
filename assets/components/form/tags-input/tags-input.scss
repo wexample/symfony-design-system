@@ -73,3 +73,29 @@
     outline: none;
   }
 }
+
+// The words offered and not taken yet, one press each, under the field.
+.tags-input--suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
+.tags-input--suggestion {
+  padding: 0 0.6em;
+  border: 1px dashed var(--border-color-strong);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text-color-muted);
+  font: inherit;
+  font-size: var(--font-size-1);
+  line-height: 1.6;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--text-color-muted);
+    color: var(--text-color-default);
+  }
+}

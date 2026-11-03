@@ -1,0 +1,26 @@
+/* Component: form/key-value-input */
+@use '../../../css/shapes/form/base';
+@use '../../../css/shapes/form/addon';
+
+// A key, its value — wider —, the line's ×: the same three columns down the
+// list, the last line holding the key of the next pair alone.
+.key-value-input--pairs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.key-value-input--pair {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) var(--control-size);
+  gap: var(--space-1);
+  align-items: center;
+}
+
+.key-value-input--new {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) var(--control-size);
+}
+
+.key-value-input--remove {
+  justify-content: center;
+}

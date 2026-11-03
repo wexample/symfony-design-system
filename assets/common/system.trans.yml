@@ -71,6 +71,15 @@ en:
     choice_list:
       filter: "Filter…"
       filter_empty: "Nothing matches."
+    tags_input:
+      add: "Add a tag…"
+      remove: "Remove"
+      suggest: "Add %tag%"
+    key_value:
+      key: "Key"
+      value: "Value"
+      add: "New key…"
+      remove: "Remove"
     stepper:
       label: Steps
     table:
@@ -1233,6 +1242,15 @@ fr:
     choice_list:
       filter: "Filtrer…"
       filter_empty: "Rien ne correspond."
+    tags_input:
+      add: "Ajouter un tag…"
+      remove: "Retirer"
+      suggest: "Ajouter %tag%"
+    key_value:
+      key: "Clé"
+      value: "Valeur"
+      add: "Nouvelle clé…"
+      remove: "Retirer"
     stepper:
       label: Étapes
     grid:
