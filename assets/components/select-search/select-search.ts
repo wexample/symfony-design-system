@@ -63,7 +63,7 @@ export default class extends Component {
     this.close();
   }
 
-  // When the dropdown is already open, OverlayService.onDocumentMouseDown fires
+  // When the dropdown is already open, OverlayService.onDocumentPointerDown fires
   // before this click event and calls overlayOnClickOutside → close().
   // So here we only need to handle the "closed → open" case.
   private onTriggerClick = (): void => {

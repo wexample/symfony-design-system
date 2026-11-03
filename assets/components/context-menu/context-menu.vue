@@ -143,7 +143,7 @@ export default {
     },
 
     // A press anywhere but in the panel closes it: what it wraps included.
-    onDocumentMouseDown(event) {
+    onDocumentPointerDown(event) {
       if (!this.$refs.panel?.contains(event.target)) {
         this.close();
       }

@@ -338,7 +338,7 @@ export default {
       // A long menu opens on its field: the visitor types before they scroll.
       this.filterQuery = '';
       this.$nextTick(() => this.$refs.filter?.focus());
-      document.addEventListener('mousedown', this.onDocumentMouseDown);
+      document.addEventListener('pointerdown', this.onDocumentPointerDown);
       document.addEventListener('keydown', this.onDocumentKeyDown);
       // Measured once it is on screen, since a hidden panel has no size.
       this.$nextTick(() => this.updatePlacement());
@@ -359,11 +359,11 @@ export default {
     },
 
     unwatchDocument() {
-      document.removeEventListener('mousedown', this.onDocumentMouseDown);
+      document.removeEventListener('pointerdown', this.onDocumentPointerDown);
       document.removeEventListener('keydown', this.onDocumentKeyDown);
     },
 
-    onDocumentMouseDown(event) {
+    onDocumentPointerDown(event) {
       if (!this.$el?.contains(event.target)) {
         this.close();
       }

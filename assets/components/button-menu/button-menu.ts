@@ -34,7 +34,7 @@ export default class ButtonMenu extends Component {
   };
   private defaultAlign: 'left' | 'right' = 'left';
   private defaultVertical: 'bottom' | 'top' = 'bottom';
-  private onDocumentMouseDown = (event: MouseEvent) => {
+  private onDocumentPointerDown = (event: MouseEvent) => {
     const target = event.target as Node | null;
     if (!target || !this.el) {
       return;
@@ -250,7 +250,7 @@ export default class ButtonMenu extends Component {
       this.panelEl.removeAttribute('hidden');
     }
 
-    document.addEventListener('mousedown', this.onDocumentMouseDown);
+    document.addEventListener('pointerdown', this.onDocumentPointerDown);
     this.updatePlacement();
 
     // A long menu opens on its field: the visitor types before they scroll.
@@ -269,7 +269,7 @@ export default class ButtonMenu extends Component {
       this.panelEl.setAttribute('hidden', 'hidden');
     }
 
-    document.removeEventListener('mousedown', this.onDocumentMouseDown);
+    document.removeEventListener('pointerdown', this.onDocumentPointerDown);
     this.submenuRows.forEach((row) =>
       row.parentElement?.classList.remove('is-open')
     );
