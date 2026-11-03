@@ -5,10 +5,23 @@
 {%- endblock -%}
 
 {%- block vue_body -%}
-    <div class="inline-edit" :class="{ 'is-editing': editing }">
+    <div class="inline-edit" :class="{ 'is-editing': editing, 'inline-edit--bare': bare }">
+        {#- Bare, shown: the text, its pencil after it under the pointer. -#}
+        <span v-if="bare && !editing" class="inline-edit--text">
+            <slot>[[ startValue ]]</slot>
+            <button
+                    v-if="pencil && form"
+                    type="button"
+                    class="action-icon inline-edit--pencil"
+                    :title="editLabel"
+                    :aria-label="editLabel"
+                    @click="edit"
+                    v-html="iconHtml.edit"
+            ></button>
+        </span>
         {#- Shown: what the page puts in the frame — a select, a value —, the
             pencil after it, and the page's own actions last. -#}
-        <div v-if="!editing" class="form--input-group inline-edit--frame">
+        <div v-else-if="!editing" class="form--input-group inline-edit--frame">
             <slot>
                 <span class="form--input inline-edit--value">[[ startValue ]]</span>
             </slot>

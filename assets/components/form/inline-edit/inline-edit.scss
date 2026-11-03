@@ -4,6 +4,7 @@
 @use '../../../css/shapes/form/base';
 @use '../../../css/shapes/form/addon';
 @use '../../../css/shapes/form/messages';
+@use '../../../css/shapes/action-icon';
 
 .inline-edit {
   position: relative;
@@ -59,4 +60,37 @@
   border-radius: var(--radius-control);
   background: var(--surface-3);
   box-shadow: var(--shadow-float);
+}
+
+// Bare: the text as the page sets it, no frame, the width of what it says;
+// its pencil after it, shown under the pointer or reached by the keyboard.
+// Edited, the frame of a field, wide enough to write in.
+.inline-edit--bare {
+  display: inline-flex;
+  width: auto;
+  vertical-align: baseline;
+
+  &.is-editing {
+    width: var(--inline-edit-width, 16rem);
+    font-size: var(--font-size-3);
+    font-weight: normal;
+  }
+}
+
+.inline-edit--text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.inline-edit--pencil {
+  flex: none;
+  opacity: 0;
+  font-size: 0.8em;
+}
+
+.inline-edit--text:hover .inline-edit--pencil,
+.inline-edit--pencil:focus-visible {
+  opacity: 1;
 }

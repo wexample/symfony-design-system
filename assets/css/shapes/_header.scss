@@ -38,6 +38,12 @@
     white-space: nowrap;
   }
 
+  // A title edited in place (form/inline-edit): what its form refuses hangs
+  // under it, past the header, rather than being cut by it.
+  .header--body > .header--title:has(.inline-edit.is-editing) {
+    overflow: visible;
+  }
+
   // Beside the title, level with it: no room of its own before, the title's
   // padding already stands between them.
   .header--title-aside {

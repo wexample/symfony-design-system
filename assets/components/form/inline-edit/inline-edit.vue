@@ -54,6 +54,12 @@ export default {
     pencil: {
       type: Boolean,
       default: true
+    },
+    // Read as the text it is — a title in a header —, no frame round it, the
+    // pencil shown under the pointer; the frame only while it is edited.
+    bare: {
+      type: Boolean,
+      default: false
     }
   },
 
