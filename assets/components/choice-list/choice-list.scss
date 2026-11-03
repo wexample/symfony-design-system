@@ -95,6 +95,20 @@
   color: var(--text-color-muted);
 }
 
+// The name of a group, above its items.
+.choice-list--group {
+  padding: var(--space-2) var(--space-1) 0;
+  color: var(--text-color-muted);
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-strong);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.choice-list--group[hidden] {
+  display: none;
+}
+
 // Always there and hidden until chosen: the slot keeps its width, so a line
 // being chosen never moves its words.
 .choice-list--check {

@@ -13,7 +13,8 @@ export default {
   emits: ['update:modelValue', 'change'],
 
   props: {
-    // [{ value, label, icon, description, disabled }].
+    // [{ value, label, icon, description, disabled, group }]: items of a
+    // `group` follow one another, under its name.
     items: {
       type: Array,
       required: true
@@ -63,6 +64,14 @@ export default {
       }
 
       return this.items.filter((item) => `${item.label ?? ''} ${item.description ?? ''}`.toLowerCase().includes(query));
+    },
+
+    // Each item shown, with the name of its group when it opens one.
+    shownRows() {
+      return this.shownItems.map((item, index) => ({
+        item,
+        heading: item.group && item.group !== this.shownItems[index - 1]?.group ? item.group : null
+      }));
     },
 
     filterLabel() {

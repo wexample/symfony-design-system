@@ -27,6 +27,19 @@ export default class extends Component {
       shown += visible ? 1 : 0;
     });
 
+    // A group's name stays while one of its items does.
+    this.el.querySelectorAll<HTMLElement>('.choice-list--group').forEach((group) => {
+      let next = group.nextElementSibling as HTMLElement | null;
+      let any = false;
+
+      while (next?.classList.contains('choice-list--item')) {
+        any ||= !next.hidden;
+        next = next.nextElementSibling as HTMLElement | null;
+      }
+
+      group.hidden = !any;
+    });
+
     const empty = this.el.querySelector<HTMLElement>('.choice-list--empty');
 
     if (empty) {

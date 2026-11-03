@@ -20,7 +20,10 @@
             >
         </div>
         <ul class="choice-list--items" role="radiogroup" :aria-label="label || null">
-            <li v-for="item in shownItems" :key="item.value" class="choice-list--item">
+            <template v-for="{ item, heading } in shownRows" :key="item.value">
+            {#- A group opened: its name, above its items. -#}
+            <li v-if="heading" class="choice-list--group" role="presentation">[[ heading ]]</li>
+            <li class="choice-list--item">
                 <button
                         type="button"
                         class="choice-list--choice"
@@ -38,6 +41,7 @@
                     <span class="choice-list--check" aria-hidden="true" v-html="checkIconHtml"></span>
                 </button>
             </li>
+            </template>
         </ul>
         <p v-if="filterable && !shownItems.length" class="choice-list--empty">[[ emptyLabel ]]</p>
     </div>

@@ -2,7 +2,8 @@
     icon, its name, a line saying more of it. What a zone shows, a model a
     task runs with, a template a page starts from — the options read before
     one is taken, where a select would hide them. An item is { value, label,
-    icon, description, disabled }; `value` the one chosen, ticked at the end
+    icon, description, disabled, group } — the items of a `group` follow one
+    another, under its name —; `value` the one chosen, ticked at the end
     of its line. Past `filter_from` options (none by default), a field
     narrows them. `label` names the list for whoever reads the page aloud.
     Chosen, the list says so: `choice-list:change`, { value }, bubbling from
@@ -27,6 +28,9 @@
     <ul class="choice-list--items" role="radiogroup"{% if label|default(null) %} aria-label="{{ label }}"{% endif %}>
         {%- for item in items -%}
             {%- set chosen = value is not null and item.value == value -%}
+            {%- if item.group|default(null) and item.group != (loop.first ? null : items[loop.index0 - 1].group|default(null)) -%}
+                <li class="choice-list--group" role="presentation">{{ item.group }}</li>
+            {%- endif -%}
             <li class="choice-list--item">
                 <button
                     type="button"
