@@ -72,6 +72,14 @@
   border-inline-start: var(--border-shell);
 }
 
+// The room before what it opened is the column's own padding and not a gap
+// between two regions: the handle covers that room and the line, reaching a
+// little over the page, rather than standing beside it over the page alone.
+.layout--horizontal > .tool-dock--layout > .zone-resizer {
+  inset-inline-start: calc(-1 * var(--space-1));
+  width: calc(var(--zone-gap, var(--space-2)) + var(--space-1));
+}
+
 // The line between the bar and what stands before it — the page, or what it
 // opened. Added to the bar's width and not taken from it: its tools stay as
 // large as its thickness says (shapes/zone), and what slides over the page on
