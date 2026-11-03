@@ -1,0 +1,52 @@
+// One field edited in place: the frame of a field — what it shows, then its
+// pencil —, holding the field itself while it is edited, its ✓ and ✕ in it as
+// any action of a field is (shapes/form/addon).
+@use '../../../css/shapes/form/base';
+@use '../../../css/shapes/form/addon';
+@use '../../../css/shapes/form/messages';
+
+.inline-edit {
+  position: relative;
+  display: flex;
+  min-width: 0;
+}
+
+.inline-edit--frame {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+// A value shown rather than a field: read in the frame as a field's value is,
+// cut short when the frame is.
+.inline-edit--value {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inline-edit--input {
+  flex: 1 1 auto;
+  min-width: 8ch;
+}
+
+// Refused: the frame says so in the colour of an error.
+.inline-edit--frame.has-error {
+  border-color: var(--error-11);
+}
+
+// Under the frame, over what follows: a bar keeps its height.
+.inline-edit--errors {
+  position: absolute;
+  inset-block-start: calc(100% + var(--space-1));
+  inset-inline-start: 0;
+  z-index: var(--z-dropdown);
+  min-width: 100%;
+  margin: 0;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-control);
+  background: var(--surface-3);
+  box-shadow: var(--shadow-float);
+}

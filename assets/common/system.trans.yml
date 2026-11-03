@@ -63,6 +63,11 @@ en:
       next: Next
       page: Page
       ellipsis: "…"
+    inline_edit:
+      edit: "Edit"
+      save: "Save"
+      cancel: "Cancel"
+      failed: "Not saved. Try again."
     choice_list:
       filter: "Filter…"
       filter_empty: "Nothing matches."
@@ -224,6 +229,11 @@ ar:
       next: التالي
       page: الصفحة
       ellipsis: …
+    inline_edit:
+      edit: "تعديل"
+      save: "حفظ"
+      cancel: "إلغاء"
+      failed: "لم يُحفظ. حاول مجددًا."
     choice_list:
       filter: "تصفية…"
       filter_empty: "لا شيء يطابق."
@@ -385,6 +395,11 @@ bn:
       next: পরবর্তী
       page: পৃষ্ঠা
       ellipsis: …
+    inline_edit:
+      edit: "সম্পাদনা"
+      save: "সংরক্ষণ"
+      cancel: "বাতিল"
+      failed: "সংরক্ষিত হয়নি। আবার চেষ্টা করুন।"
     choice_list:
       filter: "ফিল্টার…"
       filter_empty: "কিছুই মেলে না।"
@@ -546,6 +561,11 @@ de:
       next: Nächste
       page: Seite
       ellipsis: …
+    inline_edit:
+      edit: "Bearbeiten"
+      save: "Speichern"
+      cancel: "Abbrechen"
+      failed: "Nicht gespeichert. Bitte erneut versuchen."
     choice_list:
       filter: "Filtern…"
       filter_empty: "Nichts passt."
@@ -707,6 +727,11 @@ es:
       next: Siguiente
       page: Página
       ellipsis: …
+    inline_edit:
+      edit: "Editar"
+      save: "Guardar"
+      cancel: "Cancelar"
+      failed: "No guardado. Inténtalo de nuevo."
     choice_list:
       filter: "Filtrar…"
       filter_empty: "Nada coincide."
@@ -868,6 +893,11 @@ fa:
       next: بعدی
       page: صفحه
       ellipsis: …
+    inline_edit:
+      edit: "ویرایش"
+      save: "ذخیره"
+      cancel: "لغو"
+      failed: "ذخیره نشد. دوباره تلاش کنید."
     choice_list:
       filter: "فیلتر…"
       filter_empty: "چیزی مطابقت ندارد."
@@ -1029,6 +1059,11 @@ fi:
       next: Seuraava
       page: Sivu
       ellipsis: …
+    inline_edit:
+      edit: "Muokkaa"
+      save: "Tallenna"
+      cancel: "Peruuta"
+      failed: "Ei tallennettu. Yritä uudelleen."
     choice_list:
       filter: "Suodata…"
       filter_empty: "Mikään ei vastaa."
@@ -1190,6 +1225,11 @@ fr:
       next: Suivant
       page: Page
       ellipsis: …
+    inline_edit:
+      edit: "Modifier"
+      save: "Enregistrer"
+      cancel: "Annuler"
+      failed: "Non enregistré. Réessayez."
     choice_list:
       filter: "Filtrer…"
       filter_empty: "Rien ne correspond."
@@ -1351,6 +1391,11 @@ he:
       next: אחרון
       page: עמוד
       ellipsis: …
+    inline_edit:
+      edit: "עריכה"
+      save: "שמירה"
+      cancel: "ביטול"
+      failed: "לא נשמר. נסו שוב."
     choice_list:
       filter: "סינון…"
       filter_empty: "אין התאמה."
@@ -1512,6 +1557,11 @@ hi:
       next: अगला
       page: पृष्ठ
       ellipsis: …
+    inline_edit:
+      edit: "संपादित करें"
+      save: "सहेजें"
+      cancel: "रद्द करें"
+      failed: "सहेजा नहीं गया। फिर से प्रयास करें।"
     choice_list:
       filter: "फ़िल्टर करें…"
       filter_empty: "कुछ भी मेल नहीं खाता।"
@@ -1673,6 +1723,11 @@ id:
       next: Berikutnya
       page: Halaman
       ellipsis: …
+    inline_edit:
+      edit: "Ubah"
+      save: "Simpan"
+      cancel: "Batal"
+      failed: "Tidak tersimpan. Coba lagi."
     choice_list:
       filter: "Saring…"
       filter_empty: "Tidak ada yang cocok."
@@ -1834,6 +1889,11 @@ it:
       next: Successivo
       page: Pagina
       ellipsis: …
+    inline_edit:
+      edit: "Modifica"
+      save: "Salva"
+      cancel: "Annulla"
+      failed: "Non salvato. Riprova."
     choice_list:
       filter: "Filtra…"
       filter_empty: "Nessuna corrispondenza."
@@ -1995,6 +2055,11 @@ ja:
       next: 次へ
       page: ページ
       ellipsis: …
+    inline_edit:
+      edit: "編集"
+      save: "保存"
+      cancel: "キャンセル"
+      failed: "保存されませんでした。もう一度お試しください。"
     choice_list:
       filter: "絞り込み…"
       filter_empty: "一致するものはありません。"
@@ -2156,6 +2221,11 @@ ko:
       next: 다음
       page: 페이지
       ellipsis: …
+    inline_edit:
+      edit: "편집"
+      save: "저장"
+      cancel: "취소"
+      failed: "저장되지 않았습니다. 다시 시도하세요."
     choice_list:
       filter: "필터…"
       filter_empty: "일치하는 항목이 없습니다."
@@ -2317,6 +2387,11 @@ nl:
       next: Volgende
       page: Pagina
       ellipsis: …
+    inline_edit:
+      edit: "Bewerken"
+      save: "Opslaan"
+      cancel: "Annuleren"
+      failed: "Niet opgeslagen. Probeer opnieuw."
     choice_list:
       filter: "Filteren…"
       filter_empty: "Niets komt overeen."
@@ -2478,6 +2553,11 @@ pl:
       next: Następna
       page: Strona
       ellipsis: …
+    inline_edit:
+      edit: "Edytuj"
+      save: "Zapisz"
+      cancel: "Anuluj"
+      failed: "Nie zapisano. Spróbuj ponownie."
     choice_list:
       filter: "Filtruj…"
       filter_empty: "Brak dopasowań."
@@ -2639,6 +2719,14 @@ pt_BR:
       next: Próximo
       page: Página
       ellipsis: …
+    inline_edit:
+      edit: "Editar"
+      save: "Salvar"
+      cancel: "Cancelar"
+      failed: "Não salvo. Tente novamente."
+    choice_list:
+      filter: "Filtrar…"
+      filter_empty: "Nada corresponde."
     stepper:
       label: Passos
     table:
@@ -2797,6 +2885,11 @@ ru:
       next: Следующая
       page: Страница
       ellipsis: …
+    inline_edit:
+      edit: "Изменить"
+      save: "Сохранить"
+      cancel: "Отмена"
+      failed: "Не сохранено. Попробуйте ещё раз."
     choice_list:
       filter: "Фильтр…"
       filter_empty: "Ничего не найдено."
@@ -2958,6 +3051,11 @@ th:
       next: ถัดไป
       page: หน้า
       ellipsis: …
+    inline_edit:
+      edit: "แก้ไข"
+      save: "บันทึก"
+      cancel: "ยกเลิก"
+      failed: "ไม่ได้บันทึก ลองอีกครั้ง"
     choice_list:
       filter: "กรอง…"
       filter_empty: "ไม่มีรายการที่ตรงกัน"
@@ -3119,6 +3217,11 @@ tr:
       next: Sonraki
       page: Sayfa
       ellipsis: …
+    inline_edit:
+      edit: "Düzenle"
+      save: "Kaydet"
+      cancel: "İptal"
+      failed: "Kaydedilmedi. Tekrar deneyin."
     choice_list:
       filter: "Filtrele…"
       filter_empty: "Eşleşen bir şey yok."
@@ -3280,6 +3383,11 @@ ur:
       next: اگلا
       page: صفحہ
       ellipsis: …
+    inline_edit:
+      edit: "ترمیم"
+      save: "محفوظ کریں"
+      cancel: "منسوخ"
+      failed: "محفوظ نہیں ہوا۔ دوبارہ کوشش کریں۔"
     choice_list:
       filter: "فلٹر کریں…"
       filter_empty: "کچھ بھی مماثل نہیں۔"
@@ -3441,6 +3549,11 @@ vi:
       next: 'Tiếp theo'
       page: Trang
       ellipsis: …
+    inline_edit:
+      edit: "Sửa"
+      save: "Lưu"
+      cancel: "Hủy"
+      failed: "Chưa lưu. Hãy thử lại."
     choice_list:
       filter: "Lọc…"
       filter_empty: "Không có kết quả phù hợp."
@@ -3602,6 +3715,11 @@ zh:
       next: 下一个
       page: 页面
       ellipsis: …
+    inline_edit:
+      edit: "编辑"
+      save: "保存"
+      cancel: "取消"
+      failed: "未保存，请重试。"
     choice_list:
       filter: "筛选…"
       filter_empty: "没有匹配项。"

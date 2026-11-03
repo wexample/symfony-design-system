@@ -1,0 +1,68 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.inline_edit.*') }}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <div class="inline-edit" :class="{ 'is-editing': editing }">
+        {#- Shown: what the page puts in the frame — a select, a value —, the
+            pencil after it, and the page's own actions last. -#}
+        <div v-if="!editing" class="form--input-group inline-edit--frame">
+            <slot>
+                <span class="form--input inline-edit--value">[[ startValue ]]</span>
+            </slot>
+            <button
+                    v-if="pencil && form"
+                    type="button"
+                    class="form--input-action"
+                    :title="editLabel"
+                    :aria-label="editLabel"
+                    @click="edit"
+                    v-html="iconHtml.edit"
+            ></button>
+            <slot name="actions"></slot>
+        </div>
+        {#- Edited: the field in the same frame, saved or let go from it. -#}
+        <div v-else class="form--input-group inline-edit--frame" :class="{ 'has-error': errors.length }">
+            <input
+                    ref="input"
+                    v-model="draft"
+                    class="form--input inline-edit--input"
+                    type="text"
+                    :name="fieldProps ? fieldProps.name : null"
+                    :maxlength="fieldProps && fieldProps.maxlength ? fieldProps.maxlength : null"
+                    :required="fieldProps && fieldProps.required ? true : null"
+                    :aria-label="label || null"
+                    :aria-invalid="errors.length ? 'true' : null"
+                    :disabled="isSaving"
+                    @keydown="onKeydown"
+            >
+            <button
+                    type="button"
+                    class="form--input-action"
+                    :title="saveLabel"
+                    :aria-label="saveLabel"
+                    :disabled="!canSave"
+                    @click="save"
+                    v-html="iconHtml.save"
+            ></button>
+            <button
+                    type="button"
+                    class="form--input-action"
+                    :title="cancelLabel"
+                    :aria-label="cancelLabel"
+                    :disabled="isSaving"
+                    @click="cancel"
+                    v-html="iconHtml.cancel"
+            ></button>
+        </div>
+        {#- What the form refused, under the frame, over what follows rather
+            than pushing it: the frame stays the height of its bar. -#}
+        <div v-if="editing && errors.length" class="form--field-errors inline-edit--errors" role="alert">
+            <ul>
+                <li v-for="(error, index) in errors" :key="index">[[ error ]]</li>
+            </ul>
+        </div>
+    </div>
+{%- endblock -%}
