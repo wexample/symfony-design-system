@@ -37,6 +37,12 @@ export default {
       type: String,
       default: 'left'
     },
+    // Attributes of the button opening the menu, as the twig twin's `attr`:
+    // the name of a menu shown as an icon alone, its tooltip.
+    attr: {
+      type: Object,
+      default: () => ({})
+    },
     menuVertical: {
       type: String,
       default: 'bottom'

@@ -37,6 +37,7 @@
                 v-else
                 ref="button"
                 :class="buttonClasses"
+                v-bind="attr"
                 type="button"
                 aria-haspopup="menu"
                 :aria-expanded="isOpen ? 'true' : 'false'"

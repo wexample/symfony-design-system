@@ -116,3 +116,43 @@
     opacity: 0.6;
   }
 }
+
+// What is done to the value when it is more than one thing — a version made
+// next, put away —: a menu in the field's frame, after the value, its trigger
+// drawn as an action of the field is, not as a button standing beside it.
+// The value is a field, what acts on it is in its frame.
+.form--input-group > .button-menu {
+  flex: none;
+  flex-direction: row;
+  align-self: stretch;
+
+  &:last-child {
+    border-start-end-radius: inherit;
+    border-end-end-radius: inherit;
+  }
+
+  > .button--menu {
+    min-height: 0;
+    padding: 0 var(--space-2);
+    gap: var(--space-1);
+    border: 0;
+    border-inline-start: 1px solid var(--border-color-default);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    color: var(--text-color-muted);
+    font: inherit;
+    line-height: 1;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--text-color-default);
+      background: var(--state-hover);
+    }
+  }
+
+  &:last-child > .button--menu {
+    border-start-end-radius: inherit;
+    border-end-end-radius: inherit;
+  }
+}
