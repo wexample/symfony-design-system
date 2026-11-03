@@ -8,11 +8,26 @@
 .inline-edit {
   position: relative;
   display: flex;
+  // A firm width, the same shown and edited: what it holds fills it rather
+  // than sizing it — a bar's field takes the width of its value
+  // (shapes/toolbar), and a value changing, or the field opening, would
+  // move everything after it. A page sets its own (`--inline-edit-width`).
+  width: var(--inline-edit-width, 14rem);
+  max-width: 100%;
   min-width: 0;
 }
 
 .inline-edit--frame {
   flex: 1 1 auto;
+  min-width: 0;
+}
+
+// The control in the frame — the select shown, the field edited — fills it,
+// whatever it holds — over a bar's own rule for its fields.
+.inline-edit .inline-edit--frame > .form--input {
+  field-sizing: fixed;
+  flex: 1 1 auto;
+  width: 0;
   min-width: 0;
 }
 
@@ -25,11 +40,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.inline-edit--input {
-  flex: 1 1 auto;
-  min-width: 8ch;
 }
 
 // Refused: the frame says so in the colour of an error.
