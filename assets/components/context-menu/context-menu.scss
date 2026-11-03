@@ -1,0 +1,18 @@
+// A menu opened where the pointer is: the button-menu's panel and items
+// (components/button), standing at the point rather than under a button.
+@use '../button/button';
+
+// What it wraps keeps its own place: the menu takes none.
+.context-menu {
+  display: contents;
+}
+
+// At the point, over everything, its corners all round: no button above it
+// to be one shape with.
+.button-menu--panel.context-menu--panel {
+  position: fixed;
+  inset-inline-start: auto;
+  min-width: 12rem;
+  border-radius: var(--radius-box);
+  z-index: var(--z-dropdown);
+}

@@ -48,9 +48,13 @@
             <span v-if="label" class="button-menu--label">[[ label ]]</span>
             <span v-if="hasCaret" class="button-menu--caret" aria-hidden="true"></span>
         </button>
+        {#- The panel and its items, shared with what opens the same menu
+            otherwise — a right click (context-menu). -#}
+        {%- block button_menu_panel -%}
         <div
                 ref="panel"
                 :class="panelClasses"
+                :style="panelStyle"
                 role="menu"
                 :hidden="!isOpen"
         >
@@ -181,5 +185,6 @@
             </ul>
             <p v-if="filterable && !anyVisible" class="button-menu--filter-empty">[[ trans('@vue::menu.filter_empty') ]]</p>
         </div>
+        {%- endblock -%}
     </div>
 {%- endblock -%}

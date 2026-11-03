@@ -401,7 +401,9 @@
   background: var(--state-hover);
 }
 
-.button-menu--link:disabled {
+// An item that cannot be chosen, a link as a button: an anchor has no
+// `:disabled`, the attribute alone says it.
+.button-menu--link:is(:disabled, [disabled], [aria-disabled='true']) {
   opacity: var(--opacity-6);
   cursor: not-allowed;
 }

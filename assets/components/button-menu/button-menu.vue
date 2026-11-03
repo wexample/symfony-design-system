@@ -123,6 +123,12 @@ export default {
       ];
     },
 
+    // Where the panel stands, when it is not under its button — a menu opened
+    // where the pointer is (context-menu). Nothing here.
+    panelStyle() {
+      return null;
+    },
+
     filterable() {
       return this.filterFrom > 0
         && this.items.filter((item) => this.itemType(item) !== 'separator').length >= this.filterFrom;

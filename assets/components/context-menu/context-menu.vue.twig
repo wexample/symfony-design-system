@@ -1,0 +1,15 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/button-menu/button-menu.vue.twig' -%}
+
+{%- block vue_body -%}
+    {#- What it wraps, as it is drawn, then the button-menu's own panel, opened
+        where the pointer is. -#}
+    <div
+            class="context-menu"
+            :class="{ 'is-open': isOpen }"
+            @contextmenu="onContextMenu"
+            @keydown="onKeydown"
+    >
+        <slot></slot>
+        {{ block('button_menu_panel') }}
+    </div>
+{%- endblock -%}

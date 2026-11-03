@@ -1,0 +1,21 @@
+## A menu on a right click
+
+`context-menu` opens a menu where the pointer is, on a right click on what it wraps — or the keyboard's menu key, or Shift+F10, under what has the focus. It is a `button-menu` opened otherwise: the same items (`[{ label, icon, href, method, token, confirm, target, checked, items, separator, disabled }]`), the same panel, the same events (`select`, `toggle`), the same agent actions. What it wraps is drawn as it is (default slot); the menu takes no room.
+
+Its items may depend on what was clicked — a row, a node of a stage —: `target`, `{ target, event }`, is said before it opens, and the items the page gives in answer, in the same tick, are the ones shown; none, and nothing opens. A right click with Shift held keeps the browser's own menu.
+
+{% raw %}```twig
+<context-menu :items="items" label="Actions on the file" @target="onTarget" @select="onSelect">
+    <ul class="files">
+        <li v-for="file in files" :data-file="file.id" tabindex="0">[[ file.name ]]</li>
+    </ul>
+</context-menu>
+```{% endraw %}
+
+```js
+onTarget({ target }) {
+  this.current = target?.closest('[data-file]')?.dataset.file ?? null;
+}
+```
+
+Opened with the pointer, the menu leaves the focus where it was; from the keyboard, its first item takes it, and Escape gives it back. Scrolling the page under it, resizing or leaving the window closes it.

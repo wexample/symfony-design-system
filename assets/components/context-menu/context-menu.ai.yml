@@ -1,0 +1,34 @@
+# What an agent is told about a menu opened by a right click on a region —
+# the actions of a row, of a node —; the vue runs the actions, as a
+# button-menu's. In english, never translated: see AgentContractService.
+type: context-menu
+description: "A menu opened by a right click on what it covers: links, choices to tick, actions."
+actions:
+  items:
+    description: "The items of the menu: each named (`item`), ticked or not when it is a choice, with its link when it leads somewhere."
+    annotations:
+      readOnlyHint: true
+  open:
+    description: Opens the menu, as a right click does.
+    annotations:
+      idempotentHint: true
+  close:
+    description: Closes the menu.
+    annotations:
+      idempotentHint: true
+  select:
+    description: "Presses an item, by its name: a choice is ticked or unticked, a link followed, an action run."
+    input_schema:
+      properties:
+        item:
+          type: string
+      required: [item]
+  point:
+    description: Opens the menu and shows the user an item, by its name.
+    input_schema:
+      properties:
+        item:
+          type: string
+      required: [item]
+    annotations:
+      idempotentHint: true

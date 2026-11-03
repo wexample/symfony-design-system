@@ -58,6 +58,17 @@ The dashboard layout holds three things still — the header, the page's own nav
 {%- endblock -%}
 ```{% endraw %}
 
+## Tabs of the header, as the page chooses
+
+`header_tabs` — `[{ label, href, icon, active }]` — draws tabs in the header whatever the navigation: where one is, the context the page stands in — a project, then its scenario —, named for whoever reads them aloud by `header_tabs_label`. With a side menu they take the title's place; on top they replace the sections, which are what top draws unsaid. The page's own views stay under the header (`page_tabs`): the header says where one is, the bar under it what one looks at there. Too narrow, they fold into one button, as the sections do.
+
+{% raw %}```twig
+{%- set header_tabs = [
+    { label: project.title, href: path('project_home_index', { project: project.id }) },
+    { label: scenario.title, icon: 'ph:bold/flow-arrow', href: path('project_scenario_home_index', { project: project.id, scenario: scenario.id }), active: true },
+] -%}
+```{% endraw %}
+
 ## A record's pages
 
 Every page about one record — an account, a model — says the same three things in the same three places, so a reader knows where to look and a page written tomorrow reads like the others:
