@@ -30,6 +30,8 @@
 // textarea's, the focus ring given to it while the focus is taken inside.
 .composer--field {
   @extend .form--textarea;
+  // The height of a line of the field, which what stands beside it reads.
+  --composer-line-height: 1.4;
   padding: 0;
   display: flex;
   // The field grows downwards, so what stands beside it follows the last line.
@@ -45,7 +47,7 @@
     padding: var(--space-3);
     color: var(--text-color-default);
     outline: none;
-    line-height: 1.4;
+    line-height: var(--composer-line-height);
     white-space: pre-wrap;
     // One line until a second one is typed, then as tall as what it holds.
     field-sizing: content;
@@ -57,16 +59,28 @@
   }
 
   // What stands beside the field — sends, attaches —: a glyph on the field's
-  // ground, sitting on its last line, off its edge as the text is.
+  // ground, as tall as one of its lines with the room round it, the glyph in
+  // its middle: level with a single line, then with the last one as the
+  // field grows. Sized in the field's own letters, whatever they are; the
+  // glyph alone is larger.
   button {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(var(--composer-line-height) * 1em + 2 * var(--space-3));
+    padding: 0 var(--space-2);
     background: transparent;
     border: 0;
     color: var(--text-color-default);
+    font-size: inherit;
+    line-height: 1;
     cursor: pointer;
     opacity: var(--opacity-7);
-    font-size: 1.2rem;
-    display: flex;
-    padding-bottom: var(--space-3);
+
+    > * {
+      font-size: 1.2rem;
+    }
   }
 
   button:hover {
