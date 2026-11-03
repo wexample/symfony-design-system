@@ -192,10 +192,13 @@
     padding: var(--space-2);
   }
 
-  // The mark of the application, at an icon's size.
+  // The mark of the application, at an icon's size, in the middle of the
+  // rail: sized by its height (shapes inline-svg), its width the drawing's.
   .menu--header--logo {
+    --inline-svg-height: calc(var(--icon-rail-item-size) * 0.6);
+    justify-content: center;
     margin: 0;
-    width: calc(var(--icon-rail-item-size) * 0.75);
+    max-width: 100%;
   }
 
   .menu--body {
