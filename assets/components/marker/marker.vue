@@ -6,6 +6,10 @@ import { STATUS_ICON_GLYPHS } from '../status-icon/status-icon.vue';
 // same markup. The glyph map is the circle's, so the two forms of a state
 // never drift apart — a running state has none there, and is named here, the
 // capsule having no arc to draw it with.
+//
+// Named in a vue's components otherwise than `Marker` — `DsMarker: Marker`,
+// `<ds-marker>` —: `<marker>` is an element of SVG, which the template
+// compiler keeps as such, the component never drawn.
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-marker-marker',
 
