@@ -4,7 +4,6 @@ import OverlayMixin from '@wexample/symfony-loader/js/Class/Mixins/OverlayMixin'
 import { filterTextMatches } from '../../js/Helper/FilterHelper';
 import { floatingBounds, FloatingBounds } from '../../js/Helper/FloatingHelper';
 import { loadIntoTarget } from '../../js/Helper/TargetHelper';
-import { pageBusyShow } from '../../js/Helper/PageBusyHelper';
 import { rippleAgentPress } from '../../js/Helper/RippleHelper';
 import type { AgentActionsImplementation, AgentNodeProviderInterface } from '@wexample/symfony-loader/js/Interfaces/AgentNodeInterface';
 import type { AgentCallContext } from '@wexample/symfony-loader/js/Interfaces/AgentToolInterface';
@@ -198,14 +197,15 @@ export default class ButtonMenu extends Component {
     this.filterInput?.removeEventListener('keydown', this.onFilterKeyDown);
   }
 
-  // An action whose answer is a whole new page (`busy`): the window is held
-  // under a spinner meanwhile. Only once it really goes — a question asked
-  // first holds the submission, which comes back here once answered.
+  // An action whose answer is a whole new page (`busy`): the page dimmed by
+  // the system's overlay, its spinner in the middle, until the next page
+  // replaces it. Only once it really goes — a question asked first holds the
+  // submission, which comes back here once answered.
   private onActionSubmit = (event: Event): void => {
     const form = event.target;
 
     if (form instanceof HTMLFormElement && form.dataset.busy !== undefined && !event.defaultPrevented) {
-      pageBusyShow(form.dataset.busy);
+      this.app.services.overlay?.waitWhileLoading();
     }
   };
 
