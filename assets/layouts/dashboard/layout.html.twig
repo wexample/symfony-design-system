@@ -117,7 +117,8 @@
         (tool_dock()): the application's, written once by its layout
         (`layout_dock_tools`), and what the page adds to them for itself
         (`page_dock_tools`) — the findings of the file it shows, a preview of
-        it. One list, so a page names its tools and nothing else: where they
+        it; what a tool holds is its `content`, a page loaded (`url`), or a
+        block of the page drawn with the dock (`content_block`). One list, so a page names its tools and nothing else: where they
         stand, what each one opened and the width it was left at are the
         dock's to keep. No tool, no bar. -#}
     {%- set dockTools = (layout_dock_tools|default([]))|merge(page_dock_tools|default([])) -%}
@@ -386,6 +387,14 @@
             </div>
         {% endif %}
         {%- if dockTools is not empty -%}
+            {#- What a tool holds drawn by a block of the page
+                (`content_block`): drawn here, while the page is rendered —
+                a vue, a component —, which a value set before it could not. -#}
+            {%- set dockToolsDrawn = [] -%}
+            {%- for tool in dockTools -%}
+                {%- set dockToolsDrawn = dockToolsDrawn|merge([tool.content_block is defined and tool.content_block ? tool|merge({ content: block(tool.content_block) }) : tool]) -%}
+            {%- endfor -%}
+            {%- set dockTools = dockToolsDrawn -%}
             {{ tool_dock('layout', dockTools, { class: 'tool-dock--layout' }) }}
         {%- endif -%}
     </div>

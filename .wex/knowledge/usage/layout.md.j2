@@ -123,6 +123,18 @@ A panel, a modal and the dock draw no regions: a page meant to be opened in one
 too puts beside it only what it can also stack, and reads
 `render_pass.layoutBase` to tell the two apart.
 
+## Tools beside the page
+
+The bar of icons at the window's end (`tool_dock()`, the dashboard layout) holds the application's tools — `layout_dock_tools`, written once by its layout — and those a page adds for itself — `page_dock_tools`. One list of `{ name, label, icon, … }`: where each stands, whether it is open and the width it was left at are the dock's to keep. A tool opens a zone holding a page loaded the first time it opens (`url`), what the page drew (`content`), or a block of the page drawn with the dock (`content_block`) — the way to put a vue or a component there, which a value set at the top of the template cannot render. An `href` makes it a link of the bar instead.
+
+{% raw %}```twig
+{%- set page_dock_tools = [{ name: 'steps', label: 'Steps', icon: 'ph:bold/list-numbers', content_block: 'dock_steps' }] -%}
+
+{%- block dock_steps -%}
+    {{ vue(render_pass, '@front/vue/step-list', { steps: steps }) }}
+{%- endblock -%}
+```{% endraw %}
+
 ## A side menu widened by its edge
 
 `menu_left_resizable` and `menu_right_resizable`, set by a layout or a page, give the side menu an invisible handle on its edge against the page: the cursor turns to `col-resize` over the seam, the menu follows the pointer — or the arrow keys once the handle has the focus —, and a double click gives it back its own width. The width is kept in the interface's state (`ui.layout.menu.left.size`) as the menu being open is, and comes back with the next page. Folded, the menu has no handle.
