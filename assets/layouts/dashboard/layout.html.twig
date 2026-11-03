@@ -138,24 +138,39 @@
                 {#- `menu_left_agent` shows the menu to an agent reading the page,
                     and every entry in it with it — or holds it back (false).
                     Unsaid, the menu follows the application (`layout_agent`). -#}
-                {%- set menuLeftResizable = menu_left_resizable|default(false) -%}
+                {#- `menu_left_format: 'icons'` draws the menu as its icons
+                    alone, a rail as thick as the bar of tools, on every
+                    window: a page wanting the width whole — an editor — says
+                    so. Neither folded nor unfolded, nor widened: it is the
+                    page's choice, not the reader's. -#}
+                {%- set menuLeftIcons = menu_left_format|default(null) == 'icons' -%}
+                {%- set menuLeftResizable = not menuLeftIcons and menu_left_resizable|default(false) -%}
                 {%- set menuLeftSize = menuLeftResizable ? ui_state_get('ui.layout.menu.left.size') : null -%}
-                <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel', menu_left_agent is defined ? { agent: menu_left_agent } : {}) }} gutters--collapsible{% if not ui_state_get('ui.layout.menu.left', true) %} gutters--collapsible--collapsed{% endif %}" id="layout-menu-left" data-menu-id="left"
+                <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel', menu_left_agent is defined ? { agent: menu_left_agent } : {}) }}{% if menuLeftIcons %} layout--menu-icons{% else %} gutters--collapsible{% if not ui_state_get('ui.layout.menu.left', true) %} gutters--collapsible--collapsed{% endif %}{% endif %}" id="layout-menu-left" data-menu-id="left"{% if menuLeftIcons %} data-menu-format="icons" data-tooltip-placement="right"{% endif %}
                     {%- if menuLeftResizable %} data-resize-state="ui.layout.menu.left.size" data-resize-property="--menu-size"{% if menuLeftSize > 0 %} style="--menu-size: {{ menuLeftSize|round }}px"{% endif %}{% endif %}>
                     {%- if menuLeftResizable -%}
                         {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer', {}, { edge: 'end' }) }}
                     {%- endif -%}
                     {% block page_menu %}
-                        <nav class="menu menu--vertical menu--vertical--left">
+                        <nav class="menu menu--vertical menu--vertical--left{{ menuLeftIcons ? ' menu--icons' }}">
                             {% block page_menu_header %}
                                 <div class="menu--header menu--bar">
                                     <div class="menu--bar--content menu--bar--content--end">
-                                        {% block page_menu_logo %}{% endblock %}
+                                        {#- Its icons alone, the application's mark alone
+                                            (`page_menu_logo_icon`), its whole logo else. -#}
+                                        {%- set menuLogoIcon = menuLeftIcons and block('page_menu_logo_icon') is defined ? block('page_menu_logo_icon')|trim : '' -%}
+                                        {%- if menuLogoIcon is not empty -%}
+                                            {{ menuLogoIcon|raw }}
+                                        {%- else -%}
+                                            {% block page_menu_logo %}{% endblock %}
+                                        {%- endif -%}
+                                        {%- if not menuLeftIcons -%}
                                         {% block page_menu_toggle_close %}
                                             <a class="menu--bar--icon menu--toggle-close" href="#" role="button" aria-controls="layout-menu-left" aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.close_left'|trans }}" title="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.close_left'|trans }}">
                                                 {{ icon('ph:bold/text-outdent') }}
                                             </a>
                                         {% endblock %}
+                                        {%- endif -%}
                                     </div>
                                 </div>
                             {% endblock %}
@@ -193,12 +208,15 @@
                                     {%- endif -%}
                                     <div class="header--body"></div>
                                 {%- else -%}
+                                {#- A menu of icons is always there: nothing to open. -#}
                                 {% block page_header_menu_left %}
+                                    {%- if not (menuLeftIcons ?? false) -%}
                                     <nav class="header--menu">
                                         <a class="header--menu-item header--menu-item--icon" href="#" data-menu-target="left" role="button" aria-controls="layout-menu-left" aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.open_left'|trans }}" title="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.open_left'|trans }}">
                                             {{ icon('ph:bold/list') }}
                                         </a>
                                     </nav>
+                                    {%- endif -%}
                                 {% endblock %}
                                 <div class="header--body">
                                     {% block header_body %}

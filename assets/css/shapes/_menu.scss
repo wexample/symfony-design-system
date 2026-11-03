@@ -1,6 +1,8 @@
 // A menu, as a bar or as a column: its items, their icons, their counts and their submenus.
 @use '../mixins/border' as border;
 @use '../mixins/text' as text;
+@use '../mixins/icon-rail' as icon-rail;
+@use '../mixins/visually-hidden' as visually-hidden;
 @use '../../components/bar/bar';
 @use './count';
 @use './ripple';
@@ -169,3 +171,147 @@
 .menu--sub-items > li > a {
   padding-inline-start: calc(var(--menu-item-padding) * 2 - var(--menu-item-inset, 0px));
 }
+
+// ─── A menu of icons ─────────────────────────────────────────────────────
+//
+// The side menu drawn as its icons alone (`menu_left_format: 'icons'`, the
+// dashboard layout): a rail of icons as the bar of tools is (mixins/icon-rail),
+// as thick, its squares the same, the page being read in the application's
+// own colour as an open tool is. The words stay for whoever reads the page
+// aloud and come as a tooltip under the pointer (menu-collapsible-panel.ts);
+// a count hangs on the icon's corner; a line parting runs of items keeps its
+// rule and drops its title; an item's own items are not drawn — it leads to
+// its page.
+.menu--icons {
+  @include icon-rail.icon-rail;
+  @include icon-rail.icon-rail-width;
+  padding: 0;
+
+  .menu--bar--content {
+    justify-content: center;
+    padding: var(--space-2);
+  }
+
+  // The mark of the application, at an icon's size.
+  .menu--header--logo {
+    margin: 0;
+    width: calc(var(--icon-rail-item-size) * 0.75);
+  }
+
+  .menu--body {
+    width: 100%;
+    padding: var(--tabs-inset, 0px);
+    overflow-x: hidden;
+  }
+
+  .menu--items {
+    align-items: center;
+    gap: var(--tabs-inset, 0px);
+
+    li {
+      padding: 0;
+    }
+
+    li a {
+      @include icon-rail.icon-rail-item;
+      position: relative;
+      justify-content: center;
+      gap: 0;
+      padding: 0;
+      color: var(--text-color-muted);
+
+      &:hover,
+      &:focus-visible {
+        background: none;
+        color: var(--text-color-default);
+      }
+
+      // The page being read, as an open tool is (shapes/action-icon).
+      &.active,
+      &.active:hover,
+      &.active:focus-visible {
+        font-weight: inherit;
+        background: var(--color-selected);
+        color: var(--color-selected-contrast);
+      }
+    }
+
+    .menu--separator {
+      width: 60%;
+      height: 0;
+      margin-block: var(--space-1);
+      padding: 0;
+      border-bottom: 0;
+      font-size: 0;
+    }
+  }
+
+  .menu--item--icon {
+    margin: 0;
+  }
+
+  .menu--item--label {
+    @include visually-hidden.visually-hidden;
+  }
+
+  // On the corner of the square, small, as a count on an icon is
+  // (shapes/count, `count--corner`).
+  .menu--item--count {
+    position: absolute;
+    inset-block-start: 0.1em;
+    inset-inline-end: 0.1em;
+    margin: 0;
+    min-width: 1.6em;
+    padding: 0 0.4em;
+    font-size: 0.6em;
+    line-height: 1.6;
+    text-align: center;
+    box-shadow: 0 0 0 2px var(--surface-shell);
+  }
+
+  // An item holding items of its own: its icon leads to its page, lit as
+  // any entry is; the caret and what it unfolds are not drawn.
+  .menu-item-collapsible--header {
+    justify-content: center;
+
+    &.active > a,
+    &.active > a:hover {
+      background: var(--color-selected);
+      color: var(--color-selected-contrast);
+    }
+
+    &:not(.active):hover {
+      background: none;
+    }
+  }
+
+  .menu-item-collapsible--toggle,
+  .menu-item-collapsible--sub,
+  .menu--sub-items {
+    display: none;
+  }
+
+  // What the menu's foot holds — a link, a button — drawn as an entry: its
+  // icon alone, its words for the tooltip.
+  .menu--footer {
+    min-height: 0;
+
+    .menu--bar--content {
+      flex-direction: column;
+      gap: var(--tabs-inset, 0px);
+      padding: var(--tabs-inset, 0px);
+    }
+
+    .button {
+      @include icon-rail.icon-rail-item;
+      justify-content: center;
+      padding: 0;
+      gap: 0;
+
+      > span:not(.button--icon) {
+        @include visually-hidden.visually-hidden;
+      }
+    }
+  }
+}
+

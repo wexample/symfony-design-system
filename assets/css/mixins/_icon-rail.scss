@@ -1,0 +1,34 @@
+// A column of icons along an edge — the bar of an IDE's tools, a side menu
+// drawn as its icons alone —, on the ground a tab bar has, and drawn as a tab
+// bar is (components/tab): flush and square where the skin keeps no room
+// around a tab (`--tabs-inset`, `--tabs-radius`), floating and rounded where
+// it does. As thick as a toolbar of the same density (shapes/toolbar), so it
+// lines up with one beside it; its icons square, as large as that thickness
+// leaves once the skin's room is kept. The two read the same sizes: a menu of
+// icons beside a bar of tools is one shape twice.
+
+// The column. `$padding` is the room a toolbar of the same density keeps
+// round its controls.
+@mixin icon-rail($padding: var(--space-3)) {
+  --icon-rail-padding: #{$padding};
+  --icon-rail-item-size: calc(2 * var(--icon-rail-padding) + var(--control-size) - 2 * var(--tabs-inset, 0px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--tabs-inset, 0px);
+  padding: var(--tabs-inset, 0px);
+  background: var(--surface-shell);
+}
+
+// The whole thickness of the column, its room included: what stands beside
+// it reads it to line up.
+@mixin icon-rail-width {
+  width: calc(var(--icon-rail-item-size) + 2 * var(--tabs-inset, 0px));
+}
+
+// One of its icons: a square of the rail's size, the skin's corners.
+@mixin icon-rail-item {
+  width: var(--icon-rail-item-size);
+  height: var(--icon-rail-item-size);
+  border-radius: var(--tabs-radius, 0);
+}

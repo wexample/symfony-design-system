@@ -35,6 +35,8 @@ export default class extends Component {
     keyboard.registerKeyDown(this, KeyboardService.KEY_ESCAPE, this.onEscape, whileOpen);
     keyboard.registerKeyDown(this, KeyboardService.KEY_TAB, this.onTab, whileOpen);
 
+    this.nameIcons();
+
     const isCollapsed = this.el.classList.contains('gutters--collapsible--collapsed');
     if (this.openEl) {
       this.openEl.hidden = !isCollapsed;
@@ -48,6 +50,23 @@ export default class extends Component {
     this.el.removeEventListener('click', this.onClickDrawer);
     window.removeEventListener('resize', this.onResize);
     (this.app.getServiceOrFail(KeyboardService) as KeyboardService).unregisterOwner(this);
+  }
+
+  // A menu drawn as its icons (`data-menu-format="icons"`): each entry named
+  // by its words, read aloud and shown under the pointer (components/tooltip),
+  // the words themselves hidden.
+  private nameIcons(): void {
+    if (this.el.dataset.menuFormat !== 'icons') {
+      return;
+    }
+
+    this.el.querySelectorAll<HTMLElement>('.menu--items a, .menu--footer :is(a, button)').forEach((link) => {
+      const label = (link.querySelector('.menu--item--label') ?? link)?.textContent?.trim();
+
+      if (label) {
+        link.dataset.tooltip = label;
+      }
+    });
   }
 
   // What the stylesheet decided for this window: the menu a drawer or not.

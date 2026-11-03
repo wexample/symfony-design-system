@@ -1,6 +1,7 @@
 // A region of a layout given its own size, splittable, scrollable, and never handing that size to its children.
 @use './surface';
 @use '../mixins/density' as density;
+@use '../mixins/icon-rail' as icon-rail;
 @use '../mixins/surface-layer' as surface-layer;
 
 // The size a zone is given is its own and never its children's. Left to inherit,
@@ -92,30 +93,20 @@
 }
 
 // A zone that is a bar of tools standing on its end, as an IDE has one along
-// the window's edge: icons one under the other, on the ground a tab bar has —
-// and drawn as a tab bar is (components/tab): flush and square where the skin
-// keeps no room around a tab (`--tabs-inset`, `--tabs-radius`), floating and
-// rounded where it does. As thick as a toolbar of the same density
-// (shapes/toolbar), standing or lying, so it lines up with one beside it — the
-// bar over a tree beside the bar over a file —; its tools square, as large as
-// that thickness leaves once the skin's room is kept. Given with
-// `zone--narrow`, it never gives way.
+// the window's edge: icons one under the other, as a rail of icons is
+// (mixins/icon-rail) — the side menu drawn as its icons alone is the same
+// rail. As thick as a toolbar of the same density (shapes/toolbar), standing
+// or lying, so it lines up with one beside it — the bar over a tree beside
+// the bar over a file. Given with `zone--narrow`, it never gives way.
 .zone--toolbar {
-  --zone-toolbar-padding: var(--space-3);
-  --zone-toolbar-item-size: calc(2 * var(--zone-toolbar-padding) + var(--control-size) - 2 * var(--tabs-inset, 0px));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--tabs-inset, 0px);
-  padding: var(--tabs-inset, 0px);
-  background: var(--surface-shell);
+  @include icon-rail.icon-rail;
 }
 
 // A bar that is part of a panel rather than of the page — the tools of one
 // file —, a notch thinner, as a compact toolbar is.
 .zone--toolbar--compact {
   @include density.density-compact;
-  --zone-toolbar-padding: var(--space-2);
+  --icon-rail-padding: var(--space-2);
 }
 
 // Its icons in groups: the first along the top, the last pushed to the foot —
@@ -129,9 +120,7 @@
 }
 
 .zone--toolbar-group > .action-icon {
-  width: var(--zone-toolbar-item-size);
-  height: var(--zone-toolbar-item-size);
-  border-radius: var(--tabs-radius, 0);
+  @include icon-rail.icon-rail-item;
 }
 
 .zone--toolbar-group--end {
@@ -158,14 +147,14 @@
 .zone--toolbar-separator {
   flex: none;
   align-self: center;
-  width: calc(var(--zone-toolbar-item-size) * 0.6);
+  width: calc(var(--icon-rail-item-size) * 0.6);
   height: 1px;
   background: var(--border-color-default);
 }
 
 .zone--toolbar--horizontal .zone--toolbar-separator {
   width: 1px;
-  height: calc(var(--zone-toolbar-item-size) * 0.6);
+  height: calc(var(--icon-rail-item-size) * 0.6);
   margin-inline: var(--space-1);
 }
 
@@ -175,7 +164,7 @@
   display: flex;
   align-items: center;
   min-width: 0;
-  height: var(--zone-toolbar-item-size);
+  height: var(--icon-rail-item-size);
   padding-inline: var(--space-1);
 
   &[hidden] {
