@@ -8,8 +8,8 @@ import { floatingBounds } from '../../js/Helper/FloatingHelper';
 
 // The twin of components/button-menu: same classes, same panel, and above all
 // the same item shape — { type, icon, label, trailingIcon, count, href,
-// newWindow, target, method, token, confirm, checked, box, radio, tone, items,
-// class } — so a menu written for one side can be
+// newWindow, target, method, token, confirm, busy, checked, box, radio, tone,
+// items, class } — so a menu written for one side can be
 // handed to the other without being rewritten. What an item is follows from
 // what it carries: a target makes a link, a state makes a toggle, children make
 // a branch. What this adds over the server is the events, because in a vue page
@@ -445,6 +445,17 @@ export default {
         form.dataset.confirmMessage = item.confirm.message;
         if (item.confirm.title) form.dataset.confirmTitle = item.confirm.title;
         if (item.confirm.accept) form.dataset.confirmAccept = item.confirm.accept;
+      }
+
+      // `busy`: the answer is a whole new page, slow to come — the page is held
+      // under the overlay's spinner meanwhile, once the form really goes (a
+      // question asked first holds it back).
+      if (item.busy) {
+        form.addEventListener('submit', (event) => {
+          if (!event.defaultPrevented) {
+            this.app.services.overlay?.waitWhileLoading();
+          }
+        });
       }
 
       document.body.append(form);
