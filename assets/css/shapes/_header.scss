@@ -130,6 +130,12 @@
   min-width: 0;
 }
 
+// In the place of the title (`header_tabs`, a side menu's layout): the bar's
+// whole height, so a tab's mark is the bar's bottom edge as it is on top.
+.header .header--body > .header--tabs {
+  align-self: stretch;
+}
+
 .header--tabs-list {
   display: flex;
   align-items: stretch;

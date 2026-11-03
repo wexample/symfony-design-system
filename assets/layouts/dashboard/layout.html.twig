@@ -194,17 +194,32 @@
                 <div class="layout--vertical" id="main-content" tabindex="-1">
                         {% block page_header %}
                             <header class="header">
+                                {#- Tabs in the header (`header_tabs`: [{ label, href, icon,
+                                    active }]), drawn as the page or its layout chooses — where
+                                    one is, the context the page stands in: a project, then its
+                                    scenario —, named for whoever reads them aloud
+                                    (`header_tabs_label`). The page's own views stay under the
+                                    header (`page_tabs`). On top, unsaid, they are the
+                                    application's sections; on the side, they take the title's
+                                    place. Too narrow for the row, they fold into one button. -#}
+                                {%- set headerTabs -%}
+                                    {%- for tab in header_tabs|default([]) -%}
+                                        <li><a href="{{ tab.href }}"{% if tab.active|default(false) %} class="active" aria-current="page"{% endif %}>
+                                            {%- if tab.icon|default(null) -%}<span class="menu--item--icon">{{ icon(tab.icon) }}</span>{%- endif -%}
+                                            <span class="menu--item--label">{{ tab.label }}</span>
+                                        </a></li>
+                                    {%- endfor -%}
+                                {%- endset -%}
+                                {%- set headerTabsLabel = header_tabs_label|default('WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.navigation'|trans) -%}
                                 {%- if navigationTop -%}
                                     <div class="header--brand">{{- block('page_menu_logo') -}}</div>
                                     {#- One section has no tab: the mark leads home. -#}
-                                    {%- set headerTabs %}{{ sectionNavigationMenu ? menu_navigation(sectionNavigation) : block('page_menu_links') }}{% endset -%}
-                                    {%- if headerTabs|split('<li')|length > 2 -%}
-                                        {%- set tabsLabel = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.navigation'|trans -%}
-                                        <nav class="header--tabs" aria-label="{{ tabsLabel }}">
-                                            <ul class="header--tabs-list">{{ headerTabs }}</ul>
-                                            <button type="button" class="header--tabs-toggle" popovertarget="header-tabs-popover" aria-label="{{ tabsLabel }}" title="{{ tabsLabel }}">{{ icon('ph:bold/list') }}</button>
-                                            <ul class="header--tabs-popover" id="header-tabs-popover" popover>{{ headerTabs }}</ul>
-                                        </nav>
+                                    {%- if headerTabs|trim is empty -%}
+                                        {%- set headerTabs %}{{ sectionNavigationMenu ? menu_navigation(sectionNavigation) : block('page_menu_links') }}{% endset -%}
+                                        {%- set headerTabs = headerTabs|split('<li')|length > 2 ? headerTabs : '' -%}
+                                    {%- endif -%}
+                                    {%- if headerTabs|trim is not empty -%}
+                                        {{- block('header_tabs_nav') -}}
                                     {%- endif -%}
                                     <div class="header--body"></div>
                                 {%- else -%}
@@ -226,9 +241,13 @@
                                         {#- On a record's page, the header says what kind of
                                             thing it is (`header_title`: « Account ») and the
                                             page names the one opened (`page_title`). -#}
+                                        {%- if headerTabs|trim is not empty -%}
+                                            {{- block('header_tabs_nav') -}}
+                                        {%- else -%}
                                         <div class="header--title">
                                             {{ header_title|default(null) ?: page_title|default(null) ?: '@page::page_title'|trans }}
                                         </div>
+                                        {%- endif -%}
                                         {#- What a page says about the thing it is titled
                                             after, beside its name: a state, a version, a
                                             branch — markers, mostly. -#}
@@ -377,4 +396,14 @@
         {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/overlay-tools', {}, { tools: overlayTools }) }}
     {%- endif -%}
     {%- endif -%}
+{%- endblock -%}
+
+{#- The tabs of the header, as `headerTabs` holds them: one row, and the same
+    behind a button when the row is too narrow. -#}
+{%- block header_tabs_nav -%}
+    <nav class="header--tabs" aria-label="{{ headerTabsLabel }}">
+        <ul class="header--tabs-list">{{ headerTabs }}</ul>
+        <button type="button" class="header--tabs-toggle" popovertarget="header-tabs-popover" aria-label="{{ headerTabsLabel }}" title="{{ headerTabsLabel }}">{{ icon('ph:bold/list') }}</button>
+        <ul class="header--tabs-popover" id="header-tabs-popover" popover>{{ headerTabs }}</ul>
+    </nav>
 {%- endblock -%}
