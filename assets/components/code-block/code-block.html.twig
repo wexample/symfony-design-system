@@ -1,12 +1,19 @@
 {#- `copy`: a button copying the code, in the block's corner (corner-actions):
     shown while the pointer is over the block or the keyboard inside it —
-    always, on a screen without a pointer. -#}
+    always, on a screen without a pointer.
+    `max_lines`: only the first lines, an ellipsis under them when there were
+    more. -#}
+{%- set code_lines = code|split("\n") -%}
+{%- if max_lines|default(null) and code_lines|length > max_lines -%}
+    {%- set code = (code_lines|slice(0, max_lines)|merge(['…']))|join("\n") -%}
+{%- endif -%}
+{%- set pre_class = max_lines|default(null) ? ' class="code-block--clamped"' : '' -%}
 {%- if copy|default(false) -%}
     {%- set copy_id = copy_id|default('code-block-' ~ random()) -%}
     <div class="code-block--copyable has-corner-actions">
-        <pre><code id="{{ copy_id }}" class="language-{{ lang | default('text') }}">{{ code|e }}</code></pre>
+        <pre{{ pre_class|raw }}><code id="{{ copy_id }}" class="language-{{ lang | default('text') }}">{{ code|e }}</code></pre>
         <div class="corner-actions">{{ copy_button({ target: copy_id, class: 'code-block--copy' }) }}</div>
     </div>
 {%- else -%}
-    <pre><code class="language-{{ lang | default('text') }}">{{ code|e }}</code></pre>
+    <pre{{ pre_class|raw }}><code class="language-{{ lang | default('text') }}">{{ code|e }}</code></pre>
 {%- endif -%}

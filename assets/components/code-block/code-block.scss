@@ -20,3 +20,10 @@
 .code--punctuation {
   color: var(--code-punctuation);
 }
+
+// A glimpse of the code (`maxLines`): its lines cut at the block's edge
+// rather than scrolled.
+.code-block--clamped {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
