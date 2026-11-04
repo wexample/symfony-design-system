@@ -31,7 +31,8 @@
   flex-direction: column;
   gap: var(--space-4);
   overflow-y: auto;
-  padding: var(--space-4);
+  // The room of the zone it stands in, as a zone's content has it.
+  padding: var(--zone-padding, var(--space-4));
 }
 
 // What sits above the oldest line held: the way back up the thread.
