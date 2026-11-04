@@ -1,5 +1,5 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
 
 {%- block vue_body -%}
-    <pre :class="{ 'code-block--clamped': maxLines }"><code :class="`language-${lang}`" v-html="html"></code></pre>
+    <pre :class="{ 'code-block--clamped': maxLines }" :style="maxLines ? { '--code-block-max-lines': maxLines } : null"><code :class="`language-${lang}`" v-html="html"></code></pre>
 {%- endblock -%}

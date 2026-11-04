@@ -17,7 +17,7 @@ export default {
       type: String,
       default: 'text'
     },
-    // Only the first lines, an ellipsis under them when there were more: a
+    // No more lines than that, the last an ellipsis when there were more: a
     // glimpse of the code rather than the whole of it.
     maxLines: {
       type: Number,
@@ -33,7 +33,7 @@ export default {
         return this.code;
       }
 
-      return [...lines.slice(0, this.maxLines), '…'].join('\n');
+      return [...lines.slice(0, this.maxLines - 1), '…'].join('\n');
     },
 
     html() {

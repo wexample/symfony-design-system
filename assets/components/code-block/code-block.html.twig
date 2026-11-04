@@ -1,13 +1,13 @@
 {#- `copy`: a button copying the code, in the block's corner (corner-actions):
     shown while the pointer is over the block or the keyboard inside it —
     always, on a screen without a pointer.
-    `max_lines`: only the first lines, an ellipsis under them when there were
+    `max_lines`: no more lines than that, the last an ellipsis when there were
     more. -#}
 {%- set code_lines = code|split("\n") -%}
 {%- if max_lines|default(null) and code_lines|length > max_lines -%}
-    {%- set code = (code_lines|slice(0, max_lines)|merge(['…']))|join("\n") -%}
+    {%- set code = (code_lines|slice(0, max_lines - 1)|merge(['…']))|join("\n") -%}
 {%- endif -%}
-{%- set pre_class = max_lines|default(null) ? ' class="code-block--clamped"' : '' -%}
+{%- set pre_class = max_lines|default(null) ? ' class="code-block--clamped" style="--code-block-max-lines: ' ~ max_lines ~ '"' : '' -%}
 {%- if copy|default(false) -%}
     {%- set copy_id = copy_id|default('code-block-' ~ random()) -%}
     <div class="code-block--copyable has-corner-actions">
