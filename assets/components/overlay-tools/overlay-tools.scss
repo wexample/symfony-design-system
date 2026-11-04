@@ -13,7 +13,9 @@
   z-index: calc(var(--z-modal) + 40);
 }
 
-body.has-overlay-backdrop .overlay-tools {
+// Over what holds the page to be read or filled — a modal, a panel —, not
+// over a veil that only waits (`overlay--loading`, of no kind).
+body.has-overlay-backdrop:is([data-overlay-kind='modal'], [data-overlay-kind='panel']) .overlay-tools {
   display: flex;
 }
 
