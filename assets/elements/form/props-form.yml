@@ -1,0 +1,16 @@
+# Declares `form/props-form` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "A form of the application drawn from `form_props()` rather than by its template — each field by its kind — and sent to its processor: a form of the server held by a vue."
+formats:
+  style: true
+  vue: true
+  template: "the twig side draws the form itself, through its theme"
+  script: "its behaviour is the vue component's"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

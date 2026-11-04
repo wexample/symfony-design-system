@@ -148,6 +148,8 @@ en:
       download: "Download"
     form:
       optional: (optional)
+      save: "Save"
+      failed: "Not saved. Try again."
     menu:
       navigation: Navigation
       open_left: Open the menu
@@ -317,6 +319,8 @@ ar:
       download: تحميل
     form:
       optional: (اختياري)
+      save: "حفظ"
+      failed: "لم يُحفظ. حاول مجددًا."
     menu:
       navigation: الملاحة
       open_left: 'فتح القائمة'
@@ -486,6 +490,8 @@ bn:
       download: 'ডাউনলোড করুন'
     form:
       optional: (ঐচ্ছিক)
+      save: "সংরক্ষণ"
+      failed: "সংরক্ষিত হয়নি। আবার চেষ্টা করুন।"
     menu:
       navigation: নেভিগেশন
       open_left: 'মেনু খুলুন'
@@ -655,6 +661,8 @@ de:
       download: Herunterladen
     form:
       optional: (optional)
+      save: "Speichern"
+      failed: "Nicht gespeichert. Bitte erneut versuchen."
     menu:
       navigation: Navigation
       open_left: 'Menü öffnen'
@@ -824,6 +832,8 @@ es:
       download: Descargar
     form:
       optional: (opcional)
+      save: "Guardar"
+      failed: "No guardado. Inténtalo de nuevo."
     menu:
       navigation: Navegación
       open_left: 'Abrir el menú'
@@ -993,6 +1003,8 @@ fa:
       download: دانلود
     form:
       optional: (اختیاری)
+      save: "ذخیره"
+      failed: "ذخیره نشد. دوباره تلاش کنید."
     menu:
       navigation: ناوبری
       open_left: 'باز کردن منو'
@@ -1162,6 +1174,8 @@ fi:
       download: Lataa
     form:
       optional: (valinnainen)
+      save: "Tallenna"
+      failed: "Ei tallennettu. Yritä uudelleen."
     menu:
       navigation: Navigointi
       open_left: 'Avaa valikko'
@@ -1340,6 +1354,8 @@ fr:
       download: Télécharger
     form:
       optional: (facultatif)
+      save: "Enregistrer"
+      failed: "Non enregistré. Réessayez."
     menu:
       navigation: Navigation
       open_left: 'Ouvrir le menu'
@@ -1509,6 +1525,8 @@ he:
       download: הורד
     form:
       optional: (אופציונלי)
+      save: "שמירה"
+      failed: "לא נשמר. נסו שוב."
     menu:
       navigation: ניווט
       open_left: 'פתח את התפריט'
@@ -1678,6 +1696,8 @@ hi:
       download: 'डाउनलोड करें'
     form:
       optional: (वैकल्पिक)
+      save: "सहेजें"
+      failed: "सहेजा नहीं गया। फिर से प्रयास करें।"
     menu:
       navigation: नेविगेशन
       open_left: 'मेनू खोलें'
@@ -1847,6 +1867,8 @@ id:
       download: Unduh
     form:
       optional: (opsional)
+      save: "Simpan"
+      failed: "Tidak tersimpan. Coba lagi."
     menu:
       navigation: Navigasi
       open_left: 'Buka menu'
@@ -2016,6 +2038,8 @@ it:
       download: Scarica
     form:
       optional: (opzionale)
+      save: "Salva"
+      failed: "Non salvato. Riprova."
     menu:
       navigation: Navigazione
       open_left: 'Apri il menu'
@@ -2185,6 +2209,8 @@ ja:
       download: ダウンロード
     form:
       optional: (任意)
+      save: "保存"
+      failed: "保存されませんでした。もう一度お試しください。"
     menu:
       navigation: ナビゲーション
       open_left: メニューを開く
@@ -2354,6 +2380,8 @@ ko:
       download: 다운로드
     form:
       optional: '(선택 사항)'
+      save: "저장"
+      failed: "저장되지 않았습니다. 다시 시도하세요."
     menu:
       navigation: 탐색
       open_left: '메뉴 열기'
@@ -2523,6 +2551,8 @@ nl:
       download: Downloaden
     form:
       optional: (optioneel)
+      save: "Opslaan"
+      failed: "Niet opgeslagen. Probeer opnieuw."
     menu:
       navigation: Navigatie
       open_left: 'Open het menu'
@@ -2692,6 +2722,8 @@ pl:
       download: Pobierz
     form:
       optional: (opcjonalne)
+      save: "Zapisz"
+      failed: "Nie zapisano. Spróbuj ponownie."
     menu:
       navigation: Nawigacja
       open_left: 'Otwórz menu'
@@ -2861,6 +2893,8 @@ pt_BR:
       download: Baixar
     form:
       optional: (opcional)
+      save: "Salvar"
+      failed: "Não salvo. Tente novamente."
     menu:
       navigation: Navegação
       open_left: 'Abrir o menu'
@@ -3030,6 +3064,8 @@ ru:
       download: Скачать
     form:
       optional: '(по желанию)'
+      save: "Сохранить"
+      failed: "Не сохранено. Попробуйте ещё раз."
     menu:
       navigation: Навигация
       open_left: 'Открыть меню'
@@ -3199,6 +3235,8 @@ th:
       download: ดาวน์โหลด
     form:
       optional: (ไม่บังคับ)
+      save: "บันทึก"
+      failed: "ไม่ได้บันทึก ลองอีกครั้ง"
     menu:
       navigation: การนำทาง
       open_left: เปิดเมนู
@@ -3368,6 +3406,8 @@ tr:
       download: İndir
     form:
       optional: '(isteğe bağlı)'
+      save: "Kaydet"
+      failed: "Kaydedilmedi. Tekrar deneyin."
     menu:
       navigation: Navigasyon
       open_left: 'Menüyü aç'
@@ -3537,6 +3577,8 @@ ur:
       download: 'ڈاؤن لوڈ کریں'
     form:
       optional: (اختیاری)
+      save: "محفوظ کریں"
+      failed: "محفوظ نہیں ہوا۔ دوبارہ کوشش کریں۔"
     menu:
       navigation: نیویگیشن
       open_left: 'مینوں کھولیں'
@@ -3706,6 +3748,8 @@ vi:
       download: 'Tải xuống'
     form:
       optional: '(tùy chọn)'
+      save: "Lưu"
+      failed: "Chưa lưu. Hãy thử lại."
     menu:
       navigation: 'Điều hướng'
       open_left: 'Mở menu'
@@ -3875,6 +3919,8 @@ zh:
       download: 下载
     form:
       optional: (可选)
+      save: "保存"
+      failed: "未保存，请重试。"
     menu:
       navigation: 导航
       open_left: 打开菜单

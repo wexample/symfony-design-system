@@ -1,0 +1,50 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.form.*') }}
+{%- endblock -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/text-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/textarea-input') -}}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <form class="form props-form" :name="form.name" novalidate @submit.prevent="submit">
+        {#- Each field by its kind, its label and its limits the form's. -#}
+        <template v-for="(field, key) in form.fields" :key="key">
+            <textarea-input
+                    v-if="field.type === 'textarea'"
+                    v-model="draft[key]"
+                    :name="field.name"
+                    :label="field.label"
+                    :required="field.required"
+                    :readonly="readonly"
+                    :errors="errors.fields[key] || []"
+                    :translate="false"
+            ></textarea-input>
+            <text-input
+                    v-else
+                    v-model="draft[key]"
+                    :type="field.type || 'text'"
+                    :name="field.name"
+                    :label="field.label"
+                    :required="field.required"
+                    :readonly="readonly"
+                    :errors="errors.fields[key] || []"
+                    :translate="false"
+            ></text-input>
+        </template>
+        {#- What the processor refused of the form as a whole. -#}
+        <div v-if="errors.form.length" class="form--errors">
+            <ul>
+                <li v-for="(error, index) in errors.form" :key="index">[[ error ]]</li>
+            </ul>
+        </div>
+        <div v-if="!readonly" class="form--actions">
+            <button type="submit" class="button button--invert" :disabled="isSaving">
+                <span class="button--icon">{{ icon('ph:bold/check') }}</span>[[ submitText ]]
+            </button>
+        </div>
+    </form>
+{%- endblock -%}

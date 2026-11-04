@@ -1,0 +1,13 @@
+// A form of the application drawn from `form_props()`: its fields one under
+// the other, what it refused, its button at the end.
+@use '../../../css/shapes/form/base';
+@use '../../../css/shapes/form/messages';
+@use '../../../css/shapes/form/actions';
+@use '../text-input/text-input';
+@use '../textarea-input/textarea-input';
+
+.props-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}

@@ -111,3 +111,21 @@
 .tabs-panels [data-tab] {
   width: 100%;
 }
+
+// Tabs heading a zone (`toolbar toolbar--compact zone--head`): the bar's own
+// items, with no ground and no line of their own — the head draws its line —,
+// each as tall as the bar's controls, rounded as they are.
+.zone--head .tabs {
+  padding: 0;
+  gap: var(--space-1);
+  border-bottom: 0;
+  background: none;
+  min-width: 0;
+}
+
+.zone--head .tabs--item {
+  min-height: var(--control-size);
+  padding-block: 0;
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-control);
+}
