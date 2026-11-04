@@ -5,6 +5,7 @@
 @use '../../../css/shapes/form/actions';
 @use '../text-input/text-input';
 @use '../textarea-input/textarea-input';
+@use '../select-input/select-input';
 
 .props-form {
   display: flex;

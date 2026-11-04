@@ -226,10 +226,47 @@
             "notes": []
         },
         {
+            "key": "choice-list",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/choice-list/choice-list.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/choice-list/choice-list.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/choice-list/choice-list.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/choice-list/choice-list.vue"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/choice-list/choice-list.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/choice-list/choice-list.ai.yml"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "expected",
+                "react": "undecided",
+                "flutter": "undecided"
+            },
+            "notes": []
+        },
+        {
             "key": "code-block",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
             "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/code-block/code-block.scss"
+                ],
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/code-block/code-block.html.twig"
                 ],
@@ -239,7 +276,7 @@
                 ]
             },
             "stances": {
-                "style": "waived",
+                "style": "expected",
                 "template": "expected",
                 "vue": "expected",
                 "script": "waived",
@@ -249,7 +286,6 @@
                 "flutter": "todo"
             },
             "notes": {
-                "style": "wears the style of doc and adds none of its own",
                 "script": "it shows and does nothing"
             }
         },
@@ -390,6 +426,56 @@
             }
         },
         {
+            "key": "collection/thread/abstract-entity-thread",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/collection/thread/abstract-entity-thread/abstract-entity-thread.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/collection/thread/abstract-entity-thread/abstract-entity-thread.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/collection/thread/abstract-entity-thread/abstract-entity-thread.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "undecided",
+                "vue": "expected",
+                "script": "undecided",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
+            },
+            "notes": []
+        },
+        {
+            "key": "collection/thread/thread-message",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/collection/thread/thread-message/thread-message.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/collection/thread/thread-message/thread-message.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/collection/thread/thread-message/thread-message.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "undecided",
+                "vue": "expected",
+                "script": "undecided",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
+            },
+            "notes": []
+        },
+        {
             "key": "collection/wall/abstract-entity-wall",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -450,6 +536,31 @@
             }
         },
         {
+            "key": "composer",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/composer/composer.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/composer/composer.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/composer/composer.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "undecided",
+                "vue": "expected",
+                "script": "undecided",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
+            },
+            "notes": []
+        },
+        {
             "key": "confirm",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": null,
@@ -507,6 +618,34 @@
             }
         },
         {
+            "key": "context-menu",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/context-menu/context-menu.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/context-menu/context-menu.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/context-menu/context-menu.vue"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/context-menu/context-menu.ai.yml"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "undecided",
+                "vue": "expected",
+                "script": "undecided",
+                "schema": "undecided",
+                "ai": "expected",
+                "react": "undecided",
+                "flutter": "undecided"
+            },
+            "notes": []
+        },
+        {
             "key": "copy-button",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A button putting a text in the clipboard, quiet until it is used: the copy glyph, a check for a moment once copied, a cross when it could not be.",
@@ -517,6 +656,10 @@
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/copy-button/copy-button.html.twig"
                 ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/copy-button/copy-button.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/copy-button/copy-button.vue.twig"
+                ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/copy-button/copy-button.ts"
                 ]
@@ -524,7 +667,7 @@
             "stances": {
                 "style": "expected",
                 "template": "expected",
-                "vue": "todo",
+                "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
                 "ai": "todo",
@@ -671,6 +814,34 @@
             "notes": {
                 "script": "it shows and does nothing"
             }
+        },
+        {
+            "key": "disclosure",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/disclosure/disclosure.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/disclosure/disclosure.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/disclosure/disclosure.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/disclosure/disclosure.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "undecided",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "distribution",
@@ -1115,6 +1286,9 @@
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/email-input/email-input.ts"
                 ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/email-input/email-input.schema.json"
+                ],
                 "ai": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/email-input/email-input.ai.yml"
                 ]
@@ -1124,7 +1298,7 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
@@ -1213,6 +1387,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/hidden-input/hidden-input.ts"
+                ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/hidden-input/hidden-input.schema.json"
                 ]
             },
             "stances": {
@@ -1220,10 +1397,60 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "todo",
                 "react": "todo",
                 "flutter": "todo"
+            },
+            "notes": []
+        },
+        {
+            "key": "form/inline-edit",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/inline-edit/inline-edit.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/inline-edit/inline-edit.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/inline-edit/inline-edit.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "undecided",
+                "vue": "expected",
+                "script": "undecided",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
+            },
+            "notes": []
+        },
+        {
+            "key": "form/key-value-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/key-value-input/key-value-input.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/key-value-input/key-value-input.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/key-value-input/key-value-input.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "undecided",
+                "vue": "expected",
+                "script": "undecided",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1310,6 +1537,9 @@
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/password-input/password-input.ts"
                 ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/password-input/password-input.schema.json"
+                ],
                 "ai": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/password-input/password-input.ai.yml"
                 ]
@@ -1319,7 +1549,7 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
@@ -1352,6 +1582,34 @@
                 "style": "Nothing of it is seen; the utility class hiding the trap is enough.",
                 "vue": "Drawn by symfony-forms' ProofOfWorkInputType, inside a form the server renders; a client-built form has no challenge to solve.",
                 "ai": "An agent filling a form in has nothing to do with it; the browser solves it."
+            }
+        },
+        {
+            "key": "form/props-form",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A form of the application drawn from `form_props()` rather than by its template \u2014 each field by its kind \u2014 and sent to its processor: a form of the server held by a vue.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/props-form/props-form.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/props-form/props-form.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/props-form/props-form.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "waived",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "template": "the twig side draws the form itself, through its theme",
+                "script": "its behaviour is the vue component's"
             }
         },
         {
@@ -1434,6 +1692,9 @@
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/select-input/select-input.ts"
                 ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/select-input/select-input.schema.json"
+                ],
                 "ai": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/select-input/select-input.ai.yml"
                 ]
@@ -1443,7 +1704,7 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
@@ -1467,6 +1728,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/submit-input/submit-input.ts"
+                ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/submit-input/submit-input.schema.json"
                 ]
             },
             "stances": {
@@ -1474,7 +1738,7 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "todo",
                 "react": "todo",
                 "flutter": "todo"
@@ -1516,6 +1780,37 @@
             "notes": []
         },
         {
+            "key": "form/tags-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/tags-input/tags-input.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/tags-input/tags-input.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/tags-input/tags-input.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/tags-input/tags-input.vue.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/tags-input/tags-input.ts"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "expected",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
+            },
+            "notes": []
+        },
+        {
             "key": "form/tel-input",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A phone number: the text input typed `tel`, the keyboard of a phone.",
@@ -1533,6 +1828,9 @@
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/tel-input/tel-input.ts"
                 ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/tel-input/tel-input.schema.json"
+                ],
                 "ai": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/tel-input/tel-input.ai.yml"
                 ]
@@ -1542,7 +1840,7 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
@@ -1567,6 +1865,9 @@
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/text-input/text-input.ts"
                 ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/text-input/text-input.schema.json"
+                ],
                 "ai": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/text-input/text-input.ai.yml"
                 ]
@@ -1576,7 +1877,7 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
@@ -1601,6 +1902,9 @@
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/textarea-input/textarea-input.ts"
                 ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/textarea-input/textarea-input.schema.json"
+                ],
                 "ai": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/textarea-input/textarea-input.ai.yml"
                 ]
@@ -1610,7 +1914,7 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
@@ -1669,6 +1973,9 @@
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/url-input/url-input.ts"
                 ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/url-input/url-input.schema.json"
+                ],
                 "ai": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/url-input/url-input.ai.yml"
                 ]
@@ -1678,7 +1985,7 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
@@ -1744,6 +2051,34 @@
                 "ai": "todo",
                 "react": "todo",
                 "flutter": "todo"
+            },
+            "notes": []
+        },
+        {
+            "key": "identifier",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/identifier/identifier.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/identifier/identifier.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/identifier/identifier.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/identifier/identifier.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "undecided",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
             },
             "notes": []
         },
@@ -1827,6 +2162,34 @@
             "notes": {
                 "style": "It brings none: what it holds brings its own, inside the root."
             }
+        },
+        {
+            "key": "item-list",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/item-list/item-list.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/item-list/item-list.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/item-list/item-list.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/item-list/item-list.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "undecided",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
+            },
+            "notes": []
         },
         {
             "key": "led",
@@ -3179,6 +3542,56 @@
             "notes": []
         },
         {
+            "key": "zone-tiling",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-tiling/zone-tiling.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-tiling/zone-tiling.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-tiling/zone-tiling.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "undecided",
+                "vue": "expected",
+                "script": "undecided",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
+            },
+            "notes": []
+        },
+        {
+            "key": "zone-tiling-node",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": null,
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-tiling-node/zone-tiling-node.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-tiling-node/zone-tiling-node.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-tiling-node/zone-tiling-node.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "undecided",
+                "vue": "expected",
+                "script": "undecided",
+                "schema": "undecided",
+                "ai": "undecided",
+                "react": "undecided",
+                "flutter": "undecided"
+            },
+            "notes": []
+        },
+        {
             "key": "zone-toolbar",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A bar of tools on the end of a row of zones, as an IDE has one: each icon opens or closes a zone of the row, one open at a time in a group, its state kept.",
@@ -3340,13 +3753,19 @@
             "key": "chat",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_chat.scss",
-            "description": "A conversation \u2014 the thread of messages, their authors and dates, and the composer under it."
+            "description": "A conversation one reads and writes to: the thread of its messages (shapes/thread) over the composer sending the next one (shapes/composer), and above them a bar for what concerns the conversation itself. The two parts stand alone each; this is only how they are held together."
         },
         {
             "key": "cluster",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_cluster.scss",
             "description": "A row of small things that wraps when it runs out of room: tags, pills, buttons."
+        },
+        {
+            "key": "composer",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_composer.scss",
+            "description": "What writes a message: a field growing with its lines, what sends it beside its last line, the files going with it above, and under it what can be done besides writing. It insets nothing: it is the field, border included, and the room around it is for whoever holds it to give."
         },
         {
             "key": "container",
@@ -3649,6 +4068,12 @@
             "description": "A header that sorts \u2014 a table's, a listing's \u2014 is a button dressed as the header it sits in, so the row of labels reads the same sortable or not. The arrow is always there: a faint pair while the column does not order the list, one strong arrow once it does."
         },
         {
+            "key": "thread",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_thread.scss",
+            "description": "The lines of a conversation read in order, the latest at the foot: a column that scrolls, the way back up to older lines at its head, what the other side is doing at its foot while it works. And the line of conversation itself \u2014 an avatar, an author and a date, the words. A line drawn from markdown is prose (`.content`), at the size of the thread."
+        },
+        {
             "key": "timeline",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_timeline.scss",
@@ -3696,6 +4121,7 @@
         "@WexampleSymfonyDesignSystemBundle/js",
         "@WexampleSymfonyDesignSystemBundle/layouts",
         "@WexampleSymfonyDesignSystemBundle/partials",
+        "@WexampleSymfonyDesignSystemBundle/schemas",
         "@WexampleSymfonyDesignSystemBundle/sounds"
     ]
 }

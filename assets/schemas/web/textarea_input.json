@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "textarea_input.json",
+  "title": "Textarea input field",
+  "type": "object",
+  "allOf": [
+    { "$ref": "field_base.json" }
+  ],
+  "properties": {
+    "type": {
+      "const": "textarea"
+    },
+    "rows": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "max_rows": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "auto_resize": {
+      "type": "boolean"
+    },
+    "cols": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "required": ["type", "name", "label"],
+  "unevaluatedProperties": false
+}

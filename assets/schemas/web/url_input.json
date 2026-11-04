@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "url_input.json",
+  "title": "Url input field",
+  "description": "A text field holding a web address: the same field as text_input, the browser checking the shape of what is typed.",
+  "type": "object",
+  "allOf": [
+    { "$ref": "field_base.json" }
+  ],
+  "properties": {
+    "type": {
+      "const": "url"
+    }
+  },
+  "required": ["type", "name", "label"],
+  "unevaluatedProperties": false
+}

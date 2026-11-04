@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "tel_input.json",
+  "title": "Tel input field",
+  "description": "A text field holding a telephone number: the same field as text_input, the browser checking the shape of what is typed.",
+  "type": "object",
+  "allOf": [
+    { "$ref": "field_base.json" }
+  ],
+  "properties": {
+    "type": {
+      "const": "tel"
+    }
+  },
+  "required": ["type", "name", "label"],
+  "unevaluatedProperties": false
+}

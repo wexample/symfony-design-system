@@ -1,4 +1,4 @@
-{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/form/form.vue.twig' -%}
 
 {%- block vue_config -%}
     {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.form.*') }}
@@ -7,44 +7,65 @@
 {%- block vue_require -%}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/text-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/textarea-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/select-input') -}}
 {%- endblock -%}
 
-{%- block vue_body -%}
-    <form class="form props-form" :name="form.name" novalidate @submit.prevent="submit">
-        {#- Each field by its kind, its label and its limits the form's. -#}
-        <template v-for="(field, key) in form.fields" :key="key">
+{#- What the processor refused of the form as a whole, said in words already:
+    the answer carries its translations. -#}
+{%- block form_errors -%}
+    <div class="form--errors" v-if="formErrors && formErrors.length">
+        <ul>
+            <li v-for="(error, index) in formErrors" :key="index">[[ error ]]</li>
+        </ul>
+    </div>
+{%- endblock -%}
+
+{#- Each field by its kind, its label and its limits the form's; the errors
+    reach each by the name it is registered under, through the form's
+    controller. -#}
+{%- block form_body -%}
+    <div class="props-form">
+        <template v-for="field in shownFields" :key="field.name">
             <textarea-input
                     v-if="field.type === 'textarea'"
-                    v-model="draft[key]"
-                    :name="field.name"
+                    v-model="draft[field.name]"
+                    :name="fullName(field)"
+                    :errors="getFieldErrors(fullName(field))"
                     :label="field.label"
-                    :required="field.required"
+                    :placeholder="field.placeholder || ''"
+                    :rows="field.rows || 3"
+                    :required="Boolean(field.required)"
                     :readonly="readonly"
-                    :errors="errors.fields[key] || []"
                     :translate="false"
             ></textarea-input>
+            <select-input
+                    v-else-if="field.type === 'select'"
+                    v-model="draft[field.name]"
+                    :name="fullName(field)"
+                    :errors="getFieldErrors(fullName(field))"
+                    :label="field.label"
+                    :options="optionsOf(field)"
+                    :required="Boolean(field.required)"
+                    :readonly="readonly"
+                    :translate="false"
+            ></select-input>
             <text-input
                     v-else
-                    v-model="draft[key]"
-                    :type="field.type || 'text'"
-                    :name="field.name"
+                    v-model="draft[field.name]"
+                    :type="inputType(field)"
+                    :name="fullName(field)"
+                    :errors="getFieldErrors(fullName(field))"
                     :label="field.label"
-                    :required="field.required"
+                    :placeholder="field.placeholder || ''"
+                    :required="Boolean(field.required)"
                     :readonly="readonly"
-                    :errors="errors.fields[key] || []"
                     :translate="false"
             ></text-input>
         </template>
-        {#- What the processor refused of the form as a whole. -#}
-        <div v-if="errors.form.length" class="form--errors">
-            <ul>
-                <li v-for="(error, index) in errors.form" :key="index">[[ error ]]</li>
-            </ul>
-        </div>
         <div v-if="!readonly" class="form--actions">
-            <button type="submit" class="button button--invert" :disabled="isSaving">
+            <button type="submit" class="button button--invert" :disabled="formIsSubmitting">
                 <span class="button--icon">{{ icon('ph:bold/check') }}</span>[[ submitText ]]
             </button>
         </div>
-    </form>
+    </div>
 {%- endblock -%}

@@ -16,11 +16,36 @@ const STUBS = {
   '@wexample/symfony-loader/js/Services/EntityService': './stubs/Service.mjs',
   '@wexample/symfony-loader/js/Services/EventsService': './stubs/Service.mjs',
   '@wexample/symfony-loader/js/Services/LiveUpdatesService': './stubs/Service.mjs',
+  '@wexample/symfony-loader/js/Services/AdaptiveService': './stubs/Service.mjs',
+  '@wexample/symfony-loader/js/Services/LocaleService': './stubs/Service.mjs',
+  '@wexample/symfony-loader/js/Class/Component': './stubs/Component.mjs',
+  '@wexample/symfony-loader/js/Services/KeyboardService': './stubs/Service.mjs',
+  '@wexample/symfony-design-system/js/Services/OverlayService': './stubs/Service.mjs',
+  '@wexample/symfony-loader/js/Constants/FormEvents': './stubs/FormEvents.mjs',
+  '@wexample/js-helpers/Helper/ElementSize': './stubs/ElementSize.mjs',
 };
+
+// `?whole`: the component and every vue it pulls in run their scripts — for
+// a test reading what a component inherits as the component itself reads it.
+
+// The package naming itself, as a component imports a sibling by it.
+const SELF = '@wexample/symfony-design-system/';
 
 export async function resolve(specifier, context, next) {
   if (STUBS[specifier]) {
     return next(new URL(STUBS[specifier], import.meta.url).href, context);
+  }
+
+  if (specifier.startsWith(SELF)) {
+    const path = specifier.slice(SELF.length);
+    specifier = new URL(`../../assets/${/\.[a-z]+$/.test(path) ? path : `${path}.ts`}`, import.meta.url).href;
+  }
+
+  // Under `?whole`, a vue pulled in runs its script too: the query follows.
+  if (context.parentURL?.includes('?whole') && specifier.endsWith('.vue')) {
+    const resolved = await next(specifier, context);
+
+    return { ...resolved, url: `${resolved.url}?whole` };
   }
 
   if (/^\.\.?\//.test(specifier) && !/\.[a-z]+(\?.*)?$/.test(specifier)) {
@@ -37,7 +62,7 @@ export async function load(url, context, next) {
     return next(url, context);
   }
 
-  const source = search === '?script'
+  const source = search === '?script' || search === '?whole'
     ? (await readFile(fileURLToPath(`file://${pathname}`), 'utf8')).match(/<script>([\s\S]*)<\/script>/)[1]
     : 'export default {};';
 

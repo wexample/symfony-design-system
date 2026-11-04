@@ -1,5 +1,5 @@
 <script>
-import { submitFormProps } from '../../../js/Helper/FormPropsHelper';
+import { formPropsField, formPropsFullName, submitFormProps } from '../../../js/Helper/FormPropsHelper';
 
 // Where its own words are.
 const DOMAIN = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.inline_edit.';
@@ -72,7 +72,12 @@ export default {
 
   computed: {
     fieldProps() {
-      return this.form?.fields?.[this.field] ?? null;
+      return this.form ? formPropsField(this.form, this.field) : null;
+    },
+
+    // The field's name as it is sent, under the form's.
+    fieldName() {
+      return this.form ? formPropsFullName(this.form, this.field) : null;
     },
 
     startValue() {

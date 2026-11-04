@@ -1,23 +1,43 @@
 <script>
+import Form from '../../_abstract/form/form.vue';
 import TextInput from '../text-input/text-input.vue';
 import TextareaInput from '../textarea-input/textarea-input.vue';
-import { submitFormProps } from '../../../js/Helper/FormPropsHelper';
+import SelectInput from '../select-input/select-input.vue';
+import { formPropsFullName } from '../../../js/Helper/FormPropsHelper';
 
 const DOMAIN = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.form.';
 
-// A form of the application drawn by the design system rather than by its
-// template: its fields as `form_props()` hands them — their label, their
-// kind, their limits —, each drawn by the field of its kind, sent as the
-// drawn form would be to the form's processor, which validates, saves and
-// says so. What it refuses is said under each field, and under the form.
-// For a vue that holds a form of the server — a zone of a board, a panel of
-// a widget — without the page that would draw it.
+// The field drawing each kind the norm names: a text and what the browser
+// checks the shape of, several lines, a choice. A kind the norm adds and no
+// field here draws is drawn as a text.
+const FIELDS = {
+  text: TextInput,
+  email: TextInput,
+  tel: TextInput,
+  url: TextInput,
+  password: TextInput,
+  textarea: TextareaInput,
+  select: SelectInput
+};
+
+// A form of the server drawn by the design system rather than by its
+// template: the form as `form_props()` hands it — the json-schema norm's
+// `form.json`, its fields each of a kind, with their label and limits —,
+// each drawn by the field of its kind, sent as the drawn form would be to
+// the form's processor, which validates, saves and says so. What it refuses
+// is said under each field, and under the form. For a vue that holds a form
+// of the server — a zone of a board, a panel of a widget — without the page
+// that would draw it; the same form an agent wrote, or a page kept in a
+// database, draws the same.
 export default {
+  extends: Form,
+
   template: '#vue-template-wexample-symfony-design-system-bundle-components-form-props-form-props-form',
 
   components: {
     TextInput,
-    TextareaInput
+    TextareaInput,
+    SelectInput
   },
 
   emits: ['saved'],
@@ -35,8 +55,8 @@ export default {
       type: String,
       default: null
     },
-    // What each field starts from, by its key: the entity shown, when the
-    // form was made for none.
+    // What each field starts from, by the field's name: the entity shown,
+    // when the form was made for none.
     values: {
       type: Object,
       default: () => ({})
@@ -55,20 +75,31 @@ export default {
   data() {
     return {
       draft: this.startDraft(),
-      errors: { fields: {}, form: [] },
-      isSaving: false
+      formProps: this.form,
+      formPropsId: this.id
     };
   },
 
   computed: {
     submitText() {
       return this.submitLabel ?? this.trans(`${DOMAIN}save`);
+    },
+
+    // What is drawn: a hidden field is sent and never shown.
+    shownFields() {
+      return (this.form.fields ?? []).filter((field) => field.type !== 'hidden');
     }
   },
 
   watch: {
     // Another entity, or its values read again: the fields start over.
-    id() {
+    id(id) {
+      this.formPropsId = id;
+      this.reset();
+    },
+
+    form(form) {
+      this.formProps = form;
       this.reset();
     },
 
@@ -82,42 +113,56 @@ export default {
 
   methods: {
     startDraft() {
-      return Object.fromEntries(Object.entries(this.form.fields ?? {}).map(([key, field]) => [
-        key,
-        String((key in this.values ? this.values[key] : field.value) ?? '')
+      return Object.fromEntries((this.form.fields ?? []).map((field) => [
+        field.name,
+        String((field.name in this.values ? this.values[field.name] : field.value) ?? '')
       ]));
     },
 
     reset() {
       this.draft = this.startDraft();
-      this.errors = { fields: {}, form: [] };
+      this.clearFormErrors();
     },
 
-    async submit() {
-      if (this.readonly || this.isSaving) {
-        return;
-      }
+    fieldComponent(field) {
+      return FIELDS[field.type] ?? TextInput;
+    },
 
-      this.isSaving = true;
-      this.errors = { fields: {}, form: [] };
+    // The field's name as it is sent, under the form's: the name it is
+    // registered under, which the answer's errors come back by.
+    fullName(field) {
+      return formPropsFullName(this.form, field.name);
+    },
 
-      try {
-        const answer = await submitFormProps(this.app, this.form, {
-          id: this.id,
-          values: this.draft,
-          failedMessage: this.trans(`${DOMAIN}failed`)
-        });
+    // The browser's own kind for a text: what it checks the shape of.
+    inputType(field) {
+      return ['email', 'tel', 'url', 'password'].includes(field.type) ? field.type : 'text';
+    },
 
-        if (!answer.ok) {
-          this.errors = answer.errors;
+    // A choice's options as the select takes them, a group's laid flat.
+    optionsOf(field) {
+      const flatten = (choices = []) => choices.flatMap((choice) => (choice.options ? flatten(choice.options) : [{ value: choice.value ?? '', label: choice.label }]));
 
-          return;
-        }
+      return flatten(field.choices);
+    },
 
-        this.$emit('saved', { values: { ...this.draft }, id: this.id, payload: answer.payload });
-      } finally {
-        this.isSaving = false;
-      }
+    // The endpoint is the form's own address: named here for the mixin's
+    // guard, used by none of its transports.
+    getSubmitEndpoint() {
+      return this.form.action;
+    },
+
+    buildSubmitPayload() {
+      return { ...this.draft };
+    },
+
+    onBeforeSubmit() {
+      return !this.readonly;
+    },
+
+    onApiSubmitSuccess(response) {
+      Form.methods.onApiSubmitSuccess.call(this, response);
+      this.$emit('saved', { values: { ...this.draft }, id: this.id, payload: response });
     }
   }
 };

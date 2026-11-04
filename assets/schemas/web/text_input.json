@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "text_input.json",
+  "title": "Text input field",
+  "type": "object",
+  "allOf": [
+    { "$ref": "field_base.json" }
+  ],
+  "properties": {
+    "type": {
+      "const": "text"
+    }
+  },
+  "required": ["type", "name", "label"],
+  "unevaluatedProperties": false
+}

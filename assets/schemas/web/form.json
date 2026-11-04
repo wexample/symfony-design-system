@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "form.json",
+  "title": "Form",
+  "description": "A form as a whole, as a client draws and sends it: its fields in the order they are shown, each one of the field schemas beside this file, and where and how it is sent. A field's `name` is its own; a server reading forms under a name — Symfony's `form[field]` — composes the full name from the form's. The token, when the server asks for one, is sent as a field would be. What the server answers is form_submit_response.json.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The form's name, under which its fields are sent: `form[field]`. Empty, the fields are sent by their own names."
+    },
+    "action": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Where the form is sent."
+    },
+    "method": {
+      "type": "string",
+      "enum": ["GET", "POST"],
+      "default": "POST"
+    },
+    "token": {
+      "type": ["object", "null"],
+      "description": "What the server asks to be sent back, against forgery: sent as a field named so.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "value"],
+      "additionalProperties": false
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "$ref": "text_input.json" },
+          { "$ref": "textarea_input.json" },
+          { "$ref": "password_input.json" },
+          { "$ref": "hidden_input.json" },
+          { "$ref": "select_input.json" },
+          { "$ref": "submit_input.json" },
+          { "$ref": "email_input.json" },
+          { "$ref": "tel_input.json" },
+          { "$ref": "url_input.json" }
+        ]
+      }
+    }
+  },
+  "required": ["name", "action", "fields"],
+  "additionalProperties": false
+}

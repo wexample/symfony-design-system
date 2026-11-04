@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "select_input.json",
+  "title": "Select input field",
+  "type": "object",
+  "allOf": [
+    { "$ref": "field_base.json" }
+  ],
+  "properties": {
+    "type": {
+      "const": "select"
+    },
+    "multiple": {
+      "type": "boolean"
+    },
+    "choices": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {"type": "string"},
+          "value": {"type": ["string", "number", "null"]},
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {"type": "string"},
+                "value": {"type": ["string", "number", "null"]}
+              },
+              "required": ["label", "value"]
+            }
+          }
+        },
+        "required": ["label", "value"]
+      }
+    }
+  },
+  "required": ["type", "name", "label", "choices"],
+  "unevaluatedProperties": false
+}

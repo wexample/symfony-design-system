@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "submit_input.json",
+  "title": "Submit input field",
+  "type": "object",
+  "allOf": [
+    { "$ref": "field_base.json" }
+  ],
+  "properties": {
+    "type": {
+      "const": "submit"
+    },
+    "icon": {
+      "type": ["string", "null"]
+    }
+  },
+  "required": ["type", "name", "label"],
+  "unevaluatedProperties": false
+}
