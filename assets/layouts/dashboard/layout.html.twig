@@ -149,9 +149,14 @@
                     so. Neither folded nor unfolded, nor widened: it is the
                     page's choice, not the reader's. -#}
                 {%- set menuLeftIcons = menu_left_format|default(null) == 'icons' -%}
+                {#- `menu_left_folded: true` opens the page with the menu
+                    folded, whatever the reader keeps elsewhere — a page
+                    wanting the width first, an editor —, and what is done to
+                    it there is not kept: the other pages stay as they were. -#}
+                {%- set menuLeftFolded = not menuLeftIcons and menu_left_folded|default(false) -%}
                 {%- set menuLeftResizable = not menuLeftIcons and menu_left_resizable|default(false) -%}
                 {%- set menuLeftSize = menuLeftResizable ? ui_state_get('ui.layout.menu.left.size') : null -%}
-                <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel', menu_left_agent is defined ? { agent: menu_left_agent } : {}) }}{% if menuLeftIcons %} layout--menu-icons{% else %} gutters--collapsible{% if not ui_state_get('ui.layout.menu.left', true) %} gutters--collapsible--collapsed{% endif %}{% endif %}" id="layout-menu-left" data-menu-id="left"{% if menuLeftIcons %} data-menu-format="icons" data-tooltip-placement="right"{% endif %}
+                <div class="{{ component_init_class(render_pass, '@WexampleSymfonyDesignSystemBundle/components/menu-collapsible-panel', menu_left_agent is defined ? { agent: menu_left_agent } : {}) }}{% if menuLeftIcons %} layout--menu-icons{% else %} gutters--collapsible{% if menuLeftFolded or not ui_state_get('ui.layout.menu.left', true) %} gutters--collapsible--collapsed{% endif %}{% endif %}" id="layout-menu-left" data-menu-id="left"{% if menuLeftIcons %} data-menu-format="icons" data-tooltip-placement="right"{% endif %}{% if menuLeftFolded %} data-menu-transient{% endif %}
                     {%- if menuLeftResizable %} data-resize-state="ui.layout.menu.left.size" data-resize-property="--menu-size"{% if menuLeftSize > 0 %} style="--menu-size: {{ menuLeftSize|round }}px"{% endif %}{% endif %}>
                     {%- if menuLeftResizable -%}
                         {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer', {}, { edge: 'end' }) }}

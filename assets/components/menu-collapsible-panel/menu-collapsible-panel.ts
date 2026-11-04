@@ -5,7 +5,8 @@ import { focusTrapCanReturn, focusTrapFocusables, focusTrapNext } from '../../js
 
 // A side menu of the layout, folded and unfolded by its two toggles — the one
 // in its own bar, the one the header keeps for it. Wide, folding is a choice
-// the reader keeps (`ui.layout.menu.<id>`). In a window the stylesheet makes
+// the reader keeps (`ui.layout.menu.<id>`) — but on a page folding it for
+// itself (`data-menu-transient`, `menu_left_folded`). In a window the stylesheet makes
 // it a drawer (`--menu-drawer`), the toggles slide it over the page instead,
 // for the moment only: it holds the keyboard as a dialog does, and Escape, a
 // press outside or a link followed close it.
@@ -149,7 +150,7 @@ export default class extends Component {
       this.openEl.hidden = true;
     }
     this.syncExpanded();
-    this.app.onMenuStateChange(this.menuId, true);
+    this.keepState(true);
   }
 
   private close(): void {
@@ -163,7 +164,14 @@ export default class extends Component {
       this.openEl.hidden = false;
     }
     this.syncExpanded();
-    this.app.onMenuStateChange(this.menuId, false);
+    this.keepState(false);
+  }
+
+  // Kept for the next pages, unless this page folds the menu for itself.
+  private keepState(open: boolean): void {
+    if (this.el.dataset.menuTransient === undefined) {
+      this.app.onMenuStateChange(this.menuId, open);
+    }
   }
 
   // A press on the dimmed page closes; a link followed in the menu too — the
