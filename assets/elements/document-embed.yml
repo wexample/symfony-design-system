@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "A document — a pdf, an image — shown in the page: the frame, and above it a bar holding what the application does with it."
 formats:
   template: true
   style: true

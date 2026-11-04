@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "A control that is on or off, outside any form: a pill slid from one side to the other, in a tone once on when the state asks for one."
 formats:
   style: true
   template: true

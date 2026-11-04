@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "The page's single mount point for toasts, fed by the server's flash bag and by the toast service."
 formats:
   template: true
   script: true

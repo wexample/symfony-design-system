@@ -5,7 +5,13 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "A screen made of zones the reader cuts and sizes: one zone at first, split side by side or one above the other, every seam dragged, a zone held to its width or height; the arrangement a tree kept and handed back."
 formats:
   style: true
+  template: "client-side by nature: it only makes sense inside a vue tree"
   vue: true
+  script: "its behaviour is the vue component's"
+  schema: todo
+  ai: "todo — cut, close and size a zone"
+  react: todo
+  flutter: todo

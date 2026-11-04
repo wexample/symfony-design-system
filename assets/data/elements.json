@@ -4,7 +4,7 @@
         {
             "key": "banner",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A band across the top of the page saying one thing to everyone \u2014 a maintenance, a cookie notice, a version to update \u2014, closed by the reader and kept closed.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/banner/banner.scss"
@@ -36,7 +36,7 @@
         {
             "key": "bar",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A cartouche: something named in one line \u2014 an icon or an avatar, a title and what qualifies it, whatever the caller hangs at the far end. It knows nothing of entities, so a file, a word or a setting fits it as well as a row of a table.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/bar/bar.scss"
@@ -67,7 +67,7 @@
         {
             "key": "breadcrumb",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "Where the page stands: the pages above it, each a link, the current one last; `back` keeps the one above alone, as the way back to it.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/breadcrumb/breadcrumb.scss"
@@ -131,7 +131,7 @@
         {
             "key": "button-link",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A button leading somewhere: the button's dress on an anchor, for a page or a download.",
             "formats": {
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/button-link/button-link.html.twig"
@@ -194,7 +194,7 @@
         {
             "key": "button-target",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A button opening a page where it says \u2014 a modal, a panel, an embed \u2014 rather than leaving for it; a plain link where the target is not on the page.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/button-target/button-target.scss"
@@ -228,7 +228,7 @@
         {
             "key": "choice-list",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "One choice among options laid out whole: each a line one presses \u2014 its icon, its name, a line saying more of it \u2014, the one chosen in the selection's colour and ticked, as a select's chosen option is. What a select would fold away, read before one is taken.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/choice-list/choice-list.scss"
@@ -252,17 +252,17 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "undecided",
+                "schema": "todo",
                 "ai": "expected",
-                "react": "undecided",
-                "flutter": "undecided"
+                "react": "todo",
+                "flutter": "todo"
             },
             "notes": []
         },
         {
             "key": "code-block",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "Code as code: a block in a monospace, coloured by its language, a button copying it in its corner, cut short after so many lines when asked.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/code-block/code-block.scss"
@@ -292,7 +292,7 @@
         {
             "key": "collection/bar-list/abstract-entity-bar-list",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "The other reading of a collection: one line per row instead of one cell per column \u2014 the table's sibling, same mixin, same three ways of keeping up \u2014, for what has a name rather than figures.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/collection/bar-list/abstract-entity-bar-list/abstract-entity-bar-list.scss"
@@ -346,7 +346,7 @@
         {
             "key": "collection/chat/abstract-entity-chat",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A conversation with the server: its thread and its composer, listening to what the server publishes and sending what is written; one of the chats open in the page speaks at a time, the one in front.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/collection/chat/abstract-entity-chat/abstract-entity-chat.scss"
@@ -374,7 +374,7 @@
         {
             "key": "collection/grid/abstract-entity-grid",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "An entity table whose cells are written in place, through the entity's own form, cell by cell.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/collection/grid/abstract-entity-grid/abstract-entity-grid.scss"
@@ -402,7 +402,7 @@
         {
             "key": "collection/table/abstract-entity-table",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A collection drawn as a table, read from the api: searched, sorted and paged there, each column told how to read its cell.",
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/collection/table/abstract-entity-table/abstract-entity-table.vue.twig",
@@ -428,7 +428,7 @@
         {
             "key": "collection/thread/abstract-entity-thread",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A collection read as a conversation: its lines in order, the latest at the foot, older ones reached from the head; the answer still coming shown as long as the other side writes.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/collection/thread/abstract-entity-thread/abstract-entity-thread.scss"
@@ -440,20 +440,24 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided",
-                "schema": "undecided",
-                "ai": "undecided",
-                "react": "undecided",
-                "flutter": "undecided"
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
             },
-            "notes": []
+            "notes": {
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's",
+                "ai": "read older lines, tell what the last one says"
+            }
         },
         {
             "key": "collection/thread/thread-message",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "One line of a thread as a conversation reads it: an avatar, an author and a date, the words \u2014 the projection the thread made of its entity, never the entity itself.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/collection/thread/thread-message/thread-message.scss"
@@ -465,20 +469,24 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided",
-                "schema": "undecided",
-                "ai": "undecided",
-                "react": "undecided",
-                "flutter": "undecided"
+                "script": "waived",
+                "schema": "todo",
+                "ai": "waived",
+                "react": "todo",
+                "flutter": "todo"
             },
-            "notes": []
+            "notes": {
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's",
+                "ai": "a line read, not acted on: what is done to a message is the thread's contract to name"
+            }
         },
         {
             "key": "collection/wall/abstract-entity-wall",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A collection hung as a wall of pictures, read from the api page by page as the wall is scrolled.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/collection/wall/abstract-entity-wall/abstract-entity-wall.scss"
@@ -506,7 +514,7 @@
         {
             "key": "color-scheme-switch",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "The switch between the light and the dark face of the page, kept for the reader.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/color-scheme-switch/color-scheme-switch.scss"
@@ -538,7 +546,7 @@
         {
             "key": "composer",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "What writes a message: a field growing with its lines, the files going with it, the button sending it, and under them what can be done besides. It knows nothing of where the message goes: whoever placed it sends.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/composer/composer.scss"
@@ -550,20 +558,24 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided",
-                "schema": "undecided",
-                "ai": "undecided",
-                "react": "undecided",
-                "flutter": "undecided"
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
             },
-            "notes": []
+            "notes": {
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's",
+                "ai": "write, attach, send"
+            }
         },
         {
             "key": "confirm",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A question asked before something is done \u2014 delete, publish \u2014, answered by a button or let go; built from the template and shown by the confirm service.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/confirm/confirm.scss"
@@ -592,7 +604,7 @@
         {
             "key": "content-image",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A picture standing in a text: in its frame, with its caption under it, the width of the column.",
             "formats": {
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/content-image/content-image.html.twig"
@@ -620,7 +632,7 @@
         {
             "key": "context-menu",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A menu opened by a right click on what it wraps \u2014 or the keyboard's key for it \u2014, where the pointer is: the same items as a button menu, with nothing pressed to open it.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/context-menu/context-menu.scss"
@@ -635,15 +647,18 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided",
-                "schema": "undecided",
+                "script": "waived",
+                "schema": "todo",
                 "ai": "expected",
-                "react": "undecided",
-                "flutter": "undecided"
+                "react": "todo",
+                "flutter": "todo"
             },
-            "notes": []
+            "notes": {
+                "template": "client-side by nature: it wraps what a vue tree draws",
+                "script": "its behaviour is the vue component's"
+            }
         },
         {
             "key": "copy-button",
@@ -818,7 +833,7 @@
         {
             "key": "disclosure",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A detail folded inside what holds it \u2014 a block, a card, a list \u2014: one line saying what is there, unfolded to read it, a count beside it when it holds several.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/disclosure/disclosure.scss"
@@ -835,13 +850,16 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "undecided",
-                "schema": "undecided",
-                "ai": "undecided",
-                "react": "undecided",
-                "flutter": "undecided"
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
             },
-            "notes": []
+            "notes": {
+                "script": "the native details element folds it; nothing to run",
+                "ai": "open and close, say what it holds"
+            }
         },
         {
             "key": "distribution",
@@ -906,7 +924,7 @@
         {
             "key": "document-embed",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A document \u2014 a pdf, an image \u2014 shown in the page: the frame, and above it a bar holding what the application does with it.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/document-embed/document-embed.scss"
@@ -936,7 +954,7 @@
         {
             "key": "dots",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "Three dots in a row, pulsing: something is being written, or waited for.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/dots/dots.scss"
@@ -994,7 +1012,7 @@
         {
             "key": "embed",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "Where a page is loaded into the page: a frame the router fills, closed by its button and reopened by the next page loaded into it.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/embed/embed.scss"
@@ -1139,7 +1157,7 @@
         {
             "key": "form/button-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A button of a form that does not send it: the button's dress on a form control, pressed for what the page says.",
             "formats": {
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/button-input/button-input.html.twig"
@@ -1203,7 +1221,7 @@
         {
             "key": "form/date-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A field holding a day.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/date-input/date-input.scss"
@@ -1237,7 +1255,7 @@
         {
             "key": "form/datetime-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A field holding a day and a time.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/datetime-input/datetime-input.scss"
@@ -1271,7 +1289,7 @@
         {
             "key": "form/email-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A text field holding an e-mail address, the browser checking its shape.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/email-input/email-input.scss"
@@ -1308,7 +1326,7 @@
         {
             "key": "form/emoji-picker",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A field holding one emoji, picked from the whole set in a panel, searched by name.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/emoji-picker/emoji-picker.scss"
@@ -1339,7 +1357,7 @@
         {
             "key": "form/file-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A file field shaped as a place to drop it on: the file dragged there or picked, its name and size shown once it is.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/file-input/file-input.scss"
@@ -1373,7 +1391,7 @@
         {
             "key": "form/hidden-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A field sent and never shown.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/hidden-input/hidden-input.scss"
@@ -1407,7 +1425,7 @@
         {
             "key": "form/inline-edit",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "One field of a form of the application edited in place: what it shows and a pencil in the frame; pressed, the frame holds the field instead, saved by Enter or \u2713, let go by Escape or \u2715, sent to the form's processor as the drawn form would be.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/inline-edit/inline-edit.scss"
@@ -1419,20 +1437,25 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided",
-                "schema": "undecided",
-                "ai": "undecided",
-                "react": "undecided",
-                "flutter": "undecided"
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
             },
-            "notes": []
+            "notes": {
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's",
+                "schema": "the field it edits is one of the norm's; the frame round it is still to describe",
+                "ai": "edit, write, save, let go"
+            }
         },
         {
             "key": "form/key-value-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "Pairs of words, a key and its value, one line each \u2014 metadata, headers, parameters \u2014, kept in the order written; a key typed in the last line opens a pair, a line's \u00d7 takes it off.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/key-value-input/key-value-input.scss"
@@ -1444,20 +1467,25 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided",
-                "schema": "undecided",
-                "ai": "undecided",
-                "react": "undecided",
-                "flutter": "undecided"
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
             },
-            "notes": []
+            "notes": {
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's",
+                "schema": "a field kind the json-schema norm does not name yet",
+                "ai": "add, set and take off a pair"
+            }
         },
         {
             "key": "form/number-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A field holding a number, stepped by its buttons, a unit or a currency beside it when it has one.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/number-input/number-input.scss"
@@ -1522,7 +1550,7 @@
         {
             "key": "form/password-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A text field holding a secret, hidden as it is typed, shown on request.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/password-input/password-input.scss"
@@ -1615,7 +1643,7 @@
         {
             "key": "form/radio-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "One choice among a few, each a button; `segmented` lays them as a strip of segments.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/radio-input/radio-input.scss"
@@ -1677,7 +1705,7 @@
         {
             "key": "form/select-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A choice among a list folded under the field, one of them shown; the choices translated by the form's own words.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/select-input/select-input.scss"
@@ -1714,7 +1742,7 @@
         {
             "key": "form/submit-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "The button sending a form, in it or standing outside it \u2014 in a card's or a modal's foot.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/submit-input/submit-input.scss"
@@ -1748,7 +1776,7 @@
         {
             "key": "form/switch-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A field that is on or off, as a pill slid from one side to the other.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/switch-input/switch-input.scss"
@@ -1782,7 +1810,7 @@
         {
             "key": "form/tags-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "Words kept as tags: typed and added by Enter or a comma, offered as suggestions, each taken off by its \u00d7; the text input is the field the form posts.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/tags-input/tags-input.scss"
@@ -1803,12 +1831,15 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "undecided",
-                "ai": "undecided",
-                "react": "undecided",
-                "flutter": "undecided"
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
             },
-            "notes": []
+            "notes": {
+                "schema": "a field kind the json-schema norm does not name yet",
+                "ai": "add and take off a tag"
+            }
         },
         {
             "key": "form/tel-input",
@@ -1850,7 +1881,7 @@
         {
             "key": "form/text-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A field holding a text on one line, the kind the browser checks when told \u2014 an address, a number \u2014, a fixed word beside it when it has one.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/text-input/text-input.scss"
@@ -1924,7 +1955,7 @@
         {
             "key": "form/time-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A field holding a time of day.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/time-input/time-input.scss"
@@ -1958,7 +1989,7 @@
         {
             "key": "form/url-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A text field holding a web address, the browser checking its shape.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/url-input/url-input.scss"
@@ -2057,7 +2088,7 @@
         {
             "key": "identifier",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "An identifier \u2014 an id, a hash, a reference \u2014 read as code; `short` keeps its end alone, `copy` puts the whole in the clipboard.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/identifier/identifier.scss"
@@ -2074,13 +2105,16 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "undecided",
-                "schema": "undecided",
-                "ai": "undecided",
-                "react": "undecided",
-                "flutter": "undecided"
+                "script": "waived",
+                "schema": "todo",
+                "ai": "waived",
+                "react": "todo",
+                "flutter": "todo"
             },
-            "notes": []
+            "notes": {
+                "script": "it shows and does nothing",
+                "ai": "read as text: nothing to act on but copying it, which is copy-button's"
+            }
         },
         {
             "key": "image-crop",
@@ -2166,7 +2200,7 @@
         {
             "key": "item-list",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "Lines each led by a mark \u2014 an icon, an emoji, a character \u2014 and said in a tone when they carry one: what a check went through, what a scenario listed.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/item-list/item-list.scss"
@@ -2183,13 +2217,16 @@
                 "style": "expected",
                 "template": "expected",
                 "vue": "expected",
-                "script": "undecided",
-                "schema": "undecided",
-                "ai": "undecided",
-                "react": "undecided",
-                "flutter": "undecided"
+                "script": "waived",
+                "schema": "todo",
+                "ai": "waived",
+                "react": "todo",
+                "flutter": "todo"
             },
-            "notes": []
+            "notes": {
+                "script": "it shows and does nothing",
+                "ai": "lines read, nothing to act on"
+            }
         },
         {
             "key": "led",
@@ -2220,7 +2257,7 @@
         {
             "key": "list-expanded",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A list of records each unfolded whole, one under the other, for a collection short enough to be read at once.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/list-expanded/list-expanded.scss"
@@ -2248,7 +2285,7 @@
         {
             "key": "live-update-status",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "Whether the page still hears the server: connected, reconnecting, lost \u2014 a dot and a word.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/live-update-status/live-update-status.scss"
@@ -2276,7 +2313,7 @@
         {
             "key": "load-more",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "The button at the foot of a collection asking for the next page, busy while it comes.",
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/load-more/load-more.vue",
@@ -2332,7 +2369,7 @@
         {
             "key": "media",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A picture in its frame: a link when it leads somewhere, its caption when it has one, the glow of what is selected when it is.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/media/media.scss"
@@ -2394,7 +2431,7 @@
         {
             "key": "menu-item-collapsible",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "An item of the side menu holding items under it, folded and unfolded by its head, open when one of them is the page being read.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/menu-item-collapsible/menu-item-collapsible.scss"
@@ -2426,7 +2463,7 @@
         {
             "key": "menu-item-link",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "An item of the side menu leading to a page: lit when it is the page being read, or the section it belongs to.",
             "formats": {
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/menu-item-link/menu-item-link.html.twig"
@@ -2459,7 +2496,7 @@
         {
             "key": "menu-navigation",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A section's navigation drawn as the side menu, whole: its items and their folding, from what the server knows of the routes.",
             "formats": {
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/menu-navigation/menu-navigation.html.twig"
@@ -2484,7 +2521,7 @@
         {
             "key": "menu-separator",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A line parting two runs of the side menu's items.",
             "formats": {
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/menu-separator/menu-separator.html.twig"
@@ -2512,7 +2549,7 @@
         {
             "key": "message",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A sentence in a tone \u2014 an information, a warning, an error, a success \u2014 standing on its own ground in the page, compact when it is one line.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/message/message.scss"
@@ -2542,7 +2579,7 @@
         {
             "key": "modal",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A page opened over the page, under a veil, closed back to it: the frame the router fills, dragged wider when its content asks.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/modal/modal.scss"
@@ -2575,7 +2612,7 @@
         {
             "key": "overlay",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "What stands over the page while something is on its way \u2014 a veil, a spinner \u2014, shown and taken down by the overlay service.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/overlay/overlay.scss"
@@ -2697,7 +2734,7 @@
         {
             "key": "panel",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A page opened beside the page, against the window's end, closed back to it: the frame the router fills, dragged wider from its edge.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/panel/panel.scss"
@@ -2789,7 +2826,7 @@
         {
             "key": "properties",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "Facts about something, each a name and its value, laid as a list, in columns or as tiles; a value nobody gave said with a dash.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/properties/properties.scss"
@@ -2848,7 +2885,7 @@
         {
             "key": "select",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A choice among a list folded under a control drawn by the design system rather than by the browser, so it reads the same everywhere.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/select/select.scss"
@@ -2877,7 +2914,7 @@
         {
             "key": "select-search",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A choice among a long list, narrowed by typing in it before one is taken.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/select-search/select-search.scss"
@@ -2906,7 +2943,7 @@
         {
             "key": "spinner",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A circle turning: something is being done, of a size that fits where it stands.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/spinner/spinner.scss"
@@ -2937,7 +2974,7 @@
         {
             "key": "status-icon",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A glyph saying the state of something \u2014 done, failed, running, waiting \u2014 in its tone, the same types on both sides.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/status-icon/status-icon.scss"
@@ -2999,7 +3036,7 @@
         {
             "key": "switch",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A control that is on or off, outside any form: a pill slid from one side to the other, in a tone once on when the state asks for one.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/switch/switch.scss"
@@ -3033,7 +3070,7 @@
         {
             "key": "tab",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "The bar a run of tabs stands in: the views of one thing, one shown at a time; compact in a zone's head, scrolling sideways when short of room.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/tab/tab.scss"
@@ -3064,7 +3101,7 @@
         {
             "key": "tab-item",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "One tab of a bar, lit when it is the view shown, counting what it holds when asked.",
             "formats": {
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/tab-item/tab-item.html.twig"
@@ -3174,7 +3211,7 @@
         {
             "key": "toast",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A short word to the reader in a corner of the window \u2014 saved, failed, done \u2014, gone on its own, with what to do next when there is something.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/toast/toast.scss"
@@ -3206,7 +3243,7 @@
         {
             "key": "toast-stack",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "The page's single mount point for toasts, fed by the server's flash bag and by the toast service.",
             "formats": {
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/toast-stack/toast-stack.html.twig"
@@ -3233,7 +3270,7 @@
         {
             "key": "tool-dock",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "Tools as an IDE has them: a bar of icons along an edge, each opening a zone beside what the bar stands against, one at a time in each of its two groups.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/tool-dock/tool-dock.scss"
@@ -3318,7 +3355,7 @@
         {
             "key": "tree",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A tree of nodes, each opened to the level below it: files and directories, a hierarchy of records, read from what the page hands it or from the server as it unfolds.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/tree/tree.scss"
@@ -3348,7 +3385,7 @@
         {
             "key": "tree-node",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "One node of a tree: its row, and the level below it, read when it is opened.",
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/tree-node/tree-node.vue",
@@ -3374,7 +3411,7 @@
         {
             "key": "tree-row-directory",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "The row of a directory in a tree: its name and its folding, where what is done to a directory is raised.",
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/tree-row-directory/tree-row-directory.vue.twig",
@@ -3400,7 +3437,7 @@
         {
             "key": "tree-row-file",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "The row of a file in a tree: its name and its icon, where what is done to a file is raised.",
             "formats": {
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/tree-row-file/tree-row-file.vue",
@@ -3426,7 +3463,7 @@
         {
             "key": "upload-handler",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A form with a file input, the file sent as it is picked, the page told what was uploaded.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/upload-handler/upload-handler.scss"
@@ -3455,7 +3492,7 @@
         {
             "key": "wall",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "Pictures hung on a wall, each in a media frame, laid as the room allows.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/wall/wall.scss"
@@ -3544,7 +3581,7 @@
         {
             "key": "zone-tiling",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "A screen made of zones the reader cuts and sizes: one zone at first, split side by side or one above the other, every seam dragged, a zone held to its width or height; the arrangement a tree kept and handed back.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/zone-tiling/zone-tiling.scss"
@@ -3556,20 +3593,24 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided",
-                "schema": "undecided",
-                "ai": "undecided",
-                "react": "undecided",
-                "flutter": "undecided"
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
             },
-            "notes": []
+            "notes": {
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's",
+                "ai": "cut, close and size a zone"
+            }
         },
         {
             "key": "zone-tiling-node",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": null,
+            "description": "One node of a zone tiling: a split, drawing its children side by side or one above the other with a seam between each two, or a zone, drawing what the page puts in it.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/zone-tiling-node/zone-tiling-node.scss"
@@ -3581,15 +3622,19 @@
             },
             "stances": {
                 "style": "expected",
-                "template": "undecided",
+                "template": "waived",
                 "vue": "expected",
-                "script": "undecided",
-                "schema": "undecided",
-                "ai": "undecided",
-                "react": "undecided",
-                "flutter": "undecided"
+                "script": "waived",
+                "schema": "todo",
+                "ai": "waived",
+                "react": "todo",
+                "flutter": "todo"
             },
-            "notes": []
+            "notes": {
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's",
+                "ai": "its actions are the tiling's"
+            }
         },
         {
             "key": "zone-toolbar",

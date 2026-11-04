@@ -5,10 +5,13 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "One choice among options laid out whole: each a line one presses — its icon, its name, a line saying more of it —, the one chosen in the selection's colour and ticked, as a select's chosen option is. What a select would fold away, read before one is taken."
 formats:
   style: true
   template: true
   vue: true
   script: true
+  schema: todo
   ai: true
+  react: todo
+  flutter: todo

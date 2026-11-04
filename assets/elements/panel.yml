@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "A page opened beside the page, against the window's end, closed back to it: the frame the router fills, dragged wider from its edge."
 formats:
   style: true
   template: true

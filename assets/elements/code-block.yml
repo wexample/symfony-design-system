@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "Code as code: a block in a monospace, coloured by its language, a button copying it in its corner, cut short after so many lines when asked."
 formats:
   template: true
   style: true

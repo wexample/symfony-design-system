@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "The button sending a form, in it or standing outside it — in a card's or a modal's foot."
 formats:
   style: true
   template: true

@@ -5,7 +5,13 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "One node of a zone tiling: a split, drawing its children side by side or one above the other with a seam between each two, or a zone, drawing what the page puts in it."
 formats:
   style: true
+  template: "client-side by nature: it only makes sense inside a vue tree"
   vue: true
+  script: "its behaviour is the vue component's"
+  schema: todo
+  ai: "its actions are the tiling's"
+  react: todo
+  flutter: todo

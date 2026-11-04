@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "A collection hung as a wall of pictures, read from the api page by page as the wall is scrolled."
 formats:
   template: "client-side by nature: it only makes sense inside a vue tree"
   style: true

@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "The button at the foot of a collection asking for the next page, busy while it comes."
 formats:
   vue: true
   style: "wears the style of button and adds none of its own"

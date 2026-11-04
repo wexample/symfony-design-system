@@ -5,7 +5,13 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "Pairs of words, a key and its value, one line each — metadata, headers, parameters —, kept in the order written; a key typed in the last line opens a pair, a line's × takes it off."
 formats:
   style: true
+  template: "client-side by nature: it only makes sense inside a vue tree"
   vue: true
+  script: "its behaviour is the vue component's"
+  schema: "todo — a field kind the json-schema norm does not name yet"
+  ai: "todo — add, set and take off a pair"
+  react: todo
+  flutter: todo

@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "One choice among a few, each a button; `segmented` lays them as a strip of segments."
 formats:
   style: true
   template: true

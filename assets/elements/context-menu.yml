@@ -5,8 +5,13 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "A menu opened by a right click on what it wraps — or the keyboard's key for it —, where the pointer is: the same items as a button menu, with nothing pressed to open it."
 formats:
   style: true
+  template: "client-side by nature: it wraps what a vue tree draws"
   vue: true
+  script: "its behaviour is the vue component's"
+  schema: todo
   ai: true
+  react: todo
+  flutter: todo

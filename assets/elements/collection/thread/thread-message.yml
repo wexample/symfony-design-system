@@ -5,7 +5,13 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "One line of a thread as a conversation reads it: an avatar, an author and a date, the words — the projection the thread made of its entity, never the entity itself."
 formats:
   style: true
+  template: "client-side by nature: it only makes sense inside a vue tree"
   vue: true
+  script: "its behaviour is the vue component's"
+  schema: todo
+  ai: "a line read, not acted on: what is done to a message is the thread's contract to name"
+  react: todo
+  flutter: todo

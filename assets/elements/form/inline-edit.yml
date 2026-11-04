@@ -5,7 +5,13 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "One field of a form of the application edited in place: what it shows and a pencil in the frame; pressed, the frame holds the field instead, saved by Enter or ✓, let go by Escape or ✕, sent to the form's processor as the drawn form would be."
 formats:
   style: true
+  template: "client-side by nature: it only makes sense inside a vue tree"
   vue: true
+  script: "its behaviour is the vue component's"
+  schema: "todo — the field it edits is one of the norm's; the frame round it is still to describe"
+  ai: "todo — edit, write, save, let go"
+  react: todo
+  flutter: todo

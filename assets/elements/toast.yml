@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "A short word to the reader in a corner of the window — saved, failed, done —, gone on its own, with what to do next when there is something."
 formats:
   style: true
   template: true

@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "A section's navigation drawn as the side menu, whole: its items and their folding, from what the server knows of the routes."
 formats:
   template: true
   style: "wears the style of menu and adds none of its own"

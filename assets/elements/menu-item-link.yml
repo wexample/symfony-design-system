@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "An item of the side menu leading to a page: lit when it is the page being read, or the section it belongs to."
 formats:
   template: true
   style: "wears the style of menu and adds none of its own"

@@ -5,7 +5,13 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "What writes a message: a field growing with its lines, the files going with it, the button sending it, and under them what can be done besides. It knows nothing of where the message goes: whoever placed it sends."
 formats:
   style: true
+  template: "client-side by nature: it only makes sense inside a vue tree"
   vue: true
+  script: "its behaviour is the vue component's"
+  schema: todo
+  ai: "todo — write, attach, send"
+  react: todo
+  flutter: todo

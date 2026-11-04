@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "Where the page stands: the pages above it, each a link, the current one last; `back` keeps the one above alone, as the way back to it."
 formats:
   style: true
   template: true

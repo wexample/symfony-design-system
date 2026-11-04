@@ -5,8 +5,13 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "An identifier — an id, a hash, a reference — read as code; `short` keeps its end alone, `copy` puts the whole in the clipboard."
 formats:
   style: true
   template: true
   vue: true
+  script: "it shows and does nothing"
+  schema: todo
+  ai: "read as text: nothing to act on but copying it, which is copy-button's"
+  react: todo
+  flutter: todo

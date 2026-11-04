@@ -5,8 +5,13 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "A detail folded inside what holds it — a block, a card, a list —: one line saying what is there, unfolded to read it, a count beside it when it holds several."
 formats:
   style: true
   template: true
   vue: true
+  script: "the native details element folds it; nothing to run"
+  schema: todo
+  ai: "todo — open and close, say what it holds"
+  react: todo
+  flutter: todo

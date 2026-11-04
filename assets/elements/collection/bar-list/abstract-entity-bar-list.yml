@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "The other reading of a collection: one line per row instead of one cell per column — the table's sibling, same mixin, same three ways of keeping up —, for what has a name rather than figures."
 formats:
   style: true
   vue: true

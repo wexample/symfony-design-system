@@ -5,7 +5,13 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "A collection read as a conversation: its lines in order, the latest at the foot, older ones reached from the head; the answer still coming shown as long as the other side writes."
 formats:
   style: true
+  template: "client-side by nature: it only makes sense inside a vue tree"
   vue: true
+  script: "its behaviour is the vue component's"
+  schema: todo
+  ai: "todo — read older lines, tell what the last one says"
+  react: todo
+  flutter: todo

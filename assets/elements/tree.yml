@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "A tree of nodes, each opened to the level below it: files and directories, a hierarchy of records, read from what the page hands it or from the server as it unfolds."
 formats:
   style: true
   template: true

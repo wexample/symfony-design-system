@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "A sentence in a tone — an information, a warning, an error, a success — standing on its own ground in the page, compact when it is one line."
 formats:
   style: true
   template: true

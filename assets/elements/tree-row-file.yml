@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "The row of a file in a tree: its name and its icon, where what is done to a file is raised."
 formats:
   vue: true
   style: "wears the style of tree and adds none of its own"

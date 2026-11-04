@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: null
+description: "One tab of a bar, lit when it is the view shown, counting what it holds when asked."
 formats:
   template: true
   style: "wears the style of tab and adds none of its own"
