@@ -51,42 +51,6 @@ a.bar {
   text-decoration: none;
 }
 
-// A line one picks among others (`pressed`): a button over the whole line,
-// lit under the pointer, the one picked in the selection's colour — as a
-// menu's current item and a chosen option (choice-list) are.
-button.bar {
-  width: 100%;
-  padding: var(--space-2);
-  border: 0;
-  border-radius: var(--radius-control);
-  background: none;
-  color: inherit;
-  font: inherit;
-  text-align: start;
-  cursor: pointer;
-
-  &:hover,
-  &:focus-visible {
-    background: var(--state-hover);
-  }
-
-  &:focus-visible {
-    outline: var(--border-focus-width, 2px) solid var(--neutral-a7, currentColor);
-    outline-offset: 1px;
-  }
-
-  &[aria-pressed='true'] {
-    background: var(--color-selected);
-    color: var(--color-selected-contrast);
-
-    .text-secondary,
-    .text-tertiary,
-    .bar--icon {
-      color: inherit;
-    }
-  }
-}
-
 // A list of bars: the rows, and what walks through the pages when there are
 // several. How the rows are told apart is the list's own doing — a divided
 // stack, a block each — so nothing of that belongs here.
@@ -94,11 +58,6 @@ button.bar {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-}
-
-// Lines one picks: their own room round them, so nothing between them.
-.bar-list--items--selectable {
-  gap: 0;
 }
 
 // The leading slot falls back to an icon in a round frame when no avatar markup

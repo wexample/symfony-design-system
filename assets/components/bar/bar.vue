@@ -25,30 +25,13 @@ export default {
     href: {
       type: String,
       default: null
-    },
-    // A line one picks among others — a list's current one —: a button, the
-    // one picked pressed. Null, the default, is a line that is only read.
-    pressed: {
-      type: Boolean,
-      default: null
     }
   },
 
   computed: {
-    // A bar standing for something reachable is a link over its whole width;
-    // one picked in place, a button.
+    // A bar standing for something reachable is a link over its whole width.
     tag() {
-      if (this.href) {
-        return 'a';
-      }
-
-      return this.pressed === null ? 'div' : 'button';
-    },
-
-    pressedAttributes() {
-      return this.tag === 'button'
-        ? { type: 'button', 'aria-pressed': this.pressed ? 'true' : 'false' }
-        : {};
+      return this.href ? 'a' : 'div';
     },
 
     iconHtml() {

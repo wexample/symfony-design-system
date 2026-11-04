@@ -94,17 +94,9 @@ const AbstractEntityCollectionVueMixin = {
       return this.pageLength;
     },
 
-    // A single page has nowhere to walk to: no pagination for it.
     hasPaginationAt(position) {
-      return this.hasSeveralPages()
+      return Boolean(this.pagination)
         && (this.paginationPosition === position || this.paginationPosition === 'both');
-    },
-
-    hasSeveralPages() {
-      const pagination = this.pagination;
-
-      return Boolean(pagination)
-        && ((pagination.pagesCount ?? 0) > 1 || Boolean(pagination.hasMore) || (pagination.page ?? 0) > 0);
     },
 
     // A collection read backwards opens on its last page and grows upwards, so

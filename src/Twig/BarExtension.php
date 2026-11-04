@@ -38,9 +38,6 @@ class BarExtension extends AbstractTemplateExtension
                             // what the line says: a figure, a bar of parts.
                             'body' => $options['body'] ?? null,
                             'href' => $options['href'] ?? null,
-                            // A line picked among others: a button, pressed
-                            // when it is the one picked.
-                            'pressed' => $options['pressed'] ?? null,
                             'attr' => $options['attr'] ?? [],
                             'class' => $this->buildClass($options),
                         ]

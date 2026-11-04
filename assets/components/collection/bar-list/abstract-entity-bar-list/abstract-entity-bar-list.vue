@@ -41,22 +41,8 @@ export default {
     variant: {
       type: String,
       default: 'divided'
-    },
-
-    // Lines one picks, the one picked pressed (`selectedKey`, an entity's
-    // key): each a button telling `pick` the entity it stands for. A list of
-    // links has its `href` instead.
-    selectable: {
-      type: Boolean,
-      default: false
-    },
-    selectedKey: {
-      type: [String, Number],
-      default: null
     }
   },
-
-  emits: ['pick'],
 
   data() {
     return {
@@ -77,11 +63,6 @@ export default {
     },
 
     itemsClass() {
-      // A line one picks carries its own room: no line, no gap between them.
-      if (this.selectable) {
-        return 'stack--vertical bar-list--items--selectable';
-      }
-
       return this.variant === 'divided'
           ? 'stack--vertical stack--divided'
           : 'stack--vertical';
@@ -99,29 +80,6 @@ export default {
   },
 
   methods: {
-    // Whether the line is the one picked; null when lines are not picked.
-    isPressed(item) {
-      if (!this.selectable) {
-        return null;
-      }
-
-      const selected = this.getSelectedKey();
-
-      return selected !== null && selected !== undefined && String(item.key) === String(selected);
-    },
-
-    // The key of the entity picked. A list keeping it itself — told by the
-    // page which one it shows — overrides this.
-    getSelectedKey() {
-      return this.selectedKey;
-    },
-
-    // An entity picked: told to whoever placed the list. A list doing more
-    // with it overrides this.
-    pickEntity(entity) {
-      this.$emit('pick', entity);
-    },
-
     /**
      * What to read on the row, the entity being the only thing the list knows
      * of it:
