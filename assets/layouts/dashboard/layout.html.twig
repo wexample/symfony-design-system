@@ -232,7 +232,10 @@
                                     always there: nothing to open. -#}
                                 {% block page_header_menu_left %}
                                     {%- if menuLeftNone -%}
-                                    <div class="header--brand">{{- block('page_menu_logo') -}}</div>
+                                    {#- The mark alone (`page_menu_logo_icon`), the header's
+                                        room kept for the page; the whole logo else. -#}
+                                    {%- set headerLogoIcon = block('page_menu_logo_icon') is defined ? block('page_menu_logo_icon')|trim : '' -%}
+                                    <div class="header--brand">{{- headerLogoIcon is not empty ? headerLogoIcon|raw : block('page_menu_logo') -}}</div>
                                     {%- elseif not (menuLeftIcons ?? false) -%}
                                     <nav class="header--menu">
                                         <a class="header--menu-item header--menu-item--icon" href="#" data-menu-target="left" role="button" aria-controls="layout-menu-left" aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.open_left'|trans }}" title="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.open_left'|trans }}">
