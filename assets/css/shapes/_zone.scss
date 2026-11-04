@@ -55,8 +55,7 @@
 // against its top edge, what the zone's content is set by — a preset, a mode,
 // a filter —, on the zone's own ground and parted from the content under it by
 // a line. The zone's content then goes flush, its head first, its body a
-// `zone--content` of its own. Its controls stand close to the edge, closer
-// than the content under them: chrome, not content.
+// `zone--content` of its own; the bar's room along the line is the zone's.
 .zone--head {
   flex: none;
   border-bottom: var(--border-separator);
@@ -64,7 +63,7 @@
 
 // Over the bar's own room, whichever stylesheet comes last.
 .toolbar.zone--head {
-  padding-inline: var(--space-2);
+  padding-inline: var(--zone-padding, var(--space-4));
 }
 
 // No room at all: what it holds is the frame's edge to edge — an editor's
