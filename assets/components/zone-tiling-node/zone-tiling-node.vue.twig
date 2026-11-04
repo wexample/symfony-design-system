@@ -5,7 +5,6 @@
 {%- endblock -%}
 
 {%- block vue_require -%}
-    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/button-menu') -}}
 {%- endblock -%}
 
 {%- block vue_body -%}
@@ -57,7 +56,7 @@
                 </slot>
             </div>
             {#- The screen being arranged: a bar over the zone, what it is at its
-                start and what can be done to it under the pencil at its end;
+                start and what can be done to it at its end, an icon each;
                 under it, what the page offers to put in it (`edit` slot). -#}
             <div v-if="zoneTiling.editing" class="zone-tiling--edit">
                 <div class="toolbar toolbar--compact zone-tiling--edit-bar">
@@ -83,14 +82,23 @@
                                 :data-tooltip="lockLabel.height"
                                 @click="toggleLock('height')"
                         >{{ icon('ph:bold/arrows-vertical') }}</button>
-                        <button-menu
-                                icon="ph:bold/pencil-simple"
-                                :items="menuItems"
-                                menu-align="end"
-                                button-class="action-icon"
-                                :caret="false"
-                                @select="zoneTiling.onMenuSelect(node, $event)"
-                        ></button-menu>
+<span class="toolbar--separator" aria-hidden="true"></span>
+                        {#- What can be done to it — split, close, the page's
+                            own —, each an icon, its words its tooltip; a
+                            separator where the menu would have drawn one. -#}
+                        <template v-for="(item, index) in menuItems" :key="item.value ?? index">
+                            <span v-if="item.separator" class="toolbar--separator" aria-hidden="true"></span>
+                            <button
+                                    v-else
+                                    type="button"
+                                    class="action-icon"
+                                    :aria-label="item.label"
+                                    :data-tooltip="item.label"
+                                    :disabled="item.disabled || null"
+                                    @click="zoneTiling.onMenuSelect(node, item)"
+                                    v-html="renderIcon(item.icon)"
+                            ></button>
+                        </template>
                     </div>
                 </div>
                 <div class="zone-tiling--edit-body">

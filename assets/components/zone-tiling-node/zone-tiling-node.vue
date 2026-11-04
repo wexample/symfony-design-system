@@ -1,5 +1,5 @@
 <script>
-import ButtonMenu from '../button-menu/button-menu.vue';
+import IconService from '@wexample/symfony-loader/js/Services/IconService';
 // What a zone may not be dragged below: a zone dragged to nothing leaves a
 // seam nobody can find again.
 const SIZE_MIN = 80;
@@ -55,10 +55,6 @@ export default {
   name: 'ZoneTilingNode',
 
   template: '#vue-template-wexample-symfony-design-system-bundle-components-zone-tiling-node-zone-tiling-node',
-
-  components: {
-    ButtonMenu
-  },
 
   inject: ['zoneTiling'],
 
@@ -120,6 +116,10 @@ export default {
   },
 
   methods: {
+    renderIcon(name) {
+      return name ? this.app.getServiceOrFail(IconService).icon(name) : '';
+    },
+
     // A child holding to a size along the split takes that size and no
     // other, whatever room is left: past the screen, the tiling scrolls.
     // Held across it, it sets how wide — or tall — the split stands.

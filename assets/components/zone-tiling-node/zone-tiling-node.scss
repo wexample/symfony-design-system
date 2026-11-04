@@ -4,8 +4,6 @@
 @use '../../css/shapes/empty';
 @use '../../css/shapes/action-icon';
 @use '../zone-resizer/zone-resizer';
-// The menu's button and panel are drawn by the button shape.
-@use '../button/button';
 
 // A node fills the cell it stands in: its bar, if any, over what it holds,
 // the room between them a split's own.
