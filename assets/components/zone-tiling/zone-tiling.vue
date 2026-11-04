@@ -23,10 +23,12 @@ const clone = (value) => JSON.parse(JSON.stringify(value));
 // seam dragged.
 //
 // The arrangement is a tree, handed in and out with `v-model`: a split is
-// `{ id, split: 'h' | 'v', size, children }`, a zone `{ id, size, ... }` —
+// `{ id, split: 'h' | 'v', size, children }`, a zone `{ id, size, lock, ... }` —
 // whatever else a zone carries is the page's (what it shows, a subject), kept
 // as it is. `size` is a weight among siblings, not pixels: the arrangement
-// holds on any screen. What a zone shows is the `zone` slot's; the design
+// holds on any screen — save for a zone holding its size, `lock: { width,
+// height }` in pixels, set from its bar while the screen is arranged: it keeps
+// it, the screen scrolling past what it can show. What a zone shows is the `zone` slot's; the design
 // system knows nothing of it. The zones are cut and closed while `editing`. A node — a zone, or a split, a section of the
 // screen — naming a `toolbar` gets a bar over it, drawn by the `toolbar` slot.
 export default {

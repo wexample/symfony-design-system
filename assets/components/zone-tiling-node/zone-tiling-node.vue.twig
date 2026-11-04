@@ -34,7 +34,7 @@
                 <template #edit="scope"><slot name="edit" v-bind="scope"></slot></template>
                 </zone-tiling-node>
                 <div
-                        v-if="index < node.children.length - 1"
+                        v-if="hasSeam(index)"
                         class="zone-resizer zone-resizer--end"
                         :class="{ 'zone-resizer--y': isVertical }"
                         role="separator"
@@ -63,6 +63,24 @@
                 <div class="toolbar toolbar--compact zone-tiling--edit-bar">
                     <span v-if="label" class="toolbar--title zone-tiling--edit-label">[[ label ]]</span>
                     <div class="toolbar--group zone-tiling--edit-tools">
+                        {#- Its size held, each way: its seams gone, the rest
+                            of the screen sharing what is left. -#}
+                        <button
+                                type="button"
+                                class="action-icon"
+                                :aria-pressed="lockedWidth ? 'true' : 'false'"
+                                :aria-label="trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.lock_width')"
+                                :data-tooltip="trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.lock_width')"
+                                @click="toggleLock('width')"
+                        >{{ icon('ph:bold/arrows-horizontal') }}</button>
+                        <button
+                                type="button"
+                                class="action-icon"
+                                :aria-pressed="lockedHeight ? 'true' : 'false'"
+                                :aria-label="trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.lock_height')"
+                                :data-tooltip="trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.lock_height')"
+                                @click="toggleLock('height')"
+                        >{{ icon('ph:bold/arrows-vertical') }}</button>
                         <button-menu
                                 icon="ph:bold/pencil-simple"
                                 :items="menuItems"

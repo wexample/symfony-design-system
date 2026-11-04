@@ -31,9 +31,14 @@
   padding-inline-end: calc(var(--space-2) + 2rem);
 }
 
-// The cell's weight is its inline `flex`; the floor keeps a seam to drag.
+// The cell's weight is its inline `flex`; the floor keeps a seam to drag, and
+// a zone in sight when others hold more than the screen has. Written against
+// the split, whose own rule lets its children shrink to nothing.
 .zone-tiling--cell {
   display: flex;
+}
+
+.zone-tiling--split > .zone-tiling--cell {
   min-width: 5rem;
   min-height: 5rem;
 }

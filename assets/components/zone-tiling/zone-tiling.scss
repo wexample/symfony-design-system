@@ -1,10 +1,12 @@
 // A screen of zones the reader cuts and sizes (zone-tiling-node draws them).
 @use '../zone-tiling-node/zone-tiling-node';
 
-// The whole of the room it is given, its splits sharing it.
+// The whole of the room it is given, its splits sharing it. Zones holding
+// their size (`lock`) may ask for more than there is: it scrolls, whole.
 .zone-tiling {
   display: flex;
   min-height: 0;
+  overflow: auto;
 }
 
 // Flush, the line between two zones is the wall's own ground: a border's

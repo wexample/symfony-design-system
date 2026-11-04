@@ -7,6 +7,36 @@ const SIZE_MIN = 80;
 // One press of an arrow key on a seam.
 const KEYBOARD_STEP = 16;
 
+// The room between two zones of a split, as the split draws it.
+const GAP = 'var(--zone-gap, var(--space-2))';
+
+// The axis a split lays its children along: side by side, their widths;
+// one above the other, their heights.
+const AXIS_OF_SPLIT = { h: 'width', v: 'height' };
+
+// What a node holds to along `axis` ('width' | 'height'), as a CSS length, or
+// null when it shares the room: a zone, the size it was locked at (`lock`);
+// a split along that axis, its children laid end to end — all of them held,
+// or none —; a split across it, the largest of those held.
+export function zoneTilingFixedSize(node, axis) {
+  if (!Array.isArray(node.children)) {
+    const size = node.lock?.[axis];
+
+    return size ? `${size}px` : null;
+  }
+
+  const sizes = node.children.map((child) => zoneTilingFixedSize(child, axis));
+  const held = sizes.filter(Boolean);
+
+  if (AXIS_OF_SPLIT[node.split] === axis) {
+    return held.length === sizes.length
+      ? `calc(${held.join(' + ')} + ${sizes.length - 1} * ${GAP})`
+      : null;
+  }
+
+  return held.length ? `max(${held.join(', ')})` : null;
+}
+
 // One node of a zone-tiling: a split, drawing its children side by side or
 // one above the other with a seam between each two, or a zone, drawing what
 // the page puts in it — or, while the screen is arranged, what can be done
@@ -47,6 +77,19 @@ export default {
       return this.zoneTiling.menuItems(this.node);
     },
 
+    axis() {
+      return AXIS_OF_SPLIT[this.node.split] ?? null;
+    },
+
+    // What a zone is held to, each way: its width, its height.
+    lockedWidth() {
+      return Boolean(this.node.lock?.width);
+    },
+
+    lockedHeight() {
+      return Boolean(this.node.lock?.height);
+    },
+
     // What the zone is, said while the screen is arranged: the page's words.
     label() {
       return this.zoneTiling.zoneLabel ? this.zoneTiling.zoneLabel(this.node) : null;
@@ -54,8 +97,36 @@ export default {
   },
 
   methods: {
+    // A child holding to a size along the split takes that size and no
+    // other, whatever room is left: past the screen, the tiling scrolls.
+    // Held across it, it sets how wide — or tall — the split stands.
     cellStyle(child) {
-      return { flex: `${child.size ?? 1} 1 0` };
+      const held = zoneTilingFixedSize(child, this.axis);
+      const across = zoneTilingFixedSize(child, this.axis === 'width' ? 'height' : 'width');
+      const style = held ? { flex: `0 0 ${held}` } : { flex: `${child.size ?? 1} 1 0` };
+
+      if (across) {
+        style[this.axis === 'width' ? 'minHeight' : 'minWidth'] = across;
+      }
+
+      return style;
+    },
+
+    // A seam beside a child holding its size along the split moves nothing:
+    // there is none.
+    hasSeam(index) {
+      return index < this.node.children.length - 1
+        && !zoneTilingFixedSize(this.node.children[index], this.axis)
+        && !zoneTilingFixedSize(this.node.children[index + 1], this.axis);
+    },
+
+    // The zone held to the size it now has on `axis`, or let go.
+    toggleLock(axis) {
+      const size = axis === 'width' ? this.$el.offsetWidth : this.$el.offsetHeight;
+      const lock = { ...(this.node.lock ?? {}), [axis]: this.node.lock?.[axis] ? null : Math.round(size) };
+
+      this.node.lock = lock.width || lock.height ? lock : undefined;
+      this.zoneTiling.commit();
     },
 
     // The two zones a seam parts, as wide — or tall — as they now are.

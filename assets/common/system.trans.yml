@@ -165,6 +165,8 @@ en:
       collapse: Collapse
       expand: Expand
       resize: Resize
+      lock_width: 'Keep its width'
+      lock_height: 'Keep its height'
     crop:
       area: Crop area
       handle: Resize the crop area
@@ -331,6 +333,8 @@ ar:
       collapse: طي
       expand: توسيع
       resize: 'تغيير الحجم'
+      lock_width: 'تثبيت عرضها'
+      lock_height: 'تثبيت ارتفاعها'
     crop:
       area: 'منطقة القص'
       handle: 'تغيير حجم منطقة القص'
@@ -497,6 +501,8 @@ bn:
       collapse: 'সংকুচিত করুন'
       expand: 'বিস্তৃত করুন'
       resize: 'আকার পরিবর্তন করুন'
+      lock_width: 'প্রস্থ স্থির রাখুন'
+      lock_height: 'উচ্চতা স্থির রাখুন'
     crop:
       area: 'কাটা এলাকা'
       handle: 'কাটা এলাকার আকার পরিবর্তন করুন'
@@ -663,6 +669,8 @@ de:
       collapse: Einklappen
       expand: Ausklappen
       resize: 'Größe ändern'
+      lock_width: 'Breite festhalten'
+      lock_height: 'Höhe festhalten'
     crop:
       area: Zuschneidebereich
       handle: 'Zuschneidebereich anpassen'
@@ -829,6 +837,8 @@ es:
       collapse: Colapsar
       expand: Expandir
       resize: Redimensionar
+      lock_width: 'Fijar su ancho'
+      lock_height: 'Fijar su alto'
     crop:
       area: 'Área de recorte'
       handle: 'Redimensionar el área de recorte'
@@ -995,6 +1005,8 @@ fa:
       collapse: 'جمع کردن'
       expand: 'گسترش دادن'
       resize: 'تغییر اندازه'
+      lock_width: 'ثابت نگه داشتن عرض'
+      lock_height: 'ثابت نگه داشتن ارتفاع'
     crop:
       area: 'منطقه برش'
       handle: 'تغییر اندازه منطقه برش'
@@ -1161,6 +1173,8 @@ fi:
       collapse: Pienennä
       expand: Laajenna
       resize: 'Muuta kokoa'
+      lock_width: 'Lukitse leveys'
+      lock_height: 'Lukitse korkeus'
     crop:
       area: Rajausalue
       handle: 'Muuta rajausaluetta'
@@ -1336,6 +1350,8 @@ fr:
       collapse: 'Replier'
       expand: 'Déplier'
       resize: Redimensionner
+      lock_width: 'Garder sa largeur'
+      lock_height: 'Garder sa hauteur'
     crop:
       area: Zone de recadrage
       handle: Redimensionner la zone de recadrage
@@ -1502,6 +1518,8 @@ he:
       collapse: כווץ
       expand: הרחב
       resize: 'שנה גודל'
+      lock_width: 'נעילת הרוחב'
+      lock_height: 'נעילת הגובה'
     crop:
       area: 'אזור חיתוך'
       handle: 'שנה את גודל אזור החיתוך'
@@ -1668,6 +1686,8 @@ hi:
       collapse: 'संकुचित करें'
       expand: 'विस्तारित करें'
       resize: 'आकार बदलें'
+      lock_width: 'चौड़ाई स्थिर रखें'
+      lock_height: 'ऊँचाई स्थिर रखें'
     crop:
       area: 'क्रॉप क्षेत्र'
       handle: 'क्रॉप क्षेत्र का आकार बदलें'
@@ -1834,6 +1854,8 @@ id:
       collapse: Kecilkan
       expand: Perbesar
       resize: 'Ubah ukuran'
+      lock_width: 'Kunci lebarnya'
+      lock_height: 'Kunci tingginya'
     crop:
       area: 'Area pemotongan'
       handle: 'Ubah ukuran area pemotongan'
@@ -2000,6 +2022,8 @@ it:
       collapse: Riduci
       expand: Espandi
       resize: Ridimensiona
+      lock_width: 'Blocca la larghezza'
+      lock_height: 'Blocca l''altezza'
     crop:
       area: 'Area di ritaglio'
       handle: "Ridimensiona l'area di ritaglio"
@@ -2166,6 +2190,8 @@ ja:
       collapse: 折りたたむ
       expand: 展開する
       resize: サイズ変更
+      lock_width: '幅を固定'
+      lock_height: '高さを固定'
     crop:
       area: トリミングエリア
       handle: トリミングエリアのサイズ変更
@@ -2332,6 +2358,8 @@ ko:
       collapse: 축소
       expand: 확장
       resize: '크기 조정'
+      lock_width: '너비 고정'
+      lock_height: '높이 고정'
     crop:
       area: '자르기 영역'
       handle: '자르기 영역 크기 조정'
@@ -2498,6 +2526,8 @@ nl:
       collapse: Samenvouwen
       expand: Uitvouwen
       resize: 'Grootte wijzigen'
+      lock_width: 'Breedte vastzetten'
+      lock_height: 'Hoogte vastzetten'
     crop:
       area: Bijsnijdgebied
       handle: 'Bijsnijdgebied aanpassen'
@@ -2664,6 +2694,8 @@ pl:
       collapse: Zwiń
       expand: Rozwiń
       resize: 'Zmień rozmiar'
+      lock_width: 'Zablokuj szerokość'
+      lock_height: 'Zablokuj wysokość'
     crop:
       area: 'Obszar przycinania'
       handle: 'Zmień rozmiar obszaru przycinania'
@@ -2830,6 +2862,8 @@ pt_BR:
       collapse: Recolher
       expand: Expandir
       resize: Redimensionar
+      lock_width: 'Fixar a largura'
+      lock_height: 'Fixar a altura'
     crop:
       area: 'Área de recorte'
       handle: 'Redimensionar a área de recorte'
@@ -2996,6 +3030,8 @@ ru:
       collapse: Свернуть
       expand: Развернуть
       resize: 'Изменить размер'
+      lock_width: 'Закрепить ширину'
+      lock_height: 'Закрепить высоту'
     crop:
       area: 'Область обрезки'
       handle: 'Изменить размер области обрезки'
@@ -3162,6 +3198,8 @@ th:
       collapse: ย่อ
       expand: ขยาย
       resize: ปรับขนาด
+      lock_width: 'ล็อกความกว้าง'
+      lock_height: 'ล็อกความสูง'
     crop:
       area: พื้นที่ตัด
       handle: ปรับขนาดพื้นที่ตัด
@@ -3328,6 +3366,8 @@ tr:
       collapse: Daralt
       expand: Genişlet
       resize: Boyutlandır
+      lock_width: 'Genişliğini sabitle'
+      lock_height: 'Yüksekliğini sabitle'
     crop:
       area: 'Kırpma alanı'
       handle: 'Kırpma alanını yeniden boyutlandır'
@@ -3494,6 +3534,8 @@ ur:
       collapse: 'کم کریں'
       expand: کھولیں
       resize: 'سائز تبدیل کریں'
+      lock_width: 'چوڑائی مقرر رکھیں'
+      lock_height: 'اونچائی مقرر رکھیں'
     crop:
       area: 'کٹائی کا علاقہ'
       handle: 'کٹائی کے علاقے کا سائز تبدیل کریں'
@@ -3660,6 +3702,8 @@ vi:
       collapse: 'Thu gọn'
       expand: 'Mở rộng'
       resize: 'Thay đổi kích thước'
+      lock_width: 'Giữ cố định chiều rộng'
+      lock_height: 'Giữ cố định chiều cao'
     crop:
       area: 'Khu vực cắt'
       handle: 'Thay đổi kích thước khu vực cắt'
@@ -3826,6 +3870,8 @@ zh:
       collapse: 折叠
       expand: 展开
       resize: 调整大小
+      lock_width: '固定宽度'
+      lock_height: '固定高度'
     crop:
       area: 裁剪区域
       handle: 调整裁剪区域大小
