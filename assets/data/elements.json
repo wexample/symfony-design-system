@@ -372,6 +372,35 @@
             }
         },
         {
+            "key": "collection/console/abstract-entity-console",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "The third reading of a collection: one line per event, read as they arrive \u2014 what a run writes of itself \u2014, monospace and tight, a tone on the kind and that is all; the latest first with more under the last line, or oldest first standing at its foot as a thread does.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/collection/console/abstract-entity-console/abstract-entity-console.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/collection/console/abstract-entity-console/abstract-entity-console.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/collection/console/abstract-entity-console/abstract-entity-console.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "waived",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "template": "client-side by nature: it only makes sense inside a vue tree",
+                "script": "its behaviour is the vue component's",
+                "ai": "read the lines, point at one, follow where a part leads"
+            }
+        },
+        {
             "key": "collection/grid/abstract-entity-grid",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "An entity table whose cells are written in place, through the entity's own form, cell by cell.",
@@ -3811,6 +3840,12 @@
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_composer.scss",
             "description": "What writes a message: a field growing with its lines, what sends it beside its last line, the files going with it above, and under it what can be done besides writing. It insets nothing: it is the field, border included, and the room around it is for whoever holds it to give."
+        },
+        {
+            "key": "console",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_console.scss",
+            "description": "A console: what a run writes of itself, one line per event, read as it arrives. Nothing here is for the eye \u2014 monospace, one notch down, the lines as tight as they read \u2014, the colour alone telling the kinds apart: a state's tone on the kind, the text itself only when something went wrong. A line keeps to one line whatever it says, its end given up at the edge: the whole is read in the detail it leads to.  A line: its time, the kind of event, what it concerns (a slot, a file), what it says, and what stands at the far end. Any of them may be a link or a button (`console--part`), reading as the text they are until the pointer is on them."
         },
         {
             "key": "container",

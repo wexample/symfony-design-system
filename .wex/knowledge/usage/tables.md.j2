@@ -182,6 +182,20 @@ The endpoint must declare all three (an undeclared parameter is a `400`) and all
 the sort keys it knows. A new order or a new search reads again from the first page. A
 collection adds its own parameters by overriding `getCollectionQuery()`.
 
+## The other readings of a collection
+
+The same mixin, the same three ways of keeping up, and two shapes beside the table for
+what a table fits badly. `abstract-entity-bar-list` reads one line per row — a title, what
+qualifies it, an icon, where it leads — for what has a name rather than figures.
+`abstract-entity-console` reads one line per event, as they arrive: what a run writes of
+itself, what a job answered. Monospace, one notch down, a tone on the kind and that is all;
+a line keeps to one line, the whole read in the detail it leads to. A subclass says what to
+read on a line in `getLineConfiguration(entity)` — `{ time, tone, kind, ref, text, end,
+href, onClick }`, each part a string or `{ label, href, onClick }` when it leads somewhere:
+a slot's id opening the slot. Latest first by default, the api's freshest page first and
+more under the last line held; `isNewestFirst()` returning false reads it as a thread does,
+the api sorted oldest first, the console standing at its foot.
+
 ## Several tables on one page
 
 A server table keeps its filters and its order at the top of the page's query, which suits a

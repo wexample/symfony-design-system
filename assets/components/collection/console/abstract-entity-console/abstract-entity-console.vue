@@ -82,7 +82,7 @@ export default {
       return this.newestFirst ? this.isLoadingNewer : this.isLoadingOlder;
     },
 
-    loadMoreLabel() {
+    moreLinesLabel() {
       return this.newestFirst ? this.resolvedLoadMoreLabel : this.resolvedLoadOlderLabel;
     }
   },
