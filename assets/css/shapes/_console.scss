@@ -5,8 +5,8 @@
 // wrong. A line keeps to one line whatever it says, its end given up at the
 // edge: the whole is read in the detail it leads to.
 //
-// A line: its time, the kind of event, what it concerns (a slot, a file),
-// what it says, and what stands at the far end. Any of them may be a link
+// A line: its time, its id, the kind of event, what it concerns (a slot, a
+// file), what it says, and what stands at the far end. Any of them may be a link
 // or a button (`console--part`), reading as the text they are until the
 // pointer is on them.
 @use '../mixins/feedback' as feedback;
@@ -56,6 +56,12 @@ a.console--line,
   flex: none;
   color: var(--text-color-subtle);
   font-variant-numeric: tabular-nums;
+}
+
+// The line's own id, as quiet as its time.
+.console--id {
+  flex: none;
+  color: var(--text-color-subtle);
 }
 
 // The kind, in the tone of its state; neutral when the kind is none.

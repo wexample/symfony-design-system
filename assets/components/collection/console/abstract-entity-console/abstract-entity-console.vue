@@ -21,7 +21,7 @@ const translated = buildTranslatedBindings({
 });
 
 // The parts of a line, in the order they are read.
-const LINE_PARTS = ['kind', 'ref', 'text', 'end'];
+const LINE_PARTS = ['id', 'kind', 'ref', 'text', 'end'];
 
 // The third reading of a collection: one line per event, read as they
 // arrive — what a run writes of itself, what a job answered. The table's
@@ -115,13 +115,14 @@ export default {
      * What to read on the line, the entity being the only thing the console
      * knows of it:
      *
-     *   { time, tone, kind, ref, text, end, href, onClick, class }
+     *   { time, tone, id, kind, ref, text, end, href, onClick, class }
      *
      * `time` is when it happened, redrawn as the page stays open. `tone` is
      * the state the line is read in — info, success, warning, error — or
-     * nothing. `kind` names the event, `ref` what it concerns (a slot, a
-     * file), `text` what it says, `end` what stands at the far end. Each of
-     * the four is a string, or `{ label, href, onClick, class }` when it
+     * nothing. `id` is the line's own, read after the time, short enough to
+     * tell it apart; `kind` names the event, `ref` what it concerns (a slot,
+     * a file), `text` what it says, `end` what stands at the far end. Each of
+     * the five is a string, or `{ label, href, onClick, class }` when it
      * leads somewhere or acts: a slot's id opening the slot. `href` makes
      * the whole line the link, `onClick(entity)` makes it act — not both,
      * and a line that is a link holds no part that acts.
@@ -130,6 +131,7 @@ export default {
       return {
         time: entity?.dateCreated ?? null,
         tone: null,
+        id: null,
         kind: null,
         ref: null,
         text: entity?.name ?? entity?.title ?? '',

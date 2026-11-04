@@ -190,8 +190,8 @@ qualifies it, an icon, where it leads — for what has a name rather than figure
 `abstract-entity-console` reads one line per event, as they arrive: what a run writes of
 itself, what a job answered. Monospace, one notch down, a tone on the kind and that is all;
 a line keeps to one line, the whole read in the detail it leads to. A subclass says what to
-read on a line in `getLineConfiguration(entity)` — `{ time, tone, kind, ref, text, end,
-href, onClick }`, each part a string or `{ label, href, onClick }` when it leads somewhere:
+read on a line in `getLineConfiguration(entity)` — `{ time, tone, id, kind, ref, text,
+end, href, onClick }`, each part a string or `{ label, href, onClick }` when it leads somewhere:
 a slot's id opening the slot. Latest first by default, the api's freshest page first and
 more under the last line held; `isNewestFirst()` returning false reads it as a thread does,
 the api sorted oldest first, the console standing at its foot.
