@@ -22,14 +22,8 @@
 }
 
 // A glimpse of the code (`maxLines`): its lines cut at the block's edge
-// rather than scrolled, and no taller than that many lines when they wrap.
-.code-block--clamped {
+// rather than scrolled — over the scroll a block of code has (partials/_code).
+pre.code-block--clamped:has(> code[class]) {
   overflow: hidden;
   text-overflow: ellipsis;
-
-  code {
-    display: block;
-    max-height: calc(var(--code-block-max-lines) * 1lh);
-    overflow: hidden;
-  }
 }

@@ -7,7 +7,7 @@
 {%- if max_lines|default(null) and code_lines|length > max_lines -%}
     {%- set code = (code_lines|slice(0, max_lines - 1)|merge(['…']))|join("\n") -%}
 {%- endif -%}
-{%- set pre_class = max_lines|default(null) ? ' class="code-block--clamped" style="--code-block-max-lines: ' ~ max_lines ~ '"' : '' -%}
+{%- set pre_class = max_lines|default(null) ? ' class="code-block--clamped"' : '' -%}
 {%- if copy|default(false) -%}
     {%- set copy_id = copy_id|default('code-block-' ~ random()) -%}
     <div class="code-block--copyable has-corner-actions">
