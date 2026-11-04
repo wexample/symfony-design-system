@@ -2,8 +2,11 @@
     what qualifies it, and whatever the caller hangs at the far end. It knows
     nothing of entities, so a search result that is a file, a word or a setting
     fits it as well as one that is a row in a table. -#}
-{%- set bar_tag = href ? 'a' : 'div' -%}
-<{{ bar_tag }} class="{{ class }}"{% if href %} href="{{ href }}"{% endif %} {{- component_render_tag_attributes(attr) }}>
+{#- `pressed`: a line one picks among others, a button — the one picked
+    pressed. Left out, a line that is only read. -#}
+{%- set bar_pressed = pressed|default(null) -%}
+{%- set bar_tag = href ? 'a' : (bar_pressed is null ? 'div' : 'button') -%}
+<{{ bar_tag }} class="{{ class }}"{% if href %} href="{{ href }}"{% elseif bar_tag == 'button' %} type="button" aria-pressed="{{ bar_pressed ? 'true' : 'false' }}"{% endif %} {{- component_render_tag_attributes(attr) }}>
     {%- if avatar or icon -%}
         <div class="bar--leading">
             {%- if avatar -%}

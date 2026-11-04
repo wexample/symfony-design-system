@@ -39,6 +39,8 @@
                     :icon="item.icon"
                     :avatar="item.avatar"
                     :href="item.href"
+                    :pressed="isPressed(item)"
+                    @click="selectable && pickEntity(item.entity)"
             >
                 <template v-if="item.date" #trailing>
                     {%- block bar_list_item_trailing -%}

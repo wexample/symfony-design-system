@@ -3,7 +3,7 @@
 {%- block vue_body -%}
     {# Client-side twin of components/bar.html.twig: same markup, same classes.
        A change to either is a change to both. #}
-    <component :is="tag" class="bar" :href="href">
+    <component :is="tag" class="bar" :href="href" v-bind="pressedAttributes">
         <div v-if="avatar || icon" class="bar--leading">
             <template v-if="avatar">
                 <span v-html="avatar"></span>
