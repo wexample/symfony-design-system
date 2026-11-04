@@ -20,6 +20,11 @@
     flex: 1;
     min-height: 0;
   }
+
+  // A zone's head stays a bar: the rest takes the room.
+  > .zone--head {
+    flex: none;
+  }
 }
 
 // Whatever holds a fill directly — a zone's content, a panel's body, a
