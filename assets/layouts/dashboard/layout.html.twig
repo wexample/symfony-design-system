@@ -131,7 +131,11 @@
     <div class="layout--horizontal{{ dockTools is not empty ? ' zone--split zone--split--joined' }}">
         <div class="gutters--body layout--body--overlay-scope">
             <div class="layout--horizontal">
-                {%- if not navigationTop -%}
+                {#- `menu_left_format: 'none'`: no menu down the side at all, the
+                    application's mark at the header's start — a page that is
+                    its own navigation, an editor reached from elsewhere. -#}
+                {%- set menuLeftNone = menu_left_format|default(null) == 'none' -%}
+                {%- if not navigationTop and not menuLeftNone -%}
                 {#- A side menu the visitor may widen (`menu_left_resizable`,
                     `menu_right_resizable`): an invisible handle on its edge
                     against the page, the cursor saying it moves, and the width
@@ -224,9 +228,12 @@
                                     {%- endif -%}
                                     <div class="header--body"></div>
                                 {%- else -%}
-                                {#- A menu of icons is always there: nothing to open. -#}
+                                {#- No menu: the mark in the place of its toggle. A menu of icons is
+                                    always there: nothing to open. -#}
                                 {% block page_header_menu_left %}
-                                    {%- if not (menuLeftIcons ?? false) -%}
+                                    {%- if menuLeftNone -%}
+                                    <div class="header--brand">{{- block('page_menu_logo') -}}</div>
+                                    {%- elseif not (menuLeftIcons ?? false) -%}
                                     <nav class="header--menu">
                                         <a class="header--menu-item header--menu-item--icon" href="#" data-menu-target="left" role="button" aria-controls="layout-menu-left" aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.open_left'|trans }}" title="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.menu.open_left'|trans }}">
                                             {{ icon('ph:bold/list') }}

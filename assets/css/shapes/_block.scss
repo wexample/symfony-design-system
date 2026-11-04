@@ -254,6 +254,13 @@
   &:focus-visible {
     @include field.field-focus;
   }
+
+  // The one picked among them (`aria-pressed`), the one shown elsewhere on
+  // the page: its ground the active state's, its edge firm.
+  &[aria-pressed='true'] {
+    background: var(--state-active);
+    border-color: var(--border-color-strong);
+  }
 }
 
 .block--link-icon {
