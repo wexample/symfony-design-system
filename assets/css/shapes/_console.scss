@@ -1,0 +1,131 @@
+// A console: what a run writes of itself, one line per event, read as it
+// arrives. Nothing here is for the eye — monospace, one notch down, the
+// lines as tight as they read —, the colour alone telling the kinds apart:
+// a state's tone on the kind, the text itself only when something went
+// wrong. A line keeps to one line whatever it says, its end given up at the
+// edge: the whole is read in the detail it leads to.
+//
+// A line: its time, the kind of event, what it concerns (a slot, a file),
+// what it says, and what stands at the far end. Any of them may be a link
+// or a button (`console--part`), reading as the text they are until the
+// pointer is on them.
+@use '../mixins/feedback' as feedback;
+
+.console {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-1);
+  line-height: 1.6;
+  color: var(--text-color-default);
+}
+
+// The lines, in the column that scrolls: the scrollbar hugs the edge, the
+// lines keep the room their zone gives them.
+.console--lines {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding-block: var(--space-1);
+}
+
+.console--line {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  min-width: 0;
+  padding-inline: var(--zone-padding, var(--space-2));
+  white-space: nowrap;
+  color: inherit;
+  text-decoration: none;
+}
+
+.console--line:hover {
+  background: var(--tint-2);
+}
+
+a.console--line,
+.console--line--clickable {
+  cursor: pointer;
+}
+
+.console--time {
+  flex: none;
+  color: var(--text-color-subtle);
+  font-variant-numeric: tabular-nums;
+}
+
+// The kind, in the tone of its state; neutral when the kind is none.
+.console--kind {
+  flex: none;
+  color: var(--feedback-color, var(--text-color-muted));
+}
+
+.console--ref {
+  flex: none;
+  color: var(--text-color-muted);
+}
+
+// What the line says: whatever room the rest leaves, cut at the edge.
+.console--text {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.console--end {
+  flex: none;
+  color: var(--text-color-subtle);
+}
+
+// A part leading somewhere, or acting: the text it is, the link's colour
+// under the pointer, as every link of the design system.
+.console--part {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.console--part:hover,
+.console--part:focus-visible {
+  color: var(--color-link-hover);
+  text-decoration: underline;
+}
+
+// The tones: the kind takes the state's colour; what went wrong colours the
+// text too, so an error is seen from across the room.
+.console--line--info {
+  @include feedback.feedback-info;
+}
+
+.console--line--success {
+  @include feedback.feedback-success;
+}
+
+.console--line--warning {
+  @include feedback.feedback-warning;
+}
+
+.console--line--error {
+  @include feedback.feedback-error;
+}
+
+.console--line--error .console--text {
+  color: var(--feedback-color);
+}
+
+// Where the lines go on: above the oldest held, or under the latest.
+.console--more {
+  display: flex;
+  justify-content: center;
+  flex: 0 0 auto;
+  padding: var(--space-1);
+}

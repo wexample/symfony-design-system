@@ -1,0 +1,16 @@
+# Declares `collection/console/abstract-entity-console` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "The third reading of a collection: one line per event, read as they arrive — what a run writes of itself —, monospace and tight, a tone on the kind and that is all; the latest first with more under the last line, or oldest first standing at its foot as a thread does."
+formats:
+  style: true
+  vue: true
+  template: "client-side by nature: it only makes sense inside a vue tree"
+  script: "its behaviour is the vue component's"
+  schema: todo
+  ai: "todo — read the lines, point at one, follow where a part leads"
+  react: todo
+  flutter: todo

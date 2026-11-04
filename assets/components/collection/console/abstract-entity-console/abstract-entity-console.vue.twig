@@ -1,0 +1,75 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ parent() }}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.*') }}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.components.collection.console.abstract-entity-console.abstract-entity-console::*') }}
+{%- endblock -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/date-display') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/load-more') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/spinner') -}}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    <div class="console" :class="{ 'console--newest-first': newestFirst }">
+        <div ref="lines" class="console--lines">
+            {#- Read oldest first, the way back up stands above the oldest line held. -#}
+            <div v-if="!newestFirst && hasMoreLines" class="console--more">
+                <load-more
+                        :label="loadMoreLabel"
+                        icon="ph:bold/caret-up"
+                        :is-loading="isLoadingMore"
+                        @load="loadMoreLines"
+                ></load-more>
+            </div>
+
+            <div v-if="isLoading && !hasLines" class="empty">
+                <spinner size="sm" :label="resolvedLoadingLabel"></spinner>
+            </div>
+            <div v-else-if="!hasLines" class="empty">[[ resolvedEmptyLabel ]]</div>
+
+            {#- One line per entity: a console drawing its lines otherwise
+                replaces this block and keeps the rest. -#}
+            {%- block console_line -%}
+            <component
+                    v-for="line in lines"
+                    :key="line.key"
+                    :is="lineTag(line)"
+                    :href="line.href"
+                    class="console--line"
+                    :class="lineClass(line)"
+                    @click="onLineClick(line)"
+            >
+                <date-display
+                        v-if="line.time"
+                        class="console--time"
+                        :value="line.time"
+                        format="time"
+                ></date-display>
+                <component
+                        v-for="part in line.parts"
+                        :key="part.role"
+                        :is="partTag(line, part)"
+                        :href="part.href"
+                        :type="partTag(line, part) === 'button' ? 'button' : null"
+                        :class="partClass(part)"
+                        :title="part.role === 'text' ? part.label : null"
+                        @click="onPartClick(line, part, $event)"
+                >[[ part.label ]]</component>
+            </component>
+            {%- endblock -%}
+
+            {#- Read latest first, what follows stands under the last line held. -#}
+            <div v-if="newestFirst && hasMoreLines" class="console--more">
+                <load-more
+                        :label="loadMoreLabel"
+                        icon="ph:bold/caret-down"
+                        :is-loading="isLoadingMore"
+                        @load="loadMoreLines"
+                ></load-more>
+            </div>
+        </div>
+    </div>
+{%- endblock -%}

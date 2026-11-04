@@ -1,0 +1,91 @@
+en:
+  load_more: More lines
+  load_older: Earlier lines
+
+ar:
+  load_more: المزيد من الأسطر
+  load_older: الأسطر السابقة
+
+bn:
+  load_more: আরও লাইন
+  load_older: আগের লাইন
+
+de:
+  load_more: Weitere Zeilen
+  load_older: Frühere Zeilen
+
+es:
+  load_more: Más líneas
+  load_older: Líneas anteriores
+
+fa:
+  load_more: خطوط بیشتر
+  load_older: خطوط قبلی
+
+fi:
+  load_more: Lisää rivejä
+  load_older: Aikaisemmat rivit
+
+fr:
+  load_more: Plus de lignes
+  load_older: Lignes précédentes
+
+he:
+  load_more: עוד שורות
+  load_older: שורות קודמות
+
+hi:
+  load_more: और पंक्तियाँ
+  load_older: पिछली पंक्तियाँ
+
+id:
+  load_more: Baris lainnya
+  load_older: Baris sebelumnya
+
+it:
+  load_more: Altre righe
+  load_older: Righe precedenti
+
+ja:
+  load_more: さらに表示
+  load_older: 以前の行
+
+ko:
+  load_more: 더 보기
+  load_older: 이전 줄
+
+nl:
+  load_more: Meer regels
+  load_older: Eerdere regels
+
+pl:
+  load_more: Więcej wierszy
+  load_older: Wcześniejsze wiersze
+
+pt:
+  load_more: Mais linhas
+  load_older: Linhas anteriores
+
+ru:
+  load_more: Ещё строки
+  load_older: Более ранние строки
+
+th:
+  load_more: บรรทัดเพิ่มเติม
+  load_older: บรรทัดก่อนหน้า
+
+tr:
+  load_more: Daha fazla satır
+  load_older: Önceki satırlar
+
+ur:
+  load_more: مزید سطریں
+  load_older: پچھلی سطریں
+
+vi:
+  load_more: Thêm dòng
+  load_older: Các dòng trước
+
+zh:
+  load_more: 更多行
+  load_older: 更早的行
