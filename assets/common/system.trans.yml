@@ -167,6 +167,7 @@ en:
       resize: Resize
       lock_width: 'Keep its width'
       lock_height: 'Keep its height'
+      sized_by_content: 'Sized by what it shows'
     crop:
       area: Crop area
       handle: Resize the crop area
@@ -335,6 +336,7 @@ ar:
       resize: 'تغيير الحجم'
       lock_width: 'تثبيت عرضها'
       lock_height: 'تثبيت ارتفاعها'
+      sized_by_content: 'يحدد محتواها حجمها'
     crop:
       area: 'منطقة القص'
       handle: 'تغيير حجم منطقة القص'
@@ -503,6 +505,7 @@ bn:
       resize: 'আকার পরিবর্তন করুন'
       lock_width: 'প্রস্থ স্থির রাখুন'
       lock_height: 'উচ্চতা স্থির রাখুন'
+      sized_by_content: 'এর বিষয়বস্তু আকার ঠিক করে'
     crop:
       area: 'কাটা এলাকা'
       handle: 'কাটা এলাকার আকার পরিবর্তন করুন'
@@ -671,6 +674,7 @@ de:
       resize: 'Größe ändern'
       lock_width: 'Breite festhalten'
       lock_height: 'Höhe festhalten'
+      sized_by_content: 'Vom Inhalt bemessen'
     crop:
       area: Zuschneidebereich
       handle: 'Zuschneidebereich anpassen'
@@ -839,6 +843,7 @@ es:
       resize: Redimensionar
       lock_width: 'Fijar su ancho'
       lock_height: 'Fijar su alto'
+      sized_by_content: 'Su contenido define el tamaño'
     crop:
       area: 'Área de recorte'
       handle: 'Redimensionar el área de recorte'
@@ -1007,6 +1012,7 @@ fa:
       resize: 'تغییر اندازه'
       lock_width: 'ثابت نگه داشتن عرض'
       lock_height: 'ثابت نگه داشتن ارتفاع'
+      sized_by_content: 'اندازه را محتوایش تعیین می‌کند'
     crop:
       area: 'منطقه برش'
       handle: 'تغییر اندازه منطقه برش'
@@ -1175,6 +1181,7 @@ fi:
       resize: 'Muuta kokoa'
       lock_width: 'Lukitse leveys'
       lock_height: 'Lukitse korkeus'
+      sized_by_content: 'Sisältö määrää koon'
     crop:
       area: Rajausalue
       handle: 'Muuta rajausaluetta'
@@ -1352,6 +1359,7 @@ fr:
       resize: Redimensionner
       lock_width: 'Garder sa largeur'
       lock_height: 'Garder sa hauteur'
+      sized_by_content: 'Taillée par ce qu''elle affiche'
     crop:
       area: Zone de recadrage
       handle: Redimensionner la zone de recadrage
@@ -1520,6 +1528,7 @@ he:
       resize: 'שנה גודל'
       lock_width: 'נעילת הרוחב'
       lock_height: 'נעילת הגובה'
+      sized_by_content: 'התוכן קובע את הגודל'
     crop:
       area: 'אזור חיתוך'
       handle: 'שנה את גודל אזור החיתוך'
@@ -1688,6 +1697,7 @@ hi:
       resize: 'आकार बदलें'
       lock_width: 'चौड़ाई स्थिर रखें'
       lock_height: 'ऊँचाई स्थिर रखें'
+      sized_by_content: 'इसकी सामग्री आकार तय करती है'
     crop:
       area: 'क्रॉप क्षेत्र'
       handle: 'क्रॉप क्षेत्र का आकार बदलें'
@@ -1856,6 +1866,7 @@ id:
       resize: 'Ubah ukuran'
       lock_width: 'Kunci lebarnya'
       lock_height: 'Kunci tingginya'
+      sized_by_content: 'Ukurannya mengikuti isinya'
     crop:
       area: 'Area pemotongan'
       handle: 'Ubah ukuran area pemotongan'
@@ -2024,6 +2035,7 @@ it:
       resize: Ridimensiona
       lock_width: 'Blocca la larghezza'
       lock_height: 'Blocca l''altezza'
+      sized_by_content: 'Dimensionata dal contenuto'
     crop:
       area: 'Area di ritaglio'
       handle: "Ridimensiona l'area di ritaglio"
@@ -2192,6 +2204,7 @@ ja:
       resize: サイズ変更
       lock_width: '幅を固定'
       lock_height: '高さを固定'
+      sized_by_content: '内容に合わせたサイズ'
     crop:
       area: トリミングエリア
       handle: トリミングエリアのサイズ変更
@@ -2360,6 +2373,7 @@ ko:
       resize: '크기 조정'
       lock_width: '너비 고정'
       lock_height: '높이 고정'
+      sized_by_content: '내용에 맞춘 크기'
     crop:
       area: '자르기 영역'
       handle: '자르기 영역 크기 조정'
@@ -2528,6 +2542,7 @@ nl:
       resize: 'Grootte wijzigen'
       lock_width: 'Breedte vastzetten'
       lock_height: 'Hoogte vastzetten'
+      sized_by_content: 'Grootte volgt de inhoud'
     crop:
       area: Bijsnijdgebied
       handle: 'Bijsnijdgebied aanpassen'
@@ -2696,6 +2711,7 @@ pl:
       resize: 'Zmień rozmiar'
       lock_width: 'Zablokuj szerokość'
       lock_height: 'Zablokuj wysokość'
+      sized_by_content: 'Rozmiar wyznacza zawartość'
     crop:
       area: 'Obszar przycinania'
       handle: 'Zmień rozmiar obszaru przycinania'
@@ -2864,6 +2880,7 @@ pt_BR:
       resize: Redimensionar
       lock_width: 'Fixar a largura'
       lock_height: 'Fixar a altura'
+      sized_by_content: 'Dimensionada pelo conteúdo'
     crop:
       area: 'Área de recorte'
       handle: 'Redimensionar a área de recorte'
@@ -3032,6 +3049,7 @@ ru:
       resize: 'Изменить размер'
       lock_width: 'Закрепить ширину'
       lock_height: 'Закрепить высоту'
+      sized_by_content: 'Размер задаёт содержимое'
     crop:
       area: 'Область обрезки'
       handle: 'Изменить размер области обрезки'
@@ -3200,6 +3218,7 @@ th:
       resize: ปรับขนาด
       lock_width: 'ล็อกความกว้าง'
       lock_height: 'ล็อกความสูง'
+      sized_by_content: 'ขนาดตามเนื้อหา'
     crop:
       area: พื้นที่ตัด
       handle: ปรับขนาดพื้นที่ตัด
@@ -3368,6 +3387,7 @@ tr:
       resize: Boyutlandır
       lock_width: 'Genişliğini sabitle'
       lock_height: 'Yüksekliğini sabitle'
+      sized_by_content: 'Boyutu içeriğe göre'
     crop:
       area: 'Kırpma alanı'
       handle: 'Kırpma alanını yeniden boyutlandır'
@@ -3536,6 +3556,7 @@ ur:
       resize: 'سائز تبدیل کریں'
       lock_width: 'چوڑائی مقرر رکھیں'
       lock_height: 'اونچائی مقرر رکھیں'
+      sized_by_content: 'اس کا مواد سائز طے کرتا ہے'
     crop:
       area: 'کٹائی کا علاقہ'
       handle: 'کٹائی کے علاقے کا سائز تبدیل کریں'
@@ -3704,6 +3725,7 @@ vi:
       resize: 'Thay đổi kích thước'
       lock_width: 'Giữ cố định chiều rộng'
       lock_height: 'Giữ cố định chiều cao'
+      sized_by_content: 'Kích thước theo nội dung'
     crop:
       area: 'Khu vực cắt'
       handle: 'Thay đổi kích thước khu vực cắt'
@@ -3872,6 +3894,7 @@ zh:
       resize: 调整大小
       lock_width: '固定宽度'
       lock_height: '固定高度'
+      sized_by_content: '随内容调整大小'
     crop:
       area: 裁剪区域
       handle: 调整裁剪区域大小

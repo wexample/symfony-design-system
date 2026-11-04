@@ -69,16 +69,18 @@
                                 type="button"
                                 class="action-icon"
                                 :aria-pressed="lockedWidth ? 'true' : 'false'"
-                                :aria-label="trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.lock_width')"
-                                :data-tooltip="trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.lock_width')"
+                                :disabled="sizing.width === 'content'"
+                                :aria-label="lockLabel.width"
+                                :data-tooltip="lockLabel.width"
                                 @click="toggleLock('width')"
                         >{{ icon('ph:bold/arrows-horizontal') }}</button>
                         <button
                                 type="button"
                                 class="action-icon"
                                 :aria-pressed="lockedHeight ? 'true' : 'false'"
-                                :aria-label="trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.lock_height')"
-                                :data-tooltip="trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.lock_height')"
+                                :disabled="sizing.height === 'content'"
+                                :aria-label="lockLabel.height"
+                                :data-tooltip="lockLabel.height"
                                 @click="toggleLock('height')"
                         >{{ icon('ph:bold/arrows-vertical') }}</button>
                         <button-menu

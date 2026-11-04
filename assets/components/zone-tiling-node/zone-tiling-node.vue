@@ -14,27 +14,36 @@ const GAP = 'var(--zone-gap, var(--space-2))';
 // one above the other, their heights.
 const AXIS_OF_SPLIT = { h: 'width', v: 'height' };
 
-// What a node holds to along `axis` ('width' | 'height'), as a CSS length, or
-// null when it shares the room: a zone, the size it was locked at (`lock`);
-// a split along that axis, its children laid end to end — all of them held,
-// or none —; a split across it, the largest of those held.
-export function zoneTilingFixedSize(node, axis) {
+// What a zone sized by what it shows holds to: its content's measure.
+export const ZONE_TILING_SIZE_CONTENT = 'content';
+
+// What a node holds to along `axis` ('width' | 'height'), as a CSS length —
+// `content` for a zone its content sizes —, or null when it shares the room:
+// a zone, what its content measures (`sizing`, the page's) or the size it
+// was locked at (`lock`); a split along that axis, its children laid end to
+// end — all of them held to a length, or none —; a split across it, the
+// largest of those held to one.
+export function zoneTilingFixedSize(node, axis, sizing = () => ({})) {
   if (!Array.isArray(node.children)) {
+    if (sizing(node)[axis] === ZONE_TILING_SIZE_CONTENT) {
+      return ZONE_TILING_SIZE_CONTENT;
+    }
+
     const size = node.lock?.[axis];
 
     return size ? `${size}px` : null;
   }
 
-  const sizes = node.children.map((child) => zoneTilingFixedSize(child, axis));
-  const held = sizes.filter(Boolean);
+  const sizes = node.children.map((child) => zoneTilingFixedSize(child, axis, sizing));
+  const lengths = sizes.filter((size) => size && size !== ZONE_TILING_SIZE_CONTENT);
 
   if (AXIS_OF_SPLIT[node.split] === axis) {
-    return held.length === sizes.length
-      ? `calc(${held.join(' + ')} + ${sizes.length - 1} * ${GAP})`
+    return lengths.length === sizes.length
+      ? `calc(${lengths.join(' + ')} + ${sizes.length - 1} * ${GAP})`
       : null;
   }
 
-  return held.length ? `max(${held.join(', ')})` : null;
+  return lengths.length ? `max(${lengths.join(', ')})` : null;
 }
 
 // One node of a zone-tiling: a split, drawing its children side by side or
@@ -81,13 +90,27 @@ export default {
       return AXIS_OF_SPLIT[this.node.split] ?? null;
     },
 
-    // What a zone is held to, each way: its width, its height.
+    // What a zone is held to, each way: its width, its height — by the
+    // reader, or by what it shows, which the reader then cannot undo.
+    sizing() {
+      return this.zoneTiling.sizingOf(this.node);
+    },
+
     lockedWidth() {
-      return Boolean(this.node.lock?.width);
+      return Boolean(this.node.lock?.width) || this.sizing.width === ZONE_TILING_SIZE_CONTENT;
     },
 
     lockedHeight() {
-      return Boolean(this.node.lock?.height);
+      return Boolean(this.node.lock?.height) || this.sizing.height === ZONE_TILING_SIZE_CONTENT;
+    },
+
+    lockLabel() {
+      const t = (key) => this.trans(`WexampleSymfonyDesignSystemBundle.common.system::frontend.zone.${key}`);
+
+      return {
+        width: this.sizing.width === ZONE_TILING_SIZE_CONTENT ? t('sized_by_content') : t('lock_width'),
+        height: this.sizing.height === ZONE_TILING_SIZE_CONTENT ? t('sized_by_content') : t('lock_height')
+      };
     },
 
     // What the zone is, said while the screen is arranged: the page's words.
@@ -101,11 +124,14 @@ export default {
     // other, whatever room is left: past the screen, the tiling scrolls.
     // Held across it, it sets how wide — or tall — the split stands.
     cellStyle(child) {
-      const held = zoneTilingFixedSize(child, this.axis);
-      const across = zoneTilingFixedSize(child, this.axis === 'width' ? 'height' : 'width');
-      const style = held ? { flex: `0 0 ${held}` } : { flex: `${child.size ?? 1} 1 0` };
+      const sizing = (node) => this.zoneTiling.sizingOf(node);
+      const held = zoneTilingFixedSize(child, this.axis, sizing);
+      const across = zoneTilingFixedSize(child, this.axis === 'width' ? 'height' : 'width', sizing);
+      const style = held
+        ? { flex: `0 0 ${held === ZONE_TILING_SIZE_CONTENT ? 'auto' : held}` }
+        : { flex: `${child.size ?? 1} 1 0` };
 
-      if (across) {
+      if (across && across !== ZONE_TILING_SIZE_CONTENT) {
         style[this.axis === 'width' ? 'minHeight' : 'minWidth'] = across;
       }
 
@@ -115,9 +141,11 @@ export default {
     // A seam beside a child holding its size along the split moves nothing:
     // there is none.
     hasSeam(index) {
+      const sizing = (node) => this.zoneTiling.sizingOf(node);
+
       return index < this.node.children.length - 1
-        && !zoneTilingFixedSize(this.node.children[index], this.axis)
-        && !zoneTilingFixedSize(this.node.children[index + 1], this.axis);
+        && !zoneTilingFixedSize(this.node.children[index], this.axis, sizing)
+        && !zoneTilingFixedSize(this.node.children[index + 1], this.axis, sizing);
     },
 
     // The zone held to the size it now has on `axis`, or let go.

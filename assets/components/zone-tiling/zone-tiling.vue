@@ -28,7 +28,8 @@ const clone = (value) => JSON.parse(JSON.stringify(value));
 // as it is. `size` is a weight among siblings, not pixels: the arrangement
 // holds on any screen — save for a zone holding its size, `lock: { width,
 // height }` in pixels, set from its bar while the screen is arranged: it keeps
-// it, the screen scrolling past what it can show. What a zone shows is the `zone` slot's; the design
+// it, the screen scrolling past what it can show; or sized by what it shows,
+// as the page says (`zoneSizing`). What a zone shows is the `zone` slot's; the design
 // system knows nothing of it. The zones are cut and closed while `editing`. A node — a zone, or a split, a section of the
 // screen — naming a `toolbar` gets a bar over it, drawn by the `toolbar` slot.
 export default {
@@ -73,6 +74,13 @@ export default {
     },
     // `(zone) => string`: what a zone is called while the screen is arranged.
     zoneLabel: {
+      type: Function,
+      default: null
+    },
+    // `(zone) => ({ width, height })`: a way a zone is sized by what it shows
+    // (`'content'`) — growing and shrinking with it —, and the reader can no
+    // longer lock it.
+    zoneSizing: {
       type: Function,
       default: null
     }
@@ -144,6 +152,10 @@ export default {
       }
 
       return null;
+    },
+
+    sizingOf(zone) {
+      return this.zoneSizing?.(zone) ?? {};
     },
 
     isRoot(zone) {
