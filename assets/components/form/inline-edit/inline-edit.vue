@@ -1,5 +1,5 @@
 <script>
-import { formPropsField, formPropsFullName, submitFormProps } from '../../../js/Helper/FormPropsHelper';
+import { formDefinitionField, formDefinitionFullName, submitFormDefinition } from '../../../js/Helper/FormDefinitionHelper';
 
 // Where its own words are.
 const DOMAIN = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.inline_edit.';
@@ -8,7 +8,7 @@ const DOMAIN = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.inline
 // its default slot, a select, a value — and a pencil in the frame; pressed,
 // the frame holds the field instead, its value written in, saved by Enter or
 // ✓, let go by Escape or ✕. Sent as the drawn form would be — the fields of
-// `form` (`form_props()`), the one edited holding what was typed — to the
+// `form` (`form_definition()`), the one edited holding what was typed — to the
 // form's processor, which validates, saves and says so; what it refuses is
 // said under the frame, the field kept open.
 export default {
@@ -17,7 +17,7 @@ export default {
   emits: ['saved', 'update:editing'],
 
   props: {
-    // What `form_props(form)` hands over. None: the frame and what it shows,
+    // What `form_definition(form)` hands over. None: the frame and what it shows,
     // no pencil — a reader who may not change the value.
     form: {
       type: Object,
@@ -29,7 +29,7 @@ export default {
       required: true
     },
     // The entity sent, put where the form's address holds the placeholder
-    // (`form_props(form, { id_placeholder: '__id__' })`).
+    // (`form_definition(form, { id_placeholder: '__id__' })`).
     id: {
       type: String,
       default: null
@@ -72,12 +72,12 @@ export default {
 
   computed: {
     fieldProps() {
-      return this.form ? formPropsField(this.form, this.field) : null;
+      return this.form ? formDefinitionField(this.form, this.field) : null;
     },
 
     // The field's name as it is sent, under the form's.
     fieldName() {
-      return this.form ? formPropsFullName(this.form, this.field) : null;
+      return this.form ? formDefinitionFullName(this.form, this.field) : null;
     },
 
     startValue() {
@@ -136,7 +136,7 @@ export default {
       this.errors = [];
 
       try {
-        const answer = await submitFormProps(this.app, this.form, {
+        const answer = await submitFormDefinition(this.app, this.form, {
           id: this.id,
           values: { [this.field]: this.draft.trim() },
           failedMessage: this.trans(`${DOMAIN}failed`)

@@ -1,0 +1,71 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/form/form.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.form.*') }}
+{%- endblock -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/text-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/textarea-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/select-input') -}}
+{%- endblock -%}
+
+{#- What the processor refused of the form as a whole, said in words already:
+    the answer carries its translations. -#}
+{%- block form_errors -%}
+    <div class="form--errors" v-if="formErrors && formErrors.length">
+        <ul>
+            <li v-for="(error, index) in formErrors" :key="index">[[ error ]]</li>
+        </ul>
+    </div>
+{%- endblock -%}
+
+{#- Each field by its kind, its label and its limits the form's; the errors
+    reach each by the name it is registered under, through the form's
+    controller. -#}
+{%- block form_body -%}
+    <div class="dynamic-form">
+        <template v-for="field in shownFields" :key="field.name">
+            <textarea-input
+                    v-if="field.type === 'textarea'"
+                    v-model="draft[field.name]"
+                    :name="fullName(field)"
+                    :errors="getFieldErrors(fullName(field))"
+                    :label="field.label"
+                    :placeholder="field.placeholder || ''"
+                    :rows="field.rows || 3"
+                    :required="Boolean(field.required)"
+                    :readonly="readonly"
+                    :translate="false"
+            ></textarea-input>
+            <select-input
+                    v-else-if="field.type === 'select'"
+                    v-model="draft[field.name]"
+                    :name="fullName(field)"
+                    :errors="getFieldErrors(fullName(field))"
+                    :label="field.label"
+                    :options="optionsOf(field)"
+                    :required="Boolean(field.required)"
+                    :readonly="readonly"
+                    :translate="false"
+            ></select-input>
+            <text-input
+                    v-else
+                    v-model="draft[field.name]"
+                    :type="inputType(field)"
+                    :name="fullName(field)"
+                    :errors="getFieldErrors(fullName(field))"
+                    :label="field.label"
+                    :placeholder="field.placeholder || ''"
+                    :required="Boolean(field.required)"
+                    :readonly="readonly"
+                    :translate="false"
+            ></text-input>
+        </template>
+        <div v-if="!readonly" class="form--actions">
+            <button type="submit" class="button button--invert" :disabled="formIsSubmitting">
+                <span class="button--icon">{{ icon('ph:bold/check') }}</span>[[ submitText ]]
+            </button>
+        </div>
+    </div>
+{%- endblock -%}

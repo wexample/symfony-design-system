@@ -119,11 +119,11 @@ The one thing asked on a step — a name, an address — is set large with `row_
 
 ## A field edited in place
 
-`form/inline-edit` edits one field of a form of the application where its value is shown — a title in a bar, a name in a row —: the frame of a field holding what the page gives it (its default slot: a select, a value; the value alone else), a pencil after it and the page's own actions last (`actions` slot). Pressed, the frame holds the field instead, its ✓ and ✕ in it; Enter saves, Escape lets go. The form is a Symfony form handed over by symfony-forms' `form_props()` rather than drawn: the vue sends its fields as the drawn form would be, to its processor, which validates, saves and notifies; what it refuses is said under the frame, the field kept open, and `saved` gives the new value once it is in.
+`form/inline-edit` edits one field of a form of the application where its value is shown — a title in a bar, a name in a row —: the frame of a field holding what the page gives it (its default slot: a select, a value; the value alone else), a pencil after it and the page's own actions last (`actions` slot). Pressed, the frame holds the field instead, its ✓ and ✕ in it; Enter saves, Escape lets go. The form is a Symfony form handed over by symfony-forms' `form_definition()` rather than drawn: the vue sends its fields as the drawn form would be, to its processor, which validates, saves and notifies; what it refuses is said under the frame, the field kept open, and `saved` gives the new value once it is in.
 
 ```twig
 {{ vue(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/inline-edit', {
-    form: form_props(step_title_form, { id_placeholder: '__id__' }),
+    form: form_definition(step_title_form, { id_placeholder: '__id__' }),
     field: 'title',
     id: step.id,
 }) }}
@@ -131,4 +131,4 @@ The one thing asked on a step — a name, an address — is set large with `row_
 
 `id` goes where the form's address holds the placeholder: one form serves every entity a page shows. Without `form`, the frame and what it shows, no pencil — a reader who may not change the value.
 
-`bare` reads the value as the text it is — a title in a header —: no frame, the pencil after it under the pointer, the frame of a field only while it is edited. A layout making the form for every page it draws hands it with symfony-forms' `form_props_for(form_class, data)`.
+`bare` reads the value as the text it is — a title in a header —: no frame, the pencil after it under the pointer, the frame of a field only while it is edited. A layout making the form for every page it draws hands it with symfony-forms' `form_definition_for(form_class, data)`.

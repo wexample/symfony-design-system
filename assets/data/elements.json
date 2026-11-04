@@ -1287,6 +1287,34 @@
             "notes": []
         },
         {
+            "key": "form/dynamic-form",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A form of the application drawn from `form_definition()` rather than by its template \u2014 each field by its kind \u2014 and sent to its processor: a form of the server held by a vue.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/dynamic-form/dynamic-form.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/dynamic-form/dynamic-form.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/dynamic-form/dynamic-form.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "waived",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "template": "the twig side draws the form itself, through its theme",
+                "script": "its behaviour is the vue component's"
+            }
+        },
+        {
             "key": "form/email-input",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A text field holding an e-mail address, the browser checking its shape.",
@@ -1610,34 +1638,6 @@
                 "style": "Nothing of it is seen; the utility class hiding the trap is enough.",
                 "vue": "Drawn by symfony-forms' ProofOfWorkInputType, inside a form the server renders; a client-built form has no challenge to solve.",
                 "ai": "An agent filling a form in has nothing to do with it; the browser solves it."
-            }
-        },
-        {
-            "key": "form/props-form",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": "A form of the application drawn from `form_props()` rather than by its template \u2014 each field by its kind \u2014 and sent to its processor: a form of the server held by a vue.",
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/props-form/props-form.scss"
-                ],
-                "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/props-form/props-form.vue.twig",
-                    "@WexampleSymfonyDesignSystemBundle/components/form/props-form/props-form.vue"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "waived",
-                "vue": "expected",
-                "script": "waived",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "template": "the twig side draws the form itself, through its theme",
-                "script": "its behaviour is the vue component's"
             }
         },
         {

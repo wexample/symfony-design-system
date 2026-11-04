@@ -1,7 +1,7 @@
 <script>
 import AbstractFormMixin from "@wexample/js-api/Vue/AbstractFormMixin";
 import LocaleService from '@wexample/symfony-loader/js/Services/LocaleService';
-import { formPropsAction, formPropsData, notifyFormProps } from '../../../js/Helper/FormPropsHelper';
+import { formDefinitionAction, formDefinitionData, notifyFormDefinition } from '../../../js/Helper/FormDefinitionHelper';
 import AdaptiveService from '@wexample/symfony-loader/js/Services/AdaptiveService';
 
 // A form of the design system: the mixin's fields, errors and submit, and
@@ -9,7 +9,7 @@ import AdaptiveService from '@wexample/symfony-loader/js/Services/AdaptiveServic
 // - through the api client by default, which prefixes its address with the
 //   api's;
 // - to a page's own route as it stands (`submitThroughApi: false`);
-// - to a form of the server (`formProps`, as `form_props()` hands one, the
+// - to a form of the server (`formDefinition`, as `form_definition()` hands one, the
 //   json-schema norm's `form.json`): sent as the drawn form would be, to its
 //   processor, which answers as the norm says (`form_submit_response.json`),
 //   the fields' errors under their full names — the names the fields were
@@ -22,19 +22,19 @@ export default {
   data() {
     return {
       submitThroughApi: true,
-      formProps: null,
+      formDefinition: null,
       // The entity a form of the server is sent for, put where its address
-      // holds the placeholder (`form_props(form, { id_placeholder })`).
-      formPropsId: null
+      // holds the placeholder (`form_definition(form, { id_placeholder })`).
+      formDefinitionId: null
     };
   },
 
   methods: {
     async requestApiSubmit(options) {
-      if (this.formProps) {
-        return this.app.getServiceOrFail(AdaptiveService).requestData(formPropsAction(this.formProps, this.formPropsId), {
-          method: this.formProps.method ?? 'POST',
-          body: formPropsData(this.formProps, options.payload ?? {})
+      if (this.formDefinition) {
+        return this.app.getServiceOrFail(AdaptiveService).requestData(formDefinitionAction(this.formDefinition, this.formDefinitionId), {
+          method: this.formDefinition.method ?? 'POST',
+          body: formDefinitionData(this.formDefinition, options.payload ?? {})
         });
       }
 
@@ -84,8 +84,8 @@ export default {
 
     // What a form of the server said once taken, told.
     onApiSubmitSuccess(response) {
-      if (this.formProps) {
-        notifyFormProps(this.app, response);
+      if (this.formDefinition) {
+        notifyFormDefinition(this.app, response);
       }
     }
   }
