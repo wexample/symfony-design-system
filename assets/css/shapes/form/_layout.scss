@@ -74,10 +74,13 @@ fieldset.form--fieldset {
 // Fields side by side: as many columns as the room holds, each never narrower
 // than a field can be read at, and never more than the form asks for — three
 // by default, `form--columns-2` for two. One column on a phone, without a
-// breakpoint: the floor decides. On a section or on the form itself.
+// breakpoint: the floor decides. On a section or on the form itself. The
+// floor is low on purpose: a form also stands in a widget's zone, a third of
+// the page, and two short fields side by side there read better than one
+// under the other.
 .form--columns {
   --form-columns: 3;
-  --form-column-min: 16rem;
+  --form-column-min: 12rem;
   --form-column-gap: var(--space-4);
   grid-template-columns: repeat(
     auto-fill,
