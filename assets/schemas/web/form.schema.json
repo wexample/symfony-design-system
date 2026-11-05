@@ -49,7 +49,8 @@
           { "$ref": "url_input.schema.json" },
           { "$ref": "key_value_input.schema.json" },
           { "$ref": "tags_input.schema.json" },
-          { "$ref": "search_select_input.schema.json" }
+          { "$ref": "search_select_input.schema.json" },
+          { "$ref": "color_input.schema.json" }
         ]
       }
     }

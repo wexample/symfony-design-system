@@ -1,0 +1,16 @@
+# Declares `form/color-input` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "A colour, held and sent as #rrggbb: its swatch opening the browser's picker, its hex typed beside it — #abc read as #aabbcc once the field is left —, the colours the field offers under it, a press each. The same in twig and in vue (ColorHelper)."
+formats:
+  style: true
+  template: true
+  vue: true
+  script: true
+  schema: true
+  ai: "todo — read the colour, set it by its hex or a colour offered"
+  react: todo
+  flutter: todo

@@ -1,0 +1,50 @@
+{#- A colour, drawn as the vue draws it: its swatch opening the browser's
+    picker, its hex beside it — the field the form posts, `#rrggbb` —, the
+    colours offered under it (`swatches`, `#hex` or `{ value, label }`). The
+    hex is the field without a script; the script keeps the swatch and the
+    hex one colour, and reads what is typed as one when the field is left. -#}
+{%- set domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.color_input.' -%}
+{%- set value = value|default('') -%}
+{%- set swatches = swatches|default([]) -%}
+{%- set is_color = value matches '/^#[0-9a-fA-F]{6}$/' -%}
+<div {{ component_render_tag_attributes({ class: 'form--group' }) }}>
+    <label class="form--label" for="{{ id }}">{{ label }}</label>
+    <div class="color-input{{ is_color ? '' : ' is-empty' }}"{% if is_color %} style="--color-input-value: {{ value|lower }}"{% endif %}>
+        <div class="form--input-group color-input--frame">
+            <label class="color-input--swatch" title="{{ (domain ~ 'pick')|trans }}">
+                <input class="color-input--picker"
+                       type="color"
+                       value="{{ is_color ? value|lower : '#000000' }}"
+                       aria-label="{{ (domain ~ 'pick')|trans }}">
+            </label>
+            <input class="form--input color-input--hex"
+                   id="{{ id }}"
+                   type="text"
+                   inputmode="text"
+                   autocomplete="off"
+                   spellcheck="false"
+                   maxlength="7"
+                   pattern="#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})"
+                   {% if name is defined %}name="{{ name }}"{% endif %}
+                   value="{{ value }}"
+                   placeholder="{{ placeholder|default('#rrggbb') }}"
+                   {% if required is defined and required %}required{% endif %}
+                   {% if input_attr is defined %}{{ input_attr|raw }}{% endif %}>
+        </div>
+        {%- if swatches is not empty %}
+        <div class="color-input--swatches" role="group" aria-label="{{ (domain ~ 'swatches')|trans }}">
+            {%- for swatch in swatches %}
+            {%- set swatch_value = (swatch.value is defined ? swatch.value : swatch)|lower -%}
+            {%- set swatch_label = swatch.label is defined ? swatch.label : swatch_value -%}
+            <button type="button"
+                    class="color-input--offer{{ swatch_value == value|lower ? ' is-active' }}"
+                    style="--color-input-offer: {{ swatch_value }}"
+                    data-value="{{ swatch_value }}"
+                    aria-label="{{ swatch_label }}"
+                    aria-pressed="{{ swatch_value == value|lower ? 'true' : 'false' }}"
+                    data-tooltip="{{ swatch_label }}"></button>
+            {%- endfor %}
+        </div>
+        {%- endif %}
+    </div>
+</div>

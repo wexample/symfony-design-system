@@ -43,6 +43,8 @@ export type FormDefinitionField = {
   options?: { value: string; label: string }[];
   optionsUrl?: string;
   valueLabel?: string;
+  // A colour's offered colours (`color_input.schema.json`).
+  swatches?: { value: string; label: string }[];
 };
 
 export type FormDefinitionPair = { key: string; value: string };

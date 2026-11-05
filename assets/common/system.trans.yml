@@ -76,6 +76,9 @@ en:
       remove: "Remove"
       suggest: "Add %tag%"
       suggestions: "Suggestions"
+    color_input:
+      pick: "Pick a colour"
+      swatches: "Colours offered"
     search_select:
       search: "Search…"
       loading: "Searching…"
@@ -1289,6 +1292,9 @@ fr:
       remove: "Retirer"
       suggest: "Ajouter %tag%"
       suggestions: "Suggestions"
+    color_input:
+      pick: "Choisir une couleur"
+      swatches: "Couleurs proposées"
     search_select:
       search: "Rechercher…"
       loading: "Recherche…"

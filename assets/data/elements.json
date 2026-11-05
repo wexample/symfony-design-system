@@ -1248,6 +1248,42 @@
             "notes": []
         },
         {
+            "key": "form/color-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A colour, held and sent as #rrggbb: its swatch opening the browser's picker, its hex typed beside it \u2014 #abc read as #aabbcc once the field is left \u2014, the colours the field offers under it, a press each. The same in twig and in vue (ColorHelper).",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/color-input/color-input.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/color-input/color-input.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/color-input/color-input.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/color-input/color-input.vue.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/color-input/color-input.ts"
+                ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/color-input/color-input.schema.json"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "expected",
+                "schema": "expected",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "ai": "read the colour, set it by its hex or a colour offered"
+            }
+        },
+        {
             "key": "form/date-input",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A field holding a day.",

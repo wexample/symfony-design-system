@@ -129,6 +129,10 @@ The one thing asked on a step — a name, an address — is set large with `row_
 
 `form/search-select-input` chooses one option among too many to send with the form — a registry, a list of countries —: the select's trigger, a list under it headed by a search field, the field's own options (`options`, words or `{ value, label }`) and those a source answers as the words are typed (`optionsUrl`, asked with `?q=`, answering as the tags field's source does: `OptionsHelper`, written once for both). The value is a text, posted by a hidden input; the trigger shows its label — `valueLabel`, else the option holding it, else asked of the source. Not required, the list opens on « — », taking the choice back. Arrows walk the list, Enter takes, Escape goes back to the trigger. It takes over the former `select-search` component. symfony-forms' `SearchSelectInputType` draws it; it does not hold every option, so the value is the application's to check, by a constraint of its own.
 
+## A colour
+
+`form/color-input` holds a colour as `#rrggbb`: a swatch at the start of the field — the colour itself, the browser's picker under it —, its hex in monospace beside it, the field the form posts. What is typed is read as a colour once the field is left (`#abc`, `ABC` → `#aabbcc`, `ColorHelper`); what is not one is kept as typed for the form to refuse, the swatch crossed meanwhile. `swatches` offers colours under the field, a press each, the one held ringed. symfony-forms' `ColorInputType` draws it; `form_definition()` hands it as kind `color`.
+
 ## A field standardised
 
 A field of an application is a field of the design system with its defaults preset. Its vue face extends the generic component and sets the defaults of its props, its own template id over the generic markup — nothing drawn, nothing behaved of its own:

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "color_input.schema.json",
+  "title": "Color input field",
+  "description": "A colour, held and sent as `#rrggbb` (lowercase): picked from the browser's picker, typed as its hex, or taken among the colours the field offers (`swatches`).",
+  "type": "object",
+  "allOf": [
+    { "$ref": "field_base.schema.json" }
+  ],
+  "properties": {
+    "type": {
+      "const": "color"
+    },
+    "value": {
+      "type": ["string", "null"],
+      "pattern": "^(#[0-9a-f]{6})?$"
+    },
+    "swatches": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string", "pattern": "^#[0-9a-f]{6}$" },
+          "label": { "type": "string" }
+        },
+        "required": ["value", "label"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["type", "name", "label"],
+  "unevaluatedProperties": false
+}

@@ -11,6 +11,7 @@
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/key-value-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/tags-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/search-select-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/color-input') -}}
 {%- endblock -%}
 
 {#- What the processor refused of the form as a whole, said in words already:
@@ -90,6 +91,17 @@
                     :readonly="readonly"
                     :translate="false"
             ></search-select-input>
+            <color-input
+                    v-else-if="field.type === 'color'"
+                    v-model="draft[field.name]"
+                    :name="fullName(field)"
+                    :errors="getFieldErrors(fullName(field))"
+                    :label="field.label"
+                    :swatches="field.swatches || []"
+                    :required="Boolean(field.required)"
+                    :readonly="readonly"
+                    :translate="false"
+            ></color-input>
             <text-input
                     v-else
                     v-model="draft[field.name]"

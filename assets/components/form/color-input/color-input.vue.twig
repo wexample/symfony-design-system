@@ -1,0 +1,49 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/form-field/form-field.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.color_input.*') }}
+{%- endblock -%}
+
+{#- Client-side twin of color-input.html.twig: the same swatch, the same hex,
+    the same colours offered. -#}
+{%- block field_control -%}
+    <div class="color-input" :class="{ 'is-empty': !shown }" :style="{ '--color-input-value': shown || null }">
+        <div class="form--input-group color-input--frame">
+            <label class="color-input--swatch" :title="t('pick')">
+                <input class="color-input--picker"
+                       type="color"
+                       :value="shown || '#000000'"
+                       :aria-label="t('pick')"
+                       :disabled="!editable ? true : null"
+                       @input="onPick">
+            </label>
+            <input class="form--input color-input--hex"
+                   type="text"
+                   inputmode="text"
+                   autocomplete="off"
+                   spellcheck="false"
+                   maxlength="7"
+                   :name="name || null"
+                   :id="resolvedId"
+                   :value="modelValue"
+                   :placeholder="placeholder || null"
+                   :required="isRequired ? true : null"
+                   :readonly="readonly ? true : null"
+                   :disabled="disabled ? true : null"
+                   @input="onHexInput"
+                   @blur="onHexBlur">
+        </div>
+        <div v-if="offered.length && editable" class="color-input--swatches" role="group" :aria-label="t('swatches')">
+            <button v-for="swatch in offered"
+                    :key="swatch.value"
+                    type="button"
+                    class="color-input--offer"
+                    :class="{ 'is-active': swatch.value === shown }"
+                    :style="{ '--color-input-offer': swatch.value }"
+                    :aria-label="swatch.label"
+                    :aria-pressed="swatch.value === shown ? 'true' : 'false'"
+                    :data-tooltip="swatch.label"
+                    @click="write(swatch.value)"></button>
+        </div>
+    </div>
+{%- endblock -%}
