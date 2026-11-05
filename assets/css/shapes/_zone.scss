@@ -66,6 +66,23 @@
   padding-inline: var(--zone-padding, var(--space-4));
 }
 
+// A head too light for a bar of its own — a pin, one icon or two —: its tools
+// floating at the top end corner of the content (`zone--float`, first child
+// of a `zone--content`), over it and scrolling with it, no line taken.
+.zone--content:has(> .zone--float) {
+  position: relative;
+}
+
+.zone--float {
+  position: absolute;
+  inset-block-start: var(--zone-padding, var(--space-4));
+  inset-inline-end: var(--zone-padding, var(--space-4));
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
 // No room at all: what it holds is the frame's edge to edge — an editor's
 // text, a map — and carries whatever room it wants itself. The padding and not
 // `--zone-padding`, which every zone nested inside would inherit.
