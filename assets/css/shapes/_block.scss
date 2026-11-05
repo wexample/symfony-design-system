@@ -69,6 +69,10 @@
   font-weight: var(--font-weight-strong);
   border-bottom: var(--border-separator);
   color: var(--text-color-default);
+  // One height for every title, actions or not: its line as tall as an
+  // action-icon, whatever padding the block gives it.
+  box-sizing: content-box;
+  min-height: 1.75rem;
 }
 
 .block--title-leading,
