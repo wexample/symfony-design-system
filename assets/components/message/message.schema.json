@@ -1,0 +1,6 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "message.schema.json",
+    "description": "The contract of the component: the schema of a message said in a tone, copied from the json-schema norm (design-system:schemas:sync).",
+    "$ref": "../../schemas/web/message.schema.json"
+}

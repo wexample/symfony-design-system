@@ -2635,6 +2635,9 @@
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/message/message.vue.twig",
                     "@WexampleSymfonyDesignSystemBundle/components/message/message.vue"
+                ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/message/message.schema.json"
                 ]
             },
             "stances": {
@@ -2642,7 +2645,7 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "waived",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "todo",
                 "react": "todo",
                 "flutter": "todo"

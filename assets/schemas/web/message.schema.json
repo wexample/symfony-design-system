@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "message.schema.json",
+  "title": "Message",
+  "description": "A sentence in a tone, said to whoever reads the page: an information, a success, a warning, an error — or a note for the developers. The tone is one of the message's values, not a kind of message of its own: a message is one thing in several tones, as it is drawn. The words are the body; a title heads them when they need one; an icon says the tone at a glance, and one action may be offered when there is one thing to do about it.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "The tone: how the message is drawn and the icon it carries when none is given.",
+      "enum": ["info", "success", "warning", "error", "dev"],
+      "default": "info"
+    },
+    "body": {
+      "type": "string",
+      "description": "What is said, as it is read."
+    },
+    "title": {
+      "type": ["string", "null"],
+      "description": "A heading over the body, when the body needs one.",
+      "default": null
+    },
+    "icon": {
+      "type": ["string", "boolean", "null"],
+      "description": "An icon name (`ph:bold/info`); null for the tone's own, false for none at all.",
+      "default": null
+    },
+    "action": {
+      "type": ["object", "null"],
+      "description": "The one thing to do about it: where it leads, and where it opens there — a panel, a modal — without leaving the page.",
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "href": {
+          "type": "string",
+          "minLength": 1
+        },
+        "icon": {
+          "type": ["string", "null"]
+        },
+        "target": {
+          "type": ["string", "null"],
+          "description": "Where it opens: `panel`, `modal`; none, the page goes there."
+        }
+      },
+      "required": ["label", "href"],
+      "additionalProperties": false,
+      "default": null
+    }
+  },
+  "required": ["body"],
+  "additionalProperties": false
+}
