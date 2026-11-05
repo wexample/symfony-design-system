@@ -18,9 +18,10 @@
     <div class="thread" :class="'thread--' + layout">
         <div ref="lines" class="thread--lines">
             <div v-if="hasOlderEntities" class="thread--head">
+                {#- Pressed, not read in as it comes into sight: the thread opens
+                    at its foot, and its head is in sight before it gets there. -#}
                 <load-more
                         :count="remainingEntitiesCount"
-                        auto
                         :label="resolvedLoadOlderLabel"
                         icon="ph:bold/caret-up"
                         :is-loading="isLoadingOlder"
