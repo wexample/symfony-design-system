@@ -23,3 +23,12 @@ Syrtis édite aussi en `dynamic-form` des contenus versionnés (son `VersionedCo
 
 Une définition de `dynamic-form` se construit sans entité (`form_definition_for(…, null, { id_placeholder })`) : les versions d'un enregistrement ne peuvent pas y être. Le champ `code` du DS gagnerait donc une source de versions par adresse — `versions_url` avec le même `__id__` que l'action —, qu'il lit quand l'enregistrement est ouvert, et qu'il affiche avec le diff de texte (`diff-text.md`).
 
+
+## Fait (agent du design system, 2026-11-05)
+
+- Norme : `web/code_input.schema.json` (kind `code`) : `language`, `languageField` (le **nom** du champ qui donne le langage, pas l'id Twig), `languageMap`, `rows`.
+- `FormDefinitionBuilder` les transmet ; `language_source` (l'id Twig) est ramené au nom du champ. Testé avec un type fixture au préfixe `code_input` (symfony-forms ne dépend pas de symfony-coding).
+- **Pas d'import de symfony-coding dans le DS** (il dépend du DS) : `dynamic-form` accepte `fieldComponents` — un kind → `{ component, props(field, draft) }` — et dessine ces champs en leur donnant ce que tout champ reçoit. symfony-coding fournit `dynamicFormCodeField` (`js/Helper/DynamicFormHelper.ts`) : l'éditeur `code-input`, son langage lu de la définition ou du champ qui le nomme (dans le brouillon, donc il suit le select de format). Sans l'entrée, un `code` est dessiné en textarea.
+- Syrtis : branché dans les quatre `dynamic-form` qui portent du code (slot editor : config, messages, marking ; liste des templates). Vérifié dans le navigateur : le contenu d'un message émis s'écrit dans l'éditeur, coloré en Jinja.
+
+**Pas fait : les versions.** `versions_url` et leur affichage demandent le diff de texte (`diff-text.md`) et un choix de version dans l'éditeur vue, qui n'existent pas ; l'agent de Syrtis travaille en ce moment sur les versions par l'audit (`AuditedContentFormTrait`). À reprendre ensemble : le contrat (`versionsUrl` avec `__id__`, réponse `[{ label, content }]`) est prêt à être écrit dans la norme dès que l'interface l'est.

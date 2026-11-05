@@ -1,6 +1,7 @@
 // A form of the application drawn from `form_definition()`: its fields one under
 // the other, what it refused, its button at the end.
 @use '../../../css/shapes/form/base';
+@use '../../../css/shapes/form/layout';
 @use '../../../css/shapes/form/messages';
 @use '../../../css/shapes/form/actions';
 @use '../text-input/text-input';
@@ -15,4 +16,10 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+}
+
+// Laid in columns, the fields are a grid of the form's own (form--columns).
+.dynamic-form.form--columns {
+  display: grid;
+  gap: var(--space-4);
 }

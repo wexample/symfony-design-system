@@ -82,6 +82,15 @@ export default {
     submitLabel: {
       type: String,
       default: null
+    },
+    // The fields of kinds a package of its own draws — code, from
+    // symfony-coding —, by kind: `{ code: { component, props(field, draft) } }`.
+    // The design system cannot depend on what depends on it: the caller hands
+    // the field over, and the form gives it what any field is given — its
+    // value, name, label, errors —, plus what `props` reads of the definition.
+    fieldComponents: {
+      type: Object,
+      default: () => ({})
     }
   },
 
@@ -96,6 +105,17 @@ export default {
   computed: {
     submitText() {
       return this.submitLabel ?? this.trans(`${DOMAIN}save`);
+    },
+
+    // Fields side by side, as many as the form says (`columns`) and the room
+    // holds, the layout of the design system's forms (form--columns).
+    layoutClass() {
+      const columns = Number(this.form.columns ?? 1);
+
+      return {
+        'form--columns': columns > 1,
+        'form--columns-2': columns === 2
+      };
     },
 
     // What is drawn: a hidden field is sent and never shown.
@@ -148,6 +168,17 @@ export default {
     reset() {
       this.draft = this.startDraft();
       this.clearFormErrors();
+    },
+
+    // A field of a kind handed over by the caller, when it is one.
+    customField(field) {
+      const entry = this.fieldComponents?.[field.type];
+
+      return entry?.component ? entry : null;
+    },
+
+    customProps(field) {
+      return this.customField(field)?.props?.(field, this.draft) ?? {};
     },
 
     fieldComponent(field) {

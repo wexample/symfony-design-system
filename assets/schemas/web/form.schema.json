@@ -34,6 +34,13 @@
       "required": ["name", "value"],
       "additionalProperties": false
     },
+    "columns": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3,
+      "description": "How many fields side by side, as many as the room holds up to this; one under the other at 1. A field may take the whole line (`span`).",
+      "default": 1
+    },
     "fields": {
       "type": "array",
       "items": {
@@ -50,7 +57,8 @@
           { "$ref": "key_value_input.schema.json" },
           { "$ref": "tags_input.schema.json" },
           { "$ref": "search_select_input.schema.json" },
-          { "$ref": "color_input.schema.json" }
+          { "$ref": "color_input.schema.json" },
+          { "$ref": "code_input.schema.json" }
         ]
       }
     }

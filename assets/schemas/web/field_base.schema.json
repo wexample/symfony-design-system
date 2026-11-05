@@ -37,6 +37,11 @@
     "value": {
       "type": ["string", "null"],
       "default": null
+    },
+    "span": {
+      "type": "boolean",
+      "description": "Among fields laid in columns, the whole line for this one: a long text, a choice of many options.",
+      "default": false
     }
   }
 }

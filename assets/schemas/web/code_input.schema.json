@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "code_input.schema.json",
+  "title": "Code input field",
+  "description": "Code written in a form: a text, sent as one, written in an editor that colours its language. The language is the field's own (`language`), or chosen by another field of the form (`languageField`, that field's name) whose value is the language — read through `languageMap` where the two do not share a name.",
+  "type": "object",
+  "allOf": [
+    { "$ref": "field_base.schema.json" }
+  ],
+  "properties": {
+    "type": {
+      "const": "code"
+    },
+    "language": {
+      "type": ["string", "null"],
+      "description": "A grammar name: json, yaml, python, markdown, html, css, js, ts, php, twig, jinja. Anything else is plain text.",
+      "default": null
+    },
+    "languageField": {
+      "type": ["string", "null"],
+      "description": "The name of the field of the form whose value is the language.",
+      "default": null
+    },
+    "languageMap": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "The language of each value of that field, where the two differ: `{ \"text\": \"jinja\" }`.",
+      "default": {}
+    },
+    "rows": {
+      "type": "integer",
+      "minimum": 1
+    }
+  },
+  "required": ["type", "name", "label"],
+  "unevaluatedProperties": false
+}

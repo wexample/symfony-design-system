@@ -16,3 +16,12 @@ Premier cas : l'onglet Messages de l'éditeur de slot Syrtis (`SlotOutputMessage
 - `dynamic-form` pose ces classes sur son conteneur de champs et sur chaque ligne, comme le thème Twig.
 - Les actions restent sur toute la ligne (déjà le cas dans `_layout.scss`).
 - Pas de changement côté appelant au-delà de l'`attr` et du `row_attr` qu'un formulaire Twig met déjà.
+
+## Fait (agent du design system, 2026-11-05)
+
+- La norme dit la mise en page, pas les classes : `columns` (1 à 3) sur le formulaire (`form.schema.json`), `span` sur un champ (`field_base.schema.json`). json-schema 2.3.0.
+- `FormDefinitionBuilder` les lit là où un formulaire Twig les met déjà : `form--columns` (3) / `form--columns-2` (2) dans l'`attr` du formulaire, `form--span` dans le `row_attr` d'un champ. Testé.
+- `dynamic-form` pose `form--columns` / `form--columns-2` sur son conteneur (grille) et `form--span` sur chaque champ qui le demande ; les actions restent sur toute la ligne (`_layout.scss`).
+- Vérifié dans le navigateur sur le slot editor de Syrtis (définition passée à deux colonnes, contenu et métadonnées sur toute la ligne).
+
+Côté Syrtis, il reste à mettre l'`attr` (`form--columns form--columns-2`) sur `SlotOutputMessageForm` / `TemplateForm` et le `row_attr` (`form--span`) sur leurs champs longs : le DS ne l'a pas fait à leur place.
