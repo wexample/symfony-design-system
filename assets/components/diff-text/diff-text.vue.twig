@@ -1,0 +1,52 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.diff_text.*') }}
+{%- endblock -%}
+
+{#- Client-side twin of diff-text.html.twig: the same rows, a fold opened by a press. -#}
+{%- block vue_body -%}
+    <div class="diff-text" :class="'diff-text--' + (split ? 'split' : 'unified')">
+        <div class="diff-text--head">
+            <span v-if="beforeLabel || afterLabel" class="diff-text--labels">
+                <span v-if="beforeLabel" class="diff-text--label diff-text--label--old">[[ beforeLabel ]]</span>
+                <span v-if="beforeLabel && afterLabel" class="diff-text--arrow" aria-hidden="true">→</span>
+                <span v-if="afterLabel" class="diff-text--label diff-text--label--new">[[ afterLabel ]]</span>
+            </span>
+            <span class="diff-text--stats">
+                <span class="diff-text--stat diff-text--stat--add">+[[ stats.added ]]</span>
+                <span class="diff-text--stat diff-text--stat--remove">−[[ stats.removed ]]</span>
+            </span>
+        </div>
+        <div v-if="!stats.added && !stats.removed" class="diff-text--same">[[ t('same') ]]</div>
+        <table v-else class="diff-text--table">
+            <tbody v-if="split">
+                <template v-for="(pair, index) in pairs" :key="index">
+                    <tr v-if="pair.fold" class="diff-text--row diff-text--row--fold">
+                        <td colspan="6"><button type="button" class="diff-text--open" @click="open(pair.fold)">[[ t('folded', { '%count%': pair.fold.count }) ]]</button></td>
+                    </tr>
+                    <tr v-else class="diff-text--row">
+                        <template v-for="(line, side) in { old: pair.left, new: pair.right }" :key="side">
+                            <td class="diff-text--num">[[ line ? line[side] : '' ]]</td>
+                            <td class="diff-text--sign" :class="cellClass(line)">[[ line && line.type !== 'same' ? sign(line.type) : '' ]]</td>
+                            <td class="diff-text--code" :class="cellClass(line)"><template v-if="line"><template v-if="line.parts"><template v-for="(part, at) in line.parts" :key="at"><mark v-if="part.changed" class="diff-text--word">[[ part.text ]]</mark><template v-else>[[ part.text ]]</template></template></template><template v-else>[[ line.text ]]</template></template></td>
+                        </template>
+                    </tr>
+                </template>
+            </tbody>
+            <tbody v-else>
+                <template v-for="(row, index) in rows" :key="index">
+                    <tr v-if="row.type === 'fold'" class="diff-text--row diff-text--row--fold">
+                        <td colspan="4"><button type="button" class="diff-text--open" @click="open(row)">[[ t('folded', { '%count%': row.count }) ]]</button></td>
+                    </tr>
+                    <tr v-else class="diff-text--row" :class="'diff-text--row--' + row.type">
+                        <td class="diff-text--num">[[ row.old ]]</td>
+                        <td class="diff-text--num">[[ row.new ]]</td>
+                        <td class="diff-text--sign">[[ sign(row.type) ]]</td>
+                        <td class="diff-text--code"><template v-if="row.parts"><template v-for="(part, at) in row.parts" :key="at"><mark v-if="part.changed" class="diff-text--word">[[ part.text ]]</mark><template v-else>[[ part.text ]]</template></template></template><template v-else>[[ row.text ]]</template></td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </div>
+{%- endblock -%}

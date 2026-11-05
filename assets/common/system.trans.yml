@@ -76,6 +76,9 @@ en:
       remove: "Remove"
       suggest: "Add %tag%"
       suggestions: "Suggestions"
+    diff_text:
+      same: "Nothing changed."
+      folded: "%count% lines unchanged"
     color_input:
       pick: "Pick a colour"
       swatches: "Colours offered"
@@ -1292,6 +1295,9 @@ fr:
       remove: "Retirer"
       suggest: "Ajouter %tag%"
       suggestions: "Suggestions"
+    diff_text:
+      same: "Rien n'a changé."
+      folded: "%count% lignes inchangées"
     color_input:
       pick: "Choisir une couleur"
       swatches: "Couleurs proposées"

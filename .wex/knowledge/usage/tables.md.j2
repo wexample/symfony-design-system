@@ -199,6 +199,10 @@ the api sorted oldest first, the console standing at its foot. Where more is pas
 at once while the lines do not fill the room —; once there is none, « - End - » says the last
 line is the last.
 
+## Two versions of a text
+
+`diff_text(before, after, { mode, context, words, before_label, after_label })` compares two versions of a text line by line — a template, a prompt, a content read from its history —: the lines kept, removed and added, their numbers in either text, the words changed marked in a line that faces its old form; the lines further than `context` (3) from any change folded, how many said. `mode: 'split'` sets them side by side, a removal facing the line that replaced it. Its vue (`components/diff-text`, `before`, `after`, the same options) compares them in the page — a version against the draft — and opens a fold when pressed. The rows are `DiffTextHelper`'s, written twice (PHP, TS) and tested on the same cases: the two faces draw the same lines. The field diff (`diff()`) compares values field by field and is another element.
+
 ## Several tables on one page
 
 A server table keeps its filters and its order at the top of the page's query, which suits a

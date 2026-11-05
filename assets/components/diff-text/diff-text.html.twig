@@ -1,0 +1,66 @@
+{#- What changed between two versions of a text, line by line: the lines
+    kept, removed and added, each with its numbers in either text, the words
+    changed marked in a line that faces the line it changed from; the lines
+    kept far from any change folded, how many said. Unified — one column —, or
+    side by side (`mode: 'split'`). The rows are DiffTextHelper's
+    (diff_text()), the vue's twin. -#}
+{%- set domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.diff_text.' -%}
+{%- macro text(line) -%}
+    {%- if line.parts is defined -%}
+        {%- for part in line.parts -%}
+            {%- if part.changed -%}<mark class="diff-text--word">{{ part.text }}</mark>{%- else -%}{{ part.text }}{%- endif -%}
+        {%- endfor -%}
+    {%- else -%}{{ line.text }}{%- endif -%}
+{%- endmacro -%}
+{%- macro sign(type) -%}{{ type == 'add' ? '+' : (type == 'remove' ? '−' : '') }}{%- endmacro -%}
+<div {{ component_render_tag_attributes({ class: 'diff-text diff-text--' ~ mode }) }}>
+    <div class="diff-text--head">
+        {%- if before_label or after_label %}
+        <span class="diff-text--labels">
+            {%- if before_label %}<span class="diff-text--label diff-text--label--old">{{ before_label }}</span>{% endif -%}
+            {%- if before_label and after_label %}<span class="diff-text--arrow" aria-hidden="true">→</span>{% endif -%}
+            {%- if after_label %}<span class="diff-text--label diff-text--label--new">{{ after_label }}</span>{% endif -%}
+        </span>
+        {%- endif %}
+        <span class="diff-text--stats">
+            <span class="diff-text--stat diff-text--stat--add">+{{ stats.added }}</span>
+            <span class="diff-text--stat diff-text--stat--remove">−{{ stats.removed }}</span>
+        </span>
+    </div>
+    {%- if stats.added == 0 and stats.removed == 0 %}
+    <div class="diff-text--same">{{ (domain ~ 'same')|trans }}</div>
+    {%- else %}
+    <table class="diff-text--table">
+        <tbody>
+        {%- if mode == 'split' -%}
+            {%- for pair in pairs -%}
+                {%- if pair.fold is defined %}
+                <tr class="diff-text--row diff-text--row--fold"><td colspan="6">{{ (domain ~ 'folded')|trans({ '%count%': pair.fold.count }) }}</td></tr>
+                {%- else %}
+                <tr class="diff-text--row">
+                    {%- for side, line in { old: pair.left, new: pair.right } %}
+                    <td class="diff-text--num">{{ line ? attribute(line, side) : '' }}</td>
+                    <td class="diff-text--sign{{ line ? ' diff-text--cell--' ~ line.type : ' diff-text--cell--empty' }}">{{ line and line.type != 'same' ? _self.sign(line.type) : '' }}</td>
+                    <td class="diff-text--code{{ line ? ' diff-text--cell--' ~ line.type : ' diff-text--cell--empty' }}">{{ line ? _self.text(line) : '' }}</td>
+                    {%- endfor %}
+                </tr>
+                {%- endif -%}
+            {%- endfor -%}
+        {%- else -%}
+            {%- for row in rows -%}
+                {%- if row.type == 'fold' %}
+                <tr class="diff-text--row diff-text--row--fold"><td colspan="4">{{ (domain ~ 'folded')|trans({ '%count%': row.count }) }}</td></tr>
+                {%- else %}
+                <tr class="diff-text--row diff-text--row--{{ row.type }}">
+                    <td class="diff-text--num">{{ row.old }}</td>
+                    <td class="diff-text--num">{{ row.new }}</td>
+                    <td class="diff-text--sign">{{ _self.sign(row.type) }}</td>
+                    <td class="diff-text--code">{{ _self.text(row) }}</td>
+                </tr>
+                {%- endif -%}
+            {%- endfor -%}
+        {%- endif %}
+        </tbody>
+    </table>
+    {%- endif %}
+</div>

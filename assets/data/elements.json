@@ -869,6 +869,37 @@
             }
         },
         {
+            "key": "diff-text",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "Two versions of a text compared line by line \u2014 a template, a prompt, a content from its history \u2014: the lines kept, removed and added with their numbers, the words changed marked in a line that faces its old form, the lines far from any change folded; unified or side by side. The same rows on both faces (DiffTextHelper, PHP and TS).",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/diff-text/diff-text.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/diff-text/diff-text.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/diff-text/diff-text.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/diff-text/diff-text.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "its fold opens in the vue; the server's says how many lines it holds",
+                "ai": "read what changed"
+            }
+        },
+        {
             "key": "disclosure",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A detail folded inside what holds it \u2014 a block, a card, a list \u2014: one line saying what is there, unfolded to read it, a count beside it when it holds several.",

@@ -1,0 +1,161 @@
+/* Component: diff-text */
+// Two versions of a text compared line by line: a head saying what the two
+// are and how many lines were added and removed, then the lines in mono —
+// their numbers in either text in the gutter, a sign, the line —, those added
+// on the success ground, those removed on the error's, the words changed
+// marked deeper in them; the lines kept far from any change folded into one.
+.diff-text {
+  overflow: hidden;
+  border: var(--border-default);
+  border-radius: var(--radius-box);
+  background: var(--surface-1);
+  font-size: var(--font-size-2);
+}
+
+.diff-text--head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-block-end: var(--border-separator);
+}
+
+.diff-text--labels {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  color: var(--text-color-muted);
+}
+
+.diff-text--label--new {
+  color: var(--text-color-default);
+}
+
+.diff-text--stats {
+  display: inline-flex;
+  gap: var(--space-2);
+  margin-inline-start: auto;
+  font-family: var(--font-family-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.diff-text--stat--add {
+  color: var(--success-11);
+}
+
+.diff-text--stat--remove {
+  color: var(--error-11);
+}
+
+.diff-text--same {
+  padding: var(--space-3);
+  color: var(--text-color-subtle);
+}
+
+.diff-text--table {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-family-mono);
+  line-height: 1.5;
+}
+
+.diff-text--table tbody {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.diff-text--num {
+  width: 1%;
+  padding-inline: var(--space-2);
+  color: var(--text-color-subtle);
+  text-align: end;
+  user-select: none;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.diff-text--sign {
+  width: 1%;
+  padding-inline: var(--space-1);
+  color: var(--text-color-subtle);
+  user-select: none;
+}
+
+.diff-text--code {
+  padding-inline: var(--space-2);
+  white-space: pre;
+}
+
+// Added, removed: the line on its tone's ground, the gutter a shade of it.
+.diff-text--row--add > td,
+.diff-text--cell--add {
+  background: color-mix(in srgb, var(--success-9) 12%, transparent);
+}
+
+.diff-text--row--remove > td,
+.diff-text--cell--remove {
+  background: color-mix(in srgb, var(--error-9) 12%, transparent);
+}
+
+.diff-text--row--add > .diff-text--sign,
+.diff-text--cell--add.diff-text--sign {
+  color: var(--success-11);
+}
+
+.diff-text--row--remove > .diff-text--sign,
+.diff-text--cell--remove.diff-text--sign {
+  color: var(--error-11);
+}
+
+.diff-text--cell--empty {
+  background: var(--tint-2);
+}
+
+// The words changed in a line, deeper in its tone.
+.diff-text--word {
+  padding: 0;
+  border-radius: 2px;
+  color: inherit;
+}
+
+.diff-text--row--add .diff-text--word,
+.diff-text--cell--add .diff-text--word {
+  background: color-mix(in srgb, var(--success-9) 35%, transparent);
+}
+
+.diff-text--row--remove .diff-text--word,
+.diff-text--cell--remove .diff-text--word {
+  background: color-mix(in srgb, var(--error-9) 35%, transparent);
+}
+
+// Side by side, the two halves parted by a rule.
+.diff-text--split .diff-text--row > td:nth-child(4) {
+  border-inline-start: var(--border-separator);
+}
+
+.diff-text--row--fold > td {
+  padding: var(--space-1) var(--space-3);
+  background: var(--tint-2);
+  color: var(--text-color-subtle);
+  font-family: var(--font-family-base, inherit);
+  font-size: var(--font-size-1);
+}
+
+.diff-text--open {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.diff-text--open:hover,
+.diff-text--open:focus-visible {
+  color: var(--color-link-hover);
+  outline: none;
+}

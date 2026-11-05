@@ -1,0 +1,16 @@
+# Declares `diff-text` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "Two versions of a text compared line by line — a template, a prompt, a content from its history —: the lines kept, removed and added with their numbers, the words changed marked in a line that faces its old form, the lines far from any change folded; unified or side by side. The same rows on both faces (DiffTextHelper, PHP and TS)."
+formats:
+  style: true
+  template: true
+  vue: true
+  script: "its fold opens in the vue; the server's says how many lines it holds"
+  schema: todo
+  ai: "todo — read what changed"
+  react: todo
+  flutter: todo
