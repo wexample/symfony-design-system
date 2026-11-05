@@ -1,3 +1,4 @@
+import { tagsJoin, tagsUnique } from './TagsHelper';
 import AdaptiveService from '@wexample/symfony-loader/js/Services/AdaptiveService';
 import LocaleService from '@wexample/symfony-loader/js/Services/LocaleService';
 
@@ -29,11 +30,21 @@ export type FormDefinitionField = {
   multiple?: boolean;
   // A key-value field's value: its pairs, in order (`key_value_input.json`).
   pairs?: FormDefinitionPair[];
+  // A tags field's value, its words, and how it offers and draws them
+  // (`tags_input.json`).
+  tags?: string[];
+  separator?: string;
+  suggestions?: { value: string; label: string }[];
+  suggestionsUrl?: string;
+  tone?: string;
+  glyph?: string;
 };
 
 export type FormDefinitionPair = { key: string; value: string };
 
 export const FORM_DEFINITION_KIND_KEY_VALUE = 'key_value';
+
+export const FORM_DEFINITION_KIND_TAGS = 'tags';
 
 export type FormDefinition = {
   name: string;
@@ -103,6 +114,16 @@ export function formDefinitionData(form: FormDefinition, values: Record<string, 
       if (!pairs.length) {
         data.append(name, '');
       }
+
+      return;
+    }
+
+    // The words joined by the separator, as the drawn field posts them.
+    if (field.type === FORM_DEFINITION_KIND_TAGS) {
+      const tags = field.name in values ? values[field.name] : field.tags;
+      const list = Array.isArray(tags) ? tags : String(tags ?? '').split(field.separator ?? ',');
+
+      data.append(formDefinitionFullName(form, field.name), tagsJoin(tagsUnique(list), field.separator ?? ','));
 
       return;
     }

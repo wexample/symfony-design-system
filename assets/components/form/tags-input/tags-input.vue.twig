@@ -8,39 +8,70 @@
     <label v-if="hasLabel" class="form--label" :for="resolvedId">[[ resolveLabel(label) ]]</label>
 {%- endblock -%}
 
-{#- Client-side twin of tags-input.html.twig: the same frame and tags, the
-    words offered under it. -#}
+{#- Client-side twin of tags-input.html.twig: the same frame, the same
+    markers, the same words offered under it. Posted by a native form, the
+    tags go joined, as the server field posts them. -#}
 {%- block field_control -%}
-    <div class="tags-input--frame" @click="$refs.entry && $refs.entry.focus()">
-        <span class="tags-input--list">
-            <span v-for="tag in modelValue" :key="tag" class="tags-input--tag">[[ tag ]]<button
-                        type="button"
-                        class="tags-input--remove"
-                        :aria-label="removeLabel + ' ' + tag"
-                        :disabled="disabled || readonly ? true : null"
-                        @click.stop="remove(tag)"
-                >×</button></span>
-        </span>
-        <input
-                ref="entry"
-                v-model="entry"
-                class="tags-input--entry"
-                type="text"
-                :id="resolvedId"
-                :name="name || null"
-                :placeholder="entryPlaceholder"
-                :disabled="disabled ? true : null"
-                :readonly="readonly ? true : null"
-                @keydown="onKeydown"
-                @blur="commit"
-        >
-    </div>
-    <div v-if="offered.length && !disabled && !readonly" class="tags-input--suggestions">
-        <button v-for="tag in offered"
-                :key="tag"
-                type="button"
-                class="tags-input--suggestion"
-                :aria-label="suggestLabel(tag)"
-                @click="write([...modelValue, tag])">+ [[ tag ]]</button>
+    <div class="tags-input" :class="{ 'is-readonly': !editable }">
+        <input v-if="name" type="hidden" :name="name" :value="joined">
+        <div class="tags-input--frame" @click="$refs.entry && $refs.entry.focus()">
+            <span class="tags-input--list">
+                <span v-for="tag in tags"
+                      :key="tag"
+                      class="marker marker--compact tags-input--tag"
+                      :class="'marker--' + tone">
+                    <span v-if="glyph" class="marker--glyph" aria-hidden="true" v-html="glyphHtml"></span>
+                    <span class="marker--label">[[ tag ]]</span>
+                    <button v-if="editable"
+                            type="button"
+                            class="tags-input--remove"
+                            :aria-label="removeLabel + ' ' + tag"
+                            @mousedown.prevent
+                            @click.stop="remove(tag)"
+                    >{{ icon('ph:bold/x') }}</button>
+                </span>
+            </span>
+            <input
+                    ref="entry"
+                    v-model="entry"
+                    class="tags-input--entry"
+                    type="text"
+                    autocomplete="off"
+                    role="combobox"
+                    aria-autocomplete="list"
+                    :aria-expanded="menuOpen ? 'true' : 'false'"
+                    :aria-controls="menuId"
+                    :aria-activedescendant="menuOpen && active >= 0 ? optionId(active) : null"
+                    :id="resolvedId"
+                    :placeholder="entryPlaceholder"
+                    :disabled="disabled ? true : null"
+                    :readonly="readonly ? true : null"
+                    @focus="onFocus"
+                    @keydown="onKeydown"
+                    @blur="onBlur"
+            >
+        </div>
+        <ul class="tags-input--menu"
+            role="listbox"
+            :id="menuId"
+            :aria-label="trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.tags_input.suggestions')"
+            :hidden="!menuOpen">
+            <li v-for="(suggestion, index) in offered"
+                :key="suggestion.value"
+                :id="optionId(index)"
+                class="tags-input--option"
+                :class="{ 'is-active': index === active }"
+                role="option"
+                :aria-selected="index === active ? 'true' : 'false'"
+                :aria-label="suggestLabel(suggestion)"
+                @mousedown.prevent="take(suggestion)"
+                @mouseenter="active = index">
+                <span class="marker marker--compact tags-input--option-marker" :class="'marker--' + tone">
+                    <span v-if="glyph" class="marker--glyph" aria-hidden="true" v-html="glyphHtml"></span>
+                    <span class="marker--label">[[ suggestion.label ]]</span>
+                </span>
+                <span v-if="suggestion.label !== suggestion.value" class="tags-input--option-value">[[ suggestion.value ]]</span>
+            </li>
+        </ul>
     </div>
 {%- endblock -%}

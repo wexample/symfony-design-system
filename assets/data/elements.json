@@ -1845,7 +1845,7 @@
         {
             "key": "form/tags-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": "Words kept as tags: typed and added by Enter or a comma, offered as suggestions, each taken off by its \u00d7; the text input is the field the form posts.",
+            "description": "Words kept as tags, each a marker of the field's tone and glyph: typed and added by Enter or the separator, offered as the typing narrows a list \u2014 the field's own words and a source's \u2014, each taken off by its \u00d7; posted as one text, the words joined. The same in twig and in vue, its logic written once (TagsHelper).",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/tags-input/tags-input.scss"
@@ -1859,6 +1859,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/tags-input/tags-input.ts"
+                ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/tags-input/tags-input.schema.json"
                 ]
             },
             "stances": {
@@ -1866,13 +1869,12 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "todo",
                 "react": "todo",
                 "flutter": "todo"
             },
             "notes": {
-                "schema": "a field kind the json-schema norm does not name yet",
                 "ai": "add and take off a tag"
             }
         },

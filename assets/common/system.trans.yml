@@ -74,13 +74,14 @@ en:
     tags_input:
       add: "Add a tag…"
       remove: "Remove"
-      duplicate: "This key is written twice."
       suggest: "Add %tag%"
+      suggestions: "Suggestions"
     key_value:
       key: "Key"
       value: "Value"
       add: "New key…"
       remove: "Remove"
+      duplicate: "This key is written twice."
     stepper:
       label: Steps
     table:
@@ -1281,13 +1282,14 @@ fr:
     tags_input:
       add: "Ajouter un tag…"
       remove: "Retirer"
-      duplicate: "Cette clé est écrite deux fois."
       suggest: "Ajouter %tag%"
+      suggestions: "Suggestions"
     key_value:
       key: "Clé"
       value: "Valeur"
       add: "Nouvelle clé…"
       remove: "Retirer"
+      duplicate: "Cette clé est écrite deux fois."
     stepper:
       label: Étapes
     grid:

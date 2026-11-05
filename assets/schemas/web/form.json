@@ -47,7 +47,8 @@
           { "$ref": "email_input.json" },
           { "$ref": "tel_input.json" },
           { "$ref": "url_input.json" },
-          { "$ref": "key_value_input.json" }
+          { "$ref": "key_value_input.json" },
+          { "$ref": "tags_input.json" }
         ]
       }
     }

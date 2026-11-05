@@ -9,6 +9,7 @@
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/textarea-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/select-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/key-value-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/tags-input') -}}
 {%- endblock -%}
 
 {#- What the processor refused of the form as a whole, said in words already:
@@ -60,6 +61,21 @@
                     :readonly="readonly"
                     :translate="false"
             ></key-value-input>
+            <tags-input
+                    v-else-if="field.type === 'tags'"
+                    v-model="draft[field.name]"
+                    :errors="getFieldErrors(fullName(field))"
+                    :label="field.label"
+                    :placeholder="field.placeholder || null"
+                    :separator="field.separator || ','"
+                    :suggestions="field.suggestions || []"
+                    :suggestions-url="field.suggestionsUrl || null"
+                    :tone="field.tone || 'neutral'"
+                    :glyph="field.glyph || null"
+                    :required="Boolean(field.required)"
+                    :readonly="readonly"
+                    :translate="false"
+            ></tags-input>
             <text-input
                     v-else
                     v-model="draft[field.name]"

@@ -4,7 +4,9 @@ import TextInput from '../text-input/text-input.vue';
 import TextareaInput from '../textarea-input/textarea-input.vue';
 import SelectInput from '../select-input/select-input.vue';
 import KeyValueInput from '../key-value-input/key-value-input.vue';
-import { FORM_DEFINITION_KIND_KEY_VALUE, formDefinitionFullName, formDefinitionPairs } from '../../../js/Helper/FormDefinitionHelper';
+import TagsInput from '../tags-input/tags-input.vue';
+import { FORM_DEFINITION_KIND_KEY_VALUE, FORM_DEFINITION_KIND_TAGS, formDefinitionFullName, formDefinitionPairs } from '../../../js/Helper/FormDefinitionHelper';
+import { tagsSplit } from '../../../js/Helper/TagsHelper';
 
 const DOMAIN = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.form.';
 
@@ -19,7 +21,8 @@ const FIELDS = {
   password: TextInput,
   textarea: TextareaInput,
   select: SelectInput,
-  key_value: KeyValueInput
+  key_value: KeyValueInput,
+  tags: TagsInput
 };
 
 // A form of the server drawn by the design system rather than by its
@@ -40,7 +43,8 @@ export default {
     TextInput,
     TextareaInput,
     SelectInput,
-    KeyValueInput
+    KeyValueInput,
+    TagsInput
   },
 
   emits: ['saved'],
@@ -122,6 +126,13 @@ export default {
         // Pairs, not a text: the record given, or the form's own.
         if (field.type === FORM_DEFINITION_KIND_KEY_VALUE) {
           return [field.name, formDefinitionPairs(given !== undefined ? given : field.pairs)];
+        }
+
+        // Words, not a text: the list given, a text split, or the form's own.
+        if (field.type === FORM_DEFINITION_KIND_TAGS) {
+          const tags = given !== undefined ? given : field.tags;
+
+          return [field.name, Array.isArray(tags) ? [...tags] : tagsSplit(String(tags ?? ''), field.separator ?? ',')];
         }
 
         return [field.name, String((given !== undefined ? given : field.value) ?? '')];

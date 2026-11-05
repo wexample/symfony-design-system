@@ -121,6 +121,33 @@ The one thing asked on a step — a name, an address — is set large with `row_
 
 `form/key-value-input` edits pairs, a key and its value, as a sheet: one frame, a line a pair, the keys — monospace, muted — and their values in two columns, the last line the next pair written in place. Typed in, key or value, that line becomes a pair and a new one opens below; Enter goes to the next line, Backspace on an emptied line takes it off, a line's × too. A key written twice is said on the key as it is typed. The vue holds `[{ key, value }]` (a record `{ lang: 'fr' }` is read as its pairs); the twig field posts each line under its index, the last one blank, so without a script the next pair is still written and an emptied one dropped. `dynamic-form` draws the `key_value` kind with it.
 
+## Words kept as tags
+
+`form/tags-input` holds words as tags, each a `marker` of the field's `tone` and `glyph` — a state's or a category's, `cat-straw` —, its × at its end. Enter or the separator adds what is typed; Backspace on an empty entry takes the last tag back. The words offered narrow as the typing goes, in a list under the field — the field's own (`suggestions`, words or `{ value, label }`) and those a source answers (`suggestionsUrl`, asked with `?q=` once the typing pauses, answering words or `{ value, label }`, wrapped in `data` or `items` or not) —, the ones taken left out; arrows walk the list, Enter takes the word pointed at. Twig and vue draw the same markup and read what is typed the same way: the logic is written once, `TagsHelper`. The twig field posts one text, the words joined; the vue holds a list, posted joined too where a native form or `dynamic-form` sends it.
+
+## A field standardised
+
+A field of an application is a field of the design system with its defaults preset. Its vue face extends the generic component and sets the defaults of its props, its own template id over the generic markup — nothing drawn, nothing behaved of its own:
+
+```js
+export default {
+  extends: TagsInput,
+  template: '#vue-template-…-stamps-input-stamps-input',
+  props: {
+    tone: { type: String, default: 'cat-straw' },
+    glyph: { type: String, default: 'ph:bold/tag' }
+  },
+  methods: {
+    // A default no prop can hold — a route of the application.
+    getSuggestionsUrl() {
+      return this.suggestionsUrl ?? this.app.getServiceOrFail(RoutingService).generate('api_stamp_list');
+    }
+  }
+};
+```
+
+and its `.vue.twig` only extends the generic one's. Its server face is a `FormType` whose parent is the generic type (symfony-forms, « A field standardised »). The demo's `demo-stamps-input` and `DemoStampsInputType` are one.
+
 ## A field edited in place
 
 `form/inline-edit` edits one field of a form of the application where its value is shown — a title in a bar, a name in a row —: the frame of a field holding what the page gives it (its default slot: a select, a value; the value alone else), a pencil after it and the page's own actions last (`actions` slot). Pressed, the frame holds the field instead, its ✓ and ✕ in it; Enter saves, Escape lets go. The form is a Symfony form handed over by symfony-forms' `form_definition()` rather than drawn: the vue sends its fields as the drawn form would be, to its processor, which validates, saves and notifies; what it refuses is said under the frame, the field kept open, and `saved` gives the new value once it is in.

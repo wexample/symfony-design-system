@@ -5,13 +5,13 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: "Words kept as tags: typed and added by Enter or a comma, offered as suggestions, each taken off by its ×; the text input is the field the form posts."
+description: "Words kept as tags, each a marker of the field's tone and glyph: typed and added by Enter or the separator, offered as the typing narrows a list — the field's own words and a source's —, each taken off by its ×; posted as one text, the words joined. The same in twig and in vue, its logic written once (TagsHelper)."
 formats:
   style: true
   template: true
   vue: true
   script: true
-  schema: "todo — a field kind the json-schema norm does not name yet"
+  schema: true
   ai: "todo — add and take off a tag"
   react: todo
   flutter: todo

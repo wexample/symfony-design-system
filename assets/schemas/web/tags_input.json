@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "tags_input.json",
+  "title": "Tags input field",
+  "description": "Words kept as tags — labels, stamps, keywords —, each once, in the order they were added. The field's value is the list of words (`tags`), not a text: `value` stays unset. Sent as one text, the words joined by `separator`. Words may be offered while typing: the field's own (`suggestions`) and those a source answers for what is typed (`suggestionsUrl`, asked with `q`, answering words or `{ value, label }`). Every tag of the field is drawn the same way: a tone (a state's or a category's) and a glyph.",
+  "type": "object",
+  "allOf": [
+    { "$ref": "field_base.json" }
+  ],
+  "properties": {
+    "type": {
+      "const": "tags"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true,
+      "default": []
+    },
+    "separator": {
+      "type": "string",
+      "minLength": 1,
+      "default": ","
+    },
+    "suggestions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string", "minLength": 1 },
+          "label": { "type": "string" }
+        },
+        "required": ["value", "label"],
+        "additionalProperties": false
+      }
+    },
+    "suggestionsUrl": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tone": {
+      "type": "string",
+      "minLength": 1,
+      "default": "neutral"
+    },
+    "glyph": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": ["type", "name", "label"],
+  "unevaluatedProperties": false
+}

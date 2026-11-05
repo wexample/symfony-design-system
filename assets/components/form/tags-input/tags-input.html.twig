@@ -1,8 +1,21 @@
-{#- Words kept as tags. The text input is the field: it is what the form posts,
-    the words joined by `separator`, and what is left when no script runs. The
-    script sets it aside and draws each word as a tag beside an entry where the
-    next is typed. -#}
-<div {{ component_render_tag_attributes({ class: 'form--group tags-input' }) }}>
+{#- Words kept as tags, drawn as the vue draws them. The text input is the
+    field: it is what the form posts, the words joined by `separator`, and
+    what is left when no script runs. The script sets it aside and draws each
+    word as a marker — one `tone` and one `glyph` for the field — beside an
+    entry where the next is typed, the words offered under it: the field's
+    own (`suggestions`, words or `{ value, label }`) and those a source
+    answers for what is typed (`suggestions_url`, `?q=`). -#}
+{%- set separator = separator|default(',') -%}
+{%- set tone = tone|default('neutral') ?: 'neutral' -%}
+{%- set glyph = glyph|default(null) -%}
+{%- set domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.tags_input.' -%}
+<div {{ component_render_tag_attributes({ class: 'form--group tags-input' }) }}
+        data-separator="{{ separator }}"
+        data-tone="{{ tone }}"
+        data-suggestions="{{ suggestions|default([])|json_encode }}"
+        {% if suggestions_url|default(null) %}data-suggestions-url="{{ suggestions_url }}"{% endif %}
+        data-remove-label="{{ (domain ~ 'remove')|trans }}"
+        data-suggest-label="{{ (domain ~ 'suggest')|trans }}">
     <label class="form--label" for="{{ id }}">{{ label }}</label>
     <input
         class="form--input tags-input--source"
@@ -15,12 +28,35 @@
         {% if placeholder is defined and placeholder %}placeholder="{{ placeholder }}"{% endif %}
     >
     <div class="tags-input--frame" hidden>
-        <span class="tags-input--list" data-remove-label="{{ '@component::label.remove' | trans }}"></span>
+        <span class="tags-input--list"></span>
         <input
             class="tags-input--entry"
             type="text"
+            autocomplete="off"
+            role="combobox"
+            aria-autocomplete="list"
+            aria-expanded="false"
+            aria-controls="{{ id }}-menu"
             aria-label="{{ label }}"
-            {% if placeholder is defined and placeholder %}placeholder="{{ placeholder }}"{% endif %}
+            placeholder="{{ placeholder|default(null) ?: (domain ~ 'add')|trans }}"
         >
     </div>
+    <ul class="tags-input--menu" role="listbox" id="{{ id }}-menu" aria-label="{{ (domain ~ 'suggestions')|trans }}" hidden></ul>
+    {#- What the script draws each tag with: the field's marker, its glyph, a ×. -#}
+    <template class="tags-input--tag-template">
+        <span class="marker marker--compact marker--{{ tone }} tags-input--tag">
+            {%- if glyph %}<span class="marker--glyph" aria-hidden="true">{{ icon(glyph) }}</span>{% endif -%}
+            <span class="marker--label"></span>
+            <button type="button" class="tags-input--remove">{{ icon('ph:bold/x') }}</button>
+        </span>
+    </template>
+    <template class="tags-input--option-template">
+        <li class="tags-input--option" role="option" aria-selected="false">
+            <span class="marker marker--compact marker--{{ tone }} tags-input--option-marker">
+                {%- if glyph %}<span class="marker--glyph" aria-hidden="true">{{ icon(glyph) }}</span>{% endif -%}
+                <span class="marker--label"></span>
+            </span>
+            <span class="tags-input--option-value"></span>
+        </li>
+    </template>
 </div>
