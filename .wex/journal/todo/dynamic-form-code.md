@@ -16,3 +16,10 @@ Premier cas rencontré : le panel Templates du board de scénario Syrtis (`Templ
 - `FormDefinitionBuilder` qui transmet ces options, comme pour `textarea` et ses `rows`.
 - Le champ Vue de `dynamic-form` pour ce kind : l'éditeur de symfony-coding (`CodeEditorHelper`) posé sur le textarea, comme le fait son thème Twig.
 - Pas de changement côté appelant : un `CodeInputType` passé à `form_definition_for()` arrive en `code` dès que le kind existe.
+
+## Les versions d'un contenu
+
+Syrtis édite aussi en `dynamic-form` des contenus versionnés (son `VersionedContentType`, enfant de `CodeInputType` : le code, et ses versions antérieures à choisir, à relire ou à reprendre). Leurs versions viennent désormais de l'audit (symfony-activity, `ActivityFieldHistoryService::findEarlierVersions()`).
+
+Une définition de `dynamic-form` se construit sans entité (`form_definition_for(…, null, { id_placeholder })`) : les versions d'un enregistrement ne peuvent pas y être. Le champ `code` du DS gagnerait donc une source de versions par adresse — `versions_url` avec le même `__id__` que l'action —, qu'il lit quand l'enregistrement est ouvert, et qu'il affiche avec le diff de texte (`diff-text.md`).
+
