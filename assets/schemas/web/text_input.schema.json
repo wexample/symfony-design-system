@@ -1,14 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "password_input.json",
-  "title": "Password input field",
+  "$id": "text_input.schema.json",
+  "title": "Text input field",
   "type": "object",
   "allOf": [
-    { "$ref": "field_base.json" }
+    { "$ref": "field_base.schema.json" }
   ],
   "properties": {
     "type": {
-      "const": "password"
+      "const": "text"
     }
   },
   "required": ["type", "name", "label"],

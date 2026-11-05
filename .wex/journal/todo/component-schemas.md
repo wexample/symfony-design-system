@@ -30,8 +30,8 @@ récupérer que l'idée. Il renaît comme cas particulier du page builder. Le pa
   `<x>.schema.json`, un pointeur vers sa copie — neuf champs déclarés
   `schema: true` : text, textarea, password, hidden, select, submit, email,
   tel, url. symfony-forms lit cette copie (`FormSchemaLoader`), valide ses
-  fonctions Twig, ce que `form_definition()` remet à une vue (`form.json`) et ce
-  qu'un formulaire répond (`form_submit_response.json`) ; la dépendance à
+  fonctions Twig, ce que `form_definition()` remet à une vue (`form.schema.json`) et ce
+  qu'un formulaire répond (`form_submit_response.schema.json`) ; la dépendance à
   `syrtis/php-semantic-schema-web` est tombée.
 - Les contrats agent (`.ai.yml`) sont un autre axe — ce qu'on *fait* d'un champ,
   pas ce qu'il *est* — ; `tests/js/agent-contract-parity.test.ts` vérifie que

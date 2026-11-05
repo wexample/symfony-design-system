@@ -1,10 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "select_input.json",
+  "$id": "select_input.schema.json",
   "title": "Select input field",
   "type": "object",
   "allOf": [
-    { "$ref": "field_base.json" }
+    { "$ref": "field_base.schema.json" }
   ],
   "properties": {
     "type": {

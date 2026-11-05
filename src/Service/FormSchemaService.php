@@ -12,8 +12,9 @@ use Symfony\Component\Finder\Finder;
  * pointing into the copy — the contract the component is checkable against,
  * where the registry expects it (ElementFormat::SCHEMA).
  *
- * A field's schema is named as its kind is sent: `text_input.json` for the
- * component `form/text-input`.
+ * A schema is named `<name>.schema.json`, as the norm names them; a field's
+ * name is its kind as it is sent: `text_input.schema.json` for the component
+ * `form/text-input`.
  */
 class FormSchemaService
 {
@@ -21,7 +22,9 @@ class FormSchemaService
 
     private const string COMPONENTS = 'components/form';
 
-    private const string SUFFIX = '_input.json';
+    private const string EXTENSION = '.schema.json';
+
+    private const string SUFFIX = '_input' . self::EXTENSION;
 
     public function __construct(
         private readonly Filesystem $filesystem = new Filesystem(),
@@ -39,7 +42,7 @@ class FormSchemaService
      */
     public function getPath(string $name): string
     {
-        return $this->getDirectory() . '/' . $name . '.json';
+        return $this->getDirectory() . '/' . $name . self::EXTENSION;
     }
 
     /**
@@ -77,7 +80,7 @@ class FormSchemaService
 
         $sources = [];
 
-        foreach ((new Finder())->files()->in($source)->name('*.json')->depth(0) as $file) {
+        foreach ((new Finder())->files()->in($source)->name('*' . self::EXTENSION)->depth(0) as $file) {
             $sources[$file->getFilename()] = $file->getContents();
         }
 

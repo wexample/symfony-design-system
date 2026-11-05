@@ -3,10 +3,10 @@ import AdaptiveService from '@wexample/symfony-loader/js/Services/AdaptiveServic
 import LocaleService from '@wexample/symfony-loader/js/Services/LocaleService';
 
 // A form of the application handed to a vue (`form_definition()`, symfony-forms'
-// FormDefinitionBuilder) as the json-schema norm describes one (`web/form.json`,
+// FormDefinitionBuilder) as the json-schema norm describes one (`web/form.schema.json`,
 // copied in `schemas/web/`): its fields in order, each of a kind, where it is
 // sent. Sent as the drawn form would be — to the form's processor, which
-// validates, saves and answers (`form_submit_response.json`). What
+// validates, saves and answers (`form_submit_response.schema.json`). What
 // `inline-edit` and `dynamic-form` share.
 
 // What `form_definition(form, { id_placeholder })` puts where the entity's id
@@ -28,10 +28,10 @@ export type FormDefinitionField = {
   rows?: number;
   choices?: FormDefinitionChoice[];
   multiple?: boolean;
-  // A key-value field's value: its pairs, in order (`key_value_input.json`).
+  // A key-value field's value: its pairs, in order (`key_value_input.schema.json`).
   pairs?: FormDefinitionPair[];
   // A tags field's value, its words, and how it offers and draws them
-  // (`tags_input.json`).
+  // (`tags_input.schema.json`).
   tags?: string[];
   separator?: string;
   suggestions?: { value: string; label: string }[];
@@ -39,7 +39,7 @@ export type FormDefinitionField = {
   tone?: string;
   glyph?: string;
   // A searched select's own options, its source and the label of its value
-  // (`search_select_input.json`).
+  // (`search_select_input.schema.json`).
   options?: { value: string; label: string }[];
   optionsUrl?: string;
   valueLabel?: string;

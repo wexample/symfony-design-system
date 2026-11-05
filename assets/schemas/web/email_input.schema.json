@@ -1,11 +1,11 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "email_input.json",
+  "$id": "email_input.schema.json",
   "title": "Email input field",
   "description": "A text field holding an e-mail address: the same field as text_input, the browser checking the shape of what is typed.",
   "type": "object",
   "allOf": [
-    { "$ref": "field_base.json" }
+    { "$ref": "field_base.schema.json" }
   ],
   "properties": {
     "type": {

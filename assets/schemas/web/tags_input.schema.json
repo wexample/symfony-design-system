@@ -1,11 +1,11 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "tags_input.json",
+  "$id": "tags_input.schema.json",
   "title": "Tags input field",
   "description": "Words kept as tags — labels, stamps, keywords —, each once, in the order they were added. The field's value is the list of words (`tags`), not a text: `value` stays unset. Sent as one text, the words joined by `separator`. Words may be offered while typing: the field's own (`suggestions`) and those a source answers for what is typed (`suggestionsUrl`, asked with `q`, answering words or `{ value, label }`). Every tag of the field is drawn the same way: a tone (a state's or a category's) and a glyph.",
   "type": "object",
   "allOf": [
-    { "$ref": "field_base.json" }
+    { "$ref": "field_base.schema.json" }
   ],
   "properties": {
     "type": {

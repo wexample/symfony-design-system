@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "form_submit_response.json",
+  "$id": "form_submit_response.schema.json",
   "title": "Form submit response",
   "type": "object",
   "properties": {

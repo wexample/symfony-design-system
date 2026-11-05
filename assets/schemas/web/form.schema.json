@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "form.json",
+  "$id": "form.schema.json",
   "title": "Form",
-  "description": "A form as a whole, as a client draws and sends it: its fields in the order they are shown, each one of the field schemas beside this file, and where and how it is sent. A field's `name` is its own; a server reading forms under a name — Symfony's `form[field]` — composes the full name from the form's. The token, when the server asks for one, is sent as a field would be. What the server answers is form_submit_response.json.",
+  "description": "A form as a whole, as a client draws and sends it: its fields in the order they are shown, each one of the field schemas beside this file, and where and how it is sent. A field's `name` is its own; a server reading forms under a name — Symfony's `form[field]` — composes the full name from the form's. The token, when the server asks for one, is sent as a field would be. What the server answers is form_submit_response.schema.json.",
   "type": "object",
   "properties": {
     "name": {
@@ -38,18 +38,18 @@
       "type": "array",
       "items": {
         "oneOf": [
-          { "$ref": "text_input.json" },
-          { "$ref": "textarea_input.json" },
-          { "$ref": "password_input.json" },
-          { "$ref": "hidden_input.json" },
-          { "$ref": "select_input.json" },
-          { "$ref": "submit_input.json" },
-          { "$ref": "email_input.json" },
-          { "$ref": "tel_input.json" },
-          { "$ref": "url_input.json" },
-          { "$ref": "key_value_input.json" },
-          { "$ref": "tags_input.json" },
-          { "$ref": "search_select_input.json" }
+          { "$ref": "text_input.schema.json" },
+          { "$ref": "textarea_input.schema.json" },
+          { "$ref": "password_input.schema.json" },
+          { "$ref": "hidden_input.schema.json" },
+          { "$ref": "select_input.schema.json" },
+          { "$ref": "submit_input.schema.json" },
+          { "$ref": "email_input.schema.json" },
+          { "$ref": "tel_input.schema.json" },
+          { "$ref": "url_input.schema.json" },
+          { "$ref": "key_value_input.schema.json" },
+          { "$ref": "tags_input.schema.json" },
+          { "$ref": "search_select_input.schema.json" }
         ]
       }
     }

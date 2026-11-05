@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "field_base.json",
+  "$id": "field_base.schema.json",
   "title": "Base field options",
   "type": "object",
   "properties": {

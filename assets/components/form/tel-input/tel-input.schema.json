@@ -2,5 +2,5 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "tel-input.schema.json",
     "description": "The contract of the component: the schema of the kind of field it draws, copied from the json-schema norm (design-system:schemas:sync).",
-    "$ref": "../../../schemas/web/tel_input.json"
+    "$ref": "../../../schemas/web/tel_input.schema.json"
 }
