@@ -11,11 +11,19 @@
 @use '../tags-input/tags-input';
 @use '../search-select-input/search-select-input';
 @use '../color-input/color-input';
+@use '../field-versions/field-versions';
 
 .dynamic-form {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+}
+
+// A field's cell: the field, and what is glued under it.
+.dynamic-form--cell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
 }
 
 // Laid in columns, the fields are a grid of the form's own (form--columns).

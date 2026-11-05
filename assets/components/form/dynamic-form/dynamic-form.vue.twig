@@ -30,14 +30,15 @@
     controller. -#}
 {%- block form_body -%}
     <div class="dynamic-form" :class="layoutClass">
-        <template v-for="field in shownFields" :key="field.name">
+        {#- A cell per field: what spans the line spans it whole, and a text
+            with versions holds its footer glued under it. -#}
+        <div v-for="field in shownFields" :key="field.name" class="dynamic-form--cell" :class="{ 'form--span': field.span, 'field-versioned': hasVersions(field) }">
             {#- A kind the caller hands over (`fieldComponents`): drawn by its
                 own component, given what any field is given. -#}
             <component
                     v-if="customField(field)"
                     :is="customField(field).component"
-                    :class="{ 'form--span': field.span }"
-                    v-model="draft[field.name]"
+                                        v-model="draft[field.name]"
                     :name="fullName(field)"
                     :errors="getFieldErrors(fullName(field))"
                     :label="field.label"
@@ -49,8 +50,7 @@
             ></component>
             <textarea-input
                     v-else-if="field.type === 'textarea' || field.type === 'code'"
-                    :class="{ 'form--span': field.span }"
-                    v-model="draft[field.name]"
+                                        v-model="draft[field.name]"
                     :name="fullName(field)"
                     :errors="getFieldErrors(fullName(field))"
                     :label="field.label"
@@ -62,8 +62,7 @@
             ></textarea-input>
             <select-input
                     v-else-if="field.type === 'select'"
-                    :class="{ 'form--span': field.span }"
-                    v-model="draft[field.name]"
+                                        v-model="draft[field.name]"
                     :name="fullName(field)"
                     :errors="getFieldErrors(fullName(field))"
                     :label="field.label"
@@ -74,8 +73,7 @@
             ></select-input>
             <key-value-input
                     v-else-if="field.type === 'key_value'"
-                    :class="{ 'form--span': field.span }"
-                    v-model="draft[field.name]"
+                                        v-model="draft[field.name]"
                     :name="fullName(field)"
                     :errors="getFieldErrors(fullName(field))"
                     :label="field.label"
@@ -85,8 +83,7 @@
             ></key-value-input>
             <tags-input
                     v-else-if="field.type === 'tags'"
-                    :class="{ 'form--span': field.span }"
-                    v-model="draft[field.name]"
+                                        v-model="draft[field.name]"
                     :errors="getFieldErrors(fullName(field))"
                     :label="field.label"
                     :placeholder="field.placeholder || null"
@@ -101,8 +98,7 @@
             ></tags-input>
             <search-select-input
                     v-else-if="field.type === 'search_select'"
-                    :class="{ 'form--span': field.span }"
-                    v-model="draft[field.name]"
+                                        v-model="draft[field.name]"
                     :errors="getFieldErrors(fullName(field))"
                     :label="field.label"
                     :placeholder="field.placeholder || null"
@@ -115,8 +111,7 @@
             ></search-select-input>
             <color-input
                     v-else-if="field.type === 'color'"
-                    :class="{ 'form--span': field.span }"
-                    v-model="draft[field.name]"
+                                        v-model="draft[field.name]"
                     :name="fullName(field)"
                     :errors="getFieldErrors(fullName(field))"
                     :label="field.label"
@@ -127,8 +122,7 @@
             ></color-input>
             <text-input
                     v-else
-                    :class="{ 'form--span': field.span }"
-                    v-model="draft[field.name]"
+                                        v-model="draft[field.name]"
                     :type="inputType(field)"
                     :name="fullName(field)"
                     :errors="getFieldErrors(fullName(field))"
@@ -138,16 +132,15 @@
                     :readonly="readonly"
                     :translate="false"
             ></text-input>
-            {#- A text with earlier versions (`versionsUrl`): the bar under it,
-                the draft the field's own. -#}
+            {#- A text with earlier versions (`versionsUrl`): its footer,
+                glued under it, the draft the field's own. -#}
             <field-versions
-                    v-if="versionsUrl(field) && !readonly"
+                    v-if="hasVersions(field)"
                     ref="versions"
-                    class="form--span"
                     v-model="draft[field.name]"
                     :url="versionsUrl(field)"
             ></field-versions>
-        </template>
+        </div>
         <div v-if="!readonly" class="form--actions">
             <button type="submit" class="button button--invert" :disabled="formIsSubmitting">
                 <span class="button--icon">{{ icon('ph:bold/check') }}</span>[[ submitText ]]

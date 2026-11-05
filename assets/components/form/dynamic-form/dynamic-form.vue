@@ -193,6 +193,10 @@ export default {
       return formDefinitionFullName(this.form, field.name);
     },
 
+    hasVersions(field) {
+      return Boolean(this.versionsUrl(field)) && !this.readonly;
+    },
+
     // Where a text's earlier versions are read, for the entity shown: none
     // while the form is for no entity yet.
     versionsUrl(field) {
