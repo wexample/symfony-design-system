@@ -251,9 +251,14 @@ export default {
       const url = this.getOptionsUrl();
       const value = this.value;
 
-      if (!value || !url || value in this.labels) {
+      // Asked once per value: a source that answers nothing is not asked again.
+      this.labelsAsked = this.labelsAsked ?? new Set();
+
+      if (!value || !url || value in this.labels || this.labelsAsked.has(value)) {
         return;
       }
+
+      this.labelsAsked.add(value);
 
       const option = (await optionsFetch(url, value)).find((candidate) => candidate.value === value);
 
