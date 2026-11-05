@@ -124,11 +124,14 @@ export default {
     },
 
     value() {
-      this.resolveLabel();
+      this.askValueLabel();
     }
   },
 
   created() {
+    // Not reactive: nothing drawn reads it.
+    this.labelsAsked = new Set();
+
     if (this.value && this.valueLabel) {
       this.labels = { ...this.labels, [this.value]: this.valueLabel };
     }
@@ -136,7 +139,7 @@ export default {
 
   mounted() {
     document.addEventListener('pointerdown', this.onDocumentPointerdown);
-    this.resolveLabel();
+    this.askValueLabel();
   },
 
   beforeUnmount() {
@@ -247,13 +250,11 @@ export default {
 
     // A value no option given holds and no label given says: the source
     // asked for it, its own option taken where it answers one.
-    async resolveLabel() {
+    async askValueLabel() {
       const url = this.getOptionsUrl();
       const value = this.value;
 
       // Asked once per value: a source that answers nothing is not asked again.
-      this.labelsAsked = this.labelsAsked ?? new Set();
-
       if (!value || !url || value in this.labels || this.labelsAsked.has(value)) {
         return;
       }

@@ -63,12 +63,12 @@ export default class extends Field {
     this.listEl.addEventListener('mousemove', this.onListMousemove);
     document.addEventListener('pointerdown', this.onDocumentPointerdown);
 
-    this.resolveLabel();
+    this.askValueLabel();
   }
 
   // A value no option given holds and no label given says: the source asked
   // for it, as the vue asks it.
-  private async resolveLabel(): Promise<void> {
+  private async askValueLabel(): Promise<void> {
     const url = this.rootEl?.dataset.optionsUrl;
     const value = this.value;
 
