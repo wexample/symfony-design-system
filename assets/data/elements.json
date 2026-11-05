@@ -3116,7 +3116,7 @@
         {
             "key": "tab",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": "The bar a run of tabs stands in: the views of one thing, one shown at a time; compact in a zone's head, scrolling sideways when short of room.",
+            "description": "The bar a run of tabs stands in: the views of one thing, one shown at a time; compact in a zone's head. Short of room, it fits in three steps: its words, its icons alone where every tab has one, then scrolled between two arrows (TabsHelper, both faces).",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/tab/tab.scss"

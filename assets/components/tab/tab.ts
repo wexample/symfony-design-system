@@ -1,10 +1,13 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
 import { locationHashParamGet, locationHashParamSet } from '@wexample/js-helpers/Helper/Location';
+import { tabsScrollBy, tabsWatch } from '../../js/Helper/TabsHelper';
 
 export default class extends Component {
   private group: string;
   private hashKey: string;
   private onHashChangeProxy?: EventListener;
+  private unwatchFit?: () => void;
+  private arrows: HTMLButtonElement[] = [];
 
   protected async activateListeners(): Promise<void> {
     await super.activateListeners();
@@ -18,6 +21,8 @@ export default class extends Component {
 
     this.onHashChangeProxy = this.onHashChange.bind(this) as EventListener;
     window.addEventListener('hashchange', this.onHashChangeProxy);
+
+    this.fitBar();
 
     const stored = locationHashParamGet(this.hashKey);
     if (stored) {
@@ -39,7 +44,41 @@ export default class extends Component {
       window.removeEventListener('hashchange', this.onHashChangeProxy);
     }
 
+    this.unwatchFit?.();
+    this.arrows.forEach((arrow) => arrow.remove());
+    this.arrows = [];
+
     await super.deactivateListeners();
+  }
+
+  // The bar fits the width it is given, as the vue's does (TabsHelper): its
+  // words, else its icons, else scrolled between the two arrows put at its
+  // ends. A bar of a page's views folds its own way (page-tabs).
+  private fitBar(): void {
+    const bar = this.el.matches('.tabs') ? this.el : this.el.querySelector<HTMLElement>('.tabs');
+
+    if (!bar || bar.classList.contains('page-tabs')) {
+      return;
+    }
+
+    const icons = this.app.getServiceOrFail('icon') as { icon(name: string): string };
+    const arrow = (side: 'start' | 'end', glyph: string, direction: -1 | 1): HTMLButtonElement => {
+      const button = document.createElement('button');
+
+      button.type = 'button';
+      button.className = `tabs--arrow tabs--arrow--${side}`;
+      button.tabIndex = -1;
+      button.setAttribute('aria-hidden', 'true');
+      button.innerHTML = icons.icon(glyph);
+      button.addEventListener('click', () => tabsScrollBy(bar, direction));
+
+      return button;
+    };
+
+    this.arrows = [arrow('start', 'ph:bold/caret-left', -1), arrow('end', 'ph:bold/caret-right', 1)];
+    bar.prepend(this.arrows[0]);
+    bar.append(this.arrows[1]);
+    this.unwatchFit = tabsWatch(bar);
   }
 
   private resolveHashKey(): string {

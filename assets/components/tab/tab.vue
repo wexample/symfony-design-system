@@ -1,4 +1,10 @@
 <script>
+import { tabsFit, tabsRevealActive, tabsScrollBy, tabsWatch } from '../../js/Helper/TabsHelper';
+
+// A bar of tabs fits the width it is given: its words while they fit, its
+// icons alone where every tab has one, past that the bar scrolled between two
+// arrows — the same as the server bar (tab.ts), the logic written once
+// (TabsHelper).
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-tab-tab',
 
@@ -38,7 +44,30 @@ export default {
     }
   },
 
+  watch: {
+    activeKey() {
+      this.$nextTick(() => tabsRevealActive(this.$el));
+    },
+
+    // Other tabs, other words: the bar laid out again.
+    resolvedItems() {
+      this.$nextTick(() => tabsFit(this.$el));
+    }
+  },
+
+  mounted() {
+    this.unwatchFit = tabsWatch(this.$el);
+  },
+
+  beforeUnmount() {
+    this.unwatchFit?.();
+  },
+
   methods: {
+    scrollTabs(direction) {
+      tabsScrollBy(this.$el, direction);
+    },
+
     isActive(item) {
       return item.key === this.activeKey;
     },

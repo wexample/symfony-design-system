@@ -27,8 +27,11 @@
   max-width: none;
 }
 
-// A bar of tabs short of room scrolls sideways, its tabs keeping their words
-// — the bar of a page's views folds instead (page-tabs), and is left alone.
+// A bar of tabs short of room fits it in three steps (TabsHelper): its words
+// while they fit; its icons alone where every tab has one (`data-icons`), the
+// word said under the pointer; past that, scrolled sideways between two
+// arrows (`data-scroll`) — the bar of a page's views folds instead
+// (page-tabs), and is left alone.
 .tabs:not(.page-tabs) {
   overflow-x: auto;
   scrollbar-width: none;
@@ -36,6 +39,53 @@
   > .tabs--item {
     flex-shrink: 0;
   }
+}
+
+.tabs[data-icons] > .tabs--item .tabs--item-label {
+  display: none;
+}
+
+.tabs[data-icons] > .tabs--item {
+  padding-inline: var(--space-3);
+}
+
+// The arrows stand at the bar's ends over what scrolls under them, on the
+// bar's ground; one at an end already reached is faint and does nothing.
+.tabs--arrow {
+  display: none;
+}
+
+.tabs[data-scroll] > .tabs--arrow {
+  position: sticky;
+  z-index: 1;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-size);
+  padding: 0;
+  border: 0;
+  background: var(--tabs-arrow-ground, var(--surface-shell));
+  color: var(--text-color-muted);
+  cursor: pointer;
+}
+
+.tabs[data-scroll] > .tabs--arrow--start {
+  inset-inline-start: 0;
+}
+
+.tabs[data-scroll] > .tabs--arrow--end {
+  inset-inline-end: 0;
+  margin-inline-start: auto;
+}
+
+.tabs[data-scroll] > .tabs--arrow:hover:not(:disabled) {
+  color: var(--text-color-default);
+}
+
+.tabs[data-scroll] > .tabs--arrow:disabled {
+  cursor: default;
+  opacity: 0.3;
 }
 
 // A tab is a bigger target than a button and does not give up the same
@@ -121,6 +171,8 @@
   border-bottom: 0;
   background: none;
   min-width: 0;
+  // The head's ground under its arrows.
+  --tabs-arrow-ground: var(--surface-zone);
 }
 
 .zone--head .tabs--item {

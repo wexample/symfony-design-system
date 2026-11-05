@@ -2,6 +2,8 @@
 
 {%- block vue_body -%}
     <div class="tabs" :class="resolvedTabsClass">
+        {#- Shown once the bar scrolls (TabsHelper), each at its end. -#}
+        <button type="button" class="tabs--arrow tabs--arrow--start" tabindex="-1" aria-hidden="true" @click="scrollTabs(-1)">{{ icon('ph:bold/caret-left') }}</button>
         <a
                 v-for="item in resolvedItems"
                 :key="item.key"
@@ -25,5 +27,6 @@
                 >[[ item.count ]]</span>
             </span>
         </a>
+        <button type="button" class="tabs--arrow tabs--arrow--end" tabindex="-1" aria-hidden="true" @click="scrollTabs(1)">{{ icon('ph:bold/caret-right') }}</button>
     </div>
 {%- endblock -%}
