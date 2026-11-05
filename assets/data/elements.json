@@ -1490,7 +1490,7 @@
         {
             "key": "form/field-versions",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": "The earlier versions of a text field (`versionsUrl` of a textarea or a code), a bar above it: the version read \u2014 the draft first \u2014, its diff with the draft (diff-text), \u00ab take this version back \u00bb making it the draft without saving. The draft kept aside while a version is read. Nothing while the address answers no version. The same bar over the twig theme's field and over dynamic-form's.",
+            "description": "The earlier versions of a text field (`versionsUrl` of a textarea or a code), a bar under it as a property tied to it: the version read \u2014 the draft first, alone while there is no earlier one \u2014, its diff with the draft (diff-text), \u00ab take this version back \u00bb making it the draft without saving. The draft kept aside while a version is read. The same bar under the twig theme's field and under dynamic-form's.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/field-versions/field-versions.scss"

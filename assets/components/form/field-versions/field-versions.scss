@@ -1,12 +1,13 @@
 /* Component: form/field-versions */
-// The versions of a text field: a discreet bar above it — a clock, the word,
-// the version chosen in a small select, the « take back » at the end — and,
-// while a version is read, its diff with the draft under the bar.
+// The versions of a text field: a discreet bar under it, as a property tied
+// to it — a clock, the version chosen in a small select, the « take back » at
+// the end — and, while a version is read, its diff with the draft under the
+// bar.
 .field-versions {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  margin-block-end: var(--space-2);
+  margin-block-start: var(--space-2);
 }
 
 .field-versions--bar {
@@ -16,18 +17,10 @@
   gap: var(--space-2);
 }
 
-.field-versions--label {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  min-width: 0;
-  color: var(--text-color-muted);
-  font-size: var(--font-size-2);
-}
-
 .field-versions--icon {
   display: inline-flex;
   flex: none;
+  color: var(--text-color-muted);
 }
 
 // A select sized to its words, not to the field's width.

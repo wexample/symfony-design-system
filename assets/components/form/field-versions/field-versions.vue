@@ -10,12 +10,12 @@ export const FIELD_VERSIONS_DRAFT = 'draft';
 
 // The earlier versions of a text field, read at its address (`url`,
 // `[{ label, content, date, author }]`, the latest first, without the
-// current one): a bar above the field — the version read, the draft first;
+// current one): a bar under the field, as a property tied to it — the
+// version read, the draft first, alone while there is no earlier one;
 // a version chosen is shown in the field and compared with the draft
 // (diff-text); « take this version back » makes it the draft, nothing saved.
 // The draft is never lost: kept aside while a version is read, given back
-// when the draft is chosen again. Nothing drawn while the address answers
-// no version. The field is reached two ways: as a vue's own value
+// when the draft is chosen again. The field is reached two ways: as a vue's own value
 // (`modelValue`), or as the element of the page it is drawn beside (`target`,
 // its id — the twig theme), written to as a person would (an `input` event
 // an editor follows).
@@ -73,10 +73,6 @@ export default {
   },
 
   computed: {
-    shown() {
-      return this.versions.length > 0;
-    },
-
     version() {
       return this.chosen === FIELD_VERSIONS_DRAFT ? null : this.versions[Number(this.chosen)] ?? null;
     },

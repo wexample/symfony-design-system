@@ -31,15 +31,6 @@
 {%- block form_body -%}
     <div class="dynamic-form" :class="layoutClass">
         <template v-for="field in shownFields" :key="field.name">
-            {#- A text with earlier versions (`versionsUrl`): the bar above it,
-                the draft the field's own. -#}
-            <field-versions
-                    v-if="versionsUrl(field) && !readonly"
-                    ref="versions"
-                    class="form--span"
-                    v-model="draft[field.name]"
-                    :url="versionsUrl(field)"
-            ></field-versions>
             {#- A kind the caller hands over (`fieldComponents`): drawn by its
                 own component, given what any field is given. -#}
             <component
@@ -147,6 +138,15 @@
                     :readonly="readonly"
                     :translate="false"
             ></text-input>
+            {#- A text with earlier versions (`versionsUrl`): the bar under it,
+                the draft the field's own. -#}
+            <field-versions
+                    v-if="versionsUrl(field) && !readonly"
+                    ref="versions"
+                    class="form--span"
+                    v-model="draft[field.name]"
+                    :url="versionsUrl(field)"
+            ></field-versions>
         </template>
         <div v-if="!readonly" class="form--actions">
             <button type="submit" class="button button--invert" :disabled="formIsSubmitting">
