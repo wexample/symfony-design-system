@@ -49,14 +49,16 @@
   @include surface.surface-layer;
 }
 
+// The transition declared first: the animation nests a rule, and sass keeps
+// declarations ahead of nested rules.
 .modal--content.is-opening {
-  @include animation.enter(2);
   transition: none !important;
+  @include animation.enter(2);
 }
 
 .modal--content.is-closing {
-  @include animation.exit(2);
   transition: none !important;
+  @include animation.exit(2);
 }
 
 .layout-modal {

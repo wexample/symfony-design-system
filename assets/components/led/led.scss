@@ -22,9 +22,10 @@
   height: var(--led-size);
   border-radius: 50%;
   background: var(--feedback-fill);
-  @include transition.colors;
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--feedback-fill) 22%, transparent),
     0 0 6px color-mix(in srgb, var(--feedback-fill) 55%, transparent);
+  // Last: it nests a rule, and sass keeps declarations ahead of nested rules.
+  @include transition.colors;
 }
 
 .led--info,

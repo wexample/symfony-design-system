@@ -11,8 +11,12 @@
 
 .form--errors {
   @include feedback.feedback-surface;
-  @include feedback_semantic.feedback-error;
-  padding: var(--space-3);
+
+  // After the surface, which nests a rule: its own rule, as sass asks.
+  & {
+    @include feedback_semantic.feedback-error;
+    padding: var(--space-3);
+  }
 }
 
 .form--field-errors {

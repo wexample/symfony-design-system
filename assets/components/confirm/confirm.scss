@@ -3,9 +3,13 @@
 
 .confirm {
   @include feedback.feedback-surface;
-  position: relative;
-  display: grid;
-  gap: var(--space-3);
+
+  // After the surface, which nests a rule: its own rule, as sass asks.
+  & {
+    position: relative;
+    display: grid;
+    gap: var(--space-3);
+  }
 }
 
 .confirm--title {
