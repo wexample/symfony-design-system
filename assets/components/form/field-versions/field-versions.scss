@@ -4,7 +4,8 @@
 // the text and the strip, the corners rounded below the strip rather than
 // below the text —, set in the small muted words of what is said about a
 // field rather than written in it. The version chosen in a select with no
-// frame of its own, the « take back » at the strip's end; the version read
+// frame of its own at the strip's end — a footer's options start from the
+// right —, the « take back » before it; the version read
 // compared with the draft under the whole.
 @use '../../../css/shapes/form/select';
 
@@ -17,9 +18,10 @@
 .field-versions--bar {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: var(--space-2);
   min-height: 2rem;
-  padding-inline: var(--space-3) var(--space-1);
+  padding-inline: var(--space-1) var(--space-2);
   border: var(--border-default);
   border-radius: var(--radius-box);
   background: var(--surface-1);
@@ -77,7 +79,6 @@
 
 .field-versions--take {
   flex: none;
-  margin-inline-start: auto;
 }
 
 .field-versions--diff {
