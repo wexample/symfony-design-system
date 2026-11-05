@@ -5,16 +5,18 @@
 {%- endblock -%}
 
 {%- block vue_body -%}
-    <button
-            :class="['button', { 'is-loading': isLoading }]"
-            type="button"
-            :disabled="isLoading ? true : null"
-            @click="$emit('load')"
-    >
-        <span class="button--icon" v-html="iconHtml"></span>
-        <span class="button--spinner" aria-hidden="true">
-            <dots size="sm" align="inline"></dots>
-        </span>
-        [[ label ]]
-    </button>
+    <div class="load-more" :class="{ 'is-loading': isLoading }">
+        <span class="load-more--rule" aria-hidden="true"></span>
+        <button type="button"
+                class="load-more--action"
+                :aria-busy="isLoading ? 'true' : 'false'"
+                :disabled="isLoading ? true : null"
+                @click="request">
+            <span v-if="iconHtml" class="load-more--icon" aria-hidden="true" v-html="iconHtml"></span>
+            <span class="load-more--label">[[ label ]]</span>
+            <span v-if="shownCount" class="load-more--count">[[ shownCount ]]</span>
+            <span class="load-more--dots" aria-hidden="true"><dots size="sm" align="inline"></dots></span>
+        </button>
+        <span class="load-more--rule" aria-hidden="true"></span>
+    </div>
 {%- endblock -%}

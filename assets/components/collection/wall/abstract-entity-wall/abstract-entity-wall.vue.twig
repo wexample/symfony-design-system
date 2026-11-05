@@ -45,6 +45,8 @@
             the screen, or on its button. -#}
         <div v-if="hasNewerEntities" ref="more" class="entity-wall--more">
             <load-more
+                    :count="remainingEntitiesCount"
+                    auto
                     :label="resolvedLoadMoreLabel"
                     icon="ph:bold/caret-down"
                     :is-loading="isLoadingNewer"

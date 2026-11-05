@@ -2386,15 +2386,18 @@
         {
             "key": "load-more",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": "The button at the foot of a collection asking for the next page, busy while it comes.",
+            "description": "Where a collection goes on: a quiet line across it \u2014 rules either side, what is past it and how many, a caret for the way \u2014, read in by a press or, `auto`, as it comes into sight; dots in the word's place while it comes. In a console, one of its lines.",
             "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/load-more/load-more.scss"
+                ],
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/load-more/load-more.vue",
                     "@WexampleSymfonyDesignSystemBundle/components/load-more/load-more.vue.twig"
                 ]
             },
             "stances": {
-                "style": "waived",
+                "style": "expected",
                 "template": "waived",
                 "vue": "expected",
                 "script": "waived",
@@ -2404,7 +2407,6 @@
                 "flutter": "todo"
             },
             "notes": {
-                "style": "wears the style of button and adds none of its own",
                 "template": "client-side by nature: it only makes sense inside a vue tree",
                 "script": "its behaviour is the vue component's"
             }

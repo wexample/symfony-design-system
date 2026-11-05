@@ -18,6 +18,8 @@
             {#- Read oldest first, the way back up stands above the oldest line held. -#}
             <div v-if="!newestFirst && hasMoreLines" class="console--more">
                 <load-more
+                        :count="remainingEntitiesCount"
+                        auto
                         :label="moreLinesLabel"
                         icon="ph:bold/caret-up"
                         :is-loading="isLoadingMore"
@@ -64,6 +66,8 @@
             {#- Read latest first, what follows stands under the last line held. -#}
             <div v-if="newestFirst && hasMoreLines" class="console--more">
                 <load-more
+                        :count="remainingEntitiesCount"
+                        auto
                         :label="moreLinesLabel"
                         icon="ph:bold/caret-down"
                         :is-loading="isLoadingMore"

@@ -1,0 +1,105 @@
+/* Component: load-more */
+// Where a collection goes on: a line across it, rules either side, the word in
+// the middle in the quiet ink of a separator's caption, the link's colour once
+// pointed at. While the next part is read, the dots stand where the word was,
+// the line keeping its size.
+@use '../dots/dots';
+
+.load-more {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding-block: var(--space-2);
+}
+
+.load-more--rule {
+  flex: 1 1 0;
+  height: 0;
+  border-block-start: 1px solid var(--border-color-default);
+  transition: border-color 120ms ease;
+}
+
+.load-more--action {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border: 0;
+  border-radius: var(--radius-1, var(--radius-box));
+  background: transparent;
+  color: var(--text-color-subtle);
+  font: inherit;
+  font-size: var(--font-size-1);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+
+.load-more:hover .load-more--rule,
+.load-more:focus-within .load-more--rule {
+  border-color: var(--border-color-strong);
+}
+
+.load-more--action:hover,
+.load-more--action:focus-visible {
+  color: var(--color-link-hover);
+  outline: none;
+}
+
+.load-more--action:focus-visible {
+  box-shadow: 0 0 0 var(--border-focus-width) var(--neutral-a3);
+}
+
+.load-more--icon {
+  display: inline-flex;
+}
+
+// How many are past it: a figure after the word, as quiet.
+.load-more--count {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}
+
+.load-more--count::before {
+  content: '·';
+  margin-inline-end: var(--space-1);
+}
+
+// The dots over the word while it is read: the line does not move.
+.load-more--dots {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.load-more.is-loading .load-more--action {
+  cursor: default;
+}
+
+.load-more.is-loading :is(.load-more--icon, .load-more--label, .load-more--count) {
+  visibility: hidden;
+}
+
+.load-more.is-loading .load-more--dots {
+  display: inline-flex;
+}
+
+// In a console, one of its lines: monospace as the lines are, at their start,
+// no rules — what is past is read as the lines are read.
+.console .load-more {
+  padding-block: 0;
+}
+
+.console .load-more--rule {
+  display: none;
+}
+
+.console .load-more--action {
+  padding-inline: var(--zone-padding, var(--space-2));
+  font-family: var(--font-family-mono);
+  border-radius: 0;
+}

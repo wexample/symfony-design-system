@@ -5,10 +5,10 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: "The button at the foot of a collection asking for the next page, busy while it comes."
+description: "Where a collection goes on: a quiet line across it — rules either side, what is past it and how many, a caret for the way —, read in by a press or, `auto`, as it comes into sight; dots in the word's place while it comes. In a console, one of its lines."
 formats:
   vue: true
-  style: "wears the style of button and adds none of its own"
+  style: true
   template: "client-side by nature: it only makes sense inside a vue tree"
   script: "its behaviour is the vue component's"
   schema: todo

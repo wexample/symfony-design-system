@@ -19,6 +19,8 @@
         <div ref="lines" class="thread--lines">
             <div v-if="hasOlderEntities" class="thread--head">
                 <load-more
+                        :count="remainingEntitiesCount"
+                        auto
                         :label="resolvedLoadOlderLabel"
                         icon="ph:bold/caret-up"
                         :is-loading="isLoadingOlder"

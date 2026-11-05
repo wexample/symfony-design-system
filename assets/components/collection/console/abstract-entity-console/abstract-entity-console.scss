@@ -1,6 +1,5 @@
 @use '../../../../css/shapes/console';
 @use '../../../../css/shapes/empty';
-// Its load-more is a button: it carries no stylesheet of its own.
-@use '../../../button/button';
+@use '../../../load-more/load-more';
 @use '../../../spinner/spinner';
 @use '../../../date-display/date-display';

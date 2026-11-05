@@ -49,6 +49,14 @@ const AbstractEntityCollectionVueMixin = {
       return this.appendsPages() && Boolean(this.pagination?.hasMore);
     },
 
+    // How many are not held yet, when the api says how many there are: what
+    // a collection's way on says of what is past it (load-more `count`).
+    remainingEntitiesCount() {
+      const total = Number(this.pagination?.total);
+
+      return Number.isFinite(total) && total > this.entities.length ? total - this.entities.length : null;
+    },
+
     // What the pagination partial needs, whichever shape the collection wears.
     paginationProps() {
       return {

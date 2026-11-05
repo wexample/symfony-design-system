@@ -4,8 +4,8 @@
 // itself — an avatar, an author and a date, the words.
 // A line drawn from markdown is prose (`.content`), at the size of the thread.
 @use './content';
-// The thread head holds a load-more, which is a button showing dots while it waits.
-@use '../../components/button/button';
+// The thread head holds the way back up its lines (load-more).
+@use '../../components/load-more/load-more';
 // A message dates itself, and the date carries its own tooltip cursor.
 @use '../../components/date-display/date-display';
 @use '../../components/dots/dots';
