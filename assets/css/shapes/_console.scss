@@ -128,10 +128,37 @@ a.console--line,
   color: var(--feedback-color);
 }
 
-// Where the lines go on: above the oldest held, or under the latest.
-.console--more {
-  display: flex;
-  justify-content: center;
-  flex: 0 0 auto;
-  padding: var(--space-1);
+// Where the lines go on, said as a terminal says it: above the oldest line
+// held, or under the latest. « Loading… » while more is past — read as the
+// edge is scrolled to —, its cursor blinking while it is read; « - End - »
+// once there is none, so the last line is known to be the last.
+.console--more,
+.console--end {
+  flex: none;
+  padding-inline: var(--zone-padding, var(--space-2));
+  color: var(--text-color-subtle);
+  white-space: nowrap;
+}
+
+.console--more.is-loading::after {
+  content: '▌';
+  margin-inline-start: 0.25em;
+  animation: console-cursor 1s steps(1) infinite;
+}
+
+.console--end {
+  text-align: center;
+  opacity: 0.7;
+}
+
+@keyframes console-cursor {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .console--more.is-loading::after {
+    animation: none;
+  }
 }

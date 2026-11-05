@@ -2,7 +2,6 @@
 import AbstractEntityCollectionVueMixin from "../../../../js/Vue/AbstractEntityCollectionVueMixin";
 import buildTranslatedBindings from "../../../../js/Helper/TranslationHelper";
 import DateDisplay from "../../../date-display/date-display.vue";
-import LoadMore from "../../../load-more/load-more.vue";
 import Spinner from "../../../spinner/spinner.vue";
 
 const DOMAIN = 'WexampleSymfonyDesignSystemBundle.components.collection.console.abstract-entity-console.abstract-entity-console::';
@@ -16,9 +15,13 @@ const translated = buildTranslatedBindings({
     'emptyLabel',
     'WexampleSymfonyDesignSystemBundle.common.system::frontend.no_data'
   ],
-  resolvedLoadMoreLabel: ['loadMoreLabel', `${DOMAIN}load_more`],
-  resolvedLoadOlderLabel: ['loadOlderLabel', `${DOMAIN}load_older`]
+  resolvedFetchingLabel: ['fetchingLabel', `${DOMAIN}fetching`],
+  resolvedEndLabel: ['endLabel', `${DOMAIN}end`]
 });
+
+// How near its edge, in pixels, the console is read in as being there: the
+// next part asked before the edge is reached.
+const EDGE_DISTANCE = 48;
 
 // The parts of a line, in the order they are read.
 const LINE_PARTS = ['id', 'kind', 'ref', 'text', 'end'];
@@ -41,7 +44,6 @@ export default {
 
   components: {
     DateDisplay,
-    LoadMore,
     Spinner
   },
 
@@ -82,16 +84,22 @@ export default {
       return this.newestFirst ? this.isLoadingNewer : this.isLoadingOlder;
     },
 
-    moreLinesLabel() {
-      return this.newestFirst ? this.resolvedLoadMoreLabel : this.resolvedLoadOlderLabel;
+    // Read whole, and something read: said at the far end, where more would
+    // have come.
+    reachedEnd() {
+      return this.hasLines && !this.hasMoreLines && !this.isLoading;
     }
   },
 
   watch: {
     entities() {
-      if (!this.newestFirst) {
-        this.$nextTick(() => this.settleConsoleScroll());
-      }
+      this.$nextTick(() => {
+        if (!this.newestFirst) {
+          this.settleConsoleScroll();
+        }
+
+        this.fillConsole();
+      });
     }
   },
 
@@ -220,7 +228,40 @@ export default {
       part.onClick(line.entity);
     },
 
+    // Scrolled to the edge more comes from: the next part asked. A scroll
+    // and not the edge coming into sight — read oldest first, the console
+    // opens at its foot, and its head is in sight before it gets there.
+    onLinesScroll() {
+      const lines = this.$refs.lines;
+
+      if (!lines || !this.hasMoreLines || this.isLoadingMore) {
+        return;
+      }
+
+      const atEdge = this.newestFirst
+        ? lines.scrollHeight - lines.scrollTop - lines.clientHeight <= EDGE_DISTANCE
+        : lines.scrollTop <= EDGE_DISTANCE;
+
+      if (atEdge) {
+        this.loadMoreLines();
+      }
+    },
+
+    // What came does not fill the room: nothing to scroll, the next part
+    // asked at once.
+    fillConsole() {
+      const lines = this.$refs.lines;
+
+      if (lines && this.hasMoreLines && !this.isLoadingMore && lines.scrollHeight <= lines.clientHeight) {
+        this.loadMoreLines();
+      }
+    },
+
     async loadMoreLines() {
+      if (this.isLoadingMore) {
+        return;
+      }
+
       if (this.newestFirst) {
         await this.loadNewerEntities();
 

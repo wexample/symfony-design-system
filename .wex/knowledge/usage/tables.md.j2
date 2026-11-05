@@ -194,7 +194,10 @@ read on a line in `getLineConfiguration(entity)` — `{ time, tone, id, kind, re
 end, href, onClick }`, each part a string or `{ label, href, onClick }` when it leads somewhere:
 a slot's id opening the slot. Latest first by default, the api's freshest page first and
 more under the last line held; `isNewestFirst()` returning false reads it as a thread does,
-the api sorted oldest first, the console standing at its foot.
+the api sorted oldest first, the console standing at its foot. Where more is past, a line says
+« Loading… » as a terminal would, and the next part is read as that edge is scrolled to — or
+at once while the lines do not fill the room —; once there is none, « - End - » says the last
+line is the last.
 
 ## Several tables on one page
 

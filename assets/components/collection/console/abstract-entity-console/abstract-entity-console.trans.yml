@@ -1,91 +1,91 @@
 en:
-  load_more: More lines
-  load_older: Earlier lines
+  fetching: "Loading…"
+  end: "- End -"
 
 ar:
-  load_more: المزيد من الأسطر
-  load_older: الأسطر السابقة
+  fetching: "جارٍ التحميل…"
+  end: "- النهاية -"
 
 bn:
-  load_more: আরও লাইন
-  load_older: আগের লাইন
+  fetching: "লোড হচ্ছে…"
+  end: "- শেষ -"
 
 de:
-  load_more: Weitere Zeilen
-  load_older: Frühere Zeilen
+  fetching: "Wird geladen…"
+  end: "- Ende -"
 
 es:
-  load_more: Más líneas
-  load_older: Líneas anteriores
+  fetching: "Cargando…"
+  end: "- Fin -"
 
 fa:
-  load_more: خطوط بیشتر
-  load_older: خطوط قبلی
+  fetching: "در حال بارگذاری…"
+  end: "- پایان -"
 
 fi:
-  load_more: Lisää rivejä
-  load_older: Aikaisemmat rivit
+  fetching: "Ladataan…"
+  end: "- Loppu -"
 
 fr:
-  load_more: Plus de lignes
-  load_older: Lignes précédentes
+  fetching: "Chargement…"
+  end: "- Fin -"
 
 he:
-  load_more: עוד שורות
-  load_older: שורות קודמות
+  fetching: "טוען…"
+  end: "- סוף -"
 
 hi:
-  load_more: और पंक्तियाँ
-  load_older: पिछली पंक्तियाँ
+  fetching: "लोड हो रहा है…"
+  end: "- समाप्त -"
 
 id:
-  load_more: Baris lainnya
-  load_older: Baris sebelumnya
+  fetching: "Memuat…"
+  end: "- Selesai -"
 
 it:
-  load_more: Altre righe
-  load_older: Righe precedenti
+  fetching: "Caricamento…"
+  end: "- Fine -"
 
 ja:
-  load_more: さらに表示
-  load_older: 以前の行
+  fetching: "読み込み中…"
+  end: "- 終わり -"
 
 ko:
-  load_more: 더 보기
-  load_older: 이전 줄
+  fetching: "불러오는 중…"
+  end: "- 끝 -"
 
 nl:
-  load_more: Meer regels
-  load_older: Eerdere regels
+  fetching: "Laden…"
+  end: "- Einde -"
 
 pl:
-  load_more: Więcej wierszy
-  load_older: Wcześniejsze wiersze
+  fetching: "Ładowanie…"
+  end: "- Koniec -"
 
 pt:
-  load_more: Mais linhas
-  load_older: Linhas anteriores
+  fetching: "Carregando…"
+  end: "- Fim -"
 
 ru:
-  load_more: Ещё строки
-  load_older: Более ранние строки
+  fetching: "Загрузка…"
+  end: "- Конец -"
 
 th:
-  load_more: บรรทัดเพิ่มเติม
-  load_older: บรรทัดก่อนหน้า
+  fetching: "กำลังโหลด…"
+  end: "- จบ -"
 
 tr:
-  load_more: Daha fazla satır
-  load_older: Önceki satırlar
+  fetching: "Yükleniyor…"
+  end: "- Son -"
 
 ur:
-  load_more: مزید سطریں
-  load_older: پچھلی سطریں
+  fetching: "لوڈ ہو رہا ہے…"
+  end: "- اختتام -"
 
 vi:
-  load_more: Thêm dòng
-  load_older: Các dòng trước
+  fetching: "Đang tải…"
+  end: "- Hết -"
 
 zh:
-  load_more: 更多行
-  load_older: 更早的行
+  fetching: "加载中…"
+  end: "- 结束 -"

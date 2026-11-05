@@ -8,23 +8,20 @@
 
 {%- block vue_require -%}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/date-display') -}}
-    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/load-more') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/spinner') -}}
 {%- endblock -%}
 
 {%- block vue_body -%}
     <div class="console" :class="{ 'console--newest-first': newestFirst }">
-        <div ref="lines" class="console--lines">
-            {#- Read oldest first, the way back up stands above the oldest line held. -#}
-            <div v-if="!newestFirst && hasMoreLines" class="console--more">
-                <load-more
-                        :count="remainingEntitiesCount"
-                        :label="moreLinesLabel"
-                        icon="ph:bold/caret-up"
-                        :is-loading="isLoadingMore"
-                        @load="loadMoreLines"
-                ></load-more>
-            </div>
+        <div ref="lines" class="console--lines" @scroll.passive="onLinesScroll">
+            {#- Read oldest first, what is past stands above the oldest line
+                held: being read, or — nothing past — the end. -#}
+            <template v-if="!newestFirst">
+                {%- block console_head -%}
+                <div v-if="hasMoreLines" class="console--more" :class="{ 'is-loading': isLoadingMore }">[[ resolvedFetchingLabel ]]</div>
+                <div v-else-if="reachedEnd" class="console--end">[[ resolvedEndLabel ]]</div>
+                {%- endblock -%}
+            </template>
 
             <div v-if="isLoading && !hasLines" class="empty">
                 <spinner size="sm" :label="resolvedLoadingLabel"></spinner>
@@ -62,17 +59,14 @@
             </component>
             {%- endblock -%}
 
-            {#- Read latest first, what follows stands under the last line held. -#}
-            <div v-if="newestFirst && hasMoreLines" class="console--more">
-                <load-more
-                        :count="remainingEntitiesCount"
-                        auto
-                        :label="moreLinesLabel"
-                        icon="ph:bold/caret-down"
-                        :is-loading="isLoadingMore"
-                        @load="loadMoreLines"
-                ></load-more>
-            </div>
+            {#- Read latest first, what follows stands under the last line held:
+                being read, or — nothing more — the end. -#}
+            <template v-if="newestFirst">
+                {%- block console_foot -%}
+                <div v-if="hasMoreLines" class="console--more" :class="{ 'is-loading': isLoadingMore }">[[ resolvedFetchingLabel ]]</div>
+                <div v-else-if="reachedEnd" class="console--end">[[ resolvedEndLabel ]]</div>
+                {%- endblock -%}
+            </template>
         </div>
     </div>
 {%- endblock -%}
