@@ -1,0 +1,48 @@
+{#- Pairs of words, a key and its value, one line each, drawn as the vue
+    draws them. Each line is posted as it is written — `name[0][key]`,
+    `name[0][value]` —, the last one blank: without a script, what is typed
+    there is the next pair, and a pair emptied is dropped when read back. The
+    script opens a new last line as the one before is written in, and takes a
+    pair off with its ×. -#}
+{%- set pairs = pairs|default([]) -%}
+{%- set domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.key_value.' -%}
+{%- set key_label = (domain ~ 'key')|trans -%}
+{%- set value_label = (domain ~ 'value')|trans -%}
+{%- set remove_label = (domain ~ 'remove')|trans -%}
+<div {{ component_render_tag_attributes({ class: 'form--group key-value-input' }) }}
+        data-name="{{ name|default('') }}"
+        data-key-label="{{ key_label }}"
+        data-value-label="{{ value_label }}"
+        data-remove-label="{{ remove_label }}">
+    <label class="form--label" for="{{ id }}">{{ label }}</label>
+    <div class="key-value-input--frame" role="group" aria-label="{{ label }}">
+        {%- for pair in pairs|merge([{ key: '', value: '', new: true }]) %}
+        {%- set index = loop.index0 -%}
+        {%- set is_new = pair.new is defined -%}
+        <div class="key-value-input--pair{{ is_new ? ' key-value-input--new' }}" data-pair="{{ index }}">
+            <input class="key-value-input--key"
+                   type="text"
+                   {% if loop.first %}id="{{ id }}"{% endif %}
+                   {% if name is defined %}name="{{ name }}[{{ index }}][key]"{% endif %}
+                   value="{{ pair.key }}"
+                   aria-label="{{ key_label }}"
+                   placeholder="{{ is_new ? (domain ~ 'add')|trans : (key_placeholder|default(null) ?: key_label) }}">
+            <input class="key-value-input--value"
+                   type="text"
+                   {% if name is defined %}name="{{ name }}[{{ index }}][value]"{% endif %}
+                   value="{{ pair.value }}"
+                   aria-label="{{ value_label }}"
+                   placeholder="{{ value_placeholder|default(null) ?: value_label }}">
+            {%- if is_new %}
+            <span class="key-value-input--mark" aria-hidden="true">{{ icon('ph:bold/plus') }}</span>
+            {%- else %}
+            <button type="button" class="key-value-input--remove" aria-label="{{ remove_label }}" title="{{ remove_label }}">{{ icon('ph:bold/x') }}</button>
+            {%- endif %}
+        </div>
+        {%- endfor %}
+    </div>
+    {#- What the script puts at the end of a line that becomes a pair. -#}
+    <template class="key-value-input--remove-template">
+        <button type="button" class="key-value-input--remove" aria-label="{{ remove_label }}" title="{{ remove_label }}">{{ icon('ph:bold/x') }}</button>
+    </template>
+</div>

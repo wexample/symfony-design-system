@@ -8,42 +8,53 @@
     <label v-if="hasLabel" class="form--label" :for="resolvedId">[[ resolveLabel(label) ]]</label>
 {%- endblock -%}
 
-{#- A line a pair, its key and its value side by side; the last line opens the
-    next one. -#}
+{#- One frame, a line a pair, its key and its value side by side; the last
+    line is the next pair, written in place. Lines are keyed by their place,
+    so the line written in stays the same element once it becomes a pair. -#}
 {%- block field_control -%}
-    <div class="key-value-input--pairs">
-        <div v-for="(pair, index) in modelValue" :key="index" class="key-value-input--pair" :data-pair="index">
-            <input class="form--input key-value-input--key"
-                   type="text"
-                   :value="pair.key"
-                   :aria-label="t('key')"
-                   :placeholder="keyPlaceholder || t('key')"
-                   :disabled="disabled ? true : null"
-                   :readonly="readonly ? true : null"
-                   @input="update(index, 'key', $event.target.value)">
-            <input class="form--input key-value-input--value"
-                   type="text"
-                   :value="pair.value"
-                   :aria-label="t('value')"
-                   :placeholder="valuePlaceholder || t('value')"
-                   :disabled="disabled ? true : null"
-                   :readonly="readonly ? true : null"
-                   @input="update(index, 'value', $event.target.value)">
-            <button v-if="!disabled && !readonly"
-                    type="button"
-                    class="form--input-action key-value-input--remove"
-                    :aria-label="t('remove')"
-                    :title="t('remove')"
-                    @click="remove(index)">{{ icon('ph:bold/x') }}</button>
-        </div>
-        <div v-if="!disabled && !readonly" class="key-value-input--pair key-value-input--new">
-            <input class="form--input key-value-input--key"
-                   type="text"
-                   v-model="draft"
-                   :id="resolvedId"
-                   :placeholder="t('add')"
-                   @keydown.enter.prevent="add"
-                   @blur="add">
+    <div class="key-value-input is-active">
+        <div class="key-value-input--frame" :class="{ 'is-readonly': readonly }" role="group" :aria-label="resolveLabel(label)">
+            <template v-for="(line, index) in lines" :key="index">
+                <div v-if="!line.isNew || editable"
+                     class="key-value-input--pair"
+                     :class="{ 'key-value-input--new': line.isNew }"
+                     :data-pair="index">
+                    <input class="key-value-input--key"
+                           :class="{ 'is-duplicate': isDuplicate(line) }"
+                           type="text"
+                           :id="index === 0 ? resolvedId : null"
+                           :value="line.key"
+                           :aria-label="t('key')"
+                           :aria-invalid="isDuplicate(line) ? 'true' : null"
+                           :title="isDuplicate(line) ? t('duplicate') : null"
+                           :placeholder="line.isNew ? t('add') : (keyPlaceholder || t('key'))"
+                           :disabled="disabled ? true : null"
+                           :readonly="readonly ? true : null"
+                           @input="update(index, 'key', $event.target.value)"
+                           @keydown.enter.prevent="focusLine(index, 'value')"
+                           @keydown.backspace="onKeyBackspace(index, $event)">
+                    <input class="key-value-input--value"
+                           type="text"
+                           :value="line.value"
+                           :aria-label="t('value')"
+                           :placeholder="valuePlaceholder || t('value')"
+                           :disabled="disabled ? true : null"
+                           :readonly="readonly ? true : null"
+                           @input="update(index, 'value', $event.target.value)"
+                           @keydown.enter.prevent="next(index)">
+                    <span v-if="line.isNew" class="key-value-input--mark" aria-hidden="true">{{ icon('ph:bold/plus') }}</span>
+                    <button v-else-if="editable"
+                            type="button"
+                            class="key-value-input--remove"
+                            :aria-label="t('remove')"
+                            :title="t('remove')"
+                            @click="remove(index)">{{ icon('ph:bold/x') }}</button>
+                    <span v-else></span>
+                </div>
+            </template>
+            <div v-if="!editable && !pairs.length" class="key-value-input--pair">
+                <span class="key-value-input--key">—</span>
+            </div>
         </div>
     </div>
 {%- endblock -%}

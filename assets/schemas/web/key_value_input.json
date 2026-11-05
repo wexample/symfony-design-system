@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "key_value_input.json",
+  "title": "Key-value input field",
+  "description": "Pairs of words, a key and its value, one line each — metadata, headers, parameters —, in the order they were written. The field's value is a list of pairs (`pairs`), not a text: `value` stays unset. Sent as a list, each pair under its index — `form[field][0][key]`, `form[field][0][value]`. Keys are unique within the field; values are text.",
+  "type": "object",
+  "allOf": [
+    { "$ref": "field_base.json" }
+  ],
+  "properties": {
+    "type": {
+      "const": "key_value"
+    },
+    "pairs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": { "type": "string", "minLength": 1 },
+          "value": { "type": "string" }
+        },
+        "required": ["key", "value"],
+        "additionalProperties": false
+      },
+      "default": []
+    }
+  },
+  "required": ["type", "name", "label"],
+  "unevaluatedProperties": false
+}

@@ -74,6 +74,7 @@ en:
     tags_input:
       add: "Add a tag…"
       remove: "Remove"
+      duplicate: "This key is written twice."
       suggest: "Add %tag%"
     key_value:
       key: "Key"
@@ -1280,6 +1281,7 @@ fr:
     tags_input:
       add: "Ajouter un tag…"
       remove: "Retirer"
+      duplicate: "Cette clé est écrite deux fois."
       suggest: "Ajouter %tag%"
     key_value:
       key: "Clé"

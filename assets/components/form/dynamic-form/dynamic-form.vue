@@ -3,7 +3,8 @@ import Form from '../../_abstract/form/form.vue';
 import TextInput from '../text-input/text-input.vue';
 import TextareaInput from '../textarea-input/textarea-input.vue';
 import SelectInput from '../select-input/select-input.vue';
-import { formDefinitionFullName } from '../../../js/Helper/FormDefinitionHelper';
+import KeyValueInput from '../key-value-input/key-value-input.vue';
+import { FORM_DEFINITION_KIND_KEY_VALUE, formDefinitionFullName, formDefinitionPairs } from '../../../js/Helper/FormDefinitionHelper';
 
 const DOMAIN = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.form.';
 
@@ -17,7 +18,8 @@ const FIELDS = {
   url: TextInput,
   password: TextInput,
   textarea: TextareaInput,
-  select: SelectInput
+  select: SelectInput,
+  key_value: KeyValueInput
 };
 
 // A form of the server drawn by the design system rather than by its
@@ -37,7 +39,8 @@ export default {
   components: {
     TextInput,
     TextareaInput,
-    SelectInput
+    SelectInput,
+    KeyValueInput
   },
 
   emits: ['saved'],
@@ -113,10 +116,16 @@ export default {
 
   methods: {
     startDraft() {
-      return Object.fromEntries((this.form.fields ?? []).map((field) => [
-        field.name,
-        String((field.name in this.values ? this.values[field.name] : field.value) ?? '')
-      ]));
+      return Object.fromEntries((this.form.fields ?? []).map((field) => {
+        const given = field.name in this.values ? this.values[field.name] : undefined;
+
+        // Pairs, not a text: the record given, or the form's own.
+        if (field.type === FORM_DEFINITION_KIND_KEY_VALUE) {
+          return [field.name, formDefinitionPairs(given !== undefined ? given : field.pairs)];
+        }
+
+        return [field.name, String((given !== undefined ? given : field.value) ?? '')];
+      }));
     },
 
     reset() {
@@ -162,7 +171,7 @@ export default {
 
     onApiSubmitSuccess(response) {
       Form.methods.onApiSubmitSuccess.call(this, response);
-      this.$emit('saved', { values: { ...this.draft }, id: this.id, payload: response });
+      this.$emit('saved', { values: JSON.parse(JSON.stringify(this.draft)), id: this.id, payload: response });
     }
   }
 };

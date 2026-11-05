@@ -27,7 +27,13 @@ export type FormDefinitionField = {
   rows?: number;
   choices?: FormDefinitionChoice[];
   multiple?: boolean;
+  // A key-value field's value: its pairs, in order (`key_value_input.json`).
+  pairs?: FormDefinitionPair[];
 };
+
+export type FormDefinitionPair = { key: string; value: string };
+
+export const FORM_DEFINITION_KIND_KEY_VALUE = 'key_value';
 
 export type FormDefinition = {
   name: string;
@@ -59,6 +65,20 @@ export function formDefinitionFullName(form: FormDefinition, name: string): stri
   return form.name ? `${form.name}[${name}]` : name;
 }
 
+// A key-value field's pairs, given as its pairs or as a record
+// `{ lang: 'fr' }`: the pairs, each a key and its text.
+export function formDefinitionPairs(value: unknown): FormDefinitionPair[] {
+  if (Array.isArray(value)) {
+    return value.map((pair) => ({ key: String(pair?.key ?? ''), value: String(pair?.value ?? '') }));
+  }
+
+  if (value && typeof value === 'object') {
+    return Object.entries(value as Record<string, unknown>).map(([key, text]) => ({ key, value: String(text ?? '') }));
+  }
+
+  return [];
+}
+
 export function formDefinitionAction(form: FormDefinition, id: string | null = null): string {
   return id ? form.action.replace(FORM_DEFINITION_ID_PLACEHOLDER, id) : form.action;
 }
@@ -69,6 +89,24 @@ export function formDefinitionData(form: FormDefinition, values: Record<string, 
   const data = new FormData();
 
   (form.fields ?? []).forEach((field) => {
+    if (field.type === FORM_DEFINITION_KIND_KEY_VALUE) {
+      const name = formDefinitionFullName(form, field.name);
+      const pairs = formDefinitionPairs(field.name in values ? values[field.name] : field.pairs);
+
+      // Each pair under its index, as the drawn field posts it; none, the
+      // field is sent empty so the pairs it held are taken off.
+      pairs.forEach((pair, index) => {
+        data.append(`${name}[${index}][key]`, pair.key);
+        data.append(`${name}[${index}][value]`, pair.value);
+      });
+
+      if (!pairs.length) {
+        data.append(name, '');
+      }
+
+      return;
+    }
+
     const value = field.name in values ? values[field.name] : field.value;
 
     if (value !== null && value !== undefined && typeof value !== 'object') {

@@ -117,6 +117,10 @@ $formProcessor->createForm(null, ['submit_when_valid' => true]);
 
 The one thing asked on a step — a name, an address — is set large with `row_attr: { class: 'form--group--hero' }`: the label a step up, the value written big. A code (`OtpInputType`) is drawn that way already, its cells across the field's width.
 
+## Pairs of words
+
+`form/key-value-input` edits pairs, a key and its value, as a sheet: one frame, a line a pair, the keys — monospace, muted — and their values in two columns, the last line the next pair written in place. Typed in, key or value, that line becomes a pair and a new one opens below; Enter goes to the next line, Backspace on an emptied line takes it off, a line's × too. A key written twice is said on the key as it is typed. The vue holds `[{ key, value }]` (a record `{ lang: 'fr' }` is read as its pairs); the twig field posts each line under its index, the last one blank, so without a script the next pair is still written and an emptied one dropped. `dynamic-form` draws the `key_value` kind with it.
+
 ## A field edited in place
 
 `form/inline-edit` edits one field of a form of the application where its value is shown — a title in a bar, a name in a row —: the frame of a field holding what the page gives it (its default slot: a select, a value; the value alone else), a pencil after it and the page's own actions last (`actions` slot). Pressed, the frame holds the field instead, its ✓ and ✕ in it; Enter saves, Escape lets go. The form is a Symfony form handed over by symfony-forms' `form_definition()` rather than drawn: the vue sends its fields as the drawn form would be, to its processor, which validates, saves and notifies; what it refuses is said under the frame, the field kept open, and `saved` gives the new value once it is in.

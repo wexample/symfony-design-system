@@ -8,6 +8,7 @@
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/text-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/textarea-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/select-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/key-value-input') -}}
 {%- endblock -%}
 
 {#- What the processor refused of the form as a whole, said in words already:
@@ -49,6 +50,16 @@
                     :readonly="readonly"
                     :translate="false"
             ></select-input>
+            <key-value-input
+                    v-else-if="field.type === 'key_value'"
+                    v-model="draft[field.name]"
+                    :name="fullName(field)"
+                    :errors="getFieldErrors(fullName(field))"
+                    :label="field.label"
+                    :required="Boolean(field.required)"
+                    :readonly="readonly"
+                    :translate="false"
+            ></key-value-input>
             <text-input
                     v-else
                     v-model="draft[field.name]"

@@ -1,26 +1,125 @@
 /* Component: form/key-value-input */
+// Pairs of words as a sheet: one frame for the whole — a field's border, its
+// ground, its ring of focus —, a line a pair, the key and its value in two
+// columns that line up down the sheet, a rule between them. The key is read
+// as the name it is (monospace, a notch down, muted); the value as text. The
+// last line is the next pair, written in place: what is typed there opens
+// it. A line's × stands at its end, shown where the line is pointed at or
+// written in — always, where nothing points.
 @use '../../../css/shapes/form/base';
-@use '../../../css/shapes/form/addon';
+@use '../../../css/mixins/field' as field;
 
-// A key, its value — wider —, the line's ×: the same three columns down the
-// list, the last line holding the key of the next pair alone.
-.key-value-input--pairs {
+.key-value-input--frame {
+  @include field.field-base;
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  min-width: 0;
+  overflow: hidden;
+}
+
+.key-value-input--frame:focus-within {
+  @include field.field-focus;
+}
+
+.key-value-input--frame.is-readonly {
+  border-style: dashed;
 }
 
 .key-value-input--pair {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) var(--control-size);
-  gap: var(--space-1);
-  align-items: center;
+  align-items: stretch;
+  min-height: var(--control-size);
 }
 
-.key-value-input--new {
-  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) var(--control-size);
+.key-value-input--pair + .key-value-input--pair {
+  border-block-start: var(--border-separator);
+}
+
+.key-value-input--pair:focus-within {
+  background: var(--tint-2);
+}
+
+.key-value-input--key,
+.key-value-input--value {
+  min-width: 0;
+  height: var(--control-size);
+  padding-inline: var(--space-3);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.key-value-input--key:focus,
+.key-value-input--value:focus {
+  outline: none;
+}
+
+.key-value-input--key {
+  border-inline-end: var(--border-separator);
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-2);
+  color: var(--text-color-muted);
+}
+
+.key-value-input--key:focus {
+  color: var(--text-color-default);
+}
+
+// A key written twice: said on the key itself, as it is typed.
+.key-value-input--key.is-duplicate {
+  color: var(--error-11);
+}
+
+.key-value-input--remove,
+.key-value-input--mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-color-subtle);
 }
 
 .key-value-input--remove {
-  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 120ms ease, color 120ms ease;
+}
+
+.key-value-input--pair:hover .key-value-input--remove,
+.key-value-input--pair:focus-within .key-value-input--remove,
+.key-value-input--remove:focus-visible {
+  opacity: 1;
+}
+
+.key-value-input--remove:hover,
+.key-value-input--remove:focus-visible {
+  color: var(--error-11);
+  outline: none;
+}
+
+@media (hover: none) {
+  .key-value-input--remove {
+    opacity: 1;
+  }
+}
+
+// The line of the next pair: its words in the placeholder's colour, a + where
+// the × of a pair stands.
+.key-value-input--new .key-value-input--key,
+.key-value-input--new .key-value-input--value {
+  color: var(--text-color-default);
+}
+
+.key-value-input--mark {
+  pointer-events: none;
+}
+
+// Without a script, the lines are posted as they are written and a line's ×
+// has nothing to do: it is not shown.
+.key-value-input:not(.is-active) .key-value-input--remove {
+  display: none;
 }

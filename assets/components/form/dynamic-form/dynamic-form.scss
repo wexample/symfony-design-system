@@ -6,6 +6,7 @@
 @use '../text-input/text-input';
 @use '../textarea-input/textarea-input';
 @use '../select-input/select-input';
+@use '../key-value-input/key-value-input';
 
 .dynamic-form {
   display: flex;

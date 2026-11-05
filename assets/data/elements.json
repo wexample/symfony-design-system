@@ -1512,30 +1512,36 @@
         {
             "key": "form/key-value-input",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": "Pairs of words, a key and its value, one line each \u2014 metadata, headers, parameters \u2014, kept in the order written; a key typed in the last line opens a pair, a line's \u00d7 takes it off.",
+            "description": "Pairs of words, a key and its value, one line each \u2014 metadata, headers, parameters \u2014, as a sheet: the keys and their values in two columns, the last line the next pair written in place, a line's \u00d7 taking it off, a key written twice said on the key. Posted a pair under each index.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/key-value-input/key-value-input.scss"
                 ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/key-value-input/key-value-input.html.twig"
+                ],
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/key-value-input/key-value-input.vue",
                     "@WexampleSymfonyDesignSystemBundle/components/form/key-value-input/key-value-input.vue.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/key-value-input/key-value-input.ts"
+                ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/key-value-input/key-value-input.schema.json"
                 ]
             },
             "stances": {
                 "style": "expected",
-                "template": "waived",
+                "template": "expected",
                 "vue": "expected",
-                "script": "waived",
-                "schema": "todo",
+                "script": "expected",
+                "schema": "expected",
                 "ai": "todo",
                 "react": "todo",
                 "flutter": "todo"
             },
             "notes": {
-                "template": "client-side by nature: it only makes sense inside a vue tree",
-                "script": "its behaviour is the vue component's",
-                "schema": "a field kind the json-schema norm does not name yet",
                 "ai": "add, set and take off a pair"
             }
         },
@@ -3845,7 +3851,7 @@
             "key": "console",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_console.scss",
-            "description": "A console: what a run writes of itself, one line per event, read as it arrives. Nothing here is for the eye \u2014 monospace, one notch down, the lines as tight as they read \u2014, the colour alone telling the kinds apart: a state's tone on the kind, the text itself only when something went wrong. A line keeps to one line whatever it says, its end given up at the edge: the whole is read in the detail it leads to.  A line: its time, the kind of event, what it concerns (a slot, a file), what it says, and what stands at the far end. Any of them may be a link or a button (`console--part`), reading as the text they are until the pointer is on them."
+            "description": "A console: what a run writes of itself, one line per event, read as it arrives. Nothing here is for the eye \u2014 monospace, one notch down, the lines as tight as they read \u2014, the colour alone telling the kinds apart: a state's tone on the kind, the text itself only when something went wrong. A line keeps to one line whatever it says, its end given up at the edge: the whole is read in the detail it leads to.  A line: its time, its id, the kind of event, what it concerns (a slot, a file), what it says, and what stands at the far end. Any of them may be a link or a button (`console--part`), reading as the text they are until the pointer is on them."
         },
         {
             "key": "container",
