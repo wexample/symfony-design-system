@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "info.schema.json",
+  "title": "Info message",
+  "description": "A message in the info tone: something the reader is told, neither good nor bad news. One of the message's tones named as a schema of its own, for what produces or selects messages of this tone alone; the message itself (message.schema.json) says what a message is.",
+  "type": "object",
+  "allOf": [
+    { "$ref": "message.schema.json" }
+  ],
+  "properties": {
+    "type": {
+      "const": "info",
+      "default": "info"
+    }
+  },
+  "required": ["body"],
+  "unevaluatedProperties": false
+}

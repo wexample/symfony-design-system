@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "warning.schema.json",
+  "title": "Warning message",
+  "description": "A message in the warning tone: something the reader should know before going on. One of the message's tones named as a schema of its own, for what produces or selects messages of this tone alone; the message itself (message.schema.json) says what a message is.",
+  "type": "object",
+  "allOf": [
+    { "$ref": "message.schema.json" }
+  ],
+  "properties": {
+    "type": {
+      "const": "warning",
+      "default": "warning"
+    }
+  },
+  "required": ["body"],
+  "unevaluatedProperties": false
+}
