@@ -14,6 +14,8 @@
             <dd v-else class="properties--value" :class="valueClass(item)">
                 <identifier v-if="item.code" :value="item.value" :short="item.short || false" :copy="item.copy || false"></identifier>
                 <span v-else-if="item.html" v-html="item.value"></span>
+                <a v-else-if="item.href" class="properties--link" :href="item.href">[[ item.value ]]</a>
+                <button v-else-if="item.onClick" type="button" class="properties--link" @click="item.onClick(item)">[[ item.value ]]</button>
                 <template v-else>[[ item.value ]]</template>
             </dd>
         </div>

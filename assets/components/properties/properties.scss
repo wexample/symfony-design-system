@@ -35,6 +35,25 @@
   color: var(--text-color-default);
 }
 
+// A value leading somewhere, or acting: the link's colour, a button reading
+// as a link.
+.properties--link {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: inherit;
+  color: var(--color-link);
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-link-hover);
+    text-decoration: underline;
+  }
+}
+
 // Broken anywhere rather than where it must: a path, an address, filling its
 // lines instead of leaving a ragged one before each long segment.
 .properties--value--break {

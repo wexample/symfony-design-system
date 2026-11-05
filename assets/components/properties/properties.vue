@@ -14,12 +14,14 @@ export default {
   },
 
   props: {
-    // Each item is { key, value, html, full, break, code, short, copy }: html
-    // says the value is markup and is rendered as given, exactly as the `|raw`
-    // of the twig does, full gives a value the whole width where the list is
-    // laid in columns or tiles, break breaks it anywhere — a path, an address
-    // —, and code reads it as an identifier (`identifier`), kept to its end
-    // with short, copied with copy.
+    // Each item is { key, value, html, full, break, code, short, copy, href,
+    // onClick }: html says the value is markup and is rendered as given,
+    // exactly as the `|raw` of the twig does, full gives a value the whole
+    // width where the list is laid in columns or tiles, break breaks it
+    // anywhere — a path, an address —, and code reads it as an identifier
+    // (`identifier`), kept to its end with short, copied with copy. A value
+    // leading somewhere is a link (href), one that acts a button reading as
+    // a link (onClick, here only).
     items: {
       type: Array,
       required: true

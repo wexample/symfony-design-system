@@ -62,6 +62,8 @@ class PropertiesExtension extends AbstractTemplateExtension
                 'code' => $item['code'] ?? false,
                 'short' => $item['short'] ?? false,
                 'copy' => $item['copy'] ?? false,
+                // A value leading somewhere: a link.
+                'href' => $item['href'] ?? null,
             ];
         }
 
