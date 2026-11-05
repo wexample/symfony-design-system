@@ -2,14 +2,18 @@
 // field's script (components/form/tags-input) call these alone.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import {
+import { register } from 'node:module';
+
+register('./hooks.mjs', import.meta.url);
+
+const {
   tagsFilterSuggestions,
   tagsJoin,
   tagsMergeSuggestions,
   tagsNormalizeSuggestions,
   tagsSplit,
   tagsSuggestionsUrl
-} from '../../assets/js/Helper/TagsHelper.ts';
+} = await import('../../assets/js/Helper/TagsHelper.ts');
 
 test('what is typed is split, trimmed, each word once', () => {
   assert.deepEqual(tagsSplit(' a, b,,a ,c '), ['a', 'b', 'c']);

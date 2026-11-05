@@ -1,0 +1,16 @@
+# Declares `form/search-select-input` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "One choice among options searched rather than all given — a registry too long to send whole —: the field's own options and those a source answers as the words are typed, the value a text, shown by its label. The same in twig and in vue, its source read as the tags field reads its (OptionsHelper). Takes over the select-search component."
+formats:
+  style: true
+  template: true
+  vue: true
+  script: true
+  schema: true
+  ai: "todo — search and choose an option, read the choice"
+  react: todo
+  flutter: todo

@@ -76,6 +76,11 @@ en:
       remove: "Remove"
       suggest: "Add %tag%"
       suggestions: "Suggestions"
+    search_select:
+      search: "Search…"
+      loading: "Searching…"
+      empty: "No result"
+      none: "—"
     key_value:
       key: "Key"
       value: "Value"
@@ -1284,6 +1289,11 @@ fr:
       remove: "Retirer"
       suggest: "Ajouter %tag%"
       suggestions: "Suggestions"
+    search_select:
+      search: "Rechercher…"
+      loading: "Recherche…"
+      empty: "Aucun résultat"
+      none: "—"
     key_value:
       key: "Clé"
       value: "Valeur"

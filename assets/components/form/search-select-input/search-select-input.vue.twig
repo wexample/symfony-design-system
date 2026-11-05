@@ -1,0 +1,61 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/form-field/form-field.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.search_select.*') }}
+{%- endblock -%}
+
+{%- block field_label -%}
+    <label v-if="hasLabel" class="form--label" :for="resolvedId">[[ resolveLabel(label) ]]</label>
+{%- endblock -%}
+
+{#- Client-side twin of search-select-input.html.twig: the same trigger, the
+    same list searched under it. Posted by a native form, the value goes as
+    the server field posts it. -#}
+{%- block field_control -%}
+    <div class="select select--search search-select-input" :class="{ 'is-open': open, 'is-readonly': !editable }">
+        <button ref="trigger"
+                class="select--trigger"
+                type="button"
+                :id="resolvedId"
+                aria-haspopup="listbox"
+                :aria-expanded="open ? 'true' : 'false'"
+                :disabled="disabled ? true : null"
+                @click="open ? closeList() : openList()"
+                @keydown="onTriggerKeydown">
+            <span class="select--trigger-label" :class="{ 'is-placeholder': !chosenLabel }">[[ chosenLabel || placeholder || '' ]]</span>
+            <span class="select--icon" aria-hidden="true">{{ icon('ph:bold/caret-down') }}</span>
+        </button>
+        <div class="select--dropdown" :hidden="!open">
+            <div class="select--search-wrap">
+                <div class="form--input-group form--filter form--filter--compact">
+                    <span class="form--input-addon" aria-hidden="true">{{ icon('ph:bold/magnifying-glass') }}</span>
+                    <input ref="search"
+                           v-model="query"
+                           class="form--input select--search-input"
+                           type="search"
+                           autocomplete="off"
+                           role="combobox"
+                           aria-autocomplete="list"
+                           :aria-expanded="open ? 'true' : 'false'"
+                           :aria-controls="listId"
+                           :aria-activedescendant="active >= 0 ? optionId(active) : null"
+                           :placeholder="t('search')"
+                           @keydown="onSearchKeydown">
+                </div>
+            </div>
+            <ul class="select--list" role="listbox" :id="listId">
+                <li v-for="(row, index) in rows"
+                    :key="row.none ? '' : row.value"
+                    :id="optionId(index)"
+                    class="select--option"
+                    :class="{ 'select--option--empty': row.none, 'select--option--selected': row.value === value, 'is-active': index === active }"
+                    role="option"
+                    :aria-selected="row.value === value ? 'true' : 'false'"
+                    @pointerdown.prevent="choose(row)"
+                    @mouseenter="active = index">[[ row.label ]]</li>
+            </ul>
+            <div v-if="status" class="select--status">[[ status ]]</div>
+        </div>
+        <input v-if="name" type="hidden" :name="name" :value="value">
+    </div>
+{%- endblock -%}

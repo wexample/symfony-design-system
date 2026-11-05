@@ -5,6 +5,7 @@ import TextareaInput from '../textarea-input/textarea-input.vue';
 import SelectInput from '../select-input/select-input.vue';
 import KeyValueInput from '../key-value-input/key-value-input.vue';
 import TagsInput from '../tags-input/tags-input.vue';
+import SearchSelectInput from '../search-select-input/search-select-input.vue';
 import { FORM_DEFINITION_KIND_KEY_VALUE, FORM_DEFINITION_KIND_TAGS, formDefinitionFullName, formDefinitionPairs } from '../../../js/Helper/FormDefinitionHelper';
 import { tagsSplit } from '../../../js/Helper/TagsHelper';
 
@@ -22,7 +23,8 @@ const FIELDS = {
   textarea: TextareaInput,
   select: SelectInput,
   key_value: KeyValueInput,
-  tags: TagsInput
+  tags: TagsInput,
+  search_select: SearchSelectInput
 };
 
 // A form of the server drawn by the design system rather than by its
@@ -44,7 +46,8 @@ export default {
     TextareaInput,
     SelectInput,
     KeyValueInput,
-    TagsInput
+    TagsInput,
+    SearchSelectInput
   },
 
   emits: ['saved'],

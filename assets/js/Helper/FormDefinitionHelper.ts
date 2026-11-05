@@ -38,6 +38,11 @@ export type FormDefinitionField = {
   suggestionsUrl?: string;
   tone?: string;
   glyph?: string;
+  // A searched select's own options, its source and the label of its value
+  // (`search_select_input.json`).
+  options?: { value: string; label: string }[];
+  optionsUrl?: string;
+  valueLabel?: string;
 };
 
 export type FormDefinitionPair = { key: string; value: string };

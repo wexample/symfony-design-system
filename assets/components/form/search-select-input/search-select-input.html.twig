@@ -1,0 +1,56 @@
+{#- A choice among options searched rather than all given, drawn as the vue
+    draws it. The value is a text, posted by the hidden input as it is; the
+    option chosen is shown by its label — `value_label`, else the option of
+    `options` holding it, else the value. The script opens the list under the
+    trigger, the field's own options (`options`, words or `{ value, label }`)
+    and those a source answers for what is typed (`options_url`, `?q=`). -#}
+{%- set domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.search_select.' -%}
+{%- set options = options|default([]) -%}
+{%- set value = value|default('') -%}
+{%- set value_label = value_label|default(null) -%}
+{%- if value_label is null and value != '' -%}
+    {%- for option in options -%}
+        {%- if (option.value is defined ? option.value : option) == value -%}
+            {%- set value_label = option.label is defined ? option.label : option -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endif -%}
+{%- set shown = value != '' ? (value_label ?? value) : '' -%}
+<div {{ component_render_tag_attributes({ class: 'form--group' }) }}>
+    <label class="form--label" for="{{ id }}">{{ label }}</label>
+    <div class="select select--search search-select-input"
+            data-options="{{ options|json_encode }}"
+            {% if options_url|default(null) %}data-options-url="{{ options_url }}"{% endif %}
+            data-required="{{ required|default(false) ? 'true' : 'false' }}"
+            data-value-label="{{ shown }}"
+            data-none-label="{{ (domain ~ 'none')|trans }}"
+            data-loading-label="{{ (domain ~ 'loading')|trans }}"
+            data-empty-label="{{ (domain ~ 'empty')|trans }}">
+        <button class="select--trigger" id="{{ id }}" type="button" aria-haspopup="listbox" aria-expanded="false">
+            <span class="select--trigger-label{{ shown == '' ? ' is-placeholder' }}">{{ shown ?: (placeholder|default('')) }}</span>
+            <span class="select--icon" aria-hidden="true">{{ icon('ph:bold/caret-down') }}</span>
+        </button>
+        <div class="select--dropdown" hidden>
+            <div class="select--search-wrap">
+                <div class="form--input-group form--filter form--filter--compact">
+                    <span class="form--input-addon" aria-hidden="true">{{ icon('ph:bold/magnifying-glass') }}</span>
+                    <input class="form--input select--search-input"
+                           type="search"
+                           autocomplete="off"
+                           role="combobox"
+                           aria-autocomplete="list"
+                           aria-expanded="false"
+                           aria-controls="{{ id }}-list"
+                           placeholder="{{ (domain ~ 'search')|trans }}">
+                </div>
+            </div>
+            <ul class="select--list" role="listbox" id="{{ id }}-list"></ul>
+            <div class="select--status" hidden></div>
+        </div>
+        <input type="hidden"
+               class="search-select-input--value"
+               {% if name is defined %}name="{{ name }}"{% endif %}
+               value="{{ value }}"
+               {% if required|default(false) %}required{% endif %}>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+/* Component: form/search-select-input */
+// A choice among options searched: the select's trigger and its list, a
+// search field at the head of the list, a word under it while the source is
+// asked or when nothing answers.
+@use '../../select/select';
+@use '../../../css/shapes/form/base';
+@use '../../../css/shapes/form/addon';
+
+.search-select-input {
+  display: block;
+  width: 100%;
+}
+
+.search-select-input .select--dropdown {
+  inset-inline-end: 0;
+}
+
+.search-select-input .select--trigger-label {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.search-select-input .select--trigger-label.is-placeholder {
+  color: var(--text-color-subtle);
+}
+
+.search-select-input .select--option.is-active {
+  background: var(--state-hover);
+}
+
+.search-select-input.is-readonly .select--trigger {
+  border-style: dashed;
+  cursor: default;
+}
+
+.select--status {
+  padding: var(--space-2) var(--space-3);
+  color: var(--text-color-subtle);
+  font-size: var(--font-size-2);
+}

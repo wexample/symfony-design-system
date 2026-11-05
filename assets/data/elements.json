@@ -1738,6 +1738,42 @@
             "notes": []
         },
         {
+            "key": "form/search-select-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "One choice among options searched rather than all given \u2014 a registry too long to send whole \u2014: the field's own options and those a source answers as the words are typed, the value a text, shown by its label. The same in twig and in vue, its source read as the tags field reads its (OptionsHelper). Takes over the select-search component.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/search-select-input/search-select-input.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/search-select-input/search-select-input.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/search-select-input/search-select-input.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/search-select-input/search-select-input.vue"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/search-select-input/search-select-input.ts"
+                ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/search-select-input/search-select-input.schema.json"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "expected",
+                "schema": "expected",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "ai": "search and choose an option, read the choice"
+            }
+        },
+        {
             "key": "form/select-input",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A choice among a list folded under the field, one of them shown; the choices translated by the form's own words.",
@@ -2946,35 +2982,6 @@
             },
             "notes": {
                 "vue": "it can appear inside a vue collection and cannot be reached from one"
-            }
-        },
-        {
-            "key": "select-search",
-            "source": "WexampleSymfonyDesignSystemBundle",
-            "description": "A choice among a long list, narrowed by typing in it before one is taken.",
-            "formats": {
-                "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/select-search/select-search.scss"
-                ],
-                "template": [
-                    "@WexampleSymfonyDesignSystemBundle/components/select-search/select-search.html.twig"
-                ],
-                "script": [
-                    "@WexampleSymfonyDesignSystemBundle/components/select-search/select-search.ts"
-                ]
-            },
-            "stances": {
-                "style": "expected",
-                "template": "expected",
-                "vue": "todo",
-                "script": "expected",
-                "schema": "todo",
-                "ai": "todo",
-                "react": "todo",
-                "flutter": "todo"
-            },
-            "notes": {
-                "vue": "the same control as select, which is owed one too"
             }
         },
         {
