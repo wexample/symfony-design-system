@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "choice_list.schema.json",
+  "title": "Choice list",
+  "description": "One choice among options laid out whole, each a line one presses — its icon, its name, a line saying more of it —, the one chosen marked. What a select would fold away, read before one is taken. What is done with the choice is the reader's application's: the list offers, it does not send.",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "minLength": 1,
+            "description": "What the choice is, as it is answered."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "description": "What is read."
+          },
+          "description": {
+            "type": ["string", "null"],
+            "description": "A line saying more of it.",
+            "default": null
+          },
+          "icon": {
+            "type": ["string", "null"],
+            "default": null
+          },
+          "group": {
+            "type": ["string", "null"],
+            "description": "The name of the run of options it belongs to.",
+            "default": null
+          },
+          "disabled": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": ["value", "label"],
+        "additionalProperties": false
+      }
+    },
+    "value": {
+      "type": ["string", "null"],
+      "description": "The option chosen, when one is.",
+      "default": null
+    },
+    "label": {
+      "type": ["string", "null"],
+      "description": "What names the list, for whoever reads it aloud.",
+      "default": null
+    }
+  },
+  "required": ["items"],
+  "additionalProperties": false
+}

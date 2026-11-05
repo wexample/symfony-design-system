@@ -50,7 +50,7 @@ class SyncFormSchemasCommand extends Command
             $problems = [...$problems, ...$this->schemas->syncCopy($source, $check)];
         }
 
-        $problems = [...$problems, ...$this->schemas->syncPointers($check)];
+        $problems = [...$problems, ...$this->schemas->syncPointers($check), ...$this->schemas->checkPointerTargets()];
 
         if ($problems === []) {
             $io->success($check ? 'The schemas are as the norm says.' : 'The schemas are copied, the components point into them.');

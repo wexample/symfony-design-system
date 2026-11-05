@@ -142,6 +142,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/button-link/button-link.ts"
+                ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/button-link/button-link.schema.json"
                 ]
             },
             "stances": {
@@ -149,7 +152,7 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "todo",
                 "react": "todo",
                 "flutter": "todo"
@@ -243,6 +246,9 @@
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/choice-list/choice-list.ts"
                 ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/choice-list/choice-list.schema.json"
+                ],
                 "ai": [
                     "@WexampleSymfonyDesignSystemBundle/components/choice-list/choice-list.ai.yml"
                 ]
@@ -252,7 +258,7 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
@@ -641,6 +647,9 @@
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/content-image/content-image.vue",
                     "@WexampleSymfonyDesignSystemBundle/components/content-image/content-image.vue.twig"
+                ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/content-image/content-image.schema.json"
                 ]
             },
             "stances": {
@@ -648,7 +657,7 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "waived",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "todo",
                 "react": "todo",
                 "flutter": "todo"
@@ -2320,6 +2329,9 @@
                 "vue": [
                     "@WexampleSymfonyDesignSystemBundle/components/item-list/item-list.vue.twig",
                     "@WexampleSymfonyDesignSystemBundle/components/item-list/item-list.vue"
+                ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/item-list/item-list.schema.json"
                 ]
             },
             "stances": {
@@ -2327,7 +2339,7 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "waived",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "waived",
                 "react": "todo",
                 "flutter": "todo"
@@ -2923,6 +2935,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/progress-bar/progress-bar.ts"
+                ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/progress-bar/progress-bar.schema.json"
                 ]
             },
             "stances": {
@@ -2930,7 +2945,7 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "todo",
                 "react": "todo",
                 "flutter": "todo"
@@ -3572,6 +3587,40 @@
             },
             "notes": {
                 "vue": "a form with a file input and a slot, reachable from inside a vue tree"
+            }
+        },
+        {
+            "key": "video",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A video the width of what holds it, sixteen by nine: a host's page (YouTube, Vimeo) played by the host's own player, embedded; a file played by the browser, a picture before it plays; a caption under it. Where it plays read the same way on both faces (VideoHelper).",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/video/video.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/video/video.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/video/video.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/video/video.vue.twig"
+                ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/video/video.schema.json"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "expected",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "it plays as the browser or the host plays it, and does nothing more",
+                "ai": "read what it shows"
             }
         },
         {

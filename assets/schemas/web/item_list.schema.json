@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "item_list.schema.json",
+  "title": "Item list",
+  "description": "Lines each led by a mark — an icon, an emoji, a character — and said in a tone when they carry one: what a check went through, what a run listed. The tone colours the mark, or the whole line (`toned`).",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "description": "What the line says."
+          },
+          "icon": {
+            "type": ["string", "null"],
+            "description": "Its mark: an icon name (`ph:bold/check`), else written as it is — « ✓ », an emoji.",
+            "default": null
+          },
+          "tone": {
+            "type": ["string", "null"],
+            "enum": ["info", "success", "warning", "error", null],
+            "description": "The state the line is said in.",
+            "default": null
+          }
+        },
+        "required": ["label"],
+        "additionalProperties": false
+      }
+    },
+    "toned": {
+      "enum": ["mark", "line"],
+      "description": "What a tone colours: the mark, or the whole line.",
+      "default": "mark"
+    }
+  },
+  "required": ["items"],
+  "additionalProperties": false
+}

@@ -1,0 +1,16 @@
+# Declares `video` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "A video the width of what holds it, sixteen by nine: a host's page (YouTube, Vimeo) played by the host's own player, embedded; a file played by the browser, a picture before it plays; a caption under it. Where it plays read the same way on both faces (VideoHelper)."
+formats:
+  style: true
+  template: true
+  vue: true
+  script: "it plays as the browser or the host plays it, and does nothing more"
+  schema: true
+  ai: "todo — read what it shows"
+  react: todo
+  flutter: todo

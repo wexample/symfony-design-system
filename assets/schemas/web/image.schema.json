@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "image.schema.json",
+  "title": "Image",
+  "description": "A picture shown to whoever reads: where it is (`src`), what it shows for whoever cannot see it (`alt`), and — when there is something to say under it — its caption. Drawn as a picture standing in a text, the width of what holds it.",
+  "type": "object",
+  "properties": {
+    "src": {
+      "type": "string",
+      "format": "uri-reference",
+      "minLength": 1,
+      "description": "Where the picture is."
+    },
+    "alt": {
+      "type": "string",
+      "description": "What the picture shows, said to whoever cannot see it; empty for a picture that only adorns.",
+      "default": ""
+    },
+    "caption": {
+      "type": ["string", "null"],
+      "description": "What is said under the picture, when there is something to say.",
+      "default": null
+    },
+    "width": {
+      "type": ["integer", "null"],
+      "minimum": 1,
+      "description": "Its width in pixels, when known: the room kept for it before it loads.",
+      "default": null
+    },
+    "height": {
+      "type": ["integer", "null"],
+      "minimum": 1,
+      "default": null
+    }
+  },
+  "required": ["src"],
+  "additionalProperties": false
+}

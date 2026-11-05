@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "link.schema.json",
+  "title": "Link",
+  "description": "Somewhere to go, offered as a button: where it leads (`href`), what it is called (`label`), an icon before the words. A file to fetch is a link too, told so (`download`: true, or the name the file is saved under).",
+  "type": "object",
+  "properties": {
+    "href": {
+      "type": "string",
+      "format": "uri-reference",
+      "minLength": 1,
+      "description": "Where it leads."
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What is pressed, as it is read."
+    },
+    "icon": {
+      "type": ["string", "null"],
+      "description": "An icon name before the words (`ph:bold/download`).",
+      "default": null
+    },
+    "download": {
+      "type": ["boolean", "string"],
+      "description": "A file to fetch rather than a page to open: true, or the name it is saved under.",
+      "default": false
+    }
+  },
+  "required": ["href", "label"],
+  "additionalProperties": false
+}

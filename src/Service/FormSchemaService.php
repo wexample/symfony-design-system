@@ -158,6 +158,36 @@ class FormSchemaService
         return $problems;
     }
 
+    /**
+     * Every pointer a component holds (`<component>.schema.json`), written by
+     * the sync or by hand — a message, an image —: what it points at is in
+     * the copy. A pointer into a schema the norm no longer has is named.
+     *
+     * @return string[]
+     */
+    public function checkPointerTargets(): array
+    {
+        $problems = [];
+        $assets = $this->getAssetsPath();
+
+        foreach ((new Finder())->files()->in($assets . 'components')->name('*' . self::EXTENSION) as $file) {
+            $pointer = json_decode($file->getContents(), true);
+            $reference = is_array($pointer) ? ($pointer['$ref'] ?? null) : null;
+
+            if (! is_string($reference) || ! str_contains($reference, self::DIRECTORY . '/')) {
+                continue;
+            }
+
+            $target = realpath($file->getPath() . '/' . explode('#', $reference)[0]);
+
+            if (false === $target || ! is_file($target)) {
+                $problems[] = sprintf('components/%s points into %s, which the copy does not hold.', $file->getRelativePathname(), $reference);
+            }
+        }
+
+        return $problems;
+    }
+
     private function buildPointer(string $component, string $file): string
     {
         return json_encode([

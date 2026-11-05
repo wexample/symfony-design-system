@@ -70,3 +70,26 @@ des éléments. Pas de schéma à écrire dans la norme pour eux.
 - Comment un schéma arrive dans Syrtis : `SYRTIS/master/.wex/journal/todo/3a6d82202d5c.md`,
   section « Le câblage, bout à bout ».
 - Le pointeur d'un composant vers sa copie : `assets/components/message/message.schema.json`.
+
+## Fait (agent du design system, 2026-11-05)
+
+Six schémas dans la norme (json-schema 2.2.0), copiés dans le DS, chacun pointé par le composant qui le dessine, `schema: true` dans sa déclaration. **Les clés sont celles des composants**, Syrtis migre :
+
+| Type Syrtis | Schéma de la norme | Composant | Contenu |
+|---|---|---|---|
+| `core/image` | `web/image` | `content-image` | `{ src, alt, caption, width, height }` — `url` devient `src` |
+| `core/video` | `web/video` | `video` (**nouveau**) | `{ src, title, caption, poster }` — `url` devient `src` |
+| `core/download` | `web/link` | `button-link` | `{ href, label, icon, download }` — un fichier est un lien `download: true` (ou le nom du fichier) ; `url` → `href`, `alt` → `label` |
+| `core/list` | `web/item_list` | `item-list` | `{ items: [{ label, icon, tone }], toned }` — `data` → `items`, `type` → `tone` |
+| `core/progress` | `web/progress` | `progress-bar` | `{ current, total, label, showValue, valueFormat, indeterminate, type }` |
+| `core/actions` | `web/choice_list` | `choice-list` | `{ items: [{ value, label, description, icon, group, disabled }], value, label }` |
+
+Vérifié : chaque schéma accepte la forme du composant et refuse l'ancienne forme Syrtis (`url`, `data`, `type`…), par le registre de `php-json-schema`.
+
+Décisions :
+- **Vidéo** : le DS n'avait aucun composant pour la dessiner (`embed` est un cadre de routeur, `media` une image). Composant `video` créé, twig et vue : une page d'hébergeur (YouTube, Vimeo) jouée par le lecteur de l'hébergeur (`youtube-nocookie.com/embed/…`, `player.vimeo.com/video/…`), un fichier par le navigateur ; `VideoHelper` jumeau PHP / TS, mêmes cas testés des deux côtés. Démo : portfolio `content/media`.
+- **Lien plutôt que « download »** : `button-link` dessine un lien quel qu'il soit ; un téléchargement en est un cas (`download`). Un seul schéma, pas deux.
+- **`core/actions`** : l'élément, c'est `choice-list` — des options déployées, une choisie. Ce que devient la réponse (`name`, `postMessageAction`) est le protocole de Syrtis, pas l'élément : le schéma n'a pas de `name`, et `additionalProperties: false` le refuse. Syrtis garde son type `core/actions` qui **enveloppe** un `web/choice_list` (`{ name, choices: <web/choice_list> }`) plutôt que de l'étendre, ou porte le nom ailleurs.
+- `core/form`, `core/url` et les faits du processus : rien côté DS, comme le ticket le dit.
+
+En passant : `design-system:schemas:sync --check` vérifie maintenant aussi les pointeurs écrits à la main (`message`, ceux-ci) : un pointeur vers un schéma absent de la copie est nommé.

@@ -1,0 +1,30 @@
+{#- A video: a host's page (YouTube, Vimeo) played by the host's player,
+    embedded; a file played by the browser, a picture before it plays
+    (`poster`); a caption under it when there is something to say. The same
+    frame either way, the width of what holds it, sixteen by nine. -#}
+{%- set embed = video_embed_url(src) -%}
+{%- set title = title|default(null) -%}
+{%- set caption = caption|default(null) -%}
+<figure {{ component_render_tag_attributes({ class: 'video' }) }}>
+    <div class="video--frame">
+        {%- if embed %}
+        <iframe class="video--player"
+                src="{{ embed }}"
+                title="{{ title ?: caption ?: src }}"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen></iframe>
+        {%- else %}
+        <video class="video--player"
+               src="{{ src }}"
+               controls
+               preload="metadata"
+               {% if poster|default(null) %}poster="{{ poster }}"{% endif %}
+               {% if title %}aria-label="{{ title }}"{% endif %}></video>
+        {%- endif %}
+    </div>
+    {%- if caption %}
+    <figcaption class="video--caption">{{ caption }}</figcaption>
+    {%- endif %}
+</figure>

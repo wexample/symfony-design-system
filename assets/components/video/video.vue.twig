@@ -1,0 +1,24 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <figure class="video">
+        <div class="video--frame">
+            <iframe v-if="embed"
+                    class="video--player"
+                    :src="embed"
+                    :title="title || caption || src"
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+            <video v-else
+                   class="video--player"
+                   :src="src"
+                   controls
+                   preload="metadata"
+                   :poster="poster || null"
+                   :aria-label="title || null"></video>
+        </div>
+        <figcaption v-if="caption" class="video--caption">[[ caption ]]</figcaption>
+    </figure>
+{%- endblock -%}

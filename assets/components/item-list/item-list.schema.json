@@ -1,0 +1,6 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "item-list.schema.json",
+    "description": "The contract of the component: the schema of lines each led by a mark, in a tone when they carry one, copied from the json-schema norm (design-system:schemas:sync).",
+    "$ref": "../../schemas/web/item_list.schema.json"
+}

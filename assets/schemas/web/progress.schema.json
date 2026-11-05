@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "progress.schema.json",
+  "title": "Progress",
+  "description": "Work under way, as a bar: how far it is (`current` of `total`), what it is, and whether its end is known at all (`indeterminate`). The value said as a share or as a count; the bar in a state's tone.",
+  "type": "object",
+  "properties": {
+    "current": {
+      "type": "number",
+      "minimum": 0,
+      "description": "How far the work is.",
+      "default": 0
+    },
+    "total": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "How far it goes.",
+      "default": 100
+    },
+    "label": {
+      "type": ["string", "null"],
+      "description": "What the work is.",
+      "default": null
+    },
+    "showValue": {
+      "type": "boolean",
+      "description": "Whether the value is said beside the bar.",
+      "default": false
+    },
+    "valueFormat": {
+      "enum": ["percent", "count"],
+      "description": "How the value is said: the share it makes, or `current / total`.",
+      "default": "percent"
+    },
+    "indeterminate": {
+      "type": "boolean",
+      "description": "Under way, its end not known: the bar runs without a value.",
+      "default": false
+    },
+    "type": {
+      "enum": ["info", "success", "warning", "error"],
+      "description": "The tone the bar is drawn in.",
+      "default": "info"
+    }
+  },
+  "additionalProperties": false
+}

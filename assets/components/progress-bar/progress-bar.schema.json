@@ -1,0 +1,6 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "progress-bar.schema.json",
+    "description": "The contract of the component: the schema of work under way, as a bar, copied from the json-schema norm (design-system:schemas:sync).",
+    "$ref": "../../schemas/web/progress.schema.json"
+}

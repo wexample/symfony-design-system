@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "video.schema.json",
+  "title": "Video",
+  "description": "A video shown to whoever reads: where it is (`src`) — a file the browser plays, or the page of a host that embeds its own player (YouTube, Vimeo) —, what it is called for whoever cannot watch it, and a caption when there is something to say under it.",
+  "type": "object",
+  "properties": {
+    "src": {
+      "type": "string",
+      "format": "uri-reference",
+      "minLength": 1,
+      "description": "Where the video is: a file, or a host's page for it."
+    },
+    "title": {
+      "type": ["string", "null"],
+      "description": "What the video is, said to whoever cannot watch it.",
+      "default": null
+    },
+    "caption": {
+      "type": ["string", "null"],
+      "description": "What is said under the video, when there is something to say.",
+      "default": null
+    },
+    "poster": {
+      "type": ["string", "null"],
+      "format": "uri-reference",
+      "description": "A picture shown before it plays.",
+      "default": null
+    }
+  },
+  "required": ["src"],
+  "additionalProperties": false
+}
