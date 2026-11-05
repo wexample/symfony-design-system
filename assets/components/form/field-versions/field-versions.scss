@@ -1,7 +1,7 @@
 /* Component: form/field-versions */
 // The versions of a text field: a discreet bar under it, as a property tied
-// to it — a clock, the version chosen in a small select, the « take back » at
-// the end — and, while a version is read, its diff with the draft under the
+// to it — a clock, the version chosen in a small select, the « take back »
+// beside it — and, while a version is read, its diff with the draft under the
 // bar.
 .field-versions {
   display: flex;
@@ -32,10 +32,6 @@
   height: var(--control-size-small, var(--control-size));
   padding-block: 0;
   font-size: var(--font-size-2);
-}
-
-.field-versions--take {
-  margin-inline-start: auto;
 }
 
 .field-versions--diff {
