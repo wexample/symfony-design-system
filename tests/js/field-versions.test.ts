@@ -18,6 +18,7 @@ test('versions are read as a list or under data, each with its words and content
 
   assert.deepEqual(versions.map((version) => [version.label, version.content]), [['2026-11-05 15:57 · weeger', 'a'], ['—', 'b']]);
   assert.deepEqual(fieldVersionsNormalize({ ok: true }), []);
+  assert.deepEqual(fieldVersionsNormalize({ type: 'success', data: { items: [{ label: 'v1', content: 'a' }] } }).map((version) => version.label), ['v1']);
 });
 
 test('the address is the entity\'s: none while the entity is not known', () => {

@@ -5,19 +5,24 @@
 // A version: its words — when, by whom — and the content itself.
 export type FieldVersion = { label: string; content: string; date?: string | null; author?: string | null };
 
+// The list an answer holds: itself, or under `data` or `items` — the one in
+// the other where the api wraps a collection (`{ data: { items } }`).
+export function fieldVersionsList(raw: unknown): unknown[] {
+  let list = raw;
+
+  for (let depth = 0; depth < 2 && list && typeof list === 'object' && !Array.isArray(list); depth++) {
+    list = (list as any).data ?? (list as any).items ?? [];
+  }
+
+  return Array.isArray(list) ? list : [];
+}
+
 /**
- * Versions as an address answers them: a list, under `data` or `items` when
- * the answer wraps it, each with a label and a content; what has neither is
- * left out.
+ * Versions as an address answers them: a list, wrapped or not, each with a
+ * label and a content; what has neither is left out.
  */
 export function fieldVersionsNormalize(raw: unknown): FieldVersion[] {
-  const list = Array.isArray(raw)
-    ? raw
-    : (raw && typeof raw === 'object' ? ((raw as any).data ?? (raw as any).items ?? []) : []);
-
-  if (!Array.isArray(list)) {
-    return [];
-  }
+  const list = fieldVersionsList(raw);
 
   return list
     .filter((item) => item && typeof item === 'object')

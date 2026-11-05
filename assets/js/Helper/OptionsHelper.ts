@@ -11,12 +11,15 @@ export const OPTIONS_SOURCE_DELAY_MS = 200;
 /**
  * Options as a field is given them or a source answers: a list of words, or
  * of `{ value, label }` — under `data` or `items` when the answer wraps
- * them —, each value once.
+ * them, the one in the other where the api wraps a collection —, each value
+ * once.
  */
 export function optionsNormalize(raw: unknown): Option[] {
-  const list = Array.isArray(raw)
-    ? raw
-    : (raw && typeof raw === 'object' ? ((raw as any).data ?? (raw as any).items ?? []) : []);
+  let list = raw;
+
+  for (let depth = 0; depth < 2 && list && typeof list === 'object' && !Array.isArray(list); depth++) {
+    list = (list as any).data ?? (list as any).items ?? [];
+  }
 
   if (!Array.isArray(list)) {
     return [];
