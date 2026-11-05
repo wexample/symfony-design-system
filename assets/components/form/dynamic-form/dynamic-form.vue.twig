@@ -12,6 +12,7 @@
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/tags-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/search-select-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/color-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/field-versions') -}}
 {%- endblock -%}
 
 {#- What the processor refused of the form as a whole, said in words already:
@@ -30,6 +31,15 @@
 {%- block form_body -%}
     <div class="dynamic-form" :class="layoutClass">
         <template v-for="field in shownFields" :key="field.name">
+            {#- A text with earlier versions (`versionsUrl`): the bar above it,
+                the draft the field's own. -#}
+            <field-versions
+                    v-if="versionsUrl(field) && !readonly"
+                    ref="versions"
+                    class="form--span"
+                    v-model="draft[field.name]"
+                    :url="versionsUrl(field)"
+            ></field-versions>
             {#- A kind the caller hands over (`fieldComponents`): drawn by its
                 own component, given what any field is given. -#}
             <component

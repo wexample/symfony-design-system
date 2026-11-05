@@ -133,6 +133,10 @@ The one thing asked on a step — a name, an address — is set large with `row_
 
 `form/color-input` holds a colour as `#rrggbb`: a swatch at the start of the field — the colour itself, the browser's picker under it —, its hex in monospace beside it, the field the form posts. What is typed is read as a colour once the field is left (`#abc`, `ABC` → `#aabbcc`, `ColorHelper`); what is not one is kept as typed for the form to refuse, the swatch crossed meanwhile. `swatches` offers colours under the field, a press each, the one held ringed. symfony-forms' `ColorInputType` draws it; `form_definition()` hands it as kind `color`.
 
+## The versions of a text
+
+`form/field-versions` is not a field: a bar above a text field — a textarea, a code — whose definition names where its earlier versions are read (`versionsUrl`, the record's id as `__id__` where the form's action has it; the address answers `[{ label, content, date, author }]`, the latest first, without the current one). The bar holds the version read — the draft first, « current version » until it differs —, and once a version is chosen, its diff with the draft (`diff-text`, unified) and « take this version back », which makes it the draft without saving. The draft is never lost: kept aside while a version is read, given back when the draft is chosen again. Nothing is drawn while the address answers no version; the versions are read again once the form is saved, the page staying. `dynamic-form` draws the bar over any field naming an address, once the entity is known; symfony-forms' `TextareaInputType` takes it as `versions_url` (inherited by symfony-coding's `CodeInputType`), the twig theme mounts the same vue beside the field, which it reaches by its id and writes to as a person would — the editor laid over a code follows.
+
 ## A field standardised
 
 A field of an application is a field of the design system with its defaults preset. Its vue face extends the generic component and sets the defaults of its props, its own template id over the generic markup — nothing drawn, nothing behaved of its own:

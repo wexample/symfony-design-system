@@ -82,6 +82,11 @@ en:
     color_input:
       pick: "Pick a colour"
       swatches: "Colours offered"
+    field_versions:
+      version: "Version"
+      current: "Current version"
+      draft: "Draft"
+      take: "Take this version back"
     search_select:
       search: "Search…"
       loading: "Searching…"
@@ -1301,6 +1306,11 @@ fr:
     color_input:
       pick: "Choisir une couleur"
       swatches: "Couleurs proposées"
+    field_versions:
+      version: "Version"
+      current: "Version courante"
+      draft: "Brouillon"
+      take: "Reprendre cette version"
     search_select:
       search: "Rechercher…"
       loading: "Recherche…"

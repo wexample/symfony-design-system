@@ -1,0 +1,38 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/diff-text') -}}
+{%- endblock -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.field_versions.*') }}
+{%- endblock -%}
+
+{#- The bar above a text field: which version is read, the version read
+    compared with the draft, the version taken back. Nothing while the
+    address answers no version. -#}
+{%- block vue_body -%}
+    <div v-if="shown" class="field-versions">
+        <div class="field-versions--bar">
+            <label class="field-versions--label">
+                <span class="field-versions--icon" aria-hidden="true">{{ icon('ph:bold/clock-counter-clockwise') }}</span>
+                <span class="field-versions--word">[[ t('version') ]]</span>
+                <select class="form--input form--input--select field-versions--select" :value="chosen" @change="onChoice">
+                    <option v-for="choice in choices" :key="choice.value" :value="choice.value">[[ choice.label ]]</option>
+                </select>
+            </label>
+            <button v-if="version" type="button" class="button button--small field-versions--take" @click="take">
+                <span class="button--icon">{{ icon('ph:bold/arrow-u-up-left') }}</span>[[ t('take') ]]
+            </button>
+        </div>
+        <diff-text
+                v-if="version"
+                class="field-versions--diff"
+                :before="version.content || ''"
+                :after="draft"
+                :mode="mode"
+                :before-label="version.label"
+                :after-label="draftLabel"
+        ></diff-text>
+    </div>
+{%- endblock -%}

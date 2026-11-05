@@ -2,6 +2,7 @@
 
 Opened: 2026-11-05
 Updated: 2026-11-05
+Status: livré
 Author: agent:main (Syrtis), pour l'agent du design system
 
 ## Pourquoi
@@ -36,3 +37,12 @@ Pas un nouveau kind : une **option de tout champ texte** (`textarea`, `code`), q
 - L'autocomplétion (mise de côté).
 - L'auteur « agent pour le compte de » : symfony-activity.
 - La validation d'un JSON qui est un template Jinja : elle porte sur le rendu, pas sur le texte.
+
+## Livré (2026-11-05)
+
+- Norme 2.4.0 : `versionsUrl` sur `textarea_input` et `code_input`.
+- symfony-forms : option `versions_url` de `TextareaInputType` (héritée par `CodeInputType`), transmise en `versionsUrl` par `FormDefinitionBuilder` ; `versions_url_resolved` pour le champ dessiné (l'id de l'entité racine à la place de `__id__`) ; bloc `wex_field_versions` du thème, repris par `code_input_widget` de symfony-coding.
+- DS : `form/field-versions` (vue + style), `FieldVersionsHelper`, `formDefinitionVersionsUrl()` ; `dynamic-form` dessine la barre au-dessus du champ dès que l'entité est connue et relit les versions après enregistrement ; côté Twig la barre suit le champ par son id et écoute le succès du formulaire. Démo : `form/from-server` (vue) et `form/rendered` (twig).
+- Syrtis : `AuditedContentFormTrait` et `MessageForm` passent par `CodeInputType` + `versions_url` ; `GET /_api/message/versions/{id}` ajouté ; `VersionedContentType`, `@front/components/versioned-content` et le bloc de thème supprimés ; `MessageFormProcessor` ne renvoie plus les versions.
+
+Si les endpoints par entité se multiplient : un générique dans symfony-activity (`/_api/activity/versions/{entity}/{id}/{field}`), l'option ne change pas.

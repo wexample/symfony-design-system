@@ -26,6 +26,9 @@ export type FormDefinitionField = {
   pattern?: string;
   value?: string | null;
   rows?: number;
+  // A text's earlier versions, where they are read — the record's id as the
+  // action's placeholder (`textarea_input.schema.json`, `code_input.schema.json`).
+  versionsUrl?: string;
   choices?: FormDefinitionChoice[];
   multiple?: boolean;
   // A key-value field's value: its pairs, in order (`key_value_input.schema.json`).
@@ -99,6 +102,22 @@ export function formDefinitionPairs(value: unknown): FormDefinitionPair[] {
 
 export function formDefinitionAction(form: FormDefinition, id: string | null = null): string {
   return id ? form.action.replace(FORM_DEFINITION_ID_PLACEHOLDER, id) : form.action;
+}
+
+// Where a field's earlier versions are read for the entity sent: none while
+// the field names no address, or names one for an entity not known yet.
+export function formDefinitionVersionsUrl(field: FormDefinitionField, id: string | null = null): string | null {
+  const url = field.versionsUrl ?? null;
+
+  if (!url) {
+    return null;
+  }
+
+  if (url.includes(FORM_DEFINITION_ID_PLACEHOLDER)) {
+    return id ? url.replace(FORM_DEFINITION_ID_PLACEHOLDER, id) : null;
+  }
+
+  return url;
 }
 
 // Every field with its value — the one given in `values`, by the field's

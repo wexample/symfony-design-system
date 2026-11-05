@@ -1488,6 +1488,36 @@
             "notes": []
         },
         {
+            "key": "form/field-versions",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "The earlier versions of a text field (`versionsUrl` of a textarea or a code), a bar above it: the version read \u2014 the draft first \u2014, its diff with the draft (diff-text), \u00ab take this version back \u00bb making it the draft without saving. The draft kept aside while a version is read. Nothing while the address answers no version. The same bar over the twig theme's field and over dynamic-form's.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/field-versions/field-versions.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/field-versions/field-versions.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/field-versions/field-versions.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "waived",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "waived",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "template": "the twig theme mounts the vue beside its field: the versions are read in the browser, at the record's address",
+                "script": "its behaviour is the vue component's",
+                "schema": "an option of the text fields' schemas (versionsUrl), not a field of its own",
+                "ai": "read the versions, take one back"
+            }
+        },
+        {
             "key": "form/file-input",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A file field shaped as a place to drop it on: the file dragged there or picked, its name and size shown once it is.",

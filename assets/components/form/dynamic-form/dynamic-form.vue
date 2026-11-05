@@ -7,7 +7,8 @@ import KeyValueInput from '../key-value-input/key-value-input.vue';
 import TagsInput from '../tags-input/tags-input.vue';
 import SearchSelectInput from '../search-select-input/search-select-input.vue';
 import ColorInput from '../color-input/color-input.vue';
-import { FORM_DEFINITION_KIND_KEY_VALUE, FORM_DEFINITION_KIND_TAGS, formDefinitionFullName, formDefinitionPairs } from '../../../js/Helper/FormDefinitionHelper';
+import FieldVersions from '../field-versions/field-versions.vue';
+import { FORM_DEFINITION_KIND_KEY_VALUE, FORM_DEFINITION_KIND_TAGS, formDefinitionFullName, formDefinitionPairs, formDefinitionVersionsUrl } from '../../../js/Helper/FormDefinitionHelper';
 import { tagsSplit } from '../../../js/Helper/TagsHelper';
 
 const DOMAIN = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.form.';
@@ -50,7 +51,8 @@ export default {
     KeyValueInput,
     TagsInput,
     SearchSelectInput,
-    ColorInput
+    ColorInput,
+    FieldVersions
   },
 
   emits: ['saved'],
@@ -191,6 +193,12 @@ export default {
       return formDefinitionFullName(this.form, field.name);
     },
 
+    // Where a text's earlier versions are read, for the entity shown: none
+    // while the form is for no entity yet.
+    versionsUrl(field) {
+      return formDefinitionVersionsUrl(field, this.formDefinitionId);
+    },
+
     // The browser's own kind for a text: what it checks the shape of.
     inputType(field) {
       return ['email', 'tel', 'url', 'password'].includes(field.type) ? field.type : 'text';
@@ -219,6 +227,9 @@ export default {
 
     onApiSubmitSuccess(response) {
       Form.methods.onApiSubmitSuccess.call(this, response);
+      // Saved: what the fields hold is the current version, the earlier
+      // ones one more.
+      (this.$refs.versions ?? []).forEach((bar) => bar.refresh());
       this.$emit('saved', { values: JSON.parse(JSON.stringify(this.draft)), id: this.id, payload: response });
     }
   }
