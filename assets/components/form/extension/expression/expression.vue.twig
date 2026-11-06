@@ -29,8 +29,10 @@
                 @input="onEditorInput"
         ></textarea>
         <div class="field-expression--bar field-extension--strip">
-            {#- The glyph alone, its word under the pointer: a footer is a strip, not a bar. -#}
-            <button type="button" class="action-icon field-expression--toggle" :aria-pressed="on ? 'true' : 'false'" :aria-label="on ? t('to_value') : t('to_expression')" :data-tooltip="on ? t('to_value') : t('to_expression')" @click="toggle">
+            {#- The glyph alone, its word under the pointer: a footer is a strip,
+                not a bar. The glyph says where the press leads, not a mode in
+                force: never drawn as switched on. -#}
+            <button type="button" class="action-icon field-expression--toggle" :aria-label="on ? t('to_value') : t('to_expression')" :data-tooltip="on ? t('to_value') : t('to_expression')" @click="toggle">
                 <span v-if="on">{{ icon('ph:bold/text-aa') }}</span>
                 <span v-else>{{ icon('ph:bold/code') }}</span>
             </button>
