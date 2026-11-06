@@ -1,4 +1,5 @@
 <script>
+import { markRaw } from 'vue';
 import Form from '../../_abstract/form/form.vue';
 import TextInput from '../text-input/text-input.vue';
 import TextareaInput from '../textarea-input/textarea-input.vue';
@@ -114,7 +115,8 @@ export default {
       dynamicFormContext: {
         id: this.id,
         saved: 0,
-        components: this.fieldComponents
+        // Components, not state: left as they are, or vue would watch them.
+        components: markRaw({ ...this.fieldComponents })
       }
     };
   },
@@ -156,7 +158,7 @@ export default {
     },
 
     fieldComponents(components) {
-      this.dynamicFormContext.components = components;
+      this.dynamicFormContext.components = markRaw({ ...components });
     },
 
     form(form) {
