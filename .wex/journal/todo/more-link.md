@@ -2,6 +2,7 @@
 
 Opened: 2026-11-06
 Updated: 2026-11-06
+Status: livré
 Author: agent:main (Syrtis), pour l'agent du design system
 
 ## Pourquoi
@@ -35,3 +36,7 @@ Une entrée dans la démo, sous une grille de cards.
 ## Ensuite, côté Syrtis
 
 La home remplace sa `toolbar` par `more-link`.
+
+## Livré (2026-11-06)
+
+`more-link` (twig et vue, `href` + `label`) : mots atténués, double chevron après, aucun fond ni cadre ; au survol les mots prennent l'encre de la page et le chevron avance d'un rien. Il prend la fin de sa ligne tout seul (`width: fit-content; margin-inline-start: auto; justify-self: end`) : sous une liste, dans une grille, dans un `block--footer--end`. Démo : page Blocks, sous la grille des cards-liens. La home Syrtis l'utilise à la place de sa toolbar.
