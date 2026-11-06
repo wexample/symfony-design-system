@@ -1,0 +1,38 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.field_expression.*') }}
+{%- endblock -%}
+
+{#- While on, the editor in the control's place — the form's code editor when
+    it has one, a text area else, named as the page's field is —; under the
+    field, the strip switching between a value and an expression. -#}
+{%- block vue_body -%}
+    <div class="field-expression" :class="{ 'is-on': on }">
+        <component
+                v-if="on && editor"
+                :is="editor"
+                class="field-expression--editor"
+                :model-value="held"
+                :language="language"
+                :name="targetName"
+                :translate="false"
+                @update:model-value="onEditorInput"
+        ></component>
+        <textarea
+                v-else-if="on"
+                class="form--input form--textarea field-expression--editor field-expression--text"
+                :name="targetName"
+                :rows="rows"
+                :value="held"
+                spellcheck="false"
+                @input="onEditorInput"
+        ></textarea>
+        <div class="field-expression--bar field-extension--strip">
+            <button type="button" class="button button--flat button--small field-expression--toggle" :aria-pressed="on ? 'true' : 'false'" @click="toggle">
+                <span class="button--icon" v-if="on">{{ icon('ph:bold/text-aa') }}</span>
+                <span class="button--icon" v-else>{{ icon('ph:bold/code') }}</span>[[ on ? t('to_value') : t('to_expression') ]]
+            </button>
+        </div>
+    </div>
+{%- endblock -%}

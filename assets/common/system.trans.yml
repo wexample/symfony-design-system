@@ -87,6 +87,9 @@ en:
       current: "Current version"
       draft: "Draft"
       take: "Take this version back"
+    field_expression:
+      to_expression: "Expression"
+      to_value: "Value"
     search_select:
       search: "Search…"
       loading: "Searching…"
@@ -1311,6 +1314,9 @@ fr:
       current: "Version courante"
       draft: "Brouillon"
       take: "Reprendre cette version"
+    field_expression:
+      to_expression: "Expression"
+      to_value: "Valeur"
     search_select:
       search: "Rechercher…"
       loading: "Recherche…"

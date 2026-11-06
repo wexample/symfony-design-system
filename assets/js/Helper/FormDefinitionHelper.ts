@@ -1,4 +1,5 @@
 import { tagsJoin, tagsUnique } from './TagsHelper';
+import { fieldExpressionMatches } from './FieldExpressionHelper';
 import AdaptiveService from '@wexample/symfony-loader/js/Services/AdaptiveService';
 import LocaleService from '@wexample/symfony-loader/js/Services/LocaleService';
 
@@ -26,9 +27,8 @@ export type FormDefinitionField = {
   pattern?: string;
   value?: string | null;
   rows?: number;
-  // A text's earlier versions, where they are read — the record's id as the
-  // action's placeholder (`textarea_input.schema.json`, `code_input.schema.json`).
-  versionsUrl?: string;
+  // What is attached to the field whatever its kind, by name (`field_base.schema.json`).
+  extensions?: Record<string, Record<string, unknown>>;
   choices?: FormDefinitionChoice[];
   multiple?: boolean;
   // A key-value field's value: its pairs, in order (`key_value_input.schema.json`).
@@ -124,22 +124,6 @@ export function formDefinitionAction(form: FormDefinition, id: string | null = n
   return id ? form.action.replace(FORM_DEFINITION_ID_PLACEHOLDER, id) : form.action;
 }
 
-// Where a field's earlier versions are read for the entity sent: none while
-// the field names no address, or names one for an entity not known yet.
-export function formDefinitionVersionsUrl(field: FormDefinitionField, id: string | null = null): string | null {
-  const url = field.versionsUrl ?? null;
-
-  if (!url) {
-    return null;
-  }
-
-  if (url.includes(FORM_DEFINITION_ID_PLACEHOLDER)) {
-    return id ? url.replace(FORM_DEFINITION_ID_PLACEHOLDER, id) : null;
-  }
-
-  return url;
-}
-
 // Every field with its value — the one given in `values`, by the field's
 // name, or the form's own —, and the token.
 export function formDefinitionData(form: FormDefinition, values: Record<string, unknown> = {}): FormData {
@@ -170,6 +154,16 @@ export function formDefinitionData(form: FormDefinition, values: Record<string, 
       const list = Array.isArray(tags) ? tags : String(tags ?? '').split(field.separator ?? ',');
 
       data.append(formDefinitionFullName(form, field.name), tagsJoin(tagsUnique(list), field.separator ?? ','));
+
+      return;
+    }
+
+    const given = field.name in values ? values[field.name] : undefined;
+
+    // An expression in the value's place (`extensions.expression`): sent as
+    // the text it is, whatever the kind would have posted.
+    if (fieldExpressionMatches(field.extensions?.expression?.pattern as string, given)) {
+      data.append(formDefinitionFullName(form, field.name), String(given));
 
       return;
     }

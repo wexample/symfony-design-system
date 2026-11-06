@@ -1271,6 +1271,9 @@
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/checkbox-input/checkbox-input.ts"
                 ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/checkbox-input/checkbox-input.schema.json"
+                ],
                 "ai": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/checkbox-input/checkbox-input.ai.yml"
                 ]
@@ -1280,7 +1283,7 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
@@ -1488,16 +1491,19 @@
             "notes": []
         },
         {
-            "key": "form/field-versions",
+            "key": "form/extension/expression",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": "The earlier versions of a text field (`versionsUrl` of a textarea or a code), a bar under it as a property tied to it: the version read \u2014 the draft first, alone while there is no earlier one \u2014, its diff with the draft (diff-text), \u00ab take this version back \u00bb making it the draft without saving. The draft kept aside while a version is read. The same bar under the twig theme's field and under dynamic-form's.",
+            "description": "A field extension (`extensions.expression` of any kind of field holding one value, `extension_expression.schema.json`): an expression in place of the value \u2014 a template computing it on each run. A strip under the field switches it to an editor of the given language and back; it starts as an expression when the value matches the given pattern; the value kept before is given back on the way back. The editor is the one the form hands over for code when it has one, a text area else. On a text, a number, a choice, a switch \u2014 not on pairs, tags or a colour. The same under the twig theme's field, where the editor named as the field is what the form posts.",
             "formats": {
                 "style": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/field-versions/field-versions.scss"
+                    "@WexampleSymfonyDesignSystemBundle/components/form/extension/expression/expression.scss"
                 ],
                 "vue": [
-                    "@WexampleSymfonyDesignSystemBundle/components/form/field-versions/field-versions.vue",
-                    "@WexampleSymfonyDesignSystemBundle/components/form/field-versions/field-versions.vue.twig"
+                    "@WexampleSymfonyDesignSystemBundle/components/form/extension/expression/expression.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/extension/expression/expression.vue"
+                ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/extension/expression/expression.schema.json"
                 ]
             },
             "stances": {
@@ -1505,15 +1511,46 @@
                 "template": "waived",
                 "vue": "expected",
                 "script": "waived",
-                "schema": "waived",
+                "schema": "expected",
                 "ai": "todo",
                 "react": "todo",
                 "flutter": "todo"
             },
             "notes": {
-                "template": "the twig theme mounts the vue beside its field: the versions are read in the browser, at the record's address",
+                "template": "the twig theme mounts the vue beside its field, which it reaches by its id: the control steps aside, the editor posts in its name",
                 "script": "its behaviour is the vue component's",
-                "schema": "an option of the text fields' schemas (versionsUrl), not a field of its own",
+                "ai": "write an expression, come back to a value"
+            }
+        },
+        {
+            "key": "form/extension/versions",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A field extension (`extensions.versions` of any kind of field, `extension_versions.schema.json`): the earlier versions of what the field holds, read at an address, drawn as the field's footer \u2014 the version read, the draft first and alone while there is no earlier one; its diff with the draft (diff-text); \u00ab take this version back \u00bb making it the draft without saving. The draft kept aside while a version is read. On every kind of field. The same footer under the twig theme's field and under the vue field, drawn by the field's base.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/extension/versions/versions.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/extension/versions/versions.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/extension/versions/versions.vue"
+                ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/extension/versions/versions.schema.json"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "waived",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "expected",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "template": "the twig theme mounts the vue beside its field, which it reaches by its id: the versions are read in the browser",
+                "script": "its behaviour is the vue component's",
                 "ai": "read the versions, take one back"
             }
         },
@@ -1669,6 +1706,9 @@
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/number-input/number-input.ts"
                 ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/number-input/number-input.schema.json"
+                ],
                 "ai": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/number-input/number-input.ai.yml"
                 ]
@@ -1678,7 +1718,7 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
@@ -1968,6 +2008,9 @@
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/switch-input/switch-input.ts"
                 ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/switch-input/switch-input.schema.json"
+                ],
                 "ai": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/switch-input/switch-input.ai.yml"
                 ]
@@ -1977,7 +2020,7 @@
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
-                "schema": "todo",
+                "schema": "expected",
                 "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"

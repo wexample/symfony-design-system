@@ -1,0 +1,26 @@
+/* Component: form/extension/expression */
+// An expression in place of a value: the editor where the control stood,
+// and under the field the strip that switches — a code glyph to write an
+// expression, letters to come back to a value.
+@use '../footer';
+
+.field-expression {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.field-expression--bar {
+  @include footer.strip;
+}
+
+// The editor takes the field's place: its corners the field's, squared below.
+.field-expression--editor {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.field-expression--text {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-2);
+}

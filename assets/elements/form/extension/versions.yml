@@ -1,0 +1,16 @@
+# Declares `form/extension/versions` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "A field extension (`extensions.versions` of any kind of field, `extension_versions.schema.json`): the earlier versions of what the field holds, read at an address, drawn as the field's footer — the version read, the draft first and alone while there is no earlier one; its diff with the draft (diff-text); « take this version back » making it the draft without saving. The draft kept aside while a version is read. On every kind of field. The same footer under the twig theme's field and under the vue field, drawn by the field's base."
+formats:
+  style: true
+  vue: true
+  template: "the twig theme mounts the vue beside its field, which it reaches by its id: the versions are read in the browser"
+  script: "its behaviour is the vue component's"
+  schema: true
+  ai: "todo — read the versions, take one back"
+  react: todo
+  flutter: todo

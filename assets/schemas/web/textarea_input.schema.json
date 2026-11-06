@@ -10,11 +10,6 @@
     "type": {
       "const": "textarea"
     },
-    "versionsUrl": {
-      "type": "string",
-      "minLength": 1,
-      "description": "Where the earlier versions of the field's content are read, the record's id where the form's action has it (`__id__`): answering `[{ label, content, date, author }]`, the latest first, without the current one."
-    },
     "rows": {
       "type": "integer",
       "minimum": 1

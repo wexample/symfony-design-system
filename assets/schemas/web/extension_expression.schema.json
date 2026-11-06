@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "extension_expression.schema.json",
+  "title": "Field extension: expression",
+  "description": "An expression in place of the value — a template computing it on each run —: the field switched to an editor of `language`, and back; it starts as an expression when its value matches `pattern`. The value is sent under the field's name, as text, whichever it is.",
+  "type": "object",
+  "properties": {
+    "language": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What the editor colours: `jinja`, `twig`, `javascript`…"
+    },
+    "pattern": {
+      "type": "string",
+      "minLength": 1,
+      "description": "A regular expression a value is an expression by."
+    },
+    "rows": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "The editor's lines, when the field is one line.",
+      "default": 2
+    }
+  },
+  "required": ["language", "pattern"],
+  "additionalProperties": false
+}

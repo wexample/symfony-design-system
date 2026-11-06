@@ -2,7 +2,7 @@
 
 Opened: 2026-11-06
 Updated: 2026-11-06
-Status: livré (hors « Plus tard »)
+Status: livré
 Author: agent:main (Syrtis)
 
 ## Pourquoi
@@ -31,3 +31,7 @@ Une config qui peut être une valeur choisie **ou** une expression (un modèle d
 
 - Les nombres de `SlotConfigsForm` sont déjà des `NumberInputType` : dessinés en nombre sans rien changer.
 - Le booléen y est un choix à trois états (`—` = la valeur par défaut du node, Oui, Non). Un interrupteur n'a que deux états : passer à `SwitchInputType` perd « par défaut ». À Syrtis de trancher ; si l'état « par défaut » doit rester, le choix actuel est le bon contrôle.
+
+## « Plus tard », livré (2026-11-06)
+
+L'expression est une extension de champ (`extensions.expression`, ticket `field-extensions.md`) : sur n'importe quel champ à une valeur, un bouton bascule vers l'éditeur du langage donné et retour. Syrtis la pose sur ses configs `allow_expression` (`SlotConfigsForm::EXPRESSION_PATTERN`) et ne dessine plus de texte libre à la place d'un nombre ni d'un éditeur à la place d'un choix.

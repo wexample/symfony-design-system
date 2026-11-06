@@ -2,13 +2,25 @@
 import {
   assistanceWriteText,
 } from '@wexample/js-api/Helper/Assistance';
+import { fieldExtensionsList } from '../../../js/Helper/FieldExtensionsHelper';
 
 export default {
   inject: {
     formController: { default: null }
   },
 
+  // Nothing registered by name: the extensions are drawn by their component
+  // (FIELD_EXTENSIONS), so the registry's are met by every field, and an
+  // application's too.
+
   props: {
+    // What is attached to the field whatever its kind, by name
+    // (`field_base.schema.json`, FieldExtensionsHelper): drawn here around
+    // the control, the field knowing nothing of it.
+    extensions: {
+      type: Object,
+      default: () => ({})
+    },
     name: {
       type: String,
       default: ''
@@ -61,6 +73,8 @@ export default {
 
   data() {
     return {
+      // An extension standing in for the control — an expression's editor.
+      controlReplaced: false,
       controllerDisabled: false,
       controllerErrors: [],
       // Whether something other than the person is holding the field. Always
@@ -71,6 +85,18 @@ export default {
   },
 
   computed: {
+    fieldExtensions() {
+      return fieldExtensionsList(this.extensions);
+    },
+
+    extensionsAbove() {
+      return this.fieldExtensions.filter((extension) => extension.slot === 'header');
+    },
+
+    extensionsBelow() {
+      return this.fieldExtensions.filter((extension) => extension.slot === 'footer');
+    },
+
     isDisabled() {
       return this.disabled || this.controllerDisabled;
     },

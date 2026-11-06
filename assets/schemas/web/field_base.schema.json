@@ -42,6 +42,15 @@
       "type": "boolean",
       "description": "Among fields laid in columns, the whole line for this one: a long text, a choice of many options.",
       "default": false
+    },
+    "extensions": {
+      "type": "object",
+      "description": "What is attached to the field whatever its kind, each by its name and declared once (`extension_<name>.schema.json`): its earlier versions, an expression in place of its value. Cumulable; a field knows nothing of them, the form's base draws them.",
+      "properties": {
+        "versions": { "$ref": "extension_versions.schema.json" },
+        "expression": { "$ref": "extension_expression.schema.json" }
+      },
+      "additionalProperties": false
     }
   }
 }

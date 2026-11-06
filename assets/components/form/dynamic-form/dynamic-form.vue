@@ -10,8 +10,7 @@ import ColorInput from '../color-input/color-input.vue';
 import SwitchInput from '../switch-input/switch-input.vue';
 import CheckboxInput from '../checkbox-input/checkbox-input.vue';
 import NumberInput from '../number-input/number-input.vue';
-import FieldVersions from '../field-versions/field-versions.vue';
-import { FORM_DEFINITION_KIND_KEY_VALUE, FORM_DEFINITION_KIND_TAGS, FORM_DEFINITION_KINDS_TOGGLE, formDefinitionChecked, formDefinitionFullName, formDefinitionPairs, formDefinitionVersionsUrl } from '../../../js/Helper/FormDefinitionHelper';
+import { FORM_DEFINITION_KIND_KEY_VALUE, FORM_DEFINITION_KIND_TAGS, FORM_DEFINITION_KINDS_TOGGLE, formDefinitionChecked, formDefinitionFullName, formDefinitionPairs } from '../../../js/Helper/FormDefinitionHelper';
 import { tagsSplit } from '../../../js/Helper/TagsHelper';
 
 const DOMAIN = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.form.';
@@ -60,8 +59,7 @@ export default {
     ColorInput,
     SwitchInput,
     CheckboxInput,
-    NumberInput,
-    FieldVersions
+    NumberInput
   },
 
   emits: ['saved'],
@@ -109,7 +107,21 @@ export default {
     return {
       draft: this.startDraft(),
       formDefinition: this.form,
-      formDefinitionId: this.id
+      formDefinitionId: this.id,
+      // What the fields' extensions may ask of the form holding them: the
+      // record sent, how many times the form was saved, the components it
+      // was handed for the kinds it does not draw itself.
+      dynamicFormContext: {
+        id: this.id,
+        saved: 0,
+        components: this.fieldComponents
+      }
+    };
+  },
+
+  provide() {
+    return {
+      dynamicFormContext: this.dynamicFormContext
     };
   },
 
@@ -139,7 +151,12 @@ export default {
     // Another entity, or its values read again: the fields start over.
     id(id) {
       this.formDefinitionId = id;
+      this.dynamicFormContext.id = id;
       this.reset();
+    },
+
+    fieldComponents(components) {
+      this.dynamicFormContext.components = components;
     },
 
     form(form) {
@@ -207,16 +224,6 @@ export default {
       return formDefinitionFullName(this.form, field.name);
     },
 
-    hasVersions(field) {
-      return Boolean(this.versionsUrl(field)) && !this.readonly;
-    },
-
-    // Where a text's earlier versions are read, for the entity shown: none
-    // while the form is for no entity yet.
-    versionsUrl(field) {
-      return formDefinitionVersionsUrl(field, this.formDefinitionId);
-    },
-
     // The browser's own kind for a text: what it checks the shape of.
     inputType(field) {
       return ['email', 'tel', 'url', 'password'].includes(field.type) ? field.type : 'text';
@@ -245,9 +252,8 @@ export default {
 
     onApiSubmitSuccess(response) {
       Form.methods.onApiSubmitSuccess.call(this, response);
-      // Saved: what the fields hold is the current version, the earlier
-      // ones one more.
-      (this.$refs.versions ?? []).forEach((bar) => bar.refresh());
+      // Saved: the fields' extensions may read again — the versions, one more.
+      this.dynamicFormContext.saved += 1;
       this.$emit('saved', { values: JSON.parse(JSON.stringify(this.draft)), id: this.id, payload: response });
     }
   }

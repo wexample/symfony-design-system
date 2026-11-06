@@ -46,3 +46,7 @@ Pas un nouveau kind : une **option de tout champ texte** (`textarea`, `code`), q
 - Syrtis : `AuditedContentFormTrait` et `MessageForm` passent par `CodeInputType` + `versions_url` ; `GET /_api/message/versions/{id}` ajouté ; `VersionedContentType`, `@front/components/versioned-content` et le bloc de thème supprimés ; `MessageFormProcessor` ne renvoie plus les versions.
 
 Si les endpoints par entité se multiplient : un générique dans symfony-activity (`/_api/activity/versions/{entity}/{id}/{field}`), l'option ne change pas.
+
+## Refait (2026-11-06) : une extension de champ, pas une option de textarea
+
+`versionsUrl` posé sur textarea/code était du cas par cas. Le modèle retenu (ticket `field-extensions.md`) : une clé `extensions` sur tout champ, chaque extension déclarée une fois (norme, option Symfony, composant `form/extension/<nom>`, inventaire), dessinée par la base des champs. Les versions sont `extensions.versions.url` ; Syrtis, le portfolio et la démo sont passés dessus. Norme 3.0.0, sans rétrocompatibilité.

@@ -1,5 +1,24 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
 
+{#- The extensions every field may carry, drawn by the base for all of them. -#}
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/extension/versions') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/extension/expression') -}}
+{%- endblock -%}
+
+{#- An extension around the control: given the field's value, giving it
+    back; one standing in for the control says so. -#}
+{%- block field_extension -%}
+    <component
+            :is="extension.component"
+            :class="'form--extension form--extension--' + extension.name"
+            v-bind="extension.options"
+            :model-value="modelValue"
+            @update:model-value="$emit('update:modelValue', $event)"
+            @control="controlReplaced = $event"
+    ></component>
+{%- endblock -%}
+
 {%- block field_label -%}
     <label v-if="hasLabel" class="form--label" :for="resolvedId">[[ resolveLabel(label) ]]</label>
 {%- endblock -%}
@@ -30,7 +49,7 @@
         the pointer, rather than each control being locked one by one. -#}
     <div
             class="form--group"
-            :class="{ 'has-error': hasErrors, 'is-disabled': controllerDisabled, 'is-assisted': isAssisted }"
+            :class="{ 'has-error': hasErrors, 'is-disabled': controllerDisabled, 'is-assisted': isAssisted, 'field-extended': fieldExtensions.length > 0 }"
             :inert="isAssisted ? true : null"
     >
         <template v-if="isFrozenText">
@@ -44,9 +63,18 @@
                     aria-readonly="true"
             >
         </template>
-        <template v-else>
+        <template v-else-if="!fieldExtensions.length">
             {{ block('field_label') }}
             {{ block('field_control') }}
+        </template>
+        {#- Extended: the control in a frame an extension may step into. -#}
+        <template v-else>
+            {{ block('field_label') }}
+            <template v-for="extension in extensionsAbove" :key="extension.name">{{ block('field_extension') }}</template>
+            <div class="form--control" v-show="!controlReplaced">
+                {{ block('field_control') }}
+            </div>
+            <template v-for="extension in extensionsBelow" :key="extension.name">{{ block('field_extension') }}</template>
         </template>
         {{ block('field_errors') }}
         {{ block('field_help') }}

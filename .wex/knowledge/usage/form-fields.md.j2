@@ -137,9 +137,26 @@ The one thing asked on a step — a name, an address — is set large with `row_
 
 `form_definition()` hands a switch (`SwitchInputType`) as kind `switch`, a checkbox (`CheckboxType`, `CheckboxInputType`) as `checkbox`, each with `checked` — on or off — and the `value` it posts while on; a number (`NumberType`, `NumberInputType`, `IntegerType`) as `number`, with `min`, `max` and `step` read from the field's `attr` — a whole number stepping by one unless it says —, and `stepper` where the field asks for its buttons. `dynamic-form` draws them with `form/switch-input`, `form/checkbox-input` and `form/number-input`; a toggle is held as a boolean — `values` may give it as `true`, `1`, `on`… — and posted as a drawn checkbox is: its value while on, nothing while off.
 
-## The versions of a text
+## What is attached to a field, whatever its kind: the extensions
 
-`form/field-versions` is not a field: a bar under a text field, as a property tied to it — a textarea, a code — whose definition names where its earlier versions are read (`versionsUrl`, the record's id as `__id__` where the form's action has it; the address answers `[{ label, content, date, author }]`, the latest first, without the current one). The bar holds the version read — the draft first, « current version » until it differs —, and once a version is chosen, its diff with the draft (`diff-text`, unified) and « take this version back », which makes it the draft without saving. The draft is never lost: kept aside while a version is read, given back when the draft is chosen again. While the address answers no earlier version the select holds the current one alone; the versions are read again once the form is saved, the page staying. `dynamic-form` draws the bar under any field naming an address, once the entity is known; symfony-forms' `TextareaInputType` takes it as `versions_url` (inherited by symfony-coding's `CodeInputType`), the twig theme mounts the same vue beside the field, which it reaches by its id and writes to as a person would — the editor laid over a code follows.
+A field has two natures. Its **kind** — what it holds and how it is written: a text, a number, a choice, a colour — is the closed list of the norm. What is **attached** to it — its earlier versions, an expression in place of its value, tomorrow a comment, a translation — is orthogonal to the kind, cumulable, and never the field's business: it is declared once, as a kind is, and the field's base draws it for every field.
+
+One key carries it, on every kind (`field_base.schema.json`, `extensions`), one schema per extension in the norm (`extension_<name>.schema.json`), one option on every Symfony type (`extensions`, FieldExtensionsTypeExtension), one component per extension in the design system (`form/extension/<name>`), listed by the inventory under `form/extension`:
+
+```php
+->add('content', CodeInputType::class, [
+    'extensions' => [
+        'versions'   => ['url' => '/_api/template/versions/__id__'],
+        'expression' => ['language' => 'jinja', 'pattern' => '\\{[{%]'],
+    ],
+])
+```
+
+Each extension is a tagged service (`FieldExtensionInterface`: its name, what it takes, what it does to the form's building and view) and an entry of the browser's registry (`FieldExtensionsHelper`, `FIELD_EXTENSIONS`: its component, where it stands — a header, a footer —, its order). An application declares its own the same way, with the same four faces, and it is drawn like the design system's. The twig theme draws them in `form_row`, under the control it reaches by its id; the vue base (`_abstract/form-field`) draws them around `field_control`, given the field's value and giving it back; `dynamic-form` hands each field its `extensions` and provides what they may ask of the form (`dynamicFormContext`: the record sent, the saves, the components handed over). Extensions never touch the control's DOM, only the field's value: that is what lets them stack.
+
+**Versions** (`form/extension/versions`): the earlier versions of what the field holds, read at `url` — the record's id where the form's action has it (`__id__`) —, answering `[{ label, content, date, author }]`, the latest first, without the current one. The field's footer: the version read, the draft first and « current version » until it differs; a version chosen is shown in the field and compared with the draft (`diff-text`); « take this version back » makes it the draft without saving. The draft is never lost; the versions are read again once the form is saved, the page staying.
+
+**Expression** (`form/extension/expression`): an expression in place of the value — a template computing it on each run. A strip under the field switches it to an editor of `language` (the one the form hands over for code when it has one, a text area else) and back; the field starts as an expression when its value matches `pattern`, and gives the value kept before back on the way back. The value is sent under the field's name, as text, whichever it is: a number's or a switch's transformers never see it — an expression held is shown as it is, an expression sent is read by a text field put in the field's place. On a text, a number, a choice, a switch; not on pairs, tags or a colour.
 
 ## A field standardised
 

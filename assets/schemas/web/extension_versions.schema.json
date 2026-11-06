@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "extension_versions.schema.json",
+  "title": "Field extension: versions",
+  "description": "The earlier versions of what the field holds, read at `url` — the record's id where the form's action has it (`__id__`) —, answering `[{ label, content, date, author }]`, the latest first, without the current one: read, compared with the draft, taken back.",
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": ["url"],
+  "additionalProperties": false
+}

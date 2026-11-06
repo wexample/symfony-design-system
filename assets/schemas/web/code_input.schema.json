@@ -11,11 +11,6 @@
     "type": {
       "const": "code"
     },
-    "versionsUrl": {
-      "type": "string",
-      "minLength": 1,
-      "description": "Where the earlier versions of the field's content are read, the record's id where the form's action has it (`__id__`): answering `[{ label, content, date, author }]`, the latest first, without the current one."
-    },
     "language": {
       "type": ["string", "null"],
       "description": "A grammar name: json, yaml, python, markdown, html, css, js, ts, php, twig, jinja. Anything else is plain text.",

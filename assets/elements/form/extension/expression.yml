@@ -1,0 +1,16 @@
+# Declares `form/extension/expression` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "A field extension (`extensions.expression` of any kind of field holding one value, `extension_expression.schema.json`): an expression in place of the value — a template computing it on each run. A strip under the field switches it to an editor of the given language and back; it starts as an expression when the value matches the given pattern; the value kept before is given back on the way back. The editor is the one the form hands over for code when it has one, a text area else. On a text, a number, a choice, a switch — not on pairs, tags or a colour. The same under the twig theme's field, where the editor named as the field is what the form posts."
+formats:
+  style: true
+  vue: true
+  template: "the twig theme mounts the vue beside its field, which it reaches by its id: the control steps aside, the editor posts in its name"
+  script: "its behaviour is the vue component's"
+  schema: true
+  ai: "todo — write an expression, come back to a value"
+  react: todo
+  flutter: todo

@@ -1,0 +1,64 @@
+/* Component: form/extension/versions */
+// The versions of a text field, as the field's own footer: a strip glued
+// under it, inside the same frame — its border continued, a hairline between
+// the text and the strip, the corners rounded below the strip rather than
+// below the text —, set in the small muted words of what is said about a
+// field rather than written in it. The version chosen in a select with no
+// frame of its own at the strip's end — a footer's options start from the
+// right —, the « take back » before it; the version read
+// compared with the draft under the whole.
+@use '../../../../css/shapes/form/select';
+@use '../footer';
+
+.field-versions {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.field-versions--bar {
+  @include footer.strip;
+}
+
+
+.field-versions--icon {
+  display: inline-flex;
+  flex: none;
+}
+
+// A select without a frame: its words and its caret, read as part of the
+// strip; the default ink once pointed at.
+.field-versions .field-versions--select {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  height: auto;
+  padding: var(--space-1) var(--space-6) var(--space-1) 0;
+  border: 0;
+  background-color: transparent;
+  color: inherit;
+  font: inherit;
+  text-overflow: ellipsis;
+
+  &:hover:not(:disabled),
+  &:focus-visible {
+    color: var(--text-color-default);
+    outline: none;
+  }
+
+  &:disabled {
+    cursor: default;
+    background-image: none;
+    padding-inline-end: 0;
+  }
+}
+
+.field-versions--take {
+  flex: none;
+}
+
+.field-versions--diff {
+  margin-block-start: var(--space-2);
+  max-height: 24rem;
+  overflow: auto;
+}

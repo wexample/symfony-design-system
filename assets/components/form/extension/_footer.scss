@@ -1,0 +1,43 @@
+// The strip an extension draws under a field, glued to it: what the field's
+// footers share. The field's lower corners squared, the strip's upper ones, a
+// hairline between them in place of two borders; two strips in a row part
+// the same way. A field saying what it refuses keeps its corners: its errors
+// stand between the two.
+@mixin strip {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  min-height: 2rem;
+  padding-inline: var(--space-1) var(--space-2);
+  border: var(--border-default);
+  border-radius: var(--radius-box);
+  background: var(--surface-1);
+  color: var(--text-color-muted);
+  font-size: var(--font-size-2);
+}
+
+.field-extended:not(:has(.has-error)) {
+  :is(textarea.form--input, .form--textarea, .code-input--editor, .form--input, .form--input-group, .select--trigger) {
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  .field-extension--strip {
+    border-block-start: var(--border-separator);
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
+  }
+
+  // In a vue field's group, the control and what follows are parted by the
+  // group's gap: an extension closes it, glued to the control.
+  > .form--extension {
+    margin-block-start: calc(-1 * var(--space-2));
+  }
+
+  // The last strip alone keeps the lower corners.
+  .field-extension--strip:not(:last-of-type) {
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+  }
+}

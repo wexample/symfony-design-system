@@ -15,7 +15,6 @@
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/switch-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/checkbox-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/number-input') -}}
-    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/field-versions') -}}
 {%- endblock -%}
 
 {#- What the processor refused of the form as a whole, said in words already:
@@ -33,9 +32,8 @@
     controller. -#}
 {%- block form_body -%}
     <div class="dynamic-form" :class="layoutClass">
-        {#- A cell per field: what spans the line spans it whole, and a text
-            with versions holds its footer glued under it. -#}
-        <div v-for="field in shownFields" :key="field.name" class="dynamic-form--cell" :class="{ 'form--span': field.span, 'field-versioned': hasVersions(field) }">
+        {#- A cell per field: what spans the line spans it whole. -#}
+        <div v-for="field in shownFields" :key="field.name" class="dynamic-form--cell" :class="{ 'form--span': field.span }">
             {#- A kind the caller hands over (`fieldComponents`): drawn by its
                 own component, given what any field is given. -#}
             <component
@@ -48,6 +46,7 @@
                     :placeholder="field.placeholder || ''"
                     :required="Boolean(field.required)"
                     :readonly="readonly"
+                    :extensions="field.extensions || {}"
                     :translate="false"
                     v-bind="customProps(field)"
             ></component>
@@ -61,6 +60,7 @@
                     :rows="field.rows || 3"
                     :required="Boolean(field.required)"
                     :readonly="readonly"
+                    :extensions="field.extensions || {}"
                     :translate="false"
             ></textarea-input>
             <select-input
@@ -72,6 +72,7 @@
                     :options="optionsOf(field)"
                     :required="Boolean(field.required)"
                     :readonly="readonly"
+                    :extensions="field.extensions || {}"
                     :translate="false"
             ></select-input>
             <key-value-input
@@ -82,6 +83,7 @@
                     :label="field.label"
                     :required="Boolean(field.required)"
                     :readonly="readonly"
+                    :extensions="field.extensions || {}"
                     :translate="false"
             ></key-value-input>
             <tags-input
@@ -97,6 +99,7 @@
                     :glyph="field.glyph || null"
                     :required="Boolean(field.required)"
                     :readonly="readonly"
+                    :extensions="field.extensions || {}"
                     :translate="false"
             ></tags-input>
             <search-select-input
@@ -110,6 +113,7 @@
                     :value-label="field.valueLabel || null"
                     :required="Boolean(field.required)"
                     :readonly="readonly"
+                    :extensions="field.extensions || {}"
                     :translate="false"
             ></search-select-input>
             <color-input
@@ -121,6 +125,7 @@
                     :swatches="field.swatches || []"
                     :required="Boolean(field.required)"
                     :readonly="readonly"
+                    :extensions="field.extensions || {}"
                     :translate="false"
             ></color-input>
             {#- Yes or no, its label beside it. -#}
@@ -131,6 +136,7 @@
                     :errors="getFieldErrors(fullName(field))"
                     :label="field.label"
                     :readonly="readonly"
+                    :extensions="field.extensions || {}"
                     :translate="false"
             ></switch-input>
             <checkbox-input
@@ -140,6 +146,7 @@
                     :errors="getFieldErrors(fullName(field))"
                     :label="field.label"
                     :readonly="readonly"
+                    :extensions="field.extensions || {}"
                     :translate="false"
             ></checkbox-input>
             {#- A number between its bounds, by its step. -#}
@@ -156,6 +163,7 @@
                     :stepper="Boolean(field.stepper)"
                     :required="Boolean(field.required)"
                     :readonly="readonly"
+                    :extensions="field.extensions || {}"
                     :translate="false"
             ></number-input>
             <text-input
@@ -168,16 +176,9 @@
                     :placeholder="field.placeholder || ''"
                     :required="Boolean(field.required)"
                     :readonly="readonly"
+                    :extensions="field.extensions || {}"
                     :translate="false"
             ></text-input>
-            {#- A text with earlier versions (`versionsUrl`): its footer,
-                glued under it, the draft the field's own. -#}
-            <field-versions
-                    v-if="hasVersions(field)"
-                    ref="versions"
-                    v-model="draft[field.name]"
-                    :url="versionsUrl(field)"
-            ></field-versions>
         </div>
         <div v-if="!readonly" class="form--actions">
             <button type="submit" class="button button--invert" :disabled="formIsSubmitting">

@@ -1,6 +1,6 @@
-// The versions of a text field: what an address answers, shaped
-// (FieldVersionsHelper); where they are read for the entity sent
-// (FormDefinitionHelper); and the bar's own rule — a version read, the draft
+// The versions extension of a field: what an address answers, shaped
+// (FieldVersionsHelper); where they are read for the record sent; and the
+// footer's own rule — a version read, the draft
 // kept aside and given back, a version taken back as the draft.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -10,8 +10,7 @@ import { vueInstance } from './vue-instance.ts';
 register('./hooks.mjs', import.meta.url);
 
 const { fieldVersionsNormalize } = await import('../../assets/js/Helper/FieldVersionsHelper.ts');
-const { formDefinitionVersionsUrl } = await import('../../assets/js/Helper/FormDefinitionHelper.ts');
-const FieldVersions = (await import('../../assets/components/form/field-versions/field-versions.vue?script')).default;
+const FieldVersions = (await import('../../assets/components/form/extension/versions/versions.vue?script')).default;
 
 test('versions are read as a list or under data, each with its words and content', () => {
   const versions = fieldVersionsNormalize({ data: [{ label: '2026-11-05 15:57 · weeger', content: 'a' }, { content: 'b' }, null, 'x'] });
@@ -21,13 +20,12 @@ test('versions are read as a list or under data, each with its words and content
   assert.deepEqual(fieldVersionsNormalize({ type: 'success', data: { items: [{ label: 'v1', content: 'a' }] } }).map((version) => version.label), ['v1']);
 });
 
-test('the address is the entity\'s: none while the entity is not known', () => {
-  const field = { type: 'textarea', name: 'content', versionsUrl: '/_api/template/versions/__id__' };
-
-  assert.equal(formDefinitionVersionsUrl(field, 'u1'), '/_api/template/versions/u1');
-  assert.equal(formDefinitionVersionsUrl(field, null), null);
-  assert.equal(formDefinitionVersionsUrl({ ...field, versionsUrl: '/versions' }, null), '/versions');
-  assert.equal(formDefinitionVersionsUrl({ type: 'textarea', name: 'notes' }, 'u1'), null);
+test('the address is the record\'s: none while the record is not known', () => {
+  const { vm } = vueInstance(FieldVersions, { url: '/_api/template/versions/__id__' });
+  assert.equal(vm.resolvedUrl, null);
+  vm.dynamicFormContext = { id: 'u1', saved: 0 };
+  assert.equal(vm.resolvedUrl, '/_api/template/versions/u1');
+  assert.equal(vueInstance(FieldVersions, { url: '/versions' }).vm.resolvedUrl, '/versions');
 });
 
 test('a version read keeps the draft aside and gives it back; taken back, it is the draft', () => {
