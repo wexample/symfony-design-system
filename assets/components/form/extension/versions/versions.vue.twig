@@ -16,8 +16,8 @@
 {%- block vue_body -%}
     <div class="field-versions">
         <div class="field-versions--bar field-extension--strip">
-            <button v-if="version" type="button" class="button button--flat button--small field-versions--take" @click="take">
-                <span class="button--icon">{{ icon('ph:bold/arrow-u-up-left') }}</span>[[ t('take') ]]
+            <button v-if="version" type="button" class="action-icon field-versions--take" :aria-label="t('take')" :data-tooltip="t('take')" @click="take">
+                {{ icon('ph:bold/arrow-u-up-left') }}
             </button>
             <span class="field-versions--icon" aria-hidden="true">{{ icon('ph:bold/clock-counter-clockwise') }}</span>
             <select class="form--input--select field-versions--select" :value="chosen" :aria-label="t('version')" :disabled="!versions.length ? true : null" @change="onChoice">
