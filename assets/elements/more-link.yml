@@ -1,0 +1,16 @@
+# Declares `more-link` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "The way on from a short list — the first of a set shown here, the rest on another page —: a quiet link, its chevrons after it, taking the end of the line it stands on by itself; under a list, a grid, or in a block's footer. Not load-more, which brings the rest here; not text-link, which sits in running text."
+formats:
+  style: true
+  template: true
+  vue: true
+  script: "a link needs nothing to run"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

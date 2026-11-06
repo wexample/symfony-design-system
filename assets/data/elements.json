@@ -2840,6 +2840,36 @@
             }
         },
         {
+            "key": "more-link",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "The way on from a short list \u2014 the first of a set shown here, the rest on another page \u2014: a quiet link, its chevrons after it, taking the end of the line it stands on by itself; under a list, a grid, or in a block's footer. Not load-more, which brings the rest here; not text-link, which sits in running text.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/more-link/more-link.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/more-link/more-link.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/more-link/more-link.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/more-link/more-link.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "a link needs nothing to run"
+            }
+        },
+        {
             "key": "overlay",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "What stands over the page while something is on its way \u2014 a veil, a spinner \u2014, shown and taken down by the overlay service.",

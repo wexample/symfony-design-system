@@ -1,0 +1,7 @@
+{#- The way on from a short list: the first of a set are shown here, the
+    rest is on another page. A quiet link, its chevrons after it, at the end
+    of the line it stands on — under a list, a grid, or in a block's footer. -#}
+<a class="more-link{{ class is defined and class ? ' ' ~ class }}" href="{{ href }}">
+    <span class="more-link--label">{{ label }}</span>
+    <span class="more-link--glyph" aria-hidden="true">{{ icon('ph:bold/caret-double-right') }}</span>
+</a>

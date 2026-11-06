@@ -1,0 +1,8 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <a class="more-link" :href="href">
+        <span class="more-link--label">[[ label ]]</span>
+        <span class="more-link--glyph" aria-hidden="true">{{ icon('ph:bold/caret-double-right') }}</span>
+    </a>
+{%- endblock -%}

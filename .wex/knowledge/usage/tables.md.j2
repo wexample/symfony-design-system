@@ -264,3 +264,7 @@ overlay on top is the one holding Tab.
 `striped` and `hover` for tables read across. `page_size` does not exist on the server,
 where the controller pages; `pageSize` on the vue one pages the rows it holds, with the
 design system's pagination under the table.
+
+## The way on from a short list
+
+A list often shows the first of a set — the recent projects, the last sessions — and leads to the rest on another page. `more-link` says so under it: a quiet link, muted, its chevrons after it, taking the end of the line it stands on by itself — under a list, in a grid's cell, in a `block--footer--end` —, with nothing to add around it; `href` and `label`, in twig as in vue. It is not `load-more`, which brings the rest here, nor `text-link`, which sits in running text, nor a toolbar's link, which has a toolbar's padding and ground.
