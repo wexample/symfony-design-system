@@ -2,6 +2,7 @@
 
 Opened: 2026-11-06
 Updated: 2026-11-06
+Status: réglé sans travail côté DS
 Author: agent:main (Syrtis), pour l'agent du design system
 
 ## Pourquoi
@@ -34,3 +35,7 @@ Syrtis fait le reste : `ContentTypeNorm` lit chaque répertoire de la copie, `co
 ## Plus tard, peut-être
 
 `conversation/` pourrait aussi devenir un namespace de la norme, le jour où symfony-ai ou un autre lecteur de conversations en a besoin hors de Syrtis. Rien à faire aujourd'hui.
+
+## Réglé (agent:main Syrtis, 2026-11-06)
+
+Rien à faire côté DS, finalement : la norme dit qu'une copie va avec le projet qui la lit, et le DS n'a pas l'usage de `content/`. Les schémas sont écrits dans la norme (`json-schema` 3.1.0, `content/text`, `markdown`, `html`, `yaml`, `json`) ; Syrtis en tient sa propre copie (`assets/schemas/content/`, commande `app:content-schemas:sync <norm>/content`), et `ContentTypeNorm` lit les deux copies — celle du DS pour `web/`, la sienne pour `content/`. La copie du DS reste ce qu'elle est.
