@@ -11,6 +11,9 @@
 @use '../tags-input/tags-input';
 @use '../search-select-input/search-select-input';
 @use '../color-input/color-input';
+@use '../switch-input/switch-input';
+@use '../checkbox-input/checkbox-input';
+@use '../number-input/number-input';
 @use '../field-versions/field-versions';
 
 .dynamic-form {
@@ -30,4 +33,13 @@
 .dynamic-form.form--columns {
   display: grid;
   gap: var(--space-4);
+}
+
+// A switch among columns stands on the line of its neighbours' inputs, not
+// of their labels, as the drawn form's does (form/layout): its cell holds it.
+.dynamic-form.form--columns > .dynamic-form--cell:has(.switch):not(:has(.form--label)) {
+  align-self: end;
+  padding-block: var(--space-2);
+  border: var(--border-default);
+  border-color: transparent;
 }

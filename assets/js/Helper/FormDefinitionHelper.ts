@@ -46,6 +46,13 @@ export type FormDefinitionField = {
   options?: { value: string; label: string }[];
   optionsUrl?: string;
   valueLabel?: string;
+  // Yes or no: whether it is on (`switch_input.schema.json`, `checkbox_input.schema.json`).
+  checked?: boolean;
+  // A number's bounds and step (`number_input.schema.json`).
+  min?: number;
+  max?: number;
+  step?: number | 'any';
+  stepper?: boolean;
   // A colour's offered colours (`color_input.schema.json`).
   swatches?: { value: string; label: string }[];
 };
@@ -55,6 +62,19 @@ export type FormDefinitionPair = { key: string; value: string };
 export const FORM_DEFINITION_KIND_KEY_VALUE = 'key_value';
 
 export const FORM_DEFINITION_KIND_TAGS = 'tags';
+
+// The kinds saying yes or no: held as a boolean, posted as a drawn checkbox is.
+export const FORM_DEFINITION_KINDS_TOGGLE = ['switch', 'checkbox'];
+
+// What a yes or no given in `values` says: a boolean, or the words a record
+// or a query holds it as.
+export function formDefinitionChecked(raw: unknown): boolean {
+  if (typeof raw === 'string') {
+    return !['', '0', 'false', 'off', 'no'].includes(raw.trim().toLowerCase());
+  }
+
+  return Boolean(raw);
+}
 
 export type FormDefinition = {
   name: string;
@@ -150,6 +170,16 @@ export function formDefinitionData(form: FormDefinition, values: Record<string, 
       const list = Array.isArray(tags) ? tags : String(tags ?? '').split(field.separator ?? ',');
 
       data.append(formDefinitionFullName(form, field.name), tagsJoin(tagsUnique(list), field.separator ?? ','));
+
+      return;
+    }
+
+    // Its value while it is on, nothing while it is off: what a drawn
+    // checkbox posts, which the form reads back as off.
+    if (FORM_DEFINITION_KINDS_TOGGLE.includes(field.type)) {
+      if (formDefinitionChecked(field.name in values ? values[field.name] : field.checked)) {
+        data.append(formDefinitionFullName(form, field.name), String(field.value ?? '1'));
+      }
 
       return;
     }

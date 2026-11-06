@@ -58,7 +58,10 @@
           { "$ref": "tags_input.schema.json" },
           { "$ref": "search_select_input.schema.json" },
           { "$ref": "color_input.schema.json" },
-          { "$ref": "code_input.schema.json" }
+          { "$ref": "code_input.schema.json" },
+          { "$ref": "switch_input.schema.json" },
+          { "$ref": "checkbox_input.schema.json" },
+          { "$ref": "number_input.schema.json" }
         ]
       }
     }

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "checkbox_input.schema.json",
+  "title": "Checkbox input field",
+  "description": "Yes or no, said by a box ticked, its label beside it: `value` posted while it is ticked, nothing while it is not.",
+  "type": "object",
+  "allOf": [
+    { "$ref": "field_base.schema.json" }
+  ],
+  "properties": {
+    "type": {
+      "const": "checkbox"
+    },
+    "value": {
+      "type": ["string", "null"],
+      "description": "What is posted while it is on — `1` unless the field says otherwise."
+    },
+    "checked": {
+      "type": "boolean",
+      "description": "On or off.",
+      "default": false
+    }
+  },
+  "required": ["type", "name", "label"],
+  "unevaluatedProperties": false
+}

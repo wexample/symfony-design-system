@@ -7,8 +7,11 @@ import KeyValueInput from '../key-value-input/key-value-input.vue';
 import TagsInput from '../tags-input/tags-input.vue';
 import SearchSelectInput from '../search-select-input/search-select-input.vue';
 import ColorInput from '../color-input/color-input.vue';
+import SwitchInput from '../switch-input/switch-input.vue';
+import CheckboxInput from '../checkbox-input/checkbox-input.vue';
+import NumberInput from '../number-input/number-input.vue';
 import FieldVersions from '../field-versions/field-versions.vue';
-import { FORM_DEFINITION_KIND_KEY_VALUE, FORM_DEFINITION_KIND_TAGS, formDefinitionFullName, formDefinitionPairs, formDefinitionVersionsUrl } from '../../../js/Helper/FormDefinitionHelper';
+import { FORM_DEFINITION_KIND_KEY_VALUE, FORM_DEFINITION_KIND_TAGS, FORM_DEFINITION_KINDS_TOGGLE, formDefinitionChecked, formDefinitionFullName, formDefinitionPairs, formDefinitionVersionsUrl } from '../../../js/Helper/FormDefinitionHelper';
 import { tagsSplit } from '../../../js/Helper/TagsHelper';
 
 const DOMAIN = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.form.';
@@ -27,7 +30,10 @@ const FIELDS = {
   key_value: KeyValueInput,
   tags: TagsInput,
   search_select: SearchSelectInput,
-  color: ColorInput
+  color: ColorInput,
+  switch: SwitchInput,
+  checkbox: CheckboxInput,
+  number: NumberInput
 };
 
 // A form of the server drawn by the design system rather than by its
@@ -52,6 +58,9 @@ export default {
     TagsInput,
     SearchSelectInput,
     ColorInput,
+    SwitchInput,
+    CheckboxInput,
+    NumberInput,
     FieldVersions
   },
 
@@ -161,6 +170,11 @@ export default {
           const tags = given !== undefined ? given : field.tags;
 
           return [field.name, Array.isArray(tags) ? [...tags] : tagsSplit(String(tags ?? ''), field.separator ?? ',')];
+        }
+
+        // Yes or no, not a text: what is given, or whether the form has it on.
+        if (FORM_DEFINITION_KINDS_TOGGLE.includes(field.type)) {
+          return [field.name, formDefinitionChecked(given !== undefined ? given : field.checked)];
         }
 
         return [field.name, String((given !== undefined ? given : field.value) ?? '')];

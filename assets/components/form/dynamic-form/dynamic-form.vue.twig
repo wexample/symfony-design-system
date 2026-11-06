@@ -12,6 +12,9 @@
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/tags-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/search-select-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/color-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/switch-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/checkbox-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/number-input') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/field-versions') -}}
 {%- endblock -%}
 
@@ -120,6 +123,41 @@
                     :readonly="readonly"
                     :translate="false"
             ></color-input>
+            {#- Yes or no, its label beside it. -#}
+            <switch-input
+                    v-else-if="field.type === 'switch'"
+                    v-model="draft[field.name]"
+                    :name="fullName(field)"
+                    :errors="getFieldErrors(fullName(field))"
+                    :label="field.label"
+                    :readonly="readonly"
+                    :translate="false"
+            ></switch-input>
+            <checkbox-input
+                    v-else-if="field.type === 'checkbox'"
+                    v-model="draft[field.name]"
+                    :name="fullName(field)"
+                    :errors="getFieldErrors(fullName(field))"
+                    :label="field.label"
+                    :readonly="readonly"
+                    :translate="false"
+            ></checkbox-input>
+            {#- A number between its bounds, by its step. -#}
+            <number-input
+                    v-else-if="field.type === 'number'"
+                    v-model="draft[field.name]"
+                    :name="fullName(field)"
+                    :errors="getFieldErrors(fullName(field))"
+                    :label="field.label"
+                    :placeholder="field.placeholder || ''"
+                    :min="field.min ?? null"
+                    :max="field.max ?? null"
+                    :step="field.step ?? null"
+                    :stepper="Boolean(field.stepper)"
+                    :required="Boolean(field.required)"
+                    :readonly="readonly"
+                    :translate="false"
+            ></number-input>
             <text-input
                     v-else
                                         v-model="draft[field.name]"

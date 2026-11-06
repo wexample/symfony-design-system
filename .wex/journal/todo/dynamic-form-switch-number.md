@@ -2,6 +2,7 @@
 
 Opened: 2026-11-06
 Updated: 2026-11-06
+Status: livré (hors « Plus tard »)
 Author: agent:main (Syrtis)
 
 ## Pourquoi
@@ -19,3 +20,14 @@ Premier cas : l'onglet Configuration de l'éditeur de slot Syrtis (`SlotConfigsF
 ## Plus tard, même formulaire
 
 Une config qui peut être une valeur choisie **ou** une expression (un modèle du catalogue, ou `{{ … }}` qui le nomme) : un select qui accepte aussi un texte libre — ou un bouton qui bascule le champ en éditeur de template. Aujourd'hui, Syrtis montre le select tant que la valeur en est une, l'éditeur Jinja quand elle est déjà une expression ; passer d'une valeur à une expression n'est pas possible depuis le select.
+
+## Livré (2026-11-06)
+
+- Norme 2.5.0 : `switch_input`, `checkbox_input` (`checked`, `value` posté quand coché) et `number_input` (`min`, `max`, `step` nombre ou `any`, `stepper`), dans `form.schema.json`. Les pointeurs des composants `switch-input`, `checkbox-input` et `number-input` visaient déjà ces fichiers.
+- `FormDefinitionBuilder` : kinds par préfixe de bloc ; `IntegerType` rattaché à `number`, pas de 1 par défaut ; bornes et pas lus dans les `attr`.
+- `dynamic-form` : brouillon booléen pour les bascules (`formDefinitionChecked` lit `true`, `1`, `on`…), posté comme une checkbox dessinée (la valeur si coché, rien sinon) ; nombre avec ses bornes et ses boutons. Démo : `form/from-server` (Pages, Public).
+
+## Côté Syrtis
+
+- Les nombres de `SlotConfigsForm` sont déjà des `NumberInputType` : dessinés en nombre sans rien changer.
+- Le booléen y est un choix à trois états (`—` = la valeur par défaut du node, Oui, Non). Un interrupteur n'a que deux états : passer à `SwitchInputType` perd « par défaut ». À Syrtis de trancher ; si l'état « par défaut » doit rester, le choix actuel est le bon contrôle.

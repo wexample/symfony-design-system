@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "switch_input.schema.json",
+  "title": "Switch input field",
+  "description": "Yes or no, said by a switch, its label beside it: `value` posted while it is on, nothing while it is off — as a drawn checkbox is.",
+  "type": "object",
+  "allOf": [
+    { "$ref": "field_base.schema.json" }
+  ],
+  "properties": {
+    "type": {
+      "const": "switch"
+    },
+    "value": {
+      "type": ["string", "null"],
+      "description": "What is posted while it is on — `1` unless the field says otherwise."
+    },
+    "checked": {
+      "type": "boolean",
+      "description": "On or off.",
+      "default": false
+    }
+  },
+  "required": ["type", "name", "label"],
+  "unevaluatedProperties": false
+}
