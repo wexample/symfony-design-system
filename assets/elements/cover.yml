@@ -4,7 +4,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: "The band across the head of a page, made to hold a picture, a video (muted, looping) or what the page puts there — an animation —, cropped to fill it; a third of the window, between 14 and 26rem (--cover-height); the glow of a placeholder while it holds nothing; a title and a line under it over its foot, on a shade that keeps them readable. Twig (block cover_media to embed one's own) and vue (default slot)."
+description: "The band across the head of a page, made to hold a picture, a video (muted, looping) or what the page puts there — an animation —, cropped to fill it; out of the zone's padding, edge to edge, up to its top when it opens it (cover--inset keeps it inside, rounded); a third of the window, between 14 and 26rem (--cover-height); the glow of a placeholder while it holds nothing; a title and a line under it over its foot, on a shade that keeps them readable. Twig (block cover_media to embed one's own) and vue (default slot)."
 formats:
   style: true
   template: true

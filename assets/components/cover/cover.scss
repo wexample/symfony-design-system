@@ -1,22 +1,42 @@
 /* Component: cover */
 // The band across the head of a page, made to hold a picture, a video or an
 // animation: tall enough to be the page's first sight — a third of the
-// window, between 14 and 26rem, a page sets its own (--cover-height) —,
-// rounded as a block is, what it holds cropped to fill it rather than
-// distorted. With nothing in it, the glow of a placeholder (media). Its
+// window, between 14 and 26rem, a page sets its own (--cover-height) —, what
+// it holds cropped to fill it rather than distorted. It covers: out of the
+// padding of the zone it stands in, edge to edge, and up to the zone's top
+// when it opens the zone; no corner then, the zone's edges are its own.
+// `cover--inset` keeps it inside, rounded as a block is. With nothing in it, the glow of a placeholder (media). Its
 // words over its foot, on a shade rising from the bottom that keeps them
 // readable whatever the picture shows.
 @use '../../css/shapes/media';
 
 .cover {
   --cover-height: clamp(14rem, 34vh, 26rem);
+  --cover-bleed: var(--zone-padding, var(--space-4));
   position: relative;
   display: flex;
   align-items: flex-end;
   height: var(--cover-height);
+  margin-inline: calc(-1 * var(--cover-bleed));
   overflow: hidden;
-  border-radius: var(--radius-box);
   isolation: isolate;
+}
+
+// Opening the zone — first in it, or first in what comes first in it —:
+// up to its top too.
+.zone--content > .cover:first-child,
+.zone--content > :first-child > .cover:first-child {
+  margin-block-start: calc(-1 * var(--cover-bleed));
+}
+
+.cover--inset {
+  margin: 0;
+  border-radius: var(--radius-box);
+}
+
+.zone--content > .cover--inset:first-child,
+.zone--content > :first-child > .cover--inset:first-child {
+  margin-block-start: 0;
 }
 
 .cover--media {
