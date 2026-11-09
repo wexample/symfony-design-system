@@ -51,7 +51,7 @@ export default {
       type: Boolean,
       default: false
     },
-    // With tiles: each asking twice the room before they lie side by side.
+    // With tiles: each asking room for a name before they lie side by side.
     tilesWide: {
       type: Boolean,
       default: false

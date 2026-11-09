@@ -164,10 +164,11 @@ $tile-gap: 0.25rem;
   }
 }
 
-// Wide tiles (`properties--tiles-wide`): each asks twice the room before
-// they lie side by side — six in a row only where six really fit, two rows
-// of three before that. Laid over the narrow ones, one class more.
-$tile-min-wide: 2 * $tile-min;
+// Wide tiles (`properties--tiles-wide`): each asks room for a type's name —
+// `conversation/message` — before they lie side by side: six in a row only
+// where six really fit, two rows of three before that. Laid over the narrow
+// ones, one class more.
+$tile-min-wide: 9rem;
 
 @for $count from 1 through 12 {
   .properties--tiles-wide.properties--tiles-#{$count} > .properties--row {

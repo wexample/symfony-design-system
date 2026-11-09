@@ -85,7 +85,7 @@ class PropertiesExtension extends AbstractTemplateExtension
         if ($options['tiles'] ?? false) {
             $classes[] = 'properties--tiles-'.count(array_filter($items, fn (array $item) => ! $item['full']));
 
-            // Each asking twice the room before they lie side by side.
+            // Each asking room for a name before they lie side by side.
             if ($options['tiles_wide'] ?? false) {
                 $classes[] = 'properties--tiles-wide';
             }
