@@ -154,14 +154,14 @@ A field has two natures. Its **kind** — what it holds and how it is written: a
 
 One key carries it, on every kind (`field_base.schema.json`, `extensions`), one schema per extension in the norm (`extension_<name>.schema.json`), one option on every Symfony type (`extensions`, FieldExtensionsTypeExtension), one component per extension in the design system (`form/extension/<name>`), listed by the inventory under `form/extension`:
 
-```php
+{% raw %}```php
 ->add('content', CodeInputType::class, [
     'extensions' => [
         'versions'   => ['url' => '/_api/template/versions/__id__'],
         'expression' => ['language' => 'jinja', 'pattern' => '\\{[{%]'],
     ],
 ])
-```
+```{% endraw %}
 
 Each extension is a tagged service (`FieldExtensionInterface`: its name, what it takes, what it does to the form's building and view) and an entry of the browser's registry (`FieldExtensionsHelper`, `FIELD_EXTENSIONS`: its component, where it stands — a header, a footer —, its order). An application declares its own the same way, with the same four faces, and it is drawn like the design system's. The twig theme draws them in `form_row`, under the control it reaches by its id; the vue base (`_abstract/form-field`) draws them around `field_control`, given the field's value and giving it back; `dynamic-form` hands each field its `extensions` and provides what they may ask of the form (`dynamicFormContext`: the record sent, the saves, the components handed over). Extensions never touch the control's DOM, only the field's value: that is what lets them stack.
 
