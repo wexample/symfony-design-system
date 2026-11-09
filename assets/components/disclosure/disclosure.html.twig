@@ -4,15 +4,18 @@
 
     `{% component '@WexampleSymfonyDesignSystemBundle/components/disclosure'
         with { label, count, icon, open, quiet } %}`, its content in the `body`
-    slot, what can be done about it in `actions`, at the end of the line.
+    slot, what can be done about it in `actions`, at the end of the line; a
+    line that is more than words — a marker among them — in `label`, in the
+    label's place.
     `quiet`, small and muted, for the foot of a block. -#}
 {%- set slots = slots|default({}) -%}
 {%- set actions = slots.actions|default('')|trim -%}
+{%- set label_slot = slots.label|default('')|trim -%}
 <details class="disclosure{{ quiet|default(false) ? ' disclosure--quiet' }}{{ class|default(null) ? ' ' ~ class }}"{{ open|default(false) ? ' open' }}>
     <summary class="disclosure--head">
         <span class="disclosure--caret" aria-hidden="true">{{ icon('ph:bold/caret-right') }}</span>
         {%- if icon is defined and icon %}<span class="disclosure--icon" aria-hidden="true">{{ icon(icon) }}</span>{% endif %}
-        <span class="disclosure--label">{{ label|default('') }}</span>
+        <span class="disclosure--label">{% if label_slot %}{{ label_slot|raw }}{% else %}{{ label|default('') }}{% endif %}</span>
         {%- if count is defined and count is not null %}<span class="count">{{ count }}</span>{% endif %}
         {%- if actions %}<span class="disclosure--actions">{{ actions|raw }}</span>{% endif %}
     </summary>

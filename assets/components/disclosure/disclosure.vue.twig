@@ -7,7 +7,9 @@
         <summary class="disclosure--head">
             <span class="disclosure--caret" aria-hidden="true" v-html="caretHtml"></span>
             <span v-if="iconHtml" class="disclosure--icon" aria-hidden="true" v-html="iconHtml"></span>
-            <span class="disclosure--label">[[ label ]]</span>
+            {#- The line read: the label, or what the caller writes in its place —
+                a sentence, a marker among words. -#}
+            <span class="disclosure--label"><slot name="label">[[ label ]]</slot></span>
             <span v-if="hasCount" class="count">[[ count ]]</span>
             <span v-if="$slots.actions" class="disclosure--actions"><slot name="actions"></slot></span>
         </summary>
