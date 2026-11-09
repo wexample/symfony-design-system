@@ -28,7 +28,7 @@
 }
 
 .more-link:hover .more-link--glyph {
-  transform: translateX(2px);
+  transform: translateX(calc(2px * var(--direction-sign, 1)));
 }
 
 @media (prefers-reduced-motion: reduce) {
