@@ -95,6 +95,35 @@
             "notes": []
         },
         {
+            "key": "block-list",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "An ordered list of things edited one by one: each a line folded on its body, moved up and down, taken off, more added under it \u2014 the caller's api answering each.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/block-list/block-list.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/block-list/block-list.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/block-list/block-list.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "waived",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "template": "it is edited, and editing is the client's: a page drawn on the server folds its items in disclosures",
+                "script": "its vue is the whole of it",
+                "ai": "add, move, remove an item"
+            }
+        },
+        {
             "key": "breadcrumb",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "Where the page stands: the pages above it, each a link, the current one last; `back` keeps the one above alone, as the way back to it.",
@@ -788,7 +817,7 @@
         {
             "key": "cover",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": "The band across the head of a page, made to hold a picture, a video (muted, looping) or what the page puts there \u2014 an animation \u2014, cropped to fill it; a third of the window, between 14 and 26rem (--cover-height); the glow of a placeholder while it holds nothing; a title and a line under it over its foot, on a shade that keeps them readable. Twig (block cover_media to embed one's own) and vue (default slot).",
+            "description": "The band across the head of a page, made to hold a picture, a video (muted, looping) or what the page puts there \u2014 an animation \u2014, cropped to fill it; out of the zone's padding, edge to edge, up to its top when it opens it (cover--inset keeps it inside, rounded); a third of the window, between 14 and 26rem (--cover-height); the design system's missing picture while it holds nothing (a faint grid, a picture glyph); a title and a line under it over its foot, on a shade that keeps them readable. Twig (block cover_media to embed one's own) and vue (default slot).",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/cover/cover.scss"
@@ -4421,6 +4450,12 @@
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_ripple.scss",
             "description": "A press answered where it landed: a wave spreading from the point touched, inside the element pressed (RippleHelper). An agent's press wears the accent, as its outline does, so the reader sees who touched."
+        },
+        {
+            "key": "sentence",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_sentence.scss",
+            "description": "What a thing is, said in one line: words, and its values set apart among them as markers \u2014 \u00ab reads the request, of type message, the last 10 \u00bb.  Text, not a row: the words flow and wrap word by word as a sentence does, the markers standing in the line as words do. A row (`cluster`) would wrap by pieces, a run of words falling to the next line whole; it is for things side by side, not for things said. The markers need nothing of it: they are already inline, centred on the line, the typed spaces their margin."
         },
         {
             "key": "stack",

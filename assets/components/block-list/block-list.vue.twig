@@ -1,0 +1,40 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ parent() }}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.components.block-list.block-list::*') }}
+{%- endblock -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/disclosure') -}}
+{%- endblock -%}
+
+{%- block vue_body -%}
+    {#- Each item a line — the caller's `label`, its place by default — folded
+        on its body — the default slot —; what can be done about it at the
+        line's end: the caller's `actions`, then up, down, the bin. Under the
+        list, the caller's `add`. -#}
+    <div class="block-list">
+        <ol v-if="items.length" class="block-list--items">
+            <li v-for="(item, index) in items" :key="keyOf(item)" class="block-list--item">
+                <disclosure :open="isOpen(item)">
+                    <template #label><slot name="label" :item="item" :index="index">#[[ index + 1 ]]</slot></template>
+                    <template v-if="!readonly || $slots.actions" #actions>
+                        <slot name="actions" :item="item" :index="index"></slot>
+                        <template v-if="!readonly">
+                            {#- Moving takes two items or more. -#}
+                            <template v-if="items.length > 1">
+                                <button type="button" class="action-icon" :disabled="index === 0" :aria-label="resolvedUpLabel" :data-tooltip="resolvedUpLabel" @click.stop.prevent="move(item, index, 'up')" v-html="renderIcon('ph:bold/arrow-up')"></button>
+                                <button type="button" class="action-icon" :disabled="index === items.length - 1" :aria-label="resolvedDownLabel" :data-tooltip="resolvedDownLabel" @click.stop.prevent="move(item, index, 'down')" v-html="renderIcon('ph:bold/arrow-down')"></button>
+                            </template>
+                            <button type="button" class="action-icon" :aria-label="resolvedRemoveLabel" :data-tooltip="resolvedRemoveLabel" :data-confirm-message="removeConfirm || null" @click.stop.prevent="remove(item, $event)" v-html="renderIcon('ph:bold/trash')"></button>
+                        </template>
+                    </template>
+                    <slot :item="item" :index="index"></slot>
+                </disclosure>
+            </li>
+        </ol>
+        <div v-else class="empty"><slot name="empty">[[ resolvedEmptyLabel ]]</slot></div>
+        <div v-if="!readonly && $slots.add" class="block-list--add"><slot name="add"></slot></div>
+    </div>
+{%- endblock -%}

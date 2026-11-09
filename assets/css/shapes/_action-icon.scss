@@ -35,6 +35,10 @@ button.action-icon {
   background: var(--color-selected);
 }
 
-button.action-icon:disabled {
+// Nothing to do here — the first of a list moved up —: fainter than the
+// others, and hovering it does not light it.
+button.action-icon:disabled,
+button.action-icon:disabled:hover {
+  color: var(--text-color-subtle);
   cursor: default;
 }

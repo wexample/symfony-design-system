@@ -1,0 +1,38 @@
+@use '../../css/shapes/action-icon';
+@use '../../css/shapes/empty';
+@use '../disclosure/disclosure';
+
+// An ordered list of things edited one by one: each framed on its own line,
+// its body folded under it; what adds one more under the list.
+.block-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.block-list--items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.block-list--item {
+  padding-inline: var(--space-2);
+  border: var(--border-default);
+  border-radius: var(--radius-control);
+
+  // The body opened keeps the frame's room under it.
+  > .disclosure > .disclosure--body {
+    padding-block-end: var(--space-2);
+  }
+}
+
+// One or several ways to add, side by side, wrapping.
+.block-list--add {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}

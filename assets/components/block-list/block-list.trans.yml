@@ -1,0 +1,137 @@
+en:
+  up: "Move up"
+  down: "Move down"
+  remove: "Remove"
+  empty: "Nothing yet"
+
+ar:
+  up: "نقل لأعلى"
+  down: "نقل لأسفل"
+  remove: "إزالة"
+  empty: "لا شيء بعد"
+
+bn:
+  up: "উপরে সরান"
+  down: "নিচে সরান"
+  remove: "সরিয়ে দিন"
+  empty: "এখনও কিছু নেই"
+
+de:
+  up: "Nach oben"
+  down: "Nach unten"
+  remove: "Entfernen"
+  empty: "Noch nichts"
+
+es:
+  up: "Subir"
+  down: "Bajar"
+  remove: "Quitar"
+  empty: "Nada todavía"
+
+fa:
+  up: "انتقال به بالا"
+  down: "انتقال به پایین"
+  remove: "حذف"
+  empty: "هنوز چیزی نیست"
+
+fi:
+  up: "Siirrä ylös"
+  down: "Siirrä alas"
+  remove: "Poista"
+  empty: "Ei vielä mitään"
+
+fr:
+  up: "Monter"
+  down: "Descendre"
+  remove: "Supprimer"
+  empty: "Rien pour l’instant"
+
+he:
+  up: "הזזה למעלה"
+  down: "הזזה למטה"
+  remove: "הסרה"
+  empty: "עדיין אין כלום"
+
+hi:
+  up: "ऊपर ले जाएँ"
+  down: "नीचे ले जाएँ"
+  remove: "हटाएँ"
+  empty: "अभी कुछ नहीं"
+
+id:
+  up: "Pindah ke atas"
+  down: "Pindah ke bawah"
+  remove: "Hapus"
+  empty: "Belum ada apa-apa"
+
+it:
+  up: "Sposta su"
+  down: "Sposta giù"
+  remove: "Rimuovi"
+  empty: "Ancora niente"
+
+ja:
+  up: "上へ移動"
+  down: "下へ移動"
+  remove: "削除"
+  empty: "まだ何もありません"
+
+ko:
+  up: "위로 이동"
+  down: "아래로 이동"
+  remove: "제거"
+  empty: "아직 없음"
+
+nl:
+  up: "Omhoog"
+  down: "Omlaag"
+  remove: "Verwijderen"
+  empty: "Nog niets"
+
+pl:
+  up: "Przenieś w górę"
+  down: "Przenieś w dół"
+  remove: "Usuń"
+  empty: "Jeszcze nic"
+
+pt_BR:
+  up: "Mover para cima"
+  down: "Mover para baixo"
+  remove: "Remover"
+  empty: "Nada ainda"
+
+ru:
+  up: "Переместить вверх"
+  down: "Переместить вниз"
+  remove: "Удалить"
+  empty: "Пока ничего"
+
+th:
+  up: "ย้ายขึ้น"
+  down: "ย้ายลง"
+  remove: "ลบ"
+  empty: "ยังไม่มีอะไร"
+
+tr:
+  up: "Yukarı taşı"
+  down: "Aşağı taşı"
+  remove: "Kaldır"
+  empty: "Henüz bir şey yok"
+
+ur:
+  up: "اوپر منتقل کریں"
+  down: "نیچے منتقل کریں"
+  remove: "ہٹائیں"
+  empty: "ابھی کچھ نہیں"
+
+vi:
+  up: "Di chuyển lên"
+  down: "Di chuyển xuống"
+  remove: "Xóa"
+  empty: "Chưa có gì"
+
+zh:
+  up: "上移"
+  down: "下移"
+  remove: "移除"
+  empty: "暂无内容"

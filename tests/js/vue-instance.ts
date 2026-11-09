@@ -4,7 +4,7 @@
 // `extends` empty. No template, no reactivity: what a test reads is computed
 // again on each read.
 export function vueInstance(component: any, props: Record<string, unknown> = {}, bases: any[] = []) {
-  const emitted: Array<[string, unknown]> = [];
+  const emitted: Array<[string, ...unknown[]]> = [];
   const vm: any = {};
   const chain = [...bases, component];
 
@@ -25,7 +25,8 @@ export function vueInstance(component: any, props: Record<string, unknown> = {},
       vm[name] = method.bind(vm);
     });
   });
-  vm.$emit = (event: string, payload: unknown) => emitted.push([event, payload]);
+  // An event and what it carries: one payload as ever, several in their order.
+  vm.$emit = (event: string, payload?: unknown, ...more: unknown[]) => emitted.push([event, payload, ...more]);
   vm.trans = (key: string, args: Record<string, unknown> = {}) => `${key.split('.').pop()}${Object.keys(args).length ? ' ' + JSON.stringify(args) : ''}`;
 
   return { vm, emitted };

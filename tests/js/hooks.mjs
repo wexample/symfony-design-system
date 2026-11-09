@@ -18,6 +18,7 @@ const STUBS = {
   '@wexample/symfony-loader/js/Services/LiveUpdatesService': './stubs/Service.mjs',
   '@wexample/symfony-loader/js/Services/AdaptiveService': './stubs/Service.mjs',
   '@wexample/symfony-loader/js/Services/LocaleService': './stubs/Service.mjs',
+  '@wexample/symfony-loader/js/Services/IconService': './stubs/Service.mjs',
   '@wexample/symfony-loader/js/Class/Component': './stubs/Component.mjs',
   '@wexample/symfony-loader/js/Services/KeyboardService': './stubs/Service.mjs',
   '@wexample/symfony-design-system/js/Services/OverlayService': './stubs/Service.mjs',
