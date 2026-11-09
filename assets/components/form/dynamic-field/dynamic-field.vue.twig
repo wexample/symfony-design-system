@@ -177,7 +177,7 @@
             :extensions="field.extensions || {}"
             :translate="false"
     >
-        <template #entry="{ value: item, update, name: itemName }">
+        <template #entry="{ value: item, update, itemName }">
             <dynamic-field
                     :field="field.entry"
                     :model-value="item"

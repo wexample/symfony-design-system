@@ -7,7 +7,7 @@ let nextKey = 0;
 
 // Several values of one kind, an item each, in their order, held as a list:
 // one more added from `template`, any taken off, moved up and down. Each item
-// is drawn by the `entry` slot — `{ value, update, name, index }` —, any
+// is drawn by the `entry` slot — `{ value, update, itemName, index }` —, any
 // field: the collection knows the list, not what each item is. With no slot,
 // a text. Posted each under its index (`name[0]`, `name[1]`), by the form.
 export default {

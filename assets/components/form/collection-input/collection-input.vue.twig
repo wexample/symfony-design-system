@@ -17,7 +17,8 @@
         <div v-if="items.length" class="collection-input--items" role="group" :aria-labelledby="hasLabel ? resolvedId + '_label' : null">
             <div v-for="(item, index) in items" :key="keys[index]" class="collection-input--item">
                 <div class="collection-input--control">
-                    <slot name="entry" :value="item" :update="(value) => update(index, value)" :name="itemName(index)" :index="index">
+                    {#- Its sent name as `itemName`: `name` on a slot is the slot's own. -#}
+                    <slot name="entry" :value="item" :update="(value) => update(index, value)" :item-name="itemName(index)" :index="index">
                         <input class="form--input" type="text" :value="item" :name="itemName(index)" :readonly="!editable ? true : null" @input="update(index, $event.target.value)">
                     </slot>
                 </div>
