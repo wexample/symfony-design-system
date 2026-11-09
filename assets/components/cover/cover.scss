@@ -82,6 +82,21 @@
   text-shadow: 0 1px 2px rgb(0 0 0 / 50%);
 }
 
+// Tools over the band's top end corner, placed as a zone floats its own
+// (`zone--float`): over what it shows, above its words, on a surface of their
+// own that reads whatever the picture. None, nothing drawn.
+.cover--float {
+  z-index: 2;
+  padding: var(--space-1);
+  border-radius: var(--radius-control);
+  background: var(--surface-1);
+  box-shadow: var(--shadow-float);
+
+  &:empty {
+    display: none;
+  }
+}
+
 .cover--title {
   margin: 0;
   font-size: var(--font-size-7);

@@ -9,6 +9,9 @@
                 <div v-else class="cover--placeholder" aria-hidden="true">{{ icon('ph:bold/image') }}</div>
             </slot>
         </div>
+        <div v-if="$slots.float" class="cover--float zone--float">
+            <slot name="float"></slot>
+        </div>
         <div v-if="title || subtitle || $slots.words" class="cover--words">
             <slot name="words">
                 <h1 v-if="title" class="cover--title">[[ title ]]</h1>
