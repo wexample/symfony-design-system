@@ -14,6 +14,11 @@
       "minLength": 1,
       "description": "Label displayed to the user."
     },
+    "help": {
+      "type": ["string", "null"],
+      "description": "What the field is for, said under it: its use, the format it expects.",
+      "default": null
+    },
     "placeholder": {
       "type": ["string", "null"],
       "default": null
