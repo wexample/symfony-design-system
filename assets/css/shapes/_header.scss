@@ -38,6 +38,28 @@
     white-space: nowrap;
   }
 
+  // A title that says where one is — a project, then the scenario opened —,
+  // its steps parted by a chevron (`icon('ph:bold/caret-right')` between
+  // them): the chevron smaller than the words and in the muted ink, centred
+  // on their height rather than sat on their line; the steps that lead back
+  // muted too, the last one, where one is, in the title's ink.
+  .header--title > .icon {
+    margin-inline: var(--space-1);
+    color: var(--text-color-subtle);
+    font-size: 0.7em;
+    vertical-align: 0.1em;
+  }
+
+  .header--title > a {
+    color: var(--text-color-muted);
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      color: inherit;
+    }
+  }
+
   // A title edited in place (form/inline-edit): what its form refuses hangs
   // under it, past the header, rather than being cut by it.
   .header--body > .header--title:has(.inline-edit.is-editing) {
