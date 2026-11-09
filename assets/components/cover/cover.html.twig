@@ -1,0 +1,33 @@
+{#- The band across the head of a page: a picture, a video or what the page
+    puts there — an animation —, cropped to the band, the glow of a
+    placeholder while there is none. Its words over its foot when it has
+    some: a title, a line under it.
+
+    src: a picture; video: a video, playing muted, looping, in the band.
+    alt: what the picture shows.
+    title, subtitle: the words over the band's foot.
+    height: the band's (--cover-height).
+
+    A page puts its own animation in the band by embedding it:
+        {% embed '@WexampleSymfonyDesignSystemBundle/components/cover/cover.html.twig' %}
+            {% block cover_media %}<canvas class="cover--fill"></canvas>{% endblock %}
+        {% endembed %} -#}
+<div class="cover media--placeholder{{ class|default(null) ? ' ' ~ class }}"
+    {%- if height|default(null) %} style="--cover-height: {{ height }}"{% endif %}>
+    <div class="cover--media">
+        {%- block cover_media -%}
+            {%- if video|default(null) -%}
+                <video class="cover--fill" src="{{ video }}" autoplay muted loop playsinline aria-hidden="true"
+                    {%- if src|default(null) %} poster="{{ src }}"{% endif %}></video>
+            {%- elseif src|default(null) -%}
+                <img class="cover--fill" src="{{ src }}" alt="{{ alt|default('') }}">
+            {%- endif -%}
+        {%- endblock -%}
+    </div>
+    {%- if title|default(null) or subtitle|default(null) -%}
+        <div class="cover--words">
+            {%- if title|default(null) %}<h1 class="cover--title">{{ title }}</h1>{% endif -%}
+            {%- if subtitle|default(null) %}<p class="cover--subtitle">{{ subtitle }}</p>{% endif -%}
+        </div>
+    {%- endif -%}
+</div>

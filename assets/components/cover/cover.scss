@@ -1,0 +1,65 @@
+/* Component: cover */
+// The band across the head of a page, made to hold a picture, a video or an
+// animation: tall enough to be the page's first sight — a third of the
+// window, between 14 and 26rem, a page sets its own (--cover-height) —,
+// rounded as a block is, what it holds cropped to fill it rather than
+// distorted. With nothing in it, the glow of a placeholder (media). Its
+// words over its foot, on a shade rising from the bottom that keeps them
+// readable whatever the picture shows.
+@use '../../css/shapes/media';
+
+.cover {
+  --cover-height: clamp(14rem, 34vh, 26rem);
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  height: var(--cover-height);
+  overflow: hidden;
+  border-radius: var(--radius-box);
+  isolation: isolate;
+}
+
+.cover--media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+// What the band holds fills it, cropped: a picture, a video, a canvas.
+.cover--fill,
+.cover--media > :only-child {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cover--words {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-1);
+  width: 100%;
+  padding: var(--space-7) var(--space-6) var(--space-5);
+  background: linear-gradient(to top, rgb(0 0 0 / 55%), transparent);
+  color: white;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+}
+
+.cover--title {
+  margin: 0;
+  font-size: var(--font-size-7);
+  line-height: 1.1;
+}
+
+.cover--subtitle {
+  margin: 0;
+  font-size: var(--font-size-3);
+  opacity: 0.85;
+}
+
+@media print {
+  .cover {
+    break-inside: avoid;
+  }
+}
