@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "field_single.schema.json",
+  "title": "Single field",
+  "description": "One field of any kind but a collection, each kind a schema of its own beside this file, told apart by its `type`: what a collection repeats — a collection of collections is not one the norm knows.",
+  "oneOf": [
+    { "$ref": "text_input.schema.json" },
+    { "$ref": "textarea_input.schema.json" },
+    { "$ref": "password_input.schema.json" },
+    { "$ref": "hidden_input.schema.json" },
+    { "$ref": "select_input.schema.json" },
+    { "$ref": "submit_input.schema.json" },
+    { "$ref": "email_input.schema.json" },
+    { "$ref": "tel_input.schema.json" },
+    { "$ref": "url_input.schema.json" },
+    { "$ref": "key_value_input.schema.json" },
+    { "$ref": "tags_input.schema.json" },
+    { "$ref": "search_select_input.schema.json" },
+    { "$ref": "color_input.schema.json" },
+    { "$ref": "code_input.schema.json" },
+    { "$ref": "switch_input.schema.json" },
+    { "$ref": "checkbox_input.schema.json" },
+    { "$ref": "number_input.schema.json" }
+  ]
+}

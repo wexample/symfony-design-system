@@ -1,0 +1,207 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/text-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/textarea-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/select-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/key-value-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/tags-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/search-select-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/color-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/switch-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/checkbox-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/number-input') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/collection-input') -}}
+{%- endblock -%}
+
+{#- One field of a form's definition, by its kind, given what any field is
+    given — its value, name, label, errors —; a collection's items each this
+    same field again. `bare`: no label, no help, for an item. -#}
+{%- block vue_body -%}
+    {#- A kind the caller hands over (the form's `fieldComponents`): drawn by its
+        own component, given what any field is given. -#}
+    <component
+            v-if="customField(field)"
+            :is="customField(field).component"
+            v-model="value"
+            :name="name"
+            :errors="errorsOf(name)"
+            :label="bare ? null : field.label"
+            :help="bare ? null : (field.help || null)"
+            :placeholder="field.placeholder || ''"
+            :required="Boolean(field.required)"
+            :readonly="readonly"
+            :extensions="field.extensions || {}"
+            :translate="false"
+            v-bind="customProps(field)"
+    ></component>
+    <textarea-input
+            v-else-if="field.type === 'textarea' || field.type === 'code'"
+            v-model="value"
+            :name="name"
+            :errors="errorsOf(name)"
+            :label="bare ? null : field.label"
+            :help="bare ? null : (field.help || null)"
+            :placeholder="field.placeholder || ''"
+            :rows="field.rows || 3"
+            :required="Boolean(field.required)"
+            :readonly="readonly"
+            :extensions="field.extensions || {}"
+            :translate="false"
+    ></textarea-input>
+    <select-input
+            v-else-if="field.type === 'select'"
+            v-model="value"
+            :name="name"
+            :errors="errorsOf(name)"
+            :label="bare ? null : field.label"
+            :help="bare ? null : (field.help || null)"
+            :options="optionsOf(field)"
+            :required="Boolean(field.required)"
+            :readonly="readonly"
+            :extensions="field.extensions || {}"
+            :translate="false"
+    ></select-input>
+    <key-value-input
+            v-else-if="field.type === 'key_value'"
+            v-model="value"
+            :name="name"
+            :errors="errorsOf(name)"
+            :label="bare ? null : field.label"
+            :help="bare ? null : (field.help || null)"
+            :required="Boolean(field.required)"
+            :readonly="readonly"
+            :extensions="field.extensions || {}"
+            :translate="false"
+    ></key-value-input>
+    <tags-input
+            v-else-if="field.type === 'tags'"
+            v-model="value"
+            :errors="errorsOf(name)"
+            :label="bare ? null : field.label"
+            :help="bare ? null : (field.help || null)"
+            :placeholder="field.placeholder || null"
+            :separator="field.separator || ','"
+            :suggestions="field.suggestions || []"
+            :suggestions-url="field.suggestionsUrl || null"
+            :tone="field.tone || 'neutral'"
+            :glyph="field.glyph || null"
+            :required="Boolean(field.required)"
+            :readonly="readonly"
+            :extensions="field.extensions || {}"
+            :translate="false"
+    ></tags-input>
+    <search-select-input
+            v-else-if="field.type === 'search_select'"
+            v-model="value"
+            :errors="errorsOf(name)"
+            :label="bare ? null : field.label"
+            :help="bare ? null : (field.help || null)"
+            :placeholder="field.placeholder || null"
+            :options="field.options || []"
+            :options-url="field.optionsUrl || null"
+            :value-label="field.valueLabel || null"
+            :required="Boolean(field.required)"
+            :readonly="readonly"
+            :extensions="field.extensions || {}"
+            :translate="false"
+    ></search-select-input>
+    <color-input
+            v-else-if="field.type === 'color'"
+            v-model="value"
+            :name="name"
+            :errors="errorsOf(name)"
+            :label="bare ? null : field.label"
+            :help="bare ? null : (field.help || null)"
+            :swatches="field.swatches || []"
+            :required="Boolean(field.required)"
+            :readonly="readonly"
+            :extensions="field.extensions || {}"
+            :translate="false"
+    ></color-input>
+    {#- Yes or no, its label beside it. -#}
+    <switch-input
+            v-else-if="field.type === 'switch'"
+            v-model="value"
+            :name="name"
+            :errors="errorsOf(name)"
+            :label="bare ? null : field.label"
+            :help="bare ? null : (field.help || null)"
+            :readonly="readonly"
+            :extensions="field.extensions || {}"
+            :translate="false"
+    ></switch-input>
+    <checkbox-input
+            v-else-if="field.type === 'checkbox'"
+            v-model="value"
+            :name="name"
+            :errors="errorsOf(name)"
+            :label="bare ? null : field.label"
+            :help="bare ? null : (field.help || null)"
+            :readonly="readonly"
+            :extensions="field.extensions || {}"
+            :translate="false"
+    ></checkbox-input>
+    {#- A number between its bounds, by its step. -#}
+    <number-input
+            v-else-if="field.type === 'number'"
+            v-model="value"
+            :name="name"
+            :errors="errorsOf(name)"
+            :label="bare ? null : field.label"
+            :help="bare ? null : (field.help || null)"
+            :placeholder="field.placeholder || ''"
+            :min="field.min ?? null"
+            :max="field.max ?? null"
+            :step="field.step ?? null"
+            :stepper="Boolean(field.stepper)"
+            :required="Boolean(field.required)"
+            :readonly="readonly"
+            :extensions="field.extensions || {}"
+            :translate="false"
+    ></number-input>
+    {#- Several values of one kind: each item this same field, drawn for its
+        entry, bare — the collection names them. -#}
+    <collection-input
+            v-else-if="field.type === 'collection'"
+            v-model="value"
+            :name="name"
+            :errors="errorsOf(name)"
+            :label="bare ? null : field.label"
+            :help="bare ? null : (field.help || null)"
+            :template="collectionTemplate"
+            :allow-add="field.allowAdd !== false"
+            :allow-delete="field.allowDelete !== false"
+            :required="Boolean(field.required)"
+            :readonly="readonly"
+            :extensions="field.extensions || {}"
+            :translate="false"
+    >
+        <template #entry="{ value: item, update, name: itemName }">
+            <dynamic-field
+                    :field="field.entry"
+                    :model-value="item"
+                    @update:model-value="update"
+                    :name="itemName"
+                    :errors-of="errorsOf"
+                    :readonly="readonly"
+                    :draft="draft"
+                    bare
+            ></dynamic-field>
+        </template>
+    </collection-input>
+    <text-input
+            v-else
+            v-model="value"
+            :type="inputType(field)"
+            :name="name"
+            :errors="errorsOf(name)"
+            :label="bare ? null : field.label"
+            :help="bare ? null : (field.help || null)"
+            :placeholder="field.placeholder || ''"
+            :required="Boolean(field.required)"
+            :readonly="readonly"
+            :extensions="field.extensions || {}"
+            :translate="false"
+    ></text-input>
+{%- endblock -%}

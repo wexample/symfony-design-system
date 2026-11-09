@@ -1,0 +1,16 @@
+# Declares `form/dynamic-field` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "One field of a form's definition drawn by the field of its kind — what a dynamic form draws each of its fields with, and a collection each of its items."
+formats:
+  style: "adds no style of its own; each kind's field has its"
+  vue: true
+  template: "the twig side draws each field through the form's theme"
+  script: "its behaviour is the vue component's"
+  schema: "the norm's `field.schema.json` is what it reads"
+  ai: todo
+  react: todo
+  flutter: todo

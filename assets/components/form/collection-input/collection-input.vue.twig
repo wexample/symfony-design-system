@@ -1,0 +1,39 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/form-field/form-field.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.collection.*') }}
+{%- endblock -%}
+
+{#- The collection names a group, not a control: its label says what the
+    items are. -#}
+{%- block field_label -%}
+    <span v-if="hasLabel" class="form--label" :id="resolvedId + '_label'">[[ resolveLabel(label) ]]</span>
+{%- endblock -%}
+
+{#- Client-side twin of collection-input.html.twig: same classes, same
+    order. A change to either is a change to both. -#}
+{%- block field_control -%}
+    <div class="collection-input" :class="{ 'is-readonly': !editable }">
+        <div v-if="items.length" class="collection-input--items" role="group" :aria-labelledby="hasLabel ? resolvedId + '_label' : null">
+            <div v-for="(item, index) in items" :key="keys[index]" class="collection-input--item">
+                <div class="collection-input--control">
+                    <slot name="entry" :value="item" :update="(value) => update(index, value)" :name="itemName(index)" :index="index">
+                        <input class="form--input" type="text" :value="item" :name="itemName(index)" :readonly="!editable ? true : null" @input="update(index, $event.target.value)">
+                    </slot>
+                </div>
+                <span v-if="editable" class="collection-input--actions">
+                    {#- Moving takes two items or more. -#}
+                    <template v-if="items.length > 1">
+                        <button type="button" class="action-icon" :disabled="index === 0" :aria-label="t('up')" :title="t('up')" @click="move(index, 'up')">{{ icon('ph:bold/arrow-up') }}</button>
+                        <button type="button" class="action-icon" :disabled="index === items.length - 1" :aria-label="t('down')" :title="t('down')" @click="move(index, 'down')">{{ icon('ph:bold/arrow-down') }}</button>
+                    </template>
+                    <button v-if="allowDelete" type="button" class="action-icon" :aria-label="t('remove')" :title="t('remove')" @click="remove(index)">{{ icon('ph:bold/x') }}</button>
+                </span>
+            </div>
+        </div>
+        <div v-else-if="!editable" class="collection-input--empty">—</div>
+        <button v-if="editable && allowAdd" type="button" class="button button--flat collection-input--add" @click="add">
+            <span class="button--icon">{{ icon('ph:bold/plus') }}</span>[[ t('add') ]]
+        </button>
+    </div>
+{%- endblock -%}

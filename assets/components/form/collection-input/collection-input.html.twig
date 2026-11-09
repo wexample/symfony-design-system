@@ -1,0 +1,50 @@
+{#- Several values of one kind, an item each, drawn as the vue draws them.
+    Each item is what the caller drew (`items`, html: a field's widget and
+    its errors, posted under its index); `prototype` the item added, its
+    index `prototype_name` until the script puts the next one there, kept
+    hidden and never posted. The
+    script adds, takes off and moves, and posts the items again in the order
+    shown. -#}
+{%- set items = items|default([]) -%}
+{%- set allow_add = allow_add|default(true) -%}
+{%- set allow_delete = allow_delete|default(true) -%}
+{%- set domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.collection.' -%}
+{%- set actions -%}
+    <span class="collection-input--actions">
+        <button type="button" class="action-icon collection-input--up" aria-label="{{ (domain ~ 'up')|trans }}" title="{{ (domain ~ 'up')|trans }}">{{ icon('ph:bold/arrow-up') }}</button>
+        <button type="button" class="action-icon collection-input--down" aria-label="{{ (domain ~ 'down')|trans }}" title="{{ (domain ~ 'down')|trans }}">{{ icon('ph:bold/arrow-down') }}</button>
+        {%- if allow_delete %}
+        <button type="button" class="action-icon collection-input--remove" aria-label="{{ (domain ~ 'remove')|trans }}" title="{{ (domain ~ 'remove')|trans }}">{{ icon('ph:bold/x') }}</button>
+        {%- endif %}
+    </span>
+{%- endset -%}
+<div {{ component_render_tag_attributes({ class: 'form--group' }) }}
+        data-name="{{ name|default('') }}"
+        data-id="{{ id }}"
+        data-prototype-name="{{ prototype_name|default('__name__') }}">
+    <span class="form--label" id="{{ id }}_label">{{ label }}</span>
+    <div class="collection-input">
+        <div class="collection-input--items" role="group" aria-labelledby="{{ id }}_label">
+            {%- for item in items %}
+            <div class="collection-input--item" data-index="{{ loop.index0 }}">
+                <div class="collection-input--control">{{ item|raw }}</div>
+                {{ actions }}
+            </div>
+            {%- endfor %}
+        </div>
+        {%- if allow_add and prototype|default(null) %}
+        {#- In the page, for what it holds to be started as the page is — a
+            template's content is not —; never posted, a disabled fieldset's
+            controls never are. -#}
+        <fieldset class="collection-input--prototype" hidden disabled>
+            <div class="collection-input--item">
+                <div class="collection-input--control">{{ prototype|raw }}</div>
+                {{ actions }}
+            </div>
+        </fieldset>
+        <button type="button" class="button button--flat collection-input--add">
+            <span class="button--icon">{{ icon('ph:bold/plus') }}</span>{{ (domain ~ 'add')|trans }}
+        </button>
+        {%- endif %}
+    </div>
+</div>

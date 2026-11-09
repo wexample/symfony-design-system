@@ -101,6 +101,11 @@ en:
       add: "New key…"
       remove: "Remove"
       duplicate: "This key is written twice."
+    collection:
+      add: "Add"
+      remove: "Remove"
+      up: "Move up"
+      down: "Move down"
     stepper:
       label: Steps
     table:
@@ -272,6 +277,11 @@ ar:
     choice_list:
       filter: "تصفية…"
       filter_empty: "لا شيء يطابق."
+    collection:
+      add: "إضافة"
+      remove: "إزالة"
+      up: "نقل لأعلى"
+      down: "نقل لأسفل"
     stepper:
       label: الخطوات
     table:
@@ -443,6 +453,11 @@ bn:
     choice_list:
       filter: "ফিল্টার…"
       filter_empty: "কিছুই মেলে না।"
+    collection:
+      add: "যোগ করুন"
+      remove: "সরান"
+      up: "উপরে সরান"
+      down: "নিচে সরান"
     stepper:
       label: ধাপ
     table:
@@ -614,6 +629,11 @@ de:
     choice_list:
       filter: "Filtern…"
       filter_empty: "Nichts passt."
+    collection:
+      add: "Hinzufügen"
+      remove: "Entfernen"
+      up: "Nach oben"
+      down: "Nach unten"
     stepper:
       label: Schritte
     table:
@@ -785,6 +805,11 @@ es:
     choice_list:
       filter: "Filtrar…"
       filter_empty: "Nada coincide."
+    collection:
+      add: "Añadir"
+      remove: "Quitar"
+      up: "Subir"
+      down: "Bajar"
     stepper:
       label: Pasos
     table:
@@ -956,6 +981,11 @@ fa:
     choice_list:
       filter: "فیلتر…"
       filter_empty: "چیزی مطابقت ندارد."
+    collection:
+      add: "افزودن"
+      remove: "حذف"
+      up: "انتقال به بالا"
+      down: "انتقال به پایین"
     stepper:
       label: مراحل
     table:
@@ -1127,6 +1157,11 @@ fi:
     choice_list:
       filter: "Suodata…"
       filter_empty: "Mikään ei vastaa."
+    collection:
+      add: "Lisää"
+      remove: "Poista"
+      up: "Siirrä ylös"
+      down: "Siirrä alas"
     stepper:
       label: Vaiheet
     table:
@@ -1328,6 +1363,11 @@ fr:
       add: "Nouvelle clé…"
       remove: "Retirer"
       duplicate: "Cette clé est écrite deux fois."
+    collection:
+      add: "Ajouter"
+      remove: "Retirer"
+      up: "Monter"
+      down: "Descendre"
     stepper:
       label: Étapes
     grid:
@@ -1499,6 +1539,11 @@ he:
     choice_list:
       filter: "סינון…"
       filter_empty: "אין התאמה."
+    collection:
+      add: "הוספה"
+      remove: "הסרה"
+      up: "הזזה למעלה"
+      down: "הזזה למטה"
     stepper:
       label: שלבים
     table:
@@ -1670,6 +1715,11 @@ hi:
     choice_list:
       filter: "फ़िल्टर करें…"
       filter_empty: "कुछ भी मेल नहीं खाता।"
+    collection:
+      add: "जोड़ें"
+      remove: "हटाएँ"
+      up: "ऊपर ले जाएँ"
+      down: "नीचे ले जाएँ"
     stepper:
       label: चरण
     table:
@@ -1841,6 +1891,11 @@ id:
     choice_list:
       filter: "Saring…"
       filter_empty: "Tidak ada yang cocok."
+    collection:
+      add: "Tambah"
+      remove: "Hapus"
+      up: "Pindah ke atas"
+      down: "Pindah ke bawah"
     stepper:
       label: Langkah
     table:
@@ -2012,6 +2067,11 @@ it:
     choice_list:
       filter: "Filtra…"
       filter_empty: "Nessuna corrispondenza."
+    collection:
+      add: "Aggiungi"
+      remove: "Rimuovi"
+      up: "Sposta su"
+      down: "Sposta giù"
     stepper:
       label: Passi
     table:
@@ -2183,6 +2243,11 @@ ja:
     choice_list:
       filter: "絞り込み…"
       filter_empty: "一致するものはありません。"
+    collection:
+      add: "追加"
+      remove: "削除"
+      up: "上へ移動"
+      down: "下へ移動"
     stepper:
       label: ステップ
     table:
@@ -2354,6 +2419,11 @@ ko:
     choice_list:
       filter: "필터…"
       filter_empty: "일치하는 항목이 없습니다."
+    collection:
+      add: "추가"
+      remove: "제거"
+      up: "위로 이동"
+      down: "아래로 이동"
     stepper:
       label: 단계
     table:
@@ -2525,6 +2595,11 @@ nl:
     choice_list:
       filter: "Filteren…"
       filter_empty: "Niets komt overeen."
+    collection:
+      add: "Toevoegen"
+      remove: "Verwijderen"
+      up: "Omhoog"
+      down: "Omlaag"
     stepper:
       label: Stappen
     table:
@@ -2696,6 +2771,11 @@ pl:
     choice_list:
       filter: "Filtruj…"
       filter_empty: "Brak dopasowań."
+    collection:
+      add: "Dodaj"
+      remove: "Usuń"
+      up: "Przenieś w górę"
+      down: "Przenieś w dół"
     stepper:
       label: Kroki
     table:
@@ -2867,6 +2947,11 @@ pt_BR:
     choice_list:
       filter: "Filtrar…"
       filter_empty: "Nada corresponde."
+    collection:
+      add: "Adicionar"
+      remove: "Remover"
+      up: "Mover para cima"
+      down: "Mover para baixo"
     stepper:
       label: Passos
     table:
@@ -3038,6 +3123,11 @@ ru:
     choice_list:
       filter: "Фильтр…"
       filter_empty: "Ничего не найдено."
+    collection:
+      add: "Добавить"
+      remove: "Удалить"
+      up: "Переместить вверх"
+      down: "Переместить вниз"
     stepper:
       label: Этапы
     table:
@@ -3209,6 +3299,11 @@ th:
     choice_list:
       filter: "กรอง…"
       filter_empty: "ไม่มีรายการที่ตรงกัน"
+    collection:
+      add: "เพิ่ม"
+      remove: "ลบ"
+      up: "ย้ายขึ้น"
+      down: "ย้ายลง"
     stepper:
       label: ขั้นตอน
     table:
@@ -3380,6 +3475,11 @@ tr:
     choice_list:
       filter: "Filtrele…"
       filter_empty: "Eşleşen bir şey yok."
+    collection:
+      add: "Ekle"
+      remove: "Kaldır"
+      up: "Yukarı taşı"
+      down: "Aşağı taşı"
     stepper:
       label: Adımlar
     table:
@@ -3551,6 +3651,11 @@ ur:
     choice_list:
       filter: "فلٹر کریں…"
       filter_empty: "کچھ بھی مماثل نہیں۔"
+    collection:
+      add: "شامل کریں"
+      remove: "ہٹائیں"
+      up: "اوپر منتقل کریں"
+      down: "نیچے منتقل کریں"
     stepper:
       label: اقدامات
     table:
@@ -3722,6 +3827,11 @@ vi:
     choice_list:
       filter: "Lọc…"
       filter_empty: "Không có kết quả phù hợp."
+    collection:
+      add: "Thêm"
+      remove: "Xóa"
+      up: "Di chuyển lên"
+      down: "Di chuyển xuống"
     stepper:
       label: 'Các bước'
     table:
@@ -3893,6 +4003,11 @@ zh:
     choice_list:
       filter: "筛选…"
       filter_empty: "没有匹配项。"
+    collection:
+      add: "添加"
+      remove: "移除"
+      up: "上移"
+      down: "下移"
     stepper:
       label: 步骤
     table:

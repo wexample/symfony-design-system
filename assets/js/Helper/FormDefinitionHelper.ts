@@ -1,4 +1,4 @@
-import { tagsJoin, tagsUnique } from './TagsHelper';
+import { tagsJoin, tagsSplit, tagsUnique } from './TagsHelper';
 import { fieldExpressionMatches } from './FieldExpressionHelper';
 import AdaptiveService from '@wexample/symfony-loader/js/Services/AdaptiveService';
 import LocaleService from '@wexample/symfony-loader/js/Services/LocaleService';
@@ -55,6 +55,13 @@ export type FormDefinitionField = {
   stepper?: boolean;
   // A colour's offered colours (`color_input.schema.json`).
   swatches?: { value: string; label: string }[];
+  // A collection: the field each item is, each item's value, what one added
+  // starts from (`collection_input.schema.json`).
+  entry?: FormDefinitionField;
+  items?: unknown[];
+  template?: unknown;
+  allowAdd?: boolean;
+  allowDelete?: boolean;
 };
 
 export type FormDefinitionPair = { key: string; value: string };
@@ -63,8 +70,14 @@ export const FORM_DEFINITION_KIND_KEY_VALUE = 'key_value';
 
 export const FORM_DEFINITION_KIND_TAGS = 'tags';
 
+export const FORM_DEFINITION_KIND_COLLECTION = 'collection';
+
 // The kinds saying yes or no: held as a boolean, posted as a drawn checkbox is.
 export const FORM_DEFINITION_KINDS_TOGGLE = ['switch', 'checkbox'];
+
+// The kinds whose value is not a text: held as the form holds them
+// (`formDefinitionStartValue`), not as the definition's `value`.
+export const FORM_DEFINITION_KINDS_HELD = [FORM_DEFINITION_KIND_KEY_VALUE, FORM_DEFINITION_KIND_TAGS, FORM_DEFINITION_KIND_COLLECTION, ...FORM_DEFINITION_KINDS_TOGGLE];
 
 // What a yes or no given in `values` says: a boolean, or the words a record
 // or a query holds it as.
@@ -120,6 +133,104 @@ export function formDefinitionPairs(value: unknown): FormDefinitionPair[] {
   return [];
 }
 
+// A field's value as the form holds it: the one given, or the field's own —
+// pairs, words, a yes or no, a collection's items each as its entry holds
+// one, a text.
+export function formDefinitionStartValue(field: FormDefinitionField, given: unknown = undefined): unknown {
+  if (field.type === FORM_DEFINITION_KIND_KEY_VALUE) {
+    return formDefinitionPairs(given !== undefined ? given : field.pairs);
+  }
+
+  if (field.type === FORM_DEFINITION_KIND_TAGS) {
+    const tags = given !== undefined ? given : field.tags;
+
+    return Array.isArray(tags) ? [...tags] : tagsSplit(String(tags ?? ''), field.separator ?? ',');
+  }
+
+  if (FORM_DEFINITION_KINDS_TOGGLE.includes(field.type)) {
+    return formDefinitionChecked(given !== undefined ? given : field.checked);
+  }
+
+  if (field.type === FORM_DEFINITION_KIND_COLLECTION) {
+    const items = given !== undefined ? given : field.items;
+
+    return (Array.isArray(items) ? items : []).map((item) => (field.entry ? formDefinitionStartValue(field.entry, item) : String(item ?? '')));
+  }
+
+  return String((given !== undefined ? given : field.value) ?? '');
+}
+
+// What an item added to a collection starts from: its example, or its
+// entry's empty value.
+export function formDefinitionCollectionTemplate(field: FormDefinitionField): unknown {
+  if (field.template !== undefined && field.template !== null) {
+    return field.entry ? formDefinitionStartValue(field.entry, field.template) : field.template;
+  }
+
+  return field.entry ? formDefinitionStartValue({ ...field.entry, value: null, checked: false, pairs: [], tags: [], items: [] }) : '';
+}
+
+// A field's value put in the data under its full name, as the drawn field
+// posts it: pairs and items each under its index, words joined, a yes only
+// while it is on, an expression as the text it is.
+export function formDefinitionAppend(data: FormData, name: string, field: FormDefinitionField, value: unknown): void {
+  if (field.type === FORM_DEFINITION_KIND_KEY_VALUE) {
+    const pairs = formDefinitionPairs(value);
+
+    pairs.forEach((pair, index) => {
+      data.append(`${name}[${index}][key]`, pair.key);
+      data.append(`${name}[${index}][value]`, pair.value);
+    });
+
+    // None: sent empty, so the pairs it held are taken off.
+    if (!pairs.length) {
+      data.append(name, '');
+    }
+
+    return;
+  }
+
+  if (field.type === FORM_DEFINITION_KIND_COLLECTION) {
+    const items = Array.isArray(value) ? value : [];
+
+    // None: nothing sent, which the form reads as a list emptied — a text
+    // under the name would be refused, the collection taking a list.
+    items.forEach((item, index) => formDefinitionAppend(data, `${name}[${index}]`, field.entry ?? { type: 'text', name: field.name }, item));
+
+    return;
+  }
+
+  if (field.type === FORM_DEFINITION_KIND_TAGS) {
+    const list = Array.isArray(value) ? value : String(value ?? '').split(field.separator ?? ',');
+
+    data.append(name, tagsJoin(tagsUnique(list), field.separator ?? ','));
+
+    return;
+  }
+
+  // An expression in the value's place (`extensions.expression`): sent as
+  // the text it is, whatever the kind would have posted.
+  if (fieldExpressionMatches(field.extensions?.expression?.pattern as string, value)) {
+    data.append(name, String(value));
+
+    return;
+  }
+
+  // Its value while it is on, nothing while it is off: what a drawn
+  // checkbox posts, which the form reads back as off.
+  if (FORM_DEFINITION_KINDS_TOGGLE.includes(field.type)) {
+    if (formDefinitionChecked(value)) {
+      data.append(name, String(field.value ?? '1'));
+    }
+
+    return;
+  }
+
+  if (value !== null && value !== undefined && typeof value !== 'object') {
+    data.append(name, String(value));
+  }
+}
+
 export function formDefinitionAction(form: FormDefinition, id: string | null = null): string {
   return id ? form.action.replace(FORM_DEFINITION_ID_PLACEHOLDER, id) : form.action;
 }
@@ -129,60 +240,12 @@ export function formDefinitionAction(form: FormDefinition, id: string | null = n
 export function formDefinitionData(form: FormDefinition, values: Record<string, unknown> = {}): FormData {
   const data = new FormData();
 
+  // Each field with the value given, or its own: a text as it stands —
+  // none, nothing sent —, any other as the form holds it.
   (form.fields ?? []).forEach((field) => {
-    if (field.type === FORM_DEFINITION_KIND_KEY_VALUE) {
-      const name = formDefinitionFullName(form, field.name);
-      const pairs = formDefinitionPairs(field.name in values ? values[field.name] : field.pairs);
+    const own = FORM_DEFINITION_KINDS_HELD.includes(field.type) ? formDefinitionStartValue(field) : field.value;
 
-      // Each pair under its index, as the drawn field posts it; none, the
-      // field is sent empty so the pairs it held are taken off.
-      pairs.forEach((pair, index) => {
-        data.append(`${name}[${index}][key]`, pair.key);
-        data.append(`${name}[${index}][value]`, pair.value);
-      });
-
-      if (!pairs.length) {
-        data.append(name, '');
-      }
-
-      return;
-    }
-
-    // The words joined by the separator, as the drawn field posts them.
-    if (field.type === FORM_DEFINITION_KIND_TAGS) {
-      const tags = field.name in values ? values[field.name] : field.tags;
-      const list = Array.isArray(tags) ? tags : String(tags ?? '').split(field.separator ?? ',');
-
-      data.append(formDefinitionFullName(form, field.name), tagsJoin(tagsUnique(list), field.separator ?? ','));
-
-      return;
-    }
-
-    const given = field.name in values ? values[field.name] : undefined;
-
-    // An expression in the value's place (`extensions.expression`): sent as
-    // the text it is, whatever the kind would have posted.
-    if (fieldExpressionMatches(field.extensions?.expression?.pattern as string, given)) {
-      data.append(formDefinitionFullName(form, field.name), String(given));
-
-      return;
-    }
-
-    // Its value while it is on, nothing while it is off: what a drawn
-    // checkbox posts, which the form reads back as off.
-    if (FORM_DEFINITION_KINDS_TOGGLE.includes(field.type)) {
-      if (formDefinitionChecked(field.name in values ? values[field.name] : field.checked)) {
-        data.append(formDefinitionFullName(form, field.name), String(field.value ?? '1'));
-      }
-
-      return;
-    }
-
-    const value = field.name in values ? values[field.name] : field.value;
-
-    if (value !== null && value !== undefined && typeof value !== 'object') {
-      data.append(formDefinitionFullName(form, field.name), String(value));
-    }
+    formDefinitionAppend(data, formDefinitionFullName(form, field.name), field, field.name in values ? values[field.name] : own);
   });
 
   if (form.token) {

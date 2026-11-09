@@ -1380,6 +1380,42 @@
             "notes": []
         },
         {
+            "key": "form/collection-input",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "Several values of one kind, an item each, in their order \u2014 any field repeated, a code editor among them \u2014: one more added from an example, any taken off, moved up and down. Posted an item under each index.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/collection-input/collection-input.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/collection-input/collection-input.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/collection-input/collection-input.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/collection-input/collection-input.vue.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/collection-input/collection-input.ts"
+                ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/collection-input/collection-input.schema.json"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "expected",
+                "schema": "expected",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "ai": "add, set, move and take off an item"
+            }
+        },
+        {
             "key": "form/color-input",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A colour, held and sent as #rrggbb: its swatch opening the browser's picker, its hex typed beside it \u2014 #abc read as #aabbcc once the field is left \u2014, the colours the field offers under it, a press each. The same in twig and in vue (ColorHelper).",
@@ -1482,6 +1518,33 @@
                 "flutter": "todo"
             },
             "notes": []
+        },
+        {
+            "key": "form/dynamic-field",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "One field of a form's definition drawn by the field of its kind \u2014 what a dynamic form draws each of its fields with, and a collection each of its items.",
+            "formats": {
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/dynamic-field/dynamic-field.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/dynamic-field/dynamic-field.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "waived",
+                "template": "waived",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "waived",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "style": "adds no style of its own; each kind's field has its",
+                "template": "the twig side draws each field through the form's theme",
+                "script": "its behaviour is the vue component's",
+                "schema": "the norm's `field.schema.json` is what it reads"
+            }
         },
         {
             "key": "form/dynamic-form",

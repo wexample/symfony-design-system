@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "field.schema.json",
+  "title": "Field",
+  "description": "One field of a form, of any kind: a single one (`field_single.schema.json`), or a collection repeating one. Where a form lists its fields.",
+  "oneOf": [
+    { "$ref": "field_single.schema.json" },
+    { "$ref": "collection_input.schema.json" }
+  ]
+}

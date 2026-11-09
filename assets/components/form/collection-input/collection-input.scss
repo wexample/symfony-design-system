@@ -1,0 +1,56 @@
+/* Component: form/collection-input */
+// Several values of one kind: an item a line, its field taking the room, what
+// is done to it — up, down, off — at its end, level with its first line; the
+// button adding one under the list.
+@use '../../../css/shapes/form/base';
+@use '../../../css/shapes/action-icon';
+@use '../../button/button';
+@use '../../../css/mixins/visually-hidden' as hidden;
+
+.collection-input {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.collection-input--items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-self: stretch;
+}
+
+.collection-input--item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-1);
+  align-items: start;
+}
+
+// Level with a control's first line, however tall the item grows.
+.collection-input--actions {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--control-size);
+}
+
+// An item's own field, drawn by the server's theme with its label: the
+// label kept for whoever reads the page aloud, the collection's showing.
+.collection-input--control > .form--group {
+  margin: 0;
+
+  > .form--label {
+    @include hidden.visually-hidden;
+  }
+}
+
+// The item added, kept in the page for the script; never shown, whatever a
+// form says of its fieldsets.
+.collection-input > .collection-input--prototype[hidden] {
+  display: none;
+}
+
+.collection-input--empty {
+  color: var(--text-color-subtle);
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "collection_input.schema.json",
+  "title": "Collection input field",
+  "description": "Several values of one kind, an item each, in their order: the field repeated (`entry`, any single field of the norm — a text, a number, a code —) once per value (`items`), one more added from `template`, any taken off, moved up and down. Its value is the list, not a text: `value` stays unset. Sent as a list, each item under its index as its entry would be sent alone — `form[field][0]`, `form[field][1]` —, nothing under the field's name when the list is empty, so the values it held are taken off.",
+  "type": "object",
+  "allOf": [
+    { "$ref": "field_base.schema.json" }
+  ],
+  "properties": {
+    "type": {
+      "const": "collection"
+    },
+    "entry": {
+      "$ref": "field_single.schema.json",
+      "description": "The field each item is, of any kind but a collection: its kind and what the kind takes. Its `name` and `label` stand for every item; its own value is not read."
+    },
+    "items": {
+      "type": "array",
+      "description": "Each item's value, as its entry holds one: a text, a yes or no, a list.",
+      "default": []
+    },
+    "template": {
+      "description": "What an item added starts from: an example to fill in. Unset, the entry's empty value."
+    },
+    "allowAdd": {
+      "type": "boolean",
+      "default": true
+    },
+    "allowDelete": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": ["type", "name", "label", "entry"],
+  "unevaluatedProperties": false
+}
