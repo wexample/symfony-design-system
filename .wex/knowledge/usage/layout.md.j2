@@ -40,7 +40,7 @@ The dashboard layout holds three things still — the header, the page's own nav
 
 ## A cover at the head of a page
 
-`cover` is the band a page opens on, made to hold a picture, a video or an animation, cropped to fill it: a third of the window, between 14 and 26rem (`--cover-height`, or `height`); it covers — out of the zone's padding, edge to edge, up to the zone's top when it opens it, no corner — and `cover--inset` keeps it inside, rounded as a block is; with nothing in it, the glow of a placeholder. `title` and `subtitle` lie over its foot, on a shade that keeps them readable.
+`cover` is the band a page opens on, made to hold a picture, a video or an animation, cropped to fill it: a third of the window, between 14 and 26rem (`--cover-height`, or `height`); it covers — out of the zone's padding, edge to edge, up to the zone's top when it opens it, no corner — and `cover--inset` keeps it inside, rounded as a block is; with nothing in it, the design system's missing picture — a faint grid, a picture glyph — in the theme's colours. `title` and `subtitle` lie over its foot, on a shade that keeps them readable.
 
 {% raw %}```twig
 {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/cover', { src: project.cover, title: project.title }) }}

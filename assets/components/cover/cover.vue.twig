@@ -1,11 +1,12 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
 
 {%- block vue_body -%}
-    <div class="cover media--placeholder" :style="height ? { '--cover-height': height } : null">
+    <div class="cover" :style="height ? { '--cover-height': height } : null">
         <div class="cover--media">
             <slot>
                 <video v-if="video" class="cover--fill" :src="video" :poster="src || null" autoplay muted loop playsinline aria-hidden="true"></video>
                 <img v-else-if="src" class="cover--fill" :src="src" :alt="alt">
+                <div v-else class="cover--placeholder" aria-hidden="true">{{ icon('ph:bold/image') }}</div>
             </slot>
         </div>
         <div v-if="title || subtitle || $slots.words" class="cover--words">

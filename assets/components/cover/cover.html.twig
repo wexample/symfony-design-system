@@ -14,7 +14,7 @@
         {% embed '@WexampleSymfonyDesignSystemBundle/components/cover/cover.html.twig' %}
             {% block cover_media %}<canvas class="cover--fill"></canvas>{% endblock %}
         {% endembed %} -#}
-<div class="cover media--placeholder{{ class|default(null) ? ' ' ~ class }}"
+<div class="cover{{ class|default(null) ? ' ' ~ class }}"
     {%- if height|default(null) %} style="--cover-height: {{ height }}"{% endif %}>
     <div class="cover--media">
         {%- block cover_media -%}
@@ -23,6 +23,8 @@
                     {%- if src|default(null) %} poster="{{ src }}"{% endif %}></video>
             {%- elseif src|default(null) -%}
                 <img class="cover--fill" src="{{ src }}" alt="{{ alt|default('') }}">
+            {%- else -%}
+                <div class="cover--placeholder" aria-hidden="true">{{ icon('ph:bold/image') }}</div>
             {%- endif -%}
         {%- endblock -%}
     </div>
