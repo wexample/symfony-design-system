@@ -52,6 +52,12 @@
   &:focus-visible {
     text-decoration: underline;
   }
+
+  // What it holds — an identifier, whose shortened form asks for help —
+  // says it can be pressed, as the link does.
+  * {
+    cursor: inherit;
+  }
 }
 
 // Broken anywhere rather than where it must: a path, an address, filling its
