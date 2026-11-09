@@ -1,0 +1,15 @@
+// What a thing is, said in one line: words, and its values set apart among
+// them as markers — « reads the request, of type message, the last 10 ».
+//
+// Text, not a row: the words flow and wrap word by word as a sentence does,
+// the markers standing in the line as words do. A row (`cluster`) would wrap
+// by pieces, a run of words falling to the next line whole; it is for things
+// side by side, not for things said. The markers need nothing of it: they
+// are already inline, centred on the line, the typed spaces their margin.
+.sentence {
+  font-size: var(--font-size-2);
+  color: var(--text-color-muted);
+  // Room on each line for the capsules standing in it, so two lines of them
+  // do not touch when the sentence wraps.
+  line-height: 1.9;
+}
