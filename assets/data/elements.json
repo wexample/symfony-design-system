@@ -2,6 +2,36 @@
     "version": 3,
     "elements": [
         {
+            "key": "avatar-group",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "The people of something as a pile of small faces \u2014 who is in a project, on a task, in a session \u2014: the first ones overlapping, each ringed with the ground it stands on, the rest counted as one more face (+3), each named under the pointer. A face is a picture, a face drawn from a seed (avatar()), or the label's initials. The same pile in twig and vue (AvatarGroupHelper, PHP and TS).",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/avatar-group/avatar-group.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/avatar-group/avatar-group.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/avatar-group/avatar-group.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/avatar-group/avatar-group.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "a pile needs nothing to run"
+            }
+        },
+        {
             "key": "banner",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A band across the top of the page saying one thing to everyone \u2014 a maintenance, a cookie notice, a version to update \u2014, closed by the reader and kept closed.",

@@ -1,0 +1,26 @@
+{#- The people of something, as a pile of small faces — who is in a project,
+    on a task, in a session —: the first ones overlapping, each ringed with
+    the ground it stands on, the rest counted as one more face (`+3`). Each
+    face is named under the pointer.
+
+    items: [{ label, seed?, src? }] — a picture given (`src`), a face drawn
+        from a seed (`avatar()`), or the label's initials.
+    max: the faces at most, the count among them (4).
+    size: the faces' size (1.5rem). -#}
+{%- set group = avatar_group_split(items|default([]), max|default(4)) -%}
+<span class="avatar-group{{ class is defined and class ? ' ' ~ class }}"
+    {%- if size is defined and size %} style="--avatar-size: {{ size }}"{% endif %}
+    role="group"{% if label is defined and label %} aria-label="{{ label }}"{% endif %}>
+    {%- for item in group.shown -%}
+        {%- if item.src is defined and item.src -%}
+            <span class="avatar" title="{{ item.label|default('') }}"><img src="{{ item.src }}" alt="{{ item.label|default('') }}" loading="lazy"></span>
+        {%- elseif item.seed is defined and item.seed -%}
+            <span class="avatar-group--face" title="{{ item.label|default('') }}">{{ avatar(item.seed, { label: item.label|default(null) }) }}</span>
+        {%- else -%}
+            <span class="avatar avatar--initials" title="{{ item.label|default('') }}" aria-label="{{ item.label|default('') }}">{{ avatar_initials(item.label|default(null)) }}</span>
+        {%- endif -%}
+    {%- endfor -%}
+    {%- if group.more > 0 -%}
+        <span class="avatar avatar--more" title="{{ group.more }}">+{{ group.more }}</span>
+    {%- endif -%}
+</span>

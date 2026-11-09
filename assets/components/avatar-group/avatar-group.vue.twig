@@ -1,0 +1,11 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <span class="avatar-group" :style="size ? { '--avatar-size': size } : null" role="group" :aria-label="label || null">
+        <template v-for="(item, index) in group.shown" :key="index">
+            <span v-if="item.src" class="avatar" :title="item.label || ''"><img :src="item.src" :alt="item.label || ''" loading="lazy"></span>
+            <span v-else class="avatar avatar--initials" :title="item.label || ''" :aria-label="item.label || ''">[[ initials(item.label) ]]</span>
+        </template>
+        <span v-if="group.more > 0" class="avatar avatar--more" :title="String(group.more)">+[[ group.more ]]</span>
+    </span>
+{%- endblock -%}

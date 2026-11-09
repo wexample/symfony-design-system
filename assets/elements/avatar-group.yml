@@ -1,0 +1,16 @@
+# Declares `avatar-group` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "The people of something as a pile of small faces — who is in a project, on a task, in a session —: the first ones overlapping, each ringed with the ground it stands on, the rest counted as one more face (+3), each named under the pointer. A face is a picture, a face drawn from a seed (avatar()), or the label's initials. The same pile in twig and vue (AvatarGroupHelper, PHP and TS)."
+formats:
+  style: true
+  template: true
+  vue: true
+  script: "a pile needs nothing to run"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

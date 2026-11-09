@@ -1,0 +1,68 @@
+/* Component: avatar-group */
+// A pile of small faces: each overlapping the one before by a quarter — the
+// letters of the one under still read —, ringed with the ground it stands on
+// (`--avatar-group-ring`: a zone's surface, a block's inside a block; a
+// ground of another kind hands its own) so the edge between two reads; the count of the rest one more
+// face, in the muted ink. Pointed at, a face comes forward.
+@use '../../css/shapes/avatar';
+
+.avatar-group {
+  --avatar-size: 1.5rem;
+  --avatar-group-ring: var(--surface-zone, var(--surface-1));
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+
+  > .avatar,
+  > .avatar-group--face > .avatar {
+    position: relative;
+    box-shadow: 0 0 0 2px var(--avatar-group-ring);
+    transition: transform 0.15s;
+  }
+
+  > * + * {
+    margin-inline-start: calc(var(--avatar-size) * -0.25);
+  }
+
+  > .avatar-group--face {
+    display: inline-flex;
+  }
+
+  > :hover {
+    z-index: 1;
+  }
+
+  > .avatar:hover,
+  > .avatar-group--face:hover > .avatar {
+    transform: translateY(-1px);
+  }
+}
+
+// A face with no picture: its initials, small and strong, on a ground two
+// steps above a block's (`--surface-3`, neutral 5), so it reads on the page
+// and in a block alike.
+.avatar--initials,
+.avatar--more {
+  --avatar-bg: var(--neutral-7);
+  --avatar-color: var(--text-color-default);
+  font-size: calc(var(--avatar-size) * 0.4);
+  font-weight: var(--font-weight-strong);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.avatar--more {
+  --avatar-color: var(--text-color-muted);
+}
+
+// The ground a block paints: the ring takes it.
+.block .avatar-group {
+  --avatar-group-ring: var(--surface-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar-group > .avatar,
+  .avatar-group > .avatar-group--face > .avatar {
+    transition: none;
+  }
+}
