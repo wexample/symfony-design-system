@@ -348,9 +348,35 @@
   color: var(--text-color-muted);
 }
 
+// How the figure moved, under it — « +12 % » —: said in the colour of where
+// it went, up the success's, down the error's, flat the muted ink. Which way
+// is good is the page's to say: a cost going up is `--down`'s colour.
+.block--figure-trend {
+  font-size: var(--font-size-2);
+  font-weight: var(--font-weight-strong);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-color-muted);
+}
+
+.block--figure-trend--up {
+  color: var(--success-11);
+}
+
+.block--figure-trend--down {
+  color: var(--error-11);
+}
+
+// A small chart at the figure's foot — its line over the period, a sparkline
+// as wide as the card (symfony-charts-ds) —: the whole width, a little room
+// above it.
+.block--figure-chart {
+  align-self: stretch;
+  margin-block-start: var(--space-3);
+}
+
 // A key figure laid from the line's start rather than centred: the label above,
 // the value, the line under it. A row of them reads down the labels, then across
-// the values. Whatever follows — a small chart one day — takes the same edge.
+// the values. Whatever follows — its trend, a small chart — takes the same edge.
 .block--figure--start {
   align-items: flex-start;
   justify-content: flex-start;
