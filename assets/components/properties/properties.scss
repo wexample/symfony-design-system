@@ -164,23 +164,21 @@ $tile-gap: 0.25rem;
   }
 }
 
-// No more than so many to a row (`properties--tiles-max-N`): where the
-// room would lay more, the most that divide them and that the cap allows —
-// six capped at three, two rows of three.
-@for $max from 2 through 6 {
-  @for $count from 1 through 12 {
-    $best: 1;
+// Wide tiles (`properties--tiles-wide`): each asks twice the room before
+// they lie side by side — six in a row only where six really fit, two rows
+// of three before that. Laid over the narrow ones, one class more.
+$tile-min-wide: 2 * $tile-min;
 
-    @for $columns from 2 through $max {
-      @if $count % $columns == 0 {
-        $best: $columns;
-      }
-    }
+@for $count from 1 through 12 {
+  .properties--tiles-wide.properties--tiles-#{$count} > .properties--row {
+    width: 100%;
+  }
 
-    @if $best > 1 and $count > $max {
-      @container (min-width: #{$best * $tile-min + ($best - 1) * $tile-gap}) {
-        .properties--tiles-max-#{$max}.properties--tiles-#{$count} > .properties--row {
-          width: calc((100% - #{($best - 1) * $tile-gap}) / #{$best});
+  @for $columns from 2 through $count {
+    @if $count % $columns == 0 {
+      @container (min-width: #{$columns * $tile-min-wide + ($columns - 1) * $tile-gap}) {
+        .properties--tiles-wide.properties--tiles-#{$count} > .properties--row {
+          width: calc((100% - #{($columns - 1) * $tile-gap}) / #{$columns});
         }
       }
     }

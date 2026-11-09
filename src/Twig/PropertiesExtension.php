@@ -85,9 +85,9 @@ class PropertiesExtension extends AbstractTemplateExtension
         if ($options['tiles'] ?? false) {
             $classes[] = 'properties--tiles-'.count(array_filter($items, fn (array $item) => ! $item['full']));
 
-            // No more than so many to a row (`tiles_max`, up to six).
-            if ($options['tiles_max'] ?? null) {
-                $classes[] = 'properties--tiles-max-'.(int) $options['tiles_max'];
+            // Each asking twice the room before they lie side by side.
+            if ($options['tiles_wide'] ?? false) {
+                $classes[] = 'properties--tiles-wide';
             }
         }
 

@@ -51,10 +51,10 @@ export default {
       type: Boolean,
       default: false
     },
-    // With tiles: no more than so many to a row, up to six.
-    tilesMax: {
-      type: Number,
-      default: null
+    // With tiles: each asking twice the room before they lie side by side.
+    tilesWide: {
+      type: Boolean,
+      default: false
     },
     extraClass: {
       type: String,
@@ -96,8 +96,8 @@ export default {
       if (this.tiles) {
         classes.push(`properties--tiles-${this.items.filter((item) => !item.full).length}`);
 
-        if (this.tilesMax) {
-          classes.push(`properties--tiles-max-${this.tilesMax}`);
+        if (this.tilesWide) {
+          classes.push('properties--tiles-wide');
         }
       }
 
