@@ -51,6 +51,11 @@ export default {
       type: Boolean,
       default: false
     },
+    // With tiles: no more than so many to a row, up to six.
+    tilesMax: {
+      type: Number,
+      default: null
+    },
     extraClass: {
       type: String,
       default: null
@@ -90,6 +95,10 @@ export default {
       // is not counted.
       if (this.tiles) {
         classes.push(`properties--tiles-${this.items.filter((item) => !item.full).length}`);
+
+        if (this.tilesMax) {
+          classes.push(`properties--tiles-max-${this.tilesMax}`);
+        }
       }
 
       if (this.extraClass) {
