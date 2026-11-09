@@ -113,6 +113,17 @@ $formProcessor->createForm(null, ['submit_when_valid' => true]);
 - For a short form whose fields say all they need — a name, a code, an address —; a longer one is better sent and told what is missing.
 - A field whose value is checked by the server alone (an email already taken) keeps the button free: only what the browser can check holds it.
 
+## Fields on one line, one leading the other
+
+An emoji before a title, a country code before a number: `form--line` around their rows, in the form's template, lays them on one line — the leading ones as wide as what they hold, the last taking the rest, their controls on one line whatever their labels say. Among columns it spans the line. The emoji picker stands there as a control: a square of a control's height, framed as a field.
+
+```twig
+<div class="form--line">
+    {{ form_row(form.emoji) }}
+    {{ form_row(form.title) }}
+</div>
+```
+
 ## A field set large
 
 The one thing asked on a step — a name, an address — is set large with `row_attr: { class: 'form--group--hero' }`: the label a step up, the value written big. A code (`OtpInputType`) is drawn that way already, its cells across the field's width.

@@ -94,6 +94,37 @@ fieldset.form--fieldset {
   --form-columns: 2;
 }
 
+// Fields on one line, one leading the other — an emoji before a title, a
+// country code before a number: the leading ones as wide as what they hold,
+// the last taking the rest, their controls on one line whatever their labels
+// say. A wrapper in the form's template (`<div class="form--line">`), the
+// fields' rows inside it as they are. Among columns, the line spans.
+.form--line {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+  min-width: 0;
+
+  > .form--group {
+    flex: 0 0 auto;
+  }
+
+  > .form--group:last-child {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  // What is said under a field — its errors, its help — would push its
+  // control off the line: the line holds the controls, the words follow.
+  > .form--group:has(> .form--field-errors, > .form--help) {
+    align-self: flex-start;
+  }
+}
+
+.form--columns > .form--line {
+  grid-column: 1 / -1;
+}
+
 // A field that wants the whole line among columns — a long text, a choice of
 // many options — set on its row (`row_attr: { class: 'form--span' }`). What is
 // not a field — the heading of a section, the actions — always does: a floated

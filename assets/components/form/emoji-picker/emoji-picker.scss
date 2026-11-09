@@ -1,4 +1,5 @@
 /* Component: form/emoji_picker */
+@use '../../../css/mixins/field' as field;
 
 .form--emoji-picker-control {
   position: relative;
@@ -12,9 +13,26 @@
   pointer-events: none;
 }
 
-.form--emoji-picker-toggle {
+// The emoji in a square of a control's height, framed as a field is: it
+// stands on a form's line beside the inputs (form--line) as one of them.
+.form--emoji-picker-toggle.button {
+  @include field.field-base;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-size);
+  height: var(--control-size);
+  padding: 0;
   line-height: 1;
   font-size: var(--font-size-5);
+
+  &:focus-visible {
+    @include field.field-focus;
+  }
+}
+
+.form--emoji-picker-control {
+  vertical-align: top;
 }
 
 .form--emoji-picker-panel {
