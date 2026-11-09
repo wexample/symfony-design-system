@@ -117,12 +117,12 @@ $formProcessor->createForm(null, ['submit_when_valid' => true]);
 
 An emoji before a title, a country code before a number: `form--line` around their rows, in the form's template, lays them on one line — the leading ones as wide as what they hold, the last taking the rest, their controls on one line whatever their labels say. Among columns it spans the line. The emoji picker stands there as a control: a square of a control's height, framed as a field.
 
-```twig
+{% raw %}```twig
 <div class="form--line">
     {{ form_row(form.emoji) }}
     {{ form_row(form.title) }}
 </div>
-```
+```{% endraw %}
 
 ## A field set large
 
@@ -196,13 +196,13 @@ and its `.vue.twig` only extends the generic one's. Its server face is a `FormTy
 
 `form/inline-edit` edits one field of a form of the application where its value is shown — a title in a bar, a name in a row —: the frame of a field holding what the page gives it (its default slot: a select, a value; the value alone else), a pencil after it and the page's own actions last (`actions` slot). Pressed, the frame holds the field instead, its ✓ and ✕ in it; Enter saves, Escape lets go. The form is a Symfony form handed over by symfony-forms' `form_definition()` rather than drawn: the vue sends its fields as the drawn form would be, to its processor, which validates, saves and notifies; what it refuses is said under the frame, the field kept open, and `saved` gives the new value once it is in.
 
-```twig
+{% raw %}```twig
 {{ vue(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/inline-edit', {
     form: form_definition(step_title_form, { id_placeholder: '__id__' }),
     field: 'title',
     id: step.id,
 }) }}
-```
+```{% endraw %}
 
 `id` goes where the form's address holds the placeholder: one form serves every entity a page shows. Without `form`, the frame and what it shows, no pencil — a reader who may not change the value.
 
