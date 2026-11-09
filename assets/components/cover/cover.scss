@@ -87,7 +87,6 @@
 // own that reads whatever the picture. None, nothing drawn.
 .cover--float {
   z-index: 2;
-  padding: var(--space-1);
   border-radius: var(--radius-control);
   background: var(--surface-1);
   box-shadow: var(--shadow-float);
