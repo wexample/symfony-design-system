@@ -113,6 +113,97 @@ $formProcessor->createForm(null, ['submit_when_valid' => true]);
 - For a short form whose fields say all they need — a name, a code, an address —; a longer one is better sent and told what is missing.
 - A field whose value is checked by the server alone (an email already taken) keeps the button free: only what the browser can check holds it.
 
+## Fields on one line, one leading the other
+
+An emoji before a title, a country code before a number: `form--line` around their rows, in the form's template, lays them on one line — the leading ones as wide as what they hold, the last taking the rest, their controls on one line whatever their labels say. Among columns it spans the line. The emoji picker stands there as a control: a square of a control's height, framed as a field.
+
+```twig
+<div class="form--line">
+    {{ form_row(form.emoji) }}
+    {{ form_row(form.title) }}
+</div>
+```
+
 ## A field set large
 
 The one thing asked on a step — a name, an address — is set large with `row_attr: { class: 'form--group--hero' }`: the label a step up, the value written big. A code (`OtpInputType`) is drawn that way already, its cells across the field's width.
+
+## Pairs of words
+
+`form/key-value-input` edits pairs, a key and its value, as a sheet: one frame, a line a pair, the keys — monospace, muted — and their values in two columns, the last line the next pair written in place. Typed in, key or value, that line becomes a pair and a new one opens below; Enter goes to the next line, Backspace on an emptied line takes it off, a line's × too. A key written twice is said on the key as it is typed. The vue holds `[{ key, value }]` (a record `{ lang: 'fr' }` is read as its pairs); the twig field posts each line under its index, the last one blank, so without a script the next pair is still written and an emptied one dropped. `dynamic-form` draws the `key_value` kind with it.
+
+## Words kept as tags
+
+`form/tags-input` holds words as tags, each a `marker` of the field's `tone` and `glyph` — a state's or a category's, `cat-straw` —, its × at its end. Enter or the separator adds what is typed; Backspace on an empty entry takes the last tag back. The words offered narrow as the typing goes, in a list under the field — the field's own (`suggestions`, words or `{ value, label }`) and those a source answers (`suggestionsUrl`, asked with `?q=` once the typing pauses, answering words or `{ value, label }`, wrapped in `data` or `items` or not) —, the ones taken left out; arrows walk the list, Enter takes the word pointed at. Twig and vue draw the same markup and read what is typed the same way: the logic is written once, `TagsHelper`. The twig field posts one text, the words joined; the vue holds a list, posted joined too where a native form or `dynamic-form` sends it.
+
+## One choice, searched
+
+`form/search-select-input` chooses one option among too many to send with the form — a registry, a list of countries —: the select's trigger, a list under it headed by a search field, the field's own options (`options`, words or `{ value, label }`) and those a source answers as the words are typed (`optionsUrl`, asked with `?q=`, answering as the tags field's source does: `OptionsHelper`, written once for both). The value is a text, posted by a hidden input; the trigger shows its label — `valueLabel`, else the option holding it, else asked of the source. Not required, the list opens on « — », taking the choice back. Arrows walk the list, Enter takes, Escape goes back to the trigger. It takes over the former `select-search` component. symfony-forms' `SearchSelectInputType` draws it; it does not hold every option, so the value is the application's to check, by a constraint of its own.
+
+## A colour
+
+`form/color-input` holds a colour as `#rrggbb`: a swatch at the start of the field — the colour itself, the browser's picker under it —, its hex in monospace beside it, the field the form posts. What is typed is read as a colour once the field is left (`#abc`, `ABC` → `#aabbcc`, `ColorHelper`); what is not one is kept as typed for the form to refuse, the swatch crossed meanwhile. `swatches` offers colours under the field, a press each, the one held ringed. symfony-forms' `ColorInputType` draws it; `form_definition()` hands it as kind `color`.
+
+## Yes or no, a number, from the server
+
+`form_definition()` hands a switch (`SwitchInputType`) as kind `switch`, a checkbox (`CheckboxType`, `CheckboxInputType`) as `checkbox`, each with `checked` — on or off — and the `value` it posts while on; a number (`NumberType`, `NumberInputType`, `IntegerType`) as `number`, with `min`, `max` and `step` read from the field's `attr` — a whole number stepping by one unless it says —, and `stepper` where the field asks for its buttons. `dynamic-form` draws them with `form/switch-input`, `form/checkbox-input` and `form/number-input`; a toggle is held as a boolean — `values` may give it as `true`, `1`, `on`… — and posted as a drawn checkbox is: its value while on, nothing while off.
+
+## What is attached to a field, whatever its kind: the extensions
+
+A field has two natures. Its **kind** — what it holds and how it is written: a text, a number, a choice, a colour — is the closed list of the norm. What is **attached** to it — its earlier versions, an expression in place of its value, tomorrow a comment, a translation — is orthogonal to the kind, cumulable, and never the field's business: it is declared once, as a kind is, and the field's base draws it for every field.
+
+One key carries it, on every kind (`field_base.schema.json`, `extensions`), one schema per extension in the norm (`extension_<name>.schema.json`), one option on every Symfony type (`extensions`, FieldExtensionsTypeExtension), one component per extension in the design system (`form/extension/<name>`), listed by the inventory under `form/extension`:
+
+```php
+->add('content', CodeInputType::class, [
+    'extensions' => [
+        'versions'   => ['url' => '/_api/template/versions/__id__'],
+        'expression' => ['language' => 'jinja', 'pattern' => '\\{[{%]'],
+    ],
+])
+```
+
+Each extension is a tagged service (`FieldExtensionInterface`: its name, what it takes, what it does to the form's building and view) and an entry of the browser's registry (`FieldExtensionsHelper`, `FIELD_EXTENSIONS`: its component, where it stands — a header, a footer —, its order). An application declares its own the same way, with the same four faces, and it is drawn like the design system's. The twig theme draws them in `form_row`, under the control it reaches by its id; the vue base (`_abstract/form-field`) draws them around `field_control`, given the field's value and giving it back; `dynamic-form` hands each field its `extensions` and provides what they may ask of the form (`dynamicFormContext`: the record sent, the saves, the components handed over). Extensions never touch the control's DOM, only the field's value: that is what lets them stack.
+
+**Versions** (`form/extension/versions`): the earlier versions of what the field holds, read at `url` — the record's id where the form's action has it (`__id__`) —, answering `[{ label, content, date, author }]`, the latest first, without the current one. The field's footer: the version read, the draft first and « current version » until it differs; a version chosen is shown in the field and compared with the draft (`diff-text`); « take this version back » makes it the draft without saving. The draft is never lost; the versions are read again once the form is saved, the page staying.
+
+**Expression** (`form/extension/expression`): an expression in place of the value — a template computing it on each run. A strip under the field switches it to an editor of `language` (the one the form hands over for code when it has one, a text area else) and back; the field starts as an expression when its value matches `pattern`, and gives the value kept before back on the way back. The value is sent under the field's name, as text, whichever it is: a number's or a switch's transformers never see it — an expression held is shown as it is, an expression sent is read by a text field put in the field's place. On a text, a number, a choice, a switch; not on pairs, tags or a colour.
+
+## A field standardised
+
+A field of an application is a field of the design system with its defaults preset. Its vue face extends the generic component and sets the defaults of its props, its own template id over the generic markup — nothing drawn, nothing behaved of its own:
+
+```js
+export default {
+  extends: TagsInput,
+  template: '#vue-template-…-stamps-input-stamps-input',
+  props: {
+    tone: { type: String, default: 'cat-straw' },
+    glyph: { type: String, default: 'ph:bold/tag' }
+  },
+  methods: {
+    // A default no prop can hold — a route of the application.
+    getSuggestionsUrl() {
+      return this.suggestionsUrl ?? this.app.getServiceOrFail(RoutingService).generate('api_stamp_list');
+    }
+  }
+};
+```
+
+and its `.vue.twig` only extends the generic one's. Its server face is a `FormType` whose parent is the generic type (symfony-forms, « A field standardised »). The demo's `demo-stamps-input` and `DemoStampsInputType` are one.
+
+## A field edited in place
+
+`form/inline-edit` edits one field of a form of the application where its value is shown — a title in a bar, a name in a row —: the frame of a field holding what the page gives it (its default slot: a select, a value; the value alone else), a pencil after it and the page's own actions last (`actions` slot). Pressed, the frame holds the field instead, its ✓ and ✕ in it; Enter saves, Escape lets go. The form is a Symfony form handed over by symfony-forms' `form_definition()` rather than drawn: the vue sends its fields as the drawn form would be, to its processor, which validates, saves and notifies; what it refuses is said under the frame, the field kept open, and `saved` gives the new value once it is in.
+
+```twig
+{{ vue(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/inline-edit', {
+    form: form_definition(step_title_form, { id_placeholder: '__id__' }),
+    field: 'title',
+    id: step.id,
+}) }}
+```
+
+`id` goes where the form's address holds the placeholder: one form serves every entity a page shows. Without `form`, the frame and what it shows, no pencil — a reader who may not change the value.
+
+`bare` reads the value as the text it is — a title in a header —: no frame, the pencil after it under the pointer, the frame of a field only while it is edited. A layout making the form for every page it draws hands it with symfony-forms' `form_definition_for(form_class, data)`.

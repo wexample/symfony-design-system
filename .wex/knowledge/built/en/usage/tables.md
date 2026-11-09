@@ -6,7 +6,7 @@ while the page is open.
 
 ## Columns and cells
 
-A column is `{ key, label, cell, align, width, wrap, className, secondary, unit, digits, negative }`. `cell` says how a value is
+A column is `{ key, label, cell, align, width, className, secondary, unit, digits, negative }`. `cell` says how a value is
 drawn: `date`, `html`, `status` (a marker: a type name, or `{ type, count, title, label }`),
 `path` (a file path: the name whole, the folders before it cut from their start — the
 `file-path` component, `file_path()` in twig), `code` (an identifier — a reference, an
@@ -20,10 +20,8 @@ A table is as wide as its columns ask and no wider; the bar above it (search, to
 `--table-column-width-*` tokens — so that its cells may change, a state or a figure refreshed
 in place, without the columns beside it moving. Columns left without one share what remains.
 
-A cell keeps to one line: a name, a date, a state broken in two doubles its row for a few
-characters, and a table wider than its zone scrolls sideways instead. `wrap: true` gives a
-column of sentences — a description, a message — its lines back. A text held to a few lines
-(`cell: 'clamp'`) wraps within them whatever the column says.
+A header keeps to one line; the cells below wrap as their column's width asks. A date, a
+figure, a code is read whole, never broken (`table--cell--nowrap`).
 
 `unit` makes a column of quantities: the cell holds the figure — a number, which sorts as one
 — and the table writes it in the page's locale, `digits` decimals at most (2 by default),
@@ -184,6 +182,27 @@ The endpoint must declare all three (an undeclared parameter is a `400`) and all
 the sort keys it knows. A new order or a new search reads again from the first page. A
 collection adds its own parameters by overriding `getCollectionQuery()`.
 
+## The other readings of a collection
+
+The same mixin, the same three ways of keeping up, and two shapes beside the table for
+what a table fits badly. `abstract-entity-bar-list` reads one line per row — a title, what
+qualifies it, an icon, where it leads — for what has a name rather than figures.
+`abstract-entity-console` reads one line per event, as they arrive: what a run writes of
+itself, what a job answered. Monospace, one notch down, a tone on the kind and that is all;
+a line keeps to one line, the whole read in the detail it leads to. A subclass says what to
+read on a line in `getLineConfiguration(entity)` — `{ time, tone, id, kind, ref, text,
+end, href, onClick }`, each part a string or `{ label, href, onClick }` when it leads somewhere:
+a slot's id opening the slot. Latest first by default, the api's freshest page first and
+more under the last line held; `isNewestFirst()` returning false reads it as a thread does,
+the api sorted oldest first, the console standing at its foot. Where more is past, a line says
+« Loading… » as a terminal would, and the next part is read as that edge is scrolled to — or
+at once while the lines do not fill the room —; once there is none, « - End - » says the last
+line is the last.
+
+## Two versions of a text
+
+`diff_text(before, after, { mode, context, words, before_label, after_label })` compares two versions of a text line by line — a template, a prompt, a content read from its history —: the lines kept, removed and added, their numbers in either text, the words changed marked in a line that faces its old form; the lines further than `context` (3) from any change folded, how many said. `mode: 'split'` sets them side by side, a removal facing the line that replaced it. Its vue (`components/diff-text`, `before`, `after`, the same options) compares them in the page — a version against the draft — and opens a fold when pressed. The rows are `DiffTextHelper`'s, written twice (PHP, TS) and tested on the same cases: the two faces draw the same lines. The field diff (`diff()`) compares values field by field and is another element.
+
 ## Several tables on one page
 
 A server table keeps its filters and its order at the top of the page's query, which suits a
@@ -245,3 +264,7 @@ overlay on top is the one holding Tab.
 `striped` and `hover` for tables read across. `page_size` does not exist on the server,
 where the controller pages; `pageSize` on the vue one pages the rows it holds, with the
 design system's pagination under the table.
+
+## The way on from a short list
+
+A list often shows the first of a set — the recent projects, the last sessions — and leads to the rest on another page. `more-link` says so under it: a quiet link, muted, its chevrons after it, taking the end of the line it stands on by itself — under a list, in a grid's cell, in a `block--footer--end` —, with nothing to add around it; `href` and `label`, in twig as in vue. It is not `load-more`, which brings the rest here, nor `text-link`, which sits in running text, nor a toolbar's link, which has a toolbar's padding and ground.

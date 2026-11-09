@@ -38,6 +38,21 @@ A row never leaves the window's edge bare: after the page held to a width (the r
 
 The dashboard layout holds three things still — the header, the page's own navigation (`page_tabs`), the footer — around the one thing that scrolls: the body, on both axes. A page wider than the window (`page_measure: false` under a table of many columns) widens its row to the table and slides under the bars, its scrollbar at the foot of the window; the bars keep the window's width without being told. Nothing of this is measured by a script: put a bar inside the scroller and it will travel with the page.
 
+## A cover at the head of a page
+
+`cover` is the band a page opens on, made to hold a picture, a video or an animation, cropped to fill it: a third of the window, between 14 and 26rem (`--cover-height`, or `height`); it covers — out of the zone's padding, edge to edge, up to the zone's top when it opens it, no corner — and `cover--inset` keeps it inside, rounded as a block is; with nothing in it, the design system's missing picture — a faint grid, a picture glyph — in the theme's colours. `title` and `subtitle` lie over its foot, on a shade that keeps them readable.
+
+```twig
+{{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/cover', { src: project.cover, title: project.title }) }}
+{{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/cover', { video: '/clip.mp4', src: '/poster.jpg' }) }}
+
+{% embed '@WexampleSymfonyDesignSystemBundle/components/cover/cover.html.twig' %}
+    {% block cover_media %}<canvas class="cover--fill"></canvas>{% endblock %}
+{% endembed %}
+```
+
+A video plays muted, looping, its `src` as its poster. In vue the default slot holds what the band shows, the `words` slot its words.
+
 ## Sections in the header
 
 `layout_navigation: 'top'` draws the entries of `page_menu_links` as tabs in the header, after the application's mark (`page_menu_logo`), instead of a menu down the side. It suits an application with a handful of sections, whose side menu would stand mostly empty.
@@ -58,6 +73,17 @@ The dashboard layout holds three things still — the header, the page's own nav
 {%- endblock -%}
 ```
 
+## Tabs of the header, as the page chooses
+
+`header_tabs` — `[{ label, href, icon, active }]` — draws tabs in the header whatever the navigation: where one is, the context the page stands in — a project, then its scenario —, named for whoever reads them aloud by `header_tabs_label`. With a side menu they take the title's place; on top they replace the sections, which are what top draws unsaid. The page's own views stay under the header (`page_tabs`): the header says where one is, the bar under it what one looks at there. Too narrow, they fold into one button, as the sections do.
+
+```twig
+{%- set header_tabs = [
+    { label: project.title, href: path('project_home_index', { project: project.id }) },
+    { label: scenario.title, icon: 'ph:bold/flow-arrow', href: path('project_scenario_home_index', { project: project.id, scenario: scenario.id }), active: true },
+] -%}
+```
+
 ## A record's pages
 
 Every page about one record — an account, a model — says the same three things in the same three places, so a reader knows where to look and a page written tomorrow reads like the others:
@@ -68,7 +94,22 @@ Every page about one record — an account, a model — says the same three thin
 
 What qualifies the record — its family, its state, a version — stands beside the header's title (`header_title_aside`, a marker mostly) or in the page, never in the title itself.
 
-## The way back
+## A bundle's screen in the application's layout
+
+A bundle cannot know the layout its screens belong in: the members of a project sit in the project's pages, with its menu, its header and its urls, which no bundle has heard of. So a bundle ships a screen as a **component** drawn by a twig function, `memberships(group)`, extending `AbstractTemplateExtension`: the function builds what the screen shows and hands it to the component, which loads its own stylesheet, script and translations wherever it is drawn. The application draws it in a page of its own, under its own layout:
+
+```twig
+{%- extends '@front/layouts/project/layout.html.twig' -%}
+
+{%- block page_body -%}
+    {{ memberships(project) }}
+{%- endblock -%}
+```
+
+A page the bundle ships beside it — `/memberships/team:…` extending `@front/layouts/private` — is a default host and nothing more: it holds the call above, for an application with no page of its own. Where the screen leads somewhere afterwards — a form reloading the list, a menu linking to it —, the bundle asks the application for its page through an interface the application implements (`HostsMembershipsInterface::getMembershipsUrl()`), and sends its own page's visitors there: an application hosting the screen never shows the bundle's page, which can go once every application hosts it.
+
+A bundle writing a page for a screen, instead of a component a page draws, has chosen a layout for every application using it.
+
 
 `breadcrumb_render({ back: true })` draws the page above the current one alone, as « ← its title »; nothing when there is none. The layout draws it above the title with `page_trail: 'back'`, the full trail with `page_trail: 'breadcrumb'`.
 
@@ -96,6 +137,18 @@ window, and a page asking for no region keeps the single column it always had.
 A panel, a modal and the dock draw no regions: a page meant to be opened in one
 too puts beside it only what it can also stack, and reads
 `render_pass.layoutBase` to tell the two apart.
+
+## Tools beside the page
+
+The bar of icons at the window's end (`tool_dock()`, the dashboard layout) holds the application's tools — `layout_dock_tools`, written once by its layout — and those a page adds for itself — `page_dock_tools`. One list of `{ name, label, icon, … }`: where each stands, whether it is open and the width it was left at are the dock's to keep. A tool opens a zone holding a page loaded the first time it opens (`url`), what the page drew (`content`), or a block of the page drawn with the dock (`content_block`) — the way to put a vue or a component there, which a value set at the top of the template cannot render. An `href` makes it a link of the bar instead.
+
+```twig
+{%- set page_dock_tools = [{ name: 'steps', label: 'Steps', icon: 'ph:bold/list-numbers', content_block: 'dock_steps' }] -%}
+
+{%- block dock_steps -%}
+    {{ vue(render_pass, '@front/vue/step-list', { steps: steps }) }}
+{%- endblock -%}
+```
 
 ## A side menu widened by its edge
 
@@ -179,6 +232,10 @@ What its row does when the asks do not fit — the row's class:
 | `zone--split--wrap` | below their floor, the zones go to the next line |
 
 A row holding a `zone--fit-content` scrolls of itself. Every rule of the block weighs the same, so the order of the file is the order of precedence — the asks, then the rows, which have the last word — and the block closes the file so that no rule written after it overrules a zone's place in its row.
+
+## Zones the reader cuts
+
+`zone-tiling` (vue) is a screen the reader composes: one zone at first, split side by side or one above the other, or closed, while the screen is arranged (`editing`: every zone hides what it shows — kept mounted —, and shows instead a transparent bar — its name, `zoneLabel(zone)`, and a pencil at its end opening what can be done to it — over the `edit` slot, what the page offers to put in it); every zone split again, every seam dragged (arrows on a focused seam, a double click evens the pair out). The arrangement is a tree in `v-model` — a split `{ id, split: 'h' | 'v', size, children }`, a zone `{ id, size, … }` — `size` a weight among siblings, so it holds on any screen; whatever else a zone carries is the page's and kept as it is. What a zone shows is the `zone` slot's (`{ zone, tiling }`), an empty zone says so otherwise. `zoneMenu(zone, items, tiling)` adds the page's own actions (an item's `run(zone, tiling)`); `tiling.update(id, patch)`, `split(id, dir)`, `close(id)` change the tree. `flush` lays the zones as a wall of screens. A node naming a `toolbar` — a zone, or a split: a section — gets a bar over it, drawn by the `toolbar` slot (`{ node, tiling }`); `tiling.sectionOf(id)` is the split holding a zone, or the zone at the top. The design system knows nothing of widgets: `symfony-workspace`'s board is built on it.
 
 ## The development menu
 
