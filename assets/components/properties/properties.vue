@@ -21,7 +21,7 @@ export default {
     // anywhere — a path, an address —, and code reads it as an identifier
     // (`identifier`), kept to its end with short, copied with copy. A value
     // leading somewhere is a link (href), one that acts a button reading as
-    // a link (onClick, here only).
+    // a link (onClick, here only) — an identifier too, then without its copy.
     items: {
       type: Array,
       required: true
