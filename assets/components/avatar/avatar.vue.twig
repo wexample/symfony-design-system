@@ -1,0 +1,17 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.presence.*') }}
+{%- endblock -%}
+
+{#- Client-side twin of avatar.html.twig: same classes, same order. A face
+    drawn from a seed is the server's (`avatar()`): the vue takes its address
+    as a picture (`src`). -#}
+{%- block vue_body -%}
+    <span :class="presence ? ['avatar-presence', 'avatar-presence--' + presence] : 'avatar-holder'" :style="size ? { '--avatar-size': size } : null" :title="presence ? [label, presenceWords].filter(Boolean).join(' · ') : null">
+        <span v-if="src" class="avatar" :title="label"><img :src="src" :alt="label" loading="lazy"></span>
+        <span v-else-if="emoji" class="avatar avatar--emoji" :title="label" role="img" :aria-label="label">[[ emoji ]]</span>
+        <span v-else class="avatar avatar--initials" :title="label" role="img" :aria-label="label">[[ initials ]]</span>
+        <span v-if="presence" class="visually-hidden">[[ presenceWords ]]</span>
+    </span>
+{%- endblock -%}

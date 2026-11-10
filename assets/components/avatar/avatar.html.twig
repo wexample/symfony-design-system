@@ -1,0 +1,31 @@
+{#- One person, or one agent, as a face: a picture given (`src`), else a face
+    drawn from a seed (`seed`, `avatar()`), else an emoji (`emoji`), else the
+    initials of its name (`label`). Named under the pointer.
+
+    size: the face's size (`--avatar-size`).
+    presence: whether it is there — `online`, `away`, `busy`, `offline` —, a
+        dot on its corner, said to whoever reads the page aloud. -#}
+{%- set label = label|default('') -%}
+{%- set presence = presence|default(null) -%}
+{%- set presence_words = presence ? ('WexampleSymfonyDesignSystemBundle.common.system::frontend.presence.' ~ presence)|trans : null -%}
+{%- set face -%}
+    {%- if src|default(null) -%}
+        <span class="avatar" title="{{ label }}"><img src="{{ src }}" alt="{{ label }}" loading="lazy"></span>
+    {%- elseif seed|default(null) -%}
+        {{ avatar(seed, { label: label ?: null, alt: label }) }}
+    {%- elseif emoji|default(null) -%}
+        <span class="avatar avatar--emoji" title="{{ label }}" role="img" aria-label="{{ label }}">{{ emoji }}</span>
+    {%- else -%}
+        <span class="avatar avatar--initials" title="{{ label }}" role="img" aria-label="{{ label }}">{{ avatar_initials(label) }}</span>
+    {%- endif -%}
+{%- endset -%}
+{%- if presence -%}
+    <span class="avatar-presence avatar-presence--{{ presence }}{{ class|default(null) ? ' ' ~ class }}"
+        {%- if size|default(null) %} style="--avatar-size: {{ size }}"{% endif %}
+        title="{{ label ~ (label ? ' · ' : '') ~ presence_words }}">
+        {{- face -}}
+        <span class="visually-hidden">{{ presence_words }}</span>
+    </span>
+{%- else -%}
+    <span class="avatar-holder{{ class|default(null) ? ' ' ~ class }}"{% if size|default(null) %} style="--avatar-size: {{ size }}"{% endif %}>{{ face }}</span>
+{%- endif -%}

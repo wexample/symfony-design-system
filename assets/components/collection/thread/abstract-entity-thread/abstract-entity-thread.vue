@@ -5,6 +5,7 @@ import {markdownRender} from "../../../../js/Helper/MarkdownHelper";
 import ThreadMessage from "../thread-message/thread-message.vue";
 import LoadMore from "../../../load-more/load-more.vue";
 import Disclosure from "../../../disclosure/disclosure.vue";
+import {threadContinued, threadDayKey, threadDayLabel} from "../../../../js/Helper/ThreadHelper";
 
 // How recent the last line waiting for an answer has to be, the thread opened
 // again, for the thread to show the answer is still coming. While the thread
@@ -51,6 +52,18 @@ export default {
     layout: {
       type: String,
       default: 'flat'
+    },
+    // A divider where a day begins — today, yesterday, a date —, for a
+    // conversation read across days.
+    dayDividers: {
+      type: Boolean,
+      default: false
+    },
+    // When the reader last read the conversation: a divider above the first
+    // line from someone else written after it, « New messages ».
+    unreadSince: {
+      type: String,
+      default: null
     }
   },
 
@@ -88,20 +101,53 @@ export default {
     // consecutive ones of the same group key — into `{ key, group: true,
     // groupKey, lines }`. A group is keyed by its first line, so one growing
     // at its end — a line arriving live — stays as it is, open or not.
+    // Between them, the dividers asked for (`{ key, divider, label }`): a
+    // day beginning, the first line unread. A line going on from the one
+    // before — its author, soon after, no divider between — says so
+    // (`continued`): its author and its face are not drawn again.
     threadItems() {
       const items = [];
+      let previous = null;
+      let previousDay = null;
+      let unreadPlaced = false;
+      const unreadSince = this.unreadSince ? new Date(this.unreadSince).getTime() : null;
 
       for (const line of this.messages) {
         const groupKey = this.getMessageGroupKey(line.entity);
         const last = items[items.length - 1];
+        const facts = {
+          author: this.getMessageAuthor(line.entity),
+          own: line.own,
+          date: this.getMessageDate(line.entity)
+        };
+        let divided = false;
+
+        if (this.dayDividers) {
+          const day = threadDayKey(facts.date);
+
+          if (day && day !== previousDay) {
+            items.push({ key: `day-${day}`, divider: 'day', label: this.dayLabel(day) });
+            divided = true;
+          }
+
+          previousDay = day ?? previousDay;
+        }
+
+        if (unreadSince !== null && !unreadPlaced && !line.own && facts.date && new Date(facts.date).getTime() > unreadSince) {
+          items.push({ key: 'unread', divider: 'unread', label: this.trans(`${DOMAIN}divider.unread`) });
+          unreadPlaced = true;
+          divided = true;
+        }
 
         if (groupKey === null || groupKey === undefined) {
-          items.push(line);
-        } else if (last?.group && last.groupKey === groupKey) {
+          items.push({ ...line, continued: !divided && threadContinued(previous, facts) });
+        } else if (!divided && last?.group && last.groupKey === groupKey) {
           last.lines.push(line);
         } else {
           items.push({ key: `group-${line.key}`, group: true, groupKey, lines: [line] });
         }
+
+        previous = groupKey === null || groupKey === undefined ? facts : null;
       }
 
       return items;
@@ -214,6 +260,17 @@ export default {
       return 'ph:bold/user';
     },
 
+    // The author's face, for a conversation between people; none draws the
+    // icon (getMessageIcon).
+    getMessageAvatar() {
+      return null;
+    },
+
+    // What tells the author apart beside its name; none by default.
+    getMessageAuthorMarker() {
+      return null;
+    },
+
     // Names the kind of line this is, so the thread can draw a tool call or a
     // system notice differently from a spoken turn. Null keeps the plain row.
     getMessageVariant() {
@@ -292,9 +349,23 @@ export default {
         html: this.isMessageMarkdown(entity) ? markdownRender(this.getMessageContent(entity)) : null,
         date: this.getMessageDate(entity),
         iconHtml: this.renderIcon(this.getMessageIcon(entity)),
+        // A person's face (`avatar`: { label, src, emoji, presence }), in
+        // place of the icon.
+        avatar: this.getMessageAvatar(entity),
+        // What tells the author apart beside its name — an agent among
+        // people: { label, tone }.
+        authorMarker: this.getMessageAuthorMarker(entity),
         variant: this.getMessageVariant(entity),
         own: this.isOwnMessage(entity)
       };
+    },
+
+    // A day as the divider says it.
+    dayLabel(day) {
+      return threadDayLabel(day, {
+        today: this.trans(`${DOMAIN}divider.today`),
+        yesterday: this.trans(`${DOMAIN}divider.yesterday`)
+      }, document.documentElement.lang || undefined);
     },
 
     // What the thread shows of a line: its content, or what a layer makes

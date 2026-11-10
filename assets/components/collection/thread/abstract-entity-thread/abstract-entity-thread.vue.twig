@@ -35,7 +35,11 @@
             <template v-for="item in threadItems" :key="item.key">
                 {#- Lines of a kind gathered, folded under one line: what the
                     thread groups (getMessageGroupKey), each drawn as any line. -#}
-                <div v-if="item.group" class="thread--group">
+                {#- Where a day begins, where the unread lines begin. -#}
+                <div v-if="item.divider" class="thread--divider" :class="'thread--divider--' + item.divider" role="separator">
+                    <span class="thread--divider-label">[[ item.label ]]</span>
+                </div>
+                <div v-else-if="item.group" class="thread--group">
                     <disclosure
                             :label="getMessageGroupLabel(item)"
                             :open="isMessageGroupOpen(item)"
@@ -59,7 +63,7 @@
                 <div
                         v-else
                         class="thread--item"
-                        :class="{ 'thread--item--own': item.own }"
+                        :class="{ 'thread--item--own': item.own, 'thread--item--continued': item.continued }"
                 >
                     <component
                             :is="getMessageComponent(item.entity)"

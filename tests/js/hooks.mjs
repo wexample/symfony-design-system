@@ -24,6 +24,7 @@ const STUBS = {
   '@wexample/symfony-design-system/js/Services/OverlayService': './stubs/Service.mjs',
   '@wexample/symfony-loader/js/Constants/FormEvents': './stubs/FormEvents.mjs',
   '@wexample/js-helpers/Helper/ElementSize': './stubs/ElementSize.mjs',
+  'markdown-it': './stubs/MarkdownIt.mjs',
 };
 
 // `?whole`: the component and every vue it pulls in run their scripts — for

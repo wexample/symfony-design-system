@@ -1,0 +1,71 @@
+/* Component: avatar */
+// One face: the avatar shape, its initials or its emoji when it has no
+// picture, and whether it is there — a dot over its end-bottom corner, ringed
+// with the ground it stands on (`--avatar-ring`) so it reads on any face.
+@use '../../css/shapes/avatar';
+@use '../../css/mixins/visually-hidden' as hidden;
+
+.avatar-holder,
+.avatar-presence {
+  --avatar-size: var(--space-6);
+  display: inline-flex;
+  vertical-align: middle;
+  flex: none;
+
+  // The face takes the size its holder was given (`size`), not the shape's own.
+  > .avatar {
+    --avatar-size: inherit;
+  }
+}
+
+.avatar--emoji {
+  --avatar-bg: var(--neutral-7);
+  font-size: calc(var(--avatar-size) * 0.55);
+  line-height: 1;
+}
+
+.avatar-presence {
+  --avatar-ring: var(--surface-zone, var(--surface-1));
+  --avatar-presence-tone: var(--neutral-8);
+  position: relative;
+
+  // The dot: a third of the face, the ring a third of the dot.
+  &::after {
+    content: '';
+    position: absolute;
+    inset-inline-end: 0;
+    bottom: 0;
+    width: max(0.5rem, calc(var(--avatar-size) * 0.3));
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--avatar-presence-tone);
+    box-shadow: 0 0 0 2px var(--avatar-ring);
+  }
+}
+
+.avatar-presence--online {
+  --avatar-presence-tone: var(--success-9);
+}
+
+.avatar-presence--away {
+  --avatar-presence-tone: var(--warning-9);
+}
+
+.avatar-presence--busy {
+  --avatar-presence-tone: var(--error-9);
+}
+
+// Not there: a ring, not a dot — nothing lit.
+.avatar-presence--offline::after {
+  background: var(--avatar-ring);
+  box-shadow: inset 0 0 0 2px var(--neutral-8), 0 0 0 2px var(--avatar-ring);
+}
+
+// The ground a block paints: the ring takes it.
+.block .avatar-presence {
+  --avatar-ring: var(--surface-3);
+}
+
+.avatar-presence > .visually-hidden {
+  @include hidden.visually-hidden;
+}

@@ -1,2 +1,4 @@
 @use '../../../../css/shapes/thread';
 @use '../../../../css/shapes/avatar';
+@use '../../../avatar/avatar' as avatar-component;
+@use '../../../marker/marker';

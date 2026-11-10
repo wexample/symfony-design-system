@@ -1,136 +1,228 @@
 en:
+  divider:
+    today: "Today"
+    yesterday: "Yesterday"
+    unread: "New messages"
   activity:
     thinking: Thinking…
   group: '%count% messages'
   load_older: Load earlier messages
 
 ar:
+  divider:
+    today: "اليوم"
+    yesterday: "أمس"
+    unread: "رسائل جديدة"
   activity:
     thinking: يفكّر…
   group: '%count% رسائل'
   load_older: تحميل الرسائل السابقة
 
 bn:
+  divider:
+    today: "আজ"
+    yesterday: "গতকাল"
+    unread: "নতুন বার্তা"
   activity:
     thinking: ভাবছে…
   group: '%count% বার্তা'
   load_older: পুরানো বার্তা লোড করুন
 
 de:
+  divider:
+    today: "Heute"
+    yesterday: "Gestern"
+    unread: "Neue Nachrichten"
   activity:
     thinking: Denkt nach…
   group: '%count% Nachrichten'
   load_older: Ältere Nachrichten laden
 
 es:
+  divider:
+    today: "Hoy"
+    yesterday: "Ayer"
+    unread: "Mensajes nuevos"
   activity:
     thinking: Pensando…
   group: '%count% mensajes'
   load_older: Cargar mensajes anteriores
 
 fa:
+  divider:
+    today: "امروز"
+    yesterday: "دیروز"
+    unread: "پیام‌های جدید"
   activity:
     thinking: در حال فکر…
   group: '%count% پیام'
   load_older: بارگذاری پیام‌های قدیمی‌تر
 
 fi:
+  divider:
+    today: "Tänään"
+    yesterday: "Eilen"
+    unread: "Uudet viestit"
   activity:
     thinking: Miettii…
   group: '%count% viestiä'
   load_older: Lataa aikaisempia viestejä
 
 fr:
+  divider:
+    today: "Aujourd’hui"
+    yesterday: "Hier"
+    unread: "Nouveaux messages"
   activity:
     thinking: Réflexion…
   group: '%count% messages'
   load_older: Charger les messages plus anciens
 
 he:
+  divider:
+    today: "היום"
+    yesterday: "אתמול"
+    unread: "הודעות חדשות"
   activity:
     thinking: חושב…
   group: '%count% הודעות'
   load_older: טעון הודעות קודמות
 
 hi:
+  divider:
+    today: "आज"
+    yesterday: "कल"
+    unread: "नए संदेश"
   activity:
     thinking: सोच रहा है…
   group: '%count% संदेश'
   load_older: पुराने संदेश लोड करें
 
 id:
+  divider:
+    today: "Hari ini"
+    yesterday: "Kemarin"
+    unread: "Pesan baru"
   activity:
     thinking: Berpikir…
   group: '%count% pesan'
   load_older: Muat pesan sebelumnya
 
 it:
+  divider:
+    today: "Oggi"
+    yesterday: "Ieri"
+    unread: "Nuovi messaggi"
   activity:
     thinking: Sta pensando…
   group: '%count% messaggi'
   load_older: Carica messaggi precedenti
 
 ja:
+  divider:
+    today: "今日"
+    yesterday: "昨日"
+    unread: "新着メッセージ"
   activity:
     thinking: 考え中…
   group: '%count% 件のメッセージ'
   load_older: 以前のメッセージを読み込む
 
 ko:
+  divider:
+    today: "오늘"
+    yesterday: "어제"
+    unread: "새 메시지"
   activity:
     thinking: 생각하는 중…
   group: 메시지 %count%개
   load_older: 이전 메시지 불러오기
 
 nl:
+  divider:
+    today: "Vandaag"
+    yesterday: "Gisteren"
+    unread: "Nieuwe berichten"
   activity:
     thinking: Denkt na…
   group: '%count% berichten'
   load_older: Laad eerdere berichten
 
 pl:
+  divider:
+    today: "Dzisiaj"
+    yesterday: "Wczoraj"
+    unread: "Nowe wiadomości"
   activity:
     thinking: Myśli…
   group: '%count% wiadomości'
   load_older: Załaduj wcześniejsze wiadomości
 
 pt_BR:
+  divider:
+    today: "Hoje"
+    yesterday: "Ontem"
+    unread: "Novas mensagens"
   activity:
     thinking: Pensando…
   group: '%count% mensagens'
   load_older: Carregar mensagens anteriores
 
 ru:
+  divider:
+    today: "Сегодня"
+    yesterday: "Вчера"
+    unread: "Новые сообщения"
   activity:
     thinking: Думает…
   group: '%count% сообщений'
   load_older: Загрузить более ранние сообщения
 
 th:
+  divider:
+    today: "วันนี้"
+    yesterday: "เมื่อวาน"
+    unread: "ข้อความใหม่"
   activity:
     thinking: กำลังคิด…
   group: '%count% ข้อความ'
   load_older: โหลดข้อความก่อนหน้า
 
 tr:
+  divider:
+    today: "Bugün"
+    yesterday: "Dün"
+    unread: "Yeni mesajlar"
   activity:
     thinking: Düşünüyor…
   group: '%count% mesaj'
   load_older: Daha eski mesajları yükle
 
 ur:
+  divider:
+    today: "آج"
+    yesterday: "کل"
+    unread: "نئے پیغامات"
   activity:
     thinking: سوچ رہا ہے…
   group: '%count% پیغامات'
   load_older: پرانے پیغامات لوڈ کریں
 
 vi:
+  divider:
+    today: "Hôm nay"
+    yesterday: "Hôm qua"
+    unread: "Tin nhắn mới"
   activity:
     thinking: Đang suy nghĩ…
   group: '%count% tin nhắn'
   load_older: Tải tin nhắn cũ hơn
 
 zh:
+  divider:
+    today: "今天"
+    yesterday: "昨天"
+    unread: "新消息"
   activity:
     thinking: 思考中…
   group: '%count% 条消息'

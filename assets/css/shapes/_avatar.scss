@@ -25,3 +25,15 @@
 .avatar--generated {
   background: none;
 }
+
+// A face with no picture: its initials, small and strong, on a ground two
+// steps above a block's (`--surface-3`, neutral 5), so it reads on the page
+// and in a block alike.
+.avatar--initials {
+  --avatar-bg: var(--neutral-7);
+  --avatar-color: var(--text-color-default);
+  font-size: calc(var(--avatar-size) * 0.4);
+  font-weight: var(--font-weight-strong);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}

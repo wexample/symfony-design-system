@@ -131,6 +131,51 @@
   }
 }
 
+// Where something begins in the thread — a day, the lines not read yet —: a
+// rule across it, a word in its middle. The unread one in the selected tone,
+// the place the reader's eye is sent to.
+.thread--divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--text-color-muted);
+  font-size: var(--font-size-2);
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1 1 auto;
+    border-top: var(--border-separator);
+  }
+}
+
+.thread--divider--unread {
+  color: var(--color-selected);
+  font-weight: var(--font-weight-strong);
+
+  &::before,
+  &::after {
+    border-top-color: currentColor;
+    opacity: 0.6;
+  }
+}
+
+// A line going on from the one before — its author, soon after —: closer to
+// it, its face and its name not drawn again, the face's room kept so the
+// words stand under the ones before.
+.thread--item--continued {
+  margin-top: calc(var(--space-1) - var(--space-4));
+
+  .thread-message > :is(.avatar, .thread-message--face) {
+    visibility: hidden;
+    height: 0;
+  }
+
+  .thread-message--meta {
+    display: none;
+  }
+}
+
 // The line of conversation: an avatar, then the words under their author and
 // date.
 .thread-message {
@@ -139,7 +184,12 @@
   gap: var(--space-4);
 }
 
-.thread-message .avatar {
+.thread-message--face {
+  --avatar-size: var(--space-6);
+  flex: 0 0 auto;
+}
+
+.thread-message > .avatar {
   --avatar-size: var(--space-5);
   width: var(--avatar-size);
   min-width: var(--avatar-size);

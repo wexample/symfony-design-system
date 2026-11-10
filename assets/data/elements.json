@@ -2,6 +2,36 @@
     "version": 3,
     "elements": [
         {
+            "key": "avatar",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "One person, or one agent, as a face \u2014 a picture, else a face drawn from a seed, else an emoji, else its initials \u2014, a dot on its corner saying whether it is there.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/avatar/avatar.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/avatar/avatar.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/avatar/avatar.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/avatar/avatar.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "a face needs nothing to run"
+            }
+        },
+        {
             "key": "avatar-group",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "The people of something as a pile of small faces \u2014 who is in a project, on a task, in a session \u2014: the first ones overlapping, each ringed with the ground it stands on, the rest counted as one more face (+3), each named under the pointer. A face is a picture, a face drawn from a seed (avatar()), or the label's initials. The same pile in twig and vue (AvatarGroupHelper, PHP and TS).",

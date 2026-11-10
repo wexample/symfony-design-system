@@ -1,0 +1,16 @@
+# Declares `avatar` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "One person, or one agent, as a face — a picture, else a face drawn from a seed, else an emoji, else its initials —, a dot on its corner saying whether it is there."
+formats:
+  style: true
+  template: true
+  vue: true
+  script: "a face needs nothing to run"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

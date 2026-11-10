@@ -2,6 +2,8 @@
 
 {%- block vue_require -%}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/date-display') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/avatar') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/marker') -}}
 {%- endblock -%}
 
 {%- block vue_body -%}
@@ -9,10 +11,13 @@
             class="thread-message"
             :class="[message.variant ? 'thread-message--' + message.variant : null, message.own ? 'thread-message--own' : null]"
     >
-        <div class="avatar" v-html="message.iconHtml"></div>
+        {#- A person's face, or the icon of what speaks. -#}
+        <avatar v-if="message.avatar" class="thread-message--face" v-bind="message.avatar"></avatar>
+        <div v-else class="avatar" v-html="message.iconHtml"></div>
         <div class="thread-message--body">
             <div class="thread-message--meta">
                 <span class="thread-message--author">[[ message.author ]]</span>
+                <ds-marker v-if="message.authorMarker" :tone="message.authorMarker.tone || 'neutral'" :label="message.authorMarker.label" compact></ds-marker>
                 <date-display
                         v-if="message.date"
                         class="thread-message--date"

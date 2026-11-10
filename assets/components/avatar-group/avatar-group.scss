@@ -38,10 +38,8 @@
   }
 }
 
-// A face with no picture: its initials, small and strong, on a ground two
-// steps above a block's (`--surface-3`, neutral 5), so it reads on the page
-// and in a block alike.
-.avatar--initials,
+// The count of the rest: one more face, its figure as initials are drawn
+// (the avatar shape), in the muted ink.
 .avatar--more {
   --avatar-bg: var(--neutral-7);
   --avatar-color: var(--text-color-default);

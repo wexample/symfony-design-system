@@ -1,5 +1,10 @@
 en:
   frontend:
+    presence:
+      online: "Online"
+      away: "Away"
+      busy: "Busy"
+      offline: "Offline"
     placeholder:
       pending: "Generating…"
     loading: Loading...
@@ -208,6 +213,11 @@ en:
 
 ar:
   frontend:
+    presence:
+      online: "متصل"
+      away: "بعيد"
+      busy: "مشغول"
+      offline: "غير متصل"
     placeholder:
       pending: "جارٍ الإنشاء…"
     loading: 'جار التحميل...'
@@ -386,6 +396,11 @@ ar:
 
 bn:
   frontend:
+    presence:
+      online: "অনলাইন"
+      away: "দূরে"
+      busy: "ব্যস্ত"
+      offline: "অফলাইন"
     placeholder:
       pending: "তৈরি হচ্ছে…"
     loading: 'লোড হচ্ছে...'
@@ -564,6 +579,11 @@ bn:
 
 de:
   frontend:
+    presence:
+      online: "Online"
+      away: "Abwesend"
+      busy: "Beschäftigt"
+      offline: "Offline"
     placeholder:
       pending: "Wird erstellt…"
     loading: Laden...
@@ -742,6 +762,11 @@ de:
 
 es:
   frontend:
+    presence:
+      online: "En línea"
+      away: "Ausente"
+      busy: "Ocupado"
+      offline: "Desconectado"
     placeholder:
       pending: "Generando…"
     loading: Cargando...
@@ -920,6 +945,11 @@ es:
 
 fa:
   frontend:
+    presence:
+      online: "آنلاین"
+      away: "دور"
+      busy: "مشغول"
+      offline: "آفلاین"
     placeholder:
       pending: "در حال ساخت…"
     loading: 'در حال بارگذاری...'
@@ -1098,6 +1128,11 @@ fa:
 
 fi:
   frontend:
+    presence:
+      online: "Paikalla"
+      away: "Poissa"
+      busy: "Varattu"
+      offline: "Ei paikalla"
     placeholder:
       pending: "Luodaan…"
     loading: Ladataan...
@@ -1276,6 +1311,11 @@ fi:
 
 fr:
   frontend:
+    presence:
+      online: "En ligne"
+      away: "Absent"
+      busy: "Occupé"
+      offline: "Hors ligne"
     placeholder:
       pending: "Génération en cours…"
     environment: "Environnement %env% : ce qui est affiché ici n'est pas la production"
@@ -1484,6 +1524,11 @@ fr:
 
 he:
   frontend:
+    presence:
+      online: "מחובר"
+      away: "לא זמין"
+      busy: "עסוק"
+      offline: "לא מחובר"
     placeholder:
       pending: "נוצר…"
     loading: טוען...
@@ -1662,6 +1707,11 @@ he:
 
 hi:
   frontend:
+    presence:
+      online: "ऑनलाइन"
+      away: "दूर"
+      busy: "व्यस्त"
+      offline: "ऑफ़लाइन"
     placeholder:
       pending: "बनाया जा रहा है…"
     loading: 'लोड हो रहा है...'
@@ -1840,6 +1890,11 @@ hi:
 
 id:
   frontend:
+    presence:
+      online: "Daring"
+      away: "Pergi"
+      busy: "Sibuk"
+      offline: "Luring"
     placeholder:
       pending: "Sedang dibuat…"
     loading: Memuat...
@@ -2018,6 +2073,11 @@ id:
 
 it:
   frontend:
+    presence:
+      online: "Online"
+      away: "Assente"
+      busy: "Occupato"
+      offline: "Offline"
     placeholder:
       pending: "Generazione in corso…"
     loading: Caricamento...
@@ -2196,6 +2256,11 @@ it:
 
 ja:
   frontend:
+    presence:
+      online: "オンライン"
+      away: "離席中"
+      busy: "取り込み中"
+      offline: "オフライン"
     placeholder:
       pending: "生成中…"
     loading: 読み込み中...
@@ -2374,6 +2439,11 @@ ja:
 
 ko:
   frontend:
+    presence:
+      online: "온라인"
+      away: "자리 비움"
+      busy: "바쁨"
+      offline: "오프라인"
     placeholder:
       pending: "생성 중…"
     loading: '로딩 중...'
@@ -2552,6 +2622,11 @@ ko:
 
 nl:
   frontend:
+    presence:
+      online: "Online"
+      away: "Afwezig"
+      busy: "Bezet"
+      offline: "Offline"
     placeholder:
       pending: "Wordt gemaakt…"
     loading: Laden...
@@ -2730,6 +2805,11 @@ nl:
 
 pl:
   frontend:
+    presence:
+      online: "Dostępny"
+      away: "Zaraz wracam"
+      busy: "Zajęty"
+      offline: "Niedostępny"
     placeholder:
       pending: "Generowanie…"
     loading: Ładowanie...
@@ -2908,6 +2988,11 @@ pl:
 
 pt_BR:
   frontend:
+    presence:
+      online: "Online"
+      away: "Ausente"
+      busy: "Ocupado"
+      offline: "Offline"
     placeholder:
       pending: "Gerando…"
     loading: Carregando...
@@ -3086,6 +3171,11 @@ pt_BR:
 
 ru:
   frontend:
+    presence:
+      online: "В сети"
+      away: "Отошёл"
+      busy: "Занят"
+      offline: "Не в сети"
     placeholder:
       pending: "Создаётся…"
     loading: Загрузка...
@@ -3264,6 +3354,11 @@ ru:
 
 th:
   frontend:
+    presence:
+      online: "ออนไลน์"
+      away: "ไม่อยู่"
+      busy: "ไม่ว่าง"
+      offline: "ออฟไลน์"
     placeholder:
       pending: "กำลังสร้าง…"
     loading: กำลังโหลด...
@@ -3442,6 +3537,11 @@ th:
 
 tr:
   frontend:
+    presence:
+      online: "Çevrimiçi"
+      away: "Uzakta"
+      busy: "Meşgul"
+      offline: "Çevrimdışı"
     placeholder:
       pending: "Oluşturuluyor…"
     loading: Yükleniyor...
@@ -3620,6 +3720,11 @@ tr:
 
 ur:
   frontend:
+    presence:
+      online: "آن لائن"
+      away: "دور"
+      busy: "مصروف"
+      offline: "آف لائن"
     placeholder:
       pending: "بنایا جا رہا ہے…"
     loading: 'لوڈ ہورہا ہے...'
@@ -3798,6 +3903,11 @@ ur:
 
 vi:
   frontend:
+    presence:
+      online: "Trực tuyến"
+      away: "Vắng mặt"
+      busy: "Bận"
+      offline: "Ngoại tuyến"
     placeholder:
       pending: "Đang tạo…"
     loading: 'Đang tải...'
@@ -3976,6 +4086,11 @@ vi:
 
 zh:
   frontend:
+    presence:
+      online: "在线"
+      away: "离开"
+      busy: "忙碌"
+      offline: "离线"
     placeholder:
       pending: "正在生成…"
     loading: 加载中...
