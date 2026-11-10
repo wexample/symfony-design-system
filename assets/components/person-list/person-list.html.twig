@@ -1,0 +1,39 @@
+{#- The people of something — of a conversation, a project, a team —, one
+    row each: the face and whether they are there, the name, the role as a
+    marker, what is done to them at the row's end. What adds one more under
+    the list.
+
+    items: [{ label, src?, seed?, emoji?, presence?, role?, role_tone?, actions? }]
+        — `actions`: the row's own html, at its end (a form taking them off).
+    add: html under the list (a button, a field).
+    empty: what is said when there is nobody. -#}
+{%- set domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.people.' -%}
+<div class="person-list{{ class|default(null) ? ' ' ~ class }}">
+    {%- if items|default([]) is not empty -%}
+        <ul class="person-list--rows">
+            {%- for item in items -%}
+                <li class="person-list--row">
+                    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/avatar', {
+                        label: item.label|default(''),
+                        src: item.src|default(null),
+                        seed: item.seed|default(null),
+                        emoji: item.emoji|default(null),
+                        presence: item.presence|default(null),
+                    }) }}
+                    <span class="person-list--name">{{ item.label|default('') }}</span>
+                    {%- if item.role|default(null) -%}
+                        {{ marker(item.role_tone|default('neutral'), item.role, { compact: true }) }}
+                    {%- endif -%}
+                    {%- if item.actions|default(null) -%}
+                        <span class="person-list--actions">{{ item.actions|raw }}</span>
+                    {%- endif -%}
+                </li>
+            {%- endfor -%}
+        </ul>
+    {%- else -%}
+        <div class="person-list--empty">{{ empty|default((domain ~ 'empty')|trans) }}</div>
+    {%- endif -%}
+    {%- if add|default(null) -%}
+        <div class="person-list--add">{{ add|raw }}</div>
+    {%- endif -%}
+</div>

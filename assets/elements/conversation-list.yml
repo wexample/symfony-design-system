@@ -1,0 +1,16 @@
+# Declares `conversation-list` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "Conversations to open — chats, mails, tickets —, a row each: who it is with, its title and when it last spoke, the last line said, how many wait to be read; the open one selected."
+formats:
+  style: true
+  template: true
+  vue: true
+  script: "its vue is the whole of it"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

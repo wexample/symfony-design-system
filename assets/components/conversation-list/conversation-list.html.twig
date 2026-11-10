@@ -1,0 +1,43 @@
+{#- Conversations to open — chats, mails, tickets —, a row each, the latest
+    first: who it is with (a face, or its people piled), its title and when it
+    last spoke, the last line said, how many lines wait to be read. Unread, the
+    row is in strong; the open one is the selected one.
+
+    items: [{ title, href, preview?, date?, unread?, active?, avatar?, people? }]
+        — `avatar`: { label, src?, seed?, emoji?, presence? }; `people`: as
+        avatar-group's items.
+    empty: what is said when there is none. -#}
+{%- set domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.conversations.' -%}
+<nav class="conversation-list{{ class|default(null) ? ' ' ~ class }}">
+    {%- if items|default([]) is not empty -%}
+        <ul class="conversation-list--rows">
+            {%- for item in items -%}
+                {%- set unread = item.unread|default(0) -%}
+                <li>
+                    <a class="conversation-list--row{{ unread > 0 ? ' conversation-list--row--unread' }}{{ item.active|default(false) ? ' is-active' }}"
+                        href="{{ item.href|default('#') }}"{% if item.active|default(false) %} aria-current="page"{% endif %}>
+                        <span class="conversation-list--face">
+                            {%- if item.people|default(null) -%}
+                                {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/avatar-group', { items: item.people, max: 2 }) }}
+                            {%- else -%}
+                                {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/avatar', (item.avatar|default({}))|merge({ label: item.avatar.label|default(item.title|default('')) })) }}
+                            {%- endif -%}
+                        </span>
+                        <span class="conversation-list--head">
+                            <span class="conversation-list--title">{{ item.title|default('') }}</span>
+                            {%- if item.date|default(null) -%}{{ date_display(item.date, 'auto', { class: 'conversation-list--date' }) }}{%- endif -%}
+                        </span>
+                        <span class="conversation-list--foot">
+                            <span class="conversation-list--preview">{{ item.preview|default('') }}</span>
+                            {%- if unread > 0 -%}
+                                <span class="count conversation-list--unread" aria-label="{{ (domain ~ 'unread')|trans({ '%count%': unread }) }}">{{ unread > 99 ? '99+' : unread }}</span>
+                            {%- endif -%}
+                        </span>
+                    </a>
+                </li>
+            {%- endfor -%}
+        </ul>
+    {%- else -%}
+        <div class="empty conversation-list--empty">{{ empty|default((domain ~ 'empty')|trans) }}</div>
+    {%- endif -%}
+</nav>

@@ -1,0 +1,16 @@
+# Declares `person-list` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "The people of something — a conversation, a project, a team —, a row each: face and presence, name, role, what is done to them at the row's end; what adds one more under it."
+formats:
+  style: true
+  template: true
+  vue: true
+  script: "its vue is the whole of it"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

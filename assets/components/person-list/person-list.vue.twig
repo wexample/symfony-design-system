@@ -1,0 +1,31 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.people.*') }}
+{%- endblock -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/avatar') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/marker') -}}
+{%- endblock -%}
+
+{#- Client-side twin of person-list.html.twig: same classes, same order. The
+    row's end: the caller's `actions` (`{ item }`), then the bin when
+    `removable`. Under the list, the caller's `add`. -#}
+{%- block vue_body -%}
+    <div class="person-list">
+        <ul v-if="items.length" class="person-list--rows">
+            <li v-for="item in items" :key="item.id ?? item.label" class="person-list--row">
+                <avatar :label="item.label || ''" :src="item.src || null" :emoji="item.emoji || null" :presence="item.presence || null"></avatar>
+                <span class="person-list--name">[[ item.label ]]</span>
+                <ds-marker v-if="item.role" :tone="item.roleTone || 'neutral'" :label="item.role" compact></ds-marker>
+                <span v-if="$slots.actions || removable" class="person-list--actions">
+                    <slot name="actions" :item="item"></slot>
+                    <button v-if="removable" type="button" class="action-icon" :aria-label="removeText(item)" :title="removeText(item)" @click="$emit('remove', item)">{{ icon('ph:bold/x') }}</button>
+                </span>
+            </li>
+        </ul>
+        <div v-else class="person-list--empty"><slot name="empty">[[ emptyText ]]</slot></div>
+        <div v-if="$slots.add" class="person-list--add"><slot name="add"></slot></div>
+    </div>
+{%- endblock -%}

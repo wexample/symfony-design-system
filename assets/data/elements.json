@@ -788,6 +788,36 @@
             }
         },
         {
+            "key": "conversation-list",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "Conversations to open \u2014 chats, mails, tickets \u2014, a row each: who it is with, its title and when it last spoke, the last line said, how many wait to be read; the open one selected.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/conversation-list/conversation-list.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/conversation-list/conversation-list.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/conversation-list/conversation-list.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/conversation-list/conversation-list.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "its vue is the whole of it"
+            }
+        },
+        {
             "key": "copy-button",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A button putting a text in the clipboard, quiet until it is used: the copy glyph, a check for a moment once copied, a cross when it could not be.",
@@ -3232,6 +3262,36 @@
             "notes": {
                 "template": "it drives what a vue shows, and has nothing to show on its own",
                 "script": "its behaviour is the vue component's"
+            }
+        },
+        {
+            "key": "person-list",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "The people of something \u2014 a conversation, a project, a team \u2014, a row each: face and presence, name, role, what is done to them at the row's end; what adds one more under it.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/person-list/person-list.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/person-list/person-list.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/person-list/person-list.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/person-list/person-list.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "its vue is the whole of it"
             }
         },
         {

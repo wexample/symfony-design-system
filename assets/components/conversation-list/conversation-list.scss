@@ -1,0 +1,122 @@
+/* Component: conversation-list */
+// Conversations to open, a row each: who it is with on its start, then two
+// lines — its title and its date, the last line said and how many wait to be
+// read —, cut where they run out of room. Unread, the title and the line in
+// strong; the open one on the selected ground.
+@use '../../css/shapes/count';
+@use '../../css/shapes/empty';
+@use '../avatar/avatar';
+@use '../avatar-group/avatar-group';
+@use '../date-display/date-display';
+
+.conversation-list--rows {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.conversation-list--row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    'face head'
+    'face foot';
+  column-gap: var(--space-3);
+  row-gap: 2px;
+  align-items: center;
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  border-radius: var(--radius-control);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--state-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-focus, var(--color-selected));
+    outline-offset: -2px;
+  }
+
+  &.is-active {
+    background: var(--color-selected);
+    color: var(--color-selected-contrast);
+
+    .conversation-list--date,
+    .conversation-list--preview {
+      color: inherit;
+      opacity: 0.85;
+    }
+  }
+}
+
+.conversation-list--face {
+  grid-area: face;
+  display: inline-flex;
+  --avatar-size: var(--space-6);
+
+  .avatar-group {
+    --avatar-size: calc(var(--space-6) * 0.75);
+  }
+}
+
+.conversation-list--head,
+.conversation-list--foot {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.conversation-list--head {
+  grid-area: head;
+}
+
+.conversation-list--foot {
+  grid-area: foot;
+  align-items: center;
+}
+
+.conversation-list--title,
+.conversation-list--preview {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.conversation-list--date {
+  flex: none;
+  font-size: var(--font-size-1);
+  color: var(--text-color-subtle);
+}
+
+.conversation-list--preview {
+  font-size: var(--font-size-2);
+  color: var(--text-color-muted);
+}
+
+.conversation-list--unread {
+  flex: none;
+}
+
+// Lines waiting to be read: what it is and what was said, in strong.
+.conversation-list--row--unread {
+  .conversation-list--title {
+    font-weight: var(--font-weight-strong);
+  }
+
+  .conversation-list--preview {
+    color: var(--text-color-default);
+  }
+}

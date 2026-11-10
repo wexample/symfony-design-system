@@ -1,0 +1,45 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.conversations.*') }}
+{%- endblock -%}
+
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/avatar') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/avatar-group') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/date-display') -}}
+{%- endblock -%}
+
+{#- Client-side twin of conversation-list.html.twig: same classes, same
+    order. A row with no address is pressed: `select` says which. -#}
+{%- block vue_body -%}
+    <nav class="conversation-list">
+        <ul v-if="items.length" class="conversation-list--rows">
+            <li v-for="item in items" :key="item.id ?? item.title">
+                <component
+                        :is="item.href ? 'a' : 'button'"
+                        :type="item.href ? null : 'button'"
+                        :href="item.href || null"
+                        class="conversation-list--row"
+                        :class="{ 'conversation-list--row--unread': item.unread > 0, 'is-active': isActive(item) }"
+                        :aria-current="isActive(item) ? 'page' : null"
+                        @click="onSelect(item, $event)"
+                >
+                    <span class="conversation-list--face">
+                        <avatar-group v-if="item.people" :items="item.people" :max="2"></avatar-group>
+                        <avatar v-else v-bind="item.avatar || {}" :label="(item.avatar && item.avatar.label) || item.title || ''"></avatar>
+                    </span>
+                    <span class="conversation-list--head">
+                        <span class="conversation-list--title">[[ item.title ]]</span>
+                        <date-display v-if="item.date" class="conversation-list--date" :value="item.date"></date-display>
+                    </span>
+                    <span class="conversation-list--foot">
+                        <span class="conversation-list--preview">[[ item.preview || '' ]]</span>
+                        <span v-if="item.unread > 0" class="count conversation-list--unread" :aria-label="unreadText(item)">[[ item.unread > 99 ? '99+' : item.unread ]]</span>
+                    </span>
+                </component>
+            </li>
+        </ul>
+        <div v-else class="empty conversation-list--empty"><slot name="empty">[[ emptyText ]]</slot></div>
+    </nav>
+{%- endblock -%}

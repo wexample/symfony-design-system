@@ -1,5 +1,11 @@
 en:
   frontend:
+    people:
+      empty: "Nobody yet"
+      remove: "Remove %name%"
+    conversations:
+      empty: "No conversation yet"
+      unread: "%count% unread"
     presence:
       online: "Online"
       away: "Away"
@@ -213,6 +219,12 @@ en:
 
 ar:
   frontend:
+    people:
+      empty: "لا أحد بعد"
+      remove: "إزالة %name%"
+    conversations:
+      empty: "لا توجد محادثة بعد"
+      unread: "%count% غير مقروءة"
     presence:
       online: "متصل"
       away: "بعيد"
@@ -396,6 +408,12 @@ ar:
 
 bn:
   frontend:
+    people:
+      empty: "এখনও কেউ নেই"
+      remove: "%name% সরান"
+    conversations:
+      empty: "এখনও কোনো কথোপকথন নেই"
+      unread: "%count% অপঠিত"
     presence:
       online: "অনলাইন"
       away: "দূরে"
@@ -579,6 +597,12 @@ bn:
 
 de:
   frontend:
+    people:
+      empty: "Noch niemand"
+      remove: "%name% entfernen"
+    conversations:
+      empty: "Noch kein Gespräch"
+      unread: "%count% ungelesen"
     presence:
       online: "Online"
       away: "Abwesend"
@@ -762,6 +786,12 @@ de:
 
 es:
   frontend:
+    people:
+      empty: "Nadie todavía"
+      remove: "Quitar a %name%"
+    conversations:
+      empty: "Ninguna conversación todavía"
+      unread: "%count% sin leer"
     presence:
       online: "En línea"
       away: "Ausente"
@@ -945,6 +975,12 @@ es:
 
 fa:
   frontend:
+    people:
+      empty: "هنوز کسی نیست"
+      remove: "حذف %name%"
+    conversations:
+      empty: "هنوز گفتگویی نیست"
+      unread: "%count% خوانده‌نشده"
     presence:
       online: "آنلاین"
       away: "دور"
@@ -1128,6 +1164,12 @@ fa:
 
 fi:
   frontend:
+    people:
+      empty: "Ei vielä ketään"
+      remove: "Poista %name%"
+    conversations:
+      empty: "Ei vielä keskusteluja"
+      unread: "%count% lukematonta"
     presence:
       online: "Paikalla"
       away: "Poissa"
@@ -1311,6 +1353,12 @@ fi:
 
 fr:
   frontend:
+    people:
+      empty: "Personne pour l’instant"
+      remove: "Retirer %name%"
+    conversations:
+      empty: "Aucune conversation pour l’instant"
+      unread: "%count% non lus"
     presence:
       online: "En ligne"
       away: "Absent"
@@ -1524,6 +1572,12 @@ fr:
 
 he:
   frontend:
+    people:
+      empty: "עדיין אין אף אחד"
+      remove: "הסרת %name%"
+    conversations:
+      empty: "עדיין אין שיחה"
+      unread: "%count% שלא נקראו"
     presence:
       online: "מחובר"
       away: "לא זמין"
@@ -1707,6 +1761,12 @@ he:
 
 hi:
   frontend:
+    people:
+      empty: "अभी कोई नहीं"
+      remove: "%name% को हटाएँ"
+    conversations:
+      empty: "अभी कोई बातचीत नहीं"
+      unread: "%count% अपठित"
     presence:
       online: "ऑनलाइन"
       away: "दूर"
@@ -1890,6 +1950,12 @@ hi:
 
 id:
   frontend:
+    people:
+      empty: "Belum ada siapa pun"
+      remove: "Hapus %name%"
+    conversations:
+      empty: "Belum ada percakapan"
+      unread: "%count% belum dibaca"
     presence:
       online: "Daring"
       away: "Pergi"
@@ -2073,6 +2139,12 @@ id:
 
 it:
   frontend:
+    people:
+      empty: "Ancora nessuno"
+      remove: "Rimuovi %name%"
+    conversations:
+      empty: "Ancora nessuna conversazione"
+      unread: "%count% da leggere"
     presence:
       online: "Online"
       away: "Assente"
@@ -2256,6 +2328,12 @@ it:
 
 ja:
   frontend:
+    people:
+      empty: "まだ誰もいません"
+      remove: "%name% を削除"
+    conversations:
+      empty: "まだ会話はありません"
+      unread: "未読 %count% 件"
     presence:
       online: "オンライン"
       away: "離席中"
@@ -2439,6 +2517,12 @@ ja:
 
 ko:
   frontend:
+    people:
+      empty: "아직 아무도 없음"
+      remove: "%name% 제거"
+    conversations:
+      empty: "아직 대화 없음"
+      unread: "읽지 않음 %count%"
     presence:
       online: "온라인"
       away: "자리 비움"
@@ -2622,6 +2706,12 @@ ko:
 
 nl:
   frontend:
+    people:
+      empty: "Nog niemand"
+      remove: "%name% verwijderen"
+    conversations:
+      empty: "Nog geen gesprek"
+      unread: "%count% ongelezen"
     presence:
       online: "Online"
       away: "Afwezig"
@@ -2805,6 +2895,12 @@ nl:
 
 pl:
   frontend:
+    people:
+      empty: "Jeszcze nikogo"
+      remove: "Usuń %name%"
+    conversations:
+      empty: "Jeszcze brak rozmów"
+      unread: "%count% nieprzeczytanych"
     presence:
       online: "Dostępny"
       away: "Zaraz wracam"
@@ -2988,6 +3084,12 @@ pl:
 
 pt_BR:
   frontend:
+    people:
+      empty: "Ninguém ainda"
+      remove: "Remover %name%"
+    conversations:
+      empty: "Nenhuma conversa ainda"
+      unread: "%count% não lidas"
     presence:
       online: "Online"
       away: "Ausente"
@@ -3171,6 +3273,12 @@ pt_BR:
 
 ru:
   frontend:
+    people:
+      empty: "Пока никого"
+      remove: "Удалить %name%"
+    conversations:
+      empty: "Пока нет разговоров"
+      unread: "Непрочитанных: %count%"
     presence:
       online: "В сети"
       away: "Отошёл"
@@ -3354,6 +3462,12 @@ ru:
 
 th:
   frontend:
+    people:
+      empty: "ยังไม่มีใคร"
+      remove: "ลบ %name%"
+    conversations:
+      empty: "ยังไม่มีบทสนทนา"
+      unread: "ยังไม่ได้อ่าน %count%"
     presence:
       online: "ออนไลน์"
       away: "ไม่อยู่"
@@ -3537,6 +3651,12 @@ th:
 
 tr:
   frontend:
+    people:
+      empty: "Henüz kimse yok"
+      remove: "%name% kişisini kaldır"
+    conversations:
+      empty: "Henüz konuşma yok"
+      unread: "%count% okunmamış"
     presence:
       online: "Çevrimiçi"
       away: "Uzakta"
@@ -3720,6 +3840,12 @@ tr:
 
 ur:
   frontend:
+    people:
+      empty: "ابھی کوئی نہیں"
+      remove: "%name% کو ہٹائیں"
+    conversations:
+      empty: "ابھی کوئی گفتگو نہیں"
+      unread: "%count% غیر پڑھے"
     presence:
       online: "آن لائن"
       away: "دور"
@@ -3903,6 +4029,12 @@ ur:
 
 vi:
   frontend:
+    people:
+      empty: "Chưa có ai"
+      remove: "Xóa %name%"
+    conversations:
+      empty: "Chưa có cuộc trò chuyện nào"
+      unread: "%count% chưa đọc"
     presence:
       online: "Trực tuyến"
       away: "Vắng mặt"
@@ -4086,6 +4218,12 @@ vi:
 
 zh:
   frontend:
+    people:
+      empty: "暂无成员"
+      remove: "移除 %name%"
+    conversations:
+      empty: "暂无对话"
+      unread: "%count% 条未读"
     presence:
       online: "在线"
       away: "离开"

@@ -1,0 +1,49 @@
+/* Component: person-list */
+// The people of something, a row each: the face, the name taking the room,
+// the role after it, what is done to them at the row's end. Rows parted by the
+// separator, as a list read down.
+@use '../../css/shapes/action-icon';
+@use '../avatar/avatar';
+@use '../marker/marker';
+
+.person-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.person-list--rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.person-list--row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-block: var(--space-2);
+
+  & + & {
+    border-top: var(--border-separator);
+  }
+}
+
+.person-list--name {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.person-list--actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-inline-start: auto;
+}
+
+.person-list--empty {
+  color: var(--text-color-subtle);
+}
