@@ -19,11 +19,6 @@
   word-break: break-all;
 }
 
-// A short one says there is more to it, under the pointer.
-.identifier--value[data-tooltip] {
-  cursor: help;
-}
-
 .identifier--copy {
   padding: 0;
 }
