@@ -1,0 +1,115 @@
+// What stands where a picture will be, filling the room it would take: a
+// cover, a media, a tile. Two states, one place:
+//
+// - `.placeholder` — none: a faint grid, the picture glyph in its middle
+//   (the markup's, `ph:bold/image`). Quiet: nothing is wrong.
+// - `.placeholder--pending` — one being made (generated, uploaded,
+//   processed): a glow of the application's colours drifting slowly, a light
+//   sweeping over it, and what is happening said in its middle
+//   (`.placeholder--label`), its words shimmering. Alive, so that a wait of
+//   seconds to minutes reads as work under way, not as a frozen page.
+//
+//     <div class="placeholder" aria-hidden="true">{{ icon('ph:bold/image') }}</div>
+//     <div class="placeholder placeholder--pending" role="status">
+//         <span class="placeholder--label">Generating…</span>
+//     </div>
+.placeholder {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 6rem;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: var(--surface-1);
+  background-image:
+    linear-gradient(var(--border-color-discreet, var(--neutral-4)) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-color-discreet, var(--neutral-4)) 1px, transparent 1px);
+  background-size: 2.5rem 2.5rem;
+  background-position: center;
+  color: var(--text-color-subtle);
+  // The glyph: a band sets it larger (`--placeholder-glyph`).
+  font-size: var(--placeholder-glyph, 2rem);
+}
+
+// Being made: the grid gives way to a glow drifting under a sweep of light.
+.placeholder--pending {
+  background-image: none;
+  color: var(--text-color-default);
+
+  // The glow: the application's colours, soft and wide, drifting.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -30%;
+    z-index: -1;
+    background:
+      radial-gradient(40% 50% at 25% 35%, color-mix(in srgb, var(--accent-9) 45%, transparent), transparent 70%),
+      radial-gradient(45% 55% at 75% 65%, color-mix(in srgb, var(--info-9) 40%, transparent), transparent 70%),
+      radial-gradient(35% 45% at 60% 20%, color-mix(in srgb, var(--color-selected) 35%, transparent), transparent 70%);
+    filter: blur(2rem);
+    opacity: 0.85;
+    animation: placeholder-drift 9s ease-in-out infinite alternate;
+  }
+
+  // The sweep: a band of light crossing it, again and again.
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 9%) 50%, transparent 65%);
+    background-size: 250% 100%;
+    animation: placeholder-sweep 2.4s linear infinite;
+  }
+}
+
+// What is happening, in its middle: its words shimmer as the light crosses.
+.placeholder--label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-3);
+  font-weight: var(--font-weight-strong);
+  background: linear-gradient(90deg, var(--text-color-muted) 30%, var(--text-color-default) 50%, var(--text-color-muted) 70%);
+  background-size: 250% 100%;
+  background-clip: text;
+  color: transparent;
+  animation: placeholder-sweep 2.4s linear infinite;
+}
+
+@keyframes placeholder-drift {
+  from {
+    transform: translate(-6%, -4%) rotate(0deg) scale(1);
+  }
+
+  to {
+    transform: translate(6%, 5%) rotate(25deg) scale(1.15);
+  }
+}
+
+@keyframes placeholder-sweep {
+  from {
+    background-position: 125% 0;
+  }
+
+  to {
+    background-position: -125% 0;
+  }
+}
+
+// Still where motion is not wanted: the glow stays, the words read plainly.
+@media (prefers-reduced-motion: reduce) {
+  .placeholder--pending::before,
+  .placeholder--pending::after,
+  .placeholder--label {
+    animation: none;
+  }
+
+  .placeholder--label {
+    background: none;
+    color: var(--text-color-default);
+  }
+}

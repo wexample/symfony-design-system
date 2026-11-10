@@ -1,11 +1,13 @@
 /* Component: cover */
+@use '../../css/shapes/placeholder';
 // The band across the head of a page, made to hold a picture, a video or an
 // animation: tall enough to be the page's first sight — a third of the
 // window, between 14 and 26rem, a page sets its own (--cover-height) —, what
 // it holds cropped to fill it rather than distorted. It covers: out of the
 // padding of the zone it stands in, edge to edge, and up to the zone's top
 // when it opens the zone; no corner then, the zone's edges are its own.
-// `cover--inset` keeps it inside, rounded as a block is. With nothing in it, the glow of a placeholder (media). Its
+// `cover--inset` keeps it inside, rounded as a block is. With nothing in it,
+// the missing picture (`placeholder`); while one is made, the same alive. Its
 // words over its foot, on a shade rising from the bottom that keeps them
 // readable whatever the picture shows.
 
@@ -46,28 +48,24 @@
 
 // What the band holds fills it, cropped: a picture, a video, a canvas.
 .cover--fill,
-.cover--media > :only-child:not(.cover--placeholder) {
+.cover--media > :only-child:not(.placeholder) {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.cover--placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  background-color: var(--surface-1);
-  background-image:
-    linear-gradient(var(--border-color-discreet, var(--neutral-4)) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border-color-discreet, var(--neutral-4)) 1px, transparent 1px);
-  background-size: 2.5rem 2.5rem;
-  background-position: center;
-  color: var(--text-color-subtle);
-  font-size: 3rem;
-  opacity: 0.8;
+// The band's own size of the missing picture's glyph.
+.cover--media {
+  --placeholder-glyph: 3rem;
+}
+
+// Being made: over what the band held — the former picture, or none —,
+// the way a picture appears where one is awaited.
+.cover--media > .cover--pending {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 
 .cover--words {

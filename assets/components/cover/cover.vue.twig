@@ -1,13 +1,20 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
 
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.placeholder.*') }}
+{%- endblock -%}
+
 {%- block vue_body -%}
     <div class="cover" :style="height ? { '--cover-height': height } : null">
         <div class="cover--media">
             <slot>
                 <video v-if="video" class="cover--fill" :src="video" :poster="src || null" autoplay muted loop playsinline aria-hidden="true"></video>
                 <img v-else-if="src" class="cover--fill" :src="src" :alt="alt">
-                <div v-else class="cover--placeholder" aria-hidden="true">{{ icon('ph:bold/image') }}</div>
+                <div v-else class="placeholder" aria-hidden="true">{{ icon('ph:bold/image') }}</div>
             </slot>
+            <div v-if="pending" class="placeholder placeholder--pending cover--pending" role="status">
+                <span class="placeholder--label">[[ pendingLabel ]]</span>
+            </div>
         </div>
         <div v-if="$slots.float" class="cover--float zone--float">
             <slot name="float"></slot>

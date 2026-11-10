@@ -1,5 +1,9 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
 
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.placeholder.*') }}
+{%- endblock -%}
+
 {%- block vue_body -%}
     <component
             :is="href ? 'a' : 'div'"
@@ -17,6 +21,10 @@
                 :width="width || null"
                 :height="height || null"
         >
+        <div v-else class="placeholder" aria-hidden="true">{{ icon('ph:bold/image') }}</div>
+        <div v-if="pending" class="placeholder placeholder--pending media--pending" role="status">
+            <span class="placeholder--label">[[ pendingLabel ]]</span>
+        </div>
         <span v-if="caption || $slots.caption" class="media--caption">
             <slot name="caption">[[ caption ]]</slot>
         </span>

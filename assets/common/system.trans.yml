@@ -1,5 +1,7 @@
 en:
   frontend:
+    placeholder:
+      pending: "Generating…"
     loading: Loading...
     environment: "%env% environment: what is shown here is not production"
     dev_menu: Development tools
@@ -206,6 +208,8 @@ en:
 
 ar:
   frontend:
+    placeholder:
+      pending: "جارٍ الإنشاء…"
     loading: 'جار التحميل...'
     environment: '%env% بيئة: ما هو معروض هنا ليس بيئة الإنتاج'
     dev_menu: 'أدوات التطوير'
@@ -382,6 +386,8 @@ ar:
 
 bn:
   frontend:
+    placeholder:
+      pending: "তৈরি হচ্ছে…"
     loading: 'লোড হচ্ছে...'
     environment: '%env% পরিবেশ: এখানে যা দেখানো হয়েছে তা উৎপাদন নয়'
     dev_menu: 'ডেভেলপমেন্ট টুলস'
@@ -558,6 +564,8 @@ bn:
 
 de:
   frontend:
+    placeholder:
+      pending: "Wird erstellt…"
     loading: Laden...
     environment: '%env% Umgebung: das hier angezeigte ist nicht die Produktion'
     dev_menu: Entwicklungstools
@@ -734,6 +742,8 @@ de:
 
 es:
   frontend:
+    placeholder:
+      pending: "Generando…"
     loading: Cargando...
     environment: '%env% entorno: lo que se muestra aquí no es producción'
     dev_menu: 'Herramientas de desarrollo'
@@ -910,6 +920,8 @@ es:
 
 fa:
   frontend:
+    placeholder:
+      pending: "در حال ساخت…"
     loading: 'در حال بارگذاری...'
     environment: '%env% محیط: آنچه در اینجا نشان داده می‌شود تولید نیست'
     dev_menu: 'ابزارهای توسعه'
@@ -1086,6 +1098,8 @@ fa:
 
 fi:
   frontend:
+    placeholder:
+      pending: "Luodaan…"
     loading: Ladataan...
     environment: '%env% ympäristö: täällä näkyvä ei ole tuotanto'
     dev_menu: Kehitystyökalut
@@ -1262,6 +1276,8 @@ fi:
 
 fr:
   frontend:
+    placeholder:
+      pending: "Génération en cours…"
     environment: "Environnement %env% : ce qui est affiché ici n'est pas la production"
     dev_menu: Outils de développement
     develop_toolbar: Barre de développement
@@ -1468,6 +1484,8 @@ fr:
 
 he:
   frontend:
+    placeholder:
+      pending: "נוצר…"
     loading: טוען...
     environment: '%env% סביבה: מה שמוצג כאן אינו סביבה של ייצור'
     dev_menu: 'כלי פיתוח'
@@ -1644,6 +1662,8 @@ he:
 
 hi:
   frontend:
+    placeholder:
+      pending: "बनाया जा रहा है…"
     loading: 'लोड हो रहा है...'
     environment: '%env% वातावरण: यहाँ प्रदर्शित किया गया है कि यह उत्पादन नहीं है'
     dev_menu: 'विकास उपकरण'
@@ -1820,6 +1840,8 @@ hi:
 
 id:
   frontend:
+    placeholder:
+      pending: "Sedang dibuat…"
     loading: Memuat...
     environment: '%env% lingkungan: apa yang ditampilkan di sini bukan produksi'
     dev_menu: 'Alat pengembangan'
@@ -1996,6 +2018,8 @@ id:
 
 it:
   frontend:
+    placeholder:
+      pending: "Generazione in corso…"
     loading: Caricamento...
     environment: '%env% ambiente: quello che è mostrato qui non è produzione'
     dev_menu: 'Strumenti di sviluppo'
@@ -2172,6 +2196,8 @@ it:
 
 ja:
   frontend:
+    placeholder:
+      pending: "生成中…"
     loading: 読み込み中...
     environment: '%env% 環境: ここに表示されているのは本番環境ではありません'
     dev_menu: 開発ツール
@@ -2348,6 +2374,8 @@ ja:
 
 ko:
   frontend:
+    placeholder:
+      pending: "생성 중…"
     loading: '로딩 중...'
     environment: '%env% 환경: 여기 표시된 것은 운영 환경이 아닙니다'
     dev_menu: '개발 도구'
@@ -2524,6 +2552,8 @@ ko:
 
 nl:
   frontend:
+    placeholder:
+      pending: "Wordt gemaakt…"
     loading: Laden...
     environment: '%env% omgeving: wat hier wordt weergegeven is niet productie'
     dev_menu: Ontwikkelingstools
@@ -2700,6 +2730,8 @@ nl:
 
 pl:
   frontend:
+    placeholder:
+      pending: "Generowanie…"
     loading: Ładowanie...
     environment: '%env% środowisko: to co jest tutaj pokazane, to nie produkcja'
     dev_menu: 'Narzędzia deweloperskie'
@@ -2876,6 +2908,8 @@ pl:
 
 pt_BR:
   frontend:
+    placeholder:
+      pending: "Gerando…"
     loading: Carregando...
     environment: '%env% ambiente: o que está mostrado aqui não é produção'
     dev_menu: 'Ferramentas de desenvolvimento'
@@ -3052,6 +3086,8 @@ pt_BR:
 
 ru:
   frontend:
+    placeholder:
+      pending: "Создаётся…"
     loading: Загрузка...
     environment: '%env% окружение: то, что показано здесь, не является производственным'
     dev_menu: 'Инструменты разработки'
@@ -3228,6 +3264,8 @@ ru:
 
 th:
   frontend:
+    placeholder:
+      pending: "กำลังสร้าง…"
     loading: กำลังโหลด...
     environment: '%env% สภาพแวดล้อม: สิ่งที่แสดงที่นี่ไม่ใช่การผลิต'
     dev_menu: เครื่องมือพัฒนา
@@ -3404,6 +3442,8 @@ th:
 
 tr:
   frontend:
+    placeholder:
+      pending: "Oluşturuluyor…"
     loading: Yükleniyor...
     environment: '%env% ortam: buradaki görüntü üretim değil'
     dev_menu: 'Geliştirme araçları'
@@ -3580,6 +3620,8 @@ tr:
 
 ur:
   frontend:
+    placeholder:
+      pending: "بنایا جا رہا ہے…"
     loading: 'لوڈ ہورہا ہے...'
     environment: '%env% ماحول: جو یہاں دکھایا گیا ہے وہ پروڈکشن نہیں ہے'
     dev_menu: 'ترقیاتی ٹولز'
@@ -3756,6 +3798,8 @@ ur:
 
 vi:
   frontend:
+    placeholder:
+      pending: "Đang tạo…"
     loading: 'Đang tải...'
     environment: '%env% môi trường: những gì hiển thị ở đây không phải là sản xuất'
     dev_menu: 'Công cụ phát triển'
@@ -3932,6 +3976,8 @@ vi:
 
 zh:
   frontend:
+    placeholder:
+      pending: "正在生成…"
     loading: 加载中...
     environment: '%env% 环境：这里显示的不是生产环境'
     dev_menu: 开发工具

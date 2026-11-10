@@ -1,1 +1,10 @@
 @use '../../css/shapes/media';
+@use '../../css/shapes/placeholder';
+
+// Being made: over what the frame held, the frame's own size.
+.media > .media--pending {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-raised);
+  min-height: 0;
+}

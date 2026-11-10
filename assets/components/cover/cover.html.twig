@@ -1,9 +1,12 @@
 {#- The band across the head of a page: a picture, a video or what the page
-    puts there — an animation —, cropped to the band, the glow of a
-    placeholder while there is none. Its words over its foot when it has
+    puts there — an animation —, cropped to the band, the missing
+    picture while there is none (`placeholder`). Its words over its foot when it has
     some: a title, a line under it.
 
     src: a picture; video: a video, playing muted, looping, in the band.
+    pending: one is being made — generated, processed —: the band says so,
+    alive (`placeholder--pending`), over what it held; true, or the words to
+    say it with.
     alt: what the picture shows.
     title, subtitle: the words over the band's foot.
     height: the band's (--cover-height).
@@ -26,9 +29,14 @@
             {%- elseif src|default(null) -%}
                 <img class="cover--fill" src="{{ src }}" alt="{{ alt|default('') }}">
             {%- else -%}
-                <div class="cover--placeholder" aria-hidden="true">{{ icon('ph:bold/image') }}</div>
+                <div class="placeholder" aria-hidden="true">{{ icon('ph:bold/image') }}</div>
             {%- endif -%}
         {%- endblock -%}
+        {%- if pending|default(false) -%}
+            <div class="placeholder placeholder--pending cover--pending" role="status">
+                <span class="placeholder--label">{{ pending is same as(true) ? 'WexampleSymfonyDesignSystemBundle.common.system::frontend.placeholder.pending'|trans : pending }}</span>
+            </div>
+        {%- endif -%}
     </div>
     <div class="cover--float zone--float">
         {%- block cover_float -%}{%- endblock -%}

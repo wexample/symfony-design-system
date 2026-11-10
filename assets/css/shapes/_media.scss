@@ -75,11 +75,10 @@
   z-index: var(--z-raised);
 }
 
-// What stands in the frame while the picture loads, and in its place when
-// there is none: a glow, never an empty box. The picture covers it once it
-// is there.
+// The ground under a picture while it loads: the missing picture's own
+// (`placeholder`), never an empty box. The picture covers it once there.
 .media--placeholder {
-  background: radial-gradient(circle at center, var(--neutral-5), var(--neutral-8));
+  background: var(--surface-1);
 }
 
 // A line of text over the foot of the picture, readable whatever it shows.
