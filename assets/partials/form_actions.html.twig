@@ -1,5 +1,6 @@
 {#- A form's actions in one row: what leads elsewhere first (`secondary`, links
-    — forgotten password, cancel), then its buttons, the one that sends it at
+    — forgotten password, cancel —, each its `attr` besides: `target: '_self'`
+    reloads the window rather than the page holding the form), then its buttons, the one that sends it at
     the end. Drawn by the form's template unless the form was loaded with
     `actions: false`: then its template leaves them out, and whoever placed it
     draws them where it has room (`outside`) — a card's foot, a modal's —, the
@@ -20,7 +21,7 @@
                     {%- if action.target|default(null) -%}
                         {{ button_target(action.icon, action.label, action.href, action.target, { class: 'button--flat' }) }}
                     {%- else -%}
-                        {{ button_link(action.icon, action.label, action.href, { class: 'button--flat' }) }}
+                        {{ button_link(action.icon, action.label, action.href, { class: 'button--flat', attr: action.attr|default({}) }) }}
                     {%- endif -%}
                 {%- endfor -%}
             </div>
