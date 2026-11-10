@@ -4503,6 +4503,12 @@
             "description": "A page replaced by the next inside what holds it \u2014 a step of a tunnel in a modal: the one leaving slides a few pixels the way the visitor goes and fades, the one arriving comes in from the other side. Only a page marked `data-page-transition=\"slide\"` moves; the classes are the page manager's."
         },
         {
+            "key": "placeholder",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_placeholder.scss",
+            "description": "What stands where a picture will be, filling the room it would take: a cover, a media, a tile. Two states, one place:  - `.placeholder` \u2014 none: a faint grid, the picture glyph in its middle (the markup's, `ph:bold/image`). Quiet: nothing is wrong. - `.placeholder--pending` \u2014 one being made (generated, uploaded, processed): a glow of the application's colours drifting slowly, a light sweeping over it, and what is happening said in its middle (`.placeholder--label`), its words shimmering. Alive, so that a wait of seconds to minutes reads as work under way, not as a frozen page.  <div class=\"placeholder\" aria-hidden=\"true\">{{ icon('ph:bold/image') }}</div> <div class=\"placeholder placeholder--pending\" role=\"status\"> <span class=\"placeholder--label\">Generating\u2026</span> </div>"
+        },
+        {
             "key": "rail",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_rail.scss",
