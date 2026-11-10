@@ -47,7 +47,7 @@ export default {
     },
 
     copyLabel() {
-      return this.trans('@vue::copy.copy');
+      return this.trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.copy.copy');
     },
 
     // What happened, said aloud and under the pointer.
@@ -56,7 +56,7 @@ export default {
         return '';
       }
 
-      return this.trans(this.copied ? '@vue::copy.copied' : '@vue::copy.failed');
+      return this.trans(this.copied ? 'WexampleSymfonyDesignSystemBundle.common.system::frontend.copy.copied' : 'WexampleSymfonyDesignSystemBundle.common.system::frontend.copy.failed');
     }
   },
 
