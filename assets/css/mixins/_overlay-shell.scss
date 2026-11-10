@@ -55,6 +55,19 @@
     }
   }
 
+  // The page's own actions (`page_title_actions`), under the header as they
+  // stand beside its title on a page of their own: on the chrome, at the
+  // body's edge, the line under them the header's.
+  .#{$name}-toolbar {
+    justify-content: flex-end;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border-bottom: var(--border-shell);
+    @if $shrink-chrome {
+      flex-shrink: 0;
+    }
+  }
+
   .#{$name}-loading-bar {
     position: absolute;
     inset-inline-start: 0;
