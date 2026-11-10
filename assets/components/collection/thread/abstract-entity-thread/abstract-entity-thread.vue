@@ -6,6 +6,7 @@ import ThreadMessage from "../thread-message/thread-message.vue";
 import LoadMore from "../../../load-more/load-more.vue";
 import Disclosure from "../../../disclosure/disclosure.vue";
 import {threadContinued, threadDayKey, threadDayLabel} from "../../../../js/Helper/ThreadHelper";
+import {mentionMark} from "../../../../js/Helper/MentionHelper";
 
 // How recent the last line waiting for an answer has to be, the thread opened
 // again, for the thread to show the answer is still coming. While the thread
@@ -64,6 +65,12 @@ export default {
     unreadSince: {
       type: String,
       default: null
+    },
+    // The people of the conversation, as the composer offers them
+    // (`mentions`): each `@handle` naming one set apart in the lines.
+    people: {
+      type: Array,
+      default: () => []
     }
   },
 
@@ -342,11 +349,14 @@ export default {
     // A line as a conversation reads it, drawn from the projections above:
     // never from the shape of the entity.
     getMessage(entity) {
+      const html = this.isMessageMarkdown(entity) ? markdownRender(this.getMessageContent(entity)) : null;
+
       return {
         author: this.getMessageAuthor(entity),
         content: this.getMessageText(entity),
-        // Drawn from markdown, or null for a line shown as the text it is.
-        html: this.isMessageMarkdown(entity) ? markdownRender(this.getMessageContent(entity)) : null,
+        // Drawn from markdown, or null for a line shown as the text it is;
+        // drawn as html too when it names someone of the conversation.
+        html: this.markMentions(html, this.getMessageText(entity)),
         date: this.getMessageDate(entity),
         iconHtml: this.renderIcon(this.getMessageIcon(entity)),
         // A person's face (`avatar`: { label, src, emoji, presence }), in
@@ -358,6 +368,19 @@ export default {
         variant: this.getMessageVariant(entity),
         own: this.isOwnMessage(entity)
       };
+    },
+
+    // The people a line names set apart, in its html or in its text made
+    // html; the html as it was when the conversation has nobody to name.
+    markMentions(html, text) {
+      if (!this.people.length) {
+        return html;
+      }
+
+      const source = html ?? String(text ?? '').replace(/[&<>"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[char]));
+      const marked = mentionMark(source, this.people);
+
+      return html === null && marked === source ? null : marked;
     },
 
     // A day as the divider says it.

@@ -1,136 +1,159 @@
 en:
+  mentions: "People to mention"
   placeholder: Write a message...
   submit: Send
   attach: Attach files
   attach_remove: Remove
 
 ar:
+  mentions: "أشخاص للإشارة إليهم"
   placeholder: اكتب رسالة...
   submit: إرسال
   attach: إرفاق ملفات
   attach_remove: إزالة
 
 bn:
+  mentions: "উল্লেখ করার মানুষ"
   placeholder: একটি বার্তা লিখুন...
   submit: পাঠান
   attach: ফাইল সংযুক্ত করুন
   attach_remove: সরান
 
 de:
+  mentions: "Personen zum Erwähnen"
   placeholder: Nachricht schreiben...
   submit: Senden
   attach: Dateien anhängen
   attach_remove: Entfernen
 
 es:
+  mentions: "Personas para mencionar"
   placeholder: Escribe un mensaje...
   submit: Enviar
   attach: Adjuntar archivos
   attach_remove: Quitar
 
 fa:
+  mentions: "افراد برای اشاره"
   placeholder: پیامی بنویسید...
   submit: ارسال
   attach: پیوست فایل‌ها
   attach_remove: حذف
 
 fi:
+  mentions: "Mainittavat henkilöt"
   placeholder: Kirjoita viesti...
   submit: Lähetä
   attach: Liitä tiedostoja
   attach_remove: Poista
 
 fr:
+  mentions: "Personnes à mentionner"
   placeholder: Écrivez un message...
   submit: Envoyer
   attach: Joindre des fichiers
   attach_remove: Retirer
 
 he:
+  mentions: "אנשים לאזכור"
   placeholder: כתוב הודעה...
   submit: שלח
   attach: צירוף קבצים
   attach_remove: הסרה
 
 hi:
+  mentions: "उल्लेख करने के लिए लोग"
   placeholder: संदेश लिखें...
   submit: भेजें
   attach: फ़ाइलें जोड़ें
   attach_remove: हटाएँ
 
 id:
+  mentions: "Orang untuk disebut"
   placeholder: Tulis pesan...
   submit: Kirim
   attach: Lampirkan berkas
   attach_remove: Hapus
 
 it:
+  mentions: "Persone da menzionare"
   placeholder: Scrivi un messaggio...
   submit: Invia
   attach: Allega file
   attach_remove: Rimuovi
 
 ja:
+  mentions: "メンションする人"
   placeholder: メッセージを入力...
   submit: 送信
   attach: ファイルを添付
   attach_remove: 削除
 
 ko:
+  mentions: "언급할 사람"
   placeholder: 메시지를 작성하세요...
   submit: 전송
   attach: 파일 첨부
   attach_remove: 제거
 
 nl:
+  mentions: "Personen om te noemen"
   placeholder: Schrijf een bericht...
   submit: Verstuur
   attach: Bestanden bijvoegen
   attach_remove: Verwijderen
 
 pl:
+  mentions: "Osoby do wspomnienia"
   placeholder: Napisz wiadomość...
   submit: Wyślij
   attach: Załącz pliki
   attach_remove: Usuń
 
 pt_BR:
+  mentions: "Pessoas para mencionar"
   placeholder: Escreva uma mensagem...
   submit: Enviar
   attach: Anexar arquivos
   attach_remove: Remover
 
 ru:
+  mentions: "Кого упомянуть"
   placeholder: Напишите сообщение...
   submit: Отправить
   attach: Прикрепить файлы
   attach_remove: Убрать
 
 th:
+  mentions: "คนที่จะกล่าวถึง"
   placeholder: เขียนข้อความ...
   submit: ส่ง
   attach: แนบไฟล์
   attach_remove: นำออก
 
 tr:
+  mentions: "Bahsedilecek kişiler"
   placeholder: Mesaj yazın...
   submit: Gönder
   attach: Dosya ekle
   attach_remove: Kaldır
 
 ur:
+  mentions: "ذکر کرنے کے لیے لوگ"
   placeholder: پیغام لکھیں...
   submit: بھیجیں
   attach: فائلیں منسلک کریں
   attach_remove: ہٹائیں
 
 vi:
+  mentions: "Người để nhắc đến"
   placeholder: Viết tin nhắn...
   submit: Gửi
   attach: Đính kèm tệp
   attach_remove: Gỡ
 
 zh:
+  mentions: "可提及的人"
   placeholder: 写消息...
   submit: 发送
   attach: 附加文件

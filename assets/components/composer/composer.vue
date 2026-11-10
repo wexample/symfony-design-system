@@ -1,6 +1,8 @@
 <script>
 import buildTranslatedBindings from '../../js/Helper/TranslationHelper';
 import { fileIcon } from '../../js/Helper/FileIconHelper';
+import { mentionFound, mentionHandle, mentionInsert, mentionMatches, mentionQuery } from '../../js/Helper/MentionHelper';
+import Avatar from '../avatar/avatar.vue';
 
 // Where the composer's own words are.
 const DOMAIN = 'WexampleSymfonyDesignSystemBundle.components.composer.composer::';
@@ -18,12 +20,17 @@ const translated = buildTranslatedBindings({
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-composer-composer',
 
+  components: {
+    Avatar
+  },
+
   props: {
     ...translated.props,
 
-    // async (content, files) => void: where the message goes. `files` are
-    // the browser's File objects attached to it, none unless files are
-    // accepted. A message may be files alone.
+    // async (content, files, { mentions }) => void: where the message goes.
+    // `files` are the browser's File objects attached to it, none unless
+    // files are accepted. A message may be files alone. `mentions`: the
+    // people it names, of those offered (`mentions`).
     submit: {
       type: Function,
       required: true
@@ -64,6 +71,13 @@ export default {
     actions: {
       type: Array,
       default: () => []
+    },
+    // Who can be named in a message — [{ id, label, handle, src, emoji }]:
+    // `@` and what follows offer those it matches, chosen with the arrows,
+    // put in with Enter or Tab, left with Escape.
+    mentions: {
+      type: Array,
+      default: () => []
     }
   },
 
@@ -77,7 +91,11 @@ export default {
       attachmentPreviews: [],
       attachDragDepth: 0,
       // The action under way, by its key: the others wait for it.
-      runningAction: null
+      runningAction: null,
+      // The mention being typed — where its `@` is, what follows it — and
+      // the person the arrows stand on among those it matches.
+      mention: null,
+      mentionIndex: 0
     };
   },
 
@@ -121,6 +139,11 @@ export default {
       return this.trans(`${DOMAIN}attach_remove`);
     },
 
+    // The people the mention being typed matches.
+    mentionOffered() {
+      return this.mention ? mentionMatches(this.mentions, this.mention.query) : [];
+    },
+
     attachmentsFull() {
       return this.attachmentLimit !== null && this.attachments.length >= this.attachmentLimit;
     }
@@ -146,15 +169,86 @@ export default {
       this.clearAttachments();
     },
 
+    // The caret moved or the words changed: the mention under it, if any.
+    readMention() {
+      const input = this.$refs.input;
+
+      if (!this.mentions.length || !input) {
+        this.mention = null;
+
+        return;
+      }
+
+      const found = mentionQuery(this.draft, input.selectionStart ?? this.draft.length);
+
+      if (found?.start !== this.mention?.start || found?.query !== this.mention?.query) {
+        this.mentionIndex = 0;
+      }
+
+      this.mention = found;
+    },
+
+    // The arrows, Enter, Tab and Escape choose among the people offered while
+    // a mention is typed; Enter sends otherwise, Shift+Enter breaks the line.
+    onKeydown(event) {
+      if (this.mentionOffered.length) {
+        const count = this.mentionOffered.length;
+
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          event.preventDefault();
+          this.mentionIndex = (this.mentionIndex + (event.key === 'ArrowDown' ? 1 : count - 1)) % count;
+
+          return;
+        }
+
+        if (event.key === 'Enter' || event.key === 'Tab') {
+          event.preventDefault();
+          this.chooseMention(this.mentionOffered[this.mentionIndex]);
+
+          return;
+        }
+
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          this.mention = null;
+
+          return;
+        }
+      }
+
+      if (event.key === 'Enter' && !event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey) {
+        event.preventDefault();
+        this.submitMessage();
+      }
+    },
+
+    chooseMention(person) {
+      const input = this.$refs.input;
+      const caret = input?.selectionStart ?? this.draft.length;
+      const { text, caret: after } = mentionInsert(this.draft, this.mention.start, caret, person);
+
+      this.draft = text;
+      this.mention = null;
+      this.$nextTick(() => {
+        input?.focus();
+        input?.setSelectionRange(after, after);
+      });
+    },
+
+    mentionHandleOf(person) {
+      return mentionHandle(person);
+    },
+
     async submitMessage() {
       if (!this.canSubmit) {
         return;
       }
 
       this.isSubmitting = true;
+      this.mention = null;
 
       try {
-        await this.submit(this.draft.trim(), [...this.attachments]);
+        await this.submit(this.draft.trim(), [...this.attachments], { mentions: mentionFound(this.draft, this.mentions) });
         this.clear();
       } finally {
         this.isSubmitting = false;

@@ -160,6 +160,13 @@
   }
 }
 
+// Someone of the conversation named in a line (`@maya`): in the selected
+// tone, strong, as a name the eye is sent to.
+.thread-message--content .mention {
+  color: var(--color-selected);
+  font-weight: var(--font-weight-strong);
+}
+
 // A line going on from the one before — its author, soon after —: closer to
 // it, its face and its name not drawn again, the face's room kept so the
 // words stand under the ones before.

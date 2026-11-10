@@ -4,6 +4,10 @@
     {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.components.composer.composer::*') }}
 {%- endblock -%}
 
+{%- block vue_require -%}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/avatar') -}}
+{%- endblock -%}
+
 {%- block vue_body -%}
     <div
             class="composer"
@@ -31,14 +35,37 @@
             </li>
         </ul>
         <div class="composer--field">
+            {#- Who the mention being typed can name, over the field. -#}
+            <ul v-if="mentionOffered.length" class="composer--mentions" role="listbox" :aria-label="trans('WexampleSymfonyDesignSystemBundle.components.composer.composer::mentions')">
+                <li
+                        v-for="(person, index) in mentionOffered"
+                        :key="person.id ?? person.label"
+                        class="composer--mention"
+                        :class="{ 'is-active': index === mentionIndex }"
+                        role="option"
+                        :aria-selected="index === mentionIndex ? 'true' : 'false'"
+                        @mousedown.prevent="chooseMention(person)"
+                        @mouseenter="mentionIndex = index"
+                >
+                    <avatar :label="person.label" :src="person.src || null" :emoji="person.emoji || null" size="1.5rem"></avatar>
+                    <span class="composer--mention-name">[[ person.label ]]</span>
+                    <span class="composer--mention-handle">@[[ mentionHandleOf(person) ]]</span>
+                </li>
+            </ul>
             <textarea
                     ref="input"
                     rows="1"
                     class="composer--textarea"
                     :placeholder="resolvedPlaceholder"
                     :disabled="isBusy"
+                    :aria-expanded="mentionOffered.length ? 'true' : null"
                     v-model="draft"
-                    @keydown.enter.exact.prevent="submitMessage"
+                    @input="readMention"
+                    @click="readMention"
+                    @keyup.left="readMention"
+                    @keyup.right="readMention"
+                    @blur="mention = null"
+                    @keydown="onKeydown"
             ></textarea>
             <template v-if="acceptsAttachments">
                 <input

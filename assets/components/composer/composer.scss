@@ -1,1 +1,43 @@
 @use '../../css/shapes/composer';
+@use '../avatar/avatar';
+
+// Who a mention can name, over the field it is typed in: a list on the
+// field's start, above it, the one the arrows stand on selected.
+.composer--field {
+  position: relative;
+}
+
+.composer--mentions {
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: calc(100% + var(--space-1));
+  z-index: var(--z-raised, 2);
+  min-width: 14rem;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--space-1);
+  list-style: none;
+  border-radius: var(--radius-box);
+  background: var(--surface-3);
+  box-shadow: var(--shadow-float);
+}
+
+.composer--mention {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+
+  &.is-active {
+    background: var(--color-selected);
+    color: var(--color-selected-contrast);
+  }
+}
+
+.composer--mention-handle {
+  margin-inline-start: auto;
+  font-size: var(--font-size-1);
+  opacity: 0.7;
+}

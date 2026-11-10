@@ -235,15 +235,16 @@ export default {
     // collection of. A layer sending more with it says so here.
     // `files`, the browser's File objects the reader attached: a chat that
     // accepts them (acceptsAttachments) posts them as it must; by default the
-    // text alone is written.
-    async postMessage(content, files = []) {
+    // text alone is written. `mentions`, the people of the conversation the
+    // message names (`people`): a chat telling them posts them too.
+    async postMessage(content, files = [], { mentions = [] } = {}) {
       await this.getEntityRepository().createEntity(this.buildMessageEntity(content));
     },
 
     // What the composer hands the chat: a message, or a command the page
     // keeps for itself. A message carrying files is a message, whatever its
     // text says.
-    async submitMessage(content, files = []) {
+    async submitMessage(content, files = [], { mentions = [] } = {}) {
       const frontCommand = files.length ? null : this.findFrontSlashCommand(content);
 
       if (frontCommand) {
@@ -252,7 +253,7 @@ export default {
         // A command running on the server travels as the message it was typed
         // in: the endpoint reads the slash and answers it, so the composer has
         // one way out and only one.
-        await this.postMessage(content, files);
+        await this.postMessage(content, files, { mentions });
         this.expectReply();
       }
 
