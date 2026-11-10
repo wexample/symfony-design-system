@@ -60,7 +60,7 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 9%) 50%, transparent 65%);
+    background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 9%) 50%, transparent 65%) no-repeat;
     background-size: 250% 100%;
     animation: placeholder-sweep 2.4s linear infinite;
   }
@@ -73,7 +73,7 @@
   gap: var(--space-2);
   font-size: var(--font-size-3);
   font-weight: var(--font-weight-strong);
-  background: linear-gradient(90deg, var(--text-color-muted) 30%, var(--text-color-default) 50%, var(--text-color-muted) 70%);
+  background: linear-gradient(90deg, var(--text-color-muted) 30%, var(--text-color-default) 50%, var(--text-color-muted) 70%) no-repeat;
   background-size: 250% 100%;
   background-clip: text;
   color: transparent;
@@ -90,13 +90,16 @@
   }
 }
 
+// One band, never repeated, wider than the box: at 0% it stands past the
+// end edge, at 100% past the start one — a whole crossing, nothing more, so
+// the next one starts where the last could not be seen.
 @keyframes placeholder-sweep {
   from {
-    background-position: 125% 0;
+    background-position: 0% 0;
   }
 
   to {
-    background-position: -125% 0;
+    background-position: 100% 0;
   }
 }
 
