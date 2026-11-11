@@ -79,7 +79,7 @@ export default class extends PageManagerComponent {
   // A plain link of the page held here opens where `target-embedded` says
   // rather than leaving the window, as from a panel.
   protected onLinkLeaving(event: MouseEvent, link: HTMLAnchorElement): void {
-    targetEmbeddedClick(this.app, event, link);
+    targetEmbeddedClick(this.app, event, link, 'dock');
   }
 
   protected async activateListeners(): Promise<void> {

@@ -25,6 +25,11 @@ const STUBS = {
   '@wexample/symfony-loader/js/Constants/FormEvents': './stubs/FormEvents.mjs',
   '@wexample/js-helpers/Helper/ElementSize': './stubs/ElementSize.mjs',
   'markdown-it': './stubs/MarkdownIt.mjs',
+  '@wexample/symfony-loader/js/Services/ModalService': './stubs/ServiceModalService.mjs',
+  '@wexample/symfony-loader/js/Services/PanelService': './stubs/ServicePanelService.mjs',
+  '@wexample/symfony-loader/js/Services/EmbedService': './stubs/ServiceEmbedService.mjs',
+  '@wexample/symfony-loader/js/Services/DockService': './stubs/ServiceDockService.mjs',
+  '@wexample/symfony-loader/js/Services/ComponentsService': './stubs/ServiceComponentsService.mjs',
 };
 
 // `?whole`: the component and every vue it pulls in run their scripts — for

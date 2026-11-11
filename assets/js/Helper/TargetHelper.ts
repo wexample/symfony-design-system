@@ -28,6 +28,10 @@ export const TARGET_HASH_KEYS: { [target: string]: [string, string, string] } = 
 // what the link would do otherwise.
 export const TARGET_EMBEDDED_DEFAULT = TARGET_PANEL;
 export const TARGET_EMBEDDED_NONE = 'none';
+// Where the page is held itself — the embed, the panel, the modal, the dock
+// it was drawn in —: a page going on to the next in the same place, a list
+// to one of its items and back, without knowing what holds it.
+export const TARGET_EMBEDDED_SELF = 'self';
 
 export function targetEmbeddedOf(el: Element | null, explicit: string | null = null): string {
   return explicit
@@ -79,10 +83,12 @@ export function loadIntoTarget(
 
 // A plain link of an embedded page, about to leave for a whole new page and
 // take down what lies under the panel or the modal: opened where
-// `target-embedded` says instead. Called by the managers drawing such pages;
-// says whether it took the click.
-export function targetEmbeddedClick(app: App, event: MouseEvent, link: HTMLAnchorElement): boolean {
-  const target = targetEmbeddedOf(link);
+// `target-embedded` says instead — `self`, where the page is held (`self`:
+// the manager's own target, a panel unless said). Called by the managers
+// drawing such pages; says whether it took the click.
+export function targetEmbeddedClick(app: App, event: MouseEvent, link: HTMLAnchorElement, self: string | null = null): boolean {
+  const named = targetEmbeddedOf(link);
+  const target = TARGET_EMBEDDED_SELF === named ? (self ?? TARGET_EMBEDDED_DEFAULT) : named;
 
   if (TARGET_EMBEDDED_NONE === target) {
     return false;

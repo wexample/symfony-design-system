@@ -35,7 +35,7 @@ export default abstract class AbstractOverlayPageManager extends PageManagerComp
   // A plain link of the page held here would leave the window, and what lies
   // under this with it: it opens where `target-embedded` says instead.
   protected onLinkLeaving(event: MouseEvent, link: HTMLAnchorElement): void {
-    targetEmbeddedClick(this.app, event, link);
+    targetEmbeddedClick(this.app, event, link, this.getLayoutBase());
   }
 
   protected contentEl?: HTMLElement;
