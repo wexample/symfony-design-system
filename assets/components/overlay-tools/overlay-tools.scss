@@ -3,7 +3,10 @@
 @use '../../css/shapes/zone';
 @use '../tool-dock/tool-dock';
 
-.overlay-tools {
+// Hidden by default with the weight of its split as well: it is a split
+// (`zone--split`), whose `display: flex` comes again with every stylesheet
+// drawing a zone — a page loaded later would show it otherwise.
+.overlay-tools.zone--split {
   display: none;
   position: fixed;
   inset-block: 0;
