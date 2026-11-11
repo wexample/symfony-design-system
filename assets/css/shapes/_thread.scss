@@ -122,8 +122,14 @@
     flex: 0 1 auto;
   }
 
+  // Sent: against the end side whole — the face, the name, the words —,
+  // not a block at the end with its words starting in its middle.
   .thread-message--own {
     flex-direction: row-reverse;
+
+    .thread-message--body {
+      text-align: end;
+    }
 
     .thread-message--meta {
       justify-content: flex-end;
