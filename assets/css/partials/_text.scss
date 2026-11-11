@@ -24,3 +24,8 @@
 .text-ellipsis {
   @include text.text-ellipsis;
 }
+
+// A few lines and no more (`--text-clamp-lines`, three by default).
+.text-clamp {
+  @include text.text-clamp;
+}

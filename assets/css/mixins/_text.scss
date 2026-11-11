@@ -3,3 +3,15 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+// Cut after a number of lines rather than one, an ellipsis ending the last:
+// an excerpt, a description read in passing. The lines `--text-clamp-lines`
+// says, `$lines` by default.
+@mixin text-clamp($lines: 3) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--text-clamp-lines, #{$lines});
+  line-clamp: var(--text-clamp-lines, #{$lines});
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
