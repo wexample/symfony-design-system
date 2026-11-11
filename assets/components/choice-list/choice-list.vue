@@ -37,6 +37,11 @@ export default {
     label: {
       type: String,
       default: null
+    },
+    // Held to a height, the options scrolling under the field.
+    scrollable: {
+      type: Boolean,
+      default: false
     }
   },
 

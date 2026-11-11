@@ -25,6 +25,26 @@
   display: none;
 }
 
+// Held to a height (`scrollable`): the options scroll in the list's own
+// frame, the field narrowing them staying in sight over them, on the ground
+// the list stands on. As tall as the page says (`--choice-list-max-height`)
+// and no taller than what holds it; the ground the shell's unless the page
+// says otherwise (`--choice-list-ground`) — a list on a placeholder's
+// ground, say.
+.choice-list--scrollable {
+  max-height: var(--choice-list-max-height, var(--size-6));
+  overflow: auto;
+}
+
+.choice-list--scrollable > .choice-list--filter {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--choice-list-ground, var(--surface-shell));
+  // The list's gap under it covered too: a spread of the ground as wide.
+  box-shadow: 0 0 0 var(--space-2) var(--choice-list-ground, var(--surface-shell));
+}
+
 .choice-list--choice {
   display: flex;
   align-items: center;

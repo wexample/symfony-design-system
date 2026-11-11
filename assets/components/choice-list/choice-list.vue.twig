@@ -7,7 +7,7 @@
 {%- block vue_body -%}
     {#- Client-side twin of choice-list.html.twig: same classes, same order. A
         change to either is a change to both. -#}
-    <div class="choice-list">
+    <div class="choice-list" :class="{ 'choice-list--scrollable': scrollable }">
         <div v-if="filterable" class="form--input-group form--filter form--filter--compact choice-list--filter">
             <span class="form--input-addon" aria-hidden="true" v-html="searchIconHtml"></span>
             <input

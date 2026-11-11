@@ -6,13 +6,15 @@
     another, under its name —; `value` the one chosen, ticked at the end
     of its line. Past `filter_from` options (none by default), a field
     narrows them. `label` names the list for whoever reads the page aloud.
+    `scrollable` holds the list to a height (`--choice-list-max-height`),
+    the options scrolling under the field.
     Chosen, the list says so: `choice-list:change`, { value }, bubbling from
     it (choice-list.ts). -#}
 {%- set items = items|default([]) -%}
 {%- set value = value ?? null -%}
 {%- set filter_from = filter_from|default(0) -%}
 {%- set filterable = filter_from > 0 and items|length >= filter_from -%}
-<div class="choice-list{{ class|default(null) ? ' ' ~ class }}">
+<div class="choice-list{{ scrollable|default(false) ? ' choice-list--scrollable' }}{{ class|default(null) ? ' ' ~ class }}">
     {%- if filterable -%}
         <div class="form--input-group form--filter form--filter--compact choice-list--filter">
             <span class="form--input-addon" aria-hidden="true">{{ icon('ph:bold/magnifying-glass') }}</span>
