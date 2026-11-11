@@ -117,6 +117,10 @@ class ToolDockExtension extends AbstractTemplateExtension
      * button_target does), `_blank` for another window, or in place when
      * nothing is said. The settings, a page read and closed.
      *
+     * A tool may hang a count on its icon (`count`, a figure — zero shows
+     * nothing): what waits behind it, unread. Followed on the page by
+     * `toolDockCountApply` (ToolDockHelper), by the tool's name.
+     *
      * Between the tools, other items of the bar (`type`): a line setting groups
      * of them apart (`separator`), or a control the page draws (`control`,
      * its `content`) — a picker, a select —, which a tool's zone may own
@@ -191,6 +195,7 @@ class ToolDockExtension extends AbstractTemplateExtension
                 'fill' => (bool) ($tool['fill'] ?? false),
                 'href' => $href,
                 'target' => $tool['target'] ?? null,
+                'count' => isset($tool['count']) ? (int) $tool['count'] : null,
             ];
         }
 

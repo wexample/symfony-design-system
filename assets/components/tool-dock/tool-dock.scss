@@ -3,6 +3,7 @@
 @use '../../css/shapes/stack';
 @use '../../css/shapes/page';
 @use '../../css/shapes/action-icon';
+@use '../../css/shapes/count';
 @use '../../css/mixins/density' as density;
 @use '../../css/mixins/window' as window;
 @use '../zone-resizer/zone-resizer';
@@ -78,6 +79,14 @@
 .layout--horizontal > .tool-dock--layout > .zone-resizer {
   inset-inline-start: calc(-1 * var(--space-1));
   width: calc(var(--zone-gap, var(--space-2)) + var(--space-1));
+}
+
+// What waits behind a tool, on its icon's corner, kept within the icon's end
+// edge and growing inward: the bar is an icon wide, against the window's edge.
+.zone--toolbar .action-icon > .count--corner {
+  inset-block-start: 0;
+  inset-inline-start: auto;
+  inset-inline-end: 0;
 }
 
 // The line between the bar and what stands before it — the page, or what it

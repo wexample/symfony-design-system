@@ -80,7 +80,8 @@
                             {%- endif -%}
                         {%- else -%}
                             <button type="button"
-                                    class="action-icon"
+                                    class="action-icon{{ tool.count is not null ? ' has-count' }}"
+                                    {%- if tool.count is not null %} data-tool-count="{{ tool.name }}"{% endif %}
                                     data-zone-toggle="{{ tool.zone }}"
                                     data-ui-state="{{ tool.state }}"
                                     aria-pressed="{{ tool.open ? 'true' : 'false' }}"
@@ -88,6 +89,10 @@
                                     aria-label="{{ tool.label }}"
                                     data-tooltip="{{ tool.label }}">
                                 {{- icon(tool.icon) -}}
+                                {#- What waits behind the tool, on its corner. -#}
+                                {%- if tool.count is not null -%}
+                                    {{- count_badge(tool.count, { corner: true }) -}}
+                                {%- endif -%}
                             </button>
                         {%- endif -%}
                     {%- endfor -%}
