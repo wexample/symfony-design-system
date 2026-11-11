@@ -315,6 +315,21 @@
   color: var(--text-color-muted);
 }
 
+// The same as a button, for an action done here rather than a page reached:
+// none of the browser's frame, and the pointer saying it can be pressed.
+button.block--action-link {
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+// Pointed at, link or button, it says it answers.
+.block--action-link:hover,
+.block--action-link:focus-visible {
+  color: var(--text-color-default);
+}
+
 .block--figure-value,
 .block--action-icon {
   font-size: var(--font-size-8);
