@@ -1,0 +1,36 @@
+/* Component: avatar-tabs */
+// Tabs standing one under the other, a face each: the open one on the
+// selected ground, the others lit under the pointer; the way to add one at
+// their foot, the same size, a sign in place of a face.
+@use '../../css/shapes/count';
+@use '../avatar/avatar';
+
+.avatar-tabs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-1);
+}
+
+.avatar-tabs--tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--space-6) + var(--space-2));
+  height: calc(var(--space-6) + var(--space-2));
+  border-radius: var(--radius-control);
+  color: var(--text-color-muted);
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--state-hover);
+    color: var(--text-color-default);
+  }
+
+  &.is-active {
+    background: var(--color-selected);
+    color: var(--color-selected-contrast);
+  }
+}

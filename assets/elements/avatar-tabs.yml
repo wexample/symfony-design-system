@@ -1,0 +1,16 @@
+# Declares `avatar-tabs` to the design system registry.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "Vertical tabs, a face each — the people one talks with, an agent among them —, the open one marked, how many lines wait on its corner, and at their foot what adds one more."
+formats:
+  style: true
+  template: true
+  vue: todo
+  script: "links, nothing to run"
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

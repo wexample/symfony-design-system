@@ -1,0 +1,30 @@
+{#- Vertical tabs, a face each — the people one talks with, an agent among
+    them —, the open one marked, how many lines wait on its corner; at their
+    foot, what adds one more (`add`). Each tab a link: what holds the tabs says
+    where it opens (`data-target-embedded`).
+
+    items: [{ href, label, avatar?, unread?, active? }]
+        — `avatar`: { label?, src?, seed?, emoji?, presence? }, the label's
+        initials without one.
+    add: { href, label }, none without it. -#}
+{%- set domain = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.conversations.' -%}
+<nav class="avatar-tabs{{ class|default(null) ? ' ' ~ class }}"{% if label|default(null) %} aria-label="{{ label }}"{% endif %}>
+    {%- for item in items|default([]) -%}
+        {%- set unread = item.unread|default(0) -%}
+        <a class="avatar-tabs--tab has-count{{ item.active|default(false) ? ' is-active' }}"
+            href="{{ item.href|default('#') }}"
+            data-tooltip="{{ item.label|default('') }}"
+            aria-label="{{ item.label|default('') }}"
+            {%- if item.active|default(false) %} aria-current="page"{% endif %}>
+            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/avatar', (item.avatar|default({}))|merge({ label: item.avatar.label|default(item.label|default('')) })) }}
+            {%- if unread > 0 -%}
+                <span class="count count--corner" aria-label="{{ (domain ~ 'unread')|trans({ '%count%': unread }) }}">{{ unread > 99 ? '99+' : unread }}</span>
+            {%- endif -%}
+        </a>
+    {%- endfor -%}
+    {%- if add|default(null) -%}
+        <a class="avatar-tabs--tab avatar-tabs--add{{ add.active|default(false) ? ' is-active' }}" href="{{ add.href }}" data-tooltip="{{ add.label }}" aria-label="{{ add.label }}">
+            {{ icon('ph:bold/plus') }}
+        </a>
+    {%- endif -%}
+</nav>
