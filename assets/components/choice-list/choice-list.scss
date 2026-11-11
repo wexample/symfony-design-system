@@ -36,13 +36,16 @@
   overflow: auto;
 }
 
-.choice-list--scrollable > .choice-list--filter {
+// The field's own frame, not the field: its ring when written in is drawn
+// whole inside it, and the list's gap under it is covered by its ground.
+.choice-list--scrollable > .choice-list--head {
   position: sticky;
   top: 0;
   z-index: 1;
+  margin-bottom: calc(-1 * var(--space-2));
+  padding: var(--border-focus-width, 2px);
+  padding-bottom: var(--space-2);
   background: var(--choice-list-ground, var(--surface-shell));
-  // The list's gap under it covered too: a spread of the ground as wide.
-  box-shadow: 0 0 0 var(--space-2) var(--choice-list-ground, var(--surface-shell));
 }
 
 .choice-list--choice {

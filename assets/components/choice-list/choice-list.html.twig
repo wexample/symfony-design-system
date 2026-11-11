@@ -16,15 +16,17 @@
 {%- set filterable = filter_from > 0 and items|length >= filter_from -%}
 <div class="choice-list{{ scrollable|default(false) ? ' choice-list--scrollable' }}{{ class|default(null) ? ' ' ~ class }}">
     {%- if filterable -%}
-        <div class="form--input-group form--filter form--filter--compact choice-list--filter">
-            <span class="form--input-addon" aria-hidden="true">{{ icon('ph:bold/magnifying-glass') }}</span>
-            <input
-                class="form--input choice-list--filter-input"
-                type="search"
-                autocomplete="off"
-                placeholder="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.choice_list.filter'|trans }}"
-                aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.choice_list.filter'|trans }}"
-            >
+        <div class="choice-list--head">
+            <div class="form--input-group form--filter form--filter--compact choice-list--filter">
+                <span class="form--input-addon" aria-hidden="true">{{ icon('ph:bold/magnifying-glass') }}</span>
+                <input
+                    class="form--input choice-list--filter-input"
+                    type="search"
+                    autocomplete="off"
+                    placeholder="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.choice_list.filter'|trans }}"
+                    aria-label="{{ 'WexampleSymfonyDesignSystemBundle.common.system::frontend.choice_list.filter'|trans }}"
+                >
+            </div>
         </div>
     {%- endif -%}
     <ul class="choice-list--items" role="radiogroup"{% if label|default(null) %} aria-label="{{ label }}"{% endif %}>
