@@ -1,7 +1,9 @@
 /* Component: avatar-tabs */
-// Tabs standing one under the other, a face each, on the ground of the
-// structure (`--surface-shell`) as a rail of tabs is — so the column reads
-// apart from what it opens beside it without a line. The open one ringed in
+// Tabs standing one under the other, a face each, on the shell's own ground
+// (`--surface-page`) — so the column reads apart from what it opens beside
+// it without a line, and as the shell it continues. Not `--surface-shell`,
+// which a panel or a block takes a step up for its own chrome: the column
+// would then stand a shade off the shell beside it. The open one ringed in
 // the selected colour, round as the face is; the others ringed faintly under
 // the pointer. The way to add one at their foot, the same size, a sign in a
 // dashed ring in place of a face.
@@ -24,11 +26,11 @@
   padding: var(--space-2);
   overflow-x: hidden;
   overflow-y: auto;
-  background: var(--surface-shell);
+  background: var(--surface-page);
   // What hangs on a face — its presence, its count — is ringed with the
   // column's ground.
-  --avatar-ring: var(--surface-shell);
-  --count-ring: var(--surface-shell);
+  --avatar-ring: var(--surface-page);
+  --count-ring: var(--surface-page);
 }
 
 .avatar-tabs--tab {
