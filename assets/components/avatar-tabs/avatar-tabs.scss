@@ -1,36 +1,76 @@
 /* Component: avatar-tabs */
-// Tabs standing one under the other, a face each: the open one on the
-// selected ground, the others lit under the pointer; the way to add one at
-// their foot, the same size, a sign in place of a face.
+// Tabs standing one under the other, a face each, on the ground of the
+// structure (`--surface-shell`) as a rail of tabs is — so the column reads
+// apart from what it opens beside it without a line. The open one ringed in
+// the selected colour, round as the face is; the others ringed faintly under
+// the pointer. The way to add one at their foot, the same size, a sign in a
+// dashed ring in place of a face.
 @use '../../css/shapes/count';
 @use '../avatar/avatar';
 
 .avatar-tabs {
+  // The ring round a face, and the room between it and the face.
+  --avatar-tabs-ring: 2px;
+  --avatar-tabs-face: var(--space-6);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-1);
-  padding: var(--space-2) var(--space-1);
+  gap: var(--space-2);
+  // Its ground the whole height of what holds it.
+  box-sizing: border-box;
+  height: 100%;
+  // Room enough on every side for a count hung on a tab's corner: the column
+  // scrolls down on its own, never sideways.
+  padding: var(--space-2);
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: var(--surface-shell);
+  // What hangs on a face — its presence, its count — is ringed with the
+  // column's ground.
+  --avatar-ring: var(--surface-shell);
+  --count-ring: var(--surface-shell);
 }
 
 .avatar-tabs--tab {
   display: inline-flex;
+  flex: none;
   align-items: center;
   justify-content: center;
-  width: calc(var(--space-6) + var(--space-2));
-  height: calc(var(--space-6) + var(--space-2));
-  border-radius: var(--radius-control);
+  box-sizing: border-box;
+  width: calc(var(--avatar-tabs-face) + 4 * var(--avatar-tabs-ring));
+  height: calc(var(--avatar-tabs-face) + 4 * var(--avatar-tabs-ring));
+  border-radius: 50%;
   color: var(--text-color-muted);
   text-decoration: none;
 
   &:hover,
   &:focus-visible {
-    background: var(--state-hover);
+    box-shadow: inset 0 0 0 var(--avatar-tabs-ring) var(--border-color-strong);
     color: var(--text-color-default);
   }
 
   &.is-active {
-    background: var(--color-selected);
-    color: var(--color-selected-contrast);
+    box-shadow: inset 0 0 0 var(--avatar-tabs-ring) var(--color-selected);
+    color: var(--text-color-default);
+  }
+
+  // Its count kept within the tab's end edge, growing inward: the column
+  // never widens for it.
+  > .count--corner {
+    inset-inline-start: auto;
+    inset-inline-end: -0.2em;
+  }
+}
+
+// The way to add one: no face, a sign in a dashed ring the size of one.
+.avatar-tabs--add {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: calc(2 * var(--avatar-tabs-ring));
+    border: 1px dashed var(--border-color-strong);
+    border-radius: 50%;
   }
 }

@@ -71,7 +71,9 @@
   font-size: 0.6em;
   line-height: 1.6;
   text-align: center;
-  box-shadow: 0 0 0 2px var(--surface-page, var(--surface-1));
+  // Ringed with the ground it hangs over — the page's, or the one what it
+  // counts stands on (`--count-ring`).
+  box-shadow: 0 0 0 2px var(--count-ring, var(--surface-page, var(--surface-1)));
   pointer-events: none;
 }
 

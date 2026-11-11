@@ -17,9 +17,7 @@
             aria-label="{{ item.label|default('') }}"
             {%- if item.active|default(false) %} aria-current="page"{% endif %}>
             {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/avatar', (item.avatar|default({}))|merge({ label: item.avatar.label|default(item.label|default('')) })) }}
-            {%- if unread > 0 -%}
-                <span class="count count--corner" aria-label="{{ (domain ~ 'unread')|trans({ '%count%': unread }) }}">{{ unread > 99 ? '99+' : unread }}</span>
-            {%- endif -%}
+            {{- count_badge(unread, { corner: true, title: (domain ~ 'unread')|trans({ '%count%': unread }) }) -}}
         </a>
     {%- endfor -%}
     {%- if add|default(null) -%}
