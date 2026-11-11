@@ -428,3 +428,32 @@
     @extend %block-tone;
   }
 }
+
+// A block lit by what is happening to it — a step running, one that failed,
+// a slot a request went through —: a ring in the state's colour round the
+// whole of it, in place of its shadow, where a tone only marks its leading
+// edge. For what the block is going through now, not for what it is.
+%block-ring {
+  border-color: var(--feedback-fill);
+  box-shadow: 0 0 0 2px var(--feedback-fill), var(--block-shadow, none);
+}
+
+.block--ring-info {
+  @include feedback.feedback-info;
+  @extend %block-ring;
+}
+
+.block--ring-success {
+  @include feedback.feedback-success;
+  @extend %block-ring;
+}
+
+.block--ring-warning {
+  @include feedback.feedback-warning;
+  @extend %block-ring;
+}
+
+.block--ring-error {
+  @include feedback.feedback-error;
+  @extend %block-ring;
+}
