@@ -142,9 +142,21 @@ export default {
     // heard. A layer doing more with a line — running what it asks — says so
     // here.
     onLiveEntity(entity) {
-      if (!this.isOwnMessage(entity) && this.isSpoken(entity)) {
+      if (this.isOwnMessage(entity)) {
+        return;
+      }
+
+      this.onIncomingMessage(entity);
+
+      if (this.isSpoken(entity)) {
         this.playMessageSound(entity);
       }
+    },
+
+    // A line from the other side arrived while the chat is open — whatever
+    // the chat makes of it besides hearing it: a conversation marks it read.
+    // Nothing by default.
+    onIncomingMessage() {
     },
 
     // Whether a message from the other side — a person, an agent alike —
