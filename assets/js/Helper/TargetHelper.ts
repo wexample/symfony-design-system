@@ -85,8 +85,16 @@ export function loadIntoTarget(
 // take down what lies under the panel or the modal: opened where
 // `target-embedded` says instead — `self`, where the page is held (`self`:
 // the manager's own target, a panel unless said). Called by the managers
-// drawing such pages; says whether it took the click.
-export function targetEmbeddedClick(app: App, event: MouseEvent, link: HTMLAnchorElement, self: string | null = null): boolean {
+// drawing such pages; says whether it took the click. A manager that can load
+// into itself and no other (`loadSelf`) — an embed, whose name a copy of it
+// may share — is handed `self` directly.
+export function targetEmbeddedClick(
+  app: App,
+  event: MouseEvent,
+  link: HTMLAnchorElement,
+  self: string | null = null,
+  loadSelf: ((href: string) => Promise<any>) | null = null
+): boolean {
   const named = targetEmbeddedOf(link);
   const target = TARGET_EMBEDDED_SELF === named ? (self ?? TARGET_EMBEDDED_DEFAULT) : named;
 
@@ -95,7 +103,14 @@ export function targetEmbeddedClick(app: App, event: MouseEvent, link: HTMLAncho
   }
 
   event.preventDefault();
-  void loadIntoTarget(app, target, link.getAttribute('href') ?? link.href, { targetEmbedded: TARGET_EMBEDDED_NONE });
+
+  const href = link.getAttribute('href') ?? link.href;
+
+  if (TARGET_EMBEDDED_SELF === named && loadSelf) {
+    void loadSelf(href);
+  } else {
+    void loadIntoTarget(app, target, href, { targetEmbedded: TARGET_EMBEDDED_NONE });
+  }
 
   return true;
 }

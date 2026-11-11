@@ -50,7 +50,7 @@ export default class extends PageManagerComponent {
   // A plain link of the page held here would leave the window, and what lies
   // under this with it: it opens where `target-embedded` says instead.
   protected onLinkLeaving(event: MouseEvent, link: HTMLAnchorElement): void {
-    targetEmbeddedClick(this.app, event, link, this.options.name);
+    targetEmbeddedClick(this.app, event, link, this.options.name, (href) => this.getEmbedService().loadInto(this, href));
   }
 
 

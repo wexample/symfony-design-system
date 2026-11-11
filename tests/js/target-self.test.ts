@@ -43,3 +43,22 @@ test('`self` goes on where the page is held: the embed by its name, an overlay b
 
   assert.deepEqual(calls, ['embed conversations /conversations/1', 'dock /conversations/1', 'panel /conversations/1', 'panel /conversations/1']);
 });
+
+test('`self` held by an embed drawn twice goes on in the copy that holds the link, not the one its name finds', () => {
+  const calls: string[] = [];
+  const event = { preventDefault() {} } as any;
+
+  targetEmbeddedClick(app(calls), event, link('self'), 'conversations', (href) => {
+    calls.push(`this embed ${href}`);
+
+    return Promise.resolve();
+  });
+  // A link sent elsewhere by name is not this embed's to take.
+  targetEmbeddedClick(app(calls), event, link('conversations'), 'conversations', (href) => {
+    calls.push(`this embed ${href}`);
+
+    return Promise.resolve();
+  });
+
+  assert.deepEqual(calls, ['this embed /conversations/1', 'embed conversations /conversations/1']);
+});
