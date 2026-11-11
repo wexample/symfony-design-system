@@ -147,12 +147,12 @@ export default {
       }
     },
 
-    // Whether a message from the other side — a person, an agent — arriving
-    // while the chat is open makes a sound, the reader free to turn it off:
-    // a chat talked to by an agent says so; a chat between people, by
-    // default, makes none.
+    // Whether a message from the other side — a person, an agent alike —
+    // arriving while the chat is open makes a sound, the reader free to turn
+    // it off, for every chat at once (`ui.chat.sound`). A chat with nobody on
+    // the other side to hear from — a log read back — says none.
     hasSound() {
-      return false;
+      return true;
     },
 
     toggleSound() {
