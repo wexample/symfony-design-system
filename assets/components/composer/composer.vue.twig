@@ -67,6 +67,10 @@
                     @blur="mention = null"
                     @keydown="onKeydown"
             ></textarea>
+            {#- What whoever holds the composer puts at the field's end,
+                before attaching and sending — a way to more options —: its
+                buttons drawn as theirs. -#}
+            <slot name="field-end"></slot>
             <template v-if="acceptsAttachments">
                 <input
                         ref="attachInput"
