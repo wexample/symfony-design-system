@@ -1,7 +1,10 @@
 {%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
 
 {%- block vue_body -%}
-    <div class="tabs" :class="resolvedTabsClass">
+    {#- Views picked in place: a list of tabs, the one shown selected, the
+        arrows moving from one to the next (the server bar's tabs are routes,
+        links of a navigation: tab-item). -#}
+    <div class="tabs" :class="resolvedTabsClass" role="tablist" @keydown="onKeydown">
         {#- Shown once the bar scrolls (TabsHelper), each at its end. -#}
         <button type="button" class="tabs--arrow tabs--arrow--start" tabindex="-1" aria-hidden="true" @click="scrollTabs(-1)">{{ icon('ph:bold/caret-left') }}</button>
         <a
@@ -10,7 +13,9 @@
                 href="#"
                 class="tabs--item"
                 :class="{ 'tabs--item--active': isActive(item) }"
-                :aria-current="isActive(item) ? 'page' : null"
+                role="tab"
+                :aria-selected="isActive(item) ? 'true' : 'false'"
+                :tabindex="isActive(item) ? 0 : -1"
                 :aria-disabled="item.disabled ? 'true' : null"
                 @click="onClickTab($event, item)"
         >

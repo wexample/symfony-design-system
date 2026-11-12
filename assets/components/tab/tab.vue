@@ -86,6 +86,32 @@ export default {
       this.$emit('change', item.key, item);
     },
 
+    // The arrows move from a tab to the next, the ends reached with Home and
+    // End: the tab reached is shown, as a list of tabs answers the keyboard.
+    onKeydown(event) {
+      const steps = { ArrowRight: 1, ArrowLeft: -1, Home: 'first', End: 'last' };
+      const step = steps[event.key];
+      const items = this.resolvedItems.filter((item) => !item.disabled);
+
+      if (!step || !items.length || !event.target.closest?.('.tabs--item')) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const current = items.findIndex((item) => this.isActive(item));
+      const next = step === 'first' ? 0
+        : step === 'last' ? items.length - 1
+          : (current + step + items.length) % items.length;
+
+      if (items[next] && !this.isActive(items[next])) {
+        // The tab reached takes the focus itself: whoever holds the bar may
+        // show its view only once it has what the view needs.
+        this.$el.querySelectorAll(':scope > .tabs--item')[this.resolvedItems.indexOf(items[next])]?.focus();
+        this.$emit('change', items[next].key, items[next]);
+      }
+    },
+
     getItemIcon(item) {
       if (!item?.icon) {
         return '';
