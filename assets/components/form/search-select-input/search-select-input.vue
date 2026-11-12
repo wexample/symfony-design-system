@@ -1,5 +1,6 @@
 <script>
 import FormField from '../../_abstract/form-field/form-field.vue';
+import { floatingFollow } from '../../../js/Helper/FloatingHelper';
 import {
   OPTIONS_SOURCE_DELAY_MS,
   optionsFetch,
@@ -144,6 +145,7 @@ export default {
 
   beforeUnmount() {
     document.removeEventListener('pointerdown', this.onDocumentPointerdown);
+    this.unfollow?.();
     clearTimeout(this.fetchTimer);
     this.fetchController?.abort();
   },
@@ -168,10 +170,17 @@ export default {
       this.query = '';
       this.active = Math.max(0, this.rows.findIndex((row) => row.value === this.value));
       this.askSource();
-      this.$nextTick(() => this.$refs.search?.focus());
+      this.$nextTick(() => {
+        // In the top layer, out of what clips the field — a block, a zone's
+        // body — as the server field's list (FloatingHelper).
+        this.unfollow = floatingFollow(this.$refs.trigger, this.$refs.dropdown, { placement: 'bottom', align: 'start', offset: 4 });
+        this.$refs.search?.focus();
+      });
     },
 
     closeList(focusTrigger = false) {
+      this.unfollow?.();
+      this.unfollow = null;
       this.open = false;
       this.query = '';
 

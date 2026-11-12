@@ -30,7 +30,7 @@
             <span class="select--trigger-label{{ shown == '' ? ' is-placeholder' }}">{{ shown ?: (placeholder|default('')) }}</span>
             <span class="select--icon" aria-hidden="true">{{ icon('ph:bold/caret-down') }}</span>
         </button>
-        <div class="select--dropdown" hidden>
+        <div class="select--dropdown" popover="manual" hidden>
             <div class="select--search-wrap">
                 <div class="form--input-group form--filter form--filter--compact">
                     <span class="form--input-addon" aria-hidden="true">{{ icon('ph:bold/magnifying-glass') }}</span>

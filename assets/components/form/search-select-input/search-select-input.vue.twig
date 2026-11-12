@@ -25,7 +25,7 @@
             <span class="select--trigger-label" :class="{ 'is-placeholder': !chosenLabel }">[[ chosenLabel || placeholder || '' ]]</span>
             <span class="select--icon" aria-hidden="true">{{ icon('ph:bold/caret-down') }}</span>
         </button>
-        <div class="select--dropdown" :hidden="!open">
+        <div ref="dropdown" class="select--dropdown" popover="manual" :hidden="!open">
             <div class="select--search-wrap">
                 <div class="form--input-group form--filter form--filter--compact">
                     <span class="form--input-addon" aria-hidden="true">{{ icon('ph:bold/magnifying-glass') }}</span>

@@ -111,6 +111,43 @@ export function floatingPlace(anchor: Element, floating: HTMLElement, options: F
   return position;
 }
 
+/**
+ * Opens `floating` in the top layer (a manual `popover`) beside `anchor`, out
+ * of whatever clips or scrolls around it — a block, a zone's body —, as wide
+ * as the anchor at least, and keeps it there while the page scrolls or the
+ * window changes size. Gives back what closes it again.
+ */
+export function floatingFollow(anchor: HTMLElement, floating: HTMLElement, options: FloatingOptions = {}): () => void {
+  if (!floating.hasAttribute('popover')) {
+    floating.setAttribute('popover', 'manual');
+  }
+
+  floating.showPopover?.();
+
+  const place = (event?: Event) => {
+    // The box scrolling its own content moves nothing.
+    if (event?.target instanceof Node && floating.contains(event.target)) {
+      return;
+    }
+
+    floating.style.minWidth = `${anchor.offsetWidth}px`;
+    floatingPlace(anchor, floating, options);
+  };
+
+  place();
+  window.addEventListener('scroll', place, true);
+  window.addEventListener('resize', place);
+
+  return () => {
+    window.removeEventListener('scroll', place, true);
+    window.removeEventListener('resize', place);
+
+    if (floating.matches(':popover-open')) {
+      floating.hidePopover();
+    }
+  };
+}
+
 export type FloatingBounds = { left: number; top: number; right: number; bottom: number };
 
 /**

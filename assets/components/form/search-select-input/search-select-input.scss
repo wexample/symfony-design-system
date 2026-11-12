@@ -11,7 +11,9 @@
   width: 100%;
 }
 
-.search-select-input .select--dropdown {
+// Under the field, as wide as it, where the list is not lifted to the top
+// layer (`popover`, which the script places).
+.search-select-input .select--dropdown:not([popover]) {
   inset-inline-end: 0;
 }
 

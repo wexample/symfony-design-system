@@ -1,4 +1,5 @@
 import Field from '../../../js/Class/Field';
+import { floatingFollow } from '../../../js/Helper/FloatingHelper';
 import {
   Option,
   OPTIONS_SOURCE_DELAY_MS,
@@ -18,6 +19,8 @@ export default class extends Field {
   private triggerEl: HTMLButtonElement | null = null;
   private labelEl: HTMLElement | null = null;
   private dropdownEl: HTMLElement | null = null;
+  // What closes the list's top layer again, while it is open.
+  private unfollow: (() => void) | null = null;
   private searchEl: HTMLInputElement | null = null;
   private listEl: HTMLElement | null = null;
   private statusEl: HTMLElement | null = null;
@@ -92,6 +95,7 @@ export default class extends Field {
     this.listEl?.removeEventListener('pointerdown', this.onListPointerdown);
     this.listEl?.removeEventListener('mousemove', this.onListMousemove);
     document.removeEventListener('pointerdown', this.onDocumentPointerdown);
+    this.unfollow?.();
 
     if (this.fetchTimer) {
       clearTimeout(this.fetchTimer);
@@ -119,6 +123,8 @@ export default class extends Field {
     }
 
     this.dropdownEl.hidden = false;
+    // In the top layer, out of what clips the field (FloatingHelper).
+    this.unfollow = floatingFollow(this.triggerEl!, this.dropdownEl, { placement: 'bottom', align: 'start', offset: 4 });
     this.rootEl?.classList.add('is-open');
     this.triggerEl?.setAttribute('aria-expanded', 'true');
     this.searchEl!.value = '';
@@ -134,6 +140,8 @@ export default class extends Field {
       return;
     }
 
+    this.unfollow?.();
+    this.unfollow = null;
     this.dropdownEl.hidden = true;
     this.rootEl?.classList.remove('is-open');
     this.triggerEl?.setAttribute('aria-expanded', 'false');
