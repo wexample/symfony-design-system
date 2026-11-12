@@ -198,11 +198,10 @@
   }
 }
 
-// One choice among a few, each an action of the bar — a mode, a view —, held
-// in a track of their own: the one chosen raised out of it, the others in it.
-// Not toggles each on their own (`aria-pressed`) but one value
-// (`role="radiogroup"`, each `role="radio"` and `aria-checked`). The same in
-// every skin: a skin varies its corners and grounds, not the shape.
+// One choice among a few, each an action of the bar — a mode, a view —: the
+// one chosen switched on as a toggle is, in the application's colour, the
+// others as any action. Not toggles each on their own (`aria-pressed`) but
+// one value (`role="radiogroup"`, each `role="radio"` and `aria-checked`).
 //
 //   <div class="toolbar--choice" role="radiogroup" aria-label="…">
 //     <button type="button" class="toolbar--action" role="radio" aria-checked="true">…</button>
@@ -211,22 +210,13 @@
 .toolbar--choice {
   display: inline-flex;
   align-items: center;
-  gap: 2px;
-  padding: 2px;
-  border-radius: calc(var(--radius-control) + 2px);
-  // Sunk into the bar as a field is: the deepest ground, a line round it —
-  // the bar's own grounds are a field's in some palettes.
-  background: var(--surface-zone);
-  box-shadow: inset 0 0 0 1px var(--border-color-discreet);
+  gap: var(--space-1);
 
-  > .toolbar--action {
-    padding-block: calc(var(--density-padding-block, var(--space-2)) - 2px);
-  }
-
-  > .toolbar--action[aria-checked='true'] {
-    background: var(--surface-3);
-    box-shadow: inset 0 0 0 1px var(--border-color-default), var(--shadow-1);
-    color: var(--text-color-default);
+  > .toolbar--action[aria-checked='true'],
+  > .toolbar--action[aria-checked='true']:hover,
+  > .toolbar--action[aria-checked='true']:focus-visible {
+    background: var(--color-selected);
+    color: var(--color-selected-contrast);
     cursor: default;
   }
 }
