@@ -180,11 +180,13 @@
     color: var(--text-color-default);
   }
 
-  // A toggle of the bar — a view, a mode — while it is on: a step past the
-  // hover, which is the ground of a shaded bar and would not show on it.
-  &:is(.is-active, [aria-pressed='true']) {
-    background: var(--state-active);
-    color: var(--text-color-default);
+  // A toggle of the bar — a pin, a full screen — while it is on: in the
+  // application's own colour, as any toggle switched on (shapes/action-icon).
+  &:is(.is-active, [aria-pressed='true']),
+  &:is(.is-active, [aria-pressed='true']):hover,
+  &:is(.is-active, [aria-pressed='true']):focus-visible {
+    background: var(--color-selected);
+    color: var(--color-selected-contrast);
   }
 
   // Nowhere to go from here: back at the first step, up at the root.
@@ -192,6 +194,39 @@
     background: none;
     color: var(--text-color-muted);
     opacity: 0.4;
+    cursor: default;
+  }
+}
+
+// One choice among a few, each an action of the bar — a mode, a view —, held
+// in a track of their own: the one chosen raised out of it, the others in it.
+// Not toggles each on their own (`aria-pressed`) but one value
+// (`role="radiogroup"`, each `role="radio"` and `aria-checked`). The same in
+// every skin: a skin varies its corners and grounds, not the shape.
+//
+//   <div class="toolbar--choice" role="radiogroup" aria-label="…">
+//     <button type="button" class="toolbar--action" role="radio" aria-checked="true">…</button>
+//     <button type="button" class="toolbar--action" role="radio" aria-checked="false">…</button>
+//   </div>
+.toolbar--choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border-radius: calc(var(--radius-control) + 2px);
+  // Sunk into the bar as a field is: the deepest ground, a line round it —
+  // the bar's own grounds are a field's in some palettes.
+  background: var(--surface-zone);
+  box-shadow: inset 0 0 0 1px var(--border-color-discreet);
+
+  > .toolbar--action {
+    padding-block: calc(var(--density-padding-block, var(--space-2)) - 2px);
+  }
+
+  > .toolbar--action[aria-checked='true'] {
+    background: var(--surface-3);
+    box-shadow: inset 0 0 0 1px var(--border-color-default), var(--shadow-1);
+    color: var(--text-color-default);
     cursor: default;
   }
 }
