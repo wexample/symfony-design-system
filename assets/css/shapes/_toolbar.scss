@@ -157,8 +157,8 @@
 
 // An action with no word to it: a bar of icons is read by its shapes, so the
 // frame only appears under the pointer. A button and not a link, since what it
-// does happens here rather than elsewhere. A mode of the bar may carry its
-// word after its icon, a step apart.
+// does happens here rather than elsewhere. One carrying a word keeps it a
+// step from its icon.
 .toolbar--action {
   display: inline-flex;
   align-items: center;
@@ -182,6 +182,8 @@
 
   // A toggle of the bar — a pin, a full screen — while it is on: in the
   // application's own colour, as any toggle switched on (shapes/action-icon).
+  // A tool switched on, not a view chosen: what the bar shows of several
+  // views is picked with tabs (components/tab), which a bar holds as well.
   &:is(.is-active, [aria-pressed='true']),
   &:is(.is-active, [aria-pressed='true']):hover,
   &:is(.is-active, [aria-pressed='true']):focus-visible {
@@ -194,29 +196,6 @@
     background: none;
     color: var(--text-color-muted);
     opacity: 0.4;
-    cursor: default;
-  }
-}
-
-// One choice among a few, each an action of the bar — a mode, a view —: the
-// one chosen switched on as a toggle is, in the application's colour, the
-// others as any action. Not toggles each on their own (`aria-pressed`) but
-// one value (`role="radiogroup"`, each `role="radio"` and `aria-checked`).
-//
-//   <div class="toolbar--choice" role="radiogroup" aria-label="…">
-//     <button type="button" class="toolbar--action" role="radio" aria-checked="true">…</button>
-//     <button type="button" class="toolbar--action" role="radio" aria-checked="false">…</button>
-//   </div>
-.toolbar--choice {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-
-  > .toolbar--action[aria-checked='true'],
-  > .toolbar--action[aria-checked='true']:hover,
-  > .toolbar--action[aria-checked='true']:focus-visible {
-    background: var(--color-selected);
-    color: var(--color-selected-contrast);
     cursor: default;
   }
 }
