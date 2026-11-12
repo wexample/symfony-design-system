@@ -227,7 +227,8 @@ export default {
       }
 
       event.stopPropagation();
-      part.onClick(line.entity);
+      // The click with it: a key held reads there.
+      part.onClick(line.entity, event);
     },
 
     // Scrolled to the edge more comes from: the next part asked. A scroll

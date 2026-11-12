@@ -7,7 +7,7 @@
 {%- block vue_body -%}
     {#- Client-side twin of identifier.html.twig: same classes, same order. A
         change to either is a change to both. -#}
-    <button v-if="link" type="button" class="identifier identifier--link" :aria-label="tooltip" @click="$emit('open', full)">
+    <button v-if="link" type="button" class="identifier identifier--link" :aria-label="tooltip" @click="$emit('open', full, $event)">
         <code class="identifier--value" :data-tooltip="hint">[[ shown ]]</code>
     </button>
     <span v-else class="identifier">

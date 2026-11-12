@@ -3,7 +3,7 @@ import CopyButton from '../copy-button/copy-button.vue';
 
 // The twin of identifier.html.twig: an id read as code, kept to its end when
 // `short`, copied whole with a toast when `copy`. An id leading to its record
-// (`link`) is pressed as a link and says so (`open`, its whole value): every
+// (`link`) is pressed as a link and says so (`open`, its whole value, then the click: a key held reads there): every
 // id that leads somewhere reads and acts the same, wherever it is drawn —
 // without its copy then, a button holding no other.
 export default {

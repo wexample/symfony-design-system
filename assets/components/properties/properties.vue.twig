@@ -14,11 +14,11 @@
             <dd v-else class="properties--value" :class="valueClass(item)">
                 {#- An identifier that acts — an id leading to its record —: read
                     as one, pressed as a link. -#}
-                <identifier v-if="item.code && item.onClick" :value="item.value" :short="item.short || false" link :tooltip="item.tooltip || null" @open="item.onClick(item)"></identifier>
+                <identifier v-if="item.code && item.onClick" :value="item.value" :short="item.short || false" link :tooltip="item.tooltip || null" @open="(value, event) => item.onClick(item, event)"></identifier>
                 <identifier v-else-if="item.code" :value="item.value" :short="item.short || false" :copy="item.copy || false"></identifier>
                 <span v-else-if="item.html" v-html="item.value"></span>
                 <a v-else-if="item.href" class="properties--link" :href="item.href">[[ item.value ]]</a>
-                <button v-else-if="item.onClick" type="button" class="properties--link" :data-tooltip="item.tooltip || null" @click="item.onClick(item)">[[ item.value ]]</button>
+                <button v-else-if="item.onClick" type="button" class="properties--link" :data-tooltip="item.tooltip || null" @click="item.onClick(item, $event)">[[ item.value ]]</button>
                 <template v-else>[[ item.value ]]</template>
             </dd>
         </div>
