@@ -4,6 +4,7 @@
 @use '../../css/shapes/empty';
 @use '../../css/shapes/action-icon';
 @use '../zone-resizer/zone-resizer';
+@use '../../css/shapes/flash';
 
 // A node fills the cell it stands in: its bar, if any, over what it holds,
 // the room between them a split's own.

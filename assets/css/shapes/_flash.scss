@@ -1,0 +1,35 @@
+// Something that just answered — a zone that took what was picked elsewhere —
+// pointed out a moment (FlashHelper): a ring of the accent and a tint over
+// it, fading out. Over what it holds, never taking a press.
+@keyframes flash-fade {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.flash {
+  position: relative;
+}
+
+.flash::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 var(--border-focus-width, 2px) var(--accent-9);
+  background: color-mix(in srgb, var(--accent-9) 8%, transparent);
+  pointer-events: none;
+  animation: flash-fade 900ms ease-out forwards;
+}
+
+// Without movement: there, then gone, at once.
+@media (prefers-reduced-motion: reduce) {
+  .flash::after {
+    animation-timing-function: steps(1, end);
+  }
+}
