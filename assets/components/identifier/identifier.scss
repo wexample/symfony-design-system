@@ -1,13 +1,20 @@
 @use '../copy-button/copy-button';
 
 // An identifier and the button copying it, on one line: the button hangs from
-// the end of the value, a step closer than it would stand from a word.
+// the end of the value, a step closer than it would stand from a word. Among
+// words, on their line: its value's baseline theirs — the mono face, smaller
+// and with taller figures, set by its middle would float off the line.
 .identifier {
   display: inline-flex;
-  align-items: center;
+  align-items: baseline;
   gap: var(--space-1);
   min-width: 0;
-  vertical-align: middle;
+  vertical-align: baseline;
+}
+
+// The copy button is no word: centred on the value, not set on its line.
+.identifier--copy {
+  align-self: center;
 }
 
 // In the mono face, a step smaller since that face reads larger, broken
