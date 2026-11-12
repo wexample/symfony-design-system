@@ -2,6 +2,7 @@
 
 {%- block vue_require -%}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/identifier') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/marker') -}}
 {%- endblock -%}
 
 {%- block vue_body -%}
@@ -14,7 +15,8 @@
             <dd v-else class="properties--value" :class="valueClass(item)">
                 {#- An identifier that acts — an id leading to its record —: read
                     as one, pressed as a link. -#}
-                <identifier v-if="item.code && item.onClick" :value="item.value" :short="item.short || false" link :tooltip="item.tooltip || null" @open="item.onClick(item)"></identifier>
+                <ds-marker v-if="item.tone" :tone="item.tone" :label="String(item.value)" compact></ds-marker>
+                <identifier v-else-if="item.code && item.onClick" :value="item.value" :short="item.short || false" link :tooltip="item.tooltip || null" @open="item.onClick(item)"></identifier>
                 <identifier v-else-if="item.code" :value="item.value" :short="item.short || false" :copy="item.copy || false"></identifier>
                 <span v-else-if="item.html" v-html="item.value"></span>
                 <a v-else-if="item.href" class="properties--link" :href="item.href">[[ item.value ]]</a>
