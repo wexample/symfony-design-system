@@ -1,6 +1,5 @@
 <script>
 import Identifier from '../identifier/identifier.vue';
-import Marker from '../marker/marker.vue';
 
 // The twin of properties.html.twig. The modifiers the twig side builds in
 // PropertiesExtension are props here, listed once in MODIFIERS so the two
@@ -11,8 +10,7 @@ export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-properties-properties',
 
   components: {
-    Identifier,
-    DsMarker: Marker
+    Identifier
   },
 
   props: {
@@ -24,8 +22,6 @@ export default {
     // (`identifier`), kept to its end with short, copied with copy. A value
     // leading somewhere is a link (href), one that acts a button reading as
     // a link (onClick, here only) — an identifier too, then without its copy.
-    // A value given a `tone` is a state — done, failed, under way —, read as
-    // a marker of that tone.
     items: {
       type: Array,
       required: true

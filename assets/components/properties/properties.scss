@@ -1,5 +1,4 @@
 @use '../identifier/identifier';
-@use '../marker/marker';
 
 // Key / value pairs, built on <dl>. Rows are subgrids of the list so every key
 // column stays aligned while each row remains a real box able to carry a border.
