@@ -22,3 +22,27 @@
 .identifier--copy {
   padding: 0;
 }
+
+// An id leading to its record: read as the text it is, telling it leads only
+// under the pointer — as a console's parts and a property's links do.
+.identifier--link {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-link-hover);
+    text-decoration: underline;
+  }
+
+  // The tooltip of a shortened id stays; the pointer is the link's.
+  * {
+    cursor: inherit;
+  }
+}
