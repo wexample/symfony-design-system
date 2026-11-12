@@ -130,8 +130,9 @@ export default {
      * nothing. `id` is the line's own, read after the time, short enough to
      * tell it apart; `kind` names the event, `ref` what it concerns (a slot,
      * a file), `text` what it says, `end` what stands at the far end. Each of
-     * the five is a string, or `{ label, href, onClick, class }` when it
-     * leads somewhere or acts: a slot's id opening the slot. `href` makes
+     * the five is a string, or `{ label, href, onClick, class, tooltip }`
+     * when it leads somewhere or acts: a slot's id opening the slot, its
+     * tooltip saying what it opens. `href` makes
      * the whole line the link, `onClick(entity)` makes it act — not both,
      * and a line that is a link holds no part that acts.
      */
@@ -180,7 +181,8 @@ export default {
         label: String(spec.label ?? ''),
         href: spec.href ?? null,
         onClick: spec.onClick ?? null,
-        class: spec.class ?? null
+        class: spec.class ?? null,
+        tooltip: spec.tooltip ?? null
       };
     },
 

@@ -54,6 +54,7 @@
                         :type="partTag(line, part) === 'button' ? 'button' : null"
                         :class="partClass(part)"
                         :title="part.role === 'text' ? part.label : null"
+                        :data-tooltip="part.tooltip"
                         @click="onPartClick(line, part, $event)"
                 >[[ part.label ]]</component>
             </component>

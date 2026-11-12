@@ -30,6 +30,11 @@ export default {
     link: {
       type: Boolean,
       default: false
+    },
+    // What pressing it opens, said under the pointer before the id itself.
+    tooltip: {
+      type: String,
+      default: null
     }
   },
 
@@ -38,6 +43,13 @@ export default {
   computed: {
     full() {
       return this.value === null || this.value === undefined ? '' : String(this.value);
+    },
+
+    // Under the pointer: what it opens, then the whole id when it is cut.
+    hint() {
+      const parts = [this.tooltip, this.shown !== this.full ? this.full : null].filter(Boolean);
+
+      return parts.length ? parts.join(' · ') : null;
     },
 
     shown() {

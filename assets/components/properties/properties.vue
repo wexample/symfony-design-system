@@ -15,7 +15,7 @@ export default {
 
   props: {
     // Each item is { key, value, html, full, break, code, short, copy, href,
-    // onClick }: html says the value is markup and is rendered as given,
+    // onClick, tooltip }: html says the value is markup and is rendered as given,
     // exactly as the `|raw` of the twig does, full gives a value the whole
     // width where the list is laid in columns or tiles, break breaks it
     // anywhere — a path, an address —, and code reads it as an identifier

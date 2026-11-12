@@ -7,8 +7,8 @@
 {%- block vue_body -%}
     {#- Client-side twin of identifier.html.twig: same classes, same order. A
         change to either is a change to both. -#}
-    <button v-if="link" type="button" class="identifier identifier--link" @click="$emit('open', full)">
-        <code class="identifier--value" :data-tooltip="shown !== full ? full : null">[[ shown ]]</code>
+    <button v-if="link" type="button" class="identifier identifier--link" :aria-label="tooltip" @click="$emit('open', full)">
+        <code class="identifier--value" :data-tooltip="hint">[[ shown ]]</code>
     </button>
     <span v-else class="identifier">
         <code class="identifier--value" :data-tooltip="shown !== full ? full : null">[[ shown ]]</code>
