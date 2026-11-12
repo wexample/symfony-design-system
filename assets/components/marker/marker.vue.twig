@@ -5,11 +5,12 @@
         to either is a change to both. -#}
     <span :class="classes" :data-tooltip="title || null" :aria-label="title && !hasLabel ? title : null">
         <span v-if="glyphHtml" class="marker--glyph" aria-hidden="true" v-html="glyphHtml"></span>
-        <span v-if="hasLabel" class="marker--label">[[ label ]]</span>
+        {#- Its words, and what they are about when it is more than words —
+            an id that opens its record —, on their line: one line of
+            markup, the space between them a word's. Here only. -#}
+        <span v-if="hasLabel || $slots.default" class="marker--label">[[ label ]] <slot></slot></span>
         <span v-if="hasCount" class="marker--count">[[ count ]]</span>
-        {#- What the label is about, when it is more than words — an id that
-            opens its record —; then the cross taking it off. Here only. -#}
-        <slot></slot>
+        {#- The cross taking it off. Here only. -#}
         <button v-if="dismissLabel" type="button" class="marker--dismiss" :aria-label="dismissLabel" :data-tooltip="dismissLabel" @click="$emit('dismiss')" v-html="dismissHtml"></button>
     </span>
 {%- endblock -%}

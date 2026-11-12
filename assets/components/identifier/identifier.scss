@@ -30,8 +30,9 @@
   padding: 0;
 }
 
-// An id leading to its record: read as the text it is, telling it leads only
-// under the pointer — as a console's parts and a property's links do.
+// An id leading to its record: read as the text it is, in its ink wherever
+// it stands — a marker's fill included —, telling it leads only under the
+// pointer, underlined, as a property's links do.
 .identifier--link {
   padding: 0;
   border: 0;
@@ -44,7 +45,6 @@
 
   &:hover,
   &:focus-visible {
-    color: var(--color-link-hover);
     text-decoration: underline;
   }
 

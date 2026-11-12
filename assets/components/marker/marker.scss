@@ -54,6 +54,12 @@
   line-height: 1.5;
 }
 
+// What its words are about, set on their baseline rather than in the
+// capsule's middle: an id's mono face would float off their line.
+.marker--label > .identifier {
+  vertical-align: baseline;
+}
+
 // Its cross, when it can be taken off: in its ink, a step back until pointed
 // at.
 .marker--dismiss {
