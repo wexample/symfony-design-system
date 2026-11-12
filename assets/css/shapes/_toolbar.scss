@@ -157,11 +157,13 @@
 
 // An action with no word to it: a bar of icons is read by its shapes, so the
 // frame only appears under the pointer. A button and not a link, since what it
-// does happens here rather than elsewhere.
+// does happens here rather than elsewhere. A mode of the bar may carry its
+// word after its icon, a step apart.
 .toolbar--action {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: var(--space-1);
   padding: var(--density-padding-block, var(--space-2));
   border: 0;
   border-radius: var(--radius-control);
@@ -178,9 +180,10 @@
     color: var(--text-color-default);
   }
 
-  // A toggle of the bar — a view, a mode — while it is on.
+  // A toggle of the bar — a view, a mode — while it is on: a step past the
+  // hover, which is the ground of a shaded bar and would not show on it.
   &:is(.is-active, [aria-pressed='true']) {
-    background: var(--state-hover);
+    background: var(--state-active);
     color: var(--text-color-default);
   }
 
