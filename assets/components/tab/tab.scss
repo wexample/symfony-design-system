@@ -148,6 +148,13 @@
   background: var(--surface-2);
 }
 
+// Reached from the keyboard: the design system's ring, drawn inside the tab —
+// the bar scrolls what does not fit and would cut a ring drawn round it.
+.tabs--item:focus-visible {
+  outline: var(--border-focus-width, 2px) solid var(--neutral-a7, currentColor);
+  outline-offset: calc(-1 * var(--border-focus-width, 2px));
+}
+
 .tabs--item--active {
   background: var(--state-active);
   border-color: var(--border-color-default);
@@ -162,22 +169,39 @@
   width: 100%;
 }
 
-// Tabs heading a zone (`toolbar toolbar--compact zone--head`): the bar's own
-// items, with no ground and no line of their own — the head draws its line —,
-// each as tall as the bar's controls, rounded as they are.
-.zone--head .tabs {
+// Tabs held by a bar of tools (`toolbar` — a zone's head, a page's bar): the
+// bar's own items, with no ground and no line of their own — the bar is the
+// bar —, each as tall as the bar's controls, rounded as they are. What the
+// bar shows of several views is picked with them; a tool switched on is a
+// toggle (`aria-pressed`, shapes/toolbar), never one drawn as the other.
+:is(.toolbar, .zone--head) .tabs {
   padding: 0;
   gap: var(--space-1);
   border-bottom: 0;
   background: none;
   min-width: 0;
-  // The head's ground under its arrows.
+  // The bar's ground under its arrows: a zone's, or the shell's on a shaded bar.
   --tabs-arrow-ground: var(--surface-zone);
 }
 
-.zone--head .tabs--item {
+:is(.toolbar--shaded, .toolbar--top) .tabs {
+  --tabs-arrow-ground: var(--surface-shell);
+}
+
+:is(.toolbar, .zone--head) .tabs--item {
   min-height: var(--control-size);
   padding-block: 0;
   padding-inline: var(--space-3);
   border-radius: var(--radius-control);
+}
+
+// The view shown, in a bar: an ink laid over the bar's ground, whichever it
+// is — a flat grey chosen for one ground vanishes into another (a shaded bar
+// has the very grey a tab is lit with elsewhere).
+:is(.toolbar, .zone--head) .tabs--item:not(.tabs--item--active):hover {
+  background: var(--neutral-a3);
+}
+
+:is(.toolbar, .zone--head) .tabs--item--active {
+  background: var(--neutral-a5);
 }
