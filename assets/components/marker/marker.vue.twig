@@ -7,5 +7,9 @@
         <span v-if="glyphHtml" class="marker--glyph" aria-hidden="true" v-html="glyphHtml"></span>
         <span v-if="hasLabel" class="marker--label">[[ label ]]</span>
         <span v-if="hasCount" class="marker--count">[[ count ]]</span>
+        {#- What the label is about, when it is more than words — an id that
+            opens its record —; then the cross taking it off. Here only. -#}
+        <slot></slot>
+        <button v-if="dismissLabel" type="button" class="marker--dismiss" :aria-label="dismissLabel" :data-tooltip="dismissLabel" @click="$emit('dismiss')" v-html="dismissHtml"></button>
     </span>
 {%- endblock -%}

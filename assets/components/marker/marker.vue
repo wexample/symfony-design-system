@@ -47,8 +47,17 @@ export default {
     title: {
       type: String,
       default: null
+    },
+    // Taken off by the reader — a filter, a path laid over a view —: a cross
+    // at its end, its words what it does (`dismiss`). Here only: a marker of
+    // the twig side has nothing to take it off with.
+    dismissLabel: {
+      type: String,
+      default: null
     }
   },
+
+  emits: ['dismiss'],
 
   computed: {
     classes() {
@@ -73,6 +82,10 @@ export default {
 
     hasLabel() {
       return this.label !== null && this.label !== '';
+    },
+
+    dismissHtml() {
+      return this.dismissLabel ? this.app.getServiceOrFail(IconService).icon('ph:bold/x') : null;
     },
 
     hasCount() {

@@ -54,6 +54,26 @@
   line-height: 1.5;
 }
 
+// Its cross, when it can be taken off: in its ink, a step back until pointed
+// at.
+.marker--dismiss {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: 1em;
+  line-height: 1;
+  opacity: 0.75;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+  }
+}
+
 .marker--glyph {
   display: inline-flex;
   align-items: center;
