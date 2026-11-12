@@ -5,6 +5,7 @@ import IconService from '@wexample/symfony-loader/js/Services/IconService';
 // state carries no glyph — the arc is what it has to say.
 export const STATUS_ICON_GLYPHS = {
   success: 'ph:bold/check',
+  info: 'ph:bold/info',
   error: 'ph:bold/x',
   warning: 'ph:bold/warning',
   running: null,

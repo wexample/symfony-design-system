@@ -91,6 +91,11 @@
   --status-icon-color: var(--warning-9);
 }
 
+// Something to know, neither a failure nor a success.
+.status-icon--info {
+  --status-icon-color: var(--info-9);
+}
+
 // The one state that is a quantity: what is left to do is shown rather than
 // left blank, otherwise an early run reads as an empty circle.
 .status-icon--running {
