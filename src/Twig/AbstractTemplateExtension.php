@@ -2,8 +2,10 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig;
 
+use LogicException;
 use Twig\Environment;
 use Wexample\SymfonyHelpers\Twig\AbstractExtension;
+use Wexample\SymfonyLoader\Rendering\RenderPass;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 /**
@@ -66,10 +68,29 @@ abstract class AbstractTemplateExtension extends AbstractExtension
     ): string {
         return $this->componentsExtension->component(
             $twig,
-            is_array($context) ? ($context['render_pass'] ?? null) : null,
+            $this->getContextRenderPass($context, $name),
             $name,
             $options,
             array_merge($this->getDefaultOptions(), $templateVars)
         );
+    }
+
+    /**
+     * The render pass the context carries. A function called from a template
+     * rendered outside the loader (a bare `twig.render`, a mail) has none, and
+     * passing that null on ended in a TypeError deep in `component()` that named
+     * neither the function nor the component: say which one, here.
+     */
+    protected function getContextRenderPass(mixed $context, string $name): RenderPass
+    {
+        $renderPass = is_array($context) ? ($context['render_pass'] ?? null) : null;
+
+        if (! $renderPass instanceof RenderPass) {
+            throw new LogicException(
+                'The component "'.$name.'" needs a render pass, and the template drawing it has no "render_pass" in its context: render it through the loader.'
+            );
+        }
+
+        return $renderPass;
     }
 }

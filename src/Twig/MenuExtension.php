@@ -120,16 +120,15 @@ class MenuExtension extends AbstractTemplateExtension
                     $prefix = ClassHelper::normalizeNamespacePrefix($controllerNamespace);
                     $isOpen = false;
 
-                    foreach ($this->router->getRouteCollection() as $name => $route) {
-                        if ($name !== $currentRoute) {
-                            continue;
-                        }
-                        $controller = ClassHelper::getClassPath($route->getDefaults()['_controller'] ?? '');
+                    // The current route is looked up by its name, not found by
+                    // walking every route of the app.
+                    $current = is_string($currentRoute) && $currentRoute !== '' ? $this->router->getRouteCollection()->get($currentRoute) : null;
+
+                    if ($current) {
+                        $controller = ClassHelper::getClassPath($current->getDefaults()['_controller'] ?? '');
                         if ($controller && ClassHelper::classPathMatchesPrefix($controller, $prefix)) {
                             $isOpen = true;
                         }
-
-                        break;
                     }
 
                     $pathFn = $twig->getFunction('path')->getCallable();
