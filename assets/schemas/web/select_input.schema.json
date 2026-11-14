@@ -13,6 +13,11 @@
     "multiple": {
       "type": "boolean"
     },
+    "optionsUrl": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Where the choices are read again when a field they follow changes — that field's value where it says `__field:<name>__` —, answering words or `{ value, label }`; the value dropped when it is no longer among them."
+    },
     "choices": {
       "type": "array",
       "items": {

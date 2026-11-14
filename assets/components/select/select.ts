@@ -3,6 +3,8 @@ import Field from '../../js/Class/Field';
 import OverlayService from '@wexample/symfony-design-system/js/Services/OverlayService';
 import KeyboardService from '@wexample/symfony-loader/js/Services/KeyboardService';
 import { floatingPlace } from '../../js/Helper/FloatingHelper';
+import { formElementResolveUrl } from '../../js/Helper/FormDefinitionHelper';
+import { optionsFetch, type Option } from '../../js/Helper/OptionsHelper';
 import {
   ASSISTANCE_STEP_DELAY_MS,
   assistanceWait,
@@ -16,6 +18,10 @@ export default class extends Field {
   private dropdownEl?: HTMLElement;
   private listEl?: HTMLElement;
   private hiddenEl?: HTMLSelectElement;
+  // The form whose fields the options follow (`data-options-url`), and the
+  // address they were last read at.
+  private followedForm: HTMLFormElement | null = null;
+  private sourcedFrom: string | null | undefined = undefined;
   private overlayService?: OverlayService;
   private keyboardService?: KeyboardService;
 
@@ -48,6 +54,15 @@ export default class extends Field {
       return false;
     });
 
+    // Options following another field (`data-options-url`, `__field:<name>__`):
+    // read again as the form changes.
+    if (this.el.dataset.optionsUrl) {
+      this.followedForm = this.el.closest('form');
+      this.followedForm?.addEventListener('change', this.followSource);
+      this.followedForm?.addEventListener('select:change', this.followSource);
+      this.followSource();
+    }
+
     // Sync custom UI from native select's current value (handles browser auto-selection of first option).
     const initialValue = this.hiddenEl?.value;
     if (initialValue) {
@@ -61,6 +76,60 @@ export default class extends Field {
 
     this.triggerEl?.removeEventListener('click', this.onTriggerClick);
     this.listEl?.removeEventListener('click', this.onOptionClick);
+    this.followedForm?.removeEventListener('change', this.followSource);
+    this.followedForm?.removeEventListener('select:change', this.followSource);
+  }
+
+  // The fields the options follow changed: read again where they now lead,
+  // and the value held left for the first option when they no longer hold it.
+  // Read once on arriving, the value as the page gave it.
+  private followSource = async (event?: Event): Promise<void> => {
+    if (event?.target instanceof Node && this.el.contains(event.target)) {
+      return;
+    }
+
+    const url = formElementResolveUrl(this.el.dataset.optionsUrl, this.followedForm);
+
+    if (url === this.sourcedFrom) {
+      return;
+    }
+
+    const arriving = this.sourcedFrom === undefined;
+    this.sourcedFrom = url;
+    const options = url ? await optionsFetch(url, '') : [];
+
+    if (url !== this.sourcedFrom) {
+      return;
+    }
+
+    this.drawOptions(options);
+
+    const current = String(this.fieldValue ?? '');
+
+    if (!arriving && !options.some((option) => option.value === current)) {
+      const first = options[0]?.value ?? '';
+      this.applySelection(first);
+      this.el.dispatchEvent(new CustomEvent('select:change', { bubbles: true, detail: { value: first } }));
+    } else {
+      this.applySelection(current);
+    }
+  };
+
+  // Its options drawn anew, the empty one kept: in the list and in the select posted.
+  private drawOptions(options: Option[]): void {
+    this.listEl?.querySelectorAll('.select--option:not([data-value=""]), .select--group-label').forEach((item) => item.remove());
+    this.hiddenEl?.querySelectorAll('option:not([value=""])').forEach((item) => item.remove());
+
+    options.forEach((option) => {
+      const item = document.createElement('li');
+      item.className = 'select--option';
+      item.setAttribute('role', 'option');
+      item.dataset.value = option.value;
+      item.setAttribute('aria-selected', 'false');
+      item.textContent = option.label;
+      this.listEl?.appendChild(item);
+      this.hiddenEl?.appendChild(new Option(option.label, option.value));
+    });
   }
 
   public overlayIsOpen(): boolean {

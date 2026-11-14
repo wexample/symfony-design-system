@@ -14,6 +14,67 @@ import LocaleService from '@wexample/symfony-loader/js/Services/LocaleService';
 // stands in the address.
 export const FORM_DEFINITION_ID_PLACEHOLDER = '__id__';
 
+// Where an address takes another field's value: `__field:<name>__`.
+const FORM_DEFINITION_FIELD_PLACEHOLDER = /__field:([A-Za-z0-9_.-]+)__/g;
+
+// Whether a field is shown, the form's values as they stand: always, unless
+// it follows another (`visibleWhen`), then while that one holds one of the
+// values given.
+export function formDefinitionVisible(field: { visibleWhen?: { field: string; in: string[] } }, values: Record<string, unknown>): boolean {
+  const when = field.visibleWhen;
+
+  if (!when) {
+    return true;
+  }
+
+  const value = values[when.field];
+
+  return when.in.includes(value === null || value === undefined ? '' : String(value));
+}
+
+// The fields an address follows (`__field:<name>__`).
+export function formDefinitionUrlFields(url: string | null | undefined): string[] {
+  return [...(url ?? '').matchAll(FORM_DEFINITION_FIELD_PLACEHOLDER)].map((match) => match[1]);
+}
+
+// What a drawn form holds for one of its fields, by the name the definition
+// gives it — the last part of the name it is sent under (`slot[scope]`).
+export function formElementFieldValue(form: Element | null, name: string): string {
+  const controls = [...(form?.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[name]') ?? [])]
+    .filter((control) => control.name === name || control.name.endsWith(`[${name}]`));
+  const chosen = controls.find((control) => !(control instanceof HTMLInputElement) || !['radio', 'checkbox'].includes(control.type) || control.checked);
+
+  return chosen?.value ?? '';
+}
+
+// The same, the drawn form's values read for the fields the address names.
+export function formElementResolveUrl(url: string | null | undefined, form: Element | null): string | null {
+  return formDefinitionResolveUrl(url, Object.fromEntries(formDefinitionUrlFields(url).map((name) => [name, formElementFieldValue(form, name)])));
+}
+
+// An address the form's values put in where it says `__field:<name>__`;
+// null while one of them is empty — nothing to follow yet.
+export function formDefinitionResolveUrl(url: string | null | undefined, values: Record<string, unknown>): string | null {
+  if (!url) {
+    return null;
+  }
+
+  let empty = false;
+  const resolved = url.replace(FORM_DEFINITION_FIELD_PLACEHOLDER, (match, name) => {
+    const value = values[name];
+
+    if (value === null || value === undefined || value === '') {
+      empty = true;
+
+      return '';
+    }
+
+    return encodeURIComponent(String(value));
+  });
+
+  return empty ? null : resolved;
+}
+
 export type FormDefinitionChoice = { label: string; value: string | null; options?: FormDefinitionChoice[] };
 
 export type FormDefinitionField = {
@@ -29,6 +90,8 @@ export type FormDefinitionField = {
   rows?: number;
   // What is attached to the field whatever its kind, by name (`field_base.schema.json`).
   extensions?: Record<string, Record<string, unknown>>;
+  // Shown only while another field holds one of these values (`field_base.schema.json`).
+  visibleWhen?: { field: string; in: string[] };
   choices?: FormDefinitionChoice[];
   multiple?: boolean;
   // A key-value field's value: its pairs, in order (`key_value_input.schema.json`).
@@ -42,7 +105,9 @@ export type FormDefinitionField = {
   tone?: string;
   glyph?: string;
   // A searched select's own options, its source and the label of its value
-  // (`search_select_input.schema.json`).
+  // (`search_select_input.schema.json`); a select's, the source its choices
+  // are read again at (`select_input.schema.json`) — another field's value
+  // where it says `__field:<name>__`.
   options?: { value: string; label: string }[];
   optionsUrl?: string;
   valueLabel?: string;

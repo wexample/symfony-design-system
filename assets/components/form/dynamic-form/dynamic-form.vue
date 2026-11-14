@@ -2,7 +2,7 @@
 import { markRaw } from 'vue';
 import Form from '../../_abstract/form/form.vue';
 import DynamicField from '../dynamic-field/dynamic-field.vue';
-import { formDefinitionFullName, formDefinitionStartValue } from '../../../js/Helper/FormDefinitionHelper';
+import { formDefinitionFullName, formDefinitionStartValue, formDefinitionVisible } from '../../../js/Helper/FormDefinitionHelper';
 
 const DOMAIN = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.form.';
 
@@ -104,9 +104,10 @@ export default {
       };
     },
 
-    // What is drawn: a hidden field is sent and never shown.
+    // What is drawn: a hidden field is sent and never shown; a field
+    // following another (`visibleWhen`), while that one holds what it says.
     shownFields() {
-      return (this.form.fields ?? []).filter((field) => field.type !== 'hidden');
+      return (this.form.fields ?? []).filter((field) => field.type !== 'hidden' && formDefinitionVisible(field, this.draft));
     }
   },
 
@@ -161,8 +162,18 @@ export default {
       return this.form.action;
     },
 
+    // A field hidden by the one it follows is sent empty: what it held is
+    // dropped, not sent as if it were still asked.
     buildSubmitPayload() {
-      return { ...this.draft };
+      const payload = { ...this.draft };
+
+      (this.form.fields ?? []).forEach((field) => {
+        if (!formDefinitionVisible(field, this.draft)) {
+          payload[field.name] = '';
+        }
+      });
+
+      return payload;
     },
 
     onBeforeSubmit() {

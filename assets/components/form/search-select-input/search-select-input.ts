@@ -1,5 +1,6 @@
 import Field from '../../../js/Class/Field';
 import { floatingFollow } from '../../../js/Helper/FloatingHelper';
+import { formElementResolveUrl } from '../../../js/Helper/FormDefinitionHelper';
 import {
   Option,
   OPTIONS_SOURCE_DELAY_MS,
@@ -21,6 +22,10 @@ export default class extends Field {
   private dropdownEl: HTMLElement | null = null;
   // What closes the list's top layer again, while it is open.
   private unfollow: (() => void) | null = null;
+  // A source following another field (`__field:<name>__`): the address it
+  // was last read at, the form read from.
+  private followedForm: HTMLFormElement | null = null;
+  private sourcedFrom: string | null = null;
   private searchEl: HTMLInputElement | null = null;
   private listEl: HTMLElement | null = null;
   private statusEl: HTMLElement | null = null;
@@ -66,13 +71,20 @@ export default class extends Field {
     this.listEl.addEventListener('mousemove', this.onListMousemove);
     document.addEventListener('pointerdown', this.onDocumentPointerdown);
 
+    if (this.rootEl.dataset.optionsUrl?.includes('__field:')) {
+      this.followedForm = this.el.closest('form');
+      this.sourcedFrom = this.sourceUrl();
+      this.followedForm?.addEventListener('change', this.followSource);
+      this.followedForm?.addEventListener('select:change', this.followSource);
+    }
+
     this.askValueLabel();
   }
 
   // A value no option given holds and no label given says: the source asked
   // for it, as the vue asks it.
   private async askValueLabel(): Promise<void> {
-    const url = this.rootEl?.dataset.optionsUrl;
+    const url = this.sourceUrl();
     const value = this.value;
 
     if (!url || !value || this.rootEl?.dataset.valueLabel !== value || this.options.some((option) => option.value === value)) {
@@ -96,6 +108,8 @@ export default class extends Field {
     this.listEl?.removeEventListener('mousemove', this.onListMousemove);
     document.removeEventListener('pointerdown', this.onDocumentPointerdown);
     this.unfollow?.();
+    this.followedForm?.removeEventListener('change', this.followSource);
+    this.followedForm?.removeEventListener('select:change', this.followSource);
 
     if (this.fetchTimer) {
       clearTimeout(this.fetchTimer);
@@ -197,7 +211,7 @@ export default class extends Field {
     }
   }
 
-  private choose(row: Row): void {
+  private choose(row: Row, focusTrigger = true): void {
     if (!this.valueEl) {
       return;
     }
@@ -214,12 +228,45 @@ export default class extends Field {
     }
 
     this.notifyChanged(this.valueEl);
-    this.closeList(true);
+    this.closeList(focusTrigger);
   }
+
+  // Where the source is asked, the fields it follows put in; none while one
+  // of them is empty.
+  private sourceUrl(): string | null {
+    return formElementResolveUrl(this.rootEl?.dataset.optionsUrl, this.el.closest('form'));
+  }
+
+  // A field the source follows changed: the value held dropped when the
+  // source, asked anew, no longer offers it.
+  private followSource = async (event?: Event): Promise<void> => {
+    if (event?.target instanceof Node && this.el.contains(event.target)) {
+      return;
+    }
+
+    const url = this.sourceUrl();
+
+    if (url === this.sourcedFrom) {
+      return;
+    }
+
+    this.sourcedFrom = url;
+    const value = this.value;
+
+    if (!value) {
+      return;
+    }
+
+    const offered = url ? await optionsFetch(url, '') : [];
+
+    if (url === this.sourcedFrom && !offered.some((option) => option.value === value)) {
+      this.choose({ value: '', label: '', none: true }, false);
+    }
+  };
 
   // The source asked once the typing pauses, the question before let go.
   private askSource(): void {
-    const url = this.rootEl?.dataset.optionsUrl;
+    const url = this.sourceUrl();
 
     if (!url) {
       return;

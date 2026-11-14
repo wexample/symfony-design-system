@@ -10,7 +10,7 @@ import SwitchInput from '../switch-input/switch-input.vue';
 import CheckboxInput from '../checkbox-input/checkbox-input.vue';
 import NumberInput from '../number-input/number-input.vue';
 import CollectionInput from '../collection-input/collection-input.vue';
-import { formDefinitionCollectionTemplate } from '../../../js/Helper/FormDefinitionHelper';
+import { formDefinitionCollectionTemplate, formDefinitionResolveUrl } from '../../../js/Helper/FormDefinitionHelper';
 
 // One field of a form's definition (`field.schema.json`), drawn by the field
 // of its kind: a text and what the browser checks the shape of, several
@@ -89,6 +89,11 @@ export default {
       set(value) {
         this.$emit('update:modelValue', value);
       }
+    },
+
+    // Where its options are read, the fields it follows put in (`__field:<name>__`).
+    resolvedOptionsUrl() {
+      return formDefinitionResolveUrl(this.field.optionsUrl, this.draft);
     },
 
     collectionTemplate() {

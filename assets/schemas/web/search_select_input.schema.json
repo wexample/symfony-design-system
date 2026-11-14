@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "search_select_input.schema.json",
   "title": "Search select input field",
-  "description": "One choice among options searched rather than all given: the field's own (`options`) and those a source answers for what is typed (`optionsUrl`, asked with `q`, answering words or `{ value, label }`). The value is a text, sent as it is; the option chosen is shown by its label (`valueLabel`, else the option of `options` holding it, else asked of the source). Whether the value is one the application accepts is the application's to check: the field does not hold every option.",
+  "description": "One choice among options searched rather than all given: the field's own (`options`) and those a source answers for what is typed (`optionsUrl`, asked with `q`, answering words or `{ value, label }`; another field's value where it says `__field:<name>__`, the value dropped when that field changes and the source no longer offers it). The value is a text, sent as it is; the option chosen is shown by its label (`valueLabel`, else the option of `options` holding it, else asked of the source). Whether the value is one the application accepts is the application's to check: the field does not hold every option.",
   "type": "object",
   "allOf": [
     { "$ref": "field_base.schema.json" }

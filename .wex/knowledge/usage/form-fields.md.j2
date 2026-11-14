@@ -175,6 +175,25 @@ Each extension is a tagged service (`FieldExtensionInterface`: its name, what it
 
 **Expression** (`form/extension/expression`): an expression in place of the value — a template computing it on each run. A strip under the field switches it to an editor of `language` (the one the form hands over for code when it has one, a text area else) and back; the field starts as an expression when its value matches `pattern`, and gives the value kept before back on the way back. The value is sent under the field's name, as text, whichever it is: a number's or a switch's transformers never see it — an expression held is shown as it is, an expression sent is read by a text field put in the field's place. On a text, a number, a choice, a switch; not on pairs, tags or a colour.
 
+## Fields that follow another
+
+Two options, on any field of a Symfony form (symfony-forms), carried by the definition (`field_base.schema.json`) and honoured by both faces — `dynamic-form` in the browser, the twig theme with the loader's form:
+
+- **Shown for some values of another** — `visible_when: ['field' => 'scope', 'in' => ['named']]` (`visibleWhen`): the field is shown while the other one, named as the definition names fields, holds one of those values, and hidden as soon as it does not, without saving. **Hidden, it is sent empty**: what it held is not posted, and comes back if it is shown again before sending. The server reads what it is sent as it always does — it is never told a field was hidden.
+- **Options following another** — `options_url` with `__field:<name>__` where that field's value goes (`optionsUrl`), on a select (`SelectInputType`) or a searched select (`SearchSelectInputType`): the options are read again at that address — answering words or `{ value, label }` — as soon as the field it names changes. A select whose value is no longer among them takes the first; a searched select's value is dropped. While a field named is empty, there is no address: a select shows nothing, a searched select asks no source.
+
+```php
+$builder->add('scope', SelectInputType::class, ['choices' => $scopes]);
+$builder->add('scope_name', TextInputType::class, ['visible_when' => ['field' => 'scope', 'in' => ['named']]]);
+$builder->add('pipeline', SearchSelectInputType::class, ['options_url' => '/_api/pipeline/options']);
+$builder->add('version', SelectInputType::class, [
+    'choices' => $versionsOfTheSavedPipeline,
+    'options_url' => '/_api/pipeline/versions?pipeline=__field:pipeline__',
+]);
+```
+
+The choices a select is **built** with are still what Symfony accepts when it is sent: a value read from the address and not among them is refused. A form whose choices follow another field builds them from what is sent (`PRE_SUBMIT`), not only from what was saved.
+
 ## A field standardised
 
 A field of an application is a field of the design system with its defaults preset. Its vue face extends the generic component and sets the defaults of its props, its own template id over the generic markup — nothing drawn, nothing behaved of its own:

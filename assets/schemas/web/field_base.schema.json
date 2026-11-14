@@ -48,6 +48,16 @@
       "description": "Among fields laid in columns, the whole line for this one: a long text, a choice of many options.",
       "default": false
     },
+    "visibleWhen": {
+      "type": "object",
+      "description": "Shown only while another field of the form — by its name — holds one of these values; shown and hidden as that one changes, without saving. Hidden, the field is sent empty.",
+      "properties": {
+        "field": { "type": "string", "minLength": 1 },
+        "in": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["field", "in"],
+      "additionalProperties": false
+    },
     "extensions": {
       "type": "object",
       "description": "What is attached to the field whatever its kind, each by its name and declared once (`extension_<name>.schema.json`): its earlier versions, an expression in place of its value, what its value designates opened. Cumulable; a field knows nothing of them, the form's base draws them.",

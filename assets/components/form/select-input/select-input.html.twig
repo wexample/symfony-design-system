@@ -11,7 +11,7 @@
 
 <div {{ component_render_tag_attributes({class:'form--group'}) }}>
     <label class="form--label" for="{{ id }}">{{ label }}</label>
-    <div class="select" data-value="{{ selected | default('') }}">
+    <div class="select" data-value="{{ selected | default('') }}"{% if options_url|default(null) %} data-options-url="{{ options_url }}"{% endif %}>
         <button class="select--trigger" id="{{ id }}" type="button" aria-haspopup="listbox" aria-expanded="false">
             <span class="select--trigger-label">{{ selected_label ?: (placeholder is defined and placeholder is not null ? placeholder : '') }}</span>
             <span class="select--icon" aria-hidden="true">{{ icon('ph:bold/caret-down') }}</span>

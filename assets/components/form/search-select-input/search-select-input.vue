@@ -40,6 +40,12 @@ export default {
       type: String,
       default: null
     },
+    // Whether the source follows another field: its value dropped when that
+    // one changes and the source no longer offers it.
+    followsSource: {
+      type: Boolean,
+      default: false
+    },
     // The label of the value given, when no option given holds it.
     valueLabel: {
       type: String,
@@ -107,6 +113,20 @@ export default {
   },
 
   watch: {
+    // The source follows another field (`__field:<name>__`), which changed:
+    // the value held dropped when the source no longer offers it.
+    async optionsUrl(url, before) {
+      if (!this.followsSource || url === before || !this.value) {
+        return;
+      }
+
+      const offered = url ? await optionsFetch(url, '') : [];
+
+      if (url === this.optionsUrl && !offered.some((option) => option.value === this.value)) {
+        this.$emit('update:modelValue', '');
+      }
+    },
+
     query() {
       this.active = this.rows.length ? 0 : -1;
       this.askSource();

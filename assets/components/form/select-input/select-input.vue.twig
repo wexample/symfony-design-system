@@ -11,7 +11,7 @@
             @change="onChange"
     >
         <option
-                v-for="(option, index) in options"
+                v-for="(option, index) in shownOptions"
                 :key="index"
                 :value="resolveOptionValue(option)"
         >[[ resolveOptionLabel(option) ]]</option>
