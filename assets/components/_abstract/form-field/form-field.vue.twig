@@ -4,6 +4,7 @@
 {%- block vue_require -%}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/extension/versions') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/extension/expression') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/extension/open') -}}
 {%- endblock -%}
 
 {#- An extension around the control: given the field's value, giving it
@@ -71,8 +72,12 @@
         <template v-else>
             {{ block('field_label') }}
             <template v-for="extension in extensionsAbove" :key="extension.name">{{ block('field_extension') }}</template>
-            <div class="form--control" v-show="!controlReplaced">
-                {{ block('field_control') }}
+            <div class="form--control" :class="{ 'form--control--ended': extensionsEnd.length > 0 }" v-show="!controlReplaced">
+                {#- Wrapped so the end's extensions stand beside the whole
+                    control, whatever it is made of. -#}
+                <div v-if="extensionsEnd.length" class="form--control-main">{{ block('field_control') }}</div>
+                <template v-else>{{ block('field_control') }}</template>
+                <template v-for="extension in extensionsEnd" :key="extension.name">{{ block('field_extension') }}</template>
             </div>
             <template v-for="extension in extensionsBelow" :key="extension.name">{{ block('field_extension') }}</template>
         </template>

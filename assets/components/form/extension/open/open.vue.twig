@@ -1,0 +1,16 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_config -%}
+    {{ trans_js(render_pass, 'WexampleSymfonyDesignSystemBundle.common.system::frontend.field_open.*') }}
+{%- endblock -%}
+
+{#- A button at the end of the field's frame, glued to it: what the value
+    designates opened; pressed only while the field holds a value. -#}
+{%- block vue_body -%}
+    <button type="button"
+            class="field-open"
+            :disabled="href ? null : true"
+            :aria-label="resolvedLabel"
+            :data-tooltip="resolvedLabel"
+            @click="open">{{ icon('ph:bold/arrow-square-out') }}</button>
+{%- endblock -%}

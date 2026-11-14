@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "extension_open.schema.json",
+  "title": "Field extension: open",
+  "description": "What the value designates, opened from the field: a button at the end of its frame, there only while the field holds a value, leading to `url` — the value where it says `__value__`, the record's id where it says `__id__` — in a new tab, a modal or a panel (`in`).",
+  "type": "object",
+  "properties": {
+    "url": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The address opened, `__value__` standing for the field's value, `__id__` for the record's id."
+    },
+    "in": {
+      "type": "string",
+      "enum": ["tab", "modal", "panel"],
+      "description": "Where it opens: a new tab, or the page loaded in a modal or a panel. Not `target`, which the design system gives every extension of a page's field (its control's id).",
+      "default": "tab"
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What the button says under the pointer and to whoever reads the page aloud; « Open » by default."
+    }
+  },
+  "required": ["url"],
+  "additionalProperties": false
+}

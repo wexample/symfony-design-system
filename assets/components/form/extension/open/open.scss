@@ -1,0 +1,56 @@
+/* Component: form/extension/open */
+// The button at the end of a field's frame (`end`, FieldExtensionsHelper):
+// as tall as the field, glued to it — the field's end corners squared, the
+// button's start ones, a single border between them —, its icon muted until
+// the pointer comes, faint while the field holds nothing to open.
+@use '../../../../css/mixins/field' as field;
+
+// Over the extended field's frame, a grid of one column (extension/footer).
+.form--control--ended,
+.form--group.field-extended > .form--control.form--control--ended {
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+
+  > :first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  > :first-child :is(.form--input, .form--input-group, .select--trigger, .code-input--editor),
+  > :first-child:is(.form--input, .form--input-group) {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+}
+
+.field-open {
+  @include field.field-base;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: var(--control-size);
+  padding-inline: var(--space-2);
+  margin-inline-start: -1px;
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+  color: var(--text-color-muted);
+  cursor: pointer;
+
+  &:hover:not(:disabled),
+  &:focus-visible {
+    color: var(--text-color-default);
+  }
+
+  &:focus-visible {
+    @include field.field-focus;
+  }
+
+  &:disabled {
+    color: var(--text-color-subtle);
+    opacity: 0.5;
+    cursor: default;
+  }
+}

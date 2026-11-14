@@ -7,19 +7,23 @@
 export { fieldExpressionMatches } from './FieldExpressionHelper';
 import ExtensionVersions from '../../components/form/extension/versions/versions.vue';
 import ExtensionExpression from '../../components/form/extension/expression/expression.vue';
+import ExtensionOpen from '../../components/form/extension/open/open.vue';
 
 export type FieldExtensionDefinition = {
   component: unknown;
-  // Drawn under the control (`footer`) or above it (`header`); an extension
-  // standing in for the control says so itself, by its `control` event.
-  slot: 'header' | 'footer';
+  // Drawn under the control (`footer`), above it (`header`), or at the end of
+  // its frame, glued to it (`end`: a button acting on the value); an
+  // extension standing in for the control says so itself, by its `control`
+  // event.
+  slot: 'header' | 'footer' | 'end';
   // Among several on one field, the lower first.
   order: number;
 };
 
 export const FIELD_EXTENSIONS: Record<string, FieldExtensionDefinition> = {
   expression: { component: ExtensionExpression, slot: 'footer', order: 10 },
-  versions: { component: ExtensionVersions, slot: 'footer', order: 20 }
+  versions: { component: ExtensionVersions, slot: 'footer', order: 20 },
+  open: { component: ExtensionOpen, slot: 'end', order: 30 }
 };
 
 export function fieldExtensionsRegister(name: string, definition: FieldExtensionDefinition): void {

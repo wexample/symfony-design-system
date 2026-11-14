@@ -97,6 +97,10 @@ export default {
       return this.fieldExtensions.filter((extension) => extension.slot === 'footer');
     },
 
+    extensionsEnd() {
+      return this.fieldExtensions.filter((extension) => extension.slot === 'end');
+    },
+
     isDisabled() {
       return this.disabled || this.controllerDisabled;
     },

@@ -103,6 +103,8 @@ en:
     field_expression:
       to_expression: "Expression"
       to_value: "Value"
+    field_open:
+      label: "Open"
     search_select:
       search: "Search…"
       loading: "Searching…"
@@ -1456,6 +1458,8 @@ fr:
     field_expression:
       to_expression: "Expression"
       to_value: "Valeur"
+    field_open:
+      label: "Ouvrir"
     search_select:
       search: "Rechercher…"
       loading: "Recherche…"
