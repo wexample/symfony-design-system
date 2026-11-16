@@ -120,7 +120,7 @@ class BreadcrumbExtensionTest extends TestCase
 
     private function createRouter(RouteCollection $routes): RouterInterface
     {
-        return new class($routes) implements RouterInterface {
+        return new class ($routes) implements RouterInterface {
             private RequestContext $context;
 
             public function __construct(private readonly RouteCollection $routes)

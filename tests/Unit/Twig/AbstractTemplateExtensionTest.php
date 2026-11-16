@@ -19,7 +19,7 @@ class AbstractTemplateExtensionTest extends TestCase
 {
     public function testAContextWithoutARenderPassSaysWhichComponent(): void
     {
-        $extension = new class($this->createStub(ComponentsExtension::class)) extends AbstractTemplateExtension {
+        $extension = new class ($this->createStub(ComponentsExtension::class)) extends AbstractTemplateExtension {
         };
 
         $this->expectException(LogicException::class);
