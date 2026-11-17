@@ -212,6 +212,15 @@
   gap: var(--space-2);
 }
 
+// A title in the body — a card's name over what it holds — is parted from
+// what follows it by more than what follows is parted within itself (a
+// `block--meta` is a step apart): the reset leaves a heading no margin, and
+// the two would touch — a list's own margin taken off by the resets
+// included. A body that is a stack has its gap already.
+.block--body:not([class*='stack--']) > :is(h2, h3, h4) + * {
+  margin-block-start: var(--space-3);
+}
+
 .block--footer {
   display: flex;
   align-items: center;
