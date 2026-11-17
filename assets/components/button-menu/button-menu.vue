@@ -103,6 +103,7 @@ export default {
 
   beforeUnmount() {
     this.unwatchDocument();
+    this.lower();
   },
 
   computed: {
@@ -353,6 +354,7 @@ export default {
       this.isOpen = false;
       this.openSubmenu = null;
       this.unwatchDocument();
+      this.lower();
       this.align = this.physicalAlign();
       this.vertical = this.menuVertical;
       this.$emit('close');
@@ -506,12 +508,15 @@ export default {
         return;
       }
 
+      const lifted = this.lift(button, panel);
       const buttonRect = button.getBoundingClientRect();
       const panelRect = panel.getBoundingClientRect();
 
-      // The room is the zone the menu opens in, not the window: a zone that
-      // clips cuts a panel the window would still have shown.
-      const bounds = floatingBounds(this.$el);
+      // Lifted, the window is its room. Otherwise the zone the menu opens
+      // in: a zone that clips cuts a panel the window would still have shown.
+      const bounds = lifted
+        ? { left: 0, top: 0, right: window.innerWidth, bottom: window.innerHeight }
+        : floatingBounds(this.$el);
       const fitsLeft = buttonRect.left + panelRect.width <= bounds.right;
       const fitsRight = buttonRect.right - panelRect.width >= bounds.left;
       const fitsBottom = buttonRect.bottom + panelRect.height <= bounds.bottom;
@@ -519,6 +524,67 @@ export default {
 
       this.align = this.resolveSide(this.physicalAlign(), 'left', 'right', fitsLeft, fitsRight);
       this.vertical = this.resolveSide(this.menuVertical, 'bottom', 'top', fitsBottom, fitsTop);
+
+      if (lifted) {
+        this.pin();
+      }
+    },
+
+    // The panel opened in the top layer (a manual `popover`): out of whatever
+    // clips or scrolls around its button — a zone's body, a block —, followed
+    // while the page scrolls or the window changes size. False where the
+    // browser has no top layer: the panel stays under its button, absolute.
+    lift(button, panel) {
+      if (!panel.showPopover) {
+        return false;
+      }
+
+      if (!panel.hasAttribute('popover')) {
+        panel.setAttribute('popover', 'manual');
+      }
+
+      if (!panel.matches(':popover-open')) {
+        panel.showPopover();
+        window.addEventListener('scroll', this.onFollowedScroll, true);
+        window.addEventListener('resize', this.pin);
+      }
+
+      // As wide as its button at least — not the window, its block now.
+      panel.style.minWidth = `${button.getBoundingClientRect().width}px`;
+
+      return true;
+    },
+
+    // Against the button's edge and side resolved, as the absolute panel
+    // stands under it.
+    pin() {
+      const button = this.$refs.group || this.$refs.button;
+      const panel = this.$refs.panel;
+
+      if (!button || !panel?.matches(':popover-open')) {
+        return;
+      }
+
+      const rect = button.getBoundingClientRect();
+      panel.style.left = `${this.align === 'right' ? rect.right - panel.offsetWidth : rect.left}px`;
+      panel.style.top = `${this.vertical === 'top' ? rect.top - panel.offsetHeight + 1 : rect.bottom - 1}px`;
+    },
+
+    // The page scrolling moves the button; the panel's own list, nothing.
+    onFollowedScroll(event) {
+      if (!(event.target instanceof Node && this.$refs.panel?.contains(event.target))) {
+        this.pin();
+      }
+    },
+
+    lower() {
+      window.removeEventListener('scroll', this.onFollowedScroll, true);
+      window.removeEventListener('resize', this.pin);
+      const panel = this.$refs.panel;
+
+      if (panel?.matches(':popover-open')) {
+        panel.hidePopover();
+      }
     },
 
     onAction(event) {

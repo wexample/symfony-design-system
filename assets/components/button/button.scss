@@ -281,6 +281,18 @@
   z-index: var(--z-dropdown);
 }
 
+// Lifted to the top layer (a `popover`), out of what clips around its
+// button: placed by the script against it, none of the browser's own frame.
+.button-menu--panel:popover-open {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  color: inherit;
+}
+
 .button-menu--panel--top {
   top: auto;
   bottom: calc(100% - 1px);
