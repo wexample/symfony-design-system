@@ -81,12 +81,13 @@
   width: calc(var(--zone-gap, var(--space-2)) + var(--space-1));
 }
 
-// What waits behind a tool, on its icon's corner, kept within the icon's end
-// edge and growing inward: the bar is an icon wide, against the window's edge.
+// What waits behind a tool, on the corner of its glyph — not of the button,
+// a rail's thickness, whose corner is the window's —: hung as `count--corner`
+// hangs it, measured from the button's middle. Its em is 0.6 of the glyph's,
+// so the glyph's half is 0.833em: 0.45em above its top, 0.55em inside its end.
 .zone--toolbar .action-icon > .count--corner {
-  inset-block-start: 0;
-  inset-inline-start: auto;
-  inset-inline-end: 0;
+  inset-block-start: calc(50% - 0.833em - 0.45em);
+  inset-inline-start: calc(50% + 0.833em - 0.55em);
 }
 
 // The line between the bar and what stands before it — the page, or what it
