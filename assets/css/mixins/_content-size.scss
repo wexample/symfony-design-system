@@ -5,4 +5,7 @@
   --content-size-m: 60rem;
   --content-size-l: 80rem;
   --content-size-xl: 96rem;
+  // A page made of wide content — a table's columns —: the room of a full HD
+  // screen, never more (`page_body_mode: 'large'`).
+  --content-size-xxl: 120rem;
 }
