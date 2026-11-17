@@ -118,6 +118,7 @@ class TableExtension extends AbstractTemplateExtension
                 'align' => $column['align'] ?? null,
                 'width' => $column['width'] ?? null,
                 'className' => $column['class'] ?? null,
+                'link' => $column['link'] ?? null,
             ], fn ($value) => $value !== null), $columns),
             'rows' => $rows,
             'sortRows' => true,
@@ -196,6 +197,10 @@ class TableExtension extends AbstractTemplateExtension
                 // the one it shows: a date sorts on its value, a name on the last.
                 'sortable' => $column['sortable'] ?? false,
                 'sort_key' => $column['sort_key'] ?? $column['key'] ?? null,
+                // The rel, or the rels in order, of the row action the cell
+                // leads to (TableRowActionHelper): the title opening what the
+                // eye opens.
+                'link' => $column['link'] ?? null,
                 'class' => implode(' ', array_filter([
                     $column['class'] ?? null,
                     // A marker sits in the middle of its column unless told otherwise.

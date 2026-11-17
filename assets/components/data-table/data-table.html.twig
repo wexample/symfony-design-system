@@ -11,6 +11,7 @@
 {% set row_link = options.row_link|default(null) %}
 {% set columns_count = (columns|length ?: 1) + (selectable ? 1 : 0) + (row_link ? 1 : 0) %}
 {% set bulk_actions = options.bulk_actions|default([]) %}
+{% set rel_ranks = { open: 0, edit: 1, delete: 3 } %}
 {#- The checkboxes sit in the table and the form above it: a row may hold forms
     of its own, and forms do not nest, so the boxes join the bulk form by its id
     rather than by being inside it. -#}
@@ -169,10 +170,26 @@
                 {% endif %}
                 {% for column in columns %}
                     {% set value = column.key ? attribute(row, column.key) : null %}
+                    {#- `link`: the cell leads where the row's action of that rel
+                        leads — the title opening what the eye opens —; a list is
+                        read in order, the first the row offers winning. -#}
+                    {%- set link_action = null -%}
+                    {%- if column.link|default(null) -%}
+                        {%- set link_candidates = columns
+                            |filter(c => c.cell|default(null) == 'actions')
+                            |reduce((carry, c) => carry|merge(attribute(row, c.key)|default([])), [])
+                            |filter(a => a.href|default(null) and a.method|default('get')|lower != 'post') -%}
+                        {%- set link_action = (column.link is iterable ? column.link : [column.link])
+                            |map(rel => link_candidates|filter(a => a.rel|default(null) == rel)|first|default(null))
+                            |filter(a => a)
+                            |first|default(null) -%}
+                    {%- endif -%}
                     <td class="table--cell{{ column.class ? ' ' ~ column.class }}{{ column.secondary ? ' table--cell--secondary' }}" data-column-key="{{ column.key }}">
                         {%- if column.cell == 'actions' -%}
                             <span class="table--actions">
-                                {%- for action in value -%}
+                                {#- Ordered by what each is to the row (TableRowActionHelper):
+                                    open, edit, the others, delete. -#}
+                                {%- for action in value|default([])|sort((a, b) => (rel_ranks[a.rel|default('')]|default(2)) <=> (rel_ranks[b.rel|default('')]|default(2))) -%}
                                     {#- An icon alone says nothing to a reader who cannot see
                                         it, nor to one who does not know it: every action
                                         carries its label, as a tooltip and as its name. -#}
@@ -251,6 +268,19 @@
                                     title: state.tooltip|default(state.title|default(null)),
                                     compact: true,
                                 }) }}
+                            {%- endif -%}
+                        {%- elseif link_action -%}
+                            {%- if link_action.target|default(null) -%}
+                                {#- The title handed as markup, not as a label: a
+                                    label is translated, a title is data. -#}
+                                {{ button_target('', '', link_action.href, link_action.target, {
+                                    class: 'table--link',
+                                    link: true,
+                                    target_options: link_action.target_options|default({}),
+                                    html: value|e,
+                                }) }}
+                            {%- else -%}
+                                <a class="table--link" href="{{ link_action.href }}">{{ value }}</a>
                             {%- endif -%}
                         {%- elseif column.cell == 'code' -%}
                             {#- An identifier — a reference, an order number —, set

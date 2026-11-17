@@ -14,6 +14,7 @@ import { filterMatches, filterTextMatches } from '../../js/Helper/FilterHelper';
 import { sortApply, sortAria, sortNext, sortValueAt } from '../../js/Helper/SortHelper';
 import { filterSelected } from '../../js/Helper/FilterHelper';
 import { rowLinkClick } from '../../js/Helper/RowLinkHelper';
+import { sortActionsByRel } from '../../js/Helper/TableRowActionHelper';
 import { numberFormat } from '../../js/Helper/NumberHelper';
 import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
 
@@ -705,7 +706,7 @@ export default {
       if (column?.cell === 'actions' && !column.actions && !column.action) {
         const own = row?.[this.getColumnKey(column)];
 
-        return (Array.isArray(own) ? own : []).map((action) => ({
+        return sortActionsByRel((Array.isArray(own) ? own : []).map((action) => ({
           href: action.href ?? '',
           target: action.target ?? '',
           targetOptions: action.targetOptions ?? action.target_options ?? {},
@@ -715,7 +716,9 @@ export default {
           icon: action.icon ?? '',
           // What it asks before it goes ({ title, message, accept }).
           confirm: action.confirm ?? null,
-        })).filter((entry) => entry.icon);
+          // What it is to the row — open, edit, delete (TableRowActionHelper).
+          rel: action.rel ?? null,
+        })).filter((entry) => entry.icon));
       }
 
       const actions = column?.actions
@@ -732,7 +735,7 @@ export default {
         edit: 'ph:bold/pencil-simple',
       };
 
-      return actions.map((action) => {
+      return sortActionsByRel(actions.map((action) => {
         const actionName = typeof action === 'string'
             ? action
             : (action?.name || action?.action);
@@ -787,8 +790,9 @@ export default {
           handler: typeof action === 'object' && typeof action.handler === 'function'
             ? () => action.handler(row, column)
             : null,
+          rel: typeof action === 'object' ? (action.rel ?? null) : null,
         };
-      }).filter((entry) => entry.icon);
+      }).filter((entry) => entry.icon));
     },
 
     renderIcon(name) {
@@ -1111,6 +1115,31 @@ export default {
       }
 
       return value;
+    },
+
+    // Where a cell leads when its column says `link`: where the row's action
+    // of that `rel` leads — the title opening what the eye opens —, so the
+    // two can never part. A list is read in order, the first the row offers
+    // winning: `['open', 'edit']`. Null when the row offers none of them.
+    getCellRelAction(row, column) {
+      if (!column?.link) {
+        return null;
+      }
+
+      const actions = this.columns
+        .filter((entry) => this.hasCellActions(entry))
+        .flatMap((entry) => this.getCellActions(row, entry))
+        .filter((entry) => entry.href && entry.method !== 'post');
+
+      for (const rel of [].concat(column.link)) {
+        const action = actions.find((entry) => entry.rel === rel);
+
+        if (action) {
+          return action;
+        }
+      }
+
+      return null;
     },
 
     getCellHref(row, column) {

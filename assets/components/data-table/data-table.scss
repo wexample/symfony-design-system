@@ -220,6 +220,20 @@
   cursor: pointer;
 }
 
+// A cell leading where the row opens (`link: 'open'`): it reads as the
+// value it is — a title among the columns —, and shows itself a link under
+// the pointer only, so a page of titles does not turn into a page of blue.
+.table--link {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-link-hover);
+    text-decoration: underline;
+  }
+}
+
 .table--actions {
   display: inline-flex;
   align-items: center;

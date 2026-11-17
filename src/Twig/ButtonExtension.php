@@ -108,6 +108,10 @@ class ButtonExtension extends AbstractTemplateExtension
                     $context = is_array($context) ? $context : [];
                     $options['href'] = $href;
                     $options['target'] = $target;
+                    // Markup already drawn — a table's title, escaped by the
+                    // caller — led where the target says, untranslated.
+                    $html = $options['html'] ?? null;
+                    unset($options['html']);
 
                     return $this->componentsExtension->component(
                         $twig,
@@ -117,7 +121,8 @@ class ButtonExtension extends AbstractTemplateExtension
                             'icon' => $icon,
                             'label' => $label,
                             'options' => $options,
-                        ]
+                        ],
+                        null !== $html ? ['html' => $html] : []
                     );
                 },
                 $options

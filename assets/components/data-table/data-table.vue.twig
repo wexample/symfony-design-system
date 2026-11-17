@@ -335,6 +335,18 @@
                                     v-html="getCellIcon(row, column)"
                             ></span>
                         </template>
+                        <template v-else-if="getCellRelAction(row, column)">
+                            {#- `link: <rel>`: the cell leads where the row's action of
+                                that rel leads, opened the same way. -#}
+                            <button-target
+                                    :agent="false"
+                                    :app="app"
+                                    :href="getCellRelAction(row, column).href"
+                                    :target="getCellRelAction(row, column).target"
+                                    :target-options="getCellRelAction(row, column).targetOptions"
+                                    class-name="table--link"
+                            >[[ getCellValue(row, column) ]]</button-target>
+                        </template>
                         <template v-else-if="getCellHref(row, column)">
                             <a :href="getCellHref(row, column)">[[ getCellValue(row, column) ]]</a>
                         </template>
