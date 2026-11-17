@@ -12,9 +12,13 @@
   vertical-align: baseline;
 }
 
-// The copy button is no word: centred on the value, not set on its line.
-.identifier--copy {
+// The copy button is no word: centred on the value, not set on its line,
+// without the room it keeps alone. Held by the identifier, so as to win over
+// the button's own rules whichever sheet is read last: a widget loading the
+// button's sheet after this one would give it back its padding.
+.identifier > .identifier--copy {
   align-self: center;
+  padding: 0;
 }
 
 // In the mono face, a step smaller since that face reads larger, broken
@@ -24,10 +28,6 @@
   font-family: var(--font-family-mono);
   font-size: 0.9em;
   word-break: break-all;
-}
-
-.identifier--copy {
-  padding: 0;
 }
 
 // An id leading to its record: read as the text it is, in its ink wherever
