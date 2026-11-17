@@ -51,6 +51,42 @@ a.bar {
   text-decoration: none;
 }
 
+// A bar holding actions of its own — renamed, removed — is no link: its title
+// leads instead (`bar--title-link`, a button-target in the `body` slot),
+// read as the title it is and showing itself a link under the pointer only,
+// as a table's title does.
+.bar--title-link {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-link-hover);
+  }
+}
+
+// What is done to the row (`bar--actions`, in its trailing end): out of the
+// way until the row is pointed at or holds the keyboard — a list of names
+// reads as names —, and always where there is no pointer to bring them out.
+.bar--actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.bar:hover .bar--actions,
+.bar:focus-within .bar--actions {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .bar--actions {
+    opacity: 1;
+  }
+}
+
 // A list of bars: the rows, and what walks through the pages when there are
 // several. How the rows are told apart is the list's own doing — a divided
 // stack, a block each — so nothing of that belongs here.
