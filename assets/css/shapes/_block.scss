@@ -245,6 +245,24 @@
   justify-content: flex-end;
 }
 
+// A block holding a list (`block--rows`): one block for the whole, not one per
+// item — its rows one under the other, parted by the line a block's parts are
+// parted by, inset closer than a body is —: a list read at a glance, in a
+// narrow column as on a page. A row is mostly a `bar` (its name, what
+// qualifies it, what is done to it at its end).
+.block--rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.block--rows > * {
+  padding: var(--space-2) var(--space-3);
+}
+
+.block--rows > * + * {
+  border-top: var(--border-separator);
+}
+
 // A block read by the dozen — a message under inspection, a line of a log —:
 // each of its zones closer to its edges, so the list shows more of them.
 .block--compact {

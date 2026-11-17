@@ -41,4 +41,4 @@ The buttons are the bar's own (`toolbar--action`, `aria-pressed` for a toggle). 
 
 The dock holds what the page is worked with — what is picked, named or dropped in it while the page is open. What is only read, or opened elsewhere, is a page of its own in the menu: a list of sessions, of versions, of tests leads away from the page and has no reason to stand beside it.
 
-Its lists are a block each (`bar` on `block block--padded`, in a `stack--vertical`): a name, what qualifies it, what is done to it at its end, under the pointer (`bar--actions`).
+Its lists are one block holding them (`block block--rows`), a row each — a `bar`: a name, what qualifies it, what is done to it at its end, under the pointer (`bar--actions`) —, parted by the block's separator, inset closer than a body. The same shape serves any short list of named things, on a page as in a panel; a list of entities read from the api asks it with `variant: 'rows'` (`abstract-entity-bar-list`).

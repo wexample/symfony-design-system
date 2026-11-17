@@ -36,8 +36,9 @@ export default {
   props: {
     ...translated.props,
 
-    // How the rows are told apart: `divided` by a line, `surfaces` by each bar
-    // standing on its own block, `plain` by the gap alone.
+    // How the rows are told apart: `divided` by a line, `rows` by a line in
+    // one block holding them all, `surfaces` by each bar standing on its own
+    // block, `plain` by the gap alone.
     variant: {
       type: String,
       default: 'divided'
@@ -63,9 +64,10 @@ export default {
     },
 
     itemsClass() {
-      return this.variant === 'divided'
-          ? 'stack--vertical stack--divided'
-          : 'stack--vertical';
+      return {
+        divided: 'stack--vertical stack--divided',
+        rows: 'block block--rows'
+      }[this.variant] ?? 'stack--vertical';
     },
 
     // What a bar carries of the list it belongs to: on its own surface, it is

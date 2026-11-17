@@ -104,6 +104,17 @@ a.bar {
   --bar-actions-inset: var(--space-4);
 }
 
+// A row of a block holding a list (`block--rows`): on the block's ground —
+// read where the block paints it, the block shifting the grounds of what it
+// holds —, its actions inside the row's inset.
+.block--rows {
+  --bar-ground: var(--surface-3);
+}
+
+.block--rows > .bar {
+  --bar-actions-inset: var(--space-3);
+}
+
 @media (hover: none) {
   .bar--actions {
     position: static;
