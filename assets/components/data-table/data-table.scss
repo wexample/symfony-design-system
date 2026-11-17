@@ -142,7 +142,10 @@
 
 .table--cell {
   padding: var(--space-3) var(--space-4);
-  // A cell reads in the direction of what it holds, aligned with the table.
+  // A cell reads in the direction of what it holds, aligned with the table
+  // — a header as well, which the browser would centre: a column's head
+  // stands over its cells unless the column says otherwise (`align`).
+  text-align: start;
   unicode-bidi: plaintext;
   font-size: var(--font-size-3);
   border-bottom: var(--border-separator);

@@ -718,6 +718,9 @@ export default {
           confirm: action.confirm ?? null,
           // What it is to the row — open, edit, delete (TableRowActionHelper).
           rel: action.rel ?? null,
+          // A script's, rows handed by a vue rather than a server: what is
+          // done to this row instead of leading anywhere.
+          handler: typeof action.handler === 'function' ? () => action.handler(row) : null,
         })).filter((entry) => entry.icon));
       }
 
@@ -793,6 +796,15 @@ export default {
           rel: typeof action === 'object' ? (action.rel ?? null) : null,
         };
       }).filter((entry) => entry.icon));
+    },
+
+    // An action done by a script, asked first when it says so (`confirm`).
+    async runHandler(action, event) {
+      if (!(await confirmAskFor(this.app, event.currentTarget))) {
+        return;
+      }
+
+      action.handler();
     },
 
     renderIcon(name) {

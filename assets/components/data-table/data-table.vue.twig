@@ -274,7 +274,10 @@
                                             :title="action.label || null"
                                             :aria-label="action.label || null"
                                             :data-tooltip="action.label || null"
-                                            @click="action.handler()"
+                                            :data-confirm-title="action.confirm ? action.confirm.title : null"
+                                            :data-confirm-message="action.confirm ? action.confirm.message : null"
+                                            :data-confirm-accept="action.confirm ? action.confirm.accept : null"
+                                            @click="runHandler(action, $event)"
                                             v-html="renderIcon(action.icon)"
                                     ></button>
                                     <form
