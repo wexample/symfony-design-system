@@ -27,15 +27,19 @@
                 {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer') }}
             {%- endif -%}
             {#- Its head: the tool's name, and the actions of what it holds —
-                adding one, a sound to switch —, which its content sends there
+                adding one to a list —, which its content sends there
                 (components/zone-head-actions) rather than drawing a bar of its
-                own. Under it, what a tool holds scrolls inside the frame, which
-                keeps still, its handle hanging past it. -#}
+                own. Not over a page it loads (`url`): a page has its own
+                regions, and heads them itself. Under it, what a tool holds
+                scrolls inside the frame, which keeps still, its handle hanging
+                past it. -#}
             <div class="tool-dock--frame">
-                <div class="toolbar toolbar--compact zone--head tool-dock--head">
-                    <span class="toolbar--title tool-dock--head-label">{{ tool.label }}</span>
-                    <div class="toolbar--group" data-zone-head-actions></div>
-                </div>
+                {%- if not tool.url -%}
+                    <div class="toolbar toolbar--compact zone--head tool-dock--head">
+                        <span class="toolbar--title tool-dock--head-label">{{ tool.label }}</span>
+                        <div class="toolbar--group" data-zone-head-actions></div>
+                    </div>
+                {%- endif -%}
                 <div class="zone zone--scrollable">
                     {%- if tool.url -%}
                         {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/embed', {

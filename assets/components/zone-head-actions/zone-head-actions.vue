@@ -1,10 +1,11 @@
 <script>
-// The actions of what a zone holds, sent to the head of the zone it stands in
-// — a panel of the tool dock (`data-zone-head-actions`, components/tool-dock)
-// —: adding one to a list, switching a chat's sound. Out of such a zone — the
-// same list on a page of its own —, drawn where it is written, in a bar of its
-// own (`fallbackClass`). A component holding them draws them once, wherever it
-// is shown.
+// The actions of what a zone holds, sent to the head of the nearest zone that
+// has one — a bar (`zone--head`) holding a `data-zone-head-actions`: a panel of
+// the tool dock (components/tool-dock), a chat's column —: adding one to a
+// list, switching a chat's sound. Out of such a zone — the same list on a page
+// of its own —, drawn where it is written, in a bar of its own
+// (`fallbackClass`). A component holding them draws them once, wherever it is
+// shown.
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-zone-head-actions-zone-head-actions',
 
@@ -25,11 +26,12 @@ export default {
   },
 
   mounted() {
-    // The nearest head: a zone nested in the panel — a page opened in it —
-    // sends its actions to the panel's, the one zone that has a head.
-    const frame = this.$el.closest('.tool-dock--frame');
+    // The nearest head, climbing from where the actions are written: the
+    // first ancestor holding a head among its own children.
+    for (let node = this.$el.parentElement; node && !this.target; node = node.parentElement) {
+      this.target = node.querySelector(':scope > .zone--head [data-zone-head-actions]');
+    }
 
-    this.target = frame?.querySelector(':scope > .zone--head [data-zone-head-actions]') ?? null;
     this.resolved = true;
   }
 };
