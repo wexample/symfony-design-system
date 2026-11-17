@@ -1,0 +1,7 @@
+@use '../../css/shapes/toolbar';
+
+// What stays of the actions where they are written once sent to the head of
+// their zone: nothing.
+.zone-head-actions--sent {
+  display: none;
+}

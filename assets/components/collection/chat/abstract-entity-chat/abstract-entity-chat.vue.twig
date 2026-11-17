@@ -8,22 +8,25 @@
 {%- block vue_require -%}
     {{ parent() }}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/composer') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-head-actions') -}}
 {%- endblock -%}
 
 {%- block vue_body -%}
     <div class="chat">
-        {#- What concerns the conversation itself — its sound —, above the
+        {#- What concerns the conversation itself — its sound —: in the head
+            of the zone the chat stands in (a panel of the dock), or above the
             thread and out of its way. -#}
-        <div v-if="hasToolbar" class="toolbar chat--toolbar">
+        <zone-head-actions v-if="hasToolbar" fallback-class="toolbar chat--toolbar">
             <button
                     type="button"
-                    class="button button--flat"
+                    class="toolbar--action"
                     :aria-pressed="soundEnabled ? 'true' : 'false'"
                     :aria-label="soundLabel"
-                    :title="soundLabel"
+                    :data-tooltip="soundLabel"
                     @click="toggleSound"
-            ><span class="button--icon" v-html="soundIconHtml"></span></button>
-        </div>
+                    v-html="soundIconHtml"
+            ></button>
+        </zone-head-actions>
 
         {{ block('thread') }}
 

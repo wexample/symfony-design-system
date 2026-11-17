@@ -1,0 +1,25 @@
+What a tool of the dock opens (`tool_dock()`, *Tools beside the page* in `usage/layout`) is a panel of the same shape for every tool: a head, then what the tool holds, scrolling under it.
+
+## The head
+
+A compact bar (`toolbar toolbar--compact zone--head tool-dock--head`) keeping still at the panel's top: the tool's `label` at its start, the actions of what it holds at its end. A tool declares nothing for it: the head is drawn with every panel.
+
+What a panel holds never draws a bar of its own for its actions — adding one to a list, switching a chat's sound —: it hands them to the head.
+
+## Sending actions to it: zone-head-actions
+
+`components/zone-head-actions` takes what its slot holds to the head of the dock panel it stands in, through a teleport, and draws it nowhere else:
+
+{% raw %}```twig
+<zone-head-actions v-if="canCreate">
+    <button type="button" class="toolbar--action" @click="create">
+        {{ icon('ph:bold/plus') }}<span>[[ trans('@vue::create') ]]</span>
+    </button>
+</zone-head-actions>
+```{% endraw %}
+
+The buttons are the bar's own (`toolbar--action`, `aria-pressed` for a toggle). The component is written where the actions belong — at the top of the list's template — and keeps working away from the dock: on a page of its own, with no panel around it, it draws them where it is written, in a compact bar (`fallback-class`, `toolbar toolbar--compact` unless said). A page embedded in the panel (`url`) sends its actions to the same head: the chat's sound stands there.
+
+## What belongs in the dock
+
+The dock holds what the page is worked with — what is picked, named or dropped in it while the page is open. What is only read, or opened elsewhere, is a page of its own in the menu: a list of sessions, of versions, of tests leads away from the page and has no reason to stand beside it.

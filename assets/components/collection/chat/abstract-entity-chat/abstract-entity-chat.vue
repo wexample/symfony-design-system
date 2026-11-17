@@ -3,6 +3,7 @@ import AbstractEntityThread from "../../thread/abstract-entity-thread/abstract-e
 import AbstractEntityCollectionVueMixin from "../../../../js/Vue/AbstractEntityCollectionVueMixin";
 import {uiStateGet, uiStateSet} from "../../../../js/Helper/UiStateHelper";
 import Composer from "../../../composer/composer.vue";
+import ZoneHeadActions from "../../../zone-head-actions/zone-head-actions.vue";
 
 // The chats open in the page, whatever draws them: one conversation may be
 // shown twice — in the dock, and again over the veil of a modal —, and one
@@ -38,7 +39,8 @@ export default {
   template: "#vue-template-wexample-symfony-design-system-bundle-vue-collection-chat-abstract-entity-chat",
 
   components: {
-    Composer
+    Composer,
+    ZoneHeadActions
   },
 
   props: {

@@ -26,20 +26,29 @@
             {%- if lead -%}
                 {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer') }}
             {%- endif -%}
-            {#- What a tool holds scrolls inside the frame, which keeps still,
-                its handle hanging past it. -#}
-            <div class="zone zone--scrollable">
-                {%- if tool.url -%}
-                    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/embed', {
-                        name: tool.zone,
-                        src: tool.url,
-                        lazy: true,
-                    }) }}
-                {%- elseif tool.fill -%}
-                    <div class="zone--content zone--content--flush"><div class="page--fill">{{ tool.content|raw }}</div></div>
-                {%- else -%}
-                    <div class="zone--content stack--vertical">{{ tool.content|raw }}</div>
-                {%- endif -%}
+            {#- Its head: the tool's name, and the actions of what it holds —
+                adding one, a sound to switch —, which its content sends there
+                (components/zone-head-actions) rather than drawing a bar of its
+                own. Under it, what a tool holds scrolls inside the frame, which
+                keeps still, its handle hanging past it. -#}
+            <div class="tool-dock--frame">
+                <div class="toolbar toolbar--compact zone--head tool-dock--head">
+                    <span class="toolbar--title tool-dock--head-label">{{ tool.label }}</span>
+                    <div class="toolbar--group" data-zone-head-actions></div>
+                </div>
+                <div class="zone zone--scrollable">
+                    {%- if tool.url -%}
+                        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/embed', {
+                            name: tool.zone,
+                            src: tool.url,
+                            lazy: true,
+                        }) }}
+                    {%- elseif tool.fill -%}
+                        <div class="zone--content zone--content--flush"><div class="page--fill">{{ tool.content|raw }}</div></div>
+                    {%- else -%}
+                        <div class="zone--content stack--vertical">{{ tool.content|raw }}</div>
+                    {%- endif -%}
+                </div>
             </div>
         </div>
     {%- endfor -%}

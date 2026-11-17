@@ -1,0 +1,10 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <div class="zone-head-actions" :class="target ? 'zone-head-actions--sent' : fallbackClass">
+        <template v-if="resolved">
+            <teleport v-if="target" :to="target"><slot></slot></teleport>
+            <slot v-else></slot>
+        </template>
+    </div>
+{%- endblock -%}

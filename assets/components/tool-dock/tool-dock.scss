@@ -43,6 +43,28 @@
   display: none;
 }
 
+// What a tool opens: its head — its name, the actions of what it holds —
+// keeping still at the top, what it holds scrolling under it.
+.tool-dock--frame {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.tool-dock--frame > .zone--scrollable {
+  flex: 1;
+  min-height: 0;
+  height: auto;
+}
+
+// Its name, a label of the chrome and not a heading of the page: in the bar's
+// own size, muted as a panel's title is.
+.tool-dock--head-label {
+  font-weight: var(--font-weight-strong);
+  color: var(--text-color-muted);
+}
+
 // ─── The dock of a layout ─────────────────────────────────────────────────
 //
 // The same bar, standing against the window's end rather than inside a page:
