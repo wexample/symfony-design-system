@@ -67,23 +67,50 @@ a.bar {
 
 // What is done to the row (`bar--actions`, in its trailing end): out of the
 // way until the row is pointed at or holds the keyboard — a list of names
-// reads as names —, and always where there is no pointer to bring them out.
+// reads as names —, taking no room meanwhile: the title has the line whole,
+// and the actions come over its end, on the row's ground. Where there is no
+// pointer to bring them out, they stand in the line, always shown.
+.bar:has(.bar--actions) {
+  position: relative;
+}
+
 .bar--actions {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0;
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
+  padding-inline: var(--space-2) var(--bar-actions-inset, var(--space-2));
+  // The ground the row stands on — a zone's, or its own block's.
+  background: var(--bar-ground, var(--surface-zone, var(--surface-page)));
   opacity: 0;
+  pointer-events: none;
   transition: opacity 160ms ease;
 }
 
 .bar:hover .bar--actions,
 .bar:focus-within .bar--actions {
   opacity: 1;
+  pointer-events: auto;
+}
+
+// On a block of its own, the actions stand inside its padding, on its ground.
+.bar.block {
+  --bar-ground: var(--surface-3);
+}
+
+.bar.block--padded {
+  --bar-actions-inset: var(--space-4);
 }
 
 @media (hover: none) {
   .bar--actions {
+    position: static;
+    padding: 0;
+    background: none;
     opacity: 1;
+    pointer-events: auto;
   }
 }
 
