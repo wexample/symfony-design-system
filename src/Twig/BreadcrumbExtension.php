@@ -10,6 +10,7 @@ use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\Helpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
+use Wexample\SymfonyLoader\Controller\AbstractLoaderController;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 class BreadcrumbExtension extends AbstractTemplateExtension
@@ -288,11 +289,14 @@ class BreadcrumbExtension extends AbstractTemplateExtension
     }
 
     // Where the whole site starts: the page at its root, the first of every
-    // trail.
+    // trail. A site served by locale has its root page under `/{_locale}/`,
+    // and at `/` a redirect to it, which is no page and has no title to read.
     private function findRootRoute(): ?string
     {
         foreach ($this->router->getRouteCollection() as $name => $route) {
-            if ('/' === $route->getPath() && ! str_starts_with($name, '_')) {
+            if ('/' === str_replace('/{_locale}', '', $route->getPath())
+                && ! str_starts_with($name, '_')
+                && is_a(ClassHelper::getClassPath($route->getDefaults()['_controller'] ?? ''), AbstractLoaderController::class, true)) {
                 return $name;
             }
         }
