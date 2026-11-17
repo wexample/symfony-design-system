@@ -15,10 +15,10 @@ The convention is the folder's: a record's pages in `Thing/`, its list in `Thing
 
 ## Named by their records
 
-A step reads the title of its page — Projects, Scenarios —, but a record's home reads better as the record: the layout that knows it names it, once, for the route landing on it:
+A step reads the title of its page — Projects, Scenarios —, but a record's home reads better as the record: the layout that knows it names it, once, for the route landing on it — its name alone, no emoji nor mark, the trail being words:
 
 {% raw %}```twig
-{%- do breadcrumb_name('project_home_index', project.emoji ~ ' ' ~ project.title) -%}
+{%- do breadcrumb_name('project_home_index', project.title) -%}
 {%- do breadcrumb_name('project_scenario_home_index', scenario.title) -%}
 ```{% endraw %}
 
