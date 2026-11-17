@@ -6,7 +6,7 @@ A page sets these variables at the top of its template, outside any block; an ap
 |---|---|---|
 | `page_title` | text | The page's title; its translation `@page::page_title` otherwise. |
 | `page_show_title` | bool | The title drawn in the page, with the actions of `page_title_actions` beside it. |
-| `page_body_mode` | `default`, `wide` | `wide` leaves the reading measure: a table page, a workspace. |
+| `page_body_mode` | `default`, `large`, `wide` | `default` holds the page to the reading measure: a page read. `large` holds it to the room of a full HD screen (`--content-size-xxl`, 120rem), never more: a page of tables, lists, cards — wide content that a 4K screen must not stretch. `wide` fills the window, its zones scrolling on their own: a workspace, an editor. |
 | `page_trail` | `back`, `breadcrumb` | Above the title: the way back to the page above, or the whole trail. Read from the controller's place under `Controller\Pages`. |
 | `page_focus` | bool | One thing to do and nothing around it — signing in, a code, terms: no menu, a narrow column under the application's mark. |
 | `layout_navigation` | `side`, `top` | Where the application's sections stand (dashboard layout). |
@@ -27,6 +27,7 @@ Every mode of a layout runs the same three links, so an application's choices re
 | | `top` | `page_menu_links` as tabs in the header | `header--tabs` |
 | `layout_footer` | `fixed` | `layout_footer` under the body that scrolls | `footer--fixed` |
 | | `page` | `layout_footer` inside `page_foot`, under the row of zones and across all of them | `footer--page` |
+| `page_body_mode` | `large` | the page zone held to 120rem, the page scrolling as one | `zone--measure zone--measure--large` |
 | `page_body_mode` | `wide` | the page zone fills the window, its zones scroll on their own | `layout--body--wide` |
 | `page_focus` | true | `page_body` alone in a narrow column, the focus header and footer | `layout--focus` |
 
