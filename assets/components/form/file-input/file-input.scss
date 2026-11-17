@@ -1,4 +1,5 @@
 /* Component: form/file_input */
+@use '../../../css/shapes/form/field' as form-field;
 @use '../../dropzone/dropzone';
 @use '../../../css/shapes/file-chip';
 @use '../../../css/mixins/visually-hidden' as visually-hidden;

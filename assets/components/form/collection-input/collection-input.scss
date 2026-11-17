@@ -2,6 +2,7 @@
 // Several values of one kind: an item a line, its field taking the room, what
 // is done to it — up, down, off — at its end, level with its first line; the
 // button adding one under the list.
+@use '../../../css/shapes/form/field' as form-field;
 @use '../../../css/shapes/form/base';
 @use '../../../css/shapes/action-icon';
 @use '../../button/button';

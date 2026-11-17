@@ -5,8 +5,11 @@
 .form--help {
   font-size: var(--font-size-2);
   color: var(--text-color-subtle);
-  // Drawn to the field it speaks of, the room to the next field kept whole.
-  margin-block-start: -0.3rem;
+  // Drawn to the field it speaks of, the room to the next field kept whole:
+  // half the group's gap taken back, in the same unit — a fixed length would
+  // take more than the gap at a compact density, and the words would slide
+  // under the field.
+  margin-block-start: calc(-1 * var(--space-1));
   padding-inline-start: var(--space-4);
 }
 

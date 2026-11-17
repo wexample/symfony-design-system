@@ -1,4 +1,5 @@
 /* Component: form/emoji_picker */
+@use '../../../css/shapes/form/field' as form-field;
 @use '../../../css/mixins/field' as field;
 
 .form--emoji-picker-control {

@@ -1,5 +1,6 @@
 // The label and the value it holds on one line, over the scale: the value is
 // read where the label is, and stays in place while the thumb moves.
+@use '../../../css/shapes/form/field' as form-field;
 .range-input--head {
   display: flex;
   align-items: baseline;

@@ -1,4 +1,5 @@
 /* Component: form/otp_input */
+@use '../../../css/shapes/form/field' as form-field;
 @use '../../../css/mixins/field';
 
 // A code is the one thing asked on its step: its cells share the whole width

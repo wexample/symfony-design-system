@@ -1,3 +1,4 @@
 // The group and its options, segmented or not, are the form shape's: the
 // component carries it, so a page drawing radios gets them whole.
+@use '../../../css/shapes/form/field' as form-field;
 @use '../../../css/shapes/form/radio';

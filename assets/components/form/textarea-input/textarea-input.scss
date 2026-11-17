@@ -1,4 +1,5 @@
 /* Component: form/textarea */
+@use '../../../css/shapes/form/field' as form-field;
 
 textarea.form--input {
   resize: none;

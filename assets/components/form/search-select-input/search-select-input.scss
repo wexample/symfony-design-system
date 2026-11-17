@@ -2,6 +2,7 @@
 // A choice among options searched: the select's trigger and its list, a
 // search field at the head of the list, a word under it while the source is
 // asked or when nothing answers.
+@use '../../../css/shapes/form/field' as form-field;
 @use '../../select/select';
 @use '../../../css/shapes/form/base';
 @use '../../../css/shapes/form/addon';

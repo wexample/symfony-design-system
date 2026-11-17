@@ -1,3 +1,4 @@
 // The box and its label are the form shape's: the component carries it, so a
 // page drawing checkboxes gets them whole.
+@use '../../../css/shapes/form/field' as form-field;
 @use '../../../css/shapes/form/checkbox';

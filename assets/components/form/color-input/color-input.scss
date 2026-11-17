@@ -3,6 +3,7 @@
 // browser's picker under it —, its hex in monospace beside it, and under the
 // field the colours offered, a press each, the one held ringed. A colour not
 // set, or not one yet, shows the empty pattern rather than a guess.
+@use '../../../css/shapes/form/field' as form-field;
 @use '../../../css/shapes/form/base';
 @use '../../../css/shapes/form/addon';
 

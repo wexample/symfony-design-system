@@ -221,11 +221,11 @@
   margin-block-start: var(--space-3);
 }
 
-// Opening the body, a title rises into its padding: its line's leading and
-// the room over its capitals already read as space, and the padding added to
-// them would leave it lower under the edge than the last line is over the
-// foot.
-.block--body > :is(h2, h3, h4):first-child {
+// Opening the body — or a section of the block —, a title rises into its
+// padding: its line's leading and the room over its capitals already read as
+// space, and the padding added to them would leave it lower under the edge
+// than the last line is over the foot.
+:is(.block--body, .block--section) > :is(h2, h3, h4):first-child {
   margin-block-start: calc(-1 * var(--space-2));
 }
 

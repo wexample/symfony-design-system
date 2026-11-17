@@ -6,6 +6,7 @@
 // last line is the next pair, written in place: what is typed there opens
 // it. A line's × stands at its end, shown where the line is pointed at or
 // written in — always, where nothing points.
+@use '../../../css/shapes/form/field' as form-field;
 @use '../../../css/shapes/form/base';
 @use '../../../css/mixins/field' as field;
 
