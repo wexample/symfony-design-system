@@ -1,0 +1,31 @@
+The trail at the foot of a page (`breadcrumb_render()`, drawn by the dashboard layout) says every level the page stands under, from the site's root down to it — in an application as deep as a project, its scenarios, a scenario, its sessions, a session.
+
+## Read from where the controller stands
+
+Nothing is written page by page. The levels come from the namespace of the page's controller under `Controller\Pages`:
+
+- the site's root first — the page at `/`;
+- then each folder of the namespace, a record of its kind, as two steps: the list of its kind, the controller beside the folder (`ProjectController` beside `Project/`), and the record's own home, the folder's `HomeController` (`Project/HomeController`);
+- a folder with neither gives its first index, kept only when it stands above the page — a sibling is no parent;
+- then the page's own controller's index, then the page.
+
+Each step only when the current route's parameters can build it. A scenario's schedules (`Project/Scenario/ScheduleController`) read: Home › Projects › the project › Scenarios › the scenario › Schedules.
+
+The convention is the folder's: a record's pages in `Thing/`, its list in `ThingController`, its landing page in `Thing/HomeController`. A record landing elsewhere — an action of the list's controller — is no level of the trail.
+
+## Named by their records
+
+A step reads the title of its page — Projects, Scenarios —, but a record's home reads better as the record: the layout that knows it names it, once, for the route landing on it:
+
+{% raw %}```twig
+{%- do breadcrumb_name('project_home_index', project.emoji ~ ' ' ~ project.title) -%}
+{%- do breadcrumb_name('project_scenario_home_index', scenario.title) -%}
+```{% endraw %}
+
+The page being one of them, it reads the same name.
+
+## Every level in view
+
+A label is held to a few words (`--breadcrumb-label-size`, 12rem; the page's own, `--breadcrumb-current-size`, 20rem), cut short with an ellipsis, its whole name under the pointer: a long scenario's name gives way rather than pushing the levels above it out of view.
+
+A template appending routes by hand (`breadcrumb_append_route()`) keeps the trail it wrote instead.

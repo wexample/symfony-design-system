@@ -18,6 +18,9 @@ class BreadcrumbExtension extends AbstractTemplateExtension
 
     private const DESCRIBED_ATTRIBUTE = '_breadcrumb_described';
 
+    // The names a page gives the levels above it (`breadcrumb_name()`), by route.
+    private const NAMES_ATTRIBUTE = '_breadcrumb_names';
+
     /**
      * Where the pages of an app or a bundle start: the namespaces above it are
      * the bundle's, not steps of a trail.
@@ -26,6 +29,8 @@ class BreadcrumbExtension extends AbstractTemplateExtension
 
     // The controller a level of pages lands on, when it has one.
     private const HOME_CONTROLLER = 'HomeController';
+
+    private const CONTROLLER_SUFFIX = 'Controller';
 
     public function __construct(
         ComponentsExtension $componentsExtension,
@@ -63,6 +68,10 @@ class BreadcrumbExtension extends AbstractTemplateExtension
                 [$this, 'breadcrumbAppendRoute']
             ),
             new TwigFunction(
+                'breadcrumb_name',
+                [$this, 'breadcrumbName']
+            ),
+            new TwigFunction(
                 'breadcrumb_stack',
                 [$this, 'breadcrumbStack']
             ),
@@ -79,7 +88,7 @@ class BreadcrumbExtension extends AbstractTemplateExtension
                         $context,
                         '@WexampleSymfonyDesignSystemBundle/components/breadcrumb',
                         [
-                            'items' => $this->normalizeItems($this->buildStackWithCurrentRoute()),
+                            'items' => $this->nameItems($this->normalizeItems($this->buildStackWithCurrentRoute())),
                             'options' => $options,
                         ]
                     );
@@ -104,6 +113,24 @@ class BreadcrumbExtension extends AbstractTemplateExtension
         ];
 
         $request->attributes->set(self::STACK_ATTRIBUTE, $stack);
+    }
+
+    /**
+     * The name a level of the trail reads under — the project, the scenario
+     * the page stands in — instead of the title of its page: given by the
+     * layout that knows the record, for the route that lands on it.
+     */
+    public function breadcrumbName(string $route, ?string $label): void
+    {
+        $request = $this->getCurrentRequest();
+
+        if (! $request || null === $label || '' === trim($label)) {
+            return;
+        }
+
+        $names = $request->attributes->get(self::NAMES_ATTRIBUTE, []);
+        $names[$route] = $label;
+        $request->attributes->set(self::NAMES_ATTRIBUTE, $names);
     }
 
     /**
@@ -188,12 +215,13 @@ class BreadcrumbExtension extends AbstractTemplateExtension
     }
 
     /**
-     * The pages above the current one, read from its controller's namespace as
-     * the menu reads it: under `Controller\Pages`, each namespace level gives
-     * its index route (`findIndexRoute`), then the controller gives its own.
-     * A level's index is kept only when its controller stands above the
-     * current one — a sibling is where the level lands, not where the page
-     * hangs from — and only when it can be built from the current parameters.
+     * The pages above the current one, read from its controller's namespace:
+     * the site's root first, then under `Controller\Pages` each level — a
+     * record, `Project/` — as the list of its kind beside it
+     * (`ProjectController`) and the record's own home (`Project/HomeController`);
+     * a level with neither gives its first index (`findIndexRoute`), kept only
+     * when its controller stands above the current one. Then the controller's
+     * own index. Each only when the current parameters can build it.
      *
      * @return array<array{route: string, params: array}>
      */
@@ -212,24 +240,37 @@ class BreadcrumbExtension extends AbstractTemplateExtension
         $controllerNamespace = substr($controller, 0, (int) strrpos($controller, $separator));
         $levels = array_filter(explode($separator, substr($controllerNamespace, strlen($root))));
 
-        $candidates = [];
+        // [route, a level of the trail] — a level stands above every page in
+        // it, its own siblings included; any other index only above the pages
+        // its namespace holds.
+        $candidates = [[$this->findRootRoute(), true]];
         $namespace = $root;
 
         foreach ($levels as $level) {
+            $parent = $namespace;
             $namespace .= $separator.$level;
-            // Where the level lands: its home, when it has one — a project's
-            // overview, not the first of its pages the router lists.
-            $candidates[] = $this->findControllerIndexRoute($namespace.$separator.self::HOME_CONTROLLER)
-                ?? AbstractController::findIndexRoute($this->router, $namespace);
+            // A level is a record and the list of its kind: the list beside
+            // its folder (`ProjectController` beside `Project/`), then the
+            // record's own home (`Project/HomeController`) — the projects,
+            // then the project.
+            $collection = $this->findControllerIndexRoute($parent.$separator.$level.self::CONTROLLER_SUFFIX);
+            $home = $this->findControllerIndexRoute($namespace.$separator.self::HOME_CONTROLLER);
+
+            if ($collection || $home) {
+                $candidates[] = [$collection, true];
+                $candidates[] = [$home, true];
+            } else {
+                $candidates[] = [AbstractController::findIndexRoute($this->router, $namespace), false];
+            }
         }
 
-        $candidates[] = $this->findControllerIndexRoute($controller);
+        $candidates[] = [$this->findControllerIndexRoute($controller), false];
 
         $ancestors = [];
         $seen = [$currentRoute => true];
 
-        foreach (array_filter($candidates) as $candidate) {
-            if (isset($seen[$candidate]) || ! $this->standsAbove($candidate, $controller)) {
+        foreach ($candidates as [$candidate, $isLevel]) {
+            if (null === $candidate || isset($seen[$candidate]) || (! $isLevel && ! $this->standsAbove($candidate, $controller))) {
                 continue;
             }
 
@@ -244,6 +285,19 @@ class BreadcrumbExtension extends AbstractTemplateExtension
         }
 
         return $ancestors;
+    }
+
+    // Where the whole site starts: the page at its root, the first of every
+    // trail.
+    private function findRootRoute(): ?string
+    {
+        foreach ($this->router->getRouteCollection() as $name => $route) {
+            if ('/' === $route->getPath() && ! str_starts_with($name, '_')) {
+                return $name;
+            }
+        }
+
+        return null;
     }
 
     private function findControllerIndexRoute(string $controller): ?string
@@ -304,6 +358,23 @@ class BreadcrumbExtension extends AbstractTemplateExtension
     private function getCurrentRequest(): ?Request
     {
         return $this->requestStack->getCurrentRequest();
+    }
+
+    // Each level named as the page asked (`breadcrumb_name()`), where its item
+    // carries no label of its own.
+    private function nameItems(array $items): array
+    {
+        $names = $this->getCurrentRequest()?->attributes->get(self::NAMES_ATTRIBUTE, []) ?? [];
+
+        foreach ($items as &$item) {
+            $route = $item['route'] ?? null;
+
+            if (null === $item['label'] && null !== $route && isset($names[$route])) {
+                $item['label'] = $names[$route];
+            }
+        }
+
+        return $items;
     }
 
     private function normalizeItems(array $items): array

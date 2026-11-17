@@ -28,8 +28,17 @@
     color: var(--text-color-subtle);
   }
 
+  // Each level held to a few words — a project, a scenario named at length
+  // —, the trail keeping every level in view rather than one name whole;
+  // the name whole under the pointer. The page's own title last, given
+  // more room.
   .breadcrumb--label {
     @include text.text-ellipsis;
+    max-width: var(--breadcrumb-label-size, 12rem);
+  }
+
+  .breadcrumb--item--current .breadcrumb--label {
+    max-width: var(--breadcrumb-current-size, 20rem);
   }
 }
 

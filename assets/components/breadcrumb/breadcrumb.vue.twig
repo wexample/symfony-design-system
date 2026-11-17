@@ -8,10 +8,10 @@
                     class="breadcrumb--item"
                     :href="item.href"
             >
-                <span class="breadcrumb--label">[[ item.label ]]</span>
+                <span class="breadcrumb--label" :title="item.label">[[ item.label ]]</span>
             </a>
             <span v-else class="breadcrumb--item breadcrumb--item--current">
-                <span class="breadcrumb--label">[[ item.label ]]</span>
+                <span class="breadcrumb--label" :title="item.label">[[ item.label ]]</span>
             </span>
             <span
                     v-if="index < items.length - 1"

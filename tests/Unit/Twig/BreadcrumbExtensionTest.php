@@ -49,6 +49,29 @@ class BreadcrumbExtensionTest extends TestCase
         $this->assertSame(['project_home_index', 'project_scenario_schedule_index'], array_column($stack, 'route'));
     }
 
+    public function testEveryLevelGivesItsListThenItsRecord(): void
+    {
+        // A scenario's schedules: the site's root, the projects, the
+        // project, its scenarios, the scenario, then the page.
+        $stack = $this->stackFor('project_scenario_schedule_index', ['project' => 1, 'scenario' => 2], [
+            'home_index' => new Route('/', ['_controller' => self::PAGES.'HomeController::index']),
+            'projects_index' => new Route('/projects', ['_controller' => self::PAGES.'ProjectController::index']),
+            'project_home_index' => new Route('/p/{project}', ['_controller' => self::PAGES.'Project\\HomeController::index']),
+            'project_scenario_index' => new Route('/p/{project}/s', ['_controller' => self::PAGES.'Project\\ScenarioController::index']),
+            'project_scenario_home_index' => new Route('/p/{project}/s/{scenario}', ['_controller' => self::PAGES.'Project\\Scenario\\HomeController::index']),
+            'project_scenario_schedule_index' => new Route('/p/{project}/s/{scenario}/schedules', ['_controller' => self::PAGES.'Project\\Scenario\\ScheduleController::index']),
+        ]);
+
+        $this->assertSame([
+            'home_index',
+            'projects_index',
+            'project_home_index',
+            'project_scenario_index',
+            'project_scenario_home_index',
+            'project_scenario_schedule_index',
+        ], array_column($stack, 'route'));
+    }
+
     public function testAnIndexAskingForAParameterThePageLacksIsLeftOut(): void
     {
         $stack = $this->stackFor('product_show', ['id' => 5], [

@@ -31,11 +31,11 @@
 
         {% if not is_current and item.route is defined %}
             <a class="breadcrumb--item" href="{{ path(item.route, item.params|default({})) }}">
-                <span class="breadcrumb--label">{{ label }}</span>
+                <span class="breadcrumb--label" title="{{ label|trim }}">{{ label }}</span>
             </a>
         {% else %}
             <span class="breadcrumb--item breadcrumb--item--current">
-                <span class="breadcrumb--label">{{ label }}</span>
+                <span class="breadcrumb--label" title="{{ label|trim }}">{{ label }}</span>
             </span>
         {% endif %}
 
