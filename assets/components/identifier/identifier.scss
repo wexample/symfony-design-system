@@ -31,8 +31,9 @@
 }
 
 // An id leading to its record: read as the text it is, in its ink wherever
-// it stands — a marker's fill included —, telling it leads only under the
-// pointer, underlined, as a property's links do.
+// it stands, telling it leads only under the pointer, in the link's colour,
+// as every link of the design system — never underlined. On a marker's fill,
+// where that colour would not read, it keeps the fill's ink.
 .identifier--link {
   padding: 0;
   border: 0;
@@ -45,7 +46,11 @@
 
   &:hover,
   &:focus-visible {
-    text-decoration: underline;
+    color: var(--color-link-hover);
+  }
+
+  .marker--label > &:is(:hover, :focus-visible) {
+    color: inherit;
   }
 
   // The tooltip of a shortened id stays; the pointer is the link's.

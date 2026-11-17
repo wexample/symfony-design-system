@@ -37,7 +37,8 @@
 
 // A value leading somewhere, or acting: read as the other values — a
 // property is what it says, not where it leads —, telling it leads only
-// under the pointer, underlined.
+// under the pointer, in the link's colour, as every link of the design
+// system — never underlined.
 .properties--link {
   padding: 0;
   border: 0;
@@ -50,7 +51,7 @@
 
   &:hover,
   &:focus-visible {
-    text-decoration: underline;
+    color: var(--color-link-hover);
   }
 
   // What it holds — an identifier, whose shortened form asks for help —
