@@ -72,6 +72,17 @@ class BreadcrumbExtensionTest extends TestCase
         ], array_column($stack, 'route'));
     }
 
+    public function testASiteServedByLocaleStartsAtItsHomeNotAtTheRedirect(): void
+    {
+        // `/` only redirects to the reader's locale; the home is under it.
+        $stack = $this->stackFor('product_show', ['_locale' => 'fr', 'id' => 5], [
+            'locale_root_redirect' => new Route('/', ['_controller' => 'Vendor\\Translations\\Controller\\LocaleRedirectController::redirect']),
+            'home_index' => new Route('/{_locale}/', ['_controller' => self::PAGES.'HomeController::index']),
+        ]);
+
+        $this->assertSame(['home_index', 'shop_index', 'product_index', 'product_show'], array_column($stack, 'route'));
+    }
+
     public function testAnIndexAskingForAParameterThePageLacksIsLeftOut(): void
     {
         $stack = $this->stackFor('product_show', ['id' => 5], [

@@ -10,7 +10,6 @@ use Twig\Environment;
 use Twig\TwigFunction;
 use Wexample\Helpers\Helper\ClassHelper;
 use Wexample\SymfonyHelpers\Controller\AbstractController;
-use Wexample\SymfonyLoader\Controller\AbstractLoaderController;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 class BreadcrumbExtension extends AbstractTemplateExtension
@@ -293,10 +292,15 @@ class BreadcrumbExtension extends AbstractTemplateExtension
     // and at `/` a redirect to it, which is no page and has no title to read.
     private function findRootRoute(): ?string
     {
+        $separator = ClassHelper::NAMESPACE_SEPARATOR;
+
         foreach ($this->router->getRouteCollection() as $name => $route) {
             if ('/' === str_replace('/{_locale}', '', $route->getPath())
                 && ! str_starts_with($name, '_')
-                && is_a(ClassHelper::getClassPath($route->getDefaults()['_controller'] ?? ''), AbstractLoaderController::class, true)) {
+                && str_contains(
+                    ClassHelper::getClassPath($route->getDefaults()['_controller'] ?? ''),
+                    $separator.self::PAGES_NAMESPACE.$separator
+                )) {
                 return $name;
             }
         }
