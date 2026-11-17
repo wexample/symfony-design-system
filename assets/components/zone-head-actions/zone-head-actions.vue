@@ -3,8 +3,8 @@
 // has one — a bar (`zone--head`) holding a `data-zone-head-actions`: a panel of
 // the tool dock (components/tool-dock), a chat's column —: adding one to a
 // list, switching a chat's sound. Out of such a zone — the same list on a page
-// of its own —, drawn where it is written, in a bar of its own
-// (`fallbackClass`). A component holding them draws them once, wherever it is
+// of its own —, in the page's bar where the page made room for them, else
+// drawn where it is written, in a bar of its own (`fallbackClass`). A component holding them draws them once, wherever it is
 // shown.
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-zone-head-actions-zone-head-actions',
@@ -32,6 +32,9 @@ export default {
       this.target = node.querySelector(':scope > .zone--head [data-zone-head-actions]');
     }
 
+    // No zone heading it: the page's own bar, under the header, where the
+    // page made room for them (`page_toolbar_right`).
+    this.target ??= document.querySelector('.toolbar--top [data-zone-head-actions]');
     this.resolved = true;
   }
 };
