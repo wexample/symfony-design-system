@@ -24,6 +24,9 @@ class BreadcrumbExtension extends AbstractTemplateExtension
      */
     private const PAGES_NAMESPACE = 'Controller'.ClassHelper::NAMESPACE_SEPARATOR.'Pages';
 
+    // The controller a level of pages lands on, when it has one.
+    private const HOME_CONTROLLER = 'HomeController';
+
     public function __construct(
         ComponentsExtension $componentsExtension,
         private readonly RequestStack $requestStack,
@@ -214,7 +217,10 @@ class BreadcrumbExtension extends AbstractTemplateExtension
 
         foreach ($levels as $level) {
             $namespace .= $separator.$level;
-            $candidates[] = AbstractController::findIndexRoute($this->router, $namespace);
+            // Where the level lands: its home, when it has one — a project's
+            // overview, not the first of its pages the router lists.
+            $candidates[] = $this->findControllerIndexRoute($namespace.$separator.self::HOME_CONTROLLER)
+                ?? AbstractController::findIndexRoute($this->router, $namespace);
         }
 
         $candidates[] = $this->findControllerIndexRoute($controller);

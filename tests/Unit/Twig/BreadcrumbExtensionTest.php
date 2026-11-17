@@ -17,9 +17,9 @@ use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
 /**
  * The trail read from where the page's controller stands, when no template
- * wrote one: each level of `Controller\Pages` above it gives its index, a
- * sibling's index is no ancestor, and a page the current parameters cannot
- * build is left out.
+ * wrote one: each level of `Controller\Pages` above it gives its home, or
+ * else its index, a sibling's index is no ancestor, and a page the current
+ * parameters cannot build is left out.
  */
 class BreadcrumbExtensionTest extends TestCase
 {
@@ -34,6 +34,19 @@ class BreadcrumbExtensionTest extends TestCase
             ['route' => 'product_index', 'params' => []],
             ['route' => 'product_show', 'params' => ['id' => 5]],
         ], $stack);
+    }
+
+    public function testALevelWithAHomeLandsOnIt(): void
+    {
+        // A project's pages: its content types listed by the router before
+        // its home, a scenario's schedules under it.
+        $stack = $this->stackFor('project_scenario_schedule_index', ['project' => 1, 'scenario' => 2], [
+            'project_content_type_index' => new Route('/p/{project}/types', ['_controller' => self::PAGES.'Project\\ContentTypeController::index']),
+            'project_home_index' => new Route('/p/{project}', ['_controller' => self::PAGES.'Project\\HomeController::index']),
+            'project_scenario_schedule_index' => new Route('/p/{project}/s/{scenario}/schedules', ['_controller' => self::PAGES.'Project\\Scenario\\ScheduleController::index']),
+        ]);
+
+        $this->assertSame(['project_home_index', 'project_scenario_schedule_index'], array_column($stack, 'route'));
     }
 
     public function testAnIndexAskingForAParameterThePageLacksIsLeftOut(): void
