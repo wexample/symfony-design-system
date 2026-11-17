@@ -1,6 +1,6 @@
 # symfony_design_system
 
-Version: 46.0.2
+Version: 47.0.0
 
 Design system assets for Symfony
 

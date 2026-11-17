@@ -1,0 +1,44 @@
+What a tool of the dock opens (`tool_dock()`, *Tools beside the page* in `usage/layout`) is a panel of the same shape for every tool: a head, then what the tool holds, scrolling under it.
+
+## The head
+
+A compact bar (`toolbar toolbar--compact zone--head tool-dock--head`) keeping still at the panel's top: the tool's `label` at its start, the actions of what it holds at its end — an icon each, its words in its tooltip. A tool declares nothing for it: the head is drawn with every panel holding `content` or a `content_block`.
+
+A tool loading a page (`url`) gets none: a page has its own regions and heads them itself — the conversations, a column of faces beside a chat, head the chat alone, with who one talks with and the chat's sound.
+
+What a panel holds never draws a bar of its own for its actions — adding one to a list, switching a chat's sound —: it hands them to the head.
+
+## Sending actions to it: zone-head-actions
+
+`components/zone-head-actions` takes what its slot holds to the head of the nearest zone that has one — the first ancestor holding, among its own children, a `zone--head` with a `data-zone-head-actions` element — through a teleport, and draws it nowhere else:
+
+```twig
+<zone-head-actions v-if="canCreate">
+    <button type="button" class="toolbar--action" :aria-label="label" :data-tooltip="label" @click="create">
+        {{ icon('ph:bold/plus') }}
+    </button>
+</zone-head-actions>
+```
+
+The buttons are the bar's own (`toolbar--action`, `aria-pressed` for a toggle). The component is written where the actions belong — at the top of the list's template — and keeps working anywhere. With no zone head around it, it takes them to the page's own bar when the page made room for them there:
+
+```twig
+{%- block page_toolbar_right -%}
+    <div class="toolbar--group" data-zone-head-actions></div>
+{%- endblock -%}
+```
+
+— the same list, on a page of its own, has its actions where every page has them. With neither, it draws them where it is written, in a compact bar (`fallback-class`, `toolbar toolbar--compact` unless said). A region of a page gives itself a head the same way the dock does:
+
+```twig
+<div class="toolbar toolbar--compact zone--head">
+    <span class="toolbar--title">{{ title }}</span>
+    <div class="toolbar--group" data-zone-head-actions></div>
+</div>
+```
+
+## What belongs in the dock
+
+The dock holds what the page is worked with — what is picked, named or dropped in it while the page is open. What is only read, or opened elsewhere, is a page of its own in the menu: a list of sessions, of versions, of tests leads away from the page and has no reason to stand beside it.
+
+Its lists are one block holding them (`block block--rows`), a row each — a `bar`: a name, what qualifies it, what is done to it at its end, under the pointer (`bar--actions`) —, parted by the block's separator, inset closer than a body. The same shape serves any short list of named things, on a page as in a panel; a list of entities read from the api asks it with `variant: 'rows'` (`abstract-entity-bar-list`).
