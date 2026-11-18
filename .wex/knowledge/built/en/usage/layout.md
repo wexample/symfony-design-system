@@ -141,7 +141,7 @@ too puts beside it only what it can also stack, and reads
 
 ## A list read one at a time
 
-A list whose rows are read one at a time beside it — a mail client's mails, a scenario's cases, its runs — is a `list-detail` before the page: the list in a narrow region (`page_zones_before`), sized by the visitor (`state`), scrolling on its own; the one chosen read in the page's own region, in the address, so a link opens it, its row marked (`current`). Nothing chosen, the page says so (`.empty`). The rows are `items` — `{ title, subtitle, meta, trailing, icon, href, current }`, drawn as bars — or `body`, rows a vue draws (each a `[data-list-expanded-item]` in a `.list-expanded--items`, `aria-current` on the one read):
+A list whose rows are read one at a time beside it — a mail client's mails, a scenario's cases, its runs — is a `list-detail` before the page: the list in a narrow region (`page_zones_before`), sized by the visitor (`state`), scrolling on its own; the one chosen read in the page's own region, in the address, so a link opens it, its row marked (`current`). Nothing chosen, the page says so (`.empty`). The rows are `items` — `{ title, subtitle, meta, trailing, icon, href, current }`, drawn as bars — or `body`, rows a vue draws (bars in a `.block.block--rows.list-detail--rows`, `aria-current` on the one read). The region is a region of the page as the one beside it, its ground and no frame; the rows one block as long as they are:
 
 ```twig
 {%- block page_zones_before -%}

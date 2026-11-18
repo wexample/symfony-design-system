@@ -5,9 +5,11 @@
     row marked in the list (`aria-current`).
 
     items: [{ title, subtitle, meta, trailing, icon, href, current }], drawn as
-    bars — or `body`, the rows drawn by the page, a vue's most often: each a
-    `[data-list-expanded-item]` inside a `.list-expanded--items` (block
-    `list_detail_items` the same, embedded).
+    bars in one block of rows (`block--rows`), as long as they are — or
+    `body`, the rows drawn by the page, a vue's most often: bars in a
+    `.block.block--rows.list-detail--rows`, `aria-current` on the one read
+    (block `list_detail_items` the same, embedded). The region itself is a
+    region of the page as the one beside it is: its ground, no frame.
     empty: what the list says when it holds nothing.
     state: where the width the visitor leaves it at is kept (zone_state).
     size: its width at first, a step of the zones' scale (7).
@@ -24,30 +26,28 @@
     {%- if state|default(null) -%}
         {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer') }}
     {%- endif -%}
-    <div class="zone zone--scrollable list-expanded">
-        {%- block list_detail_items -%}
-            {%- if body|default(null) -%}
-                {{ body|raw }}
-            {%- elseif items is empty -%}
-                <div class="zone--content empty">{{ empty|default('') }}</div>
-            {%- else -%}
-                <div class="list-expanded--items">
-                    {%- for item in items -%}
-                        {{ bar(item.title, {
-                            icon: item.icon|default(null),
-                            subtitle: item.subtitle|default(null),
-                            meta: item.meta|default(null),
-                            trailing: item.trailing|default(null),
-                            href: item.href|default(null),
-                            class: 'list-expanded--item',
-                            attr: {
-                                'data-list-expanded-item': '',
-                                'aria-current': item.current|default(false) ? 'true' : null,
-                            },
-                        }) }}
-                    {%- endfor -%}
-                </div>
-            {%- endif -%}
-        {%- endblock -%}
+    <div class="zone zone--scrollable">
+        <div class="zone--content">
+            {%- block list_detail_items -%}
+                {%- if body|default(null) -%}
+                    {{ body|raw }}
+                {%- elseif items is empty -%}
+                    <div class="empty">{{ empty|default('') }}</div>
+                {%- else -%}
+                    <div class="block block--rows list-detail--rows">
+                        {%- for item in items -%}
+                            {{ bar(item.title, {
+                                icon: item.icon|default(null),
+                                subtitle: item.subtitle|default(null),
+                                meta: item.meta|default(null),
+                                trailing: item.trailing|default(null),
+                                href: item.href|default(null),
+                                attr: { 'aria-current': item.current|default(false) ? 'true' : null },
+                            }) }}
+                        {%- endfor -%}
+                    </div>
+                {%- endif -%}
+            {%- endblock -%}
+        </div>
     </div>
 </div>

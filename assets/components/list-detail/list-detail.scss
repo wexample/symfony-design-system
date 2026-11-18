@@ -3,11 +3,34 @@
 // in the page's. On a narrow screen, one region at a time — the list while
 // nothing is read, the one read else, its way back to the list above it.
 @use '../../css/mixins/window';
+@use '../../css/shapes/block';
 @use '../../css/shapes/empty';
 @use '../bar/bar';
 @use '../breadcrumb/breadcrumb';
-@use '../list-expanded/list-expanded';
 @use '../zone-resizer/zone-resizer';
+
+// The rows, one block as long as they are: the one pointed at a step above
+// the block's ground (`--surface-3`, neutral 5), the one read — and the one
+// the keyboard is on — two, from edge to edge of the block.
+.list-detail--rows {
+  --state-hover: var(--neutral-6);
+  --state-active: var(--neutral-7);
+  --state-focus: var(--neutral-7);
+  overflow: hidden;
+
+  > .bar:hover {
+    background: var(--state-hover);
+  }
+
+  > .bar[aria-current='true'] {
+    background: var(--state-active);
+  }
+
+  > .bar:focus-visible {
+    background: var(--state-focus);
+    outline: 0;
+  }
+}
 
 // Wide enough, both regions are there: the way back would lead where one
 // already is.
