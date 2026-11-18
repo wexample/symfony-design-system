@@ -44,22 +44,20 @@
   --menu-width: calc(var(--size-6) + var(--size-4));
 }
 
-// The foot of a menu holds what it is given — links stacked under one
-// another —, a bar's height at least: held to it, the rest would spill under
-// the menu and scroll the whole page.
+// The foot of a menu holds what it is given: entries, as the body's are
+// (`menu--items`), at their own height; or a bar (`menu--bar`), a bar's height
+// at least. Held to it, the rest would spill under the menu and scroll the
+// whole page.
 .menu--footer {
   flex-shrink: 0;
   height: auto;
-  min-height: var(--size-3);
   margin-top: auto;
   border-top: var(--border-shell);
   border-bottom: 0;
 }
 
-// Entries at the foot, as the body's are (`menu--items`): their own height,
-// not a bar's — held to it, the foot kept room under the last of them.
-.menu--footer:has(> .menu--items) {
-  min-height: 0;
+.menu--footer.menu--bar {
+  min-height: var(--size-3);
 }
 
 .menu--bar--content {
