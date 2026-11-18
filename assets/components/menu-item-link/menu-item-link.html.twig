@@ -5,10 +5,11 @@
 {% endif %}
 {#- An item is the page being read when it leads to it, or to the section
     the page stands in — /dashboard stays lit on /dashboard/patients/12. The
-    root leads to every page and is lit on itself only. A caller knowing
-    better says so (`active`). -#}
+    root leads to every page and is lit on itself only, and one opening
+    another window (`new_window`) never: the page it opens is not this one.
+    A caller knowing better says so (`active`). -#}
 {% set path_info = app.request.pathInfo %}
-{% set active = options.active ?? (href == path_info or (href != '/' and path_info starts with href ~ '/')) %}
+{% set active = options.active ?? (not new_window and (href == path_info or (href != '/' and path_info starts with href ~ '/'))) %}
 <li>
     <a class="{{ options.class|default('') }}{{ active ? ' active' }}"
        href="{{ href }}"

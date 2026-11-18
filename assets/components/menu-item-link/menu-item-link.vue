@@ -45,10 +45,15 @@ export default {
 
   computed: {
     // As the twig twin: the page it leads to, or the section the page stands
-    // in, the root lit on itself only.
+    // in, the root lit on itself only, one opening another window never.
     isActive() {
       if (this.active !== null) {
         return this.active;
+      }
+
+      // Opening another window, it leads to no page of this one.
+      if (this.newWindow) {
+        return false;
       }
 
       const path = window.location.pathname;
