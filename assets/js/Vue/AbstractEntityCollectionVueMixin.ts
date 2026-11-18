@@ -1,6 +1,7 @@
 import AbstractEntityManipulatorVueMixin from './AbstractEntityManipulatorVueMixin';
 import EventsService from '@wexample/symfony-loader/js/Services/EventsService';
 import LiveUpdatesService from '@wexample/symfony-loader/js/Services/LiveUpdatesService';
+import PollingService from '@wexample/symfony-loader/js/Services/PollingService';
 import { reconcileEntityCollection } from '@wexample/js-api-entity/Helper/ApiEntityCollectionHelper';
 import type AbstractApiEntity from '@wexample/js-api-entity/Common/AbstractApiEntity';
 
@@ -31,7 +32,7 @@ const AbstractEntityCollectionVueMixin = {
       // declare none, one or several of the three: they are not alternatives,
       // they are what happens to be available where it stands.
       liveConnection: null,
-      pollingTimer: null,
+      polling: null,
       // One reading at a time: a burst of live events folds into the reading
       // under way plus one more, instead of a request per event racing each
       // other — the last response to resolve is not always the freshest.
@@ -407,28 +408,25 @@ const AbstractEntityCollectionVueMixin = {
       return null;
     },
 
+    // Read again through the page's PollingService: not while nobody looks,
+    // at once when they look again, further apart while it fails.
     startCollectionPolling() {
       const interval = this.getPollingIntervalMs();
 
-      if (!interval || this.pollingTimer) {
+      if (!interval || this.polling) {
         return;
       }
 
-      this.pollingTimer = setInterval(() => {
-        // A page nobody is looking at is a page nobody needs read to them.
-        if (document.hidden) {
-          return;
-        }
-
-        this.refreshEntitiesCollection({ silent: true });
-      }, interval);
+      this.polling = (this.app.getServiceOrFail(PollingService) as PollingService).start({
+        owner: this,
+        intervalMs: interval,
+        read: () => this.refreshEntitiesCollection({ silent: true }),
+      });
     },
 
     stopCollectionPolling() {
-      if (this.pollingTimer) {
-        clearInterval(this.pollingTimer);
-        this.pollingTimer = null;
-      }
+      this.polling?.stop();
+      this.polling = null;
     },
 
     stopWatchingCollection() {
