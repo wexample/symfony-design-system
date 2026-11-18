@@ -129,7 +129,11 @@
     }
   }
 
-  .header--menu.is-visible + .header--body .header--title {
+  // A menu before the title, showing something — the side menu's toggle
+  // while the menu is closed —: its end padding already parts them, the
+  // title's own would double it. The toggle hidden, the menu goes and the
+  // title keeps its room from the edge.
+  .header--menu:has(> :not([hidden])) + .header--body .header--title {
     padding-inline-start: 0;
   }
 }
