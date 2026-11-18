@@ -1,0 +1,12 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{%- block vue_body -%}
+    <p v-if="parts.length" class="credit">
+        <template v-if="label"><span class="credit--label">[[ label ]]</span> </template>
+        <template v-for="(part, index) in parts" :key="index">
+            <template v-if="index"> · </template>
+            <a v-if="part.href" class="text-link" :href="part.href" target="_blank" rel="noopener noreferrer">[[ part.label ]]</a>
+            <template v-else>[[ part.label ]]</template>
+        </template>
+    </p>
+{%- endblock -%}

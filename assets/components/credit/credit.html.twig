@@ -1,0 +1,25 @@
+{#- What a work shown on the page owes whoever made it — a picture, a
+    recording —, said under it, quietly: what it is (`label`: « Portrait »),
+    who made it (`author`), under which licence (`license`, its text at
+    `license_url`), where it was found (`source`, at `source_url`). Each part
+    a link where it has an address, the parts it lacks left out. -#}
+{%- set parts = [] -%}
+{%- if author|default(null) -%}
+    {%- set parts = parts|merge([author|e]) -%}
+{%- endif -%}
+{%- for part in [
+    { label: license|default(null), href: license_url|default(null) },
+    { label: source|default(null), href: source_url|default(null) },
+] -%}
+    {%- if part.label -%}
+        {%- set parts = parts|merge([part.href
+            ? include('@WexampleSymfonyDesignSystemBundle/components/text-link/text-link.html.twig', { label: part.label, href: part.href, external: true })
+            : part.label|e]) -%}
+    {%- endif -%}
+{%- endfor -%}
+{%- if parts is not empty -%}
+    <p class="credit{{ class|default(null) ? ' ' ~ class }}">
+        {%- if label|default(null) %}<span class="credit--label">{{ label }}</span> {% endif -%}
+        {{- parts|join(' · ')|raw -}}
+    </p>
+{%- endif -%}

@@ -1,0 +1,14 @@
+/* Component: credit */
+// What a work owes whoever made it: small and quiet under it — read by who
+// looks for it, not in the way of who does not —, what it is first, set
+// apart in the strong weight.
+.credit {
+  margin: 0;
+  font-size: var(--font-size-1);
+  color: var(--text-color-subtle);
+}
+
+.credit--label {
+  font-weight: var(--font-weight-strong);
+  color: var(--text-color-muted);
+}
