@@ -10,6 +10,10 @@
     alt: what the picture shows.
     title, subtitle: the words over the band's foot.
     height: the band's (--cover-height).
+    portrait: a picture of whom — or what — the page is about, round, astride
+    the band's foot (`cover--portrait`), its words moved beside it;
+    portrait_alt: what it shows. Block cover_portrait: what stands there
+    instead — an `avatar()`.
     Block cover_float: tools over its top end corner — an icon or two, as a
     zone floats a head too light for a bar of its own (`zone--float`).
     It covers — out of the zone's padding, edge to edge —; class
@@ -37,6 +41,13 @@
                 <span class="placeholder--label">{{ pending is same as(true) ? 'WexampleSymfonyDesignSystemBundle.common.system::frontend.placeholder.pending'|trans : pending }}</span>
             </div>
         {%- endif -%}
+    </div>
+    <div class="cover--portrait">
+        {%- block cover_portrait -%}
+            {%- if portrait|default(null) -%}
+                <span class="avatar"><img src="{{ portrait }}" alt="{{ portrait_alt|default('') }}"></span>
+            {%- endif -%}
+        {%- endblock -%}
     </div>
     <div class="cover--float zone--float">
         {%- block cover_float -%}{%- endblock -%}

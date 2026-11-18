@@ -16,6 +16,11 @@
                 <span class="placeholder--label">[[ pendingLabel ]]</span>
             </div>
         </div>
+        <div v-if="portrait || $slots.portrait" class="cover--portrait">
+            <slot name="portrait">
+                <span class="avatar"><img :src="portrait" :alt="portraitAlt"></span>
+            </slot>
+        </div>
         <div v-if="$slots.float" class="cover--float zone--float">
             <slot name="float"></slot>
         </div>

@@ -1,8 +1,9 @@
 <script>
 // The twin of cover.html.twig: the band across the head of a page — a
 // picture, a video, or what the slot puts there (an animation) —, the missing
-// picture while there is none (`placeholder`), alive while one is made (`pending`), its words over its foot, its tools
-// over its top end corner (slot `float`).
+// picture while there is none (`placeholder`), alive while one is made
+// (`pending`), its words over its foot, a portrait astride it (`portrait`, or
+// slot `portrait`), its tools over its top end corner (slot `float`).
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-cover-cover',
 
@@ -26,6 +27,15 @@ export default {
     subtitle: {
       type: String,
       default: null
+    },
+    // A picture of whom the page is about, round, astride the band's foot.
+    portrait: {
+      type: String,
+      default: null
+    },
+    portraitAlt: {
+      type: String,
+      default: ''
     },
     height: {
       type: String,

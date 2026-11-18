@@ -1,4 +1,5 @@
 /* Component: cover */
+@use '../../css/shapes/avatar';
 @use '../../css/shapes/placeholder';
 // The band across the head of a page, made to hold a picture, a video or an
 // animation: tall enough to be the page's first sight — a third of the
@@ -9,7 +10,8 @@
 // `cover--inset` keeps it inside, rounded as a block is. With nothing in it,
 // the missing picture (`placeholder`); while one is made, the same alive. Its
 // words over its foot, on a shade rising from the bottom that keeps them
-// readable whatever the picture shows.
+// readable whatever the picture shows. A portrait may stand astride that foot
+// — whom the page is about —, half in the band, half out of it.
 
 .cover {
   --cover-height: clamp(14rem, 34vh, 26rem);
@@ -19,7 +21,6 @@
   align-items: flex-end;
   height: var(--cover-height);
   margin-inline: calc(-1 * var(--cover-bleed));
-  overflow: hidden;
   isolation: isolate;
 }
 
@@ -44,6 +45,9 @@
   position: absolute;
   inset: 0;
   z-index: 0;
+  // Cropped here rather than on the band, which a portrait overflows.
+  overflow: hidden;
+  border-radius: inherit;
 }
 
 // What the band holds fills it, cropped: a picture, a video, a canvas.
@@ -75,6 +79,8 @@
   gap: var(--space-1);
   width: 100%;
   padding: var(--space-7) var(--space-6) var(--space-5);
+  border-end-start-radius: inherit;
+  border-end-end-radius: inherit;
   background: linear-gradient(to top, rgb(0 0 0 / 35%), transparent);
   color: white;
   text-shadow: 0 1px 2px rgb(0 0 0 / 50%);
@@ -104,6 +110,42 @@
   margin: 0;
   font-size: var(--font-size-3);
   opacity: 0.85;
+}
+
+// Whom the page is about, round, astride the band's foot at its start: half
+// over the picture, half over the page, ringed with the ground it stands on
+// (--cover-ground) so it reads cut out of the band. The band keeps room under
+// it for the half that hangs, and its words step aside to stand beside it.
+.cover {
+  --cover-portrait-size: clamp(6rem, 18vw, 9rem);
+  --cover-portrait-inset: var(--space-6);
+}
+
+.cover--portrait {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: var(--cover-portrait-inset);
+  z-index: 2;
+  translate: 0 50%;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 0 0 var(--space-1) var(--cover-ground, var(--surface-zone, var(--surface-page)));
+
+  &:empty {
+    display: none;
+  }
+
+  > .avatar {
+    --avatar-size: var(--cover-portrait-size);
+    display: flex;
+  }
+}
+
+.cover:has(> .cover--portrait:not(:empty)) {
+  margin-block-end: calc(var(--cover-portrait-size) / 2);
+
+  > .cover--words {
+    padding-inline-start: calc(var(--cover-portrait-inset) + var(--cover-portrait-size) + var(--space-4));
+  }
 }
 
 @media print {
