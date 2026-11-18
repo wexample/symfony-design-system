@@ -147,7 +147,7 @@ Sorting is one rule written twice, assets/js/Helper/SortHelper.ts and src/Helper
 
 ### Controllers
 
-What the interface remembers — a collapsed menu, a theme — is kept as preferences of `symfony-preference`: `App::persistUiStates` posts the values to `POST /api/preference/set`, an endpoint served by `symfony-platform`, and `PreferenceService` keeps them where the app chose (`wexample_symfony_preference.storage`: the session, or the database). src/Twig/UiStateExtension.php reads them back through `ui_state_get()` and `ui_state_all()`. Changing where they are kept needs nothing on the client.
+What the interface remembers — a collapsed menu, a theme — is kept as preferences of `symfony-preference`: `App::persistUiStates` posts the values to `POST /_api/preference/set`, an endpoint served by `symfony-preference` itself — so every app with the design system has it —, and `PreferenceService` keeps them where the app chose (`wexample_symfony_preference.storage`). By default (`user`), a signed-in user's go to the database and follow them from one machine to another; a visitor's go to a cookie, which keeps nothing on the server and opens no session to be read. src/Twig/UiStateExtension.php reads them back through `ui_state_get()` and `ui_state_all()`. Changing where they are kept needs nothing on the client.
 
 src/Controller/FixturesController.php serves `placeholder.svg` from `assets/fixtures/` at the design-system base route.
 
@@ -189,7 +189,7 @@ A typical page request arrives at a controller that calls `renderPage('index')`.
 
 Inside a template, calling `{{ button_target(..., 'modal') }}` invokes `ButtonExtension`, which calls the loader's `ComponentsExtension::component()`. That function renders `components/button-target/button-target.html.twig` server-side and registers the component with the render pass so the loader emits the correct JS bootstrap data. When the browser executes that bootstrap data, `button-target.ts` mounts, listens for clicks, and delegates to `ModalService`, which fetches the target page and hands it to `modal.ts` — an `AbstractOverlayPageManager` — to display.
 
-UI state flows in the reverse direction: `menu-collapsible-panel.ts` fires `app.onMenuStateChange(id, open)` → `App::persistUiState` POSTs to `/api/preference/set` → `PreferenceService` keeps it → on the next page load `ui_state_get('ui.layout.menu.left')` returns the saved value and `dashboard/layout.html.twig` renders the panel pre-collapsed or pre-open.
+UI state flows in the reverse direction: `menu-collapsible-panel.ts` fires `app.onMenuStateChange(id, open)` → `App::persistUiState` POSTs to `/_api/preference/set` → `PreferenceService` keeps it → on the next page load `ui_state_get('ui.layout.menu.left')` returns the saved value and `dashboard/layout.html.twig` renders the panel pre-collapsed or pre-open.
 
 ### Tests
 
