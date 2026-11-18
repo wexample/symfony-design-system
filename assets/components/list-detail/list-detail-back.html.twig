@@ -1,0 +1,9 @@
+{#- The way back from the one read to the list (list-detail), at the top of
+    the page's region: drawn on a narrow screen only, where the list gave its
+    room to it. href: the list, nothing chosen; label: what the list is. -#}
+<nav class="breadcrumb breadcrumb--back list-detail--back">
+    <a class="breadcrumb--item" href="{{ href }}">
+        <span class="breadcrumb--back-icon">{{ icon('ph:bold/arrow-left') }}</span>
+        <span class="breadcrumb--label">{{ label }}</span>
+    </a>
+</nav>

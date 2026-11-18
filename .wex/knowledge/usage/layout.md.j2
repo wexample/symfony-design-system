@@ -139,6 +139,27 @@ A panel, a modal and the dock draw no regions: a page meant to be opened in one
 too puts beside it only what it can also stack, and reads
 `render_pass.layoutBase` to tell the two apart.
 
+## A list read one at a time
+
+A list whose rows are read one at a time beside it — a mail client's mails, a scenario's cases, its runs — is a `list-detail` before the page: the list in a narrow region (`page_zones_before`), sized by the visitor (`state`), scrolling on its own; the one chosen read in the page's own region, in the address, so a link opens it, its row marked (`current`). Nothing chosen, the page says so (`.empty`). The rows are `items` — `{ title, subtitle, meta, trailing, icon, href, current }`, drawn as bars — or `body`, rows a vue draws (each a `[data-list-expanded-item]` in a `.list-expanded--items`, `aria-current` on the one read):
+
+{% raw %}```twig
+{%- block page_zones_before -%}
+    {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/list-detail', {
+        items: runs|map(run => { title: run.title, trailing: marker('success', run.result), href: path('run_show', { id: run.id }), current: run == selected }),
+        empty: 'No run yet.',
+        state: 'runs.list',
+    }) }}
+{%- endblock -%}
+
+{%- block page_body -%}
+    {{ include('@WexampleSymfonyDesignSystemBundle/components/list-detail/list-detail-back.html.twig', { href: path('run_index'), label: 'Runs' }) }}
+    …
+{%- endblock -%}
+```{% endraw %}
+
+The page reading one puts at its top the way back (`list-detail-back`): on a narrow screen there is room for one region, the list while nothing is read, the one read else with that way back above it. Tabs over both — the list's kinds — are `page_tabs` in `page_navigation`, the tab's actions at their end; a vue's actions reach them through `zone-head-actions` (`data-zone-head-actions` in the tabs' `actions`). symfony-mail-ds's mailbox is one.
+
 ## Tools beside the page
 
 The bar of icons at the window's end (`tool_dock()`, the dashboard layout) holds the application's tools — `layout_dock_tools`, written once by its layout — and those a page adds for itself — `page_dock_tools`. One list of `{ name, label, icon, … }`: where each stands, whether it is open and the width it was left at are the dock's to keep. A tool opens a zone holding a page loaded the first time it opens (`url`), what the page drew (`content`), or a block of the page drawn with the dock (`content_block`) — the way to put a vue or a component there, which a value set at the top of the template cannot render. An `href` makes it a link of the bar instead.

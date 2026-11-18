@@ -1,0 +1,43 @@
+/* Component: list-detail */
+// A list read one at a time: the list's region before the page, the one read
+// in the page's. On a narrow screen, one region at a time — the list while
+// nothing is read, the one read else, its way back to the list above it.
+@use '../../css/mixins/window';
+@use '../../css/shapes/empty';
+@use '../bar/bar';
+@use '../breadcrumb/breadcrumb';
+@use '../list-expanded/list-expanded';
+@use '../zone-resizer/zone-resizer';
+
+// Wide enough, both regions are there: the way back would lead where one
+// already is.
+.breadcrumb.list-detail--back {
+  display: none;
+}
+
+@include window.below(window.$window-m) {
+  .zone--split:has(> .list-detail) {
+    // Something read: the page's region whole.
+    &:has(.list-detail--back) > .list-detail {
+      display: none;
+    }
+
+    // Nothing read: the list whole, the page's region — what says nothing
+    // is read — left out.
+    &:not(:has(.list-detail--back)) {
+      > .list-detail {
+        flex: 1 1 auto;
+        width: auto;
+        max-width: none;
+      }
+
+      > .zone--split {
+        display: none;
+      }
+    }
+  }
+
+  .breadcrumb.list-detail--back {
+    display: flex;
+  }
+}

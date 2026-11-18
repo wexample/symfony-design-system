@@ -1,0 +1,53 @@
+{#- A list read one at a time, as a mail client reads its mails: the list in
+    a narrow region before the page (`page_zones_before`), the one chosen read
+    in the page's own region. Each region scrolls on its own, the list sized
+    by the visitor; the one read is in the address — a link opens it —, its
+    row marked in the list (`aria-current`).
+
+    items: [{ title, subtitle, meta, trailing, icon, href, current }], drawn as
+    bars — or `body`, the rows drawn by the page, a vue's most often: each a
+    `[data-list-expanded-item]` inside a `.list-expanded--items` (block
+    `list_detail_items` the same, embedded).
+    empty: what the list says when it holds nothing.
+    state: where the width the visitor leaves it at is kept (zone_state).
+    size: its width at first, a step of the zones' scale (7).
+    label: what the list is, for whoever reads the page aloud.
+
+    The page's region reads the one chosen, or says nothing is (`empty`).
+    On a narrow screen there is room for one region: the list while nothing
+    is read, the one read else, with the way back to the list above it
+    (list-detail-back.html.twig). -#}
+{%- set items = items|default([]) -%}
+<div class="zone zone--panel zone--narrow zone--size-{{ size|default(7) }} list-detail{{ class|default(null) ? ' ' ~ class }}"
+    {%- if state|default(null) %} {{ zone_state(state) }}{% endif %}
+    {%- if label|default(null) %} role="region" aria-label="{{ label }}"{% endif %}>
+    {%- if state|default(null) -%}
+        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/zone-resizer') }}
+    {%- endif -%}
+    <div class="zone zone--scrollable list-expanded">
+        {%- block list_detail_items -%}
+            {%- if body|default(null) -%}
+                {{ body|raw }}
+            {%- elseif items is empty -%}
+                <div class="zone--content empty">{{ empty|default('') }}</div>
+            {%- else -%}
+                <div class="list-expanded--items">
+                    {%- for item in items -%}
+                        {{ bar(item.title, {
+                            icon: item.icon|default(null),
+                            subtitle: item.subtitle|default(null),
+                            meta: item.meta|default(null),
+                            trailing: item.trailing|default(null),
+                            href: item.href|default(null),
+                            class: 'list-expanded--item',
+                            attr: {
+                                'data-list-expanded-item': '',
+                                'aria-current': item.current|default(false) ? 'true' : null,
+                            },
+                        }) }}
+                    {%- endfor -%}
+                </div>
+            {%- endif -%}
+        {%- endblock -%}
+    </div>
+</div>
