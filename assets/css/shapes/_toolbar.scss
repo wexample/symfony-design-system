@@ -213,5 +213,19 @@
   align-self: stretch;
   width: 1px;
   margin-inline: var(--space-1);
-  background: var(--border-color-discreet);
+  // The default line and not the discreet one, which a bar's own ground
+  // swallows.
+  background: var(--border-color-default);
+}
+
+// A run of a bar made of sections, each a thing of its own — a version, its
+// tests, a session —: the same line between every two, drawn by the run
+// itself, so that a section left out — nothing to show — leaves no line
+// standing alone. The line as far from what follows it as the run's gap
+// leaves before it.
+.toolbar--divided {
+  > * + * {
+    border-inline-start: 1px solid var(--border-color-default);
+    padding-inline-start: var(--toolbar-divided-gap, var(--space-2));
+  }
 }
