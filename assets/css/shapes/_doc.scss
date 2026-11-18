@@ -34,6 +34,14 @@
   padding: var(--space-4);
 }
 
+// A table keeps its words whole: `anywhere` counts every letter as a place to
+// break, so the table's columns, sized on their narrowest content, shrank to
+// one letter and cut `string` in two. A word too long for its cell still
+// breaks (`break-word`), once the table has no room left to give.
+.doc-section--description .table {
+  overflow-wrap: break-word;
+}
+
 .doc-section--code {
   min-width: 0;
   // An address is one unbroken word, and would run out of its half.
