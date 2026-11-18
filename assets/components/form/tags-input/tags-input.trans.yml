@@ -5,3 +5,87 @@ en:
 fr:
   label:
     remove: Retirer
+
+zh:
+  label:
+    remove: 移除
+
+ar:
+  label:
+    remove: إزالة
+
+hi:
+  label:
+    remove: हटाएँ
+
+he:
+  label:
+    remove: הסר
+
+fa:
+  label:
+    remove: حذف
+
+ur:
+  label:
+    remove: ہٹائیں
+
+ja:
+  label:
+    remove: 削除
+
+ko:
+  label:
+    remove: 제거
+
+bn:
+  label:
+    remove: 'মুছে ফেলুন'
+
+th:
+  label:
+    remove: ลบ
+
+de:
+  label:
+    remove: Entfernen
+
+fi:
+  label:
+    remove: Poista
+
+ru:
+  label:
+    remove: Удалить
+
+pl:
+  label:
+    remove: Usuń
+
+es:
+  label:
+    remove: Eliminar
+
+it:
+  label:
+    remove: Rimuovi
+
+pt_BR:
+  label:
+    remove: Remover
+
+tr:
+  label:
+    remove: Kaldır
+
+vi:
+  label:
+    remove: Xóa
+
+id:
+  label:
+    remove: Hapus
+
+nl:
+  label:
+    remove: Verwijderen

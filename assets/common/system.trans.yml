@@ -222,18 +222,18 @@ en:
 ar:
   frontend:
     people:
-      empty: "لا أحد بعد"
-      remove: "إزالة %name%"
+      empty: 'لا أحد بعد'
+      remove: 'إزالة %name%'
     conversations:
-      empty: "لا توجد محادثة بعد"
-      unread: "%count% غير مقروءة"
+      empty: 'لا توجد محادثة بعد'
+      unread: '%count% غير مقروءة'
     presence:
-      online: "متصل"
-      away: "بعيد"
-      busy: "مشغول"
-      offline: "غير متصل"
+      online: متصل
+      away: بعيد
+      busy: مشغول
+      offline: 'غير متصل'
     placeholder:
-      pending: "جارٍ الإنشاء…"
+      pending: 'جارٍ الإنشاء…'
     loading: 'جار التحميل...'
     environment: '%env% بيئة: ما هو معروض هنا ليس بيئة الإنتاج'
     dev_menu: 'أدوات التطوير'
@@ -298,18 +298,50 @@ ar:
       page: الصفحة
       ellipsis: …
     inline_edit:
-      edit: "تعديل"
-      save: "حفظ"
-      cancel: "إلغاء"
-      failed: "لم يُحفظ. حاول مجددًا."
+      edit: تعديل
+      save: حفظ
+      cancel: إلغاء
+      failed: 'لم يُحفظ. حاول مجددًا.'
     choice_list:
-      filter: "تصفية…"
-      filter_empty: "لا شيء يطابق."
+      filter: تصفية…
+      filter_empty: 'لا شيء يطابق.'
+    tags_input:
+      add: 'أضف علامة…'
+      remove: إزالة
+      suggest: 'أضف %tag%'
+      suggestions: اقتراحات
+    diff_text:
+      same: 'لا شيء تغير.'
+      folded: '%count% سطور غير متغيرة'
+    color_input:
+      pick: 'اختر لوناً'
+      swatches: 'الألوان المعروضة'
+    field_versions:
+      version: الإصدار
+      current: 'الإصدار الحالي'
+      draft: مسودة
+      take: 'استرجع هذا الإصدار'
+    field_expression:
+      to_expression: التعبير
+      to_value: القيمة
+    field_open:
+      label: فتح
+    search_select:
+      search: بحث…
+      loading: 'جارٍ البحث…'
+      empty: 'لا توجد نتائج'
+      none: —
+    key_value:
+      key: المفتاح
+      value: القيمة
+      add: 'مفتاح جديد…'
+      remove: إزالة
+      duplicate: 'هذا المفتاح مكتوب مرتين.'
     collection:
-      add: "إضافة"
-      remove: "إزالة"
-      up: "نقل لأعلى"
-      down: "نقل لأسفل"
+      add: إضافة
+      remove: إزالة
+      up: 'نقل لأعلى'
+      down: 'نقل لأسفل'
     stepper:
       label: الخطوات
     table:
@@ -378,8 +410,8 @@ ar:
       download: تحميل
     form:
       optional: (اختياري)
-      save: "حفظ"
-      failed: "لم يُحفظ. حاول مجددًا."
+      save: حفظ
+      failed: 'لم يُحفظ. حاول مجددًا.'
     menu:
       navigation: الملاحة
       open_left: 'فتح القائمة'
@@ -390,10 +422,10 @@ ar:
       filter: تصفية
       filter_empty: 'لا يوجد ما يتطابق'
     zone:
-      split_h: "تقسيم جنبًا إلى جنب"
-      split_v: "تقسيم واحدة فوق الأخرى"
-      close: "إغلاق"
-      empty: "منطقة فارغة"
+      split_h: 'تقسيم جنبًا إلى جنب'
+      split_v: 'تقسيم واحدة فوق الأخرى'
+      close: إغلاق
+      empty: 'منطقة فارغة'
       collapse: طي
       expand: توسيع
       resize: 'تغيير الحجم'
@@ -411,18 +443,18 @@ ar:
 bn:
   frontend:
     people:
-      empty: "এখনও কেউ নেই"
-      remove: "%name% সরান"
+      empty: 'এখনও কেউ নেই'
+      remove: '%name% সরান'
     conversations:
-      empty: "এখনও কোনো কথোপকথন নেই"
-      unread: "%count% অপঠিত"
+      empty: 'এখনও কোনো কথোপকথন নেই'
+      unread: '%count% অপঠিত'
     presence:
-      online: "অনলাইন"
-      away: "দূরে"
-      busy: "ব্যস্ত"
-      offline: "অফলাইন"
+      online: অনলাইন
+      away: দূরে
+      busy: ব্যস্ত
+      offline: অফলাইন
     placeholder:
-      pending: "তৈরি হচ্ছে…"
+      pending: 'তৈরি হচ্ছে…'
     loading: 'লোড হচ্ছে...'
     environment: '%env% পরিবেশ: এখানে যা দেখানো হয়েছে তা উৎপাদন নয়'
     dev_menu: 'ডেভেলপমেন্ট টুলস'
@@ -487,18 +519,50 @@ bn:
       page: পৃষ্ঠা
       ellipsis: …
     inline_edit:
-      edit: "সম্পাদনা"
-      save: "সংরক্ষণ"
-      cancel: "বাতিল"
-      failed: "সংরক্ষিত হয়নি। আবার চেষ্টা করুন।"
+      edit: সম্পাদনা
+      save: সংরক্ষণ
+      cancel: বাতিল
+      failed: 'সংরক্ষিত হয়নি। আবার চেষ্টা করুন।'
     choice_list:
-      filter: "ফিল্টার…"
-      filter_empty: "কিছুই মেলে না।"
+      filter: ফিল্টার…
+      filter_empty: 'কিছুই মেলে না।'
+    tags_input:
+      add: 'ট্যাগ যোগ করুন…'
+      remove: 'অপসারণ করুন'
+      suggest: '%tag% যোগ করুন'
+      suggestions: পরামর্শ
+    diff_text:
+      same: 'কিছুই পরিবর্তন হয়নি।'
+      folded: '%count% লাইন অপরিবর্তিত'
+    color_input:
+      pick: 'একটি রঙ বাছুন'
+      swatches: 'প্রস্তাবিত রঙ'
+    field_versions:
+      version: সংস্করণ
+      current: 'বর্তমান সংস্করণ'
+      draft: খসড়া
+      take: 'এই সংস্করণটি ফিরিয়ে নিন'
+    field_expression:
+      to_expression: অভিব্যক্তি
+      to_value: মান
+    field_open:
+      label: খুলুন
+    search_select:
+      search: 'অনুসন্ধান করুন…'
+      loading: 'অনুসন্ধান হচ্ছে…'
+      empty: 'কোন ফলাফল নেই'
+      none: —
+    key_value:
+      key: কী
+      value: মান
+      add: 'নতুন কী…'
+      remove: 'অপসারণ করুন'
+      duplicate: 'এই কীটি দুবার লেখা হয়েছে।'
     collection:
-      add: "যোগ করুন"
-      remove: "সরান"
-      up: "উপরে সরান"
-      down: "নিচে সরান"
+      add: 'যোগ করুন'
+      remove: সরান
+      up: 'উপরে সরান'
+      down: 'নিচে সরান'
     stepper:
       label: ধাপ
     table:
@@ -567,8 +631,8 @@ bn:
       download: 'ডাউনলোড করুন'
     form:
       optional: (ঐচ্ছিক)
-      save: "সংরক্ষণ"
-      failed: "সংরক্ষিত হয়নি। আবার চেষ্টা করুন।"
+      save: সংরক্ষণ
+      failed: 'সংরক্ষিত হয়নি। আবার চেষ্টা করুন।'
     menu:
       navigation: নেভিগেশন
       open_left: 'মেনু খুলুন'
@@ -579,10 +643,10 @@ bn:
       filter: ফিল্টার
       filter_empty: 'কিছুই মেলে না'
     zone:
-      split_h: "পাশাপাশি ভাগ করুন"
-      split_v: "উপর-নিচে ভাগ করুন"
-      close: "বন্ধ করুন"
-      empty: "খালি অংশ"
+      split_h: 'পাশাপাশি ভাগ করুন'
+      split_v: 'উপর-নিচে ভাগ করুন'
+      close: 'বন্ধ করুন'
+      empty: 'খালি অংশ'
       collapse: 'সংকুচিত করুন'
       expand: 'বিস্তৃত করুন'
       resize: 'আকার পরিবর্তন করুন'
@@ -600,18 +664,18 @@ bn:
 de:
   frontend:
     people:
-      empty: "Noch niemand"
-      remove: "%name% entfernen"
+      empty: 'Noch niemand'
+      remove: '%name% entfernen'
     conversations:
-      empty: "Noch kein Gespräch"
-      unread: "%count% ungelesen"
+      empty: 'Noch kein Gespräch'
+      unread: '%count% ungelesen'
     presence:
-      online: "Online"
-      away: "Abwesend"
-      busy: "Beschäftigt"
-      offline: "Offline"
+      online: Online
+      away: Abwesend
+      busy: Beschäftigt
+      offline: Offline
     placeholder:
-      pending: "Wird erstellt…"
+      pending: 'Wird erstellt…'
     loading: Laden...
     environment: '%env% Umgebung: das hier angezeigte ist nicht die Produktion'
     dev_menu: Entwicklungstools
@@ -676,18 +740,50 @@ de:
       page: Seite
       ellipsis: …
     inline_edit:
-      edit: "Bearbeiten"
-      save: "Speichern"
-      cancel: "Abbrechen"
-      failed: "Nicht gespeichert. Bitte erneut versuchen."
+      edit: Bearbeiten
+      save: Speichern
+      cancel: Abbrechen
+      failed: 'Nicht gespeichert. Bitte erneut versuchen.'
     choice_list:
-      filter: "Filtern…"
-      filter_empty: "Nichts passt."
+      filter: Filtern…
+      filter_empty: 'Nichts passt.'
+    tags_input:
+      add: 'Tag hinzufügen…'
+      remove: Entfernen
+      suggest: 'Füge %tag% hinzu'
+      suggestions: Vorschläge
+    diff_text:
+      same: 'Nichts geändert.'
+      folded: '%count% Zeilen unverändert'
+    color_input:
+      pick: 'Farbe auswählen'
+      swatches: 'Angebotene Farben'
+    field_versions:
+      version: Version
+      current: 'Aktuelle Version'
+      draft: Entwurf
+      take: 'Diese Version zurücknehmen'
+    field_expression:
+      to_expression: Ausdruck
+      to_value: Wert
+    field_open:
+      label: Öffnen
+    search_select:
+      search: Suche…
+      loading: Suche…
+      empty: 'Kein Ergebnis'
+      none: —
+    key_value:
+      key: Schlüssel
+      value: Wert
+      add: 'Neuer Schlüssel…'
+      remove: Entfernen
+      duplicate: 'Dieser Schlüssel ist doppelt vorhanden.'
     collection:
-      add: "Hinzufügen"
-      remove: "Entfernen"
-      up: "Nach oben"
-      down: "Nach unten"
+      add: Hinzufügen
+      remove: Entfernen
+      up: 'Nach oben'
+      down: 'Nach unten'
     stepper:
       label: Schritte
     table:
@@ -756,8 +852,8 @@ de:
       download: Herunterladen
     form:
       optional: (optional)
-      save: "Speichern"
-      failed: "Nicht gespeichert. Bitte erneut versuchen."
+      save: Speichern
+      failed: 'Nicht gespeichert. Bitte erneut versuchen.'
     menu:
       navigation: Navigation
       open_left: 'Menü öffnen'
@@ -768,10 +864,10 @@ de:
       filter: Filtern
       filter_empty: 'Nichts entspricht'
     zone:
-      split_h: "Nebeneinander teilen"
-      split_v: "Untereinander teilen"
-      close: "Schließen"
-      empty: "Leerer Bereich"
+      split_h: 'Nebeneinander teilen'
+      split_v: 'Untereinander teilen'
+      close: Schließen
+      empty: 'Leerer Bereich'
       collapse: Einklappen
       expand: Ausklappen
       resize: 'Größe ändern'
@@ -789,18 +885,18 @@ de:
 es:
   frontend:
     people:
-      empty: "Nadie todavía"
-      remove: "Quitar a %name%"
+      empty: 'Nadie todavía'
+      remove: 'Quitar a %name%'
     conversations:
-      empty: "Ninguna conversación todavía"
-      unread: "%count% sin leer"
+      empty: 'Ninguna conversación todavía'
+      unread: '%count% sin leer'
     presence:
-      online: "En línea"
-      away: "Ausente"
-      busy: "Ocupado"
-      offline: "Desconectado"
+      online: 'En línea'
+      away: Ausente
+      busy: Ocupado
+      offline: Desconectado
     placeholder:
-      pending: "Generando…"
+      pending: Generando…
     loading: Cargando...
     environment: '%env% entorno: lo que se muestra aquí no es producción'
     dev_menu: 'Herramientas de desarrollo'
@@ -865,18 +961,50 @@ es:
       page: Página
       ellipsis: …
     inline_edit:
-      edit: "Editar"
-      save: "Guardar"
-      cancel: "Cancelar"
-      failed: "No guardado. Inténtalo de nuevo."
+      edit: Editar
+      save: Guardar
+      cancel: Cancelar
+      failed: 'No guardado. Inténtalo de nuevo.'
     choice_list:
-      filter: "Filtrar…"
-      filter_empty: "Nada coincide."
+      filter: Filtrar…
+      filter_empty: 'Nada coincide.'
+    tags_input:
+      add: 'Agregar una etiqueta…'
+      remove: Eliminar
+      suggest: 'Agregar %tag%'
+      suggestions: Sugerencias
+    diff_text:
+      same: 'Nada ha cambiado.'
+      folded: '%count% líneas sin cambios'
+    color_input:
+      pick: 'Elegir un color'
+      swatches: 'Colores ofrecidos'
+    field_versions:
+      version: Versión
+      current: 'Versión actual'
+      draft: Borrador
+      take: 'Recuperar esta versión'
+    field_expression:
+      to_expression: Expresión
+      to_value: Valor
+    field_open:
+      label: Abrir
+    search_select:
+      search: Buscar…
+      loading: Buscando…
+      empty: 'Sin resultados'
+      none: —
+    key_value:
+      key: Clave
+      value: Valor
+      add: 'Nueva clave…'
+      remove: Eliminar
+      duplicate: 'Esta clave está escrita dos veces.'
     collection:
-      add: "Añadir"
-      remove: "Quitar"
-      up: "Subir"
-      down: "Bajar"
+      add: Añadir
+      remove: Quitar
+      up: Subir
+      down: Bajar
     stepper:
       label: Pasos
     table:
@@ -945,8 +1073,8 @@ es:
       download: Descargar
     form:
       optional: (opcional)
-      save: "Guardar"
-      failed: "No guardado. Inténtalo de nuevo."
+      save: Guardar
+      failed: 'No guardado. Inténtalo de nuevo.'
     menu:
       navigation: Navegación
       open_left: 'Abrir el menú'
@@ -957,10 +1085,10 @@ es:
       filter: Filtrar
       filter_empty: 'Nada coincide'
     zone:
-      split_h: "Dividir lado a lado"
-      split_v: "Dividir una sobre otra"
-      close: "Cerrar"
-      empty: "Zona vacía"
+      split_h: 'Dividir lado a lado'
+      split_v: 'Dividir una sobre otra'
+      close: Cerrar
+      empty: 'Zona vacía'
       collapse: Colapsar
       expand: Expandir
       resize: Redimensionar
@@ -978,18 +1106,18 @@ es:
 fa:
   frontend:
     people:
-      empty: "هنوز کسی نیست"
-      remove: "حذف %name%"
+      empty: 'هنوز کسی نیست'
+      remove: 'حذف %name%'
     conversations:
-      empty: "هنوز گفتگویی نیست"
-      unread: "%count% خوانده‌نشده"
+      empty: 'هنوز گفتگویی نیست'
+      unread: '%count% خوانده‌نشده'
     presence:
-      online: "آنلاین"
-      away: "دور"
-      busy: "مشغول"
-      offline: "آفلاین"
+      online: آنلاین
+      away: دور
+      busy: مشغول
+      offline: آفلاین
     placeholder:
-      pending: "در حال ساخت…"
+      pending: 'در حال ساخت…'
     loading: 'در حال بارگذاری...'
     environment: '%env% محیط: آنچه در اینجا نشان داده می‌شود تولید نیست'
     dev_menu: 'ابزارهای توسعه'
@@ -1054,18 +1182,50 @@ fa:
       page: صفحه
       ellipsis: …
     inline_edit:
-      edit: "ویرایش"
-      save: "ذخیره"
-      cancel: "لغو"
-      failed: "ذخیره نشد. دوباره تلاش کنید."
+      edit: ویرایش
+      save: ذخیره
+      cancel: لغو
+      failed: 'ذخیره نشد. دوباره تلاش کنید.'
     choice_list:
-      filter: "فیلتر…"
-      filter_empty: "چیزی مطابقت ندارد."
+      filter: فیلتر…
+      filter_empty: 'چیزی مطابقت ندارد.'
+    tags_input:
+      add: 'یک برچسب اضافه کنید…'
+      remove: حذف
+      suggest: '%tag% را اضافه کنید'
+      suggestions: پیشنهادات
+    diff_text:
+      same: 'هیچ تغییری ایجاد نشده است.'
+      folded: '%count% خط تغییر نکرده'
+    color_input:
+      pick: 'رنگی انتخاب کنید'
+      swatches: 'رنگ‌های ارائه شده'
+    field_versions:
+      version: نسخه
+      current: 'نسخه فعلی'
+      draft: پیش‌نویس
+      take: 'این نسخه را بازپس بگیرید'
+    field_expression:
+      to_expression: عبارت
+      to_value: مقدار
+    field_open:
+      label: 'باز کردن'
+    search_select:
+      search: جستجو…
+      loading: 'در حال جستجو…'
+      empty: 'هیچ نتیجه‌ای'
+      none: —
+    key_value:
+      key: کلید
+      value: مقدار
+      add: 'کلید جدید…'
+      remove: حذف
+      duplicate: 'این کلید دوبار نوشته شده است.'
     collection:
-      add: "افزودن"
-      remove: "حذف"
-      up: "انتقال به بالا"
-      down: "انتقال به پایین"
+      add: افزودن
+      remove: حذف
+      up: 'انتقال به بالا'
+      down: 'انتقال به پایین'
     stepper:
       label: مراحل
     table:
@@ -1134,8 +1294,8 @@ fa:
       download: دانلود
     form:
       optional: (اختیاری)
-      save: "ذخیره"
-      failed: "ذخیره نشد. دوباره تلاش کنید."
+      save: ذخیره
+      failed: 'ذخیره نشد. دوباره تلاش کنید.'
     menu:
       navigation: ناوبری
       open_left: 'باز کردن منو'
@@ -1146,10 +1306,10 @@ fa:
       filter: فیلتر
       filter_empty: 'هیچ موردی مطابقت ندارد'
     zone:
-      split_h: "تقسیم کنار هم"
-      split_v: "تقسیم روی هم"
-      close: "بستن"
-      empty: "ناحیهٔ خالی"
+      split_h: 'تقسیم کنار هم'
+      split_v: 'تقسیم روی هم'
+      close: بستن
+      empty: 'ناحیهٔ خالی'
       collapse: 'جمع کردن'
       expand: 'گسترش دادن'
       resize: 'تغییر اندازه'
@@ -1167,18 +1327,18 @@ fa:
 fi:
   frontend:
     people:
-      empty: "Ei vielä ketään"
-      remove: "Poista %name%"
+      empty: 'Ei vielä ketään'
+      remove: 'Poista %name%'
     conversations:
-      empty: "Ei vielä keskusteluja"
-      unread: "%count% lukematonta"
+      empty: 'Ei vielä keskusteluja'
+      unread: '%count% lukematonta'
     presence:
-      online: "Paikalla"
-      away: "Poissa"
-      busy: "Varattu"
-      offline: "Ei paikalla"
+      online: Paikalla
+      away: Poissa
+      busy: Varattu
+      offline: 'Ei paikalla'
     placeholder:
-      pending: "Luodaan…"
+      pending: Luodaan…
     loading: Ladataan...
     environment: '%env% ympäristö: täällä näkyvä ei ole tuotanto'
     dev_menu: Kehitystyökalut
@@ -1243,18 +1403,50 @@ fi:
       page: Sivu
       ellipsis: …
     inline_edit:
-      edit: "Muokkaa"
-      save: "Tallenna"
-      cancel: "Peruuta"
-      failed: "Ei tallennettu. Yritä uudelleen."
+      edit: Muokkaa
+      save: Tallenna
+      cancel: Peruuta
+      failed: 'Ei tallennettu. Yritä uudelleen.'
     choice_list:
-      filter: "Suodata…"
-      filter_empty: "Mikään ei vastaa."
+      filter: Suodata…
+      filter_empty: 'Mikään ei vastaa.'
+    tags_input:
+      add: 'Lisää avainsana…'
+      remove: Poista
+      suggest: 'Lisää %tag%'
+      suggestions: Ehdotukset
+    diff_text:
+      same: 'Ei muutoksia.'
+      folded: '%count% riviä muuttumattomana'
+    color_input:
+      pick: 'Valitse väri'
+      swatches: 'Tarjotut värit'
+    field_versions:
+      version: Versio
+      current: 'Nykyinen versio'
+      draft: Luonnos
+      take: 'Palauta tämä versio'
+    field_expression:
+      to_expression: Ilmaisu
+      to_value: Arvo
+    field_open:
+      label: Avaa
+    search_select:
+      search: Hae…
+      loading: Hakeminen…
+      empty: 'Ei tuloksia'
+      none: —
+    key_value:
+      key: Avain
+      value: Arvo
+      add: 'Uusi avain…'
+      remove: Poista
+      duplicate: 'Tämä avain on kirjoitettu kahdesti.'
     collection:
-      add: "Lisää"
-      remove: "Poista"
-      up: "Siirrä ylös"
-      down: "Siirrä alas"
+      add: Lisää
+      remove: Poista
+      up: 'Siirrä ylös'
+      down: 'Siirrä alas'
     stepper:
       label: Vaiheet
     table:
@@ -1323,8 +1515,8 @@ fi:
       download: Lataa
     form:
       optional: (valinnainen)
-      save: "Tallenna"
-      failed: "Ei tallennettu. Yritä uudelleen."
+      save: Tallenna
+      failed: 'Ei tallennettu. Yritä uudelleen.'
     menu:
       navigation: Navigointi
       open_left: 'Avaa valikko'
@@ -1335,10 +1527,10 @@ fi:
       filter: Suodata
       filter_empty: 'Ei mitään vastaa'
     zone:
-      split_h: "Jaa vierekkäin"
-      split_v: "Jaa päällekkäin"
-      close: "Sulje"
-      empty: "Tyhjä alue"
+      split_h: 'Jaa vierekkäin'
+      split_v: 'Jaa päällekkäin'
+      close: Sulje
+      empty: 'Tyhjä alue'
       collapse: Pienennä
       expand: Laajenna
       resize: 'Muuta kokoa'
@@ -1577,18 +1769,18 @@ fr:
 he:
   frontend:
     people:
-      empty: "עדיין אין אף אחד"
-      remove: "הסרת %name%"
+      empty: 'עדיין אין אף אחד'
+      remove: 'הסרת %name%'
     conversations:
-      empty: "עדיין אין שיחה"
-      unread: "%count% שלא נקראו"
+      empty: 'עדיין אין שיחה'
+      unread: '%count% שלא נקראו'
     presence:
-      online: "מחובר"
-      away: "לא זמין"
-      busy: "עסוק"
-      offline: "לא מחובר"
+      online: מחובר
+      away: 'לא זמין'
+      busy: עסוק
+      offline: 'לא מחובר'
     placeholder:
-      pending: "נוצר…"
+      pending: נוצר…
     loading: טוען...
     environment: '%env% סביבה: מה שמוצג כאן אינו סביבה של ייצור'
     dev_menu: 'כלי פיתוח'
@@ -1653,18 +1845,50 @@ he:
       page: עמוד
       ellipsis: …
     inline_edit:
-      edit: "עריכה"
-      save: "שמירה"
-      cancel: "ביטול"
-      failed: "לא נשמר. נסו שוב."
+      edit: עריכה
+      save: שמירה
+      cancel: ביטול
+      failed: 'לא נשמר. נסו שוב.'
     choice_list:
-      filter: "סינון…"
-      filter_empty: "אין התאמה."
+      filter: סינון…
+      filter_empty: 'אין התאמה.'
+    tags_input:
+      add: 'הוסף תג…'
+      remove: הסר
+      suggest: 'הוסף %tag%'
+      suggestions: הצעות
+    diff_text:
+      same: 'לא השתנה דבר.'
+      folded: '%count% שורות ללא שינוי'
+    color_input:
+      pick: 'בחר צבע'
+      swatches: 'צבעים מוצעים'
+    field_versions:
+      version: גרסה
+      current: 'גרסה נוכחית'
+      draft: טיוטה
+      take: 'חזור לגרסה זו'
+    field_expression:
+      to_expression: ביטוי
+      to_value: ערך
+    field_open:
+      label: פתח
+    search_select:
+      search: חפש…
+      loading: מחפש…
+      empty: 'אין תוצאה'
+      none: —
+    key_value:
+      key: מפתח
+      value: ערך
+      add: 'מפתח חדש…'
+      remove: הסר
+      duplicate: 'המפתח הזה נכתב פעמיים.'
     collection:
-      add: "הוספה"
-      remove: "הסרה"
-      up: "הזזה למעלה"
-      down: "הזזה למטה"
+      add: הוספה
+      remove: הסרה
+      up: 'הזזה למעלה'
+      down: 'הזזה למטה'
     stepper:
       label: שלבים
     table:
@@ -1733,8 +1957,8 @@ he:
       download: הורד
     form:
       optional: (אופציונלי)
-      save: "שמירה"
-      failed: "לא נשמר. נסו שוב."
+      save: שמירה
+      failed: 'לא נשמר. נסו שוב.'
     menu:
       navigation: ניווט
       open_left: 'פתח את התפריט'
@@ -1745,10 +1969,10 @@ he:
       filter: סנן
       filter_empty: 'אין תוצאות תואמות'
     zone:
-      split_h: "פיצול זה לצד זה"
-      split_v: "פיצול זה מעל זה"
-      close: "סגירה"
-      empty: "אזור ריק"
+      split_h: 'פיצול זה לצד זה'
+      split_v: 'פיצול זה מעל זה'
+      close: סגירה
+      empty: 'אזור ריק'
       collapse: כווץ
       expand: הרחב
       resize: 'שנה גודל'
@@ -1766,18 +1990,18 @@ he:
 hi:
   frontend:
     people:
-      empty: "अभी कोई नहीं"
-      remove: "%name% को हटाएँ"
+      empty: 'अभी कोई नहीं'
+      remove: '%name% को हटाएँ'
     conversations:
-      empty: "अभी कोई बातचीत नहीं"
-      unread: "%count% अपठित"
+      empty: 'अभी कोई बातचीत नहीं'
+      unread: '%count% अपठित'
     presence:
-      online: "ऑनलाइन"
-      away: "दूर"
-      busy: "व्यस्त"
-      offline: "ऑफ़लाइन"
+      online: ऑनलाइन
+      away: दूर
+      busy: व्यस्त
+      offline: ऑफ़लाइन
     placeholder:
-      pending: "बनाया जा रहा है…"
+      pending: 'बनाया जा रहा है…'
     loading: 'लोड हो रहा है...'
     environment: '%env% वातावरण: यहाँ प्रदर्शित किया गया है कि यह उत्पादन नहीं है'
     dev_menu: 'विकास उपकरण'
@@ -1842,18 +2066,50 @@ hi:
       page: पृष्ठ
       ellipsis: …
     inline_edit:
-      edit: "संपादित करें"
-      save: "सहेजें"
-      cancel: "रद्द करें"
-      failed: "सहेजा नहीं गया। फिर से प्रयास करें।"
+      edit: 'संपादित करें'
+      save: सहेजें
+      cancel: 'रद्द करें'
+      failed: 'सहेजा नहीं गया। फिर से प्रयास करें।'
     choice_list:
-      filter: "फ़िल्टर करें…"
-      filter_empty: "कुछ भी मेल नहीं खाता।"
+      filter: 'फ़िल्टर करें…'
+      filter_empty: 'कुछ भी मेल नहीं खाता।'
+    tags_input:
+      add: 'टैग जोड़ें…'
+      remove: हटाएँ
+      suggest: '%tag% जोड़ें'
+      suggestions: सुझाव
+    diff_text:
+      same: 'कुछ भी नहीं बदला।'
+      folded: '%count% पंक्तियाँ अपरिवर्तित'
+    color_input:
+      pick: 'एक रंग चुनें'
+      swatches: 'प्रस्तावित रंग'
+    field_versions:
+      version: संस्करण
+      current: 'वर्तमान संस्करण'
+      draft: खाका
+      take: 'इस संस्करण को वापस लें'
+    field_expression:
+      to_expression: व्यंजना
+      to_value: मान
+    field_open:
+      label: खोलें
+    search_select:
+      search: खोजें…
+      loading: 'खोज कर रहे हैं…'
+      empty: 'कोई परिणाम नहीं'
+      none: —
+    key_value:
+      key: कुंजी
+      value: मान
+      add: 'नई कुंजी…'
+      remove: हटाएँ
+      duplicate: 'यह कुंजी दो बार लिखी गई है।'
     collection:
-      add: "जोड़ें"
-      remove: "हटाएँ"
-      up: "ऊपर ले जाएँ"
-      down: "नीचे ले जाएँ"
+      add: जोड़ें
+      remove: हटाएँ
+      up: 'ऊपर ले जाएँ'
+      down: 'नीचे ले जाएँ'
     stepper:
       label: चरण
     table:
@@ -1922,8 +2178,8 @@ hi:
       download: 'डाउनलोड करें'
     form:
       optional: (वैकल्पिक)
-      save: "सहेजें"
-      failed: "सहेजा नहीं गया। फिर से प्रयास करें।"
+      save: सहेजें
+      failed: 'सहेजा नहीं गया। फिर से प्रयास करें।'
     menu:
       navigation: नेविगेशन
       open_left: 'मेनू खोलें'
@@ -1934,10 +2190,10 @@ hi:
       filter: फिल्टर
       filter_empty: 'कोई मेल नहीं खाता'
     zone:
-      split_h: "अगल-बगल बाँटें"
-      split_v: "ऊपर-नीचे बाँटें"
-      close: "बंद करें"
-      empty: "खाली क्षेत्र"
+      split_h: 'अगल-बगल बाँटें'
+      split_v: 'ऊपर-नीचे बाँटें'
+      close: 'बंद करें'
+      empty: 'खाली क्षेत्र'
       collapse: 'संकुचित करें'
       expand: 'विस्तारित करें'
       resize: 'आकार बदलें'
@@ -1955,18 +2211,18 @@ hi:
 id:
   frontend:
     people:
-      empty: "Belum ada siapa pun"
-      remove: "Hapus %name%"
+      empty: 'Belum ada siapa pun'
+      remove: 'Hapus %name%'
     conversations:
-      empty: "Belum ada percakapan"
-      unread: "%count% belum dibaca"
+      empty: 'Belum ada percakapan'
+      unread: '%count% belum dibaca'
     presence:
-      online: "Daring"
-      away: "Pergi"
-      busy: "Sibuk"
-      offline: "Luring"
+      online: Daring
+      away: Pergi
+      busy: Sibuk
+      offline: Luring
     placeholder:
-      pending: "Sedang dibuat…"
+      pending: 'Sedang dibuat…'
     loading: Memuat...
     environment: '%env% lingkungan: apa yang ditampilkan di sini bukan produksi'
     dev_menu: 'Alat pengembangan'
@@ -2031,18 +2287,50 @@ id:
       page: Halaman
       ellipsis: …
     inline_edit:
-      edit: "Ubah"
-      save: "Simpan"
-      cancel: "Batal"
-      failed: "Tidak tersimpan. Coba lagi."
+      edit: Ubah
+      save: Simpan
+      cancel: Batal
+      failed: 'Tidak tersimpan. Coba lagi.'
     choice_list:
-      filter: "Saring…"
-      filter_empty: "Tidak ada yang cocok."
+      filter: Saring…
+      filter_empty: 'Tidak ada yang cocok.'
+    tags_input:
+      add: 'Tambah tag…'
+      remove: Hapus
+      suggest: 'Tambahkan %tag%'
+      suggestions: Saran
+    diff_text:
+      same: 'Tidak ada yang berubah.'
+      folded: '%count% baris tidak berubah'
+    color_input:
+      pick: 'Pilih warna'
+      swatches: 'Warna yang ditawarkan'
+    field_versions:
+      version: Versi
+      current: 'Versi saat ini'
+      draft: Draf
+      take: 'Ambil versi ini kembali'
+    field_expression:
+      to_expression: Ekspresi
+      to_value: Nilai
+    field_open:
+      label: Buka
+    search_select:
+      search: Cari…
+      loading: Mencari…
+      empty: 'Tidak ada hasil'
+      none: —
+    key_value:
+      key: Kunci
+      value: Nilai
+      add: 'Kunci baru…'
+      remove: Hapus
+      duplicate: 'Kunci ini ditulis dua kali.'
     collection:
-      add: "Tambah"
-      remove: "Hapus"
-      up: "Pindah ke atas"
-      down: "Pindah ke bawah"
+      add: Tambah
+      remove: Hapus
+      up: 'Pindah ke atas'
+      down: 'Pindah ke bawah'
     stepper:
       label: Langkah
     table:
@@ -2111,8 +2399,8 @@ id:
       download: Unduh
     form:
       optional: (opsional)
-      save: "Simpan"
-      failed: "Tidak tersimpan. Coba lagi."
+      save: Simpan
+      failed: 'Tidak tersimpan. Coba lagi.'
     menu:
       navigation: Navigasi
       open_left: 'Buka menu'
@@ -2123,10 +2411,10 @@ id:
       filter: Saring
       filter_empty: 'Tidak ada yang cocok'
     zone:
-      split_h: "Bagi berdampingan"
-      split_v: "Bagi atas bawah"
-      close: "Tutup"
-      empty: "Zona kosong"
+      split_h: 'Bagi berdampingan'
+      split_v: 'Bagi atas bawah'
+      close: Tutup
+      empty: 'Zona kosong'
       collapse: Kecilkan
       expand: Perbesar
       resize: 'Ubah ukuran'
@@ -2144,18 +2432,18 @@ id:
 it:
   frontend:
     people:
-      empty: "Ancora nessuno"
-      remove: "Rimuovi %name%"
+      empty: 'Ancora nessuno'
+      remove: 'Rimuovi %name%'
     conversations:
-      empty: "Ancora nessuna conversazione"
-      unread: "%count% da leggere"
+      empty: 'Ancora nessuna conversazione'
+      unread: '%count% da leggere'
     presence:
-      online: "Online"
-      away: "Assente"
-      busy: "Occupato"
-      offline: "Offline"
+      online: Online
+      away: Assente
+      busy: Occupato
+      offline: Offline
     placeholder:
-      pending: "Generazione in corso…"
+      pending: 'Generazione in corso…'
     loading: Caricamento...
     environment: '%env% ambiente: quello che è mostrato qui non è produzione'
     dev_menu: 'Strumenti di sviluppo'
@@ -2220,18 +2508,50 @@ it:
       page: Pagina
       ellipsis: …
     inline_edit:
-      edit: "Modifica"
-      save: "Salva"
-      cancel: "Annulla"
-      failed: "Non salvato. Riprova."
+      edit: Modifica
+      save: Salva
+      cancel: Annulla
+      failed: 'Non salvato. Riprova.'
     choice_list:
-      filter: "Filtra…"
-      filter_empty: "Nessuna corrispondenza."
+      filter: Filtra…
+      filter_empty: 'Nessuna corrispondenza.'
+    tags_input:
+      add: 'Aggiungi un tag…'
+      remove: Rimuovi
+      suggest: 'Aggiungi %tag%'
+      suggestions: Suggerimenti
+    diff_text:
+      same: 'Niente è cambiato.'
+      folded: '%count% righe invariati'
+    color_input:
+      pick: 'Scegli un colore'
+      swatches: 'Colori offerti'
+    field_versions:
+      version: Versione
+      current: 'Versione attuale'
+      draft: Bozza
+      take: 'Riprendi questa versione'
+    field_expression:
+      to_expression: Espressione
+      to_value: Valore
+    field_open:
+      label: Apri
+    search_select:
+      search: Cerca…
+      loading: 'Ricerca in corso…'
+      empty: 'Nessun risultato'
+      none: —
+    key_value:
+      key: Chiave
+      value: Valore
+      add: 'Nuova chiave…'
+      remove: Rimuovi
+      duplicate: 'Questa chiave è scritta due volte.'
     collection:
-      add: "Aggiungi"
-      remove: "Rimuovi"
-      up: "Sposta su"
-      down: "Sposta giù"
+      add: Aggiungi
+      remove: Rimuovi
+      up: 'Sposta su'
+      down: 'Sposta giù'
     stepper:
       label: Passi
     table:
@@ -2300,8 +2620,8 @@ it:
       download: Scarica
     form:
       optional: (opzionale)
-      save: "Salva"
-      failed: "Non salvato. Riprova."
+      save: Salva
+      failed: 'Non salvato. Riprova.'
     menu:
       navigation: Navigazione
       open_left: 'Apri il menu'
@@ -2312,15 +2632,15 @@ it:
       filter: Filtra
       filter_empty: 'Nessun risultato'
     zone:
-      split_h: "Dividi affiancate"
-      split_v: "Dividi una sopra l’altra"
-      close: "Chiudi"
-      empty: "Zona vuota"
+      split_h: 'Dividi affiancate'
+      split_v: 'Dividi una sopra l’altra'
+      close: Chiudi
+      empty: 'Zona vuota'
       collapse: Riduci
       expand: Espandi
       resize: Ridimensiona
       lock_width: 'Blocca la larghezza'
-      lock_height: 'Blocca l''altezza'
+      lock_height: "Blocca l'altezza"
       sized_by_content: 'Dimensionata dal contenuto'
     crop:
       area: 'Area di ritaglio'
@@ -2333,18 +2653,18 @@ it:
 ja:
   frontend:
     people:
-      empty: "まだ誰もいません"
-      remove: "%name% を削除"
+      empty: まだ誰もいません
+      remove: '%name% を削除'
     conversations:
-      empty: "まだ会話はありません"
-      unread: "未読 %count% 件"
+      empty: まだ会話はありません
+      unread: '未読 %count% 件'
     presence:
-      online: "オンライン"
-      away: "離席中"
-      busy: "取り込み中"
-      offline: "オフライン"
+      online: オンライン
+      away: 離席中
+      busy: 取り込み中
+      offline: オフライン
     placeholder:
-      pending: "生成中…"
+      pending: 生成中…
     loading: 読み込み中...
     environment: '%env% 環境: ここに表示されているのは本番環境ではありません'
     dev_menu: 開発ツール
@@ -2409,18 +2729,50 @@ ja:
       page: ページ
       ellipsis: …
     inline_edit:
-      edit: "編集"
-      save: "保存"
-      cancel: "キャンセル"
-      failed: "保存されませんでした。もう一度お試しください。"
+      edit: 編集
+      save: 保存
+      cancel: キャンセル
+      failed: 保存されませんでした。もう一度お試しください。
     choice_list:
-      filter: "絞り込み…"
-      filter_empty: "一致するものはありません。"
+      filter: 絞り込み…
+      filter_empty: 一致するものはありません。
+    tags_input:
+      add: タグを追加…
+      remove: 削除
+      suggest: '%tag%を追加'
+      suggestions: 提案
+    diff_text:
+      same: 変更はありません。
+      folded: '%count%行は未変更'
+    color_input:
+      pick: 色を選択
+      swatches: 提供されている色
+    field_versions:
+      version: バージョン
+      current: 現在のバージョン
+      draft: ドラフト
+      take: このバージョンを戻す
+    field_expression:
+      to_expression: 式
+      to_value: 値
+    field_open:
+      label: 開く
+    search_select:
+      search: 検索…
+      loading: 検索中…
+      empty: 結果はありません
+      none: —
+    key_value:
+      key: キー
+      value: 値
+      add: 新しいキー…
+      remove: 削除
+      duplicate: このキーは二重に書かれています。
     collection:
-      add: "追加"
-      remove: "削除"
-      up: "上へ移動"
-      down: "下へ移動"
+      add: 追加
+      remove: 削除
+      up: 上へ移動
+      down: 下へ移動
     stepper:
       label: ステップ
     table:
@@ -2489,8 +2841,8 @@ ja:
       download: ダウンロード
     form:
       optional: (任意)
-      save: "保存"
-      failed: "保存されませんでした。もう一度お試しください。"
+      save: 保存
+      failed: 保存されませんでした。もう一度お試しください。
     menu:
       navigation: ナビゲーション
       open_left: メニューを開く
@@ -2501,16 +2853,16 @@ ja:
       filter: フィルター
       filter_empty: 一致するものはありません
     zone:
-      split_h: "左右に分割"
-      split_v: "上下に分割"
-      close: "閉じる"
-      empty: "空の領域"
+      split_h: 左右に分割
+      split_v: 上下に分割
+      close: 閉じる
+      empty: 空の領域
       collapse: 折りたたむ
       expand: 展開する
       resize: サイズ変更
-      lock_width: '幅を固定'
-      lock_height: '高さを固定'
-      sized_by_content: '内容に合わせたサイズ'
+      lock_width: 幅を固定
+      lock_height: 高さを固定
+      sized_by_content: 内容に合わせたサイズ
     crop:
       area: トリミングエリア
       handle: トリミングエリアのサイズ変更
@@ -2522,18 +2874,18 @@ ja:
 ko:
   frontend:
     people:
-      empty: "아직 아무도 없음"
-      remove: "%name% 제거"
+      empty: '아직 아무도 없음'
+      remove: '%name% 제거'
     conversations:
-      empty: "아직 대화 없음"
-      unread: "읽지 않음 %count%"
+      empty: '아직 대화 없음'
+      unread: '읽지 않음 %count%'
     presence:
-      online: "온라인"
-      away: "자리 비움"
-      busy: "바쁨"
-      offline: "오프라인"
+      online: 온라인
+      away: '자리 비움'
+      busy: 바쁨
+      offline: 오프라인
     placeholder:
-      pending: "생성 중…"
+      pending: '생성 중…'
     loading: '로딩 중...'
     environment: '%env% 환경: 여기 표시된 것은 운영 환경이 아닙니다'
     dev_menu: '개발 도구'
@@ -2598,18 +2950,50 @@ ko:
       page: 페이지
       ellipsis: …
     inline_edit:
-      edit: "편집"
-      save: "저장"
-      cancel: "취소"
-      failed: "저장되지 않았습니다. 다시 시도하세요."
+      edit: 편집
+      save: 저장
+      cancel: 취소
+      failed: '저장되지 않았습니다. 다시 시도하세요.'
     choice_list:
-      filter: "필터…"
-      filter_empty: "일치하는 항목이 없습니다."
+      filter: 필터…
+      filter_empty: '일치하는 항목이 없습니다.'
+    tags_input:
+      add: '태그 추가…'
+      remove: 제거
+      suggest: '%tag% 추가'
+      suggestions: 제안
+    diff_text:
+      same: '변경된 사항이 없습니다.'
+      folded: '%count% 줄이 변경되지 않음'
+    color_input:
+      pick: '색상 선택'
+      swatches: '제공된 색상'
+    field_versions:
+      version: 버전
+      current: '현재 버전'
+      draft: 초안
+      take: '이 버전으로 복원'
+    field_expression:
+      to_expression: 표현식
+      to_value: 값
+    field_open:
+      label: 열기
+    search_select:
+      search: 검색…
+      loading: '검색 중…'
+      empty: '결과 없음'
+      none: —
+    key_value:
+      key: 키
+      value: 값
+      add: '새 키…'
+      remove: 제거
+      duplicate: '이 키가 두 번 작성되었습니다.'
     collection:
-      add: "추가"
-      remove: "제거"
-      up: "위로 이동"
-      down: "아래로 이동"
+      add: 추가
+      remove: 제거
+      up: '위로 이동'
+      down: '아래로 이동'
     stepper:
       label: 단계
     table:
@@ -2678,8 +3062,8 @@ ko:
       download: 다운로드
     form:
       optional: '(선택 사항)'
-      save: "저장"
-      failed: "저장되지 않았습니다. 다시 시도하세요."
+      save: 저장
+      failed: '저장되지 않았습니다. 다시 시도하세요.'
     menu:
       navigation: 탐색
       open_left: '메뉴 열기'
@@ -2690,10 +3074,10 @@ ko:
       filter: 필터
       filter_empty: '일치하는 항목이 없습니다'
     zone:
-      split_h: "좌우로 분할"
-      split_v: "상하로 분할"
-      close: "닫기"
-      empty: "빈 영역"
+      split_h: '좌우로 분할'
+      split_v: '상하로 분할'
+      close: 닫기
+      empty: '빈 영역'
       collapse: 축소
       expand: 확장
       resize: '크기 조정'
@@ -2711,18 +3095,18 @@ ko:
 nl:
   frontend:
     people:
-      empty: "Nog niemand"
-      remove: "%name% verwijderen"
+      empty: 'Nog niemand'
+      remove: '%name% verwijderen'
     conversations:
-      empty: "Nog geen gesprek"
-      unread: "%count% ongelezen"
+      empty: 'Nog geen gesprek'
+      unread: '%count% ongelezen'
     presence:
-      online: "Online"
-      away: "Afwezig"
-      busy: "Bezet"
-      offline: "Offline"
+      online: Online
+      away: Afwezig
+      busy: Bezet
+      offline: Offline
     placeholder:
-      pending: "Wordt gemaakt…"
+      pending: 'Wordt gemaakt…'
     loading: Laden...
     environment: '%env% omgeving: wat hier wordt weergegeven is niet productie'
     dev_menu: Ontwikkelingstools
@@ -2787,18 +3171,50 @@ nl:
       page: Pagina
       ellipsis: …
     inline_edit:
-      edit: "Bewerken"
-      save: "Opslaan"
-      cancel: "Annuleren"
-      failed: "Niet opgeslagen. Probeer opnieuw."
+      edit: Bewerken
+      save: Opslaan
+      cancel: Annuleren
+      failed: 'Niet opgeslagen. Probeer opnieuw.'
     choice_list:
-      filter: "Filteren…"
-      filter_empty: "Niets komt overeen."
+      filter: Filteren…
+      filter_empty: 'Niets komt overeen.'
+    tags_input:
+      add: 'Voeg een label toe…'
+      remove: Verwijder
+      suggest: 'Voeg %tag% toe'
+      suggestions: Suggesties
+    diff_text:
+      same: 'Er is niets veranderd.'
+      folded: '%count% regels ongewijzigd'
+    color_input:
+      pick: 'Kies een kleur'
+      swatches: 'Aangeboden kleuren'
+    field_versions:
+      version: Versie
+      current: 'Huidige versie'
+      draft: Concept
+      take: 'Neem deze versie terug'
+    field_expression:
+      to_expression: Expressie
+      to_value: Waarde
+    field_open:
+      label: Open
+    search_select:
+      search: Zoeken…
+      loading: Zoeken…
+      empty: 'Geen resultaat'
+      none: —
+    key_value:
+      key: Sleutel
+      value: Waarde
+      add: 'Nieuwe sleutel…'
+      remove: Verwijder
+      duplicate: 'Deze sleutel is twee keer geschreven.'
     collection:
-      add: "Toevoegen"
-      remove: "Verwijderen"
-      up: "Omhoog"
-      down: "Omlaag"
+      add: Toevoegen
+      remove: Verwijderen
+      up: Omhoog
+      down: Omlaag
     stepper:
       label: Stappen
     table:
@@ -2867,8 +3283,8 @@ nl:
       download: Downloaden
     form:
       optional: (optioneel)
-      save: "Opslaan"
-      failed: "Niet opgeslagen. Probeer opnieuw."
+      save: Opslaan
+      failed: 'Niet opgeslagen. Probeer opnieuw.'
     menu:
       navigation: Navigatie
       open_left: 'Open het menu'
@@ -2879,10 +3295,10 @@ nl:
       filter: Filter
       filter_empty: 'Niets komt overeen'
     zone:
-      split_h: "Naast elkaar splitsen"
-      split_v: "Onder elkaar splitsen"
-      close: "Sluiten"
-      empty: "Lege zone"
+      split_h: 'Naast elkaar splitsen'
+      split_v: 'Onder elkaar splitsen'
+      close: Sluiten
+      empty: 'Lege zone'
       collapse: Samenvouwen
       expand: Uitvouwen
       resize: 'Grootte wijzigen'
@@ -2900,18 +3316,18 @@ nl:
 pl:
   frontend:
     people:
-      empty: "Jeszcze nikogo"
-      remove: "Usuń %name%"
+      empty: 'Jeszcze nikogo'
+      remove: 'Usuń %name%'
     conversations:
-      empty: "Jeszcze brak rozmów"
-      unread: "%count% nieprzeczytanych"
+      empty: 'Jeszcze brak rozmów'
+      unread: '%count% nieprzeczytanych'
     presence:
-      online: "Dostępny"
-      away: "Zaraz wracam"
-      busy: "Zajęty"
-      offline: "Niedostępny"
+      online: Dostępny
+      away: 'Zaraz wracam'
+      busy: Zajęty
+      offline: Niedostępny
     placeholder:
-      pending: "Generowanie…"
+      pending: Generowanie…
     loading: Ładowanie...
     environment: '%env% środowisko: to co jest tutaj pokazane, to nie produkcja'
     dev_menu: 'Narzędzia deweloperskie'
@@ -2976,18 +3392,50 @@ pl:
       page: Strona
       ellipsis: …
     inline_edit:
-      edit: "Edytuj"
-      save: "Zapisz"
-      cancel: "Anuluj"
-      failed: "Nie zapisano. Spróbuj ponownie."
+      edit: Edytuj
+      save: Zapisz
+      cancel: Anuluj
+      failed: 'Nie zapisano. Spróbuj ponownie.'
     choice_list:
-      filter: "Filtruj…"
-      filter_empty: "Brak dopasowań."
+      filter: Filtruj…
+      filter_empty: 'Brak dopasowań.'
+    tags_input:
+      add: 'Dodaj tag…'
+      remove: Usuń
+      suggest: 'Dodaj %tag%'
+      suggestions: Sugestie
+    diff_text:
+      same: 'Nic się nie zmieniło.'
+      folded: '%count% wierszy bez zmian'
+    color_input:
+      pick: 'Wybierz kolor'
+      swatches: 'Dostępne kolory'
+    field_versions:
+      version: Wersja
+      current: 'Bieżąca wersja'
+      draft: 'Wersja robocza'
+      take: 'Przywróć tę wersję'
+    field_expression:
+      to_expression: Wyrażenie
+      to_value: Wartość
+    field_open:
+      label: Otwórz
+    search_select:
+      search: Szukaj…
+      loading: Wyszukiwanie…
+      empty: 'Brak wyników'
+      none: —
+    key_value:
+      key: Klucz
+      value: Wartość
+      add: 'Nowy klucz…'
+      remove: Usuń
+      duplicate: 'Ten klucz jest zapisany dwukrotnie.'
     collection:
-      add: "Dodaj"
-      remove: "Usuń"
-      up: "Przenieś w górę"
-      down: "Przenieś w dół"
+      add: Dodaj
+      remove: Usuń
+      up: 'Przenieś w górę'
+      down: 'Przenieś w dół'
     stepper:
       label: Kroki
     table:
@@ -3056,8 +3504,8 @@ pl:
       download: Pobierz
     form:
       optional: (opcjonalne)
-      save: "Zapisz"
-      failed: "Nie zapisano. Spróbuj ponownie."
+      save: Zapisz
+      failed: 'Nie zapisano. Spróbuj ponownie.'
     menu:
       navigation: Nawigacja
       open_left: 'Otwórz menu'
@@ -3068,10 +3516,10 @@ pl:
       filter: Filtruj
       filter_empty: 'Nic nie pasuje'
     zone:
-      split_h: "Podziel obok siebie"
-      split_v: "Podziel jeden nad drugim"
-      close: "Zamknij"
-      empty: "Pusta strefa"
+      split_h: 'Podziel obok siebie'
+      split_v: 'Podziel jeden nad drugim'
+      close: Zamknij
+      empty: 'Pusta strefa'
       collapse: Zwiń
       expand: Rozwiń
       resize: 'Zmień rozmiar'
@@ -3089,18 +3537,18 @@ pl:
 pt_BR:
   frontend:
     people:
-      empty: "Ninguém ainda"
-      remove: "Remover %name%"
+      empty: 'Ninguém ainda'
+      remove: 'Remover %name%'
     conversations:
-      empty: "Nenhuma conversa ainda"
-      unread: "%count% não lidas"
+      empty: 'Nenhuma conversa ainda'
+      unread: '%count% não lidas'
     presence:
-      online: "Online"
-      away: "Ausente"
-      busy: "Ocupado"
-      offline: "Offline"
+      online: Online
+      away: Ausente
+      busy: Ocupado
+      offline: Offline
     placeholder:
-      pending: "Gerando…"
+      pending: Gerando…
     loading: Carregando...
     environment: '%env% ambiente: o que está mostrado aqui não é produção'
     dev_menu: 'Ferramentas de desenvolvimento'
@@ -3165,18 +3613,50 @@ pt_BR:
       page: Página
       ellipsis: …
     inline_edit:
-      edit: "Editar"
-      save: "Salvar"
-      cancel: "Cancelar"
-      failed: "Não salvo. Tente novamente."
+      edit: Editar
+      save: Salvar
+      cancel: Cancelar
+      failed: 'Não salvo. Tente novamente.'
     choice_list:
-      filter: "Filtrar…"
-      filter_empty: "Nada corresponde."
+      filter: Filtrar…
+      filter_empty: 'Nada corresponde.'
+    tags_input:
+      add: 'Adicionar uma tag…'
+      remove: Remover
+      suggest: 'Adicionar %tag%'
+      suggestions: Sugestões
+    diff_text:
+      same: 'Nada mudou.'
+      folded: '%count% linhas inalteradas'
+    color_input:
+      pick: 'Escolher uma cor'
+      swatches: 'Cores oferecidas'
+    field_versions:
+      version: Versão
+      current: 'Versão atual'
+      draft: Rascunho
+      take: 'Reverter para esta versão'
+    field_expression:
+      to_expression: Expressão
+      to_value: Valor
+    field_open:
+      label: Abrir
+    search_select:
+      search: Pesquisar…
+      loading: Pesquisando…
+      empty: 'Sem resultado'
+      none: —
+    key_value:
+      key: Chave
+      value: Valor
+      add: 'Nova chave…'
+      remove: Remover
+      duplicate: 'Esta chave está escrita duas vezes.'
     collection:
-      add: "Adicionar"
-      remove: "Remover"
-      up: "Mover para cima"
-      down: "Mover para baixo"
+      add: Adicionar
+      remove: Remover
+      up: 'Mover para cima'
+      down: 'Mover para baixo'
     stepper:
       label: Passos
     table:
@@ -3245,8 +3725,8 @@ pt_BR:
       download: Baixar
     form:
       optional: (opcional)
-      save: "Salvar"
-      failed: "Não salvo. Tente novamente."
+      save: Salvar
+      failed: 'Não salvo. Tente novamente.'
     menu:
       navigation: Navegação
       open_left: 'Abrir o menu'
@@ -3257,10 +3737,10 @@ pt_BR:
       filter: Filtrar
       filter_empty: 'Nada corresponde'
     zone:
-      split_h: "Dividir lado a lado"
-      split_v: "Dividir uma acima da outra"
-      close: "Fechar"
-      empty: "Zona vazia"
+      split_h: 'Dividir lado a lado'
+      split_v: 'Dividir uma acima da outra'
+      close: Fechar
+      empty: 'Zona vazia'
       collapse: Recolher
       expand: Expandir
       resize: Redimensionar
@@ -3278,18 +3758,18 @@ pt_BR:
 ru:
   frontend:
     people:
-      empty: "Пока никого"
-      remove: "Удалить %name%"
+      empty: 'Пока никого'
+      remove: 'Удалить %name%'
     conversations:
-      empty: "Пока нет разговоров"
-      unread: "Непрочитанных: %count%"
+      empty: 'Пока нет разговоров'
+      unread: 'Непрочитанных: %count%'
     presence:
-      online: "В сети"
-      away: "Отошёл"
-      busy: "Занят"
-      offline: "Не в сети"
+      online: 'В сети'
+      away: Отошёл
+      busy: Занят
+      offline: 'Не в сети'
     placeholder:
-      pending: "Создаётся…"
+      pending: Создаётся…
     loading: Загрузка...
     environment: '%env% окружение: то, что показано здесь, не является производственным'
     dev_menu: 'Инструменты разработки'
@@ -3354,18 +3834,50 @@ ru:
       page: Страница
       ellipsis: …
     inline_edit:
-      edit: "Изменить"
-      save: "Сохранить"
-      cancel: "Отмена"
-      failed: "Не сохранено. Попробуйте ещё раз."
+      edit: Изменить
+      save: Сохранить
+      cancel: Отмена
+      failed: 'Не сохранено. Попробуйте ещё раз.'
     choice_list:
-      filter: "Фильтр…"
-      filter_empty: "Ничего не найдено."
+      filter: Фильтр…
+      filter_empty: 'Ничего не найдено.'
+    tags_input:
+      add: 'Добавить тег…'
+      remove: Удалить
+      suggest: 'Добавить %tag%'
+      suggestions: Предложения
+    diff_text:
+      same: 'Ничего не изменилось.'
+      folded: '%count% строк без изменений'
+    color_input:
+      pick: 'Выбрать цвет'
+      swatches: 'Предлагаемые цвета'
+    field_versions:
+      version: Версия
+      current: 'Текущая версия'
+      draft: Черновик
+      take: 'Вернуть эту версию'
+    field_expression:
+      to_expression: Выражение
+      to_value: Значение
+    field_open:
+      label: Открыть
+    search_select:
+      search: Поиск…
+      loading: 'Идет поиск…'
+      empty: 'Нет результата'
+      none: —
+    key_value:
+      key: Ключ
+      value: Значение
+      add: 'Новый ключ…'
+      remove: Удалить
+      duplicate: 'Этот ключ написан дважды.'
     collection:
-      add: "Добавить"
-      remove: "Удалить"
-      up: "Переместить вверх"
-      down: "Переместить вниз"
+      add: Добавить
+      remove: Удалить
+      up: 'Переместить вверх'
+      down: 'Переместить вниз'
     stepper:
       label: Этапы
     table:
@@ -3434,8 +3946,8 @@ ru:
       download: Скачать
     form:
       optional: '(по желанию)'
-      save: "Сохранить"
-      failed: "Не сохранено. Попробуйте ещё раз."
+      save: Сохранить
+      failed: 'Не сохранено. Попробуйте ещё раз.'
     menu:
       navigation: Навигация
       open_left: 'Открыть меню'
@@ -3446,10 +3958,10 @@ ru:
       filter: Фильтр
       filter_empty: 'Ничего не найдено'
     zone:
-      split_h: "Разделить по горизонтали"
-      split_v: "Разделить по вертикали"
-      close: "Закрыть"
-      empty: "Пустая зона"
+      split_h: 'Разделить по горизонтали'
+      split_v: 'Разделить по вертикали'
+      close: Закрыть
+      empty: 'Пустая зона'
       collapse: Свернуть
       expand: Развернуть
       resize: 'Изменить размер'
@@ -3467,18 +3979,18 @@ ru:
 th:
   frontend:
     people:
-      empty: "ยังไม่มีใคร"
-      remove: "ลบ %name%"
+      empty: ยังไม่มีใคร
+      remove: 'ลบ %name%'
     conversations:
-      empty: "ยังไม่มีบทสนทนา"
-      unread: "ยังไม่ได้อ่าน %count%"
+      empty: ยังไม่มีบทสนทนา
+      unread: 'ยังไม่ได้อ่าน %count%'
     presence:
-      online: "ออนไลน์"
-      away: "ไม่อยู่"
-      busy: "ไม่ว่าง"
-      offline: "ออฟไลน์"
+      online: ออนไลน์
+      away: ไม่อยู่
+      busy: ไม่ว่าง
+      offline: ออฟไลน์
     placeholder:
-      pending: "กำลังสร้าง…"
+      pending: กำลังสร้าง…
     loading: กำลังโหลด...
     environment: '%env% สภาพแวดล้อม: สิ่งที่แสดงที่นี่ไม่ใช่การผลิต'
     dev_menu: เครื่องมือพัฒนา
@@ -3543,18 +4055,50 @@ th:
       page: หน้า
       ellipsis: …
     inline_edit:
-      edit: "แก้ไข"
-      save: "บันทึก"
-      cancel: "ยกเลิก"
-      failed: "ไม่ได้บันทึก ลองอีกครั้ง"
+      edit: แก้ไข
+      save: บันทึก
+      cancel: ยกเลิก
+      failed: 'ไม่ได้บันทึก ลองอีกครั้ง'
     choice_list:
-      filter: "กรอง…"
-      filter_empty: "ไม่มีรายการที่ตรงกัน"
+      filter: กรอง…
+      filter_empty: ไม่มีรายการที่ตรงกัน
+    tags_input:
+      add: เพิ่มแท็ก…
+      remove: ลบ
+      suggest: 'เพิ่ม %tag%'
+      suggestions: คำแนะนำ
+    diff_text:
+      same: ไม่มีการเปลี่ยนแปลงใดๆ
+      folded: '%count% บรรทัดไม่เปลี่ยนแปลง'
+    color_input:
+      pick: เลือกสี
+      swatches: สีที่เสนอ
+    field_versions:
+      version: เวอร์ชัน
+      current: เวอร์ชันปัจจุบัน
+      draft: ร่าง
+      take: นำเวอร์ชันนี้กลับมา
+    field_expression:
+      to_expression: นิพจน์
+      to_value: ค่า
+    field_open:
+      label: เปิด
+    search_select:
+      search: ค้นหา…
+      loading: กำลังค้นหา…
+      empty: ไม่มีผลลัพธ์
+      none: —
+    key_value:
+      key: กุญแจ
+      value: ค่า
+      add: กุญแจใหม่…
+      remove: ลบ
+      duplicate: กุญแจนี้เขียนซ้ำสองครั้ง.
     collection:
-      add: "เพิ่ม"
-      remove: "ลบ"
-      up: "ย้ายขึ้น"
-      down: "ย้ายลง"
+      add: เพิ่ม
+      remove: ลบ
+      up: ย้ายขึ้น
+      down: ย้ายลง
     stepper:
       label: ขั้นตอน
     table:
@@ -3623,8 +4167,8 @@ th:
       download: ดาวน์โหลด
     form:
       optional: (ไม่บังคับ)
-      save: "บันทึก"
-      failed: "ไม่ได้บันทึก ลองอีกครั้ง"
+      save: บันทึก
+      failed: 'ไม่ได้บันทึก ลองอีกครั้ง'
     menu:
       navigation: การนำทาง
       open_left: เปิดเมนู
@@ -3635,16 +4179,16 @@ th:
       filter: กรอง
       filter_empty: ไม่มีรายการที่ตรงกัน
     zone:
-      split_h: "แบ่งซ้ายขวา"
-      split_v: "แบ่งบนล่าง"
-      close: "ปิด"
-      empty: "พื้นที่ว่าง"
+      split_h: แบ่งซ้ายขวา
+      split_v: แบ่งบนล่าง
+      close: ปิด
+      empty: พื้นที่ว่าง
       collapse: ย่อ
       expand: ขยาย
       resize: ปรับขนาด
-      lock_width: 'ล็อกความกว้าง'
-      lock_height: 'ล็อกความสูง'
-      sized_by_content: 'ขนาดตามเนื้อหา'
+      lock_width: ล็อกความกว้าง
+      lock_height: ล็อกความสูง
+      sized_by_content: ขนาดตามเนื้อหา
     crop:
       area: พื้นที่ตัด
       handle: ปรับขนาดพื้นที่ตัด
@@ -3656,18 +4200,18 @@ th:
 tr:
   frontend:
     people:
-      empty: "Henüz kimse yok"
-      remove: "%name% kişisini kaldır"
+      empty: 'Henüz kimse yok'
+      remove: '%name% kişisini kaldır'
     conversations:
-      empty: "Henüz konuşma yok"
-      unread: "%count% okunmamış"
+      empty: 'Henüz konuşma yok'
+      unread: '%count% okunmamış'
     presence:
-      online: "Çevrimiçi"
-      away: "Uzakta"
-      busy: "Meşgul"
-      offline: "Çevrimdışı"
+      online: Çevrimiçi
+      away: Uzakta
+      busy: Meşgul
+      offline: Çevrimdışı
     placeholder:
-      pending: "Oluşturuluyor…"
+      pending: Oluşturuluyor…
     loading: Yükleniyor...
     environment: '%env% ortam: buradaki görüntü üretim değil'
     dev_menu: 'Geliştirme araçları'
@@ -3732,18 +4276,50 @@ tr:
       page: Sayfa
       ellipsis: …
     inline_edit:
-      edit: "Düzenle"
-      save: "Kaydet"
-      cancel: "İptal"
-      failed: "Kaydedilmedi. Tekrar deneyin."
+      edit: Düzenle
+      save: Kaydet
+      cancel: İptal
+      failed: 'Kaydedilmedi. Tekrar deneyin.'
     choice_list:
-      filter: "Filtrele…"
-      filter_empty: "Eşleşen bir şey yok."
+      filter: Filtrele…
+      filter_empty: 'Eşleşen bir şey yok.'
+    tags_input:
+      add: 'Bir etiket ekle…'
+      remove: Kaldır
+      suggest: 'Ekle %tag%'
+      suggestions: Öneriler
+    diff_text:
+      same: 'Hiçbir değişiklik yok.'
+      folded: '%count% satır değişmedi'
+    color_input:
+      pick: 'Bir renk seç'
+      swatches: 'Sunulan renkler'
+    field_versions:
+      version: Sürüm
+      current: 'Geçerli sürüm'
+      draft: Taslak
+      take: 'Bu sürümü geri al'
+    field_expression:
+      to_expression: İfade
+      to_value: Değer
+    field_open:
+      label: Aç
+    search_select:
+      search: Ara…
+      loading: Aranıyor…
+      empty: 'Sonuç yok'
+      none: —
+    key_value:
+      key: Anahtar
+      value: Değer
+      add: 'Yeni anahtar…'
+      remove: Kaldır
+      duplicate: 'Bu anahtar iki kez yazılmış.'
     collection:
-      add: "Ekle"
-      remove: "Kaldır"
-      up: "Yukarı taşı"
-      down: "Aşağı taşı"
+      add: Ekle
+      remove: Kaldır
+      up: 'Yukarı taşı'
+      down: 'Aşağı taşı'
     stepper:
       label: Adımlar
     table:
@@ -3812,8 +4388,8 @@ tr:
       download: İndir
     form:
       optional: '(isteğe bağlı)'
-      save: "Kaydet"
-      failed: "Kaydedilmedi. Tekrar deneyin."
+      save: Kaydet
+      failed: 'Kaydedilmedi. Tekrar deneyin.'
     menu:
       navigation: Navigasyon
       open_left: 'Menüyü aç'
@@ -3824,10 +4400,10 @@ tr:
       filter: Filtrele
       filter_empty: 'Hiçbiri uymuyor'
     zone:
-      split_h: "Yan yana böl"
-      split_v: "Üst üste böl"
-      close: "Kapat"
-      empty: "Boş alan"
+      split_h: 'Yan yana böl'
+      split_v: 'Üst üste böl'
+      close: Kapat
+      empty: 'Boş alan'
       collapse: Daralt
       expand: Genişlet
       resize: Boyutlandır
@@ -3845,18 +4421,18 @@ tr:
 ur:
   frontend:
     people:
-      empty: "ابھی کوئی نہیں"
-      remove: "%name% کو ہٹائیں"
+      empty: 'ابھی کوئی نہیں'
+      remove: '%name% کو ہٹائیں'
     conversations:
-      empty: "ابھی کوئی گفتگو نہیں"
-      unread: "%count% غیر پڑھے"
+      empty: 'ابھی کوئی گفتگو نہیں'
+      unread: '%count% غیر پڑھے'
     presence:
-      online: "آن لائن"
-      away: "دور"
-      busy: "مصروف"
-      offline: "آف لائن"
+      online: 'آن لائن'
+      away: دور
+      busy: مصروف
+      offline: 'آف لائن'
     placeholder:
-      pending: "بنایا جا رہا ہے…"
+      pending: 'بنایا جا رہا ہے…'
     loading: 'لوڈ ہورہا ہے...'
     environment: '%env% ماحول: جو یہاں دکھایا گیا ہے وہ پروڈکشن نہیں ہے'
     dev_menu: 'ترقیاتی ٹولز'
@@ -3921,18 +4497,50 @@ ur:
       page: صفحہ
       ellipsis: …
     inline_edit:
-      edit: "ترمیم"
-      save: "محفوظ کریں"
-      cancel: "منسوخ"
-      failed: "محفوظ نہیں ہوا۔ دوبارہ کوشش کریں۔"
+      edit: ترمیم
+      save: 'محفوظ کریں'
+      cancel: منسوخ
+      failed: 'محفوظ نہیں ہوا۔ دوبارہ کوشش کریں۔'
     choice_list:
-      filter: "فلٹر کریں…"
-      filter_empty: "کچھ بھی مماثل نہیں۔"
+      filter: 'فلٹر کریں…'
+      filter_empty: 'کچھ بھی مماثل نہیں۔'
+    tags_input:
+      add: 'ٹیگ شامل کریں…'
+      remove: 'ہٹا دیں'
+      suggest: '%tag% شامل کریں'
+      suggestions: تجاویز
+    diff_text:
+      same: 'کچھ بھی تبدیل نہیں ہوا۔'
+      folded: '%count% لائنیں بغیر تبدیلی کے'
+    color_input:
+      pick: 'ایک رنگ منتخب کریں'
+      swatches: 'پیش کردہ رنگ'
+    field_versions:
+      version: ورژن
+      current: 'موجودہ ورژن'
+      draft: مسودہ
+      take: 'اس ورژن کو واپس لیں'
+    field_expression:
+      to_expression: اظہار
+      to_value: قدر
+    field_open:
+      label: کھولیں
+    search_select:
+      search: 'تلاش کریں…'
+      loading: 'تلاش ہو رہی ہے…'
+      empty: 'کوئی نتیجہ نہیں'
+      none: —
+    key_value:
+      key: چابی
+      value: قدر
+      add: 'نئی چابی…'
+      remove: 'ہٹا دیں'
+      duplicate: 'یہ چابی دو بار لکھی گئی ہے۔'
     collection:
-      add: "شامل کریں"
-      remove: "ہٹائیں"
-      up: "اوپر منتقل کریں"
-      down: "نیچے منتقل کریں"
+      add: 'شامل کریں'
+      remove: ہٹائیں
+      up: 'اوپر منتقل کریں'
+      down: 'نیچے منتقل کریں'
     stepper:
       label: اقدامات
     table:
@@ -4001,8 +4609,8 @@ ur:
       download: 'ڈاؤن لوڈ کریں'
     form:
       optional: (اختیاری)
-      save: "محفوظ کریں"
-      failed: "محفوظ نہیں ہوا۔ دوبارہ کوشش کریں۔"
+      save: 'محفوظ کریں'
+      failed: 'محفوظ نہیں ہوا۔ دوبارہ کوشش کریں۔'
     menu:
       navigation: نیویگیشن
       open_left: 'مینوں کھولیں'
@@ -4013,10 +4621,10 @@ ur:
       filter: 'فلٹر کریں'
       filter_empty: 'کوئی چیز میل نہیں کھاتی'
     zone:
-      split_h: "ساتھ ساتھ تقسیم کریں"
-      split_v: "اوپر نیچے تقسیم کریں"
-      close: "بند کریں"
-      empty: "خالی حصہ"
+      split_h: 'ساتھ ساتھ تقسیم کریں'
+      split_v: 'اوپر نیچے تقسیم کریں'
+      close: 'بند کریں'
+      empty: 'خالی حصہ'
       collapse: 'کم کریں'
       expand: کھولیں
       resize: 'سائز تبدیل کریں'
@@ -4034,18 +4642,18 @@ ur:
 vi:
   frontend:
     people:
-      empty: "Chưa có ai"
-      remove: "Xóa %name%"
+      empty: 'Chưa có ai'
+      remove: 'Xóa %name%'
     conversations:
-      empty: "Chưa có cuộc trò chuyện nào"
-      unread: "%count% chưa đọc"
+      empty: 'Chưa có cuộc trò chuyện nào'
+      unread: '%count% chưa đọc'
     presence:
-      online: "Trực tuyến"
-      away: "Vắng mặt"
-      busy: "Bận"
-      offline: "Ngoại tuyến"
+      online: 'Trực tuyến'
+      away: 'Vắng mặt'
+      busy: Bận
+      offline: 'Ngoại tuyến'
     placeholder:
-      pending: "Đang tạo…"
+      pending: 'Đang tạo…'
     loading: 'Đang tải...'
     environment: '%env% môi trường: những gì hiển thị ở đây không phải là sản xuất'
     dev_menu: 'Công cụ phát triển'
@@ -4110,18 +4718,50 @@ vi:
       page: Trang
       ellipsis: …
     inline_edit:
-      edit: "Sửa"
-      save: "Lưu"
-      cancel: "Hủy"
-      failed: "Chưa lưu. Hãy thử lại."
+      edit: Sửa
+      save: Lưu
+      cancel: Hủy
+      failed: 'Chưa lưu. Hãy thử lại.'
     choice_list:
-      filter: "Lọc…"
-      filter_empty: "Không có kết quả phù hợp."
+      filter: Lọc…
+      filter_empty: 'Không có kết quả phù hợp.'
+    tags_input:
+      add: 'Thêm thẻ…'
+      remove: Xóa
+      suggest: 'Thêm %tag%'
+      suggestions: 'Gợi ý'
+    diff_text:
+      same: 'Không có gì thay đổi.'
+      folded: '%count% dòng không thay đổi'
+    color_input:
+      pick: 'Chọn một màu'
+      swatches: 'Màu sắc có sẵn'
+    field_versions:
+      version: 'Phiên bản'
+      current: 'Phiên bản hiện tại'
+      draft: 'Bản nháp'
+      take: 'Lấy lại phiên bản này'
+    field_expression:
+      to_expression: 'Biểu thức'
+      to_value: 'Giá trị'
+    field_open:
+      label: Mở
+    search_select:
+      search: 'Tìm kiếm…'
+      loading: 'Đang tìm kiếm…'
+      empty: 'Không có kết quả'
+      none: —
+    key_value:
+      key: Khóa
+      value: 'Giá trị'
+      add: 'Khóa mới…'
+      remove: Xóa
+      duplicate: 'Khóa này đã được viết hai lần.'
     collection:
-      add: "Thêm"
-      remove: "Xóa"
-      up: "Di chuyển lên"
-      down: "Di chuyển xuống"
+      add: Thêm
+      remove: Xóa
+      up: 'Di chuyển lên'
+      down: 'Di chuyển xuống'
     stepper:
       label: 'Các bước'
     table:
@@ -4190,8 +4830,8 @@ vi:
       download: 'Tải xuống'
     form:
       optional: '(tùy chọn)'
-      save: "Lưu"
-      failed: "Chưa lưu. Hãy thử lại."
+      save: Lưu
+      failed: 'Chưa lưu. Hãy thử lại.'
     menu:
       navigation: 'Điều hướng'
       open_left: 'Mở menu'
@@ -4202,10 +4842,10 @@ vi:
       filter: Lọc
       filter_empty: 'Không có kết quả phù hợp'
     zone:
-      split_h: "Chia cạnh nhau"
-      split_v: "Chia trên dưới"
-      close: "Đóng"
-      empty: "Vùng trống"
+      split_h: 'Chia cạnh nhau'
+      split_v: 'Chia trên dưới'
+      close: Đóng
+      empty: 'Vùng trống'
       collapse: 'Thu gọn'
       expand: 'Mở rộng'
       resize: 'Thay đổi kích thước'
@@ -4223,18 +4863,18 @@ vi:
 zh:
   frontend:
     people:
-      empty: "暂无成员"
-      remove: "移除 %name%"
+      empty: 暂无成员
+      remove: '移除 %name%'
     conversations:
-      empty: "暂无对话"
-      unread: "%count% 条未读"
+      empty: 暂无对话
+      unread: '%count% 条未读'
     presence:
-      online: "在线"
-      away: "离开"
-      busy: "忙碌"
-      offline: "离线"
+      online: 在线
+      away: 离开
+      busy: 忙碌
+      offline: 离线
     placeholder:
-      pending: "正在生成…"
+      pending: 正在生成…
     loading: 加载中...
     environment: '%env% 环境：这里显示的不是生产环境'
     dev_menu: 开发工具
@@ -4299,18 +4939,50 @@ zh:
       page: 页面
       ellipsis: …
     inline_edit:
-      edit: "编辑"
-      save: "保存"
-      cancel: "取消"
-      failed: "未保存，请重试。"
+      edit: 编辑
+      save: 保存
+      cancel: 取消
+      failed: 未保存，请重试。
     choice_list:
-      filter: "筛选…"
-      filter_empty: "没有匹配项。"
+      filter: 筛选…
+      filter_empty: 没有匹配项。
+    tags_input:
+      add: 添加标签…
+      remove: 移除
+      suggest: '添加 %tag%'
+      suggestions: 建议
+    diff_text:
+      same: 没有变化。
+      folded: '%count% 行未更改'
+    color_input:
+      pick: 选择颜色
+      swatches: 提供的颜色
+    field_versions:
+      version: 版本
+      current: 当前版本
+      draft: 草稿
+      take: 恢复此版本
+    field_expression:
+      to_expression: 表达式
+      to_value: 值
+    field_open:
+      label: 打开
+    search_select:
+      search: 搜索…
+      loading: 正在搜索…
+      empty: 没有结果
+      none: —
+    key_value:
+      key: 键
+      value: 值
+      add: 新键…
+      remove: 移除
+      duplicate: 此键被写了两次。
     collection:
-      add: "添加"
-      remove: "移除"
-      up: "上移"
-      down: "下移"
+      add: 添加
+      remove: 移除
+      up: 上移
+      down: 下移
     stepper:
       label: 步骤
     table:
@@ -4379,8 +5051,8 @@ zh:
       download: 下载
     form:
       optional: (可选)
-      save: "保存"
-      failed: "未保存，请重试。"
+      save: 保存
+      failed: 未保存，请重试。
     menu:
       navigation: 导航
       open_left: 打开菜单
@@ -4391,16 +5063,16 @@ zh:
       filter: 筛选
       filter_empty: 没有符合条件的结果
     zone:
-      split_h: "左右拆分"
-      split_v: "上下拆分"
-      close: "关闭"
-      empty: "空区域"
+      split_h: 左右拆分
+      split_v: 上下拆分
+      close: 关闭
+      empty: 空区域
       collapse: 折叠
       expand: 展开
       resize: 调整大小
-      lock_width: '固定宽度'
-      lock_height: '固定高度'
-      sized_by_content: '随内容调整大小'
+      lock_width: 固定宽度
+      lock_height: 固定高度
+      sized_by_content: 随内容调整大小
     crop:
       area: 裁剪区域
       handle: 调整裁剪区域大小

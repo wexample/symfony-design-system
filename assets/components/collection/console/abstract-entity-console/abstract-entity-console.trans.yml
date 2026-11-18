@@ -89,3 +89,7 @@ vi:
 zh:
   fetching: "加载中…"
   end: "- 结束 -"
+
+pt_BR:
+  fetching: Carregando…
+  end: '- Fim -'
