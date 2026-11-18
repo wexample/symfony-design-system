@@ -59,6 +59,13 @@
   flex-wrap: wrap;
 }
 
+// A bar laid in the run of a page — the filters over its figures, its
+// tables —, among its blocks rather than over them: no room of its own
+// around it, its controls lined up with the edges of what follows.
+.toolbar--flush {
+  --toolbar-padding: 0;
+}
+
 // A bar that is the header of a panel rather than the head of a page: it gives
 // up its room, and what it holds gives up its own along with it.
 .toolbar--compact {

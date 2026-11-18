@@ -1,4 +1,5 @@
 <script>
+import { PERIOD_CHANGE_EVENT, PERIOD_REQUEST_EVENT } from '../../js/Helper/PeriodHelper';
 const T = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.period.';
 
 const pad = (value) => String(value).padStart(2, '0');
@@ -44,7 +45,8 @@ let uidCounter = 0;
 // which have neither. What it shows is the caller's — a list, a chart —,
 // told on each change with its bounds (`from` inclusive, `to` exclusive,
 // ISO dates), through `change` and through a `period-change` event bubbling
-// from the element, for what is no Vue component of the page — a chart.
+// from the element, for what is no Vue component of the page — a chart —,
+// followed with `periodFollow()` (js/Helper/PeriodHelper).
 // Kept in the address (`hashKey`), it survives a reload and a link; bounded
 // (`min`, `max`, written as periods), it stops there.
 export default {
@@ -130,13 +132,13 @@ export default {
     }
 
     // What starts listening after this announced its period asks for it.
-    document.addEventListener('period-request', this.onPeriodRequest);
+    document.addEventListener(PERIOD_REQUEST_EVENT, this.onPeriodRequest);
     this.announce(false);
   },
 
   beforeUnmount() {
     window.removeEventListener('hashchange', this.onHashChange);
-    document.removeEventListener('period-request', this.onPeriodRequest);
+    document.removeEventListener(PERIOD_REQUEST_EVENT, this.onPeriodRequest);
   },
 
   methods: {
@@ -251,7 +253,7 @@ export default {
       const detail = { ...this.current, key: periodKey(this.current), from: iso(from), to: iso(to) };
 
       this.$emit('change', detail);
-      this.$el.dispatchEvent(new CustomEvent('period-change', { bubbles: true, detail }));
+      this.$el.dispatchEvent(new CustomEvent(PERIOD_CHANGE_EVENT, { bubbles: true, detail }));
     },
 
     bounds() {
