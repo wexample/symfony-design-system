@@ -159,9 +159,21 @@
 
 // An actions cell shrinks to its icons instead of claiming an equal share of the
 // table width. Alignment is left to the column's own align option.
+.table--cell--actions,
 .table--cell:has(> .table--actions) {
   width: 1%;
   white-space: nowrap;
+}
+
+// Every column held to what it holds — a name, a figure, a date, the row's
+// actions —: none is there to take the room of a table stretched over the
+// page, and the room would go to all of them, the actions' icons spread apart
+// from the row. Such a table is as wide as its columns, the room it leaves
+// the page's.
+// Asked to fill (`fill`), it fills all the same.
+.table--frame:not(.table--frame--fill) > .table:has(> thead):not(:has(> thead > tr > th:not(.table--cell--nowrap, .table--cell--fit, .table--cell--actions, .table--cell--select, .table--cell--row-open))) {
+  width: max-content;
+  max-width: 100%;
 }
 
 // A column held to a width of the scale, so that what its cells say may change

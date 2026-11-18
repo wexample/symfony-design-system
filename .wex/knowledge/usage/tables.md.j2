@@ -14,7 +14,7 @@ order number — in the mono face, never broken), `number` (a figure, see below)
 for the value as text. A row
 carrying only `{ group: 'Label' }` is the line between two runs of rows.
 
-A table is as wide as its columns ask and no wider; the bar above it (search, total) takes the same width. `fill` (twig and vue) stretches it over the whole row — rarely wanted: columns spread apart read worse than a narrow table.
+A table is as wide as its columns ask and no wider; the bar above it (search, total) takes the same width. `fill` (twig and vue) stretches it over the whole row — rarely wanted: columns spread apart read worse than a narrow table. A page's own table stretches to the page's measure, the room going to the columns free to take it; when every column is held to what it holds (`table--cell--nowrap`, `--fit`, the actions' `table--cell--actions`), none is, and the table keeps its columns' width instead — the actions never spread apart from the row.
 
 `width` holds a column to a step of the scale — `xs`, `s`, `m`, `l`, `xl`, the
 `--table-column-width-*` tokens — so that its cells may change, a state or a figure refreshed

@@ -209,6 +209,8 @@ class TableExtension extends AbstractTemplateExtension
                     in_array($column['cell'] ?? null, ['date', 'number', 'code'], true) || isset($column['unit']) ? 'table--cell--nowrap' : null,
                     // One of xs, s, m, l, xl: the column keeps it whatever its cells say.
                     isset($column['width']) ? 'table--cell--width-'.$column['width'] : null,
+                    // What is done to the row: as wide as its icons, never more.
+                    ($column['cell'] ?? null) === 'actions' ? 'table--cell--actions' : null,
                 ])),
             ];
         }

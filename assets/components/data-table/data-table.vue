@@ -1232,6 +1232,8 @@ export default {
       if (['date', 'code'].includes(column?.cell) || this.isNumberCell(column)) classes.push('table--cell--nowrap');
       if (column?.width) classes.push(`table--cell--width-${column.width}`);
       if (column?.secondary) classes.push('table--cell--secondary');
+      // What is done to the row: as wide as its icons, never more.
+      if (column?.cell === 'actions') classes.push('table--cell--actions');
       return classes.length ? classes.join(' ') : undefined;
     }
   }
