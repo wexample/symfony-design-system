@@ -56,6 +56,12 @@
   border-bottom: 0;
 }
 
+// Entries at the foot, as the body's are (`menu--items`): their own height,
+// not a bar's — held to it, the foot kept room under the last of them.
+.menu--footer:has(> .menu--items) {
+  min-height: 0;
+}
+
 .menu--bar--content {
   display: flex;
   align-items: center;
@@ -201,7 +207,8 @@
     max-width: 100%;
   }
 
-  .menu--body {
+  .menu--body,
+  .menu--footer > .menu--items {
     width: 100%;
     padding: var(--tabs-inset, 0px);
     overflow-x: hidden;
