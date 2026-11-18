@@ -34,6 +34,9 @@ export default {
       fill: false,
       // Its columns as wide as what they hold, whatever the room.
       natural: false,
+      // Sideways in a frame of its own rather than over what stands beside
+      // it — a table in a cell of a grid, another table next to it.
+      scroll: false,
       // What the table says when the api holds nothing; its own default when null.
       emptyLabel: null,
       // Its pages below at the foot of the page when the rows leave room
