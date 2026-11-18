@@ -134,7 +134,10 @@
     display: none;
   }
 
-  > .avatar {
+  // A face as the shape draws it, or as the avatar component does — its
+  // initials when there is no picture —: the band's size either way.
+  > .avatar,
+  > .avatar-holder {
     --avatar-size: var(--cover-portrait-size);
     display: flex;
   }
