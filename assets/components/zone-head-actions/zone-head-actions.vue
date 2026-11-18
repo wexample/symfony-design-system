@@ -14,6 +14,13 @@ export default {
     fallbackClass: {
       type: String,
       default: 'toolbar toolbar--compact'
+    },
+    // Whether the page's bar takes them when no zone heads them: not for
+    // what belongs to one zone — a widget's settings —, drawn in its own bar
+    // rather than lost among the page's.
+    page: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -27,15 +34,18 @@ export default {
 
   mounted() {
     // The nearest head, climbing from where the actions are written: the
-    // first ancestor holding a head among its own children.
+    // first ancestor holding a head among its own children, or first in its
+    // content — a zone's head drawn by what it shows, a widget.
     for (let node = this.$el.parentElement; node && !this.target; node = node.parentElement) {
-      this.target = node.querySelector(':scope > .zone--head [data-zone-head-actions]');
+      this.target = node.querySelector(':scope > .zone--head [data-zone-head-actions], :scope > .zone--content > .zone--head [data-zone-head-actions]');
     }
 
     // No zone heading it: the page's own bar, under the header, where the
     // page made room for them — its toolbar (`page_toolbar_right`), or its
     // tabs' end (page_tabs, `actions`).
-    this.target ??= document.querySelector('.toolbar--top [data-zone-head-actions], .page-tabs [data-zone-head-actions]');
+    if (this.page) {
+      this.target ??= document.querySelector('.toolbar--top [data-zone-head-actions], .page-tabs [data-zone-head-actions]');
+    }
     this.resolved = true;
   }
 };
