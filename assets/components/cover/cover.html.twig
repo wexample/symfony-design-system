@@ -15,6 +15,8 @@
     portrait_alt: what it shows. Block cover_portrait: what stands there
     instead — an `avatar()`, the avatar component and its initials when
     there is no picture.
+    Block cover_credit: what the picture or the portrait owes whoever made
+    it — a `credit` —, under the band at its end.
     Block cover_float: tools over its top end corner — an icon or two, as a
     zone floats a head too light for a bar of its own (`zone--float`).
     It covers — out of the zone's padding, edge to edge —; class
@@ -52,6 +54,9 @@
     </div>
     <div class="cover--float zone--float">
         {%- block cover_float -%}{%- endblock -%}
+    </div>
+    <div class="cover--credit">
+        {%- block cover_credit -%}{%- endblock -%}
     </div>
     {%- if title|default(null) or subtitle|default(null) -%}
         <div class="cover--words">

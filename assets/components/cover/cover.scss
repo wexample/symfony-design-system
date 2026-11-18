@@ -151,6 +151,42 @@
   }
 }
 
+// What the band's picture — or the portrait — owes whoever made it (a
+// `credit`), under the band at its end, as a press photo's credit stands:
+// the band keeps the room under it for the line, or the portrait's half
+// already there; beside the portrait, it holds to the room after it.
+.cover {
+  --cover-credit-room: calc(var(--space-2) + var(--font-size-1) * 1.6);
+}
+
+.cover--credit {
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline: var(--cover-bleed);
+  padding-block-start: var(--space-2);
+  text-align: end;
+
+  &:empty {
+    display: none;
+  }
+}
+
+.cover--inset > .cover--credit {
+  inset-inline: 0;
+}
+
+.cover:has(> .cover--credit:not(:empty)) {
+  margin-block-end: var(--cover-credit-room);
+}
+
+.cover:has(> .cover--portrait:not(:empty)):has(> .cover--credit:not(:empty)) {
+  margin-block-end: max(calc(var(--cover-portrait-size) / 2), var(--cover-credit-room));
+
+  > .cover--credit {
+    inset-inline-start: calc(var(--cover-portrait-inset) + var(--cover-portrait-size) + var(--space-4));
+  }
+}
+
 @media print {
   .cover {
     break-inside: avoid;

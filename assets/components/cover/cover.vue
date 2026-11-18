@@ -3,7 +3,8 @@
 // picture, a video, or what the slot puts there (an animation) —, the missing
 // picture while there is none (`placeholder`), alive while one is made
 // (`pending`), its words over its foot, a portrait astride it (`portrait`, or
-// slot `portrait`), its tools over its top end corner (slot `float`).
+// slot `portrait`), what they owe whoever made them under it (slot
+// `credit`), its tools over its top end corner (slot `float`).
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-cover-cover',
 
