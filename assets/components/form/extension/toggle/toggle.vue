@@ -67,6 +67,20 @@ export default {
       return own ? `${own}__toggle` : null;
     },
 
+    // Its value in the dynamic form's context, when it holds one: the
+    // record's own, the form drawing one definition for many.
+    contextValue() {
+      const values = this.dynamicFormContext?.extensionValues;
+
+      if (!values || !this.contextKey || !(this.contextKey in values)) {
+        return null;
+      }
+
+      const value = values[this.contextKey];
+
+      return value === true || value === 1 || value === '1' || value === 'true';
+    },
+
     iconHtml() {
       return this.app.getServiceOrFail('icon').icon(this.icon);
     }
@@ -74,8 +88,22 @@ export default {
 
   watch: {
     value(value) {
-      this.on = value;
+      if (this.contextValue === null) {
+        this.on = value;
+      }
+    },
+
+    // Another record, the same component: its own state.
+    contextValue(value) {
+      if (value !== null) {
+        this.on = value;
+      }
     }
+  },
+
+  // The context's, when it holds one — read once the computed are there.
+  created() {
+    this.on = this.contextValue ?? this.value;
   },
 
   mounted() {

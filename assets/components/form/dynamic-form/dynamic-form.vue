@@ -40,7 +40,8 @@ export default {
       default: null
     },
     // What each field starts from, by the field's name: the entity shown,
-    // when the form was made for none.
+    // when the form was made for none. An extension's, by
+    // `<field>__<extension>`.
     values: {
       type: Object,
       default: () => ({})
@@ -78,9 +79,9 @@ export default {
         saved: 0,
         // Components, not state: left as they are, or vue would watch them.
         components: markRaw({ ...this.fieldComponents }),
-        // What the fields' extensions hold of their own — the variable a
-        // field is bound to —, by `<field>__<extension>`: posted beside the
-        // fields.
+        // What the fields' extensions hold of their own — whether a field
+        // enters a test matrix —, by `<field>__<extension>`: from `values`
+        // under that key, else the definition's; posted beside the fields.
         extensionValues: this.startExtensionValues()
       }
     };
@@ -149,9 +150,10 @@ export default {
       ]));
     },
 
-    // Each field's extensions holding a value, from the definition.
+    // Each field's extensions holding a value, from the value given, or the
+    // definition's.
     startExtensionValues() {
-      return Object.assign({}, ...(this.form.fields ?? []).map((field) => formDefinitionExtensionValues(field)));
+      return Object.assign({}, ...(this.form.fields ?? []).map((field) => formDefinitionExtensionValues(field, this.values)));
     },
 
     reset() {

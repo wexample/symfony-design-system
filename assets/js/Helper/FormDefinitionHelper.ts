@@ -304,11 +304,17 @@ export function formDefinitionExtensionKey(field: string, extension: string): st
   return `${field}__${extension}`;
 }
 
-export function formDefinitionExtensionValues(field: FormDefinitionField): Record<string, unknown> {
+// The one given in `values`, by that key, wins over the definition's — as a
+// field's own value does: one definition drawn for many records, each its own.
+export function formDefinitionExtensionValues(field: FormDefinitionField, values: Record<string, unknown> = {}): Record<string, unknown> {
   return Object.fromEntries(
     Object.entries(field.extensions ?? {})
       .filter(([, options]) => options && typeof options === 'object' && Object.prototype.hasOwnProperty.call(options, 'value'))
-      .map(([extension, options]) => [formDefinitionExtensionKey(field.name, extension), options.value ?? null])
+      .map(([extension, options]) => {
+        const key = formDefinitionExtensionKey(field.name, extension);
+
+        return [key, key in values ? values[key] : options.value ?? null];
+      })
   );
 }
 
@@ -329,8 +335,7 @@ export function formDefinitionData(form: FormDefinition, values: Record<string, 
     formDefinitionAppend(data, formDefinitionFullName(form, field.name), field, field.name in values ? values[field.name] : own);
 
     // What its extensions hold, as given — none, sent empty.
-    Object.entries(formDefinitionExtensionValues(field)).forEach(([key, start]) => {
-      const value = key in values ? values[key] : start;
+    Object.entries(formDefinitionExtensionValues(field, values)).forEach(([key, value]) => {
       const sent = typeof value === 'boolean' ? (value ? '1' : '0') : (value === null || value === undefined ? '' : String(value));
       data.append(formDefinitionFullName(form, key), sent);
     });
