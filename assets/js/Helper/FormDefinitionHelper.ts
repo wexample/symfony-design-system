@@ -297,8 +297,9 @@ export function formDefinitionAppend(data: FormData, name: string, field: FormDe
 }
 
 // The values a field's extensions hold of their own — an extension whose
-// definition carries `value` (`field_base.schema.json`): the variable the
-// field is bound to —, each under `<field>__<extension>`, beside the field.
+// definition carries `value` (`field_base.schema.json`): whether the field
+// enters a test matrix —, each under `<field>__<extension>`, beside the
+// field; a yes or no as « 1 » or « 0 ».
 export function formDefinitionExtensionKey(field: string, extension: string): string {
   return `${field}__${extension}`;
 }
@@ -327,10 +328,11 @@ export function formDefinitionData(form: FormDefinition, values: Record<string, 
 
     formDefinitionAppend(data, formDefinitionFullName(form, field.name), field, field.name in values ? values[field.name] : own);
 
-    // What its extensions hold, as given — none, sent empty: unbound.
+    // What its extensions hold, as given — none, sent empty.
     Object.entries(formDefinitionExtensionValues(field)).forEach(([key, start]) => {
       const value = key in values ? values[key] : start;
-      data.append(formDefinitionFullName(form, key), value === null || value === undefined ? '' : String(value));
+      const sent = typeof value === 'boolean' ? (value ? '1' : '0') : (value === null || value === undefined ? '' : String(value));
+      data.append(formDefinitionFullName(form, key), sent);
     });
   });
 

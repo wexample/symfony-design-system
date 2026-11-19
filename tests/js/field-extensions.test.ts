@@ -51,44 +51,29 @@ test('the expression extension starts on when the value is one, and gives the va
   assert.deepEqual([vm.on, emitted.at(-1)], [false, ['update:modelValue', '30']]);
 });
 
-// An extension holding a value of its own (`value` in its definition): the
-// variable a field is bound to, sent beside the field under
+// An extension holding a value of its own (`value` in its definition):
+// whether the field enters a test matrix, sent beside the field under
 // `<field>__<extension>`, the field's own value untouched.
-const Variable = (await import('../../assets/components/form/extension/variable/variable.vue?script')).default;
+const Toggle = (await import('../../assets/components/form/extension/toggle/toggle.vue?script')).default;
 
-test('a value an extension holds is posted beside its field, the field\'s own untouched', () => {
+test('a value an extension holds is posted beside its field, a yes or no as 1 or 0', () => {
   const form = { name: 'slot', action: '/slot', token: null, fields: [
-    { type: 'number', name: 'temperature', label: 'Temperature', value: '0.7', extensions: { variable: { value: 'temperature' } } },
+    { type: 'number', name: 'temperature', label: 'Temperature', value: '0.7', extensions: { toggle: { value: true, icon: 'ph:bold/flask', label: 'In the test matrix' } } },
     { type: 'text', name: 'model', label: 'Model', value: 'gpt', extensions: { versions: { url: '/v' } } }
   ] };
-  // As the field gives it, then as written, then emptied: unbound.
-  assert.deepEqual([...formDefinitionData(form).entries()], [['slot[temperature]', '0.7'], ['slot[temperature__variable]', 'temperature'], ['slot[model]', 'gpt']]);
-  assert.deepEqual([...formDefinitionData(form, { temperature: '0.9', temperature__variable: 'heat' }).entries()].slice(0, 2), [['slot[temperature]', '0.9'], ['slot[temperature__variable]', 'heat']]);
-  assert.deepEqual([...formDefinitionData(form, { temperature__variable: null }).entries()][1], ['slot[temperature__variable]', '']);
+  // As the field gives it, then switched off.
+  assert.deepEqual([...formDefinitionData(form).entries()], [['slot[temperature]', '0.7'], ['slot[temperature__toggle]', '1'], ['slot[model]', 'gpt']]);
+  assert.deepEqual([...formDefinitionData(form, { temperature: '0.9', temperature__toggle: false }).entries()].slice(0, 2), [['slot[temperature]', '0.9'], ['slot[temperature__toggle]', '0']]);
 });
 
-test('the variable extension keeps a name it accepts, where the form holding it reads it', () => {
-  const context = { extensionValues: { temperature__variable: 'temperature' } };
-  const { vm, emitted } = vueInstance(Variable, { value: 'temperature', fieldName: 'slot[temperature]' });
+test('the toggle extension switches, where the form holding it reads it', () => {
+  const context = { extensionValues: { temperature__toggle: false } };
+  const { vm, emitted } = vueInstance(Toggle, { value: false, icon: 'ph:bold/flask', label: 'In the test matrix', fieldName: 'slot[temperature]' });
   vm.dynamicFormContext = context;
-  vm.$nextTick = (callback: () => void) => callback();
-  vm.$refs = {};
 
-  assert.equal(vm.contextKey, 'temperature__variable');
-  assert.equal(vm.bound, 'temperature');
-
-  vm.edit();
-  vm.draft = '2 words';
-  assert.equal(vm.valid, false);
-  vm.commit();
-  assert.deepEqual([vm.editing, vm.bound], [true, 'temperature']);
-
-  vm.draft = 'heat';
-  vm.commit();
-  assert.deepEqual([vm.editing, vm.bound, context.extensionValues.temperature__variable, emitted.at(-1)], [false, 'heat', 'heat', ['update:value', 'heat']]);
-
-  vm.edit();
-  vm.draft = '';
-  vm.commit();
-  assert.deepEqual([vm.bound, context.extensionValues.temperature__variable], [null, null]);
+  assert.equal(vm.contextKey, 'temperature__toggle');
+  vm.toggle();
+  assert.deepEqual([vm.on, context.extensionValues.temperature__toggle, emitted.at(-1)], [true, true, ['update:value', true]]);
+  vm.toggle();
+  assert.deepEqual([vm.on, context.extensionValues.temperature__toggle], [false, false]);
 });

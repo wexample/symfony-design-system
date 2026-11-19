@@ -1,0 +1,23 @@
+{%- extends '@WexampleSymfonyDesignSystemBundle/components/_abstract/vue/vue.vue.twig' -%}
+
+{#- Its glyph alone, lit while on, in the field's first strip when another
+    extension drew one, its own else; on a page's field, « 1 » or « 0 » in
+    a hidden input posted beside it. -#}
+{%- block vue_body -%}
+    <div class="field-toggle">
+        <input v-if="target && postedName" type="hidden" :name="postedName" :value="on ? '1' : '0'">
+        <div v-show="!joined" class="field-toggle--strip field-extension--strip">
+            <teleport :to="joined" :disabled="!joined">
+                <button
+                        type="button"
+                        class="action-icon field-toggle--button"
+                        :aria-pressed="on ? 'true' : 'false'"
+                        :aria-label="label"
+                        :data-tooltip="label"
+                        @click="toggle"
+                        v-html="iconHtml"
+                ></button>
+            </teleport>
+        </div>
+    </div>
+{%- endblock -%}

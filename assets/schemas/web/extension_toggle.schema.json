@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "extension_toggle.schema.json",
+  "title": "Field extension: toggle",
+  "description": "Whether the field is something more — entered in a test matrix, among others —: its glyph alone in the strip under the field, lit while on, its label under the pointer, pressed to switch. A value of its own (`value`), sent back beside the field's under `<field>__toggle` — « 1 » or « 0 » —, the field's value never touched.",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "boolean",
+      "description": "On or off. An extension carrying `value` holds a value of its own, sent back under `<field>__<extension>`.",
+      "default": false
+    },
+    "icon": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Its glyph in the strip."
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What it says, under the pointer: « In the test matrix »."
+    }
+  },
+  "required": ["value", "icon", "label"],
+  "additionalProperties": false
+}

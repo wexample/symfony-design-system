@@ -1,0 +1,9 @@
+/* Component: form/extension/toggle */
+// A yes or no of the field's own: its glyph, lit while on — in the field's
+// first strip, or its own.
+@use '../footer';
+@use '../../../../css/shapes/action-icon';
+
+.field-toggle--strip {
+  @include footer.strip;
+}

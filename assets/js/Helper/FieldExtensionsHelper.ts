@@ -8,7 +8,7 @@ export { fieldExpressionMatches } from './FieldExpressionHelper';
 import ExtensionVersions from '../../components/form/extension/versions/versions.vue';
 import ExtensionExpression from '../../components/form/extension/expression/expression.vue';
 import ExtensionOpen from '../../components/form/extension/open/open.vue';
-import ExtensionVariable from '../../components/form/extension/variable/variable.vue';
+import ExtensionToggle from '../../components/form/extension/toggle/toggle.vue';
 
 export type FieldExtensionDefinition = {
   component: unknown;
@@ -24,7 +24,7 @@ export type FieldExtensionDefinition = {
 export const FIELD_EXTENSIONS: Record<string, FieldExtensionDefinition> = {
   expression: { component: ExtensionExpression, slot: 'footer', order: 10 },
   // In the strip the expression's switch stands in, beside it.
-  variable: { component: ExtensionVariable, slot: 'footer', order: 15 },
+  toggle: { component: ExtensionToggle, slot: 'footer', order: 15 },
   versions: { component: ExtensionVersions, slot: 'footer', order: 20 },
   open: { component: ExtensionOpen, slot: 'end', order: 30 }
 };
