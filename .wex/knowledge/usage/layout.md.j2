@@ -160,6 +160,10 @@ A list whose rows are read one at a time beside it — a mail client's mails, a 
 
 The page reading one puts at its top the way back (`list-detail-back`): on a narrow screen there is room for one region, the list while nothing is read, the one read else with that way back above it. Tabs over both — the list's kinds — are `page_tabs` in `page_navigation`, the tab's actions at their end; a vue's actions reach them through `zone-head-actions` (`data-zone-head-actions` in the tabs' `actions`). symfony-mail-ds's mailbox is one.
 
+## The styles a page brings
+
+A component drawn through `component()` — or a function of the system calling it: `properties()`, `marker()`, `bar()`, `data_table()`, `chart()`… — brings its own stylesheet, on a page as in a panel or a modal: the page does not import it again. A shape (`css/shapes/*`: block, grid, empty, cluster, form…) is no component: the page drawing its classes imports it (`@use '@wexample/symfony-design-system/css/shapes/block';`), and so does a vue whose template draws them. What the layout loads for every page is not imported again by an application's own page: the zones, the stack, the toolbar, the lead, the page and its actions, the header, the menu, the footer, the tooltip, the marker, the bar, the button, the breadcrumb, the overlay. A page of a bundle, meant for any application's layout, may import them all the same. `doc` (the two columns of a documentation page) is a page's, imported where it is drawn.
+
 ## Tools beside the page
 
 The bar of icons at the window's end (`tool_dock()`, the dashboard layout) holds the application's tools — `layout_dock_tools`, written once by its layout — and those a page adds for itself — `page_dock_tools`. One list of `{ name, label, icon, … }`: where each stands, whether it is open and the width it was left at are the dock's to keep. A tool opens a zone holding a page loaded the first time it opens (`url`), what the page drew (`content`), or a block of the page drawn with the dock (`content_block`) — the way to put a vue or a component there, which a value set at the top of the template cannot render. An `href` makes it a link of the bar instead.
