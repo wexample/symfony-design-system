@@ -2,7 +2,7 @@
 import { markRaw } from 'vue';
 import Form from '../../_abstract/form/form.vue';
 import DynamicField from '../dynamic-field/dynamic-field.vue';
-import { formDefinitionFullName, formDefinitionStartValue, formDefinitionVisible } from '../../../js/Helper/FormDefinitionHelper';
+import { formDefinitionExtensionValues, formDefinitionFullName, formDefinitionStartValue, formDefinitionVisible } from '../../../js/Helper/FormDefinitionHelper';
 
 const DOMAIN = 'WexampleSymfonyDesignSystemBundle.common.system::frontend.form.';
 
@@ -77,7 +77,11 @@ export default {
         id: this.id,
         saved: 0,
         // Components, not state: left as they are, or vue would watch them.
-        components: markRaw({ ...this.fieldComponents })
+        components: markRaw({ ...this.fieldComponents }),
+        // What the fields' extensions hold of their own — the variable a
+        // field is bound to —, by `<field>__<extension>`: posted beside the
+        // fields.
+        extensionValues: this.startExtensionValues()
       }
     };
   },
@@ -145,8 +149,14 @@ export default {
       ]));
     },
 
+    // Each field's extensions holding a value, from the definition.
+    startExtensionValues() {
+      return Object.assign({}, ...(this.form.fields ?? []).map((field) => formDefinitionExtensionValues(field)));
+    },
+
     reset() {
       this.draft = this.startDraft();
+      this.dynamicFormContext.extensionValues = this.startExtensionValues();
       this.clearFormErrors();
     },
 
@@ -165,7 +175,7 @@ export default {
     // A field hidden by the one it follows is sent empty: what it held is
     // dropped, not sent as if it were still asked.
     buildSubmitPayload() {
-      const payload = { ...this.draft };
+      const payload = { ...this.draft, ...this.dynamicFormContext.extensionValues };
 
       (this.form.fields ?? []).forEach((field) => {
         if (!formDefinitionVisible(field, this.draft)) {

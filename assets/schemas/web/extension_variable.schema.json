@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "extension_variable.schema.json",
+  "title": "Field extension: variable",
+  "description": "The field bound to a variable, by its name — a value given elsewhere, a test matrix's, the field keeping its own outside it —, in the strip under the field: its icon, lit while bound, the name shown; pressed, the name written; emptied, unbound. An extension holding a value of its own (`value`): sent back beside the field's, under `<field>__variable`, the field's value never touched.",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": ["string", "null"],
+      "description": "The name the field is bound to; null, none. An extension carrying `value` holds a value of its own, sent back under `<field>__<extension>`."
+    },
+    "pattern": {
+      "type": "string",
+      "minLength": 1,
+      "description": "A regular expression a name matches: one word, a letter first, unless said.",
+      "default": "^[A-Za-z][A-Za-z0-9_]{0,63}$"
+    },
+    "icon": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Its glyph in the strip.",
+      "default": "ph:bold/brackets-curly"
+    },
+    "label": {
+      "type": "string",
+      "description": "What the name is, said by the glyph and the field: « Test variable »."
+    },
+    "suggestions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "The names already in use, offered as one writes.",
+      "default": []
+    }
+  },
+  "required": ["value"],
+  "additionalProperties": false
+}

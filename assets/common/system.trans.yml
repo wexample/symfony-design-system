@@ -103,6 +103,12 @@ en:
     field_expression:
       to_expression: "Expression"
       to_value: "Value"
+    field_variable:
+      label: "Variable"
+      bind: "%label%"
+      bound: "Bound to %name%"
+      change: "Change the variable"
+      invalid: "One word, a letter first"
     field_open:
       label: "Open"
     search_select:
@@ -324,6 +330,12 @@ ar:
     field_expression:
       to_expression: التعبير
       to_value: القيمة
+    field_variable:
+      label: "متغير"
+      bind: "%label%"
+      bound: "مرتبط بـ %name%"
+      change: "تغيير المتغير"
+      invalid: "كلمة واحدة تبدأ بحرف"
     field_open:
       label: فتح
     search_select:
@@ -545,6 +557,12 @@ bn:
     field_expression:
       to_expression: অভিব্যক্তি
       to_value: মান
+    field_variable:
+      label: "চলক"
+      bind: "%label%"
+      bound: "%name%-এর সাথে যুক্ত"
+      change: "চলক পরিবর্তন করুন"
+      invalid: "একটি শব্দ, প্রথমে অক্ষর"
     field_open:
       label: খুলুন
     search_select:
@@ -766,6 +784,12 @@ de:
     field_expression:
       to_expression: Ausdruck
       to_value: Wert
+    field_variable:
+      label: "Variable"
+      bind: "%label%"
+      bound: "Gebunden an %name%"
+      change: "Variable ändern"
+      invalid: "Ein Wort, zuerst ein Buchstabe"
     field_open:
       label: Öffnen
     search_select:
@@ -987,6 +1011,12 @@ es:
     field_expression:
       to_expression: Expresión
       to_value: Valor
+    field_variable:
+      label: "Variable"
+      bind: "%label%"
+      bound: "Vinculado a %name%"
+      change: "Cambiar la variable"
+      invalid: "Una palabra, empezando por una letra"
     field_open:
       label: Abrir
     search_select:
@@ -1208,6 +1238,12 @@ fa:
     field_expression:
       to_expression: عبارت
       to_value: مقدار
+    field_variable:
+      label: "متغیر"
+      bind: "%label%"
+      bound: "پیوند به %name%"
+      change: "تغییر متغیر"
+      invalid: "یک واژه، با حرف آغاز شود"
     field_open:
       label: 'باز کردن'
     search_select:
@@ -1429,6 +1465,12 @@ fi:
     field_expression:
       to_expression: Ilmaisu
       to_value: Arvo
+    field_variable:
+      label: "Muuttuja"
+      bind: "%label%"
+      bound: "Sidottu muuttujaan %name%"
+      change: "Vaihda muuttuja"
+      invalid: "Yksi sana, ensin kirjain"
     field_open:
       label: Avaa
     search_select:
@@ -1650,6 +1692,12 @@ fr:
     field_expression:
       to_expression: "Expression"
       to_value: "Valeur"
+    field_variable:
+      label: "Variable"
+      bind: "%label%"
+      bound: "Liée à %name%"
+      change: "Changer la variable"
+      invalid: "Un mot, une lettre d'abord"
     field_open:
       label: "Ouvrir"
     search_select:
@@ -1871,6 +1919,12 @@ he:
     field_expression:
       to_expression: ביטוי
       to_value: ערך
+    field_variable:
+      label: "משתנה"
+      bind: "%label%"
+      bound: "מקושר אל %name%"
+      change: "שינוי המשתנה"
+      invalid: "מילה אחת, אות תחילה"
     field_open:
       label: פתח
     search_select:
@@ -2092,6 +2146,12 @@ hi:
     field_expression:
       to_expression: व्यंजना
       to_value: मान
+    field_variable:
+      label: "चर"
+      bind: "%label%"
+      bound: "%name% से जुड़ा"
+      change: "चर बदलें"
+      invalid: "एक शब्द, पहले अक्षर"
     field_open:
       label: खोलें
     search_select:
@@ -2313,6 +2373,12 @@ id:
     field_expression:
       to_expression: Ekspresi
       to_value: Nilai
+    field_variable:
+      label: "Variabel"
+      bind: "%label%"
+      bound: "Terikat ke %name%"
+      change: "Ubah variabel"
+      invalid: "Satu kata, diawali huruf"
     field_open:
       label: Buka
     search_select:
@@ -2534,6 +2600,12 @@ it:
     field_expression:
       to_expression: Espressione
       to_value: Valore
+    field_variable:
+      label: "Variabile"
+      bind: "%label%"
+      bound: "Collegato a %name%"
+      change: "Cambia la variabile"
+      invalid: "Una parola, prima una lettera"
     field_open:
       label: Apri
     search_select:
@@ -2755,6 +2827,12 @@ ja:
     field_expression:
       to_expression: 式
       to_value: 値
+    field_variable:
+      label: "変数"
+      bind: "%label%"
+      bound: "%name% に紐付け"
+      change: "変数を変更"
+      invalid: "1語、先頭は英字"
     field_open:
       label: 開く
     search_select:
@@ -2976,6 +3054,12 @@ ko:
     field_expression:
       to_expression: 표현식
       to_value: 값
+    field_variable:
+      label: "변수"
+      bind: "%label%"
+      bound: "%name%에 연결됨"
+      change: "변수 변경"
+      invalid: "한 단어, 문자로 시작"
     field_open:
       label: 열기
     search_select:
@@ -3197,6 +3281,12 @@ nl:
     field_expression:
       to_expression: Expressie
       to_value: Waarde
+    field_variable:
+      label: "Variabele"
+      bind: "%label%"
+      bound: "Gekoppeld aan %name%"
+      change: "Variabele wijzigen"
+      invalid: "Eén woord, eerst een letter"
     field_open:
       label: Open
     search_select:
@@ -3418,6 +3508,12 @@ pl:
     field_expression:
       to_expression: Wyrażenie
       to_value: Wartość
+    field_variable:
+      label: "Zmienna"
+      bind: "%label%"
+      bound: "Powiązane z %name%"
+      change: "Zmień zmienną"
+      invalid: "Jedno słowo, najpierw litera"
     field_open:
       label: Otwórz
     search_select:
@@ -3639,6 +3735,12 @@ pt_BR:
     field_expression:
       to_expression: Expressão
       to_value: Valor
+    field_variable:
+      label: "Variável"
+      bind: "%label%"
+      bound: "Vinculado a %name%"
+      change: "Alterar a variável"
+      invalid: "Uma palavra, começando por uma letra"
     field_open:
       label: Abrir
     search_select:
@@ -3860,6 +3962,12 @@ ru:
     field_expression:
       to_expression: Выражение
       to_value: Значение
+    field_variable:
+      label: "Переменная"
+      bind: "%label%"
+      bound: "Связано с %name%"
+      change: "Изменить переменную"
+      invalid: "Одно слово, сначала буква"
     field_open:
       label: Открыть
     search_select:
@@ -4081,6 +4189,12 @@ th:
     field_expression:
       to_expression: นิพจน์
       to_value: ค่า
+    field_variable:
+      label: "ตัวแปร"
+      bind: "%label%"
+      bound: "ผูกกับ %name%"
+      change: "เปลี่ยนตัวแปร"
+      invalid: "หนึ่งคำ ขึ้นต้นด้วยตัวอักษร"
     field_open:
       label: เปิด
     search_select:
@@ -4302,6 +4416,12 @@ tr:
     field_expression:
       to_expression: İfade
       to_value: Değer
+    field_variable:
+      label: "Değişken"
+      bind: "%label%"
+      bound: "%name% ile bağlı"
+      change: "Değişkeni değiştir"
+      invalid: "Tek kelime, önce bir harf"
     field_open:
       label: Aç
     search_select:
@@ -4523,6 +4643,12 @@ ur:
     field_expression:
       to_expression: اظہار
       to_value: قدر
+    field_variable:
+      label: "متغیر"
+      bind: "%label%"
+      bound: "%name% سے منسلک"
+      change: "متغیر تبدیل کریں"
+      invalid: "ایک لفظ، پہلے حرف"
     field_open:
       label: کھولیں
     search_select:
@@ -4744,6 +4870,12 @@ vi:
     field_expression:
       to_expression: 'Biểu thức'
       to_value: 'Giá trị'
+    field_variable:
+      label: "Biến"
+      bind: "%label%"
+      bound: "Gắn với %name%"
+      change: "Đổi biến"
+      invalid: "Một từ, bắt đầu bằng chữ cái"
     field_open:
       label: Mở
     search_select:
@@ -4965,6 +5097,12 @@ zh:
     field_expression:
       to_expression: 表达式
       to_value: 值
+    field_variable:
+      label: "变量"
+      bind: "%label%"
+      bound: "已绑定到 %name%"
+      change: "更改变量"
+      invalid: "一个词，以字母开头"
     field_open:
       label: 打开
     search_select:

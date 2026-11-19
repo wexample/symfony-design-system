@@ -5,15 +5,19 @@
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/extension/versions') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/extension/expression') -}}
     {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/extension/open') -}}
+    {{- vue_require(render_pass, '@WexampleSymfonyDesignSystemBundle/components/form/extension/variable') -}}
 {%- endblock -%}
 
 {#- An extension around the control: given the field's value, giving it
-    back; one standing in for the control says so. -#}
+    back, and its name — what one holding a value of its own sends it
+    beside (`<field>__<extension>`) —; one standing in for the control says
+    so. -#}
 {%- block field_extension -%}
     <component
             :is="extension.component"
             :class="'form--extension form--extension--' + extension.name"
             v-bind="extension.options"
+            :field-name="name"
             :model-value="modelValue"
             @update:model-value="$emit('update:modelValue', $event)"
             @control="controlReplaced = $event"

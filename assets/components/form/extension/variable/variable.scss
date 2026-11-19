@@ -1,0 +1,37 @@
+/* Component: form/extension/variable */
+// The field bound to a variable: its glyph lit while bound, the name beside
+// it, written in place — in the field's first strip, or its own.
+@use '../footer';
+@use '../../../../css/shapes/action-icon';
+
+.field-variable--strip {
+  @include footer.strip;
+}
+
+.field-variable--items {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+// The name, read as code, written over in place.
+.field-variable--name {
+  padding: 0 var(--space-1);
+  border: 0;
+  background: none;
+  color: var(--text-color-default);
+  font: inherit;
+  cursor: pointer;
+}
+
+.field-variable--input {
+  width: 10rem;
+  height: 1.5rem;
+  padding-block: 0;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-2);
+}
+
+.field-variable--input.is-invalid {
+  border-color: var(--error-11);
+}

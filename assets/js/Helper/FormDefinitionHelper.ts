@@ -296,6 +296,21 @@ export function formDefinitionAppend(data: FormData, name: string, field: FormDe
   }
 }
 
+// The values a field's extensions hold of their own — an extension whose
+// definition carries `value` (`field_base.schema.json`): the variable the
+// field is bound to —, each under `<field>__<extension>`, beside the field.
+export function formDefinitionExtensionKey(field: string, extension: string): string {
+  return `${field}__${extension}`;
+}
+
+export function formDefinitionExtensionValues(field: FormDefinitionField): Record<string, unknown> {
+  return Object.fromEntries(
+    Object.entries(field.extensions ?? {})
+      .filter(([, options]) => options && typeof options === 'object' && Object.prototype.hasOwnProperty.call(options, 'value'))
+      .map(([extension, options]) => [formDefinitionExtensionKey(field.name, extension), options.value ?? null])
+  );
+}
+
 export function formDefinitionAction(form: FormDefinition, id: string | null = null): string {
   return id ? form.action.replace(FORM_DEFINITION_ID_PLACEHOLDER, id) : form.action;
 }
@@ -311,6 +326,12 @@ export function formDefinitionData(form: FormDefinition, values: Record<string, 
     const own = FORM_DEFINITION_KINDS_HELD.includes(field.type) ? formDefinitionStartValue(field) : field.value;
 
     formDefinitionAppend(data, formDefinitionFullName(form, field.name), field, field.name in values ? values[field.name] : own);
+
+    // What its extensions hold, as given — none, sent empty: unbound.
+    Object.entries(formDefinitionExtensionValues(field)).forEach(([key, start]) => {
+      const value = key in values ? values[key] : start;
+      data.append(formDefinitionFullName(form, key), value === null || value === undefined ? '' : String(value));
+    });
   });
 
   if (form.token) {
