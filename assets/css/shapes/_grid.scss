@@ -50,3 +50,9 @@
     flex: 1 1 var(--grid-aside);
   }
 }
+
+// Two cards side by side read as one row — a chart and the one beside it —:
+// as tall as each other, the shorter one stretched to the taller.
+.grid--aside--even {
+  align-items: stretch;
+}
