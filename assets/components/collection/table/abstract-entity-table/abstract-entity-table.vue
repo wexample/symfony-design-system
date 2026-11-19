@@ -189,7 +189,9 @@ export default {
       const state = uiStateGet(this.app, `ui.table.${key}`, null);
       if (state) {
         this.sort = state.sort ?? this.sort;
-        this.barFilterValues = state.filters ?? this.barFilterValues;
+        // A filter the kept state does not name — one added since — keeps
+        // the table's default.
+        this.barFilterValues = { ...this.barFilterValues, ...(state.filters ?? {}) };
         this.page = state.page ?? this.page;
       }
 
