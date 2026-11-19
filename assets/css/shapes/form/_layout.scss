@@ -21,6 +21,10 @@
   // and scroll the page sideways.
   grid-template-columns: minmax(0, 1fr);
   gap: var(--space-2);
+  // Stretched to a taller neighbour — two fields side by side, one with a
+  // help under it —, its rows stay at the top: the room left goes under the
+  // field, not into its label, so the two inputs stand on one line.
+  align-content: start;
 }
 
 // The one thing asked on its step — a name, an address —, set large: the
