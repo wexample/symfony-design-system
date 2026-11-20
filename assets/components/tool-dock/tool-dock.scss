@@ -58,6 +58,21 @@
   height: auto;
 }
 
+// A page it loads stands inset as what the page drew does; one filling the
+// room (`page--fill`) or opening zones of its own — a chat keeping its input
+// at the foot, an editor — lays out its own regions, edge to edge.
+// It then takes the frame's whole height and hands it down, as a fill does.
+.tool-dock--page:has(.embed-body > .page--fill, .embed-body--zones) {
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+
+  > .embed {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+}
+
 // Its name, a label of the chrome and not a heading of the page: in the bar's
 // own size, muted as a panel's title is.
 .tool-dock--head-label {

@@ -2,9 +2,9 @@ What a tool of the dock opens (`tool_dock()`, *Tools beside the page* in `usage/
 
 ## The head
 
-A compact bar (`toolbar toolbar--compact zone--head tool-dock--head`) keeping still at the panel's top: the tool's `label` at its start, the actions of what it holds at its end — an icon each, its words in its tooltip. A tool declares nothing for it: the head is drawn with every panel holding `content` or a `content_block`.
+A compact bar (`toolbar toolbar--compact zone--head tool-dock--head`) keeping still at the panel's top: the tool's `label` at its start, the actions of what it holds at its end — an icon each, its words in its tooltip. A tool declares nothing for it: the head is drawn with every panel — `content`, a `content_block`, or a page it loads (`url`).
 
-A tool loading a page (`url`) gets none: a page has its own regions and heads them itself — the conversations, a column of faces beside a chat, head the chat alone, with who one talks with and the chat's sound.
+A page it loads (`url`) is inset as a panel's content is, and edge to edge when it fills the room (`page--fill`) or opens zones of its own — its tabs, its search keeping still while the rest scrolls (the knowledge base of Syrtis). A page heading its own regions says so on its tool (`head: false`): the conversations, a column of faces beside a chat headed by who one talks with and the chat's sound.
 
 What a panel holds never draws a bar of its own for its actions — adding one to a list, switching a chat's sound —: it hands them to the head.
 

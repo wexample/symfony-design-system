@@ -112,6 +112,11 @@ class ToolDockExtension extends AbstractTemplateExtension
      * when it is sized by the room rather than by what it holds (`fill`): an
      * editor.
      *
+     * Every zone has a head — the tool's label, the actions of what it holds
+     * (components/zone-head-actions) —, a page it loads as well, unless the
+     * page heads its own regions (`head: false`): the conversations, a column
+     * of faces beside a chat headed by who one talks with.
+     *
      * An icon given an `href` opens no zone: it is a link of the bar, opening
      * its page where its `target` says — `panel`, `modal`, `dock` (as
      * button_target does), `_blank` for another window, or in place when
@@ -193,6 +198,7 @@ class ToolDockExtension extends AbstractTemplateExtension
                 'url' => $tool['url'] ?? null,
                 'content' => $tool['content'] ?? null,
                 'fill' => (bool) ($tool['fill'] ?? false),
+                'head' => (bool) ($tool['head'] ?? true),
                 'href' => $href,
                 'target' => $tool['target'] ?? null,
                 'count' => isset($tool['count']) ? (int) $tool['count'] : null,

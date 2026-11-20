@@ -29,12 +29,12 @@
             {#- Its head: the tool's name, and the actions of what it holds —
                 adding one to a list —, which its content sends there
                 (components/zone-head-actions) rather than drawing a bar of its
-                own. Not over a page it loads (`url`): a page has its own
-                regions, and heads them itself. Under it, what a tool holds
-                scrolls inside the frame, which keeps still, its handle hanging
-                past it. -#}
+                own. A page it loads (`url`) is headed the same, unless it heads
+                its own regions (`head: false`): the conversations. Under it,
+                what a tool holds scrolls inside the frame, which keeps still,
+                its handle hanging past it. -#}
             <div class="tool-dock--frame">
-                {%- if not tool.url -%}
+                {%- if tool.head -%}
                     <div class="toolbar toolbar--compact zone--head tool-dock--head">
                         <span class="toolbar--title tool-dock--head-label">{{ tool.label }}</span>
                         <div class="toolbar--group" data-zone-head-actions></div>
@@ -42,11 +42,15 @@
                 {%- endif -%}
                 <div class="zone zone--scrollable">
                     {%- if tool.url -%}
-                        {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/embed', {
-                            name: tool.zone,
-                            src: tool.url,
-                            lazy: true,
-                        }) }}
+                        {#- Inset as what the page drew is, a page filling the
+                            room (`page--fill`) edge to edge: tool-dock.scss. -#}
+                        <div class="zone--content tool-dock--page">
+                            {{ component(render_pass, '@WexampleSymfonyDesignSystemBundle/components/embed', {
+                                name: tool.zone,
+                                src: tool.url,
+                                lazy: true,
+                            }) }}
+                        </div>
                     {%- elseif tool.fill -%}
                         <div class="zone--content zone--content--flush"><div class="page--fill">{{ tool.content|raw }}</div></div>
                     {%- else -%}
