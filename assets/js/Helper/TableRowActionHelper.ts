@@ -17,3 +17,17 @@ export function sortActionsByRel<T extends { rel?: string | null }>(actions: T[]
   // Array.prototype.sort is stable: equal ranks keep the order they came in.
   return [...actions].sort((a, b) => rank(a) - rank(b));
 }
+
+// What an action a table names (`actions: ['show']`) is to its row, the
+// server's own vocabulary: the eye opens it. So a column's `link: 'open'`
+// finds it as it finds an action TableRowActionHelper.php wrote.
+const NAME_RELS: Record<string, string> = {
+  show: 'open',
+  open: 'open',
+  edit: 'edit',
+  delete: 'delete',
+};
+
+export function relOfActionName(name?: string | null): string | null {
+  return NAME_RELS[name ?? ''] ?? null;
+}

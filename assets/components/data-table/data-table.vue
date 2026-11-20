@@ -14,7 +14,7 @@ import { filterMatches, filterTextMatches } from '../../js/Helper/FilterHelper';
 import { sortApply, sortAria, sortNext, sortValueAt } from '../../js/Helper/SortHelper';
 import { filterSelected } from '../../js/Helper/FilterHelper';
 import { rowLinkClick } from '../../js/Helper/RowLinkHelper';
-import { sortActionsByRel } from '../../js/Helper/TableRowActionHelper';
+import { sortActionsByRel, relOfActionName } from '../../js/Helper/TableRowActionHelper';
 import { numberFormat } from '../../js/Helper/NumberHelper';
 import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
 
@@ -793,7 +793,7 @@ export default {
           handler: typeof action === 'object' && typeof action.handler === 'function'
             ? () => action.handler(row, column)
             : null,
-          rel: typeof action === 'object' ? (action.rel ?? null) : null,
+          rel: (typeof action === 'object' ? action.rel : null) ?? relOfActionName(actionName),
         };
       }).filter((entry) => entry.icon));
     },
