@@ -3,6 +3,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  // Too narrow for both groups on one line — a phone —, the second goes under
+  // the first instead of running past the edge.
+  flex-wrap: wrap;
   gap: var(--space-3);
   padding: var(--space-3) var(--space-4);
   border-top: var(--border-separator);
@@ -13,6 +16,7 @@
 
 .meta-bar--group {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-2);
 }
