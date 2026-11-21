@@ -17,7 +17,9 @@ class TextLinkExtension extends AbstractTemplateExtension
             new TwigFunction(
                 'text_link',
                 function (Environment $twig, $context, string $href, string $label, array $options = []): string {
-                    return $this->renderComponent(
+                    // Trimmed: the template's closing line break would otherwise
+                    // stand between the link and the punctuation after it.
+                    return trim($this->renderComponent(
                         $twig,
                         $context,
                         '@WexampleSymfonyDesignSystemBundle/components/text-link',
@@ -27,7 +29,7 @@ class TextLinkExtension extends AbstractTemplateExtension
                             'external' => $options['external'] ?? false,
                             'class' => $options['class'] ?? null,
                         ]
-                    );
+                    ));
                 },
                 self::TEMPLATE_FUNCTION_OPTIONS
             ),
