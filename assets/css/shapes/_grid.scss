@@ -6,7 +6,10 @@
   display: grid;
   gap: var(--grid-gap);
   width: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min), 1fr));
+  // A column never wider than the grid itself: narrower than `--grid-min` — a
+  // phone —, the grid is one column of its own width instead of running past
+  // the edge.
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min), 100%), 1fr));
 }
 
 @for $i from 1 through 12 {
@@ -25,7 +28,7 @@
 }
 
 .grid--fixed {
-  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min), var(--grid-max)));
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min), 100%), var(--grid-max)));
   justify-content: start;
 }
 

@@ -4,6 +4,10 @@
 
 .form {
   display: grid;
+  // One column, as wide as the form and no wider: left to itself, the column
+  // took what its widest field asked for — a grid of fields side by side —
+  // and the form ran past a phone's edge.
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-4);
 }
 
