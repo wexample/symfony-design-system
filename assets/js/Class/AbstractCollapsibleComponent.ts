@@ -27,6 +27,8 @@ export default abstract class AbstractCollapsibleComponent extends Component {
 
   protected setOpen(open: boolean): void {
     this.el.classList.toggle('is-open', open);
+    // The toggle says whether it is open, for whoever cannot see the caret turn.
+    this.toggleEl?.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
 
   public async revealAgentChild(child: AgentNodeProviderInterface): Promise<void> {

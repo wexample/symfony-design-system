@@ -17,7 +17,8 @@
             <span class="menu--item--icon">{{ icon(_icon_name) }}</span>
             <span class="menu--item--label">{{ _label }}</span>
         </a>
-        <button class="menu-item-collapsible--toggle" type="button">{{ icon('ph:bold/caret-down') }}</button>
+        {#- An icon alone: the entry's label names it for a screen reader. -#}
+        <button class="menu-item-collapsible--toggle" type="button" aria-label="{{ _label }}" aria-expanded="{{ is_open ? 'true' : 'false' }}">{{ icon('ph:bold/caret-down') }}</button>
     </div>
     <div class="menu-item-collapsible--sub">{{ content | raw }}</div>
 </li>
