@@ -193,6 +193,8 @@ class TableExtension extends AbstractTemplateExtension
                 // A figure below zero drawn in the error tone: asked by the
                 // column, for a quantity whose sign is news — a shortfall.
                 'negative' => $column['negative'] ?? false,
+                // A change: its sign said and toned either way, + for a rise.
+                'signed' => $column['signed'] ?? false,
                 // Sortable only when the column says so, on a key that may not be
                 // the one it shows: a date sorts on its value, a name on the last.
                 'sortable' => $column['sortable'] ?? false,
