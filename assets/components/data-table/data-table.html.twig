@@ -346,10 +346,13 @@
 {#- A figure in the page's locale, `digits` decimals at most, then its unit
     set back — the rows and the totals under them alike. A value already
     worded, « 124/75 », is kept as it is. Below zero, a column saying
-    `negative` draws it in the error tone. -#}
+    `negative` draws it in the error tone; a column saying `signed` is a
+    change, its sign said and toned either way. -#}
 {%- macro figure(value, column) -%}
     {%- if value is not same as(null) and value is not same as('') -%}
-        <span class="table--quantity{{ column.negative and value < 0 ? ' table--quantity--negative' }}">
+        {%- set signed = column.signed|default(false) and value is not iterable and value matches '/^-?[0-9.]+$/' -%}
+        <span class="table--quantity{{ column.negative|default(false) and value < 0 ? ' table--quantity--negative' }}{{ signed and value > 0 ? ' table--quantity--up' }}{{ signed and value < 0 ? ' table--quantity--down' }}">
+            {{- signed and value > 0 ? '+' -}}
             {{- value|table_number(column.digits) -}}
             {%- if column.unit -%}&nbsp;<span class="table--unit">{{ column.unit }}</span>{%- endif -%}
         </span>

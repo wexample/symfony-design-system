@@ -6,7 +6,7 @@ while the page is open.
 
 ## Columns and cells
 
-A column is `{ key, label, cell, align, width, className, secondary, unit, digits, negative }`. `cell` says how a value is
+A column is `{ key, label, cell, align, width, className, secondary, unit, digits, negative, signed }`. `cell` says how a value is
 drawn: `date`, `html`, `status` (a marker: a type name, or `{ type, count, title, label }`),
 `path` (a file path: the name whole, the folders before it cut from their start — the
 `file-path` component, `file_path()` in twig), `code` (an identifier — a reference, an
@@ -35,6 +35,23 @@ is. The cell never wraps. It is asked column by column, never guessed from the v
 (`table--quantity--negative`), where the sign is news — a shortfall, a delay. The minus sign
 says it as well, so the colour is never alone. Asked by the column: a temperature below zero
 is no alarm.
+
+`signed: true` makes a column of changes — a gain, a return, a move since yesterday: the sign
+is written either way, + for a rise, and the figure toned either way, a rise in the success
+tone (`table--quantity--up`), a fall in the error one (`table--quantity--down`). The two
+colours are the `--table-quantity-up-color` and `--table-quantity-down-color` variables, for
+a domain or a public that reads them the other way round. A figure that is not a change — a
+worth, a count, a drawdown always below zero — is not signed: toned, every row of it would
+shout the same thing.
+
+## What changed
+
+The vue table lights a cell a moment when a refresh changes what it says (`table--cell--changed`):
+in the success tone for a figure that rose, the error one for a figure that fell, neutral for
+a word. What moves on a list read again every few seconds is seen without being looked for.
+The first rows light nothing, and only a table given a `rowKey` lights at all: by position, a
+row moving up would read as every cell of the rows it passed changing. Without movement
+(`prefers-reduced-motion`), the light is held then dropped at once.
 
 ## Totals
 

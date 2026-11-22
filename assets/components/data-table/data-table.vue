@@ -18,6 +18,9 @@ import { sortActionsByRel, relOfActionName } from '../../js/Helper/TableRowActio
 import { numberFormat } from '../../js/Helper/NumberHelper';
 import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
 
+// How long a cell whose value just changed stays lit.
+const CHANGED_MS = 1500;
+
 const translated = buildTranslatedBindings({
   resolvedEmptyFilteredLabel: [
     'emptyFilteredLabel',
@@ -272,8 +275,21 @@ export default {
       search: '',
       // Said to a screen reader once a header is pressed, not on load.
       statusMessage: '',
-      page: 0
+      page: 0,
+      // The cells whose value just changed, by row and column key: which way
+      // a figure went (`up`, `down`), or `changed`.
+      changedCells: {}
     };
+  },
+
+  created() {
+    // Not reactive: when each lit cell goes out.
+    this.changedTimers = new Map();
+  },
+
+  beforeUnmount() {
+    this.changedTimers.forEach((timer) => clearTimeout(timer));
+    this.changedTimers.clear();
   },
 
   computed: {
@@ -285,6 +301,34 @@ export default {
 
     resolvedSort() {
       return this.sort ?? this.ownSort ?? this.defaultSort;
+    },
+
+    // What each cell says, by row and column key — only where rows keep a
+    // key across refreshes (`rowKey`): by position, a row moving would read
+    // as every cell changing.
+    cellSnapshot() {
+      const snapshot = new Map();
+      if (!this.rowKey) {
+        return snapshot;
+      }
+
+      (this.rows || []).forEach((row) => {
+        if (this.isGroupRow(row)) {
+          return;
+        }
+        this.columns.forEach((column, columnIndex) => {
+          if (['actions', 'select'].includes(column?.cell)) {
+            return;
+          }
+          const value = this.getCellValue(row, column);
+          snapshot.set(
+            `${this.getRowKey(row)}\u0000${this.getColumnKey(column, columnIndex)}`,
+            value !== null && typeof value === 'object' ? JSON.stringify(value) : String(value ?? '')
+          );
+        });
+      });
+
+      return snapshot;
     },
 
     // The rows the table works on: all it was given, or those passing its
@@ -387,6 +431,35 @@ export default {
   },
 
   watch: {
+    // A refresh that changes what a cell says lights it a moment, in the tone
+    // of the way a figure went: what moves is seen without being looked for.
+    // The first rows light nothing — nothing has moved yet.
+    cellSnapshot(next, previous) {
+      if (!previous || !previous.size) {
+        return;
+      }
+
+      next.forEach((text, key) => {
+        if (!previous.has(key) || previous.get(key) === text) {
+          return;
+        }
+
+        const before = Number(previous.get(key));
+        const after = Number(text);
+        const way = text !== '' && previous.get(key) !== '' && !Number.isNaN(before) && !Number.isNaN(after)
+          ? (after > before ? 'up' : 'down')
+          : 'changed';
+
+        this.changedCells = { ...this.changedCells, [key]: way };
+        clearTimeout(this.changedTimers.get(key));
+        this.changedTimers.set(key, setTimeout(() => {
+          const { [key]: gone, ...kept } = this.changedCells;
+          this.changedCells = kept;
+          this.changedTimers.delete(key);
+        }, CHANGED_MS));
+      });
+    },
+
     // What is no longer on screen cannot be acted on: a refresh, a filter or a
     // page turn drops the keys it took away.
     shownRows() {
@@ -1208,10 +1281,33 @@ export default {
       return !!column?.negative && value !== null && value !== '' && Number(value) < 0;
     },
 
+    // The tone of a figure: below zero where the column says the sign is news
+    // (`negative`), either way where the column is a change (`signed`) — up
+    // and down.
+    getQuantityClass(value, column) {
+      const figure = value === null || value === '' ? NaN : Number(value);
+
+      return {
+        'table--quantity--negative': this.isNegative(value, column),
+        'table--quantity--up': !!column?.signed && figure > 0,
+        'table--quantity--down': !!column?.signed && figure < 0
+      };
+    },
+
     // A quantity's figure, in the page's locale (`digits` decimals at most);
-    // a value already worded — « 124/75 » — as it is.
+    // a value already worded — « 124/75 » — as it is. A change says its sign
+    // either way (`signed`): + for a rise.
     formatNumber(value, column) {
-      return numberFormat(value, column?.digits ?? 2, this.sortLocale);
+      const text = numberFormat(value, column?.digits ?? 2, this.sortLocale);
+
+      return column?.signed && value !== null && value !== '' && Number(value) > 0 ? `+${text}` : text;
+    },
+
+    // A cell lit a moment after its value changed (`cellSnapshot`).
+    getCellChangedClass(row, column, columnIndex) {
+      const way = this.changedCells[`${this.getRowKey(row)}\u0000${this.getColumnKey(column, columnIndex)}`];
+
+      return way ? `table--cell--changed table--cell--changed-${way}` : null;
     },
 
     getDateFormat(column) {

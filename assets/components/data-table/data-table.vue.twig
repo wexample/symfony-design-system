@@ -199,7 +199,7 @@
                         :key="getColumnKey(column, columnIndex)"
                         :data-column-key="getColumnKey(column, columnIndex)"
                         class="table--cell"
-                        :class="getColumnClass(column)"
+                        :class="[getColumnClass(column), getCellChangedClass(row, column, columnIndex)]"
                 >
                     {#- One column's cells drawn by the parent, `cell:<key>` — an
                         input where the value can be changed —, the others drawn
@@ -363,7 +363,7 @@
                             <span
                                     v-if="getCellValue(row, column) !== null && getCellValue(row, column) !== ''"
                                     class="table--quantity"
-                                    :class="{ 'table--quantity--negative': isNegative(getCellValue(row, column), column) }"
+                                    :class="getQuantityClass(getCellValue(row, column), column)"
                             >[[ formatNumber(getCellValue(row, column), column) ]]<template v-if="column.unit">&nbsp;<span class="table--unit">[[ column.unit ]]</span></template></span>
                         </template>
                         <template v-else>
@@ -423,7 +423,7 @@
                 <span
                         v-if="isNumberCell(column) && getCellValue(totals, column) !== null && getCellValue(totals, column) !== ''"
                         class="table--quantity"
-                        :class="{ 'table--quantity--negative': isNegative(getCellValue(totals, column), column) }"
+                        :class="getQuantityClass(getCellValue(totals, column), column)"
                 >[[ formatNumber(getCellValue(totals, column), column) ]]<template v-if="column.unit">&nbsp;<span class="table--unit">[[ column.unit ]]</span></template></span>
                 <template v-else-if="!isNumberCell(column)">[[ getCellValue(totals, column) ]]</template>
             </td>

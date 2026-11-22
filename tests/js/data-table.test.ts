@@ -375,3 +375,40 @@ test('below zero is news only where the column asks, and only for a figure', () 
   assert.equal(vm.isNegative('', NET), false);
   assert.equal(vm.isNegative(-4, { key: 'net', cell: 'number' }), false);
 });
+
+// A change column (`signed`): its sign said either way, a rise and a fall
+// each in its tone; a bare figure column says neither.
+test('a signed figure says its sign and its way', () => {
+  const { vm } = mount({ rows: [], columns: [] });
+  const change = { key: 'gain', signed: true, unit: '%', digits: 1 };
+
+  assert.equal(vm.formatNumber(4.2, change).startsWith('+'), true);
+  assert.equal(vm.formatNumber(-4.2, change).startsWith('+'), false);
+  assert.equal(vm.formatNumber(4.2, { key: 'gain' }).startsWith('+'), false);
+  assert.deepEqual(vm.getQuantityClass(4.2, change), { 'table--quantity--negative': false, 'table--quantity--up': true, 'table--quantity--down': false });
+  assert.deepEqual(vm.getQuantityClass(-1, change), { 'table--quantity--negative': false, 'table--quantity--up': false, 'table--quantity--down': true });
+  assert.deepEqual(vm.getQuantityClass('', change), { 'table--quantity--negative': false, 'table--quantity--up': false, 'table--quantity--down': false });
+});
+
+// A refresh lights the cells it changed, in the way a figure went; the first
+// rows light nothing, and a table without row keys never lights.
+test('a refresh lights the cells it changed', () => {
+  const columns = [{ key: 'name' }, { key: 'worth', unit: 'USDT' }];
+  const { vm } = mount({ rows: [{ id: 1, name: 'a', worth: 10 }, { id: 2, name: 'b', worth: 5 }], columns, rowKey: (row: any) => row.id });
+  vm.changedTimers = new Map();
+  const first = vm.cellSnapshot;
+
+  DataTable.watch.cellSnapshot.call(vm, first, new Map());
+  assert.deepEqual(vm.changedCells, {});
+
+  vm.rows = [{ id: 1, name: 'a', worth: 12 }, { id: 2, name: 'c', worth: 4 }];
+  DataTable.watch.cellSnapshot.call(vm, vm.cellSnapshot, first);
+  assert.equal(vm.getCellChangedClass(vm.rows[0], columns[1], 1), 'table--cell--changed table--cell--changed-up');
+  assert.equal(vm.getCellChangedClass(vm.rows[1], columns[1], 1), 'table--cell--changed table--cell--changed-down');
+  assert.equal(vm.getCellChangedClass(vm.rows[1], columns[0], 0), 'table--cell--changed table--cell--changed-changed');
+  assert.equal(vm.getCellChangedClass(vm.rows[0], columns[0], 0), null);
+  vm.changedTimers.forEach((timer: any) => clearTimeout(timer));
+
+  const keyless = mount({ rows: [{ worth: 1 }], columns }).vm;
+  assert.equal(keyless.cellSnapshot.size, 0);
+});

@@ -311,7 +311,51 @@
 // Below zero, where the column says the sign is news — a shortfall, a delay.
 // The minus sign says it too: the colour is never alone.
 .table--quantity--negative {
-  color: var(--error-11);
+  color: var(--table-quantity-down-color, var(--error-11));
+}
+
+// A change, either way (`signed`): a rise in the success tone, a fall in the
+// error one — the + and the − say it too. The two colours are variables, for
+// a domain whose readers expect them the other way round.
+.table--quantity--up {
+  color: var(--table-quantity-up-color, var(--success-11));
+}
+
+.table--quantity--down {
+  color: var(--table-quantity-down-color, var(--error-11));
+}
+
+// A cell whose value a refresh just changed: lit, then let go — in the tone
+// of the way a figure went, neutral for a word.
+@keyframes table-cell-changed {
+  from {
+    background-color: var(--table-cell-changed-color);
+  }
+
+  to {
+    background-color: transparent;
+  }
+}
+
+.table--cell--changed {
+  --table-cell-changed-color: color-mix(in srgb, var(--neutral-12) 16%, transparent);
+
+  animation: table-cell-changed 1500ms ease-out;
+}
+
+.table--cell--changed-up {
+  --table-cell-changed-color: color-mix(in srgb, var(--success-9) 28%, transparent);
+}
+
+.table--cell--changed-down {
+  --table-cell-changed-color: color-mix(in srgb, var(--error-9) 28%, transparent);
+}
+
+// Without movement: held, then gone at once.
+@media (prefers-reduced-motion: reduce) {
+  .table--cell--changed {
+    animation-timing-function: steps(1, end);
+  }
 }
 
 // An identifier in the mono face, a step smaller: a mono face reads larger

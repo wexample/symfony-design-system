@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 const STUBS = {
   '@wexample/js-api/Helper/Assistance': './stubs/Assistance.mjs',
   '@wexample/symfony-loader/js/Class/App': './stubs/App.mjs',
+  '@wexample/symfony-loader/js/Class/AgentNavigation': './stubs/AgentNavigation.mjs',
   '@wexample/js-helpers/Helper/Bytes': './stubs/Bytes.mjs',
   '@wexample/js-helpers/Helper/Keyboard': './stubs/Keyboard.mjs',
   '@wexample/js-api-entity/Helper/ApiEntityCollectionHelper': './stubs/ApiEntityCollectionHelper.mjs',
