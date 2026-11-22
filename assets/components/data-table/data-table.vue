@@ -4,6 +4,7 @@ import Spinner from '../spinner/spinner.vue';
 import ButtonTarget from '../button-target/button-target.vue';
 import Marker from '../marker/marker.vue';
 import Pagination from '../pagination/pagination.vue';
+import ProgressBar from '../progress-bar/progress-bar.vue';
 import FilePath from '../file-path/file-path.vue';
 import FilterBar from '../filter-bar/filter-bar.vue';
 import SearchInput from '../search-input/search-input.vue';
@@ -45,6 +46,7 @@ export default {
     FilePath,
     FilterBar,
     Pagination,
+    ProgressBar,
     SearchInput,
     Spinner,
     // Registered as `capsule`: `marker` is an svg element, which vue refuses
@@ -380,7 +382,7 @@ export default {
       return this.columns.filter((column) => typeof column === 'string' || (
         column?.searchable !== false
         && !this.hasCellActions(column)
-        && !['status', 'date', 'html'].includes(column?.cell)
+        && !['status', 'progress', 'date', 'html'].includes(column?.cell)
       ));
     },
 
@@ -517,6 +519,16 @@ export default {
 
     isMarkerCell(column) {
       return column?.cell === 'status';
+    },
+
+    // How far a thing got (`cell: 'progress'`): { current, total, type }, the
+    // count beside a short bar — none without a total.
+    isProgressCell(column) {
+      return column?.cell === 'progress';
+    },
+
+    getProgress(value) {
+      return value && typeof value === 'object' && Number(value.total) > 0 ? value : null;
     },
 
     // A type name, or { type, count, title, label }: the circle says which

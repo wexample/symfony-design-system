@@ -8,6 +8,8 @@ while the page is open.
 
 A column is `{ key, label, cell, align, width, className, secondary, unit, digits, negative, signed }`. `cell` says how a value is
 drawn: `date`, `html`, `status` (a marker: a type name, or `{ type, count, title, label }`),
+`progress` (how far a thing got: `{ current, total, type }`, the count beside a short bar on
+the row's line — the compact `progress-bar`),
 `path` (a file path: the name whole, the folders before it cut from their start — the
 `file-path` component, `file_path()` in twig), `code` (an identifier — a reference, an
 order number — in the mono face, never broken), `number` (a figure, see below), or nothing
@@ -39,8 +41,8 @@ is no alarm.
 `signed: true` makes a column of changes — a gain, a return, a move since yesterday: the sign
 is written either way, + for a rise, and the figure toned either way, a rise in the success
 tone (`table--quantity--up`), a fall in the error one (`table--quantity--down`). The two
-colours are the `--table-quantity-up-color` and `--table-quantity-down-color` variables, for
-a domain or a public that reads them the other way round. A figure that is not a change — a
+colours are the `--color-trend-up` and `--color-trend-down` roles, which a sparkline's line
+reads too: a public that reads them the other way round sets the two roles again. A figure that is not a change — a
 worth, a count, a drawdown always below zero — is not signed: toned, every row of it would
 shout the same thing.
 

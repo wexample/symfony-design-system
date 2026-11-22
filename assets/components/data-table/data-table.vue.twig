@@ -250,6 +250,17 @@
                                     :data-tooltip="getCellValue(row, column)"
                             >[[ getCellValue(row, column) ]]</span>
                         </template>
+                        <template v-else-if="isProgressCell(column)">
+                            <progress-bar
+                                    v-if="getProgress(getCellValue(row, column))"
+                                    :current="getProgress(getCellValue(row, column)).current"
+                                    :total="getProgress(getCellValue(row, column)).total"
+                                    :type="getProgress(getCellValue(row, column)).type || 'info'"
+                                    :show-value="true"
+                                    value-format="count"
+                                    size="compact"
+                            ></progress-bar>
+                        </template>
                         <template v-else-if="isMarkerCell(column)">
                             <capsule
                                     v-if="getMarker(getCellValue(row, column))"

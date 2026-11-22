@@ -49,6 +49,14 @@
   --color-link: var(--neutral-9);
   --color-link-hover: var(--neutral-10);
 
+  // A figure's way: what rose, what fell — a gain and a loss, a change, a
+  // line that ended higher or lower than it began. Inks, read on any ground.
+  // Roles rather than the success and error scales: a public that reads them
+  // the other way round sets these two again, and every table and every line
+  // follows.
+  --color-trend-up: var(--success-11);
+  --color-trend-down: var(--error-11);
+
   // Activity: what goes in, what comes out, and the rest.
   --color-activity-default: var(--neutral-10);
   --color-activity-input: var(--success-9);

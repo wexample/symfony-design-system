@@ -256,6 +256,18 @@
                             {%- if value is not same as(null) and value is not same as('') -%}
                                 <span class="table--clamp" style="--table-clamp: {{ column.lines }}" data-tooltip="{{ value }}">{{ value }}</span>
                             {%- endif -%}
+                        {%- elseif column.cell == 'progress' -%}
+                            {#- How far a thing got: { current, total, type },
+                                the count beside a short bar on the row's line. -#}
+                            {%- if value is iterable and value.total|default(0) > 0 -%}
+                                {{ progress(value.current|default(0), {
+                                    total: value.total,
+                                    type: value.type|default('info'),
+                                    show_value: true,
+                                    value_format: 'count',
+                                    size: 'compact',
+                                }) }}
+                            {%- endif -%}
                         {%- elseif column.cell == 'status' -%}
                             {#- A type name, or { type, count, tooltip, label } —
                                 `title` read as the tooltip too. One

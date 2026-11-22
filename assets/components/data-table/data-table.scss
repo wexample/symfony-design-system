@@ -311,18 +311,17 @@
 // Below zero, where the column says the sign is news — a shortfall, a delay.
 // The minus sign says it too: the colour is never alone.
 .table--quantity--negative {
-  color: var(--table-quantity-down-color, var(--error-11));
+  color: var(--color-trend-down);
 }
 
-// A change, either way (`signed`): a rise in the success tone, a fall in the
-// error one — the + and the − say it too. The two colours are variables, for
-// a domain whose readers expect them the other way round.
+// A change, either way (`signed`): in the trend roles — the + and the − say
+// it too.
 .table--quantity--up {
-  color: var(--table-quantity-up-color, var(--success-11));
+  color: var(--color-trend-up);
 }
 
 .table--quantity--down {
-  color: var(--table-quantity-down-color, var(--error-11));
+  color: var(--color-trend-down);
 }
 
 // A cell whose value a refresh just changed: lit, then let go — in the tone
@@ -344,11 +343,11 @@
 }
 
 .table--cell--changed-up {
-  --table-cell-changed-color: color-mix(in srgb, var(--success-9) 28%, transparent);
+  --table-cell-changed-color: color-mix(in srgb, var(--color-trend-up) 24%, transparent);
 }
 
 .table--cell--changed-down {
-  --table-cell-changed-color: color-mix(in srgb, var(--error-9) 28%, transparent);
+  --table-cell-changed-color: color-mix(in srgb, var(--color-trend-down) 24%, transparent);
 }
 
 // Without movement: held, then gone at once.

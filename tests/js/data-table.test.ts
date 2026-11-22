@@ -412,3 +412,13 @@ test('a refresh lights the cells it changed', () => {
   const keyless = mount({ rows: [{ worth: 1 }], columns }).vm;
   assert.equal(keyless.cellSnapshot.size, 0);
 });
+
+// A progress cell draws { current, total } and nothing without a total.
+test('a progress cell needs a total', () => {
+  const { vm } = mount({ rows: [], columns: [] });
+
+  assert.equal(vm.isProgressCell({ cell: 'progress' }), true);
+  assert.deepEqual(vm.getProgress({ current: 3, total: 15 }), { current: 3, total: 15 });
+  assert.equal(vm.getProgress({ current: 3, total: 0 }), null);
+  assert.equal(vm.getProgress(''), null);
+});
