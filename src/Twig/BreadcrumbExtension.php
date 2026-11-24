@@ -88,7 +88,7 @@ class BreadcrumbExtension extends AbstractTemplateExtension
                         $context,
                         '@WexampleSymfonyDesignSystemBundle/components/breadcrumb',
                         [
-                            'items' => $this->nameItems($this->normalizeItems($this->buildStackWithCurrentRoute())),
+                            'items' => $this->nameItems($this->normalizeItems($this->buildStackWithCurrentRoute($options['root'] ?? null))),
                             'options' => $options,
                         ]
                     );
@@ -179,7 +179,12 @@ class BreadcrumbExtension extends AbstractTemplateExtension
         return $this->buildStackWithCurrentRoute();
     }
 
-    private function buildStackWithCurrentRoute(): array
+    /**
+     * @param string|null $root The route the trail starts from — a layout's
+     *                          own home, the signed-in side's rather than the
+     *                          public one at `/` —; the page at `/` when none.
+     */
+    private function buildStackWithCurrentRoute(?string $root = null): array
     {
         $request = $this->getCurrentRequest();
         if (! $request) {
@@ -195,7 +200,8 @@ class BreadcrumbExtension extends AbstractTemplateExtension
         if (empty($stack) && is_string($currentRoute)) {
             $stack = $this->buildAncestors(
                 $currentRoute,
-                $request->attributes->get('_route_params', [])
+                $request->attributes->get('_route_params', []),
+                $root
             );
         }
 
@@ -216,8 +222,9 @@ class BreadcrumbExtension extends AbstractTemplateExtension
 
     /**
      * The pages above the current one, read from its controller's namespace:
-     * the site's root first, then under `Controller\Pages` each level — a
-     * record, `Project/` — as the list of its kind beside it
+     * the site's root first — or the layout's own (`root`) —, then under
+     * `Controller\Pages` each level — a record, `Project/` — as the list of
+     * its kind beside it
      * (`ProjectController`) and the record's own home (`Project/HomeController`);
      * a level with neither gives its first index (`findIndexRoute`), kept only
      * when its controller stands above the current one. Then the controller's
@@ -225,7 +232,7 @@ class BreadcrumbExtension extends AbstractTemplateExtension
      *
      * @return array<array{route: string, params: array}>
      */
-    private function buildAncestors(string $currentRoute, array $currentParams): array
+    private function buildAncestors(string $currentRoute, array $currentParams, ?string $trailRoot = null): array
     {
         $route = $this->router->getRouteCollection()->get($currentRoute);
         $controller = $route ? ClassHelper::getClassPath($route->getDefaults()['_controller'] ?? '') : '';
@@ -243,7 +250,7 @@ class BreadcrumbExtension extends AbstractTemplateExtension
         // [route, a level of the trail] — a level stands above every page in
         // it, its own siblings included; any other index only above the pages
         // its namespace holds.
-        $candidates = [[$this->findRootRoute(), true]];
+        $candidates = [[$trailRoot ?? $this->findRootRoute(), true]];
         $namespace = $root;
 
         foreach ($levels as $level) {
