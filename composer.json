@@ -3,7 +3,7 @@
   "description": "Design system assets for Symfony",
   "type": "library",
   "license": "MIT",
-  "version": "53.0.0",
+  "version": "53.0.1",
   "keywords": [
     "symfony-ux"
   ],
