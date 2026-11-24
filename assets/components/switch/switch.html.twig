@@ -6,9 +6,14 @@
     that shows no label — an icon in its pill — and is its tooltip too.
     `agent` shows the switch to an agent reading the page (true, or the actions
     it may run: `['get', 'toggle']`), `agent_description`, in english, tells it
-    what the switch is for when its label does not; see `switch.ai.yml`. -#}
+    what the switch is for when its label does not; see `switch.ai.yml`.
+    `action_on`, `action_off`: a choice the server keeps — a preference —,
+    the address posted once switched on, or off; the page then follows the
+    answer, as a form's button does. -#}
 <div class="switch{% if label_position is defined and label_position == 'left' %} switch--label-left{% endif %}{% if tone is defined and tone %} switch--{{ tone }}{% endif %}{% if class is defined %} {{ class }}{% endif %}" data-checked="{{ checked | default(false) ? 'true' : 'false' }}"
-    {%- if confirm is defined and confirm %} data-confirm-title="{{ confirm.title|default('') }}" data-confirm-message="{{ confirm.message|default('') }}" data-confirm-accept="{{ confirm.accept|default('') }}"{% endif %}>
+    {%- if confirm is defined and confirm %} data-confirm-title="{{ confirm.title|default('') }}" data-confirm-message="{{ confirm.message|default('') }}" data-confirm-accept="{{ confirm.accept|default('') }}"{% endif %}
+    {%- if action_on is defined and action_on %} data-action-on="{{ action_on }}"{% endif %}
+    {%- if action_off is defined and action_off %} data-action-off="{{ action_off }}"{% endif %}>
     {%- if label is defined and label_position is defined and label_position == 'left' -%}
         <span class="switch--label">{{ label | trans }}</span>
     {%- endif -%}

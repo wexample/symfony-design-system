@@ -5,7 +5,9 @@ import { rippleAgentPress } from '../../js/Helper/RippleHelper';
 
 // Flips the switch and says so: `switch:change`, with the new state, bubbles
 // from the switch for whatever the page hangs on it. A switch carrying a
-// confirmation asks it before switching on, and stays off when refused.
+// confirmation asks it before switching on, and stays off when refused. One
+// the server keeps (`action_on`, `action_off`) posts the address of its new
+// state, and the page follows the answer.
 //
 // An agent turns it the same way a click does, confirmation included.
 export default class extends Component {
@@ -52,6 +54,21 @@ export default class extends Component {
       bubbles: true,
       detail: { checked },
     }));
+
+    const action = checked ? this.el.dataset.actionOn : this.el.dataset.actionOff;
+    if (action) {
+      this.post(action);
+    }
+  }
+
+  // Posted as a form's button posts: the page goes where the answer leads.
+  private post(action: string): void {
+    const form = document.createElement('form');
+    form.method = 'post';
+    form.action = action;
+    form.hidden = true;
+    document.body.appendChild(form);
+    form.submit();
   }
 
   protected setChecked(checked: boolean): void {
