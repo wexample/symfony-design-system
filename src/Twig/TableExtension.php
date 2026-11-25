@@ -2,8 +2,8 @@
 
 namespace Wexample\SymfonyDesignSystem\Twig;
 
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bridge\Twig\Extension\TranslationExtension;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
