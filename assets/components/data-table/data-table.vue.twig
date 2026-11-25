@@ -199,7 +199,7 @@
                         :key="getColumnKey(column, columnIndex)"
                         :data-column-key="getColumnKey(column, columnIndex)"
                         class="table--cell"
-                        :class="[getColumnClass(column), getCellTintClass(row, column), getCellChangedClass(row, column, columnIndex)]"
+                        :class="[getColumnClass(column), getCellTintClass(row, column)]"
                 >
                     {#- One column's cells drawn by the parent, `cell:<key>` — an
                         input where the value can be changed —, the others drawn

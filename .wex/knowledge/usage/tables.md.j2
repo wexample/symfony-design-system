@@ -48,12 +48,9 @@ shout the same thing.
 
 ## What changed
 
-A vue table asked to (`light-changes`, an entity table's `lightChanges`) lights a cell a moment when a refresh changes what it says (`table--cell--changed`) — a list read again live, prices or a deployment's worth, never every list:
-in the success tone for a figure that rose, the error one for a figure that fell, neutral for
-a word. What moves on a list read again every few seconds is seen without being looked for.
-The first rows light nothing, and only a table given a `rowKey` lights at all: by position, a
-row moving up would read as every cell of the rows it passed changing. Without movement
-(`prefers-reduced-motion`), the light is held then dropped at once.
+A vue table asked to (`light-changes`, an entity table's `lightChanges`) lights a cell a moment when a refresh changes what it says — a list read again live, prices or a deployment's worth, never every list. Only a table given a `rowKey` lights at all: by position, a row moving up would read as every cell of the rows it passed changing. The first rows light nothing.
+
+The light is the design system's, not the table's (`shapes/changed`, `ChangedHelper`): `changedLight(element, way)` sets `is-changed` on the element itself — `is-changed--up`, `--down` for a figure that rose or fell — and takes it off once played; a refresh coming before restarts it, nothing stays lit. Its colours and length are roles (`mixins/roles`): `--color-changed` (the accent, faint, for a word), `--color-changed-up`, `--color-changed-down`, `--duration-changed`. Any live value — a key figure, a count — lights the same way. Without movement (`prefers-reduced-motion`), the light is held then dropped at once.
 
 ## A map of results: `tint`
 

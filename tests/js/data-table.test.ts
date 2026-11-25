@@ -390,26 +390,45 @@ test('a signed figure says its sign and its way', () => {
   assert.deepEqual(vm.getQuantityClass('', change), { 'table--quantity--negative': false, 'table--quantity--up': false, 'table--quantity--down': false });
 });
 
-// A refresh lights the cells it changed, in the way a figure went; the first
-// rows light nothing, and a table without row keys never lights.
+// A table asked to (`lightChanges`) lights the cells a refresh changed, in
+// the way a figure went; the first rows light nothing, a table not asked to
+// or without row keys never lights.
 test('a refresh lights the cells it changed', () => {
   const columns = [{ key: 'name' }, { key: 'worth', unit: 'USDT' }];
-  const { vm } = mount({ rows: [{ id: 1, name: 'a', worth: 10 }, { id: 2, name: 'b', worth: 5 }], columns, rowKey: (row: any) => row.id });
-  vm.changedTimers = new Map();
+  const { vm } = mount({ rows: [{ id: 1, name: 'a', worth: 10 }, { id: 2, name: 'b', worth: 5 }], columns, rowKey: (row: any) => row.id, lightChanges: true });
+  const lit: Record<string, string[]> = {};
+  (globalThis as any).CSS ??= { escape: (value: string) => value };
+  vm.$nextTick = (callback: () => void) => callback();
+  vm.$el = {
+    querySelector: (selector: string) => {
+      const classes = new Set<string>();
+      lit[selector] = [];
+
+      return {
+        classList: {
+          add: (...names: string[]) => { names.forEach((name) => classes.add(name)); lit[selector] = [...classes]; },
+          remove: (...names: string[]) => names.forEach((name) => classes.delete(name)),
+        },
+        addEventListener: () => {},
+        offsetWidth: 0,
+      };
+    },
+  };
   const first = vm.cellSnapshot;
 
   DataTable.watch.cellSnapshot.call(vm, first, new Map());
-  assert.deepEqual(vm.changedCells, {});
+  assert.deepEqual(lit, {});
 
   vm.rows = [{ id: 1, name: 'a', worth: 12 }, { id: 2, name: 'c', worth: 4 }];
   DataTable.watch.cellSnapshot.call(vm, vm.cellSnapshot, first);
-  assert.equal(vm.getCellChangedClass(vm.rows[0], columns[1], 1), 'table--cell--changed table--cell--changed-up');
-  assert.equal(vm.getCellChangedClass(vm.rows[1], columns[1], 1), 'table--cell--changed table--cell--changed-down');
-  assert.equal(vm.getCellChangedClass(vm.rows[1], columns[0], 0), 'table--cell--changed table--cell--changed-changed');
-  assert.equal(vm.getCellChangedClass(vm.rows[0], columns[0], 0), null);
-  vm.changedTimers.forEach((timer: any) => clearTimeout(timer));
+  assert.deepEqual(lit['tr[data-row-key="1"] > td[data-column-key="worth"]'], ['is-changed', 'is-changed--up']);
+  assert.deepEqual(lit['tr[data-row-key="2"] > td[data-column-key="worth"]'], ['is-changed', 'is-changed--down']);
+  assert.deepEqual(lit['tr[data-row-key="2"] > td[data-column-key="name"]'], ['is-changed']);
+  assert.equal(lit['tr[data-row-key="1"] > td[data-column-key="name"]'], undefined);
 
-  const keyless = mount({ rows: [{ worth: 1 }], columns }).vm;
+  const unasked = mount({ rows: [{ id: 1, worth: 1 }], columns, rowKey: (row: any) => row.id }).vm;
+  assert.equal(unasked.cellSnapshot.size, 0);
+  const keyless = mount({ rows: [{ worth: 1 }], columns, lightChanges: true }).vm;
   assert.equal(keyless.cellSnapshot.size, 0);
 });
 

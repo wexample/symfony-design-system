@@ -1,0 +1,34 @@
+// A value a refresh just changed, lit a moment then let go (ChangedHelper):
+// a cell of a table read again live, a key figure, a count. What moves is
+// seen without being looked for. Its colour and its length are roles
+// (`--color-changed*`, `--duration-changed`, mixins/roles): a skin sets them
+// again, every live value follows.
+@keyframes ds-changed {
+  from {
+    background-color: var(--changed-color, var(--color-changed));
+  }
+
+  to {
+    background-color: transparent;
+  }
+}
+
+.is-changed {
+  animation: ds-changed var(--duration-changed) ease-out;
+}
+
+// The way a figure went: a gain, a loss.
+.is-changed--up {
+  --changed-color: var(--color-changed-up);
+}
+
+.is-changed--down {
+  --changed-color: var(--color-changed-down);
+}
+
+// Without movement: held, then gone at once.
+@media (prefers-reduced-motion: reduce) {
+  .is-changed {
+    animation-timing-function: steps(1, end);
+  }
+}

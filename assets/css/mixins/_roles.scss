@@ -57,6 +57,14 @@
   --color-trend-up: var(--success-11);
   --color-trend-down: var(--error-11);
 
+  // A value a refresh just changed (shapes/changed): lit a moment, then let
+  // go — in the way a figure went, the accent's faint for a word. A ground,
+  // never an ink: laid behind the value, which keeps its own colour.
+  --color-changed: color-mix(in srgb, var(--accent-9) 18%, transparent);
+  --color-changed-up: color-mix(in srgb, var(--color-trend-up) 22%, transparent);
+  --color-changed-down: color-mix(in srgb, var(--color-trend-down) 22%, transparent);
+  --duration-changed: 1.2s;
+
   // Activity: what goes in, what comes out, and the rest.
   --color-activity-default: var(--neutral-10);
   --color-activity-input: var(--success-9);

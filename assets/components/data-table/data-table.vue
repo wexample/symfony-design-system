@@ -17,10 +17,8 @@ import { filterSelected } from '../../js/Helper/FilterHelper';
 import { rowLinkClick } from '../../js/Helper/RowLinkHelper';
 import { sortActionsByRel, relOfActionName } from '../../js/Helper/TableRowActionHelper';
 import { numberFormat } from '../../js/Helper/NumberHelper';
+import { changedLight, changedWay } from '../../js/Helper/ChangedHelper';
 import buildTranslatedBindings from "../../js/Helper/TranslationHelper";
-
-// How long a cell whose value just changed stays lit.
-const CHANGED_MS = 1500;
 
 const translated = buildTranslatedBindings({
   resolvedEmptyFilteredLabel: [
@@ -285,20 +283,7 @@ export default {
       // Said to a screen reader once a header is pressed, not on load.
       statusMessage: '',
       page: 0,
-      // The cells whose value just changed, by row and column key: which way
-      // a figure went (`up`, `down`), or `changed`.
-      changedCells: {}
     };
-  },
-
-  created() {
-    // Not reactive: when each lit cell goes out.
-    this.changedTimers = new Map();
-  },
-
-  beforeUnmount() {
-    this.changedTimers.forEach((timer) => clearTimeout(timer));
-    this.changedTimers.clear();
   },
 
   computed: {
@@ -448,24 +433,28 @@ export default {
         return;
       }
 
+      const changed = [];
       next.forEach((text, key) => {
-        if (!previous.has(key) || previous.get(key) === text) {
-          return;
+        if (previous.has(key) && previous.get(key) !== text) {
+          changed.push([key, changedWay(previous.get(key), text)]);
         }
+      });
 
-        const before = Number(previous.get(key));
-        const after = Number(text);
-        const way = text !== '' && previous.get(key) !== '' && !Number.isNaN(before) && !Number.isNaN(after)
-          ? (after > before ? 'up' : 'down')
-          : 'changed';
+      if (!changed.length) {
+        return;
+      }
 
-        this.changedCells = { ...this.changedCells, [key]: way };
-        clearTimeout(this.changedTimers.get(key));
-        this.changedTimers.set(key, setTimeout(() => {
-          const { [key]: gone, ...kept } = this.changedCells;
-          this.changedCells = kept;
-          this.changedTimers.delete(key);
-        }, CHANGED_MS));
+      // Lit once the rows say it: the cell itself, the light its own — no
+      // state kept here, nothing left lit by a refresh coming too soon.
+      this.$nextTick(() => {
+        changed.forEach(([key, way]) => {
+          const [rowKey, columnKey] = key.split('\u0000');
+          const cell = this.$el?.querySelector?.(`tr[data-row-key="${CSS.escape(rowKey)}"] > td[data-column-key="${CSS.escape(columnKey)}"]`);
+
+          if (cell) {
+            changedLight(cell, way);
+          }
+        });
       });
     },
 
@@ -1328,13 +1317,6 @@ export default {
       const tint = typeof column?.tint === 'function' ? column.tint(row) : null;
 
       return tint ? `table--cell--tint table--cell--tint-${tint}` : null;
-    },
-
-    // A cell lit a moment after its value changed (`cellSnapshot`).
-    getCellChangedClass(row, column, columnIndex) {
-      const way = this.changedCells[`${this.getRowKey(row)}\u0000${this.getColumnKey(column, columnIndex)}`];
-
-      return way ? `table--cell--changed table--cell--changed-${way}` : null;
     },
 
     getDateFormat(column) {
