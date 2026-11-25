@@ -1,0 +1,20 @@
+{#- A key figure (key_figure()): the card, its label, its value as large as
+    the card holds (`--figure-chars`, shapes/block), then its trend or what it
+    is measured against, and a small chart at its foot. -#}
+<div class="block block--card key-figure{{ class ? ' ' ~ class }}">
+    <div class="block--figure block--figure--start" style="--figure-chars: {{ chars }}">
+        <span class="block--figure-label">{{ label }}</span>
+        <span class="block--figure-value">
+            {%- if href -%}<a href="{{ href }}">{{ value }}</a>{%- else -%}{{ value }}{%- endif -%}
+            {%- if unit -%}<span class="block--figure-unit">{{ unit }}</span>{%- endif -%}
+        </span>
+        {%- if trend is not null -%}
+            <span class="block--figure-trend block--figure-trend--{{ trend > 0 ? 'up' : (trend < 0 ? 'down' : 'flat') }}">{{ trend > 0 ? '+' }}{{ trend|number_format(trend_digits) }}&nbsp;%</span>
+        {%- elseif sub -%}
+            <span class="block--figure-sub">{{ sub }}</span>
+        {%- endif -%}
+        {%- if chart -%}
+            <div class="block--figure-chart">{{ chart|raw }}</div>
+        {%- endif -%}
+    </div>
+</div>

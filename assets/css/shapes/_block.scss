@@ -371,8 +371,20 @@ button.block--action-link {
   line-height: 1;
 }
 
+// A figure is measured against the card it stands in, not the window: the
+// card is the container its value is sized by.
+.block--figure {
+  container-type: inline-size;
+}
+
+// As large as the card holds, never on two lines: the full size while it
+// fits, smaller in a narrow card or for a long value. A figure's digit is
+// about 0.6 of its size wide; the card says how many it holds
+// (`--figure-chars`, key_figure()), eight when it does not.
 .block--figure-value {
+  font-size: min(var(--font-size-8), calc(100cqi / (var(--figure-chars, 8) * 0.62)));
   font-weight: var(--font-weight-strong);
+  white-space: nowrap;
   // Figures of one width: a value refreshed in place does not shift its unit.
   font-variant-numeric: tabular-nums;
 }
@@ -385,7 +397,8 @@ button.block--action-link {
 // The unit after the value, set back: the eye reads the figure, the unit once.
 .block--figure-unit {
   margin-inline-start: 0.25em;
-  font-size: var(--font-size-4);
+  // Half the value at most: a value made smaller to fit takes its unit along.
+  font-size: min(var(--font-size-4), 0.5em);
   font-weight: var(--font-weight-normal);
   color: var(--text-color-muted);
 }

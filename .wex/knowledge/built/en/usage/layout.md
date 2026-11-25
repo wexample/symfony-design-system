@@ -17,6 +17,12 @@ A page sets these variables at the top of its template, outside any block; an ap
 
 What can be done from a page — a new one, launch, hold — stands in one place on every page: the bar under the header, at its end (`page_title_actions`, or `page_bar_actions` as a list, gathered in ⋮ on a phone). Never beside the title, never a bar of the page's own. They are the bar's buttons, never `button--invert`: the filled button is a form's submit alone, the one expected of it.
 
+## Key figures
+
+`key_figure(label, value, { unit, trend, sub, href, chart })` draws a key figure in a card of its own: its label, its value, then the way it went (`trend`, a percent, signed and in the colour of where it went) or what it is measured against (`sub`), and a small chart at its foot (`chart`, a `chart_sparkline()`). A row of them stands in a `grid`.
+
+The value is as large as its card holds and never wraps: the card is the container it is sized by, the function telling it how many characters the value and its unit take (`--figure-chars`). Full size while it fits, smaller in a narrow card or for a long value — `11 463.06` and `5` side by side, each as large as it can be. A figure written by hand (`block--figure`) gets the same, counting eight characters.
+
 ## How a mode reaches the page
 
 Every mode of a layout runs the same three links, so an application's choices read the same from one to the next — no central configuration, each application sets its variables in its own layout:
