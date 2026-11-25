@@ -27,6 +27,11 @@
   --grid-min: 16rem;
 }
 
+// Five or so on a line — a page's key figures —, wrapping on a narrow one.
+.grid--5 {
+  --grid-min: 10rem;
+}
+
 .grid--fixed {
   grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min), 100%), var(--grid-max)));
   justify-content: start;

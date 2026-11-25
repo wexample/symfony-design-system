@@ -8,7 +8,9 @@
             {%- if href -%}<a href="{{ href }}">{{ value }}</a>{%- else -%}{{ value }}{%- endif -%}
             {%- if unit -%}<span class="block--figure-unit">{{ unit }}</span>{%- endif -%}
         </span>
-        {%- if trend is not null -%}
+        {%- if trend_text is not null -%}
+            <span class="block--figure-trend{{ trend_way ? ' block--figure-trend--' ~ trend_way }}">{{ trend_text ?: ' ' }}</span>
+        {%- elseif trend is not null -%}
             <span class="block--figure-trend block--figure-trend--{{ trend > 0 ? 'up' : (trend < 0 ? 'down' : 'flat') }}">{{ trend > 0 ? '+' }}{{ trend|number_format(trend_digits) }}&nbsp;%</span>
         {%- elseif sub -%}
             <span class="block--figure-sub">{{ sub }}</span>

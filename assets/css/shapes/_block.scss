@@ -389,6 +389,18 @@ button.block--action-link {
   font-variant-numeric: tabular-nums;
 }
 
+// A value leading somewhere reads as the figure it is, a link under the
+// pointer only.
+.block--figure-value a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-link-hover);
+  }
+}
+
 .block--figure-label {
   font-size: var(--font-size-2);
   color: var(--text-color-muted);

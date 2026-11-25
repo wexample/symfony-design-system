@@ -42,6 +42,12 @@ class KeyFigureExtension extends AbstractTemplateExtension
                             // How it moved, a percent: signed, in the colour of where it went.
                             'trend' => isset($options['trend']) ? (float) $options['trend'] : null,
                             'trend_digits' => $options['trend_digits'] ?? 2,
+                            // How it moved, said by the page — « +12 % vs the period before » —,
+                            // in the colour of `trend_way` (`up`, `down`; none, muted): which way
+                            // is good is the page's to say. An empty one keeps its line, so a row
+                            // of cards stays aligned when one has nothing to compare with.
+                            'trend_text' => $options['trend_text'] ?? null,
+                            'trend_way' => $options['trend_way'] ?? null,
                             // What it is measured against, when it has no trend.
                             'sub' => $options['sub'] ?? null,
                             // Where the value leads.

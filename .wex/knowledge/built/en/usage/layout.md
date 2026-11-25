@@ -19,7 +19,7 @@ What can be done from a page — a new one, launch, hold — stands in one place
 
 ## Key figures
 
-`key_figure(label, value, { unit, trend, sub, href, chart })` draws a key figure in a card of its own: its label, its value, then the way it went (`trend`, a percent, signed and in the colour of where it went) or what it is measured against (`sub`), and a small chart at its foot (`chart`, a `chart_sparkline()`). A row of them stands in a `grid`.
+`key_figure(label, value, { unit, trend, sub, href, chart })` draws a key figure in a card of its own: its label, its value, then the way it went (`trend`, a percent, signed and in the colour of where it went) or what it is measured against (`sub`), and a small chart at its foot (`chart`, a `chart_sparkline()`). A row of them stands in a `grid` — `grid--5` for five or so on a line. A trend the page words itself — « +12 % vs the period before », good when a cost goes down — is `trend_text` with `trend_way` (`up`, `down`) for its colour; an empty one keeps its line, so a row of cards stays aligned.
 
 The value is as large as its card holds and never wraps: the card is the container it is sized by, the function telling it how many characters the value and its unit take (`--figure-chars`). Full size while it fits, smaller in a narrow card or for a long value — `11 463.06` and `5` side by side, each as large as it can be. A figure written by hand (`block--figure`) gets the same, counting eight characters.
 
