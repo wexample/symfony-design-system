@@ -199,7 +199,7 @@
                         :key="getColumnKey(column, columnIndex)"
                         :data-column-key="getColumnKey(column, columnIndex)"
                         class="table--cell"
-                        :class="[getColumnClass(column), getCellChangedClass(row, column, columnIndex)]"
+                        :class="[getColumnClass(column), getCellTintClass(row, column), getCellChangedClass(row, column, columnIndex)]"
                 >
                     {#- One column's cells drawn by the parent, `cell:<key>` — an
                         input where the value can be changed —, the others drawn
@@ -362,7 +362,7 @@
                             >[[ getCellValue(row, column) ]]</button-target>
                         </template>
                         <template v-else-if="getCellHref(row, column)">
-                            <a :href="getCellHref(row, column)">[[ getCellValue(row, column) ]]</a>
+                            <a class="table--link" :href="getCellHref(row, column)">[[ getCellValue(row, column) ]]</a>
                         </template>
                         <template v-else-if="isCodeCell(column)">
                             <code

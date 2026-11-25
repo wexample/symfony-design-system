@@ -28,6 +28,6 @@ The actions cell takes the width of its icons. Left to itself it sets them at it
 
 A column given `link: 'open'` makes each of its cells a link to where the row's `open` action leads, opened the same way — a page, or a panel. A list is read in order, the first the row offers winning: `link: ['open', 'edit']` leads to the eye, or to the pencil on a row that has no eye. Nothing is declared twice: the cell reads the action, so the title and the eye cannot part. A row offering none of them shows the value as text.
 
-The link reads as the value it is, in the text colour, and shows itself a link under the pointer only (`table--link`): a page of titles does not turn into a page of blue. In twig, the value is escaped and never translated.
+The link reads as the value it is, in the text colour, and shows itself a link under the pointer only (`table--link`): a page of titles does not turn into a page of blue. A cell given its own address — `cell: 'link'` in twig, `href` in vue — reads the same. In twig, the value is escaped and never translated.
 
 A row made a link whole is `rowLink` (`row_link`), another thing: the row pressed anywhere, a caret column of its own. `link` keeps the rest of the row as it is — text selected, a status read — and is the one to reach for when the row already has an eye.

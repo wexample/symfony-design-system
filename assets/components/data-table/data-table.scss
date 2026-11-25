@@ -1,6 +1,7 @@
 @use '../date-display/date-display';
 @use '../marker/marker';
 @use '../../css/mixins/flex' as flex;
+@use '../../css/mixins/window' as window;
 @use '../../css/utilities/text-align';
 @use '../pagination/pagination';
 @use '../file-path/file-path';
@@ -135,6 +136,27 @@
   overflow-x: auto;
 }
 
+// On a phone, a table is not squeezed into the screen — its columns folded
+// word by word, each row a column of text —: its columns keep the width of
+// what they hold, a long text wrapping past a reading line only, and the table
+// scrolls sideways on its own. The page itself never does: its title, its
+// figures and its other tables stay where they are while one table moves.
+@include window.below(window.$window-m) {
+  .table--frame:not(.table--frame--sticky) {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .table--frame > .table {
+    width: max-content;
+    min-width: 100%;
+  }
+
+  .table--frame > .table > tbody > tr > td {
+    max-width: 18rem;
+  }
+}
+
 .table--row {
   align-items: center;
   background: transparent;
@@ -235,9 +257,10 @@
   cursor: pointer;
 }
 
-// A cell leading where the row opens (`link: 'open'`): it reads as the
-// value it is — a title among the columns —, and shows itself a link under
-// the pointer only, so a page of titles does not turn into a page of blue.
+// A cell leading somewhere — where the row opens (`link: 'open'`), its own
+// address (`cell: 'link'`, `href`) —: it reads as the value it is — a title
+// among the columns, never a muted one —, and shows itself a link under the
+// pointer only, so a page of titles does not turn into a page of blue.
 .table--link {
   color: inherit;
   text-decoration: none;
@@ -289,6 +312,13 @@
   overflow-wrap: anywhere;
 }
 
+// Its column given the room of a few words a line: squeezed by its
+// neighbours, two lines of three words each would say nothing and make every
+// row tall.
+.table--cell:has(> .table--clamp) {
+  min-width: 16rem;
+}
+
 // The column a `row_link` adds: as narrow as its arrow, at the row's end.
 .table--cell--row-open {
   width: 1%;
@@ -322,6 +352,17 @@
 
 .table--quantity--down {
   color: var(--color-trend-down);
+}
+
+// A cell tinted by which way it went (`tint`): its whole ground, edge to
+// edge, in the trend roles — a map of results read at a glance. Its figure
+// still carries its sign: the colour is never alone.
+.table--cell--tint-up {
+  background: color-mix(in srgb, var(--color-trend-up) 22%, transparent);
+}
+
+.table--cell--tint-down {
+  background: color-mix(in srgb, var(--color-trend-down) 22%, transparent);
 }
 
 // A cell whose value a refresh just changed: lit, then let go — in the tone

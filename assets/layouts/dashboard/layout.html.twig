@@ -113,6 +113,16 @@
             {%- set page_title_actions_hidden = true -%}
         {%- endif -%}
     {%- endif -%}
+    {#- No way back to draw — a page at the top of its section —: its actions
+        stand in the same bar all the same, alone at its end, and never beside
+        the title. A page's actions are found in one place, whatever page. -#}
+    {%- if page_show_title|default(false) and pageNavigation|trim is empty -%}
+        {%- set pageBarActions %}{{ block('page_title_actions') }}{{ page_title_actions_extra|default('') }}{% endset -%}
+        {%- if page_bar_actions ?? (pageBarActions|trim ?: null) -%}
+            {%- set pageNavigation %}{{ page_tabs([], { back: false, actions: page_bar_actions ?? pageBarActions|trim }) }}{% endset -%}
+            {%- set page_title_actions_hidden = true -%}
+        {%- endif -%}
+    {%- endif -%}
     {#- The bar of tools standing against the window's end, as an IDE has one
         (tool_dock()): the application's, written once by its layout
         (`layout_dock_tools`), and what the page adds to them for itself

@@ -184,7 +184,10 @@
                             |filter(a => a)
                             |first|default(null) -%}
                     {%- endif -%}
-                    <td class="table--cell{{ column.class ? ' ' ~ column.class }}{{ column.secondary ? ' table--cell--secondary' }}" data-column-key="{{ column.key }}">
+                    {#- `tint`: the key of the row saying which way the cell went
+                        (`up`, `down`), its whole ground tinted — a map of results. -#}
+                    {%- set tint = column.tint|default(null) ? attribute(row, column.tint)|default(null) : null -%}
+                    <td class="table--cell{{ column.class ? ' ' ~ column.class }}{{ column.secondary ? ' table--cell--secondary' }}{{ tint ? ' table--cell--tint table--cell--tint-' ~ tint }}" data-column-key="{{ column.key }}">
                         {%- if column.cell == 'actions' -%}
                             <span class="table--actions">
                                 {#- Ordered by what each is to the row (TableRowActionHelper):
@@ -227,7 +230,7 @@
                             {%- endif -%}
                         {%- elseif column.cell == 'link' -%}
                             {%- if value.href|default(null) -%}
-                                <a href="{{ value.href }}">{{ value.label }}</a>
+                                <a class="table--link" href="{{ value.href }}">{{ value.label }}</a>
                             {%- else -%}
                                 {{- value.label -}}
                             {%- endif -%}

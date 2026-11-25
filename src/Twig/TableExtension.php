@@ -3,11 +3,13 @@
 namespace Wexample\SymfonyDesignSystem\Twig;
 
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Bridge\Twig\Extension\TranslationExtension;
 use Twig\Environment;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Wexample\SymfonyDesignSystem\Helper\QueryHelper;
 use Wexample\SymfonyDesignSystem\Helper\SortHelper;
+use Wexample\SymfonyDesignSystem\Helper\TableRowActionHelper;
 use Wexample\SymfonyLoader\Service\VueService;
 use Wexample\SymfonyLoader\Twig\ComponentsExtension;
 
@@ -48,6 +50,18 @@ class TableExtension extends AbstractTemplateExtension
     public function getFunctions(): array
     {
         return [
+            // The eye of a twig table's row, where the row is read
+            // (TableRowActionHelper::open): the same icon, place and `rel` as
+            // the vue tables', so a column given `link: 'open'` leads there.
+            new TwigFunction(
+                'table_row_open',
+                static fn (Environment $twig, string $href, ?string $label = null, ?string $target = null): array => TableRowActionHelper::open(
+                    $href,
+                    $target,
+                    $label ?? $twig->getExtension(TranslationExtension::class)->trans('WexampleSymfonyDesignSystemBundle.common.system::frontend.table.open'),
+                ),
+                ['needs_environment' => true],
+            ),
             new TwigFunction(
                 'data_table',
                 function (
@@ -203,6 +217,9 @@ class TableExtension extends AbstractTemplateExtension
                 // leads to (TableRowActionHelper): the title opening what the
                 // eye opens.
                 'link' => $column['link'] ?? null,
+                // The row's key saying which way the cell went (`up`,
+                // `down`): its whole ground tinted.
+                'tint' => $column['tint'] ?? null,
                 'class' => implode(' ', array_filter([
                     $column['class'] ?? null,
                     // A marker sits in the middle of its column unless told otherwise.

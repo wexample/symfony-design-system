@@ -71,6 +71,13 @@ export default {
       type: Function,
       default: null
     },
+    // A cell lit a moment when a refresh changes what it says: for a list
+    // read again live — prices, a deployment's worth —, not for every list.
+    // Only with a `rowKey`.
+    lightChanges: {
+      type: Boolean,
+      default: false
+    },
     ...translated.props,
     columns: {
       type: Array,
@@ -310,7 +317,7 @@ export default {
     // as every cell changing.
     cellSnapshot() {
       const snapshot = new Map();
-      if (!this.rowKey) {
+      if (!this.lightChanges || !this.rowKey) {
         return snapshot;
       }
 
@@ -1313,6 +1320,14 @@ export default {
       const text = numberFormat(value, column?.digits ?? 2, this.sortLocale);
 
       return column?.signed && value !== null && value !== '' && Number(value) > 0 ? `+${text}` : text;
+    },
+
+    // Which way the cell went (`tint: (row) => 'up' | 'down' | null`): its
+    // whole ground tinted — a map of results read at a glance.
+    getCellTintClass(row, column) {
+      const tint = typeof column?.tint === 'function' ? column.tint(row) : null;
+
+      return tint ? `table--cell--tint table--cell--tint-${tint}` : null;
     },
 
     // A cell lit a moment after its value changed (`cellSnapshot`).

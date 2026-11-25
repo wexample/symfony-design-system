@@ -48,12 +48,16 @@ shout the same thing.
 
 ## What changed
 
-The vue table lights a cell a moment when a refresh changes what it says (`table--cell--changed`):
+A vue table asked to (`light-changes`, an entity table's `lightChanges`) lights a cell a moment when a refresh changes what it says (`table--cell--changed`) — a list read again live, prices or a deployment's worth, never every list:
 in the success tone for a figure that rose, the error one for a figure that fell, neutral for
 a word. What moves on a list read again every few seconds is seen without being looked for.
 The first rows light nothing, and only a table given a `rowKey` lights at all: by position, a
 row moving up would read as every cell of the rows it passed changing. Without movement
 (`prefers-reduced-motion`), the light is held then dropped at once.
+
+## A map of results: `tint`
+
+A cell can be tinted whole by which way it went — `up`, `down` — in the trend roles, its ground edge to edge rather than a patch behind its figure: a grid of results read at a glance. Twig: `tint` names the row's key holding the way (`{ key: 'long', tint: 'longTint' }`); vue: `tint: (row) => 'up' | 'down' | null`. The figure keeps its sign: the colour is never alone.
 
 ## Totals
 
@@ -168,6 +172,8 @@ moves it with everything else, rather than a second scrollbar inside the first. 
 (twig `scroll: true`, vue `:scroll`) gives it a frame that scrolls sideways on its own, for a
 table among other things in a container that does not scroll. A sticky table never scrolls on
 its own: its header sticks to the page.
+
+On a phone (under `window-m`) a table is never squeezed into the screen, its columns folded word by word: they keep the width of what they hold — a long text wrapping past a reading line only — and the table scrolls sideways in its own frame, the page staying put.
 
 `natural` (twig `natural: true`, vue `:natural`) holds every column to the width of what it
 holds, on one line: the table is neither stretched to the room nor squeezed into it, and what

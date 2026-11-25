@@ -37,6 +37,9 @@ export default {
       // Sideways in a frame of its own rather than over what stands beside
       // it — a table in a cell of a grid, another table next to it.
       scroll: false,
+      // A cell lit a moment when a refresh changes it: a list read again
+      // live — prices, a deployment's worth.
+      lightChanges: false,
       // What the table says when the api holds nothing; its own default when null.
       emptyLabel: null,
       // Its pages below at the foot of the page when the rows leave room
