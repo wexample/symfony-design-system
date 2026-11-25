@@ -1,3 +1,12 @@
+// Every scrolling region — the page's body, a zone, a table's frame — has the
+// thin scrollbar on a clear track, as the window's: a native one is a band as
+// wide as a button, arrows at its ends, drawn on whatever ground stands behind
+// the region rather than on its own. Weightless, so a region asking for its
+// own still has it.
+:where(*) {
+  scrollbar-width: thin;
+}
+
 html,
 body,
 .scrollbar {
