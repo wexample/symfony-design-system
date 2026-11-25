@@ -47,6 +47,41 @@ class StatusIconExtension extends AbstractTemplateExtension
                     self::FUNCTION_OPTION_NEEDS_CONTEXT => true,
                 ]
             ),
+            // A row of verdicts — the checks a run passed —, a status icon
+            // each: `[{ type, label }]`, its label said under the pointer.
+            new TwigFunction(
+                'status_checks',
+                function (
+                    Environment $twig,
+                    $context,
+                    array $checks,
+                    array $options = []
+                ): string {
+                    $context = is_array($context) ? $context : [];
+
+                    return $this->componentsExtension->component(
+                        $twig,
+                        $context['render_pass'] ?? null,
+                        '@WexampleSymfonyDesignSystemBundle/components/status-checks',
+                        [
+                            'checks' => array_map(static fn (array $check): array => [
+                                'type' => $check['type'] ?? 'pending',
+                                'label' => $check['label'] ?? null,
+                            ], $checks),
+                            // What the row is, read out: « Finale checks ».
+                            'label' => $options['label'] ?? null,
+                            // `sm` in a row of a table, as a line of text is tall.
+                            'size' => $options['size'] ?? 'sm',
+                            'class' => $options['class'] ?? null,
+                        ]
+                    );
+                },
+                [
+                    self::FUNCTION_OPTION_IS_SAFE => self::FUNCTION_OPTION_IS_SAFE_VALUE_HTML,
+                    self::FUNCTION_OPTION_NEEDS_ENVIRONMENT => true,
+                    self::FUNCTION_OPTION_NEEDS_CONTEXT => true,
+                ]
+            ),
         ];
     }
 }

@@ -52,6 +52,10 @@ A vue table asked to (`light-changes`, an entity table's `lightChanges`) lights 
 
 The light is the design system's, not the table's (`shapes/changed`, `ChangedHelper`): `changedLight(element, way)` sets `is-changed` on the element itself — `is-changed--up`, `--down` for a figure that rose or fell — and takes it off once played; a refresh coming before restarts it, nothing stays lit. Its colours and length are roles (`mixins/roles`): `--color-changed` (the accent, faint, for a word), `--color-changed-up`, `--color-changed-down`, `--duration-changed`. Any live value — a key figure, a count — lights the same way. Without movement (`prefers-reduced-motion`), the light is held then dropped at once.
 
+## On one line
+
+A date, a figure, a code — and a column set to the right, which holds figures — reads whole, never broken over two lines: the row stays one line tall. A column of short words the page wants whole — a side, « sold short » — says so with `nowrap: true`. Long text stays free to wrap, or is held to a few lines (`cell: 'clamp'`).
+
 ## A map of results: `tint`
 
 A cell can be tinted whole by which way it went — `up`, `down` — in the trend roles, its ground edge to edge rather than a patch behind its figure: a grid of results read at a glance. Twig: `tint` names the row's key holding the way (`{ key: 'long', tint: 'longTint' }`); vue: `tint: (row) => 'up' | 'down' | null`. The figure keeps its sign: the colour is never alone.

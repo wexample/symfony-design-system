@@ -1,0 +1,8 @@
+{#- A row of verdicts (status_checks()): a status icon each, its name and
+    what it said under the pointer, on one line — the checks a run passed, as
+    a pipeline shows its jobs. -#}
+<span class="status-checks{{ class ? ' ' ~ class }}"{% if label %} role="group" aria-label="{{ label }}"{% endif %}>
+    {%- for check in checks -%}
+        {{ status_icon(check.type, { label: check.label, size: size, attr: { 'data-tooltip': check.label } }) }}
+    {%- endfor -%}
+</span>

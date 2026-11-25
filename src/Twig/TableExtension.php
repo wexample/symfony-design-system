@@ -224,8 +224,11 @@ class TableExtension extends AbstractTemplateExtension
                     $column['class'] ?? null,
                     // A marker sits in the middle of its column unless told otherwise.
                     isset($column['align']) ? 'table--cell--'.$column['align'] : (($column['cell'] ?? null) === 'status' ? 'table--cell--center' : null),
-                    // A date, a figure, a code: read whole, never broken over two lines.
-                    in_array($column['cell'] ?? null, ['date', 'number', 'code'], true) || isset($column['unit']) ? 'table--cell--nowrap' : null,
+                    // A date, a figure, a code — a column set to the right holds
+                    // figures —, or what the page says reads whole (`nowrap`): never
+                    // broken over two lines, the row as tall as one line.
+                    in_array($column['cell'] ?? null, ['date', 'number', 'code'], true) || isset($column['unit'])
+                        || 'right' === ($column['align'] ?? null) || ($column['nowrap'] ?? false) ? 'table--cell--nowrap' : null,
                     // One of xs, s, m, l, xl: the column keeps it whatever its cells say.
                     isset($column['width']) ? 'table--cell--width-'.$column['width'] : null,
                     // What is done to the row: as wide as its icons, never more.

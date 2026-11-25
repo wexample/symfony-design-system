@@ -1334,7 +1334,9 @@ export default {
       // column of capsules reads as one when they line up on their centre.
       const align = column?.align ?? (column?.cell === 'status' ? 'center' : null);
       if (align) classes.push(`table--cell--${align}`);
-      if (['date', 'code'].includes(column?.cell) || this.isNumberCell(column)) classes.push('table--cell--nowrap');
+      // A date, a figure, a code — a column set to the right holds figures —,
+      // or what the page says reads whole (`nowrap`): never on two lines.
+      if (['date', 'code'].includes(column?.cell) || this.isNumberCell(column) || align === 'right' || column?.nowrap) classes.push('table--cell--nowrap');
       if (column?.width) classes.push(`table--cell--width-${column.width}`);
       if (column?.secondary) classes.push('table--cell--secondary');
       // What is done to the row: as wide as its icons, never more.

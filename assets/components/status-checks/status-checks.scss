@@ -1,0 +1,10 @@
+@use '../status-icon/status-icon';
+
+// The verdicts side by side, never wrapped: a row read at a glance.
+.status-checks {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  white-space: nowrap;
+  vertical-align: middle;
+}
