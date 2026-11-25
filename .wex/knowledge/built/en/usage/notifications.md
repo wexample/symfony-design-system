@@ -32,3 +32,20 @@ this.app.services.toast.show({ type: 'success', message: this.trans('@component:
 ## When a message belongs in the page
 
 A message in the page (`message_success`, `message_warning`…) is for a state the page is in for as long as it lasts — an envelope already sealed, an account not confirmed —, read from the data, not from how the user got there.
+
+## Which one: toast, message, banner
+
+Four ways to tell the reader something, each for one kind of thing — the wrong one is noise:
+
+| What it says | Where | How long | Use |
+|---|---|---|---|
+| What came of an action — saved, sent, refused | a **toast**, over the page | a few seconds, once | flash, or the `toast` service |
+| A state of the page or of one of its parts — a record sealed, a step that failed, a value over its limit, a form's warning | a **message** in the content, beside what it is about | as long as the state lasts | `message_info`, `message_warning`, `message_error`… — the vue `message` |
+| What a field refused | under the **field** | until corrected | the form's errors |
+| A state of the **application** the reader must not miss, whatever the page — offline, saves waiting, a maintenance coming, the environment not being production | a **banner**, across the layout | until it is no longer true | the `banner` service |
+
+## The banner: the application's state, never a page's
+
+A banner is a band across the layout, out of the page's content: it says something about the whole application, true on every page — the connection lost (ConnectionStatusNoticeService), writes not yet saved (PendingWritesService), a service about to be interrupted, an environment that is not production. It is raised by a service (`this.app.services.banner.show({ type, message })`, `dismiss()`) into the layout's place for it, and goes when the state ends.
+
+It is **not** a message: never in a page's content, a block, a form, a list's row or a widget, never for what a page or a step says of itself. A step that failed, a figure over its cap, a field's advice, a preview notice on one page — all are messages (`message_warning(…)`, `<message type="warning">`), set beside what they are about. A banner in the content reads as an alarm the whole application raises: used for a page's detail, it drowns the ones that matter.

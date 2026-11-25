@@ -64,7 +64,7 @@
         {
             "key": "banner",
             "source": "WexampleSymfonyDesignSystemBundle",
-            "description": "A band across the top of the page saying one thing to everyone \u2014 a maintenance, a cookie notice, a version to update \u2014, closed by the reader and kept closed.",
+            "description": "A band across the layout saying a state of the whole application the reader must not miss \u2014 offline, saves waiting, a maintenance coming, not production \u2014, raised by the banner service. Never a page's or a widget's message: that is `message`.",
             "formats": {
                 "style": [
                     "@WexampleSymfonyDesignSystemBundle/components/banner/banner.scss"

@@ -1,8 +1,14 @@
 <script>
 
-// The twin of banner.html.twig — the inline one, the banner a page writes for
-// itself. The .front shell beside it stays the service's: what that one shows
-// arrives after the page is drawn, which is the whole reason it is a shell.
+// The twin of banner.html.twig. The .front shell beside it is the service's:
+// what that one shows arrives after the page is drawn, which is the whole
+// reason it is a shell.
+//
+// A banner says a state of the APPLICATION the reader must not miss, on every
+// page — offline, saves waiting, a maintenance coming, not production —,
+// raised by the `banner` service. Never in a page's content, a block, a form,
+// a row or a widget: what a page or a step says of itself is a `message`
+// (usage/notifications).
 export default {
   template: '#vue-template-wexample-symfony-design-system-bundle-components-banner-banner',
 
