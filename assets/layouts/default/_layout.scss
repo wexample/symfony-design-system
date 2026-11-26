@@ -14,6 +14,7 @@
 @use '../../css/shapes/toolbar';
 // What an agent points at, framed over the page wherever it stands.
 @use '../../css/shapes/agent-frame';
+@use '../../css/shapes/agent-presence';
 @use '../../components/marker/marker';
 // What a page says of itself before what it holds — what the list is for,
 // what the form changes —: never a paragraph left bare, so the shape is at

@@ -25,8 +25,29 @@ export default {
 
   template: "#vue-template-wexample-symfony-design-system-bundle-vue-collection-chat-abstract-agent-chat",
 
+  watch: {
+    // Awaiting the agent's answer, it is at work: the whole window says so
+    // (AgentPresence), whatever the agent does meanwhile in the page.
+    awaitingReply: {
+      handler(awaiting) {
+        const presence = this.app.services.agentTools?.presence;
+
+        if (awaiting) {
+          presence?.hold(this.presenceKey());
+        } else {
+          presence?.release(this.presenceKey());
+        }
+      },
+      immediate: true
+    }
+  },
+
   mounted() {
     this.sendHeldToolResults();
+  },
+
+  beforeUnmount() {
+    this.app.services.agentTools?.presence.release(this.presenceKey());
   },
 
   methods: {
@@ -237,7 +258,14 @@ export default {
     // agent last heard from it: a chat whose engine reads it passes it on
     // (postAgentMessage); by default the message is written alone.
     async postMessage(content) {
+      // The user speaks again: an agent they stopped may act on what they say.
+      this.app.services.agentTools?.resume();
       await this.postAgentMessage(content, this.takeUserEvents());
+    },
+
+    // What this chat holds the presence under: its own, beside the calls'.
+    presenceKey() {
+      return `chat:${this.$.uid}`;
     },
 
     async postAgentMessage(content, userEvents) {
