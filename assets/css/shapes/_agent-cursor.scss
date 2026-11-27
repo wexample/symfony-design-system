@@ -91,6 +91,41 @@
   opacity: 0;
 }
 
+// What the agent says it is doing — « Archiving the report » —, beside the
+// dot, going with it: a tag of the agent's colour below and after it, before
+// it near the window's end. Placed by the script (`translate`), as the dot.
+.agent-cursor-label {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  z-index: calc(var(--z-tooltip, 1100) + 3);
+  max-width: 18rem;
+  margin: 0.75rem 0 0 0.75rem;
+  padding: 0.125rem var(--space-2);
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--accent-9);
+  color: var(--accent-contrast);
+  font-size: var(--font-size-1);
+  font-weight: var(--font-weight-strong);
+  line-height: 1.5;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease-out;
+  will-change: translate;
+}
+
+.agent-cursor-label--shown {
+  opacity: 1;
+}
+
+.agent-cursor-label--before {
+  margin-inline-start: 0;
+  transform: translateX(calc(-100% - 0.75rem));
+}
+
 // Without movement: there, still.
 @media (prefers-reduced-motion: reduce) {
   .agent-cursor::after,
