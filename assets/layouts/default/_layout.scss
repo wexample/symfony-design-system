@@ -16,6 +16,9 @@
 @use '../../css/shapes/agent-frame';
 @use '../../css/shapes/agent-presence';
 @use '../../css/shapes/agent-cursor';
+// An agent's press may land on any element, a component's or not: its wave
+// is the page's, not the button's alone.
+@use '../../css/shapes/ripple';
 @use '../../components/marker/marker';
 // What a page says of itself before what it holds — what the list is for,
 // what the form changes —: never a paragraph left bare, so the shape is at

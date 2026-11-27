@@ -233,8 +233,10 @@
 
 // A menu named by a face alone — the account's —: the face is the button,
 // its round frame what the pointer lights, with no room of a button's around
-// it, so it stands as far from its neighbours as an icon does.
-.button:has(> .button-menu--avatar:only-child) {
+// it, so it stands as far from its neighbours as an icon does. Alone among
+// what it shows: the wave of a press (`ripple--clip`) is no part of it, and
+// does not give the button its room back while it spreads.
+.button:has(> .button-menu--avatar):not(:has(> :not(.button-menu--avatar, .ripple--clip))) {
   padding: 0;
   border-radius: var(--radius-pill);
 }

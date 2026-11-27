@@ -18,14 +18,21 @@ export function rippleAt(
   wave.style.setProperty('--ripple-y', `${point?.y ?? rect.height / 2}px`);
   wave.style.setProperty('--ripple-size', `${Math.max(rect.width, rect.height) * 2}px`);
 
+  // Clipped by a layer of its own over the element, not by the element:
+  // nothing of its layout changes while the wave runs.
+  const clip = document.createElement('span');
+  clip.className = 'ripple--clip';
+  clip.setAttribute('aria-hidden', 'true');
+  clip.appendChild(wave);
+
   el.classList.add('ripple');
-  el.appendChild(wave);
+  el.appendChild(clip);
 
   return new Promise((resolve) => {
     window.setTimeout(() => {
-      wave.remove();
+      clip.remove();
 
-      if (!el.querySelector('.ripple--wave')) {
+      if (!el.querySelector(':scope > .ripple--clip')) {
         el.classList.remove('ripple');
       }
 

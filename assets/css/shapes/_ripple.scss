@@ -8,10 +8,20 @@
   }
 }
 
-// Only while a wave runs: the element keeps its own layout the rest of the time.
+// Only while a wave runs: the element keeps its own layout the rest of the
+// time. Its overflow left alone: hidden would move an inline element's
+// baseline — an avatar's button jumping as it is pressed —; the wave is
+// clipped by a layer of its own instead.
 .ripple {
   position: relative;
+}
+
+.ripple--clip {
+  position: absolute;
+  inset: 0;
   overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
 }
 
 .ripple--wave {
