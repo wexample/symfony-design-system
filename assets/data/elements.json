@@ -62,6 +62,32 @@
             }
         },
         {
+            "key": "avatar-tabs",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "Vertical tabs, a face each \u2014 the people one talks with, an agent among them \u2014, the open one marked, how many lines wait on its corner, and at their foot what adds one more.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/avatar-tabs/avatar-tabs.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/avatar-tabs/avatar-tabs.html.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "todo",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "links, nothing to run"
+            }
+        },
+        {
             "key": "banner",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A band across the layout saying a state of the whole application the reader must not miss \u2014 offline, saves waiting, a maintenance coming, not production \u2014, raised by the banner service. Never a page's or a widget's message: that is `message`.",
@@ -905,6 +931,37 @@
             }
         },
         {
+            "key": "credit",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "Who made a picture, or where it comes from, in small words under it \u2014 the photographer, the source, a link.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/credit/credit.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/credit/credit.html.twig"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/credit/credit.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/credit/credit.vue.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "waived",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "it shows and does nothing",
+                "ai": "it says, an agent has nothing to do with it"
+            }
+        },
+        {
             "key": "data-table",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A table of rows and columns, drawn from the same column definitions on both sides. Named `data-table` and not `table` because `<table>` is a native html element and vue refuses to redefine one. The two renderers part on what a cell value may be, and they have to: the client one runs before the data is known, so it takes functions for `format`, `href`, `icon` and `params` and resolves routes itself; the server one runs after, so it takes the result already computed in the row \u2014 `{label, href}` for a link, `{icon, href}` for an icon. `secondary` greys the header too on the client and only the body on the server, and the refreshing overlay has no server equivalent because a page that is being redrawn is not on screen.",
@@ -1377,6 +1434,9 @@
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A button of a form that does not send it: the button's dress on a form control, pressed for what the page says.",
             "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/button-input/button-input.scss"
+                ],
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/form/button-input/button-input.html.twig"
                 ],
@@ -1389,7 +1449,7 @@
                 ]
             },
             "stances": {
-                "style": "waived",
+                "style": "expected",
                 "template": "expected",
                 "vue": "expected",
                 "script": "expected",
@@ -1398,9 +1458,7 @@
                 "react": "todo",
                 "flutter": "todo"
             },
-            "notes": {
-                "style": "wears the style of button and adds none of its own"
-            }
+            "notes": []
         },
         {
             "key": "form/checkbox-input",
@@ -1732,6 +1790,69 @@
                 "template": "the twig theme mounts the vue beside its field, which it reaches by its id: the control steps aside, the editor posts in its name",
                 "script": "its behaviour is the vue component's",
                 "ai": "write an expression, come back to a value"
+            }
+        },
+        {
+            "key": "form/extension/open",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "The `open` extension of a field: the way to where its value leads \u2014 a record picked, an address \u2014, a glyph in the field's strip.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/extension/open/open.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/extension/open/open.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/extension/open/open.vue"
+                ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/extension/open/open.schema.json"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "waived",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "expected",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "template": "the twig theme mounts the vue beside its field",
+                "script": "its behaviour is the vue component's"
+            }
+        },
+        {
+            "key": "form/extension/toggle",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "The `toggle` extension of a field: a yes or no of its own beside the field's value \u2014 entered in a test matrix \u2014, a glyph in the field's strip lit while on, sent under `<field>__toggle`.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/extension/toggle/toggle.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/extension/toggle/toggle.vue",
+                    "@WexampleSymfonyDesignSystemBundle/components/form/extension/toggle/toggle.vue.twig"
+                ],
+                "schema": [
+                    "@WexampleSymfonyDesignSystemBundle/components/form/extension/toggle/toggle.schema.json"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "waived",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "expected",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "template": "the twig theme mounts the vue beside its field",
+                "script": "its behaviour is the vue component's",
+                "ai": "read it, switch it"
             }
         },
         {
@@ -2666,6 +2787,33 @@
             }
         },
         {
+            "key": "key-figure",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A key figure in a card of its own: its label, its value as large as the card holds and never on two lines, the way it went or what it is measured against, a small chart at its foot.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/key-figure/key-figure.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/key-figure/key-figure.html.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "todo",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "waived",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "it shows and does nothing",
+                "ai": "it says, an agent reads it from the page"
+            }
+        },
+        {
             "key": "led",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A small light saying a state at a glance \u2014 on, off, a tone \u2014 beside what it is the state of.",
@@ -2689,6 +2837,32 @@
             },
             "notes": {
                 "script": "it shows and does nothing"
+            }
+        },
+        {
+            "key": "list-detail",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A list read one at a time, as a mail client reads its mails: the list in a region before the page, the one chosen in the page's own; one region at a time on a narrow screen, with the way back.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/list-detail/list-detail.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/list-detail/list-detail.html.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "todo",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "its links lead, nothing else is done in the browser"
             }
         },
         {
@@ -3448,6 +3622,32 @@
             "notes": []
         },
         {
+            "key": "status-checks",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "A row of verdicts \u2014 the checks a run passed \u2014, a status icon each, its name and what it said under the pointer, on one line.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/status-checks/status-checks.scss"
+                ],
+                "template": [
+                    "@WexampleSymfonyDesignSystemBundle/components/status-checks/status-checks.html.twig"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "expected",
+                "vue": "todo",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "todo",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "script": "it shows and does nothing"
+            }
+        },
+        {
             "key": "status-icon",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "A glyph saying the state of something \u2014 done, failed, running, waiting \u2014 in its tone, the same types on both sides.",
@@ -4058,6 +4258,35 @@
             "notes": []
         },
         {
+            "key": "zone-head-actions",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "description": "The actions of what a zone holds, sent to the head of the nearest zone that has one \u2014 a dock's panel, a chat's column \u2014, or to the page's bar, else drawn where written.",
+            "formats": {
+                "style": [
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-head-actions/zone-head-actions.scss"
+                ],
+                "vue": [
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-head-actions/zone-head-actions.vue.twig",
+                    "@WexampleSymfonyDesignSystemBundle/components/zone-head-actions/zone-head-actions.vue"
+                ]
+            },
+            "stances": {
+                "style": "expected",
+                "template": "waived",
+                "vue": "expected",
+                "script": "waived",
+                "schema": "todo",
+                "ai": "waived",
+                "react": "todo",
+                "flutter": "todo"
+            },
+            "notes": {
+                "template": "a vue sending its slot elsewhere: nothing to draw on the server",
+                "script": "its behaviour is the vue component's",
+                "ai": "the actions it carries are the agent's to run, not it"
+            }
+        },
+        {
             "key": "zone-resizer",
             "source": "WexampleSymfonyDesignSystemBundle",
             "description": "The handle that sizes the region it stands in, lying in the gap beside it.",
@@ -4287,10 +4516,22 @@
             "description": "An inline link with an icon beside its label, muted until hovered, for a secondary action inside text or a row."
         },
         {
+            "key": "agent-cursor",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_agent-cursor.scss",
+            "description": "The agent's hand (AgentCursor, in the loader): a dot of the agent's colour going to what it is about to act on. Not an arrow \u2014 it is not the user's pointer and must never be taken for it. Over everything, the pointer passing through. Alive without being busy: a halo breathing out while it waits, a short trail while it moves, a settle on arriving, a pinch on a press. Its position is the script's (`translate`), its moods `scale` and the halo: `scale` applies before `transform`, so a position held there would be scaled with the dot."
+        },
+        {
             "key": "agent-frame",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_agent-frame.scss",
             "description": "The frames an agent draws round what it points at or presses (AgentFrameLayer, in the loader): a layer of their own over the page, so that no ancestor hiding its overflow cuts them. Each wears the assisted outline the fields wear, pulsing.  The page's layer stands under the veil an overlay draws (`--z-modal` less the veil's slot), so what was pointed at in the page dims with it; an overlay's own layer (`--inner`) stands in the overlay, at its corner, above what it holds."
+        },
+        {
+            "key": "agent-presence",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_agent-presence.scss",
+            "description": "That an agent is at work in the page (AgentPresence, in the loader): a line of the agent's colour along the window's edges, breathing, and at its foot a pill naming it with the way to stop it. Over everything \u2014 a modal, a panel \u2014, the pointer passing through all of it but the pill. Faded in and out: it says a state, it does not flash one."
         },
         {
             "key": "avatar",
@@ -4303,6 +4544,18 @@
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_block.scss",
             "description": "The card: a raised rectangle with a title, a body, media, meta and a footer, each optional."
+        },
+        {
+            "key": "capsule",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_capsule.scss",
+            "description": "A capsule: one thing going on, said in a few words, with the one action it offers \u2014 an agent at work and the way to stop it, files uploading and the way to cancel, rows selected and the way to clear them. A led, a label and a flat compact button sit in it as they sit anywhere; the capsule only holds them on a ground of their own, rounded at its ends.  Light, where a banner is a band across the layout: it says something going on now, not a state of the application to read."
+        },
+        {
+            "key": "changed",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_changed.scss",
+            "description": "A value a refresh just changed, lit a moment then let go (ChangedHelper): a cell of a table read again live, a key figure, a count. What moves is seen without being looked for. Its colour and its length are roles (`--color-changed*`, `--duration-changed`, mixins/roles): a skin sets them again, every live value follows."
         },
         {
             "key": "chat",
@@ -4389,6 +4642,12 @@
             "description": "Files held by a field, one chip each: a thumbnail when it is an image, its kind's icon otherwise, its name \u2014 cut, whole in its title \u2014, and the way to take it out. What a media picker shows of its choice, what a file field shows of the files dropped on it."
         },
         {
+            "key": "flash",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_flash.scss",
+            "description": "Something that just answered \u2014 a zone that took what was picked elsewhere \u2014 pointed out a moment (FlashHelper): the ring a picked element wears on a stage, in the colour of what is selected, held then let go. Over what it holds, never taking a press."
+        },
+        {
             "key": "flow",
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/_flow.scss",
@@ -4435,6 +4694,12 @@
             "source": "WexampleSymfonyDesignSystemBundle",
             "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_checkbox.scss",
             "description": "A checkbox and its label, as a row that can be clicked whole."
+        },
+        {
+            "key": "form/field",
+            "source": "WexampleSymfonyDesignSystemBundle",
+            "path": "@WexampleSymfonyDesignSystemBundle/css/shapes/form/_field.scss",
+            "description": "What every field draws, whatever it holds: its group \u2014 the label, the control, what is said under it \u2014, the control's own look, its help and its errors, its state. Loaded by each field component (components/form/*), so a field stands right on a page holding no other form."
         },
         {
             "key": "form/filter",

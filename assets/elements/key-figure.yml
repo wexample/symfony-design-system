@@ -1,0 +1,17 @@
+# Declares `key-figure` to the design system registry.
+# Seeded from a scan of the assets; kept by hand from here on.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "A key figure in a card of its own: its label, its value as large as the card holds and never on two lines, the way it went or what it is measured against, a small chart at its foot."
+formats:
+  style: true
+  template: true
+  script: "it shows and does nothing"
+  vue: todo
+  schema: todo
+  ai: "it says, an agent reads it from the page"
+  react: todo
+  flutter: todo

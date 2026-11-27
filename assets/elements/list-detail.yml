@@ -1,0 +1,17 @@
+# Declares `list-detail` to the design system registry.
+# Seeded from a scan of the assets; kept by hand from here on.
+# formats, per format — whose move it is next:
+#   true            it is there, nothing is owed
+#   todo — a note   it is wanted and missing, someone should build it
+#   a sentence      it does without on purpose, and this is why
+#   left out        nobody has ruled yet, and the check will name it
+description: "A list read one at a time, as a mail client reads its mails: the list in a region before the page, the one chosen in the page's own; one region at a time on a narrow screen, with the way back."
+formats:
+  style: true
+  template: true
+  script: "its links lead, nothing else is done in the browser"
+  vue: todo
+  schema: todo
+  ai: todo
+  react: todo
+  flutter: todo

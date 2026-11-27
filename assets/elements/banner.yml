@@ -5,7 +5,7 @@
 #   todo — a note   it is wanted and missing, someone should build it
 #   a sentence      it does without on purpose, and this is why
 #   left out        nobody has ruled yet, and the check will name it
-description: "A band across the top of the page saying one thing to everyone — a maintenance, a cookie notice, a version to update —, closed by the reader and kept closed."
+description: "A band across the layout saying a state of the whole application the reader must not miss — offline, saves waiting, a maintenance coming, not production —, raised by the banner service. Never a page's or a widget's message: that is `message`."
 formats:
   style: true
   template: true
