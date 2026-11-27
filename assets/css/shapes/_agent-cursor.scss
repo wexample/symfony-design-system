@@ -123,7 +123,8 @@
 
 .agent-cursor-label--before {
   margin-inline-start: 0;
-  transform: translateX(calc(-100% - 0.75rem));
+  // Before it in the reading direction: to the left, or to the right read right to left.
+  transform: translateX(calc((-100% - 0.75rem) * var(--direction-sign, 1)));
 }
 
 // Without movement: there, still.
