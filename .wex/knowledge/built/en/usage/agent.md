@@ -23,6 +23,7 @@ The loader reads a page as a tree of nodes and lets an agent act on them (symfon
 | `checkbox-input`, `switch-input` | `toggle-field` | `get`, `set({value: boolean})`, `clear` |
 | `date-input`, `datetime-input`, `time-input` | `date-field` | `get`, `set({value})` as ISO, `clear` |
 | `file-input` | `file-field` | `get` only: a file is the user's to pick |
+| `workspace_board` (symfony-workspace) | `workspace` | `widgets` — the zones with the widget each shows, then the widgets offered and shown nowhere —, `layouts` — the arrangements kept, the one shown marked; the widgets are nodes of their own, inside their zones |
 
 A row, a cell, an action of a row, an item of a menu are parts of their node, reached through it: `data-table` names rows by `data-row-key` and columns by `data-column-key`, in both twins. The fields of a form, though, are nodes of their own: they differ too much — a text, a choice, a date, a file — for one `fill` to describe them all, so each kind says what it takes, and the form's `fill` only hands the values over in order. `Field` runs the common actions; a kind that writes its value its own way (`select`) overrides them as it overrides `writeValueAssisted`.
 
@@ -31,7 +32,7 @@ A row, a cell, an action of a row, an item of a menu are parts of their node, re
 - `layout_agent = true` in the application's layout shows the whole application; a component holds back with `agent: false`.
 - `menu_left_agent` shows the side menu alone, with every entry in it.
 - `agent: true` on one component, or `agent: ['get']` for some of its actions, where it is drawn.
-- `agent_description` gives a component a purpose its label does not say — in english, as the contracts are.
+- `agent_description` gives a component a purpose its label does not say — in english, as the contracts are. A vue takes it as `agentDescription` — `workspace_board(key, { agentDescription })`, what this screen is for.
 
 ## What the user sees of it
 
