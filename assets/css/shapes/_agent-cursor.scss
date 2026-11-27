@@ -3,8 +3,9 @@
 // pointer and must never be taken for it. Over everything, the pointer
 // passing through. Alive without being busy: a halo breathing out while it
 // waits, a short trail while it moves, a settle on arriving, a pinch on a
-// press. Its position is the script's (`transform`), its moods `scale` and
-// the halo, so the two never fight.
+// press. Its position is the script's (`translate`), its moods `scale` and
+// the halo: `scale` applies before `transform`, so a position held there
+// would be scaled with the dot.
 .agent-cursor,
 .agent-cursor-trail {
   position: fixed;
@@ -13,7 +14,7 @@
   border-radius: 50%;
   background: var(--accent-9);
   pointer-events: none;
-  will-change: transform;
+  will-change: transform, translate;
 }
 
 .agent-cursor {
