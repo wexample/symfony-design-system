@@ -35,6 +35,9 @@
 .led--error { @include feedback.feedback-error; }
 .led--dev { @include feedback.feedback-dev; }
 
+// The application's own colour — an agent at work in the page.
+.led--accent { --feedback-fill: var(--accent-9); }
+
 @each $name in feedback.$category-names {
   .led--cat-#{$name} {
     @include feedback.feedback-category($name);

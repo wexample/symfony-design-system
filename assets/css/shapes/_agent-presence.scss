@@ -3,6 +3,10 @@
 // a pill naming it with the way to stop it. Over everything — a modal, a
 // panel —, the pointer passing through all of it but the pill. Faded in and
 // out: it says a state, it does not flash one.
+@use 'capsule';
+@use '../../components/led/led';
+@use '../../components/button/button';
+
 .agent-presence {
   position: fixed;
   inset: 0;
@@ -41,69 +45,17 @@
   animation: agent-presence-breathe 2.4s ease-in-out infinite;
 }
 
-// Who is at work and the way to stop it, at the window's foot: the one part
-// the pointer reaches.
+// Who is at work and the way to stop it, at the window's foot: a floating
+// capsule (shapes/capsule) — the agent's led beating, its words, a flat Stop
+// —, edged in the agent's colour; the one part the pointer reaches.
 .agent-presence--pill {
-  position: absolute;
-  inset-block-end: var(--space-4);
-  inset-inline-start: 50%;
-  translate: -50% 0;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-1) var(--space-1) var(--space-1) var(--space-3);
-  border: 1px solid var(--accent-9);
-  border-radius: var(--radius-pill);
-  background: var(--surface-zone);
-  box-shadow: var(--shadow-float);
-  font-size: var(--font-size-2);
-  white-space: nowrap;
+  border-color: var(--accent-9);
   pointer-events: auto;
-}
-
-// The agent's mark: its colour, beating as it works.
-@keyframes agent-presence-beat {
-  0%,
-  100% {
-    scale: 1;
-    opacity: 1;
-  }
-
-  50% {
-    scale: 0.7;
-    opacity: 0.6;
-  }
-}
-
-.agent-presence--dot {
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: 50%;
-  background: var(--accent-9);
-  animation: agent-presence-beat 1.2s ease-in-out infinite;
-}
-
-// Stopping it: a button of the pill, flat until pressed.
-.agent-presence--stop {
-  padding: var(--space-1) var(--space-3);
-  border: 0;
-  border-radius: var(--radius-pill);
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  font-weight: var(--font-weight-strong);
-  cursor: pointer;
-
-  &:hover,
-  &:focus-visible {
-    background: color-mix(in srgb, var(--accent-9) 18%, transparent);
-  }
 }
 
 // Without movement: there, and still.
 @media (prefers-reduced-motion: reduce) {
-  .agent-presence--edge,
-  .agent-presence--dot {
+  .agent-presence--edge {
     animation: none;
   }
 }

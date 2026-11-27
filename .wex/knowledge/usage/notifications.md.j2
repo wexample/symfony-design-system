@@ -49,3 +49,7 @@ Four ways to tell the reader something, each for one kind of thing — the wrong
 A banner is a band across the layout, out of the page's content: it says something about the whole application, true on every page — the connection lost (ConnectionStatusNoticeService), writes not yet saved (PendingWritesService), a service about to be interrupted, an environment that is not production. It is raised by a service (`this.app.services.banner.show({ type, message })`, `dismiss()`) into the layout's place for it, and goes when the state ends.
 
 It is **not** a message: never in a page's content, a block, a form, a list's row or a widget, never for what a page or a step says of itself. A step that failed, a figure over its cap, a field's advice, a preview notice on one page — all are messages (`message_warning(…)`, `<message type="warning">`), set beside what they are about. A banner in the content reads as an alarm the whole application raises: used for a page's detail, it drowns the ones that matter.
+
+## Something going on now: a capsule
+
+Lighter than a banner, a **capsule** (`shapes/capsule`, `capsule--floating` at the window's foot) says one thing going on right now with the one action it offers: an agent at work and its Stop (AgentPresence), files uploading and Cancel, rows selected and Clear. A `led` (`led--pulse` while it lasts), a few words, a flat compact button: the design system's own pieces, the capsule only holding them on a ground of their own.
