@@ -71,21 +71,25 @@
                 ],
                 "template": [
                     "@WexampleSymfonyDesignSystemBundle/components/avatar-tabs/avatar-tabs.html.twig"
+                ],
+                "script": [
+                    "@WexampleSymfonyDesignSystemBundle/components/avatar-tabs/avatar-tabs.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/avatar-tabs/avatar-tabs.ai.yml"
                 ]
             },
             "stances": {
                 "style": "expected",
                 "template": "expected",
                 "vue": "todo",
-                "script": "waived",
+                "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
-            "notes": {
-                "script": "links, nothing to run"
-            }
+            "notes": []
         },
         {
             "key": "banner",
@@ -3328,6 +3332,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/page-tabs/page-tabs.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/page-tabs/page-tabs.ai.yml"
                 ]
             },
             "stances": {
@@ -3336,7 +3343,7 @@
                 "vue": "waived",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -3760,6 +3767,9 @@
                 ],
                 "script": [
                     "@WexampleSymfonyDesignSystemBundle/components/tab/tab.ts"
+                ],
+                "ai": [
+                    "@WexampleSymfonyDesignSystemBundle/components/tab/tab.ai.yml"
                 ]
             },
             "stances": {
@@ -3768,7 +3778,7 @@
                 "vue": "expected",
                 "script": "expected",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "expected",
                 "react": "todo",
                 "flutter": "todo"
             },
@@ -3789,14 +3799,15 @@
                 "vue": "waived",
                 "script": "waived",
                 "schema": "todo",
-                "ai": "todo",
+                "ai": "waived",
                 "react": "todo",
                 "flutter": "todo"
             },
             "notes": {
                 "style": "wears the style of tab and adds none of its own",
                 "vue": "the vue tab draws its own items from resolvedItems; there is no separate item component on that side",
-                "script": "it shows and does nothing"
+                "script": "it shows and does nothing",
+                "ai": "its bar reads and opens it: tab, page-tabs"
             }
         },
         {

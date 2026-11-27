@@ -12,6 +12,7 @@ The loader reads a page as a tree of nodes and lets an agent act on them (symfon
 | `menu-collapsible-panel` | `side-menu` | `expand`, `collapse` |
 | `menu-item-collapsible` | `menu-group` | `expand`, `collapse`, `open` |
 | `menu-item-link` | `menu-item` | `open` |
+| `tab` (twig and vue), `page-tabs`, `avatar-tabs` | `tabs` | `tabs`, `open({tab})` — a view shown in place, or a page reached and answered from it —, `point({tab})`, by the tab's words or its key; `page-tabs` adds `back`, and opens a tab folded into its menu where the reader would find it. Tabs written as markup alone (`.tabs` without the component) run nothing and are reached only as pages |
 | `search-input` | `search` | `get`, `set({value})` — typed in letter by letter —, `clear` |
 | `pagination` | `pagination` | `go({page})`, `next`, `previous`, pages counted from one |
 | `data-table` (twig and vue) | `table` | `rows`, `sort({column, direction?})`, `reset_sort`, `point_row`, `point_cell`, `point_column`, `clear_filters`, `row_actions({row})`, `run_row_action({row, action})` |

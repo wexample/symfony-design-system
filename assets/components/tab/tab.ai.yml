@@ -1,0 +1,27 @@
+# What an agent is told about a bar of tabs — the views of one thing shown one
+# at a time, or the pages of one section, each a link —; the scripts run the
+# actions, the server bar's (tab.ts) and the vue's alike. In english, never
+# translated: see AgentContractService.
+type: tabs
+description: "A bar of tabs: views of one thing, one shown at a time, or the pages of one section, each a link."
+actions:
+  tabs:
+    description: "The tabs: each named (`tab`), the current one marked, its link when it leads to a page."
+    annotations:
+      readOnlyHint: true
+  open:
+    description: "Opens a tab, by its name, as a press on it does: a view shown in the page, or a page reached."
+    input_schema:
+      properties:
+        tab:
+          type: string
+      required: [tab]
+  point:
+    description: Shows the user a tab, by its name.
+    input_schema:
+      properties:
+        tab:
+          type: string
+      required: [tab]
+    annotations:
+      idempotentHint: true

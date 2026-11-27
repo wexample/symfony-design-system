@@ -1,4 +1,9 @@
 import Component from '@wexample/symfony-loader/js/Class/Component';
+import AgentNavigation from '@wexample/symfony-loader/js/Class/AgentNavigation';
+import type { AgentActionsImplementation } from '@wexample/symfony-loader/js/Interfaces/AgentNodeInterface';
+import type { AgentCallContext } from '@wexample/symfony-loader/js/Interfaces/AgentToolInterface';
+import { agentTabFind, agentTabName, agentTabOpen, agentTabRead } from '../../js/Helper/AgentTabsHelper';
+import { rippleAgentPress } from '../../js/Helper/RippleHelper';
 
 /**
  * Folds the bar, step by step, until it holds on its line: 0 shows everything,
@@ -58,5 +63,56 @@ export default class extends Component {
         delete el.dataset.foldTitle;
       }
     });
+  }
+
+  // What an agent reads and does (`page-tabs.ai.yml`, a bar of tabs): the
+  // views of the page's record or section, each a page, and the way back.
+  // Folded into its menu, a tab is pressed where the reader would find it.
+  private agentTabs(): HTMLElement[] {
+    return [...this.el.querySelectorAll<HTMLElement>('.page-tabs--items .tabs--item')];
+  }
+
+  private shownBy(el: HTMLElement): HTMLElement | null {
+    return el.getClientRects().length ? null : this.el.querySelector<HTMLElement>('.page-tabs--fold .button');
+  }
+
+  public getAgentLabel(): string | undefined {
+    return this.el.getAttribute('aria-label') ?? undefined;
+  }
+
+  public getAgentState(): Record<string, any> {
+    const current = this.el.querySelector<HTMLElement>('.page-tabs--items .tabs--item--active');
+
+    return { current: current ? agentTabName(current) : null };
+  }
+
+  public getAgentActions(): AgentActionsImplementation {
+    const read = (el: HTMLElement) => agentTabRead(el, el.classList.contains('tabs--item--active'));
+
+    return {
+      tabs: () => this.agentTabs().map(read),
+      open: ({ tab }) => {
+        const el = agentTabFind(this.agentTabs(), tab);
+
+        return agentTabOpen(this.app, el, read(el), this.shownBy(el));
+      },
+      point: ({ tab }, context?: AgentCallContext) => {
+        const el = agentTabFind(this.agentTabs(), tab);
+        this.app.services.agentTools?.pointer.point([this.shownBy(el) ?? el], context);
+
+        return { pointed: 1 };
+      },
+      back: async () => {
+        const link = this.el.querySelector<HTMLAnchorElement>('.page-tabs--back a');
+
+        if (!link) {
+          throw new Error('This page has no way back.');
+        }
+
+        await rippleAgentPress(this.app, link);
+
+        return new AgentNavigation(() => link.click(), { back: agentTabName(link) });
+      },
+    };
   }
 }

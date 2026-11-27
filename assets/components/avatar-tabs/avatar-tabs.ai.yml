@@ -1,0 +1,4 @@
+# The faces one talks with — the agent among them —, a tab each, the open one
+# marked, and the way to start another at their foot.
+extends: '@WexampleSymfonyDesignSystemBundle/components/tab/tab'
+description: "The conversations, a face each: the open one marked; opening one shows its chat. The last tab starts a new conversation."

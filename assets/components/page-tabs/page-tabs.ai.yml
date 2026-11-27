@@ -1,0 +1,9 @@
+# The bar under a page's header: the views of its record or its section, the
+# way back at its start (`back`), the page's actions at its end — those are
+# buttons of their own. Folded on a narrow screen, its tabs are reached all
+# the same.
+extends: '@WexampleSymfonyDesignSystemBundle/components/tab/tab'
+description: "The bar under the page's header: the views of the record or the section the page belongs to, each a page; the way back to the list it was opened from."
+actions:
+  back:
+    description: Goes back to the list the page was opened from, as its way back does.

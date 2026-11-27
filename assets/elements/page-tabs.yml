@@ -11,6 +11,6 @@ formats:
   vue: "a page's own navigation, drawn with the page by the server; each tab is a page load"
   script: true
   schema: todo
-  ai: todo
+  ai: true
   react: todo
   flutter: todo

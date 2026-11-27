@@ -12,6 +12,6 @@ formats:
   vue: "the vue tab draws its own items from resolvedItems; there is no separate item component on that side"
   script: "it shows and does nothing"
   schema: todo
-  ai: todo
+  ai: "its bar reads and opens it: tab, page-tabs"
   react: todo
   flutter: todo

@@ -9,8 +9,8 @@ formats:
   style: true
   template: true
   vue: todo
-  script: "links, nothing to run"
+  script: true
   schema: todo
-  ai: todo
+  ai: true
   react: todo
   flutter: todo

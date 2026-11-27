@@ -1,4 +1,5 @@
 <script>
+import { rippleAgentPress } from '../../js/Helper/RippleHelper';
 import { tabsFit, tabsRevealActive, tabsScrollBy, tabsWatch } from '../../js/Helper/TabsHelper';
 
 // A bar of tabs fits the width it is given: its words while they fit, its
@@ -110,6 +111,63 @@ export default {
         this.$el.querySelectorAll(':scope > .tabs--item')[this.resolvedItems.indexOf(items[next])]?.focus();
         this.$emit('change', items[next].key, items[next]);
       }
+    },
+
+    // What an agent reads and does (`tab.ai.yml`, shared with the server's
+    // bar): the tabs by their words, one opened as the reader presses it —
+    // whoever holds the bar shows its view.
+    getAgentState() {
+      const current = this.resolvedItems.find((item) => this.isActive(item));
+
+      return { current: current ? String(current.label ?? current.key) : null };
+    },
+
+    getAgentFrameElement() {
+      return this.$el;
+    },
+
+    getAgentActions() {
+      const read = (item) => ({
+        tab: String(item.label ?? item.key),
+        current: this.isActive(item),
+        ...(item.disabled ? { disabled: true } : {})
+      });
+
+      return {
+        tabs: () => this.resolvedItems.map(read),
+        open: async ({ tab }) => {
+          const { item, el } = this.findAgentTab(tab);
+
+          if (item.disabled) {
+            throw new Error(`The tab "${tab}" is disabled.`);
+          }
+
+          await rippleAgentPress(this.app, el);
+          el.click();
+
+          return { ...read(item), current: true };
+        },
+        point: ({ tab }, context) => {
+          this.app.services.agentTools?.pointer.point([this.findAgentTab(tab).el], context);
+
+          return { pointed: 1 };
+        }
+      };
+    },
+
+    // The tab named — its words or its key —, or an error naming the ones
+    // there are.
+    findAgentTab(name) {
+      const wanted = String(name ?? '').trim().toLowerCase();
+      const index = this.resolvedItems.findIndex((item) => String(item.label ?? '').trim().toLowerCase() === wanted
+        || String(item.key ?? '').toLowerCase() === wanted);
+      const el = index >= 0 ? this.$el.querySelectorAll(':scope > .tabs--item')[index] : null;
+
+      if (!el) {
+        throw new Error(`No tab "${name}": ${this.resolvedItems.map((item) => item.label ?? item.key).join(', ')}.`);
+      }
+
+      return { item: this.resolvedItems[index], el };
     },
 
     getItemIcon(item) {
