@@ -36,7 +36,8 @@ A row, a cell, an action of a row, an item of a menu are parts of their node, re
 
 - A press by an agent is the wave a press leaves (`RippleHelper.rippleAgentPress`), in the accent, from the element's middle, the element framed while it spreads. A component running an action that presses something calls it first.
 - What an agent points at is framed over the page (`AgentPointer`), with the assisted outline the fields wear; the frames follow scrolling and the element's size, and go when the user acts in their layer of the page: the page's frames stand under the veil of a modal or a panel (`_agent-frame.scss`, `--z-modal` less the veil's slot), a frame drawn in one stands in it.
-- The controls demo (*Menus*) shows an entry pressed, one pointed at, and one pressed by an agent.
+- That an agent is at work is said over the whole window while it lasts (`AgentPresence`, in the loader; `shapes/agent-presence`): a line of the accent along the window's edges, breathing, and at its foot a pill — « Agent at work » — with the way to stop it, the only part the pointer reaches. Each tool call holds it while it runs (`AgentToolsService.run()`), a chat while it awaits the agent's answer (`abstract-agent-chat`); it goes a moment after the last hold, so a turn's calls do not blink it. **Stop** is the user's: `agentTools.stop()` lets the presence go, says `agent:stop` on the document, and refuses every call until the user writes again (`resume()`, sent by the chat with their next message). Anything else knowing an agent works holds it under a key of its own: `agentTools.presence.hold(key)` / `release(key)`.
+- The controls demo (*Menus*) shows an entry pressed, one pointed at, and one pressed by an agent; *Agent* plays an agent's turn — pointing, pressing, typing — under its presence, and stops with it.
 
 ## The chat
 
