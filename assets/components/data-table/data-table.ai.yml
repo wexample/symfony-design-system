@@ -30,6 +30,7 @@ actions:
       required: [row]
     annotations:
       idempotentHint: true
+      readOnlyHint: true
   point_cell:
     description: Shows the user one cell, by its row key and its column.
     input_schema:
@@ -41,6 +42,7 @@ actions:
       required: [row, column]
     annotations:
       idempotentHint: true
+      readOnlyHint: true
   point_column:
     description: Shows the user a column, header and cells.
     input_schema:
@@ -50,6 +52,7 @@ actions:
       required: [column]
     annotations:
       idempotentHint: true
+      readOnlyHint: true
   clear_filters:
     description: Empties the search and every filter, and the table shows everything again.
     annotations:

@@ -25,3 +25,4 @@ actions:
       required: [tab]
     annotations:
       idempotentHint: true
+      readOnlyHint: true
