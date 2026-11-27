@@ -52,17 +52,23 @@ export function rippleOnPress(el: HTMLElement | null | undefined): () => void {
   return () => el.removeEventListener('pointerdown', onPress);
 }
 
-// An agent pressing the element: the wave in the agent's colour, the element
-// framed while it spreads (AgentFrameLayer) — a frame it keeps if it was
-// pointed at before.
+// An agent pressing the element: its hand going there and pinching
+// (AgentCursor), the wave in the agent's colour, the element framed while it
+// spreads (AgentFrameLayer) — a frame it keeps if it was pointed at before.
 export async function rippleAgentPress(app: App, el: HTMLElement | null | undefined): Promise<void> {
   if (!el) {
     return;
   }
 
-  const frames = app.services.agentTools?.pointer.frames;
+  const agentTools = app.services.agentTools;
+  const frames = agentTools?.pointer.frames;
+
+  // The agent's hand goes there and presses: the wave starts under it.
+  await agentTools?.cursor.moveTo(el);
+  const press = agentTools?.cursor.press();
 
   frames?.show(el);
   await rippleAt(el, undefined, true);
+  await press;
   frames?.hide(el);
 }

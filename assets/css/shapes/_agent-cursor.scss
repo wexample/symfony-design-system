@@ -1,0 +1,99 @@
+// The agent's hand (AgentCursor, in the loader): a dot of the agent's colour
+// going to what it is about to act on. Not an arrow — it is not the user's
+// pointer and must never be taken for it. Over everything, the pointer
+// passing through. Alive without being busy: a halo breathing out while it
+// waits, a short trail while it moves, a settle on arriving, a pinch on a
+// press. Its position is the script's (`transform`), its moods `scale` and
+// the halo, so the two never fight.
+.agent-cursor,
+.agent-cursor-trail {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  border-radius: 50%;
+  background: var(--accent-9);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.agent-cursor {
+  z-index: calc(var(--z-tooltip, 1100) + 3);
+  width: 0.875rem;
+  height: 0.875rem;
+  margin: -0.4375rem 0 0 -0.4375rem;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--accent-9) 28%, transparent),
+    0 2px 6px color-mix(in srgb, var(--shadow-color) 30%, transparent);
+  opacity: 0;
+  transition: opacity 220ms ease-out, scale 90ms ease-out;
+}
+
+.agent-cursor--shown {
+  opacity: 1;
+}
+
+// Waiting: a ring breathing out of it, slowly.
+@keyframes agent-cursor-halo {
+  from {
+    scale: 0.6;
+    opacity: 0.45;
+  }
+
+  to {
+    scale: 1.6;
+    opacity: 0;
+  }
+}
+
+.agent-cursor::after {
+  content: '';
+  position: absolute;
+  inset: -0.375rem;
+  border: 2px solid var(--accent-9);
+  border-radius: 50%;
+  opacity: 0;
+  animation: agent-cursor-halo 2.2s ease-out infinite;
+}
+
+// Moving: the halo still, the trail says the way.
+.agent-cursor--moving::after {
+  animation: none;
+}
+
+// Arriving: the hand finding its spot.
+@keyframes agent-cursor-settle {
+  0%,
+  100% {
+    scale: 1;
+  }
+
+  45% {
+    scale: 0.8;
+  }
+}
+
+.agent-cursor--settle {
+  animation: agent-cursor-settle 240ms ease-out;
+}
+
+// Pressing: pinched while the wave starts under it.
+.agent-cursor--pressed {
+  scale: 0.62;
+}
+
+// The way it came, a few dots fading behind it: drawn by the script.
+.agent-cursor-trail {
+  z-index: calc(var(--z-tooltip, 1100) + 2);
+  width: 0.625rem;
+  height: 0.625rem;
+  margin: -0.3125rem 0 0 -0.3125rem;
+  opacity: 0;
+}
+
+// Without movement: there, still.
+@media (prefers-reduced-motion: reduce) {
+  .agent-cursor::after,
+  .agent-cursor--settle {
+    animation: none;
+  }
+}
