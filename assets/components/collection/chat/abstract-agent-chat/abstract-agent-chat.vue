@@ -26,19 +26,12 @@ export default {
   template: "#vue-template-wexample-symfony-design-system-bundle-vue-collection-chat-abstract-agent-chat",
 
   watch: {
-    // Awaiting the agent's answer, it is at work: the whole window says so
-    // (AgentPresence), whatever the agent does meanwhile in the page.
-    awaitingReply: {
-      handler(awaiting) {
-        const presence = this.app.services.agentTools?.presence;
-
-        if (awaiting) {
-          presence?.hold(this.presenceKey());
-        } else {
-          presence?.release(this.presenceKey());
-        }
-      },
-      immediate: true
+    // The agent's turn over, it no longer works in the page: the presence
+    // a call of the turn took (runToolCall) is let go.
+    awaitingReply(awaiting) {
+      if (!awaiting) {
+        this.app.services.agentTools?.presence.release(this.presenceKey());
+      }
     }
   },
 
@@ -162,6 +155,14 @@ export default {
       const outcome = await agentTools.run(callId, call.name, call.arguments ?? {}, {caller: conversation ?? undefined});
       if (outcome === null) {
         return;
+      }
+
+      // The agent works in the page: the whole window says so
+      // (AgentPresence) from its first call to the end of its turn — not
+      // while it only thinks or writes, and without blinking between two
+      // calls of one turn.
+      if (this.awaitingReply) {
+        this.app.services.agentTools?.presence.hold(this.presenceKey());
       }
 
       const results = [outcome.error !== undefined ? {error: outcome.error} : outcome.value];
