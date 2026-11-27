@@ -1,6 +1,6 @@
 # symfony_design_system
 
-Version: 54.0.8
+Version: 54.0.9
 
 Design system assets for Symfony
 
